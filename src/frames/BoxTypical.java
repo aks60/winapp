@@ -101,6 +101,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 iwinMin.gc2d.scale(iwinMin.scale, iwinMin.scale);
                 iwinMin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
+                obj[2] = image;
                 listIcon1.add(image);
                 dm1.addRow(obj);
             } catch (Exception e) {
@@ -120,6 +121,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 iwinMin.gc2d.scale(iwinMin.scale, iwinMin.scale);
                 iwinMin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
+                obj[2] = image;
                 listIcon2.add(image);
                 dm2.addRow(obj);
             } catch (Exception e) {
@@ -247,7 +249,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
@@ -351,21 +352,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         btnRef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefresh(evt);
-            }
-        });
-
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
-        btnSave.setToolTipText(bundle.getString("Сохранить")); // NOI18N
-        btnSave.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSave.setFocusable(false);
-        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnSave.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnSave.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave(evt);
             }
         });
 
@@ -484,10 +470,8 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(67, 67, 67)
                 .addComponent(btnT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -507,7 +491,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnChoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1008,10 +991,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         System.out.println(paintPanel.getWidth() + "  -  " + paintPanel.getHeight());
     }//GEN-LAST:event_btnRefresh
 
-    private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-
-    }//GEN-LAST:event_btnSave
-
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
     }//GEN-LAST:event_btnDelete
@@ -1038,6 +1017,8 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         if (row != -1) {
             Record record = new Record();
             record.add(query.get(row, eModels.id));
+            record.add(query.get(row, eModels.name));
+            record.add(query.get(row, eModels.script));
             listenet.action(record);
         }
         this.dispose();
@@ -1076,7 +1057,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnRemov;
-    private javax.swing.JButton btnSave;
     private javax.swing.JToggleButton btnT1;
     private javax.swing.JToggleButton btnT2;
     private javax.swing.JToggleButton btnT3;

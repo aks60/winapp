@@ -119,7 +119,6 @@ public class Query extends Table {
 
     public void insert(Record record) {
         try {
-            //if (Query.INS.equals(record.getStr(0))) {
                 Field[] f = fields.get(0).fields();
                 Statement statement = connection.createStatement();
                 //если нет, генерю сам
@@ -139,7 +138,6 @@ public class Query extends Table {
                     System.out.println("SQL-INSERT " + sql);
                     statement.executeUpdate(sql);
                 }
-            //}
         } catch (SQLException e) {
             System.out.println("Query.insert() " + e);
         }
@@ -147,7 +145,6 @@ public class Query extends Table {
 
     public void update(Record record) {
         try {
-            //if (Query.UPD.equals(record.getStr(0))) {
                 String nameCols = "";
                 Statement statement = statement = connection.createStatement();
                 //цикл по полям таблицы
@@ -164,7 +161,6 @@ public class Query extends Table {
                     System.out.println("SQL-UPDATE " + sql);
                     statement.executeUpdate(sql);
                 }
-            //}
         } catch (SQLException e) {
             System.out.println("Query.update() " + e);
         }

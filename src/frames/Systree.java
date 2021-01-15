@@ -68,14 +68,13 @@ public class Systree extends javax.swing.JFrame {
     private Query qParams = new Query(eParams.values());
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
-    private Query qSysprod = new Query(eSysprod.values(), eModels.values(), eSystree.values());
+    private Query qSysprod = new Query(eSysprod.values());
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
     public Wincalc iwinMin = new Wincalc();
     private JTable tab1 = new JTable();
-    private ArrayList<Icon> listIcon = new ArrayList<Icon>();
-    private DialogListener listenerArtikl, listenerUsetyp, listenerModel, listenerModels, listenerModify, listenerTree,
+    private DialogListener listenerArtikl, listenerUsetyp, listenerProd, listenerModify, listenerTree,
             listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2,
             listenerBtn1, listenerBtn7, listenerBtn11, listenerArt211, listenerArt212;
     private DefMutableTreeNode rootTree = null;
@@ -97,8 +96,9 @@ public class Systree extends javax.swing.JFrame {
 
     public Systree() {
         initComponents();
-        initElements();        
+        initElements();
         loadingData();
+        loadingTree();
         loadingModel();
         listenerAdd();
         listenerSet();
@@ -108,6 +108,7 @@ public class Systree extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingData();
+        loadingTree();
         loadingModel();
         listenerAdd();
         listenerSet();
@@ -137,6 +138,9 @@ public class Systree extends javax.swing.JFrame {
                 editingStopped(e);
             }
         });
+    }
+
+    private void loadingTree() {
         Record recordRoot = eSystree.up.newRecord(Query.SEL);
         recordRoot.set(eSystree.id, 0);
         recordRoot.set(eSystree.parent_id, 0);
@@ -160,19 +164,16 @@ public class Systree extends javax.swing.JFrame {
         scr1.setViewportView(tree);
     }
 
-    private void loadingTab5(Query q, int nuni) {
+    private void loadingTab5() {
 
-        qSysprod.select(eSysprod.up, "left join", eModels.up, "on", eModels.id, "=", eSysprod.models_id,
-                "left join", eSystree.up, "on", eSystree.id, "=", eSysprod.systree_id,
-                "where", eSystree.id, "=", nuni, "order by", eModels.npp);
-        DefaultTableModel dm5 = (DefaultTableModel) tab5.getModel();
-        dm5.getDataVector().removeAllElements();
-        listIcon.clear();
-        int length = 70;
-        for (Record record : q.table(eModels.up)) {
+        qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", nuni);
+        DefaultTableModel dtm5 = (DefaultTableModel) tab5.getModel();
+        dtm5.getDataVector().removeAllElements();
+        int length = 68;
+        for (Record record : qSysprod.table(eSysprod.up)) {
             try {
-                Object obj[] = {record.get(eModels.name), ""};
-                Object script = record.get(eModels.script);
+                Object arrayRec[] = {record.get(eSysprod.name), null};
+                Object script = record.get(eSysprod.script);
                 iwinMin.build(script.toString());
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwinMin.gc2d = bi.createGraphics();
@@ -182,13 +183,13 @@ public class Systree extends javax.swing.JFrame {
                 iwinMin.gc2d.scale(iwinMin.scale, iwinMin.scale);
                 iwinMin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
-                listIcon.add(image);
-                dm5.addRow(obj);
+                arrayRec[1] = image;
+                dtm5.addRow(arrayRec);
+
             } catch (Exception e) {
                 System.out.println("Ошибка " + e);
             }
         }
-        ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
     }
 
     private void loadingModel() {
@@ -256,7 +257,7 @@ public class Systree extends javax.swing.JFrame {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 1) {
-                    Icon icon = listIcon.get(row);
+                    Icon icon = (Icon) value;
                     label.setIcon(icon);
                 } else {
                     label.setIcon(null);
@@ -335,9 +336,9 @@ public class Systree extends javax.swing.JFrame {
         Util.buttonEditorCell(tab4, 1).addActionListener(event -> {
             Integer grup = qSyspar1.getAs(Util.getSelectedRec(tab4), eSyspar1.params_id);
             ParDefault frame = new ParDefault(this, listenerParam2, grup);
-        });        
+        });
     }
-    
+
     private void listenerSet() {
 
         listenerUsetyp = (record) -> {
@@ -358,24 +359,17 @@ public class Systree extends javax.swing.JFrame {
             Util.setSelectedRow(tab2, row);
         };
 
-        listenerModel = (record) -> {
-            DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
-            Record record2 = node.record;
-            int models_id = record.getInt(0);
-            record2.setNo(eSystree.models_id, models_id);
-            qSystree.update(record2);
-            eSystree.query().clear();
-            createWincalc(models_id);
-        };
-
-        listenerModels = (record) -> {
+        listenerProd = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int models_id = record.getInt(0);
             Record record2 = eSysprod.up.newRecord(Query.INS);
             record2.setNo(eSysprod.id, ConnApp.instanc().genId(eSysprod.id));
             record2.setNo(eSysprod.systree_id, nuni);
-            record2.setNo(eSysprod.models_id, models_id);
-            qSysprod.insert(record2);
-            loadingTab5(qSysprod, nuni);
+            record2.setNo(eSysprod.name, record.get(1));
+            record2.setNo(eSysprod.script, record.get(2));
+            qSysprod.table(eSysprod.up).insert(record2);
+            loadingTab5();
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             Util.scrollRectToVisible(qSysprod, tab5);
         };
 
@@ -435,23 +429,19 @@ public class Systree extends javax.swing.JFrame {
         if (node != null) {
             nuni = node.record.getInt(eSystree.id);
             eProperty.systree_nuni.write(String.valueOf(nuni));
-            int models_id = node.record.getInt(eSystree.models_id);
-            //Калькуляция и прорисовка окна
-            createWincalc(models_id);
             for (int i = 0; i < qSystree.size(); i++) {
                 if (nuni == qSystree.get(i).getInt(eSystree.id)) {
                     rsvSystree.load(i);
                 }
             }
-//            qSysprod.select(eSysprod.up, "left join", eModels.up, "on", eModels.id, "=", eSysprod.models_id,
-//                    "left join", eSystree.up, "on", eSystree.id, "=", eSysprod.systree_id,
-//                    "where", eSystree.id, "=", node.record.getInt(eSystree.id), "order by", eModels.npp);
+            qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysprod.name);
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                     eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysfurn.npp);
             qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
-            loadingTab5(qSysprod, node.record.getInt(eSystree.id));
+
+            loadingTab5();
 
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -462,7 +452,7 @@ public class Systree extends javax.swing.JFrame {
             Util.setSelectedRow(tab4);
             Util.setSelectedRow(tab5);
         } else {
-            createWincalc(-1); //рисуем виртуалку
+            //createWincalc(-1); //рисуем виртуалку
         }
     }
 
@@ -470,10 +460,11 @@ public class Systree extends javax.swing.JFrame {
         int row = Util.getSelectedRec(tab5);
         if (row != -1) {
             Record record = qSysprod.table(eSysprod.up).get(row);
-            int models_id = record.getInt(eSysprof.models_id); 
-            createWincalc(models_id); //калькуляция и прорисовка окна
-        }              
+            String script = record.getStr(eSysprod.script);
+            createWincalc(script); //калькуляция и прорисовка окна
+        }
     }
+
     private ArrayList<DefMutableTreeNode> addChild(ArrayList<DefMutableTreeNode> nodeList1, ArrayList<DefMutableTreeNode> nodeList2) {
 
         Query systreeList = qSystree.table(eSystree.up);
@@ -494,15 +485,14 @@ public class Systree extends javax.swing.JFrame {
         return nodeList2;
     }
 
-    private void createWincalc(int models_id) {
-        if (models_id != -1) {
-            String script1 = new Query(eModels.script).select(eModels.up, "where", eModels.id, "=", models_id).getAs(0, eModels.script);
-            if (script1 != null && script1.isEmpty() == false) {
-                JsonElement script2 = new Gson().fromJson(script1, JsonElement.class);
-                script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
-                iwin.build(script2.toString()); //калькуляция изделия
-                paintPanel.repaint(true);
-            }
+    private void createWincalc(String script) {
+        
+        if (script != null && script.isEmpty() == false) {
+            JsonElement script2 = new Gson().fromJson(script, JsonElement.class);
+            script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
+            iwin.build(script2.toString()); //калькуляция изделия
+            paintPanel.repaint(true);
+
         } else {
             Graphics2D g = (Graphics2D) paintPanel.getGraphics();
             g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
@@ -513,29 +503,6 @@ public class Systree extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        north = new javax.swing.JPanel();
-        btnClose = new javax.swing.JButton();
-        btnRef = new javax.swing.JButton();
-        btnDel = new javax.swing.JButton();
-        btnIns = new javax.swing.JButton();
-        pan9 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel22 = new javax.swing.JLabel();
-        btnArtikl = new javax.swing.JToggleButton();
-        centr = new javax.swing.JPanel();
-        scr1 = new javax.swing.JScrollPane();
-        tree = new javax.swing.JTree();
-        pan1 = new javax.swing.JPanel();
-        pan2 = new javax.swing.JPanel();
-        panDesign = new javax.swing.JPanel();
-        btnTypicalOkna = new javax.swing.JButton();
-        pan7 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        txtField12 = new javax.swing.JFormattedTextField();
-        jLabel26 = new javax.swing.JLabel();
-        txtField6 = new javax.swing.JFormattedTextField();
-        pan8 = new javax.swing.JPanel();
-        tabb1 = new javax.swing.JTabbedPane();
         pan6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         txtField1 = new javax.swing.JFormattedTextField();
@@ -558,6 +525,28 @@ public class Systree extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         btnField11 = new javax.swing.JButton();
         btnField7 = new javax.swing.JButton();
+        north = new javax.swing.JPanel();
+        btnClose = new javax.swing.JButton();
+        btnRef = new javax.swing.JButton();
+        btnDel = new javax.swing.JButton();
+        btnIns = new javax.swing.JButton();
+        pan9 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel22 = new javax.swing.JLabel();
+        btnArtikl = new javax.swing.JToggleButton();
+        centr = new javax.swing.JPanel();
+        scr1 = new javax.swing.JScrollPane();
+        tree = new javax.swing.JTree();
+        pan1 = new javax.swing.JPanel();
+        pan2 = new javax.swing.JPanel();
+        panDesign = new javax.swing.JPanel();
+        pan7 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        txtField12 = new javax.swing.JFormattedTextField();
+        jLabel26 = new javax.swing.JLabel();
+        txtField6 = new javax.swing.JFormattedTextField();
+        pan8 = new javax.swing.JPanel();
+        tabb1 = new javax.swing.JTabbedPane();
         pan10 = new javax.swing.JPanel();
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
@@ -577,278 +566,7 @@ public class Systree extends javax.swing.JFrame {
         };
         checkFilter = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Системы профилей");
-        setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                Systree.this.windowClosed(evt);
-            }
-        });
-
-        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(900, 29));
-
-        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
-        btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
-        btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnClose.setFocusable(false);
-        btnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnClose.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnClose.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnClose.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClose(evt);
-            }
-        });
-
-        btnRef.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c038.gif"))); // NOI18N
-        btnRef.setToolTipText(bundle.getString("Обновить")); // NOI18N
-        btnRef.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnRef.setFocusable(false);
-        btnRef.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnRef.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnRef.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnRef.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnRef.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnRef.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefresh(evt);
-            }
-        });
-
-        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
-        btnDel.setToolTipText(bundle.getString("Удалить")); // NOI18N
-        btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnDel.setFocusable(false);
-        btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnDel.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnDel.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnDel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelete(evt);
-            }
-        });
-
-        btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
-        btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
-        btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnIns.setFocusable(false);
-        btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnIns.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInsert(evt);
-            }
-        });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-
-        jLabel22.setFont(frames.Util.getFont(0,0));
-        jLabel22.setText("Артикул профиля");
-        jLabel22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel22.setPreferredSize(new java.awt.Dimension(160, 18));
-
-        javax.swing.GroupLayout pan9Layout = new javax.swing.GroupLayout(pan9);
-        pan9.setLayout(pan9Layout);
-        pan9Layout.setHorizontalGroup(
-            pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, 0, 376, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pan9Layout.setVerticalGroup(
-            pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(167, Short.MAX_VALUE))
-        );
-
-        btnArtikl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
-        btnArtikl.setToolTipText("Артикулы в системе...");
-        btnArtikl.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnArtikl.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnArtikl.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnArtikl.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnArtikl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArtikl(evt);
-            }
-        });
-
-        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
-        north.setLayout(northLayout);
-        northLayout.setHorizontalGroup(
-            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(northLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(northLayout.createSequentialGroup()
-                        .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnArtikl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
-                        .addGap(0, 340, Short.MAX_VALUE)
-                        .addComponent(pan9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        northLayout.setVerticalGroup(
-            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(northLayout.createSequentialGroup()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnArtikl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pan9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        getContentPane().add(north, java.awt.BorderLayout.NORTH);
-
-        centr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        centr.setLayout(new java.awt.BorderLayout());
-
-        scr1.setBorder(null);
-        scr1.setPreferredSize(new java.awt.Dimension(260, 564));
-
-        tree.setEditable(true);
-        tree.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                treeMousePressed(evt);
-            }
-        });
-        scr1.setViewportView(tree);
-
-        centr.add(scr1, java.awt.BorderLayout.WEST);
-
-        pan1.setPreferredSize(new java.awt.Dimension(602, 565));
-        pan1.setLayout(new java.awt.GridLayout(2, 1));
-
-        pan2.setPreferredSize(new java.awt.Dimension(692, 200));
-        pan2.setLayout(new java.awt.BorderLayout());
-
-        panDesign.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panDesign.setLayout(new java.awt.BorderLayout());
-
-        btnTypicalOkna.setText("Рабочая модель");
-        btnTypicalOkna.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnTypicalOkna.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTypicalOkna(evt);
-            }
-        });
-        panDesign.add(btnTypicalOkna, java.awt.BorderLayout.SOUTH);
-
-        pan2.add(panDesign, java.awt.BorderLayout.CENTER);
-
-        pan7.setPreferredSize(new java.awt.Dimension(300, 200));
-
-        jLabel25.setFont(frames.Util.getFont(0,0));
-        jLabel25.setText("NUNI-PS4");
-        jLabel25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel25.setPreferredSize(new java.awt.Dimension(40, 18));
-
-        txtField12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtField12.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        txtField12.setPreferredSize(new java.awt.Dimension(20, 18));
-
-        jLabel26.setFont(frames.Util.getFont(0,0));
-        jLabel26.setText("NUNI-PS5");
-        jLabel26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel26.setPreferredSize(new java.awt.Dimension(40, 18));
-
-        txtField6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtField6.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        txtField6.setPreferredSize(new java.awt.Dimension(20, 18));
-
-        javax.swing.GroupLayout pan7Layout = new javax.swing.GroupLayout(pan7);
-        pan7.setLayout(pan7Layout);
-        pan7Layout.setHorizontalGroup(
-            pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pan7Layout.createSequentialGroup()
-                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pan7Layout.createSequentialGroup()
-                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(200, Short.MAX_VALUE))
-        );
-        pan7Layout.setVerticalGroup(
-            pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(240, Short.MAX_VALUE))
-        );
-
-        pan2.add(pan7, java.awt.BorderLayout.EAST);
-
-        pan8.setPreferredSize(new java.awt.Dimension(8, 208));
-
-        javax.swing.GroupLayout pan8Layout = new javax.swing.GroupLayout(pan8);
-        pan8.setLayout(pan8Layout);
-        pan8Layout.setHorizontalGroup(
-            pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 8, Short.MAX_VALUE)
-        );
-        pan8Layout.setVerticalGroup(
-            pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 293, Short.MAX_VALUE)
-        );
-
-        pan2.add(pan8, java.awt.BorderLayout.WEST);
-
-        pan1.add(pan2);
-
-        tabb1.setPreferredSize(new java.awt.Dimension(600, 275));
-        tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                tabb1StateChanged(evt);
-            }
-        });
-
-        pan6.setPreferredSize(new java.awt.Dimension(0, 0));
+        pan6.setPreferredSize(new java.awt.Dimension(300, 275));
 
         jLabel13.setFont(frames.Util.getFont(0,0));
         jLabel13.setText("Зап-ие по умолчанию");
@@ -1053,13 +771,274 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tabb1.addTab("Основные", pan6);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Системы профилей");
+        setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                Systree.this.windowClosed(evt);
+            }
+        });
+
+        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        north.setMaximumSize(new java.awt.Dimension(32767, 31));
+        north.setPreferredSize(new java.awt.Dimension(900, 29));
+
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
+        btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
+        btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnClose.setFocusable(false);
+        btnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClose.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnClose.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnClose.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClose(evt);
+            }
+        });
+
+        btnRef.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c038.gif"))); // NOI18N
+        btnRef.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnRef.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnRef.setFocusable(false);
+        btnRef.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRef.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnRef.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnRef.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnRef.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRef.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefresh(evt);
+            }
+        });
+
+        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
+        btnDel.setToolTipText(bundle.getString("Удалить")); // NOI18N
+        btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnDel.setFocusable(false);
+        btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnDel.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnDel.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelete(evt);
+            }
+        });
+
+        btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
+        btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
+        btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnIns.setFocusable(false);
+        btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnIns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsert(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        jLabel22.setFont(frames.Util.getFont(0,0));
+        jLabel22.setText("Артикул профиля");
+        jLabel22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel22.setPreferredSize(new java.awt.Dimension(160, 18));
+
+        javax.swing.GroupLayout pan9Layout = new javax.swing.GroupLayout(pan9);
+        pan9.setLayout(pan9Layout);
+        pan9Layout.setHorizontalGroup(
+            pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, 0, 376, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pan9Layout.setVerticalGroup(
+            pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(167, Short.MAX_VALUE))
+        );
+
+        btnArtikl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnArtikl.setToolTipText("Артикулы в системе...");
+        btnArtikl.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnArtikl.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnArtikl.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnArtikl.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnArtikl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArtikl(evt);
+            }
+        });
+
+        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
+        north.setLayout(northLayout);
+        northLayout.setHorizontalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(northLayout.createSequentialGroup()
+                        .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnArtikl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
+                        .addGap(0, 359, Short.MAX_VALUE)
+                        .addComponent(pan9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        northLayout.setVerticalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(northLayout.createSequentialGroup()
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnArtikl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pan9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(north, java.awt.BorderLayout.NORTH);
+
+        centr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        centr.setLayout(new java.awt.BorderLayout());
+
+        scr1.setBorder(null);
+        scr1.setPreferredSize(new java.awt.Dimension(260, 564));
+
+        tree.setEditable(true);
+        tree.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                treeMousePressed(evt);
+            }
+        });
+        scr1.setViewportView(tree);
+
+        centr.add(scr1, java.awt.BorderLayout.WEST);
+
+        pan1.setPreferredSize(new java.awt.Dimension(602, 565));
+        pan1.setLayout(new java.awt.GridLayout(2, 1));
+
+        pan2.setPreferredSize(new java.awt.Dimension(692, 200));
+        pan2.setLayout(new java.awt.BorderLayout());
+
+        panDesign.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        panDesign.setLayout(new java.awt.BorderLayout());
+        pan2.add(panDesign, java.awt.BorderLayout.CENTER);
+
+        pan7.setPreferredSize(new java.awt.Dimension(300, 200));
+
+        jLabel25.setFont(frames.Util.getFont(0,0));
+        jLabel25.setText("NUNI-PS4");
+        jLabel25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel25.setPreferredSize(new java.awt.Dimension(40, 18));
+
+        txtField12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField12.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtField12.setPreferredSize(new java.awt.Dimension(20, 18));
+
+        jLabel26.setFont(frames.Util.getFont(0,0));
+        jLabel26.setText("NUNI-PS5");
+        jLabel26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel26.setPreferredSize(new java.awt.Dimension(40, 18));
+
+        txtField6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField6.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtField6.setPreferredSize(new java.awt.Dimension(20, 18));
+
+        javax.swing.GroupLayout pan7Layout = new javax.swing.GroupLayout(pan7);
+        pan7.setLayout(pan7Layout);
+        pan7Layout.setHorizontalGroup(
+            pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan7Layout.createSequentialGroup()
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan7Layout.createSequentialGroup()
+                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(200, Short.MAX_VALUE))
+        );
+        pan7Layout.setVerticalGroup(
+            pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(268, Short.MAX_VALUE))
+        );
+
+        pan2.add(pan7, java.awt.BorderLayout.EAST);
+
+        pan8.setPreferredSize(new java.awt.Dimension(8, 208));
+
+        javax.swing.GroupLayout pan8Layout = new javax.swing.GroupLayout(pan8);
+        pan8.setLayout(pan8Layout);
+        pan8Layout.setHorizontalGroup(
+            pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 8, Short.MAX_VALUE)
+        );
+        pan8Layout.setVerticalGroup(
+            pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 321, Short.MAX_VALUE)
+        );
+
+        pan2.add(pan8, java.awt.BorderLayout.WEST);
+
+        pan1.add(pan2);
+
+        tabb1.setPreferredSize(new java.awt.Dimension(600, 275));
+        tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabb1StateChanged(evt);
+            }
+        });
 
         pan10.setPreferredSize(new java.awt.Dimension(0, 0));
-        pan10.setLayout(new java.awt.BorderLayout());
+        pan10.setLayout(new java.awt.GridBagLayout());
+
+        scr5.setPreferredSize(new java.awt.Dimension(0, 0));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1069,7 +1048,7 @@ public class Systree extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Наименование конструкции системы", "Рисунок конструкции"
+                "Наименование", "Рисунок"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1083,6 +1062,11 @@ public class Systree extends javax.swing.JFrame {
         tab5.setFillsViewportHeight(true);
         tab5.setRowHeight(68);
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(0).setResizable(false);
@@ -1092,9 +1076,9 @@ public class Systree extends javax.swing.JFrame {
             tab5.getColumnModel().getColumn(1).setMaxWidth(68);
         }
 
-        pan10.add(scr5, java.awt.BorderLayout.CENTER);
+        pan10.add(scr5, new java.awt.GridBagConstraints());
 
-        tabb1.addTab("Конструкции", pan10);
+        tabb1.addTab("Конструкции системы", pan10);
 
         pan3.setPreferredSize(new java.awt.Dimension(0, 0));
         pan3.setLayout(new java.awt.BorderLayout());
@@ -1366,7 +1350,7 @@ public class Systree extends javax.swing.JFrame {
                 if (selectedNode != null && selectedNode.isLeaf()) {
                     FrameProgress.create(Systree.this, new FrameListener() {
                         public void actionRequest(Object obj) {
-                            frame = new BoxTypical(Systree.this, listenerModels);
+                            frame = new BoxTypical(Systree.this, listenerProd);
                             FrameToFile.setFrameSize(frame);
                             frame.setVisible(true);
                         }
@@ -1385,21 +1369,6 @@ public class Systree extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btnArtikl
-
-    private void btnTypicalOkna(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTypicalOkna
-        DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
-        if (selectedNode != null && selectedNode.isLeaf()) {
-            FrameProgress.create(Systree.this, new FrameListener() {
-                public void actionRequest(Object obj) {
-                    frame = new BoxTypical(Systree.this, listenerModel);
-                    FrameToFile.setFrameSize(frame);
-                    frame.setVisible(true);
-                }
-            });
-        } else {
-            JOptionPane.showMessageDialog(this, "Выберите систему профилей", "Предупреждение", JOptionPane.OK_OPTION);
-        }
-    }//GEN-LAST:event_btnTypicalOkna
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
@@ -1444,13 +1413,13 @@ public class Systree extends javax.swing.JFrame {
         }
         tree.setBorder(null);
         if (tabb1.getSelectedIndex() == 1) {
-            Util.listenerClick(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
-        } else if (tabb1.getSelectedIndex() == 2) {
             Util.listenerClick(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
-        } else if (tabb1.getSelectedIndex() == 3) {
+        } else if (tabb1.getSelectedIndex() == 2) {
             Util.listenerClick(tab3, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
-        } else if (tabb1.getSelectedIndex() == 4) {
+        } else if (tabb1.getSelectedIndex() == 3) {
             Util.listenerClick(tab4, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        } else if (tabb1.getSelectedIndex() == 4) {
+            Util.listenerClick(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         }
     }//GEN-LAST:event_tabb1StateChanged
 
@@ -1512,7 +1481,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JButton btnField7;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JButton btnTypicalOkna;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -1584,7 +1552,7 @@ public class Systree extends javax.swing.JFrame {
                     selectionTab5();
                 }
             }
-        });        
+        });
     }
 
     private class DefMutableTreeNode extends DefaultMutableTreeNode {
@@ -1597,4 +1565,3 @@ public class Systree extends javax.swing.JFrame {
         }
     }
 }
-
