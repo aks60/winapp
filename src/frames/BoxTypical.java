@@ -24,12 +24,14 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
+import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
 import frames.swing.Canvas;
 import builder.script.Mediate;
 import java.awt.BasicStroke;
 import java.awt.CardLayout;
 import java.util.Enumeration;
+import java.util.LinkedList;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -47,11 +49,18 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private Canvas paintPanel = new Canvas(iwinMax) {
 
         public void actionResponse(MouseEvent evt) {
-            ElemSimple elem5e = iwinMax.listElem.stream().filter(el -> el.mouseClick(evt.getX(), evt.getY())).findFirst().orElse(null);
-            if (elem5e != null) {
-                txtField5.setText(String.valueOf(elem5e.id()));
-                repaint();
+            LinkedList<ElemSimple> listElem = iwinMax.rootArea.listElem(TypeElem.GLASS);
+            if(elemMouseClick(listElem, evt)) {
+               return; 
             }
+            listElem = iwinMax.rootArea.listElem(TypeElem.STVORKA_SIDE);
+            if(elemMouseClick(listElem, evt)) {
+               return; 
+            }            
+            listElem = iwinMax.rootArea.listElem(TypeElem.FRAME_SIDE);
+            if(elemMouseClick(listElem, evt)) {
+               return; 
+            }            
         }
     };
     private Query qModels1 = new Query(eModels.values());
@@ -239,6 +248,15 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
     private void selectionTab3(ListSelectionEvent event) {
 
+    }
+
+    private boolean elemMouseClick(LinkedList<ElemSimple> listElem, MouseEvent evt) {
+        ElemSimple elem = listElem.stream().filter(el -> el.mouseClick(evt.getX(), evt.getY())).findFirst().orElse(null);
+        if (elem != null) {
+            repaint();
+            return true;
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")
