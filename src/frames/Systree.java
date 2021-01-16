@@ -528,6 +528,9 @@ public class Systree extends javax.swing.JFrame {
         pan10 = new javax.swing.JPanel();
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
+        pan11 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
         pan6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         txtField1 = new javax.swing.JFormattedTextField();
@@ -700,7 +703,7 @@ public class Systree extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
-                        .addGap(0, 340, Short.MAX_VALUE)
+                        .addGap(0, 359, Short.MAX_VALUE)
                         .addComponent(pan9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -828,8 +831,9 @@ public class Systree extends javax.swing.JFrame {
         });
 
         pan10.setPreferredSize(new java.awt.Dimension(0, 0));
-        pan10.setLayout(new java.awt.BorderLayout());
+        pan10.setLayout(new java.awt.GridLayout(1, 2));
 
+        scr5.setBorder(null);
         scr5.setPreferredSize(new java.awt.Dimension(0, 0));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
@@ -868,7 +872,16 @@ public class Systree extends javax.swing.JFrame {
             tab5.getColumnModel().getColumn(1).setMaxWidth(68);
         }
 
-        pan10.add(scr5, java.awt.BorderLayout.CENTER);
+        pan10.add(scr5);
+
+        pan11.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setViewportView(jTree1);
+
+        pan11.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        pan10.add(pan11);
 
         tabb1.addTab("Конструкции системы", pan10);
 
@@ -1498,10 +1511,13 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTree jTree1;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
+    private javax.swing.JPanel pan11;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
