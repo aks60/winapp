@@ -1368,7 +1368,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.BoxTypical.createFrame(App1.this);
+                eApp1.Models.createFrame(App1.this);
             }
         });
     }//GEN-LAST:event_mnBoxTypical
@@ -1543,7 +1543,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     public static enum eApp1 {
 
         App1, Convert, Groups, DicCurrenc, Color, Artikles, Joining, Element, Param,
-        Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, BoxTypical,
+        Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,
         Specific, DicSyssize, TestFrame, RuleCalc;
         public javax.swing.JFrame frame;
 
@@ -1636,7 +1636,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                 case Order:
                     frame = new Order();
                     break;
-                case BoxTypical:
+                case Models:
                     frame = new Models();
                     break;
                 case Specific:
