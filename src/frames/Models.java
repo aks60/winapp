@@ -37,7 +37,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 
-public class BoxTypical extends javax.swing.JFrame implements FrameListener<Object, Object> {
+public class Models extends javax.swing.JFrame implements FrameListener<Object, Object> {
 
     public Wincalc iwinMax = new Wincalc();
     public Wincalc iwinMin = new Wincalc();
@@ -50,7 +50,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private Query qModels1 = new Query(eModels.values());
     private Query qModels2 = new Query(eModels.values());
 
-    public BoxTypical() {
+    public Models() {
         initComponents();
         initElements();
         loadingModel();
@@ -60,7 +60,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         //loadingTree();
     }
 
-    public BoxTypical(java.awt.Window owner, DialogListener listener) {
+    public Models(java.awt.Window owner, DialogListener listener) {
         initComponents();
         initElements();
         loadingModel();
@@ -301,10 +301,9 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Модели конструкций");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(900, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                BoxTypical.this.windowClosed(evt);
+                Models.this.windowClosed(evt);
             }
         });
 

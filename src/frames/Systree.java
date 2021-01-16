@@ -51,9 +51,11 @@ import frames.swing.BooleanRenderer;
 import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
+import builder.script.Mediate;
 import frames.swing.Canvas;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
+import java.util.Enumeration;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -163,6 +165,30 @@ public class Systree extends javax.swing.JFrame {
         tree.setModel(new DefaultTreeModel(rootTree));
         scr1.setViewportView(tree);
     }
+    
+    private void loadingTree2() {
+//        try {
+//            Mediate mdtFirst = iwinMax.mediateList.getFirst();
+//            BoxTypical.DefMutableTreeNode root = new BoxTypical.DefMutableTreeNode(mdtFirst);
+//            BoxTypical.DefMutableTreeNode node = null;
+//            for (Mediate mdt : iwinMax.mediateList) {
+//                Enumeration<TreeNode> e = root.depthFirstEnumeration();
+//                while (e.hasMoreElements()) {
+//                    BoxTypical.DefMutableTreeNode node2 = (BoxTypical.DefMutableTreeNode) e.nextElement();
+//                    if (mdt.owner != null && node2.record.id == mdt.owner.id) {
+//                        node = new BoxTypical.DefMutableTreeNode(mdt);
+//                        node2.add(node);
+//                    }
+//                }
+//            }
+//            tree.setModel(new DefaultTreeModel(root));
+//            scrTree.setViewportView(tree);
+//            tree.setSelectionRow(0);
+//
+//        } catch (Exception e) {
+//            System.err.println("Ошибка frames.BoxTypical.loadingTree() " + e);
+//        }
+    }    
 
     private void loadingTab5() {
 
@@ -1365,7 +1391,7 @@ public class Systree extends javax.swing.JFrame {
                 if (selectedNode != null && selectedNode.isLeaf()) {
                     FrameProgress.create(Systree.this, new FrameListener() {
                         public void actionRequest(Object obj) {
-                            frame = new BoxTypical(Systree.this, listenerProd);
+                            frame = new Models(Systree.this, listenerProd);
                             FrameToFile.setFrameSize(frame);
                             frame.setVisible(true);
                         }

@@ -19,7 +19,7 @@ import dataset.Field;
 import domain.eGroups;
 import frames.Groups;
 import frames.Artikles;
-import frames.BoxTypical;
+import frames.Models;
 import frames.Systree;
 import frames.Element;
 import frames.Furniture;
@@ -1637,7 +1637,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     frame = new Order();
                     break;
                 case BoxTypical:
-                    frame = new BoxTypical();
+                    frame = new Models();
                     break;
                 case Specific:
                     frame = new Specific();
