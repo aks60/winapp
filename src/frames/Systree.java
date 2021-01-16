@@ -41,7 +41,6 @@ import javax.swing.RowFilter;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellEditor;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -53,6 +52,7 @@ import frames.swing.DefTableModel;
 import builder.Wincalc;
 import builder.script.Mediate;
 import frames.swing.Canvas;
+import frames.swing.DefMutableTreeNode;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.util.Enumeration;
@@ -130,10 +130,10 @@ public class Systree extends javax.swing.JFrame {
             public void editingStopped(ChangeEvent e) {
                 DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
                 String str = ((DefaultTreeCellEditor) tree.getCellEditor()).getCellEditorValue().toString();
-                node.record.set(eSystree.name, str);
+                node.systreeRec.set(eSystree.name, str);
                 node.setUserObject(str);
                 txtField8.setText(str);
-                qSystree.update(node.record); //сохраним в базе
+                qSystree.update(node.systreeRec); //сохраним в базе
             }
 
             public void editingCanceled(ChangeEvent e) {
@@ -165,30 +165,34 @@ public class Systree extends javax.swing.JFrame {
         tree.setModel(new DefaultTreeModel(rootTree));
         scr1.setViewportView(tree);
     }
-    
+
     private void loadingTree2() {
-//        try {
-//            Mediate mdtFirst = iwinMax.mediateList.getFirst();
-//            BoxTypical.DefMutableTreeNode root = new BoxTypical.DefMutableTreeNode(mdtFirst);
-//            BoxTypical.DefMutableTreeNode node = null;
-//            for (Mediate mdt : iwinMax.mediateList) {
-//                Enumeration<TreeNode> e = root.depthFirstEnumeration();
-//                while (e.hasMoreElements()) {
-//                    BoxTypical.DefMutableTreeNode node2 = (BoxTypical.DefMutableTreeNode) e.nextElement();
-//                    if (mdt.owner != null && node2.record.id == mdt.owner.id) {
-//                        node = new BoxTypical.DefMutableTreeNode(mdt);
-//                        node2.add(node);
-//                    }
-//                }
-//            }
-//            tree.setModel(new DefaultTreeModel(root));
-//            scrTree.setViewportView(tree);
-//            tree.setSelectionRow(0);
-//
-//        } catch (Exception e) {
-//            System.err.println("Ошибка frames.BoxTypical.loadingTree() " + e);
-//        }
-    }    
+        try {
+            //DefaultTreeModel model = (DefaultTreeModel) tree2.getModel();
+            //((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
+            Mediate mdtFirst = iwin.mediateList.getFirst();
+            DefMutableTreeNode root = new DefMutableTreeNode(mdtFirst);
+            DefMutableTreeNode node = null;
+            for (Mediate mdt : iwin.mediateList) {
+                Enumeration<TreeNode> e = root.depthFirstEnumeration();
+                while (e.hasMoreElements()) {
+                    DefMutableTreeNode node2 = (DefMutableTreeNode) e.nextElement();
+                    if (mdt.owner != null && node2.mediateRec.id == mdt.owner.id) {
+                        node = new DefMutableTreeNode(mdt);
+                        node2.add(node);
+                    }
+                }
+            }
+            tree2.setModel(new DefaultTreeModel(root));           
+            //TreeNode root2 = (TreeNode) tree2.getModel().getRoot();
+            Util.expandTree(tree2, new TreePath(root), true);             
+            //scr6.setViewportView(tree2);
+            tree2.setSelectionRow(0);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка Systree.loadingTree2() " + e);
+        }
+    }
 
     private void loadingTab5() {
 
@@ -453,19 +457,19 @@ public class Systree extends javax.swing.JFrame {
     private void selectionTree() {
         DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (node != null) {
-            nuni = node.record.getInt(eSystree.id);
+            nuni = node.systreeRec.getInt(eSystree.id);
             eProperty.systree_nuni.write(String.valueOf(nuni));
             for (int i = 0; i < qSystree.size(); i++) {
                 if (nuni == qSystree.get(i).getInt(eSystree.id)) {
                     rsvSystree.load(i);
                 }
             }
-            qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysprod.name);
+            qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", node.systreeRec.getInt(eSystree.id), "order by", eSysprod.name);
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
-                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
+                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.systreeRec.getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
-                    eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysfurn.npp);
-            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
+                    eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.systreeRec.getInt(eSystree.id), "order by", eSysfurn.npp);
+            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.systreeRec.getInt(eSystree.id));
 
             loadingTab5();
 
@@ -488,6 +492,7 @@ public class Systree extends javax.swing.JFrame {
             Record record = qSysprod.table(eSysprod.up).get(row);
             String script = record.getStr(eSysprod.script);
             createWincalc(script); //калькуляция и прорисовка окна
+            loadingTree2();
         }
     }
 
@@ -497,7 +502,7 @@ public class Systree extends javax.swing.JFrame {
         for (DefMutableTreeNode node : nodeList1) {
             String userNode = (String) node.getUserObject();
             for (Record record2 : systreeList) {
-                if (record2.getInt(eSystree.parent_id) == node.record.getInt(eSystree.id)
+                if (record2.getInt(eSystree.parent_id) == node.systreeRec.getInt(eSystree.id)
                         && record2.getInt(eSystree.parent_id) != record2.getInt(eSystree.id)) {
                     DefMutableTreeNode node2 = new DefMutableTreeNode(record2);
                     node.add(node2);
@@ -512,7 +517,7 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void createWincalc(String script) {
-        
+
         if (script != null && script.isEmpty() == false) {
             JsonElement script2 = new Gson().fromJson(script, JsonElement.class);
             script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
@@ -538,6 +543,7 @@ public class Systree extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel22 = new javax.swing.JLabel();
         btnArtikl = new javax.swing.JToggleButton();
+        btnReport1 = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
@@ -555,8 +561,8 @@ public class Systree extends javax.swing.JFrame {
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
         pan11 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        scr6 = new javax.swing.JScrollPane();
+        tree2 = new javax.swing.JTree();
         pan6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         txtField1 = new javax.swing.JFormattedTextField();
@@ -711,6 +717,21 @@ public class Systree extends javax.swing.JFrame {
             }
         });
 
+        btnReport1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
+        btnReport1.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnReport1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnReport1.setFocusable(false);
+        btnReport1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnReport1.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnReport1.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnReport1.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnReport1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnReport1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReport1(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -726,10 +747,12 @@ public class Systree extends javax.swing.JFrame {
                         .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnArtikl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
-                        .addGap(0, 359, Short.MAX_VALUE)
+                        .addGap(0, 340, Short.MAX_VALUE)
                         .addComponent(pan9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -744,7 +767,8 @@ public class Systree extends javax.swing.JFrame {
                             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnArtikl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnArtikl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnReport1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -860,7 +884,6 @@ public class Systree extends javax.swing.JFrame {
         pan10.setLayout(new java.awt.GridLayout(1, 2));
 
         scr5.setBorder(null);
-        scr5.setPreferredSize(new java.awt.Dimension(0, 0));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -902,10 +925,10 @@ public class Systree extends javax.swing.JFrame {
 
         pan11.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setBorder(null);
-        jScrollPane1.setViewportView(jTree1);
+        scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr6.setViewportView(tree2);
 
-        pan11.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        pan11.add(scr6, java.awt.BorderLayout.CENTER);
 
         pan10.add(pan11);
 
@@ -1324,9 +1347,9 @@ public class Systree extends javax.swing.JFrame {
                 DefMutableTreeNode parentNode = (DefMutableTreeNode) removeNode.getParent();
                 if (JOptionPane.showConfirmDialog(this, "Хотите удалить " + removeNode + "?", "Подтвердите удаление",
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null) == 0) {
-                    removeNode.record.set(eSystree.up, Query.DEL);
-                    qSystree.delete(removeNode.record);
-                    qSystree.remove(removeNode.record);
+                    removeNode.systreeRec.set(eSystree.up, Query.DEL);
+                    qSystree.delete(removeNode.systreeRec);
+                    qSystree.remove(removeNode.systreeRec);
                     ((DefaultTreeModel) tree.getModel()).removeNodeFromParent(removeNode);
                     if (parentNode != null) {
                         TreeNode[] nodes = ((DefaultTreeModel) tree.getModel()).getPathToRoot(parentNode);
@@ -1344,7 +1367,7 @@ public class Systree extends javax.swing.JFrame {
             if (tree.getBorder() != null) {
                 Record record = eSystree.up.newRecord(Query.INS);
                 record.setNo(eSystree.id, ConnApp.instanc().genId(eSystree.id));
-                int parent_id = (node.record.getInt(eSystree.id) == node.record.getInt(eSystree.parent_id)) ? record.getInt(eSystree.id) : node.record.getInt(eSystree.id);
+                int parent_id = (node.systreeRec.getInt(eSystree.id) == node.systreeRec.getInt(eSystree.parent_id)) ? record.getInt(eSystree.id) : node.systreeRec.getInt(eSystree.id);
                 record.setNo(eSystree.parent_id, parent_id);
                 record.setNo(eSystree.name, "P" + record.getStr(eSystree.id));
                 qSystree.insert(record); //record сохраним в базе
@@ -1512,6 +1535,10 @@ public class Systree extends javax.swing.JFrame {
         new DicEnums(this, listenerBtn7, TypeUse.values());
     }//GEN-LAST:event_btnField7
 
+    private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
+
+    }//GEN-LAST:event_btnReport1
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnArtikl;
@@ -1522,6 +1549,8 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JButton btnField7;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
+    private javax.swing.JButton btnReport;
+    private javax.swing.JButton btnReport1;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -1537,8 +1566,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTree jTree1;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
@@ -1558,6 +1585,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
+    private javax.swing.JScrollPane scr6;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
@@ -1565,6 +1593,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JTable tab5;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JTree tree;
+    private javax.swing.JTree tree2;
     private javax.swing.JFormattedTextField txtField1;
     private javax.swing.JTextField txtField10;
     private javax.swing.JTextField txtField11;
@@ -1597,15 +1626,5 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         });
-    }
-
-    private class DefMutableTreeNode extends DefaultMutableTreeNode {
-
-        public Record record = null;
-
-        public DefMutableTreeNode(Record record) {
-            super(record.getStr(eSystree.name));
-            this.record = record;
-        }
     }
 }

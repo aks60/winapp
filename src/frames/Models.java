@@ -10,9 +10,6 @@ import domain.eModels;
 import enums.TypeElem;
 import java.awt.Component;
 import java.awt.Window;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.Icon;
@@ -24,15 +21,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
-import builder.model.AreaStvorka;
-import builder.model.ElemSimple;
+import frames.swing.Canvas;
+import frames.swing.DefMutableTreeNode;
 import frames.swing.Canvas;
 import builder.script.Mediate;
-import java.awt.BasicStroke;
 import java.awt.CardLayout;
 import java.util.Enumeration;
-import java.util.LinkedList;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -136,7 +130,7 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
                 Enumeration<TreeNode> e = root.depthFirstEnumeration();
                 while (e.hasMoreElements()) {
                     DefMutableTreeNode node2 = (DefMutableTreeNode) e.nextElement();
-                    if (mdt.owner != null && node2.record.id == mdt.owner.id) {
+                    if (mdt.owner != null && node2.mediateRec.id == mdt.owner.id) {
                         node = new DefMutableTreeNode(mdt);
                         node2.add(node);
                     }
@@ -155,22 +149,22 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
 
         DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
-            if (selectedNode.record.type == TypeElem.RECTANGL || selectedNode.record.type == TypeElem.ARCH) {
+            if (selectedNode.mediateRec.type == TypeElem.RECTANGL || selectedNode.mediateRec.type == TypeElem.ARCH) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan19");
 
-            } else if (selectedNode.record.type == TypeElem.AREA) {
+            } else if (selectedNode.mediateRec.type == TypeElem.AREA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan20");
 
-            } else if (selectedNode.record.type == TypeElem.FRAME_SIDE) {
+            } else if (selectedNode.mediateRec.type == TypeElem.FRAME_SIDE) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan21");
 
-            } else if (selectedNode.record.type == TypeElem.STVORKA) {
+            } else if (selectedNode.mediateRec.type == TypeElem.STVORKA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan22");
 
-            } else if (selectedNode.record.type == TypeElem.IMPOST) {
+            } else if (selectedNode.mediateRec.type == TypeElem.IMPOST) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan23");
 
-            } else if (selectedNode.record.type == TypeElem.GLASS) {
+            } else if (selectedNode.mediateRec.type == TypeElem.GLASS) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan24");
 
             }
@@ -1127,25 +1121,5 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
             }
         });
         tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
-    }
-
-    private class DefMutableTreeNode extends DefaultMutableTreeNode {
-
-        public Mediate record = null;
-
-        public DefMutableTreeNode(Mediate record) {
-            super();
-            this.record = record;
-        }
-
-        public String toString() {
-            if (record.type == TypeElem.FRAME_SIDE) {
-                return record.type.name + ", " + record.layout.name.toLowerCase();
-            } else if (record.type == TypeElem.AREA) {
-                return record.type.name + ". " + record.layout.name + " напр.";
-            } else {
-                return record.type.name;
-            }
-        }
     }
 }

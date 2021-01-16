@@ -135,8 +135,8 @@ public enum eArtikl implements Field {
         record.setNo(id, -3);
         record.setNo(name, "none");
         record.setNo(code, "none");
-        record.setNo(height, 60);
-        record.setNo(size_centr, 30);
+        record.setNo(height, 80);
+        record.setNo(size_centr, 40);
         record.setNo(tech_code, "");
         record.setNo(size_falz, 20);
         record.setNo(syssize_id, -3);

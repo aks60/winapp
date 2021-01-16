@@ -40,6 +40,10 @@ import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
+import java.util.Enumeration;
+import javax.swing.JTree;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 /**
  * <p>
@@ -137,6 +141,26 @@ public class Util {
         return new Font(eProperty.fontname.read(), bold, Integer.valueOf(eProperty.fontsize.read()) + size);
     }
 
+    public static void expandTree(JTree tree, TreePath path, boolean expand) {
+        TreeNode node = (TreeNode) path.getLastPathComponent();
+
+        if (node.getChildCount() >= 0) {
+            Enumeration enumeration = node.children();
+            while (enumeration.hasMoreElements()) {
+                TreeNode n = (TreeNode) enumeration.nextElement();
+                TreePath p = path.pathByAddingChild(n);
+
+                expandTree(tree, p, expand);
+            }
+        }
+
+        if (expand) {
+            tree.expandPath(path);
+        } else {
+            tree.collapsePath(path);
+        }
+    }    
+    
     public static String consoleColor(Object clr) {
 
         if (clr == java.awt.Color.RED) {
