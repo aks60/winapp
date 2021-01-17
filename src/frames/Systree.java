@@ -176,7 +176,7 @@ public class Systree extends javax.swing.JFrame {
             Mediate mdtFirst = iwin.mediateList.getFirst();
             DefMutableTreeNode root = new DefMutableTreeNode(mdtFirst);
             DefMutableTreeNode node = null;
-            List<Mediate> mediateList = iwin.mediateList.stream().filter(m -> m.type != TypeElem.ARCH);
+            //List<Mediate> mediateList = iwin.mediateList.stream().filter(m -> m.type != TypeElem.ARCH);
             for (Mediate mdt : iwin.mediateList) {
                 //if (mdt.type != TypeElem.AREA) {
                     Enumeration<TreeNode> e = root.depthFirstEnumeration();
