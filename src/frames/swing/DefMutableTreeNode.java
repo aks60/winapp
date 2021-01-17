@@ -1,37 +1,35 @@
 package frames.swing;
 
-import builder.script.Mediate;
+import builder.model.AreaSimple;
+import builder.model.Com5t;
 import dataset.Record;
 import domain.eSystree;
-import enums.TypeElem;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class DefMutableTreeNode extends DefaultMutableTreeNode {
 
-    public Mediate mediateRec = null;
+    public Com5t com5t = null;
     public Record systreeRec = null;
 
     public DefMutableTreeNode(Record systreeRec) {
-        super(systreeRec.getStr(eSystree.name));
+        super();
         this.systreeRec = systreeRec;
     }
 
-    public DefMutableTreeNode(Mediate mediateRec) {
+    public DefMutableTreeNode(Com5t com5t) {
         super();
-        this.mediateRec = mediateRec;
+        this.com5t = com5t;
     }
 
     public String toString() {
-        if (mediateRec != null) {
-            if (mediateRec.type == TypeElem.FRAME_SIDE) {
-                return mediateRec.type.name + ", " + mediateRec.layout.name.toLowerCase();
-            } else if (mediateRec.type == TypeElem.AREA) {
-                return mediateRec.type.name + ". " + mediateRec.layout.name + " напр.";
+        if (com5t != null) {
+            if (com5t instanceof AreaSimple) {
+                return com5t.type().name;
             } else {
-                return mediateRec.type.name;
+                return com5t.type().name + ", " + com5t.layout().name.toLowerCase();
             }
         } else {
-            return super.toString();
+            return systreeRec.getStr(eSystree.name);
         }
     }
 }

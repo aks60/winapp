@@ -13,7 +13,7 @@ public enum LayoutArea implements Enam {
     TOP(3, "Верхняя"),
     LEFT(4, "Левая"),
     ARCH(5, "Арочная"),
-    FULL(6, "Везде");
+    FULL(6, "");
 
     //LSKEW("Левый угол"),
     //RSKEW("Правый угол"),

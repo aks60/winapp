@@ -21,12 +21,16 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
+import builder.model.AreaSimple;
+import builder.model.ElemSimple;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import frames.swing.Canvas;
 import builder.script.Mediate;
 import java.awt.CardLayout;
 import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -122,49 +126,49 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
     }
 
     private void loadingTree() {
-        try {
-            Mediate mdtFirst = iwinMax.mediateList.getFirst();
-            DefMutableTreeNode root = new DefMutableTreeNode(mdtFirst);
-            DefMutableTreeNode node = null;
-            for (Mediate mdt : iwinMax.mediateList) {
-                Enumeration<TreeNode> e = root.depthFirstEnumeration();
-                while (e.hasMoreElements()) {
-                    DefMutableTreeNode node2 = (DefMutableTreeNode) e.nextElement();
-                    if (mdt.owner != null && node2.mediateRec.id == mdt.owner.id) {
-                        node = new DefMutableTreeNode(mdt);
-                        node2.add(node);
+            DefMutableTreeNode root = new DefMutableTreeNode(iwinMax.rootArea);
+            Set<AreaSimple> set = new HashSet();
+            for (ElemSimple elem5e : iwinMax.listElem) {
+                if (elem5e.owner().type() != TypeElem.STVORKA) {
+                    root.add(new DefMutableTreeNode(elem5e));
+                } else {
+                    set.add(elem5e.owner());
+                }
+            }
+            for (AreaSimple areaStv : set) {
+                DefMutableTreeNode nodeStv = new DefMutableTreeNode(areaStv);
+                root.add(nodeStv);
+                for (ElemSimple elemStv : iwinMax.listElem) {
+                    if (elemStv.owner() == areaStv) {
+                        nodeStv.add(new DefMutableTreeNode(elemStv));
                     }
                 }
             }
             tree.setModel(new DefaultTreeModel(root));
-            scrTree.setViewportView(tree);
-            tree.setSelectionRow(0);
-
-        } catch (Exception e) {
-            System.err.println("Ошибка frames.BoxTypical.loadingTree() " + e);
-        }
+            //Util.expandTree(tree2, new TreePath(root), true);
+            tree.setSelectionRow(0);          
     }
 
     private void selectionTree() {
 
         DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
-            if (selectedNode.mediateRec.type == TypeElem.RECTANGL || selectedNode.mediateRec.type == TypeElem.ARCH) {
+            if (selectedNode.com5t.type() == TypeElem.RECTANGL || selectedNode.com5t.type() == TypeElem.ARCH) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan19");
 
-            } else if (selectedNode.mediateRec.type == TypeElem.AREA) {
+            } else if (selectedNode.com5t.type() == TypeElem.AREA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan20");
 
-            } else if (selectedNode.mediateRec.type == TypeElem.FRAME_SIDE) {
+            } else if (selectedNode.com5t.type() == TypeElem.FRAME_SIDE) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan21");
 
-            } else if (selectedNode.mediateRec.type == TypeElem.STVORKA) {
+            } else if (selectedNode.com5t.type() == TypeElem.STVORKA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan22");
 
-            } else if (selectedNode.mediateRec.type == TypeElem.IMPOST) {
+            } else if (selectedNode.com5t.type() == TypeElem.IMPOST) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan23");
 
-            } else if (selectedNode.mediateRec.type == TypeElem.GLASS) {
+            } else if (selectedNode.com5t.type() == TypeElem.GLASS) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan24");
 
             }

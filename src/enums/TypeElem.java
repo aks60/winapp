@@ -17,11 +17,11 @@ public enum TypeElem implements Enam {
     JALOUSIE(101, "Жалюзи"),
     //TypeArea
     AREA(1000, "Контейнер"),
-    RECTANGL(1001, "Окно четырёхугольное в сборе"),
-    TRAPEZE(1002, "Окно трапеция в сборе"),
-    TRIANGL(1003, "Треугольное окно в сборе"),
-    ARCH(1004, "Арочное окно в сборе"),
-    STVORKA(1005, "Створка в сборе"), //см. ElemFrame.typeProfile, ElemFrame.typeElem
+    RECTANGL(1001, "Окно четырёхугольное"),
+    TRAPEZE(1002, "Окно трапеция"),
+    TRIANGL(1003, "Треугольное окно"),
+    ARCH(1004, "Арочное окно"),
+    STVORKA(1005, "Створка"), //см. ElemFrame.typeProfile, ElemFrame.typeElem
     SUPPORT(1006, "Подкладка"),
     NONE(0, "Не определено");
 

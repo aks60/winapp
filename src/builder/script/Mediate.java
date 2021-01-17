@@ -9,7 +9,7 @@ import builder.model.ElemSimple;
 public class Mediate {
 
     public float id = -1;  // идентификатор элемента
-    public Mediate owner = null; //владелец
+    public Mediate owner = this; //владелец
     public AreaSimple area5e = null; //ссылка для добавления детей в контейнер
     public TypeElem type = TypeElem.NONE; //тип элемента
     public LayoutArea layout = LayoutArea.ANY;  //ориентация при расположении      

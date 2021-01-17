@@ -50,6 +50,8 @@ import frames.swing.BooleanRenderer;
 import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
+import builder.model.AreaSimple;
+import builder.model.ElemSimple;
 import builder.script.Mediate;
 import enums.TypeElem;
 import frames.swing.Canvas;
@@ -57,7 +59,8 @@ import frames.swing.DefMutableTreeNode;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.util.Enumeration;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -168,56 +171,28 @@ public class Systree extends javax.swing.JFrame {
         scr1.setViewportView(tree);
     }
 
-    private void loadingTest() {
-        try {
-//              iwin.mediateList.forEach(el -> {
-//                  System.out.println(el.id + " - " + el.type + "  - " + el.layout);
-//              });
-            Mediate mdtFirst = iwin.mediateList.getFirst();
-            DefMutableTreeNode root = new DefMutableTreeNode(mdtFirst);
-            DefMutableTreeNode node = null;
-            //List<Mediate> mediateList = iwin.mediateList.stream().filter(m -> m.type != TypeElem.ARCH);
-            for (Mediate mdt : iwin.mediateList) {
-                //if (mdt.type != TypeElem.AREA) {
-                    Enumeration<TreeNode> e = root.depthFirstEnumeration();
-                    while (e.hasMoreElements()) {
-                        DefMutableTreeNode node2 = (DefMutableTreeNode) e.nextElement();
-                        if (mdt.owner != null && node2.mediateRec.id == mdt.owner.id) {
-                            node = new DefMutableTreeNode(mdt);
-                            node2.add(node);
-                        }
-                    }
-            }
-            tree2.setModel(new DefaultTreeModel(root));
-            Util.expandTree(tree2, new TreePath(root), true);
-            tree2.setSelectionRow(0);
-
-        } catch (Exception e) {
-            System.err.println("Ошибка Systree.loadingTree2() " + e);
-        }
-    }
-
     private void loadingTree2() {
         try {
-            //DefaultTreeModel model = (DefaultTreeModel) tree2.getModel();
-            //((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
-            Mediate mdtFirst = iwin.mediateList.getFirst();
-            DefMutableTreeNode root = new DefMutableTreeNode(mdtFirst);
-            DefMutableTreeNode node = null;
-            for (Mediate mdt : iwin.mediateList) {
-                Enumeration<TreeNode> e = root.depthFirstEnumeration();
-                while (e.hasMoreElements()) {
-                    DefMutableTreeNode node2 = (DefMutableTreeNode) e.nextElement();
-                    if (mdt.owner != null && node2.mediateRec.id == mdt.owner.id) {
-                        node = new DefMutableTreeNode(mdt);
-                        node2.add(node);
+            DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
+            Set<AreaSimple> set = new HashSet();
+            for (ElemSimple elem5e : iwin.listElem) {
+                if (elem5e.owner().type() != TypeElem.STVORKA) {
+                    root.add(new DefMutableTreeNode(elem5e));
+                } else {
+                    set.add(elem5e.owner());
+                }
+            }
+            for (AreaSimple areaStv : set) {
+                DefMutableTreeNode nodeStv = new DefMutableTreeNode(areaStv);
+                root.add(nodeStv);
+                for (ElemSimple elemStv : iwin.listElem) {
+                    if (elemStv.owner() == areaStv) {
+                        nodeStv.add(new DefMutableTreeNode(elemStv));
                     }
                 }
             }
             tree2.setModel(new DefaultTreeModel(root));
-            //TreeNode root2 = (TreeNode) tree2.getModel().getRoot();
-            Util.expandTree(tree2, new TreePath(root), true);
-            //scr6.setViewportView(tree2);
+            //Util.expandTree(tree2, new TreePath(root), true);
             tree2.setSelectionRow(0);
 
         } catch (Exception e) {
@@ -1567,7 +1542,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnField7
 
     private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
-        loadingTest();
+        loadingTree2();
     }//GEN-LAST:event_btnReport1
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
