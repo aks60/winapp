@@ -51,11 +51,13 @@ import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
 import builder.script.Mediate;
+import enums.TypeElem;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.util.Enumeration;
+import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -166,6 +168,35 @@ public class Systree extends javax.swing.JFrame {
         scr1.setViewportView(tree);
     }
 
+    private void loadingTest() {
+        try {
+//              iwin.mediateList.forEach(el -> {
+//                  System.out.println(el.id + " - " + el.type + "  - " + el.layout);
+//              });
+            Mediate mdtFirst = iwin.mediateList.getFirst();
+            DefMutableTreeNode root = new DefMutableTreeNode(mdtFirst);
+            DefMutableTreeNode node = null;
+            List<Mediate> mediateList = iwin.mediateList.stream().filter(m -> m.type != TypeElem.ARCH);
+            for (Mediate mdt : iwin.mediateList) {
+                //if (mdt.type != TypeElem.AREA) {
+                    Enumeration<TreeNode> e = root.depthFirstEnumeration();
+                    while (e.hasMoreElements()) {
+                        DefMutableTreeNode node2 = (DefMutableTreeNode) e.nextElement();
+                        if (mdt.owner != null && node2.mediateRec.id == mdt.owner.id) {
+                            node = new DefMutableTreeNode(mdt);
+                            node2.add(node);
+                        }
+                    }
+            }
+            tree2.setModel(new DefaultTreeModel(root));
+            Util.expandTree(tree2, new TreePath(root), true);
+            tree2.setSelectionRow(0);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка Systree.loadingTree2() " + e);
+        }
+    }
+
     private void loadingTree2() {
         try {
             //DefaultTreeModel model = (DefaultTreeModel) tree2.getModel();
@@ -183,9 +214,9 @@ public class Systree extends javax.swing.JFrame {
                     }
                 }
             }
-            tree2.setModel(new DefaultTreeModel(root));           
+            tree2.setModel(new DefaultTreeModel(root));
             //TreeNode root2 = (TreeNode) tree2.getModel().getRoot();
-            Util.expandTree(tree2, new TreePath(root), true);             
+            Util.expandTree(tree2, new TreePath(root), true);
             //scr6.setViewportView(tree2);
             tree2.setSelectionRow(0);
 
@@ -491,7 +522,7 @@ public class Systree extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qSysprod.table(eSysprod.up).get(row);
             String script = record.getStr(eSysprod.script);
-            createWincalc(script); //калькуляция и прорисовка окна
+            iwinBuild(script); //калькуляция и прорисовка окна
             loadingTree2();
         }
     }
@@ -516,7 +547,7 @@ public class Systree extends javax.swing.JFrame {
         return nodeList2;
     }
 
-    private void createWincalc(String script) {
+    private void iwinBuild(String script) {
 
         if (script != null && script.isEmpty() == false) {
             JsonElement script2 = new Gson().fromJson(script, JsonElement.class);
@@ -1536,7 +1567,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnField7
 
     private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
-
+        loadingTest();
     }//GEN-LAST:event_btnReport1
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
