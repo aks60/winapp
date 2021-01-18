@@ -349,7 +349,6 @@ public class Color extends javax.swing.JFrame {
         });
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
-        tab2.setPreferredSize(new java.awt.Dimension(0, 0));
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -371,29 +370,20 @@ public class Color extends javax.swing.JFrame {
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
 
-        scr1.setBorder(null);
-        scr1.setPreferredSize(new java.awt.Dimension(200, 600));
+        scr1.setPreferredSize(new java.awt.Dimension(200, 584));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxxxxx", null},
-                {"zzzzzzz", null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Название группы", "ID"
+                "Название групп", "ID"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tab1.setFillsViewportHeight(true);
-        tab1.setName("tab1"); // NOI18N
-        tab1.setPreferredSize(new java.awt.Dimension(0, 0));
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -428,7 +418,6 @@ public class Color extends javax.swing.JFrame {
             }
         ));
         tab3.setFillsViewportHeight(true);
-        tab3.setPreferredSize(new java.awt.Dimension(0, 0));
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
@@ -464,7 +453,6 @@ public class Color extends javax.swing.JFrame {
         });
         tab4.setFillsViewportHeight(true);
         tab4.setName("tab4"); // NOI18N
-        tab4.setPreferredSize(new java.awt.Dimension(0, 0));
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
