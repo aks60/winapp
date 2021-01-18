@@ -170,7 +170,6 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
 
             } else if (selectedNode.com5t.type() == TypeElem.GLASS) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan24");
-
             }
         }
     }

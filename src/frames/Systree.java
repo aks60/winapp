@@ -56,6 +56,7 @@ import builder.script.Mediate;
 import enums.TypeElem;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.util.Enumeration;
@@ -492,6 +493,26 @@ public class Systree extends javax.swing.JFrame {
         }
     }
 
+    private void selectionTree2() {
+        DefMutableTreeNode node = (DefMutableTreeNode) tree2.getLastSelectedPathComponent();
+        if (node != null) {
+            if (node.com5t.type() == TypeElem.RECTANGL || node.com5t.type() == TypeElem.ARCH) {
+                ((CardLayout) pan7.getLayout()).show(pan7, "card12");
+
+            } else if (node.com5t.type() == TypeElem.FRAME_SIDE 
+                    || node.com5t.type() == TypeElem.STVORKA_SIDE) {
+                ((CardLayout) pan7.getLayout()).show(pan7, "card13");
+
+            } else if (node.com5t.type() == TypeElem.GLASS) {
+                ((CardLayout) pan7.getLayout()).show(pan7, "card15");
+
+            } else if (node.com5t.type() == TypeElem.STVORKA) {
+                ((CardLayout) pan7.getLayout()).show(pan7, "card16");
+
+            }
+        }
+    }
+
     private void selectionTab5() {
         int row = Util.getSelectedRec(tab5);
         if (row != -1) {
@@ -540,6 +561,7 @@ public class Systree extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -557,10 +579,55 @@ public class Systree extends javax.swing.JFrame {
         pan2 = new javax.swing.JPanel();
         panDesign = new javax.swing.JPanel();
         pan7 = new javax.swing.JPanel();
+        pan12 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        txtField9 = new javax.swing.JFormattedTextField();
+        txtField13 = new javax.swing.JFormattedTextField();
+        txtField14 = new javax.swing.JFormattedTextField();
+        btnField2 = new javax.swing.JButton();
+        btnField3 = new javax.swing.JButton();
+        btnField4 = new javax.swing.JButton();
         jLabel25 = new javax.swing.JLabel();
         txtField12 = new javax.swing.JFormattedTextField();
         jLabel26 = new javax.swing.JLabel();
         txtField6 = new javax.swing.JFormattedTextField();
+        pan13 = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        txtField15 = new javax.swing.JFormattedTextField();
+        btnField5 = new javax.swing.JButton();
+        jLabel34 = new javax.swing.JLabel();
+        txtField16 = new javax.swing.JFormattedTextField();
+        btnField6 = new javax.swing.JButton();
+        jLabel35 = new javax.swing.JLabel();
+        txtField17 = new javax.swing.JFormattedTextField();
+        btnField8 = new javax.swing.JButton();
+        pan15 = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        txtField18 = new javax.swing.JFormattedTextField();
+        btnField9 = new javax.swing.JButton();
+        txtField19 = new javax.swing.JFormattedTextField();
+        pan16 = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        txtField20 = new javax.swing.JFormattedTextField();
+        btnField10 = new javax.swing.JButton();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jPanel2 = new javax.swing.JPanel();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButton5 = new javax.swing.JRadioButton();
+        txtField21 = new javax.swing.JFormattedTextField();
+        btnField12 = new javax.swing.JButton();
+        txtField22 = new javax.swing.JFormattedTextField();
+        btnField13 = new javax.swing.JButton();
+        jLabel40 = new javax.swing.JLabel();
         pan8 = new javax.swing.JPanel();
         tabb1 = new javax.swing.JTabbedPane();
         pan10 = new javax.swing.JPanel();
@@ -758,7 +825,7 @@ public class Systree extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
-                        .addGap(0, 340, Short.MAX_VALUE)
+                        .addGap(0, 430, Short.MAX_VALUE)
                         .addComponent(pan9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -810,6 +877,74 @@ public class Systree extends javax.swing.JFrame {
         pan2.add(panDesign, java.awt.BorderLayout.CENTER);
 
         pan7.setPreferredSize(new java.awt.Dimension(300, 200));
+        pan7.setLayout(new java.awt.CardLayout());
+
+        pan12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Основные", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 0)));
+        pan12.setToolTipText("");
+        pan12.setPreferredSize(new java.awt.Dimension(300, 200));
+
+        jLabel27.setFont(frames.Util.getFont(0,0));
+        jLabel27.setText("Основная");
+        jLabel27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel27.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        jLabel31.setFont(frames.Util.getFont(0,0));
+        jLabel31.setText("Внутренняя");
+        jLabel31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel31.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        jLabel32.setFont(frames.Util.getFont(0,0));
+        jLabel32.setText("Внешняя");
+        jLabel32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel32.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        txtField9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField9.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField9.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        txtField13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField13.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField13.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        txtField14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField14.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField14.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        btnField2.setText("...");
+        btnField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField2.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField2.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField2.setName("btnField17"); // NOI18N
+        btnField2.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField2btnCurrenc(evt);
+            }
+        });
+
+        btnField3.setText("...");
+        btnField3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField3.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField3.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField3.setName("btnField17"); // NOI18N
+        btnField3.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField3btnCurrenc(evt);
+            }
+        });
+
+        btnField4.setText("...");
+        btnField4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField4.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField4.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField4.setName("btnField17"); // NOI18N
+        btnField4.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField4btnCurrenc(evt);
+            }
+        });
 
         jLabel25.setFont(frames.Util.getFont(0,0));
         jLabel25.setText("NUNI-PS4");
@@ -829,36 +964,467 @@ public class Systree extends javax.swing.JFrame {
         txtField6.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField6.setPreferredSize(new java.awt.Dimension(20, 18));
 
-        javax.swing.GroupLayout pan7Layout = new javax.swing.GroupLayout(pan7);
-        pan7.setLayout(pan7Layout);
-        pan7Layout.setHorizontalGroup(
-            pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan7Layout.createSequentialGroup()
+        javax.swing.GroupLayout pan12Layout = new javax.swing.GroupLayout(pan12);
+        pan12.setLayout(pan12Layout);
+        pan12Layout.setHorizontalGroup(
+            pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pan7Layout.createSequentialGroup()
-                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan12Layout.createSequentialGroup()
+                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pan7Layout.createSequentialGroup()
-                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(200, Short.MAX_VALUE))
+                        .addComponent(btnField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan12Layout.createSequentialGroup()
+                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan12Layout.createSequentialGroup()
+                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan12Layout.createSequentialGroup()
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan12Layout.createSequentialGroup()
+                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(52, 52, 52))
         );
-        pan7Layout.setVerticalGroup(
-            pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan7Layout.createSequentialGroup()
+        pan12Layout.setVerticalGroup(
+            pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        pan7.add(pan12, "card12");
+
+        pan13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Рама, импост..", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 0)));
+
+        jLabel33.setFont(frames.Util.getFont(0,0));
+        jLabel33.setText("Основная");
+        jLabel33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel33.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        txtField15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField15.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField15.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        btnField5.setText("...");
+        btnField5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField5.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField5.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField5.setName("btnField17"); // NOI18N
+        btnField5.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField5btnCurrenc(evt);
+            }
+        });
+
+        jLabel34.setFont(frames.Util.getFont(0,0));
+        jLabel34.setText("Внутренняя");
+        jLabel34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel34.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        txtField16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField16.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField16.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        btnField6.setText("...");
+        btnField6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField6.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField6.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField6.setName("btnField17"); // NOI18N
+        btnField6.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField6btnCurrenc(evt);
+            }
+        });
+
+        jLabel35.setFont(frames.Util.getFont(0,0));
+        jLabel35.setText("Внешняя");
+        jLabel35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel35.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        txtField17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField17.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField17.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        btnField8.setText("...");
+        btnField8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField8.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField8.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField8.setName("btnField17"); // NOI18N
+        btnField8.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField8btnCurrenc(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pan13Layout = new javax.swing.GroupLayout(pan13);
+        pan13.setLayout(pan13Layout);
+        pan13Layout.setHorizontalGroup(
+            pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan13Layout.createSequentialGroup()
+                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan13Layout.createSequentialGroup()
+                        .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan13Layout.createSequentialGroup()
+                        .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
+        pan13Layout.setVerticalGroup(
+            pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(260, Short.MAX_VALUE))
+        );
+
+        pan7.add(pan13, "card13");
+
+        pan15.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Стеклопакет", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 0)));
+
+        jLabel29.setFont(frames.Util.getFont(0,0));
+        jLabel29.setText("Артикул");
+        jLabel29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel29.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        jLabel36.setFont(frames.Util.getFont(0,0));
+        jLabel36.setText("Название");
+        jLabel36.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel36.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        txtField18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField18.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField18.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        btnField9.setText("...");
+        btnField9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField9.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField9.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField9.setName("btnField17"); // NOI18N
+        btnField9.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField9btnCurrenc(evt);
+            }
+        });
+
+        txtField19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField19.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField19.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        javax.swing.GroupLayout pan15Layout = new javax.swing.GroupLayout(pan15);
+        pan15.setLayout(pan15Layout);
+        pan15Layout.setHorizontalGroup(
+            pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan15Layout.createSequentialGroup()
+                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan15Layout.createSequentialGroup()
+                        .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
+        pan15Layout.setVerticalGroup(
+            pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(284, Short.MAX_VALUE))
+        );
+
+        pan7.add(pan15, "card15");
+
+        pan16.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Створка", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 0)));
+
+        jLabel30.setFont(frames.Util.getFont(0,0));
+        jLabel30.setText("Фурнитура");
+        jLabel30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel30.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        jLabel37.setFont(frames.Util.getFont(0,0));
+        jLabel37.setText("Ручка");
+        jLabel37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel37.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        txtField20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField20.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField20.setPreferredSize(new java.awt.Dimension(168, 18));
+
+        btnField10.setText("...");
+        btnField10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField10.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField10.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField10.setName("btnField17"); // NOI18N
+        btnField10.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField10btnCurrenc(evt);
+            }
+        });
+
+        jLabel38.setFont(frames.Util.getFont(0,0));
+        jLabel38.setText("Подвес");
+        jLabel38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel38.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        jLabel39.setFont(frames.Util.getFont(0,0));
+        jLabel39.setText("Текстура");
+        jLabel39.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel39.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Направление открывания"));
+        jPanel1.setPreferredSize(new java.awt.Dimension(276, 38));
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("левое");
+        jRadioButton1.setMinimumSize(new java.awt.Dimension(93, 18));
+        jRadioButton1.setPreferredSize(new java.awt.Dimension(60, 18));
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("правое");
+        jRadioButton2.setMinimumSize(new java.awt.Dimension(93, 18));
+        jRadioButton2.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Высота ручки"));
+        jPanel2.setPreferredSize(new java.awt.Dimension(276, 38));
+
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("по середине");
+        jRadioButton3.setMinimumSize(new java.awt.Dimension(93, 18));
+        jRadioButton3.setPreferredSize(new java.awt.Dimension(86, 18));
+
+        buttonGroup1.add(jRadioButton4);
+        jRadioButton4.setText("константная");
+        jRadioButton4.setMinimumSize(new java.awt.Dimension(93, 18));
+        jRadioButton4.setPreferredSize(new java.awt.Dimension(86, 18));
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton4ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton5);
+        jRadioButton5.setText("на высоте");
+        jRadioButton5.setMinimumSize(new java.awt.Dimension(93, 18));
+        jRadioButton5.setPreferredSize(new java.awt.Dimension(86, 18));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jRadioButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        txtField21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField21.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField21.setPreferredSize(new java.awt.Dimension(168, 18));
+
+        btnField12.setText("...");
+        btnField12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField12.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField12.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField12.setName("btnField17"); // NOI18N
+        btnField12.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField12btnCurrenc(evt);
+            }
+        });
+
+        txtField22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField22.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtField22.setPreferredSize(new java.awt.Dimension(168, 18));
+
+        btnField13.setText("...");
+        btnField13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField13.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField13.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField13.setName("btnField17"); // NOI18N
+        btnField13.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField13btnCurrenc(evt);
+            }
+        });
+
+        jLabel40.setFont(frames.Util.getFont(0,0));
+        jLabel40.setText("Замок");
+        jLabel40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel40.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        javax.swing.GroupLayout pan16Layout = new javax.swing.GroupLayout(pan16);
+        pan16.setLayout(pan16Layout);
+        pan16Layout.setHorizontalGroup(
+            pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan16Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan16Layout.createSequentialGroup()
+                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan16Layout.createSequentialGroup()
+                            .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan16Layout.createSequentialGroup()
+                            .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pan16Layout.setVerticalGroup(
+            pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan16Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        pan7.add(pan16, "card16");
 
         pan2.add(pan7, java.awt.BorderLayout.EAST);
 
@@ -872,7 +1438,7 @@ public class Systree extends javax.swing.JFrame {
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 293, Short.MAX_VALUE)
+            .addGap(0, 358, Short.MAX_VALUE)
         );
 
         pan2.add(pan8, java.awt.BorderLayout.WEST);
@@ -1145,10 +1711,10 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
-        tabb1.addTab("Основные", pan6);
+        tabb1.addTab("Основные параметры", pan6);
 
         pan3.setPreferredSize(new java.awt.Dimension(0, 0));
         pan3.setLayout(new java.awt.BorderLayout());
@@ -1195,7 +1761,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("Профили", pan3);
+        tabb1.addTab("Профили сист.", pan3);
 
         pan4.setPreferredSize(new java.awt.Dimension(0, 0));
         pan4.setLayout(new java.awt.BorderLayout());
@@ -1242,7 +1808,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan4.add(scr3, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("Фурнитура", pan4);
+        tabb1.addTab("Фурнитура сист.", pan4);
 
         pan5.setPreferredSize(new java.awt.Dimension(0, 0));
         pan5.setLayout(new java.awt.BorderLayout());
@@ -1286,7 +1852,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan5.add(scr4, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("Параметры", pan5);
+        tabb1.addTab("Параметры по умолчанию", pan5);
 
         pan1.add(tabb1);
 
@@ -1545,18 +2111,74 @@ public class Systree extends javax.swing.JFrame {
         loadingTree2();
     }//GEN-LAST:event_btnReport1
 
+    private void btnField2btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField2btnCurrenc
+//        JButton btn = (JButton) evt.getSource();
+//        DialogListener listener = (btn.getName().equals("btnField7")) ? listenerCurrenc1 : listenerCurrenc2;
+//        Currenc frame = new Currenc(this, listener);
+    }//GEN-LAST:event_btnField2btnCurrenc
+
+    private void btnField3btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField3btnCurrenc
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnField3btnCurrenc
+
+    private void btnField4btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField4btnCurrenc
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnField4btnCurrenc
+
+    private void btnField5btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField5btnCurrenc
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnField5btnCurrenc
+
+    private void btnField6btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField6btnCurrenc
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnField6btnCurrenc
+
+    private void btnField8btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField8btnCurrenc
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnField8btnCurrenc
+
+    private void btnField9btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField9btnCurrenc
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnField9btnCurrenc
+
+    private void btnField10btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField10btnCurrenc
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnField10btnCurrenc
+
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton4ActionPerformed
+
+    private void btnField12btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField12btnCurrenc
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnField12btnCurrenc
+
+    private void btnField13btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField13btnCurrenc
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnField13btnCurrenc
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnArtikl;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnField1;
+    private javax.swing.JButton btnField10;
     private javax.swing.JButton btnField11;
+    private javax.swing.JButton btnField12;
+    private javax.swing.JButton btnField13;
+    private javax.swing.JButton btnField2;
+    private javax.swing.JButton btnField3;
+    private javax.swing.JButton btnField4;
+    private javax.swing.JButton btnField5;
+    private javax.swing.JButton btnField6;
     private javax.swing.JButton btnField7;
+    private javax.swing.JButton btnField8;
+    private javax.swing.JButton btnField9;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JButton btnReport;
     private javax.swing.JButton btnReport1;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -1572,11 +2194,35 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan11;
+    private javax.swing.JPanel pan12;
+    private javax.swing.JPanel pan13;
+    private javax.swing.JPanel pan15;
+    private javax.swing.JPanel pan16;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
@@ -1604,13 +2250,24 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JTextField txtField10;
     private javax.swing.JTextField txtField11;
     private javax.swing.JFormattedTextField txtField12;
+    private javax.swing.JFormattedTextField txtField13;
+    private javax.swing.JFormattedTextField txtField14;
+    private javax.swing.JFormattedTextField txtField15;
+    private javax.swing.JFormattedTextField txtField16;
+    private javax.swing.JFormattedTextField txtField17;
+    private javax.swing.JFormattedTextField txtField18;
+    private javax.swing.JFormattedTextField txtField19;
     private javax.swing.JTextField txtField2;
+    private javax.swing.JFormattedTextField txtField20;
+    private javax.swing.JFormattedTextField txtField21;
+    private javax.swing.JFormattedTextField txtField22;
     private javax.swing.JTextField txtField3;
     private javax.swing.JTextField txtField4;
     private javax.swing.JTextField txtField5;
     private javax.swing.JFormattedTextField txtField6;
     private javax.swing.JFormattedTextField txtField7;
     private javax.swing.JTextField txtField8;
+    private javax.swing.JFormattedTextField txtField9;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
@@ -1625,6 +2282,7 @@ public class Systree extends javax.swing.JFrame {
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
         tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
+        tree2.getSelectionModel().addTreeSelectionListener(tse -> selectionTree2());
         tab5.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
@@ -1632,5 +2290,13 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         });
+//        pan12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+//                "Основные", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
+//        pan13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+//                "Рама, импост...", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
+//        pan15.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+//                "Стеклопакет", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
+//        pan16.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+//                "Створка", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
     }
 }

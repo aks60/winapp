@@ -198,10 +198,10 @@ public class Color extends javax.swing.JFrame {
         centr = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
-        scr1 = new javax.swing.JScrollPane();
-        tab1 = new javax.swing.JTable();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        scr1 = new javax.swing.JScrollPane();
+        tab1 = new javax.swing.JTable();
         pan2 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
@@ -326,43 +326,8 @@ public class Color extends javax.swing.JFrame {
         pan1.setPreferredSize(new java.awt.Dimension(800, 500));
         pan1.setLayout(new java.awt.BorderLayout());
 
-        scr1.setBorder(null);
-        scr1.setPreferredSize(new java.awt.Dimension(200, 600));
-
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"xxxxxx", null},
-                {"zzzzzzz", null}
-            },
-            new String [] {
-                "Название группы", "ID"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tab1.setFillsViewportHeight(true);
-        tab1.setName("tab1"); // NOI18N
-        tab1.setPreferredSize(new java.awt.Dimension(0, 0));
-        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
-            }
-        });
-        scr1.setViewportView(tab1);
-        if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(1).setMaxWidth(40);
-        }
-
-        pan1.add(scr1, java.awt.BorderLayout.WEST);
-
         scr2.setBorder(null);
+        scr2.setAutoscrolls(true);
         scr2.setPreferredSize(new java.awt.Dimension(600, 400));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
@@ -406,12 +371,49 @@ public class Color extends javax.swing.JFrame {
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
 
+        scr1.setBorder(null);
+        scr1.setPreferredSize(new java.awt.Dimension(200, 600));
+
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"xxxxxx", null},
+                {"zzzzzzz", null}
+            },
+            new String [] {
+                "Название группы", "ID"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
+        tab1.setPreferredSize(new java.awt.Dimension(0, 0));
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
+        scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(1).setMaxWidth(40);
+        }
+
+        pan1.add(scr1, java.awt.BorderLayout.WEST);
+
         jTabbedPane1.addTab("      Справочник цветов      ", pan1);
 
         pan2.setPreferredSize(new java.awt.Dimension(800, 500));
         pan2.setLayout(new java.awt.BorderLayout());
 
         scr3.setBorder(null);
+        scr3.setAutoscrolls(true);
         scr3.setPreferredSize(new java.awt.Dimension(200, 600));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
@@ -440,6 +442,7 @@ public class Color extends javax.swing.JFrame {
         pan2.add(scr3, java.awt.BorderLayout.WEST);
 
         scr4.setBorder(null);
+        scr4.setAutoscrolls(true);
         scr4.setPreferredSize(new java.awt.Dimension(600, 400));
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
