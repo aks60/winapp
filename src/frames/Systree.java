@@ -628,7 +628,6 @@ public class Systree extends javax.swing.JFrame {
         txtField22 = new javax.swing.JFormattedTextField();
         btnField13 = new javax.swing.JButton();
         jLabel40 = new javax.swing.JLabel();
-        pan8 = new javax.swing.JPanel();
         tabb1 = new javax.swing.JTabbedPane();
         pan10 = new javax.swing.JPanel();
         scr5 = new javax.swing.JScrollPane();
@@ -1031,6 +1030,7 @@ public class Systree extends javax.swing.JFrame {
         pan7.add(pan12, "card12");
 
         pan13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Рама, импост..", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 0)));
+        pan13.setPreferredSize(new java.awt.Dimension(300, 200));
 
         jLabel33.setFont(frames.Util.getFont(0,0));
         jLabel33.setText("Основная");
@@ -1146,6 +1146,7 @@ public class Systree extends javax.swing.JFrame {
         pan7.add(pan13, "card13");
 
         pan15.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Стеклопакет", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 0)));
+        pan15.setPreferredSize(new java.awt.Dimension(300, 200));
 
         jLabel29.setFont(frames.Util.getFont(0,0));
         jLabel29.setText("Артикул");
@@ -1204,17 +1205,18 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(284, Short.MAX_VALUE))
         );
 
         pan7.add(pan15, "card15");
 
         pan16.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Створка", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 0)));
+        pan16.setPreferredSize(new java.awt.Dimension(300, 200));
 
         jLabel30.setFont(frames.Util.getFont(0,0));
         jLabel30.setText("Фурнитура");
@@ -1427,21 +1429,6 @@ public class Systree extends javax.swing.JFrame {
         pan7.add(pan16, "card16");
 
         pan2.add(pan7, java.awt.BorderLayout.EAST);
-
-        pan8.setPreferredSize(new java.awt.Dimension(8, 208));
-
-        javax.swing.GroupLayout pan8Layout = new javax.swing.GroupLayout(pan8);
-        pan8.setLayout(pan8Layout);
-        pan8Layout.setHorizontalGroup(
-            pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 8, Short.MAX_VALUE)
-        );
-        pan8Layout.setVerticalGroup(
-            pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 358, Short.MAX_VALUE)
-        );
-
-        pan2.add(pan8, java.awt.BorderLayout.WEST);
 
         pan1.add(pan2);
 
@@ -2229,7 +2216,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
-    private javax.swing.JPanel pan8;
     private javax.swing.JPanel pan9;
     private javax.swing.JPanel panDesign;
     private javax.swing.JScrollPane scr1;
