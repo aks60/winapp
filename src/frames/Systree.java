@@ -573,16 +573,6 @@ public class Systree extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        north = new javax.swing.JPanel();
-        btnClose = new javax.swing.JButton();
-        btnRef = new javax.swing.JButton();
-        btnDel = new javax.swing.JButton();
-        btnIns = new javax.swing.JButton();
-        pan9 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel22 = new javax.swing.JLabel();
-        btnArtikl = new javax.swing.JToggleButton();
-        btnReport1 = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         treeSys = new javax.swing.JTree();
@@ -694,6 +684,13 @@ public class Systree extends javax.swing.JFrame {
             public JTable table = null;
         };
         checkFilter = new javax.swing.JCheckBox();
+        jPanel1 = new javax.swing.JPanel();
+        btnIns = new javax.swing.JButton();
+        btnDel = new javax.swing.JButton();
+        btnRef = new javax.swing.JButton();
+        btnArtikl = new javax.swing.JToggleButton();
+        btnReport1 = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Системы профилей");
@@ -704,173 +701,6 @@ public class Systree extends javax.swing.JFrame {
                 Systree.this.windowClosed(evt);
             }
         });
-
-        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(800, 29));
-
-        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
-        btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
-        btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnClose.setFocusable(false);
-        btnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnClose.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnClose.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnClose.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClose(evt);
-            }
-        });
-
-        btnRef.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c038.gif"))); // NOI18N
-        btnRef.setToolTipText(bundle.getString("Обновить")); // NOI18N
-        btnRef.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnRef.setFocusable(false);
-        btnRef.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnRef.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnRef.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnRef.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnRef.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnRef.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefresh(evt);
-            }
-        });
-
-        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
-        btnDel.setToolTipText(bundle.getString("Удалить")); // NOI18N
-        btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnDel.setFocusable(false);
-        btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnDel.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnDel.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnDel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelete(evt);
-            }
-        });
-
-        btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
-        btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
-        btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnIns.setFocusable(false);
-        btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnIns.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInsert(evt);
-            }
-        });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-
-        jLabel22.setFont(frames.Util.getFont(0,0));
-        jLabel22.setText("Артикул профиля");
-        jLabel22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel22.setPreferredSize(new java.awt.Dimension(160, 18));
-
-        javax.swing.GroupLayout pan9Layout = new javax.swing.GroupLayout(pan9);
-        pan9.setLayout(pan9Layout);
-        pan9Layout.setHorizontalGroup(
-            pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, 0, 376, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pan9Layout.setVerticalGroup(
-            pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(167, Short.MAX_VALUE))
-        );
-
-        btnArtikl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
-        btnArtikl.setToolTipText("Артикулы в системе...");
-        btnArtikl.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnArtikl.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnArtikl.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnArtikl.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnArtikl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArtikl(evt);
-            }
-        });
-
-        btnReport1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
-        btnReport1.setToolTipText(bundle.getString("Печать")); // NOI18N
-        btnReport1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnReport1.setFocusable(false);
-        btnReport1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnReport1.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnReport1.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnReport1.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnReport1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnReport1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReport1(evt);
-            }
-        });
-
-        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
-        north.setLayout(northLayout);
-        northLayout.setHorizontalGroup(
-            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(northLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(northLayout.createSequentialGroup()
-                        .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnArtikl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)
-                        .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
-                        .addGap(0, 256, Short.MAX_VALUE)
-                        .addComponent(pan9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        northLayout.setVerticalGroup(
-            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(northLayout.createSequentialGroup()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnArtikl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnReport1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pan9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
         centr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         centr.setPreferredSize(new java.awt.Dimension(800, 450));
@@ -1011,15 +841,15 @@ public class Systree extends javax.swing.JFrame {
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField14, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                        .addComponent(txtField14, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField9, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                        .addComponent(txtField9, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField13, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))
+                        .addComponent(txtField13, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1052,7 +882,7 @@ public class Systree extends javax.swing.JFrame {
         pan12.setLayout(pan12Layout);
         pan12Layout.setHorizontalGroup(
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+            .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
             .addGroup(pan12Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1076,7 +906,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pan7.add(pan12, "card12");
@@ -1166,15 +996,15 @@ public class Systree extends javax.swing.JFrame {
                     .addGroup(pan20Layout.createSequentialGroup()
                         .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField29, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                        .addComponent(txtField29, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                     .addGroup(pan20Layout.createSequentialGroup()
                         .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField27, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                        .addComponent(txtField27, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                     .addGroup(pan20Layout.createSequentialGroup()
                         .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField28, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))
+                        .addComponent(txtField28, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1209,7 +1039,7 @@ public class Systree extends javax.swing.JFrame {
             pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan13Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         pan13Layout.setVerticalGroup(
@@ -1217,7 +1047,7 @@ public class Systree extends javax.swing.JFrame {
             .addGroup(pan13Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(pan20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
         pan7.add(pan13, "card13");
@@ -1274,12 +1104,12 @@ public class Systree extends javax.swing.JFrame {
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField19, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                        .addComponent(txtField19, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                         .addGap(24, 24, 24))
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField18, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                        .addComponent(txtField18, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -1297,7 +1127,7 @@ public class Systree extends javax.swing.JFrame {
                     .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(285, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         pan7.add(pan15, "card15");
@@ -1526,7 +1356,7 @@ public class Systree extends javax.swing.JFrame {
                             .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtField21, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                            .addComponent(txtField21, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                             .addComponent(txtField25, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                             .addComponent(txtField22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1891,7 +1721,7 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         tabb1.addTab("Основные параметры", pan6);
@@ -2066,122 +1896,134 @@ public class Systree extends javax.swing.JFrame {
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jPanel1.setPreferredSize(new java.awt.Dimension(916, 29));
 
-    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
-        this.dispose();
-    }//GEN-LAST:event_btnClose
-
-    private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Wincalc iwin = new Wincalc();
-        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        Record record = eSystree.find(nuni);
-        int models_id = record.getInt(eSystree.models_id);
-        Record record2 = eModels.find(models_id);
-        String script = record2.getStr(eModels.script);
-        JsonElement je = new Gson().fromJson(script, JsonElement.class);
-        //je.getAsJsonObject().addProperty("nuni", nuni);
-        iwin.build(je.toString());
-    }//GEN-LAST:event_btnRefresh
-
-    private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (treeSys.getBorder() != null) {
-            if (treeSys.isSelectionEmpty() == false) {
-                DefMutableTreeNode removeNode = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
-                if (removeNode.getChildCount() != 0) {
-                    JOptionPane.showMessageDialog(this, "Нельзя удалить текущий узел т. к. у него есть подчинённые записи", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                }
-                DefMutableTreeNode parentNode = (DefMutableTreeNode) removeNode.getParent();
-                if (JOptionPane.showConfirmDialog(this, "Хотите удалить " + removeNode + "?", "Подтвердите удаление",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null) == 0) {
-                    removeNode.systreeRec.set(eSystree.up, Query.DEL);
-                    qSystree.delete(removeNode.systreeRec);
-                    qSystree.remove(removeNode.systreeRec);
-                    ((DefaultTreeModel) treeSys.getModel()).removeNodeFromParent(removeNode);
-                    if (parentNode != null) {
-                        TreeNode[] nodes = ((DefaultTreeModel) treeSys.getModel()).getPathToRoot(parentNode);
-                        treeSys.scrollPathToVisible(new TreePath(nodes));
-                        treeSys.setSelectionPath(new TreePath(nodes));
-                    }
-                }
-            }
-        }
-    }//GEN-LAST:event_btnDelete
-
-    private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
-        if (node != null) {
-            if (treeSys.getBorder() != null) {
-                Record record = eSystree.up.newRecord(Query.INS);
-                record.setNo(eSystree.id, ConnApp.instanc().genId(eSystree.id));
-                int parent_id = (node.systreeRec.getInt(eSystree.id) == node.systreeRec.getInt(eSystree.parent_id)) ? record.getInt(eSystree.id) : node.systreeRec.getInt(eSystree.id);
-                record.setNo(eSystree.parent_id, parent_id);
-                record.setNo(eSystree.name, "P" + record.getStr(eSystree.id));
-                qSystree.insert(record); //record сохраним в базе
-                record.set(eSystree.up, Query.SEL);
-                qSystree.add(record); //добавим record в список
-                DefMutableTreeNode newNode = new DefMutableTreeNode(record);
-                ((DefaultTreeModel) treeSys.getModel()).insertNodeInto(newNode, node, node.getChildCount()); //добавим node в tree
-                TreeNode[] nodes = ((DefaultTreeModel) treeSys.getModel()).getPathToRoot(newNode);
-                treeSys.scrollPathToVisible(new TreePath(nodes));
-                treeSys.setSelectionPath(new TreePath(nodes));
-
-            } else if (tab2.getBorder() != null) {
-                Record record1 = eSysprof.up.newRecord(Query.INS);
-                Record record2 = eArtikl.up.newRecord();
-                record1.setNo(eSysprof.id, ConnApp.instanc().genId(eSysprof.id));
-                record1.setNo(eSysprof.systree_id, nuni);
-                qSysprof.add(record1);
-                qSysprof.table(eArtikl.up).add(record2);
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.scrollRectToVisible(qSysprof, tab2);
-
-            } else if (tab3.getBorder() != null) {
-                Record record1 = eSysfurn.up.newRecord(Query.INS);
-                Record record2 = eFurniture.up.newRecord();
-                record1.setNo(eSysfurn.id, ConnApp.instanc().genId(eSysfurn.id));
-                record1.setNo(eSysfurn.systree_id, nuni);
-                record1.setNo(eSysfurn.npp, 0);
-                record1.setNo(eSysfurn.replac, 0);
-                qSysfurn.add(record1);
-                qSysfurn.table(eFurniture.up).add(record2);
-                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Util.scrollRectToVisible(qSysfurn, tab3);
-
-            } else if (tab4.getBorder() != null) {
-                Record record1 = eSyspar1.up.newRecord(Query.INS);
-                record1.setNo(eSyspar1.id, ConnApp.instanc().genId(eSyspar1.id));
-                record1.setNo(eSyspar1.systree_id, nuni);
-                qSyspar1.add(record1);
-                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                Util.scrollRectToVisible(qSyspar1, tab4);
-
-            } else if (tab5.getBorder() != null) {
-                DefMutableTreeNode selectedNode = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
-                if (selectedNode != null && selectedNode.isLeaf()) {
-                    FrameProgress.create(Systree.this, new FrameListener() {
-                        public void actionRequest(Object obj) {
-                            frame = new Models(Systree.this, listenerProd);
-                            FrameToFile.setFrameSize(frame);
-                            frame.setVisible(true);
-                        }
-                    });
-                }
-            }
-        }
-    }//GEN-LAST:event_btnInsert
-
-    private void btnArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikl
-        Record record = qSysprof.get(Util.getSelectedRec(tab2));
-        Record record2 = eArtikl.find(record.getInt(eSysprof.artikl_id), false);
-        FrameProgress.create(this, new FrameListener() {
-            public void actionRequest(Object obj) {
-                App1.eApp1.Artikles.createFrame(Systree.this, record2);
+        btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
+        btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
+        btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnIns.setFocusable(false);
+        btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnIns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsert(evt);
             }
         });
-    }//GEN-LAST:event_btnArtikl
+
+        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
+        btnDel.setToolTipText(bundle.getString("Удалить")); // NOI18N
+        btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnDel.setFocusable(false);
+        btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnDel.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnDel.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelete(evt);
+            }
+        });
+
+        btnRef.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c038.gif"))); // NOI18N
+        btnRef.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnRef.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnRef.setFocusable(false);
+        btnRef.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRef.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnRef.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnRef.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnRef.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRef.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefresh(evt);
+            }
+        });
+
+        btnArtikl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnArtikl.setToolTipText("Артикулы в системе...");
+        btnArtikl.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnArtikl.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnArtikl.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnArtikl.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnArtikl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArtikl(evt);
+            }
+        });
+
+        btnReport1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
+        btnReport1.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnReport1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnReport1.setFocusable(false);
+        btnReport1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnReport1.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnReport1.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnReport1.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnReport1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnReport1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReport1(evt);
+            }
+        });
+
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
+        btnClose.setToolTipText(bundle.getString("Закрыть")); // NOI18N
+        btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnClose.setFocusable(false);
+        btnClose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClose.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnClose.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnClose.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClose(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnArtikl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
+                .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 561, Short.MAX_VALUE)
+                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnIns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnArtikl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
@@ -2284,11 +2126,6 @@ public class Systree extends javax.swing.JFrame {
         new DicEnums(this, listenerBtn7, TypeUse.values());
     }//GEN-LAST:event_btnField7
 
-    private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
-        String txt = "1111111222222233333344444455555556666666777777888";
-        txtField20.setText(txt);
-    }//GEN-LAST:event_btnReport1
-
     private void btnField2btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField2btnCurrenc
 //        JButton btn = (JButton) evt.getSource();
 //        DialogListener listener = (btn.getName().equals("btnField7")) ? listenerCurrenc1 : listenerCurrenc2;
@@ -2363,6 +2200,125 @@ public class Systree extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnField22btnCurrenc
 
+    private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
+        DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+        if (node != null) {
+            if (treeSys.getBorder() != null) {
+                Record record = eSystree.up.newRecord(Query.INS);
+                record.setNo(eSystree.id, ConnApp.instanc().genId(eSystree.id));
+                int parent_id = (node.systreeRec.getInt(eSystree.id) == node.systreeRec.getInt(eSystree.parent_id)) ? record.getInt(eSystree.id) : node.systreeRec.getInt(eSystree.id);
+                record.setNo(eSystree.parent_id, parent_id);
+                record.setNo(eSystree.name, "P" + record.getStr(eSystree.id));
+                qSystree.insert(record); //record сохраним в базе
+                record.set(eSystree.up, Query.SEL);
+                qSystree.add(record); //добавим record в список
+                DefMutableTreeNode newNode = new DefMutableTreeNode(record);
+                ((DefaultTreeModel) treeSys.getModel()).insertNodeInto(newNode, node, node.getChildCount()); //добавим node в tree
+                TreeNode[] nodes = ((DefaultTreeModel) treeSys.getModel()).getPathToRoot(newNode);
+                treeSys.scrollPathToVisible(new TreePath(nodes));
+                treeSys.setSelectionPath(new TreePath(nodes));
+
+            } else if (tab2.getBorder() != null) {
+                Record record1 = eSysprof.up.newRecord(Query.INS);
+                Record record2 = eArtikl.up.newRecord();
+                record1.setNo(eSysprof.id, ConnApp.instanc().genId(eSysprof.id));
+                record1.setNo(eSysprof.systree_id, nuni);
+                qSysprof.add(record1);
+                qSysprof.table(eArtikl.up).add(record2);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.scrollRectToVisible(qSysprof, tab2);
+
+            } else if (tab3.getBorder() != null) {
+                Record record1 = eSysfurn.up.newRecord(Query.INS);
+                Record record2 = eFurniture.up.newRecord();
+                record1.setNo(eSysfurn.id, ConnApp.instanc().genId(eSysfurn.id));
+                record1.setNo(eSysfurn.systree_id, nuni);
+                record1.setNo(eSysfurn.npp, 0);
+                record1.setNo(eSysfurn.replac, 0);
+                qSysfurn.add(record1);
+                qSysfurn.table(eFurniture.up).add(record2);
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                Util.scrollRectToVisible(qSysfurn, tab3);
+
+            } else if (tab4.getBorder() != null) {
+                Record record1 = eSyspar1.up.newRecord(Query.INS);
+                record1.setNo(eSyspar1.id, ConnApp.instanc().genId(eSyspar1.id));
+                record1.setNo(eSyspar1.systree_id, nuni);
+                qSyspar1.add(record1);
+                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                Util.scrollRectToVisible(qSyspar1, tab4);
+
+            } else if (tab5.getBorder() != null) {
+                DefMutableTreeNode selectedNode = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+                if (selectedNode != null && selectedNode.isLeaf()) {
+                    FrameProgress.create(Systree.this, new FrameListener() {
+                        public void actionRequest(Object obj) {
+                            frame = new Models(Systree.this, listenerProd);
+                            FrameToFile.setFrameSize(frame);
+                            frame.setVisible(true);
+                        }
+                    });
+                }
+            }
+        }
+    }//GEN-LAST:event_btnInsert
+
+    private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
+        if (treeSys.getBorder() != null) {
+            if (treeSys.isSelectionEmpty() == false) {
+                DefMutableTreeNode removeNode = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+                if (removeNode.getChildCount() != 0) {
+                    JOptionPane.showMessageDialog(this, "Нельзя удалить текущий узел т. к. у него есть подчинённые записи", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                DefMutableTreeNode parentNode = (DefMutableTreeNode) removeNode.getParent();
+                if (JOptionPane.showConfirmDialog(this, "Хотите удалить " + removeNode + "?", "Подтвердите удаление",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null) == 0) {
+                removeNode.systreeRec.set(eSystree.up, Query.DEL);
+                qSystree.delete(removeNode.systreeRec);
+                qSystree.remove(removeNode.systreeRec);
+                ((DefaultTreeModel) treeSys.getModel()).removeNodeFromParent(removeNode);
+                if (parentNode != null) {
+                    TreeNode[] nodes = ((DefaultTreeModel) treeSys.getModel()).getPathToRoot(parentNode);
+                    treeSys.scrollPathToVisible(new TreePath(nodes));
+                    treeSys.setSelectionPath(new TreePath(nodes));
+                }
+            }
+        }
+        }
+    }//GEN-LAST:event_btnDelete
+
+    private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
+        Wincalc iwin = new Wincalc();
+        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
+        Record record = eSystree.find(nuni);
+        int models_id = record.getInt(eSystree.models_id);
+        Record record2 = eModels.find(models_id);
+        String script = record2.getStr(eModels.script);
+        JsonElement je = new Gson().fromJson(script, JsonElement.class);
+        //je.getAsJsonObject().addProperty("nuni", nuni);
+        iwin.build(je.toString());
+    }//GEN-LAST:event_btnRefresh
+
+    private void btnArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikl
+        Record record = qSysprof.get(Util.getSelectedRec(tab2));
+        Record record2 = eArtikl.find(record.getInt(eSysprof.artikl_id), false);
+        FrameProgress.create(this, new FrameListener() {
+            public void actionRequest(Object obj) {
+                App1.eApp1.Artikles.createFrame(Systree.this, record2);
+            }
+        });
+    }//GEN-LAST:event_btnArtikl
+
+    private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
+        String txt = "1111111222222233333344444455555556666666777777888";
+        txtField20.setText(txt);
+    }//GEN-LAST:event_btnReport1
+
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
+        this.dispose();
+    }//GEN-LAST:event_btnClose
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnArtikl;
@@ -2392,7 +2348,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JButton btnReport1;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -2400,7 +2355,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -2422,8 +2376,8 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labFilter;
-    private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan11;
@@ -2439,7 +2393,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
-    private javax.swing.JPanel pan9;
     private javax.swing.JPanel panDesign;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
