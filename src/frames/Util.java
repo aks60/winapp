@@ -161,6 +161,11 @@ public class Util {
         }
     }    
     
+    public static void setText(JTextField comp, String txt) {
+        comp.setText(txt);
+        comp.setCaretPosition(0);
+    }
+    
     public static String consoleColor(Object clr) {
 
         if (clr == java.awt.Color.RED) {
