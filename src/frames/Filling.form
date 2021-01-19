@@ -440,8 +440,8 @@
             <Container class="javax.swing.JPanel" name="pan4">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="&#x421;&#x43f;&#x435;&#x446;&#x438;&#x444;&#x438;&#x43a;&#x430;&#x446;&#x438;&#x44f;">
-                    <Property name="tabTitle" type="java.lang.String" value="&#x421;&#x43f;&#x435;&#x446;&#x438;&#x444;&#x438;&#x43a;&#x430;&#x446;&#x438;&#x44f;"/>
+                  <JTabbedPaneConstraints tabName="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f;">
+                    <Property name="tabTitle" type="java.lang.String" value="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f;"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>

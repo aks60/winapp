@@ -700,7 +700,7 @@ public class Filling extends javax.swing.JFrame {
 
         pan4.add(scr4, java.awt.BorderLayout.EAST);
 
-        tabb1.addTab("Спецификация", pan4);
+        tabb1.addTab("Детализация", pan4);
 
         pan3.setPreferredSize(new java.awt.Dimension(454, 304));
         pan3.setLayout(new java.awt.BorderLayout());
