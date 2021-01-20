@@ -64,6 +64,7 @@ public class Main {
     }
     
     public static final void runRussifier() {
+        //UIManager.put("ComboBox.selectionBackground", java.awt.Color.yellow);
         UIManager.put("AbstractButton.clickText", "клик");
         UIManager.put("AbstractDocument.additionText", "добавление");
         UIManager.put("AbstractDocument.deletionText", "удаление");
