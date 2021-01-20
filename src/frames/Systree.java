@@ -84,13 +84,14 @@ public class Systree extends javax.swing.JFrame {
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Wincalc iwin = new Wincalc();
     private JTable tab1 = new JTable();
-    private DialogListener listenerArtikl, listenerUsetyp, listenerProd, listenerModify, listenerTree,
+    private DialogListener listenerArtikl, listenerUsetyp, listenerModel, listenerModify, listenerTree,
             listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2,
             listenerBtn1, listenerBtn7, listenerBtn11, listenerArt211, listenerArt212;
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
     private java.awt.Frame frame = null;
-    private int nuni = -1;
+    private int systreeID = -1;
+    private int sysprodID = -1;
     private TreeNode[] nuniNode = null;
     private Canvas paintPanel = new Canvas(iwin) {
 
@@ -129,6 +130,8 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void loadingData() {
+        systreeID = Integer.valueOf(eProperty.systreeID.read());
+        sysprodID = Integer.valueOf(eProperty.sysprodID.read()); 
         qParams.select(eParams.up, "where", eParams.id, "< 0").table(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
 
@@ -204,7 +207,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void loadingTab5() {
 
-        qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", nuni);
+        qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
         DefaultTableModel dtm5 = (DefaultTableModel) tab5.getModel();
         dtm5.getDataVector().removeAllElements();
         int length = 68;
@@ -225,7 +228,7 @@ public class Systree extends javax.swing.JFrame {
                 dtm5.addRow(arrayRec);
 
             } catch (Exception e) {
-                System.out.println("Ошибка " + e);
+                System.err.println("Ошибка " + e);
             }
         }
     }
@@ -397,12 +400,11 @@ public class Systree extends javax.swing.JFrame {
             Util.setSelectedRow(tab2, row);
         };
 
-        listenerProd = (record) -> {
+        listenerModel = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int models_id = record.getInt(0);
             Record record2 = eSysprod.up.newRecord(Query.INS);
             record2.setNo(eSysprod.id, ConnApp.instanc().genId(eSysprod.id));
-            record2.setNo(eSysprod.systree_id, nuni);
+            record2.setNo(eSysprod.systree_id, systreeID);
             record2.setNo(eSysprod.name, record.get(1));
             record2.setNo(eSysprod.script, record.get(2));
             qSysprod.table(eSysprod.up).insert(record2);
@@ -465,10 +467,12 @@ public class Systree extends javax.swing.JFrame {
     private void selectionTreeSys() {
         DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
         if (node != null) {
-            nuni = node.systreeRec.getInt(eSystree.id);
-            eProperty.systree_nuni.write(String.valueOf(nuni));
+            
+            systreeID = node.systreeRec.getInt(eSystree.id);
+            eProperty.systreeID.write(String.valueOf(systreeID)); 
+            
             for (int i = 0; i < qSystree.size(); i++) {
-                if (nuni == qSystree.get(i).getInt(eSystree.id)) {
+                if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
                     rsvSystree.load(i);
                 }
             }
@@ -488,7 +492,19 @@ public class Systree extends javax.swing.JFrame {
             Util.setSelectedRow(tab2);
             Util.setSelectedRow(tab3);
             Util.setSelectedRow(tab4);
-            Util.setSelectedRow(tab5);
+
+            int index = -1;
+            for(int row = 0; row < qSysprod.size(); ++row) {
+              if(qSysprod.get(row).getInt(eSysprod.id) == sysprodID) {
+                  index = row;
+              }
+            }
+            if(index != -1) {
+               Util.setSelectedRow(tab5, index); 
+            } else {
+               Util.setSelectedRow(tab5); 
+            }
+            
         } else {
             //createWincalc(-1); //рисуем виртуалку
         }
@@ -534,12 +550,15 @@ public class Systree extends javax.swing.JFrame {
     private void selectionTab5() {
         int row = Util.getSelectedRec(tab5);
         if (row != -1) {
-            Record record = qSysprod.table(eSysprod.up).get(row);
+            Record record = qSysprod.table(eSysprod.up).get(row);            
             String script = record.getStr(eSysprod.script);
+            
+            eProperty.sysprodID.write(record.getStr(eSysprod.id));
+            
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
                 JsonElement script2 = new Gson().fromJson(script, JsonElement.class);
-                script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
+                script2.getAsJsonObject().addProperty("nuni", systreeID); //запишем nuni в script
                 iwin.build(script2.toString()); //калькуляция изделия
                 paintPanel.repaint(true);
                 loadingTreeWin();
@@ -562,7 +581,7 @@ public class Systree extends javax.swing.JFrame {
                     DefMutableTreeNode node2 = new DefMutableTreeNode(record2);
                     node.add(node2);
                     nodeList2.add(node2);
-                    if (record2.getInt(eSystree.id) == nuni) {
+                    if (record2.getInt(eSystree.id) == systreeID) {
                         nuniNode = node2.getPath(); //запомним path для nuni
                     }
                 }
@@ -780,11 +799,6 @@ public class Systree extends javax.swing.JFrame {
         btnField3.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField3.setName("btnField17"); // NOI18N
         btnField3.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField3btnCurrenc(evt);
-            }
-        });
 
         btnField4.setText("...");
         btnField4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -792,11 +806,6 @@ public class Systree extends javax.swing.JFrame {
         btnField4.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField4.setName("btnField17"); // NOI18N
         btnField4.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField4btnCurrenc(evt);
-            }
-        });
 
         btnField2.setText("...");
         btnField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -804,11 +813,6 @@ public class Systree extends javax.swing.JFrame {
         btnField2.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField2.setName("btnField17"); // NOI18N
         btnField2.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField2btnCurrenc(evt);
-            }
-        });
 
         txtField9.setEditable(false);
         txtField9.setBackground(new java.awt.Color(255, 255, 255));
@@ -824,11 +828,6 @@ public class Systree extends javax.swing.JFrame {
         txtField14.setBackground(new java.awt.Color(255, 255, 255));
         txtField14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField14.setPreferredSize(new java.awt.Dimension(180, 18));
-        txtField14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtField14ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pan21Layout = new javax.swing.GroupLayout(pan21);
         pan21.setLayout(pan21Layout);
@@ -937,11 +936,6 @@ public class Systree extends javax.swing.JFrame {
         btnField18.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField18.setName("btnField17"); // NOI18N
         btnField18.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField18btnCurrenc(evt);
-            }
-        });
 
         btnField19.setText("...");
         btnField19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -949,11 +943,6 @@ public class Systree extends javax.swing.JFrame {
         btnField19.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField19.setName("btnField17"); // NOI18N
         btnField19.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField19btnCurrenc(evt);
-            }
-        });
 
         btnField20.setText("...");
         btnField20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -961,11 +950,6 @@ public class Systree extends javax.swing.JFrame {
         btnField20.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField20.setName("btnField17"); // NOI18N
         btnField20.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField20.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField20btnCurrenc(evt);
-            }
-        });
 
         txtField27.setEditable(false);
         txtField27.setBackground(new java.awt.Color(255, 255, 255));
@@ -1067,21 +1051,11 @@ public class Systree extends javax.swing.JFrame {
         btnField9.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField9.setName("btnField17"); // NOI18N
         btnField9.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField9btnCurrenc(evt);
-            }
-        });
 
         txtField19.setEditable(false);
         txtField19.setBackground(new java.awt.Color(255, 255, 255));
         txtField19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField19.setPreferredSize(new java.awt.Dimension(180, 18));
-        txtField19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtField19ActionPerformed(evt);
-            }
-        });
 
         txtField18.setEditable(false);
         txtField18.setBackground(new java.awt.Color(255, 255, 255));
@@ -1145,11 +1119,6 @@ public class Systree extends javax.swing.JFrame {
         btnField10.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField10.setName("btnField17"); // NOI18N
         btnField10.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField10btnCurrenc(evt);
-            }
-        });
 
         jLabel38.setFont(frames.Util.getFont(0,0));
         jLabel38.setText("Подвес");
@@ -1167,11 +1136,6 @@ public class Systree extends javax.swing.JFrame {
         btnField12.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField12.setName("btnField17"); // NOI18N
         btnField12.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField12btnCurrenc(evt);
-            }
-        });
 
         btnField13.setText("...");
         btnField13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1179,11 +1143,6 @@ public class Systree extends javax.swing.JFrame {
         btnField13.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField13.setName("btnField17"); // NOI18N
         btnField13.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField13btnCurrenc(evt);
-            }
-        });
 
         jLabel40.setFont(frames.Util.getFont(0,0));
         jLabel40.setText("Замок");
@@ -1206,11 +1165,6 @@ public class Systree extends javax.swing.JFrame {
         btnField14.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField14.setName("btnField17"); // NOI18N
         btnField14.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField14btnCurrenc(evt);
-            }
-        });
 
         btnField15.setText("...");
         btnField15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1218,11 +1172,6 @@ public class Systree extends javax.swing.JFrame {
         btnField15.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField15.setName("btnField17"); // NOI18N
         btnField15.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField15btnCurrenc(evt);
-            }
-        });
 
         btnField16.setText("...");
         btnField16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1230,11 +1179,6 @@ public class Systree extends javax.swing.JFrame {
         btnField16.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField16.setName("btnField17"); // NOI18N
         btnField16.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField16btnCurrenc(evt);
-            }
-        });
 
         btnField17.setText("...");
         btnField17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1242,11 +1186,6 @@ public class Systree extends javax.swing.JFrame {
         btnField17.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField17.setName("btnField17"); // NOI18N
         btnField17.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField17btnCurrenc(evt);
-            }
-        });
 
         jLabel45.setFont(frames.Util.getFont(0,0));
         jLabel45.setText("Напр. откр.");
@@ -1259,11 +1198,6 @@ public class Systree extends javax.swing.JFrame {
         btnField21.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField21.setName("btnField17"); // NOI18N
         btnField21.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField21btnCurrenc(evt);
-            }
-        });
 
         txtField20.setEditable(false);
         txtField20.setBackground(new java.awt.Color(255, 255, 255));
@@ -2043,7 +1977,8 @@ public class Systree extends javax.swing.JFrame {
         if (treeSys.isEditing()) {
             treeSys.getCellEditor().stopCellEditing();
         }
-        eProperty.systree_nuni.write(String.valueOf(nuni)); //запишем текущий nuni в файл
+        eProperty.save(); //запишем текущий systreeID и sysprodID в файл
+        
         Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (frame != null)
             frame.dispose();
@@ -2076,7 +2011,7 @@ public class Systree extends javax.swing.JFrame {
         listenerBtn1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             for (int i = 0; i < qSystree.size(); i++) {
-                if (nuni == qSystree.get(i).getInt(eSystree.id)) {
+                if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
                     qSystree.set(record.getStr(eArtikl.code), i, eSystree.glas);
                     rsvSystree.load(i);
                 }
@@ -2090,7 +2025,7 @@ public class Systree extends javax.swing.JFrame {
         listenerBtn11 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             for (int i = 0; i < qSystree.size(); i++) {
-                if (nuni == qSystree.get(i).getInt(eSystree.id)) {
+                if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
                     qSystree.set(record.getInt(0), i, eSystree.imgview);
                     rsvSystree.load(i);
                 }
@@ -2104,7 +2039,7 @@ public class Systree extends javax.swing.JFrame {
         listenerBtn7 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             for (int i = 0; i < qSystree.size(); i++) {
-                if (nuni == qSystree.get(i).getInt(eSystree.id)) {
+                if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
                     qSystree.set(record.getInt(0), i, eSystree.types);
                     rsvSystree.load(i);
                 }
@@ -2112,76 +2047,6 @@ public class Systree extends javax.swing.JFrame {
         };
         new DicEnums(this, listenerBtn7, TypeUse.values());
     }//GEN-LAST:event_btnField7
-
-    private void btnField2btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField2btnCurrenc
-//        JButton btn = (JButton) evt.getSource();
-//        DialogListener listener = (btn.getName().equals("btnField7")) ? listenerCurrenc1 : listenerCurrenc2;
-//        Currenc frame = new Currenc(this, listener);
-    }//GEN-LAST:event_btnField2btnCurrenc
-
-    private void btnField3btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField3btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField3btnCurrenc
-
-    private void btnField4btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField4btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField4btnCurrenc
-
-    private void btnField9btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField9btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField9btnCurrenc
-
-    private void btnField10btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField10btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField10btnCurrenc
-
-    private void btnField12btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField12btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField12btnCurrenc
-
-    private void btnField13btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField13btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField13btnCurrenc
-
-    private void btnField14btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField14btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField14btnCurrenc
-
-    private void btnField15btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField15btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField15btnCurrenc
-
-    private void btnField16btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField16btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField16btnCurrenc
-
-    private void btnField17btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField17btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField17btnCurrenc
-
-    private void btnField18btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField18btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField18btnCurrenc
-
-    private void btnField19btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField19btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField19btnCurrenc
-
-    private void btnField20btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField20btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField20btnCurrenc
-
-    private void btnField21btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField21btnCurrenc
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnField21btnCurrenc
-
-    private void txtField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField14ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtField14ActionPerformed
-
-    private void txtField19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField19ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtField19ActionPerformed
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
@@ -2205,7 +2070,7 @@ public class Systree extends javax.swing.JFrame {
                 Record record1 = eSysprof.up.newRecord(Query.INS);
                 Record record2 = eArtikl.up.newRecord();
                 record1.setNo(eSysprof.id, ConnApp.instanc().genId(eSysprof.id));
-                record1.setNo(eSysprof.systree_id, nuni);
+                record1.setNo(eSysprof.systree_id, systreeID);
                 qSysprof.add(record1);
                 qSysprof.table(eArtikl.up).add(record2);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -2215,7 +2080,7 @@ public class Systree extends javax.swing.JFrame {
                 Record record1 = eSysfurn.up.newRecord(Query.INS);
                 Record record2 = eFurniture.up.newRecord();
                 record1.setNo(eSysfurn.id, ConnApp.instanc().genId(eSysfurn.id));
-                record1.setNo(eSysfurn.systree_id, nuni);
+                record1.setNo(eSysfurn.systree_id, systreeID);
                 record1.setNo(eSysfurn.npp, 0);
                 record1.setNo(eSysfurn.replac, 0);
                 qSysfurn.add(record1);
@@ -2226,7 +2091,7 @@ public class Systree extends javax.swing.JFrame {
             } else if (tab4.getBorder() != null) {
                 Record record1 = eSyspar1.up.newRecord(Query.INS);
                 record1.setNo(eSyspar1.id, ConnApp.instanc().genId(eSyspar1.id));
-                record1.setNo(eSyspar1.systree_id, nuni);
+                record1.setNo(eSyspar1.systree_id, systreeID);
                 qSyspar1.add(record1);
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
                 Util.scrollRectToVisible(qSyspar1, tab4);
@@ -2236,7 +2101,7 @@ public class Systree extends javax.swing.JFrame {
                 if (selectedNode != null && selectedNode.isLeaf()) {
                     FrameProgress.create(Systree.this, new FrameListener() {
                         public void actionRequest(Object obj) {
-                            frame = new Models(Systree.this, listenerProd);
+                            frame = new Models(Systree.this, listenerModel);
                             FrameToFile.setFrameSize(frame);
                             frame.setVisible(true);
                         }
@@ -2272,15 +2137,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Wincalc iwin = new Wincalc();
-        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        Record record = eSystree.find(nuni);
-        int models_id = record.getInt(eSystree.models_id);
-        Record record2 = eModels.find(models_id);
-        String script = record2.getStr(eModels.script);
-        JsonElement je = new Gson().fromJson(script, JsonElement.class);
-        //je.getAsJsonObject().addProperty("nuni", nuni);
-        iwin.build(je.toString());
+
     }//GEN-LAST:event_btnRefresh
 
     private void btnArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikl
@@ -2304,7 +2161,7 @@ public class Systree extends javax.swing.JFrame {
     private void comboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBox1ItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (comboBox1.getSelectedIndex() == 2) {
-                txtField31.setEditable(true);                
+                txtField31.setEditable(true);
             } else {
                 txtField31.setText(null);
                 txtField31.setEditable(false);
@@ -2435,8 +2292,7 @@ public class Systree extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        Util.documentFilter1(txtField2, txtField3, txtField4, txtField5);
-        nuni = Integer.valueOf(eProperty.systree_nuni.read());
+        Util.documentFilter1(txtField2, txtField3, txtField4, txtField5);        
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) treeSys.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));

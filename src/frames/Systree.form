@@ -398,9 +398,6 @@
                                   <Dimension value="[18, 18]"/>
                                 </Property>
                               </Properties>
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField3btnCurrenc"/>
-                              </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="btnField4">
                               <Properties>
@@ -421,9 +418,6 @@
                                   <Dimension value="[18, 18]"/>
                                 </Property>
                               </Properties>
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField4btnCurrenc"/>
-                              </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="btnField2">
                               <Properties>
@@ -444,9 +438,6 @@
                                   <Dimension value="[18, 18]"/>
                                 </Property>
                               </Properties>
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField2btnCurrenc"/>
-                              </Events>
                             </Component>
                             <Component class="javax.swing.JTextField" name="txtField9">
                               <Properties>
@@ -495,9 +486,6 @@
                                   <Dimension value="[180, 18]"/>
                                 </Property>
                               </Properties>
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtField14ActionPerformed"/>
-                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -689,9 +677,6 @@
                                   <Dimension value="[18, 18]"/>
                                 </Property>
                               </Properties>
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField18btnCurrenc"/>
-                              </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="btnField19">
                               <Properties>
@@ -712,9 +697,6 @@
                                   <Dimension value="[18, 18]"/>
                                 </Property>
                               </Properties>
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField19btnCurrenc"/>
-                              </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="btnField20">
                               <Properties>
@@ -735,9 +717,6 @@
                                   <Dimension value="[18, 18]"/>
                                 </Property>
                               </Properties>
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField20btnCurrenc"/>
-                              </Events>
                             </Component>
                             <Component class="javax.swing.JTextField" name="txtField27">
                               <Properties>
@@ -910,9 +889,6 @@
                               <Dimension value="[18, 18]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField9btnCurrenc"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtField19">
                           <Properties>
@@ -929,9 +905,6 @@
                               <Dimension value="[180, 18]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtField19ActionPerformed"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtField18">
                           <Properties>
@@ -1170,9 +1143,6 @@
                               <Dimension value="[18, 18]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField10btnCurrenc"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel38">
                           <Properties>
@@ -1225,9 +1195,6 @@
                               <Dimension value="[18, 18]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField12btnCurrenc"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnField13">
                           <Properties>
@@ -1248,9 +1215,6 @@
                               <Dimension value="[18, 18]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField13btnCurrenc"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel40">
                           <Properties>
@@ -1319,9 +1283,6 @@
                               <Dimension value="[18, 18]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField14btnCurrenc"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnField15">
                           <Properties>
@@ -1342,9 +1303,6 @@
                               <Dimension value="[18, 18]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField15btnCurrenc"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnField16">
                           <Properties>
@@ -1365,9 +1323,6 @@
                               <Dimension value="[18, 18]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField16btnCurrenc"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnField17">
                           <Properties>
@@ -1388,9 +1343,6 @@
                               <Dimension value="[18, 18]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField17btnCurrenc"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel45">
                           <Properties>
@@ -1427,9 +1379,6 @@
                               <Dimension value="[18, 18]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField21btnCurrenc"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtField20">
                           <Properties>

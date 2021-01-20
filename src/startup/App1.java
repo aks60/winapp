@@ -15,8 +15,7 @@ import dataset.Record;
 import domain.eModels;
 import domain.eSystree;
 import builder.Wincalc;
-import dataset.Field;
-import domain.eGroups;
+import domain.eSysprod;
 import frames.Groups;
 import frames.Artikles;
 import frames.Models;
@@ -73,9 +72,8 @@ public class App1 extends javax.swing.JFrame {
             Statement st = Query.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = st.executeQuery("select 1 from RDB$RELATIONS r where r.RDB$RELATION_NAME = 'SYSTREE'");
             if (rs.next() == true) {
-                int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-                int models_id = eSystree.find(nuni).getInt(eSystree.models_id);
-                if (models_id == -1) {
+                int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+                if (sysprodID == -1) {
                     setSelectedFilter(true);
                 }
             }
@@ -83,14 +81,14 @@ public class App1 extends javax.swing.JFrame {
             System.err.println(e);
         }
         if (eProperty.lookandfeel.read().equals("Windows")) {
-            mn621.setSelected(true);        
+            mn621.setSelected(true);
         } else if (eProperty.lookandfeel.read().equals("Nimbus")) {
-            mn622.setSelected(true);            
+            mn622.setSelected(true);
         } else if (eProperty.lookandfeel.read().equals("Metal")) {
             mn623.setSelected(true);
         } else if (eProperty.lookandfeel.read().equals("CDE/Motif")) {
             mn624.setSelected(true);
-        }   
+        }
         if (eProperty.base_num.read().equals("1")) {
             mn631.setSelected(true);
             btnT7.setSelected(true);
@@ -100,21 +98,17 @@ public class App1 extends javax.swing.JFrame {
         } else if (eProperty.base_num.read().equals("3")) {
             mn633.setSelected(true);
             btnT9.setSelected(true);
-        }        
+        }
     }
 
     private void constructive() {
-
-        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        Record systreeRec = eSystree.find(nuni);
-        int models_id = systreeRec.getInt(eSystree.models_id);
-        if (models_id != -1) {
-            String script1 = new Query(eModels.script).select(eModels.up, "where", eModels.id, "=", models_id).getAs(0, eModels.script);
-            if (script1 != null && script1.isEmpty() == false) {
-                JsonElement script2 = new Gson().fromJson(script1, JsonElement.class);
-                script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
-                iwin.build(script2.toString()); //калькуляция изделия
-            }
+        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+        Record sysprodRec = eSysprod.find(sysprodID);
+        String script = sysprodRec.getStr(eSysprod.script);
+        if (script != null && script.isEmpty() == false) {
+            JsonElement script2 = new Gson().fromJson(script, JsonElement.class);
+            script2.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id)); //запишем nuni в script
+            iwin.build(script2.toString()); //калькуляция изделия                
         }
     }
 
@@ -1173,13 +1167,13 @@ private void mn0111ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 private void mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLookAndFeel
     if (evt.getSource() == mn621) {
         eProperty.lookandfeel.write("Windows");
-        
+
     } else if (evt.getSource() == mn623) {
         eProperty.lookandfeel.write("Metal");
-        
+
     } else if (evt.getSource() == mn622) {
         eProperty.lookandfeel.write("Nimbus");
-        
+
     } else if (evt.getSource() == mn624) {
         eProperty.lookandfeel.write("CDE/Motif");
     }
