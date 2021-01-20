@@ -24,6 +24,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import builder.Wincalc;
 import builder.specif.Specification;
+import domain.eSysprod;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.text.DecimalFormat;
@@ -54,9 +55,8 @@ public class Specific extends javax.swing.JFrame {
 
     public Specific() {
         initComponents();
-        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        Record record = eSystree.find(nuni);
-        if (record.getInt(eSystree.models_id) == -1) {
+        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+        if (sysprodID == -1) {
             JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);;
         } else {
             initElements();
@@ -69,18 +69,17 @@ public class Specific extends javax.swing.JFrame {
     private void createIwin() {
 
         iwin = new Wincalc();
-        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        setTitle("Спецификация.    Система: " + eSystree.patch(nuni, ""));
-        Record record = eSystree.find(nuni);
-        int models_id = record.getInt(eSystree.models_id);
-        Record record2 = eModels.find(models_id);
-        if (record2 != null) {
-            String script = record2.getStr(eModels.script);
+        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+        Record sysprodRec = eSysprod.find(sysprodID);
+        
+        if (sysprodRec != null) {
+            setTitle("Спецификация.    Система: " + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), ""));
+            String script = sysprodRec.getStr(eSysprod.script);
             if (script.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
             } else {
                 JsonElement je = new Gson().fromJson(script, JsonElement.class);
-                je.getAsJsonObject().addProperty("nuni", nuni);
+                je.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id));
                 iwin.build(je.toString());
                 iwin.constructiv();
             }

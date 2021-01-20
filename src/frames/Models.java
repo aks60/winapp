@@ -40,7 +40,6 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
     public Wincalc iwinMax = new Wincalc();
     public Wincalc iwinMin = new Wincalc();
     private Window owner = null;
-    private int nuni = -1;
     private ArrayList<Icon> listIcon1 = new ArrayList<Icon>();
     private ArrayList<Icon> listIcon2 = new ArrayList<Icon>();
     private DialogListener listenet = null;
@@ -1047,7 +1046,6 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        nuni = Integer.valueOf(eProperty.systree_nuni.read());
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));

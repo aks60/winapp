@@ -82,16 +82,15 @@ public class App1 extends javax.swing.JFrame {
         } catch (SQLException e) {
             System.err.println(e);
         }
-
-        if (eProperty.lookandfeel.read().equals("Metal")) {
-            mn623.setSelected(true);
+        if (eProperty.lookandfeel.read().equals("Windows")) {
+            mn621.setSelected(true);        
         } else if (eProperty.lookandfeel.read().equals("Nimbus")) {
-            mn622.setSelected(true);
-        } else if (eProperty.lookandfeel.read().equals("Windows")) {
-            mn621.setSelected(true);
+            mn622.setSelected(true);            
+        } else if (eProperty.lookandfeel.read().equals("Metal")) {
+            mn623.setSelected(true);
         } else if (eProperty.lookandfeel.read().equals("CDE/Motif")) {
             mn624.setSelected(true);
-        }
+        }   
         if (eProperty.base_num.read().equals("1")) {
             mn631.setSelected(true);
             btnT7.setSelected(true);
@@ -101,7 +100,7 @@ public class App1 extends javax.swing.JFrame {
         } else if (eProperty.base_num.read().equals("3")) {
             mn633.setSelected(true);
             btnT9.setSelected(true);
-        }
+        }        
     }
 
     private void constructive() {
@@ -135,8 +134,8 @@ public class App1 extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonLookAndFiilGroup = new javax.swing.ButtonGroup();
-        btn35 = new javax.swing.JButton();
         buttonBaseGroup = new javax.swing.ButtonGroup();
+        buttonMenuGroup = new javax.swing.ButtonGroup();
         tb0 = new javax.swing.JToolBar();
         btn01 = new javax.swing.JToggleButton();
         tb1 = new javax.swing.JToolBar();
@@ -223,21 +222,6 @@ public class App1 extends javax.swing.JFrame {
         mn51 = new javax.swing.JMenuItem();
         mn52 = new javax.swing.JMenuItem();
         mn54 = new javax.swing.JMenuItem();
-
-        btn35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c015.gif"))); // NOI18N
-        btn35.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-        btn35.setFocusable(false);
-        btn35.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn35.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn35.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn35.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn35.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn35.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn35.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn35ActionPerformed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SA-OKNA   <АРМ Технолог>");
@@ -1011,7 +995,7 @@ public class App1 extends javax.swing.JFrame {
         mn63.setText("Установка соединения");
         mn63.setFont(frames.Util.getFont(1,1));
 
-        buttonLookAndFiilGroup.add(mn631);
+        buttonMenuGroup.add(mn631);
         mn631.setFont(frames.Util.getFont(1,1));
         mn631.setSelected(true);
         mn631.setText("База 1");
@@ -1022,7 +1006,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn63.add(mn631);
 
-        buttonLookAndFiilGroup.add(mn632);
+        buttonMenuGroup.add(mn632);
         mn632.setFont(frames.Util.getFont(1,1));
         mn632.setText("База 2");
         mn632.addActionListener(new java.awt.event.ActionListener() {
@@ -1032,7 +1016,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn63.add(mn632);
 
-        buttonLookAndFiilGroup.add(mn633);
+        buttonMenuGroup.add(mn633);
         mn633.setFont(frames.Util.getFont(1,1));
         mn633.setText("База 3");
         mn633.addActionListener(new java.awt.event.ActionListener() {
@@ -1050,6 +1034,7 @@ public class App1 extends javax.swing.JFrame {
 
         buttonLookAndFiilGroup.add(mn621);
         mn621.setFont(frames.Util.getFont(1,1));
+        mn621.setSelected(true);
         mn621.setText("Win Classic");
         mn621.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1187,11 +1172,14 @@ private void mn0111ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
 private void mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLookAndFeel
     if (evt.getSource() == mn621) {
-        eProperty.lookandfeel.write("Window");
+        eProperty.lookandfeel.write("Windows");
+        
     } else if (evt.getSource() == mn623) {
         eProperty.lookandfeel.write("Metal");
+        
     } else if (evt.getSource() == mn622) {
         eProperty.lookandfeel.write("Nimbus");
+        
     } else if (evt.getSource() == mn624) {
         eProperty.lookandfeel.write("CDE/Motif");
     }
@@ -1338,12 +1326,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnKits
 
     private void mnConvert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConvert
-        
-        FrameProgress.create(App1.this, new FrameListener() {
-            public void actionRequest(Object obj) {
-                eApp1.Convert.createFrame(App1.this);
-            }
-        });
+
     }//GEN-LAST:event_mnConvert
 
     private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder
@@ -1376,9 +1359,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         mExit(null);
     }//GEN-LAST:event_formWindowClosing
-
-    private void btn35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn35ActionPerformed
-    }//GEN-LAST:event_btn35ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         //Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null && el != eApp1.App1).forEach(el -> el.frame.requestFocus());
@@ -1460,7 +1440,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JButton btn27;
     private javax.swing.JButton btn30;
     private javax.swing.JButton btn31;
-    private javax.swing.JButton btn35;
     private javax.swing.JButton btn41;
     private javax.swing.JButton btn42;
     private javax.swing.JButton btn51;
@@ -1471,6 +1450,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JToggleButton btnT9;
     private javax.swing.ButtonGroup buttonBaseGroup;
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;
+    private javax.swing.ButtonGroup buttonMenuGroup;
     private javax.swing.JMenuBar mn0;
     private javax.swing.JMenu mn01;
     private javax.swing.JMenuItem mn0111;
