@@ -532,6 +532,7 @@ public class Systree extends javax.swing.JFrame {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card15");
                 Record artiklRec = eArtikl.find(node.com5t.artiklRec.getInt(eArtikl.id), false);
                 txtField19.setText(artiklRec.getStr(eArtikl.code));
+                txtField18.setText(artiklRec.getStr(eArtikl.name));
 
             } else if (node.com5t.type() == TypeElem.STVORKA) { //створка
                 ((CardLayout) pan7.getLayout()).show(pan7, "card16");
