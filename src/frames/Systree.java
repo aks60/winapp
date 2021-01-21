@@ -543,8 +543,8 @@ public class Systree extends javax.swing.JFrame {
                 comboBox1.setSelectedIndex(stv.handlLayout.id - 1);
                 iwin.calcFurniture = new builder.specif.Furniture(iwin); //фурнитура 
                 iwin.calcFurniture.calc();
-                //txtField21.setText(stv.handlRec.getStr(eArtikl.name));
-                txtField21.setText("xxx");
+                txtField21.setText(stv.handlRec.getStr(eArtikl.name));
+                //txtField21.setText("xxx");
 
             }
             Arrays.asList(txtField9, txtField13, txtField14, txtField27, txtField28,

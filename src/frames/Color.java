@@ -56,12 +56,11 @@ public class Color extends javax.swing.JFrame {
         new DefTableModel(tab1, qGroup1, eGroups.name);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
         new DefTableModel(tab3, qGroup2, eGroups.name, eGroups.id);
-        new DefTableModel(tab4, qColmap, eColmap.color_id2, eColmap.color_id2, eColmap.color_id1, eColmap.color_id1,
+        new DefTableModel(tab4, qColmap, eColmap.color_id1, eColmap.color_id1, eColmap.color_id2, eColmap.color_id2,
                 eColmap.joint, eColmap.elem, eColmap.glas, eColmap.furn, eColmap.komp, eColmap.komp) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-
-                if (field == eColmap.color_id2) {
+                if (field == eColmap.color_id1) {
                     Record record = qColall.stream().filter(rec -> rec.get(eColor.id).equals(val)).findFirst().orElse(eColor.up.newRecord());
                     if (col == 0) {
                         Record record2 = qGroup1.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.colgrp_id))).findFirst().orElse(eColor.up.newRecord());
@@ -69,8 +68,7 @@ public class Color extends javax.swing.JFrame {
                     } else if (col == 1) {
                         return record.getStr(eColor.name);
                     }
-                    
-                } else if (field == eColmap.color_id1) {
+                } else if (field == eColmap.color_id2) {
                     Record record = qColall.stream().filter(rec -> rec.get(eColor.id).equals(val)).findFirst().orElse(eColor.up.newRecord());
                     if (col == 2) {
                         Record record2 = qGroup1.stream().filter(rec -> rec.get(eGroups.id).equals(record.getInt(eColor.colgrp_id))).findFirst().orElse(eColor.up.newRecord());
@@ -78,6 +76,7 @@ public class Color extends javax.swing.JFrame {
                     } else if (col == 3) {
                         return record.getStr(eColor.name);
                     }
+
                 }
                 return val;
             }
@@ -328,7 +327,6 @@ public class Color extends javax.swing.JFrame {
 
         scr2.setBorder(null);
         scr2.setAutoscrolls(true);
-        scr2.setPreferredSize(new java.awt.Dimension(600, 400));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -370,7 +368,7 @@ public class Color extends javax.swing.JFrame {
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
 
-        scr1.setPreferredSize(new java.awt.Dimension(200, 584));
+        scr1.setPreferredSize(new java.awt.Dimension(300, 584));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -404,7 +402,7 @@ public class Color extends javax.swing.JFrame {
 
         scr3.setBorder(null);
         scr3.setAutoscrolls(true);
-        scr3.setPreferredSize(new java.awt.Dimension(200, 600));
+        scr3.setPreferredSize(new java.awt.Dimension(300, 600));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -432,15 +430,14 @@ public class Color extends javax.swing.JFrame {
 
         scr4.setBorder(null);
         scr4.setAutoscrolls(true);
-        scr4.setPreferredSize(new java.awt.Dimension(600, 400));
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, "xxxxxx", null, null, null, null, null, null, null},
-                {null, null, null, "zzzzzzz", null, null, null, null, null, null, null}
+                {null, "xxxxxx", null, null, null, null, null, null, null, null, null},
+                {null, "zzzzzzz", null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Группа", "Цвет элемента", "Группа", "Текстура профиля", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Комплекты", "ID"
+                "Группа", "Текстура профиля", "Группа", "Текстура элемента", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Комплекты", "ID"
             }
         ) {
             Class[] types = new Class [] {

@@ -22,8 +22,8 @@ public enum eColmap implements Field {
     furn("16", "5", "1", "Параметр фурнитуры", "furn"),
     otkos("16", "5", "1", "Параметр откосов", "otkos"),
     komp("16", "5", "1", "Параметр комплектов", "PKOMP"),
-    color_id1("4", "10", "0", "Цвет элемента", "color_id1"),
-    color_id2("4", "10", "1", "Текстура профиля", "color_id2");
+    color_id1("4", "10", "0", "Текстура профиля", "color_id1"),
+    color_id2("4", "10", "1", "Цвет элемента", "color_id2");
     //text("12", "64", "1", "Значения параметра", "PTEXT"),
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
     //numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
@@ -70,9 +70,9 @@ public enum eColmap implements Field {
     public static List<Record> find3(int _color_id, int _params_id) {
 
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(color_id1) == _color_id && rec.getInt(colgrp_id) == _params_id).collect(toList());
+            return query().stream().filter(rec -> rec.getInt(color_id1) == _color_id && rec.getInt(colgrp_id) == Math.abs(_params_id)).collect(toList());
         }
-        return new Query(values()).select(up, "where", color_id1, "=", _color_id, "and", colgrp_id, "=", _params_id);
+        return new Query(values()).select(up, "where", color_id1, "=", _color_id, "and", colgrp_id, "=", Math.abs(_params_id));
     }
 
     public String toString() {

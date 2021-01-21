@@ -6,6 +6,7 @@ import domain.eArtikl;
 import domain.eColor;
 import domain.eColmap;
 import domain.eParams;
+import domain.eSetting;
 import enums.UseColor;
 import java.util.Comparator;
 import java.util.List;
@@ -110,11 +111,12 @@ public class Color {
 
                 //Текстура задана через параметр
             } else if (colorFk < 0) {
-                if(spc.detailRec.getInt(1) == 148) {
-                    System.out.println("");
-                }
+//                if (spc.detailRec.getInt(1) == 148) {
+//                    System.out.println("TEST");
+//                }
                 if (colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id
                         || colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id) {
+
                     artdetColorFK = colorFromArtiklParam(spc.artiklRec.getInt(eArtikl.id), side, elemColorID, colorFk);
                     if (artdetColorFK != -1) {
 
@@ -247,7 +249,7 @@ public class Color {
 //            if (artiklID == 84) {
 //                System.out.println("TEST");
 //            }
-            List<Record> colparList = eColmap.find3(elemColorID, paramFk);
+            List<Record> colmapList = eColmap.find3(elemColorID, paramFk);
             List<Record> artdetList = eArtdet.find(artiklID);
 
             //Цыкл по ARTDET определённого артикула
@@ -263,12 +265,12 @@ public class Color {
                         //Цыкл по COLOR определённой группы
                         for (Record colorRec : colorList) {
 
-                            List<Record> colparList2 = eColmap.find(colorRec.getInt(eColor.id));
+                            List<Record> colmapList2 = eColmap.find(colorRec.getInt(eColor.id));
 
-                            for (Record record1 : colparList) {
-                                for (Record record2 : colparList2) {
-                                    if (record1.getInt(eColmap.colgrp_id) == record2.getInt(eColmap.colgrp_id)) {
-                                        return elemColorID;
+                            for (Record colmapRec : colmapList) {
+                                for (Record colmapRec2 : colmapList2) {
+                                    if (colmapRec.getInt(eColmap.colgrp_id) == colmapRec2.getInt(eColmap.colgrp_id)) {
+                                        return colmapRec2.getInt(eColmap.color_id2);
                                     }
                                 }
                             }
@@ -276,10 +278,9 @@ public class Color {
 
                         //Одна текстура
                     } else {
-                        for (Record colparRec : colparList) {
-                            if (artdetRec.getInt(eArtdet.color_fk) == colparRec.getInt(eColmap.color_id1)) { 
-                                //Object obj = record1.getInt(eColmap.color_id1)
-                                return elemColorID;
+                        for (Record colmapRec : colmapList) {
+                            if (artdetRec.getInt(eArtdet.color_fk) == colmapRec.getInt(eColmap.color_id1)) {
+                                return colmapRec.getInt(eColmap.color_id2);
                             }
                         }
                     }
@@ -300,14 +301,17 @@ public class Color {
                 case 0:
                     return spc.detailRec.getInt(COLOR_FK);  //указана вручную
                 case 11: //Профиль
-                    return spc.elem5e.colorID1; //по основе текстуры профиля
-//                    if (side == 1) {
-//                        return spc.elem5e.colorID1; //по основе текстуры профиля
-//                    } else if (side == 2) {
-//                        return spc.elem5e.colorID2; //по внутр. текстуры профиля 
-//                    } else if (side == 3) {
-//                        return spc.elem5e.colorID3; //по внешн. текстуры профиля  
-//                    }
+                    if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                        return spc.elem5e.colorID1; //по основе текстуры профиля
+                    } else {
+                        if (side == 1) {
+                            return spc.elem5e.colorID1; //по основе текстуры профиля
+                        } else if (side == 2) {
+                            return spc.elem5e.colorID2; //по внутр. текстуры профиля 
+                        } else if (side == 3) {
+                            return spc.elem5e.colorID3; //по внешн. текстуры профиля  
+                        }
+                    }
                 case 15:
                     return spc.elem5e.colorID1; //по основе текстуры заполнения                 
                 case 1:
