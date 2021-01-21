@@ -1512,9 +1512,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 // </editor-fold> 
 
     private void initElements() {
-        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
-        Record sysprodRec = eSysprod.find(sysprodID);
-        setTitle(getTitle() + Util.designName(sysprodRec));
+        setTitle(getTitle() + Util.designName());
     }
 
     public static enum eApp1 {

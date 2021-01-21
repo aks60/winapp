@@ -917,6 +917,7 @@ public class Filling extends javax.swing.JFrame {
     // </editor-fold>
     private void initElements() {
         new FrameToFile(this, btnClose);
+        setTitle(getTitle() + Util.designName());
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
@@ -944,9 +945,5 @@ public class Filling extends javax.swing.JFrame {
                 }
             }
         });
-
-        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
-        Record sysprodRec = eSysprod.find(sysprodID);
-        setTitle(getTitle() + Util.designName(sysprodRec));
     }
 }

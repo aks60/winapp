@@ -69,6 +69,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeModel;
 import startup.App1;
 import startup.App1.eApp1;
 import startup.Main;
@@ -93,16 +95,7 @@ public class Systree extends javax.swing.JFrame {
     private int systreeID = -1;
     private int sysprodID = -1;
     private TreeNode[] nuniNode = null;
-    private Canvas paintPanel = new Canvas(iwin) {
-
-//        public void actionResponse(MouseEvent evt) {
-//            ElemSimple elem = iwin.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
-//            if (elem != null) {
-//                txtField5.setText(String.valueOf(elem.id()));
-//                repaint();
-//            }
-//        }
-    };
+    private Canvas paintPanel = new Canvas(iwin); 
 
     public Systree() {
         initComponents();
@@ -131,7 +124,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void loadingData() {
         systreeID = Integer.valueOf(eProperty.systreeID.read());
-        sysprodID = Integer.valueOf(eProperty.sysprodID.read()); 
+        sysprodID = Integer.valueOf(eProperty.sysprodID.read());
         qParams.select(eParams.up, "where", eParams.id, "< 0").table(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
 
@@ -467,10 +460,10 @@ public class Systree extends javax.swing.JFrame {
     private void selectionTreeSys() {
         DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
         if (node != null) {
-            
+
             systreeID = node.systreeRec.getInt(eSystree.id);
-            eProperty.systreeID.write(String.valueOf(systreeID)); 
-            
+            eProperty.systreeID.write(String.valueOf(systreeID));
+
             for (int i = 0; i < qSystree.size(); i++) {
                 if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
                     rsvSystree.load(i);
@@ -494,17 +487,17 @@ public class Systree extends javax.swing.JFrame {
             Util.setSelectedRow(tab4);
 
             int index = -1;
-            for(int row = 0; row < qSysprod.size(); ++row) {
-              if(qSysprod.get(row).getInt(eSysprod.id) == sysprodID) {
-                  index = row;
-              }
+            for (int row = 0; row < qSysprod.size(); ++row) {
+                if (qSysprod.get(row).getInt(eSysprod.id) == sysprodID) {
+                    index = row;
+                }
             }
-            if(index != -1) {
-               Util.setSelectedRow(tab5, index); 
+            if (index != -1) {
+                Util.setSelectedRow(tab5, index);
             } else {
-               Util.setSelectedRow(tab5); 
+                Util.setSelectedRow(tab5);
             }
-            
+
         } else {
             //createWincalc(-1); //рисуем виртуалку
         }
@@ -555,11 +548,11 @@ public class Systree extends javax.swing.JFrame {
     private void selectionTab5() {
         int row = Util.getSelectedRec(tab5);
         if (row != -1) {
-            Record sysprodRec = qSysprod.table(eSysprod.up).get(row);            
-            String script = sysprodRec.getStr(eSysprod.script);           
+            Record sysprodRec = qSysprod.table(eSysprod.up).get(row);
+            String script = sysprodRec.getStr(eSysprod.script);
             eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id));
-            eApp1.App1.frame.setTitle(getTitle() + Util.designName(sysprodRec));
-                
+            eApp1.App1.frame.setTitle(getTitle() + Util.designName());
+
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
                 JsonElement script2 = new Gson().fromJson(script, JsonElement.class);
@@ -1983,7 +1976,7 @@ public class Systree extends javax.swing.JFrame {
             treeSys.getCellEditor().stopCellEditing();
         }
         eProperty.save(); //запишем текущий systreeID и sysprodID в файл
-        
+
         Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (frame != null)
             frame.dispose();
@@ -2297,7 +2290,7 @@ public class Systree extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        Util.documentFilter1(txtField2, txtField3, txtField4, txtField5);        
+        Util.documentFilter1(txtField2, txtField3, txtField4, txtField5);
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) treeSys.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
@@ -2312,5 +2305,8 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         });
+        DefaultTreeModel model = (DefaultTreeModel) treeWin.getModel();
+        ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
+        model.reload();
     }
 }

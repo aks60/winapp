@@ -31,29 +31,31 @@ public class Canvas extends JPanel implements FrameListener<MouseEvent, MouseEve
 
     public void actionResponse(MouseEvent evt) {
 
-        iwin.listElem.forEach(el -> el.borderColor = Color.BLACK);
-        repaint();
-        iwin.rootArea.listElem(TypeElem.STVORKA_SIDE).forEach(el -> {
-            if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
-                ((ElemSimple) el).borderColor = Color.RED;
-                ((ElemSimple) el).paint();
-                repaint();
-            }
-        });
-        iwin.rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST).forEach(el -> {
-            if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
-                ((ElemSimple) el).borderColor = Color.RED;
-                ((ElemSimple) el).paint();
-                repaint();
-            }
-        });
-        iwin.rootArea.listElem(TypeElem.GLASS).forEach(el -> {
-            if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
-                ((ElemSimple) el).borderColor = Color.RED;
-                ((ElemSimple) el).paint();
-                repaint();
-            }
-        });
+        if (iwin != null && iwin.listElem != null) {
+            iwin.listElem.forEach(el -> el.borderColor = Color.BLACK);
+            repaint();
+            iwin.rootArea.listElem(TypeElem.STVORKA_SIDE).forEach(el -> {
+                if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
+                    ((ElemSimple) el).borderColor = Color.RED;
+                    ((ElemSimple) el).paint();
+                    repaint();
+                }
+            });
+            iwin.rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST).forEach(el -> {
+                if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
+                    ((ElemSimple) el).borderColor = Color.RED;
+                    ((ElemSimple) el).paint();
+                    repaint();
+                }
+            });
+            iwin.rootArea.listElem(TypeElem.GLASS).forEach(el -> {
+                if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
+                    ((ElemSimple) el).borderColor = Color.RED;
+                    ((ElemSimple) el).paint();
+                    repaint();
+                }
+            });
+        }
     }
 
     public void saveImage(String name, String type) {

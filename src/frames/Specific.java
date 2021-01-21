@@ -72,8 +72,7 @@ public class Specific extends javax.swing.JFrame {
         int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
         Record sysprodRec = eSysprod.find(sysprodID);
 
-        if (sysprodRec != null) {
-            setTitle(getTitle() + Util.designName(sysprodRec));
+        if (sysprodRec != null) {            
             String script = sysprodRec.getStr(eSysprod.script);
             if (script.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
@@ -728,6 +727,7 @@ public class Specific extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        setTitle(getTitle() + Util.designName());
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));

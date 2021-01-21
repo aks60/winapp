@@ -1460,6 +1460,7 @@ public class Furniture extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        setTitle(getTitle() + Util.designName());
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
         //scr2b1.setColumnHeaderView(null);
@@ -1512,10 +1513,6 @@ public class Furniture extends javax.swing.JFrame {
             if (c instanceof JPanel) {
                 ((JPanel) c).setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 1, 1, 1));
             }
-        });
-        
-        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
-        Record sysprodRec = eSysprod.find(sysprodID);
-        setTitle(getTitle() + Util.designName(sysprodRec));        
+        });        
     }
 }
