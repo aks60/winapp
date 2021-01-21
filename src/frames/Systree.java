@@ -20,7 +20,6 @@ import domain.eFurniture;
 import domain.eParams;
 import domain.eSysfurn;
 import domain.eSyspar1;
-import domain.eModels;
 import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
@@ -71,6 +70,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.App1;
+import startup.App1.eApp1;
 import startup.Main;
 
 public class Systree extends javax.swing.JFrame {
@@ -541,6 +541,8 @@ public class Systree extends javax.swing.JFrame {
                 txtField20.setText(eFurniture.find(id).getStr(eFurniture.name));
                 txtField30.setText(stv.typeOpen.name2);
                 comboBox1.setSelectedIndex(stv.handlLayout.id - 1);
+                iwin.calcFurniture = new builder.specif.Furniture(iwin); //фурнитура 
+                iwin.calcFurniture.calc();
                 //txtField21.setText(stv.handlRec.getStr(eArtikl.name));
                 txtField21.setText("xxx");
 
@@ -553,11 +555,11 @@ public class Systree extends javax.swing.JFrame {
     private void selectionTab5() {
         int row = Util.getSelectedRec(tab5);
         if (row != -1) {
-            Record record = qSysprod.table(eSysprod.up).get(row);            
-            String script = record.getStr(eSysprod.script);
-            
-            eProperty.sysprodID.write(record.getStr(eSysprod.id));
-            
+            Record sysprodRec = qSysprod.table(eSysprod.up).get(row);            
+            String script = sysprodRec.getStr(eSysprod.script);           
+            eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id));
+            eApp1.App1.frame.setTitle(getTitle() + Util.designName(sysprodRec));
+                
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
                 JsonElement script2 = new Gson().fromJson(script, JsonElement.class);
@@ -717,7 +719,7 @@ public class Systree extends javax.swing.JFrame {
         btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Системы профилей");
+        setTitle("Системы профилей.");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(900, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {

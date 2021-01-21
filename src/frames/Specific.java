@@ -71,9 +71,9 @@ public class Specific extends javax.swing.JFrame {
         iwin = new Wincalc();
         int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
         Record sysprodRec = eSysprod.find(sysprodID);
-        
+
         if (sysprodRec != null) {
-            setTitle("Спецификация.    Система: " + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), ""));
+            setTitle(getTitle() + Util.designName(sysprodRec));
             String script = sysprodRec.getStr(eSysprod.script);
             if (script.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
@@ -170,7 +170,7 @@ public class Specific extends javax.swing.JFrame {
         checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Спецификация");
+        setTitle("Спецификация.");
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -595,7 +595,7 @@ public class Specific extends javax.swing.JFrame {
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
         float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
-        Specification recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();       
+        Specification recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
                 App1.eApp1.Artikles.createFrame(Specific.this, recordSpc.artiklRec);
@@ -658,7 +658,7 @@ public class Specific extends javax.swing.JFrame {
                 Util.setSelectedRow(tab1, i);
                 return;
             }
-        } 
+        }
         Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnFilter
 

@@ -9,6 +9,7 @@ import dataset.Record;
 import domain.eGroups;
 import domain.eJoinpar1;
 import domain.eParams;
+import domain.eSysprod;
 import domain.eSystree;
 import enums.Enam;
 import enums.ParamList;
@@ -159,13 +160,29 @@ public class Util {
         } else {
             tree.collapsePath(path);
         }
-    }    
+    }
+
+    public static String subStr(String str, int indexBeg, int indexEnd) {
+        if (str.length() < indexBeg) {
+            return str;
+        } else if (str.length() < indexEnd) {
+            return str.substring(indexBeg, str.length());
+        } else {
+            return str.substring(indexBeg, indexEnd);
+        }
+    }
+
+    public static String designName(Record sysprodRec) {      
+        return " Конструкция: "
+                + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), "") + "/"
+                + subStr(sysprodRec.getStr(eSysprod.name), 6, 128);
+    }
     
     public static void setText(JTextField comp, String txt) {
         comp.setText(txt);
         comp.setCaretPosition(0);
     }
-    
+
     public static String consoleColor(Object clr) {
 
         if (clr == java.awt.Color.RED) {
