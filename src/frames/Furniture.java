@@ -6,6 +6,7 @@ import common.EditorListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
+import common.eProperty;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -35,6 +36,7 @@ import frames.dialog.ParGrup2;
 import frames.dialog.ParGrup2b;
 import frames.dialog.ParGrup2a;
 import domain.eParams;
+import domain.eSysprod;
 import enums.Enam;
 import enums.ParamList;
 import enums.LayoutFurn1;
@@ -720,7 +722,7 @@ public class Furniture extends javax.swing.JFrame {
         checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Фурнитура");
+        setTitle("Фурнитура.");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -1511,5 +1513,9 @@ public class Furniture extends javax.swing.JFrame {
                 ((JPanel) c).setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 1, 1, 1));
             }
         });
+        
+        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+        Record sysprodRec = eSysprod.find(sysprodID);
+        setTitle(getTitle() + Util.designName(sysprodRec));        
     }
 }

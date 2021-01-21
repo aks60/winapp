@@ -5,6 +5,7 @@ import common.EditorListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
+import common.eProperty;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -33,6 +34,7 @@ import domain.eElement;
 import domain.eElempar1;
 import domain.eGroups;
 import domain.eParams;
+import domain.eSysprod;
 import enums.Enam;
 import enums.ParamList;
 import enums.TypeGroups;
@@ -441,7 +443,7 @@ public class Filling extends javax.swing.JFrame {
         checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Заполнения");
+        setTitle("Заполнения.");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -942,5 +944,9 @@ public class Filling extends javax.swing.JFrame {
                 }
             }
         });
+
+        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+        Record sysprodRec = eSysprod.find(sysprodID);
+        setTitle(getTitle() + Util.designName(sysprodRec));
     }
 }

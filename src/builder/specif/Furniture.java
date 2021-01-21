@@ -186,6 +186,7 @@ public class Furniture extends Cal5e {
                     if (Color.colorFromProduct(specif, 1)) { //попадает или нет в спецификацию по цвету
                         if (artiklRec.getInt(eArtikl.level1) == 2 && artiklRec.getInt(eArtikl.level2) == 11) {
                             areaStv.handlRec = artiklRec; //ручку пишем в створку
+                            areaStv.handlColor = specif.colorID1;
                         }
                         specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
                         specif.count = specif.count * count;

@@ -10,6 +10,7 @@ import common.EditorListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
+import common.eProperty;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -32,6 +33,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import frames.dialog.DicJoinvar;
 import domain.eJoinvar;
+import domain.eSysprod;
 import enums.TypeGroups;
 import frames.swing.BooleanRenderer;
 import frames.dialog.DicColvar;
@@ -514,7 +516,7 @@ public class Joining extends javax.swing.JFrame {
         checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Соединения");
+        setTitle("Соединения.");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -1039,5 +1041,9 @@ public class Joining extends javax.swing.JFrame {
                 }
             }
         });
+        
+        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+        Record sysprodRec = eSysprod.find(sysprodID);
+        setTitle(getTitle() + Util.designName(sysprodRec));
     }
 }

@@ -544,7 +544,7 @@ public class Systree extends javax.swing.JFrame {
                 iwin.calcFurniture = new builder.specif.Furniture(iwin); //фурнитура 
                 iwin.calcFurniture.calc();
                 txtField21.setText(stv.handlRec.getStr(eArtikl.name));
-                //txtField21.setText("xxx");
+                txtField25.setText(eColor.find(stv.handlColor).getStr(eColor.name));
 
             }
             Arrays.asList(txtField9, txtField13, txtField14, txtField27, txtField28,

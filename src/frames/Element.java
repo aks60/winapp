@@ -6,6 +6,7 @@ import common.EditorListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
+import common.eProperty;
 import dataset.ConnApp;
 import enums.Enam;
 import dataset.Field;
@@ -28,6 +29,7 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eGroups;
 import domain.eJoindet;
+import domain.eSysprod;
 import enums.ParamList;
 import enums.TypeGroups;
 import enums.TypeSet;
@@ -526,7 +528,7 @@ public class Element extends javax.swing.JFrame {
         ppmCateg.add(itCtag2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Вставки");
+        setTitle("Вставки.");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -1072,5 +1074,9 @@ public class Element extends javax.swing.JFrame {
                 }
             }
         });
+        
+        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+        Record sysprodRec = eSysprod.find(sysprodID);
+        setTitle(getTitle() + Util.designName(sysprodRec));        
     }
 }
