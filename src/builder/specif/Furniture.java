@@ -72,7 +72,7 @@ public class Furniture extends Cal5e {
             listVariants.add(furnitureRec.getInt(eFurniture.id)); //сделано для запуска формы Furniture на ветке Systree
 
             //Цикл по описанию сторон фурнитуры
-            for (Record furnside1Rec : furnside1List) {                
+            for (Record furnside1Rec : furnside1List) {
                 ElemFrame sideFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
 
                 //ФИЛЬТР вариантов
@@ -112,7 +112,7 @@ public class Furniture extends Cal5e {
     protected boolean detail(AreaStvorka areaStv, Record furndetRec, int count) {
         try {
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
-            Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id1));            
+            Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id1));
 
             //Подбор текстуры ручки
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
@@ -180,10 +180,13 @@ public class Furniture extends Cal5e {
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
+
                     ElemFrame sideStv = Processing.determOfSide(mapParam, areaStv);
                     Specification specif = new Specification(furndetRec, artiklRec, sideStv, mapParam);
                     if (Color.colorFromProduct(specif, 1)) { //попадает или нет в спецификацию по цвету
-
+                        if (artiklRec.getInt(eArtikl.level1) == 2 && artiklRec.getInt(eArtikl.level2) == 11) {
+                            areaStv.handlRec = artiklRec; //ручку пишем в створку
+                        }
                         specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
                         specif.count = specif.count * count;
                         specif.place = "ФУРН";
