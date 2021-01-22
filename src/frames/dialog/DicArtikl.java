@@ -7,10 +7,12 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
+import static domain.eElemgrp.level;
 import domain.eFurndet;
 import enums.TypeArtikl;
 import java.util.Arrays;
 import frames.swing.DefTableModel;
+import java.util.List;
 import java.util.stream.Collectors;
 
 //Справочник артикулов
@@ -18,7 +20,21 @@ public class DicArtikl extends javax.swing.JDialog {
 
     private DialogListener listener = null;
     private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
+    private List list = null;
 
+    public DicArtikl(java.awt.Frame parent, DialogListener listenet, List list) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        
+                qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (1,2) order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
+
+        this.listener = listenet;
+        this.list = list;
+        loadingModel();
+        setVisible(true);
+    }
+    
     public DicArtikl(java.awt.Frame parent, DialogListener listenet, int... level) {
         super(parent, true);
         initComponents();
@@ -26,8 +42,7 @@ public class DicArtikl extends javax.swing.JDialog {
         String p1 = Arrays.toString(level).split("[\\[\\]]")[1];
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
         this.listener = listenet;
-        loadingModel();
-        Util.setSelectedRow(tab2);
+        loadingModel();        
         setVisible(true);
     }
 
@@ -41,7 +56,6 @@ public class DicArtikl extends javax.swing.JDialog {
         qArtikl.select(eArtikl.up).select(eArtikl.up, "where", eArtikl.id, "in", arr);       
         this.listener = listenet;
         loadingModel();
-        Util.setSelectedRow(tab2);
         setVisible(true);
     }
 
@@ -57,6 +71,7 @@ public class DicArtikl extends javax.swing.JDialog {
                 return val;
             }
         };
+        Util.setSelectedRow(tab2);
     }
 
     @SuppressWarnings("unchecked")
