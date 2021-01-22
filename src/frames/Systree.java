@@ -52,14 +52,18 @@ import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
+import domain.eArtdet;
 import domain.eColor;
+import domain.eGroups;
 import enums.TypeElem;
+import enums.TypeGroups;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -932,7 +936,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         pan7.add(pan12, "card12");
@@ -964,6 +968,11 @@ public class Systree extends javax.swing.JFrame {
         btnField18.setMinimumSize(new java.awt.Dimension(18, 18));
         btnField18.setName("btnField17"); // NOI18N
         btnField18.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField18ActionPerformed(evt);
+            }
+        });
 
         btnField19.setText("...");
         btnField19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1118,7 +1127,7 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(btnField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         pan7.add(pan13, "card13");
@@ -1186,7 +1195,7 @@ public class Systree extends javax.swing.JFrame {
                     .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
 
         pan7.add(pan15, "card15");
@@ -1522,7 +1531,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan10.add(scr6, java.awt.BorderLayout.EAST);
 
-        tabb1.addTab("Конструкции системы", pan10);
+        tabb1.addTab("<html><font size=\"3\">Конструкции системы", pan10);
 
         jLabel13.setFont(frames.Util.getFont(0,0));
         jLabel13.setText("Зап-ие по умолчанию");
@@ -1728,10 +1737,10 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tabb1.addTab("Основные параметры", pan6);
+        tabb1.addTab("<html><font size=\"3\">Основные параметры", pan6);
 
         pan3.setLayout(new java.awt.BorderLayout());
 
@@ -1777,7 +1786,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("Профили сист.", pan3);
+        tabb1.addTab("<html><font size=\"3\">Профили сист.", pan3);
 
         pan4.setLayout(new java.awt.BorderLayout());
 
@@ -1823,7 +1832,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan4.add(scr3, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("Фурнитура сист.", pan4);
+        tabb1.addTab("<html><font size=\"3\">Фурнитура сист.", pan4);
 
         pan5.setLayout(new java.awt.BorderLayout());
 
@@ -1866,7 +1875,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan5.add(scr4, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("Параметры по умолчанию", pan5);
+        tabb1.addTab("<html><font size=\"3\">Параметры по умолчанию", pan5);
 
         pan1.add(tabb1);
 
@@ -2258,18 +2267,29 @@ public class Systree extends javax.swing.JFrame {
     private void btnField22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField22ActionPerformed
         DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
         if (node != null) {
-            List<Record> sysprofList = new ArrayList();
-            for (Record sysprofRec : qSysprof) {
-                if (sysprofRec.getInt(eSysprof.use_type) == UseArtiklTo.ANY.id
-                        || sysprofRec.getInt(eSysprof.use_type) == UseArtiklTo.FRAME.id) {
-                    if (sysprofRec.getInt(eSysprof.use_side) == UseSide.BOTTOM.id) {
-
+            List<Record> artiklList = new ArrayList();
+            for (int index = 0; index < qSysprof.size(); ++index) {
+                Record sysprofRec = qSysprof.get(index);
+                if (sysprofRec.getInt(eSysprof.use_type) == UseArtiklTo.FRAME.id) {
+                    if (sysprofRec.getInt(eSysprof.use_side) == node.com5t.layout().id
+                            || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id) {
+                        artiklList.add(qSysprof.table(eArtikl.up).get(index));
                     }
                 }
             }
-            DicArtikl artikl = new DicArtikl(this, listenerArtikl2, qSysprof);
+            DicArtikl artikl = new DicArtikl(this, listenerArtikl2, artiklList);
         }
     }//GEN-LAST:event_btnField22ActionPerformed
+
+    private void btnField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField18ActionPerformed
+        DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+        Query qArtdet = new Query(eArtdet.values()).select("where", eArtdet.artikl_id, "=", node.com5t.artiklRec.getInt(eArtikl.id));
+        Query qColgrp = new Query(eGroups.id).select(eGroups.up, "where", eGroups.grup, "=" + TypeGroups.COLOR.id, "order by", eGroups.name);
+        HashMap<Integer, Integer> hm = new HashMap();
+        
+        //Query qColor = new Query(eColor.values()).select("where", );
+        //node.com5t.artiklRec
+    }//GEN-LAST:event_btnField18ActionPerformed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

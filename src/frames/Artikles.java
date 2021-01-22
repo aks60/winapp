@@ -82,9 +82,9 @@ public class Artikles extends javax.swing.JFrame {
 
     private void loadingData() {
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
-        qGroups.select(eGroups.up, "where grup = " + TypeGroups.SERI_PROF.id, "order by", eGroups.name);
-        qArtgrp.select(eGroups.up, "where grup = " + TypeGroups.FILTER.id, "order by", eGroups.name);
-        qColgrp.select(eGroups.up, "where grup = " + TypeGroups.COLOR.id, "order by", eGroups.name);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=" + TypeGroups.SERI_PROF.id, "order by", eGroups.name);
+        qArtgrp.select(eGroups.up, "where", eGroups.grup, "=" + TypeGroups.FILTER.id, "order by", eGroups.name);
+        qColgrp.select(eGroups.up, "where", eGroups.grup, "=" + TypeGroups.COLOR.id, "order by", eGroups.name);
     }
 
     private void loadingModel() {
@@ -1331,9 +1331,10 @@ public class Artikles extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tab2.setColumnSelectionAllowed(true);
+        tab2.setCellSelectionEnabled(false);
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
+        tab2.setRowSelectionAllowed(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {

@@ -22,13 +22,11 @@ public class DicArtikl extends javax.swing.JDialog {
     private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
     private List list = null;
 
-    public DicArtikl(java.awt.Frame parent, DialogListener listenet, List list) {
+    public DicArtikl(java.awt.Frame parent, DialogListener listenet, List<Record> list) {
         super(parent, true);
         initComponents();
-        initElements();
-        
-                qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (1,2) order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
-
+        initElements();        
+        qArtikl.addAll(list);
         this.listener = listenet;
         this.list = list;
         loadingModel();
@@ -58,7 +56,7 @@ public class DicArtikl extends javax.swing.JDialog {
         loadingModel();
         setVisible(true);
     }
-
+    
     private void loadingModel() {
 
         new DefTableModel(tab2, qArtikl, eArtikl.level2, eArtikl.code, eArtikl.name) {
