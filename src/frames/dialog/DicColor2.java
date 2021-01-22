@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -26,6 +27,10 @@ public class DicColor2 extends javax.swing.JDialog {
     private boolean master = true;
 
     public DicColor2(Frame parent, DialogListener listener) {
+        this(parent, listener, true);
+    }
+    
+    public DicColor2(Frame parent, DialogListener listener, HashSet<Integer> hset) {
         this(parent, listener, true);
     }
 

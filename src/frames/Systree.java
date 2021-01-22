@@ -57,6 +57,7 @@ import domain.eColor;
 import domain.eGroups;
 import enums.TypeElem;
 import enums.TypeGroups;
+import frames.dialog.DicColor2;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import java.awt.CardLayout;
@@ -93,7 +94,7 @@ public class Systree extends javax.swing.JFrame {
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Wincalc iwin = new Wincalc();
     private JTable tab1 = new JTable();
-    private DialogListener listenerArtikl, listenerArtikl2, listenerUsetyp, listenerModel, listenerModify, listenerTree,
+    private DialogListener listenerArtikl, listenerArtikl2, listenerColor, listenerUsetyp, listenerModel, listenerModify, listenerTree,
             listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2,
             listenerBtn1, listenerBtn7, listenerBtn11, listenerArt211, listenerArt212;
     private Canvas paintPanel = new Canvas(iwin);
@@ -400,13 +401,10 @@ public class Systree extends javax.swing.JFrame {
 
         listenerArtikl2 = (record) -> {
             System.out.println("jjjjjjjjjjjjjjjj");
-//            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-//            int row = Util.getSelectedRec(tab2);
-//            qSysprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eSysprof.artikl_id);
-//            qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
-//            qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
-//            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-//            Util.setSelectedRow(tab2, row);
+        };
+
+        listenerColor = (record) -> {
+            System.out.println("pppppppppppppppp");
         };
 
         listenerModel = (record) -> {
@@ -936,7 +934,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pan7.add(pan12, "card12");
@@ -1127,7 +1125,7 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(btnField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         pan7.add(pan13, "card13");
@@ -1195,7 +1193,7 @@ public class Systree extends javax.swing.JFrame {
                     .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         pan7.add(pan15, "card15");
@@ -1737,7 +1735,7 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         tabb1.addTab("<html><font size=\"3\">Основные параметры", pan6);
@@ -2283,15 +2281,20 @@ public class Systree extends javax.swing.JFrame {
 
     private void btnField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField18ActionPerformed
         DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
-        Query qArtdet = new Query(eArtdet.values()).select("where", eArtdet.artikl_id, "=", node.com5t.artiklRec.getInt(eArtikl.id));
-        Query qColgrp = new Query(eGroups.id).select(eGroups.up, "where", eGroups.grup, "=" + TypeGroups.COLOR.id, "order by", eGroups.name);
-        HashMap<Integer, Integer> hm = new HashMap();
-        
-        //Query qColor = new Query(eColor.values()).select("where", );
-        //node.com5t.artiklRec
+        HashSet<Integer> hs = new HashSet();
+        Query aerdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", node.com5t.artiklRec.getInt(eArtikl.id));
+        aerdetList.forEach(rec -> {
+
+            if (rec.getInt(eArtdet.color_fk) < 0) {
+                eColor.query().forEach(rec2 -> hs.add(rec2.getInt(eColor.id)));
+            } else {
+                hs.add(rec.getInt(eArtdet.color_fk));
+            }
+        });
+        DicColor2 frame = new DicColor2(this, listenerColor, hs);
     }//GEN-LAST:event_btnField18ActionPerformed
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnArtikl;
     private javax.swing.JButton btnClose;
