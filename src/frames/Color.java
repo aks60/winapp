@@ -5,7 +5,6 @@ import common.FrameToFile;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
-import frames.dialog.ParGrup2v;
 import domain.eColor;
 import domain.eColmap;
 import domain.eGroups;
@@ -22,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.BooleanRenderer;
 import frames.swing.DefTableModel;
 import java.awt.Component;
+import java.awt.Dimension;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -194,6 +194,7 @@ public class Color extends javax.swing.JFrame {
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
+        btnRef1 = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
@@ -287,6 +288,21 @@ public class Color extends javax.swing.JFrame {
             }
         });
 
+        btnRef1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
+        btnRef1.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnRef1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnRef1.setFocusable(false);
+        btnRef1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRef1.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnRef1.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnRef1.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnRef1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRef1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRef1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -298,7 +314,9 @@ public class Color extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 716, Short.MAX_VALUE)
+                .addGap(94, 94, 94)
+                .addComponent(btnRef1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 545, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -310,7 +328,8 @@ public class Color extends javax.swing.JFrame {
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRef1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -586,12 +605,17 @@ public class Color extends javax.swing.JFrame {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
         }
     }//GEN-LAST:event_filterCaretUpdate
+
+    private void btnRef1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRef1ActionPerformed
+
+    }//GEN-LAST:event_btnRef1ActionPerformed
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
+    private javax.swing.JButton btnRef1;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JTabbedPane jTabbedPane1;
