@@ -143,8 +143,8 @@ public class Wincalc {
 
             int id = jsonObj.get("id").getAsInt();
             String paramJson = jsonObj.get("paramJson").getAsString();
-            nuni = jsonObj.get("nuni").getAsInt();                       
-            
+            nuni = jsonObj.get("nuni").getAsInt();
+
             width = jsonObj.get("width").getAsFloat();
             height = jsonObj.get("height").getAsFloat();
             heightAdd = jsonObj.get("heightAdd").getAsFloat();

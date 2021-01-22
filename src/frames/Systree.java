@@ -95,7 +95,7 @@ public class Systree extends javax.swing.JFrame {
     private int systreeID = -1;
     private int sysprodID = -1;
     private TreeNode[] nuniNode = null;
-    private Canvas paintPanel = new Canvas(iwin); 
+    private Canvas paintPanel = new Canvas(iwin);
 
     public Systree() {
         initComponents();
@@ -534,10 +534,13 @@ public class Systree extends javax.swing.JFrame {
                 txtField20.setText(eFurniture.find(id).getStr(eFurniture.name));
                 txtField30.setText(stv.typeOpen.name2);
                 comboBox1.setSelectedIndex(stv.handlLayout.id - 1);
-                Query.conf = "calc";
-                iwin.calcFurniture = new builder.specif.Furniture(iwin); //фурнитура 
-                iwin.calcFurniture.calc();
-                Query.conf = "app";
+                try {
+                    Query.conf = "calc";
+                    iwin.calcFurniture = new builder.specif.Furniture(iwin, true); //фурнитура 
+                    iwin.calcFurniture.calc();
+                } finally {
+                    Query.conf = "app";
+                }
                 txtField21.setText(stv.handlRec.getStr(eArtikl.name));
                 txtField25.setText(eColor.find(stv.handlColor).getStr(eColor.name));
 
