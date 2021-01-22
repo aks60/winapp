@@ -2260,9 +2260,11 @@ public class Systree extends javax.swing.JFrame {
         if (node != null) {
             List<Record> sysprofList = new ArrayList();
             for (Record sysprofRec : qSysprof) {
-                if(sysprofRec.getInt(eSysprof.use_type) == UseArtiklTo.ANY.id 
+                if (sysprofRec.getInt(eSysprof.use_type) == UseArtiklTo.ANY.id
                         || sysprofRec.getInt(eSysprof.use_type) == UseArtiklTo.FRAME.id) {
-                   //if(sysprofRec.getInt(eSysprof.use_side) ==  UseSide.BOTTOM)
+                    if (sysprofRec.getInt(eSysprof.use_side) == UseSide.BOTTOM.id) {
+
+                    }
                 }
             }
             DicArtikl artikl = new DicArtikl(this, listenerArtikl2, qSysprof);
