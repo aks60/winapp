@@ -25,17 +25,29 @@ public class DicColor2 extends javax.swing.JDialog {
     private Query qColgrp = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR.id, "order by", eGroups.name);
     //private Query qColgrp = new Query(eGroups.values())
     private Query qColorAll = new Query(eColor.values()).select(eColor.up, "order by", eColor.name);
-    private Query qColor = new Query(eColor.id, eColor.name); 
+    private Query qColor = new Query(eColor.id, eColor.name);
     private HashSet hset = null;
     private boolean master = true;
 
     public DicColor2(Frame parent, DialogListener listener) {
         this(parent, listener, true);
     }
-    
+
     public DicColor2(Frame parent, DialogListener listener, HashSet<Integer> hset) {
         this(parent, listener, true);
-        
+        HashSet<Integer> hs = new HashSet();
+        HashSet<Integer> hset2 = new HashSet();
+        hset2.addAll(hset);
+        qColorAll.forEach(rec -> {
+            if (hset2.add(rec.getInt(eColor.id)) == false) {
+                hs.add(rec.getInt(eColor.colgrp_id));
+            }
+        });
+        qColgrp.forEach(rec -> {
+            if(hs.add(rec.getInt(eGroups.id))) {
+                qColgrp.remove(rec.getInt(eGroups.id));
+            }
+        });
     }
 
     public DicColor2(Frame parent, DialogListener listener, boolean master) {
@@ -60,13 +72,13 @@ public class DicColor2 extends javax.swing.JDialog {
             Record record = qColgrp.table(eGroups.up).get(row);
             int colgrpId = record.getInt(eGroups.id);
             qColor.clear();
-            if(hset == null) {
+            if (hset == null) {
                 qColorAll.forEach(rec -> {
-                    if(rec.getInt(eColor.colgrp_id) == colgrpId) {
+                    if (rec.getInt(eColor.colgrp_id) == colgrpId) {
                         qColor.add(rec);
                     }
                 });
-            } 
+            }
             //qColor.select(eColor.up, "where", eColor.colgrp_id, "=", id, "order by", eColor.name);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         }
