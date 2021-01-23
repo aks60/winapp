@@ -26,7 +26,7 @@ public class DicColor2 extends javax.swing.JDialog {
     //private Query qColgrp = new Query(eGroups.values())
     private Query qColorAll = new Query(eColor.values()).select(eColor.up, "order by", eColor.name);
     private Query qColor = new Query(eColor.id, eColor.name);
-    private HashSet hset = null;
+    private HashSet<Integer> hset = null;
     private boolean master = true;
 
     public DicColor2(Frame parent, DialogListener listener) {
@@ -35,6 +35,7 @@ public class DicColor2 extends javax.swing.JDialog {
 
     public DicColor2(Frame parent, DialogListener listener, HashSet<Integer> hset) {
         this(parent, listener, true);
+        this.hset = hset;
         HashSet<Integer> hs = new HashSet();
         HashSet<Integer> hset2 = new HashSet();
         hset2.addAll(hset);
@@ -44,7 +45,7 @@ public class DicColor2 extends javax.swing.JDialog {
             }
         });
         qColgrp.forEach(rec -> {
-            if(hs.add(rec.getInt(eGroups.id))) {
+            if (hs.add(rec.getInt(eGroups.id))) {
                 qColgrp.remove(rec.getInt(eGroups.id));
             }
         });
@@ -76,6 +77,16 @@ public class DicColor2 extends javax.swing.JDialog {
                 qColorAll.forEach(rec -> {
                     if (rec.getInt(eColor.colgrp_id) == colgrpId) {
                         qColor.add(rec);
+                    }
+                });
+            } else {
+                qColorAll.forEach(rec -> {
+                    if (rec.getInt(eColor.colgrp_id) == colgrpId) {
+                        hset.forEach(it -> {
+                            if (it == rec.getInt(eColor.id)) {
+                                qColor.add(rec);
+                            }
+                        });
                     }
                 });
             }

@@ -2282,11 +2282,15 @@ public class Systree extends javax.swing.JFrame {
     private void btnField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField18ActionPerformed
         DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
         HashSet<Integer> hs = new HashSet();
-        Query aerdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", node.com5t.artiklRec.getInt(eArtikl.id));
-        aerdetList.forEach(rec -> {
+        Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", node.com5t.artiklRec.getInt(eArtikl.id));
+        artdetList.forEach(rec -> {
 
             if (rec.getInt(eArtdet.color_fk) < 0) {
-                eColor.query().forEach(rec2 -> hs.add(rec2.getInt(eColor.id)));
+                eColor.query().forEach(rec2 -> {
+                    if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
+                        hs.add(rec2.getInt(eColor.id));
+                    }
+                });
             } else {
                 hs.add(rec.getInt(eArtdet.color_fk));
             }
