@@ -450,7 +450,7 @@
                                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                       <Component id="txtField17" min="-2" max="-2" attributes="1"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnField9" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnField17" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel23" min="-2" max="-2" attributes="1"/>
@@ -548,7 +548,7 @@
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="txtField5" min="-2" max="-2" attributes="1"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="btnField12" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btnField5" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -558,7 +558,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="txtField22" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnField14" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnField22" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="btnField13" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -598,7 +598,7 @@
                           <Component id="txtField7" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnField7" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtField17" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnField9" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnField17" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -615,7 +615,7 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtField22" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnField14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnField22" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -678,7 +678,7 @@
                                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="txtField4" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnField12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnField5" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="txtField5" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -1044,6 +1044,9 @@
                   <Dimension value="[164, 18]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtField10ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnField10">
               <Properties>
@@ -1333,7 +1336,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnField12">
+            <Component class="javax.swing.JButton" name="btnField5">
               <Properties>
                 <Property name="text" type="java.lang.String" value="..."/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1352,7 +1355,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField12"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField5"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtField17">
@@ -1371,7 +1374,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnField9">
+            <Component class="javax.swing.JButton" name="btnField17">
               <Properties>
                 <Property name="text" type="java.lang.String" value="..."/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1732,7 +1735,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField13"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnField14">
+            <Component class="javax.swing.JButton" name="btnField22">
               <Properties>
                 <Property name="text" type="java.lang.String" value="..."/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1751,7 +1754,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField14"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField22"/>
               </Events>
             </Component>
           </SubComponents>

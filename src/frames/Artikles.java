@@ -471,9 +471,9 @@ public class Artikles extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         txtField15 = new javax.swing.JFormattedTextField();
         txtField16 = new javax.swing.JFormattedTextField();
-        btnField12 = new javax.swing.JButton();
+        btnField5 = new javax.swing.JButton();
         txtField17 = new javax.swing.JTextField();
-        btnField9 = new javax.swing.JButton();
+        btnField17 = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         txtField18 = new javax.swing.JFormattedTextField();
@@ -491,7 +491,7 @@ public class Artikles extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         txtField22 = new javax.swing.JTextField();
         btnField13 = new javax.swing.JButton();
-        btnField14 = new javax.swing.JButton();
+        btnField22 = new javax.swing.JButton();
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
@@ -805,6 +805,11 @@ public class Artikles extends javax.swing.JFrame {
         txtField10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField10.setFocusable(false);
         txtField10.setPreferredSize(new java.awt.Dimension(164, 18));
+        txtField10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtField10ActionPerformed(evt);
+            }
+        });
 
         btnField10.setText("...");
         btnField10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -911,14 +916,14 @@ public class Artikles extends javax.swing.JFrame {
         txtField16.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField16.setPreferredSize(new java.awt.Dimension(40, 18));
 
-        btnField12.setText("...");
-        btnField12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnField12.setMaximumSize(new java.awt.Dimension(18, 18));
-        btnField12.setMinimumSize(new java.awt.Dimension(18, 18));
-        btnField12.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField12.addActionListener(new java.awt.event.ActionListener() {
+        btnField5.setText("...");
+        btnField5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField5.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField5.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField5.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField12(evt);
+                btnField5(evt);
             }
         });
 
@@ -927,13 +932,13 @@ public class Artikles extends javax.swing.JFrame {
         txtField17.setFocusable(false);
         txtField17.setPreferredSize(new java.awt.Dimension(68, 18));
 
-        btnField9.setText("...");
-        btnField9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnField9.setMaximumSize(new java.awt.Dimension(18, 18));
-        btnField9.setMinimumSize(new java.awt.Dimension(18, 18));
-        btnField9.setName("btnField17"); // NOI18N
-        btnField9.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField9.addActionListener(new java.awt.event.ActionListener() {
+        btnField17.setText("...");
+        btnField17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField17.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField17.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField17.setName("btnField17"); // NOI18N
+        btnField17.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCurrenc(evt);
             }
@@ -1066,14 +1071,14 @@ public class Artikles extends javax.swing.JFrame {
             }
         });
 
-        btnField14.setText("...");
-        btnField14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnField14.setMaximumSize(new java.awt.Dimension(18, 18));
-        btnField14.setMinimumSize(new java.awt.Dimension(18, 18));
-        btnField14.setPreferredSize(new java.awt.Dimension(18, 18));
-        btnField14.addActionListener(new java.awt.event.ActionListener() {
+        btnField22.setText("...");
+        btnField22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField22.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField22.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField22.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnField14(evt);
+                btnField22(evt);
             }
         });
 
@@ -1100,7 +1105,7 @@ public class Artikles extends javax.swing.JFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(txtField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pan2Layout.createSequentialGroup()
                                 .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1183,14 +1188,14 @@ public class Artikles extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan2Layout.createSequentialGroup()
                                         .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(btnField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan2Layout.createSequentialGroup()
                                     .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan2Layout.createSequentialGroup()
@@ -1221,7 +1226,7 @@ public class Artikles extends javax.swing.JFrame {
                     .addComponent(txtField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1236,7 +1241,7 @@ public class Artikles extends javax.swing.JFrame {
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1286,7 +1291,7 @@ public class Artikles extends javax.swing.JFrame {
                                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1331,10 +1336,8 @@ public class Artikles extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tab2.setCellSelectionEnabled(false);
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
-        tab2.setRowSelectionAllowed(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -1525,7 +1528,7 @@ public class Artikles extends javax.swing.JFrame {
         artiklRec.set(eArtikl.with_seal, with_seal);
     }//GEN-LAST:event_checkBox1Action
 
-    private void btnField12(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField12
+    private void btnField5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField5
         int row = Util.getSelectedRec(tab1);
         Record artiklRec = qArtikl.get(row);
         if (artiklRec.getInt(eArtikl.level1) == 1) {
@@ -1549,7 +1552,7 @@ public class Artikles extends javax.swing.JFrame {
         } else if (artiklRec.getInt(eArtikl.level1) == 5) {
             new DicEnums(this, listenerUnit, UseUnit.METR2);
         }
-    }//GEN-LAST:event_btnField12
+    }//GEN-LAST:event_btnField5
 
     private void btnField18(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField18
         new Syssize(this, listenerSyssize);
@@ -1567,9 +1570,13 @@ public class Artikles extends javax.swing.JFrame {
         DicGroups groups = new DicGroups(this, listenerCategFilter, TypeGroups.FILTER);
     }//GEN-LAST:event_btnField13
 
-    private void btnField14(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField14
+    private void btnField22(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField22
         DicGroups groups = new DicGroups(this, listenerCateg, TypeGroups.FILTER);
-    }//GEN-LAST:event_btnField14
+    }//GEN-LAST:event_btnField22
+
+    private void txtField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtField10ActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1577,15 +1584,15 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnField10;
     private javax.swing.JButton btnField11;
-    private javax.swing.JButton btnField12;
     private javax.swing.JButton btnField13;
-    private javax.swing.JButton btnField14;
+    private javax.swing.JButton btnField17;
     private javax.swing.JButton btnField18;
     private javax.swing.JButton btnField19;
     private javax.swing.JButton btnField20;
+    private javax.swing.JButton btnField22;
+    private javax.swing.JButton btnField5;
     private javax.swing.JButton btnField7;
     private javax.swing.JButton btnField8;
-    private javax.swing.JButton btnField9;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
