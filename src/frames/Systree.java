@@ -13,7 +13,7 @@ import dataset.Query;
 import dataset.Record;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicEnums;
-import frames.dialog.DicFurniture;
+import frames.dialog.DicName;
 import frames.dialog.ParDefault;
 import domain.eArtikl;
 import domain.eFurniture;
@@ -54,6 +54,7 @@ import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
 import domain.eArtdet;
 import domain.eColor;
+import domain.eFurndet;
 import enums.TypeElem;
 import enums.TypeOpen1;
 import frames.dialog.DicColor2;
@@ -346,7 +347,7 @@ public class Systree extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
-            DicFurniture frame = new DicFurniture(this, listenerFurn, eFurniture.name, new Query(eFurniture.values()).select(eFurniture.up, "order by", eFurniture.name));
+            DicName frame = new DicName(this, listenerFurn, new Query(eFurniture.values()).select(eFurniture.up, "order by", eFurniture.name), eFurniture.name);
         });
 
         Util.buttonEditorCell(tab3, 2).addActionListener(event -> {
@@ -442,7 +443,7 @@ public class Systree extends javax.swing.JFrame {
         listenerHandle = (record) -> {
             Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab1, tab2, tab3, tab4, tab5);
         };
-        
+
         listenerHandle2 = (record) -> {
             System.out.println(record);
         };
@@ -2367,7 +2368,7 @@ public class Systree extends javax.swing.JFrame {
             String systreeID = node.systreeRec.getStr(eSystree.id);
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
-            DicFurniture frame = new DicFurniture(this, listenerFurn2, eFurniture.name, qSysfurn.table(eFurniture.up));
+            DicName frame = new DicName(this, listenerFurn2, qSysfurn.table(eFurniture.up), eFurniture.name);
 
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
@@ -2381,11 +2382,25 @@ public class Systree extends javax.swing.JFrame {
 
     private void btn12Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn12Action
         try {
-            DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
-            String systreeID = node.systreeRec.getStr(eSystree.id);
-            Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
-                    eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
-            DicFurniture frame = new DicFurniture(this, listenerFurn2, eFurniture.name, qSysfurn.table(eFurniture.up));
+            DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            int furnitureID = ((AreaStvorka) node.com5t).sysfurnRec.getInt(eSysfurn.furniture_id);
+            Query qFurndet = new Query(eFurndet.values()).select(eFurndet.up, "where", eFurndet.furndet_id, "=", furnitureID);
+            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (10)");
+            Query qArtikl2 = new Query(eArtikl.values());
+            qFurndet.forEach(furndetRec -> {
+                qArtikl.forEach(artiklRec -> {
+                    if (furndetRec.getInt(eFurndet.artikl_id) == artiklRec.getInt(eArtikl.id)) {
+                        if (artiklRec.getInt(eArtikl.level2) == 0) {
+                            qArtikl2.add(artiklRec);
+                        }
+                    }
+                });
+            });
+            DicArtikl frame = new DicArtikl(this, (record) -> {
+                
+                System.out.println(record);
+                
+            }, qArtikl2);
 
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);

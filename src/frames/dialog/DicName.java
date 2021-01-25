@@ -10,26 +10,18 @@ import domain.eFurniture;
 import javax.swing.table.DefaultTableModel;
 
 //Справочник фурнитур
-public class DicFurniture extends javax.swing.JDialog {
+public class DicName extends javax.swing.JDialog {
 
     private DialogListener listener = null;
     private Query query = null;
-
-//    public DicFurniture(java.awt.Frame parent, DialogListener listenet) {
-//        super(parent, true);
-//        initComponents();
-//        initElements();
-//        this.listener = listenet;
-//        qFurniture.select(eFurniture.up, "order by", eFurniture.name);
-//        loadingModel();
-//        setVisible(true);
-//    }
+    private Field field = null;
     
-    public DicFurniture(java.awt.Frame parent, DialogListener listenet, Field field, Query query) {
+    public DicName(java.awt.Frame parent, DialogListener listenet, Query query, Field field) {
         super(parent, true);
         initComponents();
         initElements();
         this.listener = listenet;
+        this.field = field;
         this.query = query;
         loadingModel();
         setVisible(true);
@@ -40,7 +32,7 @@ public class DicFurniture extends javax.swing.JDialog {
         DefaultTableModel dtm = (DefaultTableModel) tab1.getModel();
         dtm.setRowCount(query.size());
         for (int i = 0; i < query.size(); i++) {
-            dtm.setValueAt(query.get(i, eFurniture.name), i, 0);
+            dtm.setValueAt(query.get(i, field), i, 0);
         }
     }
 

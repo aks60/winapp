@@ -23,7 +23,6 @@ import frames.swing.DefTableModel;
 import dataset.Field;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicColvar;
-import frames.dialog.DicThicknes;
 import frames.dialog.ParColor2;
 import frames.dialog.ParGrup2;
 import frames.dialog.ParGrup2b;
@@ -39,6 +38,7 @@ import enums.Enam;
 import enums.ParamList;
 import enums.TypeGroups;
 import enums.UseColor;
+import frames.dialog.DicName;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
@@ -181,7 +181,8 @@ public class Filling extends javax.swing.JFrame {
 
     private void listenerAdd() {
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
-            DicThicknes frame = new DicThicknes(this, listenerThicknes);
+            Query query = new Query(eArtikl.name).select("select distinct " + eArtikl.depth.name() + " from " + eArtikl.up.tname() + " order by " + eArtikl.depth.name());
+            DicName frame = new DicName(this, listenerThicknes, query, eArtikl.name);  
         });
 
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
@@ -337,8 +338,8 @@ public class Filling extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
                 int row = Util.getSelectedRec(tab2);
-                String series = record.getStr(0);
-                qGlasdet.set(series, Util.getSelectedRec(tab2), eGlasdet.depth);
+                String name = record.getStr(eArtikl.name);
+                qGlasdet.set(name, Util.getSelectedRec(tab2), eGlasdet.depth);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
             }
