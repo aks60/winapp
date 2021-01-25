@@ -55,6 +55,7 @@ import builder.model.ElemSimple;
 import domain.eArtdet;
 import domain.eColor;
 import enums.TypeElem;
+import enums.TypeOpen1;
 import frames.dialog.DicColor2;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
@@ -92,8 +93,8 @@ public class Systree extends javax.swing.JFrame {
     private Wincalc iwin = new Wincalc();
     private JTable tab1 = new JTable();
     private DialogListener listenerArtikl, listenerArtikl2, listenerColor, listenerUsetyp, listenerModel, listenerModify, listenerTree,
-            listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2,
-            listenerBtn1, listenerBtn7, listenerBtn11, listenerArt211, listenerArt212;
+            listenerSide, listenerFurn, listenerFurn2, listenerTypeopen, listenerHandle, listenerHandle2, listenerParam1, listenerParam2,
+            listenerBtn1, listenerBtn7, listenerBtn11, listenerArt211, listenerArt212, listenerGlass;
     private Canvas paintPanel = new Canvas(iwin);
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
@@ -397,11 +398,19 @@ public class Systree extends javax.swing.JFrame {
         };
 
         listenerArtikl2 = (record) -> {
-            System.out.println("jjjjjjjjjjjjjjjj");
+            System.out.println(record);
         };
 
         listenerColor = (record) -> {
-            System.out.println("pppppppppppppppp");
+            System.out.println(record);
+        };
+
+        listenerGlass = (record) -> {
+            System.out.println(record);
+        };
+
+        listenerFurn2 = (record) -> {
+            System.out.println(record);
         };
 
         listenerModel = (record) -> {
@@ -432,6 +441,10 @@ public class Systree extends javax.swing.JFrame {
 
         listenerHandle = (record) -> {
             Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab1, tab2, tab3, tab4, tab5);
+        };
+        
+        listenerHandle2 = (record) -> {
+            System.out.println(record);
         };
 
         listenerArt211 = (record) -> {
@@ -532,6 +545,7 @@ public class Systree extends javax.swing.JFrame {
                     || node.com5t.type() == TypeElem.STVORKA_SIDE || node.com5t.type() == TypeElem.IMPOST) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(node.toString());
+                System.out.println(node.com5t.type().name + ", " + node.com5t.layout().name.toLowerCase());
                 txtField32.setText(node.com5t.artiklRec.getStr(eArtikl.code));
                 txtField33.setText(node.com5t.artiklRec.getStr(eArtikl.name));
                 txtField27.setText(eColor.find(node.com5t.colorID1).getStr(eColor.name));
@@ -566,6 +580,7 @@ public class Systree extends javax.swing.JFrame {
             }
             Arrays.asList(txtField9, txtField13, txtField14, txtField27, txtField28,
                     txtField29, txtField19, txtField20, txtField30).forEach(it -> it.setCaretPosition(0));
+            Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
     }
 
@@ -826,7 +841,7 @@ public class Systree extends javax.swing.JFrame {
         btn9.setPreferredSize(new java.awt.Dimension(18, 18));
         btn9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorProfileAct(evt);
+                colorProfileAction(evt);
             }
         });
 
@@ -838,7 +853,7 @@ public class Systree extends javax.swing.JFrame {
         btn13.setPreferredSize(new java.awt.Dimension(18, 18));
         btn13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorProfileAct(evt);
+                colorProfileAction(evt);
             }
         });
 
@@ -850,7 +865,7 @@ public class Systree extends javax.swing.JFrame {
         btn2.setPreferredSize(new java.awt.Dimension(18, 18));
         btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorProfileAct(evt);
+                colorProfileAction(evt);
             }
         });
 
@@ -976,7 +991,7 @@ public class Systree extends javax.swing.JFrame {
         btn18.setPreferredSize(new java.awt.Dimension(18, 18));
         btn18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorFrameAct(evt);
+                colorFrameAction(evt);
             }
         });
 
@@ -988,7 +1003,7 @@ public class Systree extends javax.swing.JFrame {
         btn19.setPreferredSize(new java.awt.Dimension(18, 18));
         btn19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorFrameAct(evt);
+                colorFrameAction(evt);
             }
         });
 
@@ -1000,7 +1015,7 @@ public class Systree extends javax.swing.JFrame {
         btn20.setPreferredSize(new java.awt.Dimension(18, 18));
         btn20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorFrameAct(evt);
+                colorFrameAction(evt);
             }
         });
 
@@ -1094,7 +1109,7 @@ public class Systree extends javax.swing.JFrame {
         btn22.setPreferredSize(new java.awt.Dimension(18, 18));
         btn22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn22ActionPerformed(evt);
+                btn22Action(evt);
             }
         });
 
@@ -1157,7 +1172,7 @@ public class Systree extends javax.swing.JFrame {
         btn3.setPreferredSize(new java.awt.Dimension(18, 18));
         btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn3Act(evt);
+                btn3Action(evt);
             }
         });
 
@@ -1226,6 +1241,11 @@ public class Systree extends javax.swing.JFrame {
         btn10.setMinimumSize(new java.awt.Dimension(18, 18));
         btn10.setName("btnField17"); // NOI18N
         btn10.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn10Action(evt);
+            }
+        });
 
         jLabel38.setFont(frames.Util.getFont(0,0));
         jLabel38.setText("Подвес");
@@ -1250,11 +1270,6 @@ public class Systree extends javax.swing.JFrame {
         btn1.setMinimumSize(new java.awt.Dimension(18, 18));
         btn1.setName("btnField17"); // NOI18N
         btn1.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn1ActionPerformed(evt);
-            }
-        });
 
         jLabel40.setFont(frames.Util.getFont(0,0));
         jLabel40.setText("Замок");
@@ -1310,6 +1325,11 @@ public class Systree extends javax.swing.JFrame {
         btn21.setMinimumSize(new java.awt.Dimension(18, 18));
         btn21.setName("btnField17"); // NOI18N
         btn21.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn21Action(evt);
+            }
+        });
 
         txtField20.setEditable(false);
         txtField20.setBackground(new java.awt.Color(255, 255, 255));
@@ -1704,7 +1724,7 @@ public class Systree extends javax.swing.JFrame {
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
-        tabb1.addTab("<html><font size=\"3\">Основные параметры", pan6);
+        tabb1.addTab("<html><font size=\"3\">Основные", pan6);
 
         pan3.setLayout(new java.awt.BorderLayout());
 
@@ -1750,7 +1770,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("<html><font size=\"3\">Профили сист.", pan3);
+        tabb1.addTab("<html><font size=\"3\">Профили", pan3);
 
         pan4.setLayout(new java.awt.BorderLayout());
 
@@ -1796,7 +1816,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan4.add(scr3, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("<html><font size=\"3\">Фурнитура сист.", pan4);
+        tabb1.addTab("<html><font size=\"3\">Фурнитура", pan4);
 
         pan5.setLayout(new java.awt.BorderLayout());
 
@@ -1839,7 +1859,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan5.add(scr4, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("<html><font size=\"3\">Параметры по умолчанию", pan5);
+        tabb1.addTab("<html><font size=\"3\">Параметры", pan5);
 
         pan10.setLayout(new java.awt.BorderLayout());
 
@@ -1887,7 +1907,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan10.add(scr6, java.awt.BorderLayout.EAST);
 
-        tabb1.addTab("<html><font size=\"3\">Конструкции системы", pan10);
+        tabb1.addTab("<html><font size=\"3\">Модели", pan10);
 
         pan1.add(tabb1);
 
@@ -2276,7 +2296,7 @@ public class Systree extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_comboBox1ItemStateChanged
 
-    private void btn22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn22ActionPerformed
+    private void btn22Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn22Action
         DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
         if (node != null) {
             List<Record> artiklList = new ArrayList();
@@ -2291,9 +2311,9 @@ public class Systree extends javax.swing.JFrame {
             }
             DicArtikl artikl = new DicArtikl(this, listenerArtikl2, artiklList);
         }
-    }//GEN-LAST:event_btn22ActionPerformed
+    }//GEN-LAST:event_btn22Action
 
-    private void colorFrameAct(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFrameAct
+    private void colorFrameAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFrameAction
         DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
         HashSet<Record> colorSet = new HashSet();
         Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", node.com5t.artiklRec.getInt(eArtikl.id));
@@ -2310,21 +2330,49 @@ public class Systree extends javax.swing.JFrame {
             }
         });
         DicColor2 frame = new DicColor2(this, listenerColor, colorSet);
-    }//GEN-LAST:event_colorFrameAct
+    }//GEN-LAST:event_colorFrameAction
 
-    private void colorProfileAct(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorProfileAct
+    private void colorProfileAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorProfileAction
         // TODO add your handling code here:
-    }//GEN-LAST:event_colorProfileAct
+    }//GEN-LAST:event_colorProfileAction
 
-    private void btn3Act(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3Act
-        Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 5");
-        List<Record> artiklList = qArtikl.stream().filter(rec -> rec.getFloat(eArtikl.depth) == 4).findFirst().orElse(null);
-        
-    }//GEN-LAST:event_btn3Act
+    private void btn3Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3Action
+        try {
+            DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+            String depth = node.systreeRec.getStr(eSystree.depth);
+            if (depth != null && depth.isEmpty() == false) {
+                depth = depth.replace(";", ",");
+                if (depth.charAt(depth.length() - 1) == ',') {
+                    depth = depth.substring(0, depth.length() - 1);
+                }
+            }
+            depth = (depth != null && depth.isEmpty() == false) ? " and " + eArtikl.depth.name() + " in (" + depth.replace(";", ",") + ")" : "";
+            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where",
+                    eArtikl.level1, "= 5 and", eArtikl.level2, "in (1,2,3)", depth);
+            DicArtikl artikl = new DicArtikl(this, listenerGlass, qArtikl);
 
-    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn1ActionPerformed
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_btn3Action
+
+    private void btn10Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10Action
+        try {
+            DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+            String systreeID = node.systreeRec.getStr(eSystree.id);
+            Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
+                    eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
+            DicFurniture frame = new DicFurniture(this, listenerFurn2, qSysfurn.table(eFurniture.up));
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_btn10Action
+
+    private void btn21Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn21Action
+        DicEnums frame = new DicEnums(this, listenerHandle, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
+                TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTSHIFT, TypeOpen1.UPPER, TypeOpen1.FIXED);
+    }//GEN-LAST:event_btn21Action
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
