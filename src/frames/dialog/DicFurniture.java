@@ -2,6 +2,7 @@ package frames.dialog;
 
 import common.DialogListener;
 import common.FrameToFile;
+import dataset.Field;
 import frames.Util;
 import dataset.Query;
 import dataset.Record;
@@ -12,24 +13,24 @@ import javax.swing.table.DefaultTableModel;
 public class DicFurniture extends javax.swing.JDialog {
 
     private DialogListener listener = null;
-    private Query qFurniture = new Query(eFurniture.values());
+    private Query query = null;
 
-    public DicFurniture(java.awt.Frame parent, DialogListener listenet) {
-        super(parent, true);
-        initComponents();
-        initElements();
-        this.listener = listenet;
-        qFurniture.select(eFurniture.up, "order by", eFurniture.name);
-        loadingModel();
-        setVisible(true);
-    }
+//    public DicFurniture(java.awt.Frame parent, DialogListener listenet) {
+//        super(parent, true);
+//        initComponents();
+//        initElements();
+//        this.listener = listenet;
+//        qFurniture.select(eFurniture.up, "order by", eFurniture.name);
+//        loadingModel();
+//        setVisible(true);
+//    }
     
-    public DicFurniture(java.awt.Frame parent, DialogListener listenet, Query qFurniture) {
+    public DicFurniture(java.awt.Frame parent, DialogListener listenet, Field field, Query query) {
         super(parent, true);
         initComponents();
         initElements();
         this.listener = listenet;
-        this.qFurniture = qFurniture;
+        this.query = query;
         loadingModel();
         setVisible(true);
     }
@@ -37,9 +38,9 @@ public class DicFurniture extends javax.swing.JDialog {
     private void loadingModel() {
         
         DefaultTableModel dtm = (DefaultTableModel) tab1.getModel();
-        dtm.setRowCount(qFurniture.size());
-        for (int i = 0; i < qFurniture.size(); i++) {
-            dtm.setValueAt(qFurniture.get(i, eFurniture.name), i, 0);
+        dtm.setRowCount(query.size());
+        for (int i = 0; i < query.size(); i++) {
+            dtm.setValueAt(query.get(i, eFurniture.name), i, 0);
         }
     }
 
@@ -205,7 +206,7 @@ public class DicFurniture extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        Record record = qFurniture.get(Util.getSelectedRec(tab1));
+        Record record = query.get(Util.getSelectedRec(tab1));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice

@@ -346,7 +346,7 @@ public class Systree extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
-            DicFurniture frame = new DicFurniture(this, listenerFurn);
+            DicFurniture frame = new DicFurniture(this, listenerFurn, eFurniture.name, new Query(eFurniture.values()).select(eFurniture.up, "order by", eFurniture.name));
         });
 
         Util.buttonEditorCell(tab3, 2).addActionListener(event -> {
@@ -1263,6 +1263,11 @@ public class Systree extends javax.swing.JFrame {
         btn12.setMinimumSize(new java.awt.Dimension(18, 18));
         btn12.setName("btnField17"); // NOI18N
         btn12.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn12Action(evt);
+            }
+        });
 
         btn1.setText("...");
         btn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -2362,7 +2367,7 @@ public class Systree extends javax.swing.JFrame {
             String systreeID = node.systreeRec.getStr(eSystree.id);
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
-            DicFurniture frame = new DicFurniture(this, listenerFurn2, qSysfurn.table(eFurniture.up));
+            DicFurniture frame = new DicFurniture(this, listenerFurn2, eFurniture.name, qSysfurn.table(eFurniture.up));
 
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
@@ -2370,9 +2375,22 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btn10Action
 
     private void btn21Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn21Action
-        DicEnums frame = new DicEnums(this, listenerHandle, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
+        DicEnums frame = new DicEnums(this, listenerHandle2, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
                 TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTSHIFT, TypeOpen1.UPPER, TypeOpen1.FIXED);
     }//GEN-LAST:event_btn21Action
+
+    private void btn12Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn12Action
+        try {
+            DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+            String systreeID = node.systreeRec.getStr(eSystree.id);
+            Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
+                    eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
+            DicFurniture frame = new DicFurniture(this, listenerFurn2, eFurniture.name, qSysfurn.table(eFurniture.up));
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_btn12Action
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
