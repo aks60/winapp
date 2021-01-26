@@ -262,6 +262,7 @@ public class Param extends javax.swing.JFrame {
             }
         });
         tab1.setFillsViewportHeight(true);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
@@ -301,6 +302,7 @@ public class Param extends javax.swing.JFrame {
             }
         });
         tab2.setFillsViewportHeight(true);
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
