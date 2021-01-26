@@ -33,20 +33,20 @@ public class DefFieldEditor<E> {
     }
 
     //Добавить компонент отображения
-    public void add(Field field, JTextComponent comp) {
+    public void add(Field field, JTextComponent jtxt) {
 
-        mapTxt.put(comp, field);
+        mapTxt.put(jtxt, field);
         if (field.meta().edit() == false) { //если редактирование запрещено
-            comp.setEditable(false);
-            comp.setBackground(new java.awt.Color(255, 255, 255));
+            jtxt.setEditable(false);
+            jtxt.setBackground(new java.awt.Color(255, 255, 255));
         }
-        comp.getDocument().addDocumentListener(new DocListiner(comp));
+        jtxt.getDocument().addDocumentListener(new DocListiner(jtxt));
     }
 
     //Добавить компонент отображения 
-    public void add(Field field, JTextComponent comp, Enam[] enam) {
+    public void add(Field field, JTextComponent jtxt, Enam[] enam) {
 
-        add(field, comp);
+        add(field, jtxt);
         mapEnam.put(field, enam);
     }
 
@@ -77,7 +77,8 @@ public class DefFieldEditor<E> {
                     JTextComponent jtxt = me.getKey();
                     Field field = me.getValue();
                     Object val = node.rec().get(field);
-                    text(jtxt, field, val);
+                    jtxt.setText("xxx");
+                    //text(jtxt, field, val);
                 }
             } catch (Exception e) {
                 System.err.println("Oшибка:DefFieldEditor.load() " + e);
