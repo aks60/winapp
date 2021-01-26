@@ -306,17 +306,17 @@ public class Systree extends javax.swing.JFrame {
         rsmSysprof.setFrameListener(listenerModify);
         rsvSystree = new DefFieldEditor(treeSys);
         rsvSystree.add(eSystree.name, txtField8);
-//        rsvSystree.add(eSystree.types, txtField7, TypeUse.values());
-//        rsvSystree.add(eSystree.glas, txtField1);
-//        rsvSystree.add(eSystree.depth, txtField2);
-//        rsvSystree.add(eSystree.col1, txtField3);
-//        rsvSystree.add(eSystree.col2, txtField4);
-//        rsvSystree.add(eSystree.col3, txtField5);
-//        rsvSystree.add(eSystree.id, txtField6);
-//        rsvSystree.add(eSystree.pref, txtField10);
-//        rsvSystree.add(eSystree.imgview, txtField11, LayoutProduct.values());
-//        rsvSystree.add(eSystree.nuni, txtField12);
-//        rsvSystree.add(eSystree.cgrp, txtField15);
+        rsvSystree.add(eSystree.types, txtField7, TypeUse.values());
+        rsvSystree.add(eSystree.glas, txtField1);
+        rsvSystree.add(eSystree.depth, txtField2);
+        rsvSystree.add(eSystree.col1, txtField3);
+        rsvSystree.add(eSystree.col2, txtField4);
+        rsvSystree.add(eSystree.col3, txtField5);
+        rsvSystree.add(eSystree.id, txtField6);
+        rsvSystree.add(eSystree.pref, txtField10);
+        rsvSystree.add(eSystree.imgview, txtField11, LayoutProduct.values());
+        rsvSystree.add(eSystree.nuni, txtField12);
+        rsvSystree.add(eSystree.cgrp, txtField15);
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
 

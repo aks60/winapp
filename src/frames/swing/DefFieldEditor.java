@@ -13,6 +13,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 import dataset.Field;
+import domain.eSystree;
 import javax.swing.JTable;
 import javax.swing.JTree;
 
@@ -77,8 +78,7 @@ public class DefFieldEditor<E> {
                     JTextComponent jtxt = me.getKey();
                     Field field = me.getValue();
                     Object val = node.rec().get(field);
-                    jtxt.setText("xxx");
-                    //text(jtxt, field, val);
+                    text(jtxt, field, val);
                 }
             } catch (Exception e) {
                 System.err.println("Oшибка:DefFieldEditor.load() " + e);
@@ -132,8 +132,8 @@ public class DefFieldEditor<E> {
 
         private JTextComponent jtxt;
 
-        DocListiner(JTextComponent field) {
-            this.jtxt = field;
+        DocListiner(JTextComponent jtxt) {
+            this.jtxt = jtxt;
         }
 
         public void actionPerformed(ActionEvent e) {
@@ -154,11 +154,22 @@ public class DefFieldEditor<E> {
 
         //При редактированиии одного из полей
         public void fieldUpdate() {
-            int row = ((JTable) comp).getSelectedRow();
-            if (update == true && row != -1) {
-                if (((JTable) comp).getRowCount() > 0) {
-                    ((DefTableModel) ((JTable) comp).getModel()).getQuery().set(jtxt.getText(), row, mapTxt.get(comp));
+            try {
+                if (update == true) {
+                    if (comp instanceof JTable) {
+                        int row = ((JTable) comp).getSelectedRow();
+                        if (row != -1) {
+                            if (((JTable) comp).getRowCount() > 0) {
+                                ((DefTableModel) ((JTable) comp).getModel()).getQuery().set(jtxt.getText(), row, mapTxt.get(jtxt));
+                            }
+                        }
+                    } else if (comp instanceof JTree) {
+                        DefMutableTreeNode node = (DefMutableTreeNode) ((JTree) comp).getLastSelectedPathComponent();
+                        node.rec().set(mapTxt.get(jtxt), jtxt.getText());
+                    }
                 }
+            } catch (Exception e) {
+                System.err.println("Ошибка:DefFieldEditor.DocListiner.fieldUpdate() " + e);
             }
         }
     }
