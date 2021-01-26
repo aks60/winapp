@@ -138,10 +138,10 @@ public class Systree extends javax.swing.JFrame {
             public void editingStopped(ChangeEvent e) {
                 DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
                 String str = ((DefaultTreeCellEditor) treeSys.getCellEditor()).getCellEditorValue().toString();
-                node.systreeRec.set(eSystree.name, str);
+                node.rec().set(eSystree.name, str);
                 node.setUserObject(str);
                 txtField8.setText(str);
-                qSystree.update(node.systreeRec); //сохраним в базе
+                qSystree.update(node.rec()); //сохраним в базе
             }
 
             public void editingCanceled(ChangeEvent e) {
@@ -486,7 +486,7 @@ public class Systree extends javax.swing.JFrame {
         DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
         if (node != null) {
 
-            systreeID = node.systreeRec.getInt(eSystree.id);
+            systreeID = node.rec().getInt(eSystree.id);
             eProperty.systreeID.write(String.valueOf(systreeID));
 
             for (int i = 0; i < qSystree.size(); i++) {
@@ -494,12 +494,12 @@ public class Systree extends javax.swing.JFrame {
                     rsvSystree.load(i);
                 }
             }
-            qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", node.systreeRec.getInt(eSystree.id), "order by", eSysprod.name);
+            qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysprod.name);
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
-                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.systreeRec.getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
+                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
-                    eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.systreeRec.getInt(eSystree.id), "order by", eSysfurn.npp);
-            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.systreeRec.getInt(eSystree.id));
+                    eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
+            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.rec().getInt(eSystree.id));
 
             loadingTab5();
 
@@ -533,7 +533,7 @@ public class Systree extends javax.swing.JFrame {
         if (node != null) {
 
             //Основные
-            if (node.com5t.type() == TypeElem.RECTANGL || node.com5t.type() == TypeElem.ARCH) {
+            if (node.com5t().type() == TypeElem.RECTANGL || node.com5t().type() == TypeElem.ARCH) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card12");
                 ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type().name);
                 pan12.repaint();
@@ -542,28 +542,28 @@ public class Systree extends javax.swing.JFrame {
                 txtField14.setText(eColor.find(iwin.colorID3).getStr(eColor.name));
 
                 //Рама, импост...
-            } else if (node.com5t.type() == TypeElem.FRAME_SIDE
-                    || node.com5t.type() == TypeElem.STVORKA_SIDE || node.com5t.type() == TypeElem.IMPOST) {
+            } else if (node.com5t().type() == TypeElem.FRAME_SIDE
+                    || node.com5t().type() == TypeElem.STVORKA_SIDE || node.com5t().type() == TypeElem.IMPOST) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(node.toString());
-                System.out.println(node.com5t.type().name + ", " + node.com5t.layout().name.toLowerCase());
-                txtField32.setText(node.com5t.artiklRec.getStr(eArtikl.code));
-                txtField33.setText(node.com5t.artiklRec.getStr(eArtikl.name));
-                txtField27.setText(eColor.find(node.com5t.colorID1).getStr(eColor.name));
-                txtField28.setText(eColor.find(node.com5t.colorID2).getStr(eColor.name));
-                txtField29.setText(eColor.find(node.com5t.colorID3).getStr(eColor.name));
+                System.out.println(node.com5t().type().name + ", " + node.com5t().layout().name.toLowerCase());
+                txtField32.setText(node.com5t().artiklRec.getStr(eArtikl.code));
+                txtField33.setText(node.com5t().artiklRec.getStr(eArtikl.name));
+                txtField27.setText(eColor.find(node.com5t().colorID1).getStr(eColor.name));
+                txtField28.setText(eColor.find(node.com5t().colorID2).getStr(eColor.name));
+                txtField29.setText(eColor.find(node.com5t().colorID3).getStr(eColor.name));
 
                 //Стеклопакет
-            } else if (node.com5t.type() == TypeElem.GLASS) {
+            } else if (node.com5t().type() == TypeElem.GLASS) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card15");
-                Record artiklRec = eArtikl.find(node.com5t.artiklRec.getInt(eArtikl.id), false);
+                Record artiklRec = eArtikl.find(node.com5t().artiklRec.getInt(eArtikl.id), false);
                 txtField19.setText(artiklRec.getStr(eArtikl.code));
                 txtField18.setText(artiklRec.getStr(eArtikl.name));
 
                 //Створка
-            } else if (node.com5t.type() == TypeElem.STVORKA) {
+            } else if (node.com5t().type() == TypeElem.STVORKA) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card16");
-                AreaStvorka stv = (AreaStvorka) node.com5t;
+                AreaStvorka stv = (AreaStvorka) node.com5t();
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);
                 txtField20.setText(eFurniture.find(id).getStr(eFurniture.name));
                 txtField30.setText(stv.typeOpen.name2);
@@ -614,7 +614,7 @@ public class Systree extends javax.swing.JFrame {
         for (DefMutableTreeNode node : nodeList1) {
             String userNode = (String) node.getUserObject();
             for (Record record2 : systreeList) {
-                if (record2.getInt(eSystree.parent_id) == node.systreeRec.getInt(eSystree.id)
+                if (record2.getInt(eSystree.parent_id) == node.rec().getInt(eSystree.id)
                         && record2.getInt(eSystree.parent_id) != record2.getInt(eSystree.id)) {
                     DefMutableTreeNode node2 = new DefMutableTreeNode(record2);
                     node.add(node2);
@@ -2219,7 +2219,7 @@ public class Systree extends javax.swing.JFrame {
             if (treeSys.getBorder() != null) {
                 Record record = eSystree.up.newRecord(Query.INS);
                 record.setNo(eSystree.id, ConnApp.instanc().genId(eSystree.id));
-                int parent_id = (node.systreeRec.getInt(eSystree.id) == node.systreeRec.getInt(eSystree.parent_id)) ? record.getInt(eSystree.id) : node.systreeRec.getInt(eSystree.id);
+                int parent_id = (node.rec().getInt(eSystree.id) == node.rec().getInt(eSystree.parent_id)) ? record.getInt(eSystree.id) : node.rec().getInt(eSystree.id);
                 record.setNo(eSystree.parent_id, parent_id);
                 record.setNo(eSystree.name, "P" + record.getStr(eSystree.id));
                 qSystree.insert(record); //record сохраним в базе
@@ -2287,9 +2287,9 @@ public class Systree extends javax.swing.JFrame {
                 DefMutableTreeNode parentNode = (DefMutableTreeNode) removeNode.getParent();
                 if (JOptionPane.showConfirmDialog(this, "Хотите удалить " + removeNode + "?", "Подтвердите удаление",
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null) == 0) {
-                    removeNode.systreeRec.set(eSystree.up, Query.DEL);
-                    qSystree.delete(removeNode.systreeRec);
-                    qSystree.remove(removeNode.systreeRec);
+                    removeNode.rec().set(eSystree.up, Query.DEL);
+                    qSystree.delete(removeNode.rec());
+                    qSystree.remove(removeNode.rec());
                     ((DefaultTreeModel) treeSys.getModel()).removeNodeFromParent(removeNode);
                     if (parentNode != null) {
                         TreeNode[] nodes = ((DefaultTreeModel) treeSys.getModel()).getPathToRoot(parentNode);
@@ -2341,7 +2341,7 @@ public class Systree extends javax.swing.JFrame {
             for (int index = 0; index < qSysprof.size(); ++index) {
                 Record sysprofRec = qSysprof.get(index);
                 if (sysprofRec.getInt(eSysprof.use_type) == UseArtiklTo.FRAME.id) {
-                    if (sysprofRec.getInt(eSysprof.use_side) == node.com5t.layout().id
+                    if (sysprofRec.getInt(eSysprof.use_side) == node.com5t().layout().id
                             || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id) {
                         artiklList.add(qSysprof.table(eArtikl.up).get(index));
                     }
@@ -2354,7 +2354,7 @@ public class Systree extends javax.swing.JFrame {
     private void colorFrameAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFrameAction
         DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
         HashSet<Record> colorSet = new HashSet();
-        Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", node.com5t.artiklRec.getInt(eArtikl.id));
+        Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", node.com5t().artiklRec.getInt(eArtikl.id));
         artdetList.forEach(rec -> {
 
             if (rec.getInt(eArtdet.color_fk) < 0) {
@@ -2377,7 +2377,7 @@ public class Systree extends javax.swing.JFrame {
     private void btn3Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3Action
         try {
             DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
-            String depth = node.systreeRec.getStr(eSystree.depth);
+            String depth = node.rec().getStr(eSystree.depth);
             if (depth != null && depth.isEmpty() == false) {
                 depth = depth.replace(";", ",");
                 if (depth.charAt(depth.length() - 1) == ',') {
@@ -2397,7 +2397,7 @@ public class Systree extends javax.swing.JFrame {
     private void btn10Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10Action
         try {
             DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
-            String systreeID = node.systreeRec.getStr(eSystree.id);
+            String systreeID = node.rec().getStr(eSystree.id);
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
             DicName frame = new DicName(this, listenerFurn2, qSysfurn.table(eFurniture.up), eFurniture.name);
@@ -2415,7 +2415,7 @@ public class Systree extends javax.swing.JFrame {
     private void btn12Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn12Action
         try {
             DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
-            int furnitureID = ((AreaStvorka) node.com5t).sysfurnRec.getInt(eSysfurn.furniture_id);
+            int furnitureID = ((AreaStvorka) node.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
             Query qFurndet = new Query(eFurndet.values()).select(eFurndet.up, "where", eFurndet.furniture_id1, "=", furnitureID);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11)");
             Query qArtikl2 = new Query(eArtikl.values());

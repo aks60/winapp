@@ -152,22 +152,22 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
 
         DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
-            if (selectedNode.com5t.type() == TypeElem.RECTANGL || selectedNode.com5t.type() == TypeElem.ARCH) {
+            if (selectedNode.com5t().type() == TypeElem.RECTANGL || selectedNode.com5t().type() == TypeElem.ARCH) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan19");
 
-            } else if (selectedNode.com5t.type() == TypeElem.AREA) {
+            } else if (selectedNode.com5t().type() == TypeElem.AREA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan20");
 
-            } else if (selectedNode.com5t.type() == TypeElem.FRAME_SIDE) {
+            } else if (selectedNode.com5t().type() == TypeElem.FRAME_SIDE) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan21");
 
-            } else if (selectedNode.com5t.type() == TypeElem.STVORKA) {
+            } else if (selectedNode.com5t().type() == TypeElem.STVORKA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan22");
 
-            } else if (selectedNode.com5t.type() == TypeElem.IMPOST) {
+            } else if (selectedNode.com5t().type() == TypeElem.IMPOST) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan23");
 
-            } else if (selectedNode.com5t.type() == TypeElem.GLASS) {
+            } else if (selectedNode.com5t().type() == TypeElem.GLASS) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan24");
             }
         }
