@@ -2384,22 +2384,29 @@ public class Systree extends javax.swing.JFrame {
         try {
             DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
             int furnitureID = ((AreaStvorka) node.com5t).sysfurnRec.getInt(eSysfurn.furniture_id);
-            Query qFurndet = new Query(eFurndet.values()).select(eFurndet.up, "where", eFurndet.furndet_id, "=", furnitureID);
-            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (10)");
+            Query qFurndet = new Query(eFurndet.values()).select(eFurndet.up, "where", eFurndet.furniture_id1, "=", furnitureID);
+            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11)");
             Query qArtikl2 = new Query(eArtikl.values());
-            qFurndet.forEach(furndetRec -> {
-                qArtikl.forEach(artiklRec -> {
+            for (Record furndetRec : qFurndet) { //первый уровень
+                for (Record artiklRec : qArtikl) {
                     if (furndetRec.getInt(eFurndet.artikl_id) == artiklRec.getInt(eArtikl.id)) {
-                        if (artiklRec.getInt(eArtikl.level2) == 0) {
+                        qArtikl2.add(artiklRec);
+                    }
+                }
+                Query qFurndet2 = new Query(eFurndet.values()).select(eFurndet.up, "where", 
+                        eFurndet.furndet_id, "=", furndetRec.getInt(eFurndet.id), "and", eFurndet.furndet_id, "!=", eFurndet.id);
+                for (Record furndet2Rec : qFurndet2) { //второй кровень
+                    for (Record artiklRec : qArtikl) {
+                        if (furndet2Rec.getInt(eFurndet.artikl_id) == artiklRec.getInt(eArtikl.id)) {
                             qArtikl2.add(artiklRec);
                         }
                     }
-                });
-            });
+                }
+            }
             DicArtikl frame = new DicArtikl(this, (record) -> {
-                
+
                 System.out.println(record);
-                
+
             }, qArtikl2);
 
         } catch (Exception e) {
