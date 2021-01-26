@@ -173,12 +173,17 @@ public class Util {
     }
 
     public static String designName() {
-        Object obj = eProperty.sysprodID.read();
-        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
-        Record sysprodRec = eSysprod.find(sysprodID);
-        return (sysprodRec == null) ? "" : " Конструкция: "
-                + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), "") + "/"
-                + subStr(sysprodRec.getStr(eSysprod.name), 6, 128);
+        try {
+            Object obj = eProperty.sysprodID.read();
+            int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+            Record sysprodRec = eSysprod.find(sysprodID);
+            return (sysprodRec == null) ? "" : " Конструкция: "
+                    + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), "") + "/"
+                    + subStr(sysprodRec.getStr(eSysprod.name), 6, 128);
+        } catch (Exception e) {
+            System.err.println("frames.Util.designName() " + e);
+            return "";
+        }
     }
 
     public static void setText(JTextField comp, String txt) {
