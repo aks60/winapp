@@ -568,8 +568,10 @@ public class Systree extends javax.swing.JFrame {
                 txtField20.setText(eFurniture.find(id).getStr(eFurniture.name));
                 txtField30.setText(stv.typeOpen.name2);
                 comboBox1.setSelectedIndex(stv.handlLayout.id - 1);
+                
                 iwin.calcFurniture = new builder.specif.Furniture(iwin, true); //фурнитура 
                 iwin.calcFurniture.calc();
+                
                 txtField21.setText(stv.handlRec.getStr(eArtikl.name));
                 txtField25.setText(eColor.find(stv.handlColor).getStr(eColor.name));
 
