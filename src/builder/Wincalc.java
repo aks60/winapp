@@ -103,7 +103,6 @@ public class Wincalc {
     //Конструктив и тарификация 
     public void constructiv() {
         try {
-            Query.conf = "calc";
             Query.listOpenTable.forEach(q -> q.clear());
             calcJoining = new Joining(this); //соединения
             calcJoining.calc();
@@ -123,9 +122,7 @@ public class Wincalc {
 
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.constructiv(" + e);
-        } finally {
-            Query.conf = "app";
-        }
+        } 
     }
 
     // Парсим входное json окно и строим объектную модель окна

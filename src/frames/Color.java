@@ -102,16 +102,16 @@ public class Color extends javax.swing.JFrame {
     private void listenerAdd() {
 
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
-            DicColor2 frame = new DicColor2(this, listenerColor2);
+            DicColor2 frame = new DicColor2(this, listenerColor1);
         });
         Util.buttonEditorCell(tab4, 1).addActionListener(event -> {
-            DicColor2 frame = new DicColor2(this, listenerColor2);
+            DicColor2 frame = new DicColor2(this, listenerColor1);
         });
         Util.buttonEditorCell(tab4, 2).addActionListener(event -> {
-            DicColor2 frame = new DicColor2(this, listenerColor1);
+            DicColor2 frame = new DicColor2(this, listenerColor2);
         });
         Util.buttonEditorCell(tab4, 3).addActionListener(event -> {
-            DicColor2 frame = new DicColor2(this, listenerColor1);
+            DicColor2 frame = new DicColor2(this, listenerColor2);
         });
     }
 

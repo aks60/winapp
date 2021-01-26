@@ -18,6 +18,7 @@ import builder.param.JoiningDet;
 import builder.param.JoiningVar;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
+import dataset.Query;
 
 //Соединения
 public class Joining extends Cal5e {
@@ -32,9 +33,9 @@ public class Joining extends Cal5e {
         joiningDet = new JoiningDet(iwin);
         elementDet = new ElementDet(iwin);
     }
-    
+
     public void calc() {
-        listVariants.clear();
+        super.calc();
         try {
             //Цикл по списку соединений
             for (Map.Entry<String, ElemJoining> hmElemJoin : iwin().mapJoin.entrySet()) {
@@ -59,7 +60,7 @@ public class Joining extends Cal5e {
                 //Цикл по вариантам соединения
                 for (Record joinvarRec : joinvarList) {
                     //Если варианты соединения совпали
-                    if (joinvarRec.getInt(eJoinvar.types) == elemJoin.typeJoin.id) {                        
+                    if (joinvarRec.getInt(eJoinvar.types) == elemJoin.typeJoin.id) {
 
                         //ФИЛЬТР вариантов  
                         if (joiningVar.check(elemJoin, joinvarRec) == true) {
@@ -73,9 +74,9 @@ public class Joining extends Cal5e {
                                 if (joiningDet.check(mapParam, joinElem1, joindetRec) == true) {
                                     Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
                                     Specification specif = new Specification(joindetRec, artiklRec, joinElem1, mapParam);
-                            if (Color.colorFromProduct(specif, 1)
-                                    && Color.colorFromProduct(specif, 2)
-                                    && Color.colorFromProduct(specif, 3)) {
+                                    if (Color.colorFromProduct(specif, 1)
+                                            && Color.colorFromProduct(specif, 2)
+                                            && Color.colorFromProduct(specif, 3)) {
 
                                         specif.place = "СОЕД";
                                         joinElem1.addSpecific(specif);
@@ -89,6 +90,8 @@ public class Joining extends Cal5e {
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Joining.calc() " + e);
+        } finally {
+            Query.conf = conf;
         }
     }
 }

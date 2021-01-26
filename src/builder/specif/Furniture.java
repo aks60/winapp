@@ -24,6 +24,7 @@ import builder.param.FurnitureVar;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
 import builder.param.Processing;
+import dataset.Query;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -51,7 +52,7 @@ public class Furniture extends Cal5e {
     }
 
     public void calc() {
-        listVariants.clear();
+        super.calc();
         LinkedList<AreaStvorka> stvorkaList = root().listElem(TypeElem.STVORKA);
         try {
             //Цикл по створкам      
@@ -68,6 +69,8 @@ public class Furniture extends Cal5e {
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Furniture.calc() " + e);
+        } finally {
+            Query.conf = conf;
         }
     }
 

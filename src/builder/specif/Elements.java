@@ -15,6 +15,7 @@ import builder.Wincalc;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
 import builder.model.ElemSimple;
+import dataset.Query;
 import java.util.Map;
 
 /**
@@ -34,7 +35,7 @@ public class Elements extends Cal5e {
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
     //Но при проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
     public void calc() {
-        listVariants.clear();
+        super.calc();
         LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST);
         try {
             //Цикл по списку элементов конструкции
@@ -54,6 +55,8 @@ public class Elements extends Cal5e {
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Elements.calc() " + e);
+        } finally {
+            Query.conf = conf;
         }
     }
 
@@ -81,7 +84,7 @@ public class Elements extends Cal5e {
                             if (Color.colorFromProduct(specif, 1)
                                     && Color.colorFromProduct(specif, 2)
                                     && Color.colorFromProduct(specif, 3)) {
-                                
+
                                 specif.place = "ВСТ";
 
                                 //Если (контейнер) в списке детализации, например профиль с префиксом @

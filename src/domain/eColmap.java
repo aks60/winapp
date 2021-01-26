@@ -51,28 +51,28 @@ public enum eColmap implements Field {
         return query;
     }
 
-    public static List<Record> find(int _color_id) {
+    public static List<Record> find(int colorID) {
 
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(color_id1) == _color_id).collect(toList());
+            return query().stream().filter(rec -> rec.getInt(color_id1) == colorID).collect(toList());
         }
-        return new Query(values()).select(up, "where", color_id1, "=", _color_id);
+        return new Query(values()).select(up, "where", color_id1, "=", colorID);
     }
     
-    public static List<Record> find2(int _params_id) {
+    public static List<Record> find2(int colgrpID) {
 
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(colgrp_id) == _params_id).collect(toList());
+            return query().stream().filter(rec -> rec.getInt(colgrp_id) == colgrpID).collect(toList());
         }
-        return new Query(values()).select(up, "where", colgrp_id, "=", _params_id);
+        return new Query(values()).select(up, "where", colgrp_id, "=", colgrpID);
     }
     
-    public static List<Record> find3(int _color_id, int _params_id) {
+    public static List<Record> find3(int colorID, int colgrpID) {
 
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(color_id1) == _color_id && rec.getInt(colgrp_id) == Math.abs(_params_id)).collect(toList());
+            return query().stream().filter(rec -> rec.getInt(color_id1) == colorID && rec.getInt(colgrp_id) == Math.abs(colgrpID)).collect(toList());
         }
-        return new Query(values()).select(up, "where", color_id1, "=", _color_id, "and", colgrp_id, "=", Math.abs(_params_id));
+        return new Query(values()).select(up, "where", color_id1, "=", colorID, "and", colgrp_id, "=", Math.abs(colgrpID));
     }
 
     public String toString() {

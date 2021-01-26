@@ -24,6 +24,7 @@ import builder.model.AreaArch;
 import builder.model.ElemFrame;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
+import dataset.Query;
 import java.util.Map;
 
 /**
@@ -44,7 +45,7 @@ public class Filling extends Cal5e {
     }
 
     public void calc() {
-        listVariants.clear();
+        super.calc();
         try {
             Record systreeRec = eSystree.find(iwin().nuni);
             String depthSet = systreeRec.getStr(eSystree.depth);
@@ -60,7 +61,7 @@ public class Filling extends Cal5e {
 
                 //Доступные толщины
                 if (Util.containsFloat(depthSet, depth2) == true) {
-                    
+
                     //Цикл по системе конструкций, ищем артикул системы профилей
                     for (Record sysprofRec : sysprofList) {
                         if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
@@ -98,11 +99,13 @@ public class Filling extends Cal5e {
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Filling.calc() " + e);
+        } finally {
+            Query.conf = conf;
         }
     }
-    
+
     protected void detail(ElemGlass elemGlass, Record glasgrpRec) {
-        try {            
+        try {
             //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
             if (fillingVar.check(elemGlass, glasgrpRec) == true) {
 
@@ -118,9 +121,9 @@ public class Filling extends Cal5e {
                     if (fillingDet.check(mapParam, elemGlass, glasdetRec) == true) {
                         Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
                         Specification specif = new Specification(glasdetRec, artiklRec, elemGlass, mapParam);
-                            if (Color.colorFromProduct(specif, 1)
-                                    && Color.colorFromProduct(specif, 2)
-                                    && Color.colorFromProduct(specif, 3)) {
+                        if (Color.colorFromProduct(specif, 1)
+                                && Color.colorFromProduct(specif, 2)
+                                && Color.colorFromProduct(specif, 3)) {
 
                             specif.place = "ЗАП";
                             elemGlass.addSpecific(specif);
@@ -131,5 +134,5 @@ public class Filling extends Cal5e {
         } catch (Exception e) {
             System.err.println("Ошибка:Filling.detail() " + e);
         }
-    }        
+    }
 }

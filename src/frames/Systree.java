@@ -199,7 +199,7 @@ public class Systree extends javax.swing.JFrame {
             treeWin.setSelectionRow(0);
 
         } catch (Exception e) {
-            System.err.println("Ошибка Systree.loadingTree2() " + e);
+            System.err.println("Ошибка: Systree.loadingTree2() " + e);
         }
     }
 
@@ -226,7 +226,7 @@ public class Systree extends javax.swing.JFrame {
                 dtm5.addRow(arrayRec);
 
             } catch (Exception e) {
-                System.err.println("Ошибка " + e);
+                System.err.println("Ошибка: " + e);
             }
         }
     }
@@ -568,13 +568,8 @@ public class Systree extends javax.swing.JFrame {
                 txtField20.setText(eFurniture.find(id).getStr(eFurniture.name));
                 txtField30.setText(stv.typeOpen.name2);
                 comboBox1.setSelectedIndex(stv.handlLayout.id - 1);
-                try {
-                    Query.conf = "calc";
-                    iwin.calcFurniture = new builder.specif.Furniture(iwin, true); //фурнитура 
-                    iwin.calcFurniture.calc();
-                } finally {
-                    Query.conf = "app";
-                }
+                iwin.calcFurniture = new builder.specif.Furniture(iwin, true); //фурнитура 
+                iwin.calcFurniture.calc();
                 txtField21.setText(stv.handlRec.getStr(eArtikl.name));
                 txtField25.setText(eColor.find(stv.handlColor).getStr(eColor.name));
 
@@ -2425,7 +2420,7 @@ public class Systree extends javax.swing.JFrame {
                         qArtikl2.add(artiklRec);
                     }
                 }
-                Query qFurndet2 = new Query(eFurndet.values()).select(eFurndet.up, "where", 
+                Query qFurndet2 = new Query(eFurndet.values()).select(eFurndet.up, "where",
                         eFurndet.furndet_id, "=", furndetRec.getInt(eFurndet.id), "and", eFurndet.furndet_id, "!=", eFurndet.id);
                 for (Record furndet2Rec : qFurndet2) { //второй кровень
                     for (Record artiklRec : qArtikl) {
