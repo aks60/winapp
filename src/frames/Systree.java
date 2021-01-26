@@ -318,8 +318,7 @@ public class Systree extends javax.swing.JFrame {
         rsvSystree.add(eSystree.pref, txtField10);
         rsvSystree.add(eSystree.imgview, txtField11, LayoutProduct.values());
         rsvSystree.add(eSystree.nuni, txtField12);
-        rsvSystree.add(eSystree.nuni, txtField15);
-
+        rsvSystree.add(eSystree.cgrp, txtField15);
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
 
@@ -1140,6 +1139,7 @@ public class Systree extends javax.swing.JFrame {
         pan13Layout.setVerticalGroup(
             pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan13Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1150,7 +1150,7 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(txtField33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         pan7.add(pan13, "card13");

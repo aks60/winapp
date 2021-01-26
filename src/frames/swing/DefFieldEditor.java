@@ -136,7 +136,7 @@ public class DefFieldEditor {
             int row = table.getSelectedRow();
             if (update == true && row != -1) {
                 if (table.getRowCount() > 0) {
-                    ((DefTableModel) table.getModel()).setValueAt(comp.getText(), row, mapTxt.get(comp));
+                    ((DefTableModel) table.getModel()).getQuery().set(comp.getText(), row, mapTxt.get(comp));
                 }
             }
         }
