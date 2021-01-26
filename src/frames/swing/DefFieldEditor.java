@@ -13,23 +13,23 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 import dataset.Field;
-import java.awt.Component;
 import javax.swing.JTable;
+import javax.swing.JTree;
 
 /**
  * <p>
  * Визуализация полей </p>
  */
-public class DefFieldEditor {
+public class DefFieldEditor<E> {
 
-    private JTable table = null;
+    private E comp = null;
     private HashMap<Field, Enam[]> mapEnam = new HashMap(8);
     private HashMap<JTextComponent, Field> mapTxt = new HashMap(16);
     private static boolean update = false;
 
     //Конструктор
-    public DefFieldEditor(JTable table) {
-        this.table = table;
+    public DefFieldEditor(E comp) {
+        this.comp = comp;
     }
 
     //Добавить компонент отображения
@@ -66,7 +66,11 @@ public class DefFieldEditor {
 
     //Загрузить данные в компоненты из модели данных
     public void load() {
-        load(Util.getSelectedRec(table));
+        if(comp instanceof JTable) {
+          load(Util.getSelectedRec((JTable) comp));
+        } else if(comp instanceof JTree) {
+            
+        }
     }
 
     //Загрузить данные в компоненты из модели данных
@@ -75,30 +79,33 @@ public class DefFieldEditor {
         try {
             if (row != null) {
                 for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
-                    JTextComponent comp = me.getKey();
+                    JTextComponent comp2 = me.getKey();
                     Field field = me.getValue();
-                    Object val = ((DefTableModel) table.getModel()).getQuery().table(field).get(row, field);
+                    Object val = null;
+                    if(comp instanceof JTable) {
+                     val = ((DefTableModel) ((JTable) comp).getModel()).getQuery().table(field).get(row, field);
+                    }
 
                     if (val == null || row == -1) {
                         if (field.meta().type().equals(Field.TYPE.STR)) {
-                            comp.setText("");
+                            comp2.setText("");
                         } else {
-                            comp.setText("0");
+                            comp2.setText("0");
                         }
                     } else if (field.meta().type().equals(Field.TYPE.DATE)) {
-                        comp.setText(Util.DateToStr(val));
+                        comp2.setText(Util.DateToStr(val));
 
                     } else if (mapEnam.containsKey(field)) {
                         for (Enam enam : mapEnam.get(field)) {
                             if (val.equals(enam.numb())) {
-                                comp.setText(enam.text());
+                                comp2.setText(enam.text());
                             }
                         }
                     } else {
-                        comp.setText(val.toString());
+                        comp2.setText(val.toString());
                     }
 
-                    comp.getCaret().setDot(1);
+                    comp2.getCaret().setDot(1);
                 }
             }
         } finally {
@@ -109,10 +116,10 @@ public class DefFieldEditor {
     //Редактирование
     class DocListiner implements DocumentListener, ActionListener {
 
-        private JTextComponent comp;
+        private JTextComponent jtxt;
 
         DocListiner(JTextComponent field) {
-            this.comp = field;
+            this.jtxt = field;
         }
 
         public void actionPerformed(ActionEvent e) {
@@ -133,10 +140,10 @@ public class DefFieldEditor {
 
         //При редактированиии одного из полей
         public void fieldUpdate() {
-            int row = table.getSelectedRow();
+            int row = ((JTable) comp).getSelectedRow();
             if (update == true && row != -1) {
-                if (table.getRowCount() > 0) {
-                    ((DefTableModel) table.getModel()).getQuery().set(comp.getText(), row, mapTxt.get(comp));
+                if (((JTable) comp).getRowCount() > 0) {
+                    ((DefTableModel) ((JTable) comp).getModel()).getQuery().set(jtxt.getText(), row, mapTxt.get(comp));
                 }
             }
         }
