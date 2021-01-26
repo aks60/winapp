@@ -64,53 +64,64 @@ public class DefFieldEditor<E> {
         }
     }
 
-    //Загрузить данные в компоненты из модели данных
+    //Загрузить данные в компоненты
     public void load() {
-        if(comp instanceof JTable) {
-          load(Util.getSelectedRec((JTable) comp));
-        } else if(comp instanceof JTree) {
-            
+        if (comp instanceof JTable) {
+            load(Util.getSelectedRec((JTable) comp));
+
+        } else if (comp instanceof JTree) {
+            DefMutableTreeNode node = (DefMutableTreeNode) ((JTree) comp).getLastSelectedPathComponent();
+            update = false;
+            try {
+                for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
+                    JTextComponent jtxt = me.getKey();
+                    Field field = me.getValue();
+                    Object val = node.rec().get(field);
+                    text(jtxt, field, val);
+                }
+            } finally {
+                update = true;
+            }
         }
     }
 
-    //Загрузить данные в компоненты из модели данных
+    //Загрузить данные в компоненты
     public void load(Integer row) {
         update = false;
         try {
-            if (row != null) {
+            if (row != null && row != -1) {
                 for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
-                    JTextComponent comp2 = me.getKey();
+                    JTextComponent jtxt = me.getKey();
                     Field field = me.getValue();
-                    Object val = null;
-                    if(comp instanceof JTable) {
-                     val = ((DefTableModel) ((JTable) comp).getModel()).getQuery().table(field).get(row, field);
-                    }
-
-                    if (val == null || row == -1) {
-                        if (field.meta().type().equals(Field.TYPE.STR)) {
-                            comp2.setText("");
-                        } else {
-                            comp2.setText("0");
-                        }
-                    } else if (field.meta().type().equals(Field.TYPE.DATE)) {
-                        comp2.setText(Util.DateToStr(val));
-
-                    } else if (mapEnam.containsKey(field)) {
-                        for (Enam enam : mapEnam.get(field)) {
-                            if (val.equals(enam.numb())) {
-                                comp2.setText(enam.text());
-                            }
-                        }
-                    } else {
-                        comp2.setText(val.toString());
-                    }
-
-                    comp2.getCaret().setDot(1);
+                    Object val = ((DefTableModel) ((JTable) comp).getModel()).getQuery().table(field).get(row, field);
+                    text(jtxt, field, val);
                 }
             }
         } finally {
             update = true;
         }
+    }
+
+    private void text(JTextComponent jtxt, Field field, Object val) {
+        if (val == null) {
+            if (field.meta().type().equals(Field.TYPE.STR)) {
+                jtxt.setText("");
+            } else {
+                jtxt.setText("0");
+            }
+        } else if (field.meta().type().equals(Field.TYPE.DATE)) {
+            jtxt.setText(Util.DateToStr(val));
+
+        } else if (mapEnam.containsKey(field)) {
+            for (Enam enam : mapEnam.get(field)) {
+                if (val.equals(enam.numb())) {
+                    jtxt.setText(enam.text());
+                }
+            }
+        } else {
+            jtxt.setText(val.toString());
+        }
+        jtxt.getCaret().setDot(1);
     }
 
     //Редактирование

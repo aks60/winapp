@@ -546,7 +546,6 @@ public class Systree extends javax.swing.JFrame {
                     || node.com5t().type() == TypeElem.STVORKA_SIDE || node.com5t().type() == TypeElem.IMPOST) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(node.toString());
-                System.out.println(node.com5t().type().name + ", " + node.com5t().layout().name.toLowerCase());
                 txtField32.setText(node.com5t().artiklRec.getStr(eArtikl.code));
                 txtField33.setText(node.com5t().artiklRec.getStr(eArtikl.name));
                 txtField27.setText(eColor.find(node.com5t().colorID1).getStr(eColor.name));
