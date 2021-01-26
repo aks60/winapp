@@ -92,7 +92,6 @@ public class Systree extends javax.swing.JFrame {
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Wincalc iwin = new Wincalc();
-    private JTable tab1 = new JTable();
     private DialogListener listenerArtikl, listenerArtikl2, listenerColor, listenerUsetyp, listenerModel, listenerModify, listenerTree,
             listenerSide, listenerFurn, listenerFurn2, listenerTypeopen, listenerHandle, listenerHandle2, listenerParam1, listenerParam2,
             listenerBtn1, listenerBtn7, listenerBtn11, listenerArt211, listenerArt212, listenerGlass;
@@ -233,7 +232,6 @@ public class Systree extends javax.swing.JFrame {
 
     private void loadingModel() {
 
-        DefTableModel rsmSystree = new DefTableModel(tab1, qSystree, eSystree.values());
         DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.use_type, eSysprof.use_side, eArtikl.code, eArtikl.name, eSysprof.prio) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -306,19 +304,19 @@ public class Systree extends javax.swing.JFrame {
         });
 
         rsmSysprof.setFrameListener(listenerModify);
-        rsvSystree = new DefFieldEditor(tab1);
+        rsvSystree = new DefFieldEditor(treeSys);
         rsvSystree.add(eSystree.name, txtField8);
-        rsvSystree.add(eSystree.types, txtField7, TypeUse.values());
-        rsvSystree.add(eSystree.glas, txtField1);
-        rsvSystree.add(eSystree.depth, txtField2);
-        rsvSystree.add(eSystree.col1, txtField3);
-        rsvSystree.add(eSystree.col2, txtField4);
-        rsvSystree.add(eSystree.col3, txtField5);
-        rsvSystree.add(eSystree.id, txtField6);
-        rsvSystree.add(eSystree.pref, txtField10);
-        rsvSystree.add(eSystree.imgview, txtField11, LayoutProduct.values());
-        rsvSystree.add(eSystree.nuni, txtField12);
-        rsvSystree.add(eSystree.cgrp, txtField15);
+//        rsvSystree.add(eSystree.types, txtField7, TypeUse.values());
+//        rsvSystree.add(eSystree.glas, txtField1);
+//        rsvSystree.add(eSystree.depth, txtField2);
+//        rsvSystree.add(eSystree.col1, txtField3);
+//        rsvSystree.add(eSystree.col2, txtField4);
+//        rsvSystree.add(eSystree.col3, txtField5);
+//        rsvSystree.add(eSystree.id, txtField6);
+//        rsvSystree.add(eSystree.pref, txtField10);
+//        rsvSystree.add(eSystree.imgview, txtField11, LayoutProduct.values());
+//        rsvSystree.add(eSystree.nuni, txtField12);
+//        rsvSystree.add(eSystree.cgrp, txtField15);
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
 
@@ -381,15 +379,15 @@ public class Systree extends javax.swing.JFrame {
     private void listenerSet() {
 
         listenerUsetyp = (record) -> {
-            Util.listenerEnums(record, tab2, eSysprof.use_type, tab1, tab2, tab3, tab4);
+            Util.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
         };
 
         listenerSide = (record) -> {
-            Util.listenerEnums(record, tab2, eSysprof.use_side, tab1, tab2, tab3, tab4);
+            Util.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
         };
 
         listenerArtikl = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab2);
             qSysprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eSysprof.artikl_id);
             qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
@@ -415,7 +413,7 @@ public class Systree extends javax.swing.JFrame {
         };
 
         listenerModel = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab2, tab3, tab4, tab5);
             Record record2 = eSysprod.up.newRecord(Query.INS);
             record2.setNo(eSysprod.id, ConnApp.instanc().genId(eSysprod.id));
             record2.setNo(eSysprod.systree_id, systreeID);
@@ -428,7 +426,7 @@ public class Systree extends javax.swing.JFrame {
         };
 
         listenerFurn = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab3);
             qSysfurn.set(record.getInt(eFurniture.id), Util.getSelectedRec(tab3), eSysfurn.furniture_id);
             qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), Util.getSelectedRec(tab3), eFurniture.name);
@@ -437,11 +435,11 @@ public class Systree extends javax.swing.JFrame {
         };
 
         listenerTypeopen = (record) -> {
-            Util.listenerEnums(record, tab3, eSysfurn.side_open, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4, tab5);
         };
 
         listenerHandle = (record) -> {
-            Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4, tab5);
         };
 
         listenerHandle2 = (record) -> {
@@ -449,7 +447,7 @@ public class Systree extends javax.swing.JFrame {
         };
 
         listenerArt211 = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab3);
             qSysfurn.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab3), eSysfurn.artikl_id1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -457,7 +455,7 @@ public class Systree extends javax.swing.JFrame {
         };
 
         listenerArt212 = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab3);
             qSysfurn.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab3), eSysfurn.artikl_id2);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -465,7 +463,7 @@ public class Systree extends javax.swing.JFrame {
         };
 
         listenerParam1 = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab4);
             qSyspar1.set(record.getInt(eParams.id), Util.getSelectedRec(tab4), eSyspar1.params_id);
             qSyspar1.set(null, Util.getSelectedRec(tab4), eSyspar1.text);
@@ -474,7 +472,7 @@ public class Systree extends javax.swing.JFrame {
         };
 
         listenerParam2 = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab4);
             qSyspar1.set(record.getStr(eParams.text), Util.getSelectedRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -489,11 +487,13 @@ public class Systree extends javax.swing.JFrame {
             systreeID = node.rec().getInt(eSystree.id);
             eProperty.systreeID.write(String.valueOf(systreeID));
 
-            for (int i = 0; i < qSystree.size(); i++) {
-                if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
-                    rsvSystree.load(i);
-                }
-            }
+//            for (int i = 0; i < qSystree.size(); i++) {
+//                if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
+//                    rsvSystree.load(i);
+//                }
+//            }
+            rsvSystree.load();
+            
             qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysprod.name);
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
@@ -2107,7 +2107,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Util.listenerClick(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        Util.listenerClick(table, Arrays.asList(tab2, tab3, tab4, tab5));
         if (treeSys.isEditing()) {
             treeSys.getCellEditor().stopCellEditing();
         }
@@ -2132,13 +2132,13 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_filterCaretUpdate
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Util.stopCellEditing(tab2, tab3, tab4, tab5);
         if (treeSys.isEditing()) {
             treeSys.getCellEditor().stopCellEditing();
         }
         eProperty.save(); //запишем текущий systreeID и sysprodID в файл
 
-        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        Arrays.asList(tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (frame != null)
             frame.dispose();
     }//GEN-LAST:event_windowClosed
@@ -2149,26 +2149,26 @@ public class Systree extends javax.swing.JFrame {
         }
         treeSys.setBorder(null);
         if (tabb1.getSelectedIndex() == 1) {
-            Util.listenerClick(tab3, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Util.listenerClick(tab3, Arrays.asList(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 2) {
-            Util.listenerClick(tab4, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Util.listenerClick(tab4, Arrays.asList(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 3) {
-            Util.listenerClick(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Util.listenerClick(tab5, Arrays.asList(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 4) {
-            Util.listenerClick(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Util.listenerClick(tab2, Arrays.asList(tab2, tab3, tab4, tab5));
         }
     }//GEN-LAST:event_tabb1StateChanged
 
     private void treeSysMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeSysMousePressed
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
+        Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
         treeSys.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Util.stopCellEditing(tab2, tab3, tab4, tab5);
     }//GEN-LAST:event_treeSysMousePressed
 
     private void btnField1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField1
 
         listenerBtn1 = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab2, tab3, tab4, tab5);
             for (int i = 0; i < qSystree.size(); i++) {
                 if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
                     qSystree.set(record.getStr(eArtikl.code), i, eSystree.glas);
@@ -2182,7 +2182,7 @@ public class Systree extends javax.swing.JFrame {
     private void btnField11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField11
 
         listenerBtn11 = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab2, tab3, tab4, tab5);
             for (int i = 0; i < qSystree.size(); i++) {
                 if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
                     qSystree.set(record.getInt(0), i, eSystree.imgview);
@@ -2196,7 +2196,7 @@ public class Systree extends javax.swing.JFrame {
     private void btnField7(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField7
 
         listenerBtn7 = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab2, tab3, tab4, tab5);
             for (int i = 0; i < qSystree.size(); i++) {
                 if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
                     qSystree.set(record.getInt(0), i, eSystree.types);
@@ -2570,7 +2570,7 @@ public class Systree extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
         Util.documentFilter1(txtField2, txtField3, txtField4, txtField5);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab2, tab3, tab4, tab5)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) treeSys.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));

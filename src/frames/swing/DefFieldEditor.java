@@ -79,6 +79,8 @@ public class DefFieldEditor<E> {
                     Object val = node.rec().get(field);
                     text(jtxt, field, val);
                 }
+            } catch (Exception e) {
+                System.err.println("Oшибка:DefFieldEditor.load() " + e);
             } finally {
                 update = true;
             }
