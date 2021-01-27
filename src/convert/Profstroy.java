@@ -531,6 +531,7 @@ public class Profstroy {
             updateSql(eFurndet.up, eFurndet.furniture_id2, "furniture_id2", eFurniture.up, "funic");
             executeSql("update furndet set furndet_id = id where furndet_id = 0");
             executeSql("update furndet set color_fk = null where furniture_id2 > 0"); //ссылка на набор
+            executeSql("set generator GEN_" + eFurndet.up.tname() + " to " + new Query(eFurndet.id).select("select max(id) as id from " + eFurndet.up.tname()).get(0, eFurndet.id));
             executeSql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             executeSql("update systree set parent_id = id where npar = 0");
             updateSql(eSysprof.up, eSysprof.artikl_id, "anumb", eArtikl.up, "code");
