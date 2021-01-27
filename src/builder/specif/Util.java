@@ -35,7 +35,6 @@ public class Util {
     public static Integer[] parserInt(String str) {
 
         ArrayList<Object> arrList = new ArrayList();
-        str = str.replace(",", ".");
         String[] arr = str.split(";");
         if (arr.length == 1) {
             arr = arr[0].split("-");

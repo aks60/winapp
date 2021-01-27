@@ -157,13 +157,13 @@
                               <Component id="pan21" alignment="0" pref="311" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                  <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lab25" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtField12" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt12" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lab26" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtField6" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt06" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -174,10 +174,10 @@
                                   <Component id="pan21" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab25" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab26" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt06" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="91" max="32767" attributes="0"/>
                               </Group>
@@ -185,7 +185,7 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel25">
+                        <Component class="javax.swing.JLabel" name="lab25">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -201,7 +201,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JFormattedTextField" name="txtField12">
+                        <Component class="javax.swing.JFormattedTextField" name="txt12">
                           <Properties>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -216,7 +216,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel26">
+                        <Component class="javax.swing.JLabel" name="lab26">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -232,7 +232,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JFormattedTextField" name="txtField6">
+                        <Component class="javax.swing.JFormattedTextField" name="txt06">
                           <Properties>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -271,26 +271,26 @@
                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab32" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtField14" pref="183" max="32767" attributes="0"/>
+                                              <Component id="txt14" pref="183" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
-                                              <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab27" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtField9" pref="183" max="32767" attributes="0"/>
+                                              <Component id="txt09" pref="183" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
-                                              <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab31" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtField13" pref="183" max="32767" attributes="0"/>
+                                              <Component id="txt13" pref="183" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btn9" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btn09" min="-2" max="-2" attributes="0"/>
                                           <Component id="btn13" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btn2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btn02" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                   </Group>
@@ -301,21 +301,21 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btn9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab27" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btn09" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt09" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel31" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab31" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="btn13" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt13" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btn2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab32" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btn02" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt14" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -323,7 +323,7 @@
                             </DimensionLayout>
                           </Layout>
                           <SubComponents>
-                            <Component class="javax.swing.JLabel" name="jLabel27">
+                            <Component class="javax.swing.JLabel" name="lab27">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                   <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -339,7 +339,7 @@
                                 </Property>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel31">
+                            <Component class="javax.swing.JLabel" name="lab31">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                   <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -355,7 +355,7 @@
                                 </Property>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel32">
+                            <Component class="javax.swing.JLabel" name="lab32">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                   <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -371,7 +371,7 @@
                                 </Property>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JButton" name="btn9">
+                            <Component class="javax.swing.JButton" name="btn09">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="..."/>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -391,7 +391,7 @@
                                 </Property>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorProfileAction"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn09Action"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="btn13">
@@ -414,10 +414,10 @@
                                 </Property>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorProfileAction"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn09Action"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JButton" name="btn2">
+                            <Component class="javax.swing.JButton" name="btn02">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="..."/>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -437,10 +437,10 @@
                                 </Property>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorProfileAction"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn09Action"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="txtField9">
+                            <Component class="javax.swing.JTextField" name="txt09">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -456,7 +456,7 @@
                                 </Property>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="txtField13">
+                            <Component class="javax.swing.JTextField" name="txt13">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -472,7 +472,7 @@
                                 </Property>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="txtField14">
+                            <Component class="javax.swing.JTextField" name="txt14">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -522,16 +522,16 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="pan20" alignment="0" pref="291" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
-                                          <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab33" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtField32" pref="183" max="32767" attributes="0"/>
+                                          <Component id="txt32" pref="183" max="32767" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Component id="btn22" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab34" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtField33" max="32767" attributes="0"/>
+                                          <Component id="txt33" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -543,14 +543,14 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField32" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab33" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt32" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn22" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField33" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab34" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt33" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="pan20" min="-2" max="-2" attributes="0"/>
@@ -584,19 +584,19 @@
                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab44" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtField29" pref="0" max="32767" attributes="0"/>
+                                              <Component id="txt29" pref="0" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab28" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtField27" pref="0" max="32767" attributes="0"/>
+                                              <Component id="txt27" pref="0" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab43" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtField28" pref="0" max="32767" attributes="0"/>
+                                              <Component id="txt28" pref="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -614,21 +614,21 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab28" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="btn18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField27" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt27" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel43" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab43" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="btn19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField28" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt28" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel44" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab44" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="btn20" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField29" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt29" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -636,7 +636,7 @@
                             </DimensionLayout>
                           </Layout>
                           <SubComponents>
-                            <Component class="javax.swing.JLabel" name="jLabel28">
+                            <Component class="javax.swing.JLabel" name="lab28">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                   <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -652,7 +652,7 @@
                                 </Property>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel43">
+                            <Component class="javax.swing.JLabel" name="lab43">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                   <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -668,7 +668,7 @@
                                 </Property>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel44">
+                            <Component class="javax.swing.JLabel" name="lab44">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                                   <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -704,7 +704,7 @@
                                 </Property>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorFrameAction"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn18Action"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="btn19">
@@ -727,7 +727,7 @@
                                 </Property>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorFrameAction"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn18Action"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="btn20">
@@ -750,10 +750,10 @@
                                 </Property>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorFrameAction"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn18Action"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="txtField27">
+                            <Component class="javax.swing.JTextField" name="txt27">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -769,7 +769,7 @@
                                 </Property>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="txtField28">
+                            <Component class="javax.swing.JTextField" name="txt28">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -785,7 +785,7 @@
                                 </Property>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="txtField29">
+                            <Component class="javax.swing.JTextField" name="txt29">
                               <Properties>
                                 <Property name="editable" type="boolean" value="false"/>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -803,7 +803,7 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JLabel" name="jLabel33">
+                        <Component class="javax.swing.JLabel" name="lab33">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -819,7 +819,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel34">
+                        <Component class="javax.swing.JLabel" name="lab34">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -835,7 +835,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField32">
+                        <Component class="javax.swing.JTextField" name="txt32">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -851,7 +851,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField33">
+                        <Component class="javax.swing.JTextField" name="txt33">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -921,16 +921,16 @@
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab29" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField19" pref="183" max="32767" attributes="0"/>
+                                          <Component id="txt19" pref="183" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btn3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btn03" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab36" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtField18" max="32767" attributes="0"/>
+                                          <Component id="txt18" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -942,14 +942,14 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btn3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab29" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt19" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btn03" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab36" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt18" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="178" max="32767" attributes="0"/>
                               </Group>
@@ -957,7 +957,7 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel29">
+                        <Component class="javax.swing.JLabel" name="lab29">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -973,7 +973,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel36">
+                        <Component class="javax.swing.JLabel" name="lab36">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -989,7 +989,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JButton" name="btn3">
+                        <Component class="javax.swing.JButton" name="btn03">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="..."/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1009,10 +1009,10 @@
                             </Property>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn3Action"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn03Action"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField19">
+                        <Component class="javax.swing.JTextField" name="txt19">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1028,7 +1028,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField18">
+                        <Component class="javax.swing.JTextField" name="txt18">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1076,42 +1076,42 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="jLabel39" max="32767" attributes="0"/>
-                                              <Component id="jLabel38" max="32767" attributes="0"/>
-                                              <Component id="jLabel37" max="32767" attributes="0"/>
+                                              <Component id="lab39" max="32767" attributes="0"/>
+                                              <Component id="lab38" max="32767" attributes="0"/>
+                                              <Component id="lab37" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="txtField21" pref="183" max="32767" attributes="0"/>
-                                              <Component id="txtField25" pref="0" max="32767" attributes="0"/>
-                                              <Component id="txtField22" alignment="1" pref="0" max="32767" attributes="0"/>
+                                              <Component id="txt21" pref="183" max="32767" attributes="0"/>
+                                              <Component id="txt25" pref="0" max="32767" attributes="0"/>
+                                              <Component id="txt22" alignment="1" pref="0" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="btn12" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="btn1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btn01" alignment="1" min="-2" max="-2" attributes="0"/>
                                               <Component id="btn14" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab41" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField24" pref="0" max="32767" attributes="0"/>
+                                          <Component id="txt24" pref="0" max="32767" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Component id="btn15" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="jLabel46" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jLabel45" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jLabel30" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lab46" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lab45" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lab30" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="txtField20" alignment="1" pref="0" max="32767" attributes="0"/>
-                                                      <Component id="txtField30" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                      <Component id="txt20" alignment="1" pref="0" max="32767" attributes="0"/>
+                                                      <Component id="txt30" alignment="0" pref="0" max="32767" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1123,24 +1123,24 @@
                                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                                   <Component id="comboBox1" max="32767" attributes="0"/>
                                                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                                                  <Component id="txtField31" min="-2" pref="56" max="-2" attributes="0"/>
+                                                  <Component id="txt31" min="-2" pref="56" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="jLabel40" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jLabel42" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lab40" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="lab42" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Component id="txtField23" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="txt23" pref="0" max="32767" attributes="0"/>
                                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                                   <Component id="btn16" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="txtField26" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="txt26" pref="0" max="32767" attributes="0"/>
                                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                                   <Component id="btn17" min="-2" max="-2" attributes="0"/>
                                               </Group>
@@ -1156,57 +1156,57 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel30" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab30" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn10" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField20" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt20" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel45" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab45" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn21" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField30" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt30" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel46" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField31" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab46" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt31" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="comboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel37" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab37" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField21" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt21" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel39" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab39" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn14" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField25" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt25" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btn1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField22" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab38" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btn01" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt22" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel41" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab41" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField24" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt24" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel40" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab40" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn16" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField23" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt23" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab42" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn17" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField26" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt26" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
@@ -1214,7 +1214,7 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel30">
+                        <Component class="javax.swing.JLabel" name="lab30">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1230,7 +1230,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel37">
+                        <Component class="javax.swing.JLabel" name="lab37">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1269,7 +1269,7 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn10Action"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel38">
+                        <Component class="javax.swing.JLabel" name="lab38">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1285,7 +1285,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel39">
+                        <Component class="javax.swing.JLabel" name="lab39">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1324,7 +1324,7 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn12Action"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JButton" name="btn1">
+                        <Component class="javax.swing.JButton" name="btn01">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="..."/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1344,7 +1344,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel40">
+                        <Component class="javax.swing.JLabel" name="lab40">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1360,7 +1360,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel41">
+                        <Component class="javax.swing.JLabel" name="lab41">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1376,7 +1376,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel42">
+                        <Component class="javax.swing.JLabel" name="lab42">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1472,7 +1472,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel45">
+                        <Component class="javax.swing.JLabel" name="lab45">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1511,7 +1511,7 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn21Action"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField20">
+                        <Component class="javax.swing.JTextField" name="txt20">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1527,7 +1527,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField30">
+                        <Component class="javax.swing.JTextField" name="txt30">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1543,7 +1543,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField25">
+                        <Component class="javax.swing.JTextField" name="txt25">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1559,7 +1559,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField21">
+                        <Component class="javax.swing.JTextField" name="txt21">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1575,7 +1575,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField22">
+                        <Component class="javax.swing.JTextField" name="txt22">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1591,7 +1591,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField24">
+                        <Component class="javax.swing.JTextField" name="txt24">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1607,7 +1607,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField23">
+                        <Component class="javax.swing.JTextField" name="txt23">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1623,7 +1623,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField26">
+                        <Component class="javax.swing.JTextField" name="txt26">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1639,7 +1639,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel46">
+                        <Component class="javax.swing.JLabel" name="lab46">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1655,7 +1655,7 @@
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtField31">
+                        <Component class="javax.swing.JTextField" name="txt31">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1728,65 +1728,65 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab19" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtField7" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt07" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnField7" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btn07" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab13" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="txtField1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnField1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt01" min="-2" pref="156" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="btn04" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab20" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtField8" max="32767" attributes="0"/>
+                                          <Component id="txt08" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab15" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtField3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txt03" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab16" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtField4" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txt04" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab17" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtField5" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txt05" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab18" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtField15" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txt15" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab24" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtField11" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txt11" min="-2" pref="156" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="btnField11" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btn11" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab14" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtField2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txt02" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lab23" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtField10" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txt10" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -1800,60 +1800,62 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtField8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt08" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lab20" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtField7" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lab19" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt07" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="btnField7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btn07" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lab13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txt01" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btn04" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField15" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt15" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab15" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt03" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField4" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab16" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt04" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField11" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnField11" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab24" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txt11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btn11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab14" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt02" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtField10" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lab23" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt10" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtField5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lab17" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt05" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="77" max="32767" attributes="0"/>
                           </Group>
@@ -1861,7 +1863,7 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel13">
+                    <Component class="javax.swing.JLabel" name="lab13">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1877,7 +1879,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="txtField1">
+                    <Component class="javax.swing.JFormattedTextField" name="txt01">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -1892,7 +1894,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel14">
+                    <Component class="javax.swing.JLabel" name="lab14">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1908,7 +1910,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel15">
+                    <Component class="javax.swing.JLabel" name="lab15">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1924,7 +1926,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel16">
+                    <Component class="javax.swing.JLabel" name="lab16">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1940,7 +1942,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel17">
+                    <Component class="javax.swing.JLabel" name="lab17">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1956,7 +1958,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel19">
+                    <Component class="javax.swing.JLabel" name="lab19">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -1978,7 +1980,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="txtField7">
+                    <Component class="javax.swing.JFormattedTextField" name="txt07">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -1993,7 +1995,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel20">
+                    <Component class="javax.swing.JLabel" name="lab20">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -2009,7 +2011,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtField8">
+                    <Component class="javax.swing.JTextField" name="txt08">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -2025,7 +2027,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnField1">
+                    <Component class="javax.swing.JButton" name="btn04">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="..."/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -2044,10 +2046,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField1"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn04Action"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtField2">
+                    <Component class="javax.swing.JTextField" name="txt02">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -2062,7 +2064,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtField3">
+                    <Component class="javax.swing.JTextField" name="txt03">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -2077,7 +2079,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtField4">
+                    <Component class="javax.swing.JTextField" name="txt04">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -2092,7 +2094,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtField5">
+                    <Component class="javax.swing.JTextField" name="txt05">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -2107,7 +2109,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel23">
+                    <Component class="javax.swing.JLabel" name="lab23">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -2123,7 +2125,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtField10">
+                    <Component class="javax.swing.JTextField" name="txt10">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -2138,7 +2140,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtField11">
+                    <Component class="javax.swing.JTextField" name="txt11">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -2153,7 +2155,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel24">
+                    <Component class="javax.swing.JLabel" name="lab24">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -2169,7 +2171,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnField11">
+                    <Component class="javax.swing.JButton" name="btn11">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="..."/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -2188,10 +2190,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField11"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn11Action"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnField7">
+                    <Component class="javax.swing.JButton" name="btn07">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="..."/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -2210,10 +2212,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnField7"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn07Action"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel18">
+                    <Component class="javax.swing.JLabel" name="lab18">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="frames.Util.getFont(0,0)" type="code"/>
@@ -2229,7 +2231,7 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtField15">
+                    <Component class="javax.swing.JTextField" name="txt15">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -2726,7 +2728,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnRef" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnArtikl" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn05" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                   <Component id="btnReport1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="615" max="32767" attributes="0"/>
@@ -2742,7 +2744,7 @@
               <Component id="btnRef" alignment="0" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnArtikl" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn05" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="btnReport1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -2842,7 +2844,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefresh"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="btnArtikl">
+        <Component class="javax.swing.JToggleButton" name="btn05">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="1"/>
@@ -2867,7 +2869,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnArtikl"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn05"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnReport1">
