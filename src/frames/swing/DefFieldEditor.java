@@ -156,6 +156,7 @@ public class DefFieldEditor<E> {
         public void fieldUpdate() {
             try {
                 if (update == true) {
+                    
                     if (comp instanceof JTable) {
                         int row = ((JTable) comp).getSelectedRow();
                         if (row != -1) {
@@ -163,6 +164,7 @@ public class DefFieldEditor<E> {
                                 ((DefTableModel) ((JTable) comp).getModel()).getQuery().set(jtxt.getText(), row, mapTxt.get(jtxt));
                             }
                         }
+                        
                     } else if (comp instanceof JTree) {
                         DefMutableTreeNode node = (DefMutableTreeNode) ((JTree) comp).getLastSelectedPathComponent();
                         node.rec().set(mapTxt.get(jtxt), jtxt.getText());

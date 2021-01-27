@@ -31,6 +31,35 @@ public class Util {
         return 0f;
     }
 
+    //1;79-10;0-10=>[1,1,79,10,0,10]
+    public static Integer[] parserInt(String str) {
+
+        ArrayList<Object> arrList = new ArrayList();
+        str = str.replace(",", ".");
+        String[] arr = str.split(";");
+        if (arr.length == 1) {
+            arr = arr[0].split("-");
+            if (arr.length == 1) {
+                arrList.add(Integer.valueOf(arr[0]));
+                arrList.add(Integer.valueOf(arr[0]));
+            } else {
+                arrList.add(Integer.valueOf(arr[0]));
+                arrList.add(Integer.valueOf(arr[1]));
+            }
+        } else {
+            for (int index = 0; index < arr.length; index++) {
+                String[] arr2 = arr[index].split("-");
+                if (arr2.length == 1) {
+                    arrList.add(Integer.valueOf(arr2[0]));
+                    arrList.add(Integer.valueOf(arr2[0]));
+                } else {
+                    arrList.add(Integer.valueOf(arr2[0]));
+                    arrList.add(Integer.valueOf(arr2[1]));
+                }
+            }
+        }
+        return arrList.stream().toArray(Integer[]::new);
+    }
     //0.55;79,01-10;0-10=>[0.55,0.55,79.01,10.0,0.0,10.0]
     public static Float[] parserFloat(String str) {
 

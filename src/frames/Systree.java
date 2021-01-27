@@ -493,7 +493,7 @@ public class Systree extends javax.swing.JFrame {
 //                }
 //            }
             rsvSystree.load();
-            
+
             qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysprod.name);
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
@@ -566,9 +566,9 @@ public class Systree extends javax.swing.JFrame {
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);
                 txtField20.setText(eFurniture.find(id).getStr(eFurniture.name));
                 txtField30.setText(stv.typeOpen.name2);
-                comboBox1.setSelectedIndex(stv.handlLayout.id - 1);         
+                comboBox1.setSelectedIndex(stv.handlLayout.id - 1);
                 iwin.calcFurniture = new builder.specif.Furniture(iwin, true); //фурнитура 
-                iwin.calcFurniture.calc();               
+                iwin.calcFurniture.calc();
                 txtField21.setText(stv.handlRec.getStr(eArtikl.name));
                 txtField25.setText(eColor.find(stv.handlColor).getStr(eColor.name));
 
@@ -2132,12 +2132,9 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_filterCaretUpdate
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Util.stopCellEditing(tab2, tab3, tab4, tab5);
-        if (treeSys.isEditing()) {
-            treeSys.getCellEditor().stopCellEditing();
-        }
+        Util.stopCellEditing(treeSys, tab2, tab3, tab4, tab5);
         eProperty.save(); //запишем текущий systreeID и sysprodID в файл
-
+        qSystree.execsql();
         Arrays.asList(tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (frame != null)
             frame.dispose();
@@ -2365,7 +2362,10 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_colorFrameAction
 
     private void colorProfileAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorProfileAction
-        // TODO add your handling code here:
+        String obj[] = txtField15.getText().split(";");
+        new DicColor2(this, (record) -> {
+            System.out.println("frames.Systree.colorProfileAction()");
+         });       
     }//GEN-LAST:event_colorProfileAction
 
     private void btn3Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3Action
@@ -2378,7 +2378,7 @@ public class Systree extends javax.swing.JFrame {
                     depth = depth.substring(0, depth.length() - 1);
                 }
             }
-            depth = (depth != null && depth.isEmpty() == false) ? " and " + eArtikl.depth.name() + " in (" + depth.replace(";", ",") + ")" : "";
+            depth = (depth != null && depth.isEmpty() == false) ? " and " + eArtikl.depth.name() + " in (" + depth + ")" : "";
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where",
                     eArtikl.level1, "= 5 and", eArtikl.level2, "in (1,2,3)", depth);
             DicArtikl artikl = new DicArtikl(this, listenerGlass, qArtikl);
@@ -2569,7 +2569,8 @@ public class Systree extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        Util.documentFilter1(txtField2, txtField3, txtField4, txtField5);
+        Util.documentFilter1(txtField2, txtField15);
+        Util.documentFilter2(txtField3, txtField4, txtField5);
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab2, tab3, tab4, tab5)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) treeSys.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));

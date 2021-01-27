@@ -460,11 +460,17 @@ public class Util {
     }
 
     //Выключить режим редактирования
-    public static void stopCellEditing(JTable... tableList) {
-        for (JTable table : tableList) {
-            if (table.isEditing()) {
-                table.getCellEditor().stopCellEditing();
-            }
+    public static void stopCellEditing(JComponent... compList) {
+        for (JComponent comp : compList) {
+            if (comp instanceof JTable) {
+                if (((JTable) comp).isEditing()) {
+                    ((JTable) comp).getCellEditor().stopCellEditing();
+                }
+            } else if(comp instanceof JTree) {
+                if (((JTree) comp).isEditing()) {
+                    ((JTree) comp).getCellEditor().stopCellEditing();
+                }
+            } 
         }
     }
 
@@ -618,6 +624,18 @@ public class Util {
             ((PlainDocument) txtField2.getDocument()).setDocumentFilter(new DocumentFilter() {
                 public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
                     if (string.length() > 1 || "0123456789;".indexOf(string) != -1) {
+                        super.replace(fb, offset, length, string, attrs);
+                    }
+                }
+            });
+        }
+    }
+    //Проверка на коррекность ввода
+    public static void documentFilter2(JTextField... txtField) {
+        for (JTextField txtField2 : txtField) {
+            ((PlainDocument) txtField2.getDocument()).setDocumentFilter(new DocumentFilter() {
+                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                    if (string.length() > 1 || "0123456789;-".indexOf(string) != -1) {
                         super.replace(fb, offset, length, string, attrs);
                     }
                 }
