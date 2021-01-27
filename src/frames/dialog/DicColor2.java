@@ -106,12 +106,12 @@ public class DicColor2 extends javax.swing.JDialog {
         btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
+        pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
-        south = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
-        south2 = new javax.swing.JPanel();
+        south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
             public JTable table = null;
@@ -202,6 +202,10 @@ public class DicColor2 extends javax.swing.JDialog {
         centr.setPreferredSize(new java.awt.Dimension(412, 200));
         centr.setLayout(new java.awt.BorderLayout());
 
+        pan1.setLayout(new java.awt.BorderLayout());
+
+        scr1.setPreferredSize(new java.awt.Dimension(454, 160));
+
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"name1"},
@@ -232,12 +236,7 @@ public class DicColor2 extends javax.swing.JDialog {
         });
         scr1.setViewportView(tab1);
 
-        centr.add(scr1, java.awt.BorderLayout.CENTER);
-
-        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
-
-        south.setPreferredSize(new java.awt.Dimension(400, 350));
-        south.setLayout(new java.awt.BorderLayout());
+        pan1.add(scr1, java.awt.BorderLayout.NORTH);
 
         scr2.setBorder(null);
 
@@ -274,19 +273,23 @@ public class DicColor2 extends javax.swing.JDialog {
             tab2.getColumnModel().getColumn(0).setMaxWidth(60);
         }
 
-        south.add(scr2, java.awt.BorderLayout.CENTER);
+        pan1.add(scr2, java.awt.BorderLayout.CENTER);
 
-        south2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        south2.setMinimumSize(new java.awt.Dimension(100, 20));
-        south2.setPreferredSize(new java.awt.Dimension(400, 20));
-        south2.setLayout(new javax.swing.BoxLayout(south2, javax.swing.BoxLayout.LINE_AXIS));
+        centr.add(pan1, java.awt.BorderLayout.PAGE_START);
+
+        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
+
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(400, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         labFilter.setText("Поле");
         labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
         labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
         labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        south2.add(labFilter);
+        south.add(labFilter);
 
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
@@ -298,12 +301,10 @@ public class DicColor2 extends javax.swing.JDialog {
                 filterCaretUpdate(evt);
             }
         });
-        south2.add(txtFilter);
+        south.add(txtFilter);
 
         checkFilter.setText("в конце строки");
-        south2.add(checkFilter);
-
-        south.add(south2, java.awt.BorderLayout.SOUTH);
+        south.add(checkFilter);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
@@ -379,10 +380,10 @@ public class DicColor2 extends javax.swing.JDialog {
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
+    private javax.swing.JPanel pan1;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JPanel south;
-    private javax.swing.JPanel south2;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTextField txtFilter;
