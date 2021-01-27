@@ -92,9 +92,8 @@ public class Systree extends javax.swing.JFrame {
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Wincalc iwin = new Wincalc();
-    private DialogListener listenerArtikl, listenerArtikl2, listenerColor, listenerUsetyp, listenerModel, listenerModify, listenerTree,
-            listenerSide, listenerFurn, listenerFurn2, listenerTypeopen, listenerHandle, listenerHandle2, listenerParam1, listenerParam2,
-            listenerBtn1, listenerBtn7, listenerBtn11, listenerArt211, listenerArt212, listenerGlass;
+    private DialogListener listenerArtikl, listenerModel, listenerModify, listenerFurn,
+            listenerParam1, listenerParam2, listenerArt211, listenerArt212;
     private Canvas paintPanel = new Canvas(iwin);
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
@@ -329,11 +328,15 @@ public class Systree extends javax.swing.JFrame {
 
     private void listenerAdd() {
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
-            new DicEnums(this, listenerUsetyp, UseArtiklTo.values());
+            new DicEnums(this, (record) -> {
+                Util.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
+            }, UseArtiklTo.values());
         });
 
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
-            new DicEnums(this, listenerSide, UseSide.values());
+            new DicEnums(this, (record) -> {
+                Util.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
+            }, UseSide.values());
         });
 
         Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
@@ -349,11 +352,15 @@ public class Systree extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab3, 2).addActionListener(event -> {
-            DicEnums frame = new DicEnums(this, listenerTypeopen, TypeOpen2.values());
+            DicEnums frame = new DicEnums(this, (record) -> {
+                Util.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4, tab5);
+            }, TypeOpen2.values());
         });
 
         Util.buttonEditorCell(tab3, 4).addActionListener(event -> {
-            DicEnums frame = new DicEnums(this, listenerHandle, LayoutHandle.values());
+            DicEnums frame = new DicEnums(this, (record) -> {
+                Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4, tab5);
+            }, LayoutHandle.values());
         });
 
         Util.buttonEditorCell(tab3, 5).addActionListener(event -> {
@@ -378,14 +385,6 @@ public class Systree extends javax.swing.JFrame {
 
     private void listenerSet() {
 
-        listenerUsetyp = (record) -> {
-            Util.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
-        };
-
-        listenerSide = (record) -> {
-            Util.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
-        };
-
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab2);
@@ -395,23 +394,6 @@ public class Systree extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2, row);
         };
-
-        listenerArtikl2 = (record) -> {
-            System.out.println(record);
-        };
-
-        listenerColor = (record) -> {
-            System.out.println(record);
-        };
-
-        listenerGlass = (record) -> {
-            System.out.println(record);
-        };
-
-        listenerFurn2 = (record) -> {
-            System.out.println(record);
-        };
-
         listenerModel = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
             Record record2 = eSysprod.up.newRecord(Query.INS);
@@ -432,18 +414,6 @@ public class Systree extends javax.swing.JFrame {
             qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), Util.getSelectedRec(tab3), eFurniture.name);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3, row);
-        };
-
-        listenerTypeopen = (record) -> {
-            Util.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4, tab5);
-        };
-
-        listenerHandle = (record) -> {
-            Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4, tab5);
-        };
-
-        listenerHandle2 = (record) -> {
-            System.out.println(record);
         };
 
         listenerArt211 = (record) -> {
@@ -487,11 +457,6 @@ public class Systree extends javax.swing.JFrame {
             systreeID = node.rec().getInt(eSystree.id);
             eProperty.systreeID.write(String.valueOf(systreeID));
 
-//            for (int i = 0; i < qSystree.size(); i++) {
-//                if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
-//                    rsvSystree.load(i);
-//                }
-//            }
             rsvSystree.load();
 
             qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysprod.name);
@@ -2165,7 +2130,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void btn04Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn04Action
 
-        listenerBtn1 = (record) -> {
+        new DicArtikl(this, (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
             for (int i = 0; i < qSystree.size(); i++) {
                 if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
@@ -2173,13 +2138,12 @@ public class Systree extends javax.swing.JFrame {
                     rsvSystree.load(i);
                 }
             }
-        };
-        new DicArtikl(this, listenerBtn1, 5);
+        }, 5);
     }//GEN-LAST:event_btn04Action
 
     private void btn11Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11Action
 
-        listenerBtn11 = (record) -> {
+        new DicEnums(this, (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
             for (int i = 0; i < qSystree.size(); i++) {
                 if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
@@ -2187,13 +2151,12 @@ public class Systree extends javax.swing.JFrame {
                     rsvSystree.load(i);
                 }
             }
-        };
-        new DicEnums(this, listenerBtn11, LayoutProduct.values());
+        }, LayoutProduct.values());
     }//GEN-LAST:event_btn11Action
 
     private void btn07Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn07Action
 
-        listenerBtn7 = (record) -> {
+        new DicEnums(this, (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
             for (int i = 0; i < qSystree.size(); i++) {
                 if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
@@ -2201,8 +2164,7 @@ public class Systree extends javax.swing.JFrame {
                     rsvSystree.load(i);
                 }
             }
-        };
-        new DicEnums(this, listenerBtn7, TypeUse.values());
+        }, TypeUse.values());
     }//GEN-LAST:event_btn07Action
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
@@ -2339,7 +2301,9 @@ public class Systree extends javax.swing.JFrame {
                     }
                 }
             }
-            DicArtikl artikl = new DicArtikl(this, listenerArtikl2, artiklList);
+            DicArtikl artikl = new DicArtikl(this, (record) -> {
+                System.out.println(record);
+            }, artiklList);
         }
     }//GEN-LAST:event_btn22Action
 
@@ -2359,7 +2323,9 @@ public class Systree extends javax.swing.JFrame {
                 colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
             }
         });
-        DicColor2 frame = new DicColor2(this, listenerColor, colorSet);
+        DicColor2 frame = new DicColor2(this, (record) -> {
+            System.out.println(record);
+        }, colorSet);
     }//GEN-LAST:event_btn18Action
 
     private void btn09Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn09Action
@@ -2370,7 +2336,7 @@ public class Systree extends javax.swing.JFrame {
         for (Record rec : eColor.query()) {
             boolean b[] = {false, false};
             if (arr1 != null) {
-                
+
                 for (String s1 : arr1) { //группы
                     if (rec.getStr(eColor.colgrp_id).equals(s1)) {
                         b[0] = true;
@@ -2398,7 +2364,9 @@ public class Systree extends javax.swing.JFrame {
             }
             set.add(rec);
         }
-        DicColor2 frame = new DicColor2(this, listenerColor, set);
+        new DicColor2(this, (record) -> {
+
+        }, set);
     }//GEN-LAST:event_btn09Action
 
     private void btn03Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn03Action
@@ -2414,7 +2382,9 @@ public class Systree extends javax.swing.JFrame {
             depth = (depth != null && depth.isEmpty() == false) ? " and " + eArtikl.depth.name() + " in (" + depth + ")" : "";
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where",
                     eArtikl.level1, "= 5 and", eArtikl.level2, "in (1,2,3)", depth);
-            DicArtikl artikl = new DicArtikl(this, listenerGlass, qArtikl);
+            new DicArtikl(this, (record) -> {
+                System.out.println(record);
+            }, qArtikl);
 
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
@@ -2427,7 +2397,9 @@ public class Systree extends javax.swing.JFrame {
             String systreeID = node.rec().getStr(eSystree.id);
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
-            DicName frame = new DicName(this, listenerFurn2, qSysfurn.table(eFurniture.up), eFurniture.name);
+            new DicName(this, (record) -> {
+                System.out.println(record);
+            }, qSysfurn.table(eFurniture.up), eFurniture.name);
 
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
@@ -2435,7 +2407,9 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btn10Action
 
     private void btn21Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn21Action
-        DicEnums frame = new DicEnums(this, listenerHandle2, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
+        new DicEnums(this, (record) -> {
+            System.out.println(record);
+        }, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
                 TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTSHIFT, TypeOpen1.UPPER, TypeOpen1.FIXED);
     }//GEN-LAST:event_btn21Action
 
@@ -2462,10 +2436,8 @@ public class Systree extends javax.swing.JFrame {
                     }
                 }
             }
-            DicArtikl frame = new DicArtikl(this, (record) -> {
-
+            new DicArtikl(this, (record) -> {
                 System.out.println(record);
-
             }, qArtikl2);
 
         } catch (Exception e) {
