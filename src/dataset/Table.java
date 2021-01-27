@@ -47,6 +47,7 @@ public class Table extends ArrayList<Record> {
 
     public <T> T getAs(int index, Field field) {
         Object obj = get(index, field);
+        obj = (obj == null) ?-1 :obj;
         return (T) obj;
     }
     

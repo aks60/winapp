@@ -33,7 +33,9 @@ public class Util {
 
     //1;79-10;0-10=>[1,1,79,10,0,10]
     public static Integer[] parserInt(String str) {
-
+        if (str.isEmpty()) {
+            return new Integer[]{};
+        }
         ArrayList<Object> arrList = new ArrayList();
         String[] arr = str.split(";");
         if (arr.length == 1) {
@@ -59,9 +61,12 @@ public class Util {
         }
         return arrList.stream().toArray(Integer[]::new);
     }
+
     //0.55;79,01-10;0-10=>[0.55,0.55,79.01,10.0,0.0,10.0]
     public static Float[] parserFloat(String str) {
-
+        if (str.isEmpty()) {
+            return new Float[]{};
+        }
         ArrayList<Object> arrList = new ArrayList();
         str = str.replace(",", ".");
         String[] arr = str.split(";");

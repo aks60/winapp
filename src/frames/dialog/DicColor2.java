@@ -12,12 +12,15 @@ import java.awt.Frame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
+import java.awt.Component;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.stream.Stream;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 
 //Текстура артикулов
 public class DicColor2 extends javax.swing.JDialog {
@@ -66,7 +69,16 @@ public class DicColor2 extends javax.swing.JDialog {
 
     private void loadingModel() {
         new DefTableModel(tab1, qColgrp, eGroups.name);
-        new DefTableModel(tab2, qColor, eColor.name);
+        new DefTableModel(tab2, qColor, eColor.id, eColor.name);
+        tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+                int rgb = qColor.getAs(row, eColor.rgb);
+                lab.setBackground(new java.awt.Color(rgb));
+                return lab;
+            }
+        });
         Util.setSelectedRow(tab1);
     }
 
@@ -231,15 +243,15 @@ public class DicColor2 extends javax.swing.JDialog {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Name 1"},
-                {"Name 2"}
+                {null, "Name 1"},
+                {null, "Name 2"}
             },
             new String [] {
-                "Название текстур"
+                "ID", "Название текстур"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -258,6 +270,9 @@ public class DicColor2 extends javax.swing.JDialog {
             }
         });
         scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setMaxWidth(60);
+        }
 
         south.add(scr2, java.awt.BorderLayout.CENTER);
 

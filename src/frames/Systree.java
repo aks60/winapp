@@ -2367,29 +2367,34 @@ public class Systree extends javax.swing.JFrame {
         String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
         String jfield = (evt.getSource() == btn09) ? txt03.getText() : (evt.getSource() == btn13) ? txt04.getText() : txt05.getText();
         Integer[] arr2 = builder.specif.Util.parserInt(jfield);
-
         for (Record rec : eColor.query()) {
+            boolean b[] = {false, false};
             if (arr1 != null) {
-                boolean b = false;
-                for (String s1 : arr1) {
+                
+                for (String s1 : arr1) { //группы
                     if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-                        b = true;
+                        b[0] = true;
+
+                        if (arr2.length != 0) { //текстуры
+                            for (int i = 0; i < arr2.length; i = i + 2) {
+                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                                    b[1] = true;
+                                }
+                            }
+                        }
                     }
                 }
-                if (b == false) {
-                    continue;
+            } else {
+                if (arr2.length != 0) { //тестуры
+                    for (int i = 0; i < arr2.length; i = i + 2) {
+                        if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                            b[1] = true;
+                        }
+                    }
                 }
             }
-            if (arr2.length != 0) {
-                boolean b = false;
-                for (int i = 0; i < arr2.length; i = i + 2) {
-                    if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) < arr2[i + 1]) {
-                        b = true;
-                    }
-                }
-                if (b == false) {
-                    continue;
-                }
+            if ((arr1 != null && b[0] == false) || (arr2.length != 0 && b[1] == false)) {
+                continue;
             }
             set.add(rec);
         }
