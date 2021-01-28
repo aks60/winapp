@@ -15,14 +15,15 @@ public class AreaElem extends Element {
     protected float width = 0;                                //ширина area, мм
     protected float height = 0;                               //высота area, мм
     protected Float lengthSide = null; //ширина или высота добавляемой area, зависит от layoutArea, нужна на этапе конструирования (см. функцию add())
-    private LinkedList<Element> elements = new LinkedList();  //список элементов в area
+    private LinkedList<Element> elements = new LinkedList();  //список area
+    private LinkedList<AreaElem> areas = new LinkedList();  //список элементов
     
     public AreaElem() {
     }
 
     //Конструктор вложенной Area
     public AreaElem(float id, LayoutArea layoutArea, TypeElem elemType, float lengthSide) {
-        super.id = id;
+        this.id = id;
         this.layoutArea = layoutArea;
         this.elemType = elemType;
         this.lengthSide = lengthSide; //длина стороны, сторона зависит от направлени расположения area
@@ -30,18 +31,16 @@ public class AreaElem extends Element {
 
     //Конструктор створки
     public AreaElem(int id, LayoutArea layoutArea, TypeElem elemType, String paramJson) {
-        super.id = id;
+        this.id = id;
         this.layoutArea = layoutArea;
         this.elemType = elemType;
         this.paramJson = paramJson; //параметры элемента
     }
 
     //Добавление элемента в дерево
-    public Element add(Element element) {
-        if (element instanceof AreaElem) {
+    public AreaElem addArea(AreaElem area) {
 
-            AreaElem area = (AreaElem) element;
-            if (TypeElem.STVORKA == element.elemType) {
+            if (TypeElem.STVORKA == area.elemType) {
 
                 area.width = this.width;
                 area.height = this.height;
@@ -55,8 +54,12 @@ public class AreaElem extends Element {
                     area.width = area.lengthSide;
                 }
             }
-        }
-        elements.add(element);
+        this.areas.add(area);
+        return area;
+    }
+    
+    public Element addElem(Element element) {
+        this.elements.add(element);
         return element;
     }
 
@@ -72,6 +75,10 @@ public class AreaElem extends Element {
         return layoutArea;
     }
 
+    public LinkedList<AreaElem> getAreas() {
+        return areas;
+    }
+    
     public LinkedList<Element> getElements() {
         return elements;
     }
