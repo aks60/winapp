@@ -52,6 +52,8 @@ import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
+import builder.script.AreaElem;
+import builder.script.AreaRoot;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -2274,22 +2276,30 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btn05
 
     private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
-            JButton btn = (JButton) evt.getSource();
-            Record sysprodRec = qSysprod.table(eSysprod.up).get(Util.getSelectedRec(tab5));
-            String script = sysprodRec.getStr(eSysprod.script);
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            //gsonBuilder.setPrettyPrinting();
-            Gson gson = gsonBuilder.create();
-            JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
-            JsonObject jsonObj = jsonElem.getAsJsonObject();
-            JsonArray jsonArr = jsonObj.getAsJsonArray("elements");
-            for (JsonElement elem : jsonArr) {
-                JsonObject jobj = elem.getAsJsonObject();
-                //jobj.
-                //if(obj.)
-                System.out.println(gson.toJson(elem));
-                //System.out.println(jobj);
+        JButton btn = (JButton) evt.getSource();
+        Record sysprodRec = qSysprod.table(eSysprod.up).get(Util.getSelectedRec(tab5));
+        String script = sysprodRec.getStr(eSysprod.script);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        //gsonBuilder.setPrettyPrinting();
+        Gson gson = gsonBuilder.create();
+        //JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
+        AreaRoot root = gson.fromJson(script, AreaRoot.class);
+        for (builder.script.Element el : root.getElements()) {
+            if (el.getElemType() == TypeElem.STVORKA) {
+                AreaElem stv = (AreaElem) el;
+                System.out.println(stv.getElements().size());
             }
+        }
+
+//            JsonObject jsonObj = jsonElem.getAsJsonObject();
+//            JsonArray jsonArr = jsonObj.getAsJsonArray("elements");
+//            for (JsonElement elem : jsonArr) {
+//                JsonObject jobj = elem.getAsJsonObject();
+//                //jobj.
+//                //if(obj.)
+//                System.out.println(gson.toJson(elem));
+//                //System.out.println(jobj);
+//            }
     }//GEN-LAST:event_btnReport1
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
