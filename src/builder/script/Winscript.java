@@ -1,10 +1,10 @@
 package builder.script;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import domain.eSetting;
 import enums.LayoutArea;
 import enums.TypeElem;
-import startup.Main;
 
 public class Winscript {
 
@@ -308,8 +308,9 @@ public class Winscript {
         if (nuni != null) {
             rootArea.setParam(project.toString(), nuni);
         }
-        return new Gson().toJson(rootArea);
-
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        return builder.create().toJson(rootArea);
     }
 
     public static String testPs3(Integer project, Integer nuni) {
@@ -338,7 +339,7 @@ public class Winscript {
             AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':143}"));
             area4.add(new Element(11, TypeElem.GLASS, "{'artglasID':285}"));
             area5.add(new Element(12, TypeElem.GLASS, "{'artglasID':285}"));
-            
+
         } else if (project == 601006) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 1200, 25, 25, 25, "");
             rootArea.setParam(project.toString(), 24, "СИАЛ\\КП45\\Окна");
@@ -353,6 +354,8 @@ public class Winscript {
         if (nuni != null) {
             rootArea.setParam(project.toString(), nuni);
         }
-        return new Gson().toJson(rootArea);
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        return builder.create().toJson(rootArea);
     }
 }
