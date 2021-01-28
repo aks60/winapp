@@ -1,16 +1,11 @@
 package startup;
 
+import builder.script.Winscript;
 import common.*;
 import dataset.*;
-import enums.*;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import domain.eArtdet;
-import domain.eParams;
 import builder.specif.Specification;
 import java.sql.Connection;
-import java.util.HashMap;
 import javax.swing.UIManager;
 import java.util.Arrays;
 
@@ -23,7 +18,7 @@ public class Test {
             //wincalc();
             //query();
             //frame();
-            //json();
+            json();
             //parse();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -145,7 +140,9 @@ public class Test {
 
         Query.connection = connection();
         builder.Wincalc iwin = new builder.Wincalc();
-        System.out.println(builder.script.Winscript.test(601004, null));
+        String script = Winscript.test(601004, null);
+        //AreaElem 
+        System.out.println();
     }
 
     private static void lookAndFeel() {
