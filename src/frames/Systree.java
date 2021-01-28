@@ -52,6 +52,9 @@ import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import domain.eArtdet;
 import domain.eColor;
 import domain.eFurndet;
@@ -69,6 +72,7 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -799,7 +803,7 @@ public class Systree extends javax.swing.JFrame {
         btn09.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn09.setMaximumSize(new java.awt.Dimension(18, 18));
         btn09.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn09.setName("btnField17"); // NOI18N
+        btn09.setName("btn09"); // NOI18N
         btn09.setPreferredSize(new java.awt.Dimension(18, 18));
         btn09.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -811,7 +815,7 @@ public class Systree extends javax.swing.JFrame {
         btn13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn13.setMaximumSize(new java.awt.Dimension(18, 18));
         btn13.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn13.setName("btnField17"); // NOI18N
+        btn13.setName("btn13"); // NOI18N
         btn13.setPreferredSize(new java.awt.Dimension(18, 18));
         btn13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -823,7 +827,7 @@ public class Systree extends javax.swing.JFrame {
         btn02.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn02.setMaximumSize(new java.awt.Dimension(18, 18));
         btn02.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn02.setName("btnField17"); // NOI18N
+        btn02.setName("btn02"); // NOI18N
         btn02.setPreferredSize(new java.awt.Dimension(18, 18));
         btn02.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2270,7 +2274,22 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btn05
 
     private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
-
+            JButton btn = (JButton) evt.getSource();
+            Record sysprodRec = qSysprod.table(eSysprod.up).get(Util.getSelectedRec(tab5));
+            String script = sysprodRec.getStr(eSysprod.script);
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            //gsonBuilder.setPrettyPrinting();
+            Gson gson = gsonBuilder.create();
+            JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
+            JsonObject jsonObj = jsonElem.getAsJsonObject();
+            JsonArray jsonArr = jsonObj.getAsJsonArray("elements");
+            for (JsonElement elem : jsonArr) {
+                JsonObject jobj = elem.getAsJsonObject();
+                //jobj.
+                //if(obj.)
+                System.out.println(gson.toJson(elem));
+                //System.out.println(jobj);
+            }
     }//GEN-LAST:event_btnReport1
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -2329,44 +2348,59 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btn18Action
 
     private void btn09Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn09Action
-        HashSet<Record> set = new HashSet();
-        String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
-        String jfield = (evt.getSource() == btn09) ? txt03.getText() : (evt.getSource() == btn13) ? txt04.getText() : txt05.getText();
-        Integer[] arr2 = builder.specif.Util.parserInt(jfield);
-        for (Record rec : eColor.query()) {
-            boolean b[] = {false, false};
-            if (arr1 != null) {
-
-                for (String s1 : arr1) { //группы
-                    if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-                        b[0] = true;
-
-                        if (arr2.length != 0) { //текстуры
-                            for (int i = 0; i < arr2.length; i = i + 2) {
-                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                    b[1] = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (arr2.length != 0) { //тестуры
-                    for (int i = 0; i < arr2.length; i = i + 2) {
-                        if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                            b[1] = true;
-                        }
-                    }
-                }
-            }
-            if ((arr1 != null && b[0] == false) || (arr2.length != 0 && b[1] == false)) {
-                continue;
-            }
-            set.add(rec);
-        }
+//        HashSet<Record> set = new HashSet();
+//        String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
+//        String jfield = (evt.getSource() == btn09) ? txt03.getText() : (evt.getSource() == btn13) ? txt04.getText() : txt05.getText();
+//        Integer[] arr2 = builder.specif.Util.parserInt(jfield);
+//        for (Record rec : eColor.query()) {
+//            boolean b[] = {false, false};
+//            if (arr1 != null) {
+//
+//                for (String s1 : arr1) { //группы
+//                    if (rec.getStr(eColor.colgrp_id).equals(s1)) {
+//                        b[0] = true;
+//
+//                        if (arr2.length != 0) { //текстуры
+//                            for (int i = 0; i < arr2.length; i = i + 2) {
+//                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+//                                    b[1] = true;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            } else {
+//                if (arr2.length != 0) { //тестуры
+//                    for (int i = 0; i < arr2.length; i = i + 2) {
+//                        if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+//                            b[1] = true;
+//                        }
+//                    }
+//                }
+//            }
+//            if ((arr1 != null && b[0] == false) || (arr2.length != 0 && b[1] == false)) {
+//                continue;
+//            }
+//            set.add(rec);
+//        }
         new DicColor2(this, (record) -> {
-
-        }, set);
+            JButton btn = (JButton) evt.getSource();
+            Record sysprodRec = qSysprod.table(eSysprod.up).get(Util.getSelectedRec(tab5));
+            String script = sysprodRec.getStr(eSysprod.script);
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            //gsonBuilder.setPrettyPrinting();
+            Gson gson = gsonBuilder.create();
+            JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
+            JsonObject jsonObj = jsonElem.getAsJsonObject();
+            JsonArray jsonArr = jsonObj.getAsJsonArray("elements");
+            for (JsonElement elem : jsonArr) {
+                JsonObject jobj = elem.getAsJsonObject();
+                //jobj.
+                //if(obj.)
+                System.out.println(gson.toJson(elem));
+                //System.out.println(jobj);
+            }
+        });
     }//GEN-LAST:event_btn09Action
 
     private void btn03Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn03Action
