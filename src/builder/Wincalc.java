@@ -69,6 +69,7 @@ public class Wincalc {
     public String labelSketch = "empty"; //надпись на эскизе
 
     public AreaSimple rootArea = null;
+    public AreaRoot fromJson = null;
     public HashMap<Integer, Record> mapParamDef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
@@ -132,16 +133,16 @@ public class Wincalc {
             //System.out.println(gs.toJson(je));
 
             Gson gson = new GsonBuilder().create();
-            AreaRoot root = gson.fromJson(json, AreaRoot.class);
+            fromJson = gson.fromJson(json, AreaRoot.class);
 
-            this.nuni = root.nuni();
-            float id = root.id();
-            this.width = root.width();
-            this.height = root.height();
-            this.heightAdd = root.heightAdd();
-            this.colorID1 = root.color(1);
-            this.colorID2 = root.color(2);
-            this.colorID3 = root.color(3);
+            this.nuni = fromJson.nuni();
+            float id = fromJson.id();
+            this.width = fromJson.width();
+            this.height = fromJson.height();
+            this.heightAdd = fromJson.heightAdd();
+            this.colorID1 = fromJson.color(1);
+            this.colorID2 = fromJson.color(2);
+            this.colorID3 = fromJson.color(3);
 
             //Инит конструктив
             Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
@@ -150,17 +151,17 @@ public class Wincalc {
             eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
 
             //Главное окно
-            Mediate mediateRoot = new Mediate(null, id, root.elemType().name(), root.layoutArea().name(), width, height, root.paramJson());
+            Mediate mediateRoot = new Mediate(null, id, fromJson.elemType().name(), fromJson.layoutArea().name(), width, height, fromJson.paramJson());
             mediateList.add(mediateRoot);
 
             //Добавим рамы         
-            for (builder.script.Element elem : root.elems()) {
+            for (builder.script.Element elem : fromJson.elems()) {
                 if (TypeElem.FRAME_SIDE.equals(elem.elemType())) {
                     mediateList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layoutFrame().name(), null));
                 }
             }
             //Добавим все остальные Mediate, через рекурсию
-            recursionArea(root, mediateRoot, mediateList);
+            recursionArea(fromJson, mediateRoot, mediateList);
             
             //Упорядочим порядок построения окна
             Collections.sort(mediateList, (o1, o2) -> Float.compare(o1.id(), o2.id())); 

@@ -120,6 +120,7 @@ public class DicColor2 extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Справочник текстур");
+        setPreferredSize(new java.awt.Dimension(412, 600));
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -199,7 +200,7 @@ public class DicColor2 extends javax.swing.JDialog {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        centr.setPreferredSize(new java.awt.Dimension(412, 200));
+        centr.setPreferredSize(new java.awt.Dimension(412, 560));
         centr.setLayout(new java.awt.BorderLayout());
 
         pan1.setLayout(new java.awt.BorderLayout());

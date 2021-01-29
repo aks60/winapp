@@ -2362,32 +2362,39 @@ public class Systree extends javax.swing.JFrame {
         String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
         String jfield = (evt.getSource() == btn09) ? txt03.getText() : (evt.getSource() == btn13) ? txt04.getText() : txt05.getText();
         Integer[] arr2 = builder.specif.Util.parserInt(jfield);
-        for (Record rec : eColor.query()) {
-            boolean gr = false, pk = false;
-            if (arr1 != null) {
-
-                for (String s1 : arr1) { //группы
+        if (arr1 != null) {
+            for (String s1 : arr1) { //группы
+                HashSet<Record> se2 = new HashSet();
+                boolean b = false;
+                for (Record rec : eColor.query()) {
+                    
                     if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-
-                        if (arr2.length == 0) {
-                            set.add(rec);
-
-                        } else { 
-                            boolean b = false;
-                            for (int i = 0; i < arr2.length; i = i + 2) { //текстуры
-                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                    set.add(rec);
-                                    b = true;
-                                }
-                            }
-                            if(b == false) {
-                                
+                        se2.add(rec); //текстуры группы
+                        
+                        for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
+                            if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                                b = true;
                             }
                         }
                     }
                 }
-            } else {
-                if (arr2.length != 0) {
+                if (b == false) { //если небыло пападаний то добавляем всю группу
+                    set.addAll(se2);
+                }
+            }
+            for (Record rec : eColor.query()) {
+                if (arr1 != null) {
+
+                    for (String s1 : arr1) { //группы
+                        if (rec.getStr(eColor.colgrp_id).equals(s1)) {
+                            for (int i = 0; i < arr2.length; i = i + 2) { //текстуры
+                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                                    set.add(rec);
+                                }
+                            }
+                        }
+                    }
+                } else {
                     for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
                         if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
                             set.add(rec);
