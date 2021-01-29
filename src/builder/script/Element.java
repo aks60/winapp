@@ -53,7 +53,7 @@ public class Element {
         return paramJson;
     }
 
-    public String toString() {
-        return elemType.name();
-    }
+//    public String toString() {
+//        return elemType.name();
+//    }
 }

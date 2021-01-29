@@ -6,24 +6,18 @@ import java.util.Arrays;
 import builder.model.AreaSimple;
 import builder.model.ElemSimple;
 
-public class Mediate {
+public class Mediate extends AreaElem{
 
-    public float id = -1;  // идентификатор элемента
     public Mediate owner = this; //владелец
     public AreaSimple area5e = null; //ссылка для добавления детей в контейнер
-    public TypeElem type = TypeElem.NONE; //тип элемента
-    public LayoutArea layout = LayoutArea.ANY;  //ориентация при расположении      
-    public float width = 0;  //ширина area5e, мм
-    public float height = 0; //высота area5e, мм   
-    public String param = null;
 
     public Mediate(Mediate owner, float id, String type, String layout, String param) {
 
         this.id = id;
         this.owner = owner;
-        this.type = Arrays.asList(TypeElem.values()).stream().filter(it -> it.name().equals(type)).findFirst().orElse(null);
-        this.layout = Arrays.asList(LayoutArea.values()).stream().filter(it -> it.name().equals(layout)).findFirst().orElse(null);
-        this.param = param;
+        this.elemType = Arrays.asList(TypeElem.values()).stream().filter(it -> it.name().equals(type)).findFirst().orElse(null);
+        this.layoutArea = Arrays.asList(LayoutArea.values()).stream().filter(it -> it.name().equals(layout)).findFirst().orElse(null);
+        this.paramJson = param;
     }
 
     public Mediate(Mediate owner, float id, String type, String layout,
@@ -45,9 +39,9 @@ public class Mediate {
         return elem5e;
     }
 
-    public String toString() {
-        float owner2 = (owner == null) ? -1 : owner.id;
-        return "ELEM- " + type.name() + ", owner=" + owner2 + ", id=" + id + ", type=" + type + ", layout="
-                + layout + ", width= " + width + ", height=" + height + ", param=" + param;
-    }
+//    public String toString() {
+//        float owner2 = (owner == null) ? -1 : owner.id;
+//        return "ELEM- " + elemType.name() + ", owner=" + owner2 + ", id=" + id + ", type=" + elemType + ", layout="
+//                + elemType + ", width= " + width + ", height=" + height + ", param=" + paramJson;
+//    }
 }

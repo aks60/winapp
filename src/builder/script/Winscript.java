@@ -308,9 +308,8 @@ public class Winscript {
         if (nuni != null) {
             rootArea.param(project.toString(), nuni);
         }
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
-        return builder.create().toJson(rootArea);
+        
+        return new GsonBuilder().create().toJson(rootArea);
     }
 
     public static String testPs3(Integer project, Integer nuni) {
@@ -354,8 +353,7 @@ public class Winscript {
         if (nuni != null) {
             rootArea.param(project.toString(), nuni);
         }
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
-        return builder.create().toJson(rootArea);
+
+        return new GsonBuilder().create().toJson(rootArea);
     }
 }
