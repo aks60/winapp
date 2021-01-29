@@ -40,6 +40,7 @@ import builder.model.ElemFrame;
 import builder.model.ElemSimple;
 import builder.script.AreaElem;
 import builder.script.AreaRoot;
+import builder.script.Element;
 import builder.script.Mediate;
 import frames.swing.Draw;
 
@@ -165,7 +166,7 @@ public class Wincalc {
                 }
             }
             //Добавим все остальные Mediate, через рекурсию
-            intermBuild(jsonObj, mediateRoot, mediateList);
+            intermBuild(mediateRoot, mediateList);
             Collections.sort(mediateList, (o1, o2) -> Float.compare(o1.id(), o2.id())); //упорядочим порядок построения окна
 
             //Строим конструкцию из промежуточного списка
@@ -177,20 +178,20 @@ public class Wincalc {
     }
 
     //Промежуточный список окна (для последовательности построения)
-    
     private void intermBuild(JsonObject jso, Mediate owner, LinkedList<Mediate> mediateList) {
         try {
-            for (AreaElem area : owner.areas()) {
-                //JsonObject objArea = (JsonObject) area;
-                //int id = objArea.get("id").getAsInt();
-                //String type = objArea.get("elemType").getAsString();
-                //String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
+            for (Object json : jso.get("areas").getAsJsonArray()) {
+                JsonObject objArea = (JsonObject) json;
+                int id = objArea.get("id").getAsInt();
+                String type = objArea.get("elemType").getAsString();
+                String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
 
                 if (TypeElem.AREA.name().equals(type) || TypeElem.STVORKA.name().equals(type)) {
 
-                    float width = (owner.layoutArea() == LayoutArea.VERT) ? owner.width() : owner.width();
-                    float height = (owner.layoutArea() == LayoutArea.VERT) ? owner.height() : owner.height();
-                    Mediate mediateBox = new Mediate(owner, owner.id(), type, owner.layoutArea().name(), width, height, param);
+                    float width = (owner.layout == LayoutArea.VERT) ? owner.width : objArea.get("width").getAsFloat();
+                    float height = (owner.layout == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : owner.height;
+                    String layout = objArea.get("layoutArea").getAsString();
+                    Mediate mediateBox = new Mediate(owner, id, type, layout, width, height, param);
                     mediateList.add(mediateBox);
 
                     intermBuild(objArea, mediateBox, mediateList); //рекурсия
@@ -202,7 +203,7 @@ public class Wincalc {
                 int id = objArea.get("id").getAsInt();
                 String type = objArea.get("elemType").getAsString();
                 String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
-
+                
                 if (TypeElem.IMPOST.name().equals(type)) {
                     mediateList.add(new Mediate(owner, id, type, LayoutArea.ANY.name(), param));
                 } else if (TypeElem.GLASS.name().equals(type)) {
@@ -214,6 +215,30 @@ public class Wincalc {
             System.err.println("wincalc.Wincalc.intermBuild() " + e);
         }
     }
+    
+//    private void intermBuild(Mediate owner, LinkedList<Mediate> mediateList) {
+//        try {
+//            for (AreaElem area : owner.areas()) {
+//                    float width = (owner.layoutArea() == LayoutArea.VERT) ? owner.width() : area.width();
+//                    float height = (owner.layoutArea() == LayoutArea.VERT) ? area.height() : owner.height();
+//                    Mediate mediateBox = new Mediate(owner, owner.id(), area.elemType().name(), owner.layoutArea().name(), width, height, area.paramJson());
+//                    mediateList.add(mediateBox);
+//
+//                    intermBuild(mediateBox, mediateList); //рекурсия
+//
+//            }
+//            for (Element elem : owner.elements()) {
+//                if (TypeElem.IMPOST.name().equals(elem.elemType())) {
+//                    mediateList.add(new Mediate(owner, elem.id(),elem.elemType().name(), LayoutArea.ANY.name(), elem.paramJson()));
+//                } else if (TypeElem.GLASS.name().equals(elem.elemType().name())) {
+//                    mediateList.add(new Mediate(owner, elem.id(), elem.elemType().name(), LayoutArea.ANY.name(), elem.paramJson()));
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            System.err.println("wincalc.Wincalc.intermBuild() " + e);
+//        }
+//    }
 
     //Строим конструкцию из промежуточного списка
     private void windowsBuild(LinkedList<Mediate> mediateList) {
