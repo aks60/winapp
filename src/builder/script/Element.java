@@ -13,7 +13,7 @@ public class Element {
     protected TypeElem elemType = TypeElem.NONE; //тип элемента
     protected String paramJson = null; //параметры элемента
 
-    //Конструктор по умолчанию
+    //Конструктор
     public Element() {
     }
 

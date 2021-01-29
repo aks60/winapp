@@ -11,9 +11,9 @@ import java.util.LinkedList;
  */
 public class AreaElem extends Element {
 
-    protected LayoutArea layoutArea = null;                   //ориентация при размещении area
-    protected float width = 0;                                //ширина area, мм
-    protected float height = 0;                               //высота area, мм
+    protected LayoutArea layoutArea = null; //ориентация при размещении area
+    protected float width = 0; //ширина area, мм
+    protected float height = 0; //высота area, мм
     protected Float lengthSide = null; //ширина или высота добавляемой area, зависит от layoutArea, нужна на этапе конструирования (см. функцию add())
     private LinkedList<Element> elements = new LinkedList();  //список area
     private LinkedList<AreaElem> areas = new LinkedList();  //список элементов
