@@ -77,7 +77,7 @@ public class Wincalc {
     public LinkedList<Mediate> mediateList = new LinkedList();
 
     public AreaSimple build(String productJson) {
-        //System.out.println(productJson);
+
         mediateList.clear();
         mapParamDef.clear();
         mapJoin.clear();
@@ -101,8 +101,7 @@ public class Wincalc {
 
     //Конструктив и тарификация 
     public void constructiv() {
-        try {
-            Query.listOpenTable.forEach(q -> q.clear());
+        try {            
             calcJoining = new Joining(this); //соединения
             calcJoining.calc();
             calcElements = new Elements(this); //составы
@@ -132,10 +131,9 @@ public class Wincalc {
             //JsonElement je = new JsonParser().parse(json);
             //System.out.println(gs.toJson(je));
 
-            GsonBuilder builder = new GsonBuilder();
-            Gson gson = builder.create();
+            Gson gson = new GsonBuilder().create();
             AreaRoot root = gson.fromJson(json, AreaRoot.class);
-            
+
             this.nuni = root.nuni();
             float id = root.id();
             this.width = root.width();
@@ -144,30 +142,28 @@ public class Wincalc {
             this.colorID1 = root.color(1);
             this.colorID2 = root.color(2);
             this.colorID3 = root.color(3);
-            
+
+            //Инит конструктив
             Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
             artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
             eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
-            
-                       
-            JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
-            JsonObject jsonObj = jsonElement.getAsJsonObject();
-            
 
             //Главное окно
             Mediate mediateRoot = new Mediate(null, id, root.elemType().name(), root.layoutArea().name(), width, height, root.paramJson());
             mediateList.add(mediateRoot);
 
             //Добавим рамы         
-            for (builder.script.Element elem : root.elements()) {
+            for (builder.script.Element elem : root.elems()) {
                 if (TypeElem.FRAME_SIDE.equals(elem.elemType())) {
                     mediateList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layoutFrame().name(), null));
                 }
             }
             //Добавим все остальные Mediate, через рекурсию
-            intermBuild(mediateRoot, mediateList);
-            Collections.sort(mediateList, (o1, o2) -> Float.compare(o1.id(), o2.id())); //упорядочим порядок построения окна
+            recursionArea(root, mediateRoot, mediateList);
+            
+            //Упорядочим порядок построения окна
+            Collections.sort(mediateList, (o1, o2) -> Float.compare(o1.id(), o2.id())); 
 
             //Строим конструкцию из промежуточного списка
             windowsBuild(mediateList);
@@ -177,37 +173,23 @@ public class Wincalc {
         }
     }
 
-    //Промежуточный список окна (для последовательности построения)
-    private void intermBuild(JsonObject jso, Mediate owner, LinkedList<Mediate> mediateList) {
+    //Промежуточный список окна (для ранжирования элементов построения)
+    private void recursionArea(AreaElem el, Mediate med, LinkedList<Mediate> mediateList) {
         try {
-            for (Object json : jso.get("areas").getAsJsonArray()) {
-                JsonObject objArea = (JsonObject) json;
-                int id = objArea.get("id").getAsInt();
-                String type = objArea.get("elemType").getAsString();
-                String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
+            for (AreaElem area : el.areas()) {
+                float width = (med.layoutArea() == LayoutArea.VERT) ? med.width() : area.width();
+                float height = (med.layoutArea() == LayoutArea.VERT) ? area.height() : med.height();
+                Mediate med2 = new Mediate(med, area.id(), area.elemType().name(), area.layoutArea().name(), width, height, area.paramJson());
+                mediateList.add(med2);
 
-                if (TypeElem.AREA.name().equals(type) || TypeElem.STVORKA.name().equals(type)) {
+                recursionArea(area, med2, mediateList); //рекурсия
 
-                    float width = (owner.layout == LayoutArea.VERT) ? owner.width : objArea.get("width").getAsFloat();
-                    float height = (owner.layout == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : owner.height;
-                    String layout = objArea.get("layoutArea").getAsString();
-                    Mediate mediateBox = new Mediate(owner, id, type, layout, width, height, param);
-                    mediateList.add(mediateBox);
-
-                    intermBuild(objArea, mediateBox, mediateList); //рекурсия
-
-                }
             }
-            for (Object json : jso.get("elements").getAsJsonArray()) {
-                JsonObject objArea = (JsonObject) json;
-                int id = objArea.get("id").getAsInt();
-                String type = objArea.get("elemType").getAsString();
-                String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
-                
-                if (TypeElem.IMPOST.name().equals(type)) {
-                    mediateList.add(new Mediate(owner, id, type, LayoutArea.ANY.name(), param));
-                } else if (TypeElem.GLASS.name().equals(type)) {
-                    mediateList.add(new Mediate(owner, id, type, LayoutArea.ANY.name(), param));
+            for (Element elem : el.elems()) {
+                if (TypeElem.IMPOST.equals(elem.elemType())) {
+                    mediateList.add(new Mediate(med, elem.id(), elem.elemType().name(), LayoutArea.ANY.name(), elem.paramJson()));
+                } else if (TypeElem.GLASS.equals(elem.elemType())) {
+                    mediateList.add(new Mediate(med, elem.id(), elem.elemType().name(), LayoutArea.ANY.name(), elem.paramJson()));
                 }
             }
 
@@ -215,30 +197,6 @@ public class Wincalc {
             System.err.println("wincalc.Wincalc.intermBuild() " + e);
         }
     }
-    
-//    private void intermBuild(Mediate owner, LinkedList<Mediate> mediateList) {
-//        try {
-//            for (AreaElem area : owner.areas()) {
-//                    float width = (owner.layoutArea() == LayoutArea.VERT) ? owner.width() : area.width();
-//                    float height = (owner.layoutArea() == LayoutArea.VERT) ? area.height() : owner.height();
-//                    Mediate mediateBox = new Mediate(owner, owner.id(), area.elemType().name(), owner.layoutArea().name(), width, height, area.paramJson());
-//                    mediateList.add(mediateBox);
-//
-//                    intermBuild(mediateBox, mediateList); //рекурсия
-//
-//            }
-//            for (Element elem : owner.elements()) {
-//                if (TypeElem.IMPOST.name().equals(elem.elemType())) {
-//                    mediateList.add(new Mediate(owner, elem.id(),elem.elemType().name(), LayoutArea.ANY.name(), elem.paramJson()));
-//                } else if (TypeElem.GLASS.name().equals(elem.elemType().name())) {
-//                    mediateList.add(new Mediate(owner, elem.id(), elem.elemType().name(), LayoutArea.ANY.name(), elem.paramJson()));
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            System.err.println("wincalc.Wincalc.intermBuild() " + e);
-//        }
-//    }
 
     //Строим конструкцию из промежуточного списка
     private void windowsBuild(LinkedList<Mediate> mediateList) {

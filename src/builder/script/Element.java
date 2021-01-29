@@ -52,8 +52,4 @@ public class Element {
     public String paramJson() {
         return paramJson;
     }
-
-//    public String toString() {
-//        return elemType.name();
-//    }
 }

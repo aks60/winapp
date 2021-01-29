@@ -2284,15 +2284,15 @@ public class Systree extends javax.swing.JFrame {
         Gson gson = gsonBuilder.create();
         //JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
         AreaRoot root = gson.fromJson(script, AreaRoot.class);
-        for (builder.script.Element el : root.elements()) {
+        for (builder.script.Element el : root.elems()) {
             if (el.elemType() == TypeElem.STVORKA) {
                 AreaElem stv = (AreaElem) el;
-                System.out.println(stv.elements().size());
+                System.out.println(stv.elems().size());
             }
         }
 
 //            JsonObject jsonObj = jsonElem.getAsJsonObject();
-//            JsonArray jsonArr = jsonObj.getAsJsonArray("elements");
+//            JsonArray jsonArr = jsonObj.getAsJsonArray("elems");
 //            for (JsonElement elem : jsonArr) {
 //                JsonObject jobj = elem.getAsJsonObject();
 //                //jobj.

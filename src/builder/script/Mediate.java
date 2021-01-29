@@ -6,7 +6,7 @@ import java.util.Arrays;
 import builder.model.AreaSimple;
 import builder.model.ElemSimple;
 
-public class Mediate extends AreaElem{
+public class Mediate extends AreaElem {
 
     public Mediate owner = this; //владелец
     public AreaSimple area5e = null; //ссылка для добавления детей в контейнер
@@ -14,7 +14,9 @@ public class Mediate extends AreaElem{
     public Mediate(Mediate owner, float id, String type, String layout, String param) {
 
         this.id = id;
-        this.owner = owner;
+        if (owner != null) {
+            this.owner = owner;
+        }
         this.elemType = Arrays.asList(TypeElem.values()).stream().filter(it -> it.name().equals(type)).findFirst().orElse(null);
         this.layoutArea = Arrays.asList(LayoutArea.values()).stream().filter(it -> it.name().equals(layout)).findFirst().orElse(null);
         this.paramJson = param;
@@ -38,10 +40,4 @@ public class Mediate extends AreaElem{
         owner.area5e.listChild.add(elem5e); //теперь владелец имеет этот ElemSimple в списке
         return elem5e;
     }
-
-//    public String toString() {
-//        float owner2 = (owner == null) ? -1 : owner.id;
-//        return "ELEM- " + elemType.name() + ", owner=" + owner2 + ", id=" + id + ", type=" + elemType + ", layout="
-//                + elemType + ", width= " + width + ", height=" + height + ", param=" + paramJson;
-//    }
 }

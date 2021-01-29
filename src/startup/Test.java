@@ -36,11 +36,11 @@ public class Test {
         String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.prj = 601003;
+            iwin.prj = 601004;
             iwin.build(builder.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
             //Specification.write_txt1(iwin.listSpec);
-            Specification.compareIWin(iwin.listSpec, iwin.prj, true);
+            Specification.compareIWin(iwin.listSpec, iwin.prj, false);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
         } else {
             if (_case.equals("min")) {

@@ -41,11 +41,10 @@ public class AreaElem extends Element {
     public AreaElem addArea(AreaElem area) {
 
             if (TypeElem.STVORKA == area.elemType) {
-
                 area.width = this.width;
                 area.height = this.height;
+                
             } else {
-
                 if (LayoutArea.VERT == layoutArea) {
                     area.height = area.lengthSide;
                     area.width = width;
@@ -79,7 +78,7 @@ public class AreaElem extends Element {
         return areas;
     }
     
-    public LinkedList<Element> elements() {
+    public LinkedList<Element> elems() {
         return elements;
     }
 }

@@ -28,11 +28,6 @@ public class AreaRoot extends AreaElem {
         this.paramJson = paramJson;
     }
 
-    public void param(String prj, int nuni) {
-        this.nuni = nuni;
-        this.prj = prj;
-    }
-
     public void param(String prj, int nuni, String name) {
         this.nuni = nuni;
         this.prj = prj;
