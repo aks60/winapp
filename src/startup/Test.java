@@ -1,15 +1,14 @@
 package startup;
 
 import builder.script.AreaElem;
+import builder.script.AreaRoot;
 import builder.script.Element;
-import builder.script.GsonDeserializer;
 import builder.script.Winscript;
 import common.*;
 import dataset.*;
 import domain.eArtdet;
 import builder.specif.Specification;
 import com.google.gson.GsonBuilder;
-import enums.TypeElem;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.Arrays;
@@ -20,10 +19,10 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec2();
-            //wincalc();
+            wincalc();
             //query();
             //frame();
-            json();
+            //json();
             //parse();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -146,36 +145,38 @@ public class Test {
         Query.connection = connection();
         builder.Wincalc iwin = new builder.Wincalc();
         String script = Winscript.test(601004, null);
-
+        iwin.build(script);
+        
         GsonBuilder builder = new GsonBuilder();
         //builder.registerTypeAdapter(Element.class, new GsonDeserializer<Element>());
         //builder.setPrettyPrinting();
-        AreaElem root = builder.create().fromJson(script, AreaElem.class);
+        AreaRoot root = builder.create().fromJson(script, AreaRoot.class);
         
-        System.out.println(root.getElemType());
-        for (Element el : root.getElements()) {
-            System.out.println(el.getElemType());
-        }
-        for (AreaElem ar : root.getAreas()) {
-            System.out.println(ar.getElemType());
-            for (Element el : ar.getElements()) {
-                System.out.println(el.getElemType());
-            }
-            for (AreaElem ar2 : ar.getAreas()) {
-                System.out.println(ar2.getElemType());
-                for (Element el2 : ar2.getElements()) {
-                    System.out.println(el2.getElemType());
-                }
-                for (AreaElem ar3 : ar2.getAreas()) {
-                    System.out.println(ar3.getElemType());
-                    for (Element el3 : ar3.getElements()) {
-                        System.out.println(el3.getElemType());
-                    }
-
-                }
-
-            }
-        }
+        System.out.println(root.color(1));
+//        
+//        for (Element el : root.getElements()) {
+//            System.out.println(el.getElemType());
+//        }
+//        for (AreaElem ar : root.getAreas()) {
+//            System.out.println(ar.getElemType());
+//            for (Element el : ar.getElements()) {
+//                System.out.println(el.getElemType());
+//            }
+//            for (AreaElem ar2 : ar.getAreas()) {
+//                System.out.println(ar2.getElemType());
+//                for (Element el2 : ar2.getElements()) {
+//                    System.out.println(el2.getElemType());
+//                }
+//                for (AreaElem ar3 : ar2.getAreas()) {
+//                    System.out.println(ar3.getElemType());
+//                    for (Element el3 : ar3.getElements()) {
+//                        System.out.println(el3.getElemType());
+//                    }
+//
+//                }
+//
+//            }
+//        }
     }
 
     private static void lookAndFeel() {

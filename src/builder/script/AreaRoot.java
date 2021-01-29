@@ -28,22 +28,26 @@ public class AreaRoot extends AreaElem {
         this.paramJson = paramJson;
     }
 
-    public void setParam(String prj, int nuni) {
+    public void param(String prj, int nuni) {
         this.nuni = nuni;
         this.prj = prj;
     }
 
-    public void setParam(String prj, int nuni, String name) {
+    public void param(String prj, int nuni, String name) {
         this.nuni = nuni;
         this.prj = prj;
         this.name = name;
     }
 
-    public float getHeightAdd() {
+    public float heightAdd() {
         return heightAdd;
     }
 
-    public int getNuni() {
+    public int color(int index) {
+        return (index == 1) ? color1 : (index == 2) ? color2 : color3;
+    }
+
+    public int nuni() {
         return nuni;
     }
 }

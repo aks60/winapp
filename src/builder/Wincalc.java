@@ -122,7 +122,7 @@ public class Wincalc {
 
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.constructiv(" + e);
-        } 
+        }
     }
 
     // Парсим входное json окно и строим объектную модель окна
@@ -183,11 +183,12 @@ public class Wincalc {
     //Промежуточный список окна (для последовательности построения)
     private void intermBuild(JsonObject jso, Mediate owner, LinkedList<Mediate> mediateList) {
         try {
-            for (Object obj : jso.get("elements").getAsJsonArray()) {
-                JsonObject objArea = (JsonObject) obj;
+            for (Object json : jso.get("areas").getAsJsonArray()) {
+                JsonObject objArea = (JsonObject) json;
                 int id = objArea.get("id").getAsInt();
                 String type = objArea.get("elemType").getAsString();
                 String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
+
                 if (TypeElem.AREA.name().equals(type) || TypeElem.STVORKA.name().equals(type)) {
 
                     float width = (owner.layout == LayoutArea.VERT) ? owner.width : objArea.get("width").getAsFloat();
@@ -198,14 +199,21 @@ public class Wincalc {
 
                     intermBuild(objArea, mediateBox, mediateList); //рекурсия
 
-                } else {
-                    if (TypeElem.IMPOST.name().equals(type)) {
-                        mediateList.add(new Mediate(owner, id, type, LayoutArea.ANY.name(), param));
-                    } else if (TypeElem.GLASS.name().equals(type)) {
-                        mediateList.add(new Mediate(owner, id, type, LayoutArea.ANY.name(), param));
-                    }
                 }
             }
+            for (Object json : jso.get("elements").getAsJsonArray()) {
+                JsonObject objArea = (JsonObject) json;
+                int id = objArea.get("id").getAsInt();
+                String type = objArea.get("elemType").getAsString();
+                String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
+                
+                if (TypeElem.IMPOST.name().equals(type)) {
+                    mediateList.add(new Mediate(owner, id, type, LayoutArea.ANY.name(), param));
+                } else if (TypeElem.GLASS.name().equals(type)) {
+                    mediateList.add(new Mediate(owner, id, type, LayoutArea.ANY.name(), param));
+                }
+            }
+
         } catch (Exception e) {
             System.err.println("wincalc.Wincalc.intermBuild() " + e);
         }
