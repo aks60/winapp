@@ -63,27 +63,23 @@ public class AreaElem extends Element {
         return element;
     }
 
-    public float getHeight() {
+    public float height() {
         return height;
     }
 
-    public float getWidth() {
+    public float width() {
         return width;
     }
 
-    public LayoutArea geteLayoutArea() {
+    public LayoutArea layoutArea() {
         return layoutArea;
     }
 
-    public LinkedList<AreaElem> getAreas() {
+    public LinkedList<AreaElem> areas() {
         return areas;
     }
     
-    public LinkedList<Element> getElements() {
+    public LinkedList<Element> elements() {
         return elements;
-    }
-
-    public String toString() {
-        return "Область заполнения";
     }
 }

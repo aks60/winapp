@@ -37,12 +37,20 @@ public class Element {
         this.layoutFrame = layoutRama;
     }
 
-    public TypeElem getElemType() {
+    public float id() {
+        return id;
+    }
+
+    public TypeElem elemType() {
         return elemType;
     }
 
-    public LayoutArea getLayoutRama() {
+    public LayoutArea layoutFrame() {
         return layoutFrame;
+    }
+
+    public String paramJson() {
+        return paramJson;
     }
 
     public String toString() {

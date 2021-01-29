@@ -13,7 +13,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -37,13 +36,12 @@ import builder.specif.Joining;
 import builder.specif.Elements;
 import builder.specif.Filling;
 import builder.specif.Furniture;
-import builder.model.Com5t;
 import builder.model.ElemFrame;
 import builder.model.ElemSimple;
+import builder.script.AreaRoot;
 import builder.script.Mediate;
+import frames.Element;
 import frames.swing.Draw;
-import java.util.Arrays;
-import startup.App1;
 
 public class Wincalc {
 
@@ -133,39 +131,37 @@ public class Wincalc {
             //JsonElement je = new JsonParser().parse(json);
             //System.out.println(gs.toJson(je));
 
-            Gson gson = new Gson(); //библиотека jso
-            JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
-            JsonObject jsonObj = jsonElement.getAsJsonObject();
-
-            int id = jsonObj.get("id").getAsInt();
-            String paramJson = jsonObj.get("paramJson").getAsString();
-            nuni = jsonObj.get("nuni").getAsInt();
-
-            width = jsonObj.get("width").getAsFloat();
-            height = jsonObj.get("height").getAsFloat();
-            heightAdd = jsonObj.get("heightAdd").getAsFloat();
-
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.create();
+            AreaRoot root = gson.fromJson(json, AreaRoot.class);
+            
+            this.nuni = root.nuni();
+            float id = root.id();
+            this.width = root.width();
+            this.height = root.height();
+            this.heightAdd = root.heightAdd();
+            this.colorID1 = root.color(1);
+            this.colorID2 = root.color(2);
+            this.colorID3 = root.color(3);
+            
             Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
             artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
             eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
-
-            colorID1 = jsonObj.get("color1").getAsInt();
-            colorID2 = jsonObj.get("color2").getAsInt();
-            colorID3 = jsonObj.get("color3").getAsInt();
+            
+                       
+            JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
+            JsonObject jsonObj = jsonElement.getAsJsonObject();
+            
 
             //Главное окно
-            String layoutObj = jsonObj.get("layoutArea").getAsString();
-            String elemType = jsonObj.get("elemType").getAsString();
-            Mediate mediateRoot = new Mediate(null, id, elemType, layoutObj, width, height, paramJson);
+            Mediate mediateRoot = new Mediate(null, id, root.elemType().name(), root.layoutArea().name(), width, height, root.paramJson());
             mediateList.add(mediateRoot);
 
             //Добавим рамы         
-            for (Object elemFrame : jsonObj.get("elements").getAsJsonArray()) {
-                JsonObject jsonFrame = (JsonObject) elemFrame;
-                if (TypeElem.FRAME_SIDE.name().equals(jsonFrame.get("elemType").getAsString())) {
-                    String layourFrame = jsonFrame.get("layoutFrame").getAsString();
-                    mediateList.add(new Mediate(mediateRoot, jsonFrame.get("id").getAsInt(), TypeElem.FRAME_SIDE.name(), layourFrame, null));
+            for (builder.script.Element elem : root.elements()) {
+                if (TypeElem.FRAME_SIDE.equals(elem.elemType())) {
+                    mediateList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layoutFrame().name(), null));
                 }
             }
             //Добавим все остальные Mediate, через рекурсию
@@ -206,7 +202,7 @@ public class Wincalc {
                 int id = objArea.get("id").getAsInt();
                 String type = objArea.get("elemType").getAsString();
                 String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
-                
+
                 if (TypeElem.IMPOST.name().equals(type)) {
                     mediateList.add(new Mediate(owner, id, type, LayoutArea.ANY.name(), param));
                 } else if (TypeElem.GLASS.name().equals(type)) {
