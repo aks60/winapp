@@ -2358,59 +2358,66 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btn18Action
 
     private void btn09Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn09Action
-//        HashSet<Record> set = new HashSet();
-//        String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
-//        String jfield = (evt.getSource() == btn09) ? txt03.getText() : (evt.getSource() == btn13) ? txt04.getText() : txt05.getText();
-//        Integer[] arr2 = builder.specif.Util.parserInt(jfield);
-//        for (Record rec : eColor.query()) {
-//            boolean b[] = {false, false};
-//            if (arr1 != null) {
-//
-//                for (String s1 : arr1) { //группы
-//                    if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-//                        b[0] = true;
-//
-//                        if (arr2.length != 0) { //текстуры
-//                            for (int i = 0; i < arr2.length; i = i + 2) {
-//                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-//                                    b[1] = true;
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            } else {
-//                if (arr2.length != 0) { //тестуры
-//                    for (int i = 0; i < arr2.length; i = i + 2) {
-//                        if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-//                            b[1] = true;
-//                        }
-//                    }
-//                }
-//            }
-//            if ((arr1 != null && b[0] == false) || (arr2.length != 0 && b[1] == false)) {
-//                continue;
-//            }
-//            set.add(rec);
-//        }
-        new DicColor2(this, (record) -> {
-            JButton btn = (JButton) evt.getSource();
-            Record sysprodRec = qSysprod.table(eSysprod.up).get(Util.getSelectedRec(tab5));
-            String script = sysprodRec.getStr(eSysprod.script);
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            //gsonBuilder.setPrettyPrinting();
-            Gson gson = gsonBuilder.create();
-            JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
-            JsonObject jsonObj = jsonElem.getAsJsonObject();
-            JsonArray jsonArr = jsonObj.getAsJsonArray("elements");
-            for (JsonElement elem : jsonArr) {
-                JsonObject jobj = elem.getAsJsonObject();
-                //jobj.
-                //if(obj.)
-                System.out.println(gson.toJson(elem));
-                //System.out.println(jobj);
+        HashSet<Record> set = new HashSet();
+        String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
+        String jfield = (evt.getSource() == btn09) ? txt03.getText() : (evt.getSource() == btn13) ? txt04.getText() : txt05.getText();
+        Integer[] arr2 = builder.specif.Util.parserInt(jfield);
+        for (Record rec : eColor.query()) {
+            boolean gr = false, pk = false;
+            if (arr1 != null) {
+
+                for (String s1 : arr1) { //группы
+                    if (rec.getStr(eColor.colgrp_id).equals(s1)) {
+
+                        if (arr2.length == 0) {
+                            set.add(rec);
+
+                        } else { 
+                            boolean b = false;
+                            for (int i = 0; i < arr2.length; i = i + 2) { //текстуры
+                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                                    set.add(rec);
+                                    b = true;
+                                }
+                            }
+                            if(b == false) {
+                                
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (arr2.length != 0) {
+                    for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
+                        if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                            set.add(rec);
+                        }
+                    }
+                }
             }
-        });
+        }
+        DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+        if (node != null) {
+            new DicColor2(this, (record) -> {
+
+                JButton btn = (JButton) evt.getSource();
+                Record sysprodRec = qSysprod.table(eSysprod.up).get(Util.getSelectedRec(tab5));
+                String script = sysprodRec.getStr(eSysprod.script);
+                GsonBuilder gsonBuilder = new GsonBuilder();
+                //gsonBuilder.setPrettyPrinting();
+                Gson gson = gsonBuilder.create();
+                JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
+                JsonObject jsonObj = jsonElem.getAsJsonObject();
+                JsonArray jsonArr = jsonObj.getAsJsonArray("elements");
+                for (JsonElement elem : jsonArr) {
+                    JsonObject jobj = elem.getAsJsonObject();
+                    //jobj.
+                    //if(obj.)
+                    System.out.println(gson.toJson(elem));
+                    //System.out.println(jobj);
+                }
+            }, set);
+        }
     }//GEN-LAST:event_btn09Action
 
     private void btn03Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn03Action
