@@ -53,10 +53,9 @@ public class Wincalc {
     public Record syssizeRec = null; //константы    
     public float genId = 100; //генерация ключа в спецификации
 
-    public float width = 0.f;     //ширина окна
-    public float height = 0.f;    //высота окна
+    public float width = 0.f; //ширина окна
+    public float height = 0.f; //высота окна
     public float heightAdd = 0.f; //арка, трапеция, треугольник
-    public final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
     public int colorID1 = -1;  //базовый цвет
     public int colorID2 = -1;  //внутренний цвет
     public int colorID3 = -1;  //внещний цвет
@@ -75,11 +74,10 @@ public class Wincalc {
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calTariffication; //объекты калькуляции конструктива
-    public LinkedList<Mediate> mediateList = new LinkedList();
 
     public AreaSimple build(String productJson) {
 
-        mediateList.clear();
+        //fromjsonList.clear();
         mapParamDef.clear();
         mapJoin.clear();
         listSpec.clear();
@@ -151,23 +149,24 @@ public class Wincalc {
             eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
 
             //Главное окно
+            LinkedList<Mediate> fromjsonList = new LinkedList(); //промежуточная конструкция
             Mediate mediateRoot = new Mediate(null, id, fromJson.elemType().name(), fromJson.layoutArea().name(), width, height, fromJson.paramJson());
-            mediateList.add(mediateRoot);
+            fromjsonList.add(mediateRoot);
 
             //Добавим рамы         
             for (builder.script.Element elem : fromJson.elems()) {
                 if (TypeElem.FRAME_SIDE.equals(elem.elemType())) {
-                    mediateList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layoutFrame().name(), null));
+                    fromjsonList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layoutFrame().name(), null));
                 }
             }
             //Добавим все остальные Mediate, через рекурсию
-            recursionArea(fromJson, mediateRoot, mediateList);
+            recursionArea(fromJson, mediateRoot, fromjsonList);
             
             //Упорядочим порядок построения окна
-            Collections.sort(mediateList, (o1, o2) -> Float.compare(o1.id(), o2.id())); 
+            Collections.sort(fromjsonList, (o1, o2) -> Float.compare(o1.id(), o2.id())); 
 
             //Строим конструкцию из промежуточного списка
-            windowsBuild(mediateList);
+            windowsBuild(fromjsonList);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.parsingScript() " + e);

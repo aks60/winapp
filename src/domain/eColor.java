@@ -100,7 +100,7 @@ public enum eColor implements Field {
         Record record = up.newRecord();
         record.setNo(id, -3);
         record.setNo(code, 33240);
-        record.setNo(name, "Виртуал");
+        record.setNo(name, "Без цвета");
         record.setNo(rgb, 33240);
         return record;
     }

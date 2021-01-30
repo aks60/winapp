@@ -153,9 +153,9 @@ public class ElemFrame extends ElemSimple {
 
             //Соединитель
         } else if (TypeArtikl.SOEDINITEL.isType(specificationAdd.artiklRec) == true) {
-            specificationAdd.colorID1 = iwin().colorNone;
-            specificationAdd.colorID2 = iwin().colorNone;
-            specificationAdd.colorID3 = iwin().colorNone;
+            specificationAdd.colorID1 = -3;
+            specificationAdd.colorID2 = -3;
+            specificationAdd.colorID3 = -3;
 
             //Всё остальное
         } else {

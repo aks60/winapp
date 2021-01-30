@@ -255,6 +255,11 @@ public class DicColor2 extends javax.swing.JDialog {
         ));
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setMaxWidth(60);

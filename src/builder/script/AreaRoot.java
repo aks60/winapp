@@ -7,12 +7,12 @@ import java.util.LinkedList;
 public class AreaRoot extends AreaElem {
 
     private String name = "Конструкция";
-    private Integer nuni = null;       //nuni профиля (PRO4_SYSPROF.NUNI)
+    private Integer nuni = null;  //nuni профиля (PRO4_SYSPROF.NUNI)
     private Float heightAdd = null;  //дополнительная высота, мм (по аналогии с ПС-4). Для прямоугольного изделия = height.
-    private Integer color1 = null;   //основная текстура (PRO4_COLSLST.CCODE)
-    private Integer color2 = null;   //внутренняя текстура (PRO4_COLSLST.CCODE)
-    private Integer color3 = null;   //внешняя текстура (PRO4_COLSLST.CCODE)    
-    private String prj = null;         //номер тестируемого проекта, поле нужно только для тестов       
+    private Integer color1 = null;  //основная текстура (PRO4_COLSLST.CCODE)
+    private Integer color2 = null;  //внутренняя текстура (PRO4_COLSLST.CCODE)
+    private Integer color3 = null;  //внешняя текстура (PRO4_COLSLST.CCODE)    
+    private String prj = null; //номер тестируемого проекта, поле нужно только для тестов       
 
     //Контруктор главного окна
     public AreaRoot(float id, LayoutArea layoutArea, TypeElem elemType, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {

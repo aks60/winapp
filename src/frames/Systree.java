@@ -87,6 +87,7 @@ import startup.Main;
 
 public class Systree extends javax.swing.JFrame {
 
+    private Wincalc iwin = new Wincalc();
     private int systreeID = -1; //выьранная система
     private int sysprodID = -1; //выбранная конструкция
 
@@ -97,7 +98,6 @@ public class Systree extends javax.swing.JFrame {
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
-    private Wincalc iwin = new Wincalc();
     private DialogListener listenerArtikl, listenerModel, listenerModify, listenerFurn,
             listenerParam1, listenerParam2, listenerArt211, listenerArt212;
     private Canvas paintPanel = new Canvas(iwin);
@@ -2367,10 +2367,10 @@ public class Systree extends javax.swing.JFrame {
                 HashSet<Record> se2 = new HashSet();
                 boolean b = false;
                 for (Record rec : eColor.query()) {
-                    
+
                     if (rec.getStr(eColor.colgrp_id).equals(s1)) {
                         se2.add(rec); //текстуры группы
-                        
+
                         for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
                             if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
                                 b = true;
@@ -2382,6 +2382,7 @@ public class Systree extends javax.swing.JFrame {
                     set.addAll(se2);
                 }
             }
+        } else if (arr1 != null || arr2.length != 0) {
             for (Record rec : eColor.query()) {
                 if (arr1 != null) {
 
@@ -2403,28 +2404,24 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         }
-        DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
-        if (node != null) {
-            new DicColor2(this, (record) -> {
 
-                JButton btn = (JButton) evt.getSource();
-                Record sysprodRec = qSysprod.table(eSysprod.up).get(Util.getSelectedRec(tab5));
-                String script = sysprodRec.getStr(eSysprod.script);
-                
-                GsonBuilder gsonBuilder = new GsonBuilder();
-                Gson gson = gsonBuilder.create();
-                JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
-                JsonObject jsonObj = jsonElem.getAsJsonObject();
-                JsonArray jsonArr = jsonObj.getAsJsonArray("elements");
-                for (JsonElement elem : jsonArr) {
-                    JsonObject jobj = elem.getAsJsonObject();
-                    //jobj.
-                    //if(obj.)
-                    System.out.println(gson.toJson(elem));
-                    //System.out.println(jobj);
+        DialogListener listenerColor = (record) -> {
+            DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            if (node != null) {
+                float id = node.com5t().id();
+                builder.script.Element el = iwin.fromJson.find(id);
+                if (el != null) {
+                    
+                    System.out.println(el.id());
                 }
-            }, set);
+            };
+        };
+        if (arr1 == null && arr2.length == 0) {
+            new DicColor2(this, listenerColor);
+        } else {
+            new DicColor2(this, listenerColor, set);
         }
+
     }//GEN-LAST:event_btn09Action
 
     private void btn03Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn03Action
