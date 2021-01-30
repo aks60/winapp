@@ -106,7 +106,7 @@ public class Tariffication extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Ошибка: specif.Tariffication.calc() " + e);
+            System.err.println("Ошибка: specif.Tariffication.calc() " + e);
         } finally {
             Query.conf = conf;
         }
