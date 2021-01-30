@@ -39,7 +39,7 @@ public class DicColor2 extends javax.swing.JDialog {
         super(parent, true);
         initComponents();
         initElements();
-        this.listener = listener;
+        this.listener = listener;        
         qColorAll.addAll(colorSet);
         Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR.id, "order by", eGroups.name);
         colgrpList.forEach(colgrpRec -> {
@@ -50,7 +50,7 @@ public class DicColor2 extends javax.swing.JDialog {
                 }
             }
         });
-        Collections.sort(qColorAll, (o1, o2) -> (o1.getStr(eColor.name)).compareTo(o2.getStr(eColor.name)));
+        Collections.sort(qColorAll, (o1, o2) -> (o1.getStr(eColor.name)).compareTo(o2.getStr(eColor.name)));       
         loadingModel();
         setVisible(true);
     }
@@ -68,7 +68,7 @@ public class DicColor2 extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qColgrp, eGroups.name);
+        new DefTableModel(tab1, qColgrp, eGroups.id, eGroups.name);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name);
         tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -205,19 +205,19 @@ public class DicColor2 extends javax.swing.JDialog {
 
         pan1.setLayout(new java.awt.BorderLayout());
 
-        scr1.setPreferredSize(new java.awt.Dimension(454, 160));
+        scr1.setPreferredSize(new java.awt.Dimension(412, 160));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"name1"},
-                {"name2"}
+                {null, "name1"},
+                {null, "name2"}
             },
             new String [] {
-                "Группы текстур"
+                "ID", "Группы текстур"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -236,39 +236,25 @@ public class DicColor2 extends javax.swing.JDialog {
             }
         });
         scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(0).setMaxWidth(60);
+        }
 
         pan1.add(scr1, java.awt.BorderLayout.NORTH);
 
-        scr2.setBorder(null);
-
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "Name 1"},
-                {null, "Name 2"}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "ID", "Название текстур"
+                "ID", "Название текстуры"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tab2.setFillsViewportHeight(true);
-        tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab2MouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
-            }
-        });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setMaxWidth(60);
@@ -276,7 +262,7 @@ public class DicColor2 extends javax.swing.JDialog {
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
 
-        centr.add(pan1, java.awt.BorderLayout.PAGE_START);
+        centr.add(pan1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
@@ -345,12 +331,6 @@ public class DicColor2 extends javax.swing.JDialog {
             btnChoice(null);
         }
     }//GEN-LAST:event_tab1MouseClicked
-
-    private void tab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MouseClicked
-        if (evt.getClickCount() == 2) {
-            btnChoice(null);
-        }
-    }//GEN-LAST:event_tab2MouseClicked
 
     private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
 

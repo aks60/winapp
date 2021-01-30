@@ -2410,8 +2410,8 @@ public class Systree extends javax.swing.JFrame {
                 JButton btn = (JButton) evt.getSource();
                 Record sysprodRec = qSysprod.table(eSysprod.up).get(Util.getSelectedRec(tab5));
                 String script = sysprodRec.getStr(eSysprod.script);
+                
                 GsonBuilder gsonBuilder = new GsonBuilder();
-                //gsonBuilder.setPrettyPrinting();
                 Gson gson = gsonBuilder.create();
                 JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
