@@ -25,7 +25,7 @@ public class AreaRoot extends AreaElem {
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
-        this.paramJson = paramJson;
+        this.paramJson = (paramJson.isEmpty()) ? "{}" : paramJson;
     }
 
     public void param(String prj, int nuni, String name) {

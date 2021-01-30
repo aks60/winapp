@@ -60,6 +60,7 @@ import com.google.gson.JsonObject;
 import domain.eArtdet;
 import domain.eColor;
 import domain.eFurndet;
+import enums.ParamJson;
 import enums.TypeElem;
 import enums.TypeOpen1;
 import frames.dialog.DicColor2;
@@ -2412,7 +2413,13 @@ public class Systree extends javax.swing.JFrame {
                 builder.script.Element el = iwin.fromJson.find(id);
                 if (el != null) {
                     
-                    System.out.println(el.id());
+                    String paramJson = el.paramJson().replace("'", "\"");
+                    paramJson = (paramJson.isEmpty()) ? "{}" : paramJson;
+                    Gson gson = new GsonBuilder().create();
+                    
+                    JsonObject jsonObj = gson.fromJson(paramJson, JsonObject.class);
+                    jsonObj.addProperty(ParamJson.colorID1.name(), record.getStr(eColor.id));
+                    System.out.println(jsonObj);
                 }
             };
         };

@@ -34,7 +34,7 @@ public class AreaElem extends Element {
         this.id = id;
         this.layoutArea = layoutArea;
         this.elemType = elemType;
-        this.paramJson = paramJson; //параметры элемента
+        this.paramJson = (paramJson.isEmpty()) ? "{}" : paramJson; //параметры элемента
     }
 
     //Добавление элемента в дерево

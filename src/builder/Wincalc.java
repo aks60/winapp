@@ -12,8 +12,6 @@ import builder.model.ElemImpost;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSyssize;
@@ -42,6 +40,7 @@ import builder.script.AreaElem;
 import builder.script.AreaRoot;
 import builder.script.Element;
 import builder.script.Mediate;
+import com.google.gson.JsonParser;
 import frames.swing.Draw;
 
 public class Wincalc {
@@ -126,9 +125,9 @@ public class Wincalc {
     private void parsingScript(String json) {
         try {
             //Для тестирования
-            //Gson gs = new GsonBuilder().setPrettyPrinting().create();
-            //JsonElement je = new JsonParser().parse(json);
-            //System.out.println(gs.toJson(je));
+            Gson gs = new GsonBuilder().setPrettyPrinting().create();
+            JsonElement je = new JsonParser().parse(json);
+            System.out.println(gs.toJson(je));
 
             Gson gson = new GsonBuilder().create();
             fromJson = gson.fromJson(json, AreaRoot.class);
@@ -156,7 +155,7 @@ public class Wincalc {
             //Добавим рамы         
             for (builder.script.Element elem : fromJson.elems()) {
                 if (TypeElem.FRAME_SIDE.equals(elem.elemType())) {
-                    fromjsonList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layoutFrame().name(), null));
+                    fromjsonList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layoutFrame().name(), ""));
                 }
             }
             //Добавим все остальные Mediate, через рекурсию

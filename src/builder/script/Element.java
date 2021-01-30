@@ -11,7 +11,7 @@ public class Element {
     protected float id = -1;  // идентификатор элемента
     protected LayoutArea layoutFrame = null; //сторона располодения эл. рамы
     protected TypeElem elemType = TypeElem.NONE; //тип элемента
-    protected String paramJson = null; //параметры элемента
+    protected String paramJson = "{}"; //параметры элемента
 
     //Конструктор
     public Element() {
@@ -27,7 +27,7 @@ public class Element {
     public Element(float id, TypeElem elemType, String paramJson) {
         this.id = id;
         this.elemType = elemType;
-        this.paramJson = paramJson;
+        this.paramJson = (paramJson.isEmpty()) ? "{}" : paramJson;
     }
 
     //Конструктор

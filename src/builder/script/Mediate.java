@@ -11,7 +11,7 @@ public class Mediate extends AreaElem {
     public Mediate owner = this; //владелец
     public AreaSimple area5e = null; //для добавления детей в контейнер
 
-    public Mediate(Mediate owner, float id, String type, String layout, String param) {
+    public Mediate(Mediate owner, float id, String type, String layout, String paramJson) {
         
         this.id = id;
         if (owner != null) {
@@ -19,7 +19,7 @@ public class Mediate extends AreaElem {
         }
         this.elemType = Arrays.asList(TypeElem.values()).stream().filter(it -> it.name().equals(type)).findFirst().orElse(null);
         this.layoutArea = Arrays.asList(LayoutArea.values()).stream().filter(it -> it.name().equals(layout)).findFirst().orElse(null);
-        this.paramJson = param;
+        this.paramJson = (paramJson.isEmpty()) ? "{}" : paramJson;
     }
 
     public Mediate(Mediate owner, float id, String type, String layout,
