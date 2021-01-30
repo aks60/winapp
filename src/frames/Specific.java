@@ -473,6 +473,7 @@ public class Specific extends javax.swing.JFrame {
         });
         tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tab1.setFillsViewportHeight(true);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Specific.this.mousePressed(evt);
