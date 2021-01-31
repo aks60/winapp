@@ -1,8 +1,10 @@
 package builder.script;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import enums.LayoutArea;
+import enums.ParamJson;
 import enums.TypeElem;
-import java.util.LinkedList;
 
 public class AreaRoot extends AreaElem {
 
@@ -25,7 +27,7 @@ public class AreaRoot extends AreaElem {
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
-        this.paramJson = (paramJson.isEmpty()) ? "{}" : paramJson;
+        this.paramJson = paramJson;
     }
 
     public void param(String prj, int nuni, String name) {
@@ -39,6 +41,19 @@ public class AreaRoot extends AreaElem {
     }
 
     public int color(int index) {
+        if (paramJson != null && paramJson.isEmpty() == false) {
+            JsonObject jsonObj = new Gson().fromJson(paramJson, JsonObject.class);
+
+            if (jsonObj.get(ParamJson.colorID1.name()) != null) {
+                this.color1 = jsonObj.get(ParamJson.colorID1.name()).getAsInt();
+            }
+            if (jsonObj.get(ParamJson.colorID2.name()) != null) {
+                this.color2 = jsonObj.get(ParamJson.colorID2.name()).getAsInt();
+            }
+            if (jsonObj.get(ParamJson.colorID3.name()) != null) {
+                this.color3 = jsonObj.get(ParamJson.colorID3.name()).getAsInt();
+            }
+        }        
         return (index == 1) ? color1 : (index == 2) ? color2 : color3;
     }
 

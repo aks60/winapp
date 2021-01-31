@@ -2406,21 +2406,31 @@ public class Systree extends javax.swing.JFrame {
             }
         }
 
-        DialogListener listenerColor = (record) -> {
+        DialogListener listenerColor = (colorRec) -> {
             DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
             if (node != null) {
                 float id = node.com5t().id();
                 builder.script.Element el = iwin.fromJson.find(id);
                 if (el != null) {
-                    
-                    String paramJson = (el.paramJson().isEmpty()) ? "{}" : el.paramJson();
+                    String paramStr = (el.paramJson().isEmpty()) ? "{}" : el.paramJson();
                     Gson gson = new GsonBuilder().create();
+                    JsonObject objectJson = gson.fromJson(paramStr, JsonObject.class);
                     
-                    JsonObject jsonObj = gson.fromJson(paramJson, JsonObject.class);
-                    jsonObj.addProperty(ParamJson.colorID1.name(), record.getStr(eColor.id));
-                    //System.out.println(jsonObj);
+                    if (evt.getSource() == btn09) {
+                        objectJson.addProperty(ParamJson.colorID1.name(), colorRec.getStr(eColor.id));
+                    } else  if (evt.getSource() == btn13) {
+                        objectJson.addProperty(ParamJson.colorID2.name(), colorRec.getStr(eColor.id));
+                    } else  if (evt.getSource() == btn02) {
+                        objectJson.addProperty(ParamJson.colorID3.name(), colorRec.getStr(eColor.id));
+                    }
+                    paramStr = gson.toJson(objectJson);
+                    el.paramJson(paramStr);
+                    String script = gson.toJson(iwin.fromJson);
+                    Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
+                    sysprodRec.set(eSysprod.script, script);
+                    qSysprod.update(sysprodRec);
                 }
-            };
+            }
         };
         if (arr1 == null && arr2.length == 0) {
             new DicColor2(this, listenerColor);
