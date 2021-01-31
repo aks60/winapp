@@ -154,7 +154,7 @@ public class Wincalc {
             //Добавим рамы         
             for (builder.script.Element elem : fromJson.elems()) {
                 if (TypeElem.FRAME_SIDE.equals(elem.elemType())) {
-                    fromjsonList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layoutFrame().name(), ""));
+                    fromjsonList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layoutFrame().name(), elem.paramJson()));
                 }
             }
             //Добавим все остальные Mediate, через рекурсию

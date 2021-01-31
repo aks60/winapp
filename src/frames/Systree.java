@@ -2331,8 +2331,31 @@ public class Systree extends javax.swing.JFrame {
                     }
                 }
             }
-            DicArtikl artikl = new DicArtikl(this, (record) -> {
-                System.out.println(record);
+            DicArtikl artikl = new DicArtikl(this, (artiklRec) -> {
+
+                float id = ((DefMutableTreeNode) treeWin.getLastSelectedPathComponent()).com5t().id();
+                builder.script.Element elemRama = iwin.fromJson.find(id);
+                if (elemRama != null) {
+                    String paramStr = (elemRama.paramJson().isEmpty()) ? "{}" : elemRama.paramJson();
+                    Gson gson = new GsonBuilder().create();
+                    JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
+
+                    for (Record sysprofRec : qSysprof) {
+                        if (artiklRec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)) {
+                            
+                            jsonObject.addProperty(ParamJson.sysprofID.name(), sysprofRec.getInt(eSysprof.id));
+                            paramStr = gson.toJson(jsonObject);
+                            elemRama.paramJson(paramStr);
+                            String script = gson.toJson(iwin.fromJson);
+                            Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
+                            sysprodRec.set(eSysprod.script, script);
+                            qSysprod.update(sysprodRec);
+                            selectionTab5();
+                            
+                            System.out.println(script);
+                        }
+                    }
+                }
             }, artiklList);
         }
     }//GEN-LAST:event_btn22Action
@@ -2383,7 +2406,8 @@ public class Systree extends javax.swing.JFrame {
                     set.addAll(se2);
                 }
             }
-        } else if (arr1 != null || arr2.length != 0) {
+        }
+        if (arr2.length != 0) {
             for (Record rec : eColor.query()) {
                 if (arr1 != null) {
 
@@ -2407,29 +2431,28 @@ public class Systree extends javax.swing.JFrame {
         }
 
         DialogListener listenerColor = (colorRec) -> {
-            DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
-            if (node != null) {
-                float id = node.com5t().id();
-                builder.script.Element el = iwin.fromJson.find(id);
-                if (el != null) {
-                    String paramStr = (el.paramJson().isEmpty()) ? "{}" : el.paramJson();
-                    Gson gson = new GsonBuilder().create();
-                    JsonObject objectJson = gson.fromJson(paramStr, JsonObject.class);
-                    
-                    if (evt.getSource() == btn09) {
-                        objectJson.addProperty(ParamJson.colorID1.name(), colorRec.getStr(eColor.id));
-                    } else  if (evt.getSource() == btn13) {
-                        objectJson.addProperty(ParamJson.colorID2.name(), colorRec.getStr(eColor.id));
-                    } else  if (evt.getSource() == btn02) {
-                        objectJson.addProperty(ParamJson.colorID3.name(), colorRec.getStr(eColor.id));
-                    }
-                    paramStr = gson.toJson(objectJson);
-                    el.paramJson(paramStr);
-                    String script = gson.toJson(iwin.fromJson);
-                    Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
-                    sysprodRec.set(eSysprod.script, script);
-                    qSysprod.update(sysprodRec);
+
+            float id = ((DefMutableTreeNode) treeWin.getLastSelectedPathComponent()).com5t().id();
+            builder.script.Element rootArea = iwin.fromJson.find(id);
+            if (rootArea != null) {
+                String paramStr = (rootArea.paramJson().isEmpty()) ? "{}" : rootArea.paramJson();
+                Gson gson = new GsonBuilder().create();
+                JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
+
+                if (evt.getSource() == btn09) {
+                    jsonObject.addProperty(ParamJson.colorID1.name(), colorRec.getStr(eColor.id));
+                } else if (evt.getSource() == btn13) {
+                    jsonObject.addProperty(ParamJson.colorID2.name(), colorRec.getStr(eColor.id));
+                } else if (evt.getSource() == btn02) {
+                    jsonObject.addProperty(ParamJson.colorID3.name(), colorRec.getStr(eColor.id));
                 }
+                paramStr = gson.toJson(jsonObject);
+                rootArea.paramJson(paramStr);
+                String script = gson.toJson(iwin.fromJson);
+                Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
+                sysprodRec.set(eSysprod.script, script);
+                qSysprod.update(sysprodRec);
+                selectionTab5();
             }
         };
         if (arr1 == null && arr2.length == 0) {
