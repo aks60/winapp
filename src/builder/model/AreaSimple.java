@@ -102,8 +102,7 @@ public class AreaSimple extends Com5t {
     protected void initParametr(String param) {
         try {
             if (param != null && param.isEmpty() == false && param.equals("null") == false) {
-                String str = param.replace("'", "\"");
-                JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+                JsonObject jsonObj = new Gson().fromJson(param, JsonObject.class);
                 JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
                 if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
                     jsonArr.forEach(it -> {

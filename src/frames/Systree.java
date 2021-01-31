@@ -2413,13 +2413,12 @@ public class Systree extends javax.swing.JFrame {
                 builder.script.Element el = iwin.fromJson.find(id);
                 if (el != null) {
                     
-                    String paramJson = el.paramJson().replace("'", "\"");
-                    paramJson = (paramJson.isEmpty()) ? "{}" : paramJson;
+                    String paramJson = (el.paramJson().isEmpty()) ? "{}" : el.paramJson();
                     Gson gson = new GsonBuilder().create();
                     
                     JsonObject jsonObj = gson.fromJson(paramJson, JsonObject.class);
                     jsonObj.addProperty(ParamJson.colorID1.name(), record.getStr(eColor.id));
-                    System.out.println(jsonObj);
+                    //System.out.println(jsonObj);
                 }
             };
         };

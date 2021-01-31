@@ -125,9 +125,9 @@ public class Wincalc {
     private void parsingScript(String json) {
         try {
             //Для тестирования
-            Gson gs = new GsonBuilder().setPrettyPrinting().create();
-            JsonElement je = new JsonParser().parse(json);
-            System.out.println(gs.toJson(je));
+//            Gson gs = new GsonBuilder().setPrettyPrinting().create();
+//            JsonElement je = new JsonParser().parse(json);
+//            System.out.println(gs.toJson(je));
 
             Gson gson = new GsonBuilder().create();
             fromJson = gson.fromJson(json, AreaRoot.class);

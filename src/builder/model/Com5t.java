@@ -64,8 +64,7 @@ public abstract class Com5t {
     public int getParam(String param, ParamJson key) {
 
         if (param != null && param.isEmpty() == false) {
-            String str = param.replace("'", "\"");
-            JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+            JsonObject jsonObj = new Gson().fromJson(param, JsonObject.class);
             return (jsonObj.get(key.name()) == null) ? -1 : jsonObj.get(key.name()).getAsInt();
         }
         return -1;
