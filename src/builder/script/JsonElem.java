@@ -6,7 +6,7 @@ import enums.TypeElem;
 /**
  * Элементы передачи данных Элемент не может быть контейнером
  */
-public class Element {
+public class JsonElem {
 
     protected float id = -1;  // идентификатор элемента
     protected LayoutArea layoutFrame = null; //сторона располодения эл. рамы
@@ -14,24 +14,24 @@ public class Element {
     protected String paramJson = ""; //параметры элемента
 
     //Конструктор
-    public Element() {
+    public JsonElem() {
     }
 
     //Конструктор
-    public Element(float id, TypeElem elemType) {
+    public JsonElem(float id, TypeElem elemType) {
         this.id = id;
         this.elemType = elemType;
     }
 
     //Конструктор
-    public Element(float id, TypeElem elemType, String paramJson) {
+    public JsonElem(float id, TypeElem elemType, String paramJson) {
         this.id = id;
         this.elemType = elemType;
         this.paramJson = paramJson;
     }
 
     //Конструктор
-    public Element(float id, TypeElem elemType, LayoutArea layoutRama) {
+    public JsonElem(float id, TypeElem elemType, LayoutArea layoutRama) {
         this.id = id;
         this.elemType = elemType;
         this.layoutFrame = layoutRama;

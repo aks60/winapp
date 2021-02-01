@@ -9,20 +9,20 @@ import java.util.LinkedList;
  * Контернер передачи данных. В контейнере могут находиться другие контейнеры и
  * элементы.
  */
-public class AreaElem extends Element {
+public class JsonArea extends JsonElem {
 
     protected LayoutArea layoutArea = null; //ориентация при размещении area
     protected float width = 0; //ширина area, мм
     protected float height = 0; //высота area, мм
     protected Float lengthSide = null; //ширина или высота добавляемой area, зависит от layoutArea, нужна на этапе конструирования (см. функцию add())
-    private LinkedList<Element> elements = new LinkedList();  //список area
-    private LinkedList<AreaElem> areas = new LinkedList();  //список элементов
+    private LinkedList<JsonElem> elements = new LinkedList();  //список area
+    private LinkedList<JsonArea> areas = new LinkedList();  //список элементов
 
-    public AreaElem() {
+    public JsonArea() {
     }
 
     //Конструктор вложенной Area
-    public AreaElem(float id, LayoutArea layoutArea, TypeElem elemType, float lengthSide) {
+    public JsonArea(float id, LayoutArea layoutArea, TypeElem elemType, float lengthSide) {
         this.id = id;
         this.layoutArea = layoutArea;
         this.elemType = elemType;
@@ -30,7 +30,7 @@ public class AreaElem extends Element {
     }
 
     //Конструктор створки
-    public AreaElem(int id, LayoutArea layoutArea, TypeElem elemType, String paramJson) {
+    public JsonArea(int id, LayoutArea layoutArea, TypeElem elemType, String paramJson) {
         this.id = id;
         this.layoutArea = layoutArea;
         this.elemType = elemType;
@@ -38,7 +38,7 @@ public class AreaElem extends Element {
     }
 
     //Добавление элемента в дерево
-    public AreaElem addArea(AreaElem area) {
+    public JsonArea addArea(JsonArea area) {
 
         if (TypeElem.STVORKA == area.elemType) {
             area.width = this.width;
@@ -57,7 +57,7 @@ public class AreaElem extends Element {
         return area;
     }
 
-    public Element addElem(Element element) {
+    public JsonElem addElem(JsonElem element) {
         this.elements.add(element);
         return element;
     }
@@ -74,41 +74,41 @@ public class AreaElem extends Element {
         return layoutArea;
     }
 
-    public LinkedList<AreaElem> areas() {
+    public LinkedList<JsonArea> areas() {
         return areas;
     }
 
-    public LinkedList<Element> elems() {
+    public LinkedList<JsonElem> elems() {
         return elements;
     }
 
-    public Element find(float id) {
+    public JsonElem find(float id) {
         if (this.id == id) {
             return this;
         }
-        for (Element el : elements) {
+        for (JsonElem el : elements) {
             if (el.id == id) {
                 return el;
             }
-            for (AreaElem area2 : areas) { //уровень 2
-                for (Element el2 : area2.elements) {
+            for (JsonArea area2 : areas) { //уровень 2
+                for (JsonElem el2 : area2.elements) {
                     if (el2.id == id) {
                         return el2;
                     }
-                    for (AreaElem area3 : area2.areas) { //уровень 3
-                        for (Element el3 : area3.elements) {
+                    for (JsonArea area3 : area2.areas) { //уровень 3
+                        for (JsonElem el3 : area3.elements) {
                             if (el3.id == id) {
                                 return el3;
                             }
                         }
-                        for (AreaElem area4 : area3.areas) { //уровень 4
-                            for (Element el4 : area4.elements) {
+                        for (JsonArea area4 : area3.areas) { //уровень 4
+                            for (JsonElem el4 : area4.elements) {
                                 if (el4.id == id) {
                                     return el4;
                                 }
                             }
-                            for (AreaElem area5 : area4.areas) { //уровень 4
-                                for (Element el5 : area5.elements) {
+                            for (JsonArea area5 : area4.areas) { //уровень 4
+                                for (JsonElem el5 : area5.elements) {
                                     if (el5.id == id) {
                                         return el5;
                                     }

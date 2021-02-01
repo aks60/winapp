@@ -6,7 +6,7 @@ import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeElem;
 
-public class AreaRoot extends AreaElem {
+public class JsonRoot extends JsonArea {
 
     private String name = "Конструкция";
     private Integer nuni = null;  //nuni профиля (PRO4_SYSPROF.NUNI)
@@ -17,7 +17,7 @@ public class AreaRoot extends AreaElem {
     private String prj = null; //номер тестируемого проекта, поле нужно только для тестов       
 
     //Контруктор главного окна
-    public AreaRoot(float id, LayoutArea layoutArea, TypeElem elemType, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {
+    public JsonRoot(float id, LayoutArea layoutArea, TypeElem elemType, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {
         super.id = id;
         this.layoutArea = layoutArea;
         this.elemType = elemType;

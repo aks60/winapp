@@ -6,7 +6,7 @@ import java.util.Arrays;
 import builder.model.AreaSimple;
 import builder.model.ElemSimple;
 
-public class Mediate extends AreaElem {
+public class Mediate extends JsonArea {
 
     public Mediate owner = this; //владелец
     public AreaSimple area5e = null; //для добавления детей в контейнер

@@ -2324,7 +2324,7 @@ public class Systree extends javax.swing.JFrame {
             DicArtikl artikl = new DicArtikl(this, (artiklRec) -> {
 
                 float id = ((DefMutableTreeNode) treeWin.getLastSelectedPathComponent()).com5t().id();
-                builder.script.Element elemRama = iwin.fromJson.find(id);
+                builder.script.JsonElem elemRama = iwin.jsonRoot.find(id);
                 if (elemRama != null) {
                     String paramStr = (elemRama.paramJson().isEmpty()) ? "{}" : elemRama.paramJson();
                     Gson gson = new GsonBuilder().create();
@@ -2336,7 +2336,7 @@ public class Systree extends javax.swing.JFrame {
                             jsonObject.addProperty(ParamJson.sysprofID.name(), sysprofRec.getInt(eSysprof.id));
                             paramStr = gson.toJson(jsonObject);
                             elemRama.paramJson(paramStr);
-                            String script = gson.toJson(iwin.fromJson);
+                            String script = gson.toJson(iwin.jsonRoot);
                             Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
                             sysprodRec.set(eSysprod.script, script);
                             qSysprod.update(sysprodRec);
@@ -2367,10 +2367,8 @@ public class Systree extends javax.swing.JFrame {
             }
         });
         DicColor2 frame = new DicColor2(this, (colorRec) -> {
-            //System.out.println(colorRec);
-            //DefMutableTreeNode node2 = (DefMutableTreeNode) node.getParent();
             float id = node.com5t().id();
-            builder.script.Element stvorkaArea = iwin.fromJson.find(id);
+            builder.script.JsonElem stvorkaArea = iwin.jsonRoot.find(id);
             if (stvorkaArea != null) {
                 String paramStr = (stvorkaArea.paramJson().isEmpty()) ? "{}" : stvorkaArea.paramJson();
                 Gson gson = new GsonBuilder().create();
@@ -2378,7 +2376,7 @@ public class Systree extends javax.swing.JFrame {
                 jsonObject.addProperty(ParamJson.colorID1.name(), colorRec.getStr(eColor.id));
                 paramStr = gson.toJson(jsonObject);
                 stvorkaArea.paramJson(paramStr);
-                String script = gson.toJson(iwin.fromJson);
+                String script = gson.toJson(iwin.jsonRoot);
                 Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
                 sysprodRec.set(eSysprod.script, script);
                 qSysprod.update(sysprodRec);
@@ -2439,7 +2437,7 @@ public class Systree extends javax.swing.JFrame {
         DialogListener listenerColor = (colorRec) -> {
 
             float id = ((DefMutableTreeNode) treeWin.getLastSelectedPathComponent()).com5t().id();
-            builder.script.Element rootArea = iwin.fromJson.find(id);
+            builder.script.JsonElem rootArea = iwin.jsonRoot.find(id);
             if (rootArea != null) {
                 String paramStr = (rootArea.paramJson().isEmpty()) ? "{}" : rootArea.paramJson();
                 Gson gson = new GsonBuilder().create();
@@ -2454,7 +2452,7 @@ public class Systree extends javax.swing.JFrame {
                 }
                 paramStr = gson.toJson(jsonObject);
                 rootArea.paramJson(paramStr);
-                String script = gson.toJson(iwin.fromJson);
+                String script = gson.toJson(iwin.jsonRoot);
                 Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
                 sysprodRec.set(eSysprod.script, script);
                 qSysprod.update(sysprodRec);

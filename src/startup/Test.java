@@ -1,8 +1,8 @@
 package startup;
 
-import builder.script.AreaElem;
-import builder.script.AreaRoot;
-import builder.script.Element;
+import builder.script.JsonArea;
+import builder.script.JsonRoot;
+import builder.script.JsonElem;
 import builder.script.Winscript;
 import common.*;
 import dataset.*;
@@ -149,7 +149,7 @@ public class Test {
         GsonBuilder builder = new GsonBuilder();
         //builder.registerTypeAdapter(Element.class, new GsonDeserializer<Element>());
         //builder.setPrettyPrinting();
-        AreaRoot root = builder.create().fromJson(script, AreaRoot.class);
+        JsonRoot root = builder.create().fromJson(script, JsonRoot.class);
         
         System.out.println(root.color(1));
 //        
