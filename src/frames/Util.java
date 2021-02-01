@@ -396,10 +396,13 @@ public class Util {
             int rowModel = getSelectedRec(table);
             Record record = query.get(rowModel);
             record.set(field, Query.DEL);
+            
             query.delete(record);
             query.removeRec(rowModel);
-            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-            rowTable = (rowTable > 0) ? --rowTable : 0;
+            ((DefTableModel) table.getModel()).removeRow(rowTable);
+            
+            rowTable = (query.size() > 0) ? --rowTable : 0;
+            rowModel = table.convertRowIndexToModel(rowTable); 
             Util.setSelectedRow(table, rowModel);
         } else {
             JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);

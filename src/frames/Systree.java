@@ -52,10 +52,7 @@ import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
-import builder.script.AreaElem;
-import builder.script.AreaRoot;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import domain.eArtdet;
 import domain.eColor;
@@ -75,7 +72,6 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -231,7 +227,7 @@ public class Systree extends javax.swing.JFrame {
                 dtm5.addRow(arrayRec);
 
             } catch (Exception e) {
-                System.err.println("Ошибка: " + e);
+                System.err.println("Ошибка:Systree.loadingTab5() " + e);
             }
         }
     }
@@ -466,7 +462,6 @@ public class Systree extends javax.swing.JFrame {
 
             rsvSystree.load();
 
-            qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysprod.name);
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
@@ -2259,6 +2254,23 @@ public class Systree extends javax.swing.JFrame {
                     }
                 }
             }
+        } else if (tab5.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
+                int rowTable = tab5.getSelectedRow();
+                int rowModel = Util.getSelectedRec(tab5);
+                Record record = qSysprod.get(rowModel);
+                record.set(eSysprod.up, Query.DEL);
+
+                qSysprod.delete(record);
+                qSysprod.removeRec(rowModel);
+                ((DefaultTableModel) tab5.getModel()).removeRow(rowTable);
+
+                rowTable = (qSysprod.size() > 0) ? --rowTable : 0;
+                rowModel = tab5.convertRowIndexToModel(rowTable);
+                Util.setSelectedRow(tab5, rowModel);
+            } else {
+                JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
+            }
         }
     }//GEN-LAST:event_btnDelete
 
@@ -2277,30 +2289,8 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btn05
 
     private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
-        JButton btn = (JButton) evt.getSource();
-        Record sysprodRec = qSysprod.table(eSysprod.up).get(Util.getSelectedRec(tab5));
-        String script = sysprodRec.getStr(eSysprod.script);
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        //gsonBuilder.setPrettyPrinting();
-        Gson gson = gsonBuilder.create();
-        //JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
-        AreaRoot root = gson.fromJson(script, AreaRoot.class);
-        for (builder.script.Element el : root.elems()) {
-            if (el.elemType() == TypeElem.STVORKA) {
-                AreaElem stv = (AreaElem) el;
-                System.out.println(stv.elems().size());
-            }
-        }
 
-//            JsonObject jsonObj = jsonElem.getAsJsonObject();
-//            JsonArray jsonArr = jsonObj.getAsJsonArray("elems");
-//            for (JsonElement elem : jsonArr) {
-//                JsonObject jobj = elem.getAsJsonObject();
-//                //jobj.
-//                //if(obj.)
-//                System.out.println(gson.toJson(elem));
-//                //System.out.println(jobj);
-//            }
+        qSysprod.forEach(rec -> System.out.println(rec));
     }//GEN-LAST:event_btnReport1
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -2342,7 +2332,7 @@ public class Systree extends javax.swing.JFrame {
 
                     for (Record sysprofRec : qSysprof) {
                         if (artiklRec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)) {
-                            
+
                             jsonObject.addProperty(ParamJson.sysprofID.name(), sysprofRec.getInt(eSysprof.id));
                             paramStr = gson.toJson(jsonObject);
                             elemRama.paramJson(paramStr);
@@ -2351,7 +2341,7 @@ public class Systree extends javax.swing.JFrame {
                             sysprodRec.set(eSysprod.script, script);
                             qSysprod.update(sysprodRec);
                             selectionTab5();
-                            
+
                             System.out.println(script);
                         }
                     }
@@ -2376,8 +2366,24 @@ public class Systree extends javax.swing.JFrame {
                 colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
             }
         });
-        DicColor2 frame = new DicColor2(this, (record) -> {
-            System.out.println(record);
+        DicColor2 frame = new DicColor2(this, (colorRec) -> {
+            //System.out.println(colorRec);
+            //DefMutableTreeNode node2 = (DefMutableTreeNode) node.getParent();
+            float id = node.com5t().id();
+            builder.script.Element stvorkaArea = iwin.fromJson.find(id);
+            if (stvorkaArea != null) {
+                String paramStr = (stvorkaArea.paramJson().isEmpty()) ? "{}" : stvorkaArea.paramJson();
+                Gson gson = new GsonBuilder().create();
+                JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
+                jsonObject.addProperty(ParamJson.colorID1.name(), colorRec.getStr(eColor.id));
+                paramStr = gson.toJson(jsonObject);
+                stvorkaArea.paramJson(paramStr);
+                String script = gson.toJson(iwin.fromJson);
+                Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
+                sysprodRec.set(eSysprod.script, script);
+                qSysprod.update(sysprodRec);
+                selectionTab5();
+            }
         }, colorSet);
     }//GEN-LAST:event_btn18Action
 
