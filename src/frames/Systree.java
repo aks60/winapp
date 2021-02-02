@@ -52,6 +52,7 @@ import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
+import builder.script.JsonArea;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import domain.eArtdet;
@@ -2289,8 +2290,10 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btn05
 
     private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
-
-        qSysprod.forEach(rec -> System.out.println(rec));
+            Gson gs = new GsonBuilder().setPrettyPrinting().create();
+            JsonArea stv = (JsonArea) iwin.jsonRoot.find(6);
+            String str = stv.paramJson();
+            System.out.println(gs.toJson(iwin.jsonRoot));
     }//GEN-LAST:event_btnReport1
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -2367,13 +2370,13 @@ public class Systree extends javax.swing.JFrame {
             }
         });
         DicColor2 frame = new DicColor2(this, (colorRec) -> {
-            float id = node.com5t().id();
-            builder.script.JsonElem stvorkaArea = iwin.jsonRoot.find(id);
+            float id = ((DefMutableTreeNode) node.getParent()).com5t().id();
+            JsonArea stvorkaArea = (JsonArea)iwin.jsonRoot.find(id);
             if (stvorkaArea != null) {
                 String paramStr = (stvorkaArea.paramJson().isEmpty()) ? "{}" : stvorkaArea.paramJson();
                 Gson gson = new GsonBuilder().create();
                 JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
-                jsonObject.addProperty(ParamJson.colorID1.name(), colorRec.getStr(eColor.id));
+                jsonObject.addProperty(ParamJson.colorID2.name(), colorRec.getStr(eColor.id));
                 paramStr = gson.toJson(jsonObject);
                 stvorkaArea.paramJson(paramStr);
                 String script = gson.toJson(iwin.jsonRoot);

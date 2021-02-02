@@ -90,28 +90,40 @@ public class JsonArea extends JsonElem {
             if (el.id == id) {
                 return el;
             }
-            for (JsonArea area2 : areas) { //уровень 2
-                for (JsonElem el2 : area2.elements) {
-                    if (el2.id == id) {
-                        return el2;
+        }
+        for (JsonArea area2 : areas) { //уровень 2
+            if (area2.id == id) {
+                return area2;
+            }
+            for (JsonElem el2 : area2.elements) {
+                if (el2.id == id) {
+                    return el2;
+                }
+                for (JsonArea area3 : area2.areas) { //уровень 3
+                    if (area3.id == id) {
+                        return area3;
                     }
-                    for (JsonArea area3 : area2.areas) { //уровень 3
-                        for (JsonElem el3 : area3.elements) {
-                            if (el3.id == id) {
-                                return el3;
+                    for (JsonElem el3 : area3.elements) {
+                        if (el3.id == id) {
+                            return el3;
+                        }
+                    }
+                    for (JsonArea area4 : area3.areas) { //уровень 4
+                        if (area4.id == id) {
+                            return area4;
+                        }
+                        for (JsonElem el4 : area4.elements) {
+                            if (el4.id == id) {
+                                return el4;
                             }
                         }
-                        for (JsonArea area4 : area3.areas) { //уровень 4
-                            for (JsonElem el4 : area4.elements) {
-                                if (el4.id == id) {
-                                    return el4;
-                                }
+                        for (JsonArea area5 : area4.areas) { //уровень 4
+                            if (area5.id == id) {
+                                return area5;
                             }
-                            for (JsonArea area5 : area4.areas) { //уровень 4
-                                for (JsonElem el5 : area5.elements) {
-                                    if (el5.id == id) {
-                                        return el5;
-                                    }
+                            for (JsonElem el5 : area5.elements) {
+                                if (el5.id == id) {
+                                    return el5;
                                 }
                             }
                         }
