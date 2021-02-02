@@ -53,11 +53,13 @@ import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
 import builder.script.JsonArea;
+import builder.script.JsonElem;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import domain.eArtdet;
 import domain.eColor;
 import domain.eFurndet;
+import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeElem;
 import enums.TypeOpen1;
@@ -69,6 +71,7 @@ import java.awt.Component;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import javax.swing.Icon;
@@ -2371,19 +2374,26 @@ public class Systree extends javax.swing.JFrame {
         });
         DicColor2 frame = new DicColor2(this, (colorRec) -> {
             float id = ((DefMutableTreeNode) node.getParent()).com5t().id();
-            JsonArea stvorkaArea = (JsonArea)iwin.jsonRoot.find(id);
-            if (stvorkaArea != null) {
-                String paramStr = (stvorkaArea.paramJson().isEmpty()) ? "{}" : stvorkaArea.paramJson();
-                Gson gson = new GsonBuilder().create();
-                JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
-                jsonObject.addProperty(ParamJson.colorID2.name(), colorRec.getStr(eColor.id));
-                paramStr = gson.toJson(jsonObject);
-                stvorkaArea.paramJson(paramStr);
-                String script = gson.toJson(iwin.jsonRoot);
-                Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
-                sysprodRec.set(eSysprod.script, script);
-                qSysprod.update(sysprodRec);
-                selectionTab5();
+            JsonArea stvArea = (JsonArea)iwin.jsonRoot.find(id);
+            if (stvArea != null) {
+                LinkedList<JsonElem> elemList = stvArea.elems();
+                for (JsonElem jsonElem : elemList) {
+                    if(jsonElem.elemType() == TypeElem.STVORKA_SIDE 
+                            && jsonElem.layoutFrame() == LayoutArea.BOTTOM) {
+                        
+                    }
+                }
+                //String paramStr = (stvArea.paramJson().isEmpty()) ? "{}" : stvorkaArea.paramJson();
+                //Gson gson = new GsonBuilder().create();
+                //JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
+                //jsonObject.addProperty(ParamJson.colorID2.name(), colorRec.getStr(eColor.id));
+                //paramStr = gson.toJson(jsonObject);
+//                stvArea.paramJson(paramStr);
+//                String script = gson.toJson(iwin.jsonRoot);
+//                Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
+//                sysprodRec.set(eSysprod.script, script);
+//                qSysprod.update(sysprodRec);
+//                selectionTab5();
             }
         }, colorSet);
     }//GEN-LAST:event_btn18Action
