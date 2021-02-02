@@ -11,7 +11,7 @@ import java.util.LinkedList;
  */
 public class JsonArea extends JsonElem {
 
-    protected LayoutArea layoutArea = null; //ориентация при размещении area
+    //protected LayoutArea layoutArea = null; //ориентация при размещении area
     protected float width = 0; //ширина area, мм
     protected float height = 0; //высота area, мм
     protected Float lengthSide = null; //ширина или высота добавляемой area, зависит от layoutArea, нужна на этапе конструирования (см. функцию add())
@@ -22,30 +22,30 @@ public class JsonArea extends JsonElem {
     }
 
     //Конструктор вложенной Area
-    public JsonArea(float id, LayoutArea layoutArea, TypeElem elemType, float lengthSide) {
+    public JsonArea(float id, LayoutArea layout, TypeElem elemType, float lengthSide) {
         this.id = id;
-        this.layoutArea = layoutArea;
-        this.elemType = elemType;
+        this.layout = layout;
+        this.type = elemType;
         this.lengthSide = lengthSide; //длина стороны, сторона зависит от направлени расположения area
     }
 
     //Конструктор створки
-    public JsonArea(int id, LayoutArea layoutArea, TypeElem elemType, String paramJson) {
+    public JsonArea(int id, LayoutArea layout, TypeElem type, String paramJson) {
         this.id = id;
-        this.layoutArea = layoutArea;
-        this.elemType = elemType;
+        this.layout = layout;
+        this.type = type;
         this.paramJson = paramJson; //параметры элемента
     }
 
     //Добавление элемента в дерево
     public JsonArea addArea(JsonArea area) {
 
-        if (TypeElem.STVORKA == area.elemType) {
+        if (TypeElem.STVORKA == area.type) {
             area.width = this.width;
             area.height = this.height;
 
         } else {
-            if (LayoutArea.VERT == layoutArea) {
+            if (LayoutArea.VERT == layout) {
                 area.height = area.lengthSide;
                 area.width = width;
             } else {
@@ -70,9 +70,9 @@ public class JsonArea extends JsonElem {
         return width;
     }
 
-    public LayoutArea layoutArea() {
-        return layoutArea;
-    }
+//    public LayoutArea layout() {
+//        return layoutArea;
+//    }
 
     public LinkedList<JsonArea> areas() {
         return areas;

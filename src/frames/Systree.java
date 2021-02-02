@@ -2378,8 +2378,8 @@ public class Systree extends javax.swing.JFrame {
             if (stvArea != null) {
                 LinkedList<JsonElem> elemList = stvArea.elems();
                 for (JsonElem jsonElem : elemList) {
-                    if(jsonElem.elemType() == TypeElem.STVORKA_SIDE 
-                            && jsonElem.layoutFrame() == LayoutArea.BOTTOM) {
+                    if(jsonElem.type() == TypeElem.STVORKA_SIDE 
+                            && jsonElem.layout() == LayoutArea.BOTTOM) {
                         
                     }
                 }
