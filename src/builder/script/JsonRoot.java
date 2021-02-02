@@ -27,7 +27,7 @@ public class JsonRoot extends JsonArea {
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
-        this.paramJson = paramJson;
+        this.param = paramJson;
     }
 
     public void param(String prj, int nuni, String name) {
@@ -41,8 +41,8 @@ public class JsonRoot extends JsonArea {
     }
 
     public int color(int index) {
-        if (paramJson != null && paramJson.isEmpty() == false) {
-            JsonObject jsonObj = new Gson().fromJson(paramJson, JsonObject.class);
+        if (param != null && param.isEmpty() == false) {
+            JsonObject jsonObj = new Gson().fromJson(param, JsonObject.class);
 
             if (jsonObj.get(ParamJson.colorID1.name()) != null) {
                 this.color1 = jsonObj.get(ParamJson.colorID1.name()).getAsInt();

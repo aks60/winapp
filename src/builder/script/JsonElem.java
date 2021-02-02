@@ -8,10 +8,10 @@ import enums.TypeElem;
  */
 public class JsonElem {
 
-    protected float id = -1;  // идентификатор элемента
+    protected float id = -1;  //ориентация при размещении
     protected LayoutArea layout = null; //сторона располодения эл. рамы
     protected TypeElem type = TypeElem.NONE; //тип элемента
-    protected String paramJson = ""; //параметры элемента
+    protected String param = ""; //параметры элемента
 
     //Конструктор
     public JsonElem() {
@@ -27,7 +27,7 @@ public class JsonElem {
     public JsonElem(float id, TypeElem elemType, String paramJson) {
         this.id = id;
         this.type = elemType;
-        this.paramJson = paramJson;
+        this.param = paramJson;
     }
 
     //Конструктор
@@ -49,11 +49,11 @@ public class JsonElem {
         return layout;
     }
 
-    public String paramJson() {
-        return paramJson;
+    public String param() {
+        return param;
     }
     
-    public void paramJson(String paramJson) {
-        this.paramJson = paramJson;
+    public void param(String param) {
+        this.param = param;
     }
 }

@@ -11,7 +11,6 @@ import java.util.LinkedList;
  */
 public class JsonArea extends JsonElem {
 
-    //protected LayoutArea layoutArea = null; //ориентация при размещении area
     protected float width = 0; //ширина area, мм
     protected float height = 0; //высота area, мм
     protected Float lengthSide = null; //ширина или высота добавляемой area, зависит от layoutArea, нужна на этапе конструирования (см. функцию add())
@@ -34,7 +33,7 @@ public class JsonArea extends JsonElem {
         this.id = id;
         this.layout = layout;
         this.type = type;
-        this.paramJson = paramJson; //параметры элемента
+        this.param = paramJson; //параметры элемента
     }
 
     //Добавление элемента в дерево
@@ -70,15 +69,11 @@ public class JsonArea extends JsonElem {
         return width;
     }
 
-//    public LayoutArea layout() {
-//        return layoutArea;
-//    }
-
     public LinkedList<JsonArea> areas() {
         return areas;
     }
 
-    public LinkedList<JsonElem> elems() {
+    public LinkedList<JsonElem> elements() {
         return elements;
     }
 
@@ -133,4 +128,5 @@ public class JsonArea extends JsonElem {
         }
         return null;
     }
+
 }

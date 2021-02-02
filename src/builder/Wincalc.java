@@ -148,13 +148,13 @@ public class Wincalc {
 
             //Главное окно
             LinkedList<Mediate> fromjsonList = new LinkedList(); //промежуточная конструкция
-            Mediate mediateRoot = new Mediate(null, id, jsonRoot.type().name(), jsonRoot.layout().name(), width, height, jsonRoot.paramJson());
+            Mediate mediateRoot = new Mediate(null, id, jsonRoot.type().name(), jsonRoot.layout().name(), width, height, jsonRoot.param());
             fromjsonList.add(mediateRoot);
 
             //Добавим рамы         
-            for (builder.script.JsonElem elem : jsonRoot.elems()) {
+            for (builder.script.JsonElem elem : jsonRoot.elements()) {
                 if (TypeElem.FRAME_SIDE.equals(elem.type())) {
-                    fromjsonList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layout().name(), elem.paramJson()));
+                    fromjsonList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layout().name(), elem.param()));
                 }
             }
             //Добавим все остальные Mediate, через рекурсию
@@ -177,17 +177,17 @@ public class Wincalc {
             for (JsonArea area : el.areas()) {
                 float width = (med.layout() == LayoutArea.VERT) ? med.width() : area.width();
                 float height = (med.layout() == LayoutArea.VERT) ? area.height() : med.height();
-                Mediate med2 = new Mediate(med, area.id(), area.type().name(), area.layout().name(), width, height, area.paramJson());
+                Mediate med2 = new Mediate(med, area.id(), area.type().name(), area.layout().name(), width, height, area.param());
                 mediateList.add(med2);
 
                 recursionArea(area, med2, mediateList); //рекурсия
 
             }
-            for (JsonElem elem : el.elems()) {
+            for (JsonElem elem : el.elements()) {
                 if (TypeElem.IMPOST.equals(elem.type())) {
-                    mediateList.add(new Mediate(med, elem.id(), elem.type().name(), LayoutArea.ANY.name(), elem.paramJson()));
+                    mediateList.add(new Mediate(med, elem.id(), elem.type().name(), LayoutArea.ANY.name(), elem.param()));
                 } else if (TypeElem.GLASS.equals(elem.type())) {
-                    mediateList.add(new Mediate(med, elem.id(), elem.type().name(), LayoutArea.ANY.name(), elem.paramJson()));
+                    mediateList.add(new Mediate(med, elem.id(), elem.type().name(), LayoutArea.ANY.name(), elem.param()));
                 }
             }
 
@@ -202,13 +202,13 @@ public class Wincalc {
             //Главное окно        
             Mediate mdtRoot = mediateList.getFirst();
             if (TypeElem.RECTANGL == mdtRoot.type()) {
-                rootArea = new AreaRectangl(this, null, mdtRoot.id(), TypeElem.RECTANGL, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.paramJson()); //простое
+                rootArea = new AreaRectangl(this, null, mdtRoot.id(), TypeElem.RECTANGL, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.param()); //простое
             } else if (TypeElem.TRAPEZE == mdtRoot.type()) {
-                rootArea = new AreaTrapeze(this, null, mdtRoot.id(), TypeElem.TRAPEZE, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.paramJson()); //трапеция
+                rootArea = new AreaTrapeze(this, null, mdtRoot.id(), TypeElem.TRAPEZE, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.param()); //трапеция
             } else if (TypeElem.TRIANGL == mdtRoot.type()) {
-                rootArea = new AreaTriangl(this, null, mdtRoot.id(), TypeElem.TRIANGL, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.paramJson()); //треугольник
+                rootArea = new AreaTriangl(this, null, mdtRoot.id(), TypeElem.TRIANGL, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.param()); //треугольник
             } else if (TypeElem.ARCH == mdtRoot.type()) {
-                rootArea = new AreaArch(this, null, mdtRoot.id(), TypeElem.ARCH, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.paramJson()); //арка
+                rootArea = new AreaArch(this, null, mdtRoot.id(), TypeElem.ARCH, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.param()); //арка
             }
             mdtRoot.area5e = rootArea;
 
@@ -217,19 +217,19 @@ public class Wincalc {
 
                 //Добавим рамы в гпавное окно
                 if (TypeElem.FRAME_SIDE == mdt.type()) {
-                    ElemFrame elemFrame = new ElemFrame(rootArea, mdt.id(), mdt.layout(), mdt.paramJson());
+                    ElemFrame elemFrame = new ElemFrame(rootArea, mdt.id(), mdt.layout(), mdt.param());
                     rootArea.mapFrame.put(elemFrame.layout(), elemFrame);
                     continue;
                 }
 
                 if (TypeElem.STVORKA == mdt.type()) {
-                    mdt.addArea(new AreaStvorka(this, mdt.owner.area5e, mdt.id(), mdt.paramJson()));
+                    mdt.addArea(new AreaStvorka(this, mdt.owner.area5e, mdt.id(), mdt.param()));
                 } else if (TypeElem.AREA == mdt.type()) {
                     mdt.addArea(new AreaSimple(this, mdt.owner.area5e, mdt.id(), mdt.type(), mdt.layout(), mdt.width(), mdt.height(), -1, -1, -1, null)); //простое
                 } else if (TypeElem.IMPOST == mdt.type()) {
-                    mdt.addElem(new ElemImpost(mdt.owner.area5e, mdt.id(), mdt.paramJson()));
+                    mdt.addElem(new ElemImpost(mdt.owner.area5e, mdt.id(), mdt.param()));
                 } else if (TypeElem.GLASS == mdt.type()) {
-                    mdt.addElem(new ElemGlass(mdt.owner.area5e, mdt.id(), mdt.paramJson()));
+                    mdt.addElem(new ElemGlass(mdt.owner.area5e, mdt.id(), mdt.param()));
                 }
             }
         } catch (Exception e) {

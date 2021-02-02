@@ -19,7 +19,7 @@ public class Mediate extends JsonArea {
         }
         this.type = Arrays.asList(TypeElem.values()).stream().filter(it -> it.name().equals(type)).findFirst().orElse(null);
         this.layout = Arrays.asList(LayoutArea.values()).stream().filter(it -> it.name().equals(layout)).findFirst().orElse(null);
-        this.paramJson = paramJson;
+        this.param = paramJson;
     }
 
     public Mediate(Mediate owner, float id, String type, String layout,
