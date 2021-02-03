@@ -2378,16 +2378,20 @@ public class Systree extends javax.swing.JFrame {
             String paramStr = (stvArea.param().isEmpty()) ? "{}" : stvArea.param();
             Gson gson = new GsonBuilder().create();
             JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
-            JsonArray jsonArr = jsonObject.getAsJsonArray("frame");
+            JsonArray jsonArr = jsonObject.getAsJsonArray(ParamJson.rama.name());
             jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
+            String colorID = null;
             for (int i = 0; i < jsonArr.size(); i++) {
-              JsonElement el = jsonArr.get(i);             
-              JsonObject m2 = el.getAsJsonObject();
-              JsonElement id = m2.get("id");
-              float m1 = id.getAsFloat();
-                int mm = 0;
+                JsonObject el = jsonArr.get(i).getAsJsonObject();
+                float id = el.get("id").getAsFloat();
+                if(ramaId == id) {
+                    colorID = (evt.getSource() == btn18) ? ParamJson.colorID1.name() : (evt.getSource() == btn19) ? ParamJson.colorID2.name() : ParamJson.colorID3.name();
+                    el.addProperty(ParamJson.colorID2.name(), colorRec.getStr(eColor.id));
+                }
             }
-
+            if(colorID == null) {
+                
+            } 
             
             //if (ramaEl != null) {
             //stvArea.elements().add(new );
