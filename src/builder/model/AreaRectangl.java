@@ -5,15 +5,15 @@ import enums.TypeElem;
 import enums.LayoutJoin;
 import enums.TypeJoin;
 import builder.Wincalc;
-import enums.ParamJson;
+import enums.PKjson;
 
 public class AreaRectangl extends AreaSimple {
 
     public AreaRectangl(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3, param);
         
-        if (getParam(param, ParamJson.colorID1) != -1) {
-            this.colorID1 = getParam(param, ParamJson.colorID1);
+        if (getParam(param, PKjson.colorID1) != -1) {
+            this.colorID1 = getParam(param, PKjson.colorID1);
         }
         //System.out.println(colorID1);
     }

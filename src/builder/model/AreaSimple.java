@@ -11,7 +11,6 @@ import frames.swing.Draw;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.LayoutJoin;
-import enums.ParamJson;
 import enums.TypeJoin;
 import enums.UseArtiklTo;
 import enums.UseSide;
@@ -26,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 import startup.Main;
 import builder.Wincalc;
+import enums.PKjson;
 import java.awt.BasicStroke;
 import java.lang.annotation.ElementType;
 
@@ -51,8 +51,8 @@ public class AreaSimple extends Com5t {
     public void initСonstructiv(String param) {
         if (TypeElem.AREA != type) {
             //Профили коробки или створки
-            if (getParam(param, ParamJson.sysprofID) != -1) {
-                sysprofRec = eSysprof.find3(getParam(param, ParamJson.sysprofID));
+            if (getParam(param, PKjson.sysprofID) != -1) {
+                sysprofRec = eSysprof.find3(getParam(param, PKjson.sysprofID));
             } else {
                 if (this instanceof AreaStvorka) {
                     sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.STVORKA, UseSide.ANY);
@@ -103,7 +103,7 @@ public class AreaSimple extends Com5t {
         try {
             if (param != null && param.isEmpty() == false && param.equals("null") == false) {
                 JsonObject jsonObj = new Gson().fromJson(param, JsonObject.class);
-                JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
+                JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
                 if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
                     jsonArr.forEach(it -> {
                         Record paramRec = eParams.find(it.getAsInt());

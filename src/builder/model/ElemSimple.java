@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSysprof;
-import enums.ParamJson;
 import enums.UseUnit;
 import builder.specif.Specification;
 import enums.UseArtiklTo;

@@ -5,12 +5,12 @@ import domain.eColor;
 import domain.eSyssize;
 import domain.eSysprof;
 import enums.LayoutArea;
-import enums.ParamJson;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.specif.Specification;
 import builder.param.Processing;
+import enums.PKjson;
 
 public class ElemFrame extends ElemSimple {
 
@@ -29,8 +29,8 @@ public class ElemFrame extends ElemSimple {
 
     public void initСonstructiv(String param) {
 
-        if (getParam(param, ParamJson.sysprofID) != -1) {
-            sysprofRec = eSysprof.find3(getParam(param, ParamJson.sysprofID));
+        if (getParam(param, PKjson.sysprofID) != -1) {
+            sysprofRec = eSysprof.find3(getParam(param, PKjson.sysprofID));
         } else {
             sysprofRec = owner().sysprofRec;
         }

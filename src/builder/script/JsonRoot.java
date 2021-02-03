@@ -3,7 +3,7 @@ package builder.script;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import enums.LayoutArea;
-import enums.ParamJson;
+import enums.PKjson;
 import enums.TypeElem;
 
 public class JsonRoot extends JsonArea {
@@ -44,14 +44,14 @@ public class JsonRoot extends JsonArea {
         if (param != null && param.isEmpty() == false) {
             JsonObject jsonObj = new Gson().fromJson(param, JsonObject.class);
 
-            if (jsonObj.get(ParamJson.colorID1.name()) != null) {
-                this.color1 = jsonObj.get(ParamJson.colorID1.name()).getAsInt();
+            if (jsonObj.get(PKjson.colorID1) != null) {
+                this.color1 = jsonObj.get(PKjson.colorID1).getAsInt();
             }
-            if (jsonObj.get(ParamJson.colorID2.name()) != null) {
-                this.color2 = jsonObj.get(ParamJson.colorID2.name()).getAsInt();
+            if (jsonObj.get(PKjson.colorID2) != null) {
+                this.color2 = jsonObj.get(PKjson.colorID2).getAsInt();
             }
-            if (jsonObj.get(ParamJson.colorID3.name()) != null) {
-                this.color3 = jsonObj.get(ParamJson.colorID3.name()).getAsInt();
+            if (jsonObj.get(PKjson.colorID3) != null) {
+                this.color3 = jsonObj.get(PKjson.colorID3).getAsInt();
             }
         }        
         return (index == 1) ? color1 : (index == 2) ? color2 : color3;

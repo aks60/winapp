@@ -7,7 +7,6 @@ import domain.eJoinpar1;
 import domain.eJoinvar;
 import domain.eSyssize;
 import enums.LayoutArea;
-import enums.ParamJson;
 import enums.TypeElem;
 import enums.LayoutJoin;
 import enums.TypeOpen1;
@@ -18,6 +17,7 @@ import builder.Wincalc;
 import builder.specif.Util;
 import domain.eSysfurn;
 import enums.LayoutHandle;
+import enums.PKjson;
 import enums.TypeOpen2;
 import java.util.List;
 
@@ -61,20 +61,20 @@ public class AreaStvorka extends AreaSimple {
     public void initFurniture(String param) {
 
         //Фурнитура створки, ручка, подвес
-        if (getParam(param, ParamJson.sysfurnID) != -1) {
-            sysfurnRec = eSysfurn.find2(getParam(param, ParamJson.sysfurnID));
+        if (getParam(param, PKjson.sysfurnID) != -1) {
+            sysfurnRec = eSysfurn.find2(getParam(param, PKjson.sysfurnID));
         } else {
             sysfurnRec = eSysfurn.find3(iwin().nuni);
         }
         //Сторона открывания
-        if (getParam(param, ParamJson.typeOpen) != -1) {
-            this.typeOpen = TypeOpen1.get(getParam(param, ParamJson.typeOpen));
+        if (getParam(param, PKjson.typeOpen) != -1) {
+            this.typeOpen = TypeOpen1.get(getParam(param, PKjson.typeOpen));
         } else {
             this.typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
         }     
         //Подбор текстуры ручки
-        if (getParam(param, ParamJson.colorHandl) != -1) { 
-            handlColor = getParam(param, ParamJson.colorHandl);
+        if (getParam(param, PKjson.colorHandl) != -1) { 
+            handlColor = getParam(param, PKjson.colorHandl);
         } else {
             handlColor = iwin().colorID1; //если цвет не установлен подбираю по основной текстуре
         }

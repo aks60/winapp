@@ -56,11 +56,10 @@ import builder.script.JsonArea;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import domain.eArtdet;
 import domain.eColor;
 import domain.eFurndet;
-import enums.ParamJson;
+import enums.PKjson;
 import enums.TypeElem;
 import enums.TypeOpen1;
 import frames.dialog.DicColor2;
@@ -2338,7 +2337,7 @@ public class Systree extends javax.swing.JFrame {
                     for (Record sysprofRec : qSysprof) {
                         if (artiklRec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)) {
 
-                            jsonObject.addProperty(ParamJson.sysprofID.name(), sysprofRec.getInt(eSysprof.id));
+                            jsonObject.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                             paramStr = gson.toJson(jsonObject);
                             elemRama.param(paramStr);
                             String script = gson.toJson(iwin.jsonRoot);
@@ -2378,35 +2377,34 @@ public class Systree extends javax.swing.JFrame {
             String paramStr = (stvArea.param().isEmpty()) ? "{}" : stvArea.param();
             Gson gson = new GsonBuilder().create();
             JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
-            JsonArray jsonArr = jsonObject.getAsJsonArray(ParamJson.rama.name());
+            JsonArray jsonArr = jsonObject.getAsJsonArray(PKjson.rama);
             jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
             String colorID = null;
+
             for (int i = 0; i < jsonArr.size(); i++) {
                 JsonObject el = jsonArr.get(i).getAsJsonObject();
                 float id = el.get("id").getAsFloat();
-                if(ramaId == id) {
-                    colorID = (evt.getSource() == btn18) ? ParamJson.colorID1.name() : (evt.getSource() == btn19) ? ParamJson.colorID2.name() : ParamJson.colorID3.name();
-                    el.addProperty(ParamJson.colorID2.name(), colorRec.getStr(eColor.id));
+                if (ramaId == id) {
+                    colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
+                    el.addProperty(colorID, colorRec.getStr(eColor.id));
                 }
             }
-            if(colorID == null) {
-                
-            } 
+            if (colorID == null) {
+                colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
+                JsonObject jso = new JsonObject();
+                jso.addProperty("id", ramaId);
+                jso.addProperty(colorID, colorRec.getStr(eColor.id));
+                jsonArr.add(jso);
+            }
+            jsonObject.add(PKjson.rama, jsonArr);
+            paramStr = gson.toJson(jsonObject);
+            stvArea.param(paramStr);
+            String script = gson.toJson(iwin.jsonRoot);
+            Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
+            sysprodRec.set(eSysprod.script, script);
+            qSysprod.update(sysprodRec);
+            selectionTab5();
             
-            //if (ramaEl != null) {
-            //stvArea.elements().add(new );
-            //String paramStr = (stvArea.paramJson().isEmpty()) ? "{}" : stvorkaArea.paramJson();
-            //Gson gson = new GsonBuilder().create();
-            //JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
-            //jsonObject.addProperty(ParamJson.colorID2.name(), colorRec.getStr(eColor.id));
-            //paramStr = gson.toJson(jsonObject);
-//                stvArea.paramJson(paramStr);
-//                String script = gson.toJson(iwin.jsonRoot);
-//                Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
-//                sysprodRec.set(eSysprod.script, script);
-//                qSysprod.update(sysprodRec);
-//                selectionTab5();
-            // }
         }, colorSet);
     }//GEN-LAST:event_btn18Action
 
@@ -2469,11 +2467,11 @@ public class Systree extends javax.swing.JFrame {
                 JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
 
                 if (evt.getSource() == btn09) {
-                    jsonObject.addProperty(ParamJson.colorID1.name(), colorRec.getStr(eColor.id));
+                    jsonObject.addProperty(PKjson.colorID1, colorRec.getStr(eColor.id));
                 } else if (evt.getSource() == btn13) {
-                    jsonObject.addProperty(ParamJson.colorID2.name(), colorRec.getStr(eColor.id));
+                    jsonObject.addProperty(PKjson.colorID2, colorRec.getStr(eColor.id));
                 } else if (evt.getSource() == btn02) {
-                    jsonObject.addProperty(ParamJson.colorID3.name(), colorRec.getStr(eColor.id));
+                    jsonObject.addProperty(PKjson.colorID3, colorRec.getStr(eColor.id));
                 }
                 paramStr = gson.toJson(jsonObject);
                 rootArea.param(paramStr);

@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import dataset.Record;
 import enums.LayoutArea;
-import enums.ParamJson;
 import enums.TypeElem;
 import java.util.LinkedList;
 import builder.Wincalc;
@@ -61,11 +60,11 @@ public abstract class Com5t {
         this.y2 = y2;
     }
     
-    public int getParam(String param, ParamJson key) {
+    public int getParam(String param, String key) {
 
         if (param != null && param.isEmpty() == false) {
             JsonObject jsonObj = new Gson().fromJson(param, JsonObject.class);
-            return (jsonObj.get(key.name()) == null) ? -1 : jsonObj.get(key.name()).getAsInt();
+            return (jsonObj.get(key) == null) ? -1 : jsonObj.get(key).getAsInt();
         }
         return -1;
     }

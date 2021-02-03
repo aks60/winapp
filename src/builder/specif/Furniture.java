@@ -13,7 +13,6 @@ import domain.eSysfurn;
 import enums.LayoutArea;
 import enums.LayoutFurn1;
 import enums.LayoutHandle;
-import enums.ParamJson;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import java.util.LinkedList;

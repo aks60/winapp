@@ -14,10 +14,10 @@ import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.specif.Specification;
 import domain.eSyssize;
-import enums.ParamJson;
 import enums.TypeJoin;
 import builder.specif.Util;
 import builder.param.Processing;
+import enums.PKjson;
 import java.util.List;
 
 public class ElemImpost extends ElemSimple {
@@ -46,8 +46,8 @@ public class ElemImpost extends ElemSimple {
 
     public void initСonstructiv(String param) {
 
-        if (getParam(param, ParamJson.sysprofID) != -1) {
-            sysprofRec = eSysprof.find3(getParam(param, ParamJson.sysprofID));
+        if (getParam(param, PKjson.sysprofID) != -1) {
+            sysprofRec = eSysprof.find3(getParam(param, PKjson.sysprofID));
         } else {
             if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
                 sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.IMPOST, UseSide.HORIZ, UseSide.ANY);

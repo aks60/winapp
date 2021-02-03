@@ -7,12 +7,12 @@ import domain.eColor;
 import domain.eSyssize;
 import domain.eSystree;
 import enums.LayoutArea;
-import enums.ParamJson;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.specif.Specification;
 import builder.param.Processing;
+import enums.PKjson;
 
 public class ElemGlass extends ElemSimple {
 
@@ -36,8 +36,8 @@ public class ElemGlass extends ElemSimple {
 
     public void initСonstructiv(String param) {
 
-        if (getParam(param, ParamJson.artglasID) != -1) {
-            artiklRec = eArtikl.find(getParam(param, ParamJson.artglasID), false);
+        if (getParam(param, PKjson.artglasID) != -1) {
+            artiklRec = eArtikl.find(getParam(param, PKjson.artglasID), false);
         } else {
             Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
