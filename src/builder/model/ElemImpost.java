@@ -46,8 +46,8 @@ public class ElemImpost extends ElemSimple {
 
     public void initСonstructiv(String param) {
 
-        if (getParam(param, PKjson.sysprofID) != -1) {
-            sysprofRec = eSysprof.find3(getParam(param, PKjson.sysprofID));
+        if (param(param, PKjson.sysprofID) != -1) {
+            sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
         } else {
             if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
                 sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.IMPOST, UseSide.HORIZ, UseSide.ANY);

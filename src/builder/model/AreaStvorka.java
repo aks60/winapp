@@ -43,6 +43,7 @@ public class AreaStvorka extends AreaSimple {
         ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, null);
         mapFrame.put(stvTop.layout(), stvTop);
 
+        
         //Положение элементов створки с учётом нахлёста
         setLocation(stvLeft, stvBot, stvRigh, stvTop);
         stvBot.setLocation();
@@ -61,20 +62,20 @@ public class AreaStvorka extends AreaSimple {
     public void initFurniture(String param) {
 
         //Фурнитура створки, ручка, подвес
-        if (getParam(param, PKjson.sysfurnID) != -1) {
-            sysfurnRec = eSysfurn.find2(getParam(param, PKjson.sysfurnID));
+        if (param(param, PKjson.sysfurnID) != -1) {
+            sysfurnRec = eSysfurn.find2(param(param, PKjson.sysfurnID));
         } else {
             sysfurnRec = eSysfurn.find3(iwin().nuni);
         }
         //Сторона открывания
-        if (getParam(param, PKjson.typeOpen) != -1) {
-            this.typeOpen = TypeOpen1.get(getParam(param, PKjson.typeOpen));
+        if (param(param, PKjson.typeOpen) != -1) {
+            this.typeOpen = TypeOpen1.get(param(param, PKjson.typeOpen));
         } else {
             this.typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
         }     
         //Подбор текстуры ручки
-        if (getParam(param, PKjson.colorHandl) != -1) { 
-            handlColor = getParam(param, PKjson.colorHandl);
+        if (param(param, PKjson.colorHandl) != -1) { 
+            handlColor = param(param, PKjson.colorHandl);
         } else {
             handlColor = iwin().colorID1; //если цвет не установлен подбираю по основной текстуре
         }

@@ -29,8 +29,8 @@ public class ElemFrame extends ElemSimple {
 
     public void initСonstructiv(String param) {
 
-        if (getParam(param, PKjson.sysprofID) != -1) {
-            sysprofRec = eSysprof.find3(getParam(param, PKjson.sysprofID));
+        if (param(param, PKjson.sysprofID) != -1) {
+            sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
         } else {
             sysprofRec = owner().sysprofRec;
         }

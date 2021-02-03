@@ -60,7 +60,7 @@ public abstract class Com5t {
         this.y2 = y2;
     }
     
-    public int getParam(String param, String key) {
+    public int param(String param, String key) {
 
         if (param != null && param.isEmpty() == false) {
             JsonObject jsonObj = new Gson().fromJson(param, JsonObject.class);
