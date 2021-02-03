@@ -15,6 +15,9 @@ import java.awt.Color;
 import java.util.LinkedList;
 import builder.Wincalc;
 import builder.specif.Util;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import domain.eSysfurn;
 import enums.LayoutHandle;
 import enums.PKjson;
@@ -22,7 +25,7 @@ import enums.TypeOpen2;
 import java.util.List;
 
 public class AreaStvorka extends AreaSimple {
-    
+
     public Record sysfurnRec = eSysfurn.up.newRecord(); //фурнитура
     public TypeOpen1 typeOpen = TypeOpen1.LEFT; //направление открывания
     public Record handlRec = eArtikl.up.newRecord(); //ручка
@@ -32,6 +35,10 @@ public class AreaStvorka extends AreaSimple {
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
+
+        JsonObject jsonObject = new GsonBuilder().create().fromJson(param, JsonObject.class);
+        JsonArray jsonArr = jsonObject.getAsJsonArray(PKjson.rama);
+        jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
 
         //Добавим рамы створки      
         ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, null);
@@ -43,7 +50,6 @@ public class AreaStvorka extends AreaSimple {
         ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, null);
         mapFrame.put(stvTop.layout(), stvTop);
 
-        
         //Положение элементов створки с учётом нахлёста
         setLocation(stvLeft, stvBot, stvRigh, stvTop);
         stvBot.setLocation();
@@ -72,9 +78,9 @@ public class AreaStvorka extends AreaSimple {
             this.typeOpen = TypeOpen1.get(param(param, PKjson.typeOpen));
         } else {
             this.typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
-        }     
+        }
         //Подбор текстуры ручки
-        if (param(param, PKjson.colorHandl) != -1) { 
+        if (param(param, PKjson.colorHandl) != -1) {
             handlColor = param(param, PKjson.colorHandl);
         } else {
             handlColor = iwin().colorID1; //если цвет не установлен подбираю по основной текстуре
