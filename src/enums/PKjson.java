@@ -9,8 +9,11 @@ public static String sysprofID = "sysprofID"; //ID профиля
     public static String artiklHandl = "artiklHandl"; //Ручка на створке
     public static String colorHandl = "colorHandl"; //Цвет ручки створки
     public static String ioknaParam = "ioknaParam"; //Параметры iokna
-    public static String rama = "rama"; //Рама створки
     public static String colorID1 = "colorID1"; //Текстура
     public static String colorID2 = "colorID2"; //Текстура
     public static String colorID3 = "colorID3"; //Текстура    
+    public static String stvorkaBottom = "stvorkaBottom"; //Текстура    
+    public static String stvorkaRight = "stvorkaRight"; //Текстура    
+    public static String stvorkaTop = "stvorkaTop"; //Текстура    
+    public static String stvorkaLeft = "stvorkaLeft"; //Текстура    
 }

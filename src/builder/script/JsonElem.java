@@ -50,9 +50,9 @@ public class JsonElem {
     }
 
     public String param() {
-        return param;
+        return (param.isEmpty() == true || param == null) ? "{}" : param;
     }
-    
+
     public void param(String param) {
         this.param = param;
     }

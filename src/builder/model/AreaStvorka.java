@@ -36,19 +36,29 @@ public class AreaStvorka extends AreaSimple {
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
 
-        JsonObject jsonObject = new GsonBuilder().create().fromJson(param, JsonObject.class);
-        JsonArray jsonArr = jsonObject.getAsJsonArray(PKjson.rama);
-        jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
-
+        JsonObject paramObj = new GsonBuilder().create().fromJson(param, JsonObject.class);
+        if(paramObj != null) {
+            JsonObject jso = paramObj.getAsJsonObject(PKjson.stvorkaBottom);
+        }
+//        JsonArray jsonArr = jsonObject.getAsJsonArray(PKjson.rama);
+//        jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
+//        String sss[] = {null, null, null, null};
+//        for (int i = 0; i < jsonArr.size(); i++) {
+//            JsonObject el = jsonArr.get(i).getAsJsonObject();
+//            float id2 = el.get("id").getAsFloat();
+//            if ((id + .1f) == id2) {
+//                
+//            }
+//        }
         //Добавим рамы створки      
-        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, null);
-        mapFrame.put(stvLeft.layout(), stvLeft);
         ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM, null);
         mapFrame.put(stvBot.layout(), stvBot);
         ElemFrame stvRigh = new ElemFrame(this, id + .2f, LayoutArea.RIGHT, null);
         mapFrame.put(stvRigh.layout(), stvRigh);
         ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, null);
         mapFrame.put(stvTop.layout(), stvTop);
+        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, null);
+        mapFrame.put(stvLeft.layout(), stvLeft);
 
         //Положение элементов створки с учётом нахлёста
         setLocation(stvLeft, stvBot, stvRigh, stvTop);
