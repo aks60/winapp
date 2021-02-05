@@ -1,8 +1,9 @@
 package enums;
 
 public class PKjson {
- 
-public static String sysprofID = "sysprofID"; //ID профиля
+
+    public static String artiklID = "artiklID"; //ID артикула
+    public static String sysprofID = "sysprofID"; //ID профиля
     public static String sysfurnID = "sysfurnID"; //ID Фурнитуры
     public static String artglasID = "artglasID"; //ID заполнения
     public static String typeOpen = "typeOpen"; //Тип открывания

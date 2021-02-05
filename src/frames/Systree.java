@@ -2331,23 +2331,39 @@ public class Systree extends javax.swing.JFrame {
 
             DicArtikl artikl = new DicArtikl(this, (artiklRec) -> {
 
-                float id = node.com5t().id();
+                float ramaId = node.com5t().id();
                 Gson gson = new GsonBuilder().create();
-                
+                JsonElem elemRama = iwin.jsonRoot.find(ramaId);
+
                 if (node.com5t().type() == TypeElem.FRAME_SIDE) {
-                    JsonElem elemRama = iwin.jsonRoot.find(id);
                     String paramStr = elemRama.param();
                     JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                     for (Record sysprofRec : qSysprof) {
                         if (artiklRec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)) {
-
                             paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                             paramStr = gson.toJson(paramObj);
                             elemRama.param(paramStr);
                         }
                     }
                 } else {
-                    
+                    float stvId = ((DefMutableTreeNode) node.getParent()).com5t().id();
+                    JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(stvId);
+                    String paramStr = stvArea.param();
+                    JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                    String stvKey = null;
+                    if (node.com5t().layout() == LayoutArea.BOTTOM) {
+                        stvKey = PKjson.stvorkaBottom;
+                    } else if (node.com5t().layout() == LayoutArea.RIGHT) {
+                        stvKey = PKjson.stvorkaRight;
+                    } else if (node.com5t().layout() == LayoutArea.TOP) {
+                        stvKey = PKjson.stvorkaTop;
+                    } else if (node.com5t().layout() == LayoutArea.LEFT) {
+                        stvKey = PKjson.stvorkaLeft;
+                    }
+                    JsonObject jso = getAsJsonObject(paramObj, stvKey);
+                    jso.addProperty(PKjson.artiklID, artiklRec.getStr(eArtikl.id));
+                    paramStr = gson.toJson(paramObj);
+                    stvArea.param(paramStr);
                 }
                 String script = gson.toJson(iwin.jsonRoot);
                 Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
@@ -2486,7 +2502,6 @@ public class Systree extends javax.swing.JFrame {
         } else {
             new DicColor2(this, listenerColor, set);
         }
-
     }//GEN-LAST:event_btn09Action
 
     private void btn03Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn03Action
