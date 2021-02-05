@@ -34,7 +34,13 @@ public class ElemFrame extends ElemSimple {
         } else {
             sysprofRec = owner().sysprofRec;
         }
-        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        
+        if (param(param, PKjson.artiklID) != -1) {
+            System.out.println(param(param, PKjson.artiklID));
+            artiklRec = eArtikl.find(param(param, PKjson.artiklID), false);            
+        } else {
+            artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        }
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
 
@@ -161,13 +167,13 @@ public class ElemFrame extends ElemSimple {
         } else {
 
         }
-        
+
         proc.amount(specificationRec, specificationAdd); //количество от параметра
         specificationRec.specificationList.add(specificationAdd);
-        
-        if(specificationAdd.mapParam.get(25013) != null) {
-           proc.param(specificationAdd, 25013);
-        }        
+
+        if (specificationAdd.mapParam.get(25013) != null) {
+            proc.param(specificationAdd, 25013);
+        }
     }
 
     @Override
@@ -185,11 +191,11 @@ public class ElemFrame extends ElemSimple {
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(owner().width() / (r * 2)));
             double ang2 = 90 - Math.toDegrees(Math.asin((owner().width() - 2 * d2z) / ((r - d2z) * 2)));
-            
-            iwin().draw.strokeArc(owner().width() / 2 - r + d2z / 2, d2z / 2 - 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, d2z); 
-            iwin().draw.strokeArc(owner().width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, 0, 4); 
-            iwin().draw.strokeArc(owner().width() / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4);  
-            
+
+            iwin().draw.strokeArc(owner().width() / 2 - r + d2z / 2, d2z / 2 - 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, d2z);
+            iwin().draw.strokeArc(owner().width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, 0, 4);
+            iwin().draw.strokeArc(owner().width() / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4);
+
         } else if (LayoutArea.TOP == layout) {
             iwin().draw.strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, borderColor);
 
