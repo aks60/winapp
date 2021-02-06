@@ -51,6 +51,7 @@ import frames.swing.DefTableModel;
 import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
+import builder.model.ElemFrame;
 import builder.model.ElemSimple;
 import builder.script.JsonArea;
 import builder.script.JsonElem;
@@ -590,6 +591,18 @@ public class Systree extends javax.swing.JFrame {
             }
         }
         return nodeList2;
+    }
+
+    private void selectionTreeWinPath(float selectId) {
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) treeWin.getModel().getRoot();
+        do {
+            if (selectId == ((DefMutableTreeNode) node).com5t().id()) {
+                TreePath path = new TreePath(node.getPath());
+                treeWin.setSelectionPath(path);
+                treeWin.scrollPathToVisible(path);
+            }
+            node = node.getNextNode();
+        } while (node != null);
     }
 
     @SuppressWarnings("unchecked")
@@ -2005,7 +2018,7 @@ public class Systree extends javax.swing.JFrame {
         btn05.setPreferredSize(new java.awt.Dimension(25, 25));
         btn05.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn05(evt);
+                findFromArtikl(evt);
             }
         });
 
@@ -2063,12 +2076,12 @@ public class Systree extends javax.swing.JFrame {
             .addComponent(btnIns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(toolLayout.createSequentialGroup()
                 .addGroup(toolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn05, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(tool, java.awt.BorderLayout.PAGE_START);
@@ -2162,7 +2175,7 @@ public class Systree extends javax.swing.JFrame {
     private void typeToSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeToSystree
 
         new DicEnums(this, (record) -> {
-            
+
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
             for (int i = 0; i < qSystree.size(); i++) {
                 if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
@@ -2282,7 +2295,7 @@ public class Systree extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnRefresh
 
-    private void btn05(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn05
+    private void findFromArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findFromArtikl
         Record record = qSysprof.get(Util.getSelectedRec(tab2));
         Record record2 = eArtikl.find(record.getInt(eSysprof.artikl_id), false);
         FrameProgress.create(this, new FrameListener() {
@@ -2290,7 +2303,7 @@ public class Systree extends javax.swing.JFrame {
                 App1.eApp1.Artikles.createFrame(Systree.this, record2);
             }
         });
-    }//GEN-LAST:event_btn05
+    }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         Gson gs = new GsonBuilder().setPrettyPrinting().create();
@@ -2316,6 +2329,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+        float selectID = node.com5t().id();
         if (node != null) {
             Query query = new Query(eSysprof.values(), eArtikl.values());
             UseArtiklTo useArtiklTo = (node.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
@@ -2368,6 +2382,7 @@ public class Systree extends javax.swing.JFrame {
                 sysprodRec.set(eSysprod.script, script);
                 qSysprod.update(sysprodRec);
                 selectionTab5();
+                selectionTreeWinPath(selectID);
 
             }, query);
         }
@@ -2375,6 +2390,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void colorToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToFrame
         DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+        float selectID = node.com5t().id();
         HashSet<Record> colorSet = new HashSet();
         Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", node.com5t().artiklRec.getInt(eArtikl.id));
         artdetList.forEach(rec -> {
@@ -2391,12 +2407,13 @@ public class Systree extends javax.swing.JFrame {
         });
         DicColor2 frame = new DicColor2(this, (colorRec) -> {
 
+            String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
+            float parentId = ((DefMutableTreeNode) node.getParent()).com5t().id();
+            JsonArea parentArea = (JsonArea) iwin.jsonRoot.find(parentId);
+            Gson gson = new GsonBuilder().create();
+
             if (node.com5t().type() == TypeElem.STVORKA_SIDE) {
-                String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
-                float stvId = ((DefMutableTreeNode) node.getParent()).com5t().id();
-                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(stvId);
-                String paramStr = stvArea.param();
-                Gson gson = new GsonBuilder().create();
+                String paramStr = parentArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 String stvKey = null;
                 if (node.com5t().layout() == LayoutArea.BOTTOM) {
@@ -2411,17 +2428,31 @@ public class Systree extends javax.swing.JFrame {
                 JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
                 jso.addProperty(colorID, colorRec.getStr(eColor.id));
                 paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
-                String script = gson.toJson(iwin.jsonRoot);
-                Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
-                sysprodRec.set(eSysprod.script, script);
-                qSysprod.update(sysprodRec);
-                selectionTab5();
+                parentArea.param(paramStr);
+
+            } else if (node.com5t().type() == TypeElem.FRAME_SIDE) {
+                for (JsonElem elem : parentArea.elements()) {
+                    if (elem.id() == ((DefMutableTreeNode) node).com5t().id()) {
+                        String paramStr = elem.param();
+                        JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                        paramObj.addProperty(colorID, colorRec.getStr(eColor.id));
+                        paramStr = gson.toJson(paramObj);
+                        elem.param(paramStr);
+                    }
+                }
             }
+            String script = gson.toJson(iwin.jsonRoot);
+            Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
+            sysprodRec.set(eSysprod.script, script);
+            qSysprod.update(sysprodRec);
+            selectionTab5();
+            selectionTreeWinPath(selectID);
+
         }, colorSet);
     }//GEN-LAST:event_colorToFrame
 
     private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
+        float selectID = ((DefMutableTreeNode) treeWin.getLastSelectedPathComponent()).com5t().id();
         HashSet<Record> set = new HashSet();
         String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
         String jfield = (evt.getSource() == btn09) ? txt03.getText() : (evt.getSource() == btn13) ? txt04.getText() : txt05.getText();
@@ -2472,8 +2503,7 @@ public class Systree extends javax.swing.JFrame {
 
         DialogListener listenerColor = (colorRec) -> {
 
-            float id = ((DefMutableTreeNode) treeWin.getLastSelectedPathComponent()).com5t().id();
-            builder.script.JsonElem rootArea = iwin.jsonRoot.find(id);
+            builder.script.JsonElem rootArea = iwin.jsonRoot.find(selectID);
             if (rootArea != null) {
                 String paramStr = (rootArea.param().isEmpty()) ? "{}" : rootArea.param();
                 Gson gson = new GsonBuilder().create();
@@ -2493,6 +2523,7 @@ public class Systree extends javax.swing.JFrame {
                 sysprodRec.set(eSysprod.script, script);
                 qSysprod.update(sysprodRec);
                 selectionTab5();
+                selectionTreeWinPath(selectID);
             }
         };
         if (arr1 == null && arr2.length == 0) {
@@ -2515,7 +2546,9 @@ public class Systree extends javax.swing.JFrame {
             depth = (depth != null && depth.isEmpty() == false) ? " and " + eArtikl.depth.name() + " in (" + depth + ")" : "";
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where",
                     eArtikl.level1, "= 5 and", eArtikl.level2, "in (1,2,3)", depth);
+
             new DicArtikl(this, (record) -> {
+
                 System.out.println(record);
             }, qArtikl);
 
@@ -2577,7 +2610,7 @@ public class Systree extends javax.swing.JFrame {
             System.err.println("Ошибка: " + e);
         }
     }//GEN-LAST:event_handlToStvorka
-                            
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn01;
