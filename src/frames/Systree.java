@@ -106,6 +106,7 @@ public class Systree extends javax.swing.JFrame {
     private DefFieldEditor rsvSystree;
     private java.awt.Frame frame = null;
     private TreeNode[] selectedPath = null;
+    private Gson gson = new GsonBuilder().create();
 
     public Systree() {
         initComponents();
@@ -593,10 +594,15 @@ public class Systree extends javax.swing.JFrame {
         return nodeList2;
     }
 
-    private void selectionTreeWinPath(float selectId) {
+    private void updateScript(float selectID) {
+        String script = gson.toJson(iwin.jsonRoot);
+        Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
+        sysprodRec.set(eSysprod.script, script);
+        qSysprod.update(sysprodRec);
+        selectionTab5();
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) treeWin.getModel().getRoot();
         do {
-            if (selectId == ((DefMutableTreeNode) node).com5t().id()) {
+            if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
                 TreePath path = new TreePath(node.getPath());
                 treeWin.setSelectionPath(path);
                 treeWin.scrollPathToVisible(path);
@@ -2306,10 +2312,9 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        Gson gs = new GsonBuilder().setPrettyPrinting().create();
         JsonArea stv = (JsonArea) iwin.jsonRoot.find(6);
         String str = stv.param();
-        System.out.println(gs.toJson(iwin.jsonRoot));
+        System.out.println(gson.toJson(iwin.jsonRoot));
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -2317,50 +2322,106 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void heightHandlToStvorka(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_heightHandlToStvorka
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (comboBox1.getSelectedIndex() == 2) {
-                txt31.setEditable(true);
-            } else {
-                txt31.setText(null);
-                txt31.setEditable(false);
+        try {
+            if (evt.getStateChange() == ItemEvent.SELECTED) {
+                if (comboBox1.getSelectedIndex() == 2) {
+                    txt31.setEditable(true);
+                } else {
+                    txt31.setText(null);
+                    txt31.setEditable(false);
+                }
             }
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
         }
     }//GEN-LAST:event_heightHandlToStvorka
 
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
-        DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
-        float selectID = node.com5t().id();
-        if (node != null) {
-            Query query = new Query(eSysprof.values(), eArtikl.values());
-            UseArtiklTo useArtiklTo = (node.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
+        try {
+            DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            float selectID = node.com5t().id();
+            if (node != null) {
+                Query query = new Query(eSysprof.values(), eArtikl.values());
+                UseArtiklTo useArtiklTo = (node.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
 
-            for (int index = 0; index < qSysprof.size(); ++index) {
-                Record sysprofRec = qSysprof.get(index);
-                if (sysprofRec.getInt(eSysprof.use_type) == useArtiklTo.id) {
-                    if (sysprofRec.getInt(eSysprof.use_side) == node.com5t().layout().id
-                            || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id) {
-                        query.add(sysprofRec);
-                        query.table(eArtikl.up).add(qSysprof.table(eArtikl.up).get(index));
+                for (int index = 0; index < qSysprof.size(); ++index) {
+                    Record sysprofRec = qSysprof.get(index);
+                    if (sysprofRec.getInt(eSysprof.use_type) == useArtiklTo.id) {
+                        if (sysprofRec.getInt(eSysprof.use_side) == node.com5t().layout().id
+                                || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id) {
+                            query.add(sysprofRec);
+                            query.table(eArtikl.up).add(qSysprof.table(eArtikl.up).get(index));
+                        }
                     }
                 }
+                new DicSysprof(this, (sysprofRec) -> {
+
+                    float ramaId = node.com5t().id();
+                    JsonElem elemRama = iwin.jsonRoot.find(ramaId);
+
+                    if (node.com5t().type() == TypeElem.FRAME_SIDE) { //рама окна
+                        String paramStr = elemRama.param();
+                        JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                        paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
+                        paramStr = gson.toJson(paramObj);
+                        elemRama.param(paramStr);
+                        updateScript(selectID);
+
+                    } else { //рама створки
+                        float stvId = ((DefMutableTreeNode) node.getParent()).com5t().id();
+                        JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(stvId);
+                        String paramStr = stvArea.param();
+                        JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                        String stvKey = null;
+                        if (node.com5t().layout() == LayoutArea.BOTTOM) {
+                            stvKey = PKjson.stvorkaBottom;
+                        } else if (node.com5t().layout() == LayoutArea.RIGHT) {
+                            stvKey = PKjson.stvorkaRight;
+                        } else if (node.com5t().layout() == LayoutArea.TOP) {
+                            stvKey = PKjson.stvorkaTop;
+                        } else if (node.com5t().layout() == LayoutArea.LEFT) {
+                            stvKey = PKjson.stvorkaLeft;
+                        }
+                        JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
+                        jso.addProperty(PKjson.sysprofID, sysprofRec.getStr(eSysprof.id));
+                        paramStr = gson.toJson(paramObj);
+                        stvArea.param(paramStr);
+                        updateScript(selectID);
+                    } 
+                    
+                }, query);
             }
-            new DicSysprof(this, (sysprofRec) -> {
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_sysprofToFrame
 
-                float ramaId = node.com5t().id();
-                Gson gson = new GsonBuilder().create();
-                JsonElem elemRama = iwin.jsonRoot.find(ramaId);
+    private void colorToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToFrame
+        try {
+            DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            float selectID = node.com5t().id();
+            HashSet<Record> colorSet = new HashSet();
+            Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", node.com5t().artiklRec.getInt(eArtikl.id));
+            artdetList.forEach(rec -> {
 
-                if (node.com5t().type() == TypeElem.FRAME_SIDE) { //рама окна
-                    String paramStr = elemRama.param();
-                    JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                    paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
-                    paramStr = gson.toJson(paramObj);
-                    elemRama.param(paramStr);
+                if (rec.getInt(eArtdet.color_fk) < 0) {
+                    eColor.query().forEach(rec2 -> {
+                        if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
+                            colorSet.add(rec2);
+                        }
+                    });
+                } else {
+                    colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
+                }
+            });
+            DicColor2 frame = new DicColor2(this, (colorRec) -> {
 
-                } else { //рама створки
-                    float stvId = ((DefMutableTreeNode) node.getParent()).com5t().id();
-                    JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(stvId);
-                    String paramStr = stvArea.param();
+                String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
+                float parentId = ((DefMutableTreeNode) node.getParent()).com5t().id();
+                JsonArea parentArea = (JsonArea) iwin.jsonRoot.find(parentId);
+
+                if (node.com5t().type() == TypeElem.STVORKA_SIDE) {
+                    String paramStr = parentArea.param();
                     JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                     String stvKey = null;
                     if (node.com5t().layout() == LayoutArea.BOTTOM) {
@@ -2373,170 +2434,116 @@ public class Systree extends javax.swing.JFrame {
                         stvKey = PKjson.stvorkaLeft;
                     }
                     JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
-                    jso.addProperty(PKjson.sysprofID, sysprofRec.getStr(eSysprof.id));
+                    jso.addProperty(colorID, colorRec.getStr(eColor.id));
                     paramStr = gson.toJson(paramObj);
-                    stvArea.param(paramStr);
-                }
-                String script = gson.toJson(iwin.jsonRoot);
-                Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
-                sysprodRec.set(eSysprod.script, script);
-                qSysprod.update(sysprodRec);
-                selectionTab5();
-                selectionTreeWinPath(selectID);
+                    parentArea.param(paramStr);
+                    updateScript(selectID);
 
-            }, query);
+                } else if (node.com5t().type() == TypeElem.FRAME_SIDE) {
+                    for (JsonElem elem : parentArea.elements()) {
+                        if (elem.id() == ((DefMutableTreeNode) node).com5t().id()) {
+                            String paramStr = elem.param();
+                            JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                            paramObj.addProperty(colorID, colorRec.getStr(eColor.id));
+                            paramStr = gson.toJson(paramObj);
+                            elem.param(paramStr);
+                            updateScript(selectID);
+                        }
+                    }
+                }                
+
+            }, colorSet);
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
         }
-    }//GEN-LAST:event_sysprofToFrame
-
-    private void colorToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToFrame
-        DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
-        float selectID = node.com5t().id();
-        HashSet<Record> colorSet = new HashSet();
-        Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", node.com5t().artiklRec.getInt(eArtikl.id));
-        artdetList.forEach(rec -> {
-
-            if (rec.getInt(eArtdet.color_fk) < 0) {
-                eColor.query().forEach(rec2 -> {
-                    if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
-                        colorSet.add(rec2);
-                    }
-                });
-            } else {
-                colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
-            }
-        });
-        DicColor2 frame = new DicColor2(this, (colorRec) -> {
-
-            String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
-            float parentId = ((DefMutableTreeNode) node.getParent()).com5t().id();
-            JsonArea parentArea = (JsonArea) iwin.jsonRoot.find(parentId);
-            Gson gson = new GsonBuilder().create();
-
-            if (node.com5t().type() == TypeElem.STVORKA_SIDE) {
-                String paramStr = parentArea.param();
-                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                String stvKey = null;
-                if (node.com5t().layout() == LayoutArea.BOTTOM) {
-                    stvKey = PKjson.stvorkaBottom;
-                } else if (node.com5t().layout() == LayoutArea.RIGHT) {
-                    stvKey = PKjson.stvorkaRight;
-                } else if (node.com5t().layout() == LayoutArea.TOP) {
-                    stvKey = PKjson.stvorkaTop;
-                } else if (node.com5t().layout() == LayoutArea.LEFT) {
-                    stvKey = PKjson.stvorkaLeft;
-                }
-                JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
-                jso.addProperty(colorID, colorRec.getStr(eColor.id));
-                paramStr = gson.toJson(paramObj);
-                parentArea.param(paramStr);
-
-            } else if (node.com5t().type() == TypeElem.FRAME_SIDE) {
-                for (JsonElem elem : parentArea.elements()) {
-                    if (elem.id() == ((DefMutableTreeNode) node).com5t().id()) {
-                        String paramStr = elem.param();
-                        JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                        paramObj.addProperty(colorID, colorRec.getStr(eColor.id));
-                        paramStr = gson.toJson(paramObj);
-                        elem.param(paramStr);
-                    }
-                }
-            }
-            String script = gson.toJson(iwin.jsonRoot);
-            Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
-            sysprodRec.set(eSysprod.script, script);
-            qSysprod.update(sysprodRec);
-            selectionTab5();
-            selectionTreeWinPath(selectID);
-
-        }, colorSet);
     }//GEN-LAST:event_colorToFrame
 
     private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
-        float selectID = ((DefMutableTreeNode) treeWin.getLastSelectedPathComponent()).com5t().id();
-        HashSet<Record> set = new HashSet();
-        String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
-        String jfield = (evt.getSource() == btn09) ? txt03.getText() : (evt.getSource() == btn13) ? txt04.getText() : txt05.getText();
-        Integer[] arr2 = builder.specif.Util.parserInt(jfield);
-        if (arr1 != null) {
-            for (String s1 : arr1) { //группы
-                HashSet<Record> se2 = new HashSet();
-                boolean b = false;
-                for (Record rec : eColor.query()) {
+        try {
+            float selectID = ((DefMutableTreeNode) treeWin.getLastSelectedPathComponent()).com5t().id();
+            HashSet<Record> set = new HashSet();
+            String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
+            String jfield = (evt.getSource() == btn09) ? txt03.getText() : (evt.getSource() == btn13) ? txt04.getText() : txt05.getText();
+            Integer[] arr2 = builder.specif.Util.parserInt(jfield);
+            if (arr1 != null) {
+                for (String s1 : arr1) { //группы
+                    HashSet<Record> se2 = new HashSet();
+                    boolean b = false;
+                    for (Record rec : eColor.query()) {
 
-                    if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-                        se2.add(rec); //текстуры группы
-
-                        for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
-                            if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                b = true;
-                            }
-                        }
-                    }
-                }
-                if (b == false) { //если небыло пападаний то добавляем всю группу
-                    set.addAll(se2);
-                }
-            }
-        }
-        if (arr2.length != 0) {
-            for (Record rec : eColor.query()) {
-                if (arr1 != null) {
-
-                    for (String s1 : arr1) { //группы
                         if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-                            for (int i = 0; i < arr2.length; i = i + 2) { //текстуры
+                            se2.add(rec); //текстуры группы
+
+                            for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
                                 if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                    set.add(rec);
+                                    b = true;
                                 }
                             }
                         }
                     }
-                } else {
-                    for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
-                        if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                            set.add(rec);
+                    if (b == false) { //если небыло пападаний то добавляем всю группу
+                        set.addAll(se2);
+                    }
+                }
+            }
+            if (arr2.length != 0) {
+                for (Record rec : eColor.query()) {
+                    if (arr1 != null) {
+
+                        for (String s1 : arr1) { //группы
+                            if (rec.getStr(eColor.colgrp_id).equals(s1)) {
+                                for (int i = 0; i < arr2.length; i = i + 2) { //текстуры
+                                    if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                                        set.add(rec);
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
+                            if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                                set.add(rec);
+                            }
                         }
                     }
                 }
             }
-        }
 
-        DialogListener listenerColor = (colorRec) -> {
+            DialogListener listenerColor = (colorRec) -> {
 
-            builder.script.JsonElem rootArea = iwin.jsonRoot.find(selectID);
-            if (rootArea != null) {
-                String paramStr = (rootArea.param().isEmpty()) ? "{}" : rootArea.param();
-                Gson gson = new GsonBuilder().create();
-                JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
+                builder.script.JsonElem rootArea = iwin.jsonRoot.find(selectID);
+                if (rootArea != null) {
+                    String paramStr = (rootArea.param().isEmpty()) ? "{}" : rootArea.param();
+                    JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
 
-                if (evt.getSource() == btn09) {
-                    jsonObject.addProperty(PKjson.colorID1, colorRec.getStr(eColor.id));
-                } else if (evt.getSource() == btn13) {
-                    jsonObject.addProperty(PKjson.colorID2, colorRec.getStr(eColor.id));
-                } else if (evt.getSource() == btn02) {
-                    jsonObject.addProperty(PKjson.colorID3, colorRec.getStr(eColor.id));
+                    if (evt.getSource() == btn09) {
+                        jsonObject.addProperty(PKjson.colorID1, colorRec.getStr(eColor.id));
+                    } else if (evt.getSource() == btn13) {
+                        jsonObject.addProperty(PKjson.colorID2, colorRec.getStr(eColor.id));
+                    } else if (evt.getSource() == btn02) {
+                        jsonObject.addProperty(PKjson.colorID3, colorRec.getStr(eColor.id));
+                    }
+                    paramStr = gson.toJson(jsonObject);
+                    rootArea.param(paramStr);
+                    updateScript(selectID);
                 }
-                paramStr = gson.toJson(jsonObject);
-                rootArea.param(paramStr);
-                String script = gson.toJson(iwin.jsonRoot);
-                Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
-                sysprodRec.set(eSysprod.script, script);
-                qSysprod.update(sysprodRec);
-                selectionTab5();
-                selectionTreeWinPath(selectID);
+            };
+            if (arr1 == null && arr2.length == 0) {
+                new DicColor2(this, listenerColor);
+            } else {
+                new DicColor2(this, listenerColor, set);
             }
-        };
-        if (arr1 == null && arr2.length == 0) {
-            new DicColor2(this, listenerColor);
-        } else {
-            new DicColor2(this, listenerColor, set);
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
         }
     }//GEN-LAST:event_colorToWindows
 
     private void artiklToGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artiklToGlass
         try {
-            DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
-            String depth = node.rec().getStr(eSystree.depth);
+            DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            float selectID = nodeWin.com5t().id();
+            DefMutableTreeNode nodeSys = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+            String depth = nodeSys.rec().getStr(eSystree.depth);
             if (depth != null && depth.isEmpty() == false) {
                 depth = depth.replace(";", ",");
                 if (depth.charAt(depth.length() - 1) == ',') {
@@ -2547,9 +2554,16 @@ public class Systree extends javax.swing.JFrame {
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where",
                     eArtikl.level1, "= 5 and", eArtikl.level2, "in (1,2,3)", depth);
 
-            new DicArtikl(this, (record) -> {
+            new DicArtikl(this, (artiklRec) -> {
 
-                System.out.println(record);
+                JsonElem glassElem = (JsonElem) iwin.jsonRoot.find(selectID);
+                String paramStr = glassElem.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
+                paramStr = gson.toJson(paramObj);
+                glassElem.param(paramStr);
+                updateScript(selectID);
+
             }, qArtikl);
 
         } catch (Exception e) {
@@ -2559,12 +2573,23 @@ public class Systree extends javax.swing.JFrame {
 
     private void sysfurnToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysfurnToStvorka
         try {
-            DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
-            String systreeID = node.rec().getStr(eSystree.id);
+            DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            float selectID = nodeWin.com5t().id();
+            DefMutableTreeNode nodeSys = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+            String systreeID = nodeSys.rec().getStr(eSystree.id);
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
-            new DicName(this, (record) -> {
-                System.out.println(record);
+
+            new DicName(this, (sysfurnRec) -> {
+
+                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(selectID);
+                String paramStr = stvArea.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
+                paramStr = gson.toJson(paramObj);
+                stvArea.param(paramStr);
+                updateScript(selectID);
+
             }, qSysfurn.table(eFurniture.up), eFurniture.name);
 
         } catch (Exception e) {
@@ -2573,14 +2598,21 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_sysfurnToStvorka
 
     private void typeOpenToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeOpenToStvorka
-        new DicEnums(this, (record) -> {
-            System.out.println(record);
-        }, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
-                TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTSHIFT, TypeOpen1.UPPER, TypeOpen1.FIXED);
+        try {
+            new DicEnums(this, (record) -> {
+
+                System.out.println(record);
+            }, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
+                    TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTSHIFT, TypeOpen1.UPPER, TypeOpen1.FIXED);
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
     }//GEN-LAST:event_typeOpenToStvorka
 
     private void handlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handlToStvorka
         try {
+            DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            float selectID = nodeWin.com5t().id();            
             DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
             int furnitureID = ((AreaStvorka) node.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
             Query qFurndet = new Query(eFurndet.values()).select(eFurndet.up, "where", eFurndet.furniture_id1, "=", furnitureID);
@@ -2594,7 +2626,7 @@ public class Systree extends javax.swing.JFrame {
                 }
                 Query qFurndet2 = new Query(eFurndet.values()).select(eFurndet.up, "where",
                         eFurndet.furndet_id, "=", furndetRec.getInt(eFurndet.id), "and", eFurndet.furndet_id, "!=", eFurndet.id);
-                for (Record furndet2Rec : qFurndet2) { //второй кровень
+                for (Record furndet2Rec : qFurndet2) { //второй уровень
                     for (Record artiklRec : qArtikl) {
                         if (furndet2Rec.getInt(eFurndet.artikl_id) == artiklRec.getInt(eArtikl.id)) {
                             qArtikl2.add(artiklRec);
@@ -2602,8 +2634,16 @@ public class Systree extends javax.swing.JFrame {
                     }
                 }
             }
-            new DicArtikl(this, (record) -> {
-                System.out.println(record);
+            new DicArtikl(this, (artiklRec) -> {
+
+                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(selectID);
+                String paramStr = stvArea.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
+                paramStr = gson.toJson(paramObj);
+                stvArea.param(paramStr);
+                updateScript(selectID);
+                
             }, qArtikl2);
 
         } catch (Exception e) {

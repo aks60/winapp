@@ -73,6 +73,10 @@ public class AreaStvorka extends AreaSimple {
         } else {
             sysfurnRec = eSysfurn.find3(iwin().nuni);
         }
+        //Ручка
+        if (param(param, PKjson.artiklHandl) != -1) {
+            handlRec = eArtikl.find(param(param, PKjson.artiklHandl), false);
+        } 
         //Сторона открывания
         if (param(param, PKjson.typeOpen) != -1) {
             this.typeOpen = TypeOpen1.get(param(param, PKjson.typeOpen));
