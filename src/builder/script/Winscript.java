@@ -315,19 +315,18 @@ public class Winscript {
     public static String testPs3(Integer project, Integer nuni) {
 
         if (project == 601001) {
-            rootArea = new JsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 600, 600, -3, -3, -3, "");
-            rootArea.param(project.toString(), -1, "СИАЛ\\КП40\\Окна");
+            rootArea = new JsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 600, 600, 25, 25, 25, "");
+            rootArea.param(project.toString(), 23, "СИАЛ\\КП40\\Окна");
             rootArea.addElem(new JsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new JsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.addElem(new JsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootArea.addElem(new JsonElem(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             JsonArea area2 = (JsonArea) rootArea.addArea(new JsonArea(6, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2}"));
-            area2.addElem(new JsonElem(7, TypeElem.GLASS, ""));
-            //area2.addElem(new JsonElem(7, TypeElem.GLASS, "{'artglasID':285}"));
+            area2.addElem(new JsonElem(7, TypeElem.GLASS, "{'artglasID':285}"));
 
         } else if (project == 601002) {
-            rootArea = new JsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1200, 1600, 1600, -3, -3, -3, "");
-            rootArea.param(project.toString(), -1, "СИАЛ\\КП40\\Окна");
+            rootArea = new JsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1200, 1600, 1600, 25, 25, 25, "");
+            rootArea.param(project.toString(), 23, "СИАЛ\\КП40\\Окна");
             rootArea.addElem(new JsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new JsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.addElem(new JsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
@@ -341,8 +340,8 @@ public class Winscript {
             area5.addElem(new JsonElem(12, TypeElem.GLASS, "{'artglasID':285}"));
 
         } else if (project == 601006) {
-            rootArea = new JsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 1200, -3, -3, -3, "");
-            rootArea.param(project.toString(), -1, "СИАЛ\\КП45\\Окна");
+            rootArea = new JsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 1200, 25, 25, 25, "");
+            rootArea.param(project.toString(), 24, "СИАЛ\\КП45\\Окна");
             rootArea.addElem(new JsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new JsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.addElem(new JsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
