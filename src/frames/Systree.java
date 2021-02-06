@@ -2330,6 +2330,16 @@ public class Systree extends javax.swing.JFrame {
                     txt31.setText(null);
                     txt31.setEditable(false);
                 }
+                DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+                AreaStvorka areaStv = (AreaStvorka) nodeWin.com5t();
+                Record sysfurnRec = areaStv.sysfurnRec;
+                if (comboBox1.getSelectedIndex() == 0) {
+                    sysfurnRec.set(eSysfurn.hand_pos, LayoutHandle.MIDL.id);
+                } else if (comboBox1.getSelectedIndex() == 0) {
+                    sysfurnRec.set(eSysfurn.hand_pos, LayoutHandle.CONST.id);
+                } else {
+                    
+                }
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
@@ -2387,8 +2397,8 @@ public class Systree extends javax.swing.JFrame {
                         paramStr = gson.toJson(paramObj);
                         stvArea.param(paramStr);
                         updateScript(selectID);
-                    } 
-                    
+                    }
+
                 }, query);
             }
         } catch (Exception e) {
@@ -2450,7 +2460,7 @@ public class Systree extends javax.swing.JFrame {
                             updateScript(selectID);
                         }
                     }
-                }                
+                }
 
             }, colorSet);
         } catch (Exception e) {
@@ -2612,7 +2622,7 @@ public class Systree extends javax.swing.JFrame {
     private void handlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handlToStvorka
         try {
             DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
-            float selectID = nodeWin.com5t().id();            
+            float selectID = nodeWin.com5t().id();
             DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
             int furnitureID = ((AreaStvorka) node.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
             Query qFurndet = new Query(eFurndet.values()).select(eFurndet.up, "where", eFurndet.furniture_id1, "=", furnitureID);
@@ -2643,7 +2653,7 @@ public class Systree extends javax.swing.JFrame {
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
                 updateScript(selectID);
-                
+
             }, qArtikl2);
 
         } catch (Exception e) {
