@@ -22,7 +22,7 @@ import domain.eSysfurn;
 import enums.LayoutHandle;
 import enums.PKjson;
 import enums.TypeOpen2;
-import frames.UtilJson;
+import frames.Ujson;
 import java.util.List;
 
 public class AreaStvorka extends AreaSimple {
@@ -40,14 +40,14 @@ public class AreaStvorka extends AreaSimple {
         Gson gson = new GsonBuilder().create();
         JsonObject paramObj = new GsonBuilder().create().fromJson(param, JsonObject.class);
 
-        //Добавим рамы створки    UtilJson.getAsJsonObject(paramObj, stvKey)  
-        ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM, gson.toJson(UtilJson.getAsJsonObject(paramObj,PKjson.stvorkaBottom)));
+        //Добавим рамы створки    Ujson.getAsJsonObject(paramObj, stvKey)  
+        ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM, gson.toJson(Ujson.getAsJsonObject(paramObj,PKjson.stvorkaBottom)));
         mapFrame.put(stvBot.layout(), stvBot);
-        ElemFrame stvRigh = new ElemFrame(this, id + .2f, LayoutArea.RIGHT, gson.toJson(UtilJson.getAsJsonObject(paramObj,PKjson.stvorkaRight)));
+        ElemFrame stvRigh = new ElemFrame(this, id + .2f, LayoutArea.RIGHT, gson.toJson(Ujson.getAsJsonObject(paramObj,PKjson.stvorkaRight)));
         mapFrame.put(stvRigh.layout(), stvRigh);
-        ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, gson.toJson(UtilJson.getAsJsonObject(paramObj,PKjson.stvorkaTop)));
+        ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, gson.toJson(Ujson.getAsJsonObject(paramObj,PKjson.stvorkaTop)));
         mapFrame.put(stvTop.layout(), stvTop);
-        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, gson.toJson(UtilJson.getAsJsonObject(paramObj,PKjson.stvorkaLeft)));
+        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, gson.toJson(Ujson.getAsJsonObject(paramObj,PKjson.stvorkaLeft)));
         mapFrame.put(stvLeft.layout(), stvLeft);
 
         //Положение элементов створки с учётом нахлёста

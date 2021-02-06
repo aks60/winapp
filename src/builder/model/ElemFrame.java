@@ -29,11 +29,11 @@ public class ElemFrame extends ElemSimple {
 
     public void initСonstructiv(String param) {
 
-        if (param(param, PKjson.sysprofID) != -1) {
-            sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
-        } else {
-            sysprofRec = owner().sysprofRec;
-        }
+        colorID1 = (param(param, PKjson.colorID1) != -1) ? param(param, PKjson.colorID1) : colorID1;
+        colorID2 = (param(param, PKjson.colorID2) != -1) ? param(param, PKjson.colorID2) : colorID2;
+        colorID3 = (param(param, PKjson.colorID3) != -1) ? param(param, PKjson.colorID3) : colorID3;
+
+        sysprofRec = (param(param, PKjson.sysprofID) != -1) ? eSysprof.find3(param(param, PKjson.sysprofID)) : owner().sysprofRec;
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }

@@ -808,7 +808,7 @@ public class Systree extends javax.swing.JFrame {
         btn09.setPreferredSize(new java.awt.Dimension(18, 18));
         btn09.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn09Action(evt);
+                colorToWindows(evt);
             }
         });
 
@@ -820,7 +820,7 @@ public class Systree extends javax.swing.JFrame {
         btn13.setPreferredSize(new java.awt.Dimension(18, 18));
         btn13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn09Action(evt);
+                colorToWindows(evt);
             }
         });
 
@@ -832,7 +832,7 @@ public class Systree extends javax.swing.JFrame {
         btn02.setPreferredSize(new java.awt.Dimension(18, 18));
         btn02.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn09Action(evt);
+                colorToWindows(evt);
             }
         });
 
@@ -958,7 +958,7 @@ public class Systree extends javax.swing.JFrame {
         btn18.setPreferredSize(new java.awt.Dimension(18, 18));
         btn18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn18Action(evt);
+                colorToFrame(evt);
             }
         });
 
@@ -970,7 +970,7 @@ public class Systree extends javax.swing.JFrame {
         btn19.setPreferredSize(new java.awt.Dimension(18, 18));
         btn19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn18Action(evt);
+                colorToFrame(evt);
             }
         });
 
@@ -982,7 +982,7 @@ public class Systree extends javax.swing.JFrame {
         btn20.setPreferredSize(new java.awt.Dimension(18, 18));
         btn20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn18Action(evt);
+                colorToFrame(evt);
             }
         });
 
@@ -1076,7 +1076,7 @@ public class Systree extends javax.swing.JFrame {
         btn22.setPreferredSize(new java.awt.Dimension(18, 18));
         btn22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn22Action(evt);
+                sysprofToFrame(evt);
             }
         });
 
@@ -1140,7 +1140,7 @@ public class Systree extends javax.swing.JFrame {
         btn03.setPreferredSize(new java.awt.Dimension(18, 18));
         btn03.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn03Action(evt);
+                artiklToGlass(evt);
             }
         });
 
@@ -1211,7 +1211,7 @@ public class Systree extends javax.swing.JFrame {
         btn10.setPreferredSize(new java.awt.Dimension(18, 18));
         btn10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn10Action(evt);
+                sysfurnToStvorka(evt);
             }
         });
 
@@ -1233,7 +1233,7 @@ public class Systree extends javax.swing.JFrame {
         btn12.setPreferredSize(new java.awt.Dimension(18, 18));
         btn12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn12Action(evt);
+                handlToStvorka(evt);
             }
         });
 
@@ -1300,7 +1300,7 @@ public class Systree extends javax.swing.JFrame {
         btn21.setPreferredSize(new java.awt.Dimension(18, 18));
         btn21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn21Action(evt);
+                typeOpenToStvorka(evt);
             }
         });
 
@@ -1358,7 +1358,7 @@ public class Systree extends javax.swing.JFrame {
         comboBox1.setPreferredSize(new java.awt.Dimension(57, 19));
         comboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboBox1ItemStateChanged(evt);
+                heightHandlToStvorka(evt);
             }
         });
 
@@ -1547,7 +1547,7 @@ public class Systree extends javax.swing.JFrame {
         btn04.setPreferredSize(new java.awt.Dimension(18, 18));
         btn04.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn04Action(evt);
+                glasdefToSystree(evt);
             }
         });
 
@@ -1592,7 +1592,7 @@ public class Systree extends javax.swing.JFrame {
         btn11.setPreferredSize(new java.awt.Dimension(18, 18));
         btn11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn11Action(evt);
+                imageviewToSystree(evt);
             }
         });
 
@@ -1603,7 +1603,7 @@ public class Systree extends javax.swing.JFrame {
         btn07.setPreferredSize(new java.awt.Dimension(18, 18));
         btn07.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn07Action(evt);
+                typeToSystree(evt);
             }
         });
 
@@ -2020,7 +2020,7 @@ public class Systree extends javax.swing.JFrame {
         btnReport1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnReport1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReport1(evt);
+                btnReport(evt);
             }
         });
 
@@ -2133,7 +2133,7 @@ public class Systree extends javax.swing.JFrame {
         Util.stopCellEditing(tab2, tab3, tab4, tab5);
     }//GEN-LAST:event_treeSysMousePressed
 
-    private void btn04Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn04Action
+    private void glasdefToSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_glasdefToSystree
 
         new DicArtikl(this, (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
@@ -2144,9 +2144,9 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         }, 5);
-    }//GEN-LAST:event_btn04Action
+    }//GEN-LAST:event_glasdefToSystree
 
-    private void btn11Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11Action
+    private void imageviewToSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageviewToSystree
 
         new DicEnums(this, (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
@@ -2157,11 +2157,12 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         }, LayoutProduct.values());
-    }//GEN-LAST:event_btn11Action
+    }//GEN-LAST:event_imageviewToSystree
 
-    private void btn07Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn07Action
+    private void typeToSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeToSystree
 
         new DicEnums(this, (record) -> {
+            
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
             for (int i = 0; i < qSystree.size(); i++) {
                 if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
@@ -2170,7 +2171,7 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         }, TypeUse.values());
-    }//GEN-LAST:event_btn07Action
+    }//GEN-LAST:event_typeToSystree
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
@@ -2291,18 +2292,18 @@ public class Systree extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_btn05
 
-    private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
+    private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         Gson gs = new GsonBuilder().setPrettyPrinting().create();
         JsonArea stv = (JsonArea) iwin.jsonRoot.find(6);
         String str = stv.param();
         System.out.println(gs.toJson(iwin.jsonRoot));
-    }//GEN-LAST:event_btnReport1
+    }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
     }//GEN-LAST:event_btnClose
 
-    private void comboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBox1ItemStateChanged
+    private void heightHandlToStvorka(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_heightHandlToStvorka
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (comboBox1.getSelectedIndex() == 2) {
                 txt31.setEditable(true);
@@ -2311,9 +2312,9 @@ public class Systree extends javax.swing.JFrame {
                 txt31.setEditable(false);
             }
         }
-    }//GEN-LAST:event_comboBox1ItemStateChanged
+    }//GEN-LAST:event_heightHandlToStvorka
 
-    private void btn22Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn22Action
+    private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
         if (node != null) {
             Query query = new Query(eSysprof.values(), eArtikl.values());
@@ -2357,7 +2358,7 @@ public class Systree extends javax.swing.JFrame {
                     } else if (node.com5t().layout() == LayoutArea.LEFT) {
                         stvKey = PKjson.stvorkaLeft;
                     }
-                    JsonObject jso = UtilJson.getAsJsonObject(paramObj, stvKey);
+                    JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
                     jso.addProperty(PKjson.sysprofID, sysprofRec.getStr(eSysprof.id));
                     paramStr = gson.toJson(paramObj);
                     stvArea.param(paramStr);
@@ -2370,9 +2371,9 @@ public class Systree extends javax.swing.JFrame {
 
             }, query);
         }
-    }//GEN-LAST:event_btn22Action
+    }//GEN-LAST:event_sysprofToFrame
 
-    private void btn18Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn18Action
+    private void colorToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToFrame
         DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
         HashSet<Record> colorSet = new HashSet();
         Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", node.com5t().artiklRec.getInt(eArtikl.id));
@@ -2407,7 +2408,7 @@ public class Systree extends javax.swing.JFrame {
                 } else if (node.com5t().layout() == LayoutArea.LEFT) {
                     stvKey = PKjson.stvorkaLeft;
                 }
-                JsonObject jso = UtilJson.getAsJsonObject(paramObj, stvKey);
+                JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
                 jso.addProperty(colorID, colorRec.getStr(eColor.id));
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
@@ -2418,9 +2419,9 @@ public class Systree extends javax.swing.JFrame {
                 selectionTab5();
             }
         }, colorSet);
-    }//GEN-LAST:event_btn18Action
+    }//GEN-LAST:event_colorToFrame
 
-    private void btn09Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn09Action
+    private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
         HashSet<Record> set = new HashSet();
         String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
         String jfield = (evt.getSource() == btn09) ? txt03.getText() : (evt.getSource() == btn13) ? txt04.getText() : txt05.getText();
@@ -2499,9 +2500,9 @@ public class Systree extends javax.swing.JFrame {
         } else {
             new DicColor2(this, listenerColor, set);
         }
-    }//GEN-LAST:event_btn09Action
+    }//GEN-LAST:event_colorToWindows
 
-    private void btn03Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn03Action
+    private void artiklToGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artiklToGlass
         try {
             DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
             String depth = node.rec().getStr(eSystree.depth);
@@ -2521,9 +2522,9 @@ public class Systree extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
-    }//GEN-LAST:event_btn03Action
+    }//GEN-LAST:event_artiklToGlass
 
-    private void btn10Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10Action
+    private void sysfurnToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysfurnToStvorka
         try {
             DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
             String systreeID = node.rec().getStr(eSystree.id);
@@ -2536,16 +2537,16 @@ public class Systree extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
-    }//GEN-LAST:event_btn10Action
+    }//GEN-LAST:event_sysfurnToStvorka
 
-    private void btn21Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn21Action
+    private void typeOpenToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeOpenToStvorka
         new DicEnums(this, (record) -> {
             System.out.println(record);
         }, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
                 TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTSHIFT, TypeOpen1.UPPER, TypeOpen1.FIXED);
-    }//GEN-LAST:event_btn21Action
+    }//GEN-LAST:event_typeOpenToStvorka
 
-    private void btn12Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn12Action
+    private void handlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handlToStvorka
         try {
             DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
             int furnitureID = ((AreaStvorka) node.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
@@ -2575,8 +2576,8 @@ public class Systree extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
-    }//GEN-LAST:event_btn12Action
-
+    }//GEN-LAST:event_handlToStvorka
+                            
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn01;
