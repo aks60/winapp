@@ -15,17 +15,14 @@ import java.util.List;
 public class DicSysprof extends javax.swing.JDialog {
 
     private DialogListener listener = null;
-    private Query qSysprof = new Query(eSysprof.id, eSysprof.artikl_id, eSysprof.use_side, eArtikl.id, eArtikl.code, eArtikl.name);
-    private List<Integer> list = null;
+    private Query qSysprof = null;
 
-    public DicSysprof(java.awt.Frame parent, DialogListener listenet, List<Integer> list) {
+    public DicSysprof(java.awt.Frame parent, DialogListener listenet, Query query) {
         super(parent, true);
         initComponents();
         initElements();
-        qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eSysprof.artikl_id, "=", eArtikl.id, "where", eSysprof.id, "in (403,404,405)");
+        qSysprof = query;
         this.listener = listenet;
-        this.list = list;
-
         loadingModel();
         setVisible(true);
     }

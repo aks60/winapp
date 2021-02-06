@@ -34,13 +34,7 @@ public class ElemFrame extends ElemSimple {
         } else {
             sysprofRec = owner().sysprofRec;
         }
-        
-        if (param(param, PKjson.artiklID) != -1) {
-            System.out.println(param(param, PKjson.artiklID));
-            artiklRec = eArtikl.find(param(param, PKjson.artiklID), false);            
-        } else {
-            artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        }
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
 

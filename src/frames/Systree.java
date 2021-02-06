@@ -53,6 +53,7 @@ import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
 import builder.script.JsonArea;
+import builder.script.JsonElem;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import domain.eArtdet;
@@ -71,7 +72,6 @@ import java.awt.Component;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -2316,7 +2316,7 @@ public class Systree extends javax.swing.JFrame {
     private void btn22Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn22Action
         DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
         if (node != null) {
-            List<Integer> artiklList = new ArrayList();
+            Query query = new Query(eSysprof.values(), eArtikl.values());
             UseArtiklTo useArtiklTo = (node.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
 
             for (int index = 0; index < qSysprof.size(); ++index) {
@@ -2324,58 +2324,51 @@ public class Systree extends javax.swing.JFrame {
                 if (sysprofRec.getInt(eSysprof.use_type) == useArtiklTo.id) {
                     if (sysprofRec.getInt(eSysprof.use_side) == node.com5t().layout().id
                             || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id) {
-                        //artiklList.add(qSysprof.table(eArtikl.up).get(index));
-                        artiklList.add(qSysprof.get(index).getInt(eSysprof.id));
+                        query.add(sysprofRec);
+                        query.table(eArtikl.up).add(qSysprof.table(eArtikl.up).get(index));
                     }
                 }
             }
             new DicSysprof(this, (sysprofRec) -> {
-                
-            }, artiklList);
-            
-//            DicArtikl artikl = new DicArtikl(this, (artiklRec) -> {
-//
-//                float ramaId = node.com5t().id();
-//                Gson gson = new GsonBuilder().create();
-//                JsonElem elemRama = iwin.jsonRoot.find(ramaId);
-//
-//                if (node.com5t().type() == TypeElem.FRAME_SIDE) {
-//                    String paramStr = elemRama.param();
-//                    JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-//                    for (Record sysprofRec : qSysprof) {
-//                        if (artiklRec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)) {
-//                            paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
-//                            paramStr = gson.toJson(paramObj);
-//                            elemRama.param(paramStr);
-//                        }
-//                    }
-//                } else {
-//                    float stvId = ((DefMutableTreeNode) node.getParent()).com5t().id();
-//                    JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(stvId);
-//                    String paramStr = stvArea.param();
-//                    JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-//                    String stvKey = null;
-//                    if (node.com5t().layout() == LayoutArea.BOTTOM) {
-//                        stvKey = PKjson.stvorkaBottom;
-//                    } else if (node.com5t().layout() == LayoutArea.RIGHT) {
-//                        stvKey = PKjson.stvorkaRight;
-//                    } else if (node.com5t().layout() == LayoutArea.TOP) {
-//                        stvKey = PKjson.stvorkaTop;
-//                    } else if (node.com5t().layout() == LayoutArea.LEFT) {
-//                        stvKey = PKjson.stvorkaLeft;
-//                    }
-//                    JsonObject jso = UtilJson.getAsJsonObject(paramObj, stvKey);
-//                    jso.addProperty(PKjson.artiklID, artiklRec.getStr(eArtikl.id));
-//                    paramStr = gson.toJson(paramObj);
-//                    stvArea.param(paramStr);
-//                }
-//                String script = gson.toJson(iwin.jsonRoot);
-//                Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
-//                sysprodRec.set(eSysprod.script, script);
-//                qSysprod.update(sysprodRec);
-//                selectionTab5();
-//
-//            }, artiklList);
+
+                float ramaId = node.com5t().id();
+                Gson gson = new GsonBuilder().create();
+                JsonElem elemRama = iwin.jsonRoot.find(ramaId);
+
+                if (node.com5t().type() == TypeElem.FRAME_SIDE) { //рама окна
+                    String paramStr = elemRama.param();
+                    JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                    paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
+                    paramStr = gson.toJson(paramObj);
+                    elemRama.param(paramStr);
+
+                } else { //рама створки
+                    float stvId = ((DefMutableTreeNode) node.getParent()).com5t().id();
+                    JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(stvId);
+                    String paramStr = stvArea.param();
+                    JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                    String stvKey = null;
+                    if (node.com5t().layout() == LayoutArea.BOTTOM) {
+                        stvKey = PKjson.stvorkaBottom;
+                    } else if (node.com5t().layout() == LayoutArea.RIGHT) {
+                        stvKey = PKjson.stvorkaRight;
+                    } else if (node.com5t().layout() == LayoutArea.TOP) {
+                        stvKey = PKjson.stvorkaTop;
+                    } else if (node.com5t().layout() == LayoutArea.LEFT) {
+                        stvKey = PKjson.stvorkaLeft;
+                    }
+                    JsonObject jso = UtilJson.getAsJsonObject(paramObj, stvKey);
+                    jso.addProperty(PKjson.sysprofID, sysprofRec.getStr(eSysprof.id));
+                    paramStr = gson.toJson(paramObj);
+                    stvArea.param(paramStr);
+                }
+                String script = gson.toJson(iwin.jsonRoot);
+                Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
+                sysprodRec.set(eSysprod.script, script);
+                qSysprod.update(sysprodRec);
+                selectionTab5();
+
+            }, query);
         }
     }//GEN-LAST:event_btn22Action
 
