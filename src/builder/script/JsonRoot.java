@@ -10,10 +10,10 @@ public class JsonRoot extends JsonArea {
 
     private String name = "Конструкция";
     private Integer nuni = null;  //nuni профиля (PRO4_SYSPROF.NUNI)
-    private Float heightAdd = null;  //дополнительная высота, мм (по аналогии с ПС-4). Для прямоугольного изделия = height.
-    private Integer color1 = null;  //основная текстура (PRO4_COLSLST.CCODE)
-    private Integer color2 = null;  //внутренняя текстура (PRO4_COLSLST.CCODE)
-    private Integer color3 = null;  //внешняя текстура (PRO4_COLSLST.CCODE)    
+    private Float heightAdd = null;  //дополнительная высота, мм. Для прямоугольного изделия = height.
+    private Integer color1 = null;  //основная текстура
+    private Integer color2 = null;  //внутренняя текстура
+    private Integer color3 = null;  //внешняя текстура    
     private String prj = null; //номер тестируемого проекта, поле нужно только для тестов       
 
     //Контруктор главного окна
@@ -30,10 +30,15 @@ public class JsonRoot extends JsonArea {
         this.param = paramJson;
     }
 
-    public void param(String prj, int nuni, String name) {
+    public void propery(String prj, int nuni, String name) {
         this.nuni = nuni;
         this.prj = prj;
         this.name = name;
+        if (nuni == -3) {
+            this.color1 = -3;
+            this.color2 = -3;
+            this.color3 = -3;
+        }
     }
 
     public float heightAdd() {
@@ -53,7 +58,7 @@ public class JsonRoot extends JsonArea {
             if (jsonObj.get(PKjson.colorID3) != null) {
                 this.color3 = jsonObj.get(PKjson.colorID3).getAsInt();
             }
-        }        
+        }
         return (index == 1) ? color1 : (index == 2) ? color2 : color3;
     }
 

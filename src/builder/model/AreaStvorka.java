@@ -41,13 +41,13 @@ public class AreaStvorka extends AreaSimple {
         JsonObject paramObj = new GsonBuilder().create().fromJson(param, JsonObject.class);
 
         //Добавим рамы створки    Ujson.getAsJsonObject(paramObj, stvKey)  
-        ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM, gson.toJson(Ujson.getAsJsonObject(paramObj,PKjson.stvorkaBottom)));
+        ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM, gson.toJson(Ujson.getAsJsonObject(paramObj, PKjson.stvorkaBottom)));
         mapFrame.put(stvBot.layout(), stvBot);
-        ElemFrame stvRigh = new ElemFrame(this, id + .2f, LayoutArea.RIGHT, gson.toJson(Ujson.getAsJsonObject(paramObj,PKjson.stvorkaRight)));
+        ElemFrame stvRigh = new ElemFrame(this, id + .2f, LayoutArea.RIGHT, gson.toJson(Ujson.getAsJsonObject(paramObj, PKjson.stvorkaRight)));
         mapFrame.put(stvRigh.layout(), stvRigh);
-        ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, gson.toJson(Ujson.getAsJsonObject(paramObj,PKjson.stvorkaTop)));
+        ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, gson.toJson(Ujson.getAsJsonObject(paramObj, PKjson.stvorkaTop)));
         mapFrame.put(stvTop.layout(), stvTop);
-        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, gson.toJson(Ujson.getAsJsonObject(paramObj,PKjson.stvorkaLeft)));
+        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, gson.toJson(Ujson.getAsJsonObject(paramObj, PKjson.stvorkaLeft)));
         mapFrame.put(stvLeft.layout(), stvLeft);
 
         //Положение элементов створки с учётом нахлёста
@@ -76,7 +76,7 @@ public class AreaStvorka extends AreaSimple {
         //Ручка
         if (param(param, PKjson.artiklHandl) != -1) {
             handlRec = eArtikl.find(param(param, PKjson.artiklHandl), false);
-        } 
+        }
         //Сторона открывания
         if (param(param, PKjson.typeOpen) != -1) {
             this.typeOpen = TypeOpen1.get(param(param, PKjson.typeOpen));
@@ -94,6 +94,8 @@ public class AreaStvorka extends AreaSimple {
             handlLayout = LayoutHandle.MIDL;
         } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.CONST.id) {
             handlLayout = LayoutHandle.CONST;
+        } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.SET.id) {
+            handlLayout = LayoutHandle.SET;
         } else {
             handlLayout = LayoutHandle.MIDL; //по умолчанию
         }

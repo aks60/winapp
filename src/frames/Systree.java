@@ -2330,12 +2330,16 @@ public class Systree extends javax.swing.JFrame {
                     txt31.setText(null);
                     txt31.setEditable(false);
                 }
+                
                 DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
                 AreaStvorka areaStv = (AreaStvorka) nodeWin.com5t();
+                
+                
+                
                 Record sysfurnRec = areaStv.sysfurnRec;
                 if (comboBox1.getSelectedIndex() == 0) {
                     sysfurnRec.set(eSysfurn.hand_pos, LayoutHandle.MIDL.id);
-                } else if (comboBox1.getSelectedIndex() == 0) {
+                } else if (comboBox1.getSelectedIndex() == 1) {
                     sysfurnRec.set(eSysfurn.hand_pos, LayoutHandle.CONST.id);
                 } else {
                     

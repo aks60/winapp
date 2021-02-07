@@ -654,9 +654,9 @@ public class Profstroy {
             for (int index = 0; index < prj.length; ++index) {
 
                 if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
-                    script = Winscript.testPs3(prj[index], -3);
+                    script = Winscript.testPs3(prj[index], true);
                 } else {
-                    script = Winscript.testPs4(prj[index], -3);
+                    script = Winscript.testPs4(prj[index], true);
                 }
                 if (script != null) {
                     JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);

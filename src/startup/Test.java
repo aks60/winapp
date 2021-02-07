@@ -37,7 +37,7 @@ public class Test {
 
         if (_case.equals("one")) {
             iwin.prj = 601001;
-            iwin.build(builder.script.Winscript.test(iwin.prj, null));
+            iwin.build(builder.script.Winscript.test(iwin.prj, false));
             iwin.constructiv();
             //Specification.write_txt1(iwin.listSpec);
             Specification.compareIWin(iwin.listSpec, iwin.prj, false);
@@ -46,7 +46,7 @@ public class Test {
             if (_case.equals("min")) {
                 for (int i : Arrays.asList(601001, 601002, 601007)) {
                     iwin.prj = i;
-                    String script = builder.script.Winscript.test(iwin.prj, null);
+                    String script = builder.script.Winscript.test(iwin.prj, false);
                     if (script != null) {
                         iwin.build(script);
                         iwin.constructiv();
@@ -57,7 +57,7 @@ public class Test {
                 for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007,
                         601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)) {
                     iwin.prj = i;
-                    String script = builder.script.Winscript.test(iwin.prj, null);
+                    String script = builder.script.Winscript.test(iwin.prj, false);
                     if (script != null) {
                         iwin.build(script);
                         iwin.constructiv();
@@ -143,7 +143,7 @@ public class Test {
 
         Query.connection = connection();
         builder.Wincalc iwin = new builder.Wincalc();
-        String script = Winscript.test(601004, null);
+        String script = Winscript.test(601004, false);
         iwin.build(script);
         
         GsonBuilder builder = new GsonBuilder();
