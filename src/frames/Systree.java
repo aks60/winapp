@@ -51,7 +51,6 @@ import frames.swing.DefTableModel;
 import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
-import builder.model.ElemFrame;
 import builder.model.ElemSimple;
 import builder.script.JsonArea;
 import builder.script.JsonElem;
@@ -65,6 +64,7 @@ import enums.PKjson;
 import enums.TypeElem;
 import enums.TypeOpen1;
 import frames.dialog.DicColor2;
+import frames.dialog.DicHandl;
 import frames.dialog.DicSysprof;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
@@ -72,6 +72,8 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.Icon;
@@ -538,9 +540,13 @@ public class Systree extends javax.swing.JFrame {
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);
                 txt20.setText(eFurniture.find(id).getStr(eFurniture.name));
                 txt30.setText(stv.typeOpen.name2);
-                comboBox1.setSelectedIndex(stv.handlLayout.id - 1);
-                if (comboBox1.getSelectedIndex() == 2) {
+                txt16.setText(stv.handlLayout.name);
+                if (stv.handlLayout == LayoutHandle.SET) {
+                    txt31.setEditable(true);
                     txt31.setText(String.valueOf(stv.handlHeight));
+                } else {
+                    txt31.setEditable(false);
+                    txt31.setText("");
                 }
                 iwin.calcFurniture = new builder.specif.Furniture(iwin, true); //фурнитура 
                 iwin.calcFurniture.calc();
@@ -688,7 +694,8 @@ public class Systree extends javax.swing.JFrame {
         txt26 = new javax.swing.JTextField();
         lab46 = new javax.swing.JLabel();
         txt31 = new javax.swing.JTextField();
-        comboBox1 = new javax.swing.JComboBox<>();
+        txt16 = new javax.swing.JTextField();
+        btn06 = new javax.swing.JButton();
         tabb1 = new javax.swing.JTabbedPane();
         pan6 = new javax.swing.JPanel();
         lab13 = new javax.swing.JLabel();
@@ -945,7 +952,7 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(txt12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lab26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt06, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         pan7.add(pan12, "card12");
@@ -1135,7 +1142,7 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(txt33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         pan7.add(pan13, "card13");
@@ -1206,7 +1213,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
 
         pan7.add(pan15, "card15");
@@ -1370,15 +1377,22 @@ public class Systree extends javax.swing.JFrame {
         lab46.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab46.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        txt31.setEditable(false);
         txt31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt31.setPreferredSize(new java.awt.Dimension(180, 18));
 
-        comboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "По середине", "Константная", "На высоте, мм" }));
-        comboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        comboBox1.setPreferredSize(new java.awt.Dimension(57, 19));
-        comboBox1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        txt16.setEditable(false);
+        txt16.setBackground(new java.awt.Color(255, 255, 255));
+        txt16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt16.setPreferredSize(new java.awt.Dimension(180, 18));
+
+        btn06.setText("...");
+        btn06.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn06.setMaximumSize(new java.awt.Dimension(18, 18));
+        btn06.setMinimumSize(new java.awt.Dimension(18, 18));
+        btn06.setName("btnField17"); // NOI18N
+        btn06.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn06.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 heightHandlToStvorka(evt);
             }
         });
@@ -1426,11 +1440,12 @@ public class Systree extends javax.swing.JFrame {
                                 .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btn10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btn21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan16Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(comboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pan16Layout.createSequentialGroup()
+                                .addComponent(txt16, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt31, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txt31, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn06, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(pan16Layout.createSequentialGroup()
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lab40, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1464,7 +1479,8 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn06, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1495,7 +1511,7 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(lab42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pan7.add(pan16, "card16");
@@ -1745,7 +1761,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lab17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt05, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         tabb1.addTab("<html><font size=\"3\">Основные", pan6);
@@ -2314,41 +2330,13 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        JsonArea stv = (JsonArea) iwin.jsonRoot.find(6);
-        String str = stv.param();
-        System.out.println(gson.toJson(iwin.jsonRoot));
+        Gson gs = new GsonBuilder().setPrettyPrinting().create();
+        System.out.println(gs.toJson(iwin.jsonRoot));
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
     }//GEN-LAST:event_btnClose
-
-    private void heightHandlToStvorka(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_heightHandlToStvorka
-        try {
-            if (evt.getStateChange() == ItemEvent.SELECTED) {
-                if (comboBox1.getSelectedIndex() == 2) {
-                    txt31.setEditable(true);
-                } else {
-                    txt31.setText(null);
-                    txt31.setEditable(false);
-                }
-
-                DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
-                AreaStvorka areaStv = (AreaStvorka) nodeWin.com5t();
-
-//                Record sysfurnRec = areaStv.sysfurnRec;
-//                if (comboBox1.getSelectedIndex() == 0) {
-//                    sysfurnRec.set(eSysfurn.hand_pos, LayoutHandle.MIDL.id);
-//                } else if (comboBox1.getSelectedIndex() == 1) {
-//                    sysfurnRec.set(eSysfurn.hand_pos, LayoutHandle.CONST.id);
-//                } else {
-//                    sysfurnRec.set(eSysfurn.hand_pos, LayoutHandle.SET.id); 
-//                }
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
-        }
-    }//GEN-LAST:event_heightHandlToStvorka
 
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         try {
@@ -2665,6 +2653,46 @@ public class Systree extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_handlToStvorka
 
+    private void heightHandlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heightHandlToStvorka
+        DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+        AreaStvorka areaStv = (AreaStvorka) nodeWin.com5t();        
+        int indexLayoutHandl = 0;
+        if (LayoutHandle.CONST.name.equals(txt16.getText())) {
+            indexLayoutHandl = 1;
+        } else if (LayoutHandle.SET.name.equals(txt16.getText())) {
+            indexLayoutHandl = 2;
+        }
+        new DicHandl(this, (record) -> {
+            try {
+                float selectID = areaStv.id();
+                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(selectID);
+                String paramStr = stvArea.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+
+                if (record.getInt(0) == 0) {
+                    paramObj.addProperty(PKjson.positionHandl, LayoutHandle.MIDL.id);
+                    txt31.setEditable(false);
+
+                } else if (record.getInt(0) == 1) {
+                    paramObj.addProperty(PKjson.positionHandl, LayoutHandle.CONST.id);
+                    txt31.setEditable(false);
+
+                } else if (record.getInt(0) == 2) {
+                    paramObj.addProperty(PKjson.positionHandl, LayoutHandle.SET.id);
+                    paramObj.addProperty(PKjson.heightHandl, record.getInt(1));
+                    txt31.setEditable(true);
+                }
+                paramStr = gson.toJson(paramObj);
+                stvArea.param(paramStr);
+                updateScript(selectID);
+
+            } catch (Exception e) {
+                System.err.println("Ошибка: " + e);
+            }
+
+        }, indexLayoutHandl);
+    }//GEN-LAST:event_heightHandlToStvorka
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn01;
@@ -2672,6 +2700,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JButton btn03;
     private javax.swing.JButton btn04;
     private javax.swing.JToggleButton btn05;
+    private javax.swing.JButton btn06;
     private javax.swing.JButton btn07;
     private javax.swing.JButton btn09;
     private javax.swing.JButton btn10;
@@ -2694,7 +2723,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JButton btnReport1;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
-    private javax.swing.JComboBox<String> comboBox1;
     private javax.swing.JLabel lab13;
     private javax.swing.JLabel lab14;
     private javax.swing.JLabel lab15;
@@ -2772,6 +2800,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JTextField txt13;
     private javax.swing.JTextField txt14;
     private javax.swing.JTextField txt15;
+    private javax.swing.JTextField txt16;
     private javax.swing.JTextField txt18;
     private javax.swing.JTextField txt19;
     private javax.swing.JTextField txt20;
