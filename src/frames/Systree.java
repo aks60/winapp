@@ -539,11 +539,13 @@ public class Systree extends javax.swing.JFrame {
                 txt20.setText(eFurniture.find(id).getStr(eFurniture.name));
                 txt30.setText(stv.typeOpen.name2);
                 comboBox1.setSelectedIndex(stv.handlLayout.id - 1);
+                if (comboBox1.getSelectedIndex() == 2) {
+                    txt31.setText(String.valueOf(stv.handlHeight));
+                }
                 iwin.calcFurniture = new builder.specif.Furniture(iwin, true); //фурнитура 
                 iwin.calcFurniture.calc();
                 txt21.setText(stv.handlRec.getStr(eArtikl.name));
                 txt25.setText(eColor.find(stv.handlColor).getStr(eColor.name));
-
             }
             Arrays.asList(txt09, txt13, txt14, txt27, txt28,
                     txt29, txt19, txt20, txt30).forEach(it -> it.setCaretPosition(0));
@@ -2330,20 +2332,18 @@ public class Systree extends javax.swing.JFrame {
                     txt31.setText(null);
                     txt31.setEditable(false);
                 }
-                
+
                 DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
                 AreaStvorka areaStv = (AreaStvorka) nodeWin.com5t();
-                
-                
-                
-                Record sysfurnRec = areaStv.sysfurnRec;
-                if (comboBox1.getSelectedIndex() == 0) {
-                    sysfurnRec.set(eSysfurn.hand_pos, LayoutHandle.MIDL.id);
-                } else if (comboBox1.getSelectedIndex() == 1) {
-                    sysfurnRec.set(eSysfurn.hand_pos, LayoutHandle.CONST.id);
-                } else {
-                    
-                }
+
+//                Record sysfurnRec = areaStv.sysfurnRec;
+//                if (comboBox1.getSelectedIndex() == 0) {
+//                    sysfurnRec.set(eSysfurn.hand_pos, LayoutHandle.MIDL.id);
+//                } else if (comboBox1.getSelectedIndex() == 1) {
+//                    sysfurnRec.set(eSysfurn.hand_pos, LayoutHandle.CONST.id);
+//                } else {
+//                    sysfurnRec.set(eSysfurn.hand_pos, LayoutHandle.SET.id); 
+//                }
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
