@@ -114,7 +114,7 @@ public class Systree extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingData();
-        loadingTreeSys();
+        loadingSys();
         loadingModel();
         listenerAdd();
         listenerSet();
@@ -124,7 +124,7 @@ public class Systree extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingData();
-        loadingTreeSys();
+        loadingSys();
         loadingModel();
         listenerAdd();
         listenerSet();
@@ -136,6 +136,7 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void loadingData() {
+
         systreeID = Integer.valueOf(eProperty.systreeID.read());
         sysprodID = Integer.valueOf(eProperty.sysprodID.read());
         qParams.select(eParams.up, "where", eParams.id, "< 0").table(eParams.up);
@@ -158,7 +159,7 @@ public class Systree extends javax.swing.JFrame {
         });
     }
 
-    private void loadingTreeSys() {
+    private void loadingSys() {
         Record recordRoot = eSystree.up.newRecord(Query.SEL);
         recordRoot.set(eSystree.id, 0);
         recordRoot.set(eSystree.parent_id, 0);
@@ -180,63 +181,6 @@ public class Systree extends javax.swing.JFrame {
         ArrayList<DefMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
         treeSys.setModel(new DefaultTreeModel(rootTree));
         scr1.setViewportView(treeSys);
-    }
-
-    private void loadingTreeWin() {
-        try {
-            DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
-            Set<AreaSimple> set = new HashSet();
-            for (ElemSimple elem5e : iwin.listElem) {
-                if (elem5e.owner().type() != TypeElem.STVORKA) {
-                    root.add(new DefMutableTreeNode(elem5e));
-                } else {
-                    set.add(elem5e.owner());
-                }
-            }
-            for (AreaSimple areaStv : set) {
-                DefMutableTreeNode nodeStv = new DefMutableTreeNode(areaStv);
-                root.add(nodeStv);
-                for (ElemSimple elemStv : iwin.listElem) {
-                    if (elemStv.owner() == areaStv) {
-                        nodeStv.add(new DefMutableTreeNode(elemStv));
-                    }
-                }
-            }
-            treeWin.setModel(new DefaultTreeModel(root));
-            //Util.expandTree(tree2, new TreePath(root), true);
-            treeWin.setSelectionRow(0);
-
-        } catch (Exception e) {
-            System.err.println("Ошибка: Systree.loadingTree2() " + e);
-        }
-    }
-
-    private void loadingTab5() {
-
-        qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
-        DefaultTableModel dtm5 = (DefaultTableModel) tab5.getModel();
-        dtm5.getDataVector().removeAllElements();
-        int length = 68;
-        for (Record record : qSysprod.table(eSysprod.up)) {
-            try {
-                Object arrayRec[] = {record.get(eSysprod.name), null};
-                Object script = record.get(eSysprod.script);
-                iwin.build(script.toString());
-                BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-                iwin.gc2d = bi.createGraphics();
-                iwin.gc2d.fillRect(0, 0, length, length);
-                iwin.scale = (length / iwin.width > length / iwin.heightAdd) ? length / (iwin.heightAdd + 200) : length / (iwin.width + 200);
-                iwin.gc2d.translate(2, 2);
-                iwin.gc2d.scale(iwin.scale, iwin.scale);
-                iwin.rootArea.draw(length, length);
-                ImageIcon image = new ImageIcon(bi);
-                arrayRec[1] = image;
-                dtm5.addRow(arrayRec);
-
-            } catch (Exception e) {
-                System.err.println("Ошибка:Systree.loadingTab5() " + e);
-            }
-        }
     }
 
     private void loadingModel() {
@@ -328,11 +272,67 @@ public class Systree extends javax.swing.JFrame {
         rsvSystree.add(eSystree.cgrp, txt15);
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
-
         if (selectedPath != null) {
             treeSys.setSelectionPath(new TreePath(selectedPath));
         } else {
             treeSys.setSelectionRow(0);
+        }
+    }
+
+    private void loadingWin() {
+        try {
+            int row[] = treeWin.getSelectionRows();
+            DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
+            Set<AreaSimple> set = new HashSet();
+            for (ElemSimple elem5e : iwin.listElem) {
+                if (elem5e.owner().type() != TypeElem.STVORKA) {
+                    root.add(new DefMutableTreeNode(elem5e));
+                } else {
+                    set.add(elem5e.owner());
+                }
+            }
+            for (AreaSimple areaStv : set) {
+                DefMutableTreeNode nodeStv = new DefMutableTreeNode(areaStv);
+                root.add(nodeStv);
+                for (ElemSimple elemStv : iwin.listElem) {
+                    if (elemStv.owner() == areaStv) {
+                        nodeStv.add(new DefMutableTreeNode(elemStv));
+                    }
+                }
+            }
+            treeWin.setModel(new DefaultTreeModel(root));
+            treeWin.setSelectionRows(row);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: Systree.loadingWin() " + e);
+        }
+    }
+
+    private void loadingTab5() {
+
+        qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
+        DefaultTableModel dtm5 = (DefaultTableModel) tab5.getModel();
+        dtm5.getDataVector().removeAllElements();
+        int length = 68;
+        for (Record record : qSysprod.table(eSysprod.up)) {
+            try {
+                Object arrayRec[] = {record.get(eSysprod.name), null};
+                Object script = record.get(eSysprod.script);
+                iwin.build(script.toString());
+                BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+                iwin.gc2d = bi.createGraphics();
+                iwin.gc2d.fillRect(0, 0, length, length);
+                iwin.scale = (length / iwin.width > length / iwin.heightAdd) ? length / (iwin.heightAdd + 200) : length / (iwin.width + 200);
+                iwin.gc2d.translate(2, 2);
+                iwin.gc2d.scale(iwin.scale, iwin.scale);
+                iwin.rootArea.draw(length, length);
+                ImageIcon image = new ImageIcon(bi);
+                arrayRec[1] = image;
+                dtm5.addRow(arrayRec);
+
+            } catch (Exception e) {
+                System.err.println("Ошибка:Systree.loadingTab5() " + e);
+            }
         }
     }
 
@@ -460,7 +460,7 @@ public class Systree extends javax.swing.JFrame {
         };
     }
 
-    private void selectionTreeSys() {
+    private void selectionSys() {
         DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
         if (node != null) {
 
@@ -502,7 +502,7 @@ public class Systree extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTreeWin() {
+    private void selectionWin() {
         DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
         if (node != null) {
 
@@ -573,7 +573,7 @@ public class Systree extends javax.swing.JFrame {
                 script2.getAsJsonObject().addProperty("nuni", systreeID); //запишем nuni в script
                 iwin.build(script2.toString()); //калькуляция изделия
                 paintPanel.repaint(true);
-                loadingTreeWin();
+                loadingWin();
 
             } else {
                 Graphics2D g = (Graphics2D) paintPanel.getGraphics();
@@ -2110,6 +2110,8 @@ public class Systree extends javax.swing.JFrame {
 
         getContentPane().add(tool, java.awt.BorderLayout.PAGE_START);
 
+        getAccessibleContext().setAccessibleName("Системы профилей");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -2316,7 +2318,8 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+        Query.listOpenTable.forEach(q -> q.clear());
+        loadingWin();
     }//GEN-LAST:event_btnRefresh
 
     private void findFromArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findFromArtikl
@@ -2655,7 +2658,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void heightHandlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heightHandlToStvorka
         DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
-        AreaStvorka areaStv = (AreaStvorka) nodeWin.com5t();        
+        AreaStvorka areaStv = (AreaStvorka) nodeWin.com5t();
         int indexLayoutHandl = 0;
         if (LayoutHandle.CONST.name.equals(txt16.getText())) {
             indexLayoutHandl = 1;
@@ -2830,8 +2833,8 @@ public class Systree extends javax.swing.JFrame {
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
-        treeSys.getSelectionModel().addTreeSelectionListener(tse -> selectionTreeSys());
-        treeWin.getSelectionModel().addTreeSelectionListener(tse -> selectionTreeWin());
+        treeSys.getSelectionModel().addTreeSelectionListener(tse -> selectionSys());
+        treeWin.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
         tab5.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
@@ -2842,5 +2845,11 @@ public class Systree extends javax.swing.JFrame {
         DefaultTreeModel model = (DefaultTreeModel) treeWin.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
         model.reload();
+    }
+
+    private void path(float id1, float id2, DefaultMutableTreeNode node) {
+        if (id1 == id2) {
+            selectedPath = node.getPath();
+        }
     }
 }
