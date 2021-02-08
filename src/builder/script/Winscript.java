@@ -306,7 +306,7 @@ public class Winscript {
             return null;
         }
         if (model == true) {
-            rootArea.propery(project.toString(), -3, "");
+            rootArea.propery(project.toString(), -3, null);
         }
         
         return new GsonBuilder().create().toJson(rootArea);
@@ -351,7 +351,7 @@ public class Winscript {
             return null;
         }
         if (model == true) {
-            rootArea.propery(project.toString(), -3, "");
+            rootArea.propery(project.toString(), -3, null);
         }
 
         return new GsonBuilder().create().toJson(rootArea);

@@ -33,7 +33,7 @@ public class JsonRoot extends JsonArea {
     public void propery(String prj, int nuni, String name) {
         this.nuni = nuni;
         this.prj = prj;
-        this.name = name;
+        this.name = (name == null) ? this.name : name;
         if (nuni == -3) {
             this.color1 = -3;
             this.color2 = -3;
