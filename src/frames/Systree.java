@@ -128,11 +128,7 @@ public class Systree extends javax.swing.JFrame {
         loadingModel();
         listenerAdd();
         listenerSet();
-        for (int i = 0; i < qSysprof.size(); i++) {
-            if (qSysprof.get(i).getInt(eSysprof.artikl_id) == artiklID) {
-                Util.setSelectedRow(tab2, i);
-            }
-        }
+        selectionTab2(artiklID);
     }
 
     private void loadingData() {
@@ -559,6 +555,14 @@ public class Systree extends javax.swing.JFrame {
         }
     }
 
+    private void selectionTab2(int artiklID) {
+        for (int i = 0; i < qSysprof.size(); i++) {
+            if (qSysprof.get(i).getInt(eSysprof.artikl_id) == artiklID) {
+                Util.setSelectedRow(tab2, i);
+            }
+        }        
+    }
+    
     private void selectionTab5() {
         int row = Util.getSelectedRec(tab5);
         if (row != -1) {
