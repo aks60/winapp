@@ -1,6 +1,5 @@
 package builder.script;
 
-import common.RecursionLambda;
 import enums.LayoutArea;
 import enums.TypeElem;
 import java.util.LinkedList;
