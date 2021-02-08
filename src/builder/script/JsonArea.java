@@ -1,6 +1,6 @@
 package builder.script;
 
-import com.google.gson.Gson;
+import common.RecursionLambda;
 import enums.LayoutArea;
 import enums.TypeElem;
 import java.util.LinkedList;
@@ -94,32 +94,32 @@ public class JsonArea extends JsonElem {
                 if (el2.id == id) {
                     return el2;
                 }
-                for (JsonArea area3 : area2.areas) { //уровень 3
-                    if (area3.id == id) {
-                        return area3;
+            }
+            for (JsonArea area3 : area2.areas) { //уровень 3
+                if (area3.id == id) {
+                    return area3;
+                }
+                for (JsonElem el3 : area3.elements) {
+                    if (el3.id == id) {
+                        return el3;
                     }
-                    for (JsonElem el3 : area3.elements) {
-                        if (el3.id == id) {
-                            return el3;
+                }
+                for (JsonArea area4 : area3.areas) { //уровень 4
+                    if (area4.id == id) {
+                        return area4;
+                    }
+                    for (JsonElem el4 : area4.elements) {
+                        if (el4.id == id) {
+                            return el4;
                         }
                     }
-                    for (JsonArea area4 : area3.areas) { //уровень 4
-                        if (area4.id == id) {
-                            return area4;
+                    for (JsonArea area5 : area4.areas) { //уровень 5
+                        if (area5.id == id) {
+                            return area5;
                         }
-                        for (JsonElem el4 : area4.elements) {
-                            if (el4.id == id) {
-                                return el4;
-                            }
-                        }
-                        for (JsonArea area5 : area4.areas) { //уровень 4
-                            if (area5.id == id) {
-                                return area5;
-                            }
-                            for (JsonElem el5 : area5.elements) {
-                                if (el5.id == id) {
-                                    return el5;
-                                }
+                        for (JsonElem el5 : area5.elements) {
+                            if (el5.id == id) {
+                                return el5;
                             }
                         }
                     }
@@ -128,5 +128,4 @@ public class JsonArea extends JsonElem {
         }
         return null;
     }
-
 }

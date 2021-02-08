@@ -2583,7 +2583,8 @@ public class Systree extends javax.swing.JFrame {
             DefMutableTreeNode nodeSys = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
             String systreeID = nodeSys.rec().getStr(eSystree.id);
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
-                    eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);         
+                    eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
+         
             new DicName(this, (sysfurnRec) -> {
 
                 JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(selectID);
