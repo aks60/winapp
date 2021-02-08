@@ -1353,22 +1353,22 @@ public class Systree extends javax.swing.JFrame {
         txt21.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt22.setEditable(false);
-        txt22.setBackground(new java.awt.Color(255, 255, 255));
+        txt22.setBackground(new java.awt.Color(204, 204, 204));
         txt22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt22.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt24.setEditable(false);
-        txt24.setBackground(new java.awt.Color(255, 255, 255));
+        txt24.setBackground(new java.awt.Color(204, 204, 204));
         txt24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt24.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt23.setEditable(false);
-        txt23.setBackground(new java.awt.Color(255, 255, 255));
+        txt23.setBackground(new java.awt.Color(204, 204, 204));
         txt23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt23.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt26.setEditable(false);
-        txt26.setBackground(new java.awt.Color(255, 255, 255));
+        txt26.setBackground(new java.awt.Color(204, 204, 204));
         txt26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt26.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2583,8 +2583,7 @@ public class Systree extends javax.swing.JFrame {
             DefMutableTreeNode nodeSys = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
             String systreeID = nodeSys.rec().getStr(eSystree.id);
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
-                    eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
-
+                    eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);         
             new DicName(this, (sysfurnRec) -> {
 
                 JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(selectID);
@@ -2595,7 +2594,7 @@ public class Systree extends javax.swing.JFrame {
                 stvArea.param(paramStr);
                 updateScript(selectID);
 
-            }, qSysfurn.table(eFurniture.up), eFurniture.name);
+            }, qSysfurn, eFurniture.name);
 
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);

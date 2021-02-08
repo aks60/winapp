@@ -259,10 +259,10 @@ public class DicArtikl2 extends javax.swing.JDialog {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab1MouseClicked(evt);
+                DicArtikl2.this.mouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                DicArtikl2.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -347,12 +347,6 @@ public class DicArtikl2 extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnRemov
 
-    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
-        if (evt.getClickCount() == 2) {
-            btnChoice(null);
-        }
-    }//GEN-LAST:event_tab1MouseClicked
-
     private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
 
         JTable table = Stream.of(tab1).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
@@ -365,14 +359,20 @@ public class DicArtikl2 extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtFilterCaretUpdate
 
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         Util.listenerClick(table, Arrays.asList(tab1));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
-        }
-    }//GEN-LAST:event_tabMousePressed
+        }       
+    }//GEN-LAST:event_mousePressed
+
+    private void mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        } 
+    }//GEN-LAST:event_mouseClicked
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

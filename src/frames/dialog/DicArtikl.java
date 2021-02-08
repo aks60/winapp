@@ -209,7 +209,7 @@ public class DicArtikl extends javax.swing.JDialog {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mouse2Clicked(evt);
+                DicArtikl.this.mouseClicked(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -245,11 +245,11 @@ public class DicArtikl extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnRemov
 
-    private void mouse2Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouse2Clicked
+    private void mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClicked
         if (evt.getClickCount() == 2) {
             btnChoice(null);
         }
-    }//GEN-LAST:event_mouse2Clicked
+    }//GEN-LAST:event_mouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

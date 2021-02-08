@@ -39,7 +39,7 @@ public class DicColor2 extends javax.swing.JDialog {
         super(parent, true);
         initComponents();
         initElements();
-        this.listener = listener;        
+        this.listener = listener;
         qColorAll.addAll(colorSet);
         Query colgrpList = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR.id, "order by", eGroups.name);
         colgrpList.forEach(colgrpRec -> {
@@ -50,7 +50,7 @@ public class DicColor2 extends javax.swing.JDialog {
                 }
             }
         });
-        Collections.sort(qColorAll, (o1, o2) -> (o1.getStr(eColor.name)).compareTo(o2.getStr(eColor.name)));       
+        Collections.sort(qColorAll, (o1, o2) -> (o1.getStr(eColor.name)).compareTo(o2.getStr(eColor.name)));
         loadingModel();
         setVisible(true);
     }
@@ -355,7 +355,10 @@ public class DicColor2 extends javax.swing.JDialog {
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
-        }
+        } 
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }         
     }//GEN-LAST:event_tabMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -32,7 +32,8 @@ public class DicName extends javax.swing.JDialog {
         DefaultTableModel dtm = (DefaultTableModel) tab1.getModel();
         dtm.setRowCount(query.size());
         for (int i = 0; i < query.size(); i++) {
-            dtm.setValueAt(query.get(i, field), i, 0);
+            Record record = query.table(field).get(i);
+            dtm.setValueAt(record.get(field), i, 0);
         }
     }
 

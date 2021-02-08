@@ -50,7 +50,6 @@ public interface Field {
         StringBuffer str2 = new StringBuffer(str);
         int sep = 0;
         for (int index = 1; index < str.length(); ++index) {
-            char ccc = str.charAt(index);
             if (Character.isUpperCase(str.charAt(index))) {
                 str2.insert(index + sep++, "_");
             }
