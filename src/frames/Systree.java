@@ -2625,7 +2625,7 @@ public class Systree extends javax.swing.JFrame {
             DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
             int furnitureID = ((AreaStvorka) node.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
             Query qFurndet = new Query(eFurndet.values()).select(eFurndet.up, "where", eFurndet.furniture_id1, "=", furnitureID);
-            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11)");
+            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11, 13)");
             Query qArtikl2 = new Query(eArtikl.values());
             for (Record furndetRec : qFurndet) { //первый уровень
                 for (Record artiklRec : qArtikl) {

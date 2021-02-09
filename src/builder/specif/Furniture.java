@@ -88,36 +88,23 @@ public class Furniture extends Cal5e {
                     return;
                 }
             }
-            //Найдём ручку и запишем в створку
-            if (handle == true) {
-                for (Record furndetRec : furndetList) {  //цикл по детализаци  
-                    Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
-                    if (artiklRec.getInt(eArtikl.level1) == 2 && artiklRec.getInt(eArtikl.level2) == 11) {
-                        if (artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
-                            detail(areaStv, furndetRec, count);
-                        }
-                    }
-                }
+            //Цикл по детализации (уровень 1)        
+            for (Record furndetRec1 : furndetList) {
+                if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
+                    if (detail(areaStv, furndetRec1, count) == true) {
 
-            } else {
-                //Цикл по детализации (уровень 1)        
-                for (Record furndetRec1 : furndetList) {
-                    if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
-                        if (detail(areaStv, furndetRec1, count) == true) {
+                        //Цикл по детализации (уровень 2)
+                        for (Record furndetRec2 : furndetList) {
+                            if (furndetRec2.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)
+                                    && furndetRec2.getInt(eFurndet.furndet_id) != furndetRec2.getInt(eFurndet.id)) {
+                                if (detail(areaStv, furndetRec2, count) == true) {
 
-                            //Цикл по детализации (уровень 2)
-                            for (Record furndetRec2 : furndetList) {
-                                if (furndetRec2.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)
-                                        && furndetRec2.getInt(eFurndet.furndet_id) != furndetRec2.getInt(eFurndet.id)) {
-                                    if (detail(areaStv, furndetRec2, count) == true) {
+                                    //Цикл по детализации (уровень 3)
+                                    for (Record furndetRec3 : furndetList) {
+                                        if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec2.getInt(eFurndet.id)
+                                                && furndetRec3.getInt(eFurndet.furndet_id) != furndetRec3.getInt(eFurndet.id)) {
 
-                                        //Цикл по детализации (уровень 3)
-                                        for (Record furndetRec3 : furndetList) {
-                                            if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec2.getInt(eFurndet.id)
-                                                    && furndetRec3.getInt(eFurndet.furndet_id) != furndetRec3.getInt(eFurndet.id)) {
-
-                                                detail(areaStv, furndetRec3, count);
-                                            }
+                                            detail(areaStv, furndetRec3, count);
                                         }
                                     }
                                 }
@@ -206,9 +193,14 @@ public class Furniture extends Cal5e {
                     ElemFrame sideStv = Processing.determOfSide(mapParam, areaStv);
                     Specification specif = new Specification(furndetRec, artiklRec, sideStv, mapParam);
                     if (Color.colorFromProduct(specif, 1)) { //попадает или нет в спецификацию по цвету
-                        if (artiklRec.getInt(eArtikl.level1) == 2 && artiklRec.getInt(eArtikl.level2) == 11) {
-                            areaStv.handlRec = artiklRec; //ручку пишем в створку
-                            areaStv.handlColor = specif.colorID1;
+                        
+                        //Пишем ручку в створку
+                        if (handle == true && artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
+                            if (artiklRec.getStr(eArtikl.name).toLowerCase().contains("ручк")) {
+
+                                areaStv.handlRec = artiklRec; 
+                                areaStv.handlColor = specif.colorID1;
+                            }
                         }
                         specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
                         specif.count = specif.count * count;
