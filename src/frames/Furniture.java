@@ -576,7 +576,7 @@ public class Furniture extends javax.swing.JFrame {
         } else {
             tbtn3.setSelected(true);
         }
-        checkBoxAction(null);
+        tbtnAction(null);
         Util.setSelectedRow(tab1, iFurn);
         Util.scrollRectToVisible(iFurn, tab1);
         Util.setSelectedRow(tab2a, iDet2a);
@@ -791,16 +791,31 @@ public class Furniture extends javax.swing.JFrame {
         tbtn1.setText("Основн.");
         tbtn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 255), new java.awt.Color(0, 0, 255)));
         tbtn1.setPreferredSize(new java.awt.Dimension(60, 25));
+        tbtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnAction(evt);
+            }
+        });
 
         group1.add(tbtn2);
         tbtn2.setText("Дополн.");
         tbtn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 255), new java.awt.Color(0, 0, 255)));
         tbtn2.setPreferredSize(new java.awt.Dimension(60, 25));
+        tbtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnAction(evt);
+            }
+        });
 
         group1.add(tbtn3);
         tbtn3.setText("Наборы");
         tbtn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 255), new java.awt.Color(0, 0, 255)));
         tbtn3.setPreferredSize(new java.awt.Dimension(60, 25));
+        tbtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnAction(evt);
+            }
+        });
 
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
@@ -1358,6 +1373,24 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btnConstructiv
+
+    private void tbtnAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnAction
+        int row = Util.getSelectedRec(tab2a);
+        Integer furndetID2 = (row == -1) ? null : qFurndet2a.getAs(row, eFurndet.furniture_id2);
+        loadingData();
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(tab1);
+        if (furndetID2 != null && tbtn3.isSelected()) {
+            for (int index = 0; index < qFurniture.size(); ++index) {
+                Record record = qFurniture.get(index);
+                if (record.getInt(eFurniture.id) == furndetID2) {
+                    Util.setSelectedRow(tab1, index);
+                    Rectangle cellRect = tab1.getCellRect(index, 0, false);
+                    tab1.scrollRectToVisible(cellRect);
+                }
+            }
+        }
+    }//GEN-LAST:event_tbtnAction
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
