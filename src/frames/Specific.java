@@ -279,12 +279,12 @@ public class Specific extends javax.swing.JFrame {
         btnGroup.add(btnGroup1);
         btnGroup1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnGroup1.setSelected(true);
-        btnGroup1.setText("Гр1");
+        btnGroup1.setText("Гр.1");
         btnGroup1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnGroup1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnGroup1.setMaximumSize(new java.awt.Dimension(28, 25));
         btnGroup1.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnGroup1.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnGroup1.setPreferredSize(new java.awt.Dimension(36, 25));
         btnGroup1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGroup1(evt);
@@ -293,12 +293,12 @@ public class Specific extends javax.swing.JFrame {
 
         btnGroup.add(btnGroup2);
         btnGroup2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnGroup2.setText("Гр2");
+        btnGroup2.setText("Гр.2");
         btnGroup2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnGroup2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnGroup2.setMaximumSize(new java.awt.Dimension(28, 25));
         btnGroup2.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnGroup2.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnGroup2.setPreferredSize(new java.awt.Dimension(36, 25));
         btnGroup2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGroup2(evt);
@@ -307,12 +307,12 @@ public class Specific extends javax.swing.JFrame {
 
         btnGroup.add(btnGroup3);
         btnGroup3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnGroup3.setText("Гр3");
+        btnGroup3.setText("Гр.3");
         btnGroup3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnGroup3.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnGroup3.setMaximumSize(new java.awt.Dimension(28, 25));
         btnGroup3.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnGroup3.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnGroup3.setPreferredSize(new java.awt.Dimension(36, 25));
         btnGroup3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGroup3(evt);
@@ -321,12 +321,12 @@ public class Specific extends javax.swing.JFrame {
 
         btnGroup.add(btnJoin);
         btnJoin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnJoin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c024.gif"))); // NOI18N
+        btnJoin.setText("Соед");
         btnJoin.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnJoin.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnJoin.setMaximumSize(new java.awt.Dimension(28, 25));
         btnJoin.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnJoin.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnJoin.setPreferredSize(new java.awt.Dimension(36, 25));
         btnJoin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFilter(evt);
@@ -335,12 +335,12 @@ public class Specific extends javax.swing.JFrame {
 
         btnGroup.add(btnFix);
         btnFix.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnFix.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c025.gif"))); // NOI18N
+        btnFix.setText("Вст.");
         btnFix.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFix.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnFix.setMaximumSize(new java.awt.Dimension(28, 25));
         btnFix.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnFix.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnFix.setPreferredSize(new java.awt.Dimension(36, 25));
         btnFix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFilter(evt);
@@ -349,12 +349,12 @@ public class Specific extends javax.swing.JFrame {
 
         btnGroup.add(btnFill);
         btnFill.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c026.gif"))); // NOI18N
+        btnFill.setText("Зап.");
         btnFill.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFill.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnFill.setMaximumSize(new java.awt.Dimension(28, 25));
         btnFill.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnFill.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnFill.setPreferredSize(new java.awt.Dimension(36, 25));
         btnFill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFilter(evt);
@@ -363,12 +363,12 @@ public class Specific extends javax.swing.JFrame {
 
         btnGroup.add(btnFurn);
         btnFurn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnFurn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c027.gif"))); // NOI18N
+        btnFurn.setText("Фурн");
         btnFurn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFurn.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnFurn.setMaximumSize(new java.awt.Dimension(28, 25));
         btnFurn.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnFurn.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnFurn.setPreferredSize(new java.awt.Dimension(36, 25));
         btnFurn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFilter(evt);
@@ -392,21 +392,21 @@ public class Specific extends javax.swing.JFrame {
                 .addComponent(btnArtikles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(btnGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(btnGroup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(btnGroup3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(btnFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 366, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

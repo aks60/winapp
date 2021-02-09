@@ -789,7 +789,7 @@ public class Furniture extends javax.swing.JFrame {
         group1.add(tbtn1);
         tbtn1.setSelected(true);
         tbtn1.setText("Основн.");
-        tbtn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 255), new java.awt.Color(0, 0, 255)));
+        tbtn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         tbtn1.setPreferredSize(new java.awt.Dimension(60, 25));
         tbtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -799,7 +799,7 @@ public class Furniture extends javax.swing.JFrame {
 
         group1.add(tbtn2);
         tbtn2.setText("Дополн.");
-        tbtn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 255), new java.awt.Color(0, 0, 255)));
+        tbtn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         tbtn2.setPreferredSize(new java.awt.Dimension(60, 25));
         tbtn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -809,7 +809,7 @@ public class Furniture extends javax.swing.JFrame {
 
         group1.add(tbtn3);
         tbtn3.setText("Наборы");
-        tbtn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 255), new java.awt.Color(0, 0, 255)));
+        tbtn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         tbtn3.setPreferredSize(new java.awt.Dimension(60, 25));
         tbtn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
