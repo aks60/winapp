@@ -643,9 +643,6 @@ public class Furniture extends javax.swing.JFrame {
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
-        checkBox1 = new javax.swing.JCheckBox();
-        checkBox2 = new javax.swing.JCheckBox();
-        checkBox3 = new javax.swing.JCheckBox();
         btnConstructiv = new javax.swing.JButton();
         tbtn1 = new javax.swing.JToggleButton();
         tbtn2 = new javax.swing.JToggleButton();
@@ -774,40 +771,6 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
 
-        group1.add(checkBox1);
-        checkBox1.setSelected(true);
-        checkBox1.setText("Основная");
-        checkBox1.setMaximumSize(new java.awt.Dimension(75, 25));
-        checkBox1.setMinimumSize(new java.awt.Dimension(75, 25));
-        checkBox1.setPreferredSize(new java.awt.Dimension(75, 25));
-        checkBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxAction(evt);
-            }
-        });
-
-        group1.add(checkBox2);
-        checkBox2.setText("Дополн...");
-        checkBox2.setMaximumSize(new java.awt.Dimension(75, 25));
-        checkBox2.setMinimumSize(new java.awt.Dimension(75, 25));
-        checkBox2.setPreferredSize(new java.awt.Dimension(75, 25));
-        checkBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxAction(evt);
-            }
-        });
-
-        group1.add(checkBox3);
-        checkBox3.setText("Наборы");
-        checkBox3.setMaximumSize(new java.awt.Dimension(75, 25));
-        checkBox3.setMinimumSize(new java.awt.Dimension(75, 25));
-        checkBox3.setPreferredSize(new java.awt.Dimension(75, 25));
-        checkBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxAction(evt);
-            }
-        });
-
         btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
         btnConstructiv.setToolTipText(bundle.getString("Печать")); // NOI18N
         btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -824,18 +787,19 @@ public class Furniture extends javax.swing.JFrame {
         });
 
         group1.add(tbtn1);
+        tbtn1.setSelected(true);
         tbtn1.setText("Основн.");
-        tbtn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        tbtn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 255), new java.awt.Color(0, 0, 255)));
         tbtn1.setPreferredSize(new java.awt.Dimension(60, 25));
 
         group1.add(tbtn2);
         tbtn2.setText("Дополн.");
-        tbtn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        tbtn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 255), new java.awt.Color(0, 0, 255)));
         tbtn2.setPreferredSize(new java.awt.Dimension(60, 25));
 
         group1.add(tbtn3);
         tbtn3.setText("Наборы");
-        tbtn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        tbtn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 255), new java.awt.Color(0, 0, 255)));
         tbtn3.setPreferredSize(new java.awt.Dimension(60, 25));
 
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
@@ -852,20 +816,14 @@ public class Furniture extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
                 .addComponent(tbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(tbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(tbtn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addGap(53, 53, 53)
+                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 401, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -881,10 +839,6 @@ public class Furniture extends javax.swing.JFrame {
                             .addComponent(btnIns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(checkBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(checkBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(tbtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(tbtn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1394,24 +1348,6 @@ public class Furniture extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtFilter
 
-    private void checkBoxAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAction
-        int row = Util.getSelectedRec(tab2a);
-        Integer furndetID2 = (row == -1) ? null : qFurndet2a.getAs(row, eFurndet.furniture_id2);
-        loadingData();
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1);
-        if (furndetID2 != null && tbtn3.isSelected()) {
-            for (int index = 0; index < qFurniture.size(); ++index) {
-                Record record = qFurniture.get(index);
-                if (record.getInt(eFurniture.id) == furndetID2) {
-                    Util.setSelectedRow(tab1, index);
-                    Rectangle cellRect = tab1.getCellRect(index, 0, false);
-                    tab1.scrollRectToVisible(cellRect);
-                }
-            }
-        }
-    }//GEN-LAST:event_checkBoxAction
-
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         JTable table = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
         Record record = ((DefTableModel) table.getModel()).getQuery().get(Util.getSelectedRec(table));
@@ -1431,9 +1367,6 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel center;
-    private javax.swing.JCheckBox checkBox1;
-    private javax.swing.JCheckBox checkBox2;
-    private javax.swing.JCheckBox checkBox3;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.ButtonGroup group1;
     private javax.swing.JLabel labFilter;
