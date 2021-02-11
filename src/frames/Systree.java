@@ -91,7 +91,7 @@ import startup.Main;
 public class Systree extends javax.swing.JFrame {
 
     private Wincalc iwin = new Wincalc();
-    private int systreeID = -1; //выьранная система
+    private int systreeID = -1; //выбранная система
     private int sysprodID = -1; //выбранная конструкция
 
     private Query qParams = new Query(eParams.values());
@@ -309,6 +309,7 @@ public class Systree extends javax.swing.JFrame {
         qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
         DefaultTableModel dtm5 = (DefaultTableModel) tab5.getModel();
         dtm5.getDataVector().removeAllElements();
+        ((DefaultTableModel) tab5.getModel()).fireTableDataChanged(); 
         int length = 68;
         for (Record record : qSysprod.table(eSysprod.up)) {
             try {
@@ -402,15 +403,21 @@ public class Systree extends javax.swing.JFrame {
         };
         listenerModel = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            Record record2 = eSysprod.up.newRecord(Query.INS);
-            record2.setNo(eSysprod.id, ConnApp.instanc().genId(eSysprod.id));
-            record2.setNo(eSysprod.systree_id, systreeID);
-            record2.setNo(eSysprod.name, record.get(1));
-            record2.setNo(eSysprod.script, record.get(2));
-            qSysprod.table(eSysprod.up).insert(record2);
+            Record sysprodRec = eSysprod.up.newRecord(Query.INS);
+            sysprodRec.setNo(eSysprod.id, ConnApp.instanc().genId(eSysprod.id));
+            sysprodRec.setNo(eSysprod.systree_id, systreeID);
+            sysprodRec.setNo(eSysprod.name, record.get(1));
+            sysprodRec.setNo(eSysprod.script, record.get(2));
+            qSysprod.insert(sysprodRec); 
             loadingTab5();
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qSysprod, tab5);
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();            
+            for (int index = 0; index < qSysprod.size(); ++index) {
+                if(qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)){
+                   Util.setSelectedRow(tab5, index); 
+                   Util.scrollRectToVisible(index, tab5);
+                   treeWin.setSelectionRow(0);
+                }
+            }                        
         };
 
         listenerFurn = (record) -> {
@@ -2160,13 +2167,13 @@ public class Systree extends javax.swing.JFrame {
         }
         treeSys.setBorder(null);
         if (tabb1.getSelectedIndex() == 1) {
-            Util.listenerClick(tab3, Arrays.asList(tab2, tab3, tab4, tab5));
-        } else if (tabb1.getSelectedIndex() == 2) {
-            Util.listenerClick(tab4, Arrays.asList(tab2, tab3, tab4, tab5));
-        } else if (tabb1.getSelectedIndex() == 3) {
-            Util.listenerClick(tab5, Arrays.asList(tab2, tab3, tab4, tab5));
-        } else if (tabb1.getSelectedIndex() == 4) {
             Util.listenerClick(tab2, Arrays.asList(tab2, tab3, tab4, tab5));
+        } else if (tabb1.getSelectedIndex() == 2) {
+            Util.listenerClick(tab3, Arrays.asList(tab2, tab3, tab4, tab5));
+        } else if (tabb1.getSelectedIndex() == 3) {
+            Util.listenerClick(tab4, Arrays.asList(tab2, tab3, tab4, tab5));
+        } else if (tabb1.getSelectedIndex() == 4) {
+            Util.listenerClick(tab5, Arrays.asList(tab2, tab3, tab4, tab5));
         }
     }//GEN-LAST:event_tabb1StateChanged
 
@@ -2301,20 +2308,24 @@ public class Systree extends javax.swing.JFrame {
                     }
                 }
             }
+        } else if (tab2.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
+                
+            }
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
                 int rowTable = tab5.getSelectedRow();
-                int rowModel = Util.getSelectedRec(tab5);
-                Record record = qSysprod.get(rowModel);
+                int rowQuery = Util.getSelectedRec(tab5);
+                Record record = qSysprod.get(rowQuery);
                 record.set(eSysprod.up, Query.DEL);
 
                 qSysprod.delete(record);
-                qSysprod.removeRec(rowModel);
+                qSysprod.removeRec(rowQuery);
                 ((DefaultTableModel) tab5.getModel()).removeRow(rowTable);
 
-                rowTable = (qSysprod.size() > 0) ? --rowTable : 0;
-                rowModel = tab5.convertRowIndexToModel(rowTable);
-                Util.setSelectedRow(tab5, rowModel);
+                rowTable = (rowTable > 0) ? --rowTable : 0;
+                rowQuery = tab5.convertRowIndexToModel(rowTable);
+                Util.setSelectedRow(tab5, rowQuery);
             } else {
                 JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
             }
@@ -2469,6 +2480,9 @@ public class Systree extends javax.swing.JFrame {
 
     private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
         try {
+//            if(treeWin.getLastSelectedPathComponent() == null) {
+//               return;
+//            }
             float selectID = ((DefMutableTreeNode) treeWin.getLastSelectedPathComponent()).com5t().id();
             HashSet<Record> set = new HashSet();
             String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
@@ -2849,11 +2863,5 @@ public class Systree extends javax.swing.JFrame {
         DefaultTreeModel model = (DefaultTreeModel) treeWin.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
         model.reload();
-    }
-
-    private void path(float id1, float id2, DefaultMutableTreeNode node) {
-        if (id1 == id2) {
-            selectedPath = node.getPath();
-        }
     }
 }

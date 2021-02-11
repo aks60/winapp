@@ -401,7 +401,7 @@ public class Util {
             query.removeRec(rowModel);
             ((DefTableModel) table.getModel()).removeRow(rowTable);
             
-            rowTable = (query.size() > 0) ? --rowTable : 0;
+            rowTable = (rowTable > 0) ? --rowTable : 0;
             rowModel = table.convertRowIndexToModel(rowTable); 
             Util.setSelectedRow(table, rowModel);
         } else {

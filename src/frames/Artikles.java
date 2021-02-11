@@ -200,9 +200,9 @@ public class Artikles extends javax.swing.JFrame {
     public void listenerSet() {
 
         listenerSeries = (record) -> {
-            int row = Util.getSelectedRec(tab1);
-            if (row != -1) {
-                Record artiklRec = qArtikl.get(row);
+            int rowQuery = Util.getSelectedRec(tab1);
+            if (rowQuery != -1) {
+                Record artiklRec = qArtikl.get(rowQuery);
                 artiklRec.set(eArtikl.series_id, record.get(eGroups.id));
                 rsvArtikl.load();
             }
