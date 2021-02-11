@@ -399,7 +399,7 @@ public class Util {
             
             query.delete(record);
             query.removeRec(rowModel);
-            ((DefTableModel) table.getModel()).removeRow(rowTable);
+            ((DefTableModel) table.getModel()).fireTableRowsDeleted(rowTable, rowTable);
             
             rowTable = (rowTable > 0) ? --rowTable : 0;
             rowModel = table.convertRowIndexToModel(rowTable); 

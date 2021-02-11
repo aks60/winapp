@@ -309,7 +309,7 @@ public class Systree extends javax.swing.JFrame {
         qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
         DefaultTableModel dtm5 = (DefaultTableModel) tab5.getModel();
         dtm5.getDataVector().removeAllElements();
-        ((DefaultTableModel) tab5.getModel()).fireTableDataChanged(); 
+        ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
         int length = 68;
         for (Record record : qSysprod.table(eSysprod.up)) {
             try {
@@ -408,16 +408,16 @@ public class Systree extends javax.swing.JFrame {
             sysprodRec.setNo(eSysprod.systree_id, systreeID);
             sysprodRec.setNo(eSysprod.name, record.get(1));
             sysprodRec.setNo(eSysprod.script, record.get(2));
-            qSysprod.insert(sysprodRec); 
+            qSysprod.insert(sysprodRec);
             loadingTab5();
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();            
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             for (int index = 0; index < qSysprod.size(); ++index) {
-                if(qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)){
-                   Util.setSelectedRow(tab5, index); 
-                   Util.scrollRectToVisible(index, tab5);
-                   treeWin.setSelectionRow(0);
+                if (qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)) {
+                    Util.setSelectedRow(tab5, index);
+                    Util.scrollRectToVisible(index, tab5);
+                    treeWin.setSelectionRow(0);
                 }
-            }                        
+            }
         };
 
         listenerFurn = (record) -> {
@@ -567,9 +567,9 @@ public class Systree extends javax.swing.JFrame {
             if (qSysprof.get(i).getInt(eSysprof.artikl_id) == artiklID) {
                 Util.setSelectedRow(tab2, i);
             }
-        }        
+        }
     }
-    
+
     private void selectionTab5() {
         int row = Util.getSelectedRec(tab5);
         if (row != -1) {
@@ -2309,8 +2309,16 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         } else if (tab2.getBorder() != null) {
-            if (Util.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
-                
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab2);
+            }
+        } else if (tab3.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab3);
+            }
+        } else if (tab4.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab4);
             }
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
@@ -2602,7 +2610,7 @@ public class Systree extends javax.swing.JFrame {
             String systreeID = nodeSys.rec().getStr(eSystree.id);
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
-         
+
             new DicName(this, (sysfurnRec) -> {
 
                 JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(selectID);
