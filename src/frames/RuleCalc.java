@@ -30,9 +30,9 @@ public class RuleCalc extends javax.swing.JFrame {
     public RuleCalc() {
         initComponents();
         initElements();
-        listenerSet();
         loadingData();
         loadingModel();
+        listenerSet();
     }
 
     private void loadingData() {
@@ -45,16 +45,19 @@ public class RuleCalc extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
 
-                Field field = columns[col];
-                if (eRulecalc.id == field) {
-                    return val;
-                } else if (eRulecalc.type == field) {
+                if (val != null) {
+                    Field field = columns[col];
+                    if (eRulecalc.id == field) {
+                        return val;
 
-                    int val2 = (val == null) ? 0 : Integer.valueOf(val.toString());
-                    return TypeArtikl.find(val2 / 100, 0) + "." + TypeArtikl.find(val2 / 100, val2 % 10);
-                } else if (eRulecalc.form == field) {
-                    int val2 = (val.equals(0) == true) ? 1 : Integer.valueOf(val.toString());
-                    return TypeForm.P00.find(val2).text();
+                    } else if (eRulecalc.type == field) {
+                        int val2 = Integer.valueOf(val.toString());
+                        return TypeArtikl.find(val2 / 100, 0) + "." + TypeArtikl.find(val2 / 100, val2 % 10);
+
+                    } else if (eRulecalc.form == field) {
+                        int val2 = (val.equals(0) == true) ? 1 : Integer.valueOf(val.toString());
+                        return TypeForm.P00.find(val2).text();
+                    }
                 }
                 return val;
             }
@@ -71,6 +74,7 @@ public class RuleCalc extends javax.swing.JFrame {
         Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
+        
         Util.buttonEditorCell(tab2, 11).addActionListener(event -> {
             int form = qRulecalc.getAs(Util.getSelectedRec(tab2), eRulecalc.form);
             DicEnums frame = new DicEnums(this, listenerForm, TypeForm.values());
@@ -277,11 +281,11 @@ public class RuleCalc extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, "1", "1", "1", "1", "1", "1", null, "1", "1", "1"},
-                {null, null, "2", "2", "2", "2", "2", "2", null, "2", "2", "2"}
+                {null, null, "1", "1", "1", "1", "1", "1", null, "1", "1", "1", null},
+                {null, null, "2", "2", "2", "2", "2", "2", null, "2", "2", "2", null}
             },
             new String [] {
-                "Название правила", "Использование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Базовая текстура", "Внутр. текстура", "Внешн. текстура", "Форма позиции"
+                "Название правила", "Использование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Базовая текстура", "Внутр. текстура", "Внешн. текстура", "Форма позиции", "ID"
             }
         ));
         tab2.setFillsViewportHeight(true);
@@ -302,6 +306,7 @@ public class RuleCalc extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(9).setPreferredWidth(160);
             tab2.getColumnModel().getColumn(10).setPreferredWidth(160);
             tab2.getColumnModel().getColumn(11).setPreferredWidth(180);
+            tab2.getColumnModel().getColumn(12).setMaxWidth(40);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
@@ -341,11 +346,13 @@ public class RuleCalc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Record currencRec = eRulecalc.up.newRecord(Query.INS);
-        currencRec.setNo(eRulecalc.id, ConnApp.instanc().genId(eRulecalc.up));
-        qRulecalc.add(currencRec);
-        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        Util.scrollRectToVisible(qRulecalc, tab2);
+        if (tab2.getBorder() != null) {
+            Record rulecalcRec = eRulecalc.up.newRecord(Query.INS);
+            rulecalcRec.setNo(eRulecalc.id, ConnApp.instanc().genId(eRulecalc.up));
+            qRulecalc.add(rulecalcRec);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.scrollRectToVisible(qRulecalc, tab2);
+        }
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
@@ -404,5 +411,6 @@ public class RuleCalc extends javax.swing.JFrame {
         labFilter.setText(tab2.getColumnName(0));
         txtFilter.setName(tab2.getName());
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab2)));
+        //((DefTableModel) tab2.getModel()).getDataVector().removeAllElements();
     }
 }
