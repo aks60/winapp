@@ -120,12 +120,19 @@ public class Furniture extends Cal5e {
 
     protected boolean detail(AreaStvorka areaStv, Record furndetRec, int count) {
         try {
+            Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
+            if (handle == true) { //если пишем ручку в створку то всё остальное отсеиваем
+                if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)) {
+                    if (artiklRec.getInt(eArtikl.level1) != 2) {
+                        return false;
+                    }
+                }
+            }
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
             Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id1));
 
             //Подбор текстуры ручки
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
-                Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
                 if (artiklRec != null && TypeArtikl.FURNRUCHKA.isType(artiklRec)) {
                     if (furndetRec.getInt(eFurndet.color_fk) > 0) {
                         boolean empty = true;
@@ -186,19 +193,18 @@ public class Furniture extends Cal5e {
             }
 
             //Если это элемент из мат. ценности (не набор)
-            if (furndetRec.get(eFurndet.furniture_id2) == null) {
-                Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
+            if (furndetRec.get(eFurndet.furniture_id2) == null) {                
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
 
                     ElemFrame sideStv = Processing.determOfSide(mapParam, areaStv);
                     Specification specif = new Specification(furndetRec, artiklRec, sideStv, mapParam);
                     if (Color.colorFromProduct(specif, 1)) { //попадает или нет в спецификацию по цвету
-                        
+
                         //Пишем ручку в створку
                         if (handle == true && artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
                             if (artiklRec.getStr(eArtikl.name).toLowerCase().contains("ручк")) {
 
-                                areaStv.handlRec = artiklRec; 
+                                areaStv.handlRec = artiklRec;
                                 areaStv.handlColor = specif.colorID1;
                             }
                         }
