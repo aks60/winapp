@@ -10,7 +10,7 @@ import java.util.List;
  */
 public enum TypeArtikl {
 
-    NONE(0, 0, "-"),
+    NONE(0, 0, "Не определён"),
     PROFIL(1, 0, "Профили"),
     KOROBKA(1, 1, "Коробка"),
     STVORKA(1, 2, "Створка"),

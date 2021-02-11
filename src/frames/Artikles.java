@@ -16,7 +16,6 @@ import java.util.Arrays;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import frames.swing.DefTableModel;
 import frames.swing.DefFieldEditor;
@@ -30,15 +29,14 @@ import enums.TypeGroups;
 import enums.UseUnit;
 import frames.dialog.DicEnums;
 import frames.swing.BooleanRenderer;
+import frames.swing.DefMutableTreeNode;
 import java.awt.Window;
-import java.util.stream.Collectors;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.JButton;
 import javax.swing.RowFilter;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.TableColumn;
-import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 
 /**
@@ -430,6 +428,7 @@ public class Artikles extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
+        btnMove = new javax.swing.JButton();
         center = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
         scrTree = new javax.swing.JScrollPane();
@@ -593,6 +592,21 @@ public class Artikles extends javax.swing.JFrame {
             }
         });
 
+        btnMove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c050.gif"))); // NOI18N
+        btnMove.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnMove.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnMove.setFocusable(false);
+        btnMove.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMove.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnMove.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnMove.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMove(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -603,10 +617,12 @@ public class Artikles extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 601, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 570, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -619,7 +635,8 @@ public class Artikles extends javax.swing.JFrame {
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1578,6 +1595,33 @@ public class Artikles extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtField10ActionPerformed
 
+    private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove
+        int row = Util.getSelectedRec(tab1);
+        if (row != -1) {
+            Record artiklRec = qArtikl.get(row);
+            List list = new LinkedList();
+            for (TypeArtikl typeArt : TypeArtikl.values()) {
+                String str = (typeArt.id2 == 0) ? typeArt.name + ":" : "      " + typeArt.name;
+                list.add(str);
+            }
+            javax.swing.ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif"));
+            Object result = JOptionPane.showInputDialog(Artikles.this, artiklRec.getStr(eArtikl.name),
+                    "Изменение типа артикла", JOptionPane.QUESTION_MESSAGE, null, list.toArray(), list.toArray()[0]);
+
+            if (result != null) {
+                for (TypeArtikl enam : TypeArtikl.values()) {
+                    if (enam instanceof TypeArtikl && enam.name.equals(result.toString().trim())) {
+                        artiklRec.setNo(eArtikl.level1, enam.id1);
+                        artiklRec.setNo(eArtikl.level2, enam.id2);
+                        ((DefTableModel) tab1.getModel()).getQuery().update(artiklRec);
+                        selectionTree();
+                        Util.setSelectedRow(tab1, row);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_btnMove
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -1594,6 +1638,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JButton btnField7;
     private javax.swing.JButton btnField8;
     private javax.swing.JButton btnIns;
+    private javax.swing.JButton btnMove;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel center;
