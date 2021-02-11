@@ -10,7 +10,7 @@ public enum eCurrenc implements Field {
     id("4", "10", "0", "Идентификатор", "cnumb"),
     name("12", "32", "1", "Название валюты", "CNAME"),
     par_case1("12", "32", "1", "Родит.падеж ед.ч.", "CRODE"),
-    par_case3("12", "32", "1", "Родит.падеж мн.ч.", "CRODM"),
+    par_case2("12", "32", "1", "Родит.падеж мн.ч.", "CRODM"),
     design("12", "8", "1", "Обозначение", "CSHOR"),
     precis("5", "5", "1", "Точность", "CSIZE"),
     cross_cour("8", "15", "1", "Кросс курс", "CKURS"),
@@ -42,12 +42,20 @@ public enum eCurrenc implements Field {
 
     public static Record find(int _id) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
+            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(record());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
-        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+        return (recordList.isEmpty() == true) ? record() : recordList.get(0);
     }
-    
+
+    public static Record record() {
+        Record record = up.newRecord();
+        record.setNo(id, -3);
+        record.setNo(cross_cour, 1);
+        record.setNo(name, "Virtual");
+        return record;
+    }
+
     public String toString() {
         return meta.descr();
     }
