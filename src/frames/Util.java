@@ -389,21 +389,22 @@ public class Util {
 
     //Удалить запись
     public static void deleteRecord(JTable table) {
-
         if (table.getSelectedRow() != -1) {
             Query query = ((DefTableModel) table.getModel()).getQuery();
             int rowTable = table.getSelectedRow();
             int rowModel = getSelectedRec(table);
             Record record = query.get(rowModel);
             record.set(0, Query.DEL);
-            
+
             query.delete(record);
             query.removeRec(rowModel);
             ((DefTableModel) table.getModel()).fireTableRowsDeleted(rowTable, rowTable);
-            
+
             rowTable = (rowTable > 0) ? --rowTable : 0;
-            rowModel = table.convertRowIndexToModel(rowTable); 
-            Util.setSelectedRow(table, rowModel);
+            if (query.size() > 0) {
+                rowModel = table.convertRowIndexToModel(rowTable);
+                Util.setSelectedRow(table, rowModel);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
         }
@@ -469,11 +470,11 @@ public class Util {
                 if (((JTable) comp).isEditing()) {
                     ((JTable) comp).getCellEditor().stopCellEditing();
                 }
-            } else if(comp instanceof JTree) {
+            } else if (comp instanceof JTree) {
                 if (((JTree) comp).isEditing()) {
                     ((JTree) comp).getCellEditor().stopCellEditing();
                 }
-            } 
+            }
         }
     }
 
@@ -633,6 +634,7 @@ public class Util {
             });
         }
     }
+
     //Проверка на коррекность ввода
     public static void documentFilter2(JTextField... txtField) {
         for (JTextField txtField2 : txtField) {

@@ -1457,30 +1457,37 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
-                "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+//        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
+//                "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
             if (tab1.getBorder() != null) {
-                int row = Util.getSelectedRec(tab1);
-                if (row != -1) {
-                    Record record = qArtikl.get(row);
-                    record.set(eArtikl.up, Query.DEL);
-                    qArtikl.delete(record);
-                    qArtikl.removeRec(row);
-                    ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-                    Util.setSelectedRow(tab1);
+                if (Util.isDeleteRecord(this, tab2) == 0) {
+                    Util.deleteRecord(tab1);
                 }
+
+//                int row = Util.getSelectedRec(tab1);
+//                if (row != -1) {
+//                    Record record = qArtikl.get(row);
+//                    record.set(eArtikl.up, Query.DEL);
+//                    qArtikl.delete(record);
+//                    qArtikl.removeRec(row);
+//                    ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+//                    Util.setSelectedRow(tab1);
+//                }
             } else if (tab2.getBorder() != null) {
-                int row = Util.getSelectedRec(tab2);
-                if (row != -1) {
-                    Record record = qArtdet.get(row);
-                    record.set(eArtdet.up, Query.DEL);
-                    qArtdet.delete(record);
-                    qArtdet.removeRec(row);
-                    ((DefTableModel) tab2.getModel()).fireTableDataChanged();
-                    Util.setSelectedRow(tab1);
-                }
-            }
+                if (Util.isDeleteRecord(this) == 0) {
+                    Util.deleteRecord(tab2);
+                }                
+//                int row = Util.getSelectedRec(tab2);
+//                if (row != -1) {
+//                    Record record = qArtdet.get(row);
+//                    record.set(eArtdet.up, Query.DEL);
+//                    qArtdet.delete(record);
+//                    qArtdet.removeRec(row);
+//                    ((DefTableModel) tab2.getModel()).fireTableDataChanged();
+//                    Util.setSelectedRow(tab1);
+//                }
+//            }
         }
     }//GEN-LAST:event_btnDelete
 
