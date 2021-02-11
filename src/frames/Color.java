@@ -540,17 +540,17 @@ public class Color extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab2) == 0) {
-                Util.deleteRecord(tab1, eGroups.up);
+                Util.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            Util.deleteRecord(tab2, eColor.up);
+            Util.deleteRecord(tab2);
 
         } else if (tab3.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab4) == 0) {
-                Util.deleteRecord(tab3, eGroups.up);
+                Util.deleteRecord(tab3);
             }
         } else if (tab4.getBorder() != null) {
-            Util.deleteRecord(tab4, eColmap.up);
+            Util.deleteRecord(tab4);
         }
     }//GEN-LAST:event_btnDelete
 

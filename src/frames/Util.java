@@ -388,14 +388,14 @@ public class Util {
     }
 
     //Удалить запись
-    public static void deleteRecord(JTable table, Field field) {
+    public static void deleteRecord(JTable table) {
 
         if (table.getSelectedRow() != -1) {
             Query query = ((DefTableModel) table.getModel()).getQuery();
             int rowTable = table.getSelectedRow();
             int rowModel = getSelectedRec(table);
             Record record = query.get(rowModel);
-            record.set(field, Query.DEL);
+            record.set(0, Query.DEL);
             
             query.delete(record);
             query.removeRec(rowModel);

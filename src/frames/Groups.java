@@ -446,15 +446,15 @@ public class Groups extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
                 "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             if (tab1.getBorder() != null) {
-                Util.deleteRecord(tab1, eGroups.up);
+                Util.deleteRecord(tab1);
             } else if (tab2.getBorder() != null) {
-                Util.deleteRecord(tab2, eGroups.up);
+                Util.deleteRecord(tab2);
             } else if (tab3.getBorder() != null) {
-                Util.deleteRecord(tab3, eGroups.up);
+                Util.deleteRecord(tab3);
             } else if (tab4.getBorder() != null) {
-                Util.deleteRecord(tab4, eGroups.up);
+                Util.deleteRecord(tab4);
             } else if (tab5.getBorder() != null) {
-                Util.deleteRecord(tab5, eGroups.up);
+                Util.deleteRecord(tab5);
             }
         }
     }//GEN-LAST:event_btnDelete

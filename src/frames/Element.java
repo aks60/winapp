@@ -902,23 +902,23 @@ public class Element extends javax.swing.JFrame {
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab2) == 0) {
-                Util.deleteRecord(tab1, eElemgrp.up);
+                Util.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab3, tab4) == 0) {
-                Util.deleteRecord(tab2, eElement.up);
+                Util.deleteRecord(tab2);
             }
         } else if (tab3.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab5) == 0) {
-                Util.deleteRecord(tab3, eElemdet.up);
+                Util.deleteRecord(tab3);
             }
         } else if (tab4.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab4, eElempar1.up);
+                Util.deleteRecord(tab4);
             }
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab5, eElempar2.up);
+                Util.deleteRecord(tab5);
             }
         }
     }//GEN-LAST:event_btnDelete

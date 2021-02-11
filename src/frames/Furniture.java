@@ -1226,35 +1226,35 @@ public class Furniture extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             if (Util.isDeleteRecord(tab1, this, tab2a, tab2b, tab2c, tab3) == 0) {
-                Util.deleteRecord(tab1, eFurniture.up);
+                Util.deleteRecord(tab1);
             }
         } else if (tab2a.getBorder() != null) {
             if (Util.isDeleteRecord(tab2a, this, tab2b, tab2c, tab5, tab6) == 0) {
-                Util.deleteRecord(tab2a, eFurndet.up);
+                Util.deleteRecord(tab2a);
             }
         } else if (tab2b.getBorder() != null) {
             if (Util.isDeleteRecord(tab2b, this, tab2c, tab5, tab6) == 0) {
-                Util.deleteRecord(tab2b, eFurndet.up);
+                Util.deleteRecord(tab2b);
             }
         } else if (tab2c.getBorder() != null) {
             if (Util.isDeleteRecord(tab2c, this, tab5, tab6) == 0) {
-                Util.deleteRecord(tab2c, eFurndet.up);
+                Util.deleteRecord(tab2c);
             }
         } else if (tab3.getBorder() != null) {
             if (Util.isDeleteRecord(tab3, this, tab4) == 0) {
-                Util.deleteRecord(tab3, eFurnside1.up);
+                Util.deleteRecord(tab3);
             }
         } else if (tab4.getBorder() != null) {
             if (Util.isDeleteRecord(tab4, this) == 0) {
-                Util.deleteRecord(tab4, eFurnpar1.up);
+                Util.deleteRecord(tab4);
             }
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(tab5, this) == 0) {
-                Util.deleteRecord(tab5, eFurnside2.up);
+                Util.deleteRecord(tab5);
             }
         } else if (tab6.getBorder() != null) {
             if (Util.isDeleteRecord(tab6, this) == 0) {
-                Util.deleteRecord(tab6, eFurnpar2.up);
+                Util.deleteRecord(tab6);
             }
         }
     }//GEN-LAST:event_btnDelete

@@ -800,23 +800,23 @@ public class Filling extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab2, tab3, tab5) == 0) {
-                Util.deleteRecord(tab1, eGlasgrp.up);
+                Util.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab4) == 0) {
-                Util.deleteRecord(tab2, eGlasdet.up);
+                Util.deleteRecord(tab2);
             }
         } else if (tab3.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab3, eGlaspar1.up);
+                Util.deleteRecord(tab3);
             }
         } else if (tab4.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab4, eGlaspar2.up);
+                Util.deleteRecord(tab4);
             }
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab5, eGlasprof.up);
+                Util.deleteRecord(tab5);
             }
         }
     }//GEN-LAST:event_btnDelete
