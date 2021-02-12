@@ -70,14 +70,14 @@ public class DefCellEditor extends DefaultCellEditor {
 
                 @Override
                 public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                    if (listenerCell.action(string)) { //проверка на коррекность ввода
+                    if (listenerCell.action(string) == false) { //проверка на коррекность ввода
                         super.insertString(fb, offset, string, attr);
                     }
                 }
 
                 @Override
                 public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                    if (listenerCell.action(string)) {  //проверка на коррекность ввода
+                    if (listenerCell.action(string) == false) {  //проверка на коррекность ввода
                         super.replace(fb, offset, length, string, attrs);
                     }
                 }
