@@ -59,7 +59,7 @@ public class Rulecalc extends javax.swing.JFrame {
                 }
                 return val;
             }
-        };        
+        };
 
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, (artiklRec) -> {
