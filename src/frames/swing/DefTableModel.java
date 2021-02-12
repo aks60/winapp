@@ -48,12 +48,14 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         ArrayList<Boolean> resizableList = new ArrayList();
         ArrayList<Integer> prefWidthList = new ArrayList();
         ArrayList<Integer> maxWidthList = new ArrayList();
+        ArrayList<Integer> minWidthList = new ArrayList();
         DefaultTableColumnModel columnModel = (DefaultTableColumnModel) table.getColumnModel();
 
         for (int index = 0; index < columnModel.getColumnCount(); index++) {
             resizableList.add(columnModel.getColumn(index).getResizable());
             prefWidthList.add(columnModel.getColumn(index).getPreferredWidth());
             maxWidthList.add(columnModel.getColumn(index).getMaxWidth());
+            minWidthList.add(columnModel.getColumn(index).getMinWidth());
         }
         table.setModel(this);
         sorter = new TableRowSorter<DefTableModel>((DefTableModel) table.getModel());
@@ -64,6 +66,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         for (int index = 0; index < columnModel.getColumnCount(); index++) {
             columnModel.getColumn(index).setResizable(resizableList.get(index));
             columnModel.getColumn(index).setPreferredWidth(prefWidthList.get(index));
+            columnModel.getColumn(index).setMinWidth(minWidthList.get(index));
             columnModel.getColumn(index).setMaxWidth(maxWidthList.get(index));
         }
 

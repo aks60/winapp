@@ -343,6 +343,22 @@ public class Util {
         return record;
     }
 
+    //Установить border и выполнить sql
+    public static void updateBorderAndSql(JTable table, List<JTable> tabList) {
+        if (tabList != null) {
+            tabList.forEach(tab -> tab.setBorder(null));
+            tabList.forEach(tab -> {
+                if (tab != table) {
+                    Util.stopCellEditing(tab);
+                    if (tab.getModel() instanceof DefTableModel) {
+                        ((DefTableModel) tab.getModel()).getQuery().execsql();
+                    }
+                }
+            });
+        }
+        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+    }
+    
     //Вставить запись
     public static Record insertRecord(JTable table1, JTable table2, Field up1, Field up2, Field fk2) {
 
@@ -590,22 +606,6 @@ public class Util {
         query.set(record.getInt(0), Util.getSelectedRec(table), field_fk);
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Util.setSelectedRow(table, row);
-    }
-
-    //Слушатель клика по таблице
-    public static void listenerClick(JTable table, List<JTable> tabList) {
-        if (tabList != null) {
-            tabList.forEach(tab -> tab.setBorder(null));
-            tabList.forEach(tab -> {
-                if (tab != table) {
-                    Util.stopCellEditing(tab);
-                    if (tab.getModel() instanceof DefTableModel) {
-                        ((DefTableModel) tab.getModel()).getQuery().execsql();
-                    }
-                }
-            });
-        }
-        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
     }
 
     //Программный клик на компоненте

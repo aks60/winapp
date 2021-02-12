@@ -31,7 +31,7 @@ import frames.Color;
 import frames.Syssize;
 import frames.Order;
 import frames.Partner;
-import frames.RuleCalc;
+import frames.Rulecalc;
 import frames.Specific;
 import frames.TestFrame;
 import java.awt.Dimension;
@@ -1536,7 +1536,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     frame = new TestFrame();
                     break;
                 case RuleCalc:
-                    frame = new RuleCalc();
+                    frame = new Rulecalc();
                     break;
                 case AboutBox:
                     frame = new AboutBox();

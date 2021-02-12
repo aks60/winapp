@@ -3,13 +3,14 @@ package frames.dialog;
 import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
-import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
 import enums.TypeArtikl;
 import java.util.Arrays;
 import frames.swing.DefTableModel;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
 import java.util.stream.Stream;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -23,14 +24,14 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
     private DialogListener listener = null;
     private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
-    private Query qArtik2 = new Query(eArtikl.values());
+    private Query qArtiklAll = new Query(eArtikl.values());
 
     public DicArtikl2(java.awt.Frame parent, DialogListener listenet, int... level) {
         super(parent, true);
         initComponents();
         initElements();
         String p1 = Arrays.toString(level).split("[\\[\\]]")[1];
-        qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
+        qArtiklAll.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
         this.listener = listenet;
         loadingTree();
         loadingModel();
@@ -39,16 +40,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
     private void loadingModel() {
 
-        new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name) {
-            public Object getValueAt(int col, int row, Object val) {
-                Field field = columns[col];
-                if (field == eArtikl.level2) {
-                    Record record = qArtikl.get(row);
-                    return TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
-                }
-                return val;
-            }
-        };
+        new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name); 
     }
 
     private void loadingTree() {
@@ -86,29 +78,50 @@ public class DicArtikl2 extends javax.swing.JDialog {
         tree.setSelectionRow(0);
     }
 
-    private void selectionTree() {
+    private void selectionTree2() {
 
-        Util.clearTable(tab1);
-        Util.stopCellEditing(tab1);
-        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-        if (selectedNode != null) {
-            if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
-                qArtik2.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
-
-            } else if (selectedNode.isLeaf()) {
-                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
-
-            } else {
-                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
-            }
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (node != null) {
             qArtikl.clear();
-            qArtikl.addAll(qArtik2);
+            if (node.getUserObject() instanceof TypeArtikl == false) {
+                qArtikl.addAll(qArtiklAll);
+
+            } else if (node.isLeaf()) {
+                TypeArtikl e = (TypeArtikl) node.getUserObject();
+                List<Record> list = qArtiklAll.stream().filter(rec -> rec.getInt(eArtikl.level1) == e.id1 && rec.getInt(eArtikl.level2) == e.id2).findFirst().orElse(null);
+                if (list != null) {
+                    qArtikl.addAll(list);
+                }
+            } else {
+                TypeArtikl e = (TypeArtikl) node.getUserObject();
+                List<Record> list = qArtiklAll.stream().filter(rec -> rec.getInt(eArtikl.level1) == e.id1).findFirst().orElse(null);
+                if (list != null) {
+                    qArtikl.addAll(list);
+                }
+            }
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         }
     }
 
+    private void selectionTree() {
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (node != null) {
+            qArtikl.clear();
+            if (node.getUserObject() instanceof TypeArtikl == false) {
+                qArtikl.addAll(qArtiklAll);
+
+            } else if (node.isLeaf()) {
+                TypeArtikl e = (TypeArtikl) node.getUserObject();
+                    qArtikl.addAll(qArtiklAll.stream().filter(rec -> rec.getInt(eArtikl.level1) == e.id1 && rec.getInt(eArtikl.level2) == e.id2).collect(toList()));
+
+            } else {
+                TypeArtikl e = (TypeArtikl) node.getUserObject();
+                qArtikl.addAll(qArtiklAll.stream().filter(rec -> rec.getInt(eArtikl.level1) == e.id1).collect(toList()));
+            }
+            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -314,28 +327,23 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
-        Record record = new Record(5);
-        record.add(null);
-        record.add(null);
-        record.add(null);
-        record.add(null);
-        record.add(null);
+        Record record = eArtikl.up.newRecord();
         Util.stopCellEditing(tab1);
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Record record2 = qArtikl.get(row);
-            record.set(0, record2.get(eArtikl.level1));
-            record.set(1, record2.get(eArtikl.level2));
-            record.set(2, record2.get(eArtikl.id));
-            record.set(3, record2.get(eArtikl.code));
-            record.set(4, record2.get(eArtikl.name));
-            
+            record.set(eArtikl.id, record2.get(eArtikl.id));
+            record.set(eArtikl.level1, record2.get(eArtikl.level1));
+            record.set(eArtikl.level2, record2.get(eArtikl.level2));
+            record.set(eArtikl.code, record2.get(eArtikl.code));
+            record.set(eArtikl.name, record2.get(eArtikl.name));
+
         } else {
             DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
             if (selectedNode.getUserObject() instanceof TypeArtikl == true) {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                record.set(0, e.id1);
-                record.set(1, e.id2);
+                record.set(eArtikl.level1, e.id1);
+                record.set(eArtikl.level2, e.id2);
             }
         }
         listener.action(record);
@@ -361,17 +369,17 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        Util.listenerClick(table, Arrays.asList(tab1));
+        Util.updateBorderAndSql(table, Arrays.asList(tab1));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
-        }       
+        }
     }//GEN-LAST:event_mousePressed
 
     private void mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClicked
         if (evt.getClickCount() == 2) {
             btnChoice(null);
-        } 
+        }
     }//GEN-LAST:event_mouseClicked
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

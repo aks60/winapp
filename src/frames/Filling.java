@@ -849,7 +849,7 @@ public class Filling extends javax.swing.JFrame {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Util.listenerClick(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        Util.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
@@ -871,9 +871,9 @@ public class Filling extends javax.swing.JFrame {
 
     private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged
         if (tabb1.getSelectedIndex() == 0) {
-            Util.listenerClick(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Util.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 1) {
-            Util.listenerClick(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Util.updateBorderAndSql(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         }
     }//GEN-LAST:event_tabbStateChanged
 

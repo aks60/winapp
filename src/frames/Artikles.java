@@ -359,17 +359,17 @@ public class Artikles extends javax.swing.JFrame {
         Util.clearTable(tab1, tab2);
         Util.stopCellEditing(tab1, tab2);
 
-        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-        if (selectedNode != null) {
-            if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (node != null) {
+            if (node.getUserObject() instanceof TypeArtikl == false) {
                 qArtikl2.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
 
-            } else if (selectedNode.isLeaf()) {
-                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
+            } else if (node.isLeaf()) {
+                TypeArtikl e = (TypeArtikl) node.getUserObject();
                 qArtikl2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
 
             } else {
-                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
+                TypeArtikl e = (TypeArtikl) node.getUserObject();
                 qArtikl2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
             qArtikl.clear();
@@ -1512,7 +1512,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Util.listenerClick(table, Arrays.asList(tab1, tab2));
+        Util.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());

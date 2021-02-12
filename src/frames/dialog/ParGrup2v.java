@@ -243,7 +243,7 @@ public class ParGrup2v extends javax.swing.JDialog {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Util.listenerClick(table, Arrays.asList(tab1, tab2));
+        Util.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
     }//GEN-LAST:event_tabMousePressed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked

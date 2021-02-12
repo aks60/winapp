@@ -1322,22 +1322,22 @@ public class Furniture extends javax.swing.JFrame {
         Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
 
         if (tabb1.getSelectedIndex() == 0) {
-            Util.listenerClick(tab2a, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+            Util.updateBorderAndSql(tab2a, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
             selectionTab2a(null);
 
         } else if (tabb1.getSelectedIndex() == 1) {
-            Util.listenerClick(tab2b, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+            Util.updateBorderAndSql(tab2b, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
             selectionTab2b(null);
 
         } else if (tabb1.getSelectedIndex() == 2) {
-            Util.listenerClick(tab2c, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+            Util.updateBorderAndSql(tab2c, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
             selectionTab2c(null);
         }
     }//GEN-LAST:event_tabbStateChanged
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Util.listenerClick(table, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+        Util.updateBorderAndSql(table, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
         if (table == tab2a) {
             selectionTab2a(null);
         } else if (table == tab2b) {
