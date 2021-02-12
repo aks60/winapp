@@ -54,7 +54,6 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
         btnChoice.setVisible(false);
         btnRemov.setVisible(false);
         loadingData();
-        //loadingTree();
     }
 
     public Models(java.awt.Window owner, DialogListener listener) {
@@ -65,8 +64,6 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
         this.listenet = listener;
         owner.setEnabled(false);
         loadingData();
-        //loadingTree();
-
     }
 
     private void loadingData() {

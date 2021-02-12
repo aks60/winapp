@@ -18,18 +18,39 @@ import javax.swing.text.PlainDocument;
 public class DefCellEditor extends DefaultCellEditor {
 
     private EditorListener listenerCell = null;
-    protected JComponent panel = new javax.swing.JPanel();
-    protected JButton button = null;
+    private JComponent panel = new javax.swing.JPanel();
+    private JButton button = null;
 
     public DefCellEditor(JButton button) {
         super(new JTextField());
+        init((JTextField) editorComponent, false);
         init(button);
+    }
+
+    public DefCellEditor(EditorListener listener) {
+        super(new JTextField());
+        this.listenerCell = listener;
+        init((JTextField) editorComponent, true);
+        init(listener);
     }
 
     public DefCellEditor(EditorListener listener, JButton button) {
         super(new JTextField());
         this.listenerCell = listener;
+        init((JTextField) editorComponent, false);
         init(button);
+        init(listener);
+    }
+
+    private void init(JTextField editorText, boolean editable) {
+        panel.setBorder(null);
+        panel.setBackground(new java.awt.Color(240, 240, 240));
+        panel.setLayout(new java.awt.BorderLayout());
+        editorText.setPreferredSize(new java.awt.Dimension(60, 18));
+        editorText.setEditable(editable);
+        editorText.setBorder(null);
+        editorText.setBackground(new java.awt.Color(255, 255, 255));
+        panel.add(editorText, java.awt.BorderLayout.CENTER);
     }
 
     private void init(JButton button) {
@@ -38,47 +59,30 @@ public class DefCellEditor extends DefaultCellEditor {
         button.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         button.setFocusable(false);
         button.setPreferredSize(new java.awt.Dimension(24, 18));
-
-        panel = new javax.swing.JPanel();
-        panel.setBorder(null);
-        panel.setBackground(new java.awt.Color(240, 240, 240));
-        panel.setLayout(new java.awt.BorderLayout());
-
-        JTextField editorText = (JTextField) editorComponent;
-        editorText.setPreferredSize(new java.awt.Dimension(60, 18));
-        editorText.setEditable(false);
-        editorText.setBorder(null);
-        editorText.setBackground(new java.awt.Color(255, 255, 255));
-        panel.add(editorText, java.awt.BorderLayout.CENTER);
         panel.add(button, java.awt.BorderLayout.EAST);
+    }
 
-        PlainDocument doc = (PlainDocument) editorText.getDocument();
-        doc.setDocumentFilter(new DocumentFilter() {
-            
-            @Override
-            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                if (listenerCell == null) {
-                    super.insertString(fb, offset, string, attr);
+    private void init(EditorListener listenerCell) {
+        if (listenerCell != null) {
+            JTextField editorText = (JTextField) editorComponent;
+            PlainDocument doc = (PlainDocument) editorText.getDocument();
+            doc.setDocumentFilter(new DocumentFilter() {
 
-                } else {
-                    if (listenerCell.action(string) == true) { //проверка на коррекность ввода
+                @Override
+                public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                    if (listenerCell.action(string)) { //проверка на коррекность ввода
                         super.insertString(fb, offset, string, attr);
                     }
                 }
-            }
 
-            @Override
-            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                if (listenerCell == null) {
-                    super.replace(fb, offset, length, string, attrs);
-
-                } else {
-                    if (listenerCell.action(string) == true) {  //проверка на коррекность ввода
+                @Override
+                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                    if (listenerCell.action(string)) {  //проверка на коррекность ввода
                         super.replace(fb, offset, length, string, attrs);
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
@@ -86,31 +90,20 @@ public class DefCellEditor extends DefaultCellEditor {
             boolean isSelected, int row, int column) {
 
         Field field = ((DefTableModel) table.getModel()).columns[column];
-        ((JTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
+        //((JTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
         delegate.setValue(value);
         return panel;
     }
 
     @Override
-    public boolean isCellEditable(EventObject anEvent) {        
-        if (anEvent instanceof MouseEvent == true) {     
-            if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) {                 
+    public boolean isCellEditable(EventObject anEvent) {
+        if (anEvent instanceof MouseEvent == true) {
+            if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) {
                 listenerCell.action(DefCellEditor.this);
             }
         }
         return delegate.isCellEditable(anEvent);
     }
-
-//    @Override
-//    public boolean stopCellEditing() {
-//        JTextField txt = (JTextField) getComponent();
-//        if (listenerCell != null) {
-//            if (listenerCell.action(txt) == false) {
-//                return false;
-//            }
-//        }
-//        return super.stopCellEditing();
-//    }
 
     public JButton getButton() {
         return button;
