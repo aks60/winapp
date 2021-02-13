@@ -58,7 +58,7 @@ public class Rulecalc extends javax.swing.JFrame {
             }
         };
 
-        tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditor(5));
+        tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditor(6));
         tab2.getColumnModel().getColumn(5).setCellEditor(new DefCellEditor(5));
         tab2.getColumnModel().getColumn(6).setCellEditor(new DefCellEditor(3));
         tab2.getColumnModel().getColumn(7).setCellEditor(new DefCellEditor(3));

@@ -26,7 +26,7 @@ public class DefCellEditor extends DefaultCellEditor {
         super(new JTextField());
         this.check = check;
         field(true);
-        check();
+        filter();
     }
 
     public DefCellEditor(JButton button) {
@@ -40,7 +40,7 @@ public class DefCellEditor extends DefaultCellEditor {
         this.listenerCell = listener;
         field(false);
         button(button);
-        filter(listener);
+        filter();
     }
 
     private void field(boolean editable) {
@@ -64,30 +64,8 @@ public class DefCellEditor extends DefaultCellEditor {
         panel.add(button, java.awt.BorderLayout.EAST);
     }
 
-    private void filter(EditorListener listenerCell) {
-        if (listenerCell != null) {
-            JTextField editorText = (JTextField) editorComponent;
-            PlainDocument doc = (PlainDocument) editorText.getDocument();
-            doc.setDocumentFilter(new DocumentFilter() {
+    private void filter() {
 
-                @Override
-                public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                    if (string.length() > 1 || listenerCell.action(string)) { //проверка на коррекность ввода
-                        super.insertString(fb, offset, string, attr);
-                    }
-                }
-
-                @Override
-                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                    if (string.length() > 1 || listenerCell.action(string)) {  //проверка на коррекность ввода
-                        super.replace(fb, offset, length, string, attrs);
-                    }
-                }
-            });
-        }
-    }
-
-    private void check() {
         JTextField editorText = (JTextField) editorComponent;
         PlainDocument doc = (PlainDocument) editorText.getDocument();
         doc.setDocumentFilter(new DocumentFilter() {
@@ -132,12 +110,14 @@ public class DefCellEditor extends DefaultCellEditor {
 
     private boolean check(String s) {
         if (check == 0) {
-            return true;
+            return listenerCell.action(s);
         } else if (check == 3 && "0123456789.,".indexOf(s) != -1) {
             return true;
         } else if (check == 4 && "0123456789;".indexOf(s) != -1) {
             return true;
         } else if (check == 5 && "0123456789-;".indexOf(s) != -1) {
+            return true;
+        } else if (check == 6 && "0123456789,-;".indexOf(s) != -1) {
             return true;
         }
         return false;
