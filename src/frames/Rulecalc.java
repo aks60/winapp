@@ -68,11 +68,11 @@ public class Rulecalc extends javax.swing.JFrame {
 
         Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, (artiklRec) -> {
+                Util.stopCellEditing(tab2);
                 int val = artiklRec.getInt(eArtikl.level1) * 100 + artiklRec.getInt(eArtikl.level2);
                 qRulecalc.set(val, Util.getIndexRec(tab2), eRulecalc.type);
-                ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
-                Util.stopCellEditing(tab2);
-            }, 1, 2, 3, 4, 5);
+                ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());                
+             }, 1, 2, 3, 4, 5);
         });
 
         Util.buttonCellEditor(tab2, 2).addActionListener(event -> {
@@ -290,15 +290,15 @@ public class Rulecalc extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxx", null, "ttt", "erertet", "1", "1", null,  new Double(1.0), "1", "1", "1",  new Integer(1),  new Integer(1)},
-                {"vvv", null, "reee", "ertewr", "1", "1", null,  new Double(1.0), "1", "1", "1",  new Integer(1),  new Integer(1)}
+                {"xxx", null, "ttt", "erertet", "1", "1", null,  new Double(1.0), "1", "1", "1", null,  new Integer(1)},
+                {"vvv", null, "reee", "ertewr", "1", "1", null,  new Double(1.0), "1", "1", "1", null,  new Integer(1)}
             },
             new String [] {
                 "Название правила", "Использование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Базовая текстура", "Внутр. текстура", "Внешн. текстура", "Форма позиции", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
