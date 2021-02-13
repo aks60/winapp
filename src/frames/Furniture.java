@@ -334,32 +334,32 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     private void listenerAdd() {
-        Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab1, 1).addActionListener(event -> {
             new DicEnums(this, listenerVariant1, UseFurn1.values());
         });
 
-        Util.buttonEditorCell(tab1, 2).addActionListener(event -> {
+        Util.buttonCellEditor(tab1, 2).addActionListener(event -> {
             new DicEnums(this, listenerSide4, LayoutFurn1.values());
         });
 
-        Util.buttonEditorCell(tab1, 7).addActionListener(event -> {
+        Util.buttonCellEditor(tab1, 7).addActionListener(event -> {
             new DicEnums(this, listenerVariant2, UseFurn2.values());
         });
 
         for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
-            Util.buttonEditorCell(tab, 0).addActionListener(event -> {
+            Util.buttonCellEditor(tab, 0).addActionListener(event -> {
                 new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
             });
         }
         for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
-            Util.buttonEditorCell(tab, 1).addActionListener(event -> {
+            Util.buttonCellEditor(tab, 1).addActionListener(event -> {
                 new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
             });
         }
 
         for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
             Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
-            Util.buttonEditorCell(tab, 2).addActionListener(event -> {
+            Util.buttonCellEditor(tab, 2).addActionListener(event -> {
                 Record record = query.get(Util.getSelectedRec(tab));
                 int artikl_id = record.getInt(eFurndet.artikl_id);
                 ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
@@ -367,26 +367,26 @@ public class Furniture extends javax.swing.JFrame {
         }
         for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
             Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
-            Util.buttonEditorCell(tab, 3).addActionListener(event -> {
+            Util.buttonCellEditor(tab, 3).addActionListener(event -> {
                 Record record = query.get(Util.getSelectedRec(tab));
                 int colorFk = record.getInt(eFurndet.color_fk);
                 DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
             });
         }
 
-        Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 0).addActionListener(event -> {
             new DicEnums(this, listenerSide1, LayoutFurn1.values());
         });
 
-        Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 1).addActionListener(event -> {
             new DicEnums(this, listenerSide2, UseFurn3.values());
         });
 
-        Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 0).addActionListener(event -> {
             ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.joint, 21000);
         });
 
-        Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 1, listenerEditor).addActionListener(event -> {
             Record record = qFurnpar1.get(Util.getSelectedRec(tab4));
             int grup = record.getInt(eFurnpar1.params_id);
             if (grup < 0) {
@@ -397,11 +397,11 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab5, 0).addActionListener(event -> {
             new DicEnums(this, listenerSide3, LayoutFurn3.values());
         });
 
-        Util.buttonEditorCell(tab6, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab6, 0).addActionListener(event -> {
             int index = tabb1.getSelectedIndex();
             JTable table = (index == 0) ? tab2a : (index == 1) ? tab2b : tab2c;
             int row = Util.getSelectedRec(table);
@@ -416,7 +416,7 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonEditorCell(tab6, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab6, 1, listenerEditor).addActionListener(event -> {
             Record record = qFurnpar2.get(Util.getSelectedRec(tab6));
             int grup = record.getInt(eFurnpar2.params_id);
             if (grup < 0) {

@@ -188,11 +188,11 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.size_tech, txtField16);
         rsvArtikl.add(eArtikl.size_frez, txtField21);
 
-        Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 0).addActionListener(event -> {
             DicColor2 frame = new DicColor2(this, listenerColor);
         });
 
-        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
             DicColor2 frame = new DicColor2(this, listenerColor);
         });
     }

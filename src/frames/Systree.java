@@ -334,57 +334,57 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void listenerAdd() {
-        Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 0).addActionListener(event -> {
             new DicEnums(this, (record) -> {
                 Util.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
             }, UseArtiklTo.values());
         });
 
-        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
             new DicEnums(this, (record) -> {
                 Util.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
             }, UseSide.values());
         });
 
-        Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 2).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
-        Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 3).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
-        Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 1).addActionListener(event -> {
             DicName frame = new DicName(this, listenerFurn, new Query(eFurniture.values()).select(eFurniture.up, "order by", eFurniture.name), eFurniture.name);
         });
 
-        Util.buttonEditorCell(tab3, 2).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 2).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, (record) -> {
                 Util.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4, tab5);
             }, TypeOpen2.values());
         });
 
-        Util.buttonEditorCell(tab3, 4).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 4).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, (record) -> {
                 Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4, tab5);
             }, LayoutHandle.values());
         });
 
-        Util.buttonEditorCell(tab3, 5).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 5).addActionListener(event -> {
             int furnityreId = qSysfurn.getAs(Util.getSelectedRec(tab3), eSysfurn.furniture_id);
             DicArtikl artikl = new DicArtikl(this, listenerArt211, furnityreId, TypeArtikl.FURNRUCHKA.id1, TypeArtikl.FURNRUCHKA.id2);
         });
 
-        Util.buttonEditorCell(tab3, 6).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 6).addActionListener(event -> {
             int furnityreId = qSysfurn.getAs(Util.getSelectedRec(tab3), eSysfurn.furniture_id);
             DicArtikl artikl = new DicArtikl(this, listenerArt212, furnityreId, TypeArtikl.FURNLOOP.id1, TypeArtikl.FURNLOOP.id2);
         });
 
-        Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 0).addActionListener(event -> {
             ParDefault frame = new ParDefault(this, listenerParam1);
         });
 
-        Util.buttonEditorCell(tab4, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 1).addActionListener(event -> {
             Integer grup = qSyspar1.getAs(Util.getSelectedRec(tab4), eSyspar1.params_id);
             ParDefault frame = new ParDefault(this, listenerParam2, grup);
         });

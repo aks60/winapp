@@ -180,51 +180,51 @@ public class Filling extends javax.swing.JFrame {
     }
 
     private void listenerAdd() {
-        Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 0).addActionListener(event -> {
             Query query = new Query(eArtikl.name).select("select distinct " + eArtikl.depth.name() + " from " + eArtikl.up.tname() + " order by " + eArtikl.depth.name());
             DicName frame = new DicName(this, listenerThicknes, query, eArtikl.name);  
         });
 
-        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
         });
 
-        Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 2).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
         });
 
-        Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 3).addActionListener(event -> {
             Record record = qGlasdet.get(Util.getSelectedRec(tab3));
             int artikl_id = record.getInt(eElemdet.artikl_id);
             ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
         });
 
-        Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 4).addActionListener(event -> {
             Record record = qGlasdet.get(Util.getSelectedRec(tab2));
             int colorFk = record.getInt(eGlasdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar1, colorFk);
         });
 
-        Util.buttonEditorCell(tab2, 5).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 5).addActionListener(event -> {
             Record record = qGlasdet.get(Util.getSelectedRec(tab2));
             int colorFk = record.getInt(eGlasdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar2, colorFk);
         });
 
-        Util.buttonEditorCell(tab2, 6).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 6).addActionListener(event -> {
             Record record = qGlasdet.get(Util.getSelectedRec(tab2));
             int colorFk = record.getInt(eGlasdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar3, colorFk);
         });
 
-        Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 0).addActionListener(event -> {
             int row = Util.getSelectedRec(tab1);
             if (row != -1) {
                 ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.elem, 13000);
             }
         });
 
-        Util.buttonEditorCell(tab3, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 1, listenerEditor).addActionListener(event -> {
             Record record = qGlaspar1.get(Util.getSelectedRec(tab3));
             int grup = record.getInt(eGlaspar1.params_id);
             if (grup < 0) {
@@ -235,7 +235,7 @@ public class Filling extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 0).addActionListener(event -> {
             int row = Util.getSelectedRec(tab2);
             if (row != -1) {
                 Record record = qGlasdet.table(eArtikl.up).get(row);
@@ -245,7 +245,7 @@ public class Filling extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 1, listenerEditor).addActionListener(event -> {
             Record record = qGlaspar2.get(Util.getSelectedRec(tab4));
             int grup = record.getInt(eGlaspar1.params_id);
             if (grup < 0) {
@@ -256,11 +256,11 @@ public class Filling extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab5, 0).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
-        Util.buttonEditorCell(tab5, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab5, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
     }

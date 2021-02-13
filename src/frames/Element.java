@@ -213,57 +213,57 @@ public class Element extends javax.swing.JFrame {
     }
 
     private void listenerAdd() {
-        Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 0).addActionListener(event -> {
             int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
             DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
         });
 
-        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
             int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
             DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
         });
 
-        Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 3).addActionListener(event -> {
             DicTypset frame = new DicTypset(this, listenerTypset);
         });
 
-        Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 4).addActionListener(event -> {
             DicGroups frame = new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF);
         });
 
-        Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 0).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
-        Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
-        Util.buttonEditorCell(tab3, 2).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 2).addActionListener(event -> {
             Record record = qElemdet.get(Util.getSelectedRec(tab3));
             int artikl_id = record.getInt(eElemdet.artikl_id);
             ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
         });
 
-        Util.buttonEditorCell(tab3, 3).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 3).addActionListener(event -> {
             Record record = qElemdet.get(Util.getSelectedRec(tab3));
             int colorFk = record.getInt(eElemdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar1, colorFk);
         });
 
-        Util.buttonEditorCell(tab3, 4).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 4).addActionListener(event -> {
             Record record = qElemdet.get(Util.getSelectedRec(tab3));
             int colorFk = record.getInt(eElemdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar2, colorFk);
         });
 
-        Util.buttonEditorCell(tab3, 5).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 5).addActionListener(event -> {
             Record record = qElemdet.get(Util.getSelectedRec(tab3));
             int colorFk = record.getInt(eElemdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar3, colorFk);
         });
 
-        Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 0).addActionListener(event -> {
             int row = Util.getSelectedRec(tab1);
             if (row != -1) {
                 Record record = qElemgrp.get(row);
@@ -273,7 +273,7 @@ public class Element extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 1, listenerEditor).addActionListener(event -> {
             Record record = qElempar1.get(Util.getSelectedRec(tab4));
             int grup = record.getInt(eElempar1.params_id);
             if (grup < 0) {
@@ -284,7 +284,7 @@ public class Element extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab5, 0).addActionListener(event -> {
             int row = Util.getSelectedRec(tab3);
             if (row != -1) {
                 Record recordJoin = qElemdet.get(row);
@@ -296,7 +296,7 @@ public class Element extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonEditorCell(tab5, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab5, 1, listenerEditor).addActionListener(event -> {
             Record record = qElempar2.get(Util.getSelectedRec(tab5));
             int grup = record.getInt(eElempar2.params_id);
             if (grup < 0) {

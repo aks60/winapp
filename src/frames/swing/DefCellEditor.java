@@ -17,38 +17,77 @@ import javax.swing.text.PlainDocument;
 
 public class DefCellEditor extends DefaultCellEditor {
 
+    private int check = 0;
+    private EditorListener listenerCell = null;
     private JComponent panel = new javax.swing.JPanel();
     private JButton button = null;
-    private int check = 0;
 
-    public DefCellEditor(boolean btn, int check) {
+    public DefCellEditor(int check) {
         super(new JTextField());
         this.check = check;
-        init(btn);
-        filter();
+        field(true);
+        check();
     }
 
-    private void init(boolean btn) {
+    public DefCellEditor(JButton button) {
+        super(new JTextField());
+        field(false);
+        button(button);
+    }
+
+    public DefCellEditor(EditorListener listener, JButton button) {
+        super(new JTextField());
+        this.listenerCell = listener;
+        field(false);
+        button(button);
+        filter(listener);
+    }
+
+    private void field(boolean editable) {
+        JTextField editorText = (JTextField) editorComponent;
         panel.setBorder(null);
         panel.setBackground(new java.awt.Color(240, 240, 240));
         panel.setLayout(new java.awt.BorderLayout());
-        JTextField editorText = (JTextField) editorComponent;
         editorText.setPreferredSize(new java.awt.Dimension(60, 18));
-        editorText.setEditable(btn);
+        editorText.setEditable(editable);
         editorText.setBorder(null);
         editorText.setBackground(new java.awt.Color(255, 255, 255));
         panel.add(editorText, java.awt.BorderLayout.CENTER);
-        if (btn == false) {
-            setClickCountToStart(2);
-            button = new JButton("...");
-            button.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-            button.setFocusable(false);
-            button.setPreferredSize(new java.awt.Dimension(24, 18));
-            panel.add(button, java.awt.BorderLayout.EAST);
+    }
+
+    private void button(JButton button) {
+        setClickCountToStart(2);
+        this.button = button;
+        button.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        button.setFocusable(false);
+        button.setPreferredSize(new java.awt.Dimension(24, 18));
+        panel.add(button, java.awt.BorderLayout.EAST);
+    }
+
+    private void filter(EditorListener listenerCell) {
+        if (listenerCell != null) {
+            JTextField editorText = (JTextField) editorComponent;
+            PlainDocument doc = (PlainDocument) editorText.getDocument();
+            doc.setDocumentFilter(new DocumentFilter() {
+
+                @Override
+                public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                    if (string.length() > 1 || listenerCell.action(string)) { //проверка на коррекность ввода
+                        super.insertString(fb, offset, string, attr);
+                    }
+                }
+
+                @Override
+                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                    if (string.length() > 1 || listenerCell.action(string)) {  //проверка на коррекность ввода
+                        super.replace(fb, offset, length, string, attrs);
+                    }
+                }
+            });
         }
     }
 
-    private void filter() {
+    private void check() {
         JTextField editorText = (JTextField) editorComponent;
         PlainDocument doc = (PlainDocument) editorText.getDocument();
         doc.setDocumentFilter(new DocumentFilter() {
@@ -72,8 +111,21 @@ public class DefCellEditor extends DefaultCellEditor {
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
+
+        Field field = ((DefTableModel) table.getModel()).columns[column];
+        ((JTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
         delegate.setValue(value);
         return panel;
+    }
+
+    @Override
+    public boolean isCellEditable(EventObject anEvent) {
+        if (anEvent instanceof MouseEvent == true) {
+            if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) {
+                listenerCell.action(DefCellEditor.this);
+            }
+        }
+        return delegate.isCellEditable(anEvent);
     }
 
     private boolean check(String s) {

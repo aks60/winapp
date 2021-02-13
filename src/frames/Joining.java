@@ -239,19 +239,19 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void listenerAdd() {
-        Util.buttonEditorCell(tab1, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab1, 0).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
-        Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab1, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
-        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
             DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
         });
 
-        Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 0).addActionListener(event -> {
             int row = Util.getSelectedRec(tab2);
             if (row != -1) {
                 Record record = qJoinvar.get(row);
@@ -260,7 +260,7 @@ public class Joining extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonEditorCell(tab3, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 1, listenerEditor).addActionListener(event -> {
             Record record = qJoinpar1.get(Util.getSelectedRec(tab3));
             int grup = record.getInt(eJoinpar1.params_id);
             if (grup < 0) {
@@ -271,39 +271,39 @@ public class Joining extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 0).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
         });
 
-        Util.buttonEditorCell(tab4, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
         });
 
-        Util.buttonEditorCell(tab4, 2).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 2).addActionListener(event -> {
             Record record = qJoindet.get(Util.getSelectedRec(tab4));
             int artikl_id = record.getInt(eJoindet.artikl_id);
             ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
         });
 
-        Util.buttonEditorCell(tab4, 3).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 3).addActionListener(event -> {
             Record record = qJoindet.get(Util.getSelectedRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar1, colorFk);
         });
 
-        Util.buttonEditorCell(tab4, 4).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 4).addActionListener(event -> {
             Record record = qJoindet.get(Util.getSelectedRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar2, colorFk);
         });
 
-        Util.buttonEditorCell(tab4, 5).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 5).addActionListener(event -> {
             Record record = qJoindet.get(Util.getSelectedRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar3, colorFk);
         });
 
-        Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
+        Util.buttonCellEditor(tab5, 0).addActionListener(event -> {
             int row = Util.getSelectedRec(tab4);
             if (row != -1) {
                 Record recordJoin = qJoindet.get(row);
@@ -315,7 +315,7 @@ public class Joining extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonEditorCell(tab5, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab5, 1, listenerEditor).addActionListener(event -> {
             Record record = qJoinpar2.get(Util.getSelectedRec(tab5));
             int grup = record.getInt(eJoinpar2.params_id);
             if (grup < 0) {

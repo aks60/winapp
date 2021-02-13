@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import frames.swing.DefTableModel;
-import frames.swing.DefCellEditor2;
+import frames.swing.DefCellEditor;
 
 /**
  * <p>
