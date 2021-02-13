@@ -494,8 +494,7 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
-                "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+        if (Util.isDeleteRecord(this) == 0) {
             if (tab1.getBorder() != null) {
                 Util.deleteRecord(tab1);
             } else if (tab2.getBorder() != null) {
@@ -612,6 +611,7 @@ public class Groups extends javax.swing.JFrame {
 
     private void initElements() {
 
+        FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         Arrays.asList(btnIns, btnDel, btnRef).forEach(btn -> btn.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
     }

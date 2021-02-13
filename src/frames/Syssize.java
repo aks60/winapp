@@ -7,6 +7,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eCurrenc;
 import domain.eSyssize;
+import frames.swing.DefCellEditor;
 import java.awt.Frame;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
@@ -51,6 +52,10 @@ public class Syssize extends javax.swing.JFrame {
 
     private void loadingModel() {
         new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.naxl, eSyssize.zax, eSyssize.falz);
+        tab1.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
+        tab1.getColumnModel().getColumn(2).setCellEditor(new DefCellEditor(3));
+        tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditor(3));
+        tab1.getColumnModel().getColumn(4).setCellEditor(new DefCellEditor(3));
         Util.setSelectedRow(tab1);
     }
 
@@ -244,15 +249,27 @@ public class Syssize extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setMinWidth(200);
@@ -272,30 +289,23 @@ public class Syssize extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        qSyssize.select(eCurrenc.up);
+        qSyssize.execsql();
+        loadingData();
+        Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                Record record = qSyssize.get(row);
-                record.set(eCurrenc.up, Query.DEL);
-                qSyssize.delete(record);
-                qSyssize.removeRec(row);
-                ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+        if (tab1.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab1);
             }
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Record currencRec = eSyssize.up.newRecord(Query.INS);
-        currencRec.setNo(eCurrenc.id, ConnApp.instanc().genId(eCurrenc.up));
-        qSyssize.add(currencRec);
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.scrollRectToVisible(qSyssize, tab1);
+        if (tab1.getBorder() != null) {
+            Record record = Util.insertRecord(tab1, eSyssize.up);
+        }
     }//GEN-LAST:event_btnInsert
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
@@ -317,6 +327,11 @@ public class Syssize extends javax.swing.JFrame {
         listener.action(eSyssize.up.newRecord());
     }//GEN-LAST:event_btnRemoveert
 
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+        JTable table = (JTable) evt.getSource();
+        Util.updateBorderAndSql(table, Arrays.asList(tab1));
+    }//GEN-LAST:event_tabMousePressed
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
@@ -332,25 +347,12 @@ public class Syssize extends javax.swing.JFrame {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
 // </editor-fold>    
-    
+
     private void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        FocusListener listenerFocus = new FocusListener() {
-
-            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-            public void focusGained(FocusEvent e) {
-                ((JTable) e.getSource()).setBorder(border);
-            }
-
-            public void focusLost(FocusEvent e) {
-            }
-        };
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1)));
-        tab1.addFocusListener(listenerFocus);
-
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Системные константы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
     }
