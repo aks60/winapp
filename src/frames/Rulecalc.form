@@ -384,10 +384,7 @@
                           <Data value="1"/>
                           <Data value="1"/>
                         </Column>
-                        <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;&#x444;&#x438;&#x446;&#x438;&#x435;&#x43d;&#x442;" type="java.lang.Double">
-                          <Data value="1.0"/>
-                          <Data value="1.0"/>
-                        </Column>
+                        <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;&#x444;&#x438;&#x446;&#x438;&#x435;&#x43d;&#x442;" type="java.lang.Double"/>
                         <Column editable="true" title="&#x41d;&#x430;&#x434;&#x431;&#x430;&#x432;&#x43a;&#x430;" type="java.lang.Double">
                           <Data value="1.0"/>
                           <Data value="1.0"/>
