@@ -68,7 +68,8 @@ public class Rulecalc extends javax.swing.JFrame {
 
         Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, (artiklRec) -> {
-                qRulecalc.set(artiklRec.getInt(eArtikl.level1) * 100 + artiklRec.getInt(eArtikl.level2), Util.getSelectedRec(tab2), eRulecalc.type);
+                int val = artiklRec.getInt(eArtikl.level1) * 100 + artiklRec.getInt(eArtikl.level2);
+                qRulecalc.set(val, Util.getIndexRec(tab2), eRulecalc.type);
                 ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
                 Util.stopCellEditing(tab2);
             }, 1, 2, 3, 4, 5);
@@ -96,7 +97,7 @@ public class Rulecalc extends javax.swing.JFrame {
     private void listenerSet() {
 
         listenerArtikl = (arttiklRec) -> {
-            int index = Util.getSelectedRec(tab2);
+            int index = Util.getIndexRec(tab2);
             Util.stopCellEditing(tab2);
             qRulecalc.table(eRulecalc.up).set(arttiklRec.getInt(eArtikl.id), index, eRulecalc.artikl_id);
             qRulecalc.table(eArtikl.up).set(arttiklRec.get(eArtikl.code), index, eArtikl.code);
@@ -289,15 +290,15 @@ public class Rulecalc extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxx", "vvv", "ttt", "erertet", "1", "1",  new Double(1.0),  new Double(1.0), "1", "1", "1",  new Integer(1),  new Integer(1)},
-                {"vvv", "hhh", "reee", "ertewr", "1", "1",  new Double(1.0),  new Double(1.0), "1", "1", "1",  new Integer(1),  new Integer(1)}
+                {"xxx", null, "ttt", "erertet", "1", "1", null,  new Double(1.0), "1", "1", "1",  new Integer(1),  new Integer(1)},
+                {"vvv", null, "reee", "ertewr", "1", "1", null,  new Double(1.0), "1", "1", "1",  new Integer(1),  new Integer(1)}
             },
             new String [] {
                 "Название правила", "Использование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Базовая текстура", "Внутр. текстура", "Внешн. текстура", "Форма позиции", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
