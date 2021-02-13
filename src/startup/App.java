@@ -1118,7 +1118,7 @@ public class App extends javax.swing.JFrame {
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Color.createFrame(App.this);
+                eApp.Color.createFrame(App.this);
             }
         });
 }//GEN-LAST:event_mnColor
@@ -1127,13 +1127,13 @@ public class App extends javax.swing.JFrame {
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Systree.createFrame(App.this);
+                eApp.Systree.createFrame(App.this);
             }
         });
 }//GEN-LAST:event_mn42
 
     private void mExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mExit
-        Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
+        Arrays.asList(eApp.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
 }//GEN-LAST:event_mExit
 
 private void mDictDicAddr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDictDicAddr
@@ -1142,7 +1142,7 @@ private void mDictDicAddr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDi
 
 private void mnAboutBox(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAboutBox
 
-    eApp1.AboutBox.createFrame(App.this);
+    eApp.AboutBox.createFrame(App.this);
 }//GEN-LAST:event_mnAboutBox
 
 private void mn51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn51ActionPerformed
@@ -1184,7 +1184,7 @@ private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
 
     FrameProgress.create(App.this, new FrameListener() {
         public void actionRequest(Object obj) {
-            eApp1.Specific.createFrame(App.this);
+            eApp.Specific.createFrame(App.this);
         }
     });
 }//GEN-LAST:event_mn41
@@ -1193,7 +1193,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     FrameProgress.create(App.this, new FrameListener() {
         public void actionRequest(Object obj) {
-            eApp1.Artikles.createFrame(App.this);
+            eApp.Artikles.createFrame(App.this);
         }
     });
 }//GEN-LAST:event_mn25
@@ -1218,7 +1218,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.DicCurrenc.createFrame(App.this);
+                eApp.DicCurrenc.createFrame(App.this);
             }
         });
     }//GEN-LAST:event_mnCurrency
@@ -1228,12 +1228,12 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 if (btn01.isSelected() == true) {
-                    eApp1.Element.createFrame(App.this);
+                    eApp.Element.createFrame(App.this);
                 } else {
                     constructive();
                     iwin.calcElements = new builder.specif.Elements(iwin);
                     iwin.calcElements.calc();
-                    eApp1.Element.createFrame(App.this, iwin.calcElements.listVariants);
+                    eApp.Element.createFrame(App.this, iwin.calcElements.listVariants);
                 }
             }
         });
@@ -1244,12 +1244,12 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 if (btn01.isSelected() == true) {
-                    eApp1.Furniture.createFrame(App.this);
+                    eApp.Furniture.createFrame(App.this);
                 } else {
                     constructive();
                     iwin.calcFurniture = new builder.specif.Furniture(iwin); //фурнитура 
                     iwin.calcFurniture.calc();
-                    eApp1.Furniture.createFrame(App.this, iwin.calcFurniture.listVariants);
+                    eApp.Furniture.createFrame(App.this, iwin.calcFurniture.listVariants);
                 }
             }
         });
@@ -1259,7 +1259,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Partner.createFrame(App.this);
+                eApp.Partner.createFrame(App.this);
             }
         });
     }//GEN-LAST:event_mnPartner
@@ -1268,7 +1268,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Param.createFrame(App.this);
+                eApp.Param.createFrame(App.this);
             }
         });
     }//GEN-LAST:event_mnParametr
@@ -1278,12 +1278,12 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 if (btn01.isSelected() == true) {
-                    eApp1.Joining.createFrame(App.this);
+                    eApp.Joining.createFrame(App.this);
                 } else {
                     constructive();
                     iwin.calcJoining = new builder.specif.Joining(iwin);
                     iwin.calcJoining.calc();
-                    eApp1.Joining.createFrame(App.this, iwin.calcJoining.listVariants);
+                    eApp.Joining.createFrame(App.this, iwin.calcJoining.listVariants);
 
                 }
             }
@@ -1295,12 +1295,12 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 if (btn01.isSelected() == true) {
-                    eApp1.Filling.createFrame(App.this);
+                    eApp.Filling.createFrame(App.this);
                 } else {
                     constructive();
                     iwin.calcFilling = new builder.specif.Filling(iwin);
                     iwin.calcFilling.calc();
-                    eApp1.Filling.createFrame(App.this, iwin.calcFilling.listVariants);
+                    eApp.Filling.createFrame(App.this, iwin.calcFilling.listVariants);
                 }
             }
         });
@@ -1314,7 +1314,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Kits.createFrame(App.this);
+                eApp.Kits.createFrame(App.this);
             }
         });
     }//GEN-LAST:event_mnKits
@@ -1322,7 +1322,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnConvert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConvert
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Partner.createFrame(App.this);
+                eApp.Partner.createFrame(App.this);
             }
         });
     }//GEN-LAST:event_mnConvert
@@ -1331,7 +1331,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Order.createFrame(App.this);
+                eApp.Order.createFrame(App.this);
             }
         });
     }//GEN-LAST:event_mnOrder
@@ -1340,7 +1340,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.DicSyssize.createFrame(App.this);
+                eApp.DicSyssize.createFrame(App.this);
             }
         });
     }//GEN-LAST:event_mnSyssize
@@ -1349,7 +1349,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Models.createFrame(App.this);
+                eApp.Models.createFrame(App.this);
             }
         });
     }//GEN-LAST:event_mnBoxTypical
@@ -1365,17 +1365,17 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mRulecalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mRulecalc
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.RuleCalc.createFrame(App.this);
+                eApp.RuleCalc.createFrame(App.this);
             }
         });
     }//GEN-LAST:event_mRulecalc
 
     private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
-        Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.ICONIFIED));
+        Arrays.asList(eApp.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.ICONIFIED));
     }//GEN-LAST:event_formWindowIconified
 
     private void formWindowDeiconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeiconified
-        Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.NORMAL));
+        Arrays.asList(eApp.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.NORMAL));
     }//GEN-LAST:event_formWindowDeiconified
 
     private void mnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnFilter
@@ -1383,7 +1383,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnFilter
 
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
-        Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null && el != eApp1.App1).forEach(el -> el.frame.dispose());
+        Arrays.asList(eApp.values()).stream().filter(el -> el.frame != null && el != eApp.App1).forEach(el -> el.frame.dispose());
 
         Integer num_base = (mn631.isSelected()) ? 1 : (mn632.isSelected()) ? 2 : 3;
         PathToDb frame = new PathToDb(this, num_base);
@@ -1416,7 +1416,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnGroup(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGroup
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Groups.createFrame(App.this);
+                eApp.Groups.createFrame(App.this);
             }
         });
     }//GEN-LAST:event_mnGroup
@@ -1517,138 +1517,5 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void initElements() {
         setTitle(getTitle() + Util.designName());
-    }
-
-    public static enum eApp1 {
-
-        App1, Convert, Groups, DicCurrenc, Color, Artikles, Joining, Element, Param,
-        Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,
-        Specific, DicSyssize, TestFrame, RuleCalc;
-        public javax.swing.JFrame frame;
-
-        public void createFrame(java.awt.Window parent, Object... param) {
-            if (frame != null) {
-                frame.dispose();
-            }
-            switch (this) {
-
-                case TestFrame:
-                    frame = new TestFrame();
-                    break;
-                case RuleCalc:
-                    frame = new Rulecalc();
-                    break;
-                case AboutBox:
-                    frame = new AboutBox();
-                    break;
-                case Artikles:
-                    if (param.length == 1) {
-                        frame = new Artikles(parent, (Record) param[0]);
-                    } else {
-                        frame = new Artikles();
-                    }
-                    break;
-                case Groups:
-                    frame = new Groups();
-                    break;
-                case Convert:
-                    frame = new Convert();
-                    break;
-                case Color:
-                    frame = new Color();
-                    break;
-                case Joining:
-                    if (param.length == 0) {
-                        frame = new Joining();
-                    } else if (param.length == 1) {
-                        frame = new Joining((Set) param[0]);
-                    } else {
-                        frame = new Joining((Set) param[0], (int) param[1]);
-                    }
-                    break;
-                case DicCurrenc:
-                    frame = new Currenc();
-                    break;
-                case Element:
-                    if (param.length == 0) {
-                        frame = new Element();
-                    } else if (param.length == 1) {
-                        frame = new Element((Set) param[0]);
-                    } else {
-                        frame = new Element((Set) param[0], (int) param[1]);
-                    }
-                    break;
-                case Param:
-                    frame = new Param();
-                    break;
-                case Filling:
-                    if (param.length == 0) {
-                        frame = new Filling();
-                    } else if (param.length == 1) {
-                        frame = new Filling((Set) param[0]);
-                    } else {
-                        frame = new Filling((Set) param[0], (int) param[1]);
-                    }
-                    break;
-                case Furniture:
-                    if (param.length == 0) {
-                        frame = new Furniture();
-                    } else if (param.length == 1) {
-                        frame = new Furniture((Set) param[0]);
-                    } else {
-                        frame = new Furniture((Set) param[0], (int) param[1]);
-                    }
-                    break;
-                case Kits:
-                    frame = new Kits();
-                    break;
-                case Systree:
-                    if (param.length == 0) {
-                        frame = new Systree();
-                    } else {
-                        frame = new Systree((int) param[0]);
-                    }
-                    break;
-                case Partner:
-                    frame = new Partner();
-                    break;
-                case Order:
-                    frame = new Order();
-                    break;
-                case Models:
-                    frame = new Models();
-                    break;
-                case Specific:
-                    frame = new Specific();
-                    break;
-                case DicSyssize:
-                    frame = new Syssize();
-                    break;
-            }
-            eProfile.appframe = frame;
-            frame.setName(this.name());
-            FrameToFile.setFrameSize(frame);
-            frame.addWindowListener(new java.awt.event.WindowAdapter() {
-                public void windowDeiconified(java.awt.event.WindowEvent evt) {
-                    App1.frame.setExtendedState(JFrame.NORMAL);
-                }
-            });
-            frame.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage());
-            frame.setVisible(true);
-        }
-
-        public static void createApp(eProfile profile) {
-
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            if (profile.equals(eProfile.P16)) {
-                eProfile.role_user = "user";
-                App1.frame = new App();
-                App1.frame.setName(eProfile.P16.name());
-                eProfile.appframe = App1.frame;
-            }
-            App1.frame.setLocation(0, 0);
-            App1.frame.setSize(screenSize.width, App1.frame.getHeight());
-            App1.frame.setVisible(true);
-        }
     }
 }

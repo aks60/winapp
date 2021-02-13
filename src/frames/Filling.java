@@ -5,7 +5,6 @@ import common.EditorListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
-import common.eProperty;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -33,7 +32,6 @@ import domain.eElement;
 import domain.eElempar1;
 import domain.eGroups;
 import domain.eParams;
-import domain.eSysprod;
 import enums.Enam;
 import enums.ParamList;
 import enums.TypeGroups;
@@ -46,7 +44,7 @@ import startup.Main;
 import frames.swing.BooleanRenderer;
 import java.util.Set;
 import java.util.stream.Collectors;
-import startup.App;
+import startup.eApp;
 
 public class Filling extends javax.swing.JFrame {
 
@@ -883,7 +881,7 @@ public class Filling extends javax.swing.JFrame {
 
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                App.eApp1.Artikles.createFrame(Filling.this, record2);
+                eApp.Artikles.createFrame(Filling.this, record2);
             }
         });
     }//GEN-LAST:event_btnConstructiv

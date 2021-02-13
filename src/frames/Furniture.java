@@ -49,8 +49,8 @@ import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.RowFilter;
-import startup.App;
 import startup.Main;
+import startup.eApp;
 
 public class Furniture extends javax.swing.JFrame {
 
@@ -1369,7 +1369,7 @@ public class Furniture extends javax.swing.JFrame {
         Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eFurndet.artikl_id)).findFirst().orElse(eFurndet.up.newRecord());
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                App.eApp1.Artikles.createFrame(Furniture.this, record2);
+                eApp.Artikles.createFrame(Furniture.this, record2);
             }
         });
     }//GEN-LAST:event_btnConstructiv

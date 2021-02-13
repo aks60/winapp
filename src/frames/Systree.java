@@ -70,10 +70,7 @@ import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.Icon;
@@ -85,8 +82,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import startup.App;
-import startup.App.eApp1;
 import startup.Main;
+import startup.eApp;
 
 public class Systree extends javax.swing.JFrame {
 
@@ -575,7 +572,7 @@ public class Systree extends javax.swing.JFrame {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(row);
             String script = sysprodRec.getStr(eSysprod.script);
             eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id));
-            eApp1.App1.frame.setTitle(getTitle() + Util.designName());
+            eApp.App1.frame.setTitle(getTitle() + Util.designName());
 
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
@@ -2349,7 +2346,7 @@ public class Systree extends javax.swing.JFrame {
         Record record2 = eArtikl.find(record.getInt(eSysprof.artikl_id), false);
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                App.eApp1.Artikles.createFrame(Systree.this, record2);
+                eApp.Artikles.createFrame(Systree.this, record2);
             }
         });
     }//GEN-LAST:event_findFromArtikl

@@ -6,7 +6,6 @@ import common.EditorListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
-import common.eProperty;
 import dataset.ConnApp;
 import enums.Enam;
 import dataset.Field;
@@ -29,7 +28,6 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eGroups;
 import domain.eJoindet;
-import domain.eSysprod;
 import enums.ParamList;
 import enums.TypeGroups;
 import enums.TypeSet;
@@ -49,7 +47,7 @@ import frames.swing.BooleanRenderer;
 import frames.swing.DefTableModel;
 import java.util.Set;
 import java.util.stream.Collectors;
-import startup.App;
+import startup.eApp;
 
 public class Element extends javax.swing.JFrame {
 
@@ -1000,7 +998,7 @@ public class Element extends javax.swing.JFrame {
         
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                App.eApp1.Artikles.createFrame(Element.this, record2);
+                eApp.Artikles.createFrame(Element.this, record2);
             }
         });
     }//GEN-LAST:event_btnConstructiv

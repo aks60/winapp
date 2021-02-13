@@ -10,7 +10,6 @@ import common.EditorListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
-import common.eProperty;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -33,7 +32,6 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import frames.dialog.DicJoinvar;
 import domain.eJoinvar;
-import domain.eSysprod;
 import enums.TypeGroups;
 import frames.swing.BooleanRenderer;
 import frames.dialog.DicColvar;
@@ -46,8 +44,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
-import startup.App;
 import startup.Main;
+import startup.eApp;
 
 //варианты соединений
 public class Joining extends javax.swing.JFrame {
@@ -969,7 +967,7 @@ public class Joining extends javax.swing.JFrame {
         Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eJoindet.artikl_id)).findFirst().orElse(eJoindet.up.newRecord());
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                App.eApp1.Artikles.createFrame(Joining.this, record2);
+                eApp.Artikles.createFrame(Joining.this, record2);
             }
         });
     }//GEN-LAST:event_btnConstructiv

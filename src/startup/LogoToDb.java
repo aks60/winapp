@@ -7,7 +7,6 @@ import common.eProfile;
 import common.eProperty;
 import dataset.Query;
 import javax.swing.SwingWorker;
-import builder.Wincalc;
 
 /**
  * <p>
@@ -68,7 +67,7 @@ public class LogoToDb extends javax.swing.JDialog {
                 Query.connection = con.getConnection();
                 if (pass == eExcep.yesConn) {
                     //запуск главного меню
-                    App.eApp1.createApp(eProfile.profile);                   
+                    eApp.createApp(eProfile.profile);                   
                     eProperty.save();  //свойства текущего пользователя
                     dispose();
                 } else if (pass == eExcep.noLogin) {
