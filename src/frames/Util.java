@@ -14,6 +14,7 @@ import domain.eSystree;
 import enums.Enam;
 import enums.ParamList;
 import enums.UseColor;
+import frames.swing.DefCellEditor;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
@@ -39,7 +40,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
-import frames.swing.DefCellEditor;
+import frames.swing.DefCellEditor2;
 import frames.swing.DefTableModel;
 import java.util.Enumeration;
 import javax.swing.JTree;
@@ -466,16 +467,22 @@ public class Util {
     }
 
     //Инкапсуляция кнопки в ячейку таблицы
+    public static JButton buttonEditorCellTest(JTable table, int column) { //TODO Заменить индекс столбца на Field в пакете frame
+        DefCellEditor editorCell = new DefCellEditor(false, 0);
+        table.getColumnModel().getColumn(column).setCellEditor(editorCell);
+        return editorCell.getButton();
+    }
+    
     public static JButton buttonEditorCell(JTable table, int column) { //TODO Заменить индекс столбца на Field в пакете frame
         JButton btn = new JButton("...");
-        table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditor(btn));
+        table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditor2(btn));
         return btn;
     }
 
     //Инкапсуляция кнопки в ячейку таблицы
     public static JButton buttonEditorCell(JTable table, int column, EditorListener listener) {
         JButton btn = new JButton("...");
-        table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditor(listener, btn));
+        table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditor2(listener, btn));
         return btn;
     }
 
@@ -509,14 +516,14 @@ public class Util {
         Query qParam1 = ((DefTableModel) table1.getModel()).getQuery();
         Query qParam2 = ((DefTableModel) table2.getModel()).getQuery();
 
-        if (component instanceof DefCellEditor) { //вид и тип ячейки
-            DefCellEditor editor = (DefCellEditor) component;
+        if (component instanceof DefCellEditor2) { //вид и тип ячейки
+            DefCellEditor2 editor = (DefCellEditor2) component;
 
-            DefCellEditor editor2 = (DefCellEditor) table1.getColumnModel().getColumn(1).getCellEditor();
+            DefCellEditor2 editor2 = (DefCellEditor2) table1.getColumnModel().getColumn(1).getCellEditor();
             if (editor.getButton() == editor2.getButton()) {
                 Util.formatterCell(qParam1, table1, editor); //установим вид и тип ячейки
             }
-            editor2 = (DefCellEditor) table2.getColumnModel().getColumn(1).getCellEditor();
+            editor2 = (DefCellEditor2) table2.getColumnModel().getColumn(1).getCellEditor();
             if (editor.getButton() == editor2.getButton()) {
                 Util.formatterCell(qParam2, table2, editor); //установим вид и тип ячейки
             }
@@ -535,7 +542,7 @@ public class Util {
     }
 
     //Редактирование параметра ячейки таблицы
-    public static void formatterCell(Query query, JTable table, DefCellEditor editor) {
+    public static void formatterCell(Query query, JTable table, DefCellEditor2 editor) {
 
         JTextField txt = editor.getTextField();
         int paramsID = query.getAs(getSelectedRec(table), eJoinpar1.params_id, -1);

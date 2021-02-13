@@ -14,7 +14,7 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.BooleanRenderer;
-import frames.swing.DefCellEditor;
+import frames.swing.DefCellEditor2;
 import frames.swing.DefTableModel;
 import java.util.stream.Stream;
 import javax.swing.DefaultCellEditor;
@@ -27,7 +27,7 @@ public class Param extends javax.swing.JFrame {
     private Query qParams = new Query(eParams.values());
     private Query qPardet = new Query(eParams.values());
     DefaultCellEditor editorStr = new DefaultCellEditor(new JTextField());
-    DefCellEditor editorBtn = new DefCellEditor(new JButton("..."));
+    DefCellEditor2 editorBtn = new DefCellEditor2(new JButton("..."));
     private DialogListener listenerColor;
 
     public Param() {
