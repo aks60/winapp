@@ -306,12 +306,12 @@ public class ParGrup2 extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         if (btnCard1.isSelected() == true) {
             Record record = new Record(2);
-            record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 0));
-            record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 1));
+            record.add(tab1.getModel().getValueAt(Util.getIndexRec(tab1), 0));
+            record.add(tab1.getModel().getValueAt(Util.getIndexRec(tab1), 1));
             listener.action(record);
         } else {
-            Object obj = qParams.get(Util.getSelectedRec(tab2));
-            listener.action(qParams.get(Util.getSelectedRec(tab2)));
+            Object obj = qParams.get(Util.getIndexRec(tab2));
+            listener.action(qParams.get(Util.getIndexRec(tab2)));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice

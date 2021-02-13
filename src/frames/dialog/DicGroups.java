@@ -353,13 +353,13 @@ public class DicGroups extends javax.swing.JDialog {
 
         int row = -1;
         if (tab1.getBorder() != null) {
-            row = Util.getSelectedRec(tab1);
+            row = Util.getIndexRec(tab1);
         } else if (tab2.getBorder() != null) {
-            row = Util.getSelectedRec(tab2);
+            row = Util.getIndexRec(tab2);
         } else if (tab3.getBorder() != null) {
-            row = Util.getSelectedRec(tab3);
+            row = Util.getIndexRec(tab3);
         } else if (tab4.getBorder() != null) {
-            row = Util.getSelectedRec(tab4);
+            row = Util.getIndexRec(tab4);
         }
         if (row != -1) {
             listener.action(qGroups.get(row));

@@ -68,7 +68,7 @@ public class DefFieldEditor<E> {
     //Загрузить данные в компоненты
     public void load() {
         if (comp instanceof JTable) {
-            load(Util.getSelectedRec((JTable) comp));
+            load(Util.getIndexRec((JTable) comp));
 
         } else if (comp instanceof JTree) {
             DefMutableTreeNode node = (DefMutableTreeNode) ((JTree) comp).getLastSelectedPathComponent();

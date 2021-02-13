@@ -589,7 +589,7 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
-        float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
+        float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
         Specification recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
@@ -599,8 +599,8 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnArtikles
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
-        String str = tab1.getValueAt(Util.getSelectedRec(tab1), 2).toString().substring(0, 3);
+        float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
+        String str = tab1.getValueAt(Util.getIndexRec(tab1), 2).toString().substring(0, 3);
         Specification recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         Record recordDet = recordSpc.detailRec;
         if (recordDet != null) {
@@ -635,7 +635,7 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
-        float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
+        float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
         JToggleButton tab = (JToggleButton) evt.getSource();
         List<Specification> listSpec = null;
         if (tab == btnJoin) {
@@ -659,7 +659,7 @@ public class Specific extends javax.swing.JFrame {
 
     private void btnGroup2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup2
 
-        float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
+        float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
         loadingData(groups(1));
         for (int i = 0; i < tab1.getRowCount() - 1; i++) {
             if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
@@ -671,7 +671,7 @@ public class Specific extends javax.swing.JFrame {
 
     private void btnGroup1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup1
 
-        float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
+        float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
         loadingData(iwin.listSpec);
         for (int i = 0; i < tab1.getRowCount() - 1; i++) {
             if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
@@ -683,7 +683,7 @@ public class Specific extends javax.swing.JFrame {
 
     private void btnGroup3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup3
 
-        float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
+        float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
         loadingData(groups(2));
         for (int i = 0; i < tab1.getRowCount() - 1; i++) {
             if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {

@@ -101,7 +101,7 @@ public class Systree extends javax.swing.JFrame {
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
-    private DialogListener listenerArtikl, listenerModel, listenerModify, listenerFurn,
+    private DialogListener listenerArtikl, listenerModel, listenerFurn,
             listenerParam1, listenerParam2, listenerArt211, listenerArt212;
     private Canvas paintPanel = new Canvas(iwin);
     private DefMutableTreeNode rootTree = null;
@@ -252,7 +252,6 @@ public class Systree extends javax.swing.JFrame {
             }
         });
 
-        rsmSysprof.setFrameListener(listenerModify);
         rsvSystree = new DefFieldEditor(treeSys);
         rsvSystree.add(eSystree.name, txt08);
         rsvSystree.add(eSystree.types, txt07, TypeUse.values());
@@ -371,12 +370,12 @@ public class Systree extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab3, 5).addActionListener(event -> {
-            int furnityreId = qSysfurn.getAs(Util.getSelectedRec(tab3), eSysfurn.furniture_id);
+            int furnityreId = qSysfurn.getAs(Util.getIndexRec(tab3), eSysfurn.furniture_id);
             DicArtikl artikl = new DicArtikl(this, listenerArt211, furnityreId, TypeArtikl.FURNRUCHKA.id1, TypeArtikl.FURNRUCHKA.id2);
         });
 
         Util.buttonCellEditor(tab3, 6).addActionListener(event -> {
-            int furnityreId = qSysfurn.getAs(Util.getSelectedRec(tab3), eSysfurn.furniture_id);
+            int furnityreId = qSysfurn.getAs(Util.getIndexRec(tab3), eSysfurn.furniture_id);
             DicArtikl artikl = new DicArtikl(this, listenerArt212, furnityreId, TypeArtikl.FURNLOOP.id1, TypeArtikl.FURNLOOP.id2);
         });
 
@@ -385,7 +384,7 @@ public class Systree extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            Integer grup = qSyspar1.getAs(Util.getSelectedRec(tab4), eSyspar1.params_id);
+            Integer grup = qSyspar1.getAs(Util.getIndexRec(tab4), eSyspar1.params_id);
             ParDefault frame = new ParDefault(this, listenerParam2, grup);
         });
     }
@@ -394,10 +393,10 @@ public class Systree extends javax.swing.JFrame {
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab2);
-            qSysprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eSysprof.artikl_id);
-            qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
-            qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
+            int row = Util.getIndexRec(tab2);
+            qSysprof.set(record.getInt(eArtikl.id), Util.getIndexRec(tab2), eSysprof.artikl_id);
+            qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getIndexRec(tab2), eArtikl.name);
+            qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getIndexRec(tab2), eArtikl.code);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2, row);
         };
@@ -422,42 +421,42 @@ public class Systree extends javax.swing.JFrame {
 
         listenerFurn = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab3);
-            qSysfurn.set(record.getInt(eFurniture.id), Util.getSelectedRec(tab3), eSysfurn.furniture_id);
-            qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), Util.getSelectedRec(tab3), eFurniture.name);
+            int row = Util.getIndexRec(tab3);
+            qSysfurn.set(record.getInt(eFurniture.id), Util.getIndexRec(tab3), eSysfurn.furniture_id);
+            qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), Util.getIndexRec(tab3), eFurniture.name);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3, row);
         };
 
         listenerArt211 = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab3);
-            qSysfurn.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab3), eSysfurn.artikl_id1);
+            int row = Util.getIndexRec(tab3);
+            qSysfurn.set(record.getInt(eArtikl.id), Util.getIndexRec(tab3), eSysfurn.artikl_id1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3, row);
         };
 
         listenerArt212 = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab3);
-            qSysfurn.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab3), eSysfurn.artikl_id2);
+            int row = Util.getIndexRec(tab3);
+            qSysfurn.set(record.getInt(eArtikl.id), Util.getIndexRec(tab3), eSysfurn.artikl_id2);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3, row);
         };
 
         listenerParam1 = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab4);
-            qSyspar1.set(record.getInt(eParams.id), Util.getSelectedRec(tab4), eSyspar1.params_id);
-            qSyspar1.set(null, Util.getSelectedRec(tab4), eSyspar1.text);
+            int row = Util.getIndexRec(tab4);
+            qSyspar1.set(record.getInt(eParams.id), Util.getIndexRec(tab4), eSyspar1.params_id);
+            qSyspar1.set(null, Util.getIndexRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4, row);
         };
 
         listenerParam2 = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab4);
-            qSyspar1.set(record.getStr(eParams.text), Util.getSelectedRec(tab4), eSyspar1.text);
+            int row = Util.getIndexRec(tab4);
+            qSyspar1.set(record.getStr(eParams.text), Util.getIndexRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4, row);
         };
@@ -571,7 +570,7 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void selectionTab5() {
-        int row = Util.getSelectedRec(tab5);
+        int row = Util.getIndexRec(tab5);
         if (row != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(row);
             String script = sysprodRec.getStr(eSysprod.script);
@@ -615,7 +614,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void updateScript(float selectID) {
         String script = gson.toJson(iwin.jsonRoot);
-        Record sysprodRec = qSysprod.get(Util.getSelectedRec(tab5));
+        Record sysprodRec = qSysprod.get(Util.getIndexRec(tab5));
         sysprodRec.set(eSysprod.script, script);
         qSysprod.update(sysprodRec);
         selectionTab5();
@@ -2323,7 +2322,7 @@ public class Systree extends javax.swing.JFrame {
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
                 int rowTable = tab5.getSelectedRow();
-                int rowQuery = Util.getSelectedRec(tab5);
+                int rowQuery = Util.getIndexRec(tab5);
                 Record record = qSysprod.get(rowQuery);
                 record.set(eSysprod.up, Query.DEL);
 
@@ -2346,7 +2345,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void findFromArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findFromArtikl
-        Record record = qSysprof.get(Util.getSelectedRec(tab2));
+        Record record = qSysprof.get(Util.getIndexRec(tab2));
         Record record2 = eArtikl.find(record.getInt(eSysprof.artikl_id), false);
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {

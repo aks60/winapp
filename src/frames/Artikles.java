@@ -142,7 +142,7 @@ public class Artikles extends javax.swing.JFrame {
             @Override
             public void load(Integer row) {
                 super.load(row);
-                Record artiklRec = qArtikl.get(Util.getSelectedRec(tab1));
+                Record artiklRec = qArtikl.get(Util.getIndexRec(tab1));
                 Record seriesRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == artiklRec.getInt(eArtikl.series_id)).findFirst().orElse(eGroups.up.newRecord());
                 Record currenc1Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc1_id))).findFirst().orElse(eCurrenc.up.newRecord());
                 Record currenc2Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc2_id))).findFirst().orElse(eCurrenc.up.newRecord());
@@ -200,7 +200,7 @@ public class Artikles extends javax.swing.JFrame {
     public void listenerSet() {
 
         listenerSeries = (record) -> {
-            int rowQuery = Util.getSelectedRec(tab1);
+            int rowQuery = Util.getIndexRec(tab1);
             if (rowQuery != -1) {
                 Record artiklRec = qArtikl.get(rowQuery);
                 artiklRec.set(eArtikl.series_id, record.get(eGroups.id));
@@ -224,7 +224,7 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerAnalog = (record) -> {
-            int row = Util.getSelectedRec(tab1);
+            int row = Util.getIndexRec(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
                 artiklRec.set(eArtikl.analog_id, record.get(eArtikl.id));
@@ -236,10 +236,10 @@ public class Artikles extends javax.swing.JFrame {
         listenerColor = (record) -> {
             if (tab2.getBorder() != null) {
                 if (eGroups.values().length == record.size()) {
-                    qArtdet.set(-1 * record.getInt(eGroups.id), Util.getSelectedRec(tab2), eArtdet.color_fk);
+                    qArtdet.set(-1 * record.getInt(eGroups.id), Util.getIndexRec(tab2), eArtdet.color_fk);
 
                 } else if (eColor.values().length == record.size()) {
-                    qArtdet.set(record.getInt(eColor.id), Util.getSelectedRec(tab2), eArtdet.color_fk);
+                    qArtdet.set(record.getInt(eColor.id), Util.getIndexRec(tab2), eArtdet.color_fk);
                 }
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.stopCellEditing(tab1, tab2);
@@ -252,7 +252,7 @@ public class Artikles extends javax.swing.JFrame {
 
         listenerCurrenc1 = (record) -> {
             if (tab1.getBorder() != null) {
-                int row = Util.getSelectedRec(tab1);
+                int row = Util.getIndexRec(tab1);
                 if (row != -1) {
                     Record artiklRec = qArtikl.get(row);
                     artiklRec.set(eArtikl.currenc1_id, record.get(eCurrenc.id));
@@ -264,7 +264,7 @@ public class Artikles extends javax.swing.JFrame {
 
         listenerCurrenc2 = (record) -> {
             if (tab1.getBorder() != null) {
-                int row = Util.getSelectedRec(tab1);
+                int row = Util.getIndexRec(tab1);
                 if (row != -1) {
                     Record artiklRec = qArtikl.get(row);
                     artiklRec.set(eArtikl.currenc2_id, record.get(eCurrenc.id));
@@ -275,7 +275,7 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerSyssize = (record) -> {
-            int row = Util.getSelectedRec(tab1);
+            int row = Util.getIndexRec(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
                 artiklRec.set(eArtikl.syssize_id, record.get(eSyssize.id));
@@ -288,7 +288,7 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerArtincr = (record) -> {
-            int row = Util.getSelectedRec(tab1);
+            int row = Util.getIndexRec(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
                 artiklRec.set(eArtikl.artgrp1_id, record.get(eGroups.id));
@@ -298,7 +298,7 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerArtdecr = (record) -> {
-            int row = Util.getSelectedRec(tab1);
+            int row = Util.getIndexRec(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
                 artiklRec.set(eArtikl.artgrp2_id, record.get(eGroups.id));
@@ -308,7 +308,7 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerCateg = (record) -> {
-            int row = Util.getSelectedRec(tab1);
+            int row = Util.getIndexRec(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
                 artiklRec.set(eArtikl.artgrp3_id, record.get(eGroups.id));
@@ -375,7 +375,7 @@ public class Artikles extends javax.swing.JFrame {
             qArtikl.clear();
             qArtikl.addAll(qArtikl2);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            if (Util.getSelectedRec(tab1) == -1) {
+            if (Util.getIndexRec(tab1) == -1) {
                 Util.setSelectedRow(tab1);
             }
         }
@@ -383,7 +383,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void selectionTab1(ListSelectionEvent event) {
 
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         if (row != -1) {
             Record record = qArtikl.get(row);
             int id = record.getInt(eArtikl.id);
@@ -1443,7 +1443,7 @@ public class Artikles extends javax.swing.JFrame {
             }
 
         } else if (tab2.getBorder() != null) {
-            int row = Util.getSelectedRec(tab1);
+            int row = Util.getIndexRec(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
                 Record artdetRec = eArtdet.up.newRecord(Query.INS);
@@ -1524,14 +1524,14 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnField8
 
     private void checkBox1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox1Action
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         Record artiklRec = qArtikl.get(row);
         int with_seal = (checkBox1.isSelected()) ? 1 : 0;
         artiklRec.set(eArtikl.with_seal, with_seal);
     }//GEN-LAST:event_checkBox1Action
 
     private void btnField5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField5
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         Record artiklRec = qArtikl.get(row);
         if (artiklRec.getInt(eArtikl.level1) == 1) {
             new DicEnums(this, listenerUnit, UseUnit.METR);
@@ -1581,7 +1581,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_txtField10ActionPerformed
 
     private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         if (row != -1) {
             Record artiklRec = qArtikl.get(row);
             List list = new LinkedList();

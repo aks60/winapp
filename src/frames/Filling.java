@@ -194,38 +194,38 @@ public class Filling extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab2, 3).addActionListener(event -> {
-            Record record = qGlasdet.get(Util.getSelectedRec(tab3));
+            Record record = qGlasdet.get(Util.getIndexRec(tab3));
             int artikl_id = record.getInt(eElemdet.artikl_id);
             ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
         });
 
         Util.buttonCellEditor(tab2, 4).addActionListener(event -> {
-            Record record = qGlasdet.get(Util.getSelectedRec(tab2));
+            Record record = qGlasdet.get(Util.getIndexRec(tab2));
             int colorFk = record.getInt(eGlasdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar1, colorFk);
         });
 
         Util.buttonCellEditor(tab2, 5).addActionListener(event -> {
-            Record record = qGlasdet.get(Util.getSelectedRec(tab2));
+            Record record = qGlasdet.get(Util.getIndexRec(tab2));
             int colorFk = record.getInt(eGlasdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar2, colorFk);
         });
 
         Util.buttonCellEditor(tab2, 6).addActionListener(event -> {
-            Record record = qGlasdet.get(Util.getSelectedRec(tab2));
+            Record record = qGlasdet.get(Util.getIndexRec(tab2));
             int colorFk = record.getInt(eGlasdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar3, colorFk);
         });
 
         Util.buttonCellEditor(tab3, 0).addActionListener(event -> {
-            int row = Util.getSelectedRec(tab1);
+            int row = Util.getIndexRec(tab1);
             if (row != -1) {
                 ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.elem, 13000);
             }
         });
 
         Util.buttonCellEditor(tab3, 1, listenerEditor).addActionListener(event -> {
-            Record record = qGlaspar1.get(Util.getSelectedRec(tab3));
+            Record record = qGlaspar1.get(Util.getIndexRec(tab3));
             int grup = record.getInt(eGlaspar1.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
@@ -236,7 +236,7 @@ public class Filling extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            int row = Util.getSelectedRec(tab2);
+            int row = Util.getIndexRec(tab2);
             if (row != -1) {
                 Record record = qGlasdet.table(eArtikl.up).get(row);
                 int paramPart = record.getInt(eArtikl.level1);
@@ -246,7 +246,7 @@ public class Filling extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab4, 1, listenerEditor).addActionListener(event -> {
-            Record record = qGlaspar2.get(Util.getSelectedRec(tab4));
+            Record record = qGlaspar2.get(Util.getIndexRec(tab4));
             int grup = record.getInt(eGlaspar1.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
@@ -270,18 +270,18 @@ public class Filling extends javax.swing.JFrame {
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int row = Util.getSelectedRec(tab2);
-                qGlasdet.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eGlasdet.artikl_id);
-                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
-                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
+                int row = Util.getIndexRec(tab2);
+                qGlasdet.set(record.getInt(eArtikl.id), Util.getIndexRec(tab2), eGlasdet.artikl_id);
+                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.code), Util.getIndexRec(tab2), eArtikl.code);
+                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), Util.getIndexRec(tab2), eArtikl.name);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
 
             } else if (tab5.getBorder() != null) {
-                int row = Util.getSelectedRec(tab5);
-                qGlasprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab5), eGlasprof.artikl_id);
-                qGlasprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab5), eArtikl.code);
-                qGlasprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab5), eArtikl.name);
+                int row = Util.getIndexRec(tab5);
+                qGlasprof.set(record.getInt(eArtikl.id), Util.getIndexRec(tab5), eGlasprof.artikl_id);
+                qGlasprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getIndexRec(tab5), eArtikl.code);
+                qGlasprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getIndexRec(tab5), eArtikl.name);
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab5, row);
             }
@@ -293,8 +293,8 @@ public class Filling extends javax.swing.JFrame {
 
         listenerColvar1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab2);
-            Record glasdetRec = qGlasdet.get(Util.getSelectedRec(tab2));
+            int row = Util.getIndexRec(tab2);
+            Record glasdetRec = qGlasdet.get(Util.getIndexRec(tab2));
             int types = (glasdetRec.getInt(eGlasdet.types) == -1) ? 0 : glasdetRec.getInt(eGlasdet.types);
             types = (types & 0xfffffff0) + record.getInt(0);
             glasdetRec.set(eGlasdet.types, types);
@@ -304,8 +304,8 @@ public class Filling extends javax.swing.JFrame {
 
         listenerColvar2 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab2);
-            Record glasdetRec = qGlasdet.get(Util.getSelectedRec(tab2));
+            int row = Util.getIndexRec(tab2);
+            Record glasdetRec = qGlasdet.get(Util.getIndexRec(tab2));
             int types = (glasdetRec.getInt(eGlasdet.types) == -1) ? 0 : glasdetRec.getInt(eGlasdet.types);
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             glasdetRec.set(eGlasdet.types, types);
@@ -315,8 +315,8 @@ public class Filling extends javax.swing.JFrame {
 
         listenerColvar3 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab2);
-            Record glasdetRec = qGlasdet.get(Util.getSelectedRec(tab2));
+            int row = Util.getIndexRec(tab2);
+            Record glasdetRec = qGlasdet.get(Util.getIndexRec(tab2));
             int types = (glasdetRec.getInt(eGlasdet.types) == -1) ? 0 : glasdetRec.getInt(eGlasdet.types);
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
             glasdetRec.set(eGlasdet.types, types);
@@ -327,8 +327,8 @@ public class Filling extends javax.swing.JFrame {
         listenerTypset = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int row = Util.getSelectedRec(tab2);
-                qGlasdet.set(record.getInt(0), Util.getSelectedRec(tab2), eElement.typset);
+                int row = Util.getIndexRec(tab2);
+                qGlasdet.set(record.getInt(0), Util.getIndexRec(tab2), eElement.typset);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
             }
@@ -337,9 +337,9 @@ public class Filling extends javax.swing.JFrame {
         listenerThicknes = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int row = Util.getSelectedRec(tab2);
+                int row = Util.getIndexRec(tab2);
                 String name = record.getStr(eArtikl.name);
-                qGlasdet.set(name, Util.getSelectedRec(tab2), eGlasdet.depth);
+                qGlasdet.set(name, Util.getIndexRec(tab2), eGlasdet.depth);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
             }
@@ -362,7 +362,7 @@ public class Filling extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         if (row != -1) {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Arrays.asList(qGlasdet, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
@@ -382,7 +382,7 @@ public class Filling extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab2);
+        int row = Util.getIndexRec(tab2);
         if (row != -1) {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Arrays.asList(qGlaspar2, qGlasprof).forEach(q -> q.execsql());
@@ -878,7 +878,7 @@ public class Filling extends javax.swing.JFrame {
     }//GEN-LAST:event_tabbStateChanged
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        Record record = ((DefTableModel) tab2.getModel()).getQuery().get(Util.getSelectedRec(tab2));
+        Record record = ((DefTableModel) tab2.getModel()).getQuery().get(Util.getIndexRec(tab2));
         Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
 
         FrameProgress.create(this, new FrameListener() {

@@ -364,10 +364,7 @@
                           <Data value="xxx"/>
                           <Data value="vvv"/>
                         </Column>
-                        <Column editable="true" title="&#x418;&#x441;&#x43f;&#x43e;&#x43b;&#x44c;&#x437;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.String">
-                          <Data value="vvv"/>
-                          <Data value="hhh"/>
-                        </Column>
+                        <Column editable="true" title="&#x418;&#x441;&#x43f;&#x43e;&#x43b;&#x44c;&#x437;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
                         <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;" type="java.lang.String">
                           <Data value="ttt"/>
                           <Data value="reee"/>

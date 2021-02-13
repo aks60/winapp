@@ -190,7 +190,7 @@ public class ParGrup2a extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record(1);
-        record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 0));
+        record.add(tab1.getModel().getValueAt(Util.getIndexRec(tab1), 0));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice

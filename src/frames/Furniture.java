@@ -360,7 +360,7 @@ public class Furniture extends javax.swing.JFrame {
         for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
             Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
             Util.buttonCellEditor(tab, 2).addActionListener(event -> {
-                Record record = query.get(Util.getSelectedRec(tab));
+                Record record = query.get(Util.getIndexRec(tab));
                 int artikl_id = record.getInt(eFurndet.artikl_id);
                 ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
             });
@@ -368,7 +368,7 @@ public class Furniture extends javax.swing.JFrame {
         for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
             Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
             Util.buttonCellEditor(tab, 3).addActionListener(event -> {
-                Record record = query.get(Util.getSelectedRec(tab));
+                Record record = query.get(Util.getIndexRec(tab));
                 int colorFk = record.getInt(eFurndet.color_fk);
                 DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
             });
@@ -387,7 +387,7 @@ public class Furniture extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab4, 1, listenerEditor).addActionListener(event -> {
-            Record record = qFurnpar1.get(Util.getSelectedRec(tab4));
+            Record record = qFurnpar1.get(Util.getIndexRec(tab4));
             int grup = record.getInt(eFurnpar1.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
@@ -404,7 +404,7 @@ public class Furniture extends javax.swing.JFrame {
         Util.buttonCellEditor(tab6, 0).addActionListener(event -> {
             int index = tabb1.getSelectedIndex();
             JTable table = (index == 0) ? tab2a : (index == 1) ? tab2b : tab2c;
-            int row = Util.getSelectedRec(table);
+            int row = Util.getIndexRec(table);
             if (row != -1) {
                 Query query = (index == 0) ? qFurndet2a : (index == 1) ? qFurndet2b : qFurndet2c;
                 Record furndetRec = query.get(row);
@@ -417,7 +417,7 @@ public class Furniture extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab6, 1, listenerEditor).addActionListener(event -> {
-            Record record = qFurnpar2.get(Util.getSelectedRec(tab6));
+            Record record = qFurnpar2.get(Util.getIndexRec(tab6));
             int grup = record.getInt(eFurnpar2.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
@@ -435,8 +435,8 @@ public class Furniture extends javax.swing.JFrame {
             JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
             Query query = (tab2a.getBorder() != null) ? qFurndet2a : (tab2b.getBorder() != null) ? qFurndet2b : qFurndet2c;
             if (tab.getBorder() != null) {
-                int row = Util.getSelectedRec(tab);
-                query.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab), eFurndet.artikl_id);
+                int row = Util.getIndexRec(tab);
+                query.set(record.getInt(eArtikl.id), Util.getIndexRec(tab), eFurndet.artikl_id);
                 ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab, row);
             }
@@ -451,8 +451,8 @@ public class Furniture extends javax.swing.JFrame {
             JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
             Query query = (tab2a.getBorder() != null) ? qFurndet2a : (tab2b.getBorder() != null) ? qFurndet2b : qFurndet2c;
             Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            int row = Util.getSelectedRec(tab);
-            Record furndetRec = query.get(Util.getSelectedRec(tab));
+            int row = Util.getIndexRec(tab);
+            Record furndetRec = query.get(Util.getIndexRec(tab));
             int types = (furndetRec.getInt(eFurndet.types) == -1) ? 0 : furndetRec.getInt(eFurndet.types);
             types = (types & 0xfffffff0) + record.getInt(0);
             furndetRec.set(eFurndet.types, types);
@@ -502,7 +502,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void selectionTab1(ListSelectionEvent event) {
         Util.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         if (row != -1) {
             Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
@@ -515,7 +515,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void selectionTab2a(ListSelectionEvent event) {
         Util.clearTable(tab2b, tab2c, tab5, tab6);
-        int row = Util.getSelectedRec(tab2a);
+        int row = Util.getIndexRec(tab2a);
         if (row != -1) {
             Record record = qFurndet2a.get(row);
             int id = record.getInt(eFurndet.id);
@@ -530,7 +530,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void selectionTab2b(ListSelectionEvent event) {
         Util.clearTable(tab2c, tab5, tab6);
-        int row = Util.getSelectedRec(tab2b);
+        int row = Util.getIndexRec(tab2b);
         if (row != -1) {
             Record record = qFurndet2b.get(row);
             Integer id = record.getInt(eFurndet.id);
@@ -545,7 +545,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void selectionTab2c(ListSelectionEvent event) {
         Util.clearTable(tab5, tab6);
-        int row = Util.getSelectedRec(tab2c);
+        int row = Util.getIndexRec(tab2c);
         if (row != -1) {
             Record record = qFurndet2c.get(row);
             Integer id = record.getInt(eFurndet.id);
@@ -558,7 +558,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void selectionTab3(ListSelectionEvent event) {
         Util.clearTable(tab4);
-        int row = Util.getSelectedRec(tab3);
+        int row = Util.getIndexRec(tab3);
         if (row != -1) {
             Record record = qFurnside1.table(eFurnside1.up).get(row);
             Integer id = record.getInt(eFurnside1.id);
@@ -1261,10 +1261,10 @@ public class Furniture extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
-        if (tab2b.getBorder() != null && Util.getSelectedRec(tab2a) == -1) {
+        if (tab2b.getBorder() != null && Util.getIndexRec(tab2a) == -1) {
             JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
             return;
-        } else if (tab2c.getBorder() != null && Util.getSelectedRec(tab2b) == -1) {
+        } else if (tab2c.getBorder() != null && Util.getIndexRec(tab2b) == -1) {
             JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
             return;
         }
@@ -1278,11 +1278,11 @@ public class Furniture extends javax.swing.JFrame {
 
         } else if (tab2b.getBorder() != null) {
             Record record = Util.insertRecord(tab1, tab2b, eFurniture.up, eFurndet.up, eFurndet.furniture_id1);
-            record.set(eFurndet.furndet_id, qFurndet2a.get(Util.getSelectedRec(tab2a), eFurndet.id));
+            record.set(eFurndet.furndet_id, qFurndet2a.get(Util.getIndexRec(tab2a), eFurndet.id));
 
         } else if (tab2c.getBorder() != null) {
             Record record = Util.insertRecord(tab1, tab2c, eFurniture.up, eFurndet.up, eFurndet.furniture_id1);
-            record.set(eFurndet.furndet_id, qFurndet2b.get(Util.getSelectedRec(tab2b), eFurndet.id));
+            record.set(eFurndet.furndet_id, qFurndet2b.get(Util.getIndexRec(tab2b), eFurndet.id));
 
         } else if (tab3.getBorder() != null) {
             Util.insertRecord(tab1, tab3, eFurniture.up, eFurnside1.up, eFurnside1.furniture_id);
@@ -1365,7 +1365,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         JTable table = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
-        Record record = ((DefTableModel) table.getModel()).getQuery().get(Util.getSelectedRec(table));
+        Record record = ((DefTableModel) table.getModel()).getQuery().get(Util.getIndexRec(table));
         Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eFurndet.artikl_id)).findFirst().orElse(eFurndet.up.newRecord());
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
@@ -1375,7 +1375,7 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void tbtnAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnAction
-        int row = Util.getSelectedRec(tab2a);
+        int row = Util.getIndexRec(tab2a);
         Integer furndetID2 = (row == -1) ? null : qFurndet2a.getAs(row, eFurndet.furniture_id2);
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();

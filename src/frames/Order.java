@@ -13,26 +13,13 @@ import frames.swing.DefTableModel;
 public class Order extends javax.swing.JFrame {
 
     private Query qOrders = new Query(eOrders.values()).select(eOrders.up, "order by", eOrders.numb);
-    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-
-        public void actionRequest(Object obj) {
-            btnSave.setIcon(btnIM[0]);
-        }
-
-        public void actionResponse(Object obj) {
-            btnSave.setIcon(btnIM[1]);
-        }
-    };
 
     public Order() {
         initComponents();
         initElements();
 
         new DefTableModel(tab1, qOrders, eOrders.numb, eOrders.partner_id, eOrders.manager_id, eOrders.constr_id,
-                eOrders.sale_name, eOrders.space, eOrders.weight, eOrders.desc, eOrders.dat1, eOrders.dat2).setFrameListener(listenerModify);
+                eOrders.sale_name, eOrders.space, eOrders.weight, eOrders.desc, eOrders.dat1, eOrders.dat2);
     }
 
     @SuppressWarnings("unchecked")

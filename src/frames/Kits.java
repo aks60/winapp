@@ -39,7 +39,7 @@ public class Kits extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         if (row != -1) {
             Record record = qKits.get(row);
             Integer id = record.getInt(eKits.id);
@@ -50,7 +50,7 @@ public class Kits extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab2);
+        int row = Util.getIndexRec(tab2);
         if (row != -1) {
             Record record = qKitdet.get(row);
             Integer id = record.getInt(eKitdet.id);
@@ -349,26 +349,26 @@ public class Kits extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
             if (tab1.getBorder() != null) {
-                Record kitsRec = qKits.get(Util.getSelectedRec(tab1));
+                Record kitsRec = qKits.get(Util.getIndexRec(tab1));
                 kitsRec.set(eKits.up, Query.DEL);
                 qKits.delete(kitsRec);
-                qKits.removeRec(Util.getSelectedRec(tab1));
+                qKits.removeRec(Util.getIndexRec(tab1));
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab1);
 
             } else if (tab2.getBorder() != null) {
-                Record kitdetRc = qKitdet.get(Util.getSelectedRec(tab2));
+                Record kitdetRc = qKitdet.get(Util.getIndexRec(tab2));
                 kitdetRc.set(eColor.up, Query.DEL);
                 qKitdet.delete(kitdetRc);
-                qKitdet.removeRec(Util.getSelectedRec(tab2));
+                qKitdet.removeRec(Util.getIndexRec(tab2));
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2);
 
             } else if (tab3.getBorder() != null) {
-                Record kitpar1Rec = qKitpar1.get(Util.getSelectedRec(tab3));
+                Record kitpar1Rec = qKitpar1.get(Util.getIndexRec(tab3));
                 kitpar1Rec.set(eColmap.up, Query.DEL);
                 qKitpar1.delete(kitpar1Rec);
-                qKitpar1.removeRec(Util.getSelectedRec(tab3));
+                qKitpar1.removeRec(Util.getIndexRec(tab3));
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab3);
             }
@@ -384,7 +384,7 @@ public class Kits extends javax.swing.JFrame {
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 
         } else if (tab2.getBorder() != null) {
-            int row = Util.getSelectedRec(tab1);
+            int row = Util.getIndexRec(tab1);
             Record kitsRec = qKits.get(row);
             Record kitdetRec = eKitdet.up.newRecord(Query.INS);
             kitdetRec.setNo(eKitdet.id, ConnApp.instanc().genId(eKitdet.up));
@@ -394,7 +394,7 @@ public class Kits extends javax.swing.JFrame {
             Util.scrollRectToVisible(qKitdet, tab2);
 
         } else if (tab3.getBorder() != null) {
-            int row = Util.getSelectedRec(tab2);
+            int row = Util.getIndexRec(tab2);
             Record kitdetRec = qKitdet.get(row);
             Record kitpar1Rec = eKitpar1.up.newRecord(Query.INS);
             kitpar1Rec.setNo(eColmap.id, ConnApp.instanc().genId(eColmap.up));

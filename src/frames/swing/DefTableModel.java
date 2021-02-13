@@ -29,8 +29,6 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     public Field[] columns = null;
     private Boolean[] editable = null;
     private TableRowSorter<DefTableModel> sorter = null;
-    private FrameListener<Object, Object> listenerModify = null;
-    private DialogListener listenerModify2 = null;
 
     public DefTableModel(JTable table, Query query, Field... columns) {
         this.table = table;
@@ -131,12 +129,12 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 
-        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefCellEditor == false) {
+//        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefCellEditor == false) {
+//            setValueAt(aValue, rowIndex, columns[columnIndex]);
+//
+//        } else if (columns[columnIndex].meta().type() == Field.TYPE.STR) {
             setValueAt(aValue, rowIndex, columns[columnIndex]);
-
-        } else if (columns[columnIndex].meta().type() == Field.TYPE.STR) {
-            setValueAt(aValue, rowIndex, columns[columnIndex]);
-        }
+//        }
     }
 
     //Записать значение элемента от row и field, тут делаются проверки на ввод данных расширенного типа.
@@ -167,24 +165,9 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
                     }
                 }
                 query.table(field).set(value, row, field);
-                if (listenerModify != null) {
-                    listenerModify.actionRequest(null);
-                } else if (listenerModify2 != null) {
-                    listenerModify2.action(null);
-                }
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(eProfile.appframe, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
         }
-    }
-
-    public DefTableModel setFrameListener(FrameListener listenerModify) {
-        this.listenerModify = listenerModify;
-        return this;
-    }
-
-    public DefTableModel setFrameListener(DialogListener listenerModify) {
-        this.listenerModify2 = listenerModify2;
-        return this;
     }
 }

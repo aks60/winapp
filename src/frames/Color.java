@@ -119,7 +119,7 @@ public class Color extends javax.swing.JFrame {
 
         listenerColor1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4);
-            int row = Util.getSelectedRec(tab4);
+            int row = Util.getIndexRec(tab4);
             Record record2 = qColmap.get(row);
             record2.set(eColmap.color_id1, record.getInt(eParams.id));
             qColmap.update(record2);
@@ -129,7 +129,7 @@ public class Color extends javax.swing.JFrame {
 
         listenerColor2 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4);
-            int row = Util.getSelectedRec(tab4);
+            int row = Util.getIndexRec(tab4);
             Record record2 = qColmap.get(row);
             record2.set(eColmap.color_id2, record.getInt(eParams.id));
             qColmap.update(record2);
@@ -157,7 +157,7 @@ public class Color extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
         Util.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qGroup1, qColor).forEach(q -> q.execsql());
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         if (row != -1) {
             Record record = qGroup1.table(eGroups.up).get(row);
             Integer cgrup = record.getInt(eGroups.id);
@@ -175,7 +175,7 @@ public class Color extends javax.swing.JFrame {
     private void selectionTab3(ListSelectionEvent event) {
         Util.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qGroup2, qColmap).forEach(q -> q.execsql());
-        int row = Util.getSelectedRec(tab3);
+        int row = Util.getIndexRec(tab3);
         if (row != -1) {
             Record record = qGroup2.get(row);
             Integer cgrup = record.getInt(eGroups.id);

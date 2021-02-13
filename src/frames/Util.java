@@ -317,7 +317,7 @@ public class Util {
     }
 
     //Получить convertRowIndexToModel
-    public static int getSelectedRec(JTable table) {
+    public static int getIndexRec(JTable table) {
         if (table.getSelectedRow() != -1) {
             return table.convertRowIndexToModel(table.getSelectedRow());
         }
@@ -362,7 +362,7 @@ public class Util {
     //Вставить запись
     public static Record insertRecord(JTable table1, JTable table2, Field up1, Field up2, Field fk2) {
 
-        int row = getSelectedRec(table1);
+        int row = getIndexRec(table1);
         if (row != -1) {
             Query query1 = ((DefTableModel) table1.getModel()).getQuery();
             Query query2 = ((DefTableModel) table2.getModel()).getQuery();
@@ -383,7 +383,7 @@ public class Util {
     //Вставить запись
     public static Record insertRecord(JTable table1, JTable table2, Field up1, Field up2, Field up3, Field fk2) {
 
-        int row = getSelectedRec(table1);
+        int row = getIndexRec(table1);
         if (row != -1) {
             Query query1 = ((DefTableModel) table1.getModel()).getQuery();
             Query query2 = ((DefTableModel) table2.getModel()).getQuery();
@@ -408,7 +408,7 @@ public class Util {
         if (table.getSelectedRow() != -1) {
             Query query = ((DefTableModel) table.getModel()).getQuery();
             int rowTable = table.getSelectedRow();
-            int rowModel = getSelectedRec(table);
+            int rowModel = getIndexRec(table);
             Record record = query.get(rowModel);
             record.set(0, Query.DEL);
 
@@ -525,10 +525,10 @@ public class Util {
             JTable tab = Util.getCellEditing(tableList);
             String txt = (String) component;
             if (tab == table1) {
-                return ParamList.find(qParam1.getAs(Util.getSelectedRec(table1), eJoinpar1.id)).check(txt);
+                return ParamList.find(qParam1.getAs(Util.getIndexRec(table1), eJoinpar1.id)).check(txt);
             }
             if (tab == table2) {
-                return ParamList.find(qParam2.getAs(Util.getSelectedRec(table2), eJoinpar1.id)).check(txt);
+                return ParamList.find(qParam2.getAs(Util.getIndexRec(table2), eJoinpar1.id)).check(txt);
             }
         }
         return true;
@@ -537,7 +537,7 @@ public class Util {
     //Редактирование параметра ячейки таблицы
     public static void formatterCell(Query query, JTable table, DefCellEditor editor) {
 
-        int paramsID = query.getAs(getSelectedRec(table), eJoinpar1.params_id, -1);
+        int paramsID = query.getAs(getIndexRec(table), eJoinpar1.params_id, -1);
         if (paramsID < 0) { //пользовательский список параметров
             editor.getButton().setVisible(true);
             editor.getTextField().setEnabled(false);
@@ -558,9 +558,9 @@ public class Util {
     //Слушатель редактирование параметров
     public static void listenerParam(Record record, JTable table, Field paramsID, Field text, JTable... tables) {
         Util.stopCellEditing(tables);
-        int row = getSelectedRec(table);
+        int row = getIndexRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
-        Record record2 = query.get(Util.getSelectedRec(table));
+        Record record2 = query.get(Util.getIndexRec(table));
 
         if (eParams.values().length == record.size()) {
             record2.set(paramsID, record.getInt(eParams.id));
@@ -580,7 +580,7 @@ public class Util {
     //Слушатель редактирование палитры
     public static void listenerColor(Record record, JTable table, Field color_fk, Field types, JTable... tables) {
         Util.stopCellEditing(tables);
-        int row = getSelectedRec(table);
+        int row = getIndexRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record elemdetRec = query.get(row);
         int group = (eGroups.values().length == record.size()) ? (-1 * record.getInt(eGroups.id)) : record.getInt(0);
@@ -601,8 +601,8 @@ public class Util {
     public static void listenerEnums(Record record, JTable table, Field field_fk, JTable... tables) {
         Util.stopCellEditing(tables);
         Query query = ((DefTableModel) table.getModel()).getQuery();
-        int row = getSelectedRec(table);
-        query.set(record.getInt(0), Util.getSelectedRec(table), field_fk);
+        int row = getIndexRec(table);
+        query.set(record.getInt(0), Util.getIndexRec(table), field_fk);
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Util.setSelectedRow(table, row);
     }

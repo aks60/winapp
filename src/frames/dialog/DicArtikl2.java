@@ -329,7 +329,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
         Record record = eArtikl.up.newRecord();
         Util.stopCellEditing(tab1);
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         if (row != -1) {
             Record record2 = qArtikl.get(row);
             record.set(eArtikl.id, record2.get(eArtikl.id));

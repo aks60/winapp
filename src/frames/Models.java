@@ -206,7 +206,7 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         if (row != -1) {
             Object script = qModels1.get(row, eModels.script);
             iwinMax.build(script.toString());
@@ -215,7 +215,7 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab2);
+        int row = Util.getIndexRec(tab2);
         if (row != -1) {
             Object script = qModels2.get(row, eModels.script);
             iwinMax.build(script.toString());
@@ -946,7 +946,7 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
             query = qModels2;
             table = tab2;
         }
-        int row = Util.getSelectedRec(table);
+        int row = Util.getIndexRec(table);
         if (row != -1) {
             Record record = new Record();
             record.add(query.get(row, eModels.id));

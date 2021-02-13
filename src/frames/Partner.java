@@ -14,19 +14,6 @@ import frames.swing.DefTableModel;
 public class Partner extends javax.swing.JFrame {
 
     private Query qPartner = new Query(ePartner.values()).select(ePartner.up, "order by", ePartner.categ, ",", ePartner.name);
-    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-
-        public void actionRequest(Object obj) {
-            btnSave.setIcon(btnIM[0]);
-        }
-
-        public void actionResponse(Object obj) {
-            btnSave.setIcon(btnIM[1]);
-        }
-    };
 
     public Partner() {
         initComponents();
@@ -34,7 +21,7 @@ public class Partner extends javax.swing.JFrame {
 
         new DefTableModel(tab1, qPartner, ePartner.categ, ePartner.name, ePartner.phone, ePartner.addr, ePartner.email,
                 ePartner.manager, ePartner.disc, ePartner.bank_name, ePartner.bank_inn, ePartner.bank_rs, ePartner.bank_bik,
-                ePartner.bank_ks, ePartner.bank_kpp, ePartner.bank_ogrn).setFrameListener(listenerModify);
+                ePartner.bank_ks, ePartner.bank_kpp, ePartner.bank_ogrn);
     }
 
     @SuppressWarnings("unchecked")

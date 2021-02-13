@@ -41,7 +41,7 @@ public class ParGrup2v extends javax.swing.JDialog {
     }
 
     private void selectionTab1() {
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         if (row != -1) {
             int id = qParams.getAs(row, eParams.id);
             qPardet.select(eParams.up, "where", eParams.params_id, "=", id, "order by", eParams.text);
@@ -229,7 +229,7 @@ public class ParGrup2v extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        listener.action(qPardet.get(Util.getSelectedRec(tab2)));
+        listener.action(qPardet.get(Util.getIndexRec(tab2)));
         this.dispose();
     }//GEN-LAST:event_btnChoice
 

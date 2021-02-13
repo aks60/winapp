@@ -252,7 +252,7 @@ public class Joining extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab3, 0).addActionListener(event -> {
-            int row = Util.getSelectedRec(tab2);
+            int row = Util.getIndexRec(tab2);
             if (row != -1) {
                 Record record = qJoinvar.get(row);
                 int joinVar = record.getInt(eJoinvar.types);
@@ -261,7 +261,7 @@ public class Joining extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab3, 1, listenerEditor).addActionListener(event -> {
-            Record record = qJoinpar1.get(Util.getSelectedRec(tab3));
+            Record record = qJoinpar1.get(Util.getIndexRec(tab3));
             int grup = record.getInt(eJoinpar1.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
@@ -280,31 +280,31 @@ public class Joining extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab4, 2).addActionListener(event -> {
-            Record record = qJoindet.get(Util.getSelectedRec(tab4));
+            Record record = qJoindet.get(Util.getIndexRec(tab4));
             int artikl_id = record.getInt(eJoindet.artikl_id);
             ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
         });
 
         Util.buttonCellEditor(tab4, 3).addActionListener(event -> {
-            Record record = qJoindet.get(Util.getSelectedRec(tab4));
+            Record record = qJoindet.get(Util.getIndexRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar1, colorFk);
         });
 
         Util.buttonCellEditor(tab4, 4).addActionListener(event -> {
-            Record record = qJoindet.get(Util.getSelectedRec(tab4));
+            Record record = qJoindet.get(Util.getIndexRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar2, colorFk);
         });
 
         Util.buttonCellEditor(tab4, 5).addActionListener(event -> {
-            Record record = qJoindet.get(Util.getSelectedRec(tab4));
+            Record record = qJoindet.get(Util.getIndexRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar3, colorFk);
         });
 
         Util.buttonCellEditor(tab5, 0).addActionListener(event -> {
-            int row = Util.getSelectedRec(tab4);
+            int row = Util.getIndexRec(tab4);
             if (row != -1) {
                 Record recordJoin = qJoindet.get(row);
                 int artikl_id = recordJoin.getInt(eJoindet.artikl_id);
@@ -316,7 +316,7 @@ public class Joining extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab5, 1, listenerEditor).addActionListener(event -> {
-            Record record = qJoinpar2.get(Util.getSelectedRec(tab5));
+            Record record = qJoinpar2.get(Util.getIndexRec(tab5));
             int grup = record.getInt(eJoinpar2.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
@@ -333,7 +333,7 @@ public class Joining extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
 
             if (tab1.getBorder() != null) {
-                Record joiningRec = qJoining.get(Util.getSelectedRec(tab1));
+                Record joiningRec = qJoining.get(Util.getIndexRec(tab1));
                 if (tab1.getSelectedColumn() == 0) {
                     joiningRec.set(eJoining.artikl_id1, record.getInt(eArtikl.id));
                 } else if (tab1.getSelectedColumn() == 1) {
@@ -341,8 +341,8 @@ public class Joining extends javax.swing.JFrame {
                 }
 
             } else if (tab4.getBorder() != null) {
-                int row = Util.getSelectedRec(tab4);
-                Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
+                int row = Util.getIndexRec(tab4);
+                Record joindetRec = qJoindet.get(Util.getIndexRec(tab4));
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -364,8 +364,8 @@ public class Joining extends javax.swing.JFrame {
 
         listenerColvar1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab4);
-            Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
+            int row = Util.getIndexRec(tab4);
+            Record joindetRec = qJoindet.get(Util.getIndexRec(tab4));
             int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
             types = (types & 0xfffffff0) + record.getInt(0);
             joindetRec.set(eJoindet.types, types);
@@ -375,8 +375,8 @@ public class Joining extends javax.swing.JFrame {
 
         listenerColvar2 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab4);
-            Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
+            int row = Util.getIndexRec(tab4);
+            Record joindetRec = qJoindet.get(Util.getIndexRec(tab4));
             int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             joindetRec.set(eJoindet.types, types);
@@ -386,8 +386,8 @@ public class Joining extends javax.swing.JFrame {
 
         listenerColvar3 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab4);
-            Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
+            int row = Util.getIndexRec(tab4);
+            Record joindetRec = qJoindet.get(Util.getIndexRec(tab4));
             int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
             joindetRec.set(eJoindet.types, types);
@@ -397,8 +397,8 @@ public class Joining extends javax.swing.JFrame {
 
         listenerJoinvar = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getSelectedRec(tab2);
-            Record joinvarRec = qJoinvar.get(Util.getSelectedRec(tab2));
+            int row = Util.getIndexRec(tab2);
+            Record joinvarRec = qJoinvar.get(Util.getIndexRec(tab2));
             joinvarRec.set(eJoinvar.name, record.getStr(0));
             joinvarRec.set(eJoinvar.types, record.getInt(1));
             if (joinvarRec.get(eJoinvar.prio) == null) {
@@ -421,7 +421,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void selectionTab1(ListSelectionEvent event) {
         Util.clearTable(tab2, tab3, tab4, tab5);
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         if (row != -1) {
             Record record = qJoining.table(eJoining.up).get(row);
             Integer id = record.getInt(eJoining.id);
@@ -433,7 +433,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void selectionTab2(ListSelectionEvent event) {
         Util.clearTable(tab3, tab4, tab5);
-        int row = Util.getSelectedRec(tab2);
+        int row = Util.getIndexRec(tab2);
         if (row != -1) {
             Record record = qJoinvar.table(eJoinvar.up).get(row);
             Integer id = record.getInt(eJoinvar.id);
@@ -447,7 +447,7 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab4(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab4);
+        int row = Util.getIndexRec(tab4);
         if (row != -1) {
             Record record = qJoindet.table(eJoindet.up).get(row);
             Integer id = record.getInt(eJoindet.id);
@@ -965,7 +965,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_filterCaretUpdate
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        Record record = ((DefTableModel) tab4.getModel()).getQuery().get(Util.getSelectedRec(tab4));
+        Record record = ((DefTableModel) tab4.getModel()).getQuery().get(Util.getIndexRec(tab4));
         Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eJoindet.artikl_id)).findFirst().orElse(eJoindet.up.newRecord());
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {

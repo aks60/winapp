@@ -66,7 +66,7 @@ public class Param extends javax.swing.JFrame {
 
         listenerColor = (record) -> {
             Util.stopCellEditing(tab1, tab2);
-            int row = Util.getSelectedRec(tab2);
+            int row = Util.getIndexRec(tab2);
             if (row != -1) {
                 Record pardetRec = qPardet.get(row);
                 pardetRec.set(eParams.text, record.getStr(eColor.name));
@@ -78,7 +78,7 @@ public class Param extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         if (row != -1) {
             Record record = qParams.get(row);
             Integer p1 = record.getInt(eParams.id);
@@ -91,7 +91,7 @@ public class Param extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab1);
+        int row = Util.getIndexRec(tab1);
         if (row != -1) {
             Record record = qParams.get(row);
             if (record.getInt(eParams.color) == 1) {
@@ -367,7 +367,7 @@ public class Param extends javax.swing.JFrame {
                 "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
             if (tab1.getBorder() != null) {
-                int row = Util.getSelectedRec(tab1);
+                int row = Util.getIndexRec(tab1);
                 if (row != -1) {
                     Record record = qParams.get(row);
                     record.set(eParams.up, Query.DEL);
@@ -377,7 +377,7 @@ public class Param extends javax.swing.JFrame {
                     Util.setSelectedRow(tab1);
                 }
             } else if (tab2.getBorder() != null) {
-                int row = Util.getSelectedRec(tab2);
+                int row = Util.getIndexRec(tab2);
                 if (row != -1) {
                     Record record = qPardet.get(row);
                     record.set(eParams.up, Query.DEL);
@@ -404,7 +404,7 @@ public class Param extends javax.swing.JFrame {
             Util.scrollRectToVisible(qParams, tab1);
 
         } else if (tab2.getBorder() != null) {
-            int row = Util.getSelectedRec(tab1);
+            int row = Util.getIndexRec(tab1);
             if (row != -1) {
                 Record paramRec = qParams.get(row);
                 Record pardetRec = eParams.up.newRecord(Query.INS);

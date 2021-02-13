@@ -199,7 +199,7 @@ public class ParDefault extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChouce(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChouce
-        Record record = qParam.get(Util.getSelectedRec(tab1));
+        Record record = qParam.get(Util.getIndexRec(tab1));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChouce

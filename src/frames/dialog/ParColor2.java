@@ -309,11 +309,11 @@ public class ParColor2 extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         if (btnCard1.isSelected() == true) {
             Record record = new Record(2);
-            record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 0));
-            record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 1));
+            record.add(tab1.getModel().getValueAt(Util.getIndexRec(tab1), 0));
+            record.add(tab1.getModel().getValueAt(Util.getIndexRec(tab1), 1));
             listener.action(record);
         } else {
-            Record record = qGroups.get(Util.getSelectedRec(tab2));
+            Record record = qGroups.get(Util.getIndexRec(tab2));
             listener.action(record);
         }
         this.dispose();

@@ -199,7 +199,7 @@ public class DicName extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        Record record = query.get(Util.getSelectedRec(tab1));
+        Record record = query.get(Util.getIndexRec(tab1));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice
