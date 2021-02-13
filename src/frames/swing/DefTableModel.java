@@ -131,7 +131,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefCellEditor) {
             if (((DefCellEditor) table.getColumnModel().getColumn(columnIndex)
                     .getCellEditor()).getTextField().isEditable() == false) {
-                return;
+                return; //если DefCellEditor и редактирокание запрещено, всё остальное стандартно
             }
             setValueAt(aValue, rowIndex, columns[columnIndex]);
         } else {
