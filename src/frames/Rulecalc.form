@@ -399,7 +399,7 @@
                           <Data value="1"/>
                         </Column>
                         <Column editable="true" title="&#x424;&#x43e;&#x440;&#x43c;&#x430; &#x43f;&#x43e;&#x437;&#x438;&#x446;&#x438;&#x438;" type="java.lang.String"/>
-                        <Column editable="true" title="ID" type="java.lang.Integer">
+                        <Column editable="false" title="ID" type="java.lang.Integer">
                           <Data value="1"/>
                           <Data value="1"/>
                         </Column>

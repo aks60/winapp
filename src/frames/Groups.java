@@ -5,6 +5,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eGroups;
 import enums.TypeGroups;
+import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
 import java.awt.CardLayout;
 import java.util.Arrays;
@@ -44,6 +45,9 @@ public class Groups extends javax.swing.JFrame {
         new DefTableModel(tab3, qArtSeri, eGroups.name);
         new DefTableModel(tab4, qArtFlltr, eGroups.name);
         new DefTableModel(tab5, qColgrp, eGroups.name, eGroups.val);
+        tab1.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
+        tab2.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
+        tab5.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
         Util.setSelectedRow(tab1);
         Util.setSelectedRow(tab2);
         Util.setSelectedRow(tab3);
@@ -87,14 +91,14 @@ public class Groups extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Группы");
-        setPreferredSize(new java.awt.Dimension(500, 600));
+        setPreferredSize(new java.awt.Dimension(570, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
         });
 
-        centr.setPreferredSize(new java.awt.Dimension(500, 640));
+        centr.setPreferredSize(new java.awt.Dimension(570, 450));
         centr.setLayout(new java.awt.BorderLayout());
 
         tabb.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -109,19 +113,26 @@ public class Groups extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null}
+                {"111", null, null},
+                {"222", null, null}
             },
             new String [] {
                 "Название группы", "Наценка (коэф)", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab1.setFillsViewportHeight(true);
@@ -149,19 +160,26 @@ public class Groups extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null}
+                {"111", null, null},
+                {"222", null, null}
             },
             new String [] {
                 "Название группы", "Скидка %", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab2.setFillsViewportHeight(true);
@@ -187,15 +205,28 @@ public class Groups extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {"1111", null},
+                {"2222", null}
             },
             new String [] {
                 "Наименование", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab3.setFillsViewportHeight(true);
         tab3.setName("tab3"); // NOI18N
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -224,7 +255,22 @@ public class Groups extends javax.swing.JFrame {
             new String [] {
                 "Наименование", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab4.setFillsViewportHeight(true);
         tab4.setName("tab4"); // NOI18N
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -254,7 +300,22 @@ public class Groups extends javax.swing.JFrame {
             new String [] {
                 "Наименование групп", "Коэффициент", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab5.setFillsViewportHeight(true);
         tab5.setName("tab5"); // NOI18N
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -279,7 +340,7 @@ public class Groups extends javax.swing.JFrame {
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(500, 29));
+        north.setPreferredSize(new java.awt.Dimension(570, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -391,7 +452,7 @@ public class Groups extends javax.swing.JFrame {
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(500, 20));
+        south.setPreferredSize(new java.awt.Dimension(570, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
@@ -418,8 +479,6 @@ public class Groups extends javax.swing.JFrame {
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
-        getAccessibleContext().setAccessibleName("Группы");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -428,18 +487,10 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-        ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-        ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1);
-        Util.setSelectedRow(tab2);
-        Util.setSelectedRow(tab3);
-        Util.setSelectedRow(tab4);
-        Util.setSelectedRow(tab5);
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefaultTableModel) tab.getModel()).fireTableDataChanged());
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> Util.setSelectedRow(tab));
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -562,6 +613,6 @@ public class Groups extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(btn -> btn.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
     }
 }

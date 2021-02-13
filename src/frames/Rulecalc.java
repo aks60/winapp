@@ -300,9 +300,16 @@ public class Rulecalc extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, true, true, true, true, true, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab2.setFillsViewportHeight(true);
@@ -341,7 +348,7 @@ public class Rulecalc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        qRulecalc.execsql();
         loadingData();
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab2);
