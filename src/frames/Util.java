@@ -601,10 +601,10 @@ public class Util {
     public static void listenerEnums(Record record, JTable table, Field field_fk, JTable... tables) {
         Util.stopCellEditing(tables);
         Query query = ((DefTableModel) table.getModel()).getQuery();
-        int row = getIndexRec(table);
-        query.set(record.getInt(0), Util.getIndexRec(table), field_fk);
+        int index = getIndexRec(table);
+        query.set(record.getInt(0), getIndexRec(table), field_fk);
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(table, row);
+        Util.setSelectedRow(table, index);
     }
 
     //Программный клик на компоненте

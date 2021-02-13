@@ -128,13 +128,15 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-
-//        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefCellEditor == false) {
-//            setValueAt(aValue, rowIndex, columns[columnIndex]);
-//
-//        } else if (columns[columnIndex].meta().type() == Field.TYPE.STR) {
+        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefCellEditor) {
+            if (((DefCellEditor) table.getColumnModel().getColumn(columnIndex)
+                    .getCellEditor()).getTextField().isEditable() == false) {
+                return;
+            }
             setValueAt(aValue, rowIndex, columns[columnIndex]);
-//        }
+        } else {
+            setValueAt(aValue, rowIndex, columns[columnIndex]);
+        }
     }
 
     //Записать значение элемента от row и field, тут делаются проверки на ввод данных расширенного типа.
