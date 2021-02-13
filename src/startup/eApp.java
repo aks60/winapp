@@ -151,7 +151,7 @@ import javax.swing.JFrame;
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             if (profile.equals(eProfile.P16)) {
                 eProfile.role_user = "user";
-                App1.frame = new App1();
+                App1.frame = new App();
                 App1.frame.setName(eProfile.P16.name());
                 eProfile.appframe = App1.frame;
             }

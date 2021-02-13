@@ -68,7 +68,7 @@ public class LogoToDb extends javax.swing.JDialog {
                 Query.connection = con.getConnection();
                 if (pass == eExcep.yesConn) {
                     //запуск главного меню
-                    App1.eApp1.createApp(eProfile.profile);                   
+                    App.eApp1.createApp(eProfile.profile);                   
                     eProperty.save();  //свойства текущего пользователя
                     dispose();
                 } else if (pass == eExcep.noLogin) {

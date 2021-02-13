@@ -72,7 +72,7 @@ public class Test {
 
         Query.connection = connection();
         lookAndFeel();
-        App1 app = new App1();
+        App app = new App();
         app.setVisible(true);
         frames.Joining frm = new frames.Joining();
         FrameToFile.setFrameSize(frm);

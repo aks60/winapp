@@ -46,7 +46,7 @@ import startup.Main;
 import frames.swing.BooleanRenderer;
 import java.util.Set;
 import java.util.stream.Collectors;
-import startup.App1;
+import startup.App;
 
 public class Filling extends javax.swing.JFrame {
 
@@ -883,7 +883,7 @@ public class Filling extends javax.swing.JFrame {
 
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                App1.eApp1.Artikles.createFrame(Filling.this, record2);
+                App.eApp1.Artikles.createFrame(Filling.this, record2);
             }
         });
     }//GEN-LAST:event_btnConstructiv

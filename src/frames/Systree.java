@@ -84,8 +84,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
-import startup.App1;
-import startup.App1.eApp1;
+import startup.App;
+import startup.App.eApp1;
 import startup.Main;
 
 public class Systree extends javax.swing.JFrame {
@@ -2349,7 +2349,7 @@ public class Systree extends javax.swing.JFrame {
         Record record2 = eArtikl.find(record.getInt(eSysprof.artikl_id), false);
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                App1.eApp1.Artikles.createFrame(Systree.this, record2);
+                App.eApp1.Artikles.createFrame(Systree.this, record2);
             }
         });
     }//GEN-LAST:event_findFromArtikl

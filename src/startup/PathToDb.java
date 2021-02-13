@@ -95,8 +95,8 @@ public class PathToDb extends javax.swing.JDialog {
         eExcep pass = con.createConnection(num_base);
         Query.connection = con.getConnection();      
         if (pass == eExcep.yesConn) {
-            if (App1.eApp1.App1.frame == null) {  //запуск главного меню
-                App1.eApp1.createApp(eProfile.profile);
+            if (App.eApp1.App1.frame == null) {  //запуск главного меню
+                App.eApp1.createApp(eProfile.profile);
             }
             eProperty.base_num.write(String.valueOf(num_base));
             eProperty.save(); //свойства текущего пользователя
