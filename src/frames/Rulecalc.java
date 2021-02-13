@@ -1,7 +1,6 @@
 package frames;
 
 import common.DialogListener;
-import common.EditorListener;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Field;
@@ -25,7 +24,6 @@ public class Rulecalc extends javax.swing.JFrame {
 
     private Query qRulecalc = new Query(eRulecalc.values(), eArtikl.values());
     private DialogListener listenerArtikl, listenerForm;
-    private EditorListener listenerCell;
 
     public Rulecalc() {
         initComponents();
@@ -33,7 +31,6 @@ public class Rulecalc extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerSet();
-        tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditor(listenerCell));
     }
 
     private void loadingData() {
@@ -61,7 +58,15 @@ public class Rulecalc extends javax.swing.JFrame {
             }
         };
 
-        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+        tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditor(5));
+        tab2.getColumnModel().getColumn(5).setCellEditor(new DefCellEditor(5));
+        tab2.getColumnModel().getColumn(6).setCellEditor(new DefCellEditor(3));
+        tab2.getColumnModel().getColumn(7).setCellEditor(new DefCellEditor(3));
+        tab2.getColumnModel().getColumn(8).setCellEditor(new DefCellEditor(5));
+        tab2.getColumnModel().getColumn(9).setCellEditor(new DefCellEditor(5));
+        tab2.getColumnModel().getColumn(10).setCellEditor(new DefCellEditor(5));
+
+        Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, (artiklRec) -> {
                 qRulecalc.set(artiklRec.getInt(eArtikl.level1) * 100 + artiklRec.getInt(eArtikl.level2), Util.getSelectedRec(tab2), eRulecalc.type);
                 ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
@@ -69,22 +74,22 @@ public class Rulecalc extends javax.swing.JFrame {
             }, 1, 2, 3, 4, 5);
         });
 
-        Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 2).addActionListener(event -> {
             int type = qRulecalc.getAs(tab2.getSelectedRow(), eRulecalc.type);
             int[] arr = (type == -1) ? new int[]{1, 2, 3, 4, 5} : new int[]{type / 100};
             new DicArtikl2(this, listenerArtikl, arr);
         });
 
-        Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
+        Util.buttonCellEditor(tab2, 3).addActionListener(event -> {
             int type = qRulecalc.getAs(tab2.getSelectedRow(), eRulecalc.type);
             int[] arr = (type == -1) ? new int[]{1, 2, 3, 4, 5} : new int[]{type / 100};
             new DicArtikl2(this, listenerArtikl, arr);
         });
 
-        Util.buttonEditorCell(tab2, 11).addActionListener(event -> {
-            int form = qRulecalc.getAs(Util.getSelectedRec(tab2), eRulecalc.form);
-            DicEnums frame = new DicEnums(this, (record) -> Util.listenerEnums(record, tab2, eRulecalc.form, tab2), TypeForm.values());
+        Util.buttonCellEditor(tab2, 11).addActionListener(event -> {
+            new DicEnums(this, (record) -> Util.listenerEnums(record, tab2, eRulecalc.form, tab2), TypeForm.values());
         });
+
         Util.setSelectedRow(tab2);
     }
 
@@ -101,10 +106,6 @@ public class Rulecalc extends javax.swing.JFrame {
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         };
-
-        listenerCell = (c) -> {
-            return ("-0123456789;".indexOf(c.toString()) != -1);
-        };
     }
 
     @SuppressWarnings("unchecked")
@@ -119,7 +120,7 @@ public class Rulecalc extends javax.swing.JFrame {
         btnReport = new javax.swing.JButton();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField(){
+        txtFilter = new javax.swing.JTextField() {
             public JTable table = null;
         };
         checkFilter = new javax.swing.JCheckBox();
@@ -219,31 +220,31 @@ public class Rulecalc extends javax.swing.JFrame {
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
-            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(northLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(148, 148, 148)
-                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 479, Short.MAX_VALUE)
-                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(northLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(148, 148, 148)
+                                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 479, Short.MAX_VALUE)
+                                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
         );
         northLayout.setVerticalGroup(
-            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(northLayout.createSequentialGroup()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(northLayout.createSequentialGroup()
+                                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
         );
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
@@ -287,20 +288,20 @@ public class Rulecalc extends javax.swing.JFrame {
         scr2.setPreferredSize(new java.awt.Dimension(454, 320));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"xxx", "vvv", "ttt", "erertet", "1", "1",  new Double(1.0),  new Double(1.0), "1", "1", "1",  new Integer(1),  new Integer(1)},
-                {"vvv", "hhh", "reee", "ertewr", "1", "1",  new Double(1.0),  new Double(1.0), "1", "1", "1",  new Integer(1),  new Integer(1)}
-            },
-            new String [] {
-                "Название правила", "Использование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Базовая текстура", "Внутр. текстура", "Внешн. текстура", "Форма позиции", "ID"
-            }
+                new Object[][]{
+                    {"xxx", "vvv", "ttt", "erertet", "1", "1", new Double(1.0), new Double(1.0), "1", "1", "1", new Integer(1), new Integer(1)},
+                    {"vvv", "hhh", "reee", "ertewr", "1", "1", new Double(1.0), new Double(1.0), "1", "1", "1", new Integer(1), new Integer(1)}
+                },
+                new String[]{
+                    "Название правила", "Использование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Базовая текстура", "Внутр. текстура", "Внешн. текстура", "Форма позиции", "ID"
+                }
         ) {
-            Class[] types = new Class [] {
+            Class[] types = new Class[]{
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
         });
         tab2.setFillsViewportHeight(true);
@@ -415,6 +416,7 @@ public class Rulecalc extends javax.swing.JFrame {
     private javax.swing.JPanel south;
     private javax.swing.JTable tab2;
     private javax.swing.JTextField txtFilter;
+
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
