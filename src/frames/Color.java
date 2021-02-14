@@ -445,7 +445,7 @@ public class Color extends javax.swing.JFrame {
 
         pan1.add(scr1, java.awt.BorderLayout.WEST);
 
-        jTabbedPane1.addTab("      Справочник цветов      ", pan1);
+        jTabbedPane1.addTab("<html><font size=\"3\">Справочник цветов      ", pan1);
 
         pan2.setPreferredSize(new java.awt.Dimension(800, 500));
         pan2.setLayout(new java.awt.BorderLayout());
@@ -517,7 +517,7 @@ public class Color extends javax.swing.JFrame {
 
         pan2.add(scr4, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Группы соответствия цветов", pan2);
+        jTabbedPane1.addTab("<html><font size=\"3\">Группы соответствия цветов", pan2);
 
         centr.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 

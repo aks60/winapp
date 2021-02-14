@@ -152,7 +152,7 @@ public class Groups extends javax.swing.JFrame {
 
         panl1.add(scr1, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("Группы наценок", panl1);
+        tabb.addTab("<html><font size=\"3\">Группы наценок", panl1);
 
         pan2.setLayout(new java.awt.BorderLayout());
 
@@ -199,7 +199,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan2.add(scr2, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("Группы скидок", pan2);
+        tabb.addTab("<html><font size=\"3\">Группы скидок", pan2);
 
         pan3.setLayout(new java.awt.BorderLayout());
 
@@ -241,7 +241,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan3.add(scr3, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("Серии профилей", pan3);
+        tabb.addTab("<html><font size=\"3\">Серии профилей", pan3);
 
         pan4.setLayout(new java.awt.BorderLayout());
 
@@ -286,7 +286,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan4.add(scr4, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("Группы фильтров", pan4);
+        tabb.addTab("<html><font size=\"3\">Группы фильтров", pan4);
 
         pan5.setLayout(new java.awt.BorderLayout());
 
@@ -332,7 +332,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan5.add(scr5, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("Группы текстур", pan5);
+        tabb.addTab("<html><font size=\"3\">Группы текстур", pan5);
 
         centr.add(tabb, java.awt.BorderLayout.CENTER);
 
@@ -431,7 +431,7 @@ public class Groups extends javax.swing.JFrame {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 288, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 352, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

@@ -279,8 +279,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="      &#x421;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;      ">
-                    <Property name="tabTitle" type="java.lang.String" value="      &#x421;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;      "/>
+                  <JTabbedPaneConstraints tabName="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&#x421;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;      ">
+                    <Property name="tabTitle" type="java.lang.String" value="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&#x421;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;      "/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -444,8 +444,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="&#x413;&#x440;&#x443;&#x43f;&#x43f;&#x44b; &#x441;&#x43e;&#x43e;&#x442;&#x432;&#x435;&#x442;&#x441;&#x442;&#x432;&#x438;&#x44f; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;">
-                    <Property name="tabTitle" type="java.lang.String" value="&#x413;&#x440;&#x443;&#x43f;&#x43f;&#x44b; &#x441;&#x43e;&#x43e;&#x442;&#x432;&#x435;&#x442;&#x441;&#x442;&#x432;&#x438;&#x44f; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;"/>
+                  <JTabbedPaneConstraints tabName="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&#x413;&#x440;&#x443;&#x43f;&#x43f;&#x44b; &#x441;&#x43e;&#x43e;&#x442;&#x432;&#x435;&#x442;&#x441;&#x442;&#x432;&#x438;&#x44f; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;">
+                    <Property name="tabTitle" type="java.lang.String" value="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&#x413;&#x440;&#x443;&#x43f;&#x43f;&#x44b; &#x441;&#x43e;&#x43e;&#x442;&#x432;&#x435;&#x442;&#x441;&#x442;&#x432;&#x438;&#x44f; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
