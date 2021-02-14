@@ -332,11 +332,11 @@ public class Util {
     }
 
     //Вставить запись
-    public static Record insertRecord(JTable table, Field up) {
+    public static Record insertRecord(JTable table, Field field) {
 
         Query query = ((DefTableModel) table.getModel()).getQuery();
-        Record record = up.newRecord(Query.INS);
-        record.setNo(up.fields()[1], ConnApp.instanc().genId(up));
+        Record record = field.newRecord(Query.INS);
+        record.setNo(field.fields()[1], ConnApp.instanc().genId(field));
         query.add(record);
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Util.scrollRectToVisible(query, table);

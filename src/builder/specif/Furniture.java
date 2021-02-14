@@ -122,7 +122,8 @@ public class Furniture extends Cal5e {
         try {
             Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
             if (handle == true) { //если пишем ручку в створку то всё остальное отсеиваем
-                if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)) {
+                if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id) 
+                        && furndetRec.get(eFurndet.furniture_id2) == null) {
                     if (artiklRec.getInt(eArtikl.level1) != 2) {
                         return false;
                     }
