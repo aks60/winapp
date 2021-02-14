@@ -2,6 +2,7 @@ package frames;
 
 import common.DialogListener;
 import common.FrameToFile;
+import common.SqlListener;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -19,6 +20,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.BooleanRenderer;
+import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
 import java.awt.Component;
 import javax.swing.DefaultCellEditor;
@@ -35,6 +37,8 @@ public class Color extends javax.swing.JFrame {
     private Query qColor = new Query(eColor.values());
     private Query qColmap = new Query(eColmap.values());
     private DialogListener listenerColor1, listenerColor2;
+    private SqlListener preset = (record) -> {
+    };
 
     public Color() {
         initComponents();
@@ -91,6 +95,9 @@ public class Color extends javax.swing.JFrame {
             }
         });
         tab2.getColumnModel().getColumn(5).setCellRenderer(new BooleanRenderer());
+        tab2.getColumnModel().getColumn(2).setCellEditor(new DefCellEditor(3));
+        tab2.getColumnModel().getColumn(3).setCellEditor(new DefCellEditor(3));
+        tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditor(3));
 
         BooleanRenderer br = new BooleanRenderer();
         Arrays.asList(4, 5, 6, 7, 8, 9).forEach(index -> tab4.getColumnModel().getColumn(index).setCellRenderer(br));
@@ -161,6 +168,7 @@ public class Color extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
+
         Util.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qGroup1, qColor, qGroup2, qColmap).forEach(q -> q.execsql());
         int index = Util.getIndexRec(tab1);
@@ -363,7 +371,7 @@ public class Color extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Boolean.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Boolean.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -552,11 +560,11 @@ public class Color extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
+        Util.stopCellEditing(tab1, tab2, tab3, tab4);
+        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1);
-        Util.setSelectedRow(tab3);
+        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefaultTableModel) tab.getModel()).fireTableDataChanged());
+        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> Util.setSelectedRow(tab));
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -580,20 +588,19 @@ public class Color extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, eGroups.up);
-            record.set(eGroups.grup, TypeGroups.COLOR.id); 
-            record.set(eGroups.val, 1);
-            
-//            Record record = Util.insertRecord(tab1, eGroups.up);
-//            record.set(eGroups.grup, TypeGroups.COLOR.id);
-//            record.set(eGroups.val, 1);
-
+            Util.insertRecord(tab1, eGroups.up, (record) -> {
+                record.set(eGroups.grup, TypeGroups.COLOR.id);
+                record.set(eGroups.name, "");
+                record.set(eGroups.val, 1);
+            });
         } else if (tab2.getBorder() != null) {
             Util.insertRecord(tab1, tab2, eGroups.up, eColor.up, eColor.colgrp_id);
 
         } else if (tab3.getBorder() != null) {
-            Record record = Util.insertRecord(tab3, eGroups.up);
-            record.set(eGroups.grup, TypeGroups.COLMAP.id);
+            Util.insertRecord(tab3, eGroups.up, (record) -> {
+                record.set(eGroups.grup, TypeGroups.COLMAP.id);
+                record.set(eGroups.name, "");
+            });
 
         } else if (tab4.getBorder() != null) {
             Record record = Util.insertRecord(tab3, tab4, eGroups.up, eColmap.up, eColmap.colgrp_id);

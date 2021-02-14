@@ -318,7 +318,7 @@
                             <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;.(&#x432;&#x43d;&#x443;&#x442;&#x440;.&#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;)" type="java.lang.Double"/>
                             <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;.(&#x432;&#x43d;&#x435;&#x448;&#x43d;.&#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;)" type="java.lang.Double"/>
                             <Column editable="true" title="&#x414;&#x43b;&#x44f; &#x438;&#x437;&#x434;&#x435;&#x43b;&#x438;&#x439;" type="java.lang.Boolean"/>
-                            <Column editable="true" title="ID" type="java.lang.Object"/>
+                            <Column editable="true" title="ID" type="java.lang.Integer"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

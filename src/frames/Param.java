@@ -6,6 +6,7 @@ import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
 import domain.eColor;
+import domain.eCurrenc;
 import domain.eParams;
 import frames.dialog.DicColor2;
 import java.util.Arrays;
@@ -57,7 +58,7 @@ public class Param extends javax.swing.JFrame {
             tab1.setRowSelectionInterval(0, 0);
         }
     }
-    
+
     private void listenerAdd() {
 
         editorBtn.getButton().addActionListener(event -> {
@@ -254,11 +255,18 @@ public class Param extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab1.setFillsViewportHeight(true);
@@ -272,7 +280,7 @@ public class Param extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setMinWidth(300);
             tab1.getColumnModel().getColumn(0).setPreferredWidth(400);
-            tab1.getColumnModel().getColumn(8).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(8).setMaxWidth(48);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -286,19 +294,26 @@ public class Param extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"zzzzzz", null, null, null, null, null, null, "1", null},
-                {"xxxxx", null, null, null, null, null, null, "1", null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
                 "Значение параметра", "Комплекты", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Надпись", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab2.setFillsViewportHeight(true);
@@ -312,7 +327,7 @@ public class Param extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setMinWidth(300);
             tab2.getColumnModel().getColumn(0).setPreferredWidth(400);
-            tab2.getColumnModel().getColumn(8).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(8).setMaxWidth(48);
         }
 
         pan2.add(scr2, java.awt.BorderLayout.CENTER);
@@ -358,34 +373,20 @@ public class Param extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        qParams.select(eParams.up);
+        Util.stopCellEditing(tab1, tab2);
+        Arrays.asList(tab1, tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        loadData();
         Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
-                "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-
-            if (tab1.getBorder() != null) {
-                int row = Util.getIndexRec(tab1);
-                if (row != -1) {
-                    Record record = qParams.get(row);
-                    record.set(eParams.up, Query.DEL);
-                    qParams.delete(record);
-                    qParams.removeRec(row);
-                    ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-                    Util.setSelectedRow(tab1);
-                }
-            } else if (tab2.getBorder() != null) {
-                int row = Util.getIndexRec(tab2);
-                if (row != -1) {
-                    Record record = qPardet.get(row);
-                    record.set(eParams.up, Query.DEL);
-                    qPardet.delete(record);
-                    qPardet.removeRec(row);
-                    ((DefTableModel) tab2.getModel()).fireTableDataChanged();
-                    Util.setSelectedRow(tab2);
-                }
+        if (tab1.getBorder() != null) {
+            if (Util.isDeleteRecord(this, tab2) == 0) {
+                Util.deleteRecord(tab1);
+            }
+        } else if (tab2.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab2);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -393,31 +394,18 @@ public class Param extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Record paramsRec = eParams.up.newRecord(Query.INS);
-            int id = ConnApp.instanc().genId(eParams.up);
-            paramsRec.setNo(eParams.id, id);
-            paramsRec.setNo(eParams.params_id, id);
-            Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
-                    eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> paramsRec.set(index, 0));
-            qParams.add(paramsRec);
-            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qParams, tab1);
-
-        } else if (tab2.getBorder() != null) {
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                Record paramRec = qParams.get(row);
-                Record pardetRec = eParams.up.newRecord(Query.INS);
-                int grup = paramRec.getInt(eParams.params_id);
-                int id = ConnApp.instanc().genId(eParams.up);
-                pardetRec.setNo(eParams.id, id);
-                pardetRec.setNo(eParams.params_id, grup);
+            Util.insertRecord(tab1, eParams.up, (record) -> {
+                record.setNo(eParams.params_id, record.getInt(eParams.id));
                 Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
-                        eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> pardetRec.set(index, 0));
-                qPardet.add(pardetRec);
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.scrollRectToVisible(qPardet, tab2);
-            }
+                        eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
+            });
+        } else if (tab2.getBorder() != null) {
+            Util.insertRecord(tab2, eParams.up, (record) -> {
+                Record record2 = qParams.get(Util.getIndexRec(tab1));
+                record.setNo(eParams.params_id, record2.getInt(eParams.id));
+                Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
+                        eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
+            });
         }
     }//GEN-LAST:event_btnInsert
 
@@ -428,8 +416,8 @@ public class Param extends javax.swing.JFrame {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        if(table == tab2) {
-           selectionTab2(null); 
+        if (table == tab2) {
+            selectionTab2(null);
         }
         Util.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
         if (txtFilter.getText().length() == 0) {

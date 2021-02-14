@@ -1,6 +1,8 @@
 package frames;
 
+import common.DialogListener;
 import common.EditorListener;
+import common.SqlListener;
 import common.eProperty;
 import dataset.ConnApp;
 import dataset.Field;
@@ -333,32 +335,22 @@ public class Util {
 
     //Вставить запись
     public static Record insertRecord(JTable table, Field field) {
+            return insertRecord(table, field, (record) -> {});
+    }
+    
+    //Вставить запись
+    public static Record insertRecord(JTable table, Field field, SqlListener preset) {
 
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = field.newRecord(Query.INS);
         record.setNo(field.fields()[1], ConnApp.instanc().genId(field));
+        preset.action(record);
         query.add(record);
-        ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+        ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
         Util.scrollRectToVisible(query, table);
         return record;
     }
 
-    //Установить border и выполнить sql
-    public static void updateBorderAndSql(JTable table, List<JTable> tabList) {
-        if (tabList != null) {
-            tabList.forEach(tab -> tab.setBorder(null));
-            tabList.forEach(tab -> {
-                if (tab != table) {
-                    Util.stopCellEditing(tab);
-                    if (tab.getModel() instanceof DefTableModel) {
-                        ((DefTableModel) tab.getModel()).getQuery().execsql();
-                    }
-                }
-            });
-        }
-        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-    }
-    
     //Вставить запись
     public static Record insertRecord(JTable table1, JTable table2, Field up1, Field up2, Field fk2) {
 
@@ -402,7 +394,7 @@ public class Util {
             return null;
         }
     }
-
+    
     //Удалить запись
     public static void deleteRecord(JTable table) {
         if (table.getSelectedRow() != -1) {
@@ -452,6 +444,22 @@ public class Util {
         return JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
 
+    //Установить border и выполнить sql
+    public static void updateBorderAndSql(JTable table, List<JTable> tabList) {
+        if (tabList != null) {
+            tabList.forEach(tab -> tab.setBorder(null));
+            tabList.forEach(tab -> {
+                if (tab != table) {
+                    Util.stopCellEditing(tab);
+                    if (tab.getModel() instanceof DefTableModel) {
+                        ((DefTableModel) tab.getModel()).getQuery().execsql();
+                    }
+                }
+            });
+        }
+        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+    }
+    
     //Очистить таблицу
     public static void clearTable(JTable... jTable) {
         for (JTable table : jTable) {

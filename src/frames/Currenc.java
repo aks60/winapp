@@ -6,6 +6,7 @@ import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
 import domain.eCurrenc;
+import frames.swing.DefCellEditor;
 import java.awt.Frame;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
@@ -48,6 +49,7 @@ public class Currenc extends javax.swing.JFrame {
 
     private void loadingModel() {
         new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case2, eCurrenc.cross_cour);
+        tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditor(3));
         Util.setSelectedRow(tab1);
     }
 
@@ -215,27 +217,35 @@ public class Currenc extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Название", "Ед. число", "Мн. число", "Курс"
+                "Название", "Ед. число", "Мн. число", "Курс", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab1.setFillsViewportHeight(true);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tab1.getColumnModel().getColumn(4).setMaxWidth(40);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);
@@ -266,6 +276,7 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
+        Util.stopCellEditing(tab1);
         Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -273,27 +284,13 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                Record record = qCurrenc.get(row);
-                record.set(eCurrenc.up, Query.DEL);
-                qCurrenc.delete(record);
-                qCurrenc.removeRec(row);
-                ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab1);
-            }
+        if (Util.isDeleteRecord(this) == 0) {
+            Util.deleteRecord(tab1);
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Record currencRec = eCurrenc.up.newRecord(Query.INS);
-        currencRec.setNo(eCurrenc.id, ConnApp.instanc().genId(eCurrenc.up));
-        qCurrenc.add(currencRec);
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.scrollRectToVisible(qCurrenc, tab1);
+        Util.insertRecord(tab1, eCurrenc.up);
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed

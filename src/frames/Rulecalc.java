@@ -348,6 +348,7 @@ public class Rulecalc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
+        Util.stopCellEditing(tab2);
         qRulecalc.execsql();
         loadingData();
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
