@@ -38,7 +38,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.App;
-import startup.eApp;
+import startup.Aps;
 
 public class Specific extends javax.swing.JFrame {
 
@@ -594,7 +594,7 @@ public class Specific extends javax.swing.JFrame {
         Specification recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp.Artikles.createFrame(Specific.this, recordSpc.artiklRec);
+                Aps.Artikles.createFrame(Specific.this, recordSpc.artiklRec);
             }
         });
     }//GEN-LAST:event_btnArtikles
@@ -608,16 +608,16 @@ public class Specific extends javax.swing.JFrame {
             FrameProgress.create(Specific.this, new FrameListener() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
-                        eApp.Element.createFrame(Specific.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
+                        Aps.Element.createFrame(Specific.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
 
                     } else if (str.equals("СОЕ")) {
-                        eApp.Joining.createFrame(Specific.this, iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));
+                        Aps.Joining.createFrame(Specific.this, iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));
 
                     } else if (str.equals("ЗАП")) {
-                        eApp.Filling.createFrame(Specific.this, iwin.calcFilling.listVariants, recordDet.getInt(eGlasdet.id));
+                        Aps.Filling.createFrame(Specific.this, iwin.calcFilling.listVariants, recordDet.getInt(eGlasdet.id));
 
                     } else if (str.equals("ФУР")) {
-                        eApp.Furniture.createFrame(Specific.this, iwin.calcFurniture.listVariants, recordDet.getInt(eFurndet.id));
+                        Aps.Furniture.createFrame(Specific.this, iwin.calcFurniture.listVariants, recordDet.getInt(eFurndet.id));
                     }
                 }
             });
@@ -625,10 +625,10 @@ public class Specific extends javax.swing.JFrame {
             FrameProgress.create(Specific.this, new FrameListener() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
-                        eApp.Systree.createFrame(Specific.this, recordSpc.artiklRec.getInt(eArtikl.id));
+                        Aps.Systree.createFrame(Specific.this, recordSpc.artiklRec.getInt(eArtikl.id));
 
                     } else if (str.equals("ЗАП")) {
-                        eApp.Systree.createFrame(Specific.this);
+                        Aps.Systree.createFrame(Specific.this);
                     }
                 }
             });

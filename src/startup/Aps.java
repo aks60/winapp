@@ -28,7 +28,7 @@ import java.awt.Toolkit;
 import java.util.Set;
 import javax.swing.JFrame;
 
-    public enum eApp {
+    public enum Aps {
 
         App1, Convert, Groups, DicCurrenc, Color, Artikles, Joining, Element, Param,
         Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,

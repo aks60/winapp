@@ -45,7 +45,7 @@ import javax.swing.JLabel;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.Main;
-import startup.eApp;
+import startup.Aps;
 
 //варианты соединений
 public class Joining extends javax.swing.JFrame {
@@ -967,7 +967,7 @@ public class Joining extends javax.swing.JFrame {
         Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eJoindet.artikl_id)).findFirst().orElse(eJoindet.up.newRecord());
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp.Artikles.createFrame(Joining.this, record2);
+                Aps.Artikles.createFrame(Joining.this, record2);
             }
         });
     }//GEN-LAST:event_btnConstructiv

@@ -47,7 +47,7 @@ import frames.swing.BooleanRenderer;
 import frames.swing.DefTableModel;
 import java.util.Set;
 import java.util.stream.Collectors;
-import startup.eApp;
+import startup.Aps;
 
 public class Element extends javax.swing.JFrame {
 
@@ -998,7 +998,7 @@ public class Element extends javax.swing.JFrame {
         
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp.Artikles.createFrame(Element.this, record2);
+                Aps.Artikles.createFrame(Element.this, record2);
             }
         });
     }//GEN-LAST:event_btnConstructiv

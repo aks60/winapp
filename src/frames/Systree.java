@@ -83,7 +83,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import startup.App;
 import startup.Main;
-import startup.eApp;
+import startup.Aps;
 
 public class Systree extends javax.swing.JFrame {
 
@@ -572,7 +572,7 @@ public class Systree extends javax.swing.JFrame {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(row);
             String script = sysprodRec.getStr(eSysprod.script);
             eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id));
-            eApp.App1.frame.setTitle(getTitle() + Util.designName());
+            Aps.App1.frame.setTitle(getTitle() + Util.designName());
 
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
@@ -2346,7 +2346,7 @@ public class Systree extends javax.swing.JFrame {
         Record record2 = eArtikl.find(record.getInt(eSysprof.artikl_id), false);
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp.Artikles.createFrame(Systree.this, record2);
+                Aps.Artikles.createFrame(Systree.this, record2);
             }
         });
     }//GEN-LAST:event_findFromArtikl
