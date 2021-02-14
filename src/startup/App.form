@@ -600,7 +600,7 @@
                       <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="Win Classic"/>
+                    <Property name="text" type="java.lang.String" value="Windows"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnLookAndFeel"/>
@@ -614,7 +614,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Java Nimbus"/>
+                    <Property name="text" type="java.lang.String" value="Nimbus"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnLookAndFeel"/>
@@ -628,7 +628,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Java Metal"/>
+                    <Property name="text" type="java.lang.String" value="Metal"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnLookAndFeel"/>

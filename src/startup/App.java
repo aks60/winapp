@@ -1029,7 +1029,7 @@ public class App extends javax.swing.JFrame {
         buttonLookAndFiilGroup.add(mn621);
         mn621.setFont(frames.Util.getFont(1,1));
         mn621.setSelected(true);
-        mn621.setText("Win Classic");
+        mn621.setText("Windows");
         mn621.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnLookAndFeel(evt);
@@ -1039,7 +1039,7 @@ public class App extends javax.swing.JFrame {
 
         buttonLookAndFiilGroup.add(mn622);
         mn622.setFont(frames.Util.getFont(1,1));
-        mn622.setText("Java Nimbus");
+        mn622.setText("Nimbus");
         mn622.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnLookAndFeel(evt);
@@ -1049,7 +1049,7 @@ public class App extends javax.swing.JFrame {
 
         buttonLookAndFiilGroup.add(mn623);
         mn623.setFont(frames.Util.getFont(1,1));
-        mn623.setText("Java Metal");
+        mn623.setText("Metal");
         mn623.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnLookAndFeel(evt);

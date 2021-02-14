@@ -405,10 +405,8 @@ public class Color extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {"1111111",  new Double(1.0), null},
+                {"222222",  new Double(3.0), null}
             },
             new String [] {
                 "Название групп", "Коэффициент", "ID"
@@ -456,10 +454,8 @@ public class Color extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {"1111111111", null},
+                {"2222222222", null}
             },
             new String [] {
                 "Название группы", "ID"

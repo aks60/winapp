@@ -17,7 +17,7 @@ public class Main {
     public Main() {
         LogoToDb frame = new LogoToDb(null);
         FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);        
+        frame.setVisible(true);
     }
 
     //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
@@ -27,8 +27,8 @@ public class Main {
             if (index == 0 && args[0].equals("dev")) {
                 Main.dev = true; //режим разработки и тестирования
             }
-            if(index == 1 && args[1].equals("loc")) {
-               Main.locate = true;
+            if (index == 1 && args[1].equals("loc")) {
+                Main.locate = true;
             }
         }
         SwingUtilities.invokeLater(new Runnable() {
@@ -38,8 +38,9 @@ public class Main {
                     runRussifier();
                     String lafName = eProperty.lookandfeel.read();
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    //Windows Classic, Windows, CDE/Motif, Metal, Nimbus, Dark Metal
                     for (LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
-                        if (lafName.equals(laf.getName())) { //"Windows Classic", "Windows", "CDE/Motif", "Metal", "Nimbus"
+                        if (lafName.equals(laf.getName())) {
                             UIManager.setLookAndFeel(laf.getClassName());
                         }
                     }
@@ -62,7 +63,7 @@ public class Main {
             }
         });
     }
-    
+
     public static final void runRussifier() {
         //UIManager.put("ComboBox.selectionBackground", java.awt.Color.yellow);
         UIManager.put("AbstractButton.clickText", "клик");
