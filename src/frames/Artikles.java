@@ -49,7 +49,6 @@ public class Artikles extends javax.swing.JFrame {
     private Query qGroups = new Query(eGroups.values());
     private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up);
     private Query qArtikl = new Query(eArtikl.values());
-    private Query qArtikl2 = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
     private Query qSyssize = new Query(eSyssize.values());
     private Query qArtgrp = new Query(eGroups.values());
@@ -140,8 +139,8 @@ public class Artikles extends javax.swing.JFrame {
 
         rsvArtikl = new DefFieldEditor(tab1) {
             @Override
-            public void load(Integer row) {
-                super.load(row);
+            public void load(Integer index) {
+                super.load(index);
                 Record artiklRec = qArtikl.get(Util.getIndexRec(tab1));
                 Record seriesRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == artiklRec.getInt(eArtikl.series_id)).findFirst().orElse(eGroups.up.newRecord());
                 Record currenc1Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc1_id))).findFirst().orElse(eCurrenc.up.newRecord());
@@ -150,19 +149,18 @@ public class Artikles extends javax.swing.JFrame {
                 Record artgrp2Rec = qArtgrp.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.artgrp2_id))).findFirst().orElse(eGroups.up.newRecord());
                 Record artgrp3Rec = qArtgrp.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.artgrp3_id))).findFirst().orElse(eGroups.up.newRecord());
                 Record syssizeRec = qSyssize.stream().filter(rec -> rec.getInt(eSyssize.id) == artiklRec.getInt(eArtikl.syssize_id)).findFirst().orElse(eSyssize.up.newRecord());;
-                String name = UseUnit.getName(artiklRec.getInt(eArtikl.unit));
-                txtField5.setText(name);
-                name = (currenc1Rec != null) ? currenc1Rec.getStr(eCurrenc.name) : null;
-                txtField7.setText(name);
-                name = (currenc2Rec != null) ? currenc2Rec.getStr(eCurrenc.name) : null;
-                txtField17.setText(name);
+                
+                txtField5.setText(UseUnit.getName(artiklRec.getInt(eArtikl.unit)));
+                txtField7.setText(currenc1Rec.getStr(eCurrenc.name));
+                txtField25.setText(currenc1Rec.getStr(eCurrenc.name));
+                txtField17.setText(currenc2Rec.getStr(eCurrenc.name));
+                txtField24.setText(currenc2Rec.getStr(eCurrenc.name));
                 //name = (groupsRec != null) ? groupsRec.getStr(eGroups.name) : null;
                 //txtField10.setText(name);
 
                 if (artiklRec.getInt(eArtikl.analog_id) != -1) {
-                    Record analogRec = qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(artiklRec.get(eArtikl.analog_id))).findFirst().orElse(null);
-                    name = (analogRec != null) ? analogRec.getStr(eArtikl.code) : null;
-                    txtField11.setText(name);
+                    Record analogRec = qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(artiklRec.get(eArtikl.analog_id))).findFirst().orElse(eArtikl.up.newRecord());
+                    txtField11.setText(analogRec.getStr(eArtikl.code));
                 } else {
                     txtField11.setText(null);
                 }
@@ -382,14 +380,12 @@ public class Artikles extends javax.swing.JFrame {
         ((CardLayout) pan6.getLayout()).show(pan6, name);
 
         if (e == TypeArtikl.ROOT) {
-            qArtikl2.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
+            qArtikl.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
         } else if (node.isLeaf()) {
-            qArtikl2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
+            qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
         } else {
-            qArtikl2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
+            qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
         }
-        qArtikl.clear();
-        qArtikl.addAll(qArtikl2);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);
     }
@@ -426,8 +422,8 @@ public class Artikles extends javax.swing.JFrame {
             node = node.getNextNode();
         } while (node != null);
 
-        for (int index = 0; index < qArtikl2.size(); ++index) {
-            int id = qArtikl2.getAs(index, eArtikl.id);
+        for (int index = 0; index < qArtikl.size(); ++index) {
+            int id = qArtikl.getAs(index, eArtikl.id);
             if (id == artiklRec.getInt(eArtikl.id)) {
                 Util.setSelectedRow(tab1, index);
                 Util.scrollRectToVisible(index, tab1);
