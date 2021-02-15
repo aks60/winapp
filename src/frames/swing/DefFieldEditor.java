@@ -89,14 +89,14 @@ public class DefFieldEditor<E> {
     }
 
     //Загрузить данные в компоненты
-    public void load(Integer row) {
+    public void load(Integer index) {
         update = false;
         try {
-            if (row != null && row != -1) {
+            if (index != null && index != -1) {
                 for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
                     JTextComponent jtxt = me.getKey();
                     Field field = me.getValue();
-                    Object val = ((DefTableModel) ((JTable) comp).getModel()).getQuery().table(field).get(row, field);
+                    Object val = ((DefTableModel) ((JTable) comp).getModel()).getQuery().table(field).get(index, field);
                     text(jtxt, field, val);
                 }
             }
