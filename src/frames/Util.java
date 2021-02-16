@@ -356,12 +356,14 @@ public class Util {
 
         int row = getIndexRec(table1);
         if (row != -1) {
-            Query query1 = ((DefTableModel) table1.getModel()).getQuery();
+            Query query1 = ((DefTableModel) table1.getModel()).getQuery();            
+            Record record1 = query1.get(row);            
             Query query2 = ((DefTableModel) table2.getModel()).getQuery();
-            Record record1 = query1.get(row);
             Record record2 = up2.newRecord(Query.INS);
+            
             record2.setNo(up2.fields()[1], ConnApp.instanc().genId(up2));
             record2.setNo(fk2, record1.getInt(up1.fields()[1]));
+            
             query2.add(record2);
             ((DefaultTableModel) table2.getModel()).fireTableDataChanged();
             Util.scrollRectToVisible(query2, table2);

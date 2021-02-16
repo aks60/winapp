@@ -3,6 +3,7 @@ package frames;
 import common.DialogListener;
 import common.FrameToFile;
 import common.SqlListener;
+import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -570,14 +571,18 @@ public class Color extends javax.swing.JFrame {
                 Util.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            Util.deleteRecord(tab2);
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab2);
+            }
 
         } else if (tab3.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab4) == 0) {
                 Util.deleteRecord(tab3);
             }
         } else if (tab4.getBorder() != null) {
-            Util.deleteRecord(tab4);
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab4);
+            }
         }
     }//GEN-LAST:event_btnDelete
 
@@ -590,22 +595,30 @@ public class Color extends javax.swing.JFrame {
                 record.set(eGroups.val, 1);
             });
         } else if (tab2.getBorder() != null) {
-            Util.insertRecord(tab1, tab2, eGroups.up, eColor.up, eColor.colgrp_id);
+            
+            Record recordAll = Util.insertRecord(tab2, eColor.up, (record) -> {
+                Record groupRec = qGroup1.get(Util.getIndexRec(tab1));
+                record.setNo(eColor.colgrp_id, groupRec.getInt(eGroups.id));
+            });
+            qColall.add(recordAll);
 
         } else if (tab3.getBorder() != null) {
             Util.insertRecord(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLMAP.id);
                 record.set(eGroups.name, "");
-            });
+            });            
 
-        } else if (tab4.getBorder() != null) {
-            Record record = Util.insertRecord(tab3, tab4, eGroups.up, eColmap.up, eColmap.colgrp_id);
-            record.set(eColmap.joint, 1);
-            record.set(eColmap.elem, 1);
-            record.set(eColmap.glas, 1);
-            record.set(eColmap.furn, 1);
-            record.set(eColmap.otkos, 1);
-            record.set(eColmap.komp, 1);
+        } else if (tab4.getBorder() != null) {            
+            Util.insertRecord(tab4, eColor.up, (record) -> {
+                Record groupRec = qGroup2.get(Util.getIndexRec(tab3));
+                record.setNo(eColmap.colgrp_id, groupRec.getInt(eGroups.id));
+                record.set(eColmap.joint, 1);
+                record.set(eColmap.elem, 1);
+                record.set(eColmap.glas, 1);
+                record.set(eColmap.furn, 1);
+                record.set(eColmap.otkos, 1);
+                record.set(eColmap.komp, 1);
+            });
         }
     }//GEN-LAST:event_btnInsert
 

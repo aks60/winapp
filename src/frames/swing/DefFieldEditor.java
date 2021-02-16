@@ -104,24 +104,6 @@ public class DefFieldEditor<E> {
             update = true;
         }
     }
-
-    public void write(Integer index) {
-        update = false;
-        //this.index = index;
-        for (Map.Entry<JTextComponent, Field> entry : mapTxt.entrySet()) {
-            JTextComponent cmp = entry.getKey();
-            Field fld = entry.getValue();
-            
-            Object val = null; //(index >= ((JTable) comp).getDataModel().size() || index < 0) ? null : tableModel.getDataModel().get(index, fld);
-            if (index == null || val == null) {
-                cmp.setText("");
-            } else {
-                cmp.setText(val.toString());
-            }
-            cmp.getCaret().setDot(1); 
-        }
-        update = true;
-    }
     
     private void text(JTextComponent jtxt, Field field, Object val) {
         if (val == null) {
@@ -179,6 +161,7 @@ public class DefFieldEditor<E> {
                         int row = ((JTable) comp).getSelectedRow();
                         if (row != -1) {
                             if (((JTable) comp).getRowCount() > 0) {
+                                System.out.println(jtxt.getText());
                                 ((DefTableModel) ((JTable) comp).getModel()).getQuery().set(jtxt.getText(), row, mapTxt.get(jtxt));
                             }
                         }
