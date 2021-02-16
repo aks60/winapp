@@ -174,14 +174,10 @@ public class Color extends javax.swing.JFrame {
         Arrays.asList(qGroup1, qColor, qGroup2, qColmap).forEach(q -> q.execsql());
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
+            
             Record record = qGroup1.table(eGroups.up).get(index);
             Integer cgrup = record.getInt(eGroups.id);
-            qColor.clear();
-            qColall.forEach(rec -> {
-                if (rec.getInt(eColor.colgrp_id) == cgrup) {
-                    qColor.add(rec);
-                }
-            });
+            qColor.select(eColor.up, "where", eColor.colgrp_id, "=" + cgrup);          
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2);
         }
