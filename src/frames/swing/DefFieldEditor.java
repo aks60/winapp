@@ -105,6 +105,24 @@ public class DefFieldEditor<E> {
         }
     }
 
+    public void write(Integer index) {
+        update = false;
+        //this.index = index;
+        for (Map.Entry<JTextComponent, Field> entry : mapTxt.entrySet()) {
+            JTextComponent cmp = entry.getKey();
+            Field fld = entry.getValue();
+            
+            Object val = null; //(index >= ((JTable) comp).getDataModel().size() || index < 0) ? null : tableModel.getDataModel().get(index, fld);
+            if (index == null || val == null) {
+                cmp.setText("");
+            } else {
+                cmp.setText(val.toString());
+            }
+            cmp.getCaret().setDot(1); 
+        }
+        update = true;
+    }
+    
     private void text(JTextComponent jtxt, Field field, Object val) {
         if (val == null) {
             if (field.meta().type().equals(Field.TYPE.STR)) {

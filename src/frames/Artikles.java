@@ -196,6 +196,7 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.size_falz, txt15);
         rsvArtikl.add(eArtikl.size_tech, txt16);
         rsvArtikl.add(eArtikl.size_frez, txt21);
+        rsvArtikl.add(eArtikl.size_frez, txt23);
         rsvArtikl.add(eArtikl.density, txt39);
         rsvArtikl.add(eArtikl.len_unit, txt44);
         rsvArtikl.add(eArtikl.height, txt45);
@@ -538,6 +539,8 @@ public class Artikles extends javax.swing.JFrame {
         btn6 = new javax.swing.JButton();
         btn36 = new javax.swing.JButton();
         btn10 = new javax.swing.JButton();
+        lab53 = new javax.swing.JLabel();
+        txt43 = new javax.swing.JFormattedTextField();
         pan8 = new javax.swing.JPanel();
         lab43 = new javax.swing.JLabel();
         txt32 = new javax.swing.JTextField();
@@ -574,6 +577,8 @@ public class Artikles extends javax.swing.JFrame {
         txt45 = new javax.swing.JFormattedTextField();
         lab56 = new javax.swing.JLabel();
         txt46 = new javax.swing.JFormattedTextField();
+        lab35 = new javax.swing.JLabel();
+        txt23 = new javax.swing.JFormattedTextField();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -1181,6 +1186,11 @@ public class Artikles extends javax.swing.JFrame {
         txt21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt21.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txt21.setPreferredSize(new java.awt.Dimension(40, 18));
+        txt21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt21ActionPerformed(evt);
+            }
+        });
 
         btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         btn8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1731,6 +1741,19 @@ public class Artikles extends javax.swing.JFrame {
             }
         });
 
+        lab53.setFont(frames.Util.getFont(0,0));
+        lab53.setText("Поставка");
+        lab53.setToolTipText("");
+        lab53.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab53.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab53.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab53.setPreferredSize(new java.awt.Dimension(98, 18));
+
+        txt43.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt43.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txt43.setEnabled(false);
+        txt43.setPreferredSize(new java.awt.Dimension(168, 18));
+
         javax.swing.GroupLayout pan7Layout = new javax.swing.GroupLayout(pan7);
         pan7.setLayout(pan7Layout);
         pan7Layout.setHorizontalGroup(
@@ -1773,9 +1796,15 @@ public class Artikles extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btn36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan7Layout.createSequentialGroup()
-                            .addComponent(lab37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan7Layout.createSequentialGroup()
+                                    .addComponent(lab53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txt43, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan7Layout.createSequentialGroup()
+                                    .addComponent(lab37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btn23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1794,7 +1823,7 @@ public class Artikles extends javax.swing.JFrame {
                         .addComponent(txt31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pan7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lab18, lab36, lab37, lab39, lab40, lab41});
@@ -1819,9 +1848,8 @@ public class Artikles extends javax.swing.JFrame {
                     .addComponent(txt27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lab53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1829,7 +1857,6 @@ public class Artikles extends javax.swing.JFrame {
                     .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txt29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lab41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1846,7 +1873,12 @@ public class Artikles extends javax.swing.JFrame {
                     .addComponent(lab42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(251, Short.MAX_VALUE))
         );
 
         pan6.add(pan7, "pan7");
@@ -1987,11 +2019,6 @@ public class Artikles extends javax.swing.JFrame {
         txt38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt38.setFocusable(false);
         txt38.setPreferredSize(new java.awt.Dimension(168, 18));
-        txt38.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt38ActionPerformed(evt);
-            }
-        });
 
         btn31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         btn31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -2105,6 +2132,22 @@ public class Artikles extends javax.swing.JFrame {
         txt46.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txt46.setPreferredSize(new java.awt.Dimension(40, 18));
 
+        lab35.setFont(frames.Util.getFont(0,0));
+        lab35.setText("Толщина фрезы");
+        lab35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab35.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab35.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab35.setPreferredSize(new java.awt.Dimension(98, 18));
+
+        txt23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt23.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txt23.setPreferredSize(new java.awt.Dimension(40, 18));
+        txt23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt23ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pan8Layout = new javax.swing.GroupLayout(pan8);
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
@@ -2182,7 +2225,11 @@ public class Artikles extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lab56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txt46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan8Layout.createSequentialGroup()
+                        .addComponent(lab35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14))
         );
         pan8Layout.setVerticalGroup(
@@ -2248,7 +2295,11 @@ public class Artikles extends javax.swing.JFrame {
                     .addComponent(lab51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(199, Short.MAX_VALUE))
         );
 
         pan6.add(pan8, "pan8");
@@ -2493,10 +2544,6 @@ public class Artikles extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn30
 
-    private void txt38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt38ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt38ActionPerformed
-
     private void btn31(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn31
         // TODO add your handling code here:
     }//GEN-LAST:event_btn31
@@ -2524,6 +2571,14 @@ public class Artikles extends javax.swing.JFrame {
     private void btn37(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn37
         DicGroups groups = new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF);
     }//GEN-LAST:event_btn37
+
+    private void txt21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt21ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt21ActionPerformed
+
+    private void txt23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt23ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt23ActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2590,6 +2645,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JLabel lab32;
     private javax.swing.JLabel lab33;
     private javax.swing.JLabel lab34;
+    private javax.swing.JLabel lab35;
     private javax.swing.JLabel lab36;
     private javax.swing.JLabel lab37;
     private javax.swing.JLabel lab38;
@@ -2607,6 +2663,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JLabel lab50;
     private javax.swing.JLabel lab51;
     private javax.swing.JLabel lab52;
+    private javax.swing.JLabel lab53;
     private javax.swing.JLabel lab54;
     private javax.swing.JLabel lab55;
     private javax.swing.JLabel lab56;
@@ -2642,6 +2699,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txt20;
     private javax.swing.JFormattedTextField txt21;
     private javax.swing.JTextField txt22;
+    private javax.swing.JFormattedTextField txt23;
     private javax.swing.JTextField txt24;
     private javax.swing.JTextField txt25;
     private javax.swing.JFormattedTextField txt26;
@@ -2663,6 +2721,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JTextField txt40;
     private javax.swing.JFormattedTextField txt41;
     private javax.swing.JFormattedTextField txt42;
+    private javax.swing.JFormattedTextField txt43;
     private javax.swing.JFormattedTextField txt44;
     private javax.swing.JFormattedTextField txt45;
     private javax.swing.JFormattedTextField txt46;
