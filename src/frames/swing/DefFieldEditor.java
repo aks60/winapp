@@ -104,7 +104,7 @@ public class DefFieldEditor<E> {
             update = true;
         }
     }
-    
+
     private void text(JTextComponent jtxt, Field field, Object val) {
         if (val == null) {
             if (field.meta().type().equals(Field.TYPE.STR)) {
@@ -156,16 +156,20 @@ public class DefFieldEditor<E> {
         public void fieldUpdate() {
             try {
                 if (update == true) {
-                    
+
                     if (comp instanceof JTable) {
                         int row = ((JTable) comp).getSelectedRow();
                         if (row != -1) {
+                            Field field = mapTxt.get(jtxt);
+                            String str = jtxt.getText();
                             if (((JTable) comp).getRowCount() > 0) {
-                                System.out.println(jtxt.getText());
-                                ((DefTableModel) ((JTable) comp).getModel()).getQuery().set(jtxt.getText(), row, mapTxt.get(jtxt));
+                                if (field.meta().type().equals(Field.TYPE.FLT) || field.meta().type().equals(Field.TYPE.DBL)) {
+                                    str = String.valueOf(str).replace(',', '.');
+                                }
+                                ((DefTableModel) ((JTable) comp).getModel()).getQuery().set(str, row, field);
                             }
                         }
-                        
+
                     } else if (comp instanceof JTree) {
                         DefMutableTreeNode node = (DefMutableTreeNode) ((JTree) comp).getLastSelectedPathComponent();
                         node.rec().set(mapTxt.get(jtxt), jtxt.getText());

@@ -286,7 +286,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan4.add(scr4, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Группы фильтров", pan4);
+        tabb.addTab("<html><font size=\"3\">Категории профилей", pan4);
 
         pan5.setLayout(new java.awt.BorderLayout());
 
