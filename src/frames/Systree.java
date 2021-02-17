@@ -93,7 +93,7 @@ public class Systree extends javax.swing.JFrame {
 
     private Query qParams = new Query(eParams.values());
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
-    private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
+    private Query qSystree = new Query(eSystree.values());
     private Query qSysprod = new Query(eSysprod.values());
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
@@ -104,6 +104,7 @@ public class Systree extends javax.swing.JFrame {
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
     private java.awt.Frame frame = null;
+    private DefMutableTreeNode node = null;
     private TreeNode[] selectedPath = null;
     private Gson gson = new GsonBuilder().create();
 
@@ -132,14 +133,15 @@ public class Systree extends javax.swing.JFrame {
 
         systreeID = Integer.valueOf(eProperty.systreeID.read());
         sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+        qSystree.select(eSystree.up);
         qParams.select(eParams.up, "where", eParams.id, "< 0").table(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
 
-        ((DefaultTreeCellEditor) treeSys.getCellEditor()).addCellEditorListener(new CellEditorListener() {
+        ((DefaultTreeCellEditor) systemTree.getCellEditor()).addCellEditorListener(new CellEditorListener() {
 
             public void editingStopped(ChangeEvent e) {
-                DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
-                String str = ((DefaultTreeCellEditor) treeSys.getCellEditor()).getCellEditorValue().toString();
+                DefMutableTreeNode node = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
+                String str = ((DefaultTreeCellEditor) systemTree.getCellEditor()).getCellEditorValue().toString();
                 node.rec().set(eSystree.name, str);
                 node.setUserObject(str);
                 txt08.setText(str);
@@ -159,8 +161,8 @@ public class Systree extends javax.swing.JFrame {
         recordRoot.set(eSystree.name, "Дерево системы профилей");
         rootTree = new DefMutableTreeNode(recordRoot);
         ArrayList<DefMutableTreeNode> treeList = new ArrayList();
-        Query q = qSystree.table(eSystree.up);
-        for (Record record : q) {
+
+        for (Record record : qSystree) {
             if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
                 DefMutableTreeNode node2 = new DefMutableTreeNode(record);
                 treeList.add(node2);
@@ -172,13 +174,13 @@ public class Systree extends javax.swing.JFrame {
         ArrayList<DefMutableTreeNode> treeList4 = addChild(treeList3, new ArrayList());
         ArrayList<DefMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
         ArrayList<DefMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
-        treeSys.setModel(new DefaultTreeModel(rootTree));
-        scr1.setViewportView(treeSys);
+        systemTree.setModel(new DefaultTreeModel(rootTree));
+        scr1.setViewportView(systemTree);
     }
 
     private void loadingModel() {
 
-        DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.use_type, eSysprof.use_side, eArtikl.code, eArtikl.name, eSysprof.prio) {
+        new DefTableModel(tab2, qSysprof, eSysprof.use_type, eSysprof.use_side, eArtikl.code, eArtikl.name, eSysprof.prio) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -249,7 +251,7 @@ public class Systree extends javax.swing.JFrame {
             }
         });
 
-        rsvSystree = new DefFieldEditor(treeSys);
+        rsvSystree = new DefFieldEditor(systemTree);
         rsvSystree.add(eSystree.name, txt08);
         rsvSystree.add(eSystree.types, txt07, TypeUse.values());
         rsvSystree.add(eSystree.glas, txt01);
@@ -265,15 +267,15 @@ public class Systree extends javax.swing.JFrame {
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
         if (selectedPath != null) {
-            treeSys.setSelectionPath(new TreePath(selectedPath));
+            systemTree.setSelectionPath(new TreePath(selectedPath));
         } else {
-            treeSys.setSelectionRow(0);
+            systemTree.setSelectionRow(0);
         }
     }
 
     private void loadingWin() {
         try {
-            int row[] = treeWin.getSelectionRows();
+            int row[] = windowsTree.getSelectionRows();
             DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
             Set<AreaSimple> set = new HashSet();
             for (ElemSimple elem5e : iwin.listElem) {
@@ -292,8 +294,8 @@ public class Systree extends javax.swing.JFrame {
                     }
                 }
             }
-            treeWin.setModel(new DefaultTreeModel(root));
-            treeWin.setSelectionRows(row);
+            windowsTree.setModel(new DefaultTreeModel(root));
+            windowsTree.setSelectionRows(row);
 
         } catch (Exception e) {
             System.err.println("Ошибка: Systree.loadingWin() " + e);
@@ -411,7 +413,7 @@ public class Systree extends javax.swing.JFrame {
                 if (qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)) {
                     Util.setSelectedRow(tab5, index);
                     Util.scrollRectToVisible(index, tab5);
-                    treeWin.setSelectionRow(0);
+                    windowsTree.setSelectionRow(0);
                 }
             }
         };
@@ -460,14 +462,14 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void selectionSys() {
-        DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+        Util.stopCellEditing(tab2, tab3, tab4, tab5);
+        Arrays.asList(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
+        DefMutableTreeNode node = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
         if (node != null) {
 
             systreeID = node.rec().getInt(eSystree.id);
             eProperty.systreeID.write(String.valueOf(systreeID));
-
             rsvSystree.load();
-
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
@@ -502,7 +504,7 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void selectionWin() {
-        DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+        DefMutableTreeNode node = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
         if (node != null) {
 
             //Основные
@@ -615,12 +617,12 @@ public class Systree extends javax.swing.JFrame {
         sysprodRec.set(eSysprod.script, script);
         qSysprod.update(sysprodRec);
         selectionTab5();
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) treeWin.getModel().getRoot();
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) windowsTree.getModel().getRoot();
         do {
             if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
                 TreePath path = new TreePath(node.getPath());
-                treeWin.setSelectionPath(path);
-                treeWin.scrollPathToVisible(path);
+                windowsTree.setSelectionPath(path);
+                windowsTree.scrollPathToVisible(path);
             }
             node = node.getNextNode();
         } while (node != null);
@@ -632,7 +634,7 @@ public class Systree extends javax.swing.JFrame {
 
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
-        treeSys = new javax.swing.JTree();
+        systemTree = new javax.swing.JTree();
         pan1 = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
         panDesign = new javax.swing.JPanel();
@@ -741,7 +743,7 @@ public class Systree extends javax.swing.JFrame {
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
         scr6 = new javax.swing.JScrollPane();
-        treeWin = new javax.swing.JTree();
+        windowsTree = new javax.swing.JTree();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -772,13 +774,13 @@ public class Systree extends javax.swing.JFrame {
         scr1.setBorder(null);
         scr1.setPreferredSize(new java.awt.Dimension(260, 550));
 
-        treeSys.setEditable(true);
-        treeSys.addMouseListener(new java.awt.event.MouseAdapter() {
+        systemTree.setEditable(true);
+        systemTree.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                treeSysMousePressed(evt);
+                systemTreeMousePressed(evt);
             }
         });
-        scr1.setViewportView(treeSys);
+        scr1.setViewportView(systemTree);
 
         centr.add(scr1, java.awt.BorderLayout.WEST);
 
@@ -1950,7 +1952,7 @@ public class Systree extends javax.swing.JFrame {
 
         scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr6.setPreferredSize(new java.awt.Dimension(240, 324));
-        scr6.setViewportView(treeWin);
+        scr6.setViewportView(windowsTree);
 
         pan10.add(scr6, java.awt.BorderLayout.EAST);
 
@@ -2125,10 +2127,10 @@ public class Systree extends javax.swing.JFrame {
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
         Util.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
-        if (treeSys.isEditing()) {
-            treeSys.getCellEditor().stopCellEditing();
+        if (systemTree.isEditing()) {
+            systemTree.getCellEditor().stopCellEditing();
         }
-        treeSys.setBorder(null);
+        systemTree.setBorder(null);
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
@@ -2149,7 +2151,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_filterCaretUpdate
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Util.stopCellEditing(treeSys, tab2, tab3, tab4, tab5);
+        Util.stopCellEditing(systemTree, tab2, tab3, tab4, tab5);
         eProperty.save(); //запишем текущий systreeID и sysprodID в файл
         qSystree.execsql();
         Arrays.asList(tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
@@ -2158,10 +2160,10 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosed
 
     private void tabb1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabb1StateChanged
-        if (treeSys.isEditing()) {
-            treeSys.getCellEditor().stopCellEditing();
+        if (systemTree.isEditing()) {
+            systemTree.getCellEditor().stopCellEditing();
         }
-        treeSys.setBorder(null);
+        systemTree.setBorder(null);
         if (tabb1.getSelectedIndex() == 1) {
             Util.updateBorderAndSql(tab2, Arrays.asList(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 2) {
@@ -2173,11 +2175,11 @@ public class Systree extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabb1StateChanged
 
-    private void treeSysMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeSysMousePressed
+    private void systemTreeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_systemTreeMousePressed
         Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
-        treeSys.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+        systemTree.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
         Util.stopCellEditing(tab2, tab3, tab4, tab5);
-    }//GEN-LAST:event_treeSysMousePressed
+    }//GEN-LAST:event_systemTreeMousePressed
 
     private void glasdefToSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_glasdefToSystree
 
@@ -2210,19 +2212,16 @@ public class Systree extends javax.swing.JFrame {
         new DicEnums(this, (record) -> {
 
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            for (int i = 0; i < qSystree.size(); i++) {
-                if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
-                    qSystree.set(record.getInt(0), i, eSystree.types);
-                    rsvSystree.load(i);
-                }
-            }
+            DefMutableTreeNode node = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
+            node.rec().set(eSystree.types, record.getInt(0));
+            rsvSystree.load();
         }, TypeUse.values());
     }//GEN-LAST:event_typeToSystree
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        DefMutableTreeNode node = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+        DefMutableTreeNode node = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
         if (node != null) {
-            if (treeSys.getBorder() != null) {
+            if (systemTree.getBorder() != null) {
                 Record record = eSystree.up.newRecord(Query.INS);
                 record.setNo(eSystree.id, ConnApp.instanc().genId(eSystree.id));
                 int parent_id = (node.rec().getInt(eSystree.id) == node.rec().getInt(eSystree.parent_id)) ? record.getInt(eSystree.id) : node.rec().getInt(eSystree.id);
@@ -2232,10 +2231,10 @@ public class Systree extends javax.swing.JFrame {
                 record.set(eSystree.up, Query.SEL);
                 qSystree.add(record); //добавим record в список
                 DefMutableTreeNode newNode = new DefMutableTreeNode(record);
-                ((DefaultTreeModel) treeSys.getModel()).insertNodeInto(newNode, node, node.getChildCount()); //добавим node в tree
-                TreeNode[] nodes = ((DefaultTreeModel) treeSys.getModel()).getPathToRoot(newNode);
-                treeSys.scrollPathToVisible(new TreePath(nodes));
-                treeSys.setSelectionPath(new TreePath(nodes));
+                ((DefaultTreeModel) systemTree.getModel()).insertNodeInto(newNode, node, node.getChildCount()); //добавим node в tree
+                TreeNode[] nodes = ((DefaultTreeModel) systemTree.getModel()).getPathToRoot(newNode);
+                systemTree.scrollPathToVisible(new TreePath(nodes));
+                systemTree.setSelectionPath(new TreePath(nodes));
 
             } else if (tab2.getBorder() != null) {
                 Record record1 = eSysprof.up.newRecord(Query.INS);
@@ -2268,7 +2267,7 @@ public class Systree extends javax.swing.JFrame {
                 Util.scrollRectToVisible(qSyspar1, tab4);
 
             } else if (tab5.getBorder() != null) {
-                DefMutableTreeNode selectedNode = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+                DefMutableTreeNode selectedNode = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
                 if (selectedNode != null && selectedNode.isLeaf()) {
                     FrameProgress.create(Systree.this, new FrameListener() {
                         public void actionRequest(Object obj) {
@@ -2283,9 +2282,9 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (treeSys.getBorder() != null) {
-            if (treeSys.isSelectionEmpty() == false) {
-                DefMutableTreeNode removeNode = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+        if (systemTree.getBorder() != null) {
+            if (systemTree.isSelectionEmpty() == false) {
+                DefMutableTreeNode removeNode = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
                 if (removeNode.getChildCount() != 0) {
                     JOptionPane.showMessageDialog(this, "Нельзя удалить текущий узел т. к. у него есть подчинённые записи", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                     return;
@@ -2296,11 +2295,11 @@ public class Systree extends javax.swing.JFrame {
                     removeNode.rec().set(eSystree.up, Query.DEL);
                     qSystree.delete(removeNode.rec());
                     qSystree.remove(removeNode.rec());
-                    ((DefaultTreeModel) treeSys.getModel()).removeNodeFromParent(removeNode);
+                    ((DefaultTreeModel) systemTree.getModel()).removeNodeFromParent(removeNode);
                     if (parentNode != null) {
-                        TreeNode[] nodes = ((DefaultTreeModel) treeSys.getModel()).getPathToRoot(parentNode);
-                        treeSys.scrollPathToVisible(new TreePath(nodes));
-                        treeSys.setSelectionPath(new TreePath(nodes));
+                        TreeNode[] nodes = ((DefaultTreeModel) systemTree.getModel()).getPathToRoot(parentNode);
+                        systemTree.scrollPathToVisible(new TreePath(nodes));
+                        systemTree.setSelectionPath(new TreePath(nodes));
                     }
                 }
             }
@@ -2362,7 +2361,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         try {
-            DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            DefMutableTreeNode node = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
             float selectID = node.com5t().id();
             if (node != null) {
                 Query query = new Query(eSysprof.values(), eArtikl.values());
@@ -2422,7 +2421,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void colorToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToFrame
         try {
-            DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            DefMutableTreeNode node = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
             float selectID = node.com5t().id();
             HashSet<Record> colorSet = new HashSet();
             Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", node.com5t().artiklRec.getInt(eArtikl.id));
@@ -2487,7 +2486,7 @@ public class Systree extends javax.swing.JFrame {
 //            if(treeWin.getLastSelectedPathComponent() == null) {
 //               return;
 //            }
-            float selectID = ((DefMutableTreeNode) treeWin.getLastSelectedPathComponent()).com5t().id();
+            float selectID = ((DefMutableTreeNode) windowsTree.getLastSelectedPathComponent()).com5t().id();
             HashSet<Record> set = new HashSet();
             String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
             String jfield = (evt.getSource() == btn09) ? txt03.getText() : (evt.getSource() == btn13) ? txt04.getText() : txt05.getText();
@@ -2567,9 +2566,9 @@ public class Systree extends javax.swing.JFrame {
 
     private void artiklToGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artiklToGlass
         try {
-            DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            DefMutableTreeNode nodeWin = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
             float selectID = nodeWin.com5t().id();
-            DefMutableTreeNode nodeSys = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+            DefMutableTreeNode nodeSys = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
             String depth = nodeSys.rec().getStr(eSystree.depth);
             if (depth != null && depth.isEmpty() == false) {
                 depth = depth.replace(";", ",");
@@ -2600,9 +2599,9 @@ public class Systree extends javax.swing.JFrame {
 
     private void sysfurnToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysfurnToStvorka
         try {
-            DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            DefMutableTreeNode nodeWin = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
             float selectID = nodeWin.com5t().id();
-            DefMutableTreeNode nodeSys = (DefMutableTreeNode) treeSys.getLastSelectedPathComponent();
+            DefMutableTreeNode nodeSys = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
             String systreeID = nodeSys.rec().getStr(eSystree.id);
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
@@ -2638,9 +2637,9 @@ public class Systree extends javax.swing.JFrame {
 
     private void handlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handlToStvorka
         try {
-            DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            DefMutableTreeNode nodeWin = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
             float selectID = nodeWin.com5t().id();
-            DefMutableTreeNode node = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+            DefMutableTreeNode node = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
             int furnitureID = ((AreaStvorka) node.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
             Query qFurndet = new Query(eFurndet.values()).select(eFurndet.up, "where", eFurndet.furniture_id1, "=", furnitureID);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 11");
@@ -2679,7 +2678,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_handlToStvorka
 
     private void heightHandlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heightHandlToStvorka
-        DefMutableTreeNode nodeWin = (DefMutableTreeNode) treeWin.getLastSelectedPathComponent();
+        DefMutableTreeNode nodeWin = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
         AreaStvorka areaStv = (AreaStvorka) nodeWin.com5t();
         int indexLayoutHandl = 0;
         if (LayoutHandle.CONST.name.equals(txt16.getText())) {
@@ -2802,14 +2801,13 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr5;
     private javax.swing.JScrollPane scr6;
     private javax.swing.JPanel south;
+    private javax.swing.JTree systemTree;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JPanel tool;
-    private javax.swing.JTree treeSys;
-    private javax.swing.JTree treeWin;
     private javax.swing.JFormattedTextField txt01;
     private javax.swing.JTextField txt02;
     private javax.swing.JTextField txt03;
@@ -2843,6 +2841,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JTextField txt32;
     private javax.swing.JTextField txt33;
     private javax.swing.JTextField txtFilter;
+    private javax.swing.JTree windowsTree;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
@@ -2851,12 +2850,12 @@ public class Systree extends javax.swing.JFrame {
         Util.documentFilter1(txt02, txt15);
         Util.documentFilter2(txt03, txt04, txt05);
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab2, tab3, tab4, tab5)));
-        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) treeSys.getCellRenderer();
+        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) systemTree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
-        treeSys.getSelectionModel().addTreeSelectionListener(tse -> selectionSys());
-        treeWin.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
+        systemTree.getSelectionModel().addTreeSelectionListener(tse -> selectionSys());
+        windowsTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
         tab5.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
@@ -2864,7 +2863,7 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         });
-        DefaultTreeModel model = (DefaultTreeModel) treeWin.getModel();
+        DefaultTreeModel model = (DefaultTreeModel) windowsTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
         model.reload();
     }
