@@ -104,7 +104,8 @@ public class Systree extends javax.swing.JFrame {
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
     private java.awt.Frame frame = null;
-    private DefMutableTreeNode node = null;
+    private DefMutableTreeNode systemNode = null;
+    private DefMutableTreeNode windowsNode = null;
     private TreeNode[] selectedPath = null;
     private Gson gson = new GsonBuilder().create();
 
@@ -140,12 +141,11 @@ public class Systree extends javax.swing.JFrame {
         ((DefaultTreeCellEditor) systemTree.getCellEditor()).addCellEditorListener(new CellEditorListener() {
 
             public void editingStopped(ChangeEvent e) {
-                DefMutableTreeNode node = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
                 String str = ((DefaultTreeCellEditor) systemTree.getCellEditor()).getCellEditorValue().toString();
-                node.rec().set(eSystree.name, str);
-                node.setUserObject(str);
+                systemNode.rec().set(eSystree.name, str);
+                systemNode.setUserObject(str);
                 txt08.setText(str);
-                qSystree.update(node.rec()); //сохраним в базе
+                qSystree.update(systemNode.rec()); //сохраним в базе
             }
 
             public void editingCanceled(ChangeEvent e) {
@@ -462,19 +462,20 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void selectionSys() {
+        
         Util.stopCellEditing(tab2, tab3, tab4, tab5);
         Arrays.asList(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
-        DefMutableTreeNode node = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
-        if (node != null) {
+        systemNode = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
+        if (systemNode != null) {
 
-            systreeID = node.rec().getInt(eSystree.id);
+            systreeID = systemNode.rec().getInt(eSystree.id);
             eProperty.systreeID.write(String.valueOf(systreeID));
             rsvSystree.load();
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
-                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
+                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systemNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
-                    eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
-            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.rec().getInt(eSystree.id));
+                    eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", systemNode.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
+            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", systemNode.rec().getInt(eSystree.id));
 
             loadingTab5();
 
@@ -504,11 +505,11 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void selectionWin() {
-        DefMutableTreeNode node = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
-        if (node != null) {
+        windowsNode = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
+        if (windowsNode != null) {
 
             //Основные
-            if (node.com5t().type() == TypeElem.RECTANGL || node.com5t().type() == TypeElem.ARCH) {
+            if (windowsNode.com5t().type() == TypeElem.RECTANGL || windowsNode.com5t().type() == TypeElem.ARCH) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card12");
                 ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type().name);
                 pan12.repaint();
@@ -517,27 +518,27 @@ public class Systree extends javax.swing.JFrame {
                 txt14.setText(eColor.find(iwin.colorID3).getStr(eColor.name));
 
                 //Рама, импост...
-            } else if (node.com5t().type() == TypeElem.FRAME_SIDE
-                    || node.com5t().type() == TypeElem.STVORKA_SIDE || node.com5t().type() == TypeElem.IMPOST) {
+            } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE
+                    || windowsNode.com5t().type() == TypeElem.STVORKA_SIDE || windowsNode.com5t().type() == TypeElem.IMPOST) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card13");
-                ((TitledBorder) pan13.getBorder()).setTitle(node.toString());
-                txt32.setText(node.com5t().artiklRec.getStr(eArtikl.code));
-                txt33.setText(node.com5t().artiklRec.getStr(eArtikl.name));
-                txt27.setText(eColor.find(node.com5t().colorID1).getStr(eColor.name));
-                txt28.setText(eColor.find(node.com5t().colorID2).getStr(eColor.name));
-                txt29.setText(eColor.find(node.com5t().colorID3).getStr(eColor.name));
+                ((TitledBorder) pan13.getBorder()).setTitle(windowsNode.toString());
+                txt32.setText(windowsNode.com5t().artiklRec.getStr(eArtikl.code));
+                txt33.setText(windowsNode.com5t().artiklRec.getStr(eArtikl.name));
+                txt27.setText(eColor.find(windowsNode.com5t().colorID1).getStr(eColor.name));
+                txt28.setText(eColor.find(windowsNode.com5t().colorID2).getStr(eColor.name));
+                txt29.setText(eColor.find(windowsNode.com5t().colorID3).getStr(eColor.name));
 
                 //Стеклопакет
-            } else if (node.com5t().type() == TypeElem.GLASS) {
+            } else if (windowsNode.com5t().type() == TypeElem.GLASS) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card15");
-                Record artiklRec = eArtikl.find(node.com5t().artiklRec.getInt(eArtikl.id), false);
+                Record artiklRec = eArtikl.find(windowsNode.com5t().artiklRec.getInt(eArtikl.id), false);
                 txt19.setText(artiklRec.getStr(eArtikl.code));
                 txt18.setText(artiklRec.getStr(eArtikl.name));
 
                 //Створка
-            } else if (node.com5t().type() == TypeElem.STVORKA) {
+            } else if (windowsNode.com5t().type() == TypeElem.STVORKA) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card16");
-                AreaStvorka stv = (AreaStvorka) node.com5t();
+                AreaStvorka stv = (AreaStvorka) windowsNode.com5t();
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);
                 txt20.setText(eFurniture.find(id).getStr(eFurniture.name));
                 txt30.setText(stv.typeOpen.name2);
@@ -2212,26 +2213,25 @@ public class Systree extends javax.swing.JFrame {
         new DicEnums(this, (record) -> {
 
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            DefMutableTreeNode node = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
-            node.rec().set(eSystree.types, record.getInt(0));
+            systemNode.rec().set(eSystree.types, record.getInt(0));
             rsvSystree.load();
         }, TypeUse.values());
     }//GEN-LAST:event_typeToSystree
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        DefMutableTreeNode node = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
-        if (node != null) {
+
+        if (systemNode != null) {
             if (systemTree.getBorder() != null) {
                 Record record = eSystree.up.newRecord(Query.INS);
                 record.setNo(eSystree.id, ConnApp.instanc().genId(eSystree.id));
-                int parent_id = (node.rec().getInt(eSystree.id) == node.rec().getInt(eSystree.parent_id)) ? record.getInt(eSystree.id) : node.rec().getInt(eSystree.id);
+                int parent_id = (systemNode.rec().getInt(eSystree.id) == systemNode.rec().getInt(eSystree.parent_id)) ? record.getInt(eSystree.id) : systemNode.rec().getInt(eSystree.id);
                 record.setNo(eSystree.parent_id, parent_id);
                 record.setNo(eSystree.name, "P" + record.getStr(eSystree.id));
                 qSystree.insert(record); //record сохраним в базе
                 record.set(eSystree.up, Query.SEL);
                 qSystree.add(record); //добавим record в список
                 DefMutableTreeNode newNode = new DefMutableTreeNode(record);
-                ((DefaultTreeModel) systemTree.getModel()).insertNodeInto(newNode, node, node.getChildCount()); //добавим node в tree
+                ((DefaultTreeModel) systemTree.getModel()).insertNodeInto(newNode, systemNode, systemNode.getChildCount()); //добавим node в tree
                 TreeNode[] nodes = ((DefaultTreeModel) systemTree.getModel()).getPathToRoot(newNode);
                 systemTree.scrollPathToVisible(new TreePath(nodes));
                 systemTree.setSelectionPath(new TreePath(nodes));
@@ -2267,8 +2267,7 @@ public class Systree extends javax.swing.JFrame {
                 Util.scrollRectToVisible(qSyspar1, tab4);
 
             } else if (tab5.getBorder() != null) {
-                DefMutableTreeNode selectedNode = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
-                if (selectedNode != null && selectedNode.isLeaf()) {
+                if (systemNode != null && systemNode.isLeaf()) {
                     FrameProgress.create(Systree.this, new FrameListener() {
                         public void actionRequest(Object obj) {
                             frame = new Models(Systree.this, listenerModel);
@@ -2284,18 +2283,17 @@ public class Systree extends javax.swing.JFrame {
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (systemTree.getBorder() != null) {
             if (systemTree.isSelectionEmpty() == false) {
-                DefMutableTreeNode removeNode = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
-                if (removeNode.getChildCount() != 0) {
+                if (systemNode.getChildCount() != 0) {
                     JOptionPane.showMessageDialog(this, "Нельзя удалить текущий узел т. к. у него есть подчинённые записи", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
-                DefMutableTreeNode parentNode = (DefMutableTreeNode) removeNode.getParent();
-                if (JOptionPane.showConfirmDialog(this, "Хотите удалить " + removeNode + "?", "Подтвердите удаление",
+                DefMutableTreeNode parentNode = (DefMutableTreeNode) systemNode.getParent();
+                if (JOptionPane.showConfirmDialog(this, "Хотите удалить " + systemNode + "?", "Подтвердите удаление",
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null) == 0) {
-                    removeNode.rec().set(eSystree.up, Query.DEL);
-                    qSystree.delete(removeNode.rec());
-                    qSystree.remove(removeNode.rec());
-                    ((DefaultTreeModel) systemTree.getModel()).removeNodeFromParent(removeNode);
+                    systemNode.rec().set(eSystree.up, Query.DEL);
+                    qSystree.delete(systemNode.rec());
+                    qSystree.remove(systemNode.rec());
+                    ((DefaultTreeModel) systemTree.getModel()).removeNodeFromParent(systemNode);
                     if (parentNode != null) {
                         TreeNode[] nodes = ((DefaultTreeModel) systemTree.getModel()).getPathToRoot(parentNode);
                         systemTree.scrollPathToVisible(new TreePath(nodes));
@@ -2361,16 +2359,15 @@ public class Systree extends javax.swing.JFrame {
 
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         try {
-            DefMutableTreeNode node = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
-            float selectID = node.com5t().id();
-            if (node != null) {
+            float selectID = windowsNode.com5t().id();
+            if (windowsNode != null) {
                 Query query = new Query(eSysprof.values(), eArtikl.values());
-                UseArtiklTo useArtiklTo = (node.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
+                UseArtiklTo useArtiklTo = (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
 
                 for (int index = 0; index < qSysprof.size(); ++index) {
                     Record sysprofRec = qSysprof.get(index);
                     if (sysprofRec.getInt(eSysprof.use_type) == useArtiklTo.id) {
-                        if (sysprofRec.getInt(eSysprof.use_side) == node.com5t().layout().id
+                        if (sysprofRec.getInt(eSysprof.use_side) == windowsNode.com5t().layout().id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id) {
                             query.add(sysprofRec);
                             query.table(eArtikl.up).add(qSysprof.table(eArtikl.up).get(index));
@@ -2379,10 +2376,10 @@ public class Systree extends javax.swing.JFrame {
                 }
                 new DicSysprof(this, (sysprofRec) -> {
 
-                    float ramaId = node.com5t().id();
+                    float ramaId = windowsNode.com5t().id();
                     JsonElem elemRama = iwin.jsonRoot.find(ramaId);
 
-                    if (node.com5t().type() == TypeElem.FRAME_SIDE) { //рама окна
+                    if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) { //рама окна
                         String paramStr = elemRama.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
@@ -2391,18 +2388,18 @@ public class Systree extends javax.swing.JFrame {
                         updateScript(selectID);
 
                     } else { //рама створки
-                        float stvId = ((DefMutableTreeNode) node.getParent()).com5t().id();
+                        float stvId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
                         JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(stvId);
                         String paramStr = stvArea.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         String stvKey = null;
-                        if (node.com5t().layout() == LayoutArea.BOTTOM) {
+                        if (windowsNode.com5t().layout() == LayoutArea.BOTTOM) {
                             stvKey = PKjson.stvorkaBottom;
-                        } else if (node.com5t().layout() == LayoutArea.RIGHT) {
+                        } else if (windowsNode.com5t().layout() == LayoutArea.RIGHT) {
                             stvKey = PKjson.stvorkaRight;
-                        } else if (node.com5t().layout() == LayoutArea.TOP) {
+                        } else if (windowsNode.com5t().layout() == LayoutArea.TOP) {
                             stvKey = PKjson.stvorkaTop;
-                        } else if (node.com5t().layout() == LayoutArea.LEFT) {
+                        } else if (windowsNode.com5t().layout() == LayoutArea.LEFT) {
                             stvKey = PKjson.stvorkaLeft;
                         }
                         JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
@@ -2421,10 +2418,9 @@ public class Systree extends javax.swing.JFrame {
 
     private void colorToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToFrame
         try {
-            DefMutableTreeNode node = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
-            float selectID = node.com5t().id();
+            float selectID = windowsNode.com5t().id();
             HashSet<Record> colorSet = new HashSet();
-            Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", node.com5t().artiklRec.getInt(eArtikl.id));
+            Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", windowsNode.com5t().artiklRec.getInt(eArtikl.id));
             artdetList.forEach(rec -> {
 
                 if (rec.getInt(eArtdet.color_fk) < 0) {
@@ -2440,20 +2436,20 @@ public class Systree extends javax.swing.JFrame {
             DicColor2 frame = new DicColor2(this, (colorRec) -> {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
-                float parentId = ((DefMutableTreeNode) node.getParent()).com5t().id();
+                float parentId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
                 JsonArea parentArea = (JsonArea) iwin.jsonRoot.find(parentId);
 
-                if (node.com5t().type() == TypeElem.STVORKA_SIDE) {
+                if (windowsNode.com5t().type() == TypeElem.STVORKA_SIDE) {
                     String paramStr = parentArea.param();
                     JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                     String stvKey = null;
-                    if (node.com5t().layout() == LayoutArea.BOTTOM) {
+                    if (windowsNode.com5t().layout() == LayoutArea.BOTTOM) {
                         stvKey = PKjson.stvorkaBottom;
-                    } else if (node.com5t().layout() == LayoutArea.RIGHT) {
+                    } else if (windowsNode.com5t().layout() == LayoutArea.RIGHT) {
                         stvKey = PKjson.stvorkaRight;
-                    } else if (node.com5t().layout() == LayoutArea.TOP) {
+                    } else if (windowsNode.com5t().layout() == LayoutArea.TOP) {
                         stvKey = PKjson.stvorkaTop;
-                    } else if (node.com5t().layout() == LayoutArea.LEFT) {
+                    } else if (windowsNode.com5t().layout() == LayoutArea.LEFT) {
                         stvKey = PKjson.stvorkaLeft;
                     }
                     JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
@@ -2462,9 +2458,9 @@ public class Systree extends javax.swing.JFrame {
                     parentArea.param(paramStr);
                     updateScript(selectID);
 
-                } else if (node.com5t().type() == TypeElem.FRAME_SIDE) {
+                } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) {
                     for (JsonElem elem : parentArea.elements()) {
-                        if (elem.id() == ((DefMutableTreeNode) node).com5t().id()) {
+                        if (elem.id() == ((DefMutableTreeNode) windowsNode).com5t().id()) {
                             String paramStr = elem.param();
                             JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                             paramObj.addProperty(colorID, colorRec.getStr(eColor.id));
@@ -2483,10 +2479,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
         try {
-//            if(treeWin.getLastSelectedPathComponent() == null) {
-//               return;
-//            }
-            float selectID = ((DefMutableTreeNode) windowsTree.getLastSelectedPathComponent()).com5t().id();
+            float selectID = windowsNode.com5t().id();
             HashSet<Record> set = new HashSet();
             String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
             String jfield = (evt.getSource() == btn09) ? txt03.getText() : (evt.getSource() == btn13) ? txt04.getText() : txt05.getText();
@@ -2566,10 +2559,8 @@ public class Systree extends javax.swing.JFrame {
 
     private void artiklToGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artiklToGlass
         try {
-            DefMutableTreeNode nodeWin = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
-            float selectID = nodeWin.com5t().id();
-            DefMutableTreeNode nodeSys = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
-            String depth = nodeSys.rec().getStr(eSystree.depth);
+            float selectID = windowsNode.com5t().id();
+            String depth = systemNode.rec().getStr(eSystree.depth);
             if (depth != null && depth.isEmpty() == false) {
                 depth = depth.replace(";", ",");
                 if (depth.charAt(depth.length() - 1) == ',') {
@@ -2599,22 +2590,20 @@ public class Systree extends javax.swing.JFrame {
 
     private void sysfurnToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysfurnToStvorka
         try {
-            DefMutableTreeNode nodeWin = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
-            float selectID = nodeWin.com5t().id();
-            DefMutableTreeNode nodeSys = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
-            String systreeID = nodeSys.rec().getStr(eSystree.id);
+            float windowsID = windowsNode.com5t().id();
+            String systemID = systemNode.rec().getStr(eSystree.id);
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
-                    eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
+                    eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systemID);
 
             new DicName(this, (sysfurnRec) -> {
 
-                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(selectID);
+                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(windowsID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
-                updateScript(selectID);
+                updateScript(windowsID);
 
             }, qSysfurn, eFurniture.name);
 
@@ -2637,10 +2626,8 @@ public class Systree extends javax.swing.JFrame {
 
     private void handlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handlToStvorka
         try {
-            DefMutableTreeNode nodeWin = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
-            float selectID = nodeWin.com5t().id();
-            DefMutableTreeNode node = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
-            int furnitureID = ((AreaStvorka) node.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
+            float selectID = windowsNode.com5t().id();
+            int furnitureID = ((AreaStvorka) windowsNode.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
             Query qFurndet = new Query(eFurndet.values()).select(eFurndet.up, "where", eFurndet.furniture_id1, "=", furnitureID);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 11");
             Query qArtikl2 = new Query(eArtikl.values());
@@ -2678,8 +2665,8 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_handlToStvorka
 
     private void heightHandlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heightHandlToStvorka
-        DefMutableTreeNode nodeWin = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
-        AreaStvorka areaStv = (AreaStvorka) nodeWin.com5t();
+
+        AreaStvorka areaStv = (AreaStvorka) windowsNode.com5t();
         int indexLayoutHandl = 0;
         if (LayoutHandle.CONST.name.equals(txt16.getText())) {
             indexLayoutHandl = 1;
