@@ -428,7 +428,7 @@ public class Util {
         }
         for (JTable tab : tables) {
             if (tab.getRowCount() != 0) {
-                JOptionPane.showMessageDialog(owner, "Перед удалением записи удалите данные в зависимых таблицах", "Предупреждение", JOptionPane.NO_OPTION);
+                JOptionPane.showMessageDialog(owner, "Перед удалением записи, удалите данные в зависимых таблицах", "Предупреждение", JOptionPane.NO_OPTION);
                 return 1;
             }
         }
@@ -439,7 +439,7 @@ public class Util {
     public static int isDeleteRecord(java.awt.Window owner, JTable... tables) {
         for (JTable tab : tables) {
             if (tab.getRowCount() != 0) {
-                JOptionPane.showMessageDialog(owner, "Перед удалением записи удалите данные в зависимых таблицах", "Предупреждение", JOptionPane.NO_OPTION);
+                JOptionPane.showMessageDialog(owner, "Перед удалением записи, удалите данные в зависимых таблицах", "Предупреждение", JOptionPane.NO_OPTION);
                 return 1;
             }
         }
