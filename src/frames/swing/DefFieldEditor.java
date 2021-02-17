@@ -14,6 +14,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 import dataset.Field;
 import domain.eSystree;
+import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.JTree;
 
@@ -21,15 +22,14 @@ import javax.swing.JTree;
  * <p>
  * Визуализация полей </p>
  */
-public class DefFieldEditor<E> {
+public class DefFieldEditor {
 
-    private E comp = null;
-    private HashMap<Field, Enam[]> mapEnam = new HashMap(8);
+    private JComponent comp = null;
     private HashMap<JTextComponent, Field> mapTxt = new HashMap(16);
     private static boolean update = false;
 
     //Конструктор
-    public DefFieldEditor(E comp) {
+    public DefFieldEditor(JComponent comp) {
         this.comp = comp;
     }
 
@@ -41,12 +41,6 @@ public class DefFieldEditor<E> {
             jtxt.setBackground(new java.awt.Color(255, 255, 255));
         }
         jtxt.getDocument().addDocumentListener(new DocListiner(jtxt));
-    }
-
-    //Добавить компонент отображения 
-    public void add(Field field, JTextComponent jtxt, Enam[] enam) {
-        add(field, jtxt);
-        mapEnam.put(field, enam);
     }
 
     //Очистить текст
@@ -113,12 +107,6 @@ public class DefFieldEditor<E> {
         } else if (field.meta().type().equals(Field.TYPE.DATE)) {
             jtxt.setText(Util.DateToStr(val));
 
-        } else if (mapEnam.containsKey(field)) {
-            for (Enam enam : mapEnam.get(field)) {
-                if (val.equals(enam.numb())) {
-                    jtxt.setText(enam.text());
-                }
-            }
         } else {
             jtxt.setText(val.toString());
         }
