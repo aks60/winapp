@@ -250,9 +250,9 @@ public class Joining extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab3, 0).addActionListener(event -> {
-            int row = Util.getIndexRec(tab2);
-            if (row != -1) {
-                Record record = qJoinvar.get(row);
+            int index = Util.getIndexRec(tab2);
+            if (index != -1) {
+                Record record = qJoinvar.get(index);
                 int joinVar = record.getInt(eJoinvar.types);
                 ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.joint, joinVar * 100);
             }
@@ -302,9 +302,9 @@ public class Joining extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab5, 0).addActionListener(event -> {
-            int row = Util.getIndexRec(tab4);
-            if (row != -1) {
-                Record recordJoin = qJoindet.get(row);
+            int index = Util.getIndexRec(tab4);
+            if (index != -1) {
+                Record recordJoin = qJoindet.get(index);
                 int artikl_id = recordJoin.getInt(eJoindet.artikl_id);
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
@@ -339,12 +339,12 @@ public class Joining extends javax.swing.JFrame {
                 }
 
             } else if (tab4.getBorder() != null) {
-                int row = Util.getIndexRec(tab4);
+                int index = Util.getIndexRec(tab4);
                 Record joindetRec = qJoindet.get(Util.getIndexRec(tab4));
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab4, row);
+                Util.setSelectedRow(tab4, index);
             }
         };
 
@@ -362,40 +362,40 @@ public class Joining extends javax.swing.JFrame {
 
         listenerColvar1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab4);
+            int index = Util.getIndexRec(tab4);
             Record joindetRec = qJoindet.get(Util.getIndexRec(tab4));
             int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
             types = (types & 0xfffffff0) + record.getInt(0);
             joindetRec.set(eJoindet.types, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, row);
+            Util.setSelectedRow(tab4, index);
         };
 
         listenerColvar2 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab4);
+            int index = Util.getIndexRec(tab4);
             Record joindetRec = qJoindet.get(Util.getIndexRec(tab4));
             int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             joindetRec.set(eJoindet.types, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, row);
+            Util.setSelectedRow(tab4, index);
         };
 
         listenerColvar3 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab4);
+            int index = Util.getIndexRec(tab4);
             Record joindetRec = qJoindet.get(Util.getIndexRec(tab4));
             int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
             joindetRec.set(eJoindet.types, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, row);
+            Util.setSelectedRow(tab4, index);
         };
 
         listenerJoinvar = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab2);
+            int index = Util.getIndexRec(tab2);
             Record joinvarRec = qJoinvar.get(Util.getIndexRec(tab2));
             joinvarRec.set(eJoinvar.name, record.getStr(0));
             joinvarRec.set(eJoinvar.types, record.getInt(1));
@@ -407,7 +407,7 @@ public class Joining extends javax.swing.JFrame {
                 joinvarRec.set(eJoinvar.prio, ++max);
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, row);
+            Util.setSelectedRow(tab2, index);
         };
     }
 
@@ -419,9 +419,9 @@ public class Joining extends javax.swing.JFrame {
 
     private void selectionTab1(ListSelectionEvent event) {
         Util.clearTable(tab2, tab3, tab4, tab5);
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
-            Record record = qJoining.table(eJoining.up).get(row);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qJoining.table(eJoining.up).get(index);
             Integer id = record.getInt(eJoining.id);
             qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -431,9 +431,9 @@ public class Joining extends javax.swing.JFrame {
 
     private void selectionTab2(ListSelectionEvent event) {
         Util.clearTable(tab3, tab4, tab5);
-        int row = Util.getIndexRec(tab2);
-        if (row != -1) {
-            Record record = qJoinvar.table(eJoinvar.up).get(row);
+        int index = Util.getIndexRec(tab2);
+        if (index != -1) {
+            Record record = qJoinvar.table(eJoinvar.up).get(index);
             Integer id = record.getInt(eJoinvar.id);
             qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
             qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.id);
@@ -445,9 +445,9 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab4(ListSelectionEvent event) {
-        int row = Util.getIndexRec(tab4);
-        if (row != -1) {
-            Record record = qJoindet.table(eJoindet.up).get(row);
+        int index = Util.getIndexRec(tab4);
+        if (index != -1) {
+            Record record = qJoindet.table(eJoindet.up).get(index);
             Integer id = record.getInt(eJoindet.id);
             qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.id);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();

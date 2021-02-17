@@ -255,9 +255,9 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerAnalog = (record) -> {
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                Record artiklRec = qArtikl.get(row);
+            int index = Util.getIndexRec(tab1);
+            if (index != -1) {
+                Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.analog_id, record.get(eArtikl.id));
                 rsvArtikl.load();
                 Util.stopCellEditing(tab1, tab2);
@@ -282,9 +282,9 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerCurrenc1 = (record) -> {
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                Record artiklRec = qArtikl.get(row);
+            int index = Util.getIndexRec(tab1);
+            if (index != -1) {
+                Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.currenc1_id, record.get(eCurrenc.id));
                 rsvArtikl.load();
             }
@@ -292,9 +292,9 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerCurrenc2 = (record) -> {
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                Record artiklRec = qArtikl.get(row);
+            int index = Util.getIndexRec(tab1);
+            if (index != -1) {
+                Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.currenc2_id, record.get(eCurrenc.id));
                 rsvArtikl.load();
             }
@@ -302,9 +302,9 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerSyssize = (record) -> {
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                Record artiklRec = qArtikl.get(row);
+            int index = Util.getIndexRec(tab1);
+            if (index != -1) {
+                Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.syssize_id, record.get(eSyssize.id));
                 if (artiklRec.getInt(eArtikl.size_falz) == -1) {
                     artiklRec.set(eArtikl.size_falz, record.get(eSyssize.falz));
@@ -315,9 +315,9 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerArtincr = (record) -> {
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                Record artiklRec = qArtikl.get(row);
+            int index = Util.getIndexRec(tab1);
+            if (index != -1) {
+                Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.artgrp1_id, record.get(eGroups.id));
                 rsvArtikl.load();
                 Util.stopCellEditing(tab1, tab2);
@@ -325,9 +325,9 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerArtdecr = (record) -> {
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                Record artiklRec = qArtikl.get(row);
+            int index = Util.getIndexRec(tab1);
+            if (index != -1) {
+                Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.artgrp2_id, record.get(eGroups.id));
                 rsvArtikl.load();
                 Util.stopCellEditing(tab1, tab2);
@@ -335,9 +335,9 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerCateg = (record) -> {
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                Record artiklRec = qArtikl.get(row);
+            int index = Util.getIndexRec(tab1);
+            if (index != -1) {
+                Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.artgrp3_id, record.get(eGroups.id));
                 rsvArtikl.load();
                 Util.stopCellEditing(tab1, tab2);
@@ -2353,9 +2353,9 @@ public class Artikles extends javax.swing.JFrame {
 
         } else if (tab2.getBorder() != null) {
 
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                Record artiklRec = qArtikl.get(row);
+            int index = Util.getIndexRec(tab1);
+            if (index != -1) {
+                Record artiklRec = qArtikl.get(index);
                 Record artdetRec = eArtdet.up.newRecord(Query.INS);
                 artdetRec.setNo(eArtdet.id, ConnApp.instanc().genId(eArtdet.up));
                 artdetRec.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
@@ -2431,15 +2431,15 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn8
 
     private void checkBox1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox1Action
-        int row = Util.getIndexRec(tab1);
-        Record artiklRec = qArtikl.get(row);
+        int index = Util.getIndexRec(tab1);
+        Record artiklRec = qArtikl.get(index);
         int with_seal = (checkBox1.isSelected()) ? 1 : 0;
         artiklRec.set(eArtikl.with_seal, with_seal);
     }//GEN-LAST:event_checkBox1Action
 
     private void btn5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5
-        int row = Util.getIndexRec(tab1);
-        Record artiklRec = qArtikl.get(row);
+        int index = Util.getIndexRec(tab1);
+        Record artiklRec = qArtikl.get(index);
         if (artiklRec.getInt(eArtikl.level1) == 1) {
             new DicEnums(this, listenerUnit, UseUnit.METR);
 
@@ -2484,9 +2484,9 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn22
 
     private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
-            Record artiklRec = qArtikl.get(row);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            Record artiklRec = qArtikl.get(index);
             List list = new LinkedList();
             for (TypeArtikl typeArt : TypeArtikl.values()) {
                 String str = (typeArt.id2 == 0) ? typeArt.name + ":" : "      " + typeArt.name;
@@ -2503,7 +2503,7 @@ public class Artikles extends javax.swing.JFrame {
                         artiklRec.setNo(eArtikl.level2, enam.id2);
                         ((DefTableModel) tab1.getModel()).getQuery().update(artiklRec);
                         selectionTree();
-                        Util.setSelectedRow(tab1, row);
+                        Util.setSelectedRow(tab1, index);
                     }
                 }
             }

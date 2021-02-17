@@ -41,9 +41,9 @@ public class ParGrup2v extends javax.swing.JDialog {
     }
 
     private void selectionTab1() {
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
-            int id = qParams.getAs(row, eParams.id);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            int id = qParams.getAs(index, eParams.id);
             qPardet.select(eParams.up, "where", eParams.params_id, "=", id, "order by", eParams.text);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2);

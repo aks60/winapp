@@ -351,18 +351,18 @@ public class DicGroups extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
-        int row = -1;
+        int index = -1;
         if (tab1.getBorder() != null) {
-            row = Util.getIndexRec(tab1);
+            index = Util.getIndexRec(tab1);
         } else if (tab2.getBorder() != null) {
-            row = Util.getIndexRec(tab2);
+            index = Util.getIndexRec(tab2);
         } else if (tab3.getBorder() != null) {
-            row = Util.getIndexRec(tab3);
+            index = Util.getIndexRec(tab3);
         } else if (tab4.getBorder() != null) {
-            row = Util.getIndexRec(tab4);
+            index = Util.getIndexRec(tab4);
         }
-        if (row != -1) {
-            listener.action(qGroups.get(row));
+        if (index != -1) {
+            listener.action(qGroups.get(index));
             this.dispose();
         }        
 

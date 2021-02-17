@@ -390,12 +390,12 @@ public class Systree extends javax.swing.JFrame {
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab2);
+            int index = Util.getIndexRec(tab2);
             qSysprof.set(record.getInt(eArtikl.id), Util.getIndexRec(tab2), eSysprof.artikl_id);
             qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getIndexRec(tab2), eArtikl.name);
             qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getIndexRec(tab2), eArtikl.code);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, row);
+            Util.setSelectedRow(tab2, index);
         };
         listenerModel = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
@@ -418,44 +418,44 @@ public class Systree extends javax.swing.JFrame {
 
         listenerFurn = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab3);
+            int index = Util.getIndexRec(tab3);
             qSysfurn.set(record.getInt(eFurniture.id), Util.getIndexRec(tab3), eSysfurn.furniture_id);
             qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), Util.getIndexRec(tab3), eFurniture.name);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, row);
+            Util.setSelectedRow(tab3, index);
         };
 
         listenerArt211 = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab3);
+            int index = Util.getIndexRec(tab3);
             qSysfurn.set(record.getInt(eArtikl.id), Util.getIndexRec(tab3), eSysfurn.artikl_id1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, row);
+            Util.setSelectedRow(tab3, index);
         };
 
         listenerArt212 = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab3);
+            int index = Util.getIndexRec(tab3);
             qSysfurn.set(record.getInt(eArtikl.id), Util.getIndexRec(tab3), eSysfurn.artikl_id2);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, row);
+            Util.setSelectedRow(tab3, index);
         };
 
         listenerParam1 = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab4);
+            int index = Util.getIndexRec(tab4);
             qSyspar1.set(record.getInt(eParams.id), Util.getIndexRec(tab4), eSyspar1.params_id);
             qSyspar1.set(null, Util.getIndexRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, row);
+            Util.setSelectedRow(tab4, index);
         };
 
         listenerParam2 = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab4);
+            int index = Util.getIndexRec(tab4);
             qSyspar1.set(record.getStr(eParams.text), Util.getIndexRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, row);
+            Util.setSelectedRow(tab4, index);
         };
     }
 
@@ -567,9 +567,9 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void selectionTab5() {
-        int row = Util.getIndexRec(tab5);
-        if (row != -1) {
-            Record sysprodRec = qSysprod.table(eSysprod.up).get(row);
+        int index = Util.getIndexRec(tab5);
+        if (index != -1) {
+            Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
             String script = sysprodRec.getStr(eSysprod.script);
             eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id));
             Aps.App1.frame.setTitle(getTitle() + Util.designName());

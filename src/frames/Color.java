@@ -143,12 +143,12 @@ public class Color extends javax.swing.JFrame {
 
         listenerColor2 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4);
-            int row = Util.getIndexRec(tab4);
-            Record record2 = qColmap.get(row);
+            int index = Util.getIndexRec(tab4);
+            Record record2 = qColmap.get(index);
             record2.set(eColmap.color_id2, record.getInt(eParams.id));
             qColmap.update(record2);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, row);
+            Util.setSelectedRow(tab4, index);
         };
     }
 
@@ -186,9 +186,9 @@ public class Color extends javax.swing.JFrame {
     private void selectionTab3(ListSelectionEvent event) {
         Util.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qGroup2, qColmap).forEach(q -> q.execsql());
-        int row = Util.getIndexRec(tab3);
-        if (row != -1) {
-            Record record = qGroup2.get(row);
+        int index = Util.getIndexRec(tab3);
+        if (index != -1) {
+            Record record = qGroup2.get(index);
             Integer cgrup = record.getInt(eGroups.id);
             qColmap.select(eColmap.up, "where", eColmap.colgrp_id, "=" + cgrup);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();

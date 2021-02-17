@@ -262,9 +262,9 @@ public class Element extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                Record record = qElemgrp.get(row);
+            int index = Util.getIndexRec(tab1);
+            if (index != -1) {
+                Record record = qElemgrp.get(index);
                 int paramPart = record.getInt(eElemgrp.level);
                 paramPart = (paramPart == 1) ? 31000 : 37000;
                 ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.elem, paramPart);
@@ -283,9 +283,9 @@ public class Element extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab5, 0).addActionListener(event -> {
-            int row = Util.getIndexRec(tab3);
-            if (row != -1) {
-                Record recordJoin = qElemdet.get(row);
+            int index = Util.getIndexRec(tab3);
+            if (index != -1) {
+                Record recordJoin = qElemdet.get(index);
                 int artikl_id = recordJoin.getInt(eJoindet.artikl_id);
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
@@ -311,41 +311,41 @@ public class Element extends javax.swing.JFrame {
         listenerTypset = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int row = Util.getIndexRec(tab2);
+                int index = Util.getIndexRec(tab2);
                 qElement.set(record.getInt(0), Util.getIndexRec(tab2), eElement.typset);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, row);
+                Util.setSelectedRow(tab2, index);
             }
         };
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int row = Util.getIndexRec(tab2);
+                int index = Util.getIndexRec(tab2);
                 qElement.set(record.getInt(eArtikl.id), Util.getIndexRec(tab2), eElement.artikl_id);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.name), Util.getIndexRec(tab2), eArtikl.name);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.code), Util.getIndexRec(tab2), eArtikl.code);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, row);
+                Util.setSelectedRow(tab2, index);
 
             } else if (tab3.getBorder() != null) {
-                int row = Util.getIndexRec(tab3);
+                int index = Util.getIndexRec(tab3);
                 qElemdet.set(record.getInt(eArtikl.id), Util.getIndexRec(tab3), eElemdet.artikl_id);
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.name), Util.getIndexRec(tab3), eArtikl.name);
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.code), Util.getIndexRec(tab3), eArtikl.code);
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab3, row);
+                Util.setSelectedRow(tab3, index);
             }
         };
 
         listenerSeries = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int row = Util.getIndexRec(tab2);
+                int index = Util.getIndexRec(tab2);
                 int series_id = record.getInt(eGroups.id);
                 qElement.set(series_id, Util.getIndexRec(tab2), eElement.series_id);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, row);
+                Util.setSelectedRow(tab2, index);
             }
         };
 
@@ -355,35 +355,35 @@ public class Element extends javax.swing.JFrame {
 
         listenerColvar1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab3);
+            int index = Util.getIndexRec(tab3);
             Record elemdetRec = qElemdet.get(Util.getIndexRec(tab3));
             int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
             types = (types & 0xfffffff0) + record.getInt(0);
             elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, row);
+            Util.setSelectedRow(tab3, index);
         };
 
         listenerColvar2 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab3);
+            int index = Util.getIndexRec(tab3);
             Record elemdetRec = qElemdet.get(Util.getIndexRec(tab3));
             int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, row);
+            Util.setSelectedRow(tab3, index);
         };
 
         listenerColvar3 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = Util.getIndexRec(tab3);
+            int index = Util.getIndexRec(tab3);
             Record elemdetRec = qElemdet.get(Util.getIndexRec(tab3));
             int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
             elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, row);
+            Util.setSelectedRow(tab3, index);
         };
 
         listenerPar1 = (record) -> {
@@ -404,9 +404,9 @@ public class Element extends javax.swing.JFrame {
     
     private void selectionTab1(ListSelectionEvent event) {
         Util.clearTable(tab2, tab3, tab4, tab5);
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
-            Record record = qElemgrp.get(row);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qElemgrp.get(index);
             Integer id = record.getInt(eElemgrp.id);
             if (id == -1 || id == -5) {
                 if (subsql == null) {
@@ -432,9 +432,9 @@ public class Element extends javax.swing.JFrame {
 
     private void selectionTab2(ListSelectionEvent event) {
         Util.clearTable(tab3, tab4, tab5);
-        int row = Util.getIndexRec(tab2);
-        if (row != -1) {
-            Record record = qElement.table(eElement.up).get(row);
+        int index = Util.getIndexRec(tab2);
+        if (index != -1) {
+            Record record = qElement.table(eElement.up).get(index);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
             qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.params_id, "where", eElempar1.element_id, "=", p1);
@@ -446,11 +446,11 @@ public class Element extends javax.swing.JFrame {
     }
 
     private void selectionTab3(ListSelectionEvent event) {
-        int row = Util.getIndexRec(tab3);
-        if (row != -1) {
+        int index = Util.getIndexRec(tab3);
+        if (index != -1) {
             //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Arrays.asList(qElempar2).forEach(q -> q.execsql());
-            Record record = qElemdet.table(eElemdet.up).get(row);
+            Record record = qElemdet.table(eElemdet.up).get(index);
             Integer p1 = record.getInt(eElemdet.id);
             qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.id, "=", eElempar2.params_id, "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
@@ -952,8 +952,8 @@ public class Element extends javax.swing.JFrame {
     private void ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmCategAction
         JMenuItem ppm = (JMenuItem) evt.getSource();
         int indexCateg = (ppm == itCateg1) ? 1 : 5;
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
             Record elemgrpRec = eElemgrp.up.newRecord(Query.INS);
             elemgrpRec.setNo(eElemgrp.id, ConnApp.instanc().genId(eElemgrp.up));
             elemgrpRec.setNo(eElemgrp.level, indexCateg); //-1 -ПРОФИЛИ, -5 -ЗАПОЛНЕНИЯ

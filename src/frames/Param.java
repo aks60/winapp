@@ -67,21 +67,21 @@ public class Param extends javax.swing.JFrame {
 
         listenerColor = (record) -> {
             Util.stopCellEditing(tab1, tab2);
-            int row = Util.getIndexRec(tab2);
-            if (row != -1) {
-                Record pardetRec = qPardet.get(row);
+            int index = Util.getIndexRec(tab2);
+            if (index != -1) {
+                Record pardetRec = qPardet.get(index);
                 pardetRec.set(eParams.text, record.getStr(eColor.name));
                 qPardet.update(pardetRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, row);
+                Util.setSelectedRow(tab2, index);
             }
         };
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
-            Record record = qParams.get(row);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qParams.get(index);
             Integer p1 = record.getInt(eParams.id);
             qPardet.select(eParams.up, "where", eParams.params_id, "=", p1, "and", eParams.id, "!=", eParams.params_id, "order by", eParams.text);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -92,9 +92,9 @@ public class Param extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
-            Record record = qParams.get(row);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qParams.get(index);
             if (record.getInt(eParams.color) == 1) {
                 tab2.getColumnModel().getColumn(0).setCellEditor(editorBtn);
             } else {

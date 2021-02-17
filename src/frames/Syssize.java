@@ -310,9 +310,9 @@ public class Syssize extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
-            listener.action(qSyssize.get(row));
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            listener.action(qSyssize.get(index));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice

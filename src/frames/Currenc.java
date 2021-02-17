@@ -302,9 +302,9 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosed
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
-            listener.action(qCurrenc.get(row));
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            listener.action(qCurrenc.get(index));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice

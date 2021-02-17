@@ -206,18 +206,18 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
-            Object script = qModels1.get(row, eModels.script);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            Object script = qModels1.get(index, eModels.script);
             iwinMax.build(script.toString());
             paintPanel.repaint(true);
         }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int row = Util.getIndexRec(tab2);
-        if (row != -1) {
-            Object script = qModels2.get(row, eModels.script);
+        int index = Util.getIndexRec(tab2);
+        if (index != -1) {
+            Object script = qModels2.get(index, eModels.script);
             iwinMax.build(script.toString());
             paintPanel.repaint(true);
         }
@@ -946,12 +946,12 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
             query = qModels2;
             table = tab2;
         }
-        int row = Util.getIndexRec(table);
-        if (row != -1) {
+        int index = Util.getIndexRec(table);
+        if (index != -1) {
             Record record = new Record();
-            record.add(query.get(row, eModels.id));
-            record.add(query.get(row, eModels.name));
-            record.add(query.get(row, eModels.script));
+            record.add(query.get(index, eModels.id));
+            record.add(query.get(index, eModels.name));
+            record.add(query.get(index, eModels.script));
             listenet.action(record);
         }
         this.dispose();

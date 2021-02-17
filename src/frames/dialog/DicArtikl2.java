@@ -329,9 +329,9 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
         Record record = eArtikl.up.newRecord();
         Util.stopCellEditing(tab1);
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
-            Record record2 = qArtikl.get(row);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            Record record2 = qArtikl.get(index);
             record.set(eArtikl.id, record2.get(eArtikl.id));
             record.set(eArtikl.level1, record2.get(eArtikl.level1));
             record.set(eArtikl.level2, record2.get(eArtikl.level2));

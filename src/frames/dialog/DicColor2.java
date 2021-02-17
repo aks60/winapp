@@ -83,9 +83,9 @@ public class DicColor2 extends javax.swing.JDialog {
     }
 
     private void selectionTab1() {
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
-            Record record = qColgrp.get(row);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qColgrp.get(index);
             int colgrpId = record.getInt(eGroups.id);
             qColor.clear();
             qColorAll.forEach(rec -> {
@@ -310,15 +310,15 @@ public class DicColor2 extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
         if (tab1.getBorder() != null && master == true) {
-            int row = Util.getIndexRec(tab1);
-            if (row != -1) {
-                listener.action(qColgrp.get(row));
+            int index = Util.getIndexRec(tab1);
+            if (index != -1) {
+                listener.action(qColgrp.get(index));
                 this.dispose();
             }
         } else if (tab2.getBorder() != null) {
-            int row = Util.getIndexRec(tab2);
-            if (row != -1) {
-                listener.action(qColor.get(row));
+            int index = Util.getIndexRec(tab2);
+            if (index != -1) {
+                listener.action(qColor.get(index));
                 this.dispose();
             }
         } else {

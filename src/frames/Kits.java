@@ -39,9 +39,9 @@ public class Kits extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = Util.getIndexRec(tab1);
-        if (row != -1) {
-            Record record = qKits.get(row);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            Record record = qKits.get(index);
             Integer id = record.getInt(eKits.id);
             qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -50,9 +50,9 @@ public class Kits extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int row = Util.getIndexRec(tab2);
-        if (row != -1) {
-            Record record = qKitdet.get(row);
+        int index = Util.getIndexRec(tab2);
+        if (index != -1) {
+            Record record = qKitdet.get(index);
             Integer id = record.getInt(eKitdet.id);
             qKitpar1.select(eKitpar1.up, "where", eKitpar1.kitdet_id, "=", id, "order by", eKitpar1.grup);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -384,8 +384,8 @@ public class Kits extends javax.swing.JFrame {
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 
         } else if (tab2.getBorder() != null) {
-            int row = Util.getIndexRec(tab1);
-            Record kitsRec = qKits.get(row);
+            int index = Util.getIndexRec(tab1);
+            Record kitsRec = qKits.get(index);
             Record kitdetRec = eKitdet.up.newRecord(Query.INS);
             kitdetRec.setNo(eKitdet.id, ConnApp.instanc().genId(eKitdet.up));
             kitdetRec.setNo(eKitdet.kits_id, kitsRec.getInt(eKits.id));
@@ -394,8 +394,8 @@ public class Kits extends javax.swing.JFrame {
             Util.scrollRectToVisible(qKitdet, tab2);
 
         } else if (tab3.getBorder() != null) {
-            int row = Util.getIndexRec(tab2);
-            Record kitdetRec = qKitdet.get(row);
+            int index = Util.getIndexRec(tab2);
+            Record kitdetRec = qKitdet.get(index);
             Record kitpar1Rec = eKitpar1.up.newRecord(Query.INS);
             kitpar1Rec.setNo(eColmap.id, ConnApp.instanc().genId(eColmap.up));
             kitpar1Rec.setNo(eKitpar1.kitdet_id, kitdetRec.getInt(eKitdet.id));
