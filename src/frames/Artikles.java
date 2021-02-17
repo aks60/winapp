@@ -31,6 +31,7 @@ import java.awt.Window;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -47,12 +48,12 @@ import javax.swing.tree.TreePath;
 public class Artikles extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
-    private Query qColor = new Query(eColor.values()).select(eColor.up);
-    private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up);
+    private Query qSyssize = new Query(eSyssize.values());    
+    private Query qColor = new Query(eColor.values());
+    private Query qCurrenc = new Query(eCurrenc.values());
     private Query qArtikl = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
-    private Query qSyssize = new Query(eSyssize.values());
-
+    
     private DefFieldEditor rsvArtikl;
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
@@ -82,6 +83,8 @@ public class Artikles extends javax.swing.JFrame {
     private void loadingData() {
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
         qGroups.select(eGroups.up, "order by", eGroups.name);
+        qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
+        qColor.select(eColor.up, "order by", eColor.name);
     }
 
     private void loadingModel() {
@@ -138,6 +141,14 @@ public class Artikles extends javax.swing.JFrame {
         tab2.getColumnModel().getColumn(6).setCellRenderer(new BooleanRenderer());
 
         rsvArtikl = new DefFieldEditor(tab1) {
+            
+            public Set<JTextField> set = new HashSet();
+            
+            public void setText(JTextField jtf, String str) {
+                set.add(jtf);
+                jtf.setText(str);
+            }
+            
             @Override
             public void load(Integer index) {
                 super.load(index);
@@ -150,36 +161,42 @@ public class Artikles extends javax.swing.JFrame {
                 Record artgrp3Rec = qGroups.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.artgrp3_id))).findFirst().orElse(eGroups.up.newRecord());
                 Record syssizeRec = qSyssize.stream().filter(rec -> rec.getInt(eSyssize.id) == artiklRec.getInt(eArtikl.syssize_id)).findFirst().orElse(eSyssize.up.newRecord());;
 
-                txt5.setText(UseUnit.getName(artiklRec.getInt(eArtikl.unit)));
-                txt7.setText(currenc1Rec.getStr(eCurrenc.name));
-                txt17.setText(currenc2Rec.getStr(eCurrenc.name));
-                txt24.setText(currenc2Rec.getStr(eCurrenc.name));
-                txt25.setText(currenc1Rec.getStr(eCurrenc.name));
-                txt33.setText(currenc2Rec.getStr(eCurrenc.name));
-                txt31.setText(UseUnit.getName(artiklRec.getInt(eArtikl.unit)));
-                txt32.setText(currenc1Rec.getStr(eCurrenc.name));
-                txt40.setText(UseUnit.getName(artiklRec.getInt(eArtikl.unit)));
+                setText(txt5, UseUnit.getName(artiklRec.getInt(eArtikl.unit)));
+                setText(txt7, currenc1Rec.getStr(eCurrenc.name));
+                setText(txt17, currenc2Rec.getStr(eCurrenc.name));
+                setText(txt24, currenc2Rec.getStr(eCurrenc.name));
+                setText(txt25, currenc1Rec.getStr(eCurrenc.name));
+                setText(txt33, currenc2Rec.getStr(eCurrenc.name));
+                setText(txt31, UseUnit.getName(artiklRec.getInt(eArtikl.unit)));
+                setText(txt32, currenc1Rec.getStr(eCurrenc.name));
+                setText(txt40, UseUnit.getName(artiklRec.getInt(eArtikl.unit)));
 
                 if (artiklRec.getInt(eArtikl.analog_id) != -1) {
                     Record analogRec = qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(artiklRec.get(eArtikl.analog_id))).findFirst().orElse(eArtikl.up.newRecord());
-                    txt11.setText(analogRec.getStr(eArtikl.code));
+                    setText(txt11, analogRec.getStr(eArtikl.code));
                 } else {
-                    txt11.setText(null);
+                    setText(txt11, null);
                 }
-                txt10.setText(seriesRec.getStr(eGroups.name));
-                txt18.setText(syssizeRec.getStr(eSyssize.name));
-                txt19.setText(artgrp1Rec.getStr(eGroups.val));
-                txt26.setText(artgrp1Rec.getStr(eGroups.val));
-                txt20.setText(artgrp2Rec.getStr(eGroups.val));
-                txt22.setText(artgrp3Rec.getStr(eGroups.name));
-                txt26.setText(artgrp1Rec.getStr(eGroups.val));
-                txt27.setText(artgrp2Rec.getStr(eGroups.val));
-                txt29.setText(artgrp3Rec.getStr(eGroups.name));
-                txt30.setText(seriesRec.getStr(eGroups.name));
-                txt34.setText(artgrp1Rec.getStr(eGroups.val));
-                txt35.setText(artgrp2Rec.getStr(eGroups.val));
-                txt37.setText(artgrp3Rec.getStr(eGroups.name));
-                txt38.setText(seriesRec.getStr(eGroups.name));
+                setText(txt10, seriesRec.getStr(eGroups.name));
+                setText(txt18, syssizeRec.getStr(eSyssize.name));
+                setText(txt19, artgrp1Rec.getStr(eGroups.val));
+                setText(txt26, artgrp1Rec.getStr(eGroups.val));
+                setText(txt20, artgrp2Rec.getStr(eGroups.val));
+                setText(txt22, artgrp3Rec.getStr(eGroups.name));
+                setText(txt26, artgrp1Rec.getStr(eGroups.val));
+                setText(txt27, artgrp2Rec.getStr(eGroups.val));
+                setText(txt29, artgrp3Rec.getStr(eGroups.name));
+                setText(txt30, seriesRec.getStr(eGroups.name));
+                setText(txt34, artgrp1Rec.getStr(eGroups.val));
+                setText(txt35, artgrp2Rec.getStr(eGroups.val));
+                setText(txt37, artgrp3Rec.getStr(eGroups.name));
+                setText(txt38, seriesRec.getStr(eGroups.name));
+            }
+            
+            @Override
+            public void clear() {
+                super.clear();
+                set.forEach(s -> s.setText(null));
             }
         };
 

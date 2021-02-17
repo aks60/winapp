@@ -57,11 +57,11 @@ public class DefFieldEditor<E> {
             JTextComponent comp = me.getKey();
             Field field = me.getValue();
             comp.setText(null);
-            if (field.meta().type().equals(Field.TYPE.STR)) {
-                comp.setText("");
-            } else {
-                comp.setText("0");
-            }
+//            if (field.meta().type().equals(Field.TYPE.STR)) {
+//                comp.setText("");
+//            } else {
+//                comp.setText("0");
+//            }
         }
     }
 
