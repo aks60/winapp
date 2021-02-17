@@ -35,7 +35,6 @@ public class DefFieldEditor<E> {
 
     //Добавить компонент отображения
     public void add(Field field, JTextComponent jtxt) {
-
         mapTxt.put(jtxt, field);
         if (field.meta().edit() == false) { //если редактирование запрещено
             jtxt.setEditable(false);
@@ -46,7 +45,6 @@ public class DefFieldEditor<E> {
 
     //Добавить компонент отображения 
     public void add(Field field, JTextComponent jtxt, Enam[] enam) {
-
         add(field, jtxt);
         mapEnam.put(field, enam);
     }
