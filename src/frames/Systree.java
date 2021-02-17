@@ -90,6 +90,8 @@ public class Systree extends javax.swing.JFrame {
     private Wincalc iwin = new Wincalc();
     private int systreeID = -1; //выбранная система
     private int sysprodID = -1; //выбранная конструкция
+    private DialogListener listenerArtikl, listenerModel, listenerFurn,
+            listenerParam1, listenerParam2, listenerArt211, listenerArt212;
 
     private Query qParams = new Query(eParams.values());
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
@@ -98,8 +100,7 @@ public class Systree extends javax.swing.JFrame {
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
-    private DialogListener listenerArtikl, listenerModel, listenerFurn,
-            listenerParam1, listenerParam2, listenerArt211, listenerArt212;
+
     private Canvas paintPanel = new Canvas(iwin);
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
@@ -462,7 +463,7 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void selectionSys() {
-        
+
         Util.stopCellEditing(tab2, tab3, tab4, tab5);
         Arrays.asList(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
         systemNode = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
@@ -2186,12 +2187,8 @@ public class Systree extends javax.swing.JFrame {
 
         new DicArtikl(this, (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            for (int i = 0; i < qSystree.size(); i++) {
-                if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
-                    qSystree.set(record.getStr(eArtikl.code), i, eSystree.glas);
-                    rsvSystree.load(i);
-                }
-            }
+            systemNode.rec().set(eSystree.glas, record.getStr(eArtikl.code));
+            rsvSystree.load();
         }, 5);
     }//GEN-LAST:event_glasdefToSystree
 
@@ -2199,19 +2196,15 @@ public class Systree extends javax.swing.JFrame {
 
         new DicEnums(this, (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            for (int i = 0; i < qSystree.size(); i++) {
-                if (systreeID == qSystree.get(i).getInt(eSystree.id)) {
-                    qSystree.set(record.getInt(0), i, eSystree.imgview);
-                    rsvSystree.load(i);
-                }
-            }
+            systemNode.rec().set(eSystree.imgview, record.getInt(0));
+            rsvSystree.load();
+
         }, LayoutProduct.values());
     }//GEN-LAST:event_imageviewToSystree
 
     private void typeToSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeToSystree
 
         new DicEnums(this, (record) -> {
-
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
             systemNode.rec().set(eSystree.types, record.getInt(0));
             rsvSystree.load();
