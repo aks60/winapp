@@ -48,12 +48,12 @@ import javax.swing.tree.TreePath;
 public class Artikles extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
-    private Query qSyssize = new Query(eSyssize.values());    
+    private Query qSyssize = new Query(eSyssize.values());
     private Query qColor = new Query(eColor.values());
     private Query qCurrenc = new Query(eCurrenc.values());
     private Query qArtikl = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
-    
+
     private DefFieldEditor rsvArtikl;
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
@@ -141,14 +141,14 @@ public class Artikles extends javax.swing.JFrame {
         tab2.getColumnModel().getColumn(6).setCellRenderer(new BooleanRenderer());
 
         rsvArtikl = new DefFieldEditor(tab1) {
-            
+
             public Set<JTextField> set = new HashSet();
-            
+
             public void setText(JTextField jtf, String str) {
                 set.add(jtf);
                 jtf.setText(str);
             }
-            
+
             @Override
             public void load(Integer index) {
                 super.load(index);
@@ -192,7 +192,7 @@ public class Artikles extends javax.swing.JFrame {
                 setText(txt37, artgrp3Rec.getStr(eGroups.name));
                 setText(txt38, seriesRec.getStr(eGroups.name));
             }
-            
+
             @Override
             public void clear() {
                 super.clear();
@@ -382,6 +382,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void selectionTree() {
 
+        Util.stopCellEditing(tab1, tab2);
         Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
         rsvArtikl.clear();
         Util.clearTable(tab1, tab2);
@@ -407,6 +408,8 @@ public class Artikles extends javax.swing.JFrame {
 
     private void selectionTab1(ListSelectionEvent event) {
 
+        Util.stopCellEditing(tab2);
+        Arrays.asList(qArtdet).forEach(q -> q.execsql());
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
             Record record = qArtikl.get(index);
@@ -2382,7 +2385,8 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        System.out.println(tab1.getSelectedColumn());
+        Util.stopCellEditing(tab1, tab2);
+        Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -2490,7 +2494,7 @@ public class Artikles extends javax.swing.JFrame {
             }
             javax.swing.ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif"));
             Object result = JOptionPane.showInputDialog(Artikles.this, artiklRec.getStr(eArtikl.name),
-                    "Изменение типа артикла", JOptionPane.QUESTION_MESSAGE, null, list.toArray(), list.toArray()[0]);
+                    "Изменение типа артикула", JOptionPane.QUESTION_MESSAGE, null, list.toArray(), list.toArray()[0]);
 
             if (result != null) {
                 for (TypeArtikl enam : TypeArtikl.values()) {
