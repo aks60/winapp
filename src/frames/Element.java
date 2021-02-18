@@ -60,15 +60,13 @@ public class Element extends javax.swing.JFrame {
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
+    private DialogListener listenerArtikl, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
     private String subsql = "(-1)";
-    private EditorListener listenerEditor;
 
     public Element() {
         this.subsql = null;
         initComponents();
         initElements();
-        listenerCell();
         listenerSet();
         loadingData();
         loadingModel();
@@ -81,7 +79,6 @@ public class Element extends javax.swing.JFrame {
         }
         initComponents();
         initElements();
-        listenerCell();
         listenerSet();
         loadingData();
         loadingModel();
@@ -94,7 +91,6 @@ public class Element extends javax.swing.JFrame {
         }
         initComponents();
         initElements();
-        listenerCell();
         listenerSet();
         loadingData();
         loadingModel();
@@ -149,24 +145,26 @@ public class Element extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
 
-                Field field = columns[col];
-                if (eElemdet.color_fk == field) {
-                    int colorFk = Integer.valueOf(val.toString());
-                    if (Integer.valueOf(UseColor.automatic[0]) == colorFk) {
-                        return UseColor.automatic[1];
+                if (val != null) {
+                    Field field = columns[col];
+                    if (eElemdet.color_fk == field) {
+                        int colorFk = Integer.valueOf(val.toString());
+                        if (Integer.valueOf(UseColor.automatic[0]) == colorFk) {
+                            return UseColor.automatic[1];
 
-                    } else if (Integer.valueOf(UseColor.precision[0]) == colorFk) {
-                        return UseColor.precision[1];
+                        } else if (Integer.valueOf(UseColor.precision[0]) == colorFk) {
+                            return UseColor.precision[1];
+                        }
+                        if (colorFk > 0) {
+                            return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+                        } else {
+                            return "# " + qGrMap.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
+                        }
+                    } else if (eElemdet.types == field) {
+                        int types = Integer.valueOf(val.toString());
+                        types = (col == 3) ? types & 0x0000000f : (col == 4) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
+                        return UseColor.MANUAL.find(types).text();
                     }
-                    if (colorFk > 0) {
-                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
-                    } else {
-                        return "# " + qGrMap.stream().filter(rec -> rec.getInt(eGroups.id) == -1*colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
-                    }
-                } else if (eElemdet.types == field) {
-                    int types = Integer.valueOf(val.toString());
-                    types = (col == 3) ? types & 0x0000000f : (col == 4) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
-                    return UseColor.MANUAL.find(types).text();
                 }
                 return val;
             }
@@ -174,30 +172,32 @@ public class Element extends javax.swing.JFrame {
         new DefTableModel(tab4, qElempar1, eElempar1.params_id, eElempar1.text) {
 
             public Object getValueAt(int col, int row, Object val) {
-                Field field = columns[col];
-                if (val != null && eElempar1.params_id == field) {
-                    if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record elempar1Rec = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? elempar1Rec.getStr(eElempar1.params_id) + ":" + elempar1Rec.getStr(eElempar1.text) : elempar1Rec.getStr(eElempar1.text);
-                    } else {
-                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
-                    }
-                }
+//                Field field = columns[col];
+//                if (val != null && eElempar1.params_id == field) {
+//                    if (Integer.valueOf(String.valueOf(val)) < 0) {
+//                        Record elempar1Rec = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
+//                        return (Main.dev) ? elempar1Rec.getStr(eElempar1.params_id) + ":" + elempar1Rec.getStr(eElempar1.text) : elempar1Rec.getStr(eElempar1.text);
+//                    } else {
+//                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
+//                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+//                    }
+//                }
                 return val;
             }
         };
         new DefTableModel(tab5, qElempar2, eElempar2.params_id, eElempar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
-                Field field = columns[col];
-                if (field == eElempar2.params_id) {
-                    if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eElempar2.id) + ":" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
-                    } else {
-                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+                if (val != null) {
+                    Field field = columns[col];
+                    if (field == eElempar2.params_id) {
+                        if (Integer.valueOf(String.valueOf(val)) < 0) {
+                            Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                            return (Main.dev) ? record.getStr(eElempar2.id) + ":" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
+                        } else {
+                            Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                            return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+                        }
                     }
                 }
                 return val;
@@ -267,18 +267,28 @@ public class Element extends javax.swing.JFrame {
                 Record record = qElemgrp.get(index);
                 int paramPart = record.getInt(eElemgrp.level);
                 paramPart = (paramPart == 1) ? 31000 : 37000;
-                ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.elem, paramPart);
+                ParGrup2 frame = new ParGrup2(this, (rec) -> {
+
+                    Util.listenerParam(rec, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+                }, eParams.elem, paramPart);
             }
         });
 
-        Util.buttonCellEditor(tab4, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return Util.listenerCell(tab4, component, eElempar1.params_id);
+
+        }).addActionListener(event -> {
             Record record = qElempar1.get(Util.getIndexRec(tab4));
             int grup = record.getInt(eElempar1.params_id);
             if (grup < 0) {
-                ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
+                new ParGrup2a(this, (rec) -> {
+                    Util.listenerParam(rec, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+                }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup2b frame = new ParGrup2b(this, listenerPar1, list);
+                new ParGrup2b(this, (rec) -> {
+                    Util.listenerParam(rec, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+                }, list);
             }
         });
 
@@ -290,18 +300,27 @@ public class Element extends javax.swing.JFrame {
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 39000, 38000, 39000, 38000, 40000, 0};
-                ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.joint, part[level]);
+                ParGrup2 frame = new ParGrup2(this, (rec) -> {
+                    Util.listenerParam(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
+                }, eParams.joint, part[level]);
             }
         });
 
-        Util.buttonCellEditor(tab5, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab5, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return Util.listenerCell(tab5, component, eElempar2.params_id);
+
+        }).addActionListener(event -> {
             Record record = qElempar2.get(Util.getIndexRec(tab5));
             int grup = record.getInt(eElempar2.params_id);
             if (grup < 0) {
-                ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
+                ParGrup2a frame = new ParGrup2a(this, (rec) -> {
+                    Util.listenerParam(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
+                }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
+                ParGrup2b frame = new ParGrup2b(this, (rec) -> {
+                    Util.listenerParam(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
+                }, list);
             }
         });
     }
@@ -385,23 +404,8 @@ public class Element extends javax.swing.JFrame {
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3, index);
         };
-
-        listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
-        };
-
-        listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
-        };
     }
 
-    private void listenerCell() {
-
-        listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return Util.listenerCell(tab4, tab5, component, tab1, tab2, tab3, tab4, tab5);
-        };
-    }
-    
     private void selectionTab1(ListSelectionEvent event) {
         Util.clearTable(tab2, tab3, tab4, tab5);
         int index = Util.getIndexRec(tab1);
@@ -891,6 +895,7 @@ public class Element extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -934,13 +939,25 @@ public class Element extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Не выбрана запись в списке категорий", "Предупреждение", JOptionPane.NO_OPTION);
             }
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab2, tab3, eElement.up, eElemdet.up, eArtikl.up, eElemdet.element_id);
+            //Util.insertRecord(tab2, tab3, eElement.up, eElemdet.up, eArtikl.up, eElemdet.element_id);
+            Util.insertRecord(tab3, eElemdet.up, (record) -> {
+                int id = qElemgrp.getAs(Util.getIndexRec(tab2), eElemgrp.id);
+                record.set(eElemdet.element_id, id);
+            });            
 
         } else if (tab4.getBorder() != null) {
-            Util.insertRecord(tab2, tab4, eElement.up, eElempar1.up, eElempar1.element_id);
+            //Util.insertRecord(tab2, tab4, eElement.up, eElempar1.up, eElempar1.element_id);
+            Util.insertRecord(tab4, eElempar1.up, (record) -> {
+                int id = qElement.getAs(Util.getIndexRec(tab2), eElement.id);
+                record.set(eElempar1.element_id, id);
+            });
 
         } else if (tab5.getBorder() != null) {
-            Util.insertRecord(tab3, tab5, eElemdet.up, eElempar2.up, eElempar2.elemdet_id);
+            //Util.insertRecord(tab3, tab5, eElemdet.up, eElempar2.up, eElempar2.elemdet_id);
+            Util.insertRecord(tab5, eElempar2.up, (record) -> {
+                int id = qElemdet.getAs(Util.getIndexRec(tab3), eElemdet.id);
+                record.set(eElempar2.elemdet_id, id);
+            });
         }
     }//GEN-LAST:event_btnInsert
 
@@ -995,7 +1012,7 @@ public class Element extends javax.swing.JFrame {
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         Record record = ((DefTableModel) tab3.getModel()).getQuery().get(Util.getIndexRec(tab3));
         Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
-        
+
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
                 Aps.Artikles.createFrame(Element.this, record2);
@@ -1072,6 +1089,6 @@ public class Element extends javax.swing.JFrame {
                     selectionTab3(event);
                 }
             }
-        });                       
+        });
     }
 }
