@@ -72,7 +72,6 @@ public class DefCellEditor extends DefaultCellEditor {
 
             @Override
             public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                System.out.println(".insertString()-1");
                 if (string.length() > 1 || check(string)) { //проверка на коррекность ввода
                     super.insertString(fb, offset, string, attr);
                 }
@@ -80,7 +79,6 @@ public class DefCellEditor extends DefaultCellEditor {
 
             @Override
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                System.out.println(".insertString()-2");
                 if (string.length() > 1 || check(string)) {  //проверка на коррекность ввода
                     super.replace(fb, offset, length, string, attrs);
                 }
@@ -102,10 +100,8 @@ public class DefCellEditor extends DefaultCellEditor {
 
     @Override
     public boolean isCellEditable(EventObject anEvent) {
-        System.out.println("isCellEditable()-1 " + ((MouseEvent) anEvent).getClickCount());
         if (anEvent instanceof MouseEvent == true) {            
             if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) {
-                System.out.println("isCellEditable()-2 " + ((MouseEvent) anEvent).getClickCount());
                 listenerCell.action(DefCellEditor.this);
             }
         }

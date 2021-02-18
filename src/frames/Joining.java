@@ -112,7 +112,7 @@ public class Joining extends javax.swing.JFrame {
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         if (subsql == null) {
-            qJoining.select(eJoining.up);            
+            qJoining.select(eJoining.up);
         } else {
             //qJoining.select(eJoining.up, "where", eJoining.id, "in", subsql);
             qJoining.select(eJoining.up, "where", eJoining.id, "> 2380");
@@ -159,32 +159,35 @@ public class Joining extends javax.swing.JFrame {
         new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types, eJoindet.types, eJoindet.types) {
 
             public Object getValueAt(int col, int row, Object val) {
-                Field field = columns[col];
-                if (eJoindet.artikl_id == field) {
-                    int id = Integer.valueOf(val.toString());
-                    Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord());
-                    if (col == 0) {
-                        return recordArt.getStr(eArtikl.code);
-                    } else if (col == 1) {
-                        return recordArt.getStr(eArtikl.name);
-                    }
-                } else if (eJoindet.color_fk == field) {
-                    int colorFk = Integer.valueOf(val.toString());
+                if (val != null) {
+                    Field field = columns[col];
+                    if (eJoindet.artikl_id == field) {
+                        int id = Integer.valueOf(val.toString());
+                        Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord());
+                        if (col == 0) {
+                            return recordArt.getStr(eArtikl.code);
+                        } else if (col == 1) {
+                            return recordArt.getStr(eArtikl.name);
+                        }
+                    } else if (eJoindet.color_fk == field) {
+                        int colorFk = Integer.valueOf(val.toString());
 
-                    if (Integer.valueOf(UseColor.automatic[0]) == colorFk) {
-                        return UseColor.automatic[1];
-                    } else if (Integer.valueOf(UseColor.precision[0]) == colorFk) {
-                        return UseColor.precision[1];
+                        if (Integer.valueOf(UseColor.automatic[0]) == colorFk) {
+                            return UseColor.automatic[1];
+                        } else if (Integer.valueOf(UseColor.precision[0]) == colorFk) {
+                            return UseColor.precision[1];
+                        }
+                        if (colorFk > 0) {
+                            return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+                        } else {
+                            //return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1*colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
+                        }
+                    } else if (eJoindet.types == field) {
+                        int types = Integer.valueOf(val.toString());
+                        types = (col == 3) ? types & 0x0000000f : (col == 4) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
+                        return UseColor.MANUAL.find(types).text();
                     }
-                    if (colorFk > 0) {
-                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
-                    } else {
-                        //return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1*colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
-                    }
-                } else if (eJoindet.types == field) {
-                    int types = Integer.valueOf(val.toString());
-                    types = (col == 3) ? types & 0x0000000f : (col == 4) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
-                    return UseColor.MANUAL.find(types).text();
+                    return val;
                 }
                 return val;
             }
@@ -259,7 +262,7 @@ public class Joining extends javax.swing.JFrame {
 
         Util.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
             return Util.listenerCell(tab3, component, eJoinpar1.params_id);
-            
+
         }).addActionListener(event -> {
             Record record = qJoinpar1.get(Util.getIndexRec(tab3));
             int grup = record.getInt(eJoinpar1.params_id);
@@ -324,8 +327,8 @@ public class Joining extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab5, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return Util.listenerCell(tab3, tab5, component, tab1, tab2, tab3, tab4, tab5);
-            
+            return Util.listenerCell(tab5, component, eJoinpar2.params_id);
+
         }).addActionListener(event -> {
             Record record = qJoinpar2.get(Util.getIndexRec(tab5));
             int grup = record.getInt(eJoinpar2.params_id);
@@ -927,13 +930,13 @@ public class Joining extends javax.swing.JFrame {
 
         } else if (tab4.getBorder() != null) {
             Util.insertRecord(tab4, eJoindet.up, (record) -> {
-                int id = qJoining.getAs(Util.getIndexRec(tab1), eJoining.id);
+                int id = qJoinvar.getAs(Util.getIndexRec(tab2), eJoinvar.id);
                 record.set(eJoindet.joinvar_id, id);
             });
 
         } else if (tab5.getBorder() != null) {
             Util.insertRecord(tab5, eJoinpar2.up, (record) -> {
-                int id = qJoindet.getAs(Util.getIndexRec(tab1), eJoindet.id);
+                int id = qJoindet.getAs(Util.getIndexRec(tab4), eJoindet.id);
                 record.set(eJoinpar2.joindet_id, id);
             });
         }
