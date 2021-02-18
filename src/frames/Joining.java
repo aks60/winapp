@@ -69,17 +69,15 @@ public class Joining extends javax.swing.JFrame {
     private Query qJoinpar1 = new Query(eJoinpar1.values());
     private Query qJoinpar2 = new Query(eJoinpar2.values());
     private String subsql = "(-1)";
-    private EditorListener listenerEditor;
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerJoinvar, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
+    private DialogListener listenerArtikl, listenerJoinvar, listenerColvar1, listenerColvar2, listenerColvar3;
 
     public Joining() {
         this.subsql = null;
         initComponents();
         initElements();
         loadingData();
-        listenerCell();
-        listenerSet();
         loadingModel();
+        listenerSet();
         listenerAdd();
     }
 
@@ -90,9 +88,8 @@ public class Joining extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingData();
-        listenerCell();
-        listenerSet();
         loadingModel();
+        listenerSet();
         listenerAdd();
     }
 
@@ -101,9 +98,8 @@ public class Joining extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingData();
-        listenerCell();
-        listenerSet();
         loadingModel();
+        listenerSet();
         listenerAdd();
         deteilFind(deteilID);
     }
@@ -116,7 +112,7 @@ public class Joining extends javax.swing.JFrame {
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         if (subsql == null) {
-            qJoining.select(eJoining.up, "order by", eJoining.name);
+            qJoining.select(eJoining.up);
         } else {
             qJoining.select(eJoining.up, "where", eJoining.id, "in", subsql);
         }
@@ -128,10 +124,10 @@ public class Joining extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (eJoining.artikl_id1 == field) {
-                    return qArtikl.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
+                    return qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(val)).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
 
                 } else if (eJoining.artikl_id2 == field) {
-                    return qArtikl.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
+                    return qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(val)).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
                 }
                 return val;
             }
@@ -238,15 +234,15 @@ public class Joining extends javax.swing.JFrame {
 
     private void listenerAdd() {
         Util.buttonCellEditor(tab1, 0).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+            new DicArtikl(this, listenerArtikl, 1);
         });
 
         Util.buttonCellEditor(tab1, 1).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+            new DicArtikl(this, listenerArtikl, 1);
         });
 
         Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
-            DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
+            new DicJoinvar(this, listenerJoinvar);
         });
 
         Util.buttonCellEditor(tab3, 0).addActionListener(event -> {
@@ -254,51 +250,62 @@ public class Joining extends javax.swing.JFrame {
             if (index != -1) {
                 Record record = qJoinvar.get(index);
                 int joinVar = record.getInt(eJoinvar.types);
-                ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.joint, joinVar * 100);
+                new ParGrup2(this, (rec) -> {
+                    Util.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+                }, eParams.joint, joinVar * 100);
             }
         });
 
-        Util.buttonCellEditor(tab3, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
+            return Util.listenerCell(tab3, tab5, component, tab1, tab2, tab3, tab4, tab5);
+            
+        }).addActionListener(event -> {
             Record record = qJoinpar1.get(Util.getIndexRec(tab3));
             int grup = record.getInt(eJoinpar1.params_id);
             if (grup < 0) {
-                ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
+                new ParGrup2a(this, (rec) -> {
+                    Util.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+                }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup2b frame = new ParGrup2b(this, listenerPar1, list);
+                new ParGrup2b(this, (rec) -> {
+                    Util.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+                }, list);
             }
         });
 
         Util.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+            new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
         });
 
         Util.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+            new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
         });
 
         Util.buttonCellEditor(tab4, 2).addActionListener(event -> {
             Record record = qJoindet.get(Util.getIndexRec(tab4));
             int artikl_id = record.getInt(eJoindet.artikl_id);
-            ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
+            new ParColor2(this, (rec) -> {
+                Util.listenerColor(rec, tab4, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
+            }, artikl_id);
         });
 
         Util.buttonCellEditor(tab4, 3).addActionListener(event -> {
             Record record = qJoindet.get(Util.getIndexRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
-            DicColvar frame = new DicColvar(this, listenerColvar1, colorFk);
+            new DicColvar(this, listenerColvar1, colorFk);
         });
 
         Util.buttonCellEditor(tab4, 4).addActionListener(event -> {
             Record record = qJoindet.get(Util.getIndexRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
-            DicColvar frame = new DicColvar(this, listenerColvar2, colorFk);
+            new DicColvar(this, listenerColvar2, colorFk);
         });
 
         Util.buttonCellEditor(tab4, 5).addActionListener(event -> {
             Record record = qJoindet.get(Util.getIndexRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
-            DicColvar frame = new DicColvar(this, listenerColvar3, colorFk);
+            new DicColvar(this, listenerColvar3, colorFk);
         });
 
         Util.buttonCellEditor(tab5, 0).addActionListener(event -> {
@@ -309,18 +316,27 @@ public class Joining extends javax.swing.JFrame {
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 12000, 11000, 12000, 11000, 0};
-                ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.joint, part[level]);
+                new ParGrup2(this, (record) -> {
+                    Util.listenerParam(record, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+                }, eParams.joint, part[level]);
             }
         });
 
-        Util.buttonCellEditor(tab5, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab5, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
+            return Util.listenerCell(tab3, tab5, component, tab1, tab2, tab3, tab4, tab5);
+            
+        }).addActionListener(event -> {
             Record record = qJoinpar2.get(Util.getIndexRec(tab5));
             int grup = record.getInt(eJoinpar2.params_id);
             if (grup < 0) {
-                ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
+                new ParGrup2a(this, (rec) -> {
+                    Util.listenerParam(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+                }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
+                new ParGrup2b(this, (rec) -> {
+                    Util.listenerParam(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+                }, list);
             }
         });
     }
@@ -346,18 +362,6 @@ public class Joining extends javax.swing.JFrame {
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab4, index);
             }
-        };
-
-        listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
-        };
-
-        listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
-        };
-
-        listenerColor = (record) -> {
-            Util.listenerColor(record, tab4, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColvar1 = (record) -> {
@@ -408,12 +412,6 @@ public class Joining extends javax.swing.JFrame {
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2, index);
-        };
-    }
-
-    private void listenerCell() {
-        listenerEditor = (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return Util.listenerCell(tab3, tab5, component, tab1, tab2, tab3, tab4, tab5);
         };
     }
 
@@ -912,20 +910,31 @@ public class Joining extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             Util.insertRecord(tab1, eJoining.up, (record) -> {
-            
             });
 
         } else if (tab2.getBorder() != null) {
-            Util.insertRecord(tab1, tab2, eJoining.up, eJoinvar.up, eJoinvar.joining_id);
+            Util.insertRecord(tab2, eJoining.up, (record) -> {
+                int id = qJoining.getAs(Util.getIndexRec(tab1), eJoinvar.id);
+                record.set(eJoinvar.joining_id, id);
+            });
 
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab2, tab3, eJoinvar.up, eJoinpar1.up, eJoinpar1.joinvar_id);
+            Util.insertRecord(tab3, eJoinvar.up, (record) -> {
+                int id = qJoinvar.getAs(Util.getIndexRec(tab2), eJoinvar.id);
+                record.set(eJoinpar1.joinvar_id, id);
+            });
 
         } else if (tab4.getBorder() != null) {
-            Util.insertRecord(tab2, tab4, eJoinvar.up, eJoindet.up, eJoindet.joinvar_id);
+            Util.insertRecord(tab4, eJoinvar.up, (record) -> {
+                int id = qJoinvar.getAs(Util.getIndexRec(tab1), eJoinvar.id);
+                record.set(eJoindet.joinvar_id, id);
+            });
 
         } else if (tab5.getBorder() != null) {
-            Util.insertRecord(tab4, tab5, eJoindet.up, eJoinpar2.up, eJoinpar2.joindet_id);
+            Util.insertRecord(tab5, eJoinpar2.up, (record) -> {
+                int id = qJoindet.getAs(Util.getIndexRec(tab1), eJoinvar.id);
+                record.set(eJoinpar2.joindet_id, id);
+            });
         }
     }//GEN-LAST:event_btnInsert
 
@@ -973,7 +982,7 @@ public class Joining extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btnConstructiv
-    
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -1004,7 +1013,7 @@ public class Joining extends javax.swing.JFrame {
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
-    
+
     private void initElements() {
 
         new FrameToFile(this, btnClose);
