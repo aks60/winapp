@@ -911,7 +911,9 @@ public class Joining extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, eJoining.up);
+            Util.insertRecord(tab1, eJoining.up, (record) -> {
+            
+            });
 
         } else if (tab2.getBorder() != null) {
             Util.insertRecord(tab1, tab2, eJoining.up, eJoinvar.up, eJoinvar.joining_id);
@@ -971,7 +973,8 @@ public class Joining extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btnConstructiv
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    
+// <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnConstructiv;
@@ -1001,6 +1004,7 @@ public class Joining extends javax.swing.JFrame {
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
+    
     private void initElements() {
 
         new FrameToFile(this, btnClose);
