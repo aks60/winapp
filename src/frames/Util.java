@@ -335,9 +335,10 @@ public class Util {
 
     //Вставить запись
     public static Record insertRecord(JTable table, Field field) {
-            return insertRecord(table, field, (record) -> {});
+        return insertRecord(table, field, (record) -> {
+        });
     }
-    
+
     //Вставить запись
     public static Record insertRecord(JTable table, Field field, SqlListener preset) {
 
@@ -356,14 +357,14 @@ public class Util {
 
         int row = getIndexRec(table1);
         if (row != -1) {
-            Query query1 = ((DefTableModel) table1.getModel()).getQuery();            
-            Record record1 = query1.get(row);            
+            Query query1 = ((DefTableModel) table1.getModel()).getQuery();
+            Record record1 = query1.get(row);
             Query query2 = ((DefTableModel) table2.getModel()).getQuery();
             Record record2 = up2.newRecord(Query.INS);
-            
+
             record2.setNo(up2.fields()[1], ConnApp.instanc().genId(up2));
             record2.setNo(fk2, record1.getInt(up1.fields()[1]));
-            
+
             query2.add(record2);
             ((DefaultTableModel) table2.getModel()).fireTableDataChanged();
             Util.scrollRectToVisible(query2, table2);
@@ -396,7 +397,7 @@ public class Util {
             return null;
         }
     }
-    
+
     //Удалить запись
     public static void deleteRecord(JTable table) {
         if (table.getSelectedRow() != -1) {
@@ -461,7 +462,7 @@ public class Util {
         }
         table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
     }
-    
+
     //Очистить таблицу
     public static void clearTable(JTable... jTable) {
         for (JTable table : jTable) {
@@ -514,7 +515,37 @@ public class Util {
         return null;
     }
 
-    //Слушатель редактирование типа данных и вида ячейки таблицы 
+    //Редактирование типа данных и вида ячейки таблицы 
+    public static boolean listenerCell(JTable table, Object component, Field params_id) {
+        Query qParam = ((DefTableModel) table.getModel()).getQuery();
+
+        if (component instanceof DefCellEditor) { //установим вид и тип ячейки
+            DefCellEditor editor = (DefCellEditor) component;                        
+            int paramsID = qParam.getAs(getIndexRec(table), params_id);
+            
+            if (paramsID < 0) { //пользовательский список параметров
+                editor.getButton().setVisible(true);
+                editor.getTextField().setEnabled(false);
+            } else {
+                Enam enam = ParamList.find(paramsID);
+                if (enam.dict() != null) { //системный список параметров
+                    editor.getButton().setVisible(true);
+                    editor.getTextField().setEnabled(false);
+
+                } else { //системные вводимые пользователем
+                    editor.getButton().setVisible(false);
+                    editor.getTextField().setEnabled(true);
+                    editor.getTextField().setEditable(true);
+                }
+            }
+
+        } else if (component != null && component instanceof String) {  //проверка на коррекность ввода
+            String txt = (String) component;
+            return ParamList.find(qParam.getAs(Util.getIndexRec(table), params_id)).check(txt);
+        }
+        return true;
+    }
+    
     public static boolean listenerCell(JTable table1, JTable table2, Object component, JTable... tableList) {
         Query qParam1 = ((DefTableModel) table1.getModel()).getQuery();
         Query qParam2 = ((DefTableModel) table2.getModel()).getQuery();

@@ -112,9 +112,10 @@ public class Joining extends javax.swing.JFrame {
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         if (subsql == null) {
-            qJoining.select(eJoining.up);
+            qJoining.select(eJoining.up);            
         } else {
-            qJoining.select(eJoining.up, "where", eJoining.id, "in", subsql);
+            //qJoining.select(eJoining.up, "where", eJoining.id, "in", subsql);
+            qJoining.select(eJoining.up, "where", eJoining.id, "> 2380");
         }
     }
 
@@ -257,7 +258,7 @@ public class Joining extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return Util.listenerCell(tab3, tab5, component, tab1, tab2, tab3, tab4, tab5);
+            return Util.listenerCell(tab3, component, eJoinpar1.params_id);
             
         }).addActionListener(event -> {
             Record record = qJoinpar1.get(Util.getIndexRec(tab3));
@@ -913,26 +914,26 @@ public class Joining extends javax.swing.JFrame {
             });
 
         } else if (tab2.getBorder() != null) {
-            Util.insertRecord(tab2, eJoining.up, (record) -> {
-                int id = qJoining.getAs(Util.getIndexRec(tab1), eJoinvar.id);
+            Util.insertRecord(tab2, eJoinvar.up, (record) -> {
+                int id = qJoining.getAs(Util.getIndexRec(tab1), eJoining.id);
                 record.set(eJoinvar.joining_id, id);
             });
 
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab3, eJoinvar.up, (record) -> {
+            Util.insertRecord(tab3, eJoinpar1.up, (record) -> {
                 int id = qJoinvar.getAs(Util.getIndexRec(tab2), eJoinvar.id);
                 record.set(eJoinpar1.joinvar_id, id);
             });
 
         } else if (tab4.getBorder() != null) {
-            Util.insertRecord(tab4, eJoinvar.up, (record) -> {
-                int id = qJoinvar.getAs(Util.getIndexRec(tab1), eJoinvar.id);
+            Util.insertRecord(tab4, eJoindet.up, (record) -> {
+                int id = qJoining.getAs(Util.getIndexRec(tab1), eJoining.id);
                 record.set(eJoindet.joinvar_id, id);
             });
 
         } else if (tab5.getBorder() != null) {
             Util.insertRecord(tab5, eJoinpar2.up, (record) -> {
-                int id = qJoindet.getAs(Util.getIndexRec(tab1), eJoinvar.id);
+                int id = qJoindet.getAs(Util.getIndexRec(tab1), eJoindet.id);
                 record.set(eJoinpar2.joindet_id, id);
             });
         }
