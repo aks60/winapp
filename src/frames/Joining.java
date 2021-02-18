@@ -114,8 +114,8 @@ public class Joining extends javax.swing.JFrame {
         if (subsql == null) {
             qJoining.select(eJoining.up);
         } else {
-            //qJoining.select(eJoining.up, "where", eJoining.id, "in", subsql);
-            qJoining.select(eJoining.up, "where", eJoining.id, "> 2380");
+            qJoining.select(eJoining.up, "where", eJoining.id, "in", subsql);
+            //qJoining.select(eJoining.up, "where", eJoining.id, "> 2380");
         }
     }
 
