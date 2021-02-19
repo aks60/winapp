@@ -221,13 +221,13 @@ public class Profstroy {
             metaPart(cn2, st2);
 
             println(Color.GREEN, "Удаление лищних столбцов");
-//            executeSql("ALTER TABLE GROUPS DROP  FK;");
-//            for (Field fieldUp : fieldsUp) {
-//                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
-//                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-//                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
-//                }
-//            }
+            executeSql("ALTER TABLE GROUPS DROP  FK;");
+            for (Field fieldUp : fieldsUp) {
+                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+                }
+            }
             cn2.commit();
             cn2.setAutoCommit(true);
 
