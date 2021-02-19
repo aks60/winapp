@@ -2476,11 +2476,11 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn20
 
     private void btn13(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn13
-        DicGroups groups = new DicGroups(this, listenerCategFilter, TypeGroups.FILTER);
+        DicGroups groups = new DicGroups(this, listenerCategFilter, TypeGroups.FILTER_PRF);
     }//GEN-LAST:event_btn13
 
     private void btn22(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn22
-        DicGroups groups = new DicGroups(this, listenerCateg, TypeGroups.FILTER);
+        DicGroups groups = new DicGroups(this, listenerCateg, TypeGroups.FILTER_PRF);
     }//GEN-LAST:event_btn22
 
     private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove

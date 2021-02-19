@@ -524,7 +524,7 @@ public class Groups extends javax.swing.JFrame {
             
         } else if (tab4.getBorder() != null) {
             Record record = Util.insertRecord(tab4, eGroups.up);
-            record.set(eGroups.grup, TypeGroups.FILTER.id);
+            record.set(eGroups.grup, TypeGroups.FILTER_PRF.id);
             
         } else if (tab5.getBorder() != null) {
             Record record = Util.insertRecord(tab5, eGroups.up);

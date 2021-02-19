@@ -7,7 +7,6 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
-import static domain.eElemgrp.level;
 import domain.eFurndet;
 import enums.TypeArtikl;
 import java.util.Arrays;

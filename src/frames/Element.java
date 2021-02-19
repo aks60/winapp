@@ -23,7 +23,6 @@ import domain.eColor;
 import domain.eParams;
 import domain.eElemdet;
 import domain.eElement;
-import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
 import domain.eGroups;
@@ -53,9 +52,9 @@ public class Element extends javax.swing.JFrame {
 
     private Query qGrMap = new Query(eGroups.values());
     private Query qGrSeri = new Query(eGroups.values());
+    private Query qGrCateg = new Query(eGroups.values());
     private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
-    private Query qElemgrp = new Query(eElemgrp.values());
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
@@ -104,20 +103,20 @@ public class Element extends javax.swing.JFrame {
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         qGrSeri.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.SERI_PROF.id);
         qGrMap.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
-        qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
-        Record record = eElemgrp.up.newRecord(Query.SEL);
-        record.setNo(eElemgrp.id, -1);
-        record.setNo(eElemgrp.level, 1);
-        record.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
-        qElemgrp.add(0, record);
-        for (int index = 0; index < qElemgrp.size(); ++index) {
-            int level = qElemgrp.getAs(index, eElemgrp.level);
+        qGrCateg.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.CATEG_VST.id, "order by", eGroups.npp, ",", eGroups.name);
+        Record record = eGroups.up.newRecord(Query.SEL);
+        record.setNo(eGroups.id, -1);
+        record.setNo(eGroups.npp, 1);
+        record.setNo(eGroups.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
+        qGrCateg.add(0, record);
+        for (int index = 0; index < qGrCateg.size(); ++index) {
+            int level = qGrCateg.getAs(index, eGroups.npp);
             if (level == 5) {
-                Record record2 = eElemgrp.up.newRecord(Query.SEL);
-                record2.setNo(eElemgrp.id, -5);
-                record2.setNo(eElemgrp.level, 5);
-                record2.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;ЗАПОЛНЕНИЯ</font>");
-                qElemgrp.add(index, record2);
+                Record record2 = eGroups.up.newRecord(Query.SEL);
+                record2.setNo(eGroups.id, -5);
+                record2.setNo(eGroups.npp, 5);
+                record2.setNo(eGroups.name, "<html><font size='3' color='red'>&nbsp;&nbsp;ЗАПОЛНЕНИЯ</font>");
+                qGrCateg.add(index, record2);
                 break;
             }
         }
@@ -126,7 +125,7 @@ public class Element extends javax.swing.JFrame {
     private void loadingModel() {
 
         tab1.getTableHeader().setEnabled(false);
-        new DefTableModel(tab1, qElemgrp, eElemgrp.name);
+        new DefTableModel(tab1, qGrCateg, eGroups.name);
         new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eElement.series_id, eElement.todef, eElement.toset, eElement.markup) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -212,12 +211,12 @@ public class Element extends javax.swing.JFrame {
 
     private void listenerAdd() {
         Util.buttonCellEditor(tab2, 0).addActionListener(event -> {
-            int level = qElemgrp.getAs(Util.getIndexRec(tab1), eElemgrp.level);
+            int level = qGrCateg.getAs(Util.getIndexRec(tab1), eGroups.npp);
             DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
         });
 
         Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
-            int level = qElemgrp.getAs(Util.getIndexRec(tab1), eElemgrp.level);
+            int level = qGrCateg.getAs(Util.getIndexRec(tab1), eGroups.npp);
             DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
         });
 
@@ -264,8 +263,8 @@ public class Element extends javax.swing.JFrame {
         Util.buttonCellEditor(tab4, 0).addActionListener(event -> {
             int index = Util.getIndexRec(tab1);
             if (index != -1) {
-                Record record = qElemgrp.get(index);
-                int paramPart = record.getInt(eElemgrp.level);
+                Record record = qGrCateg.get(index);
+                int paramPart = record.getInt(eGroups.npp);
                 paramPart = (paramPart == 1) ? 31000 : 37000;
                 ParGrup2 frame = new ParGrup2(this, (rec) -> {
 
@@ -410,15 +409,15 @@ public class Element extends javax.swing.JFrame {
         Util.clearTable(tab2, tab3, tab4, tab5);
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
-            Record record = qElemgrp.get(index);
-            Integer id = record.getInt(eElemgrp.id);
+            Record record = qGrCateg.get(index);
+            Integer id = record.getInt(eGroups.id);
             if (id == -1 || id == -5) {
                 if (subsql == null) {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id));
+                            "left join", eGroups.up, "on", eGroups.id, "=", eElement.elemgrp_id, "where", eGroups.npp, "=", Math.abs(id));
                 } else {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id), "and", eElement.id, "in " + subsql);
+                            "left join", eGroups.up, "on", eGroups.id, "=", eElement.elemgrp_id, "where", eGroups.npp, "=", Math.abs(id), "and", eElement.id, "in " + subsql);
                 }
             } else {
                 if (subsql == null) {
@@ -932,16 +931,16 @@ public class Element extends javax.swing.JFrame {
             ppmCateg.show(north, btnIns.getX(), btnIns.getY() + 18);
 
         } else if (tab2.getBorder() != null) {
-            Record rec = qElemgrp.get(Util.getIndexRec(tab1));
-            if (rec != null && rec.getInt(eElemgrp.id) != -1 && rec.getInt(eElemgrp.id) != -5) {
-                Util.insertRecord(tab1, tab2, eElemgrp.up, eElement.up, eArtikl.up, eElement.elemgrp_id);
+            Record rec = qGrCateg.get(Util.getIndexRec(tab1));
+            if (rec != null && rec.getInt(eGroups.id) != -1 && rec.getInt(eGroups.id) != -5) {
+                Util.insertRecord(tab1, tab2, eGroups.up, eElement.up, eArtikl.up, eElement.elemgrp_id);
             } else {
                 JOptionPane.showMessageDialog(this, "Не выбрана запись в списке категорий", "Предупреждение", JOptionPane.NO_OPTION);
             }
         } else if (tab3.getBorder() != null) {
             //Util.insertRecord(tab2, tab3, eElement.up, eElemdet.up, eArtikl.up, eElemdet.element_id);
             Util.insertRecord(tab3, eElemdet.up, (record) -> {
-                int id = qElemgrp.getAs(Util.getIndexRec(tab2), eElemgrp.id);
+                int id = qGrCateg.getAs(Util.getIndexRec(tab2), eGroups.id);
                 record.set(eElemdet.element_id, id);
             });            
 
@@ -971,14 +970,14 @@ public class Element extends javax.swing.JFrame {
         int indexCateg = (ppm == itCateg1) ? 1 : 5;
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
-            Record elemgrpRec = eElemgrp.up.newRecord(Query.INS);
-            elemgrpRec.setNo(eElemgrp.id, ConnApp.instanc().genId(eElemgrp.up));
-            elemgrpRec.setNo(eElemgrp.level, indexCateg); //-1 -ПРОФИЛИ, -5 -ЗАПОЛНЕНИЯ
-            qElemgrp.add(elemgrpRec);
-            qElemgrp.execsql();
+            Record elemgrpRec = eGroups.up.newRecord(Query.INS);
+            elemgrpRec.setNo(eGroups.id, ConnApp.instanc().genId(eGroups.up));
+            elemgrpRec.setNo(eGroups.npp, indexCateg); //-1 -ПРОФИЛИ, -5 -ЗАПОЛНЕНИЯ
+            qGrCateg.add(elemgrpRec);
+            qGrCateg.execsql();
             loadingData();
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qElemgrp, tab1);
+            Util.scrollRectToVisible(qGrCateg, tab1);
         }
     }//GEN-LAST:event_ppmCategAction
 

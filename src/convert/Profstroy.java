@@ -17,7 +17,6 @@ import domain.eCurrenc;
 import domain.eElemdet;
 import domain.eElement;
 import domain.eJoining;
-import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
 import domain.eFurndet;
@@ -121,14 +120,13 @@ public class Profstroy {
             eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eModels.up,
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
-            eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,
+            eElempar1.up, eElempar2.up, eElemdet.up, eElement.up,
             eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
             eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
             eColmap.up, eColor.up,
-            eRulecalc.up, eSystree.up,            
+            eRulecalc.up, eSystree.up,
             eArtdet.up, eArtikl.up,
-            eSyssize.up, eGroups.up, eCurrenc.up, eParams.up,     
-        };
+            eSyssize.up, eGroups.up, eCurrenc.up, eParams.up,};
         try {
 
             println(Color.GREEN, "Подготовка методанных");
@@ -223,13 +221,13 @@ public class Profstroy {
             metaPart(cn2, st2);
 
             println(Color.GREEN, "Удаление лищних столбцов");
-            executeSql("ALTER TABLE GROUPS DROP  FK;");
-            for (Field fieldUp : fieldsUp) {
-                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
-                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
-                }
-            }
+//            executeSql("ALTER TABLE GROUPS DROP  FK;");
+//            for (Field fieldUp : fieldsUp) {
+//                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+//                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+//                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+//                }
+//            }
             cn2.commit();
             cn2.setAutoCommit(true);
 
@@ -442,28 +440,27 @@ public class Profstroy {
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
-            executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");            
-            executeSql("update colmap a set a.color_id2 = (select first 1 id from color b where a.ptext = b.name), joint = '1', elem = '1', glas = '1', furn = '1', otkos = '1', komp = '1'");            
-            updateSql(eColmap.up, eColmap.color_id1, "psss", eColor.up, "cnumb");           
+            executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
+            executeSql("update colmap a set a.color_id2 = (select first 1 id from color b where a.ptext = b.name), joint = '1', elem = '1', glas = '1', furn = '1', otkos = '1', komp = '1'");
+            updateSql(eColmap.up, eColmap.color_id1, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
-            executeSql("update params a set a.params_id = (select b.id from params b where a.pnumb = b.pnumb and b.znumb = 0)");           
+            executeSql("update params a set a.params_id = (select b.id from params b where a.pnumb = b.pnumb and b.znumb = 0)");
             loadGroups("Функция loadGroups()");
             executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
             executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
-            executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER.numb() + ")");            
+            executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER_PRF.numb() + ")");
             executeSql("update color set colgrp_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR.numb() + ")");
-            executeSql("update colmap set colgrp_id = (select a.id from groups a where colgrp_id = a.fk and a.grup = " + TypeGroups.COLMAP.numb() + ")");                       
-            executeSql("update artdet set color_fk = (select first 1 id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");            
-            executeSql("update artdet set color_fk = (select -1 * id from groups a where a.fk = (-1 * artdet.clnum) and a.grup = 2) where artdet.clnum < 0");            
+            executeSql("update colmap set colgrp_id = (select a.id from groups a where colgrp_id = a.fk and a.grup = " + TypeGroups.COLMAP.numb() + ")");
+            executeSql("update artdet set color_fk = (select first 1 id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");
+            executeSql("update artdet set color_fk = (select -1 * id from groups a where a.fk = (-1 * artdet.clnum) and a.grup = 2) where artdet.clnum < 0");
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
             executeSql("4", "update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
             executeSql("4", "update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
             executeSql("4", "update artdet set mark_c3 = 1 where cways in (2,3,6,7)");
-            loadElemgrp("Функция loadElemgrp()");
-            executeSql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             updateSql(eElement.up, eElement.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eElement.up, eElement.series_id, "vlets", eGroups.up, "name");
+            executeSql("update element set elemgrp_id = (select id from groups a where grup = 8 and a.name = element.vpref and a.npp = element.atypm)");
             executeSql("4", "update element set typset = vtype");
             executeSql("3", "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
             executeSql("update element set todef = 1  where vsets in (1,2)");
@@ -520,7 +517,7 @@ public class Profstroy {
             executeSql("update furnpar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             updateSql(eFurndet.up, eFurndet.furniture_id1, "funic", eFurniture.up, "funic");
             executeSql("3", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");
-            executeSql("4", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");            
+            executeSql("4", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");
             executeSql("update furndet set color_fk = (select (-1 * id) from groups a where a.fk = furndet.color_fk) where furndet.color_fk < 0");
             executeSql("3", "update furndet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
@@ -577,7 +574,7 @@ public class Profstroy {
             alterTable("artikl", "fk_artikl5", "syssize_id", "syssize");
             alterTable("artdet", "fk_artdet1", "artikl_id", "artikl");
             alterTable("systree", "fk_systree1", "parent_id", "systree");
-            alterTable("element", "fk_element1", "elemgrp_id", "elemgrp");
+            alterTable("element", "fk_element1", "elemgrp_id", "groups");
             alterTable("element", "fk_element2", "artikl_id", "artikl");
             alterTable("elemdet", "fk_elemdet1", "artikl_id", "artikl");
             alterTable("elemdet", "fk_elemdet2", "element_id", "element");
@@ -619,28 +616,6 @@ public class Profstroy {
 
         } catch (Exception e) {
             println(Color.RED, "Ошибка: metaPart().  " + e);
-        }
-    }
-
-    private static void loadElemgrp(String mes) throws SQLException {
-        println(Color.BLACK, mes);
-        try {
-            Query q = new Query(eElemgrp.values());
-            ResultSet rs = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
-            ArrayList<Object[]> fieldList = new ArrayList();
-            while (rs.next()) {
-                fieldList.add(new Object[]{rs.getString("VPREF"), rs.getInt("ATYPM")});
-            }
-            for (Object[] obj : fieldList) {
-                Record record = eElemgrp.up.newRecord(Query.INS);
-                record.setNo(eElemgrp.id, ConnApp.instanc().genId(eElemgrp.up));
-                record.setNo(eElemgrp.name, obj[0]);
-                record.setNo(eElemgrp.level, obj[1]);
-                q.insert(record);
-                cn2.commit();
-            }
-        } catch (Exception e) {
-            println(Color.RED, "Ошибка: modifyElemgrp().  " + e);
         }
     }
 
@@ -729,13 +704,19 @@ public class Profstroy {
             rs = st1.executeQuery("select distinct APREF from ARTIKLS where APREF is not null");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME) values ("
-                        + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.FILTER.id + ",'" + rs.getString("APREF") + "')";
+                        + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.FILTER_PRF.id + ",'" + rs.getString("APREF") + "')";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from PARLIST where PCOLL = 1 and ZNUMB = 0");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, FK) values ("
                         + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.COLMAP.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
+                st2.executeUpdate(sql);
+            }
+            rs = st1.executeQuery("select distinct VPREF, ATYPM from VSTALST order by  ATYPM, VPREF");
+            while (rs.next()) {
+                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
+                        + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.CATEG_VST.id + ",'" + rs.getString("VPREF") + "'," + rs.getInt("ATYPM") + ")";
                 st2.executeUpdate(sql);
             }
             cn2.commit();
@@ -763,7 +744,7 @@ public class Profstroy {
         }
         return max;
     }
-    
+
     private static void deleteSql(Field table1, String id1, Field table2, String id2) {
         try {
             int recordDelete = 0, recordCount = 0;

@@ -63,7 +63,7 @@ public class DicGroups extends javax.swing.JDialog {
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3);
             Util.updateBorderAndSql(tab3, null);
-        } else if (grup.numb() == TypeGroups.FILTER.id) {
+        } else if (grup.numb() == TypeGroups.FILTER_PRF.id) {
             setTitle("Группы фильтров");
             ((CardLayout) centr.getLayout()).show(centr, "pan4");
             tab4.setModel(new DefTableModel(tab4, qGroups, eGroups.name));
