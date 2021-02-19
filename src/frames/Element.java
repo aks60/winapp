@@ -171,16 +171,16 @@ public class Element extends javax.swing.JFrame {
         new DefTableModel(tab4, qElempar1, eElempar1.params_id, eElempar1.text) {
 
             public Object getValueAt(int col, int row, Object val) {
-//                Field field = columns[col];
-//                if (val != null && eElempar1.params_id == field) {
-//                    if (Integer.valueOf(String.valueOf(val)) < 0) {
-//                        Record elempar1Rec = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-//                        return (Main.dev) ? elempar1Rec.getStr(eElempar1.params_id) + ":" + elempar1Rec.getStr(eElempar1.text) : elempar1Rec.getStr(eElempar1.text);
-//                    } else {
-//                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
-//                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
-//                    }
-//                }
+                Field field = columns[col];
+                if (val != null && eElempar1.params_id == field) {
+                    if (Integer.valueOf(String.valueOf(val)) < 0) {
+                        Record elempar1Rec = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        return (Main.dev) ? elempar1Rec.getStr(eElempar1.params_id) + ":" + elempar1Rec.getStr(eElempar1.text) : elempar1Rec.getStr(eElempar1.text);
+                    } else {
+                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+                    }
+                }
                 return val;
             }
         };
@@ -909,7 +909,6 @@ public class Element extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -946,41 +945,28 @@ public class Element extends javax.swing.JFrame {
             ppmCateg.show(north, btnIns.getX(), btnIns.getY() + 18);
 
         } else if (tab2.getBorder() != null) {
-            Record groupsRec = qGrCateg.get(Util.getIndexRec(tab1));
-            if (groupsRec != null && groupsRec.getInt(eGroups.id) != -1 && groupsRec.getInt(eGroups.id) != -5) {
-                //Util.insertRecord(tab1, tab2, eGroups.up, eElement.up, eArtikl.up, eElement.elemgrp_id);
-                Util.insertRecord(tab2, eElement.up, (record) -> {
-                    int id = groupsRec.getInt(eGroups.id);
-                    record.set(eElement.elemgrp_id, id);
-                    Record record2 = eArtikl.record();
-                    qElement.table(eArtikl.up).add(record2);
-
-//                    Record record2 = eElement.up.newRecord(Query.INS);
-//                    Record record3 = eArtikl.up.newRecord();
-//                    record2.setNo(eElemdet.id, ConnApp.instanc().genId(eElement.up));
-//                    record2.setNo(eElement.elemgrp_id, id);
-//                    qElement.add(record2);
-//                    qElement.table(eArtikl.up).add(record3);
-                });
-            } else {
-                JOptionPane.showMessageDialog(this, "Не выбрана запись в списке категорий", "Предупреждение", JOptionPane.NO_OPTION);
-            }
+            Util.insertRecord(tab2, eElement.up, (record) -> {
+                Record groupsRec = qGrCateg.get(Util.getIndexRec(tab1));
+                int id = groupsRec.getInt(eGroups.id);
+                record.set(eElement.elemgrp_id, id);
+                Record record2 = eArtikl.up.newRecord();
+                qElement.table(eArtikl.up).add(record2);
+            });
         } else if (tab3.getBorder() != null) {
-            //Util.insertRecord(tab2, tab3, eElement.up, eElemdet.up, eArtikl.up, eElemdet.element_id);
             Util.insertRecord(tab3, eElemdet.up, (record) -> {
-                int id = qGrCateg.getAs(Util.getIndexRec(tab2), eGroups.id);
+                int id = qElement.getAs(Util.getIndexRec(tab2), eElement.id);
                 record.set(eElemdet.element_id, id);
+                Record record2 = eArtikl.up.newRecord();
+                qElemdet.table(eArtikl.up).add(record2);
             });
 
         } else if (tab4.getBorder() != null) {
-            //Util.insertRecord(tab2, tab4, eElement.up, eElempar1.up, eElempar1.element_id);
             Util.insertRecord(tab4, eElempar1.up, (record) -> {
                 int id = qElement.getAs(Util.getIndexRec(tab2), eElement.id);
                 record.set(eElempar1.element_id, id);
             });
 
         } else if (tab5.getBorder() != null) {
-            //Util.insertRecord(tab3, tab5, eElemdet.up, eElempar2.up, eElempar2.elemdet_id);
             Util.insertRecord(tab5, eElempar2.up, (record) -> {
                 int id = qElemdet.getAs(Util.getIndexRec(tab3), eElemdet.id);
                 record.set(eElempar2.elemdet_id, id);

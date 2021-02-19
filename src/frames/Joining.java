@@ -115,7 +115,6 @@ public class Joining extends javax.swing.JFrame {
             qJoining.select(eJoining.up);
         } else {
             qJoining.select(eJoining.up, "where", eJoining.id, "in", subsql);
-            //qJoining.select(eJoining.up, "where", eJoining.id, "> 2380");
         }
     }
 
@@ -902,7 +901,6 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
