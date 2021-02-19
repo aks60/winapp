@@ -69,11 +69,12 @@ public class App extends javax.swing.JFrame {
         initComponents();
         initElements();
         try {
+            int systreeID = Integer.valueOf(eProperty.systreeID.read());
+            int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
             Statement st = Query.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select 1 from RDB$RELATIONS r where r.RDB$RELATION_NAME = 'SYSTREE'");
+            ResultSet rs = st.executeQuery("select * from sysprod a where a.id = " + sysprodID);
             if (rs.next() == true) {
-                int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
-                if (sysprodID == -1) {
+                if (systreeID == rs.getInt("SYSTREE_ID") && systreeID != -1) {
                     setSelectedFilter(true);
                 }
             }
@@ -114,13 +115,13 @@ public class App extends javax.swing.JFrame {
 
     private void setSelectedFilter(boolean sel) {
 
-        btn01.setSelected(sel);
-        if (btn01.isSelected() == true) {
-            btn01.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif")));
+        btn1.setSelected(sel);
+        if (btn1.isSelected() == false) {
+            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif")));
         } else {
-            btn01.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif")));
+            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif")));
         }
-        btn01.repaint();
+        btn1.repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -131,7 +132,7 @@ public class App extends javax.swing.JFrame {
         buttonBaseGroup = new javax.swing.ButtonGroup();
         buttonMenuGroup = new javax.swing.ButtonGroup();
         tb0 = new javax.swing.JToolBar();
-        btn01 = new javax.swing.JToggleButton();
+        btn1 = new javax.swing.JToggleButton();
         tb1 = new javax.swing.JToolBar();
         btn15 = new javax.swing.JButton();
         btn16 = new javax.swing.JButton();
@@ -241,17 +242,18 @@ public class App extends javax.swing.JFrame {
         tb0.setRollover(true);
         tb0.setPreferredSize(new java.awt.Dimension(44, 28));
 
-        btn01.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif"))); // NOI18N
-        btn01.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btn01.setFocusable(false);
-        btn01.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn01.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn01.addActionListener(new java.awt.event.ActionListener() {
+        btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif"))); // NOI18N
+        btn1.setSelected(true);
+        btn1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn1.setFocusable(false);
+        btn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnFilter(evt);
             }
         });
-        tb0.add(btn01);
+        tb0.add(btn1);
 
         getContentPane().add(tb0);
 
@@ -1227,7 +1229,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                if (btn01.isSelected() == true) {
+                if (btn1.isSelected() == false) {
                     Aps.Element.createFrame(App.this);
                 } else {
                     constructive();
@@ -1243,7 +1245,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                if (btn01.isSelected() == true) {
+                if (btn1.isSelected() == false) {
                     Aps.Furniture.createFrame(App.this);
                 } else {
                     constructive();
@@ -1277,7 +1279,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                if (btn01.isSelected() == true) {
+                if (btn1.isSelected() == false) {
                     Aps.Joining.createFrame(App.this);
                 } else {
                     constructive();
@@ -1294,7 +1296,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                if (btn01.isSelected() == true) {
+                if (btn1.isSelected() == false) {
                     Aps.Filling.createFrame(App.this);
                 } else {
                     constructive();
@@ -1320,11 +1322,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnKits
 
     private void mnConvert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConvert
-        FrameProgress.create(App.this, new FrameListener() {
-            public void actionRequest(Object obj) {
-                Aps.Partner.createFrame(App.this);
-            }
-        });
+        setSelectedFilter(true);
     }//GEN-LAST:event_mnConvert
 
     private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder
@@ -1379,7 +1377,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_formWindowDeiconified
 
     private void mnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnFilter
-        setSelectedFilter(btn01.isSelected());
+        setSelectedFilter(btn1.isSelected());
     }//GEN-LAST:event_mnFilter
 
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
@@ -1423,7 +1421,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btn01;
+    private javax.swing.JToggleButton btn1;
     private javax.swing.JButton btn11;
     private javax.swing.JButton btn12;
     private javax.swing.JButton btn13;

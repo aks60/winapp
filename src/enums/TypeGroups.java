@@ -8,7 +8,7 @@ public enum TypeGroups implements Enam {
     SERI_PROF(3, "Серии профилей"),
     PRICE_INC(4, "Группы наценок"),
     PRICE_DEC(5, "Группы скидок"),
-    FILTER_PRF(6, "Категогии профилей"),
+    CATEG_PRF(6, "Категогии профилей"),
     COLMAP(7, "Группы соответствия цветов"),
     CATEG_VST(8, "Категории вставок");
 

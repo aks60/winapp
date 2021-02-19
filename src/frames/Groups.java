@@ -17,12 +17,13 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 
 public class Groups extends javax.swing.JFrame {
-    
+
     private Query qArtSeri = new Query(eGroups.values());
     private Query qArtIncr = new Query(eGroups.values());
     private Query qArtDecr = new Query(eGroups.values());
-    private Query qArtFlltr = new Query(eGroups.values());
+    private Query qCategProf = new Query(eGroups.values());
     private Query qColgrp = new Query(eGroups.values());
+    private Query qCategVst = new Query(eGroups.values());
 
     public Groups() {
         initComponents();
@@ -36,15 +37,17 @@ public class Groups extends javax.swing.JFrame {
         qArtSeri.select(eGroups.up, "where", eGroups.grup, "= 3", "order by", eGroups.name);
         qArtIncr.select(eGroups.up, "where", eGroups.grup, "= 4", "order by", eGroups.name);
         qArtDecr.select(eGroups.up, "where", eGroups.grup, "= 5", "order by", eGroups.name);
-        qArtFlltr.select(eGroups.up, "where", eGroups.grup, "= 6", "order by", eGroups.name);
+        qCategProf.select(eGroups.up, "where", eGroups.grup, "= 6", "order by", eGroups.name);
+        qCategVst.select(eGroups.up, "where", eGroups.grup, "= 8", "order by", eGroups.name);
     }
 
     private void loadingModel() {
         new DefTableModel(tab1, qArtIncr, eGroups.name, eGroups.val);
         new DefTableModel(tab2, qArtDecr, eGroups.name, eGroups.val);
         new DefTableModel(tab3, qArtSeri, eGroups.name);
-        new DefTableModel(tab4, qArtFlltr, eGroups.name);
+        new DefTableModel(tab4, qCategProf, eGroups.name);
         new DefTableModel(tab5, qColgrp, eGroups.name, eGroups.val);
+        new DefTableModel(tab6, qCategVst, eGroups.name);
         tab1.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
         tab5.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
@@ -53,6 +56,7 @@ public class Groups extends javax.swing.JFrame {
         Util.setSelectedRow(tab3);
         Util.setSelectedRow(tab4);
         Util.setSelectedRow(tab5);
+        Util.setSelectedRow(tab6);
     }
 
     @SuppressWarnings("unchecked")
@@ -76,6 +80,9 @@ public class Groups extends javax.swing.JFrame {
         pan5 = new javax.swing.JPanel();
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
+        pan6 = new javax.swing.JPanel();
+        scr6 = new javax.swing.JScrollPane();
+        tab6 = new javax.swing.JTable();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -91,14 +98,14 @@ public class Groups extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Группы");
-        setPreferredSize(new java.awt.Dimension(570, 500));
+        setPreferredSize(new java.awt.Dimension(700, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
         });
 
-        centr.setPreferredSize(new java.awt.Dimension(570, 450));
+        centr.setPreferredSize(new java.awt.Dimension(700, 450));
         centr.setLayout(new java.awt.BorderLayout());
 
         tabb.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -334,13 +341,58 @@ public class Groups extends javax.swing.JFrame {
 
         tabb.addTab("<html><font size=\"3\">Группы текстур", pan5);
 
+        pan6.setLayout(new java.awt.BorderLayout());
+
+        tab6.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Наименование", "ID"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab6.setFillsViewportHeight(true);
+        tab6.setName("tab4"); // NOI18N
+        tab6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tab6tabMousePressed(evt);
+            }
+        });
+        scr6.setViewportView(tab6);
+        if (tab6.getColumnModel().getColumnCount() > 0) {
+            tab6.getColumnModel().getColumn(1).setMaxWidth(40);
+        }
+
+        pan6.add(scr6, java.awt.BorderLayout.CENTER);
+
+        tabb.addTab("<html><font size=\"3\">Категории вставок", pan6);
+
         centr.add(tabb, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(570, 29));
+        north.setPreferredSize(new java.awt.Dimension(700, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -431,7 +483,7 @@ public class Groups extends javax.swing.JFrame {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 352, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 528, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -452,7 +504,7 @@ public class Groups extends javax.swing.JFrame {
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(570, 20));
+        south.setPreferredSize(new java.awt.Dimension(700, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
@@ -487,10 +539,10 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefaultTableModel) tab.getModel()).fireTableDataChanged());
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> Util.setSelectedRow(tab));
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6).forEach(tab -> ((DefaultTableModel) tab.getModel()).fireTableDataChanged());
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6).forEach(tab -> Util.setSelectedRow(tab));
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -505,11 +557,14 @@ public class Groups extends javax.swing.JFrame {
                 Util.deleteRecord(tab4);
             } else if (tab5.getBorder() != null) {
                 Util.deleteRecord(tab5);
+            } else if (tab6.getBorder() != null) {
+                Util.deleteRecord(tab6);
             }
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
+        
         if (tab1.getBorder() != null) {
             Record record = Util.insertRecord(tab1, eGroups.up);
             record.set(eGroups.grup, TypeGroups.PRICE_INC.id);
@@ -517,18 +572,22 @@ public class Groups extends javax.swing.JFrame {
         } else if (tab2.getBorder() != null) {
             Record record = Util.insertRecord(tab2, eGroups.up);
             record.set(eGroups.grup, TypeGroups.PRICE_DEC.id);
-            
+
         } else if (tab3.getBorder() != null) {
             Record record = Util.insertRecord(tab3, eGroups.up);
             record.set(eGroups.grup, TypeGroups.SERI_PROF.id);
-            
+
         } else if (tab4.getBorder() != null) {
             Record record = Util.insertRecord(tab4, eGroups.up);
-            record.set(eGroups.grup, TypeGroups.FILTER_PRF.id);
-            
+            record.set(eGroups.grup, TypeGroups.CATEG_PRF.id);
+
         } else if (tab5.getBorder() != null) {
             Record record = Util.insertRecord(tab5, eGroups.up);
             record.set(eGroups.grup, TypeGroups.COLOR.id);
+
+        } else if (tab6.getBorder() != null) {
+            Record record = Util.insertRecord(tab6, eGroups.up);
+            record.set(eGroups.grup, TypeGroups.CATEG_VST.id);
         }
     }//GEN-LAST:event_btnInsert
 
@@ -538,7 +597,7 @@ public class Groups extends javax.swing.JFrame {
 
     private void txtFilterfilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterfilterCaretUpdate
 
-        JTable table = Stream.of(tab1, tab2, tab3, tab4, tab5).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
+        JTable table = Stream.of(tab1, tab2, tab3, tab4, tab5, tab6).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
         btnIns.setEnabled(txtFilter.getText().length() == 0);
         if (txtFilter.getText().length() == 0) {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
@@ -551,7 +610,7 @@ public class Groups extends javax.swing.JFrame {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Util.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        Util.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
@@ -559,23 +618,31 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_tabMousePressed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qArtIncr, qArtDecr, qArtSeri, qArtFlltr, qColgrp).forEach(q -> q.execsql());
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6);
+        Arrays.asList(qArtIncr, qArtDecr, qArtSeri, qCategProf, qColgrp, qCategVst).forEach(q -> q.execsql());
     }//GEN-LAST:event_formWindowClosed
 
     private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6);
+        Arrays.asList(qArtIncr, qArtDecr, qArtSeri, qCategProf, qColgrp, qCategVst).forEach(q -> q.execsql());
         if (tabb.getSelectedIndex() == 0) {
-            Util.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Util.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
         } else if (tabb.getSelectedIndex() == 1) {
-            Util.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Util.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
         } else if (tabb.getSelectedIndex() == 2) {
-            Util.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Util.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
         } else if (tabb.getSelectedIndex() == 3) {
-            Util.updateBorderAndSql(tab4, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Util.updateBorderAndSql(tab4, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
         } else if (tabb.getSelectedIndex() == 4) {
-            Util.updateBorderAndSql(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Util.updateBorderAndSql(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
+        } else if (tabb.getSelectedIndex() == 5) {
+            Util.updateBorderAndSql(tab6, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
         }
     }//GEN-LAST:event_tabbStateChanged
+
+    private void tab6tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab6tabMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tab6tabMousePressed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -592,18 +659,21 @@ public class Groups extends javax.swing.JFrame {
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
+    private javax.swing.JPanel pan6;
     private javax.swing.JPanel panl1;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
+    private javax.swing.JScrollPane scr6;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
+    private javax.swing.JTable tab6;
     private javax.swing.JTabbedPane tabb;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
@@ -613,6 +683,6 @@ public class Groups extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(btn -> btn.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(btn -> btn.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6)));
     }
 }

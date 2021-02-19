@@ -10,7 +10,7 @@ public enum eGroups implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     grup("5", "5", "0", "Группа", "grup"),
     npp("4", "10", "1", "Ном.п.п", "npp"),
-    name("12", "96", "0", "Название группы", "name"),
+    name("12", "96", "1", "Название группы", "name"),
     val("8", "15", "1", "Значение", "coeff");
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

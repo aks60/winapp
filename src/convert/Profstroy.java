@@ -449,7 +449,7 @@ public class Profstroy {
             loadGroups("Функция loadGroups()");
             executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
             executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
-            executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER_PRF.numb() + ")");
+            executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.CATEG_PRF.numb() + ")");
             executeSql("update color set colgrp_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR.numb() + ")");
             executeSql("update colmap set colgrp_id = (select a.id from groups a where colgrp_id = a.fk and a.grup = " + TypeGroups.COLMAP.numb() + ")");
             executeSql("update artdet set color_fk = (select first 1 id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");
@@ -704,7 +704,7 @@ public class Profstroy {
             rs = st1.executeQuery("select distinct APREF from ARTIKLS where APREF is not null");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME) values ("
-                        + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.FILTER_PRF.id + ",'" + rs.getString("APREF") + "')";
+                        + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.CATEG_PRF.id + ",'" + rs.getString("APREF") + "')";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from PARLIST where PCOLL = 1 and ZNUMB = 0");

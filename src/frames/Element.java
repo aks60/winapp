@@ -942,7 +942,7 @@ public class Element extends javax.swing.JFrame {
             Util.insertRecord(tab3, eElemdet.up, (record) -> {
                 int id = qGrCateg.getAs(Util.getIndexRec(tab2), eGroups.id);
                 record.set(eElemdet.element_id, id);
-            });            
+            });
 
         } else if (tab4.getBorder() != null) {
             //Util.insertRecord(tab2, tab4, eElement.up, eElempar1.up, eElempar1.element_id);
@@ -966,18 +966,27 @@ public class Element extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosed
 
     private void ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmCategAction
+
         JMenuItem ppm = (JMenuItem) evt.getSource();
-        int indexCateg = (ppm == itCateg1) ? 1 : 5;
-        int index = Util.getIndexRec(tab1);
-        if (index != -1) {
+        int level1 = (ppm == itCateg1) ? 1 : 5;
+        Object result = JOptionPane.showInputDialog(Element.this, "Название", "Категория", JOptionPane.QUESTION_MESSAGE);      
+        if (result != null) {
             Record elemgrpRec = eGroups.up.newRecord(Query.INS);
-            elemgrpRec.setNo(eGroups.id, ConnApp.instanc().genId(eGroups.up));
-            elemgrpRec.setNo(eGroups.npp, indexCateg); //-1 -ПРОФИЛИ, -5 -ЗАПОЛНЕНИЯ
-            qGrCateg.add(elemgrpRec);
-            qGrCateg.execsql();
+            int id = ConnApp.instanc().genId(eGroups.up);
+            elemgrpRec.setNo(eGroups.id, id);
+            elemgrpRec.setNo(eGroups.grup, TypeGroups.CATEG_VST.id);
+            elemgrpRec.setNo(eGroups.npp, level1); //-1 -ПРОФИЛИ, -5 -ЗАПОЛНЕНИЯ
+            elemgrpRec.setNo(eGroups.name, result);
+            qGrCateg.insert(elemgrpRec);
             loadingData();
-            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qGrCateg, tab1);
+            for (int i = 0; i < qGrCateg.size(); ++i) {
+                if(qGrCateg.get(i).getInt(eGroups.id) == id) {
+                    Util.setSelectedRow(tab1, i);
+                    ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(i, i);
+                    Util.scrollRectToVisible(i, tab1);
+                    break;
+                }
+            }
         }
     }//GEN-LAST:event_ppmCategAction
 
