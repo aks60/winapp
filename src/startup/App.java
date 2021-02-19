@@ -78,6 +78,7 @@ public class App extends javax.swing.JFrame {
                     btn1.setSelected(true);
                 }
             }
+            st.close();
         } catch (SQLException e) {
             System.err.println(e);
         }
@@ -1309,7 +1310,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnConvert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConvert
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                Aps.Partner.createFrame(App.this);
+                Aps.Convert.createFrame(App.this);
             }
         });
     }//GEN-LAST:event_mnConvert
