@@ -688,9 +688,16 @@ public class Element extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, true, true, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tab2.setFillsViewportHeight(true);
@@ -803,7 +810,15 @@ public class Element extends javax.swing.JFrame {
             new String [] {
                 "Артикул", "Название", "Текстура", "Основная", "Внутренняя", "Внешняя", "ID"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab3.setFillsViewportHeight(true);
         tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -931,9 +946,22 @@ public class Element extends javax.swing.JFrame {
             ppmCateg.show(north, btnIns.getX(), btnIns.getY() + 18);
 
         } else if (tab2.getBorder() != null) {
-            Record rec = qGrCateg.get(Util.getIndexRec(tab1));
-            if (rec != null && rec.getInt(eGroups.id) != -1 && rec.getInt(eGroups.id) != -5) {
-                Util.insertRecord(tab1, tab2, eGroups.up, eElement.up, eArtikl.up, eElement.elemgrp_id);
+            Record groupsRec = qGrCateg.get(Util.getIndexRec(tab1));
+            if (groupsRec != null && groupsRec.getInt(eGroups.id) != -1 && groupsRec.getInt(eGroups.id) != -5) {
+                //Util.insertRecord(tab1, tab2, eGroups.up, eElement.up, eArtikl.up, eElement.elemgrp_id);
+                Util.insertRecord(tab2, eElement.up, (record) -> {
+                    int id = groupsRec.getInt(eGroups.id);
+                    record.set(eElement.elemgrp_id, id);
+                    Record record2 = eArtikl.record();
+                    qElement.table(eArtikl.up).add(record2);
+
+//                    Record record2 = eElement.up.newRecord(Query.INS);
+//                    Record record3 = eArtikl.up.newRecord();
+//                    record2.setNo(eElemdet.id, ConnApp.instanc().genId(eElement.up));
+//                    record2.setNo(eElement.elemgrp_id, id);
+//                    qElement.add(record2);
+//                    qElement.table(eArtikl.up).add(record3);
+                });
             } else {
                 JOptionPane.showMessageDialog(this, "Не выбрана запись в списке категорий", "Предупреждение", JOptionPane.NO_OPTION);
             }
@@ -969,7 +997,7 @@ public class Element extends javax.swing.JFrame {
 
         JMenuItem ppm = (JMenuItem) evt.getSource();
         int level1 = (ppm == itCateg1) ? 1 : 5;
-        Object result = JOptionPane.showInputDialog(Element.this, "Название", "Категория", JOptionPane.QUESTION_MESSAGE);      
+        Object result = JOptionPane.showInputDialog(Element.this, "Название", "Категория", JOptionPane.QUESTION_MESSAGE);
         if (result != null) {
             Record elemgrpRec = eGroups.up.newRecord(Query.INS);
             int id = ConnApp.instanc().genId(eGroups.up);
@@ -980,9 +1008,9 @@ public class Element extends javax.swing.JFrame {
             qGrCateg.insert(elemgrpRec);
             loadingData();
             for (int i = 0; i < qGrCateg.size(); ++i) {
-                if(qGrCateg.get(i).getInt(eGroups.id) == id) {
-                    Util.setSelectedRow(tab1, i);
-                    ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(i, i);
+                if (qGrCateg.get(i).getInt(eGroups.id) == id) {
+                    Util.setSelectedRow(tab1, i - 1);
+                    ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(i - 1, i - 1);
                     Util.scrollRectToVisible(i, tab1);
                     break;
                 }

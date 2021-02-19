@@ -345,10 +345,11 @@ public class Util {
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = field.newRecord(Query.INS);
         record.setNo(field.fields()[1], ConnApp.instanc().genId(field));
-        preset.action(record);
         query.add(record);
-        ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
-        Util.scrollRectToVisible(query, table);
+        preset.action(record);
+        //((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
+        ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+        //Util.scrollRectToVisible(query, table);
         return record;
     }
 

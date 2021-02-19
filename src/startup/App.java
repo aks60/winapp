@@ -113,16 +113,16 @@ public class App extends javax.swing.JFrame {
         }
     }
 
-    private void setSelectedFilter(boolean sel) {
-
-        btn1.setSelected(sel);
-        if (btn1.isSelected() == false) {
-            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif")));
-        } else {
-            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif")));
-        }
-        btn1.repaint();
-    }
+//    private void setSelectedFilter(boolean sel) {
+//
+//        btn1.setSelected(sel);
+//        if (btn1.isSelected() == false) {
+//            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif")));
+//        } else {
+//            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif")));
+//        }
+//        btn1.repaint();
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -243,8 +243,6 @@ public class App extends javax.swing.JFrame {
         tb0.setPreferredSize(new java.awt.Dimension(44, 28));
 
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif"))); // NOI18N
-        btn1.setSelected(true);
-        btn1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn1.setFocusable(false);
         btn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -1322,7 +1320,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnKits
 
     private void mnConvert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConvert
-        setSelectedFilter(true);
+        setSelectedFilter(true);       
     }//GEN-LAST:event_mnConvert
 
     private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder
@@ -1377,7 +1375,12 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_formWindowDeiconified
 
     private void mnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnFilter
-        setSelectedFilter(btn1.isSelected());
+        //setSelectedFilter(btn1.isSelected());
+        if (btn1.isSelected() == false) {
+            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif")));
+        } else {
+            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif")));
+        }         
     }//GEN-LAST:event_mnFilter
 
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase

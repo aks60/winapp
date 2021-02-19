@@ -371,7 +371,7 @@
                           <Data value="0.0"/>
                           <Data value="0.0"/>
                         </Column>
-                        <Column editable="true" title="ID" type="java.lang.Object"/>
+                        <Column editable="false" title="ID" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -617,7 +617,7 @@
                           <Data value="ffffff"/>
                           <Data value="yyyyy"/>
                         </Column>
-                        <Column editable="true" title="ID" type="java.lang.Object"/>
+                        <Column editable="false" title="ID" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
