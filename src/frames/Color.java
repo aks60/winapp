@@ -174,10 +174,10 @@ public class Color extends javax.swing.JFrame {
         Arrays.asList(qGroup1, qColor, qGroup2, qColmap).forEach(q -> q.execsql());
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
-            
+
             Record record = qGroup1.table(eGroups.up).get(index);
             Integer cgrup = record.getInt(eGroups.id);
-            qColor.select(eColor.up, "where", eColor.colgrp_id, "=" + cgrup);          
+            qColor.select(eColor.up, "where", eColor.colgrp_id, "=" + cgrup);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2);
         }
@@ -591,20 +591,20 @@ public class Color extends javax.swing.JFrame {
                 record.set(eGroups.val, 1);
             });
         } else if (tab2.getBorder() != null) {
-            
-            Record recordAll = Util.insertRecord(tab2, eColor.up, (record) -> {
+
+            Util.insertRecord(tab2, eColor.up, (record) -> {
                 Record groupRec = qGroup1.get(Util.getIndexRec(tab1));
                 record.setNo(eColor.colgrp_id, groupRec.getInt(eGroups.id));
+                qColall.add(record);
             });
-            qColall.add(recordAll);
 
         } else if (tab3.getBorder() != null) {
             Util.insertRecord(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLMAP.id);
                 record.set(eGroups.name, "");
-            });            
+            });
 
-        } else if (tab4.getBorder() != null) {            
+        } else if (tab4.getBorder() != null) {
             Util.insertRecord(tab4, eColor.up, (record) -> {
                 Record groupRec = qGroup2.get(Util.getIndexRec(tab3));
                 record.setNo(eColmap.colgrp_id, groupRec.getInt(eGroups.id));

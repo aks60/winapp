@@ -345,13 +345,7 @@ public class Util {
     }
 
     //Вставить запись
-    public static Record insertRecord(JTable table, Field field) {
-        return insertRecord(table, field, (record) -> {
-        });
-    }
-
-    //Вставить запись
-    public static Record insertRecord(JTable table, Field field, SqlListener preset) {
+    public static void insertRecord(JTable table, Field field, SqlListener preset) {
 
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = field.newRecord(Query.INS);
@@ -360,7 +354,6 @@ public class Util {
         preset.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
         Util.scrollRectToVisible(query, table);
-        return record;
     }
 
     //Вставить запись

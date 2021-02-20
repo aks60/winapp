@@ -290,7 +290,8 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Util.insertRecord(tab1, eCurrenc.up);
+        Util.insertRecord(tab1, eCurrenc.up, (record) -> {
+        });
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed

@@ -564,30 +564,36 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        
+
         if (tab1.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, eGroups.up);
-            record.set(eGroups.grup, TypeGroups.PRICE_INC.id);
+            Util.insertRecord(tab1, eGroups.up, (record) -> {
+                record.set(eGroups.grup, TypeGroups.PRICE_INC.id);
+            });
 
         } else if (tab2.getBorder() != null) {
-            Record record = Util.insertRecord(tab2, eGroups.up);
-            record.set(eGroups.grup, TypeGroups.PRICE_DEC.id);
+            Util.insertRecord(tab2, eGroups.up, (record) -> {
+                record.set(eGroups.grup, TypeGroups.PRICE_DEC.id);
+            });
 
         } else if (tab3.getBorder() != null) {
-            Record record = Util.insertRecord(tab3, eGroups.up);
-            record.set(eGroups.grup, TypeGroups.SERI_PROF.id);
+            Util.insertRecord(tab3, eGroups.up, (record) -> {
+                record.set(eGroups.grup, TypeGroups.SERI_PROF.id);
+            });
 
         } else if (tab4.getBorder() != null) {
-            Record record = Util.insertRecord(tab4, eGroups.up);
-            record.set(eGroups.grup, TypeGroups.CATEG_PRF.id);
+            Util.insertRecord(tab4, eGroups.up, (record) -> {
+                record.set(eGroups.grup, TypeGroups.CATEG_PRF.id);
+            });
 
         } else if (tab5.getBorder() != null) {
-            Record record = Util.insertRecord(tab5, eGroups.up);
-            record.set(eGroups.grup, TypeGroups.COLOR.id);
+            Util.insertRecord(tab5, eGroups.up, (record) -> {
+                record.set(eGroups.grup, TypeGroups.COLOR.id);
+            });
 
         } else if (tab6.getBorder() != null) {
-            Record record = Util.insertRecord(tab6, eGroups.up);
-            record.set(eGroups.grup, TypeGroups.CATEG_VST.id);
+            Util.insertRecord(tab6, eGroups.up, (record) -> {
+                record.set(eGroups.grup, TypeGroups.CATEG_VST.id);
+            });
         }
     }//GEN-LAST:event_btnInsert
 

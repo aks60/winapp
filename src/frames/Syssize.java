@@ -305,7 +305,8 @@ public class Syssize extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, eSyssize.up);
+            Util.insertRecord(tab1, eSyssize.up, (record) -> {
+            });
         }
     }//GEN-LAST:event_btnInsert
 
