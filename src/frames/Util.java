@@ -357,29 +357,6 @@ public class Util {
     }
 
     //Вставить запись
-    public static Record insertRecord(JTable table1, JTable table2, Field up1, Field up2, Field fk2) {
-
-        int row = getIndexRec(table1);
-        if (row != -1) {
-            Query query1 = ((DefTableModel) table1.getModel()).getQuery();
-            Record record1 = query1.get(row);
-            Query query2 = ((DefTableModel) table2.getModel()).getQuery();
-            Record record2 = up2.newRecord(Query.INS);
-
-            record2.setNo(up2.fields()[1], ConnApp.instanc().genId(up2));
-            record2.setNo(fk2, record1.getInt(up1.fields()[1]));
-
-            query2.add(record2);
-            ((DefaultTableModel) table2.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(query2, table2);
-            return record2;
-        } else {
-            JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
-            return null;
-        }
-    }
-
-    //Вставить запись
     public static Record insertRecord(JTable table1, JTable table2, Field up1, Field up2, Field up3, Field fk2) {
 
         int row = getIndexRec(table1);
@@ -550,56 +527,6 @@ public class Util {
         return true;
     }
 
-    public static boolean listenerCell(JTable table1, JTable table2, Object component, JTable... tableList) {
-        Query qParam1 = ((DefTableModel) table1.getModel()).getQuery();
-        Query qParam2 = ((DefTableModel) table2.getModel()).getQuery();
-
-        if (component instanceof DefCellEditor) { //вид и тип ячейки
-            DefCellEditor editor = (DefCellEditor) component;
-
-            DefCellEditor editor2 = (DefCellEditor) table1.getColumnModel().getColumn(1).getCellEditor();
-            if (editor.getButton() == editor2.getButton()) {
-                Util.formatterCell(qParam1, table1, editor); //установим вид и тип ячейки
-            }
-            editor2 = (DefCellEditor) table2.getColumnModel().getColumn(1).getCellEditor();
-            if (editor.getButton() == editor2.getButton()) {
-                Util.formatterCell(qParam2, table2, editor); //установим вид и тип ячейки
-            }
-
-        } else if (component != null && component instanceof String) {  //проверка на коррекность ввода
-            JTable tab = Util.getCellEditing(tableList);
-            String txt = (String) component;
-            if (tab == table1) {
-                return ParamList.find(qParam1.getAs(Util.getIndexRec(table1), eJoinpar1.id)).check(txt);
-            }
-            if (tab == table2) {
-                return ParamList.find(qParam2.getAs(Util.getIndexRec(table2), eJoinpar1.id)).check(txt);
-            }
-        }
-        return true;
-    }
-
-    //Редактирование параметра ячейки таблицы
-    public static void formatterCell(Query query, JTable table, DefCellEditor editor) {
-
-        int paramsID = query.getAs(getIndexRec(table), eJoinpar1.params_id, -1);
-        if (paramsID < 0) { //пользовательский список параметров
-            editor.getButton().setVisible(true);
-            editor.getTextField().setEnabled(false);
-        } else {
-            Enam enam = ParamList.find(paramsID);
-            if (enam.dict() != null) { //системный список параметров
-                editor.getButton().setVisible(true);
-                editor.getTextField().setEnabled(false);
-
-            } else { //системные вводимые пользователем
-                editor.getButton().setVisible(false);
-                editor.getTextField().setEnabled(true);
-                editor.getTextField().setEditable(true);
-            }
-        }
-    }
-
     //Слушатель редактирование параметров
     public static void listenerParam(Record record, JTable table, Field paramsID, Field text, JTable... tables) {
         Util.stopCellEditing(tables);
@@ -616,8 +543,8 @@ public class Util {
             record2.set(text, ParamList.find(record.getInt(0)).def());
 
         } else if (record.size() == 1) {
-            record2.set(text, record.getStr(0));
             System.out.println("УРА!!! Я НАШОЛ ТЕБЯ.");
+            record2.set(text, record.getStr(0));            
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Util.setSelectedRow(table, index);

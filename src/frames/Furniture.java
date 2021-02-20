@@ -67,7 +67,6 @@ public class Furniture extends javax.swing.JFrame {
     private Query qFurnside2 = new Query(eFurnside2.values());
     private Query qFurnpar1 = new Query(eFurnpar1.values());
     private Query qFurnpar2 = new Query(eFurnpar2.values());
-    private EditorListener listenerEditor = null;
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
     private String subsql = "(-1)";
@@ -76,7 +75,6 @@ public class Furniture extends javax.swing.JFrame {
         this.subsql = null;
         initComponents();
         initElements();
-        listenerCell();
         loadingData();
         loadingModel();
         listenerAdd();
@@ -89,7 +87,6 @@ public class Furniture extends javax.swing.JFrame {
         }
         initComponents();
         initElements();
-        listenerCell();
         loadingData();
         loadingModel();
         listenerAdd();
@@ -105,7 +102,6 @@ public class Furniture extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerAdd();
-        listenerCell();
         listenerSet();
         deteilFind(deteilID);
     }
@@ -150,7 +146,6 @@ public class Furniture extends javax.swing.JFrame {
                 return val;
             }
         };
-
         new DefTableModel(tab2a, qFurndet2a, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.types, eFurndet.id) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -386,7 +381,10 @@ public class Furniture extends javax.swing.JFrame {
             ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.joint, 21000);
         });
 
-        Util.buttonCellEditor(tab4, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return Util.listenerCell(tab4, component, eFurnpar1.params_id);
+
+        }).addActionListener(event -> {
             Record record = qFurnpar1.get(Util.getIndexRec(tab4));
             int grup = record.getInt(eFurnpar1.params_id);
             if (grup < 0) {
@@ -416,7 +414,10 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonCellEditor(tab6, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab6, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return Util.listenerCell(tab6, component, eFurnpar2.params_id);
+
+        }).addActionListener(event -> {
             Record record = qFurnpar2.get(Util.getIndexRec(tab6));
             int grup = record.getInt(eFurnpar2.params_id);
             if (grup < 0) {
@@ -490,13 +491,6 @@ public class Furniture extends javax.swing.JFrame {
 
         listenerVariant2 = (record) -> {
             Util.listenerEnums(record, tab1, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        };
-    }
-
-    private void listenerCell() {
-
-        listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return Util.listenerCell(tab4, tab6, component, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
     }
 
@@ -1288,31 +1282,34 @@ public class Furniture extends javax.swing.JFrame {
                 record.set(eFurndet.furndet_id, id2);
             });
         } else if (tab3.getBorder() != null) {
-            //Util.insertRecord(tab1, tab3, eFurniture.up, eFurnside1.up, eFurnside1.furniture_id);
             Util.insertRecord(tab3, eFurnside1.up, (record) -> {
                 int id = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
                 record.set(eFurnside1.furniture_id, id);
-                //record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
-            });            
+            });
 
         } else if (tab4.getBorder() != null) {
-            Record record = Util.insertRecord(tab3, tab4, eFurnside1.up, eFurnpar1.up, eFurnpar1.furnside_id);
+            Util.insertRecord(tab4, eFurnpar1.up, (record) -> {
+                int id = qFurnside1.getAs(Util.getIndexRec(tab3), eFurnside1.id);
+                record.set(eFurnpar1.furnside_id, id);
+            });
 
         } else if (tab5.getBorder() != null) {
-            if (tabb1.getSelectedIndex() == 0) {
-                Util.insertRecord(tab2a, tab5, eFurndet.up, eFurnside2.up, eFurnside2.furndet_id);
-            } else if (tabb1.getSelectedIndex() == 1) {
-                Util.insertRecord(tab2b, tab5, eFurndet.up, eFurnside2.up, eFurnside2.furndet_id);
-            } else if (tabb1.getSelectedIndex() == 2) {
-                Util.insertRecord(tab2c, tab5, eFurndet.up, eFurnside2.up, eFurnside2.furndet_id);
+            JTable table = (tabb1.getSelectedIndex() == 0) ? tab2a : (tabb1.getSelectedIndex() == 1) ? tab2c : tab2b;
+            Query query = ((DefTableModel) table.getModel()).getQuery();
+            if (Util.getIndexRec(table) != -1) {
+                Util.insertRecord(tab5, eFurnside2.up, (record) -> {
+                    int id = query.getAs(Util.getIndexRec(table), eFurndet.id);
+                    record.set(eFurnside2.furndet_id, id);
+                });
             }
         } else if (tab6.getBorder() != null) {
-            if (tabb1.getSelectedIndex() == 0) {
-                Util.insertRecord(tab2a, tab6, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
-            } else if (tabb1.getSelectedIndex() == 1) {
-                Util.insertRecord(tab2b, tab6, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
-            } else if (tabb1.getSelectedIndex() == 2) {
-                Util.insertRecord(tab2c, tab6, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
+            JTable table = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
+            Query query = ((DefTableModel) table.getModel()).getQuery();
+            if (Util.getIndexRec(table) != -1) {
+                Util.insertRecord(tab6, eFurnpar2.up, (record) -> {
+                    int id = query.getAs(Util.getIndexRec(table), eFurndet.id);
+                    record.set(eFurnpar2.furndet_id, id);
+                });
             }
         }
     }//GEN-LAST:event_btnInsert
