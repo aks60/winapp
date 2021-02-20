@@ -342,7 +342,7 @@ public class Furniture extends javax.swing.JFrame {
             new DicEnums(this, listenerSide4, LayoutFurn1.values());
         });
 
-        Util.buttonCellEditor(tab1, 7).addActionListener(event -> {
+        Util.buttonCellEditor(tab1, 10).addActionListener(event -> {
             new DicEnums(this, listenerVariant2, UseFurn2.values());
         });
 
@@ -950,8 +950,6 @@ public class Furniture extends javax.swing.JFrame {
         pan8.setPreferredSize(new java.awt.Dimension(300, 90));
         pan8.setLayout(new java.awt.BorderLayout());
 
-        scr4.setBorder(null);
-
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"xxxxxxxxxxxxxxx", "11"},
@@ -1001,15 +999,8 @@ public class Furniture extends javax.swing.JFrame {
         pan9.setLayout(new java.awt.BorderLayout());
 
         tabb1.setPreferredSize(new java.awt.Dimension(0, 0));
-        tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                tabbStateChanged(evt);
-            }
-        });
 
         pan11.setLayout(new java.awt.BorderLayout());
-
-        scr2a.setBorder(null);
 
         tab2a.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1038,15 +1029,14 @@ public class Furniture extends javax.swing.JFrame {
         });
         scr2a.setViewportView(tab2a);
         if (tab2a.getColumnModel().getColumnCount() > 0) {
-            tab2a.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tab2a.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab2a.getColumnModel().getColumn(1).setPreferredWidth(200);
             tab2a.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
         pan11.add(scr2a, java.awt.BorderLayout.CENTER);
 
         tabb1.addTab("Детализация (1 уровень)", pan11);
-
-        scr2c.setBorder(null);
 
         tab2c.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1067,7 +1057,8 @@ public class Furniture extends javax.swing.JFrame {
         });
         scr2c.setViewportView(tab2c);
         if (tab2c.getColumnModel().getColumnCount() > 0) {
-            tab2c.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tab2c.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab2c.getColumnModel().getColumn(1).setPreferredWidth(200);
             tab2c.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
@@ -1097,7 +1088,8 @@ public class Furniture extends javax.swing.JFrame {
         });
         scr2b.setViewportView(tab2b);
         if (tab2b.getColumnModel().getColumnCount() > 0) {
-            tab2b.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tab2b.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab2b.getColumnModel().getColumn(1).setPreferredWidth(200);
             tab2b.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
@@ -1108,7 +1100,6 @@ public class Furniture extends javax.swing.JFrame {
         pan10.setPreferredSize(new java.awt.Dimension(300, 300));
         pan10.setLayout(new java.awt.BorderLayout());
 
-        scr6.setBorder(null);
         scr6.setPreferredSize(new java.awt.Dimension(300, 200));
 
         tab6.setModel(new javax.swing.table.DefaultTableModel(
@@ -1144,7 +1135,6 @@ public class Furniture extends javax.swing.JFrame {
 
         pan10.add(scr6, java.awt.BorderLayout.CENTER);
 
-        scr5.setBorder(null);
         scr5.setPreferredSize(new java.awt.Dimension(300, 108));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
@@ -1270,22 +1260,40 @@ public class Furniture extends javax.swing.JFrame {
         }
 
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, eFurniture.up);
+            Util.insertRecord(tab1, eFurniture.up, (record) -> {
+                int types = (tbtn1.isSelected()) ? 0 : (tbtn2.isSelected()) ? 1 : -1;
+                record.set(eFurniture.types, types);
+                record.set(eFurniture.ways_use, UseFurn2.P2.id);
+            });
 
         } else if (tab2a.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab2a, eFurniture.up, eFurndet.up, eFurndet.furniture_id1);
-            record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
+            Util.insertRecord(tab2a, eFurndet.up, (record) -> {
+                int id = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
+                record.set(eFurndet.furniture_id1, id);
+                record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
+            });
 
         } else if (tab2b.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab2b, eFurniture.up, eFurndet.up, eFurndet.furniture_id1);
-            record.set(eFurndet.furndet_id, qFurndet2a.get(Util.getIndexRec(tab2a), eFurndet.id));
-
+            Util.insertRecord(tab2b, eFurndet.up, (record) -> {
+                int id1 = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
+                int id2 = qFurndet2a.getAs(Util.getIndexRec(tab2a), eFurndet.id);
+                record.set(eFurndet.furniture_id1, id1);
+                record.set(eFurndet.furndet_id, id2);
+            });
         } else if (tab2c.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab2c, eFurniture.up, eFurndet.up, eFurndet.furniture_id1);
-            record.set(eFurndet.furndet_id, qFurndet2b.get(Util.getIndexRec(tab2b), eFurndet.id));
-
+            Util.insertRecord(tab2c, eFurndet.up, (record) -> {
+                int id1 = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
+                int id2 = qFurndet2b.getAs(Util.getIndexRec(tab2b), eFurndet.id);
+                record.set(eFurndet.furniture_id1, id1);
+                record.set(eFurndet.furndet_id, id2);
+            });
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab1, tab3, eFurniture.up, eFurnside1.up, eFurnside1.furniture_id);
+            //Util.insertRecord(tab1, tab3, eFurniture.up, eFurnside1.up, eFurnside1.furniture_id);
+            Util.insertRecord(tab3, eFurnside1.up, (record) -> {
+                int id = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
+                record.set(eFurnside1.furniture_id, id);
+                //record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
+            });            
 
         } else if (tab4.getBorder() != null) {
             Record record = Util.insertRecord(tab3, tab4, eFurnside1.up, eFurnpar1.up, eFurnpar1.furnside_id);
@@ -1317,23 +1325,6 @@ public class Furniture extends javax.swing.JFrame {
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         Arrays.asList(tab2a, tab2b, tab2c).forEach(tab -> tab.clearSelection());
     }//GEN-LAST:event_btnReport
-
-    private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged
-        Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-
-        if (tabb1.getSelectedIndex() == 0) {
-            Util.updateBorderAndSql(tab2a, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
-            selectionTab2a(null);
-
-        } else if (tabb1.getSelectedIndex() == 1) {
-            Util.updateBorderAndSql(tab2b, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
-            selectionTab2b(null);
-
-        } else if (tabb1.getSelectedIndex() == 2) {
-            Util.updateBorderAndSql(tab2c, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
-            selectionTab2c(null);
-        }
-    }//GEN-LAST:event_tabbStateChanged
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
@@ -1444,7 +1435,6 @@ public class Furniture extends javax.swing.JFrame {
         setTitle(getTitle() + Util.designName());
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
-        //scr2b1.setColumnHeaderView(null);
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
@@ -1490,9 +1480,22 @@ public class Furniture extends javax.swing.JFrame {
                 }
             }
         });
-        Util.getAllComponents(this.center).forEach(c -> {
-            if (c instanceof JPanel) {
-                ((JPanel) c).setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 1, 1, 1));
+        tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+
+                if (tabb1.getSelectedIndex() == 0) {
+                    Util.updateBorderAndSql(tab2a, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+                    selectionTab2a(null);
+
+                } else if (tabb1.getSelectedIndex() == 1) {
+                    Util.updateBorderAndSql(tab2b, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+                    selectionTab2b(null);
+
+                } else if (tabb1.getSelectedIndex() == 2) {
+                    Util.updateBorderAndSql(tab2c, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+                    selectionTab2c(null);
+                }
             }
         });
     }

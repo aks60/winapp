@@ -44,6 +44,7 @@ import javax.swing.text.PlainDocument;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
 import java.util.Enumeration;
+import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -203,6 +204,16 @@ public class Util {
             return "\u001B[34m";
         } else {
             return "\u001B[0m";
+        }
+    }
+
+    //Установить бордер
+    public static void createEmptyBorder(final Container c) {
+        List<Component> comps = getAllComponents(c);
+        for (Component comp : comps) {
+            if (comp instanceof JPanel) {
+                ((JPanel) comp).setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 1, 1, 1));
+            }
         }
     }
 
@@ -521,9 +532,9 @@ public class Util {
         Query qParam = ((DefTableModel) table.getModel()).getQuery();
 
         if (component instanceof DefCellEditor) { //установим вид и тип ячейки
-            DefCellEditor editor = (DefCellEditor) component;                        
+            DefCellEditor editor = (DefCellEditor) component;
             int paramsID = qParam.getAs(getIndexRec(table), params_id);
-            
+
             if (paramsID < 0) { //пользовательский список параметров
                 editor.getButton().setVisible(true);
                 editor.getTextField().setEnabled(false);
@@ -546,7 +557,7 @@ public class Util {
         }
         return true;
     }
-    
+
     public static boolean listenerCell(JTable table1, JTable table2, Object component, JTable... tableList) {
         Query qParam1 = ((DefTableModel) table1.getModel()).getQuery();
         Query qParam2 = ((DefTableModel) table2.getModel()).getQuery();
@@ -609,7 +620,7 @@ public class Util {
             record2.set(text, ParamList.find(record.getInt(eParams.id)).def());
 
         } else if (record.size() == 2) {
-            record2.set(paramsID, record.getInt(0));           
+            record2.set(paramsID, record.getInt(0));
             record2.set(text, ParamList.find(record.getInt(0)).def());
 
         } else if (record.size() == 1) {
