@@ -121,7 +121,9 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             if (getColumnClass(columnIndex) == Boolean.class) {
                 return (val == null || val.equals(0)) ? false : true;
             }
-            return getValueAt(columnIndex, rowIndex, val);
+            if (val != null) {
+                return getValueAt(columnIndex, rowIndex, val);
+            }
         }
         return null;
     }

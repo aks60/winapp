@@ -22,6 +22,7 @@ public class Query extends Table {
     public static String SEL = "SEL";
     public static String UPD = "UPD";
     public static String DEL = "DEL";
+    private Object[] sql = null;
     public static LinkedHashSet<Query> listOpenTable = new LinkedHashSet<Query>();
 
     public Query(Query query) {
@@ -95,6 +96,7 @@ public class Query extends Table {
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet recordset = statement.executeQuery(sql);
+            this.sql = s;
             while (recordset.next()) {
                 int selector = 0;
                 for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
@@ -175,13 +177,17 @@ public class Query extends Table {
             Field[] f = fields.get(0).fields();
             String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
             System.out.println("SQL-DELETE " + sql);
-            statement.executeUpdate(sql);            
+            statement.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println("Query.delete() " + e);
             if (e.getErrorCode() == 335544466) {
                 JOptionPane.showMessageDialog(Aps.App1.frame, "Нельзя удалить запись на которую имеются ссылки из других форм", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             }
         }
+    }
+
+    public void refresh() {
+        select(sql);
     }
 
     public String execsql() {

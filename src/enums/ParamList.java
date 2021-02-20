@@ -520,6 +520,8 @@ public class ParamList {
                     this.check = (Checkparam) o;
                 } else if (o instanceof Formatter) {
                     this.formatter = (Formatter) o;
+                } else if (o instanceof Defparam) {
+                    this.defparam = (Defparam) o;
                 }
             }
         }
@@ -1043,6 +1045,8 @@ public class ParamList {
                     this.check = (Checkparam) o;
                 } else if (o instanceof Formatter) {
                     this.formatter = (Formatter) o;
+                } else if (o instanceof Defparam) {
+                    this.defparam = (Defparam) o;
                 }
             }
         }

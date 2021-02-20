@@ -56,15 +56,14 @@ public class Filling extends javax.swing.JFrame {
     private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values());
     private Query qGlaspar1 = new Query(eGlaspar1.values(), eParams.values());
     private Query qGlaspar2 = new Query(eGlaspar2.values(), eParams.values());
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3, listenerTypset, listenerThicknes;
-    private EditorListener listenerEditor;
+    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor,
+            listenerColvar1, listenerColvar2, listenerColvar3, listenerTypset, listenerThicknes;
     private String subsql = "(-1)";
 
     public Filling() {
         this.subsql = null;
         initComponents();
         initElements();
-        listenerCell();
         listenerSet();
         loadingData();
         loadingModel();
@@ -77,7 +76,6 @@ public class Filling extends javax.swing.JFrame {
         }
         initComponents();
         initElements();
-        listenerCell();
         listenerSet();
         loadingData();
         loadingModel();
@@ -91,7 +89,6 @@ public class Filling extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingData();
-        listenerCell();
         listenerSet();
         loadingModel();
         listenerAdd();
@@ -180,7 +177,7 @@ public class Filling extends javax.swing.JFrame {
     private void listenerAdd() {
         Util.buttonCellEditor(tab2, 0).addActionListener(event -> {
             Query query = new Query(eArtikl.name).select("select distinct " + eArtikl.depth.name() + " from " + eArtikl.up.tname() + " order by " + eArtikl.depth.name());
-            DicName frame = new DicName(this, listenerThicknes, query, eArtikl.name);  
+            DicName frame = new DicName(this, listenerThicknes, query, eArtikl.name);
         });
 
         Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
@@ -192,9 +189,9 @@ public class Filling extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab2, 3).addActionListener(event -> {
-            Record record = qGlasdet.get(Util.getIndexRec(tab3));
+            Record record = qGlasdet.get(Util.getIndexRec(tab2));
             int artikl_id = record.getInt(eElemdet.artikl_id);
-            ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
+            new ParColor2(this, listenerColor, artikl_id);
         });
 
         Util.buttonCellEditor(tab2, 4).addActionListener(event -> {
@@ -222,9 +219,11 @@ public class Filling extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonCellEditor(tab3, 1, listenerEditor).addActionListener(event -> {
-            Record record = qGlaspar1.get(Util.getIndexRec(tab3));
-            int grup = record.getInt(eGlaspar1.params_id);
+        Util.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
+            return Util.listenerCell(tab3, component, eGlaspar1.params_id);
+
+        }).addActionListener(event -> {
+            int grup = qGlaspar1.getAs(Util.getIndexRec(tab3), eGlaspar1.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {
@@ -243,7 +242,10 @@ public class Filling extends javax.swing.JFrame {
             }
         });
 
-        Util.buttonCellEditor(tab4, 1, listenerEditor).addActionListener(event -> {
+        Util.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
+            return Util.listenerCell(tab4, component, eGlaspar2.params_id);
+
+        }).addActionListener(event -> {
             Record record = qGlaspar2.get(Util.getIndexRec(tab4));
             int grup = record.getInt(eGlaspar1.params_id);
             if (grup < 0) {
@@ -349,13 +351,6 @@ public class Filling extends javax.swing.JFrame {
 
         listenerPar2 = (record) -> {
             Util.listenerParam(record, tab4, eGlaspar2.params_id, eGlaspar2.text, tab1, tab2, tab3, tab4, tab5);
-        };
-    }
-
-    private void listenerCell() {
-
-        listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return Util.listenerCell(tab3, tab4, component, tab1, tab2, tab3, tab4, tab5);
         };
     }
 
@@ -632,11 +627,6 @@ public class Filling extends javax.swing.JFrame {
 
         tabb1.setToolTipText("");
         tabb1.setPreferredSize(new java.awt.Dimension(1000, 300));
-        tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                tabbStateChanged(evt);
-            }
-        });
 
         pan4.setLayout(new java.awt.BorderLayout());
 
@@ -736,6 +726,8 @@ public class Filling extends javax.swing.JFrame {
         });
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab5.getColumnModel().getColumn(1).setPreferredWidth(300);
             tab5.getColumnModel().getColumn(2).setPreferredWidth(60);
             tab5.getColumnModel().getColumn(2).setMaxWidth(120);
             tab5.getColumnModel().getColumn(3).setPreferredWidth(80);
@@ -791,7 +783,10 @@ public class Filling extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        loadingData();
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -822,21 +817,39 @@ public class Filling extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, eGlasgrp.up);
+            Util.insertRecord(tab1, eGlasgrp.up, (record) -> {
+                record.set(eGlasgrp.gap, 0);
+            });
 
         } else if (tab2.getBorder() != null) {
-            Util.insertRecord(tab1, tab2, eGlasgrp.up, eGlasdet.up, eArtikl.up, eGlasdet.glasgrp_id);
+            Util.insertRecord(tab2, eGlasdet.up, (record) -> {
+                int id = qGlasgrp.getAs(Util.getIndexRec(tab1), eGlasgrp.id);
+                record.set(eGlasdet.depth, 0);
+                record.set(eGlasdet.glasgrp_id, id);
+                qGlasdet.table(eArtikl.up).add(eArtikl.up.newRecord());
+            });
 
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab1, tab3, eGlasgrp.up, eGlaspar1.up, eGlaspar1.glasgrp_id);
+            Util.insertRecord(tab3, eGlaspar1.up, (record) -> {
+                int id = qGlasgrp.getAs(Util.getIndexRec(tab1), eGlasgrp.id);
+                record.set(eGlaspar1.glasgrp_id, id);
+            });
 
         } else if (tab4.getBorder() != null) {
-            Util.insertRecord(tab2, tab4, eGlasdet.up, eGlaspar2.up, eGlaspar2.glasdet_id);
+            Util.insertRecord(tab4, eGlaspar2.up, (record) -> {
+                int id = qGlasdet.getAs(Util.getIndexRec(tab2), eGlasdet.id);
+                record.set(eGlaspar2.glasdet_id, id);
+            });
 
         } else if (tab5.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab5, eGlasgrp.up, eGlasprof.up, eArtikl.up, eGlasprof.glasgrp_id);
-            record.set(eGlasprof.inside, 1);
-            record.set(eGlasprof.outside, 1);
+            Util.insertRecord(tab5, eGlasprof.up, (record) -> {
+                int id = qGlasgrp.getAs(Util.getIndexRec(tab1), eGlasgrp.id);
+                record.set(eGlasprof.glasgrp_id, id);
+                record.set(eGlasprof.gsize, .0);
+                record.set(eGlasprof.inside, 1);
+                record.set(eGlasprof.outside, 1);
+                qGlasprof.table(eArtikl.up).add(eArtikl.up.newRecord());
+            });
         }
     }//GEN-LAST:event_btnInsert
 
@@ -866,14 +879,6 @@ public class Filling extends javax.swing.JFrame {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
         }
     }//GEN-LAST:event_filterCaretUpdate
-
-    private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged
-        if (tabb1.getSelectedIndex() == 0) {
-            Util.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
-        } else if (tabb1.getSelectedIndex() == 1) {
-            Util.updateBorderAndSql(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
-        }
-    }//GEN-LAST:event_tabbStateChanged
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         Record record = ((DefTableModel) tab2.getModel()).getQuery().get(Util.getIndexRec(tab2));
@@ -941,6 +946,15 @@ public class Filling extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab2(event);
+                }
+            }
+        });
+        tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                if (tabb1.getSelectedIndex() == 0) {
+                    Util.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+                } else if (tabb1.getSelectedIndex() == 1) {
+                    Util.updateBorderAndSql(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
                 }
             }
         });

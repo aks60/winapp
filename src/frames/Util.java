@@ -347,9 +347,9 @@ public class Util {
         record.setNo(field.fields()[1], ConnApp.instanc().genId(field));
         query.add(record);
         preset.action(record);
-        //((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
-        ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        //Util.scrollRectToVisible(query, table);
+        ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
+        Util.scrollRectToVisible(query, table);
+        //Util.setSelectedRow(table, query.size() - 1);
         return record;
     }
 
@@ -478,7 +478,7 @@ public class Util {
     }
 
     //Инкапсуляция кнопки в ячейку таблицы
-    public static JButton buttonCellEditor(JTable table, int column) { //TODO Заменить индекс столбца на Field в пакете frame
+    public static JButton buttonCellEditor(JTable table, int column) {
         JButton btn = new JButton("...");
         table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditor(btn));
         return btn;
@@ -600,31 +600,32 @@ public class Util {
     //Слушатель редактирование параметров
     public static void listenerParam(Record record, JTable table, Field paramsID, Field text, JTable... tables) {
         Util.stopCellEditing(tables);
-        int row = getIndexRec(table);
+        int index = getIndexRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record2 = query.get(Util.getIndexRec(table));
 
         if (eParams.values().length == record.size()) {
             record2.set(paramsID, record.getInt(eParams.id));
-            record2.set(text, null);
+            record2.set(text, ParamList.find(record.getInt(eParams.id)).def());
 
         } else if (record.size() == 2) {
-            record2.set(paramsID, record.get(0));
-            record2.set(text, null);
+            record2.set(paramsID, record.getInt(0));           
+            record2.set(text, ParamList.find(record.getInt(0)).def());
 
         } else if (record.size() == 1) {
             record2.set(text, record.getStr(0));
+            System.out.println("УРА!!! Я НАШОЛ ТЕБЯ.");
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(table, row);
+        Util.setSelectedRow(table, index);
     }
 
     //Слушатель редактирование палитры
     public static void listenerColor(Record record, JTable table, Field color_fk, Field types, JTable... tables) {
         Util.stopCellEditing(tables);
-        int row = getIndexRec(table);
+        int index = getIndexRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
-        Record elemdetRec = query.get(row);
+        Record elemdetRec = query.get(index);
         int group = (eGroups.values().length == record.size()) ? (-1 * record.getInt(eGroups.id)) : record.getInt(0);
         elemdetRec.set(color_fk, group);
         if (group == 0 || group == 100000) {
@@ -637,7 +638,7 @@ public class Util {
             elemdetRec.set(types, val);
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(table, row);
+        Util.setSelectedRow(table, index);
     }
 
     public static void listenerEnums(Record record, JTable table, Field field_fk, JTable... tables) {

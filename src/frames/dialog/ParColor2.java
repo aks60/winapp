@@ -49,7 +49,7 @@ public class ParColor2 extends javax.swing.JDialog {
                 for (Record record1 : qColor) {
                     tableModel.addRow(new String[]{record1.getStr(eColor.id), record1.getStr(eColor.name)});
                 }
-            } else if (record.getInt(eArtdet.color_fk) > 0) {
+            } else if (record.getInt(eArtdet.color_fk) < 0) {
                 int colgrp_id = Math.abs(record.getInt(eArtdet.color_fk));
                 Query qColor = new Query(eColor.id, eColor.name).select(eColor.up, "where", eColor.colgrp_id, "=", colgrp_id);
                 for (Record record1 : qColor) {

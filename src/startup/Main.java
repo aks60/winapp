@@ -8,6 +8,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+//TODO  ВАЖНО!!! В DefTableModelюgetValueAt.getValueAt удалить проверку на null
 public class Main {
 
     public static boolean dev = false;

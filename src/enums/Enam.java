@@ -37,6 +37,10 @@ public interface Enam {
     default List<String> dict() {
         return null;
     }
+    
+    default String def() {
+        return null;
+    }
 
     default AbstractFormatterFactory format() {
         return null;

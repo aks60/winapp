@@ -310,7 +310,6 @@ public class ParGrup2 extends javax.swing.JDialog {
             record.add(tab1.getModel().getValueAt(Util.getIndexRec(tab1), 1));
             listener.action(record);
         } else {
-            Object obj = qParams.get(Util.getIndexRec(tab2));
             listener.action(qParams.get(Util.getIndexRec(tab2)));
         }
         this.dispose();
