@@ -360,7 +360,6 @@ public class Util {
         preset.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
         Util.scrollRectToVisible(query, table);
-        //Util.setSelectedRow(table, query.size() - 1);
         return record;
     }
 

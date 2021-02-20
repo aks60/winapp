@@ -953,13 +953,13 @@ public class Element extends javax.swing.JFrame {
                 qElement.table(eArtikl.up).add(record2);
             });
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab3, eElemdet.up, (record) -> {
-                int id = qElement.getAs(Util.getIndexRec(tab2), eElement.id);
-                record.set(eElemdet.element_id, id);
-                Record record2 = eArtikl.up.newRecord();
-                qElemdet.table(eArtikl.up).add(record2);
-            });
-
+            if (Util.getIndexRec(tab2) != -1) {
+                Util.insertRecord(tab3, eElemdet.up, (record) -> {
+                    record.set(eElemdet.element_id, qElement.get(Util.getIndexRec(tab2), eElement.id));
+                    Record record2 = eArtikl.up.newRecord();
+                    qElemdet.table(eArtikl.up).add(record2);
+                });
+            }
         } else if (tab4.getBorder() != null) {
             Util.insertRecord(tab4, eElempar1.up, (record) -> {
                 int id = qElement.getAs(Util.getIndexRec(tab2), eElement.id);
