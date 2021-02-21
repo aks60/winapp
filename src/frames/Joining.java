@@ -469,11 +469,11 @@ public class Joining extends javax.swing.JFrame {
                     if (qDet.get(index3).getInt(eJoindet.id) == deteilID) {
 
                         Util.setSelectedRow(tab1, index);
-                        Util.scrollRectToVisible(index, tab1);
+                        Util.scrollRectToRow(index, tab1);
                         Util.setSelectedRow(tab2, index2);
-                        Util.scrollRectToVisible(index2, tab2);
+                        Util.scrollRectToRow(index2, tab2);
                         Util.setSelectedRow(tab4, index3);
-                        Util.scrollRectToVisible(index3, tab3);
+                        Util.scrollRectToRow(index3, tab3);
                         return;
                     }
                 }

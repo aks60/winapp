@@ -391,7 +391,7 @@ public class Kits extends javax.swing.JFrame {
             kitdetRec.setNo(eKitdet.kits_id, kitsRec.getInt(eKits.id));
             qKitdet.add(kitdetRec);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qKitdet, tab2);
+            Util.scrollRectToIndex(qKitdet.size() - 1, tab2);
 
         } else if (tab3.getBorder() != null) {
             int index = Util.getIndexRec(tab2);
@@ -401,7 +401,7 @@ public class Kits extends javax.swing.JFrame {
             kitpar1Rec.setNo(eKitpar1.kitdet_id, kitdetRec.getInt(eKitdet.id));
             qKitpar1.add(kitpar1Rec);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qKitpar1, tab3);
+            Util.scrollRectToIndex(qKitpar1.size() - 1, tab3);
         }
     }//GEN-LAST:event_btnInsert
 

@@ -61,6 +61,7 @@ public class Util {
     private static SimpleDateFormat simpledateFormat = null; //"yyyy-MM-dd" формат только для баз где даты utf8
     private static int mes = 0;
 
+    // <editor-fold defaultstate="collapsed" desc="Работа с датой..."> 
     public static void setSimpleDateFormat(SimpleDateFormat _simpledateFormat) {
         simpledateFormat = _simpledateFormat;
     }
@@ -137,9 +138,10 @@ public class Util {
         appCalendar = (java.util.GregorianCalendar) obj;
     }
 
-    public static GregorianCalendar getGregorianCalendar() {
+    public static GregorianCalendar сalendar() {
         return appCalendar;
     }
+// </editor-fold> 
 
     public static Font getFont(int size, int bold) {
         return new Font(eProperty.fontname.read(), bold, Integer.valueOf(eProperty.fontsize.read()) + size);
@@ -165,24 +167,19 @@ public class Util {
         }
     }
 
-    public static String subStr(String str, int indexBeg, int indexEnd) {
-        if (str.length() < indexBeg) {
-            return str;
-        } else if (str.length() < indexEnd) {
-            return str.substring(indexBeg, str.length());
-        } else {
-            return str.substring(indexBeg, indexEnd);
-        }
-    }
-
     public static String designName() {
         try {
-            Object obj = eProperty.sysprodID.read();
             int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
             Record sysprodRec = eSysprod.find(sysprodID);
-            return (sysprodRec == null) ? "" : " Конструкция: "
-                    + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), "") + "/"
-                    + subStr(sysprodRec.getStr(eSysprod.name), 6, 128);
+            String str = sysprodRec.getStr(eSysprod.name);
+            if (str.length() > 6) {
+                if (str.length() < 128) {
+                    str = str.substring(6, str.length());
+                } else {
+                    str = str.substring(6, 128);
+                }
+            }
+            return (sysprodRec == null) ? "" : " Конструкция: " + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), "") + "/" + str;
         } catch (Exception e) {
             System.err.println("frames.Util.designName() " + e);
             return "";
@@ -293,15 +290,13 @@ public class Util {
     }
 
     //Прокрутить скроллинг и сделать ячейку видимой
-    public static void scrollRectToVisible(Query query, JTable table) {
-        if (table.getRowCount() > 1) {
-            Rectangle cellRect = table.getCellRect(query.size() - 1, 0, false);
-            table.scrollRectToVisible(cellRect);
-        }
+    public static void scrollRectToIndex(int index, JTable table) {
+        int row = table.convertRowIndexToView(index);
+        scrollRectToRow(row, table);
     }
 
     //Прокрутить скроллинг и сделать ячейку видимой
-    public static void scrollRectToVisible(int row, JTable table) {
+    public static void scrollRectToRow(int row, JTable table) {
         if (table.getRowCount() > row) {
             Rectangle cellRect = table.getCellRect(row, 0, false);
             table.scrollRectToVisible(cellRect);
@@ -316,13 +311,13 @@ public class Util {
     }
 
     //Выделить запись
-    public static void setSelectedRow(JTable table, int rowModel) {
+    public static void setSelectedRow(JTable table, int index) {
         if (table.getRowCount() > 0) {
 
-            int rowTable = table.convertRowIndexToView(rowModel);
-            if (rowTable < table.getRowCount()) {
+            int row = table.convertRowIndexToView(index);
+            if (row < table.getRowCount()) {
 
-                table.setRowSelectionInterval(rowTable, rowTable);
+                table.setRowSelectionInterval(row, row);
             } else {
                 table.setRowSelectionInterval(0, 0);
             }
@@ -353,30 +348,7 @@ public class Util {
         query.add(record);
         preset.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
-        Util.scrollRectToVisible(query, table);
-    }
-
-    //Вставить запись
-    public static Record insertRecord(JTable table1, JTable table2, Field up1, Field up2, Field up3, Field fk2) {
-
-        int row = getIndexRec(table1);
-        if (row != -1) {
-            Query query1 = ((DefTableModel) table1.getModel()).getQuery();
-            Query query2 = ((DefTableModel) table2.getModel()).getQuery();
-            Record record1 = query1.get(row);
-            Record record2 = ((DefTableModel) table2.getModel()).getQuery().fields().get(0).newRecord(Query.INS);
-            Record record3 = up3.newRecord();
-            record2.setNo(up2.fields()[1], ConnApp.instanc().genId(up2));
-            record2.setNo(fk2, record1.getInt(up1.fields()[1]));
-            query2.add(record2);
-            query2.table(up3).add(record3);
-            ((DefaultTableModel) table2.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(query2, table2);
-            return record2;
-        } else {
-            JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
-            return null;
-        }
+        Util.scrollRectToIndex(query.size() - 1, table);
     }
 
     //Удалить запись
@@ -544,7 +516,7 @@ public class Util {
 
         } else if (record.size() == 1) {
             System.out.println("УРА!!! Я НАШОЛ ТЕБЯ.");
-            record2.set(text, record.getStr(0));            
+            record2.set(text, record.getStr(0));
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Util.setSelectedRow(table, index);

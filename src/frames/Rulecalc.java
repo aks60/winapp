@@ -71,8 +71,8 @@ public class Rulecalc extends javax.swing.JFrame {
                 Util.stopCellEditing(tab2);
                 int val = artiklRec.getInt(eArtikl.level1) * 100 + artiklRec.getInt(eArtikl.level2);
                 qRulecalc.set(val, Util.getIndexRec(tab2), eRulecalc.type);
-                ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());                
-             }, 1, 2, 3, 4, 5);
+                ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
+            }, 1, 2, 3, 4, 5);
         });
 
         Util.buttonCellEditor(tab2, 2).addActionListener(event -> {
@@ -370,7 +370,7 @@ public class Rulecalc extends javax.swing.JFrame {
             qRulecalc.add(rulecalcRec);
             qRulecalc.table(eArtikl.up).add(artiklRec);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qRulecalc, tab2);
+            Util.scrollRectToIndex(qRulecalc.size() - 1, tab2);
         }
     }//GEN-LAST:event_btnInsert
 

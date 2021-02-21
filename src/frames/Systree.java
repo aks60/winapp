@@ -440,7 +440,7 @@ public class Systree extends javax.swing.JFrame {
             for (int index = 0; index < qSysprod.size(); ++index) {
                 if (qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)) {
                     Util.setSelectedRow(tab5, index);
-                    Util.scrollRectToVisible(index, tab5);
+                    Util.scrollRectToRow(index, tab5);
                     windowsTree.setSelectionRow(0);
                 }
             }

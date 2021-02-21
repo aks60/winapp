@@ -469,9 +469,9 @@ public class Element extends javax.swing.JFrame {
             for (int index2 = 0; index2 < qDet.size(); index2++) {
                 if (qDet.get(index2).getInt(eElemdet.id) == deteilID) {
                     Util.setSelectedRow(tab2, index);
-                    Util.scrollRectToVisible(index, tab2);
+                    Util.scrollRectToRow(index, tab2);
                     Util.setSelectedRow(tab3, index2);
-                    Util.scrollRectToVisible(index2, tab3);
+                    Util.scrollRectToRow(index2, tab3);
                 }
             }
         }
@@ -997,7 +997,7 @@ public class Element extends javax.swing.JFrame {
                 if (qGrCateg.get(i).getInt(eGroups.id) == id) {
                     Util.setSelectedRow(tab1, i - 1);
                     ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(i - 1, i - 1);
-                    Util.scrollRectToVisible(i, tab1);
+                    Util.scrollRectToRow(i, tab1);
                     break;
                 }
             }
@@ -1005,7 +1005,12 @@ public class Element extends javax.swing.JFrame {
     }//GEN-LAST:event_ppmCategAction
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        Util.scrollRectToVisible(qElement, tab2);
+
+        //int index = Util.get;
+        int row = tab2.getRowCount()-1;
+        Util.scrollRectToRow(row, tab2);
+        Util.setSelectedRow(tab1, row);
+
     }//GEN-LAST:event_btnReport
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed

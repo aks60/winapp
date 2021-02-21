@@ -574,17 +574,17 @@ public class Furniture extends javax.swing.JFrame {
         }
         tbtnAction(null);
         Util.setSelectedRow(tab1, iFurn);
-        Util.scrollRectToVisible(iFurn, tab1);
+        Util.scrollRectToRow(iFurn, tab1);
         Util.setSelectedRow(tab2a, iDet2a);
         Util.setSelectedRow(tab2b, iDet2b);
         Util.setSelectedRow(tab2c, iDet2c);
         tabb1.setSelectedIndex(iTabb);
         if (iTabb == 0) {
-            Util.scrollRectToVisible(iDet2a, tab2a);
+            Util.scrollRectToRow(iDet2a, tab2a);
         } else if (iTabb == 1) {
-            Util.scrollRectToVisible(iDet2b, tab2b);
+            Util.scrollRectToRow(iDet2b, tab2b);
         } else {
-            Util.scrollRectToVisible(iDet2c, tab2c);
+            Util.scrollRectToRow(iDet2c, tab2c);
         }
 
     }
@@ -1247,14 +1247,6 @@ public class Furniture extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
-        if (tab2b.getBorder() != null && Util.getIndexRec(tab2a) == -1) {
-            JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
-            return;
-        } else if (tab2c.getBorder() != null && Util.getIndexRec(tab2b) == -1) {
-            JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
-            return;
-        }
-
         if (tab1.getBorder() != null) {
             Util.insertRecord(tab1, eFurniture.up, (record) -> {
                 int types = (tbtn1.isSelected()) ? 0 : (tbtn2.isSelected()) ? 1 : -1;
@@ -1262,27 +1254,41 @@ public class Furniture extends javax.swing.JFrame {
                 record.set(eFurniture.ways_use, UseFurn2.P2.id);
             });
 
-        } else if (tab2a.getBorder() != null && tab5 == null && tab6 == null) {
-            Util.insertRecord(tab2a, eFurndet.up, (record) -> {
-                int id = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
-                record.set(eFurndet.furniture_id1, id);
-                record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
-            });
+        } else if (tab2a.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
+            if (Util.getIndexRec(tab1) != -1) {
+                Util.insertRecord(tab2a, eFurndet.up, (record) -> {
+                    int id = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
+                    record.set(eFurndet.furniture_id1, id);
+                    record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
+                });
+            } else {
+                JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
+            }
 
-        } else if (tab2b.getBorder() != null && tab5 == null && tab6 == null) {
-            Util.insertRecord(tab2b, eFurndet.up, (record) -> {
-                int id1 = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
-                int id2 = qFurndet2a.getAs(Util.getIndexRec(tab2a), eFurndet.id);
-                record.set(eFurndet.furniture_id1, id1);
-                record.set(eFurndet.furndet_id, id2);
-            });
-        } else if (tab2c.getBorder() != null && tab5 == null && tab6 == null) {
-            Util.insertRecord(tab2c, eFurndet.up, (record) -> {
-                int id1 = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
-                int id2 = qFurndet2b.getAs(Util.getIndexRec(tab2b), eFurndet.id);
-                record.set(eFurndet.furniture_id1, id1);
-                record.set(eFurndet.furndet_id, id2);
-            });
+        } else if (tab2b.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
+            if (Util.getIndexRec(tab1) != -1 && Util.getIndexRec(tab2a) != -1) {
+                Util.insertRecord(tab2b, eFurndet.up, (record) -> {
+                    int id1 = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
+                    int id2 = qFurndet2a.getAs(Util.getIndexRec(tab2a), eFurndet.id);
+                    record.set(eFurndet.furniture_id1, id1);
+                    record.set(eFurndet.furndet_id, id2);
+                });
+            } else {
+                JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
+            }
+
+        } else if (tab2c.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
+            if (Util.getIndexRec(tab1) != -1 && Util.getIndexRec(tab2b) != -1) {
+                Util.insertRecord(tab2c, eFurndet.up, (record) -> {
+                    int id1 = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
+                    int id2 = qFurndet2b.getAs(Util.getIndexRec(tab2b), eFurndet.id);
+                    record.set(eFurndet.furniture_id1, id1);
+                    record.set(eFurndet.furndet_id, id2);
+                });
+            } else {
+                JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
+            }
+
         } else if (tab3.getBorder() != null) {
             Util.insertRecord(tab3, eFurnside1.up, (record) -> {
                 int id = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);

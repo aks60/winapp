@@ -444,7 +444,7 @@ public class Artikles extends javax.swing.JFrame {
             int id = qArtikl.getAs(index, eArtikl.id);
             if (id == artiklRec.getInt(eArtikl.id)) {
                 Util.setSelectedRow(tab1, index);
-                Util.scrollRectToVisible(index, tab1);
+                Util.scrollRectToRow(index, tab1);
             }
         }
     }
@@ -2361,7 +2361,7 @@ public class Artikles extends javax.swing.JFrame {
                 artdetRec.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
                 qArtdet.add(artdetRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.scrollRectToVisible(qArtdet, tab2);
+                Util.scrollRectToRow(tab2.getSelectedRow() - 1, tab2);
             }
         }
     }//GEN-LAST:event_btnInsert

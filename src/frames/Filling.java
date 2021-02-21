@@ -396,9 +396,9 @@ public class Filling extends javax.swing.JFrame {
             for (int index2 = 0; index2 < qDet.size(); index2++) {
                 if (qDet.get(index2).getInt(eGlasdet.id) == deteilID) {
                     Util.setSelectedRow(tab1, index);
-                    Util.scrollRectToVisible(index, tab1);
+                    Util.scrollRectToRow(index, tab1);
                     Util.setSelectedRow(tab2, index2);
-                    Util.scrollRectToVisible(index2, tab2);
+                    Util.scrollRectToRow(index2, tab2);
                 }
             }
         }
