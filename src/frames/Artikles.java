@@ -2492,7 +2492,7 @@ public class Artikles extends javax.swing.JFrame {
                 String str = (typeArt.id2 == 0) ? typeArt.name + ":" : "      " + typeArt.name;
                 list.add(str);
             }
-            javax.swing.ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif"));
+            //javax.swing.ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif"));
             Object result = JOptionPane.showInputDialog(Artikles.this, artiklRec.getStr(eArtikl.name),
                     "Изменение типа артикула", JOptionPane.QUESTION_MESSAGE, null, list.toArray(), list.toArray()[0]);
 

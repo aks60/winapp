@@ -1,7 +1,6 @@
 package frames;
 
 import common.DialogListener;
-import common.EditorListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
@@ -36,21 +35,22 @@ import enums.ParamList;
 import enums.LayoutFurn1;
 import enums.UseFurn3;
 import enums.LayoutFurn3;
+import enums.TypeArtikl;
 import enums.TypeGroups;
 import enums.UseColor;
 import enums.UseFurn1;
 import enums.UseFurn2;
 import frames.swing.BooleanRenderer;
 import java.awt.Rectangle;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.RowFilter;
 import startup.Main;
 import startup.Aps;
+import javax.swing.JOptionPane;
 
 public class Furniture extends javax.swing.JFrame {
 
@@ -643,7 +643,7 @@ public class Furniture extends javax.swing.JFrame {
         tbtn1 = new javax.swing.JToggleButton();
         tbtn2 = new javax.swing.JToggleButton();
         tbtn3 = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
+        btnSet = new javax.swing.JButton();
         center = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
@@ -814,12 +814,12 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c052.gif"))); // NOI18N
-        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jButton1.setPreferredSize(new java.awt.Dimension(18, 25));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c040.gif"))); // NOI18N
+        btnSet.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSet.setPreferredSize(new java.awt.Dimension(16, 25));
+        btnSet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnInser2(evt);
             }
         });
 
@@ -831,7 +831,7 @@ public class Furniture extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -846,7 +846,7 @@ public class Furniture extends javax.swing.JFrame {
                 .addComponent(tbtn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 383, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -867,7 +867,7 @@ public class Furniture extends javax.swing.JFrame {
                                     .addComponent(tbtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tbtn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tbtn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnSet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1342,7 +1342,7 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        Arrays.asList(tab2a, tab2b, tab2c).forEach(tab -> tab.clearSelection());
+        btnSet.setVisible(!btnSet.isVisible());
     }//GEN-LAST:event_btnReport
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
@@ -1406,9 +1406,38 @@ public class Furniture extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbtnAction
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println("frames.Furniture.jButton1ActionPerformed()");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnInser2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInser2
+        if (tab2a.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
+            if (Util.getIndexRec(tab1) != -1) {
+                List list = new LinkedList();
+                for (Record record : qFurnall) {
+                    if (record.getInt(eFurniture.types) == -1) {
+                        list.add(record.getStr(eFurniture.name));
+                    }
+                }
+                Object result = JOptionPane.showInputDialog(Furniture.this, "Выбор набора",
+                        "Наборы", JOptionPane.QUESTION_MESSAGE, null, list.toArray(), list.toArray()[0]);
+
+                if (result != null) {
+                    for (Record record2 : qFurnall) {
+                        if (result.equals(record2.get(eFurniture.name))) {
+
+                            Util.insertRecord(tab2a, eFurndet.up, (record) -> {
+                                int id = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
+                                record.set(eFurndet.furniture_id1, id);
+                                record.set(eFurndet.furniture_id2, record2.getInt(eFurniture.id));
+                                record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
+                                record.set(eFurndet.color_fk, 0);
+                                record.set(eFurndet.types, 1);
+                            });
+                        }
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
+            }
+        }
+    }//GEN-LAST:event_btnInser2
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -1417,10 +1446,10 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
+    private javax.swing.JButton btnSet;
     private javax.swing.JPanel center;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.ButtonGroup group1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
