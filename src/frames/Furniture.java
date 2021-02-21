@@ -504,6 +504,8 @@ public class Furniture extends javax.swing.JFrame {
             qFurndet2a.select(eFurndet.up, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.furndet_id, "=", eFurndet.id);
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3);
+            Util.setSelectedRow(tab2a);
         }
     }
 
@@ -1260,21 +1262,21 @@ public class Furniture extends javax.swing.JFrame {
                 record.set(eFurniture.ways_use, UseFurn2.P2.id);
             });
 
-        } else if (tab2a.getBorder() != null) {
+        } else if (tab2a.getBorder() != null && tab5 == null && tab6 == null) {
             Util.insertRecord(tab2a, eFurndet.up, (record) -> {
                 int id = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
                 record.set(eFurndet.furniture_id1, id);
                 record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
             });
 
-        } else if (tab2b.getBorder() != null) {
+        } else if (tab2b.getBorder() != null && tab5 == null && tab6 == null) {
             Util.insertRecord(tab2b, eFurndet.up, (record) -> {
                 int id1 = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
                 int id2 = qFurndet2a.getAs(Util.getIndexRec(tab2a), eFurndet.id);
                 record.set(eFurndet.furniture_id1, id1);
                 record.set(eFurndet.furndet_id, id2);
             });
-        } else if (tab2c.getBorder() != null) {
+        } else if (tab2c.getBorder() != null && tab5 == null && tab6 == null) {
             Util.insertRecord(tab2c, eFurndet.up, (record) -> {
                 int id1 = qFurniture.getAs(Util.getIndexRec(tab1), eFurniture.id);
                 int id2 = qFurndet2b.getAs(Util.getIndexRec(tab2b), eFurndet.id);
@@ -1325,7 +1327,11 @@ public class Furniture extends javax.swing.JFrame {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Util.updateBorderAndSql(table, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+        if (table == tab5 || table == tab6) {
+            Util.updateBorderAndSql(table, Arrays.asList(tab1, tab3, tab4, tab5, tab6));
+        } else {
+            Util.updateBorderAndSql(table, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+        }
         if (table == tab2a) {
             selectionTab2a(null);
         } else if (table == tab2b) {
