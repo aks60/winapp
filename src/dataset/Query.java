@@ -171,19 +171,21 @@ public class Query extends Table {
         }
     }
 
-    public void delete(Record record) {
+    public boolean delete(Record record) {
         try {
             Statement statement = connection.createStatement();
             Field[] f = fields.get(0).fields();
             String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
             System.out.println("SQL-DELETE " + sql);
-            statement.executeUpdate(sql);
+            statement.executeUpdate(sql);            
         } catch (SQLException e) {
             System.out.println("Query.delete() " + e);
             if (e.getErrorCode() == 335544466) {
-                JOptionPane.showMessageDialog(Aps.App1.frame, "Нельзя удалить запись на которую имеются ссылки из других форм", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(Aps.App1.frame, "Нельзя удалить запись на которую имеются ссылки из других форм", "SQL предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                return false;
             }
         }
+        return true;
     }
 
     public void refresh() {

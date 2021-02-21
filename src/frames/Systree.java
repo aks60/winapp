@@ -159,8 +159,8 @@ public class Systree extends javax.swing.JFrame {
 
     private void loadingSys() {
         Record recordRoot = eSystree.up.newRecord(Query.SEL);
-        recordRoot.set(eSystree.id, 0);
-        recordRoot.set(eSystree.parent_id, 0);
+        recordRoot.set(eSystree.id, -1);
+        recordRoot.set(eSystree.parent_id, -1);
         recordRoot.set(eSystree.name, "Дерево системы профилей");
         rootTree = new DefMutableTreeNode(recordRoot);
         ArrayList<DefMutableTreeNode> treeList = new ArrayList();
@@ -2244,10 +2244,13 @@ public class Systree extends javax.swing.JFrame {
         if (systreeNode != null) {
             if (systemTree.getBorder() != null) {
                 Record record = eSystree.up.newRecord(Query.INS);
-                record.setNo(eSystree.id, ConnApp.instanc().genId(eSystree.id));
-                int parent_id = (systreeNode.rec().getInt(eSystree.id) == systreeNode.rec().getInt(eSystree.parent_id)) ? record.getInt(eSystree.id) : systreeNode.rec().getInt(eSystree.id);
+                int id = ConnApp.instanc().genId(eSystree.id);
+                record.setNo(eSystree.id, id);
+                //int parent_id = (systreeNode.rec().getInt(eSystree.id) == systreeNode.rec().getInt(eSystree.parent_id))
+                //        ? record.getInt(eSystree.id) : systreeNode.rec().getInt(eSystree.id);
+                int parent_id = (systreeNode.rec().getInt(eSystree.id) == -1) ? id : systreeNode.rec().getInt(eSystree.id);
                 record.setNo(eSystree.parent_id, parent_id);
-                record.setNo(eSystree.name, "P" + record.getStr(eSystree.id));
+                record.setNo(eSystree.name, "P" + id + "." + parent_id);
                 qSystree.insert(record); //record сохраним в базе
                 record.set(eSystree.up, Query.SEL);
                 qSystree.add(record); //добавим record в список
@@ -2275,7 +2278,7 @@ public class Systree extends javax.swing.JFrame {
             } else if (tab4.getBorder() != null) {
                 Util.insertRecord(tab4, eSyspar1.up, (record) -> {
                     record.set(eSyspar1.systree_id, systreeID);
-                });                
+                });
 
             } else if (tab5.getBorder() != null) {
                 if (systreeNode != null && systreeNode.isLeaf()) {
@@ -2301,14 +2304,16 @@ public class Systree extends javax.swing.JFrame {
                 DefMutableTreeNode parentNode = (DefMutableTreeNode) systreeNode.getParent();
                 if (JOptionPane.showConfirmDialog(this, "Хотите удалить " + systreeNode + "?", "Подтвердите удаление",
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null) == 0) {
-                    systreeNode.rec().set(eSystree.up, Query.DEL);
-                    qSystree.delete(systreeNode.rec());
-                    qSystree.remove(systreeNode.rec());
-                    ((DefaultTreeModel) systemTree.getModel()).removeNodeFromParent(systreeNode);
-                    if (parentNode != null) {
-                        TreeNode[] nodes = ((DefaultTreeModel) systemTree.getModel()).getPathToRoot(parentNode);
-                        systemTree.scrollPathToVisible(new TreePath(nodes));
-                        systemTree.setSelectionPath(new TreePath(nodes));
+                    Util.stopCellEditing(systemTree);
+                    if (qSystree.delete(systreeNode.rec())) {
+                        
+                        qSystree.remove(systreeNode.rec());
+                        ((DefaultTreeModel) systemTree.getModel()).removeNodeFromParent(systreeNode);
+                        if (parentNode != null) {
+                            TreeNode[] nodes = ((DefaultTreeModel) systemTree.getModel()).getPathToRoot(parentNode);
+                            systemTree.scrollPathToVisible(new TreePath(nodes));
+                            systemTree.setSelectionPath(new TreePath(nodes));
+                        }
                     }
                 }
             }

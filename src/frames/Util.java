@@ -171,15 +171,18 @@ public class Util {
         try {
             int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
             Record sysprodRec = eSysprod.find(sysprodID);
-            String str = sysprodRec.getStr(eSysprod.name);
-            if (str.length() > 6) {
-                if (str.length() < 128) {
-                    str = str.substring(6, str.length());
-                } else {
-                    str = str.substring(6, 128);
+            if (sysprodRec != null) {
+                String str = sysprodRec.getStr(eSysprod.name);
+                if (str.length() > 6) {
+                    if (str.length() < 128) {
+                        str = str.substring(6, str.length());
+                    } else {
+                        str = str.substring(6, 128);
+                    }
                 }
+                return (sysprodRec == null) ? "" : " Конструкция: " + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), "") + "/" + str;
             }
-            return (sysprodRec == null) ? "" : " Конструкция: " + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), "") + "/" + str;
+            return "";
         } catch (Exception e) {
             System.err.println("frames.Util.designName() " + e);
             return "";
