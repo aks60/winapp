@@ -24,14 +24,14 @@ public class DicArtikl extends javax.swing.JDialog {
     public DicArtikl(java.awt.Frame parent, DialogListener listenet, List<Record> list) {
         super(parent, true);
         initComponents();
-        initElements();        
+        initElements();
         qArtikl.addAll(list);
         this.listener = listenet;
         this.list = list;
         loadingModel();
         setVisible(true);
     }
-    
+
     public DicArtikl(java.awt.Frame parent, DialogListener listenet, int... level) {
         super(parent, true);
         initComponents();
@@ -39,7 +39,7 @@ public class DicArtikl extends javax.swing.JDialog {
         String p1 = Arrays.toString(level).split("[\\[\\]]")[1];
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
         this.listener = listenet;
-        loadingModel();        
+        loadingModel();
         setVisible(true);
     }
 
@@ -47,15 +47,15 @@ public class DicArtikl extends javax.swing.JDialog {
         super(parent, true);
         initComponents();
         initElements();
-        Query qFurndet = new Query(eFurndet.id, eArtikl.id).select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, 
+        Query qFurndet = new Query(eFurndet.id, eArtikl.id).select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id,
                 "where", eFurndet.furniture_id1, "=", furnId, "and", eArtikl.level1, "=", level1, "and", eArtikl.level2, "=", level2);
         String arr = qFurndet.table(eArtikl.up).stream().map(rec -> rec.getStr(eArtikl.id)).collect(Collectors.joining(",", "(", ")"));
-        qArtikl.select(eArtikl.up).select(eArtikl.up, "where", eArtikl.id, "in", arr);       
+        qArtikl.select(eArtikl.up).select(eArtikl.up, "where", eArtikl.id, "in", arr);
         this.listener = listenet;
         loadingModel();
         setVisible(true);
     }
-    
+
     private void loadingModel() {
 
         new DefTableModel(tab2, qArtikl, eArtikl.level2, eArtikl.code, eArtikl.name) {
@@ -63,7 +63,8 @@ public class DicArtikl extends javax.swing.JDialog {
                 Field field = columns[col];
                 if (field == eArtikl.level2) {
                     Record record = qArtikl.get(row);
-                    return TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
+                    return TypeArtikl.find(record.getInt(eArtikl.level1), 0) + "."
+                            + TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
                 }
                 return val;
             }
@@ -146,7 +147,7 @@ public class DicArtikl extends javax.swing.JDialog {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 531, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -173,7 +174,7 @@ public class DicArtikl extends javax.swing.JDialog {
         south.setLayout(southLayout);
         southLayout.setHorizontalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 355, Short.MAX_VALUE)
+            .addGap(0, 636, Short.MAX_VALUE)
         );
         southLayout.setVerticalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,10 +214,9 @@ public class DicArtikl extends javax.swing.JDialog {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(0).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(110);
-            tab2.getColumnModel().getColumn(1).setMaxWidth(160);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(20);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
         }
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);
