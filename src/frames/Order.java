@@ -1,23 +1,33 @@
 package frames;
 
-import common.FrameListener;
 import common.FrameToFile;
 import dataset.Query;
 import domain.eOrders;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import javax.swing.Icon;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
+import java.util.Arrays;
+import java.util.stream.Stream;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
 
 public class Order extends javax.swing.JFrame {
 
-    private Query qOrders = new Query(eOrders.values()).select(eOrders.up, "order by", eOrders.numb);
+    private Query qOrders = new Query(eOrders.values());
 
     public Order() {
         initComponents();
         initElements();
+        loadingData();
+        loadingModel();
+    }
 
+    private void loadingData() {
+        qOrders.select(eOrders.up, "order by", eOrders.numb);
+    }
+
+    private void loadingModel() {
         new DefTableModel(tab1, qOrders, eOrders.numb, eOrders.partner_id, eOrders.manager_id, eOrders.constr_id,
                 eOrders.sale_name, eOrders.space, eOrders.weight, eOrders.desc, eOrders.dat1, eOrders.dat2);
     }
@@ -29,17 +39,26 @@ public class Order extends javax.swing.JFrame {
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        south = new javax.swing.JPanel();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        south = new javax.swing.JPanel();
+        labFilter = new javax.swing.JLabel();
+        txtFilter = new javax.swing.JTextField(){
+            public JTable table = null;
+        };
+        checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заказы");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                Order.this.windowClosed(evt);
+            }
+        });
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -73,21 +92,6 @@ public class Order extends javax.swing.JFrame {
         btnRef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefresh(evt);
-            }
-        });
-
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
-        btnSave.setToolTipText(bundle.getString("Сохранить")); // NOI18N
-        btnSave.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSave.setFocusable(false);
-        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnSave.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnSave.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave(evt);
             }
         });
 
@@ -130,11 +134,9 @@ public class Order extends javax.swing.JFrame {
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 554, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 581, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -142,7 +144,6 @@ public class Order extends javax.swing.JFrame {
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -153,23 +154,6 @@ public class Order extends javax.swing.JFrame {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(801, 20));
-
-        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
-        south.setLayout(southLayout);
-        southLayout.setHorizontalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 717, Short.MAX_VALUE)
-        );
-        southLayout.setVerticalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
-
         centr.setPreferredSize(new java.awt.Dimension(800, 450));
         centr.setLayout(new java.awt.BorderLayout());
 
@@ -177,14 +161,27 @@ public class Order extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "1", "1", "1", "1", "1", "1", "1", "1", "1"},
-                {"2", "2", "2", "2", "2", "2", "2", "2", "2", "2"}
+                {null, null, null, "1", null, null, null, null, "1", "1"},
+                {null, null, null, "2", null, null, null, null, "2", "2"}
             },
             new String [] {
                 "Номер заказа", "Контрагент", "Менеджер", "Конструктор", "Продавец", "Площадь", "Вес", "Скидка", "Дата от...", "Дата до..."
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab1.setFillsViewportHeight(true);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -197,6 +194,35 @@ public class Order extends javax.swing.JFrame {
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
+
+        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        labFilter.setText("Поле");
+        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
+        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
+        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
+        south.add(labFilter);
+
+        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
+        txtFilter.setName(""); // NOI18N
+        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
+        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtFilter(evt);
+            }
+        });
+        south.add(txtFilter);
+
+        checkFilter.setText("в конце строки");
+        south.add(checkFilter);
+
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -205,20 +231,51 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+        Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        loadingData();
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
-    private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-
-    }//GEN-LAST:event_btnSave
-
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-
+        if (tab1.getBorder() != null) {
+            if (Util.isDeleteRecord(tab1, this) == 0) {
+                Util.deleteRecord(tab1);
+            }
+        }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-
+        if (tab1.getBorder() != null) {
+            Util.insertRecord(tab1, eOrders.up, (record) -> {
+            });
+        }
     }//GEN-LAST:event_btnInsert
+
+    private void txtFilter(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilter
+        JTable table = Stream.of(tab1).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
+        btnIns.setEnabled(txtFilter.getText().length() == 0);
+        if (txtFilter.getText().length() == 0) {
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
+        } else {
+            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
+        }
+    }//GEN-LAST:event_txtFilter
+
+    private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
+        Util.stopCellEditing(tab1);
+        Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+    }//GEN-LAST:event_windowClosed
+
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+        Util.updateBorderAndSql(tab1, Arrays.asList(tab1));
+        if (txtFilter.getText().length() == 0) {
+            labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn() == -1 || tab1.getSelectedColumn() == 0) ? 0 : tab1.getSelectedColumn()));
+            txtFilter.setName(tab1.getName());
+        }
+    }//GEN-LAST:event_tabMousePressed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -226,42 +283,23 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JButton btnSave;
     private javax.swing.JPanel centr;
+    private javax.swing.JCheckBox checkFilter;
+    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
+    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        FocusListener listenerFocus = new FocusListener() {
-
-            javax.swing.border.Border border
-                    = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-            public void focusGained(FocusEvent e) {
-                JTable table = (JTable) e.getSource();
-                table.setBorder(border);
-//            tabList.add(table);
-//            tabActive = table;
-//            tmActive = (TableModel) table.getModel();
-                btnIns.setEnabled(true);
-//            if (table != treeMat) {
-//                btnDel.setEnabled(true);
-//            }
-            }
-
-            public void focusLost(FocusEvent e) {
-                JTable table = (JTable) e.getSource();
-                table.setBorder(null);
-                btnIns.setEnabled(false);
-                btnDel.setEnabled(false);
-            }
-        };
-        tab1.addFocusListener(listenerFocus);
+        setTitle(getTitle() + Util.designName());
+        labFilter.setText(tab1.getColumnName(0));
+        txtFilter.setName(tab1.getName());
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Заказы клиентов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
     }
