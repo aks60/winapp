@@ -24,11 +24,11 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qOrders.select(eOrders.up, "order by", eOrders.numb);
+        qOrders.select(eOrders.up, "order by", eOrders.num_ord);
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qOrders, eOrders.numb, eOrders.partner_id, eOrders.manager_id, eOrders.constr_id,
+        new DefTableModel(tab1, qOrders, eOrders.num_ord, eOrders.partner_id, eOrders.manager_id, eOrders.constr_id,
                 eOrders.sale_name, eOrders.space, eOrders.weight, eOrders.desc, eOrders.dat1, eOrders.dat2);
     }
 
