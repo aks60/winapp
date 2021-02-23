@@ -1406,7 +1406,11 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnGroup
 
     private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
-
+        FrameProgress.create(App.this, new FrameListener() {
+            public void actionRequest(Object obj) {
+                Aps.TestFrame.createFrame(App.this);
+            }
+        });
     }//GEN-LAST:event_btnHelp
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">

@@ -1,6 +1,7 @@
 package frames;
 
 import common.FrameToFile;
+import dataset.Query;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -26,11 +27,11 @@ public class TestFrame extends javax.swing.JFrame {
         initComponents();
         initElements();
         try {
-            cn = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey");
+            cn = Query.connection;  //java.sql.DriverManager.getConnection(src, "sysdba", "masterkey");
         } catch (Exception e) {
         }
         //sql1.setText("SELECT * from connlst where anum1 like '@21301-0%' order by cname");
-        sql1.setText("SELECT * from sysproa a where a.nuni = 37");
+        sql1.setText("SELECT * from orders a");
         loadingTab1();
     }
 
