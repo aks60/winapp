@@ -13,14 +13,14 @@ import frames.swing.DefTableModel;
 
 public class Partner extends javax.swing.JFrame {
 
-    private Query qPartner = new Query(ePartner.values()).select(ePartner.up, "order by", ePartner.categ, ",", ePartner.name);
+    private Query qPartner = new Query(ePartner.values()).select(ePartner.up, "order by", ePartner.counter_categ, ",", ePartner.counter_name);
 
     public Partner() {
         initComponents();
         initElements();
 
-        new DefTableModel(tab1, qPartner, ePartner.categ, ePartner.name, ePartner.phone, ePartner.addr, ePartner.email,
-                ePartner.manager, ePartner.disc, ePartner.bank_name, ePartner.bank_inn, ePartner.bank_rs, ePartner.bank_bik,
+        new DefTableModel(tab1, qPartner, ePartner.counter_categ, ePartner.counter_name, ePartner.addr_phone, ePartner.addr_mail, ePartner.addr_email,
+                ePartner.manager, ePartner.disc6, ePartner.bank_name, ePartner.bank_inn, ePartner.bank_rs, ePartner.bank_bik,
                 ePartner.bank_ks, ePartner.bank_kpp, ePartner.bank_ogrn);
     }
 

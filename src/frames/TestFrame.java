@@ -2,17 +2,13 @@ package frames;
 
 import common.FrameToFile;
 import dataset.Query;
+import domain.eOrders;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.util.Vector;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import frames.swing.DefTableModel;
-import java.util.Arrays;
-import java.util.stream.Stream;
 import javax.swing.JTable;
 
 public class TestFrame extends javax.swing.JFrame {
@@ -20,39 +16,56 @@ public class TestFrame extends javax.swing.JFrame {
     private TableRowSorter<DefTableModel> sorter1 = null;
     private TableRowSorter<DefTableModel> sorter2 = null;
     private TableRowSorter<DefTableModel> sorter3 = null;
-    private String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
-    private Connection cn;
+    //private String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
+    //private Connection cn;
+    private Query qOrders = new Query(eOrders.values());
 
     public TestFrame() {
         initComponents();
         initElements();
-        try {
-            cn = Query.connection;  //java.sql.DriverManager.getConnection(src, "sysdba", "masterkey");
-        } catch (Exception e) {
-        }
-        //sql1.setText("SELECT * from connlst where anum1 like '@21301-0%' order by cname");
-        sql1.setText("SELECT * from orders a");
+//        try {
+//            cn = Query.connection;  //java.sql.DriverManager.getConnection(src, "sysdba", "masterkey");
+//        } catch (Exception e) {
+//        }
+//        //sql1.setText("SELECT * from connlst where anum1 like '@21301-0%' order by cname");
+//        sql1.setText("SELECT * from orders a");
+        loadingData();
         loadingTab1();
+    }
+
+    private void loadingData() {
+        qOrders.select(eOrders.up, "order by", eOrders.id);
+
     }
 
     private void loadingTab1() {
         try {
-            ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
-            ResultSetMetaData rsmd = rs.getMetaData();
-
-            Vector column = new Vector();
-            for (int i = 0; i < rsmd.getColumnCount(); ++i) {
-                column.add(rsmd.getColumnName(i + 1));
-            }
-            Vector<Vector> data = new Vector();
-            while (rs.next()) {
-                Vector vector = new Vector();
-                for (int i = 0; i < column.size(); i++) {
-                    vector.add(rs.getObject(i + 1));
+            DefTableModel dtm = new DefTableModel(tab1, qOrders, eOrders.num_prj, eOrders.num_ord, eOrders.num_dep, eOrders.num_acc) {
+                @Override
+                public String getColumnName(int columnIndex) {
+                    return columns[columnIndex].name();
                 }
-                data.add(vector);
+            };
+            for (int i = 0; i < dtm.columns.length; i++) {
+
             }
-            tab1.setModel(new DefaultTableModel(data, column));
+//            ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
+//            ResultSetMetaData rsmd = rs.getMetaData();
+//
+//            Vector column = new Vector();
+//            for (int i = 0; i < rsmd.getColumnCount(); ++i) {
+//                column.add(rsmd.getColumnName(i + 1));
+//            }
+//            Vector<Vector> data = new Vector();
+//            while (rs.next()) {
+//                Vector vector = new Vector();
+//                for (int i = 0; i < column.size(); i++) {
+//                    vector.add(rs.getObject(i + 1));
+//                }
+//                data.add(vector);
+//            }
+//            tab1.setModel(new DefaultTableModel(data, column));
+
             Util.setSelectedRow(tab1);
             ((DefaultTableModel) tab2.getModel()).setRowCount(0);
             ((DefaultTableModel) tab3.getModel()).setRowCount(0);

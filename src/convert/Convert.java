@@ -320,7 +320,6 @@ public class Convert extends javax.swing.JFrame {
                     .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panNordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panNordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(lab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -515,11 +514,11 @@ public class Convert extends javax.swing.JFrame {
 
     private void initElements() {
         new FrameToFile(this, btnExit);
-        appendToPane("\n", Color.RED);
-        appendToPane("    У Вас установлена версия Firebird " + ConnApp.instanc().version() + "\n", Color.RED);
-        appendToPane("\n", Color.RED);
-        appendToPane("    Внимание!!! Перенос данных из ПрофСтрой-3 должен\n", Color.RED);
-        appendToPane("    выполняться под управлением Firebird 2.1 НЕ ВЫШЕ.\n", Color.RED);
-        appendToPane("    Если версия выше чем 2.1 переустановите Firebird.\n", Color.RED);
+        appendToPane("\n", Color.GRAY);
+        appendToPane("    У Вас установлена версия Firebird " + ConnApp.instanc().version() + "\n", Color.GRAY);
+        appendToPane("\n", Color.GRAY);
+        appendToPane("    Внимание!!! Перенос данных из ПрофСтрой-3 должен\n", Color.GRAY);
+        appendToPane("    выполняться под управлением Firebird 2.1 НЕ ВЫШЕ.\n", Color.GRAY);
+        appendToPane("    Если версия выше чем 2.1 переустановите Firebird.\n", Color.GRAY);
     }
 }
