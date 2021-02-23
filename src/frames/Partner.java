@@ -28,11 +28,11 @@ public class Partner extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qPartner, ePartner.id, ePartner.counter, ePartner.category,
-                ePartner.flag_org, ePartner.addr_land, ePartner.addr_city, ePartner.addr_mail, ePartner.addr_phone,
+        new DefTableModel(tab1, qPartner, ePartner.category, ePartner.counter, ePartner.manager, ePartner.flag_org,
+                ePartner.addr_land, ePartner.addr_city, ePartner.addr_mail, ePartner.addr_phone,
                 ePartner.addr_email, ePartner.org_type, ePartner.org_addr, ePartner.org_phone, ePartner.org_fax, ePartner.bank_name,
                 ePartner.bank_inn, ePartner.bank_rs, ePartner.bank_bik, ePartner.bank_ks, ePartner.bank_kpp, ePartner.bank_ogrn,
-                ePartner.manager, ePartner.flag1, ePartner.desc1, ePartner.desc2, ePartner.desc3, ePartner.desc4, ePartner.disc6);
+                ePartner.flag1, ePartner.desc1, ePartner.desc2, ePartner.desc3, ePartner.desc4, ePartner.disc6, ePartner.id);
     }
 
     @SuppressWarnings("unchecked")
@@ -181,11 +181,11 @@ public class Partner extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "1"},
-                {"2", "2"}
+                {null, "1", "1", null},
+                {null, "2", "2", null}
             },
             new String [] {
-                "Контрагент", "Менеджер"
+                "Категория", "Контрагент", "Менеджер", "Физ. лицо"
             }
         ));
         tab1.setFillsViewportHeight(true);
@@ -195,6 +195,10 @@ public class Partner extends javax.swing.JFrame {
             }
         });
         scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(3).setMaxWidth(120);
+        }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
 
