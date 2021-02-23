@@ -919,7 +919,7 @@ public class App extends javax.swing.JFrame {
 
         mn0.add(mn03);
 
-        mn08.setText("Документы");
+        mn08.setText("Заказы");
         mn08.setFont(frames.Util.getFont(1,1));
 
         mn81.setFont(frames.Util.getFont(1,1));
