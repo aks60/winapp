@@ -65,6 +65,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import builder.script.Winscript;
+import domain.eOrders;
 import java.awt.Color;
 import java.util.Queue;
 import javax.swing.JTextPane;
@@ -116,7 +117,7 @@ public class Profstroy {
 
     public static void script() {
         Field[] fieldsUp = { //в порядке удаления
-            eSetting.up, ePartner.up, eSysdata.up, //eOrders.up, - временно 
+            eSetting.up, ePartner.up, eSysdata.up, eOrders.up,
             eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eModels.up,
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,

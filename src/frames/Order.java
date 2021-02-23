@@ -28,8 +28,9 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qOrders, eOrders.num_ord, eOrders.contractor_id, eOrders.manager_id, eOrders.constr_id,
-                eOrders.sale_name, eOrders.square, eOrders.weight, eOrders.desc8, eOrders.date4, eOrders.date5);
+        new DefTableModel(tab1, qOrders, eOrders.values());
+               // eOrders.num_ord, eOrders.contractor_id, eOrders.manager_id, eOrders.constr_id,
+               // eOrders.sale_name, eOrders.square, eOrders.weight, eOrders.desc8, eOrders.date4, eOrders.date5);
     }
 
     @SuppressWarnings("unchecked")
@@ -158,6 +159,8 @@ public class Order extends javax.swing.JFrame {
         centr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
+        scr1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scr1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,6 +179,7 @@ public class Order extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tab1.setFillsViewportHeight(true);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
