@@ -37,7 +37,7 @@ public class TestFrame extends javax.swing.JFrame {
 
     private void loadingTab1() {
         try {
-          ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
+            ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
             ResultSetMetaData rsmd = rs.getMetaData();
 
             Vector column = new Vector();
@@ -54,8 +54,8 @@ public class TestFrame extends javax.swing.JFrame {
             }
             tab1.setModel(new DefaultTableModel(data, column));
             Util.setSelectedRow(tab1);
-            ((DefaultTableModel) tab2.getModel()). setRowCount(0);
-            ((DefaultTableModel) tab3.getModel()). setRowCount(0);
+            ((DefaultTableModel) tab2.getModel()).setRowCount(0);
+            ((DefaultTableModel) tab3.getModel()).setRowCount(0);
 
         } catch (Exception e) {
             System.err.println("frames.TestFrame.selectionTab1() " + e);
@@ -235,17 +235,17 @@ public class TestFrame extends javax.swing.JFrame {
 
         scr1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scr1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scr1.setPreferredSize(new java.awt.Dimension(800, 304));
+        scr1.setPreferredSize(new java.awt.Dimension(800, 604));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "null", "null", "null", "null", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13", "Title 14", "Title 15", "Title 16", "Title 17", "Title 18", "Title 19", "Title 20", "Title 21", "Title 22", "Title 23", "Title 24", "Title 25", "Title 26", "Title 27", "Title 28", "Title 29", "Title 30", "Title 31", "Title 32", "Title 33", "Title 34", "Title 35", "Title 36", "Title 37", "Title 38"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
