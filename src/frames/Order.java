@@ -29,8 +29,8 @@ public class Order extends javax.swing.JFrame {
 
     private void loadingModel() {
         new DefTableModel(tab1, qOrders, eOrders.values());
-               // eOrders.num_ord, eOrders.contractor_id, eOrders.manager_id, eOrders.constr_id,
-               // eOrders.sale_name, eOrders.square, eOrders.weight, eOrders.desc8, eOrders.date4, eOrders.date5);
+        // eOrders.num_ord, eOrders.contractor_id, eOrders.manager_id, eOrders.constr_id,
+        // eOrders.sale_name, eOrders.square, eOrders.weight, eOrders.desc8, eOrders.date4, eOrders.date5);
     }
 
     @SuppressWarnings("unchecked")

@@ -140,7 +140,7 @@ public class Convert extends javax.swing.JFrame {
         });
 
         panNord.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panNord.setPreferredSize(new java.awt.Dimension(500, 90));
+        panNord.setPreferredSize(new java.awt.Dimension(500, 92));
 
         lab1.setFont(frames.Util.getFont(0,0));
         lab1.setText("Cервер (host)");
@@ -320,6 +320,7 @@ public class Convert extends javax.swing.JFrame {
                     .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panNordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panNordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(lab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -327,7 +328,7 @@ public class Convert extends javax.swing.JFrame {
                     .addGroup(panNordLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(btn11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14))
+                .addContainerGap())
         );
 
         getContentPane().add(panNord, java.awt.BorderLayout.PAGE_START);
