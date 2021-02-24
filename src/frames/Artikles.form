@@ -2119,6 +2119,7 @@
                                   <Component id="txt29" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="lab41" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2146,7 +2147,7 @@
                               <Component id="btn36" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txt28" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="247" max="32767" attributes="0"/>
+                          <EmptySpace pref="241" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
