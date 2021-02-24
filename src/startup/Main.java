@@ -39,7 +39,6 @@ public class Main {
                     runRussifier();
                     String lafName = eProperty.lookandfeel.read();
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                    //Windows Classic, Windows, CDE/Motif, Metal, Nimbus, Dark Metal
                     for (LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
                         if (lafName.equals(laf.getName())) {
                             UIManager.setLookAndFeel(laf.getClassName());

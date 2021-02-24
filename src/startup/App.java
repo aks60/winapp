@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 
 /**
@@ -27,24 +28,24 @@ import javax.swing.UIManager;
  * Технолог</p>
  */
 public class App extends javax.swing.JFrame {
-
+    
     private Wincalc iwin = new Wincalc();
     private javax.swing.Timer timer = null;
     private FrameListener listenerMenu;
     private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();
     private FrameListener<Object, Object> listenerDate = new FrameListener() {
-
+        
         public void actionRequest(Object obj) {
         }
-
+        
         public void actionResponse(Object obj) {
             Util.setGregorianCalendar(obj);
             btn51.setText(Util.getDateStr(null));
         }
     };
-
+    
     public App() {
-
+        
         initComponents();
         initElements();
         try {
@@ -61,42 +62,8 @@ public class App extends javax.swing.JFrame {
         } catch (SQLException e) {
             System.err.println(e);
         }
-        for (Map.Entry<String, JCheckBoxMenuItem> entry : hmLookAndFill.entrySet()) {
-            if (eProperty.lookandfeel.read().equals(entry.getKey())) {
-                entry.getValue().setSelected(true);
-            }
-        }
-        if (eProperty.base_num.read().equals("1")) {
-            mn631.setSelected(true);
-            btnT7.setSelected(true);
-        } else if (eProperty.base_num.read().equals("2")) {
-            mn632.setSelected(true);
-            btnT8.setSelected(true);
-        } else if (eProperty.base_num.read().equals("3")) {
-            mn633.setSelected(true);
-            btnT9.setSelected(true);
-        }
-        lookAndFiil();
     }
-
-    private void lookAndFiil() {
-
-        for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
-            JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();
-            hmLookAndFill.put(laf.getName(), mnIt);
-            mn62.add(mnIt);
-            ButtonGroup buttonLookAndFiilGroup = new javax.swing.ButtonGroup();
-            buttonLookAndFiilGroup.add(mnIt);
-            mnIt.setFont(frames.Util.getFont(1, 1));
-            mnIt.setText(laf.getName());
-            mnIt.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    mnLookAndFeel(evt);
-                }
-            });
-        }
-    }
-
+    
     private void constructive() {
         int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
         Record sysprodRec = eSysprod.find(sysprodID);
@@ -107,23 +74,16 @@ public class App extends javax.swing.JFrame {
             iwin.build(script2.toString()); //калькуляция изделия                
         }
     }
-
+    
     private void mnLookAndFeel(java.awt.event.ActionEvent evt) {
-//    if (evt.getSource() == mn621) {
-//        eProperty.lookandfeel.write("Windows");
-//
-//    } else if (evt.getSource() == mn623) {
-//        eProperty.lookandfeel.write("Metal");
-//
-//    } else if (evt.getSource() == mn622) {
-//        eProperty.lookandfeel.write("Nimbus");
-//
-//    } else if (evt.getSource() == mn624) {
-//        eProperty.lookandfeel.write("CDE/Motif");
-//    }
-//    eProperty.save();
+        for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
+            if (((JCheckBoxMenuItem) evt.getSource()).getText().equals(laf.getName()) == true) {
+                eProperty.lookandfeel.write(laf.getName());
+                eProperty.save();
+            }
+        }        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1066,7 +1026,7 @@ public class App extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnColor(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnColor
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 Aps.Color.createFrame(App.this);
@@ -1075,7 +1035,7 @@ public class App extends javax.swing.JFrame {
 }//GEN-LAST:event_mnColor
 
     private void mn42(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn42
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 Aps.Systree.createFrame(App.this);
@@ -1092,7 +1052,7 @@ private void mDictDicAddr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDi
 }//GEN-LAST:event_mDictDicAddr
 
 private void mnAboutBox(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAboutBox
-
+    
     Aps.AboutBox.createFrame(App.this);
 }//GEN-LAST:event_mnAboutBox
 
@@ -1116,7 +1076,7 @@ private void mn0111ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_mn0111ActionPerformed
 
 private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
-
+    
     FrameProgress.create(App.this, new FrameListener() {
         public void actionRequest(Object obj) {
             Aps.Specific.createFrame(App.this);
@@ -1125,7 +1085,7 @@ private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
 }//GEN-LAST:event_mn41
 
 private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
-
+    
     FrameProgress.create(App.this, new FrameListener() {
         public void actionRequest(Object obj) {
             Aps.Artikles.createFrame(App.this);
@@ -1150,7 +1110,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mn0116
 
     private void mnCurrency(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCurrency
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 Aps.DicCurrenc.createFrame(App.this);
@@ -1159,7 +1119,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnCurrency
 
     private void mnElement(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnElement
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 if (btn1.isSelected() == false) {
@@ -1175,7 +1135,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnElement
 
     private void mnFurnityra(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnFurnityra
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 if (btn1.isSelected() == false) {
@@ -1191,7 +1151,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnFurnityra
 
     private void mnPartner(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPartner
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 Aps.Partner.createFrame(App.this);
@@ -1200,7 +1160,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnPartner
 
     private void mnParametr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnParametr
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 Aps.Param.createFrame(App.this);
@@ -1209,7 +1169,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnParametr
 
     private void mJoining(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mJoining
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 if (btn1.isSelected() == false) {
@@ -1219,14 +1179,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     iwin.calcJoining = new builder.specif.Joining(iwin);
                     iwin.calcJoining.calc();
                     Aps.Joining.createFrame(App.this, iwin.calcJoining.listVariants);
-
+                    
                 }
             }
         });
     }//GEN-LAST:event_mJoining
 
     private void mnGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGlass
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 if (btn1.isSelected() == false) {
@@ -1246,7 +1206,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnDesign
 
     private void mnKits(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKits
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 Aps.Kits.createFrame(App.this);
@@ -1263,7 +1223,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnConvert
 
     private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 Aps.Order.createFrame(App.this);
@@ -1272,7 +1232,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnOrder
 
     private void mnSyssize(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSyssize
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 Aps.DicSyssize.createFrame(App.this);
@@ -1281,7 +1241,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnSyssize
 
     private void mnBoxTypical(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBoxTypical
-
+        
         FrameProgress.create(App.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 Aps.Models.createFrame(App.this);
@@ -1315,12 +1275,12 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
         Arrays.asList(Aps.values()).stream().filter(el -> el.frame != null && el != Aps.App1).forEach(el -> el.frame.dispose());
-
+        
         Integer num_base = (mn631.isSelected()) ? 1 : (mn632.isSelected()) ? 2 : 3;
         PathToDb frame = new PathToDb(this, num_base);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
-
+        
         if (eProperty.base_num.read().equals("1")) {
             mn631.setSelected(true);
             btnT7.setSelected(true);
@@ -1452,5 +1412,33 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void initElements() {
         setTitle(getTitle() + Util.designName());
+        
+        LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
+        for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
+            JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();
+            buttonLookAndFiilGroup.add(mnIt);
+            hmLookAndFill.put(laf.getName(), mnIt);
+            mn62.add(mnIt);            
+            mnIt.setFont(frames.Util.getFont(1, 1));
+            mnIt.setText(laf.getName());
+            mnIt.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    mnLookAndFeel(evt);
+                }
+            });
+            if (lookAndFeel.getName().equals(laf.getName())) {
+                mnIt.setSelected(true);
+            }
+        }        
+        if (eProperty.base_num.read().equals("1")) {
+            mn631.setSelected(true);
+            btnT7.setSelected(true);
+        } else if (eProperty.base_num.read().equals("2")) {
+            mn632.setSelected(true);
+            btnT8.setSelected(true);
+        } else if (eProperty.base_num.read().equals("3")) {
+            mn633.setSelected(true);
+            btnT9.setSelected(true);
+        }        
     }
 }
