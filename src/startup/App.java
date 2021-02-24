@@ -63,8 +63,8 @@ public class App extends javax.swing.JFrame {
         }
         for (Map.Entry<String, JCheckBoxMenuItem> entry : hmLookAndFill.entrySet()) {
             if (eProperty.lookandfeel.read().equals(entry.getKey())) {
-                 entry.getValue().setSelected(true);
-            }            
+                entry.getValue().setSelected(true);
+            }
         }
         if (eProperty.base_num.read().equals("1")) {
             mn631.setSelected(true);
@@ -81,7 +81,6 @@ public class App extends javax.swing.JFrame {
 
     private void lookAndFiil() {
 
-        
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();
             hmLookAndFill.put(laf.getName(), mnIt);
@@ -107,6 +106,22 @@ public class App extends javax.swing.JFrame {
             script2.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id)); //запишем nuni в script
             iwin.build(script2.toString()); //калькуляция изделия                
         }
+    }
+
+    private void mnLookAndFeel(java.awt.event.ActionEvent evt) {
+//    if (evt.getSource() == mn621) {
+//        eProperty.lookandfeel.write("Windows");
+//
+//    } else if (evt.getSource() == mn623) {
+//        eProperty.lookandfeel.write("Metal");
+//
+//    } else if (evt.getSource() == mn622) {
+//        eProperty.lookandfeel.write("Nimbus");
+//
+//    } else if (evt.getSource() == mn624) {
+//        eProperty.lookandfeel.write("CDE/Motif");
+//    }
+//    eProperty.save();
     }
 
     @SuppressWarnings("unchecked")
