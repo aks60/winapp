@@ -16,7 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.UIManager;
@@ -30,6 +31,7 @@ public class App extends javax.swing.JFrame {
     private Wincalc iwin = new Wincalc();
     private javax.swing.Timer timer = null;
     private FrameListener listenerMenu;
+    private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();
     private FrameListener<Object, Object> listenerDate = new FrameListener() {
 
         public void actionRequest(Object obj) {
@@ -59,14 +61,10 @@ public class App extends javax.swing.JFrame {
         } catch (SQLException e) {
             System.err.println(e);
         }
-        if (eProperty.lookandfeel.read().equals("Windows")) {
-            mn621.setSelected(true);
-        } else if (eProperty.lookandfeel.read().equals("Nimbus")) {
-            mn622.setSelected(true);
-        } else if (eProperty.lookandfeel.read().equals("Metal")) {
-            mn623.setSelected(true);
-        } else if (eProperty.lookandfeel.read().equals("CDE/Motif")) {
-            mn624.setSelected(true);
+        for (Map.Entry<String, JCheckBoxMenuItem> entry : hmLookAndFill.entrySet()) {
+            if (eProperty.lookandfeel.read().equals(entry.getKey())) {
+                 entry.getValue().setSelected(true);
+            }            
         }
         if (eProperty.base_num.read().equals("1")) {
             mn631.setSelected(true);
@@ -83,8 +81,10 @@ public class App extends javax.swing.JFrame {
 
     private void lookAndFiil() {
 
+        
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();
+            hmLookAndFill.put(laf.getName(), mnIt);
             mn62.add(mnIt);
             ButtonGroup buttonLookAndFiilGroup = new javax.swing.ButtonGroup();
             buttonLookAndFiilGroup.add(mnIt);
@@ -194,10 +194,6 @@ public class App extends javax.swing.JFrame {
         mn632 = new javax.swing.JCheckBoxMenuItem();
         mn633 = new javax.swing.JCheckBoxMenuItem();
         mn62 = new javax.swing.JMenu();
-        mn621 = new javax.swing.JCheckBoxMenuItem();
-        mn622 = new javax.swing.JCheckBoxMenuItem();
-        mn623 = new javax.swing.JCheckBoxMenuItem();
-        mn624 = new javax.swing.JCheckBoxMenuItem();
         mn05 = new javax.swing.JMenu();
         mn51 = new javax.swing.JMenuItem();
         mn52 = new javax.swing.JMenuItem();
@@ -1008,49 +1004,6 @@ public class App extends javax.swing.JFrame {
         mn62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b061.gif"))); // NOI18N
         mn62.setText("Вид интерфейса");
         mn62.setFont(frames.Util.getFont(1,1));
-
-        buttonLookAndFiilGroup.add(mn621);
-        mn621.setFont(frames.Util.getFont(1,1));
-        mn621.setSelected(true);
-        mn621.setText("Windows");
-        mn621.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnLookAndFeel(evt);
-            }
-        });
-        mn62.add(mn621);
-
-        buttonLookAndFiilGroup.add(mn622);
-        mn622.setFont(frames.Util.getFont(1,1));
-        mn622.setText("Nimbus");
-        mn622.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnLookAndFeel(evt);
-            }
-        });
-        mn62.add(mn622);
-
-        buttonLookAndFiilGroup.add(mn623);
-        mn623.setFont(frames.Util.getFont(1,1));
-        mn623.setText("Metal");
-        mn623.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnLookAndFeel(evt);
-            }
-        });
-        mn62.add(mn623);
-
-        buttonLookAndFiilGroup.add(mn624);
-        mn624.setFont(frames.Util.getFont(1,1));
-        mn624.setText("CDE/Motif");
-        mn624.setName(""); // NOI18N
-        mn624.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnLookAndFeel(evt);
-            }
-        });
-        mn62.add(mn624);
-
         mn06.add(mn62);
 
         mn0.add(mn06);
@@ -1146,22 +1099,6 @@ private void mn0114(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0114
 private void mn0111ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0111ActionPerformed
 
 }//GEN-LAST:event_mn0111ActionPerformed
-
-private void mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLookAndFeel
-    if (evt.getSource() == mn621) {
-        eProperty.lookandfeel.write("Windows");
-
-    } else if (evt.getSource() == mn623) {
-        eProperty.lookandfeel.write("Metal");
-
-    } else if (evt.getSource() == mn622) {
-        eProperty.lookandfeel.write("Nimbus");
-
-    } else if (evt.getSource() == mn624) {
-        eProperty.lookandfeel.write("CDE/Motif");
-    }
-    eProperty.save();
-}//GEN-LAST:event_mnLookAndFeel
 
 private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
 
@@ -1476,10 +1413,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn52;
     private javax.swing.JMenuItem mn54;
     private javax.swing.JMenu mn62;
-    private javax.swing.JCheckBoxMenuItem mn621;
-    private javax.swing.JCheckBoxMenuItem mn622;
-    private javax.swing.JCheckBoxMenuItem mn623;
-    private javax.swing.JCheckBoxMenuItem mn624;
     private javax.swing.JMenu mn63;
     private javax.swing.JCheckBoxMenuItem mn631;
     private javax.swing.JCheckBoxMenuItem mn632;
