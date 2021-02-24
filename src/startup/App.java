@@ -1,48 +1,25 @@
 package startup;
 
-import frames.AboutBox;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import frames.Util;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
-import common.eProfile;
 import common.eProperty;
-import convert.Convert;
 import dataset.Query;
 import dataset.Record;
-import domain.eModels;
-import domain.eSystree;
 import builder.Wincalc;
 import domain.eSysprod;
-import frames.Groups;
-import frames.Artikles;
-import frames.Models;
-import frames.Systree;
-import frames.Element;
-import frames.Furniture;
-import frames.Filling;
-import frames.Joining;
-import frames.Kits;
-import frames.Param;
-import frames.Currenc;
-import frames.Color;
-import frames.Syssize;
-import frames.Order;
-import frames.Partner;
-import frames.Rulecalc;
-import frames.Specific;
-import frames.TestFrame;
-import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
-import java.util.Set;
-import javax.swing.JFrame;
+import java.util.List;
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.UIManager;
 
 /**
  * <p>
@@ -101,6 +78,24 @@ public class App extends javax.swing.JFrame {
             mn633.setSelected(true);
             btnT9.setSelected(true);
         }
+        lookAndFiil();
+    }
+
+    private void lookAndFiil() {
+
+        for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
+            JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();
+            mn62.add(mnIt);
+            ButtonGroup buttonLookAndFiilGroup = new javax.swing.ButtonGroup();
+            buttonLookAndFiilGroup.add(mnIt);
+            mnIt.setFont(frames.Util.getFont(1, 1));
+            mnIt.setText(laf.getName());
+            mnIt.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    mnLookAndFeel(evt);
+                }
+            });
+        }
     }
 
     private void constructive() {
@@ -113,7 +108,7 @@ public class App extends javax.swing.JFrame {
             iwin.build(script2.toString()); //калькуляция изделия                
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
