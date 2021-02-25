@@ -11,6 +11,8 @@ import frames.swing.DefFieldEditor;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
 import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
@@ -44,13 +46,18 @@ public class Partner extends javax.swing.JFrame {
 
     private void loadingModel() {
         new DefTableModel(tab1, qPartner, ePartner.category, ePartner.counter, ePartner.flag2, ePartner.manager);
-        tab1.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
-                
+//                ePartner.id, ePartner.addr_leve1, ePartner.addr_leve2, ePartner.addr_phone, ePartner.addr_email, ePartner.org_leve1, ePartner.org_leve2, 
+//                ePartner.org_phone, ePartner.org_fax, ePartner.bank_name, ePartner.bank_inn, ePartner.bank_rs, ePartner.bank_bik, 
+//                ePartner.bank_ks, ePartner.bank_kpp, ePartner.bank_ogrn,  ePartner.desc1, ePartner.desc1, ePartner.desc2, ePartner.desc3, ePartner.desc5, ePartner.disc6);                
+
+        tab1.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer()); 
+
         rsv.add(ePartner.addr_leve1, txt12);
         rsv.add(ePartner.addr_leve1, txt14);
         rsv.add(ePartner.addr_phone, txt13);
         rsv.add(ePartner.note, txt15);
-       
+
+        rsv.add(ePartner.org_name, txt8);
         rsv.add(ePartner.org_leve1, txt17);
         rsv.add(ePartner.org_leve2, txt9);
         rsv.add(ePartner.org_phone, txt10);
@@ -63,7 +70,7 @@ public class Partner extends javax.swing.JFrame {
         rsv.add(ePartner.bank_kpp, txt6);
         rsv.add(ePartner.bank_ogrn, txt7);
         rsv.add(ePartner.note, txt16);
-        
+
         Util.setSelectedRow(tab1);
     }
 
@@ -73,8 +80,8 @@ public class Partner extends javax.swing.JFrame {
         if (index != -1) {
             int flag = qPartner.getAs(index, ePartner.flag2);
             String name = (flag == 1) ? "pan3" : "pan4";
-            ((CardLayout) pan2.getLayout()).show(pan2, name);            
-        }        
+            ((CardLayout) pan2.getLayout()).show(pan2, name);
+        }
         rsv.load(index);
     }
 
@@ -235,6 +242,11 @@ public class Partner extends javax.swing.JFrame {
         btnRemove.setMinimumSize(new java.awt.Dimension(25, 25));
         btnRemove.setPreferredSize(new java.awt.Dimension(25, 25));
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRemove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRemoveMouseClicked(evt);
+            }
+        });
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemove(evt);
@@ -793,6 +805,10 @@ public class Partner extends javax.swing.JFrame {
         Util.stopCellEditing(tab1);
         Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
     }//GEN-LAST:event_windowClosed
+
+    private void btnRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoveMouseClicked
+
+    }//GEN-LAST:event_btnRemoveMouseClicked
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

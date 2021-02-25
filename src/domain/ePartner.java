@@ -19,7 +19,8 @@ public enum ePartner implements Field {
     addr_phone("12", "32", "1", "Телефон", "KTELE"),
     addr_email("12", "64", "1", "E-mail", "KMAIL"),
   
-    org_leve1("12", "32", "1", "Адрес 1го уровня", "KTYPE"),
+    org_name("12", "32", "1", "Организация", "KTYPE"),    
+    org_leve1("12", "32", "1", "Адрес 1го уровня", "org_leve1"),
     org_leve2("12", "192", "1", "Адрес 2го уровня", "KADDR"),
     org_phone("12", "32", "1", "Телефон", "KVTEL"),
     org_email("12", "64", "1", "E-mail", "org_email"),

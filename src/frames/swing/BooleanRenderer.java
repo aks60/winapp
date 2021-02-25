@@ -15,7 +15,6 @@ import javax.swing.table.TableCellRenderer;
 public class BooleanRenderer extends JCheckBox implements TableCellRenderer, UIResource {
 
     private Icon ico = new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b053.gif"));
-
     private static final Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
 
     public BooleanRenderer() {
