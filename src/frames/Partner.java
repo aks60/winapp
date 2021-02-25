@@ -13,9 +13,9 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.Arrays;
 import java.util.stream.Stream;
-import static javax.management.Query.value;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
@@ -47,10 +47,17 @@ public class Partner extends javax.swing.JFrame {
 
     private void loadingModel() {
         new DefTableModel(tab1, qPartner, ePartner.category, ePartner.counter, ePartner.flag2, ePartner.manager);
-//                ePartner.id, ePartner.addr_leve1, ePartner.addr_leve2, ePartner.addr_phone, ePartner.addr_email, ePartner.org_leve1, ePartner.org_leve2, 
-//                ePartner.org_phone, ePartner.org_fax, ePartner.bank_name, ePartner.bank_inn, ePartner.bank_rs, ePartner.bank_bik, 
-//                ePartner.bank_ks, ePartner.bank_kpp, ePartner.bank_ogrn,  ePartner.desc1, ePartner.desc1, ePartner.desc2, ePartner.desc3, ePartner.desc5, ePartner.disc6);                
 
+        String arr[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
+        Util.buttonCellEditor(tab1, 0).addActionListener(event -> {
+            Object result = JOptionPane.showInputDialog(Partner.this, "Выберите категорию",
+                    "Изменение категории контрагента", JOptionPane.QUESTION_MESSAGE, null, arr, arr[0]);
+            if (result != null) {
+                Util.stopCellEditing(tab1);
+                qPartner.set(result, Util.getIndexRec(tab1), ePartner.category);
+                ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
+            }
+        });
         tab1.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
         tab1.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(new JCheckBox()) {
             @Override
@@ -62,16 +69,16 @@ public class Partner extends javax.swing.JFrame {
                     ((CardLayout) pan2.getLayout()).show(pan2, "pan3");
                 } else {
                     ((CardLayout) pan2.getLayout()).show(pan2, "pan4");
-                }                
+                }
                 return editorComponent;
             }
         });
-        
+
         rsv.add(ePartner.addr_leve1, txt12);
         rsv.add(ePartner.addr_leve2, txt14);
         rsv.add(ePartner.addr_phone, txt13);
         rsv.add(ePartner.note, txt15);
-        
+
         rsv.add(ePartner.org_name, txt8);
         rsv.add(ePartner.org_leve1, txt9);
         rsv.add(ePartner.org_leve2, txt17);
@@ -812,10 +819,11 @@ public class Partner extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
-        if (listener != null) {
-            listener.action(ePartner.up.newRecord());
-        }
-        this.dispose();
+//        if (listener != null) {
+//            listener.action(ePartner.up.newRecord());
+//        }
+//        this.dispose();
+        qPartner.execsql();
     }//GEN-LAST:event_btnRemove
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
