@@ -144,15 +144,15 @@ public class DefFieldEditor {
                 if (update == true) {
 
                     if (comp instanceof JTable) {
-                        int row = ((JTable) comp).getSelectedRow();
-                        if (row != -1) {
+                        int index = Util.getIndexRec((JTable) comp);
+                        if (index != -1) {
                             Field field = mapTxt.get(jtxt);
                             String str = jtxt.getText();
                             if (((JTable) comp).getRowCount() > 0) {
                                 if (field.meta().type().equals(Field.TYPE.FLT) || field.meta().type().equals(Field.TYPE.DBL)) {
                                     str = String.valueOf(str).replace(',', '.');
                                 }
-                                ((DefTableModel) ((JTable) comp).getModel()).getQuery().set(str, row, field);
+                                ((DefTableModel) ((JTable) comp).getModel()).getQuery().set(str, index, field);
                             }
                         }
 

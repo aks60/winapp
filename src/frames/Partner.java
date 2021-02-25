@@ -13,6 +13,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.Arrays;
 import java.util.stream.Stream;
+import static javax.management.Query.value;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.RowFilter;
@@ -65,25 +66,25 @@ public class Partner extends javax.swing.JFrame {
                 return editorComponent;
             }
         });
-
-//        rsv.add(ePartner.addr_leve1, txt12);
-//        rsv.add(ePartner.addr_leve2, txt14);
-//        rsv.add(ePartner.addr_phone, txt13);
-//        rsv.add(ePartner.note, txt15);
-
+        
+        rsv.add(ePartner.addr_leve1, txt12);
+        rsv.add(ePartner.addr_leve2, txt14);
+        rsv.add(ePartner.addr_phone, txt13);
+        rsv.add(ePartner.note, txt15);
+        
         rsv.add(ePartner.org_name, txt8);
         rsv.add(ePartner.org_leve1, txt9);
         rsv.add(ePartner.org_leve2, txt17);
-//        rsv.add(ePartner.org_phone, txt10);
-//        rsv.add(ePartner.org_fax, txt11);
-//        rsv.add(ePartner.bank_name, txt1);
-//        rsv.add(ePartner.bank_inn, txt2);
-//        rsv.add(ePartner.bank_rs, txt3);
-//        rsv.add(ePartner.bank_bik, txt4);
-//        rsv.add(ePartner.bank_ks, txt5);
-//        rsv.add(ePartner.bank_kpp, txt6);
-//        rsv.add(ePartner.bank_ogrn, txt7);
-//        rsv.add(ePartner.note, txt16);
+        rsv.add(ePartner.org_phone, txt10);
+        rsv.add(ePartner.org_fax, txt11);
+        rsv.add(ePartner.bank_name, txt1);
+        rsv.add(ePartner.bank_inn, txt2);
+        rsv.add(ePartner.bank_rs, txt3);
+        rsv.add(ePartner.bank_bik, txt4);
+        rsv.add(ePartner.bank_ks, txt5);
+        rsv.add(ePartner.bank_kpp, txt6);
+        rsv.add(ePartner.bank_ogrn, txt7);
+        rsv.add(ePartner.note, txt16);
 
         Util.setSelectedRow(tab1);
     }
@@ -811,10 +812,10 @@ public class Partner extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
-        //listener.action(ePartner.up.newRecord());
-        //this.dispose();
-        //System.out.println(qPartner.get(Util.getIndexRec(tab1)));
-        qPartner.execsql();
+        if (listener != null) {
+            listener.action(ePartner.up.newRecord());
+        }
+        this.dispose();
     }//GEN-LAST:event_btnRemove
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
