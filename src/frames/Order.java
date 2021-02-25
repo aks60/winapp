@@ -43,8 +43,10 @@ public class Order extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
+        pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        pan2 = new javax.swing.JPanel();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -137,7 +139,7 @@ public class Order extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 581, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 718, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -158,21 +160,24 @@ public class Order extends javax.swing.JFrame {
         centr.setPreferredSize(new java.awt.Dimension(800, 450));
         centr.setLayout(new java.awt.BorderLayout());
 
+        pan1.setPreferredSize(new java.awt.Dimension(400, 370));
+        pan1.setLayout(new java.awt.BorderLayout());
+
         scr1.setBorder(null);
         scr1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scr1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, "1", null, null, null, null, "1", "1"},
-                {null, null, null, "2", null, null, null, null, "2", "2"}
+                {null, null, null, null, null, null, "1", "1"},
+                {null, null, null, null, null, null, "2", "2"}
             },
             new String [] {
-                "Номер заказа", "Контрагент", "Менеджер", "Конструктор", "Продавец", "Площадь", "Вес", "Скидка", "Дата от...", "Дата до..."
+                "Номер заказа", "Контрагент", "Менеджер", "Продавец", "Вес", "Скидка", "Дата от...", "Дата до..."
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -194,7 +199,24 @@ public class Order extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(2).setPreferredWidth(120);
         }
 
-        centr.add(scr1, java.awt.BorderLayout.CENTER);
+        pan1.add(scr1, java.awt.BorderLayout.CENTER);
+
+        centr.add(pan1, java.awt.BorderLayout.CENTER);
+
+        pan2.setPreferredSize(new java.awt.Dimension(400, 470));
+
+        javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
+        pan2.setLayout(pan2Layout);
+        pan2Layout.setHorizontalGroup(
+            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        pan2Layout.setVerticalGroup(
+            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 468, Short.MAX_VALUE)
+        );
+
+        centr.add(pan2, java.awt.BorderLayout.EAST);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
@@ -291,6 +313,8 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
+    private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan2;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;

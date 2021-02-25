@@ -4,7 +4,6 @@ import common.DialogListener;
 import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
-import domain.eArtikl;
 import domain.ePartner;
 import frames.swing.BooleanRenderer;
 import frames.swing.DefFieldEditor;
@@ -12,9 +11,10 @@ import javax.swing.JTable;
 import frames.swing.DefTableModel;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.stream.Stream;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
@@ -50,7 +50,21 @@ public class Partner extends javax.swing.JFrame {
 //                ePartner.org_phone, ePartner.org_fax, ePartner.bank_name, ePartner.bank_inn, ePartner.bank_rs, ePartner.bank_bik, 
 //                ePartner.bank_ks, ePartner.bank_kpp, ePartner.bank_ogrn,  ePartner.desc1, ePartner.desc1, ePartner.desc2, ePartner.desc3, ePartner.desc5, ePartner.disc6);                
 
-        tab1.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer()); 
+        tab1.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
+        tab1.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(new JCheckBox()) {
+            @Override
+            public Component getTableCellEditorComponent(JTable table, Object value,
+                    boolean isSelected, int row, int column) {
+
+                delegate.setValue(value);
+                if (((JCheckBox) editorComponent).isSelected() == false) {
+                    ((CardLayout) pan2.getLayout()).show(pan2, "pan3");
+                } else {
+                    ((CardLayout) pan2.getLayout()).show(pan2, "pan4");
+                }                
+                return editorComponent;
+            }
+        });
 
         rsv.add(ePartner.addr_leve1, txt12);
         rsv.add(ePartner.addr_leve1, txt14);
