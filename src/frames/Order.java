@@ -1,10 +1,12 @@
 package frames;
 
 import common.FrameToFile;
+import dataset.Field;
 import dataset.Query;
+import dataset.Record;
 import domain.eOrders;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import domain.ePartner;
+import frames.dialog.DicDate;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
@@ -14,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Order extends javax.swing.JFrame {
 
+    private Query qPartner = new Query(ePartner.values());
     private Query qOrders = new Query(eOrders.values());
 
     public Order() {
@@ -24,13 +27,42 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingData() {
+        qPartner.select(ePartner.up);
         qOrders.select(eOrders.up, "order by", eOrders.num_ord);
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qOrders, eOrders.values());
-        // eOrders.num_ord, eOrders.contractor_id, eOrders.manager_id, eOrders.constr_id,
-        // eOrders.sale_name, eOrders.square, eOrders.weight, eOrders.desc8, eOrders.date4, eOrders.date5);
+        new DefTableModel(tab1, qOrders, eOrders.num_ord, eOrders.date4, eOrders.contractor_id, eOrders.manager) {
+            @Override
+            public Object getValueAt(int col, int row, Object val) {
+                Field field = columns[col];
+                if (field == eOrders.contractor_id) {
+                    Record record = qPartner.stream().filter(rec -> rec.get(ePartner.id).equals(val)).findFirst().orElse(ePartner.up.newRecord());
+                    return record.get(ePartner.contractor);
+                }
+                return val;
+            }
+        };
+
+        Util.buttonCellEditor(tab1, 1).addActionListener(event -> {
+            new DicDate(this, (record) -> {
+
+            }, null);
+        });
+
+        Util.buttonCellEditor(tab1, 2).addActionListener(event -> {
+            new Partner(this, (record) -> {
+                System.out.println(record);
+                Util.stopCellEditing(tab1);
+                Record record2 = qOrders.get(Util.getIndexRec(tab1));
+                record2.set(eOrders.contractor_id, record.getInt(ePartner.id));
+                qOrders.update(record2);
+                ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
+            });
+        });
+        
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -169,22 +201,22 @@ public class Order extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, "1", "1"},
-                {null, null, null, null, null, null, "2", "2"}
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Номер заказа", "Контрагент", "Менеджер", "Продавец", "Вес", "Скидка", "Дата от...", "Дата до..."
+                "Номер заказа", "Дата", "Контрагент", "Менеджер"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tab1.setFillsViewportHeight(true);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -195,8 +227,8 @@ public class Order extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(0).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(120);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(120);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);

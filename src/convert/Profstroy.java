@@ -550,8 +550,9 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color1_id, "clnum", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color2_id, "clnu1", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
-            updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");
-            
+            updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");            
+            updateSql(eOrders.up, eOrders.contractor_id, "kname", ePartner.up, "contractor");
+                   
             executeSql("update partner set org_leve2 = trim(org_leve2)");            
         } catch (Exception e) {
             println(Color.RED, "Ошибка: updatePart().  " + e);

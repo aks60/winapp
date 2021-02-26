@@ -11,6 +11,8 @@ import javax.swing.JTable;
 import frames.swing.DefTableModel;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Frame;
+import java.awt.Window;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.DefaultCellEditor;
@@ -22,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Partner extends javax.swing.JFrame {
 
+    private Window owner = null;
     private DialogListener listener = null;
     private Query qPartner = new Query(ePartner.values());
     private DefFieldEditor rsv = null;
@@ -33,20 +36,23 @@ public class Partner extends javax.swing.JFrame {
         loadingModel();
     }
 
-    public Partner(DialogListener listener) {
+    public Partner(Frame owner, DialogListener listener) {
         initComponents();
         initElements();
         this.listener = listener;
+        this.owner = owner;
+        owner.setEnabled(false);        
         loadingData();
         loadingModel();
+        setVisible(true);
     }
 
     private void loadingData() {
-        qPartner.select(ePartner.up, "order by", ePartner.category, ",", ePartner.counter);
+        qPartner.select(ePartner.up, "order by", ePartner.category, ",", ePartner.contractor);
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qPartner, ePartner.category, ePartner.counter, ePartner.flag2, ePartner.manager);
+        new DefTableModel(tab1, qPartner, ePartner.category, ePartner.contractor, ePartner.flag2, ePartner.manager);
 
         String arr[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
         Util.buttonCellEditor(tab1, 0).addActionListener(event -> {
@@ -811,7 +817,7 @@ public class Partner extends javax.swing.JFrame {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         int index = Util.getIndexRec(tab1);
-        if (index != -1) {
+        if (index != -1 && listener != null) {
             Record record = qPartner.get(index);
             listener.action(record);
         }
@@ -829,6 +835,8 @@ public class Partner extends javax.swing.JFrame {
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Util.stopCellEditing(tab1);
         Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        if (owner != null)
+            owner.setEnabled(true);        
     }//GEN-LAST:event_windowClosed
 
     private void btnRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoveMouseClicked
@@ -894,6 +902,7 @@ public class Partner extends javax.swing.JFrame {
 
     private void initElements() {
         new FrameToFile(this, btnClose);
+        FrameToFile.setFrameSize(this);
         setTitle(getTitle() + Util.designName());
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());

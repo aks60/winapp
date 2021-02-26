@@ -40,7 +40,7 @@ public class TestFrame extends javax.swing.JFrame {
 
     private void loadingTab1() {
         try {
-            DefTableModel dtm = new DefTableModel(tab1, qOrders, eOrders.num_prj, eOrders.num_ord, eOrders.num_dep, eOrders.num_acc) {
+            DefTableModel dtm = new DefTableModel(tab1, qOrders, eOrders.num_ord, eOrders.num_dep, eOrders.num_acc) {
                 @Override
                 public String getColumnName(int columnIndex) {
                     return columns[columnIndex].name();
