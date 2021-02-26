@@ -47,7 +47,7 @@ public class Order extends javax.swing.JFrame {
         Util.buttonCellEditor(tab1, 1).addActionListener(event -> {
             new DicDate(this, (record) -> {
 
-            }, null);
+            }, 0);
         });
 
         Util.buttonCellEditor(tab1, 2).addActionListener(event -> {
@@ -60,9 +60,7 @@ public class Order extends javax.swing.JFrame {
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
         });
-        
-        
-        
+
     }
 
     @SuppressWarnings("unchecked")
