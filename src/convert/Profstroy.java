@@ -66,6 +66,8 @@ import java.util.Map;
 import java.util.Set;
 import builder.script.Winscript;
 import domain.eOrders;
+import domain.eOrdprod;
+import domain.eSysmodel;
 import java.awt.Color;
 import java.util.Queue;
 import javax.swing.JTextPane;
@@ -117,7 +119,7 @@ public class Profstroy {
 
     public static void script() {
         Field[] fieldsUp = { //в порядке удаления
-            eSetting.up, eOrdcontr.up, eSysdata.up, eOrders.up,
+            eSetting.up, eSysdata.up,            
             eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSysmodel.up,
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
@@ -125,6 +127,7 @@ public class Profstroy {
             eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
             eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
             eColmap.up, eColor.up,
+            eOrdcontr.up, eOrders.up, eOrdprod.up,
             eRulecalc.up, eSystree.up,
             eArtdet.up, eArtikl.up,
             eSyssize.up, eGroups.up, eCurrenc.up, eParams.up,};
@@ -553,7 +556,7 @@ public class Profstroy {
             updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");            
             updateSql(eOrders.up, eOrders.contractor_id, "kname", eOrdcontr.up, "contractor");
                    
-            executeSql("update partner set org_leve2 = trim(org_leve2)");            
+            executeSql("update ordcontr set org_leve2 = trim(org_leve2)");            
         } catch (Exception e) {
             println(Color.RED, "Ошибка: updatePart().  " + e);
         }
@@ -567,7 +570,7 @@ public class Profstroy {
             alterTable("artikl", "fk_currenc2", "currenc2_id", "currenc");
             alterTable("color", "fk_color1", "colgrp_id", "groups");
             alterTable("alter table color add constraint ung1_color unique (name)");
-            alterTable("colmap", "fk_colmap_1", "params_id", "groups");
+            alterTable("colmap", "fk_colmap_1", "colgrp_id", "groups");
             alterTable("colmap", "fk_colmap_2", "color_id1", "color");
             alterTable("colmap", "fk_colmap_3", "color_id2", "color");
             alterTable("artikl", "fk_artikl1", "artgrp1_id", "groups");
@@ -606,8 +609,8 @@ public class Profstroy {
             alterTable("sysfurn", "fk_sysfurn1", "systree_id", "systree");
             alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
-            alterTable("sysprod", "fk_sysprod_1", "models_id", "models");
             alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
+            alterTable("orders", "fk_orders_1", "contractor_id", "ordcontr");
             alterTable("kits", "fk_kits1", "artikl_id", "artikl");
             alterTable("kits", "fk_kits2", "color_id", "color");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");

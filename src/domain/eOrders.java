@@ -11,7 +11,7 @@ public enum eOrders implements Field {
     num_dep("5", "5", "1", "Номер отдела", "NDEPA"),
     num_acc("12", "32", "1", "Номер счета", "INUMB"),
     categ("12", "32", "1", "Категория", "PPREF"),    
-    contractor_id("4", "10", "0", "Контрагент", "partner_id"),
+    contractor_id("4", "10", "1", "Контрагент", "partner_id"),
     manager("12", "64", "1", "Менеджер", "MNAME"),
     manager_id("4", "10", "1", "Менеджер", "manager_id"),
     square("8", "15", "1", "Площадь изделий", "PSQRA"),

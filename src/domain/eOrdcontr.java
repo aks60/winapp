@@ -6,7 +6,7 @@ import dataset.Query;
 import dataset.Record;
 
 public enum eOrdcontr implements Field {
-    up("0", "0", "0", "Диллер", "CLIENTS"),
+    up("0", "0", "0", "Контрагент", "CLIENTS"),
     id("4", "10", "0", "Идентификатор", "id"),
     contractor("12", "64", "1", "Контрагент", "KNAME"),
     manager("12", "32", "1", "Менеджер", "PNAME"),   
