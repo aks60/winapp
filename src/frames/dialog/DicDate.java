@@ -1,12 +1,11 @@
 package frames.dialog;
 
-import common.DialogListener;
+import common.EditorListener;
 import common.FrameToFile;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import frames.Util;
-import java.util.Locale;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -16,17 +15,17 @@ import javax.swing.event.ListSelectionListener;
 public class DicDate extends javax.swing.JDialog {
 
     protected int rangeTopYear = 25;
-    protected DialogListener listener;
+    protected EditorListener listener;
     protected GregorianCalendar appCalendar = new GregorianCalendar();
     protected int overDay[] = new int[]{6, 0, 1, 2, 3, 4, 5};
 
-    public DicDate(java.awt.Window owner, DialogListener listener, Integer dxYear) {
+    public DicDate(java.awt.Window owner, EditorListener listener, Integer dxYear) {
         super(owner, ModalityType.DOCUMENT_MODAL);
         this.listener = listener;
         initComponents();
 
-        //диапазон выбора
-        listYear.setModel(new javax.swing.AbstractListModel() {
+        //Диапазон выбора
+        listYear.setModel(new javax.swing.AbstractListModel() {//диапазон выбора
 
             public int getSize() {
                 return 100;
@@ -41,7 +40,7 @@ public class DicDate extends javax.swing.JDialog {
         int year = appCalendar.get(appCalendar.YEAR) + dxYear;
         appCalendar.set(appCalendar.YEAR, year);
 
-        loadingModel();
+        loadingTab();
         tabDay.requestFocus();
         
         FrameToFile.setFrameSize(this);
@@ -49,35 +48,32 @@ public class DicDate extends javax.swing.JDialog {
     }
     
     //Заполнение модели данных
-    protected void loadingModel() {
+    protected void loadingTab() {
 
         //Запоминаем текущую дату
         Date date = appCalendar.getTime();
         int month = appCalendar.get(Calendar.MONTH);
         
-        //Очищаем DataModelDay
-        tabDay.clearSelection();
+        //Очищаем DataModelDay    
         for (int col = 0; col < tabDay.getColumnCount(); col++) {
             for (int row = 0; row < tabDay.getRowCount(); row++) {
                 tabDay.setValueAt(null, row, col);
             }
-        }
-        
-        //Устанавливаем объект appCalendar на первую день текущего месяца
+        }        
+        //Устанавливаем объект appCalendar на первый день текущего месяца
         appCalendar.set(Calendar.DAY_OF_MONTH, 1);
         int dx = appCalendar.get(Calendar.WEEK_OF_MONTH);
-        //Заполняем массив DataModelDay днями месяца
-        do {
+                
+        do { //Заполняем массив DataModelDay днями месяца
             int day_of_week = overDay[appCalendar.get(Calendar.DAY_OF_WEEK) - 1];
             int week_of_month = appCalendar.get(Calendar.WEEK_OF_MONTH) - dx;
             int day_of_month = appCalendar.get(Calendar.DAY_OF_MONTH);
             tabDay.setValueAt(day_of_month, week_of_month, day_of_week);
             
-            appCalendar.add(Calendar.DAY_OF_MONTH, 1);   //передвигаю объект appCalendar на новый день
+            appCalendar.add(Calendar.DAY_OF_MONTH, 1);  //передвигаю объект appCalendar на новый день
         } while (appCalendar.get(Calendar.MONTH) == month);
-        
-        //Возвращаем текущую дату
-        appCalendar.setTime(date);
+                
+        appCalendar.setTime(date); //возвращаем текущую дату
         
         //Выделяем элементы даты
         int day_of_week = overDay[appCalendar.get(Calendar.DAY_OF_WEEK) - 1];
@@ -111,11 +107,6 @@ public class DicDate extends javax.swing.JDialog {
                 formShown(evt);
             }
         });
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                DicDate.this.windowClosed(evt);
-            }
-        });
 
         listMonth.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         listMonth.setFont(Util.getFont(-1,0));
@@ -129,7 +120,7 @@ public class DicDate extends javax.swing.JDialog {
         listMonth.setVisibleRowCount(12);
         listMonth.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+                DicDate.this.mouseClicked(evt);
             }
         });
         listMonth.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -168,12 +159,12 @@ public class DicDate extends javax.swing.JDialog {
         tabDay.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabDay.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+                DicDate.this.mouseClicked(evt);
             }
         });
         tabDay.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                tabDayKeyPressed(evt);
+                DicDate.this.keyPressed(evt);
             }
         });
         tabDay.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -203,7 +194,7 @@ public class DicDate extends javax.swing.JDialog {
         listYear.setVisibleRowCount(22);
         listYear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+                DicDate.this.mouseClicked(evt);
             }
         });
         listYear.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -227,7 +218,7 @@ public class DicDate extends javax.swing.JDialog {
         btnClose.setPreferredSize(new java.awt.Dimension(80, 25));
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseActionPerformed(evt);
+                closeAction(evt);
             }
         });
 
@@ -241,7 +232,7 @@ public class DicDate extends javax.swing.JDialog {
         btnOk.setPreferredSize(new java.awt.Dimension(80, 25));
         btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOkActionPerformed(evt);
+                okAction(evt);
             }
         });
 
@@ -343,14 +334,14 @@ public class DicDate extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+    private void closeAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeAction
         dispose();
-}//GEN-LAST:event_btnCloseActionPerformed
+}//GEN-LAST:event_closeAction
 
-    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        listener.action(null);
+    private void okAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okAction
+        listener.action(appCalendar);
         dispose();
-}//GEN-LAST:event_btnOkActionPerformed
+}//GEN-LAST:event_okAction
 
     //Смена дня
     private void dayChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -373,7 +364,7 @@ public class DicDate extends javax.swing.JDialog {
         if (evt.getValueIsAdjusting() == false) {
             int index = listYear.getSelectedIndex();           
             appCalendar.set(Calendar.YEAR, Util.getYearCur() + 25 - index);
-            loadingModel();
+            loadingTab();
         }
     }//GEN-LAST:event_yearChanged
     
@@ -382,24 +373,20 @@ public class DicDate extends javax.swing.JDialog {
         if (evt.getValueIsAdjusting() == false) {
             int index = listMonth.getSelectedIndex();
             appCalendar.set(Calendar.MONTH, index);
-            loadingModel();
+            loadingTab();
         }
     }//GEN-LAST:event_monthChanged
 
-    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-//        if (evt.getClickCount() == 2) {
-//            btnOkActionPerformed(null);
-//        }
-    }//GEN-LAST:event_tabMouseClicked
+    private void mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClicked
+        if (evt.getClickCount() == 2) {
+            okAction(null);
+        }
+    }//GEN-LAST:event_mouseClicked
 
-    private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        //mDic.DicDate.window = null;
-    }//GEN-LAST:event_windowClosed
-
-    private void tabDayKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabDayKeyPressed
-        listener.action(null);
+    private void keyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyPressed
+        listener.action(appCalendar);
         dispose();
-    }//GEN-LAST:event_tabDayKeyPressed
+    }//GEN-LAST:event_keyPressed
 
     private void formShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formShown
         int year = appCalendar.get(Calendar.YEAR);

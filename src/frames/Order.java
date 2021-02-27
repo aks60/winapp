@@ -10,6 +10,7 @@ import frames.dialog.DicDate;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -45,8 +46,11 @@ public class Order extends javax.swing.JFrame {
         };
 
         Util.buttonCellEditor(tab1, 1).addActionListener(event -> {
-            new DicDate(this, (record) -> {
-
+            new DicDate(this, (obj) -> {
+                GregorianCalendar calendar = (GregorianCalendar) obj;
+                
+                System.out.println(calendar.getTime());
+                return true;
             }, 0);
         });
 
