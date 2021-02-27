@@ -10,10 +10,12 @@ import frames.dialog.DicDate;
 import frames.swing.DefCellRenderer;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
+import java.awt.CardLayout;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
 public class Order extends javax.swing.JFrame {
@@ -50,7 +52,7 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void listenerAdd() {
-        
+
         Util.buttonCellEditor(tab1, 1).addActionListener(event -> {
             new DicDate(this, (obj) -> {
                 GregorianCalendar calendar = (GregorianCalendar) obj;
@@ -74,6 +76,17 @@ public class Order extends javax.swing.JFrame {
             });
         });
 
+    }
+
+    private void selectionTab1(ListSelectionEvent event) {
+//        Util.stopCellEditing(tab1);
+//        int index = Util.getIndexRec(tab1);
+//        if (index != -1) {
+//            int flag = qPartner.getAs(index, eOrdcontr.flag2);
+//            String name = (flag == 1) ? "pan3" : "pan4";
+//            ((CardLayout) pan2.getLayout()).show(pan2, name);
+//        }
+//        rsv.load(index);
     }
 
     @SuppressWarnings("unchecked")
@@ -231,6 +244,8 @@ public class Order extends javax.swing.JFrame {
         });
         tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
@@ -238,8 +253,8 @@ public class Order extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(0).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(120);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(120);
         }
@@ -389,13 +404,12 @@ public class Order extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
-
         new FrameToFile(this, btnClose);
+        FrameToFile.setFrameSize(this);
         setTitle(getTitle() + Util.designName());
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
+        tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1(event));
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1)));
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Заказы клиентов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
     }
 }
