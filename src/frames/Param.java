@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.BooleanRenderer;
+import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
 import java.util.stream.Stream;
@@ -50,7 +50,7 @@ public class Param extends javax.swing.JFrame {
         new DefTableModel(tab2, qPardet, eParams.text, eParams.komp,
                 eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.label);
 
-        BooleanRenderer br = new BooleanRenderer();
+        DefCellBoolRenderer br = new DefCellBoolRenderer();
         Arrays.asList(1, 2, 3, 4, 5, 6, 7).forEach(index -> tab1.getColumnModel().getColumn(index).setCellRenderer(br));
         Arrays.asList(1, 2, 3, 4, 5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
 

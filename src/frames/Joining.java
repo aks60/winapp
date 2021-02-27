@@ -33,7 +33,7 @@ import frames.swing.DefTableModel;
 import frames.dialog.DicJoinvar;
 import domain.eJoinvar;
 import enums.TypeGroups;
-import frames.swing.BooleanRenderer;
+import frames.swing.DefCellBoolRenderer;
 import frames.dialog.DicColvar;
 import enums.UseColor;
 import java.awt.Component;
@@ -230,7 +230,7 @@ public class Joining extends javax.swing.JFrame {
                 return comp;
             }
         });
-        tab2.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
+        tab2.getColumnModel().getColumn(2).setCellRenderer(new DefCellBoolRenderer());
 
         Util.setSelectedRow(tab1);
     }

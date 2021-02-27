@@ -25,7 +25,7 @@ import enums.UseUnit;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicEnums;
 import frames.dialog.DicGroups;
-import frames.swing.BooleanRenderer;
+import frames.swing.DefCellBoolRenderer;
 import java.awt.CardLayout;
 import java.awt.Window;
 import java.util.HashSet;
@@ -136,9 +136,9 @@ public class Artikles extends javax.swing.JFrame {
             }
         };
 
-        tab2.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
-        tab2.getColumnModel().getColumn(4).setCellRenderer(new BooleanRenderer());
-        tab2.getColumnModel().getColumn(6).setCellRenderer(new BooleanRenderer());
+        tab2.getColumnModel().getColumn(2).setCellRenderer(new DefCellBoolRenderer());
+        tab2.getColumnModel().getColumn(4).setCellRenderer(new DefCellBoolRenderer());
+        tab2.getColumnModel().getColumn(6).setCellRenderer(new DefCellBoolRenderer());
 
         rsvArtikl = new DefFieldEditor(tab1) {
 

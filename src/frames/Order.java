@@ -7,6 +7,7 @@ import dataset.Record;
 import domain.eOrders;
 import domain.ePartner;
 import frames.dialog.DicDate;
+import frames.swing.DefCellRenderer;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
@@ -25,6 +26,7 @@ public class Order extends javax.swing.JFrame {
         initElements();
         loadingData();
         loadingModel();
+        listenerAdd();
     }
 
     private void loadingData() {
@@ -44,11 +46,19 @@ public class Order extends javax.swing.JFrame {
                 return val;
             }
         };
+        tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
+    }
 
+    private void listenerAdd() {
+        
         Util.buttonCellEditor(tab1, 1).addActionListener(event -> {
             new DicDate(this, (obj) -> {
                 GregorianCalendar calendar = (GregorianCalendar) obj;
-                
+                Util.stopCellEditing(tab1);
+                Record record2 = qOrders.get(Util.getIndexRec(tab1));
+                record2.set(eOrders.date4, calendar.getTime());
+                qOrders.update(record2);
+                ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
                 System.out.println(calendar.getTime());
                 return true;
             }, 0);
@@ -56,7 +66,6 @@ public class Order extends javax.swing.JFrame {
 
         Util.buttonCellEditor(tab1, 2).addActionListener(event -> {
             new Partner(this, (record) -> {
-                System.out.println(record);
                 Util.stopCellEditing(tab1);
                 Record record2 = qOrders.get(Util.getIndexRec(tab1));
                 record2.set(eOrders.contractor_id, record.getInt(ePartner.id));

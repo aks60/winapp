@@ -42,7 +42,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import startup.Main;
-import frames.swing.BooleanRenderer;
+import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefTableModel;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -203,7 +203,7 @@ public class Element extends javax.swing.JFrame {
             }
         };
 
-        BooleanRenderer br = new BooleanRenderer();
+        DefCellBoolRenderer br = new DefCellBoolRenderer();
         Arrays.asList(5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
 
         Util.setSelectedRow(tab1);

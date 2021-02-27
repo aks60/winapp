@@ -20,7 +20,7 @@ import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.BooleanRenderer;
+import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
 import java.awt.Component;
@@ -95,12 +95,12 @@ public class Color extends javax.swing.JFrame {
                 return lab;
             }
         });
-        tab2.getColumnModel().getColumn(5).setCellRenderer(new BooleanRenderer());
+        tab2.getColumnModel().getColumn(5).setCellRenderer(new DefCellBoolRenderer());
         tab2.getColumnModel().getColumn(2).setCellEditor(new DefCellEditor(3));
         tab2.getColumnModel().getColumn(3).setCellEditor(new DefCellEditor(3));
         tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditor(3));
 
-        BooleanRenderer br = new BooleanRenderer();
+        DefCellBoolRenderer br = new DefCellBoolRenderer();
         Arrays.asList(4, 5, 6, 7, 8, 9).forEach(index -> tab4.getColumnModel().getColumn(index).setCellRenderer(br));
 
         Util.setSelectedRow(tab1);

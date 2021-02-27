@@ -40,7 +40,7 @@ import enums.TypeGroups;
 import enums.UseColor;
 import enums.UseFurn1;
 import enums.UseFurn2;
-import frames.swing.BooleanRenderer;
+import frames.swing.DefCellBoolRenderer;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
@@ -321,9 +321,9 @@ public class Furniture extends javax.swing.JFrame {
             }
         };
 
-        tab1.getColumnModel().getColumn(3).setCellRenderer(new BooleanRenderer());
-        tab1.getColumnModel().getColumn(4).setCellRenderer(new BooleanRenderer());
-        tab1.getColumnModel().getColumn(5).setCellRenderer(new BooleanRenderer());
+        tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellBoolRenderer());
+        tab1.getColumnModel().getColumn(4).setCellRenderer(new DefCellBoolRenderer());
+        tab1.getColumnModel().getColumn(5).setCellRenderer(new DefCellBoolRenderer());
 
         Util.setSelectedRow(tab1);
     }

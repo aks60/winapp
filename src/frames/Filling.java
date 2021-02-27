@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
 import startup.Main;
-import frames.swing.BooleanRenderer;
+import frames.swing.DefCellBoolRenderer;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.Aps;
@@ -168,7 +168,7 @@ public class Filling extends javax.swing.JFrame {
         };
         new DefTableModel(tab5, qGlasprof, eArtikl.code, eArtikl.name, eGlasprof.gsize, eGlasprof.inside, eGlasprof.outside);
 
-        BooleanRenderer br = new BooleanRenderer();
+        DefCellBoolRenderer br = new DefCellBoolRenderer();
         Arrays.asList(3, 4).forEach(index -> tab5.getColumnModel().getColumn(index).setCellRenderer(br));
 
         Util.setSelectedRow(tab1);

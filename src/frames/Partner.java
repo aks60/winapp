@@ -5,7 +5,7 @@ import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
 import domain.ePartner;
-import frames.swing.BooleanRenderer;
+import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefFieldEditor;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
@@ -64,7 +64,7 @@ public class Partner extends javax.swing.JFrame {
                 ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }
         });
-        tab1.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
+        tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellBoolRenderer());
         tab1.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(new JCheckBox()) {
             @Override
             public Component getTableCellEditorComponent(JTable table, Object value,
