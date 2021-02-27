@@ -5,7 +5,7 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 
-public enum ePartner implements Field {
+public enum eOrdcontr implements Field {
     up("0", "0", "0", "Диллер", "CLIENTS"),
     id("4", "10", "0", "Идентификатор", "id"),
     contractor("12", "64", "1", "Контрагент", "KNAME"),
@@ -79,7 +79,7 @@ public enum ePartner implements Field {
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
-    ePartner(Object... p) {
+    eOrdcontr(Object... p) {
         meta.init(p);
     }
 

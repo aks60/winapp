@@ -5,8 +5,8 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 
-public enum eModels implements Field {
-    up("0", "0", "0", "Cписок типовых изделий", "EMPTY"),
+public enum eOrdprod implements Field {
+    up("0", "0", "0", "Cписок изделий заказов", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),
     npp("4", "10", "0", "Номе п/п", "npp"),
     name("12", "128", "1", "Название типового изделия", "name"),
@@ -16,7 +16,7 @@ public enum eModels implements Field {
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
-    eModels(Object... p) {
+    eOrdprod(Object... p) {
         meta.init(p);
     }
 
@@ -48,3 +48,4 @@ public enum eModels implements Field {
         return meta.descr();
     }
 }
+

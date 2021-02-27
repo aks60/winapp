@@ -39,14 +39,14 @@ import domain.eKitdet;
 import domain.eKitpar1;
 import domain.eKits;
 import domain.eParams;
-import domain.ePartner;
+import domain.eOrdcontr;
 import domain.eRulecalc;
 import domain.eSetting;
 import domain.eSyssize;
 import domain.eSysdata;
 import domain.eSysfurn;
 import domain.eSyspar1;
-import domain.eModels;
+import domain.eSysmodel;
 import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
@@ -117,8 +117,8 @@ public class Profstroy {
 
     public static void script() {
         Field[] fieldsUp = { //в порядке удаления
-            eSetting.up, ePartner.up, eSysdata.up, eOrders.up,
-            eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eModels.up,
+            eSetting.up, eOrdcontr.up, eSysdata.up, eOrders.up,
+            eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSysmodel.up,
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up,
@@ -551,7 +551,7 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color2_id, "clnu1", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
             updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");            
-            updateSql(eOrders.up, eOrders.contractor_id, "kname", ePartner.up, "contractor");
+            updateSql(eOrders.up, eOrders.contractor_id, "kname", eOrdcontr.up, "contractor");
                    
             executeSql("update partner set org_leve2 = trim(org_leve2)");            
         } catch (Exception e) {
@@ -641,13 +641,13 @@ public class Profstroy {
                     JsonObject jsonObj = jsonElem.getAsJsonObject();
                     String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + " " + jsonObj.get("name").getAsString();
                     int form = (jsonObj.get("prj").getAsInt() < 601999) ? TypeElem.RECTANGL.id : TypeElem.ARCH.id;
-                    Query q = new Query(eModels.values());
-                    Record record = eModels.up.newRecord(Query.INS);
-                    record.setNo(eModels.npp, index + 1);
-                    record.setNo(eModels.id, ConnApp.instanc().genId(eModels.up));
-                    record.setNo(eModels.name, name);
-                    record.setNo(eModels.script, script);
-                    record.setNo(eModels.form, form);
+                    Query q = new Query(eSysmodel.values());
+                    Record record = eSysmodel.up.newRecord(Query.INS);
+                    record.setNo(eSysmodel.npp, index + 1);
+                    record.setNo(eSysmodel.id, ConnApp.instanc().genId(eSysmodel.up));
+                    record.setNo(eSysmodel.name, name);
+                    record.setNo(eSysmodel.script, script);
+                    record.setNo(eSysmodel.form, form);
                     q.insert(record);
                 }
             }

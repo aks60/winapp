@@ -5,7 +5,7 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eOrders;
-import domain.ePartner;
+import domain.eOrdcontr;
 import frames.dialog.DicDate;
 import frames.swing.DefCellRenderer;
 import javax.swing.JTable;
@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Order extends javax.swing.JFrame {
 
-    private Query qPartner = new Query(ePartner.values());
+    private Query qPartner = new Query(eOrdcontr.values());
     private Query qOrders = new Query(eOrders.values());
 
     public Order() {
@@ -30,7 +30,7 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qPartner.select(ePartner.up);
+        qPartner.select(eOrdcontr.up);
         qOrders.select(eOrders.up, "order by", eOrders.num_ord);
     }
 
@@ -40,8 +40,8 @@ public class Order extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eOrders.contractor_id) {
-                    Record record = qPartner.stream().filter(rec -> rec.get(ePartner.id).equals(val)).findFirst().orElse(ePartner.up.newRecord());
-                    return record.get(ePartner.contractor);
+                    Record record = qPartner.stream().filter(rec -> rec.get(eOrdcontr.id).equals(val)).findFirst().orElse(eOrdcontr.up.newRecord());
+                    return record.get(eOrdcontr.contractor);
                 }
                 return val;
             }
@@ -68,7 +68,7 @@ public class Order extends javax.swing.JFrame {
             new Partner(this, (record) -> {
                 Util.stopCellEditing(tab1);
                 Record record2 = qOrders.get(Util.getIndexRec(tab1));
-                record2.set(eOrders.contractor_id, record.getInt(ePartner.id));
+                record2.set(eOrders.contractor_id, record.getInt(eOrdcontr.id));
                 qOrders.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });

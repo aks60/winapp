@@ -6,7 +6,7 @@ import common.FrameToFile;
 import common.eProperty;
 import dataset.Query;
 import dataset.Record;
-import domain.eModels;
+import domain.eSysmodel;
 import enums.TypeElem;
 import java.awt.Component;
 import java.awt.Window;
@@ -44,8 +44,8 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
     private ArrayList<Icon> listIcon2 = new ArrayList<Icon>();
     private DialogListener listenet = null;
     private Canvas paintPanel = new Canvas(iwinMax); 
-    private Query qModels1 = new Query(eModels.values());
-    private Query qModels2 = new Query(eModels.values());
+    private Query qModels1 = new Query(eSysmodel.values());
+    private Query qModels2 = new Query(eSysmodel.values());
 
     public Models() {
         initComponents();
@@ -68,8 +68,8 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
 
     private void loadingData() {
 
-        qModels1.select(eModels.up, "where", eModels.form, "=", TypeElem.RECTANGL.id, "order by", eModels.npp);
-        qModels2.select(eModels.up, "where", eModels.form, "=", TypeElem.ARCH.id, "order by", eModels.npp);
+        qModels1.select(eSysmodel.up, "where", eSysmodel.form, "=", TypeElem.RECTANGL.id, "order by", eSysmodel.npp);
+        qModels2.select(eSysmodel.up, "where", eSysmodel.form, "=", TypeElem.ARCH.id, "order by", eSysmodel.npp);
         DefaultTableModel dm1 = (DefaultTableModel) tab1.getModel();
         DefaultTableModel dm2 = (DefaultTableModel) tab2.getModel();
         dm1.getDataVector().removeAllElements();
@@ -77,8 +77,8 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
         int length = 68;
         for (Record record : qModels1) {
             try {
-                Object obj[] = {record.get(eModels.npp), record.get(eModels.name), ""};
-                Object script = record.get(eModels.script);
+                Object obj[] = {record.get(eSysmodel.npp), record.get(eSysmodel.name), ""};
+                Object script = record.get(eSysmodel.script);
                 iwinMin.build(script.toString());
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwinMin.gc2d = bi.createGraphics();
@@ -97,8 +97,8 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
         }
         for (Record record : qModels2) {
             try {
-                Object obj[] = {record.get(eModels.npp), record.get(eModels.name), ""};
-                Object script = record.get(eModels.script);
+                Object obj[] = {record.get(eSysmodel.npp), record.get(eSysmodel.name), ""};
+                Object script = record.get(eSysmodel.script);
                 iwinMin.build(script.toString());
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwinMin.gc2d = bi.createGraphics();
@@ -208,7 +208,7 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
     private void selectionTab1(ListSelectionEvent event) {
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
-            Object script = qModels1.get(index, eModels.script);
+            Object script = qModels1.get(index, eSysmodel.script);
             iwinMax.build(script.toString());
             paintPanel.repaint(true);
         }
@@ -217,7 +217,7 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
     private void selectionTab2(ListSelectionEvent event) {
         int index = Util.getIndexRec(tab2);
         if (index != -1) {
-            Object script = qModels2.get(index, eModels.script);
+            Object script = qModels2.get(index, eSysmodel.script);
             iwinMax.build(script.toString());
             paintPanel.repaint(true);
         }
@@ -949,9 +949,9 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
         int index = Util.getIndexRec(table);
         if (index != -1) {
             Record record = new Record();
-            record.add(query.get(index, eModels.id));
-            record.add(query.get(index, eModels.name));
-            record.add(query.get(index, eModels.script));
+            record.add(query.get(index, eSysmodel.id));
+            record.add(query.get(index, eSysmodel.name));
+            record.add(query.get(index, eSysmodel.script));
             listenet.action(record);
         }
         this.dispose();
