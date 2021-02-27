@@ -90,6 +90,8 @@ public class Order extends javax.swing.JFrame {
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
         pan2 = new javax.swing.JPanel();
+        lab1 = new javax.swing.JLabel();
+        txt1 = new javax.swing.JTextField();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -248,15 +250,35 @@ public class Order extends javax.swing.JFrame {
 
         pan2.setPreferredSize(new java.awt.Dimension(400, 470));
 
+        lab1.setFont(frames.Util.getFont(0,0));
+        lab1.setText("Длина");
+        lab1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab1.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab1.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab1.setPreferredSize(new java.awt.Dimension(48, 18));
+
+        txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt1.setPreferredSize(new java.awt.Dimension(164, 18));
+
         javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
         pan2.setLayout(pan2Layout);
         pan2Layout.setHorizontalGroup(
             pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(pan2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(292, Short.MAX_VALUE))
         );
         pan2Layout.setVerticalGroup(
             pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 468, Short.MAX_VALUE)
+            .addGroup(pan2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(439, Short.MAX_VALUE))
         );
 
         centr.add(pan2, java.awt.BorderLayout.EAST);
@@ -354,6 +376,7 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JButton btnRef;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
+    private javax.swing.JLabel lab1;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
@@ -361,6 +384,7 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
+    private javax.swing.JTextField txt1;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
