@@ -1,6 +1,5 @@
 package frames;
 
-import common.DialogListener;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Query;
@@ -16,10 +15,11 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
+import common.RecordListener;
 
 public class Currenc extends javax.swing.JFrame {
 
-    private DialogListener listener = null;
+    private RecordListener listener = null;
     private Window owner = null;
     private Query qCurrenc = new Query(eCurrenc.values());
 
@@ -32,7 +32,7 @@ public class Currenc extends javax.swing.JFrame {
         setVisible(true);
     }
 
-    public Currenc(Frame owner, DialogListener listener) {
+    public Currenc(Frame owner, RecordListener listener) {
         initComponents();
         initElements();
         loadingData();

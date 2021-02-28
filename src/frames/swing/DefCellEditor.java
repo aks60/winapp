@@ -1,6 +1,5 @@
 package frames.swing;
 
-import common.EditorListener;
 import dataset.Field;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
@@ -14,11 +13,12 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
+import common.ObjectListener;
 
 public class DefCellEditor extends DefaultCellEditor {
 
     private int check = 0;
-    private EditorListener listenerCell = null;
+    private ObjectListener listenerCell = null;
     private JComponent panel = new javax.swing.JPanel();
     private JButton button = null;
 
@@ -35,7 +35,7 @@ public class DefCellEditor extends DefaultCellEditor {
         button(button);
     }
 
-    public DefCellEditor(EditorListener listener, JButton button) {
+    public DefCellEditor(ObjectListener listener, JButton button) {
         super(new JTextField());
         this.listenerCell = listener;
         field(false);

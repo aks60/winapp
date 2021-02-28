@@ -3,7 +3,7 @@ package common;
 
 import dataset.Record;
 
-public interface DialogListener {
+public interface RecordListener {
 
     public void action(Record record);
 }

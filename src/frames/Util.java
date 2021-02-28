@@ -1,7 +1,5 @@
 package frames;
 
-import common.DialogListener;
-import common.EditorListener;
 import common.SqlListener;
 import common.eProperty;
 import dataset.ConnApp;
@@ -48,6 +46,8 @@ import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+import common.RecordListener;
+import common.ObjectListener;
 
 /**
  * <p>
@@ -440,7 +440,7 @@ public class Util {
     }
 
     //Инкапсуляция кнопки в ячейку таблицы
-    public static JButton buttonCellEditor(JTable table, int column, EditorListener listener) {
+    public static JButton buttonCellEditor(JTable table, int column, ObjectListener listener) {
         JButton btn = new JButton("...");
         table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditor(listener, btn));
         return btn;

@@ -1,6 +1,5 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
 import dataset.Field;
@@ -11,15 +10,16 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
 import javax.swing.JTable;
+import common.RecordListener;
 
 public class ParGrup2v extends javax.swing.JDialog {
 
     private Query qParams = new Query(eParams.values());
     private Query qPardet = new Query(eParams.values());
-    private DialogListener listener = null;
+    private RecordListener listener = null;
     private Field filter = null;
 
-    public ParGrup2v(java.awt.Frame parent, DialogListener listener, Field filter) {
+    public ParGrup2v(java.awt.Frame parent, RecordListener listener, Field filter) {
         super(parent, true);
         initComponents();
         initElements();

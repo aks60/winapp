@@ -1,6 +1,5 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
 import dataset.Record;
@@ -11,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import common.RecordListener;
 
 public class DicJoinvar extends javax.swing.JDialog {
 
@@ -21,9 +21,9 @@ public class DicJoinvar extends javax.swing.JDialog {
         new ImageIcon(getClass().getResource("/resource/img16/b003.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b004.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
-    private DialogListener listener = null;
+    private RecordListener listener = null;
 
-    public DicJoinvar(java.awt.Frame parent, DialogListener listenet) {
+    public DicJoinvar(java.awt.Frame parent, RecordListener listenet) {
         super(parent, true);
         initComponents();
         initElements();

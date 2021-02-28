@@ -1,8 +1,6 @@
 package frames;
 
 import frames.dialog.DicArtikl;
-import common.DialogListener;
-import common.EditorListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
@@ -47,6 +45,8 @@ import frames.swing.DefTableModel;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.Aps;
+import common.RecordListener;
+import common.ObjectListener;
 
 public class Element extends javax.swing.JFrame {
 
@@ -59,7 +59,7 @@ public class Element extends javax.swing.JFrame {
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
-    private DialogListener listenerArtikl, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
+    private RecordListener listenerArtikl, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
     private String subsql = "(-1)";
 
     public Element() {

@@ -1,19 +1,19 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
 import dataset.Query;
 import dataset.Record;
 import domain.eParams;
 import frames.swing.DefTableModel;
+import common.RecordListener;
 
 public class ParDefault extends javax.swing.JDialog {
 
     private Query qParam = new Query(eParams.up.values());
-    private DialogListener listener;
+    private RecordListener listener;
     
-    public ParDefault(java.awt.Frame parent, DialogListener listener) {
+    public ParDefault(java.awt.Frame parent, RecordListener listener) {
         super(parent, true);
         initComponents();
         initElements();
@@ -22,7 +22,7 @@ public class ParDefault extends javax.swing.JDialog {
         setVisible(true);        
     }
     
-    public ParDefault(java.awt.Frame parent, DialogListener listener, int grup) {
+    public ParDefault(java.awt.Frame parent, RecordListener listener, int grup) {
         super(parent, true);
         initComponents();
         initElements();

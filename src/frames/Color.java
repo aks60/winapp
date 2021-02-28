@@ -1,6 +1,5 @@
 package frames;
 
-import common.DialogListener;
 import common.FrameToFile;
 import common.SqlListener;
 import dataset.ConnApp;
@@ -29,6 +28,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
+import common.RecordListener;
 
 public class Color extends javax.swing.JFrame {
 
@@ -37,7 +37,7 @@ public class Color extends javax.swing.JFrame {
     private Query qColall = new Query(eColor.values());
     private Query qColor = new Query(eColor.values());
     private Query qColmap = new Query(eColmap.values());
-    private DialogListener listenerColor1, listenerColor2;
+    private RecordListener listenerColor1, listenerColor2;
     private SqlListener preset = (record) -> {
     };
 

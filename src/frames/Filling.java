@@ -1,7 +1,5 @@
 package frames;
 
-import common.DialogListener;
-import common.EditorListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
@@ -45,6 +43,8 @@ import frames.swing.DefCellBoolRenderer;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.Aps;
+import common.RecordListener;
+import common.ObjectListener;
 
 public class Filling extends javax.swing.JFrame {
 
@@ -56,7 +56,7 @@ public class Filling extends javax.swing.JFrame {
     private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values());
     private Query qGlaspar1 = new Query(eGlaspar1.values(), eParams.values());
     private Query qGlaspar2 = new Query(eGlaspar2.values(), eParams.values());
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor,
+    private RecordListener listenerArtikl, listenerPar1, listenerPar2, listenerColor,
             listenerColvar1, listenerColvar2, listenerColvar3, listenerTypset, listenerThicknes;
     private String subsql = "(-1)";
 

@@ -1,6 +1,5 @@
 package frames.swing;
 
-import common.DialogListener;
 import common.FrameListener;
 import frames.Util;
 import common.eProfile;
@@ -20,6 +19,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 import startup.Main;
+import common.RecordListener;
 
 public class DefTableModel extends DefaultTableModel implements FrameListener {
 

@@ -1,6 +1,5 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import dataset.Field;
 import frames.Util;
@@ -9,16 +8,17 @@ import dataset.Record;
 import domain.eFurniture;
 import java.util.Set;
 import javax.swing.table.DefaultTableModel;
+import common.RecordListener;
 
 //Справочник фурнитур
 public class DicName extends javax.swing.JDialog {
 
-    private DialogListener listener = null;
+    private RecordListener listener = null;
     private Set<String> set = null;
     private Query query = null;
     private Field field = null;
 
-    public DicName(java.awt.Frame parent, DialogListener listenet, Set<String> set) {
+    public DicName(java.awt.Frame parent, RecordListener listenet, Set<String> set) {
         super(parent, true);
         initComponents();
         initElements();
@@ -28,7 +28,7 @@ public class DicName extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    public DicName(java.awt.Frame parent, DialogListener listenet, Query query, Field field) {
+    public DicName(java.awt.Frame parent, RecordListener listenet, Query query, Field field) {
         super(parent, true);
         initComponents();
         initElements();

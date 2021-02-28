@@ -1,6 +1,5 @@
 package frames.dialog;
 
-import common.EditorListener;
 import common.FrameToFile;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,6 +7,7 @@ import java.util.GregorianCalendar;
 import frames.Util;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import common.ObjectListener;
 
 /**
  *Календарь
@@ -15,11 +15,11 @@ import javax.swing.event.ListSelectionListener;
 public class DicDate extends javax.swing.JDialog {
 
     protected int rangeTopYear = 25;
-    protected EditorListener listener;
+    protected ObjectListener listener;
     protected GregorianCalendar appCalendar = new GregorianCalendar();
     protected int overDay[] = new int[]{6, 0, 1, 2, 3, 4, 5};
 
-    public DicDate(java.awt.Window owner, EditorListener listener, Integer dxYear) {
+    public DicDate(java.awt.Window owner, ObjectListener listener, Integer dxYear) {
         super(owner, ModalityType.DOCUMENT_MODAL);
         this.listener = listener;
         initComponents();

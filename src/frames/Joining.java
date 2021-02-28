@@ -5,8 +5,6 @@ import frames.dialog.ParGrup2b;
 import frames.dialog.ParColor2;
 import frames.dialog.ParGrup2a;
 import frames.dialog.DicArtikl;
-import common.DialogListener;
-import common.EditorListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
@@ -46,6 +44,8 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.Main;
 import startup.Aps;
+import common.RecordListener;
+import common.ObjectListener;
 
 //варианты соединений
 public class Joining extends javax.swing.JFrame {
@@ -69,7 +69,7 @@ public class Joining extends javax.swing.JFrame {
     private Query qJoinpar1 = new Query(eJoinpar1.values());
     private Query qJoinpar2 = new Query(eJoinpar2.values());
     private String subsql = "(-1)";
-    private DialogListener listenerArtikl, listenerJoinvar, listenerColvar1, listenerColvar2, listenerColvar3;
+    private RecordListener listenerArtikl, listenerJoinvar, listenerColvar1, listenerColvar2, listenerColvar3;
 
     public Joining() {
         this.subsql = null;

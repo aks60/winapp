@@ -1,6 +1,5 @@
 package frames;
 
-import common.DialogListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
@@ -51,6 +50,7 @@ import javax.swing.RowFilter;
 import startup.Main;
 import startup.Aps;
 import javax.swing.JOptionPane;
+import common.RecordListener;
 
 public class Furniture extends javax.swing.JFrame {
 
@@ -67,7 +67,7 @@ public class Furniture extends javax.swing.JFrame {
     private Query qFurnside2 = new Query(eFurnside2.values());
     private Query qFurnpar1 = new Query(eFurnpar1.values());
     private Query qFurnpar2 = new Query(eFurnpar2.values());
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
+    private RecordListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
     private String subsql = "(-1)";
 

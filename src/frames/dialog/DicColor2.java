@@ -1,6 +1,5 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
 import dataset.Query;
@@ -21,21 +20,22 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
+import common.RecordListener;
 
 //Текстура артикулов
 public class DicColor2 extends javax.swing.JDialog {
 
-    private DialogListener listener;
+    private RecordListener listener;
     private Query qColgrp = new Query(eGroups.values());
     private Query qColorAll = new Query(eColor.values());
     private Query qColor = new Query(eColor.id, eColor.name);
     private boolean master = true;
 
-    public DicColor2(Frame parent, DialogListener listener) {
+    public DicColor2(Frame parent, RecordListener listener) {
         this(parent, listener, true);
     }
 
-    public DicColor2(Frame parent, DialogListener listener, HashSet<Record> colorSet) {
+    public DicColor2(Frame parent, RecordListener listener, HashSet<Record> colorSet) {
         super(parent, true);
         initComponents();
         initElements();
@@ -55,7 +55,7 @@ public class DicColor2 extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    public DicColor2(Frame parent, DialogListener listener, boolean master) {
+    public DicColor2(Frame parent, RecordListener listener, boolean master) {
         super(parent, true);
         this.master = master;
         initComponents();

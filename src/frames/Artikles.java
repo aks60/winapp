@@ -1,7 +1,6 @@
 package frames;
 
 import frames.dialog.DicColor2;
-import common.DialogListener;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Field;
@@ -41,6 +40,7 @@ import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
+import common.RecordListener;
 
 /**
  * Материальные ценности
@@ -58,7 +58,7 @@ public class Artikles extends javax.swing.JFrame {
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
     private Window owner = null;
-    private DialogListener listenerSeries, listenerCateg, listenerColor, listenerUnit, listenerCurrenc1,
+    private RecordListener listenerSeries, listenerCateg, listenerColor, listenerUnit, listenerCurrenc1,
             listenerCurrenc2, listenerAnalog, listenerSyssize, listenerArtincr, listenerArtdecr, listenerSeriesFilter, listenerCategFilter;
 
     public Artikles() {
@@ -2394,7 +2394,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void btn7(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7
         JButton btn = (JButton) evt.getSource();
-        DialogListener listener = (btn == btn7 || btn == btn9 || btn == btn26) ? listenerCurrenc1 : listenerCurrenc2;
+        RecordListener listener = (btn == btn7 || btn == btn9 || btn == btn26) ? listenerCurrenc1 : listenerCurrenc2;
         Currenc frame = new Currenc(this, listener);
     }//GEN-LAST:event_btn7
 

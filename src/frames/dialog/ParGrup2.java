@@ -1,6 +1,5 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
 import enums.Enam;
@@ -16,15 +15,16 @@ import java.util.Vector;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
+import common.RecordListener;
 
 public class ParGrup2 extends javax.swing.JDialog {
 
     private Frame parent = null;
-    private DialogListener listener;
+    private RecordListener listener;
     private Query qParams = new Query(eParams.values());
     private Field filter = null;
 
-    public ParGrup2(Frame parent, DialogListener listener, Field filter, int... part) {
+    public ParGrup2(Frame parent, RecordListener listener, Field filter, int... part) {
         super(parent, true);
         initComponents();
         initElements();

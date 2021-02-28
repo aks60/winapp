@@ -1,22 +1,22 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
 import dataset.Record;
 import enums.UseColor;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+import common.RecordListener;
 
 //Варианты текстур
 public class DicColvar extends javax.swing.JDialog {
 
-    private DialogListener listener = null;
+    private RecordListener listener = null;
     private int colorFk = 0;
     String[] titl = {"Наименование"};
     Object[][] rows;
 
-    public DicColvar(java.awt.Frame parent, DialogListener listenet, int colorFk) {
+    public DicColvar(java.awt.Frame parent, RecordListener listenet, int colorFk) {
         super(parent, true);
         initComponents();
         initElements();

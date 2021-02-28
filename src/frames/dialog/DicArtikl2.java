@@ -1,6 +1,5 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
 import dataset.Query;
@@ -18,15 +17,16 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import common.RecordListener;
 
 //Справочник артикулов
 public class DicArtikl2 extends javax.swing.JDialog {
 
-    private DialogListener listener = null;
+    private RecordListener listener = null;
     private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
     private Query qArtiklAll = new Query(eArtikl.values());
 
-    public DicArtikl2(java.awt.Frame parent, DialogListener listenet, int... level) {
+    public DicArtikl2(java.awt.Frame parent, RecordListener listenet, int... level) {
         super(parent, true);
         initComponents();
         initElements();

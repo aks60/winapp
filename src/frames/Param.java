@@ -1,6 +1,5 @@
 package frames;
 
-import common.DialogListener;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Query;
@@ -22,6 +21,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import common.RecordListener;
 
 public class Param extends javax.swing.JFrame {
 
@@ -29,7 +29,7 @@ public class Param extends javax.swing.JFrame {
     private Query qPardet = new Query(eParams.values());
     DefaultCellEditor editorStr = new DefaultCellEditor(new JTextField());
     DefCellEditor editorBtn = new DefCellEditor(new JButton("..."));
-    private DialogListener listenerColor;
+    private RecordListener listenerColor;
 
     public Param() {
         initComponents();

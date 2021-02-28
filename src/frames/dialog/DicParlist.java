@@ -1,6 +1,5 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameListener;
 import common.FrameToFile;
 import enums.Enam;
@@ -8,12 +7,13 @@ import enums.ParamList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
+import common.RecordListener;
 
 public class DicParlist extends javax.swing.JDialog implements FrameListener<Object, Object> {
 
-    private DialogListener listenet;
+    private RecordListener listenet;
 
-    public DicParlist(java.awt.Frame parent, DialogListener listenet, int... part) {
+    public DicParlist(java.awt.Frame parent, RecordListener listenet, int... part) {
         super(parent, true);
         initComponents();
         initElements();

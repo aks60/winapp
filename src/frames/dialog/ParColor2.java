@@ -1,6 +1,5 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
 import dataset.Query;
@@ -15,14 +14,15 @@ import frames.swing.DefTableModel;
 import domain.eGroups;
 import enums.TypeGroups;
 import enums.UseColor;
+import common.RecordListener;
 
 public class ParColor2 extends javax.swing.JDialog {
 
     private Query qArtdet = new Query(eArtdet.values());
     private Query qGroups = new Query(eGroups.values());
-    private DialogListener listener;
+    private RecordListener listener;
 
-    public ParColor2(java.awt.Frame parent, DialogListener listener, int artikl_id) {
+    public ParColor2(java.awt.Frame parent, RecordListener listener, int artikl_id) {
         super(parent, true);
         initComponents();
         initElements();

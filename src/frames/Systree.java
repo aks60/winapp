@@ -2,7 +2,6 @@ package frames;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import common.DialogListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
@@ -86,13 +85,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import startup.App;
 import startup.Main;
 import startup.Aps;
+import common.RecordListener;
 
 public class Systree extends javax.swing.JFrame {
 
     private Wincalc iwin = new Wincalc();
     private int systreeID = -1; //выбранная система
     private int sysprodID = -1; //выбранная конструкция
-    private DialogListener listenerArtikl, listenerModel, listenerFurn,
+    private RecordListener listenerArtikl, listenerModel, listenerFurn,
             listenerParam1, listenerParam2, listenerArt211, listenerArt212;
 
     private Query qParams = new Query(eParams.values());
@@ -2543,7 +2543,7 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
 
-            DialogListener listenerColor = (colorRec) -> {
+            RecordListener listenerColor = (colorRec) -> {
 
                 builder.script.JsonElem rootArea = iwin.jsonRoot.find(selectID);
                 if (rootArea != null) {

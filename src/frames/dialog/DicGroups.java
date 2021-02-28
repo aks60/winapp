@@ -1,6 +1,5 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
 import dataset.Query;
@@ -18,15 +17,16 @@ import java.awt.CardLayout;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JToggleButton;
+import common.RecordListener;
 
 //TODO для справочника сделать вставку и редактирование
 public class DicGroups extends javax.swing.JDialog {
 
     private Enam grup = null;
-    private DialogListener listener = null;
+    private RecordListener listener = null;
     private Query qGroups = new Query(eGroups.values());
 
-    public DicGroups(java.awt.Frame parent, DialogListener listenet, Enam grup) {
+    public DicGroups(java.awt.Frame parent, RecordListener listenet, Enam grup) {
         super(parent, true);
         this.grup = grup;
         this.listener = listenet;

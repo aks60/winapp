@@ -1,6 +1,6 @@
 package common;
 
-public interface EditorListener {
+public interface ObjectListener {
 
     public boolean action(Object o);
 }

@@ -1,6 +1,5 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import dataset.Field;
 import dataset.Query;
@@ -11,13 +10,14 @@ import enums.UseSide;
 import frames.Util;
 import frames.swing.DefTableModel;
 import java.util.List;
+import common.RecordListener;
 
 public class DicSysprof extends javax.swing.JDialog {
 
-    private DialogListener listener = null;
+    private RecordListener listener = null;
     private Query qSysprof = null;
 
-    public DicSysprof(java.awt.Frame parent, DialogListener listenet, Query query) {
+    public DicSysprof(java.awt.Frame parent, RecordListener listenet, Query query) {
         super(parent, true);
         initComponents();
         initElements();

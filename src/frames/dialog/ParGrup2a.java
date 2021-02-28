@@ -1,6 +1,5 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
 import dataset.Query;
@@ -8,14 +7,15 @@ import dataset.Record;
 import domain.eParams;
 import javax.swing.table.TableColumn;
 import frames.swing.DefTableModel;
+import common.RecordListener;
 
 public class ParGrup2a extends javax.swing.JDialog {
 
     private int grup = -1;
     private Query qParam2 = new Query(eParams.up.values());
-    private DialogListener listener;
+    private RecordListener listener;
 
-    public ParGrup2a(java.awt.Frame parent, DialogListener listener, int grup) {
+    public ParGrup2a(java.awt.Frame parent, RecordListener listener, int grup) {
         super(parent, true);
         initComponents();
         this.grup = grup;

@@ -1,17 +1,17 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import dataset.Record;
 import domain.eFurniture;
 import java.util.ArrayList;
+import common.RecordListener;
 
 //Справочник фурнитур
 public class DicHandl extends javax.swing.JDialog {
 
-    private DialogListener listener = null;
+    private RecordListener listener = null;
 
-    public DicHandl(java.awt.Frame parent, DialogListener listenet, int indexPosition) {
+    public DicHandl(java.awt.Frame parent, RecordListener listenet, int indexPosition) {
         super(parent, true);
         initComponents();
         initElements();

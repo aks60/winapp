@@ -1,19 +1,19 @@
 package frames.dialog;
 
-import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
 import dataset.Record;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
+import common.RecordListener;
 
 public class ParGrup2b extends javax.swing.JDialog {
 
     private List<String> list;
-    private DialogListener listener;
+    private RecordListener listener;
 
-    public ParGrup2b(java.awt.Frame parent, DialogListener listener, List list) {
+    public ParGrup2b(java.awt.Frame parent, RecordListener listener, List list) {
         super(parent, true);
         initComponents();
         this.listener = listener;

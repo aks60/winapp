@@ -1,6 +1,5 @@
 package frames;
 
-import common.DialogListener;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Query;
@@ -19,10 +18,11 @@ import frames.swing.DefTableModel;
 import java.util.Arrays;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
+import common.RecordListener;
 
 public class Syssize extends javax.swing.JFrame {
 
-    private DialogListener listener = null;
+    private RecordListener listener = null;
     private Window owner = null;
     private Query qSyssize = new Query(eSyssize.values());
 
@@ -34,7 +34,7 @@ public class Syssize extends javax.swing.JFrame {
         btnChoice.setVisible(false);
     }
 
-    public Syssize(Frame owner, DialogListener listener) {
+    public Syssize(Frame owner, RecordListener listener) {
         initComponents();
         initElements();
         loadingData();

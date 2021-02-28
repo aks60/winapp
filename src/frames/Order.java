@@ -1,7 +1,5 @@
 package frames;
 
-import common.DialogListener;
-import common.EditorListener;
 import common.FrameToFile;
 import dataset.Field;
 import dataset.Query;
@@ -22,12 +20,14 @@ import java.util.stream.Stream;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+import common.RecordListener;
+import common.ObjectListener;
 
 public class Order extends javax.swing.JFrame {
 
     private Query qOrdconr = new Query(eOrdcontr.values());
     private Query qOrders = new Query(eOrders.values());
-    private EditorListener listenerDate;
+    private ObjectListener listenerDate;
 
     public Order() {
         initComponents();

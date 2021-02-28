@@ -1,6 +1,5 @@
 package frames;
 
-import common.DialogListener;
 import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
@@ -21,11 +20,12 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+import common.RecordListener;
 
 public class Partner extends javax.swing.JFrame {
 
     private Window owner = null;
-    private DialogListener listener = null;
+    private RecordListener listener = null;
     private Query qOrdcontr = new Query(eOrdcontr.values());
     private DefFieldEditor rsv = null;
 
@@ -36,7 +36,7 @@ public class Partner extends javax.swing.JFrame {
         loadingModel();
     }
 
-    public Partner(Frame owner, DialogListener listener) {
+    public Partner(Frame owner, RecordListener listener) {
         initComponents();
         initElements();
         this.listener = listener;

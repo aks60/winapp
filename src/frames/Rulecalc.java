@@ -1,6 +1,5 @@
 package frames;
 
-import common.DialogListener;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Field;
@@ -19,11 +18,12 @@ import java.util.stream.Stream;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import common.RecordListener;
 
 public class Rulecalc extends javax.swing.JFrame {
 
     private Query qRulecalc = new Query(eRulecalc.values(), eArtikl.values());
-    private DialogListener listenerArtikl, listenerForm;
+    private RecordListener listenerArtikl, listenerForm;
 
     public Rulecalc() {
         initComponents();
