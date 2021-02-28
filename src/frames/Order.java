@@ -4,7 +4,6 @@ import common.FrameToFile;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
-import domain.eGroups;
 import domain.eOrders;
 import domain.eOrdcontr;
 import frames.dialog.DicDate;
@@ -20,14 +19,16 @@ import java.util.stream.Stream;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-import common.RecordListener;
 import common.ObjectListener;
+import common.RecordListener;
+import frames.swing.DefFieldEditor;
 
 public class Order extends javax.swing.JFrame {
 
-    private Query qOrdconr = new Query(eOrdcontr.values());
+    private Query qOrdcontr = new Query(eOrdcontr.values());
     private Query qOrders = new Query(eOrders.values());
     private ObjectListener listenerDate;
+    private DefFieldEditor rsvOrders;
 
     public Order() {
         initComponents();
@@ -38,7 +39,7 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qOrdconr.select(eOrdcontr.up);
+        qOrdcontr.select(eOrdcontr.up);
         qOrders.select(eOrders.up, "order by", eOrders.num_ord);
     }
 
@@ -48,7 +49,7 @@ public class Order extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eOrders.contractor_id) {
-                    Record record = qOrdconr.stream().filter(rec -> rec.get(eOrdcontr.id).equals(val)).findFirst().orElse(eOrdcontr.up.newRecord());
+                    Record record = qOrdcontr.stream().filter(rec -> rec.get(eOrdcontr.id).equals(val)).findFirst().orElse(eOrdcontr.up.newRecord());
                     return record.get(eOrdcontr.contractor);
                 }
                 return val;
@@ -56,6 +57,11 @@ public class Order extends javax.swing.JFrame {
         };
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
+        
+        rsvOrders = new DefFieldEditor(tab1);
+        rsvOrders.add(eOrders.num_acc, txt2);
+        rsvOrders.add(eOrders.type_currenc, txt3);
+        rsvOrders.add(eOrders.pric1, txt4);
     }
 
     private void listenerAdd() {
@@ -72,13 +78,13 @@ public class Order extends javax.swing.JFrame {
                 return true;
             }, 0);
         });
-        
-        Util.buttonCellEditor(tab1, 1).addActionListener(event -> {
+
+        Util.buttonCellEditor(tab1, 2).addActionListener(event -> {
             new DicDate(this, (obj) -> {
                 GregorianCalendar calendar = (GregorianCalendar) obj;
                 Util.stopCellEditing(tab1);
                 Record record2 = qOrders.get(Util.getIndexRec(tab1));
-                record2.set(eOrders.date4, calendar.getTime());
+                record2.set(eOrders.date6, calendar.getTime());
                 qOrders.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
                 System.out.println(calendar.getTime());
@@ -86,7 +92,7 @@ public class Order extends javax.swing.JFrame {
             }, 0);
         });
 
-        Util.buttonCellEditor(tab1, 2).addActionListener(event -> {
+        Util.buttonCellEditor(tab1, 3).addActionListener(event -> {
             new Partner(this, (record) -> {
                 Util.stopCellEditing(tab1);
                 Record record2 = qOrders.get(Util.getIndexRec(tab1));
@@ -96,7 +102,7 @@ public class Order extends javax.swing.JFrame {
             });
         });
 
-        Util.buttonCellEditor(tab1, 4).addActionListener(event -> {
+        Util.buttonCellEditor(tab1, 5).addActionListener(event -> {
             Set set = new HashSet();
             qOrders.forEach(rec -> set.add(rec.get(eOrders.categ)));
             new DicName(this, (record) -> {
@@ -110,15 +116,17 @@ public class Order extends javax.swing.JFrame {
 
     }
 
+    public void listenerSet() {
+
+        listenerDate = (obj) -> {
+            return true;
+        };
+    }
+
     private void selectionTab1(ListSelectionEvent event) {
-//        Util.stopCellEditing(tab1);
-//        int index = Util.getIndexRec(tab1);
-//        if (index != -1) {
-//            int flag = qOrdcontr.getAs(index, eOrdcontr.flag2);
-//            String name = (flag == 1) ? "pan3" : "pan4";
-//            ((CardLayout) pan2.getLayout()).show(pan2, name);
-//        }
-//        rsv.load(index);
+        Util.stopCellEditing(tab1);
+        int index = Util.getIndexRec(tab1);        
+        rsvOrders.load(index);
     }
 
     @SuppressWarnings("unchecked")
@@ -148,6 +156,10 @@ public class Order extends javax.swing.JFrame {
         btn1 = new javax.swing.JButton();
         lab6 = new javax.swing.JLabel();
         txt6 = new javax.swing.JTextField();
+        lab7 = new javax.swing.JLabel();
+        txt7 = new javax.swing.JTextField();
+        lab8 = new javax.swing.JLabel();
+        txt8 = new javax.swing.JTextField();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -274,7 +286,7 @@ public class Order extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Номер заказа", "Дата 1", "Дата 2", "Контрагент", "Менеджер", "Фильтр"
+                "Номер заказа", "Дата от", "Дата до", "Контрагент", "Менеджер", "Фильтр"
             }
         ) {
             Class[] types = new Class [] {
@@ -311,7 +323,7 @@ public class Order extends javax.swing.JFrame {
         pan2.setPreferredSize(new java.awt.Dimension(400, 470));
 
         lab1.setFont(frames.Util.getFont(0,0));
-        lab1.setText("Номер отдела");
+        lab1.setText("Тип расчтета");
         lab1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab1.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab1.setMinimumSize(new java.awt.Dimension(34, 14));
@@ -407,6 +419,36 @@ public class Order extends javax.swing.JFrame {
             }
         });
 
+        lab7.setFont(frames.Util.getFont(0,0));
+        lab7.setText("Общий вес");
+        lab7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab7.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab7.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab7.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        txt7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt7.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt7ActionPerformed(evt);
+            }
+        });
+
+        lab8.setFont(frames.Util.getFont(0,0));
+        lab8.setText("Общая площадь");
+        lab8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab8.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab8.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab8.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        txt8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt8.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
         pan2.setLayout(pan2Layout);
         pan2Layout.setHorizontalGroup(
@@ -439,17 +481,21 @@ public class Order extends javax.swing.JFrame {
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan2Layout.createSequentialGroup()
+                        .addComponent(lab7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan2Layout.createSequentialGroup()
+                        .addComponent(lab8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(122, Short.MAX_VALUE))
         );
         pan2Layout.setVerticalGroup(
             pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -470,7 +516,19 @@ public class Order extends javax.swing.JFrame {
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(319, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
 
         centr.add(pan2, java.awt.BorderLayout.EAST);
@@ -584,6 +642,14 @@ public class Order extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt6ActionPerformed
 
+    private void txt7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt7ActionPerformed
+
+    private void txt8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt8ActionPerformed
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
@@ -599,6 +665,8 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JLabel lab4;
     private javax.swing.JLabel lab5;
     private javax.swing.JLabel lab6;
+    private javax.swing.JLabel lab7;
+    private javax.swing.JLabel lab8;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
@@ -612,6 +680,8 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JTextField txt4;
     private javax.swing.JTextField txt5;
     private javax.swing.JTextField txt6;
+    private javax.swing.JTextField txt7;
+    private javax.swing.JTextField txt8;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 

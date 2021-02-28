@@ -40,7 +40,7 @@ public class TestFrame extends javax.swing.JFrame {
 
     private void loadingTab1() {
         try {
-            DefTableModel dtm = new DefTableModel(tab1, qOrders, eOrders.num_ord, eOrders.num_dep, eOrders.num_acc) {
+            DefTableModel dtm = new DefTableModel(tab1, qOrders, eOrders.values()) {
                 @Override
                 public String getColumnName(int columnIndex) {
                     return columns[columnIndex].name();
@@ -252,13 +252,13 @@ public class TestFrame extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13", "Title 14"
             }
         ));
         tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
