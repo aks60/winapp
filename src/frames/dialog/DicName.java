@@ -7,15 +7,27 @@ import frames.Util;
 import dataset.Query;
 import dataset.Record;
 import domain.eFurniture;
+import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 
 //Справочник фурнитур
 public class DicName extends javax.swing.JDialog {
 
     private DialogListener listener = null;
+    private Set<String> set = null;
     private Query query = null;
     private Field field = null;
-    
+
+    public DicName(java.awt.Frame parent, DialogListener listenet, Set<String> set) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        this.listener = listenet;
+        this.set = set;
+        loadingModel();
+        setVisible(true);
+    }
+
     public DicName(java.awt.Frame parent, DialogListener listenet, Query query, Field field) {
         super(parent, true);
         initComponents();
@@ -28,12 +40,20 @@ public class DicName extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
-        
+
         DefaultTableModel dtm = (DefaultTableModel) tab1.getModel();
-        dtm.setRowCount(query.size());
-        for (int i = 0; i < query.size(); i++) {
-            Record record = query.table(field).get(i);
-            dtm.setValueAt(record.get(field), i, 0);
+        if (set != null) {
+            dtm.setRowCount(set.size());
+            int i = 0;
+            for (String string : set) {
+               dtm.setValueAt(string, i++, 0); 
+            }
+        } else {
+            dtm.setRowCount(query.size());
+            for (int i = 0; i < query.size(); i++) {
+                Record record = query.table(field).get(i);
+                dtm.setValueAt(record.get(field), i, 0);
+            }
         }
     }
 
