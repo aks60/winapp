@@ -13,7 +13,7 @@ public enum eOrders implements Field {
     categ("12", "32", "1", "Категория", "PPREF"),    
     contractor_id("4", "10", "1", "Контрагент", "partner_id"),
     manager("12", "64", "1", "Менеджер", "MNAME"),
-    manager_id("4", "10", "1", "Менеджер", "manager_id"),
+    //manager_id("4", "10", "1", "Менеджер", "manager_id"),
     square("8", "15", "1", "Площадь изделий", "PSQRA"),
     weight("8", "15", "1", "Вес изделий", "EMPTY"),  
     exp1c("5", "5", "1", "Экспорт в 1 С", "EXP1C"),

@@ -26,7 +26,7 @@ public class Partner extends javax.swing.JFrame {
 
     private Window owner = null;
     private DialogListener listener = null;
-    private Query qPartner = new Query(eOrdcontr.values());
+    private Query qOrdcontr = new Query(eOrdcontr.values());
     private DefFieldEditor rsv = null;
 
     public Partner() {
@@ -48,11 +48,11 @@ public class Partner extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qPartner.select(eOrdcontr.up, "order by", eOrdcontr.category, ",", eOrdcontr.contractor);
+        qOrdcontr.select(eOrdcontr.up, "order by", eOrdcontr.category, ",", eOrdcontr.contractor);
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qPartner, eOrdcontr.category, eOrdcontr.contractor, eOrdcontr.flag2, eOrdcontr.manager);
+        new DefTableModel(tab1, qOrdcontr, eOrdcontr.category, eOrdcontr.contractor, eOrdcontr.flag2, eOrdcontr.manager);
 
         String arr[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
         Util.buttonCellEditor(tab1, 0).addActionListener(event -> {
@@ -60,7 +60,7 @@ public class Partner extends javax.swing.JFrame {
                     "Изменение категории контрагента", JOptionPane.QUESTION_MESSAGE, null, arr, arr[0]);
             if (result != null) {
                 Util.stopCellEditing(tab1);
-                qPartner.set(result, Util.getIndexRec(tab1), eOrdcontr.category);
+                qOrdcontr.set(result, Util.getIndexRec(tab1), eOrdcontr.category);
                 ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }
         });
@@ -106,7 +106,7 @@ public class Partner extends javax.swing.JFrame {
         Util.stopCellEditing(tab1);
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
-            int flag = qPartner.getAs(index, eOrdcontr.flag2);
+            int flag = qOrdcontr.getAs(index, eOrdcontr.flag2);
             String name = (flag == 1) ? "pan3" : "pan4";
             ((CardLayout) pan2.getLayout()).show(pan2, name);
         }
@@ -818,7 +818,7 @@ public class Partner extends javax.swing.JFrame {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         int index = Util.getIndexRec(tab1);
         if (index != -1 && listener != null) {
-            Record record = qPartner.get(index);
+            Record record = qOrdcontr.get(index);
             listener.action(record);
         }
         this.dispose();
@@ -829,7 +829,7 @@ public class Partner extends javax.swing.JFrame {
 //            listener.action(ePartner.up.newRecord());
 //        }
 //        this.dispose();
-        qPartner.execsql();
+        qOrdcontr.execsql();
     }//GEN-LAST:event_btnRemove
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed

@@ -255,9 +255,10 @@
                 <Component class="javax.swing.JTable" name="tab1">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="2">
+                      <Table columnCount="6" rowCount="2">
                         <Column editable="true" title="&#x41d;&#x43e;&#x43c;&#x435;&#x440; &#x437;&#x430;&#x43a;&#x430;&#x437;&#x430;" type="java.lang.String"/>
-                        <Column editable="true" title="&#x414;&#x430;&#x442;&#x430;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#x414;&#x430;&#x442;&#x430; 1" type="java.lang.Object"/>
+                        <Column editable="true" title="&#x414;&#x430;&#x442;&#x430; 2" type="java.lang.Object"/>
                         <Column editable="true" title="&#x41a;&#x43e;&#x43d;&#x442;&#x440;&#x430;&#x433;&#x435;&#x43d;&#x442;" type="java.lang.String"/>
                         <Column editable="true" title="&#x41c;&#x435;&#x43d;&#x435;&#x434;&#x436;&#x435;&#x440;" type="java.lang.String"/>
                         <Column editable="true" title="&#x424;&#x438;&#x43b;&#x44c;&#x442;&#x440;" type="java.lang.String"/>
@@ -267,6 +268,11 @@
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
                         <Column maxWidth="-1" minWidth="-1" prefWidth="60" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -342,6 +348,8 @@
                               <Component id="lab3" min="-2" max="-2" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txt3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btn1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lab2" min="-2" max="-2" attributes="1"/>
@@ -353,8 +361,13 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txt5" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lab6" min="-2" max="-2" attributes="1"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txt6" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="186" max="32767" attributes="0"/>
+                      <EmptySpace pref="122" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -375,6 +388,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lab3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txt3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -386,7 +400,12 @@
                           <Component id="lab5" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txt5" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="343" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lab6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="319" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -397,7 +416,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x414;&#x43b;&#x438;&#x43d;&#x430;"/>
+                <Property name="text" type="java.lang.String" value="&#x41d;&#x43e;&#x43c;&#x435;&#x440; &#x43e;&#x442;&#x434;&#x435;&#x43b;&#x430;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder bevelType="0"/>
@@ -410,7 +429,7 @@
                   <Dimension value="[34, 14]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[80, 18]"/>
+                  <Dimension value="[120, 18]"/>
                 </Property>
               </Properties>
             </Component>
@@ -419,7 +438,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x414;&#x43b;&#x438;&#x43d;&#x430;"/>
+                <Property name="text" type="java.lang.String" value="&#x41d;&#x43e;&#x43c;&#x435;&#x440; &#x441;&#x447;&#x435;&#x442;&#x430;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder bevelType="0"/>
@@ -432,7 +451,7 @@
                   <Dimension value="[34, 14]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[80, 18]"/>
+                  <Dimension value="[120, 18]"/>
                 </Property>
               </Properties>
             </Component>
@@ -441,7 +460,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x414;&#x43b;&#x438;&#x43d;&#x430;"/>
+                <Property name="text" type="java.lang.String" value="&#x412;&#x430;&#x43b;&#x44e;&#x442;&#x430; &#x43d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder bevelType="0"/>
@@ -454,7 +473,7 @@
                   <Dimension value="[34, 14]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[80, 18]"/>
+                  <Dimension value="[120, 18]"/>
                 </Property>
               </Properties>
             </Component>
@@ -463,7 +482,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x414;&#x43b;&#x438;&#x43d;&#x430;"/>
+                <Property name="text" type="java.lang.String" value="C&#x435;&#x431;&#x435;&#x441;&#x442;&#x43e;&#x438;&#x43c;&#x43e;&#x441;&#x442;&#x44c;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder bevelType="0"/>
@@ -476,7 +495,7 @@
                   <Dimension value="[34, 14]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[80, 18]"/>
+                  <Dimension value="[120, 18]"/>
                 </Property>
               </Properties>
             </Component>
@@ -485,7 +504,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x414;&#x43b;&#x438;&#x43d;&#x430;"/>
+                <Property name="text" type="java.lang.String" value="C&#x442;&#x43e;&#x438;&#x43c;&#x43e;&#x441;&#x442;&#x44c; &#x431;&#x435;&#x437; &#x441;&#x43a;&#x438;&#x434;&#x43a;&#x438;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder bevelType="0"/>
@@ -498,7 +517,7 @@
                   <Dimension value="[34, 14]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[80, 18]"/>
+                  <Dimension value="[120, 18]"/>
                 </Property>
               </Properties>
             </Component>
@@ -575,6 +594,63 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt5ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="..."/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                    <EtchetBorder bevelType="0"/>
+                  </Border>
+                </Property>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[18, 18]"/>
+                </Property>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[18, 18]"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="btn1" noResource="true"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[18, 18]"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lab6">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="C&#x442;&#x43e;&#x438;&#x43c;&#x43e;&#x441;&#x442;&#x44c; &#x441;&#x43e; &#x441;&#x43a;&#x438;&#x434;&#x43a;&#x43e;&#x439;"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                    <EtchetBorder bevelType="0"/>
+                  </Border>
+                </Property>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[2147483647, 2147483647]"/>
+                </Property>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[34, 14]"/>
+                </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 18]"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txt6">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                    <EtchetBorder bevelType="0"/>
+                  </Border>
+                </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[120, 18]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt6ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

@@ -46,7 +46,7 @@ public class DicName extends javax.swing.JDialog {
             dtm.setRowCount(set.size());
             int i = 0;
             for (String string : set) {
-               dtm.setValueAt(string, i++, 0); 
+                dtm.setValueAt(string, i++, 0);
             }
         } else {
             dtm.setRowCount(query.size());
@@ -69,6 +69,7 @@ public class DicName extends javax.swing.JDialog {
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
+        btnIns = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Справочник фурнитуры");
@@ -88,15 +89,7 @@ public class DicName extends javax.swing.JDialog {
             new String [] {
                 "Название фурнитуры"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -177,16 +170,33 @@ public class DicName extends javax.swing.JDialog {
             }
         });
 
+        btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
+        btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
+        btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnIns.setFocusable(false);
+        btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnIns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsert(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -199,7 +209,8 @@ public class DicName extends javax.swing.JDialog {
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnIns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -219,8 +230,15 @@ public class DicName extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        Record record = query.get(Util.getIndexRec(tab1));
-        listener.action(record);
+        Util.stopCellEditing(tab1);
+        if (set != null) {
+             Record record = new Record();
+             record.add(tab1.getValueAt(tab1.getSelectedRow(), 0));
+             listener.action(record);
+        } else {
+            Record record = query.get(Util.getIndexRec(tab1));
+            listener.action(record);
+        }
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
@@ -230,9 +248,15 @@ public class DicName extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnRemovebtnRemov
 
+    private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
+        DefaultTableModel dtm = (DefaultTableModel) tab1.getModel();
+        dtm.addRow(new String[]{});
+    }//GEN-LAST:event_btnInsert
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRemove;
     private javax.swing.JPanel centr;
     private javax.swing.JPanel north;
