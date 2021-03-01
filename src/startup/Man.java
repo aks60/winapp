@@ -2,6 +2,7 @@ package startup;
 
 import builder.Wincalc;
 import common.FrameProgress;
+import common.FrameToFile;
 import frames.Util;
 import java.awt.Frame;
 import java.util.Arrays;
@@ -10,7 +11,7 @@ import java.util.Locale;
 import javax.swing.JCheckBoxMenuItem;
 import common.ListenerFrame;
 import common.eProperty;
-import java.awt.Dimension;
+import frames.PathToDb;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 
@@ -50,9 +51,14 @@ public class Man extends javax.swing.JFrame {
         mn11 = new javax.swing.JMenuItem();
         mn12 = new javax.swing.JMenuItem();
         mn20 = new javax.swing.JMenu();
+        mn60 = new javax.swing.JMenu();
+        mn61 = new javax.swing.JCheckBoxMenuItem();
+        mn62 = new javax.swing.JCheckBoxMenuItem();
+        mn63 = new javax.swing.JCheckBoxMenuItem();
         sep1 = new javax.swing.JPopupMenu.Separator();
         mn30 = new javax.swing.JMenuItem();
         buttonLookAndFiilGroup = new javax.swing.ButtonGroup();
+        buttonBaseGroup = new javax.swing.ButtonGroup();
         pan3 = new javax.swing.JPanel();
         tab4 = new javax.swing.JTabbedPane();
         pan4 = new javax.swing.JPanel();
@@ -67,6 +73,7 @@ public class Man extends javax.swing.JFrame {
         btn8 = new javax.swing.JButton();
         btn9 = new javax.swing.JButton();
         btn10 = new javax.swing.JButton();
+        pan2 = new javax.swing.JPanel();
         tab1 = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
         btn2 = new javax.swing.JButton();
@@ -103,6 +110,43 @@ public class Man extends javax.swing.JFrame {
         mn20.setText("Вид интерфейса");
         mn20.setFont(frames.Util.getFont(1,1));
         ppmMain.add(mn20);
+
+        mn60.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b052.gif"))); // NOI18N
+        mn60.setText("Установка соединения");
+        mn60.setFont(frames.Util.getFont(1,1));
+
+        buttonBaseGroup.add(mn61);
+        mn61.setFont(frames.Util.getFont(1,1));
+        mn61.setSelected(true);
+        mn61.setText("База 1");
+        mn61.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBase(evt);
+            }
+        });
+        mn60.add(mn61);
+
+        buttonBaseGroup.add(mn62);
+        mn62.setFont(frames.Util.getFont(1,1));
+        mn62.setText("База 2");
+        mn62.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBase(evt);
+            }
+        });
+        mn60.add(mn62);
+
+        buttonBaseGroup.add(mn63);
+        mn63.setFont(frames.Util.getFont(1,1));
+        mn63.setText("База 3");
+        mn63.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBase(evt);
+            }
+        });
+        mn60.add(mn63);
+
+        ppmMain.add(mn60);
         ppmMain.add(sep1);
 
         mn30.setFont(frames.Util.getFont(1,1));
@@ -297,6 +341,19 @@ public class Man extends javax.swing.JFrame {
 
         tab4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp&nbsp;&nbsp\nОтчёты\n&nbsp;&nbsp&nbsp;&nbsp", pan6);
 
+        javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
+        pan2.setLayout(pan2Layout);
+        pan2Layout.setHorizontalGroup(
+            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 829, Short.MAX_VALUE)
+        );
+        pan2Layout.setVerticalGroup(
+            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+        );
+
+        tab4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp;&nbsp;&nbsp\nСервис\n&nbsp;&nbsp;&nbsp;&nbsp", pan2);
+
         pan3.add(tab4, java.awt.BorderLayout.CENTER);
 
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -384,7 +441,11 @@ public class Man extends javax.swing.JFrame {
     }//GEN-LAST:event_btn5
 
     private void btn6(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6
-        // TODO add your handling code here:
+        FrameProgress.create(Man.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.Order.createFrame(Man.this);
+            }
+        });
     }//GEN-LAST:event_btn6
 
     private void btn7(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7
@@ -411,6 +472,26 @@ public class Man extends javax.swing.JFrame {
         ppmMain.show(pan1, pan1.getX(), pan1.getY() - pan1.getHeight());
     }//GEN-LAST:event_tab1MouseClicked
 
+    private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
+        Arrays.asList(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
+
+        Integer num_base = (mn61.isSelected()) ? 1 : (mn62.isSelected()) ? 2 : 3;
+        PathToDb frame = new PathToDb(this, num_base);
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);
+
+        if (eProperty.base_num.read().equals("1")) {
+            mn61.setSelected(true);
+            //btnT7.setSelected(true);
+        } else if (eProperty.base_num.read().equals("2")) {
+            mn62.setSelected(true);
+            //btnT8.setSelected(true);
+        } else if (eProperty.base_num.read().equals("3")) {
+            mn63.setSelected(true);
+            //btnT9.setSelected(true);
+        }
+    }//GEN-LAST:event_mnBase
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn10;
@@ -423,13 +504,19 @@ public class Man extends javax.swing.JFrame {
     private javax.swing.JButton btn7;
     private javax.swing.JButton btn8;
     private javax.swing.JButton btn9;
+    private javax.swing.ButtonGroup buttonBaseGroup;
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;
     private javax.swing.JMenu mn10;
     private javax.swing.JMenuItem mn11;
     private javax.swing.JMenuItem mn12;
     private javax.swing.JMenu mn20;
     private javax.swing.JMenuItem mn30;
+    private javax.swing.JMenu mn60;
+    private javax.swing.JCheckBoxMenuItem mn61;
+    private javax.swing.JCheckBoxMenuItem mn62;
+    private javax.swing.JCheckBoxMenuItem mn63;
     private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
@@ -443,6 +530,7 @@ public class Man extends javax.swing.JFrame {
     
     private void initElements() {
         setTitle(getTitle() + Util.designName());
+        tab4.setSelectedIndex(1);
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();
