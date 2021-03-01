@@ -190,6 +190,7 @@ public class Man extends javax.swing.JFrame {
         pan4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 1));
 
         btn3.setFont(frames.Util.getFont(1,1));
+        btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b027.gif"))); // NOI18N
         btn3.setText("Статусы");
         btn3.setActionCommand("");
         btn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -206,6 +207,7 @@ public class Man extends javax.swing.JFrame {
         btn3.getAccessibleContext().setAccessibleDescription("");
 
         btn4.setFont(frames.Util.getFont(1,1));
+        btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         btn4.setText("Категории");
         btn4.setActionCommand("");
         btn4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
