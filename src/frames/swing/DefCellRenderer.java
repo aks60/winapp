@@ -1,6 +1,5 @@
 package frames.swing;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.awt.Component;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
