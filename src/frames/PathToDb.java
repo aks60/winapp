@@ -68,7 +68,7 @@ public class PathToDb extends javax.swing.JDialog {
     /**
      * Команда на соединение с БД.
      */
-    private void ConnectToDb() {
+    private void connectToDb() {
 
         //Устанавливаем параметры входа
         if (num_base == 1) {
@@ -98,10 +98,10 @@ public class PathToDb extends javax.swing.JDialog {
         Query.connection = con.getConnection();        
         if (pass == eExcep.yesConn) {
             
-            if (eProfile.P02.roleSet.contains(con.getRole())) {
+            if (App.Top.frame == null && eProfile.P02.roleSet.contains(con.getRole())) {
                 App.createApp(eProfile.P02);
 
-            } else if (eProfile.P16.roleSet.contains(con.getRole())) {
+            } else if (App.Top.frame == null && eProfile.P16.roleSet.contains(con.getRole())) {
                 App.createApp(eProfile.P16);
             }
             eProperty.base_num.write(String.valueOf(num_base));
@@ -470,7 +470,7 @@ public class PathToDb extends javax.swing.JDialog {
     private void btnAdmDef(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmDef
 
         eProperty.logindef(true, edUser, edPass, edHost, edPort, edPath);
-        ConnectToDb();
+        connectToDb();
 }//GEN-LAST:event_btnAdmDef
     //Нажал кнопку "user"
     private void btnUserDef(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserDef
@@ -481,11 +481,11 @@ public class PathToDb extends javax.swing.JDialog {
             edPass.setText("");
         }
         eProperty.logindef(false, edUser, edPass);
-        ConnectToDb();
+        connectToDb();
 }//GEN-LAST:event_btnUserDef
     //Нажал кнопку "ОК"
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        ConnectToDb();
+        connectToDb();
 }//GEN-LAST:event_btnOkActionPerformed
     //Нажал кнопку "ОТМЕНА"
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed

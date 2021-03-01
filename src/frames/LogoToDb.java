@@ -34,7 +34,7 @@ public class LogoToDb extends javax.swing.JDialog {
 
         } else {
             eProperty.logindef(false, edUser, edPass);
-            ConnectToDb();
+            connectToDb();
         }
         labMes.setText("");
         edUser.setText(eProperty.user.read());
@@ -45,7 +45,7 @@ public class LogoToDb extends javax.swing.JDialog {
     /**
      * Команда на соединение с БД.
      */
-    private void ConnectToDb() {
+    private void connectToDb() {
         labMes.setText("");
         ++countCon;
         if (countCon > 3) {
@@ -313,17 +313,17 @@ public class LogoToDb extends javax.swing.JDialog {
     }//GEN-LAST:event_closeAction
 
     private void okAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okAction
-        ConnectToDb();
+        connectToDb();
     }//GEN-LAST:event_okAction
 
     private void admConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admConnect
         eProperty.logindef(true, edUser, edPass);
-        ConnectToDb();
+        connectToDb();
     }//GEN-LAST:event_admConnect
 
     private void userConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userConnect
         eProperty.logindef(false, edUser, edPass);
-        ConnectToDb();
+        connectToDb();
     }//GEN-LAST:event_userConnect
 
     private void passonCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passonCaretUpdate
