@@ -7,11 +7,11 @@ package common;
 public enum eProfile {
     
     
-    P02(1, "1.1", "SA-OKNA <АРМ Технолог>", "ROLE1", "ROLE2"),// admin
-    P16(9, "9.1", "SA-OKNA <АРМ Менеджер>", "ROLE1", "ROLE2"); // client
+    P02(9, "9.1", "SA-OKNA <АРМ Технолог>", "ROLE1", "ROLE2"),  //технолог
+    P16(9, "9.1", "SA-OKNA <АРМ Менеджер>", "ROLE1", "ROLE2");  //менеджер
 
     public final static int[] version = {1, 0}; //версия программы
-    public final static eProfile profile = eProfile.P16; //профиль пользователя   
+    public final static eProfile profile = eProfile.P02; //профиль пользователя   
     public final static String filename = "v" + String.valueOf(eProfile.profile.id) + ".properties"; //имя файла properties
     public static String role_user = "null"; //права пользователя
     
@@ -32,6 +32,7 @@ public enum eProfile {
         this.config = config;
         this.role_name = role_name;
         this.role_filter = role_filter;
+        
         this.role_key1 = (role.length > 0) ? role[0] : null;
         this.role_name1 = (role.length > 1) ? role[1] : null;
         this.role_key2 = (role.length > 2) ? role[2] : null;

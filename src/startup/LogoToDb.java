@@ -109,11 +109,6 @@ public class LogoToDb extends javax.swing.JDialog {
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(320, 220));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
 
         pan2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         pan2.setPreferredSize(new java.awt.Dimension(290, 132));
@@ -131,12 +126,7 @@ public class LogoToDb extends javax.swing.JDialog {
         edPass.setPreferredSize(new java.awt.Dimension(72, 18));
         edPass.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                edPassonCaretUpdate(evt);
-            }
-        });
-        edPass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edPassActionPerformed(evt);
+                passonCaretUpdate(evt);
             }
         });
 
@@ -152,7 +142,7 @@ public class LogoToDb extends javax.swing.JDialog {
         edUser.setPreferredSize(new java.awt.Dimension(72, 18));
         edUser.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                edUseronCaretUpdate(evt);
+                useronCaretUpdate(evt);
             }
         });
 
@@ -169,7 +159,7 @@ public class LogoToDb extends javax.swing.JDialog {
         btnUser.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserConnect(evt);
+                userConnect(evt);
             }
         });
 
@@ -193,7 +183,7 @@ public class LogoToDb extends javax.swing.JDialog {
         btnAdm.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnAdm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdmConnect(evt);
+                admConnect(evt);
             }
         });
 
@@ -259,7 +249,7 @@ public class LogoToDb extends javax.swing.JDialog {
         btnOk.setPreferredSize(new java.awt.Dimension(80, 25));
         btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOkActionPerformed(evt);
+                okAction(evt);
             }
         });
 
@@ -273,7 +263,7 @@ public class LogoToDb extends javax.swing.JDialog {
         btnClose.setPreferredSize(new java.awt.Dimension(80, 25));
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseActionPerformed(evt);
+                closeAction(evt);
             }
         });
 
@@ -309,51 +299,41 @@ public class LogoToDb extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+    private void closeAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeAction
         System.exit(0);
-    }//GEN-LAST:event_btnCloseActionPerformed
+    }//GEN-LAST:event_closeAction
 
-    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+    private void okAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okAction
         ConnectToDb();
-    }//GEN-LAST:event_btnOkActionPerformed
+    }//GEN-LAST:event_okAction
 
-    private void btnAdmConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmConnect
+    private void admConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admConnect
         eProperty.logindef(true, edUser, edPass);
         ConnectToDb();
-    }//GEN-LAST:event_btnAdmConnect
+    }//GEN-LAST:event_admConnect
 
-    private void btnUserConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserConnect
+    private void userConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userConnect
         eProperty.logindef(false, edUser, edPass);
         ConnectToDb();
-    }//GEN-LAST:event_btnUserConnect
+    }//GEN-LAST:event_userConnect
 
-    private void edPassonCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_edPassonCaretUpdate
+    private void passonCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passonCaretUpdate
         labMes.setText("");
         if (edPass.getPassword().length > 0 && !edUser.getText().isEmpty()) {
             btnOk.setEnabled(true);
         } else {
             btnOk.setEnabled(false);
         }
-    }//GEN-LAST:event_edPassonCaretUpdate
+    }//GEN-LAST:event_passonCaretUpdate
 
-    private void edUseronCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_edUseronCaretUpdate
+    private void useronCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_useronCaretUpdate
         labMes.setText("");
         if (edPass.getPassword().length > 0 && !edUser.getText().isEmpty()) {
             btnOk.setEnabled(true);
         } else {
             btnOk.setEnabled(false);
         }
-    }//GEN-LAST:event_edUseronCaretUpdate
-
-    private void edPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edPassActionPerformed
-        //
-    }//GEN-LAST:event_edPassActionPerformed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-//        if (Main.dev == true) {
-//            this.setVisible(false);       
-//        }
-    }//GEN-LAST:event_formWindowActivated
+    }//GEN-LAST:event_useronCaretUpdate
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdm;

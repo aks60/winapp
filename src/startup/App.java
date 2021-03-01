@@ -34,16 +34,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.Timer timer = null;
     private FrameListener listenerMenu;
     private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();
-    private FrameListener<Object, Object> listenerDate = new FrameListener() {
-
-        public void actionRequest(Object obj) {
-        }
-
-        public void actionResponse(Object obj) {
-            Util.setGregorianCalendar(obj);
-            btn51.setText(Util.getDateStr(null));
-        }
-    };
 
     public App() {
 

@@ -30,7 +30,7 @@ import javax.swing.JFrame;
 
     public enum Aps {
 
-        App1, Convert, Groups, DicCurrenc, Color, Artikles, Joining, Element, Param,
+        App1, Men, Convert, Groups, DicCurrenc, Color, Artikles, Joining, Element, Param,
         Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,
         Specific, DicSyssize, TestFrame, RuleCalc;
         public javax.swing.JFrame frame;
@@ -149,14 +149,28 @@ import javax.swing.JFrame;
         public static void createApp(eProfile profile) {
 
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            if (profile.equals(eProfile.P16)) {
+            if (profile.equals(eProfile.P02)) {
                 eProfile.role_user = "user";
                 App1.frame = new App();
-                App1.frame.setName(eProfile.P16.name());
+                App1.frame.setName(eProfile.P02.name());
                 eProfile.appframe = App1.frame;
             }
             App1.frame.setLocation(0, 0);
             App1.frame.setSize(screenSize.width, App1.frame.getHeight());
             App1.frame.setVisible(true);
+        }
+        
+        public static void createMen(eProfile profile) {
+
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            if (profile.equals(eProfile.P16)) {
+                eProfile.role_user = "user";
+                Men.frame = new App();
+                Men.frame.setName(eProfile.P16.name());
+                eProfile.appframe = Men.frame;
+            }
+            Men.frame.setLocation(0, 0);
+            Men.frame.setSize(screenSize.width, Men.frame.getHeight());
+            Men.frame.setVisible(true);
         }
     }
