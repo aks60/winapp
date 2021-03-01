@@ -136,7 +136,7 @@ public enum App {
         }
         //eProfile.appframe = frame;
         frame.setName(this.name());
-        FrameToFile.setFrameSize(frame);
+        FrameToFile.setFrameSize(frame); //размеры окна
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowDeiconified(java.awt.event.WindowEvent evt) {
                 Top.frame.setExtendedState(JFrame.NORMAL);
@@ -158,7 +158,7 @@ public enum App {
         eProfile.profile = profile; //профиль приложения
         Top.frame.setName(profile.name());
         Top.frame.setLocation(0, 0);
-        Top.frame.setSize(screenSize.width, Top.frame.getHeight());
+        Top.frame.setSize(screenSize.width, Top.frame.getHeight()); //размеры гл. окна
         Top.frame.setVisible(true);
     }
 }
