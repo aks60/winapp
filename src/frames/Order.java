@@ -309,8 +309,8 @@ public class Order extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(60);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(120);
             tab1.getColumnModel().getColumn(4).setPreferredWidth(120);
             tab1.getColumnModel().getColumn(5).setPreferredWidth(60);
