@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import startup.Aps;
+import startup.App;
 
 public class Query extends Table {
 
@@ -181,7 +181,7 @@ public class Query extends Table {
         } catch (SQLException e) {
             System.out.println("Query.delete() " + e);
             if (e.getErrorCode() == 335544466) {
-                JOptionPane.showMessageDialog(Aps.App1.frame, "Нельзя удалить запись на которую имеются ссылки из других форм", "SQL предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(App.Top.frame, "Нельзя удалить запись на которую имеются ссылки из других форм", "SQL предупреждение", JOptionPane.INFORMATION_MESSAGE);
                 return false;
             }
         }
@@ -197,7 +197,7 @@ public class Query extends Table {
             for (Record record : this) {
                 if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
                     if (record.validate(fields) != null) { //проверка на корректность ввода данных                        
-                        JOptionPane.showMessageDialog(eProfile.appframe, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(App.Top.frame, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                         return record.validate(fields);
                     }
                 }

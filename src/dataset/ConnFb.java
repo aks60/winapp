@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import startup.App;
 
 /**
  * Соединение через PostgresSQL
@@ -59,7 +60,7 @@ public class ConnFb extends dataset.ConnApp {
     public eExcep createConnection(String server, String port, String base, String user, char[] password) {
         try {
             if (Class.forName(driver) == null) {
-                JOptionPane.showMessageDialog(eProfile.appframe, "Ошибка загрузки файла драйвера",
+                JOptionPane.showMessageDialog(App.Top.frame, "Ошибка загрузки файла драйвера",
                         "Ошибка", JOptionPane.ERROR_MESSAGE);
             }
             String url = fbserver + "//" + server + ":" + port + "/" + base + "?encoding=win1251";
@@ -86,7 +87,7 @@ public class ConnFb extends dataset.ConnApp {
             String sql = "select a.user2 from school.uchusers a where a.user2 = '" + user + "'";
             ResultSet rs = connection.createStatement().executeQuery(sql);
             if (rs.next()) {
-                JOptionPane.showMessageDialog(eProfile.appframe, "Есть уже такой пользователь в базе данных !", "Сообщение", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(App.Top.frame, "Есть уже такой пользователь в базе данных !", "Сообщение", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 String sql1 = "create user " + user + " with password '" + password + "'";
                 connection.createStatement().executeUpdate(sql1);
@@ -110,6 +111,10 @@ public class ConnFb extends dataset.ConnApp {
         }
     }
 
+    public String getUser() {
+        return "null";
+    }
+
     //Изменение привилегий пользователя
     public void grantUser(String user, String password, String role, boolean readwrite) {
         String sql;
@@ -127,6 +132,10 @@ public class ConnFb extends dataset.ConnApp {
         }
     }
 
+    public String getRole() {
+        return eProfile.profile.role;
+    }
+    
     //Удаление пользователя
     public void deleteUser(String user) {
         try {
@@ -184,7 +193,7 @@ public class ConnFb extends dataset.ConnApp {
             String v = rs.getString("VERSION");
             rs.close();
             return v;
-            
+
         } catch (SQLException e) {
             System.err.println("Ошибка получения версии " + e);
             return "";

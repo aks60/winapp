@@ -93,14 +93,24 @@ public class PathToDb extends javax.swing.JDialog {
         //создание соединения
         ConnApp con = ConnApp.initConnect();
         eExcep pass = con.createConnection(num_base);
-        Query.connection = con.getConnection();      
+        Query.connection = con.getConnection();        
         if (pass == eExcep.yesConn) {
-            if (Aps.App1.frame == null) {  //запуск главного меню
-                Aps.createApp(eProfile.profile);
+            
+            if (eProfile.P02.roleSet.contains(con.getRole())) {
+                App.createApp(eProfile.P02);
+
+            } else if (eProfile.P16.roleSet.contains(con.getRole())) {
+                App.createApp(eProfile.P16);
             }
             eProperty.base_num.write(String.valueOf(num_base));
             eProperty.save(); //свойства текущего пользователя
             dispose();
+
+        } else if (pass == eExcep.noLogin) {
+            labMes.setText(eExcep.noLogin.mes);
+
+        } else if (pass == eExcep.noGrant) {
+            labMes.setText(eExcep.noGrant.mes);
 
         } else {
             String mes = (Main.dev == true) ? pass.mes + " (код. " + pass.id + ")" : pass.mes;

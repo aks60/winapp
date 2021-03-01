@@ -43,7 +43,7 @@ import javax.swing.JLabel;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.Main;
-import startup.Aps;
+import startup.App;
 import common.RecordListener;
 import common.ObjectListener;
 
@@ -1004,7 +1004,7 @@ public class Joining extends javax.swing.JFrame {
         Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eJoindet.artikl_id)).findFirst().orElse(eJoindet.up.newRecord());
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                Aps.Artikles.createFrame(Joining.this, record2);
+                App.Artikles.createFrame(Joining.this, record2);
             }
         });
     }//GEN-LAST:event_btnConstructiv

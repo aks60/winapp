@@ -1,10 +1,7 @@
 package common;
 
-import dataset.Field;
-import dataset.Query;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
@@ -13,10 +10,8 @@ import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import frames.swing.DefTableModel;
-import frames.swing.DefCellEditor;
+import startup.App;
 
 /**
  * <p>
@@ -36,7 +31,7 @@ public class FrameAdapter {
     public static Timer timeFrame = new Timer(600, new ActionListener() {
 
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(eProfile.appframe, "Размеры формы сохранены в файле");
+            JOptionPane.showMessageDialog(App.Top.frame, "Размеры формы сохранены в файле");
         }
     });
 

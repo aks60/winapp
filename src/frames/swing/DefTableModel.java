@@ -20,6 +20,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 import startup.Main;
 import common.RecordListener;
+import startup.App;
 
 public class DefTableModel extends DefaultTableModel implements FrameListener {
 
@@ -169,7 +170,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
                 query.table(field).set(value, row, field);
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(eProfile.appframe, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(App.Top.frame, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

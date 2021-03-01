@@ -54,30 +54,37 @@ public class LogoToDb extends javax.swing.JDialog {
         new SwingWorker() {
             @Override
             protected Object doInBackground() throws Exception {
-
                 progressBar.setIndeterminate(true);
+
                 //Загрузка параметров входа
                 eProperty.user.write(edUser.getText());
                 eProperty.password = String.valueOf(edPass.getPassword());
-                //создание соединения
+
+                //Создание соединения
                 labMes.setText("Установка соединения с базой данных");
                 ConnApp con = ConnApp.initConnect();
                 int num_base = Integer.valueOf(eProperty.base_num.read());
                 eExcep pass = con.createConnection(num_base);
                 Query.connection = con.getConnection();
-                if (pass == eExcep.yesConn) {
-                    //запуск главного меню
-                    Aps.createApp(eProfile.profile);                   
+                if (pass == eExcep.yesConn) { //запуск главного меню   
+                    
+                    if (eProfile.P02.roleSet.contains(con.getRole())) {
+                        App.createApp(eProfile.P02);
+
+                    } else if (eProfile.P16.roleSet.contains(con.getRole())) {
+                        App.createApp(eProfile.P16);
+                    }
                     eProperty.save();  //свойства текущего пользователя
                     dispose();
                 } else if (pass == eExcep.noLogin) {
                     labMes.setText(eExcep.noLogin.mes);
+
                 } else if (pass == eExcep.noGrant) {
                     labMes.setText(eExcep.noGrant.mes);
+
                 } else {
                     dispose();
-                    //установим путь к базе
-                    PathToDb.pathToDb(null);
+                    PathToDb.pathToDb(null);  //установим путь к базе
                 }
                 return null;
             }
@@ -87,7 +94,7 @@ public class LogoToDb extends javax.swing.JDialog {
             }
         }.execute();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

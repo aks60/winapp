@@ -44,7 +44,7 @@ import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefTableModel;
 import java.util.Set;
 import java.util.stream.Collectors;
-import startup.Aps;
+import startup.App;
 import common.RecordListener;
 import common.ObjectListener;
 
@@ -1042,7 +1042,7 @@ public class Element extends javax.swing.JFrame {
 
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                Aps.Artikles.createFrame(Element.this, record2);
+                App.Artikles.createFrame(Element.this, record2);
             }
         });
     }//GEN-LAST:event_btnConstructiv

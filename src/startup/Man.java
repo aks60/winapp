@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import javax.swing.JCheckBoxMenuItem;
 
-public class Men extends javax.swing.JFrame {
+public class Man extends javax.swing.JFrame {
 
     private Locale locale;
     private Wincalc iwin = new Wincalc();
@@ -15,7 +15,7 @@ public class Men extends javax.swing.JFrame {
     private FrameListener listenerMenu;
     private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();    
 
-    public Men() {
+    public Man() {
         initComponents();
         initElements();
 

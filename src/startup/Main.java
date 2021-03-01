@@ -1,8 +1,7 @@
 package startup;
 
-import common.FrameListener;
-import common.FrameProgress;
 import common.FrameToFile;
+import common.eProfile;
 import common.eProperty;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -11,8 +10,8 @@ import javax.swing.UIManager.LookAndFeelInfo;
 //TODO  ВАЖНО!!! В DefTableModelюgetValueAt.getValueAt удалить проверку на null
 public class Main {
 
-    public static boolean dev = false;
-    public static boolean locate = false;
+    public static boolean dev = false;     //разработки и тестирования
+    public static boolean locate = false;  //координаты фрейма
 
     //Конструктор
     public Main() {
@@ -21,13 +20,18 @@ public class Main {
         frame.setVisible(true);
     }
 
-    //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
+    //java -jar C:\\Okna\\winapp\\dist\\winapp.jar tex loc
     public static void main(String[] args) {
 
         for (int index = 0; index < args.length; index++) {
-            if (index == 0 && args[0].equals("dev")) {
-                Main.dev = true; //режим разработки и тестирования
-            }
+            if (index == 0 && args[0].equals("tex")) {
+                Main.dev = true;
+                eProfile.role = "technologRW";
+                
+            } else if (index == 0 && args[0].equals("man")) {
+                Main.dev = true;
+                eProfile.role = "managerRW";
+            } 
             if (index == 1 && args[1].equals("loc")) {
                 Main.locate = true;
             }

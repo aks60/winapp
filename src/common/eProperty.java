@@ -40,6 +40,7 @@ public enum eProperty {
     fontname("Dialog"),    
     fontsize("11");
     private static Properties prop = null;
+    public final static String filename = "v9.properties"; //имя файла properties
     
     //Значения по умолчанию
     private String value;
@@ -81,12 +82,12 @@ public enum eProperty {
         if (prop == null) {
             prop = new Properties();
             try {
-                File file = new File(System.getProperty("user.dir"), eProfile.filename);
+                File file = new File(System.getProperty("user.dir"), filename);
                 if (file.exists() == true) {
                     
                     path_prop.value = System.getProperty("user.dir"); //сохраним путь к файлу в path_prop
                 } else {                    
-                    file = new File(path_prop.value, eProfile.filename); //если файла нет создадим его
+                    file = new File(path_prop.value, filename); //если файла нет создадим его
                 }
                 if (file.exists() == false) {                   
                     File mydir = new File(path_prop.value); //если файл создать так и не удалось
@@ -110,7 +111,7 @@ public enum eProperty {
     //Сохранение property в файл
     public static void save() {
         try {
-            File file = new File(path_prop.value, eProfile.filename);
+            File file = new File(path_prop.value, filename);
             FileOutputStream outStream = new FileOutputStream(file);
             prop.store(outStream, "");
             outStream.close();

@@ -43,8 +43,12 @@ public abstract class ConnApp {
 
     public abstract void addUser(String user, String password, String uchId, String role, boolean readwrite);
 
+    public abstract String getUser();
+    
     public abstract void grantUser(String user, String password, String role, boolean readwrite);
 
+    public abstract String getRole();
+    
     public abstract void deleteUser(String user);
 
     public abstract void modifyPassword(String user, String pass);
