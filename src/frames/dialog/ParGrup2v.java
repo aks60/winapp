@@ -10,16 +10,16 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
 import javax.swing.JTable;
-import common.RecordListener;
+import common.ListenerRecord;
 
 public class ParGrup2v extends javax.swing.JDialog {
 
     private Query qParams = new Query(eParams.values());
     private Query qPardet = new Query(eParams.values());
-    private RecordListener listener = null;
+    private ListenerRecord listener = null;
     private Field filter = null;
 
-    public ParGrup2v(java.awt.Frame parent, RecordListener listener, Field filter) {
+    public ParGrup2v(java.awt.Frame parent, ListenerRecord listener, Field filter) {
         super(parent, true);
         initComponents();
         initElements();

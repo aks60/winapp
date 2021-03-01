@@ -5,7 +5,6 @@ import frames.dialog.ParGrup2b;
 import frames.dialog.ParColor2;
 import frames.dialog.ParGrup2a;
 import frames.dialog.DicArtikl;
-import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
 import dataset.Field;
@@ -44,8 +43,9 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.Main;
 import startup.App;
-import common.RecordListener;
-import common.ObjectListener;
+import common.ListenerRecord;
+import common.ListenerObject;
+import common.ListenerFrame;
 
 //варианты соединений
 public class Joining extends javax.swing.JFrame {
@@ -69,7 +69,7 @@ public class Joining extends javax.swing.JFrame {
     private Query qJoinpar1 = new Query(eJoinpar1.values());
     private Query qJoinpar2 = new Query(eJoinpar2.values());
     private String subsql = "(-1)";
-    private RecordListener listenerArtikl, listenerJoinvar, listenerColvar1, listenerColvar2, listenerColvar3;
+    private ListenerRecord listenerArtikl, listenerJoinvar, listenerColvar1, listenerColvar2, listenerColvar3;
 
     public Joining() {
         this.subsql = null;
@@ -1002,7 +1002,7 @@ public class Joining extends javax.swing.JFrame {
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         Record record = ((DefTableModel) tab4.getModel()).getQuery().get(Util.getIndexRec(tab4));
         Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eJoindet.artikl_id)).findFirst().orElse(eJoindet.up.newRecord());
-        FrameProgress.create(this, new FrameListener() {
+        FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(Joining.this, record2);
             }

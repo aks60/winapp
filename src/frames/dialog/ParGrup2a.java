@@ -7,15 +7,15 @@ import dataset.Record;
 import domain.eParams;
 import javax.swing.table.TableColumn;
 import frames.swing.DefTableModel;
-import common.RecordListener;
+import common.ListenerRecord;
 
 public class ParGrup2a extends javax.swing.JDialog {
 
     private int grup = -1;
     private Query qParam2 = new Query(eParams.up.values());
-    private RecordListener listener;
+    private ListenerRecord listener;
 
-    public ParGrup2a(java.awt.Frame parent, RecordListener listener, int grup) {
+    public ParGrup2a(java.awt.Frame parent, ListenerRecord listener, int grup) {
         super(parent, true);
         initComponents();
         this.grup = grup;

@@ -15,16 +15,16 @@ import java.util.Vector;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
-import common.RecordListener;
+import common.ListenerRecord;
 
 public class ParGrup2 extends javax.swing.JDialog {
 
     private Frame parent = null;
-    private RecordListener listener;
+    private ListenerRecord listener;
     private Query qParams = new Query(eParams.values());
     private Field filter = null;
 
-    public ParGrup2(Frame parent, RecordListener listener, Field filter, int... part) {
+    public ParGrup2(Frame parent, ListenerRecord listener, Field filter, int... part) {
         super(parent, true);
         initComponents();
         initElements();

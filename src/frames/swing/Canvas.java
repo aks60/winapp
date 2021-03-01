@@ -1,6 +1,5 @@
 package frames.swing;
 
-import common.FrameListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,8 +12,9 @@ import builder.model.Com5t;
 import builder.model.ElemSimple;
 import enums.TypeElem;
 import java.util.LinkedList;
+import common.ListenerFrame;
 
-public class Canvas extends JPanel implements FrameListener<MouseEvent, MouseEvent> {
+public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEvent> {
 
     private boolean visible = true;
     private Wincalc iwin = null;

@@ -4,7 +4,6 @@ import frames.PathToDb;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import frames.Util;
-import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
 import common.eProperty;
@@ -23,6 +22,7 @@ import java.util.Locale;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
+import common.ListenerFrame;
 
 /**
  * <p>
@@ -33,7 +33,7 @@ public class Tex extends javax.swing.JFrame {
     private Locale locale;
     private Wincalc iwin = new Wincalc();
     private javax.swing.Timer timer = null;
-    private FrameListener listenerMenu;
+    private ListenerFrame listenerMenu;
     private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();
 
     public Tex() {
@@ -1025,7 +1025,7 @@ public class Tex extends javax.swing.JFrame {
 
     private void mnColor(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnColor
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Color.createFrame(Tex.this);
             }
@@ -1034,7 +1034,7 @@ public class Tex extends javax.swing.JFrame {
 
     private void mn42(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn42
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Systree.createFrame(Tex.this);
             }
@@ -1075,7 +1075,7 @@ private void mn0111ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
 private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
 
-    FrameProgress.create(Tex.this, new FrameListener() {
+    FrameProgress.create(Tex.this, new ListenerFrame() {
         public void actionRequest(Object obj) {
             App.Specific.createFrame(Tex.this);
         }
@@ -1084,7 +1084,7 @@ private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
 
 private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
-    FrameProgress.create(Tex.this, new FrameListener() {
+    FrameProgress.create(Tex.this, new ListenerFrame() {
         public void actionRequest(Object obj) {
             App.Artikles.createFrame(Tex.this);
         }
@@ -1109,7 +1109,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnCurrency(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCurrency
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.DicCurrenc.createFrame(Tex.this);
             }
@@ -1118,7 +1118,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnElement(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnElement
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 if (btn1.isSelected() == false) {
                     App.Element.createFrame(Tex.this);
@@ -1134,7 +1134,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnFurnityra(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnFurnityra
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 if (btn1.isSelected() == false) {
                     App.Furniture.createFrame(Tex.this);
@@ -1150,7 +1150,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnPartner(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPartner
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Partner.createFrame(Tex.this);
             }
@@ -1159,7 +1159,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnParametr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnParametr
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Param.createFrame(Tex.this);
             }
@@ -1168,7 +1168,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mJoining(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mJoining
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 if (btn1.isSelected() == false) {
                     App.Joining.createFrame(Tex.this);
@@ -1185,7 +1185,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGlass
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 if (btn1.isSelected() == false) {
                     App.Filling.createFrame(Tex.this);
@@ -1205,7 +1205,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnKits(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKits
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Kits.createFrame(Tex.this);
             }
@@ -1213,7 +1213,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnKits
 
     private void mnConvert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConvert
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Convert.createFrame(Tex.this);
             }
@@ -1222,7 +1222,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Order.createFrame(Tex.this);
             }
@@ -1231,7 +1231,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnSyssize(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSyssize
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.DicSyssize.createFrame(Tex.this);
             }
@@ -1240,7 +1240,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnBoxTypical(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBoxTypical
 
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Models.createFrame(Tex.this);
             }
@@ -1252,7 +1252,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_windowClosing
 
     private void mRulecalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mRulecalc
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.RuleCalc.createFrame(Tex.this);
             }
@@ -1299,7 +1299,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_btnBase
 
     private void mnGroup(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGroup
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Groups.createFrame(Tex.this);
             }
@@ -1307,7 +1307,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnGroup
 
     private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
-        FrameProgress.create(Tex.this, new FrameListener() {
+        FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.TestFrame.createFrame(Tex.this);
             }

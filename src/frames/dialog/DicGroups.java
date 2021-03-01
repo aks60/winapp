@@ -17,16 +17,16 @@ import java.awt.CardLayout;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JToggleButton;
-import common.RecordListener;
+import common.ListenerRecord;
 
 //TODO для справочника сделать вставку и редактирование
 public class DicGroups extends javax.swing.JDialog {
 
     private Enam grup = null;
-    private RecordListener listener = null;
+    private ListenerRecord listener = null;
     private Query qGroups = new Query(eGroups.values());
 
-    public DicGroups(java.awt.Frame parent, RecordListener listenet, Enam grup) {
+    public DicGroups(java.awt.Frame parent, ListenerRecord listenet, Enam grup) {
         super(parent, true);
         this.grup = grup;
         this.listener = listenet;

@@ -2,7 +2,6 @@ package frames;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
 import common.eProperty;
@@ -39,6 +38,7 @@ import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.Tex;
 import startup.App;
+import common.ListenerFrame;
 
 public class Specific extends javax.swing.JFrame {
 
@@ -592,7 +592,7 @@ public class Specific extends javax.swing.JFrame {
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
         float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
         Specification recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
-        FrameProgress.create(this, new FrameListener() {
+        FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(Specific.this, recordSpc.artiklRec);
             }
@@ -605,7 +605,7 @@ public class Specific extends javax.swing.JFrame {
         Specification recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         Record recordDet = recordSpc.detailRec;
         if (recordDet != null) {
-            FrameProgress.create(Specific.this, new FrameListener() {
+            FrameProgress.create(Specific.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
                         App.Element.createFrame(Specific.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
@@ -622,7 +622,7 @@ public class Specific extends javax.swing.JFrame {
                 }
             });
         } else {
-            FrameProgress.create(Specific.this, new FrameListener() {
+            FrameProgress.create(Specific.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
                         App.Systree.createFrame(Specific.this, recordSpc.artiklRec.getInt(eArtikl.id));

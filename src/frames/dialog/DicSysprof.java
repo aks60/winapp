@@ -10,14 +10,14 @@ import enums.UseSide;
 import frames.Util;
 import frames.swing.DefTableModel;
 import java.util.List;
-import common.RecordListener;
+import common.ListenerRecord;
 
 public class DicSysprof extends javax.swing.JDialog {
 
-    private RecordListener listener = null;
+    private ListenerRecord listener = null;
     private Query qSysprof = null;
 
-    public DicSysprof(java.awt.Frame parent, RecordListener listenet, Query query) {
+    public DicSysprof(java.awt.Frame parent, ListenerRecord listenet, Query query) {
         super(parent, true);
         initComponents();
         initElements();

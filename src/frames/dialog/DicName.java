@@ -8,17 +8,17 @@ import dataset.Record;
 import domain.eFurniture;
 import java.util.Set;
 import javax.swing.table.DefaultTableModel;
-import common.RecordListener;
+import common.ListenerRecord;
 
 //Справочник фурнитур
 public class DicName extends javax.swing.JDialog {
 
-    private RecordListener listener = null;
+    private ListenerRecord listener = null;
     private Set<String> set = null;
     private Query query = null;
     private Field field = null;
 
-    public DicName(java.awt.Frame parent, RecordListener listenet, Set<String> set) {
+    public DicName(java.awt.Frame parent, ListenerRecord listenet, Set<String> set) {
         super(parent, true);
         initComponents();
         initElements();
@@ -28,7 +28,7 @@ public class DicName extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    public DicName(java.awt.Frame parent, RecordListener listenet, Query query, Field field) {
+    public DicName(java.awt.Frame parent, ListenerRecord listenet, Query query, Field field) {
         super(parent, true);
         initComponents();
         initElements();

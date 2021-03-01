@@ -5,16 +5,16 @@ import frames.Util;
 import dataset.Record;
 import enums.TypeSet;
 import javax.swing.table.DefaultTableModel;
-import common.RecordListener;
+import common.ListenerRecord;
 
 //Тип состава
 public class DicTypset extends javax.swing.JDialog {
 
-    private RecordListener listener = null;
+    private ListenerRecord listener = null;
     String[] titl = {"Наименование"};
     Object[][] rows;
 
-    public DicTypset(java.awt.Frame parent, RecordListener listenet) {
+    public DicTypset(java.awt.Frame parent, ListenerRecord listenet) {
         super(parent, true);
         this.listener = listenet;
         initComponents();

@@ -6,14 +6,14 @@ import dataset.Query;
 import dataset.Record;
 import domain.eParams;
 import frames.swing.DefTableModel;
-import common.RecordListener;
+import common.ListenerRecord;
 
 public class ParDefault extends javax.swing.JDialog {
 
     private Query qParam = new Query(eParams.up.values());
-    private RecordListener listener;
+    private ListenerRecord listener;
     
-    public ParDefault(java.awt.Frame parent, RecordListener listener) {
+    public ParDefault(java.awt.Frame parent, ListenerRecord listener) {
         super(parent, true);
         initComponents();
         initElements();
@@ -22,7 +22,7 @@ public class ParDefault extends javax.swing.JDialog {
         setVisible(true);        
     }
     
-    public ParDefault(java.awt.Frame parent, RecordListener listener, int grup) {
+    public ParDefault(java.awt.Frame parent, ListenerRecord listener, int grup) {
         super(parent, true);
         initComponents();
         initElements();

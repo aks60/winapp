@@ -4,14 +4,14 @@ import common.FrameToFile;
 import dataset.Record;
 import domain.eFurniture;
 import java.util.ArrayList;
-import common.RecordListener;
+import common.ListenerRecord;
 
 //Справочник фурнитур
 public class DicHandl extends javax.swing.JDialog {
 
-    private RecordListener listener = null;
+    private ListenerRecord listener = null;
 
-    public DicHandl(java.awt.Frame parent, RecordListener listenet, int indexPosition) {
+    public DicHandl(java.awt.Frame parent, ListenerRecord listenet, int indexPosition) {
         super(parent, true);
         initComponents();
         initElements();

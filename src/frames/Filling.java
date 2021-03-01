@@ -1,6 +1,5 @@
 package frames;
 
-import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
 import dataset.Query;
@@ -43,8 +42,9 @@ import frames.swing.DefCellBoolRenderer;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.App;
-import common.RecordListener;
-import common.ObjectListener;
+import common.ListenerRecord;
+import common.ListenerObject;
+import common.ListenerFrame;
 
 public class Filling extends javax.swing.JFrame {
 
@@ -56,7 +56,7 @@ public class Filling extends javax.swing.JFrame {
     private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values());
     private Query qGlaspar1 = new Query(eGlaspar1.values(), eParams.values());
     private Query qGlaspar2 = new Query(eGlaspar2.values(), eParams.values());
-    private RecordListener listenerArtikl, listenerPar1, listenerPar2, listenerColor,
+    private ListenerRecord listenerArtikl, listenerPar1, listenerPar2, listenerColor,
             listenerColvar1, listenerColvar2, listenerColvar3, listenerTypset, listenerThicknes;
     private String subsql = "(-1)";
 
@@ -884,7 +884,7 @@ public class Filling extends javax.swing.JFrame {
         Record record = ((DefTableModel) tab2.getModel()).getQuery().get(Util.getIndexRec(tab2));
         Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
 
-        FrameProgress.create(this, new FrameListener() {
+        FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(Filling.this, record2);
             }

@@ -18,11 +18,11 @@ import frames.swing.DefTableModel;
 import java.util.Arrays;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
-import common.RecordListener;
+import common.ListenerRecord;
 
 public class Syssize extends javax.swing.JFrame {
 
-    private RecordListener listener = null;
+    private ListenerRecord listener = null;
     private Window owner = null;
     private Query qSyssize = new Query(eSyssize.values());
 
@@ -34,7 +34,7 @@ public class Syssize extends javax.swing.JFrame {
         btnChoice.setVisible(false);
     }
 
-    public Syssize(Frame owner, RecordListener listener) {
+    public Syssize(Frame owner, ListenerRecord listener) {
         initComponents();
         initElements();
         loadingData();

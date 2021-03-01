@@ -1,6 +1,5 @@
 package frames.swing;
 
-import common.FrameListener;
 import frames.Util;
 import common.eProfile;
 import dataset.Field;
@@ -19,10 +18,11 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 import startup.Main;
-import common.RecordListener;
 import startup.App;
+import common.ListenerRecord;
+import common.ListenerFrame;
 
-public class DefTableModel extends DefaultTableModel implements FrameListener {
+public class DefTableModel extends DefaultTableModel implements ListenerFrame {
 
     private JTable table = null;
     private DefaultTableModel model;

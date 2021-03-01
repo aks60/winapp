@@ -13,12 +13,12 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
-import common.ObjectListener;
+import common.ListenerObject;
 
 public class DefCellEditor extends DefaultCellEditor {
 
     private int check = 0;
-    private ObjectListener listenerCell = null;
+    private ListenerObject listenerCell = null;
     private JComponent panel = new javax.swing.JPanel();
     private JButton button = null;
 
@@ -35,7 +35,7 @@ public class DefCellEditor extends DefaultCellEditor {
         button(button);
     }
 
-    public DefCellEditor(ObjectListener listener, JButton button) {
+    public DefCellEditor(ListenerObject listener, JButton button) {
         super(new JTextField());
         this.listenerCell = listener;
         field(false);

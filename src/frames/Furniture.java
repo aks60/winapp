@@ -1,6 +1,5 @@
 package frames;
 
-import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
 import dataset.Query;
@@ -50,7 +49,8 @@ import javax.swing.RowFilter;
 import startup.Main;
 import startup.App;
 import javax.swing.JOptionPane;
-import common.RecordListener;
+import common.ListenerRecord;
+import common.ListenerFrame;
 
 public class Furniture extends javax.swing.JFrame {
 
@@ -67,7 +67,7 @@ public class Furniture extends javax.swing.JFrame {
     private Query qFurnside2 = new Query(eFurnside2.values());
     private Query qFurnpar1 = new Query(eFurnpar1.values());
     private Query qFurnpar2 = new Query(eFurnpar2.values());
-    private RecordListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
+    private ListenerRecord listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
     private String subsql = "(-1)";
 
@@ -1381,7 +1381,7 @@ public class Furniture extends javax.swing.JFrame {
         JTable table = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
         Record record = ((DefTableModel) table.getModel()).getQuery().get(Util.getIndexRec(table));
         Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eFurndet.artikl_id)).findFirst().orElse(eFurndet.up.newRecord());
-        FrameProgress.create(this, new FrameListener() {
+        FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(Furniture.this, record2);
             }

@@ -2,7 +2,7 @@ package common;
 
 import dataset.Field;
 
-public interface FrameListener<A, B> {
+public interface ListenerFrame<A, B> {
 
     default void actionRequest(A o) {
     }

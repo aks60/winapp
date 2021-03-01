@@ -1,6 +1,5 @@
 package frames;
 
-import common.FrameListener;
 import common.FrameToFile;
 import common.eProperty;
 import dataset.Query;
@@ -33,16 +32,17 @@ import java.util.Set;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
-import common.RecordListener;
+import common.ListenerRecord;
+import common.ListenerFrame;
 
-public class Models extends javax.swing.JFrame implements FrameListener<Object, Object> {
+public class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
 
     public Wincalc iwinMax = new Wincalc();
     public Wincalc iwinMin = new Wincalc();
     private Window owner = null;
     private ArrayList<Icon> listIcon1 = new ArrayList<Icon>();
     private ArrayList<Icon> listIcon2 = new ArrayList<Icon>();
-    private RecordListener listenet = null;
+    private ListenerRecord listenet = null;
     private Canvas paintPanel = new Canvas(iwinMax); 
     private Query qModels1 = new Query(eSysmodel.values());
     private Query qModels2 = new Query(eSysmodel.values());
@@ -56,7 +56,7 @@ public class Models extends javax.swing.JFrame implements FrameListener<Object, 
         loadingData();
     }
 
-    public Models(java.awt.Window owner, RecordListener listener) {
+    public Models(java.awt.Window owner, ListenerRecord listener) {
         initComponents();
         initElements();
         loadingModel();

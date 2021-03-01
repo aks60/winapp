@@ -1,6 +1,5 @@
 package frames;
 
-import common.SqlListener;
 import common.eProperty;
 import dataset.ConnApp;
 import dataset.Field;
@@ -46,8 +45,9 @@ import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import common.RecordListener;
-import common.ObjectListener;
+import common.ListenerSQL;
+import common.ListenerRecord;
+import common.ListenerObject;
 
 /**
  * <p>
@@ -343,7 +343,7 @@ public class Util {
     }
 
     //Вставить запись
-    public static void insertRecord(JTable table, Field field, SqlListener preset) {
+    public static void insertRecord(JTable table, Field field, ListenerSQL preset) {
 
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = field.newRecord(Query.INS);
@@ -440,7 +440,7 @@ public class Util {
     }
 
     //Инкапсуляция кнопки в ячейку таблицы
-    public static JButton buttonCellEditor(JTable table, int column, ObjectListener listener) {
+    public static JButton buttonCellEditor(JTable table, int column, ListenerObject listener) {
         JButton btn = new JButton("...");
         table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditor(listener, btn));
         return btn;

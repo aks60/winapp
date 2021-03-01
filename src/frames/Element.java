@@ -1,7 +1,6 @@
 package frames;
 
 import frames.dialog.DicArtikl;
-import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
 import dataset.ConnApp;
@@ -45,8 +44,9 @@ import frames.swing.DefTableModel;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.App;
-import common.RecordListener;
-import common.ObjectListener;
+import common.ListenerRecord;
+import common.ListenerObject;
+import common.ListenerFrame;
 
 public class Element extends javax.swing.JFrame {
 
@@ -59,7 +59,7 @@ public class Element extends javax.swing.JFrame {
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
-    private RecordListener listenerArtikl, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
+    private ListenerRecord listenerArtikl, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
     private String subsql = "(-1)";
 
     public Element() {
@@ -1040,7 +1040,7 @@ public class Element extends javax.swing.JFrame {
         Record record = ((DefTableModel) tab3.getModel()).getQuery().get(Util.getIndexRec(tab3));
         Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
 
-        FrameProgress.create(this, new FrameListener() {
+        FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(Element.this, record2);
             }

@@ -2,7 +2,6 @@ package frames;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
 import common.eProperty;
@@ -85,14 +84,15 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import startup.Tex;
 import startup.Main;
 import startup.App;
-import common.RecordListener;
+import common.ListenerRecord;
+import common.ListenerFrame;
 
 public class Systree extends javax.swing.JFrame {
 
     private Wincalc iwin = new Wincalc();
     private int systreeID = -1; //выбранная система
     private int sysprodID = -1; //выбранная конструкция
-    private RecordListener listenerArtikl, listenerModel, listenerFurn,
+    private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
             listenerParam1, listenerParam2, listenerArt211, listenerArt212;
 
     private Query qParams = new Query(eParams.values());
@@ -2282,7 +2282,7 @@ public class Systree extends javax.swing.JFrame {
 
             } else if (tab5.getBorder() != null) {
                 if (systreeNode != null && systreeNode.isLeaf()) {
-                    FrameProgress.create(Systree.this, new FrameListener() {
+                    FrameProgress.create(Systree.this, new ListenerFrame() {
                         public void actionRequest(Object obj) {
                             frame = new Models(Systree.this, listenerModel);
                             FrameToFile.setFrameSize(frame);
@@ -2357,7 +2357,7 @@ public class Systree extends javax.swing.JFrame {
     private void findFromArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findFromArtikl
         Record record = qSysprof.get(Util.getIndexRec(tab2));
         Record record2 = eArtikl.find(record.getInt(eSysprof.artikl_id), false);
-        FrameProgress.create(this, new FrameListener() {
+        FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(Systree.this, record2);
             }
@@ -2543,7 +2543,7 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
 
-            RecordListener listenerColor = (colorRec) -> {
+            ListenerRecord listenerColor = (colorRec) -> {
 
                 builder.script.JsonElem rootArea = iwin.jsonRoot.find(selectID);
                 if (rootArea != null) {

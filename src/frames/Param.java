@@ -21,7 +21,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
-import common.RecordListener;
+import common.ListenerRecord;
 
 public class Param extends javax.swing.JFrame {
 
@@ -29,7 +29,7 @@ public class Param extends javax.swing.JFrame {
     private Query qPardet = new Query(eParams.values());
     DefaultCellEditor editorStr = new DefaultCellEditor(new JTextField());
     DefCellEditor editorBtn = new DefCellEditor(new JButton("..."));
-    private RecordListener listenerColor;
+    private ListenerRecord listenerColor;
 
     public Param() {
         initComponents();

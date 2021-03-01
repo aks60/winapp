@@ -6,14 +6,14 @@ import dataset.Record;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import common.RecordListener;
+import common.ListenerRecord;
 
 public class ParGrup2b extends javax.swing.JDialog {
 
     private List<String> list;
-    private RecordListener listener;
+    private ListenerRecord listener;
 
-    public ParGrup2b(java.awt.Frame parent, RecordListener listener, List list) {
+    public ParGrup2b(java.awt.Frame parent, ListenerRecord listener, List list) {
         super(parent, true);
         initComponents();
         this.listener = listener;

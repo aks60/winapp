@@ -20,12 +20,12 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-import common.RecordListener;
+import common.ListenerRecord;
 
 public class Partner extends javax.swing.JFrame {
 
     private Window owner = null;
-    private RecordListener listener = null;
+    private ListenerRecord listener = null;
     private Query qOrdcontr = new Query(eOrdcontr.values());
     private DefFieldEditor rsv = null;
 
@@ -36,7 +36,7 @@ public class Partner extends javax.swing.JFrame {
         loadingModel();
     }
 
-    public Partner(Frame owner, RecordListener listener) {
+    public Partner(Frame owner, ListenerRecord listener) {
         initComponents();
         initElements();
         this.listener = listener;

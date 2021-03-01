@@ -1,7 +1,9 @@
+
 package common;
 
 import dataset.Record;
 
-public interface SqlListener {
+public interface ListenerRecord {
+
     public void action(Record record);
 }

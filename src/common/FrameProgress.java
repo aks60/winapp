@@ -7,9 +7,9 @@ import javax.swing.SwingWorker;
 public class FrameProgress extends javax.swing.JDialog {
 
     public static FrameProgress progress = null;
-    private static FrameListener listener = null;
+    private static ListenerFrame listener = null;
 
-    public FrameProgress(java.awt.Window owner, FrameListener listener) {
+    public FrameProgress(java.awt.Window owner, ListenerFrame listener) {
         super(owner, ModalityType.DOCUMENT_MODAL);
         this.listener = listener;
         initComponents();
@@ -19,7 +19,7 @@ public class FrameProgress extends javax.swing.JDialog {
         startupProgress();
     }
 
-    public static void create(java.awt.Window owner, FrameListener listener) {
+    public static void create(java.awt.Window owner, ListenerFrame listener) {
         progress = new FrameProgress(owner, listener);
         progress.setVisible(true);
     }

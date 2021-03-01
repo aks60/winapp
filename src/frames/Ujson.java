@@ -11,7 +11,7 @@ import frames.dialog.DicColor2;
 import frames.swing.DefMutableTreeNode;
 import java.awt.event.ActionEvent;
 import java.util.HashSet;
-import common.RecordListener;
+import common.ListenerRecord;
 
 public class Ujson {
   

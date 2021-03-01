@@ -18,12 +18,12 @@ import java.util.stream.Stream;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
-import common.RecordListener;
+import common.ListenerRecord;
 
 public class Rulecalc extends javax.swing.JFrame {
 
     private Query qRulecalc = new Query(eRulecalc.values(), eArtikl.values());
-    private RecordListener listenerArtikl, listenerForm;
+    private ListenerRecord listenerArtikl, listenerForm;
 
     public Rulecalc() {
         initComponents();

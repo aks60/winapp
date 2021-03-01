@@ -19,15 +19,15 @@ import java.util.stream.Stream;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-import common.ObjectListener;
-import common.RecordListener;
 import frames.swing.DefFieldEditor;
+import common.ListenerRecord;
+import common.ListenerObject;
 
 public class Order extends javax.swing.JFrame {
 
     private Query qOrdcontr = new Query(eOrdcontr.values());
     private Query qOrders = new Query(eOrders.values());
-    private ObjectListener listenerDate;
+    private ListenerObject listenerDate;
     private DefFieldEditor rsvOrders;
 
     public Order() {

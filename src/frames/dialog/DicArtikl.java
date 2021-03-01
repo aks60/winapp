@@ -12,16 +12,16 @@ import java.util.Arrays;
 import frames.swing.DefTableModel;
 import java.util.List;
 import java.util.stream.Collectors;
-import common.RecordListener;
+import common.ListenerRecord;
 
 //Справочник артикулов
 public class DicArtikl extends javax.swing.JDialog {
 
-    private RecordListener listener = null;
+    private ListenerRecord listener = null;
     private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
     private List<Record> list = null;
 
-    public DicArtikl(java.awt.Frame parent, RecordListener listenet, List<Record> list) {
+    public DicArtikl(java.awt.Frame parent, ListenerRecord listenet, List<Record> list) {
         super(parent, true);
         initComponents();
         initElements();
@@ -32,7 +32,7 @@ public class DicArtikl extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    public DicArtikl(java.awt.Frame parent, RecordListener listenet, int... level) {
+    public DicArtikl(java.awt.Frame parent, ListenerRecord listenet, int... level) {
         super(parent, true);
         initComponents();
         initElements();
@@ -43,7 +43,7 @@ public class DicArtikl extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    public DicArtikl(java.awt.Frame parent, RecordListener listenet, int furnId, int level1, int level2) {
+    public DicArtikl(java.awt.Frame parent, ListenerRecord listenet, int furnId, int level1, int level2) {
         super(parent, true);
         initComponents();
         initElements();
