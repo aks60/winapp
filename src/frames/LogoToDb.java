@@ -1,4 +1,4 @@
-package startup;
+package frames;
 
 import dataset.ConnApp;
 import dataset.eExcep;
@@ -7,6 +7,8 @@ import common.eProfile;
 import common.eProperty;
 import dataset.Query;
 import javax.swing.SwingWorker;
+import startup.App;
+import startup.Main;
 
 /**
  * <p>

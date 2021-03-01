@@ -1,4 +1,4 @@
-package startup;
+package frames;
 
 import common.FrameToFile;
 import common.eProfile;
@@ -11,6 +11,8 @@ import javax.swing.JFileChooser;
 import dataset.eExcep;
 import builder.Wincalc;
 import java.awt.Frame;
+import startup.App;
+import startup.Main;
 
 /**
  * <p>

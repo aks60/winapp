@@ -3,6 +3,8 @@ package startup;
 import builder.Wincalc;
 import common.FrameListener;
 import frames.Util;
+import java.awt.Frame;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import javax.swing.JCheckBoxMenuItem;
@@ -13,7 +15,7 @@ public class Man extends javax.swing.JFrame {
     private Wincalc iwin = new Wincalc();
     private javax.swing.Timer timer = null;
     private FrameListener listenerMenu;
-    private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();    
+    private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();
 
     public Man() {
         initComponents();
@@ -22,7 +24,7 @@ public class Man extends javax.swing.JFrame {
         locale = this.getLocale();
         Locale loc = new Locale("ru", "RU");
         this.setLocale(loc);
-        this.getInputContext().selectInputMethod(loc);        
+        this.getInputContext().selectInputMethod(loc);
     }
 
     @SuppressWarnings("unchecked")
@@ -30,58 +32,78 @@ public class Man extends javax.swing.JFrame {
     private void initComponents() {
 
         ppmMain = new javax.swing.JPopupMenu();
-        Data = new javax.swing.JMenu();
-        data1 = new javax.swing.JMenuItem();
-        data2 = new javax.swing.JMenuItem();
-        Help = new javax.swing.JMenuItem();
-        panMenu = new javax.swing.JPanel();
+        mn01 = new javax.swing.JMenu();
+        mn11 = new javax.swing.JMenuItem();
+        mn12 = new javax.swing.JMenuItem();
+        mn02 = new javax.swing.JMenuItem();
+        pan1 = new javax.swing.JPanel();
         btnMenu = new javax.swing.JButton();
-        panMenuMain = new javax.swing.JPanel();
+        pan2 = new javax.swing.JPanel();
         btnSaveFile = new javax.swing.JButton();
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 2), new java.awt.Dimension(0, 32767));
+        pan3 = new javax.swing.JPanel();
+        tab4 = new javax.swing.JTabbedPane();
+        tab5 = new javax.swing.JPanel();
+        tab6 = new javax.swing.JPanel();
+        tab7 = new javax.swing.JPanel();
 
         ppmMain.setPreferredSize(new java.awt.Dimension(120, 120));
 
-        Data.setText("Данные                                   ");
+        mn01.setText("Данные                                   ");
 
-        data1.setText("Текст ячейки");
-        data1.setName("1"); // NOI18N
-        data1.addActionListener(new java.awt.event.ActionListener() {
+        mn11.setText("Текст ячейки");
+        mn11.setName("1"); // NOI18N
+        mn11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                data1cellValueType(evt);
+                mn11cellValueType(evt);
             }
         });
-        Data.add(data1);
+        mn01.add(mn11);
 
-        data2.setText("Целое число");
-        data2.setName("2"); // NOI18N
-        data2.addActionListener(new java.awt.event.ActionListener() {
+        mn12.setText("Целое число");
+        mn12.setName("2"); // NOI18N
+        mn12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                data2cellValueType(evt);
+                mn12cellValueType(evt);
             }
         });
-        Data.add(data2);
+        mn01.add(mn12);
 
-        ppmMain.add(Data);
+        ppmMain.add(mn01);
 
-        Help.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        Help.setText("Справка");
-        Help.addActionListener(new java.awt.event.ActionListener() {
+        mn02.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        mn02.setText("Выход");
+        mn02.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHelpAct(evt);
+                mnExit(evt);
             }
         });
-        ppmMain.add(Help);
+        ppmMain.add(mn02);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SA-OKNA   <АРМ Менеджер>");
+        setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(659, 80));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                wndowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowDeiconified(java.awt.event.WindowEvent evt) {
+                wndowDeiconified(evt);
+            }
+            public void windowIconified(java.awt.event.WindowEvent evt) {
+                Man.this.windowIconified(evt);
+            }
+        });
 
-        panMenu.setBackground(new java.awt.Color(255, 255, 255));
-        panMenu.setAlignmentY(4.0F);
-        panMenu.setPreferredSize(new java.awt.Dimension(120, 60));
-        panMenu.setLayout(new java.awt.BorderLayout());
+        pan1.setBackground(new java.awt.Color(255, 255, 255));
+        pan1.setAlignmentY(4.0F);
+        pan1.setPreferredSize(new java.awt.Dimension(120, 60));
+        pan1.setLayout(new java.awt.BorderLayout());
 
         btnMenu.setBackground(new java.awt.Color(237, 235, 231));
         btnMenu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -98,12 +120,12 @@ public class Man extends javax.swing.JFrame {
                 btnMenubtnMainMenu(evt);
             }
         });
-        panMenu.add(btnMenu, java.awt.BorderLayout.CENTER);
+        pan1.add(btnMenu, java.awt.BorderLayout.CENTER);
 
-        panMenuMain.setBackground(new java.awt.Color(192, 224, 236));
-        panMenuMain.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 255), 1, true));
-        panMenuMain.setPreferredSize(new java.awt.Dimension(64, 38));
-        panMenuMain.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 6));
+        pan2.setBackground(new java.awt.Color(192, 224, 236));
+        pan2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 255), 1, true));
+        pan2.setPreferredSize(new java.awt.Dimension(64, 38));
+        pan2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 6));
 
         btnSaveFile.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         btnSaveFile.setText("Сохранить книгу");
@@ -115,50 +137,91 @@ public class Man extends javax.swing.JFrame {
                 btnSaveFile(evt);
             }
         });
-        panMenuMain.add(btnSaveFile);
+        pan2.add(btnSaveFile);
 
-        panMenu.add(panMenuMain, java.awt.BorderLayout.SOUTH);
-        panMenu.add(filler7, java.awt.BorderLayout.NORTH);
+        pan1.add(pan2, java.awt.BorderLayout.SOUTH);
+        pan1.add(filler7, java.awt.BorderLayout.NORTH);
 
-        getContentPane().add(panMenu, java.awt.BorderLayout.WEST);
+        getContentPane().add(pan1, java.awt.BorderLayout.WEST);
+
+        pan3.setLayout(new java.awt.BorderLayout());
+
+        tab5.setBackground(new java.awt.Color(192, 224, 236));
+        tab4.addTab("tab1", tab5);
+
+        tab6.setBackground(new java.awt.Color(192, 224, 236));
+        tab4.addTab("tab2", tab6);
+
+        tab7.setBackground(new java.awt.Color(192, 224, 236));
+        tab4.addTab("tab3", tab7);
+
+        pan3.add(tab4, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(pan3, java.awt.BorderLayout.CENTER);
+
+        getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMenubtnMainMenu(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenubtnMainMenu
-        ppmMain.show(panMenu, btnMenu.getX(), panMenu.getY() + 22);
+        ppmMain.show(pan1, btnMenu.getX(), pan1.getY() + 22);
     }//GEN-LAST:event_btnMenubtnMainMenu
 
     private void btnSaveFile(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveFile
 
     }//GEN-LAST:event_btnSaveFile
 
-    private void data1cellValueType(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_data1cellValueType
+    private void mn11cellValueType(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn11cellValueType
 
-    }//GEN-LAST:event_data1cellValueType
+    }//GEN-LAST:event_mn11cellValueType
 
-    private void data2cellValueType(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_data2cellValueType
+    private void mn12cellValueType(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn12cellValueType
 
-    }//GEN-LAST:event_data2cellValueType
+    }//GEN-LAST:event_mn12cellValueType
 
-    private void btnHelpAct(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpAct
+    private void mnExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnExit
+        Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
+    }//GEN-LAST:event_mnExit
 
-    }//GEN-LAST:event_btnHelpAct
+    private void wndowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_wndowClosed
+        this.setLocale(locale);
+        this.getInputContext().selectInputMethod(locale);
+    }//GEN-LAST:event_wndowClosed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        mnExit(null);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void wndowDeiconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_wndowDeiconified
+        Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.NORMAL));
+    }//GEN-LAST:event_wndowDeiconified
+
+    private void windowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowIconified
+        Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.ICONIFIED));
+    }//GEN-LAST:event_windowIconified
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu Data;
-    private javax.swing.JMenuItem Help;
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnSaveFile;
-    private javax.swing.JMenuItem data1;
-    private javax.swing.JMenuItem data2;
     private javax.swing.Box.Filler filler7;
-    private javax.swing.JPanel panMenu;
-    private javax.swing.JPanel panMenuMain;
+    private javax.swing.JMenu mn01;
+    private javax.swing.JMenuItem mn02;
+    private javax.swing.JMenuItem mn11;
+    private javax.swing.JMenuItem mn12;
+    private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan2;
+    private javax.swing.JPanel pan3;
     private javax.swing.JPopupMenu ppmMain;
+    private javax.swing.JTabbedPane tab4;
+    private javax.swing.JPanel tab5;
+    private javax.swing.JPanel tab6;
+    private javax.swing.JPanel tab7;
     // End of variables declaration//GEN-END:variables
-
+// </editor-fold>
+    
     private void initElements() {
         setTitle(getTitle() + Util.designName());
-    }   
+    }
 }

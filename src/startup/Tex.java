@@ -1,5 +1,6 @@
 package startup;
 
+import frames.PathToDb;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import frames.Util;
@@ -177,20 +178,17 @@ public class Tex extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(659, 80));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+                Tex.this.windowClosed(evt);
             }
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
+                Tex.this.windowClosing(evt);
             }
             public void windowDeiconified(java.awt.event.WindowEvent evt) {
-                formWindowDeiconified(evt);
+                Tex.this.windowDeiconified(evt);
             }
             public void windowIconified(java.awt.event.WindowEvent evt) {
-                formWindowIconified(evt);
+                Tex.this.windowIconified(evt);
             }
         });
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
@@ -590,7 +588,7 @@ public class Tex extends javax.swing.JFrame {
         btn42.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn42.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mExit(evt);
+                mnExit(evt);
             }
         });
         tb4.add(btn42);
@@ -721,7 +719,7 @@ public class Tex extends javax.swing.JFrame {
         mn14.setText("Выход");
         mn14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mExit(evt);
+                mnExit(evt);
             }
         });
         mn01.add(mn14);
@@ -1043,9 +1041,9 @@ public class Tex extends javax.swing.JFrame {
         });
 }//GEN-LAST:event_mn42
 
-    private void mExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mExit
+    private void mnExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnExit
         Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
-}//GEN-LAST:event_mExit
+}//GEN-LAST:event_mnExit
 
 private void mDictDicAddr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDictDicAddr
 
@@ -1249,13 +1247,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         });
     }//GEN-LAST:event_mnBoxTypical
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        mExit(null);
-    }//GEN-LAST:event_formWindowClosing
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        //Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null && el != eApp1.App1).forEach(el -> el.frame.requestFocus());
-    }//GEN-LAST:event_formWindowActivated
+    private void windowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosing
+        mnExit(null);
+    }//GEN-LAST:event_windowClosing
 
     private void mRulecalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mRulecalc
         FrameProgress.create(Tex.this, new FrameListener() {
@@ -1265,13 +1259,13 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         });
     }//GEN-LAST:event_mRulecalc
 
-    private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
+    private void windowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowIconified
         Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.ICONIFIED));
-    }//GEN-LAST:event_formWindowIconified
+    }//GEN-LAST:event_windowIconified
 
-    private void formWindowDeiconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeiconified
+    private void windowDeiconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowDeiconified
         Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.NORMAL));
-    }//GEN-LAST:event_formWindowDeiconified
+    }//GEN-LAST:event_windowDeiconified
 
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
         Arrays.asList(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
@@ -1320,10 +1314,10 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         });
     }//GEN-LAST:event_btnHelp
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         this.setLocale(locale);
         this.getInputContext().selectInputMethod(locale);
-    }//GEN-LAST:event_formWindowClosed
+    }//GEN-LAST:event_windowClosed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
