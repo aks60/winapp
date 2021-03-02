@@ -499,7 +499,6 @@ public class Systree extends javax.swing.JFrame {
 
             systreeID = systreeNode.rec().getInt(eSystree.id);
             eProperty.systreeID.write(String.valueOf(systreeID));
-            App.Top.frame.setTitle(eProfile.profile.title + Util.designName());
             rsvSystree.load();
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
@@ -604,7 +603,7 @@ public class Systree extends javax.swing.JFrame {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
             String script = sysprodRec.getStr(eSysprod.script);
             eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id));
-            App.Top.frame.setTitle(eProfile.profile.title + Util.designName());
+            App.Top.frame.setTitle(eProfile.profile.title + Util.designTitle());
 
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import javax.swing.JCheckBoxMenuItem;
 import common.ListenerFrame;
+import common.eProfile;
 import common.eProperty;
 import frames.PathToDb;
 import javax.swing.LookAndFeel;
@@ -582,7 +583,7 @@ public class Man extends javax.swing.JFrame {
 // </editor-fold>
     
     private void initElements() {
-        //setTitle(Util.designName());
+        setTitle(eProfile.profile.title + Util.designTitle());
         tab4.setSelectedIndex(1);
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
