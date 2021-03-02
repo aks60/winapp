@@ -11,6 +11,8 @@ import frames.swing.DefTableModel;
 import java.util.Arrays;
 import javax.swing.JTable;
 import common.ListenerRecord;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class ParGrup2v extends javax.swing.JDialog {
 
@@ -268,6 +270,12 @@ public class ParGrup2v extends javax.swing.JDialog {
     private void initElements() {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1());
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab1();
+                }
+            }
+        });
     }
 }

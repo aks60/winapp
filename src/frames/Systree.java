@@ -86,6 +86,7 @@ import startup.Main;
 import startup.App;
 import common.ListenerRecord;
 import common.ListenerFrame;
+import common.eProfile;
 
 public class Systree extends javax.swing.JFrame {
 
@@ -490,14 +491,15 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void selectionSys() {
-
         Util.stopCellEditing(tab2, tab3, tab4, tab5);
         Arrays.asList(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
+
         systreeNode = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
         if (systreeNode != null) {
 
             systreeID = systreeNode.rec().getInt(eSystree.id);
             eProperty.systreeID.write(String.valueOf(systreeID));
+            App.Top.frame.setTitle(eProfile.profile.title + Util.designName());
             rsvSystree.load();
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
@@ -516,9 +518,9 @@ public class Systree extends javax.swing.JFrame {
             Util.setSelectedRow(tab4);
 
             int index = -1;
-            for (int row = 0; row < qSysprod.size(); ++row) {
-                if (qSysprod.get(row).getInt(eSysprod.id) == sysprodID) {
-                    index = row;
+            for (int index2 = 0; index2 < qSysprod.size(); ++index2) {
+                if (qSysprod.get(index2).getInt(eSysprod.id) == sysprodID) {
+                    index = index2;
                 }
             }
             if (index != -1) {
@@ -526,7 +528,6 @@ public class Systree extends javax.swing.JFrame {
             } else {
                 Util.setSelectedRow(tab5);
             }
-
         } else {
             //createWincalc(-1); //рисуем виртуалку
         }
@@ -603,11 +604,11 @@ public class Systree extends javax.swing.JFrame {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
             String script = sysprodRec.getStr(eSysprod.script);
             eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id));
-            App.Top.frame.setTitle(getTitle() + Util.designName());
+            App.Top.frame.setTitle(eProfile.profile.title + Util.designName());
 
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
-                JsonElement script2 = new Gson().fromJson(script, JsonElement.class);
+                JsonElement script2 = gson.fromJson(script, JsonElement.class);
                 script2.getAsJsonObject().addProperty("nuni", systreeID); //запишем nuni в script
                 iwin.build(script2.toString()); //калькуляция изделия
                 paintPanel.repaint(true);
@@ -2306,7 +2307,7 @@ public class Systree extends javax.swing.JFrame {
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null) == 0) {
                     Util.stopCellEditing(systemTree);
                     if (qSystree.delete(systreeNode.rec())) {
-                        
+
                         qSystree.remove(systreeNode.rec());
                         ((DefaultTreeModel) systemTree.getModel()).removeNodeFromParent(systreeNode);
                         if (parentNode != null) {

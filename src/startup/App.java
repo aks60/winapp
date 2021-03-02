@@ -148,14 +148,14 @@ public enum App {
 
     public static void createApp(eProfile profile) {
 
+        eProfile.profile = profile; //профиль приложения
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         if (profile.equals(eProfile.P02)) {
 
             Top.frame = new Tex();
         } else {
             Top.frame = new Man();
-        }
-        eProfile.profile = profile; //профиль приложения
+        }        
         Top.frame.setName(profile.name());
         Top.frame.setLocation(0, 0);
         Top.frame.setSize(screenSize.width, Top.frame.getHeight()); //размеры гл. окна

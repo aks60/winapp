@@ -1489,7 +1489,6 @@ public class Furniture extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        setTitle(getTitle() + Util.designName());
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6)));

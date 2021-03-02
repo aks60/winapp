@@ -8,9 +8,10 @@ import dataset.Record;
 public enum eOrdprod implements Field {
     up("0", "0", "0", "Изделия заказов", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),
-    npp("4", "10", "0", "Номе п/п", "npp"),
+    npp("5", "5", "1", "Номе п/п", "npp"),
     name("12", "128", "1", "Название изделия", "name"),
     script("12", "2048", "0", "Скрипт построения окна", "script"),
+    order_id("4", "10", "1", "Заказ", "order_id"),
     form("4", "10", "0", "Тип", "form");
 
     private MetaField meta = new MetaField(this);

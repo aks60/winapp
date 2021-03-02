@@ -28,6 +28,7 @@ public enum eProperty {
     server3("localhost"),
     systreeID("-1"),
     sysprodID("-1"),
+    orderID("-1"),
     base_num("1"),
     base1("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE.FDB?encoding=win1251"),
     base2("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE2.FDB?encoding=win1251"),

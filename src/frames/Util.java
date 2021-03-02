@@ -48,6 +48,7 @@ import javax.swing.tree.TreePath;
 import common.ListenerSQL;
 import common.ListenerRecord;
 import common.ListenerObject;
+import common.eProfile;
 
 /**
  * <p>
@@ -169,20 +170,27 @@ public class Util {
 
     public static String designName() {
         try {
-            int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
-            Record sysprodRec = eSysprod.find(sysprodID);
-            if (sysprodRec != null) {
-                String str = sysprodRec.getStr(eSysprod.name);
-                if (str.length() > 6) {
-                    if (str.length() < 128) {
-                        str = str.substring(6, str.length());
-                    } else {
-                        str = str.substring(6, 128);
+            if (eProfile.profile == eProfile.P02) {
+                int systreeID = Integer.valueOf(eProperty.systreeID.read());
+                int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+                Record sysprodRec = eSysprod.find(sysprodID);
+                if (sysprodRec != null && sysprodRec.getInt(eSysprod.systree_id) == systreeID) {
+
+                    String str = sysprodRec.getStr(eSysprod.name);
+                    if (str.length() > 6) {
+                        if (str.length() < 128) {
+                            str = str.substring(6, str.length());
+                        } else {
+                            str = str.substring(6, 128);
+                        }
                     }
+                    return " Конструкция: " + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), "") + "/" + str;
                 }
-                return (sysprodRec == null) ? "" : " Конструкция: " + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), "") + "/" + str;
+            } else if (eProfile.profile == eProfile.P16) {
+                return "";
             }
             return "";
+
         } catch (Exception e) {
             System.err.println("frames.Util.designName() " + e);
             return "";

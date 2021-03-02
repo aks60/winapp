@@ -724,7 +724,6 @@ public class Specific extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        setTitle(getTitle() + Util.designName());
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));

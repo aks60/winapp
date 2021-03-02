@@ -41,6 +41,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import common.ListenerRecord;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * Материальные ценности
@@ -2696,7 +2697,13 @@ public class Artikles extends javax.swing.JFrame {
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Текстура артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
         tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
-        tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1(event));
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab1(event);
+                }
+            }
+        });
         txt7.setEditable(false);
         txt7.setBackground(new java.awt.Color(255, 255, 255));
     }

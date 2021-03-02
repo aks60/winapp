@@ -21,6 +21,8 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import common.ListenerRecord;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 //Текстура артикулов
 public class DicColor2 extends javax.swing.JDialog {
@@ -382,6 +384,12 @@ public class DicColor2 extends javax.swing.JDialog {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1());
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab1();
+                }
+            }
+        });
     }
 }

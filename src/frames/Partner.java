@@ -21,6 +21,7 @@ import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import common.ListenerRecord;
+import javax.swing.event.ListSelectionListener;
 
 public class Partner extends javax.swing.JFrame {
 
@@ -903,10 +904,15 @@ public class Partner extends javax.swing.JFrame {
     private void initElements() {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
-        setTitle(getTitle() + Util.designName());
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
-        tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1(event));
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab1(event);
+                }
+            }
+        });
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1)));
         rsv = new DefFieldEditor(tab1);
     }

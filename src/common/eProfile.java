@@ -7,19 +7,19 @@ import java.util.Set;
 //Профили проекта
 public enum eProfile {
        
-    P02("1.1.4", "technologRO", "technologRW"),  //технолог
-    P16("1.1.8", "managerRO", "managerRW");  //менеджер
+    P02("SA-OKNA <АРМ Технолог>", "technologRO", "technologRW"),  //технолог
+    P16("SA-OKNA <АРМ Менеджер>", "managerRO", "managerRW");  //менеджер
 
     public final static int[] version = {1, 0}; //версия программы      
     public static eProfile profile = null; //профиль пользователя 
     public static String role = null;
     
-    public String config;    
+    public String title; 
     public Set<String> roleSet;  
      
     //Конструктор
-    eProfile(String config, String... role) {
-        this.config = config;
+    eProfile(String title, String... role) {
+        this.title = title;
         this.roleSet = Set.of(role);
     }
 }

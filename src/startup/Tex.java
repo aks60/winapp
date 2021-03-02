@@ -23,6 +23,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import common.ListenerFrame;
+import common.eProfile;
 
 /**
  * <p>
@@ -1410,7 +1411,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 // </editor-fold> 
 
     private void initElements() {
-        setTitle(getTitle() + Util.designName());
+        setTitle(eProfile.profile.title + Util.designName());
 
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
