@@ -171,9 +171,10 @@ public class Util {
     public static String designTitle() {
         try {
             if (eProfile.profile == eProfile.P02) {
+                int systreeID = Integer.valueOf(eProperty.systreeID.read());
                 int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
                 Record sysprodRec = eSysprod.find(sysprodID);
-                if (sysprodRec != null) { 
+                if (sysprodRec != null && sysprodRec.getInt(eSysprod.systree_id) == systreeID) {
 
                     String str = sysprodRec.getStr(eSysprod.name);
                     if (str.length() > 6) {

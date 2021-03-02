@@ -92,7 +92,6 @@ public class Systree extends javax.swing.JFrame {
 
     private Wincalc iwin = new Wincalc();
     private int systreeID = -1; //выбранная система
-    private int sysprodID = -1; //выбранная конструкция
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
             listenerParam1, listenerParam2, listenerArt211, listenerArt212;
 
@@ -137,7 +136,6 @@ public class Systree extends javax.swing.JFrame {
     private void loadingData() {
 
         systreeID = Integer.valueOf(eProperty.systreeID.read());
-        sysprodID = Integer.valueOf(eProperty.sysprodID.read());
         qSystree.select(eSystree.up);
         qParams.select(eParams.up, "where", eParams.id, "< 0").table(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
@@ -499,6 +497,7 @@ public class Systree extends javax.swing.JFrame {
 
             systreeID = systreeNode.rec().getInt(eSystree.id);
             eProperty.systreeID.write(String.valueOf(systreeID));
+            
             rsvSystree.load();
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
@@ -517,6 +516,7 @@ public class Systree extends javax.swing.JFrame {
             Util.setSelectedRow(tab4);
 
             int index = -1;
+            int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
             for (int index2 = 0; index2 < qSysprod.size(); ++index2) {
                 if (qSysprod.get(index2).getInt(eSysprod.id) == sysprodID) {
                     index = index2;
