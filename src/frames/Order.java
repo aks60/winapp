@@ -11,8 +11,8 @@ import common.FrameToFile;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
-import domain.eOrders;
-import domain.eOrdcontr;
+import domain.eProject;
+import domain.ePrjcontr;
 import frames.dialog.DicDate;
 import frames.dialog.DicName;
 import frames.swing.DefCellRenderer;
@@ -33,7 +33,7 @@ import common.eProperty;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eFurniture;
-import domain.eOrdprod;
+import domain.ePrjprod;
 import domain.eSysfurn;
 import domain.eSysprod;
 import enums.LayoutHandle;
@@ -59,15 +59,15 @@ import startup.App;
 
 public class Order extends javax.swing.JFrame {
 
-    private Query qOrdcontr = new Query(eOrdcontr.values());
-    private Query qOrders = new Query(eOrders.values());
-    private Query qOrdprod = new Query(eOrdprod.values());
+    private Query qPrjcontr = new Query(ePrjcontr.values());
+    private Query qProject = new Query(eProject.values());
+    private Query qPrjprod = new Query(ePrjprod.values());
     private Wincalc iwin = new Wincalc();
     private DefMutableTreeNode windowsNode = null;
     private Canvas paintPanel = new Canvas(iwin);
     private ListenerObject listenerDate;
     private DefFieldEditor rsvOrders;
-    private DefFieldEditor rsvOrdprod;
+    private DefFieldEditor rsvPrjprod;
     private Gson gson = new GsonBuilder().create();
 
     public Order() {
@@ -79,19 +79,19 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qOrdcontr.select(eOrdcontr.up);
-        qOrders.select(eOrders.up, "order by", eOrders.num_ord);
-        qOrdprod.select(eOrdprod.up);
+        qPrjcontr.select(ePrjcontr.up);
+        qProject.select(eProject.up, "order by", eProject.num_ord);
+        qPrjprod.select(ePrjprod.up);
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qOrders, eOrders.num_ord, eOrders.date4, eOrders.date6, eOrders.contractor_id, eOrders.manager, eOrders.categ) {
+        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.date4, eProject.date6, eProject.contractor_id, eProject.manager, eProject.categ) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eOrders.contractor_id) {
-                    Record record = qOrdcontr.stream().filter(rec -> rec.get(eOrdcontr.id).equals(val)).findFirst().orElse(eOrdcontr.up.newRecord());
-                    return record.get(eOrdcontr.contractor);
+                if (field == eProject.contractor_id) {
+                    Record record = qPrjcontr.stream().filter(rec -> rec.get(ePrjcontr.id).equals(val)).findFirst().orElse(ePrjcontr.up.newRecord());
+                    return record.get(ePrjcontr.contractor);
                 }
                 return val;
             }
@@ -115,19 +115,19 @@ public class Order extends javax.swing.JFrame {
         });
 
         rsvOrders = new DefFieldEditor(tab1);
-        rsvOrders.add(eOrders.num_acc, txt2);
-        rsvOrders.add(eOrders.type_currenc, txt3);
-        rsvOrders.add(eOrders.pric1, txt4);
+        rsvOrders.add(eProject.num_acc, txt2);
+        rsvOrders.add(eProject.type_currenc, txt3);
+        rsvOrders.add(eProject.pric1, txt4);
 
-        rsvOrdprod = new DefFieldEditor(tab2);
-        //rsvOrdprod.add(eOrdprod.name, txt9);
+        rsvPrjprod = new DefFieldEditor(tab2);
+        //rsvPrjprod.add(ePrjprod.name, txt9);
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);        
         int index = -1;
         int orderID = Integer.valueOf(eProperty.orderID.read());
-        for (int index2 = 0; index2 < qOrders.size(); ++index2) {
-            if (qOrders.get(index2).getInt(eSysprod.id) == orderID) {
+        for (int index2 = 0; index2 < qProject.size(); ++index2) {
+            if (qProject.get(index2).getInt(eSysprod.id) == orderID) {
                 index = index2;
             }
         }
@@ -144,9 +144,9 @@ public class Order extends javax.swing.JFrame {
             new DicDate(this, (obj) -> {
                 GregorianCalendar calendar = (GregorianCalendar) obj;
                 Util.stopCellEditing(tab1);
-                Record record2 = qOrders.get(Util.getIndexRec(tab1));
-                record2.set(eOrders.date4, calendar.getTime());
-                qOrders.update(record2);
+                Record record2 = qProject.get(Util.getIndexRec(tab1));
+                record2.set(eProject.date4, calendar.getTime());
+                qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
                 return true;
             }, 0);
@@ -156,9 +156,9 @@ public class Order extends javax.swing.JFrame {
             new DicDate(this, (obj) -> {
                 GregorianCalendar calendar = (GregorianCalendar) obj;
                 Util.stopCellEditing(tab1);
-                Record record2 = qOrders.get(Util.getIndexRec(tab1));
-                record2.set(eOrders.date6, calendar.getTime());
-                qOrders.update(record2);
+                Record record2 = qProject.get(Util.getIndexRec(tab1));
+                record2.set(eProject.date6, calendar.getTime());
+                qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
                 return true;
             }, 0);
@@ -167,21 +167,21 @@ public class Order extends javax.swing.JFrame {
         Util.buttonCellEditor(tab1, 3).addActionListener(event -> {
             new Partner(this, (record) -> {
                 Util.stopCellEditing(tab1);
-                Record record2 = qOrders.get(Util.getIndexRec(tab1));
-                record2.set(eOrders.contractor_id, record.getInt(eOrdcontr.id));
-                qOrders.update(record2);
+                Record record2 = qProject.get(Util.getIndexRec(tab1));
+                record2.set(eProject.contractor_id, record.getInt(ePrjcontr.id));
+                qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
         });
 
         Util.buttonCellEditor(tab1, 5).addActionListener(event -> {
             Set set = new HashSet();
-            qOrders.forEach(rec -> set.add(rec.get(eOrders.categ)));
+            qProject.forEach(rec -> set.add(rec.get(eProject.categ)));
             new DicName(this, (record) -> {
                 Util.stopCellEditing(tab1);
-                Record record2 = qOrders.get(Util.getIndexRec(tab1));
-                record2.set(eOrders.categ, record.getStr(0));
-                qOrders.update(record2);
+                Record record2 = qProject.get(Util.getIndexRec(tab1));
+                record2.set(eProject.categ, record.getStr(0));
+                qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }, set);
         });
@@ -197,18 +197,18 @@ public class Order extends javax.swing.JFrame {
 
     private void loadingTab2() {
 
-        Record orderRec = qOrders.get(Util.getIndexRec(tab1));
-        int id = orderRec.getInt(eOrders.id);
-        qOrdprod.select(eOrdprod.up, "where", eOrdprod.order_id, "=", id);
+        Record orderRec = qProject.get(Util.getIndexRec(tab1));
+        int id = orderRec.getInt(eProject.id);
+        qPrjprod.select(ePrjprod.up, "where", ePrjprod.order_id, "=", id);
 
         DefaultTableModel dm2 = (DefaultTableModel) tab2.getModel();
         dm2.getDataVector().removeAllElements();
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         int length = 68;
-        for (Record record : qOrdprod) {
+        for (Record record : qPrjprod) {
             try {
-                Object arrayRec[] = {record.get(eOrdprod.name), null};
-                Object script = record.get(eOrdprod.script);
+                Object arrayRec[] = {record.get(ePrjprod.name), null};
+                Object script = record.get(ePrjprod.script);
                 iwin.build(script.toString());
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwin.gc2d = bi.createGraphics();
@@ -259,14 +259,14 @@ public class Order extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
         Util.stopCellEditing(tab1);
         int index = Util.getIndexRec(tab1);
-        int orderID = qOrders.getAs(index, eOrders.id);
+        int orderID = qProject.getAs(index, eProject.id);
         eProperty.orderID.write(String.valueOf(orderID));
         rsvOrders.load(index);
         loadingTab2();
         index = -1;
-        int ordprodID = Integer.valueOf(eProperty.ordprodID.read());
-        for (int i = 0; i < qOrdprod.size(); ++i) {
-            if (qOrdprod.get(i).getInt(eOrdprod.id) == ordprodID) {
+        int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
+        for (int i = 0; i < qPrjprod.size(); ++i) {
+            if (qPrjprod.get(i).getInt(ePrjprod.id) == prjprodID) {
                 index = i;
             }
         }
@@ -280,9 +280,9 @@ public class Order extends javax.swing.JFrame {
     private void selectionTab2() {
         int index = Util.getIndexRec(tab2);
         if (index != -1) {
-            Record ordprodRec = qOrdprod.get(index);
-            String script = ordprodRec.getStr(eOrdprod.script);
-            eProperty.ordprodID.write(ordprodRec.getStr(eOrdprod.id)); //запишем текущий ordprodID в файл
+            Record prjprodRec = qPrjprod.get(index);
+            String script = prjprodRec.getStr(ePrjprod.script);
+            eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + Util.designTitle());
 
             //Калькуляция и прорисовка окна
@@ -1611,7 +1611,7 @@ public class Order extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, eOrders.up, (record) -> {
+            Util.insertRecord(tab1, eProject.up, (record) -> {
             });
         } else if (tab2.getBorder() != null) {
             

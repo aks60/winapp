@@ -2,7 +2,7 @@ package frames;
 
 import common.FrameToFile;
 import dataset.Query;
-import domain.eOrders;
+import domain.eProject;
 import java.sql.Connection;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +18,7 @@ public class TestFrame extends javax.swing.JFrame {
     private TableRowSorter<DefTableModel> sorter3 = null;
     //private String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
     //private Connection cn;
-    private Query qOrders = new Query(eOrders.values());
+    private Query qOrders = new Query(eProject.values());
 
     public TestFrame() {
         initComponents();
@@ -34,13 +34,13 @@ public class TestFrame extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qOrders.select(eOrders.up, "order by", eOrders.id);
+        qOrders.select(eProject.up, "order by", eProject.id);
 
     }
 
     private void loadingTab1() {
         try {
-            DefTableModel dtm = new DefTableModel(tab1, qOrders, eOrders.values()) {
+            DefTableModel dtm = new DefTableModel(tab1, qOrders, eProject.values()) {
                 @Override
                 public String getColumnName(int columnIndex) {
                     return columns[columnIndex].name();

@@ -3,7 +3,7 @@ package frames;
 import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
-import domain.eOrdcontr;
+import domain.ePrjcontr;
 import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefFieldEditor;
 import javax.swing.JTable;
@@ -27,7 +27,7 @@ public class Partner extends javax.swing.JFrame {
 
     private Window owner = null;
     private ListenerRecord listener = null;
-    private Query qOrdcontr = new Query(eOrdcontr.values());
+    private Query qPrjcontr = new Query(ePrjcontr.values());
     private DefFieldEditor rsv = null;
 
     public Partner() {
@@ -49,11 +49,11 @@ public class Partner extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qOrdcontr.select(eOrdcontr.up, "order by", eOrdcontr.category, ",", eOrdcontr.contractor);
+        qPrjcontr.select(ePrjcontr.up, "order by", ePrjcontr.category, ",", ePrjcontr.contractor);
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qOrdcontr, eOrdcontr.category, eOrdcontr.contractor, eOrdcontr.flag2, eOrdcontr.manager);
+        new DefTableModel(tab1, qPrjcontr, ePrjcontr.category, ePrjcontr.contractor, ePrjcontr.flag2, ePrjcontr.manager);
 
         String arr[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
         Util.buttonCellEditor(tab1, 0).addActionListener(event -> {
@@ -61,7 +61,7 @@ public class Partner extends javax.swing.JFrame {
                     "Изменение категории контрагента", JOptionPane.QUESTION_MESSAGE, null, arr, arr[0]);
             if (result != null) {
                 Util.stopCellEditing(tab1);
-                qOrdcontr.set(result, Util.getIndexRec(tab1), eOrdcontr.category);
+                qPrjcontr.set(result, Util.getIndexRec(tab1), ePrjcontr.category);
                 ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }
         });
@@ -81,24 +81,24 @@ public class Partner extends javax.swing.JFrame {
             }
         });
 
-        rsv.add(eOrdcontr.addr_leve1, txt12);
-        rsv.add(eOrdcontr.addr_leve2, txt14);
-        rsv.add(eOrdcontr.addr_phone, txt13);
-        rsv.add(eOrdcontr.note, txt15);
+        rsv.add(ePrjcontr.addr_leve1, txt12);
+        rsv.add(ePrjcontr.addr_leve2, txt14);
+        rsv.add(ePrjcontr.addr_phone, txt13);
+        rsv.add(ePrjcontr.note, txt15);
 
-        rsv.add(eOrdcontr.org_name, txt8);
-        rsv.add(eOrdcontr.org_leve1, txt9);
-        rsv.add(eOrdcontr.org_leve2, txt17);
-        rsv.add(eOrdcontr.org_phone, txt10);
-        rsv.add(eOrdcontr.org_fax, txt11);
-        rsv.add(eOrdcontr.bank_name, txt1);
-        rsv.add(eOrdcontr.bank_inn, txt2);
-        rsv.add(eOrdcontr.bank_rs, txt3);
-        rsv.add(eOrdcontr.bank_bik, txt4);
-        rsv.add(eOrdcontr.bank_ks, txt5);
-        rsv.add(eOrdcontr.bank_kpp, txt6);
-        rsv.add(eOrdcontr.bank_ogrn, txt7);
-        rsv.add(eOrdcontr.note, txt16);
+        rsv.add(ePrjcontr.org_name, txt8);
+        rsv.add(ePrjcontr.org_leve1, txt9);
+        rsv.add(ePrjcontr.org_leve2, txt17);
+        rsv.add(ePrjcontr.org_phone, txt10);
+        rsv.add(ePrjcontr.org_fax, txt11);
+        rsv.add(ePrjcontr.bank_name, txt1);
+        rsv.add(ePrjcontr.bank_inn, txt2);
+        rsv.add(ePrjcontr.bank_rs, txt3);
+        rsv.add(ePrjcontr.bank_bik, txt4);
+        rsv.add(ePrjcontr.bank_ks, txt5);
+        rsv.add(ePrjcontr.bank_kpp, txt6);
+        rsv.add(ePrjcontr.bank_ogrn, txt7);
+        rsv.add(ePrjcontr.note, txt16);
 
         Util.setSelectedRow(tab1);
     }
@@ -107,7 +107,7 @@ public class Partner extends javax.swing.JFrame {
         Util.stopCellEditing(tab1);
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
-            int flag = qOrdcontr.getAs(index, eOrdcontr.flag2);
+            int flag = qPrjcontr.getAs(index, ePrjcontr.flag2);
             String name = (flag == 1) ? "pan3" : "pan4";
             ((CardLayout) pan2.getLayout()).show(pan2, name);
         }
@@ -791,7 +791,7 @@ public class Partner extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, eOrdcontr.up, (record) -> {
+            Util.insertRecord(tab1, ePrjcontr.up, (record) -> {
             });
         }
     }//GEN-LAST:event_btnInsert
@@ -819,7 +819,7 @@ public class Partner extends javax.swing.JFrame {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         int index = Util.getIndexRec(tab1);
         if (index != -1 && listener != null) {
-            Record record = qOrdcontr.get(index);
+            Record record = qPrjcontr.get(index);
             listener.action(record);
         }
         this.dispose();
@@ -830,7 +830,7 @@ public class Partner extends javax.swing.JFrame {
 //            listener.action(ePartner.up.newRecord());
 //        }
 //        this.dispose();
-        qOrdcontr.execsql();
+        qPrjcontr.execsql();
     }//GEN-LAST:event_btnRemove
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed

@@ -39,7 +39,7 @@ import domain.eKitdet;
 import domain.eKitpar1;
 import domain.eKits;
 import domain.eParams;
-import domain.eOrdcontr;
+import domain.ePrjcontr;
 import domain.eRulecalc;
 import domain.eSetting;
 import domain.eSyssize;
@@ -65,8 +65,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import builder.script.Winscript;
-import domain.eOrders;
-import domain.eOrdprod;
+import domain.eProject;
+import domain.ePrjprod;
 import domain.eSysmodel;
 import java.awt.Color;
 import java.util.Queue;
@@ -127,7 +127,7 @@ public class Profstroy {
             eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
             eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
             eColmap.up, eColor.up,
-            eOrdprod.up, eOrders.up, eOrdcontr.up,
+            ePrjprod.up, eProject.up, ePrjcontr.up,
             eRulecalc.up, eSystree.up,
             eArtdet.up, eArtikl.up,
             eSyssize.up, eGroups.up, eCurrenc.up, eParams.up,};
@@ -554,9 +554,9 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color2_id, "clnu1", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
             updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");            
-            updateSql(eOrders.up, eOrders.contractor_id, "kname", eOrdcontr.up, "contractor");
+            updateSql(eProject.up, eProject.contractor_id, "kname", ePrjcontr.up, "contractor");
                    
-            executeSql("update ordcontr set org_leve2 = trim(org_leve2)");            
+            executeSql("update prjcontr set org_leve2 = trim(org_leve2)");            
         } catch (Exception e) {
             println(Color.RED, "Ошибка: updatePart().  " + e);
         }
@@ -610,7 +610,7 @@ public class Profstroy {
             alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
             alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
-            alterTable("orders", "fk_orders_1", "contractor_id", "ordcontr");
+            alterTable("project", "fk_project_1", "contractor_id", "prjcontr");
             alterTable("kits", "fk_kits1", "artikl_id", "artikl");
             alterTable("kits", "fk_kits2", "color_id", "color");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");

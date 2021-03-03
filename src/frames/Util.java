@@ -47,7 +47,7 @@ import javax.swing.tree.TreePath;
 import common.ListenerSQL;
 import common.ListenerObject;
 import common.eProfile;
-import domain.eOrdprod;
+import domain.ePrjprod;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -189,11 +189,11 @@ public class Util {
                 }
                 
             } else if (eProfile.profile == eProfile.P16) {
-                int productID = Integer.valueOf(eProperty.ordprodID.read());
-                Record productRec = eOrdprod.find(productID);
+                int productID = Integer.valueOf(eProperty.prjprodID.read());
+                Record productRec = ePrjprod.find(productID);
                 if (productRec != null) {
 
-                    String str = productRec.getStr(eOrdprod.name);
+                    String str = productRec.getStr(ePrjprod.name);
                     if (str.length() > 6) {
                         if (str.length() < 128) {
                             str = str.substring(6, str.length());
@@ -201,7 +201,7 @@ public class Util {
                             str = str.substring(6, 128);
                         }
                     }
-                    return "   Изделие: " + eSystree.patch(productRec.getInt(eOrdprod.systree_id), "") + "/" + str;
+                    return "   Изделие: " + eSystree.patch(productRec.getInt(ePrjprod.systree_id), "") + "/" + str;
                 }
             }
             return "";
