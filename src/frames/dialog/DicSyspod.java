@@ -1,19 +1,174 @@
 package frames.dialog;
 
+import builder.Wincalc;
+import common.FrameToFile;
 import common.ListenerRecord;
+import common.eProperty;
 import dataset.Query;
+import dataset.Record;
+import domain.eArtikl;
+import domain.eFurniture;
+import domain.eSysfurn;
+import domain.eSyspar1;
 import domain.eSysprod;
+import domain.eSysprof;
 import domain.eSystree;
+import frames.Util;
+import frames.swing.DefMutableTreeNode;
+import frames.swing.DefTableModel;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.ImageIcon;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultTreeCellEditor;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 
 public class DicSyspod extends javax.swing.JDialog {
 
+    private Wincalc iwin = new Wincalc();
     private ListenerRecord listener = null;
+    private int systreeID = -1; //выбранная система
     private Query qSystree = new Query(eSystree.values());
     private Query qSysprod = new Query(eSysprod.values());
+    private DefMutableTreeNode rootTree = null;
+    private TreeNode[] selectedPath = null;
+    private DefMutableTreeNode systreeNode = null;
 
-    public DicSyspod(java.awt.Frame parent, boolean modal) {
+    public DicSyspod(java.awt.Frame parent, ListenerRecord listener) {
         super(parent, true);
         initComponents();
+        initElements();
+        loadingData();
+        loadingSys();
+        setVisible(true);
+    }
+
+    private void loadingData() {
+
+        //Получим сохр. ID системы при выходе из программы
+        Record sysprodRec = eSysprod.find(Integer.valueOf(eProperty.sysprodID.read()));
+        if (sysprodRec != null) {
+            systreeID = sysprodRec.getInt(eSysprod.systree_id);
+        }
+        qSystree.select(eSystree.up);
+//        ((DefaultTreeCellEditor) tree1.getCellEditor()).addCellEditorListener(new CellEditorListener() {
+//
+//            public void editingStopped(ChangeEvent e) {
+//                String str = ((DefaultTreeCellEditor) tree1.getCellEditor()).getCellEditorValue().toString();
+//                systreeNode.rec().set(eSystree.name, str);
+//                systreeNode.setUserObject(str);
+//                txt8.setText(str);
+//                qSystree.update(systreeNode.rec()); //сохраним в базе
+//            }
+//
+//            public void editingCanceled(ChangeEvent e) {
+//                editingStopped(e);
+//            }
+//        });
+    }
+
+    private void loadingSys() {
+        Record recordRoot = eSystree.up.newRecord(Query.SEL);
+        recordRoot.set(eSystree.id, -1);
+        recordRoot.set(eSystree.parent_id, -1);
+        recordRoot.set(eSystree.name, "Дерево системы профилей");
+        rootTree = new DefMutableTreeNode(recordRoot);
+        ArrayList<DefMutableTreeNode> treeList = new ArrayList();
+
+        for (Record record : qSystree) {
+            if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
+                DefMutableTreeNode node2 = new DefMutableTreeNode(record);
+                treeList.add(node2);
+                rootTree.add(node2);
+            }
+        }
+        ArrayList<DefMutableTreeNode> treeList2 = addChild(treeList, new ArrayList());
+        ArrayList<DefMutableTreeNode> treeList3 = addChild(treeList2, new ArrayList());
+        ArrayList<DefMutableTreeNode> treeList4 = addChild(treeList3, new ArrayList());
+        ArrayList<DefMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
+        ArrayList<DefMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
+        tree1.setModel(new DefaultTreeModel(rootTree));
+        scr1.setViewportView(tree1);
+    }
+
+    private void loadingTab2() {
+        qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
+        DefaultTableModel dm = (DefaultTableModel) tab2.getModel();
+        dm.getDataVector().removeAllElements();
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        int length = 68;
+        for (Record record : qSysprod.table(eSysprod.up)) {
+            try {
+                Object arrayRec[] = {record.get(eSysprod.name), null};
+                Object script = record.get(eSysprod.script);
+                iwin.build(script.toString());
+                BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+                iwin.gc2d = bi.createGraphics();
+                iwin.gc2d.fillRect(0, 0, length, length);
+                iwin.scale = (length / iwin.width > length / iwin.heightAdd) ? length / (iwin.heightAdd + 200) : length / (iwin.width + 200);
+                iwin.gc2d.translate(2, 2);
+                iwin.gc2d.scale(iwin.scale, iwin.scale);
+                iwin.rootArea.draw(length, length);
+                ImageIcon image = new ImageIcon(bi);
+                arrayRec[1] = image;
+                dm.addRow(arrayRec);
+
+            } catch (Exception e) {
+                System.err.println("Ошибка:DicSyspod.loadingTab2() " + e);
+            }
+        }        
+    }   
+    
+    private void selectionSys() {
+
+        systreeNode = (DefMutableTreeNode) tree1.getLastSelectedPathComponent();
+        if (systreeNode != null) {
+            systreeID = systreeNode.rec().getInt(eSystree.id);
+
+            loadingTab2();
+
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            int index = -1;
+            int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+            for (int i = 0; i < qSysprod.size(); ++i) {
+                if (qSysprod.get(i).getInt(eSysprod.id) == sysprodID) {
+                    index = i;
+                }
+            }
+            if (index != -1) {
+                Util.setSelectedRow(tab2, index);
+            } else {
+                Util.setSelectedRow(tab2);
+            }
+        } else {
+            //createWincalc(-1); //рисуем виртуалку
+        }
+    }
+    
+    private ArrayList<DefMutableTreeNode> addChild(ArrayList<DefMutableTreeNode> nodeList1, ArrayList<DefMutableTreeNode> nodeList2) {
+
+        for (DefMutableTreeNode node : nodeList1) {
+            String node2 = (String) node.getUserObject();
+            for (Record record : qSystree) {
+                if (record.getInt(eSystree.parent_id) == node.rec().getInt(eSystree.id)
+                        && record.getInt(eSystree.parent_id) != record.getInt(eSystree.id)) {
+                    DefMutableTreeNode node3 = new DefMutableTreeNode(record);
+                    node.add(node3);
+                    nodeList2.add(node3);
+                    if (record.getInt(eSystree.id) == systreeID) {
+                        selectedPath = node3.getPath(); //запомним path для nuni
+                    }
+                }
+            }
+        }
+        return nodeList2;
     }
 
     @SuppressWarnings("unchecked")
@@ -26,12 +181,15 @@ public class DicSyspod extends javax.swing.JDialog {
         btnRemove = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        scr1 = new javax.swing.JScrollPane();
+        tree1 = new javax.swing.JTree();
         pan2 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Изделия");
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -116,22 +274,50 @@ public class DicSyspod extends javax.swing.JDialog {
         pan1.setPreferredSize(new java.awt.Dimension(240, 601));
         pan1.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setViewportView(jTree1);
+        scr1.setViewportView(tree1);
 
-        pan1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        pan1.add(scr1, java.awt.BorderLayout.CENTER);
 
         centr.add(pan1, java.awt.BorderLayout.WEST);
 
-        javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
-        pan2.setLayout(pan2Layout);
-        pan2Layout.setHorizontalGroup(
-            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 424, Short.MAX_VALUE)
-        );
-        pan2Layout.setVerticalGroup(
-            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
-        );
+        pan2.setLayout(new java.awt.BorderLayout());
+
+        scr2.setBorder(null);
+
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Наименование", "Рисунок"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab2.setFillsViewportHeight(true);
+        tab2.setRowHeight(68);
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tab2tabMousePressed(evt);
+            }
+        });
+        scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(1).setMinWidth(68);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(68);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(68);
+        }
+
+        pan2.add(scr2, java.awt.BorderLayout.CENTER);
 
         centr.add(pan2, java.awt.BorderLayout.CENTER);
 
@@ -169,17 +355,40 @@ public class DicSyspod extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnRemovebtnRemov
 
+    private void tab2tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2tabMousePressed
+
+    }//GEN-LAST:event_tab2tabMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;
     private javax.swing.JPanel centr;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTree jTree1;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
+    private javax.swing.JScrollPane scr1;
+    private javax.swing.JScrollPane scr2;
     private javax.swing.JPanel south;
+    private javax.swing.JTable tab2;
+    private javax.swing.JTree tree1;
     // End of variables declaration//GEN-END:variables
 
+    private void initElements() {
+
+        FrameToFile.setFrameSize(this);
+        new FrameToFile(this, btnClose);
+        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree1.getCellRenderer();
+        rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
+        rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
+        rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
+        tree1.getSelectionModel().addTreeSelectionListener(tse -> selectionSys());
+//        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//            public void valueChanged(ListSelectionEvent event) {
+//                if (event.getValueIsAdjusting() == false) {
+//                    selectionTab2();
+//                }
+//            }
+//        });
+    }
 }

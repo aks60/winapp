@@ -21,12 +21,12 @@ public class DicArtikl extends javax.swing.JDialog {
     private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
     private List<Record> list = null;
 
-    public DicArtikl(java.awt.Frame parent, ListenerRecord listenet, List<Record> list) {
+    public DicArtikl(java.awt.Frame parent, ListenerRecord listener, List<Record> list) {
         super(parent, true);
         initComponents();
         initElements();
         qArtikl.addAll(list);
-        this.listener = listenet;
+        this.listener = listener;
         this.list = list;
         loadingModel();
         setVisible(true);

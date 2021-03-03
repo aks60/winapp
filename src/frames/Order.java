@@ -2,7 +2,6 @@ package frames;
 
 import builder.Wincalc;
 import builder.model.AreaSimple;
-import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,27 +29,20 @@ import frames.swing.DefFieldEditor;
 import common.ListenerObject;
 import common.eProfile;
 import common.eProperty;
-import domain.eArtikl;
-import domain.eColor;
-import domain.eFurniture;
 import domain.ePrjprod;
-import domain.eSysfurn;
 import domain.eSysprod;
-import enums.LayoutHandle;
 import enums.TypeElem;
+import frames.dialog.DicArtikl;
+import frames.dialog.DicSyspod;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import javax.swing.DefaultCellEditor;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -123,7 +115,7 @@ public class Order extends javax.swing.JFrame {
         //rsvPrjprod.add(ePrjprod.name, txt9);
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
-        paintPanel.setVisible(true);        
+        paintPanel.setVisible(true);
         int index = -1;
         int orderID = Integer.valueOf(eProperty.orderID.read());
         for (int index2 = 0; index2 < qProject.size(); ++index2) {
@@ -1614,8 +1606,10 @@ public class Order extends javax.swing.JFrame {
             Util.insertRecord(tab1, eProject.up, (record) -> {
             });
         } else if (tab2.getBorder() != null) {
-            
-            
+            DicSyspod frm = new DicSyspod(this, (record) -> {
+                System.out.println("frames.Order.btnInsert()");
+            });
+            //DicArtikl artikl = new DicArtikl(this, (record) -> {}, 1);
         }
     }//GEN-LAST:event_btnInsert
 
