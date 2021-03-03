@@ -73,7 +73,8 @@ public class ConnFb extends dataset.ConnApp {
         return eExcep.yesConn;
     }
 
-    //Добавление нового пользователя
+    //Добавление нового пользователя   
+    //CREATE USER <user_name> PASSWORD '<user_password>' [FIRSTNAME 'FirstName'] [MIDDLENAME 'MiddleName'] [LASTNAME 'LastName'];
     public void addUser(String user, String password, String uchId, String role, boolean readwrite) {
         try {
             //создание пользователя

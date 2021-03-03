@@ -69,6 +69,7 @@ import domain.eProject;
 import domain.ePrjprod;
 import domain.eSysmodel;
 import java.awt.Color;
+import java.util.Arrays;
 import java.util.Queue;
 import javax.swing.JTextPane;
 
@@ -119,7 +120,7 @@ public class Profstroy {
 
     public static void script() {
         Field[] fieldsUp = { //в порядке удаления
-            eSetting.up, eSysdata.up,            
+            eSetting.up, eSysdata.up,
             eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSysmodel.up,
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
@@ -223,6 +224,7 @@ public class Profstroy {
             deletePart(cn2, st2);
             updatePart(cn2, st2);
             metaPart(cn2, st2);
+            loadRole(fieldsUp);
 
             println(Color.GREEN, "Удаление лищних столбцов");
             executeSql("ALTER TABLE GROUPS DROP  FK;");
@@ -553,10 +555,10 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color1_id, "clnum", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color2_id, "clnu1", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
-            updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");            
+            updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");
             updateSql(eProject.up, eProject.prjcontr_id, "kname", ePrjcontr.up, "contractor");
-                   
-            executeSql("update prjcontr set org_leve2 = trim(org_leve2)");            
+
+            executeSql("update prjcontr set org_leve2 = trim(org_leve2)");
         } catch (Exception e) {
             println(Color.RED, "Ошибка: updatePart().  " + e);
         }
@@ -732,6 +734,33 @@ public class Profstroy {
         }
     }
 
+    private static void loadRole(Field[] fieldsUp) {
+        println(Color.GREEN, "Секция создания ролей");
+        try {
+            Set<String> set = new HashSet();
+            ResultSet rs = st2.executeQuery("select a.rdb$role_name from rdb$roles a where a.rdb$role_name != 'RDB$ADMIN'");
+            while (rs.next()) {
+                set.add(rs.getString("rdb$role_name"));
+            }
+            for (String role : set) {
+                st2.executeUpdate("DROP ROLE " + role);
+            }
+            executeSql("CREATE ROLE DEFROLE");
+            executeSql("CREATE ROLE MANAGER_RO");
+            executeSql("CREATE ROLE MANAGER_RW");
+            executeSql("CREATE ROLE TEXNOLOG_RO");
+            executeSql("CREATE ROLE TEXNOLOG_RW");
+            for (Field field : fieldsUp) {
+                st2.executeUpdate("GRANT SELECT ON " + field.tname() + " TO MANAGER_RO");
+                st2.executeUpdate("GRANT ALL ON " + field.tname() + " TO MANAGER_RW");
+                st2.executeUpdate("GRANT SELECT ON " + field.tname() + " TO TEXNOLOG_RO");
+                st2.executeUpdate("GRANT ALL ON " + field.tname() + " TO TEXNOLOG_RW");
+            }
+        } catch (SQLException e) {
+            println(Color.RED, "Ошибка: loadRole().  " + e);
+        }
+    }
+
     private static int checkKeyColor(int max) {
         List<Integer[]> recordList = new ArrayList();
         Set<Integer> set = new HashSet();
@@ -832,16 +861,6 @@ public class Profstroy {
         }
     }
 
-    private static void createRole() {
-      //CREATE ROLE MANAGER_RW
-      //GRANT ALL ON MANAGER_RW TO TABLE;
-      //GRANT MANAGER_RW TO USER;
-      //DROP ROLE MANAGER_RW;
-      //DROP USER USER;
-      
-      //CREATE USER <user_name> PASSWORD '<user_password>' [FIRSTNAME 'FirstName'] [MIDDLENAME 'MiddleName'] [LASTNAME 'LastName'];
-    }
-    
     private static void executeSql(String... s) {
         if (s.length == 2 && versionPs.equals(s[0]) == false) {
             return;
