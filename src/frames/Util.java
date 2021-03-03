@@ -47,6 +47,7 @@ import javax.swing.tree.TreePath;
 import common.ListenerSQL;
 import common.ListenerObject;
 import common.eProfile;
+import domain.eOrdprod;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -172,11 +173,11 @@ public class Util {
     public static String designTitle() {
         try {
             if (eProfile.profile == eProfile.P02) {
-                int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
-                Record sysprodRec = eSysprod.find(sysprodID);
-                if (sysprodRec != null) {
+                int productID = Integer.valueOf(eProperty.sysprodID.read());
+                Record productRec = eSysprod.find(productID);
+                if (productRec != null) {
 
-                    String str = sysprodRec.getStr(eSysprod.name);
+                    String str = productRec.getStr(eSysprod.name);
                     if (str.length() > 6) {
                         if (str.length() < 128) {
                             str = str.substring(6, str.length());
@@ -184,10 +185,24 @@ public class Util {
                             str = str.substring(6, 128);
                         }
                     }
-                    return "   Конструкция: " + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), "") + "/" + str;
+                    return "   Изделие: " + eSystree.patch(productRec.getInt(eSysprod.systree_id), "") + "/" + str;
                 }
+                
             } else if (eProfile.profile == eProfile.P16) {
-                return "";
+                int productID = Integer.valueOf(eProperty.ordprodID.read());
+                Record productRec = eOrdprod.find(productID);
+                if (productRec != null) {
+
+                    String str = productRec.getStr(eOrdprod.name);
+                    if (str.length() > 6) {
+                        if (str.length() < 128) {
+                            str = str.substring(6, str.length());
+                        } else {
+                            str = str.substring(6, 128);
+                        }
+                    }
+                    return "   Изделие: " + eSystree.patch(productRec.getInt(eOrdprod.systree_id), "") + "/" + str;
+                }
             }
             return "";
 
@@ -197,10 +212,10 @@ public class Util {
         }
     }
 
-    public static void setText(JTextField comp, String txt) {
-        comp.setText(txt);
-        comp.setCaretPosition(0);
-    }
+//    public static void setText(JTextField comp, String txt) {
+//        comp.setText(txt);
+//        comp.setCaretPosition(0);
+//    }
 
     public static String consoleColor(Object clr) {
 
@@ -236,24 +251,6 @@ public class Util {
             }
         }
         return compList;
-    }
-
-    //Сохр. ID системы при выходе из программы
-    public static int systreeID() {
-        try {
-            int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
-            Statement st = Query.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            if (sysprodID != -1) {
-                ResultSet rs = st.executeQuery("select * from sysprod a where a.id = " + sysprodID);
-                if (rs.next() == true) {
-                    return rs.getInt(eSysprod.systree_id.name());
-                }
-            }
-            st.close();
-        } catch (SQLException e) {
-            System.out.println("frames.Util.systreeID()");
-        }
-        return -1;
     }
 
     //Типы данных в базе

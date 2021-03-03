@@ -192,7 +192,7 @@ public class Order extends javax.swing.JFrame {
             return true;
         };
     }
-    
+
     private void loadingTab2() {
 
         Record orderRec = qOrders.get(Util.getIndexRec(tab1));
@@ -253,7 +253,7 @@ public class Order extends javax.swing.JFrame {
             System.err.println("Ошибка: Systree.loadingWin() " + e);
         }
     }
-        
+
     private void selectionTab1(ListSelectionEvent event) {
         Util.stopCellEditing(tab1);
         int index = Util.getIndexRec(tab1);
@@ -261,6 +261,18 @@ public class Order extends javax.swing.JFrame {
         eProperty.orderID.write(String.valueOf(orderID));
         rsvOrders.load(index);
         loadingTab2();
+        index = -1;
+        int ordprodID = Integer.valueOf(eProperty.ordprodID.read());
+        for (int i = 0; i < qOrdprod.size(); ++i) {
+            if (qOrdprod.get(i).getInt(eOrdprod.id) == ordprodID) {
+                index = i;
+            }
+        }
+        if (index != -1) {
+            Util.setSelectedRow(tab2, index);
+        } else {
+            Util.setSelectedRow(tab2);
+        }
     }
 
     private void selectionTab2() {
@@ -268,8 +280,8 @@ public class Order extends javax.swing.JFrame {
         if (index != -1) {
             Record ordprodRec = qOrdprod.get(index);
             String script = ordprodRec.getStr(eOrdprod.script);
-            String name = " Конструкция: " + ordprodRec.getStr(eOrdprod.name);
-            App.Top.frame.setTitle(eProfile.profile.title + name);
+            eProperty.ordprodID.write(ordprodRec.getStr(eOrdprod.id)); //запишем текущий ordprodID в файл
+            App.Top.frame.setTitle(eProfile.profile.title + Util.designTitle());
 
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
@@ -284,7 +296,7 @@ public class Order extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void selectionWin() {
         windowsNode = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
         if (windowsNode != null) {
@@ -1755,7 +1767,7 @@ public class Order extends javax.swing.JFrame {
             }
         });
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1)));
-        windowsTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());       
+        windowsTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
@@ -1765,6 +1777,6 @@ public class Order extends javax.swing.JFrame {
         });
         DefaultTreeModel model = (DefaultTreeModel) windowsTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
-        model.reload();        
+        model.reload();
     }
 }

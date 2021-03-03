@@ -12,6 +12,7 @@ public enum eOrdprod implements Field {
     name("12", "128", "1", "Название изделия", "name"),
     script("12", "2048", "0", "Скрипт построения окна", "script"),
     order_id("4", "10", "1", "Заказ", "order_id"),
+    systree_id("4", "10", "1", "Ссылка", "systree_id"),
     form("4", "10", "0", "Тип", "form");
 
     private MetaField meta = new MetaField(this);
@@ -39,10 +40,10 @@ public enum eOrdprod implements Field {
 
     public static Record find(int _id) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
+            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
-        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
     public String toString() {

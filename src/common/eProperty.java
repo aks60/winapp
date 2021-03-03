@@ -27,6 +27,7 @@ public enum eProperty {
     server2("localhost"),
     server3("localhost"),
     sysprodID("-1"),
+    ordprodID("-1"),
     orderID("-1"),
     base_num("1"),
     base1("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE.FDB?encoding=win1251"),
@@ -87,7 +88,7 @@ public enum eProperty {
                     
                     path_prop.value = System.getProperty("user.dir"); //сохраним путь к файлу в path_prop
                 } else {                    
-                    file = new File(path_prop.value, filename); //если файла нет создадим его
+                    file = new File(path_prop.value, filename); //если файла нет, создадим его
                 }
                 if (file.exists() == false) {                   
                     File mydir = new File(path_prop.value); //если файл создать так и не удалось

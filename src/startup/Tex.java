@@ -94,9 +94,6 @@ public class Tex extends javax.swing.JFrame {
         btn26 = new javax.swing.JButton();
         btn27 = new javax.swing.JButton();
         btn21 = new javax.swing.JButton();
-        td3 = new javax.swing.JToolBar();
-        btn31 = new javax.swing.JButton();
-        btn30 = new javax.swing.JButton();
         tb6 = new javax.swing.JToolBar();
         btnT7 = new javax.swing.JToggleButton();
         btnT8 = new javax.swing.JToggleButton();
@@ -104,7 +101,6 @@ public class Tex extends javax.swing.JFrame {
         tb4 = new javax.swing.JToolBar();
         btn41 = new javax.swing.JButton();
         btn42 = new javax.swing.JButton();
-        tb0 = new javax.swing.JToolBar();
         mn0 = new javax.swing.JMenuBar();
         mn01 = new javax.swing.JMenu();
         mn11 = new javax.swing.JMenu();
@@ -140,14 +136,8 @@ public class Tex extends javax.swing.JFrame {
         mn36 = new javax.swing.JMenuItem();
         mn38 = new javax.swing.JPopupMenu.Separator();
         mn37 = new javax.swing.JMenuItem();
-        mn08 = new javax.swing.JMenu();
-        mn81 = new javax.swing.JMenuItem();
-        mn82 = new javax.swing.JMenuItem();
-        mn83 = new javax.swing.JPopupMenu.Separator();
-        mn84 = new javax.swing.JMenuItem();
-        mn07 = new javax.swing.JMenu();
-        mn71 = new javax.swing.JMenuItem();
         mn06 = new javax.swing.JMenu();
+        mn61 = new javax.swing.JMenuItem();
         mn63 = new javax.swing.JMenu();
         mn631 = new javax.swing.JCheckBoxMenuItem();
         mn632 = new javax.swing.JCheckBoxMenuItem();
@@ -444,45 +434,6 @@ public class Tex extends javax.swing.JFrame {
 
         getContentPane().add(tb2);
 
-        td3.setRollover(true);
-        td3.setMaximumSize(new java.awt.Dimension(98, 28));
-        td3.setMinimumSize(new java.awt.Dimension(98, 28));
-        td3.setPreferredSize(new java.awt.Dimension(74, 28));
-
-        btn31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c030.gif"))); // NOI18N
-        btn31.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        btn31.setFocusable(false);
-        btn31.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn31.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn31.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn31.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn31.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn31.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn31.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnPartner(evt);
-            }
-        });
-        td3.add(btn31);
-
-        btn30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c047.gif"))); // NOI18N
-        btn30.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        btn30.setFocusable(false);
-        btn30.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn30.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn30.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn30.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn30.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn30.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn30.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnOrder(evt);
-            }
-        });
-        td3.add(btn30);
-
-        getContentPane().add(td3);
-
         tb6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
         tb6.setRollover(true);
         tb6.setMaximumSize(new java.awt.Dimension(96, 28));
@@ -576,13 +527,9 @@ public class Tex extends javax.swing.JFrame {
 
         getContentPane().add(tb4);
 
-        tb0.setRollover(true);
-        tb0.setPreferredSize(new java.awt.Dimension(44, 28));
-        getContentPane().add(tb0);
-
         mn0.setPreferredSize(new java.awt.Dimension(800, 25));
 
-        mn01.setText("Настройки");
+        mn01.setText("  Настройки  ");
         mn01.setActionCommand("*Учреждение");
         mn01.setFont(frames.Util.getFont(1,1));
 
@@ -711,7 +658,7 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn01);
 
-        mn02.setText("Справочники");
+        mn02.setText("  Справочники  ");
         mn02.setFont(frames.Util.getFont(1,1));
 
         mn26.setFont(frames.Util.getFont(1,1));
@@ -766,7 +713,7 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn02);
 
-        mn09.setText("Системы");
+        mn09.setText("  Системы  ");
         mn09.setFont(frames.Util.getFont(1,1));
 
         mn91.setFont(frames.Util.getFont(1,1));
@@ -802,7 +749,7 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn09);
 
-        mn03.setText("Составы");
+        mn03.setText("  Составы  ");
         mn03.setFont(frames.Util.getFont(1,1));
 
         mn31.setFont(frames.Util.getFont(1,1));
@@ -868,61 +815,19 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn03);
 
-        mn08.setText("Заказы");
-        mn08.setFont(frames.Util.getFont(1,1));
+        mn06.setText("  Сервис  ");
+        mn06.setFont(frames.Util.getFont(1,1));
 
-        mn81.setFont(frames.Util.getFont(1,1));
-        mn81.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn81.setText("Контрагенты");
-        mn81.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnPartner(evt);
-            }
-        });
-        mn08.add(mn81);
-
-        mn82.setFont(frames.Util.getFont(1,1));
-        mn82.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn82.setText("Заказы");
-        mn82.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnOrder(evt);
-            }
-        });
-        mn08.add(mn82);
-        mn08.add(mn83);
-
-        mn84.setFont(frames.Util.getFont(1,1));
-        mn84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn84.setText("Паспорт изделия");
-        mn84.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnDesign(evt);
-            }
-        });
-        mn08.add(mn84);
-
-        mn0.add(mn08);
-
-        mn07.setText("Конвертор");
-        mn07.setFont(frames.Util.getFont(1,1));
-
-        mn71.setFont(frames.Util.getFont(1,1));
-        mn71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn71.setText("SA-OKNA <= ПрофСтрой(3,4)");
-        mn71.addActionListener(new java.awt.event.ActionListener() {
+        mn61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b059.gif"))); // NOI18N
+        mn61.setText("SA-OKNA <= ПрофСтрой(3,4)");
+        mn61.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnConvert(evt);
             }
         });
-        mn07.add(mn71);
+        mn06.add(mn61);
 
-        mn0.add(mn07);
-
-        mn06.setText("Сервис");
-        mn06.setFont(frames.Util.getFont(1,1));
-
-        mn63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b052.gif"))); // NOI18N
+        mn63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         mn63.setText("Установка соединения");
         mn63.setFont(frames.Util.getFont(1,1));
 
@@ -966,7 +871,7 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn06);
 
-        mn05.setText("Справка");
+        mn05.setText("  Справка  ");
         mn05.setFont(frames.Util.getFont(1,1));
 
         mn51.setFont(frames.Util.getFont(1,1));
@@ -1133,15 +1038,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         });
     }//GEN-LAST:event_mnFurnityra
 
-    private void mnPartner(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPartner
-
-        FrameProgress.create(Tex.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {
-                App.Partner.createFrame(Tex.this);
-            }
-        });
-    }//GEN-LAST:event_mnPartner
-
     private void mnParametr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnParametr
 
         FrameProgress.create(Tex.this, new ListenerFrame() {
@@ -1184,10 +1080,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         });
     }//GEN-LAST:event_mnGlass
 
-    private void mnDesign(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDesign
-
-    }//GEN-LAST:event_mnDesign
-
     private void mnKits(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKits
 
         FrameProgress.create(Tex.this, new ListenerFrame() {
@@ -1204,15 +1096,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             }
         });
     }//GEN-LAST:event_mnConvert
-
-    private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder
-
-        FrameProgress.create(Tex.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {
-                App.Order.createFrame(Tex.this);
-            }
-        });
-    }//GEN-LAST:event_mnOrder
 
     private void mnSyssize(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSyssize
 
@@ -1319,8 +1202,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JButton btn25;
     private javax.swing.JButton btn26;
     private javax.swing.JButton btn27;
-    private javax.swing.JButton btn30;
-    private javax.swing.JButton btn31;
     private javax.swing.JButton btn41;
     private javax.swing.JButton btn42;
     private javax.swing.JButton btn51;
@@ -1347,8 +1228,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenu mn03;
     private javax.swing.JMenu mn05;
     private javax.swing.JMenu mn06;
-    private javax.swing.JMenu mn07;
-    private javax.swing.JMenu mn08;
     private javax.swing.JMenu mn09;
     private javax.swing.JMenu mn11;
     private javax.swing.JMenu mn12;
@@ -1371,25 +1250,19 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn51;
     private javax.swing.JMenuItem mn52;
     private javax.swing.JMenuItem mn54;
+    private javax.swing.JMenuItem mn61;
     private javax.swing.JMenu mn62;
     private javax.swing.JMenu mn63;
     private javax.swing.JCheckBoxMenuItem mn631;
     private javax.swing.JCheckBoxMenuItem mn632;
     private javax.swing.JCheckBoxMenuItem mn633;
-    private javax.swing.JMenuItem mn71;
-    private javax.swing.JMenuItem mn81;
-    private javax.swing.JMenuItem mn82;
-    private javax.swing.JPopupMenu.Separator mn83;
-    private javax.swing.JMenuItem mn84;
     private javax.swing.JMenuItem mn91;
     private javax.swing.JMenuItem mn92;
     private javax.swing.JPopupMenu.Separator mn93;
-    private javax.swing.JToolBar tb0;
     private javax.swing.JToolBar tb1;
     private javax.swing.JToolBar tb2;
     private javax.swing.JToolBar tb4;
     private javax.swing.JToolBar tb6;
-    private javax.swing.JToolBar td3;
     private javax.swing.JToolBar td5;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 

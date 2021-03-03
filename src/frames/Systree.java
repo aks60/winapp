@@ -135,7 +135,11 @@ public class Systree extends javax.swing.JFrame {
 
     private void loadingData() {
 
-        systreeID = Util.systreeID();
+        //Получим сохр. ID системы при выходе из программы
+        Record sysprodRec = eSysprod.find(Integer.valueOf(eProperty.sysprodID.read()));
+        if (sysprodRec != null) { 
+            systreeID = sysprodRec.getInt(eSysprod.systree_id);
+        }
         qSystree.select(eSystree.up);
         qParams.select(eParams.up, "where", eParams.id, "< 0").table(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
@@ -514,9 +518,10 @@ public class Systree extends javax.swing.JFrame {
 
             int index = -1;
             int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
-            for (int index2 = 0; index2 < qSysprod.size(); ++index2) {
-                if (qSysprod.get(index2).getInt(eSysprod.id) == sysprodID) {
-                    index = index2;
+            for (int i = 0; i < qSysprod.size(); ++i) {
+                if (qSysprod.get(i).getInt(eSysprod.id) == sysprodID) {
+                    index = i;
+                    tabb1.setSelectedIndex(4);
                 }
             }
             if (index != -1) {
@@ -784,7 +789,7 @@ public class Systree extends javax.swing.JFrame {
         btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Системы профилей.");
+        setTitle("Системы профилей");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
