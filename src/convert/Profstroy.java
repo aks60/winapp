@@ -554,7 +554,7 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color2_id, "clnu1", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
             updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");            
-            updateSql(eProject.up, eProject.contractor_id, "kname", ePrjcontr.up, "contractor");
+            updateSql(eProject.up, eProject.prjcontr_id, "kname", ePrjcontr.up, "contractor");
                    
             executeSql("update prjcontr set org_leve2 = trim(org_leve2)");            
         } catch (Exception e) {

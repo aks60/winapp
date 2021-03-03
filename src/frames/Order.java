@@ -85,11 +85,11 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.date4, eProject.date6, eProject.contractor_id, eProject.manager, eProject.categ) {
+        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.date4, eProject.date6, eProject.prjcontr_id, eProject.manager, eProject.categ) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eProject.contractor_id) {
+                if (field == eProject.prjcontr_id) {
                     Record record = qPrjcontr.stream().filter(rec -> rec.get(ePrjcontr.id).equals(val)).findFirst().orElse(ePrjcontr.up.newRecord());
                     return record.get(ePrjcontr.contractor);
                 }
@@ -168,7 +168,7 @@ public class Order extends javax.swing.JFrame {
             new Partner(this, (record) -> {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
-                record2.set(eProject.contractor_id, record.getInt(ePrjcontr.id));
+                record2.set(eProject.prjcontr_id, record.getInt(ePrjcontr.id));
                 qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
