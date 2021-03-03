@@ -832,6 +832,16 @@ public class Profstroy {
         }
     }
 
+    private static void createRole() {
+      //CREATE ROLE MANAGER_RW
+      //GRANT ALL ON MANAGER_RW TO TABLE;
+      //GRANT MANAGER_RW TO USER;
+      //DROP ROLE MANAGER_RW;
+      //DROP USER USER;
+      
+      //CREATE USER <user_name> PASSWORD '<user_password>' [FIRSTNAME 'FirstName'] [MIDDLENAME 'MiddleName'] [LASTNAME 'LastName'];
+    }
+    
     private static void executeSql(String... s) {
         if (s.length == 2 && versionPs.equals(s[0]) == false) {
             return;
