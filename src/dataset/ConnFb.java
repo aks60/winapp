@@ -22,10 +22,6 @@ public class ConnFb extends dataset.ConnApp {
     public final static String fbserver = "jdbc:firebirdsql:";
     public String url = "";
 
-    public void configApp() {
-        Util.setSimpleDateFormat(new SimpleDateFormat("dd.MM.yyyy"));
-    }
-
     /**
      * Соединение с БД
      */
@@ -53,7 +49,6 @@ public class ConnFb extends dataset.ConnApp {
             System.err.println(e);
             return eExcep.getError(e.getErrorCode());
         }
-        configApp();
         return eExcep.yesConn;
     }
 
@@ -75,7 +70,6 @@ public class ConnFb extends dataset.ConnApp {
         } catch (SQLException e) {
             return eExcep.getError(e.getErrorCode());
         }
-        configApp();
         return eExcep.yesConn;
     }
 
@@ -116,9 +110,9 @@ public class ConnFb extends dataset.ConnApp {
     }
 
     //Изменение привилегий пользователя
-    public void grantUser(String user, String password, String role, boolean readwrite) {
+    public void grantUser(String user, String password, String role, boolean rw) {
         String sql;
-        if (readwrite == true) {
+        if (rw == true) {
             role = role + "_RW";
         } else {
             role = role + "_RO";

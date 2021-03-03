@@ -41,11 +41,11 @@ public abstract class ConnApp {
 
     public abstract eExcep createConnection(String server, String port, String base, String user, char[] password);
 
-    public abstract void addUser(String user, String password, String uchId, String role, boolean readwrite);
+    public abstract void addUser(String user, String password, String uchId, String role, boolean rw);
 
     public abstract String getUser();
     
-    public abstract void grantUser(String user, String password, String role, boolean readwrite);
+    public abstract void grantUser(String user, String password, String role, boolean rw);
 
     public abstract String getRole();
     
