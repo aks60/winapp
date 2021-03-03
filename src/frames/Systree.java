@@ -611,7 +611,7 @@ public class Systree extends javax.swing.JFrame {
             if (script != null && script.isEmpty() == false) {
                 JsonElement script2 = gson.fromJson(script, JsonElement.class);
                 script2.getAsJsonObject().addProperty("nuni", systreeID); //запишем nuni в script
-                iwin.build(script2.toString()); //калькуляция изделия
+                iwin.build(script2.toString()); //построение изделия
                 paintPanel.repaint(true);
                 loadingWin();
 
@@ -1562,7 +1562,7 @@ public class Systree extends javax.swing.JFrame {
         tabb1.setPreferredSize(new java.awt.Dimension(540, 250));
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                tabb1StateChanged(evt);
+                Systree.this.stateChanged(evt);
             }
         });
 
@@ -2151,8 +2151,6 @@ public class Systree extends javax.swing.JFrame {
 
         getContentPane().add(tool, java.awt.BorderLayout.PAGE_START);
 
-        getAccessibleContext().setAccessibleName("Системы профилей");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -2190,7 +2188,7 @@ public class Systree extends javax.swing.JFrame {
             frame.dispose();
     }//GEN-LAST:event_windowClosed
 
-    private void tabb1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabb1StateChanged
+    private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
 
         Util.stopCellEditing(systemTree);
         systemTree.setBorder(null);
@@ -2203,7 +2201,7 @@ public class Systree extends javax.swing.JFrame {
         } else if (tabb1.getSelectedIndex() == 4) {
             Util.updateBorderAndSql(tab5, Arrays.asList(tab2, tab3, tab4, tab5));
         }
-    }//GEN-LAST:event_tabb1StateChanged
+    }//GEN-LAST:event_stateChanged
 
     private void systemTreeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_systemTreeMousePressed
         Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));

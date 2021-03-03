@@ -122,6 +122,8 @@ public class Order extends javax.swing.JFrame {
         rsvOrdprod = new DefFieldEditor(tab2);
         //rsvOrdprod.add(eOrdprod.name, txt9);
 
+        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
+        paintPanel.setVisible(true);        
         int index = -1;
         int orderID = Integer.valueOf(eProperty.orderID.read());
         for (int index2 = 0; index2 < qOrders.size(); ++index2) {
@@ -286,7 +288,7 @@ public class Order extends javax.swing.JFrame {
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
                 JsonElement script2 = gson.fromJson(script, JsonElement.class);
-                iwin.build(script2.toString()); //калькуляция изделия
+                iwin.build(script2.toString()); //построение изделия
                 paintPanel.repaint(true);
                 loadingWin();
 
@@ -359,6 +361,7 @@ public class Order extends javax.swing.JFrame {
     private void initComponents() {
 
         pan11 = new javax.swing.JPanel();
+        pan7 = new javax.swing.JPanel();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -392,11 +395,6 @@ public class Order extends javax.swing.JFrame {
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         pan5 = new javax.swing.JPanel();
-        pan9 = new javax.swing.JPanel();
-        panDesign = new javax.swing.JPanel();
-        scr6 = new javax.swing.JScrollPane();
-        windowsTree = new javax.swing.JTree();
-        pan7 = new javax.swing.JPanel();
         pan8 = new javax.swing.JPanel();
         pan12 = new javax.swing.JPanel();
         lab25 = new javax.swing.JLabel();
@@ -464,6 +462,10 @@ public class Order extends javax.swing.JFrame {
         txt26 = new javax.swing.JTextField();
         txt31 = new javax.swing.JTextField();
         txt16 = new javax.swing.JTextField();
+        pan9 = new javax.swing.JPanel();
+        panDesign = new javax.swing.JPanel();
+        scr6 = new javax.swing.JScrollPane();
+        windowsTree = new javax.swing.JTree();
         pan6 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
@@ -475,6 +477,9 @@ public class Order extends javax.swing.JFrame {
         checkFilter = new javax.swing.JCheckBox();
 
         pan11.setLayout(new java.awt.BorderLayout());
+
+        pan7.setPreferredSize(new java.awt.Dimension(540, 260));
+        pan7.setLayout(new java.awt.GridLayout(1, 2));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заказы");
@@ -561,7 +566,7 @@ public class Order extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 647, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 725, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -581,6 +586,12 @@ public class Order extends javax.swing.JFrame {
 
         centr.setPreferredSize(new java.awt.Dimension(800, 450));
         centr.setLayout(new java.awt.GridLayout(1, 2));
+
+        tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                Order.this.stateChanged(evt);
+            }
+        });
 
         pan1.setLayout(new java.awt.BorderLayout());
 
@@ -794,7 +805,7 @@ public class Order extends javax.swing.JFrame {
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         pan1.add(pan2, java.awt.BorderLayout.EAST);
@@ -829,28 +840,9 @@ public class Order extends javax.swing.JFrame {
 
         pan3.add(pan4, java.awt.BorderLayout.WEST);
 
-        pan5.setPreferredSize(new java.awt.Dimension(451, 300));
         pan5.setLayout(new java.awt.BorderLayout());
 
-        pan9.setPreferredSize(new java.awt.Dimension(451, 300));
-        pan9.setLayout(new java.awt.BorderLayout());
-
-        panDesign.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panDesign.setLayout(new java.awt.BorderLayout());
-        pan9.add(panDesign, java.awt.BorderLayout.CENTER);
-
-        scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr6.setPreferredSize(new java.awt.Dimension(240, 324));
-        scr6.setViewportView(windowsTree);
-
-        pan9.add(scr6, java.awt.BorderLayout.WEST);
-
-        pan5.add(pan9, java.awt.BorderLayout.CENTER);
-
-        pan7.setPreferredSize(new java.awt.Dimension(540, 300));
-        pan7.setLayout(new java.awt.GridLayout(1, 2));
-
-        pan8.setPreferredSize(new java.awt.Dimension(300, 200));
+        pan8.setPreferredSize(new java.awt.Dimension(10, 260));
         pan8.setLayout(new java.awt.CardLayout());
 
         pan12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Основные", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 1)));
@@ -931,7 +923,7 @@ public class Order extends javax.swing.JFrame {
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(lab32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
+                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(lab27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -980,7 +972,7 @@ public class Order extends javax.swing.JFrame {
         pan12.setLayout(pan12Layout);
         pan12Layout.setHorizontalGroup(
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+            .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
             .addGroup(pan12Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addComponent(lab25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1002,7 +994,7 @@ public class Order extends javax.swing.JFrame {
                     .addComponent(lab26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         pan8.add(pan12, "card12");
@@ -1145,17 +1137,17 @@ public class Order extends javax.swing.JFrame {
             .addGroup(pan13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+                    .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)))
+                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan13Layout.setVerticalGroup(
@@ -1172,7 +1164,7 @@ public class Order extends javax.swing.JFrame {
                     .addComponent(txt33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         pan8.add(pan13, "card13");
@@ -1217,13 +1209,13 @@ public class Order extends javax.swing.JFrame {
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)))
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan15Layout.setVerticalGroup(
@@ -1238,7 +1230,7 @@ public class Order extends javax.swing.JFrame {
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(226, Short.MAX_VALUE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
 
         pan8.add(pan15, "card15");
@@ -1416,7 +1408,7 @@ public class Order extends javax.swing.JFrame {
                             .addComponent(lab37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                            .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                             .addComponent(txt25, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                             .addComponent(txt22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1516,14 +1508,26 @@ public class Order extends javax.swing.JFrame {
                     .addComponent(lab42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pan8.add(pan16, "card16");
 
-        pan7.add(pan8);
+        pan5.add(pan8, java.awt.BorderLayout.NORTH);
 
-        pan5.add(pan7, java.awt.BorderLayout.NORTH);
+        pan9.setLayout(new java.awt.BorderLayout());
+
+        panDesign.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        panDesign.setLayout(new java.awt.BorderLayout());
+        pan9.add(panDesign, java.awt.BorderLayout.CENTER);
+
+        scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr6.setPreferredSize(new java.awt.Dimension(240, 324));
+        scr6.setViewportView(windowsTree);
+
+        pan9.add(scr6, java.awt.BorderLayout.WEST);
+
+        pan5.add(pan9, java.awt.BorderLayout.CENTER);
 
         pan3.add(pan5, java.awt.BorderLayout.CENTER);
 
@@ -1609,6 +1613,9 @@ public class Order extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             Util.insertRecord(tab1, eOrders.up, (record) -> {
             });
+        } else if (tab2.getBorder() != null) {
+            
+            
         }
     }//GEN-LAST:event_btnInsert
 
@@ -1637,6 +1644,17 @@ public class Order extends javax.swing.JFrame {
             txtFilter.setName(tab1.getName());
         }
     }//GEN-LAST:event_tabMousePressed
+
+    private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
+        Util.stopCellEditing(tab1, tab2, tab3);
+        if (tabb1.getSelectedIndex() == 0) {
+            Util.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3));
+        } else if (tabb1.getSelectedIndex() == 1) {
+            Util.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3));
+        } else if (tabb1.getSelectedIndex() == 2) {
+            Util.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3));
+        }
+    }//GEN-LAST:event_stateChanged
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
