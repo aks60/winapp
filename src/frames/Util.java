@@ -184,7 +184,7 @@ public class Util {
                             str = str.substring(6, 128);
                         }
                     }
-                    return " Конструкция: " + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), "") + "/" + str;
+                    return "   Конструкция: " + eSystree.patch(sysprodRec.getInt(eSysprod.systree_id), "") + "/" + str;
                 }
             } else if (eProfile.profile == eProfile.P16) {
                 return "";

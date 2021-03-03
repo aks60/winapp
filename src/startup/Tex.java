@@ -75,8 +75,6 @@ public class Tex extends javax.swing.JFrame {
         buttonLookAndFiilGroup = new javax.swing.ButtonGroup();
         buttonBaseGroup = new javax.swing.ButtonGroup();
         buttonMenuGroup = new javax.swing.ButtonGroup();
-        tb0 = new javax.swing.JToolBar();
-        btn1 = new javax.swing.JToggleButton();
         tb1 = new javax.swing.JToolBar();
         btn15 = new javax.swing.JButton();
         btn16 = new javax.swing.JButton();
@@ -89,6 +87,7 @@ public class Tex extends javax.swing.JFrame {
         btn51 = new javax.swing.JButton();
         btn53 = new javax.swing.JButton();
         tb2 = new javax.swing.JToolBar();
+        btn1 = new javax.swing.JToggleButton();
         btn23 = new javax.swing.JButton();
         btn24 = new javax.swing.JButton();
         btn25 = new javax.swing.JButton();
@@ -105,6 +104,7 @@ public class Tex extends javax.swing.JFrame {
         tb4 = new javax.swing.JToolBar();
         btn41 = new javax.swing.JButton();
         btn42 = new javax.swing.JButton();
+        tb0 = new javax.swing.JToolBar();
         mn0 = new javax.swing.JMenuBar();
         mn01 = new javax.swing.JMenu();
         mn11 = new javax.swing.JMenu();
@@ -178,20 +178,6 @@ public class Tex extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
-
-        tb0.setRollover(true);
-        tb0.setPreferredSize(new java.awt.Dimension(44, 28));
-
-        btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c032.gif"))); // NOI18N
-        btn1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btn1.setFocusable(false);
-        btn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btn1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        tb0.add(btn1);
-
-        getContentPane().add(tb0);
 
         tb1.setRollover(true);
         tb1.setMaximumSize(new java.awt.Dimension(150, 28));
@@ -351,7 +337,16 @@ public class Tex extends javax.swing.JFrame {
         tb2.setRollover(true);
         tb2.setMaximumSize(new java.awt.Dimension(176, 28));
         tb2.setMinimumSize(new java.awt.Dimension(176, 28));
-        tb2.setPreferredSize(new java.awt.Dimension(174, 28));
+        tb2.setPreferredSize(new java.awt.Dimension(200, 28));
+
+        btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c032.gif"))); // NOI18N
+        btn1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
+        btn1.setFocusable(false);
+        btn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        btn1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tb2.add(btn1);
 
         btn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c023.gif"))); // NOI18N
         btn23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
@@ -580,6 +575,10 @@ public class Tex extends javax.swing.JFrame {
         tb4.add(btn42);
 
         getContentPane().add(tb4);
+
+        tb0.setRollover(true);
+        tb0.setPreferredSize(new java.awt.Dimension(44, 28));
+        getContentPane().add(tb0);
 
         mn0.setPreferredSize(new java.awt.Dimension(800, 25));
 
