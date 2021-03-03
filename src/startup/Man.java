@@ -601,6 +601,13 @@ public class Man extends javax.swing.JFrame {
             if (lookAndFeel.getName().equals(laf.getName())) {
                 mnIt.setSelected(true);
             }
+        } 
+        if (eProperty.base_num.read().equals("1")) {
+            mn61.setSelected(true);
+        } else if (eProperty.base_num.read().equals("2")) {
+            mn62.setSelected(true);
+        } else if (eProperty.base_num.read().equals("3")) {
+            mn63.setSelected(true);
         }        
     }
 }
