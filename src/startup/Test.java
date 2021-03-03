@@ -18,7 +18,7 @@ public class Test {
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
-            convert.Profstroy.exec2();
+            //convert.Profstroy.exec2();
             //wincalc();
             //query();
             //frame();

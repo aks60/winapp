@@ -27,11 +27,11 @@ public class Main {
         for (int index = 0; index < args.length; index++) {
             if (index == 0 && args[0].equals("tex")) {
                 Main.dev = true;
-                eProfile.role = "technologRW";
+                eProfile.role = "TEXNOLOG_RW";
                 
             } else if (index == 0 && args[0].equals("man")) {
                 Main.dev = true;
-                eProfile.role = "managerRW";
+                eProfile.role = "MANAGER_RW";
             } 
             if (index == 1 && args[1].equals("loc")) {
                 Main.locate = true;
