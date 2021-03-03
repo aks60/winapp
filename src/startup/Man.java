@@ -531,13 +531,10 @@ public class Man extends javax.swing.JFrame {
 
         if (eProperty.base_num.read().equals("1")) {
             mn61.setSelected(true);
-            //btnT7.setSelected(true);
         } else if (eProperty.base_num.read().equals("2")) {
             mn62.setSelected(true);
-            //btnT8.setSelected(true);
         } else if (eProperty.base_num.read().equals("3")) {
             mn63.setSelected(true);
-            //btnT9.setSelected(true);
         }
     }//GEN-LAST:event_mnBase
 
