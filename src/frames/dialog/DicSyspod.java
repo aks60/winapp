@@ -16,19 +16,25 @@ import domain.eSystree;
 import frames.Util;
 import frames.swing.DefMutableTreeNode;
 import frames.swing.DefTableModel;
+import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultTreeCellEditor;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 public class DicSyspod extends javax.swing.JDialog {
 
@@ -47,6 +53,7 @@ public class DicSyspod extends javax.swing.JDialog {
         initElements();
         loadingData();
         loadingSys();
+        loadingModel();        
         setVisible(true);
     }
 
@@ -58,22 +65,30 @@ public class DicSyspod extends javax.swing.JDialog {
             systreeID = sysprodRec.getInt(eSysprod.systree_id);
         }
         qSystree.select(eSystree.up);
-//        ((DefaultTreeCellEditor) tree1.getCellEditor()).addCellEditorListener(new CellEditorListener() {
-//
-//            public void editingStopped(ChangeEvent e) {
-//                String str = ((DefaultTreeCellEditor) tree1.getCellEditor()).getCellEditorValue().toString();
-//                systreeNode.rec().set(eSystree.name, str);
-//                systreeNode.setUserObject(str);
-//                txt8.setText(str);
-//                qSystree.update(systreeNode.rec()); //сохраним в базе
-//            }
-//
-//            public void editingCanceled(ChangeEvent e) {
-//                editingStopped(e);
-//            }
-//        });
     }
 
+    private void loadingModel() {
+        tab2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (column == 1) {
+                    Icon icon = (Icon) value;
+                    label.setIcon(icon);
+                } else {
+                    label.setIcon(null);
+                }
+                return label;
+            }
+        });  
+        if (selectedPath != null) {
+            tree1.setSelectionPath(new TreePath(selectedPath));
+        } else {
+            tree1.setSelectionRow(0);
+        }        
+    }
+    
     private void loadingSys() {
         Record recordRoot = eSystree.up.newRecord(Query.SEL);
         recordRoot.set(eSystree.id, -1);
@@ -99,6 +114,7 @@ public class DicSyspod extends javax.swing.JDialog {
     }
 
     private void loadingTab2() {
+        
         qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
         DefaultTableModel dm = (DefaultTableModel) tab2.getModel();
         dm.getDataVector().removeAllElements();

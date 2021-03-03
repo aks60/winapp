@@ -106,7 +106,7 @@ public class Systree extends javax.swing.JFrame {
     private Canvas paintPanel = new Canvas(iwin);
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
-    private java.awt.Frame frame = null;
+    private java.awt.Frame models = null;
     private DefMutableTreeNode systreeNode = null;
     private DefMutableTreeNode windowsNode = null;
     private TreeNode[] selectedPath = null;
@@ -335,9 +335,10 @@ public class Systree extends javax.swing.JFrame {
     private void loadingTab5() {
 
         qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
-        DefaultTableModel dtm5 = (DefaultTableModel) tab5.getModel();
-        dtm5.getDataVector().removeAllElements();
+        DefaultTableModel dm = (DefaultTableModel) tab5.getModel();
+        dm.getDataVector().removeAllElements();
         ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+        
         int length = 68;
         for (Record record : qSysprod.table(eSysprod.up)) {
             try {
@@ -353,7 +354,7 @@ public class Systree extends javax.swing.JFrame {
                 iwin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
                 arrayRec[1] = image;
-                dtm5.addRow(arrayRec);
+                dm.addRow(arrayRec);
 
             } catch (Exception e) {
                 System.err.println("Ошибка:Systree.loadingTab5() " + e);
@@ -2184,8 +2185,8 @@ public class Systree extends javax.swing.JFrame {
         Util.stopCellEditing(systemTree, tab2, tab3, tab4, tab5);
         qSystree.execsql();
         Arrays.asList(tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        if (frame != null)
-            frame.dispose();
+        if (models != null)
+            models.dispose();
     }//GEN-LAST:event_windowClosed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
@@ -2282,9 +2283,9 @@ public class Systree extends javax.swing.JFrame {
                 if (systreeNode != null && systreeNode.isLeaf()) {
                     FrameProgress.create(Systree.this, new ListenerFrame() {
                         public void actionRequest(Object obj) {
-                            frame = new Models(Systree.this, listenerModel);
-                            FrameToFile.setFrameSize(frame);
-                            frame.setVisible(true);
+                            models = new Models(Systree.this, listenerModel);
+                            FrameToFile.setFrameSize(models);
+                            models.setVisible(true);
                         }
                     });
                 }

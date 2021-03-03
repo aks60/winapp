@@ -189,13 +189,13 @@ public class Order extends javax.swing.JFrame {
 
     private void loadingTab2() {
 
-        Record orderRec = qProject.get(Util.getIndexRec(tab1));
-        int id = orderRec.getInt(eProject.id);
+        Record projectRec = qProject.get(Util.getIndexRec(tab1));
+        int id = projectRec.getInt(eProject.id);
         qPrjprod.select(ePrjprod.up, "where", ePrjprod.order_id, "=", id);
-
-        DefaultTableModel dm2 = (DefaultTableModel) tab2.getModel();
-        dm2.getDataVector().removeAllElements();
+        DefaultTableModel dm = (DefaultTableModel) tab2.getModel();
+        dm.getDataVector().removeAllElements();
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        
         int length = 68;
         for (Record record : qPrjprod) {
             try {
@@ -211,7 +211,7 @@ public class Order extends javax.swing.JFrame {
                 iwin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
                 arrayRec[1] = image;
-                dm2.addRow(arrayRec);
+                dm.addRow(arrayRec);
 
             } catch (Exception e) {
                 System.err.println("Ошибка:Order.loadingTab2() " + e);
