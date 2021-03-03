@@ -60,7 +60,7 @@ public class Util {
 
     private static GregorianCalendar appCalendar = new GregorianCalendar(); //календарь программы    
     private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM); //формат даты
-    public static SimpleDateFormat simpleFormat = new SimpleDateFormat("dd.MM.yyyy"); //"yyyy-MM-dd" формат только для баз где даты utf8
+    public static SimpleDateFormat simpleFormat = new SimpleDateFormat("dd.MM.yyyy"); //"yyyy-MM-dd" формат для баз где даты utf8
     private static int mes = 0;
 
     // <editor-fold defaultstate="collapsed" desc="Работа с датой..."> 
