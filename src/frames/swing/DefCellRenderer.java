@@ -11,7 +11,7 @@ public class DefCellRenderer extends DefaultTableCellRenderer {
             boolean isSelected, boolean hasFocus, int row, int column) {
 
         if (value instanceof java.util.Date) {
-            return super.getTableCellRendererComponent(table, Util.simpledateFormat.format(value), isSelected, hasFocus, row, column);
+            return super.getTableCellRendererComponent(table, Util.simpleFormat.format(value), isSelected, hasFocus, row, column);
         }
         return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
     }

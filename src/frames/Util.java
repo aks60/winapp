@@ -58,10 +58,9 @@ import java.sql.Statement;
  */
 public class Util {
 
-    public static boolean progressFrame = true;
     private static GregorianCalendar appCalendar = new GregorianCalendar(); //календарь программы    
     private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM); //формат даты
-    public static SimpleDateFormat simpledateFormat = new SimpleDateFormat("dd.MM.yyyy"); //"yyyy-MM-dd" формат только для баз где даты utf8
+    public static SimpleDateFormat simpleFormat = new SimpleDateFormat("dd.MM.yyyy"); //"yyyy-MM-dd" формат только для баз где даты utf8
     private static int mes = 0;
 
     // <editor-fold defaultstate="collapsed" desc="Работа с датой..."> 
@@ -120,10 +119,10 @@ public class Util {
     //Преобразование date в string
     public static String DateToSql(Object date) {
         if (date == null) {
-            return simpledateFormat.format(appCalendar.getTime());
+            return simpleFormat.format(appCalendar.getTime());
         }
         if (date instanceof java.util.Date) {
-            return simpledateFormat.format(date);
+            return simpleFormat.format(date);
         }
         return "";
     }
