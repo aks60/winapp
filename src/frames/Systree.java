@@ -135,11 +135,10 @@ public class Systree extends javax.swing.JFrame {
 
     private void loadingData() {
 
-        systreeID = Integer.valueOf(eProperty.systreeID.read());
+        systreeID = Util.systreeID();
         qSystree.select(eSystree.up);
         qParams.select(eParams.up, "where", eParams.id, "< 0").table(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
-
         ((DefaultTreeCellEditor) systemTree.getCellEditor()).addCellEditorListener(new CellEditorListener() {
 
             public void editingStopped(ChangeEvent e) {
@@ -496,8 +495,6 @@ public class Systree extends javax.swing.JFrame {
         if (systreeNode != null) {
 
             systreeID = systreeNode.rec().getInt(eSystree.id);
-            eProperty.systreeID.write(String.valueOf(systreeID));
-            
             rsvSystree.load();
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
@@ -602,7 +599,7 @@ public class Systree extends javax.swing.JFrame {
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
             String script = sysprodRec.getStr(eSysprod.script);
-            eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id));
+            eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + Util.designTitle());
 
             //Калькуляция и прорисовка окна
@@ -622,17 +619,16 @@ public class Systree extends javax.swing.JFrame {
 
     private ArrayList<DefMutableTreeNode> addChild(ArrayList<DefMutableTreeNode> nodeList1, ArrayList<DefMutableTreeNode> nodeList2) {
 
-        Query systreeList = qSystree.table(eSystree.up);
         for (DefMutableTreeNode node : nodeList1) {
-            String userNode = (String) node.getUserObject();
-            for (Record record2 : systreeList) {
-                if (record2.getInt(eSystree.parent_id) == node.rec().getInt(eSystree.id)
-                        && record2.getInt(eSystree.parent_id) != record2.getInt(eSystree.id)) {
-                    DefMutableTreeNode node2 = new DefMutableTreeNode(record2);
-                    node.add(node2);
-                    nodeList2.add(node2);
-                    if (record2.getInt(eSystree.id) == systreeID) {
-                        selectedPath = node2.getPath(); //запомним path для nuni
+            String node2 = (String) node.getUserObject();
+            for (Record record : qSystree) {
+                if (record.getInt(eSystree.parent_id) == node.rec().getInt(eSystree.id)
+                        && record.getInt(eSystree.parent_id) != record.getInt(eSystree.id)) {
+                    DefMutableTreeNode node3 = new DefMutableTreeNode(record);
+                    node.add(node3);
+                    nodeList2.add(node3);
+                    if (record.getInt(eSystree.id) == systreeID) {
+                        selectedPath = node3.getPath(); //запомним path для nuni
                     }
                 }
             }
@@ -2183,7 +2179,6 @@ public class Systree extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Util.stopCellEditing(systemTree, tab2, tab3, tab4, tab5);
-        eProperty.save(); //запишем текущий systreeID и sysprodID в файл
         qSystree.execsql();
         Arrays.asList(tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (frame != null)

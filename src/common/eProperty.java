@@ -26,7 +26,6 @@ public enum eProperty {
     server1("localhost"),
     server2("localhost"),
     server3("localhost"),
-    systreeID("-1"),
     sysprodID("-1"),
     orderID("-1"),
     base_num("1"),

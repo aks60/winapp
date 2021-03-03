@@ -46,21 +46,6 @@ public class Tex extends javax.swing.JFrame {
         Locale loc = new Locale("ru", "RU");
         this.setLocale(loc);
         this.getInputContext().selectInputMethod(loc);
-
-        try {
-            int systreeID = Integer.valueOf(eProperty.systreeID.read());
-            int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
-            Statement st = Query.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select * from sysprod a where a.id = " + sysprodID);
-            if (rs.next() == true) {
-                if (systreeID == rs.getInt("SYSTREE_ID") && systreeID != -1) {
-                    btn1.setSelected(true);
-                }
-            }
-            st.close();
-        } catch (SQLException e) {
-            System.err.println(e);
-        }
     }
 
     private void constructive() {
@@ -202,7 +187,7 @@ public class Tex extends javax.swing.JFrame {
         btn1.setFocusable(false);
         btn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif"))); // NOI18N
+        btn1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         btn1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         tb0.add(btn1);
 

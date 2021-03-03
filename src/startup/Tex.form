@@ -717,7 +717,7 @@
               <Image iconType="3" name="/resource/img24/c001.gif"/>
             </Property>
             <Property name="selectedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resource/img24/c056.gif"/>
+              <Image iconType="3" name="/resource/img24/c054.gif"/>
             </Property>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>

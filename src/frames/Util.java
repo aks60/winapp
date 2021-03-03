@@ -6,7 +6,6 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eGroups;
-import domain.eJoinpar1;
 import domain.eParams;
 import domain.eSysprod;
 import domain.eSystree;
@@ -46,9 +45,11 @@ import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import common.ListenerSQL;
-import common.ListenerRecord;
 import common.ListenerObject;
 import common.eProfile;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * <p>
@@ -171,10 +172,9 @@ public class Util {
     public static String designTitle() {
         try {
             if (eProfile.profile == eProfile.P02) {
-                int systreeID = Integer.valueOf(eProperty.systreeID.read());
                 int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
                 Record sysprodRec = eSysprod.find(sysprodID);
-                if (sysprodRec != null && sysprodRec.getInt(eSysprod.systree_id) == systreeID) {
+                if (sysprodRec != null) {
 
                     String str = sysprodRec.getStr(eSysprod.name);
                     if (str.length() > 6) {
@@ -236,6 +236,24 @@ public class Util {
             }
         }
         return compList;
+    }
+
+    //Сохр. ID системы при выходе из программы
+    public static int systreeID() {
+        try {
+            int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+            Statement st = Query.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            if (sysprodID != -1) {
+                ResultSet rs = st.executeQuery("select * from sysprod a where a.id = " + sysprodID);
+                if (rs.next() == true) {
+                    return rs.getInt(eSysprod.systree_id.name());
+                }
+            }
+            st.close();
+        } catch (SQLException e) {
+            System.out.println("frames.Util.systreeID()");
+        }
+        return -1;
     }
 
     //Типы данных в базе

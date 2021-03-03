@@ -35,12 +35,12 @@ public enum eSysprod implements Field {
         return query;
     }
 
-    public static Record find(int _id) {
+    public static Record find(int _id) { //если не нашол надо возвр. null
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? null : recordList.get(0); 
     }
 
     public String toString() {
