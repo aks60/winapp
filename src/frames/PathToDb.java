@@ -65,9 +65,9 @@ public class PathToDb extends javax.swing.JDialog {
                         pass = con.createConnection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), role);
                         if (pass == eExcep.yesConn) {
                             Query.connection = con.getConnection();
-                            if (eProfile.P02.roleSet.contains(role)) {
+                            if (App.Top.frame == null && eProfile.P02.roleSet.contains(role)) {
                                 App.createApp(eProfile.P02);
-                            } else if (eProfile.P16.roleSet.contains(role)) {
+                            } else if (App.Top.frame == null && eProfile.P16.roleSet.contains(role)) {
                                 App.createApp(eProfile.P16);
                             }
                             eProperty.base_num.write(num_base);
