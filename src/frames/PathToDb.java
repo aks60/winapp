@@ -81,7 +81,14 @@ public class PathToDb extends javax.swing.JDialog {
                             }
                         }
                     } else {
-                        App.createApp(eProfile.P02);
+                        if (App.Top.frame == null) {
+                            App.createApp(eProfile.P02);
+                        }
+                        eProperty.base_num.write(num_base);
+                        eProperty.port(num_base, edPort.getText().trim());
+                        eProperty.server(num_base, edHost.getText().trim());
+                        eProperty.base(num_base, edPath.getText().trim());
+                        eProperty.save();
                         dispose();
                     }
                 }

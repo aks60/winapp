@@ -152,7 +152,6 @@ public class Convert extends javax.swing.JFrame {
         lab2.setText("Путь к базе источника");
         lab2.setAlignmentX(0.5F);
         lab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab2.setMaximumSize(new java.awt.Dimension(100, 18));
         lab2.setMinimumSize(new java.awt.Dimension(100, 18));
         lab2.setPreferredSize(new java.awt.Dimension(126, 18));
 
@@ -179,11 +178,12 @@ public class Convert extends javax.swing.JFrame {
         edPath.setFont(frames.Util.getFont(0,0));
         edPath.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         edPath.setMinimumSize(new java.awt.Dimension(0, 0));
-        edPath.setPreferredSize(new java.awt.Dimension(80, 16));
+        edPath.setPreferredSize(new java.awt.Dimension(200, 16));
 
         edUser.setFont(frames.Util.getFont(0,0));
         edUser.setText("sysdba");
         edUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        edUser.setFocusable(false);
         edUser.setMinimumSize(new java.awt.Dimension(0, 0));
         edUser.setPreferredSize(new java.awt.Dimension(80, 16));
 
@@ -213,14 +213,12 @@ public class Convert extends javax.swing.JFrame {
         labPath2.setFocusable(false);
         labPath2.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         labPath2.setOpaque(true);
-        labPath2.setPreferredSize(new java.awt.Dimension(0, 16));
+        labPath2.setPreferredSize(new java.awt.Dimension(200, 16));
 
         lab6.setFont(frames.Util.getFont(0,0));
         lab6.setText("Пкть к базе приемника");
         lab6.setAlignmentX(0.5F);
         lab6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab6.setMaximumSize(new java.awt.Dimension(100, 18));
-        lab6.setMinimumSize(new java.awt.Dimension(100, 18));
         lab6.setPreferredSize(new java.awt.Dimension(126, 18));
 
         btn10.setText("...");
@@ -260,16 +258,14 @@ public class Convert extends javax.swing.JFrame {
                         .addComponent(edPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(panNordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panNordLayout.createSequentialGroup()
-                        .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edPath, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panNordLayout.createSequentialGroup()
-                        .addComponent(lab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labPath2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panNordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(edPath, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                    .addComponent(labPath2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panNordLayout.setVerticalGroup(
@@ -379,7 +375,7 @@ public class Convert extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSouthLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnExit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
