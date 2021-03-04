@@ -197,7 +197,6 @@ public class Man extends javax.swing.JFrame {
         pan7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         btn3.setFont(frames.Util.getFont(0,1));
-        btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b027.gif"))); // NOI18N
         btn3.setText("Статусы");
         btn3.setActionCommand("");
         btn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -214,7 +213,6 @@ public class Man extends javax.swing.JFrame {
         btn3.getAccessibleContext().setAccessibleDescription("");
 
         btn4.setFont(frames.Util.getFont(0,1));
-        btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         btn4.setText("Категории");
         btn4.setActionCommand("");
         btn4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -270,7 +268,6 @@ public class Man extends javax.swing.JFrame {
         pan8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         btn5.setFont(frames.Util.getFont(0,1));
-        btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b025.gif"))); // NOI18N
         btn5.setText("Контрагенты");
         btn5.setActionCommand("");
         btn5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -286,7 +283,6 @@ public class Man extends javax.swing.JFrame {
         btn5.getAccessibleContext().setAccessibleName("");
 
         btn6.setFont(frames.Util.getFont(0,1));
-        btn6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif"))); // NOI18N
         btn6.setText("Заказы");
         btn6.setActionCommand("");
         btn6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
