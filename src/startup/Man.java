@@ -112,7 +112,7 @@ public class Man extends javax.swing.JFrame {
 
         ppmMain.add(mn10);
 
-        mn60.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b052.gif"))); // NOI18N
+        mn60.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         mn60.setText("Установка соединения");
         mn60.setFont(frames.Util.getFont(1,1));
 
