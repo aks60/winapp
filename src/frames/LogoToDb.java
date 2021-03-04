@@ -75,6 +75,7 @@ public class LogoToDb extends javax.swing.JDialog {
                                 App.createApp(eProfile.P16);
                             }
                             eProperty.user.write(edUser.getText().trim());
+                            eProperty.password = String.valueOf(edPass.getPassword()).trim();
                             eProperty.save();
                             dispose();
                         }
