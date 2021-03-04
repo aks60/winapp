@@ -524,7 +524,7 @@ public class Man extends javax.swing.JFrame {
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
         Arrays.asList(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
 
-        Integer num_base = (mn61.isSelected()) ? 1 : (mn62.isSelected()) ? 2 : 3;
+        String num_base = (mn61.isSelected()) ? "1" : (mn62.isSelected()) ? "2" : "3";
         PathToDb frame = new PathToDb(this, num_base);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);

@@ -22,18 +22,12 @@ public class ConnFb extends dataset.ConnApp {
     /**
      * Соединение с БД
      */
-    public eExcep createConnection(int num_base) {
+    public eExcep createConnection(String num_base) {
         try {
             if (Class.forName(driver) == null) {
                 return eExcep.loadDrive; //Ошибка загрузки файла драйвера;
             }
-            if (num_base == 1) {
-                url = fbserver + "//" + eProperty.server1.read() + ":" + eProperty.port() + "/" + eProperty.base1.read();
-            } else if (num_base == 2) {
-                url = fbserver + "//" + eProperty.server2.read() + ":" + eProperty.port() + "/" + eProperty.base2.read();
-            } else if (num_base == 3) {
-                url = fbserver + "//" + eProperty.server3.read() + ":" + eProperty.port() + "/" + eProperty.base3.read();
-            }
+            url = fbserver + "//" + eProperty.server(num_base) + ":" + eProperty.port(num_base) + "/" + eProperty.base(num_base);
             String user2 = eProperty.user.read();
             String passw = eProperty.password;
             connection = DriverManager.getConnection(url, user2, passw);

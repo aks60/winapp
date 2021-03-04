@@ -419,7 +419,7 @@ public class Convert extends javax.swing.JFrame {
             Query.listOpenTable.clear();
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
-            int num_base = Integer.valueOf(eProperty.base_num.read());
+            String num_base = eProperty.base_num.read();
             ConnApp con2 = ConnApp.initConnect();
             con2.createConnection(num_base);
             Connection c2 = con2.getConnection();

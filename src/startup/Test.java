@@ -195,7 +195,7 @@ public class Test {
     private static Connection connection() {
         eProperty.user.write("sysdba");
         eProperty.password = String.valueOf("masterkey");
-        int num_base = Integer.valueOf(eProperty.base_num.read());
+        String num_base = eProperty.base_num.read();
         ConnApp con = ConnApp.initConnect();
         con.createConnection(num_base);
         return con.getConnection();

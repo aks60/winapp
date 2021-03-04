@@ -39,7 +39,7 @@ public abstract class ConnApp {
         return connection;
     }
 
-    public abstract eExcep createConnection(int num_base);
+    public abstract eExcep createConnection(String num_base);
 
     public abstract eExcep createConnection(String server, String port, String base, String user, char[] password);
 

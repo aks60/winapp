@@ -122,31 +122,31 @@ public enum eProperty {
             System.err.println("Ошибка сохранения property в файле " + e);
         }
     }
-
-    public static String port() {
-        return (eProperty.base_num.read().equals("1")) ? eProperty.port1.read() : (eProperty.base_num.read().equals("2")) ? eProperty.port2.read() : eProperty.port3.read();
+    
+    public static String port(String num) {
+        return (num.equals("1")) ? eProperty.port1.read() : (num.equals("2")) ? eProperty.port2.read() : eProperty.port3.read();
     }
 
-    public static void port(String name) {
-        eProperty p = (eProperty.base_num.read().equals("1")) ? eProperty.port1 : (eProperty.base_num.read().equals("2")) ? eProperty.port2 : eProperty.port3;
+    public static void port(String num, String name) {
+        eProperty p = (num.equals("1")) ? eProperty.port1 : (num.equals("2")) ? eProperty.port2 : eProperty.port3;
         p.write(name);
     }
     
-    public static String server() {
-        return (eProperty.base_num.read().equals("1")) ? eProperty.server1.read() : (eProperty.base_num.read().equals("2")) ? eProperty.server2.read() : eProperty.server3.read();
+    public static String server(String num) {
+        return (num.equals("1")) ? eProperty.server1.read() : (num.equals("2")) ? eProperty.server2.read() : eProperty.server3.read();
     }
 
-    public static void server(String name) {
-        eProperty p = (eProperty.base_num.read().equals("1")) ? eProperty.server1 : (eProperty.base_num.read().equals("2")) ? eProperty.server2 : eProperty.server3;
+    public static void server(String num, String name) {
+        eProperty p = (num.equals("1")) ? eProperty.server1 : (num.equals("2")) ? eProperty.server2 : eProperty.server3;
         p.write(name);
     }
 
-    public static String base() {
-        return (eProperty.base_num.read().equals("1")) ? eProperty.base1.read() : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
+    public static String base(String num) {
+        return (num.equals("1")) ? eProperty.base1.read() : (num.equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
     }
 
-    public static void base(String name) {
-        eProperty p = (eProperty.base_num.read().equals("1")) ? eProperty.base1 : (eProperty.base_num.read().equals("2")) ? eProperty.base2 : eProperty.base3;
+    public static void base(String num, String name) {
+        eProperty p = (num.equals("1")) ? eProperty.base1 : (num.equals("2")) ? eProperty.base2 : eProperty.base3;
         p.write(name);
     }
 }

@@ -1138,7 +1138,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
         Arrays.asList(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
 
-        Integer num_base = (mn631.isSelected()) ? 1 : (mn632.isSelected()) ? 2 : 3;
+        String num_base = (mn631.isSelected()) ? "1" : (mn632.isSelected()) ? "2" : "3";
         PathToDb frame = new PathToDb(this, num_base);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);

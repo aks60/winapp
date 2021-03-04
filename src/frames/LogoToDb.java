@@ -58,7 +58,8 @@ public class LogoToDb extends javax.swing.JDialog {
                 progressBar.setIndeterminate(true);
                 labMes.setText("Установка соединения с базой данных");
                 ConnApp con = ConnApp.initConnect();
-                eExcep pass = con.createConnection(eProperty.server(), eProperty.port(), eProperty.base(), edUser.getText(), edPass.getPassword(), "DEFROLE");               
+                String num = eProperty.base_num.read();
+                eExcep pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), "DEFROLE");               
                 if (pass == eExcep.yesConn) {
                     Statement st = con.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
                     ResultSet rs = st.executeQuery("SELECT DISTINCT a.rdb$role_name , b.rdb$user FROM rdb$roles a, rdb$user_privileges b\n"
@@ -66,7 +67,7 @@ public class LogoToDb extends javax.swing.JDialog {
                     while (rs.next()) {                        
                         String role = rs.getString("rdb$role_name").trim();
                         con.getConnection().close();
-                        pass = con.createConnection(eProperty.server(), eProperty.port(), eProperty.base(), edUser.getText(), edPass.getPassword(), role);
+                        pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), role);
                         if (pass == eExcep.yesConn) {
                             Query.connection = con.getConnection();
                             if (eProfile.P02.roleSet.contains(role)) {
