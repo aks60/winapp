@@ -2330,18 +2330,18 @@ public class Systree extends javax.swing.JFrame {
             }
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
-                int rowTable = tab5.getSelectedRow();
-                int rowQuery = Util.getIndexRec(tab5);
-                Record record = qSysprod.get(rowQuery);
+                int row = tab5.getSelectedRow();
+                int index = Util.getIndexRec(tab5);
+                Record record = qSysprod.get(index);
                 record.set(eSysprod.up, Query.DEL);
 
                 qSysprod.delete(record);
-                qSysprod.removeRec(rowQuery);
-                ((DefaultTableModel) tab5.getModel()).removeRow(rowTable);
+                qSysprod.removeRec(index);
+                ((DefaultTableModel) tab5.getModel()).removeRow(row);
 
-                rowTable = (rowTable > 0) ? --rowTable : 0;
-                rowQuery = tab5.convertRowIndexToModel(rowTable);
-                Util.setSelectedRow(tab5, rowQuery);
+                row = (row > 0) ? --row : 0;
+                index = tab5.convertRowIndexToModel(row);
+                Util.setSelectedRow(tab5, index);
             } else {
                 JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
             }

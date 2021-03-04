@@ -50,6 +50,7 @@ public class DicSyspod extends javax.swing.JDialog {
     public DicSyspod(java.awt.Frame parent, ListenerRecord listener) {
         super(parent, true);
         initComponents();
+        this.listener = listener;
         initElements();
         loadingData();
         loadingSys();
@@ -251,11 +252,6 @@ public class DicSyspod extends javax.swing.JDialog {
         btnRemove.setMinimumSize(new java.awt.Dimension(25, 25));
         btnRemove.setPreferredSize(new java.awt.Dimension(25, 25));
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemovebtnRemov(evt);
-            }
-        });
 
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
@@ -321,8 +317,8 @@ public class DicSyspod extends javax.swing.JDialog {
         tab2.setRowHeight(68);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab2tabMousePressed(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DicSyspod.this.mouseClicked(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -365,15 +361,19 @@ public class DicSyspod extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
+        if (Util.getIndexRec(tab2) != -1) {
+            Record record = qSysprod.get(Util.getIndexRec(tab2));
+            listener.action(record);
+            eProperty.sysprodID.write(record.getStr(eSysprod.id));
+        }
+        this.dispose();
     }//GEN-LAST:event_btnChoice
 
-    private void btnRemovebtnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovebtnRemov
-
-    }//GEN-LAST:event_btnRemovebtnRemov
-
-    private void tab2tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2tabMousePressed
-
-    }//GEN-LAST:event_tab2tabMousePressed
+    private void mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_mouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
@@ -399,12 +399,5 @@ public class DicSyspod extends javax.swing.JDialog {
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
         tree1.getSelectionModel().addTreeSelectionListener(tse -> selectionSys());
-//        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-//            public void valueChanged(ListSelectionEvent event) {
-//                if (event.getValueIsAdjusting() == false) {
-//                    selectionTab2();
-//                }
-//            }
-//        });
     }
 }

@@ -181,7 +181,7 @@ public class DicSysprof extends javax.swing.JDialog {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab2mouse2Clicked(evt);
+                mouse2Clicked(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -216,11 +216,11 @@ public class DicSysprof extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnRemovebtnRemov
 
-    private void tab2mouse2Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2mouse2Clicked
+    private void mouse2Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouse2Clicked
         if (evt.getClickCount() == 2) {
             btnChoice(null);
         }
-    }//GEN-LAST:event_tab2mouse2Clicked
+    }//GEN-LAST:event_mouse2Clicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;

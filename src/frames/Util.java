@@ -371,19 +371,19 @@ public class Util {
     public static void deleteRecord(JTable table) {
         if (table.getSelectedRow() != -1) {
             Query query = ((DefTableModel) table.getModel()).getQuery();
-            int rowTable = table.getSelectedRow();
-            int rowModel = getIndexRec(table);
-            Record record = query.get(rowModel);
+            int row = table.getSelectedRow();
+            int index = getIndexRec(table);
+            Record record = query.get(index);
             record.set(0, Query.DEL);
 
             query.delete(record);
-            query.removeRec(rowModel);
-            ((DefTableModel) table.getModel()).fireTableRowsDeleted(rowTable, rowTable);
+            query.removeRec(index);
+            ((DefTableModel) table.getModel()).fireTableRowsDeleted(row, row);
 
-            rowTable = (rowTable > 0) ? --rowTable : 0;
+            row = (row > 0) ? --row : 0;
             if (query.size() > 0) {
-                rowModel = table.convertRowIndexToModel(rowTable);
-                Util.setSelectedRow(table, rowModel);
+                index = table.convertRowIndexToModel(row);
+                Util.setSelectedRow(table, index);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);

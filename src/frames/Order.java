@@ -29,6 +29,7 @@ import frames.swing.DefFieldEditor;
 import common.ListenerObject;
 import common.eProfile;
 import common.eProperty;
+import dataset.ConnApp;
 import domain.ePrjprod;
 import domain.eSysprod;
 import enums.TypeElem;
@@ -43,6 +44,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -195,7 +197,7 @@ public class Order extends javax.swing.JFrame {
         DefaultTableModel dm = (DefaultTableModel) tab2.getModel();
         dm.getDataVector().removeAllElements();
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        
+
         int length = 68;
         for (Record record : qPrjprod) {
             try {
@@ -1594,22 +1596,56 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
+        
         if (tab1.getBorder() != null) {
-            if (Util.isDeleteRecord(tab1, this) == 0) {
+            if (Util.isDeleteRecord(tab1, this, tab2) == 0) {
                 Util.deleteRecord(tab1);
+            }
+        } else if (tab2.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
+                int row = tab2.getSelectedRow();
+                int index = Util.getIndexRec(tab2);
+                Record record = qPrjprod.get(index);
+                record.set(ePrjprod.up, Query.DEL);
+
+                qPrjprod.delete(record);
+                qPrjprod.removeRec(index);
+                ((DefaultTableModel) tab2.getModel()).removeRow(row);
+
+                row = (row > 0) ? --row : 0;
+                index = tab2.convertRowIndexToModel(row);
+                Util.setSelectedRow(tab2, index);
+            } else {
+                JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
             }
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
+
         if (tab1.getBorder() != null) {
             Util.insertRecord(tab1, eProject.up, (record) -> {
             });
+
         } else if (tab2.getBorder() != null) {
-            DicSyspod frm = new DicSyspod(this, (record) -> {
-                System.out.println("frames.Order.btnInsert()");
+            new DicSyspod(this, (record) -> {
+                Record record2 = ePrjprod.up.newRecord();
+                record2.set(ePrjprod.id, ConnApp.instanc().genId(ePrjprod.up));
+                record2.set(ePrjprod.name, record.getStr(eSysprod.name));
+                record2.set(ePrjprod.script, record.getStr(eSysprod.script));
+                record2.set(ePrjprod.systree_id, record.getStr(eSysprod.systree_id));
+                record2.set(ePrjprod.order_id, qProject.getAs(Util.getIndexRec(tab1), eProject.id));
+                qPrjprod.insert(record2);
+                loadingTab2();
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                for (int index = 0; index < qPrjprod.size(); ++index) {
+                    if (qPrjprod.get(index, eSysprod.id) == record2.get(eSysprod.id)) {
+                        Util.setSelectedRow(tab2, index);
+                        Util.scrollRectToRow(index, tab2);
+                        windowsTree.setSelectionRow(0);
+                    }
+                }
             });
-            //DicArtikl artikl = new DicArtikl(this, (record) -> {}, 1);
         }
     }//GEN-LAST:event_btnInsert
 
