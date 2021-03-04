@@ -403,7 +403,7 @@ public class Man extends javax.swing.JFrame {
         });
         pan6.add(btn14, java.awt.BorderLayout.EAST);
 
-        tab4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp&nbsp;&nbsp\nОтчёты\n&nbsp;&nbsp&nbsp;&nbsp", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")), pan6); // NOI18N
+        tab4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp&nbsp;&nbsp\nОтчёты\n&nbsp;&nbsp&nbsp;&nbsp", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b014.gif")), pan6); // NOI18N
 
         pan3.add(tab4, java.awt.BorderLayout.CENTER);
         tab4.getAccessibleContext().setAccessibleName("<html><font size=\"3\"><b>\n&nbsp;&nbsp;\nСправочники\n&nbsp;&nbsp;");

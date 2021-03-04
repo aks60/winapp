@@ -555,7 +555,7 @@
                   <JTabbedPaneConstraints tabName="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;&#xa;&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp&#xa;&#x41e;&#x442;&#x447;&#x451;&#x442;&#x44b;&#xa;&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp">
                     <Property name="tabTitle" type="java.lang.String" value="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;&#xa;&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp&#xa;&#x41e;&#x442;&#x447;&#x451;&#x442;&#x44b;&#xa;&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp"/>
                     <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/resource/img16/b037.gif"/>
+                      <Image iconType="3" name="/resource/img16/b014.gif"/>
                     </Property>
                   </JTabbedPaneConstraints>
                 </Constraint>
