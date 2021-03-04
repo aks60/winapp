@@ -1,5 +1,7 @@
 package dataset;
 
+import common.eProperty;
+import static dataset.ConnFb.fbserver;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,19 +43,19 @@ public abstract class ConnApp {
 
     public abstract eExcep createConnection(String server, String port, String base, String user, char[] password);
 
+    public abstract eExcep createConnection(String server, String port, String base, String user, char[] password, String role);
+
     public abstract void addUser(String user, String password, String uchId, String role, boolean rw);
 
     public abstract String getUser();
-    
+
     public abstract void grantUser(String user, String password, String role, boolean rw);
 
-    public abstract String getRole();
-    
     public abstract void deleteUser(String user);
 
     public abstract void modifyPassword(String user, String pass);
 
     public abstract int genId(Field field);
-    
+
     public abstract String version();
 }

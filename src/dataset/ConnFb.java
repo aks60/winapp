@@ -1,15 +1,12 @@
 package dataset;
 
-import frames.Util;
 import common.eProfile;
 import common.eProperty;
-import static dataset.Query.connection;
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
+import java.util.Properties;
 import javax.swing.JOptionPane;
 import startup.App;
 
@@ -31,11 +28,11 @@ public class ConnFb extends dataset.ConnApp {
                 return eExcep.loadDrive; //Ошибка загрузки файла драйвера;
             }
             if (num_base == 1) {
-                url = fbserver + "//" + eProperty.server1.read() + ":" + eProperty.port.read() + "/" + eProperty.base1.read();
+                url = fbserver + "//" + eProperty.server1.read() + ":" + eProperty.port() + "/" + eProperty.base1.read();
             } else if (num_base == 2) {
-                url = fbserver + "//" + eProperty.server2.read() + ":" + eProperty.port.read() + "/" + eProperty.base2.read();
+                url = fbserver + "//" + eProperty.server2.read() + ":" + eProperty.port() + "/" + eProperty.base2.read();
             } else if (num_base == 3) {
-                url = fbserver + "//" + eProperty.server3.read() + ":" + eProperty.port.read() + "/" + eProperty.base3.read();
+                url = fbserver + "//" + eProperty.server3.read() + ":" + eProperty.port() + "/" + eProperty.base3.read();
             }
             String user2 = eProperty.user.read();
             String passw = eProperty.password;
@@ -59,9 +56,7 @@ public class ConnFb extends dataset.ConnApp {
                         "Ошибка", JOptionPane.ERROR_MESSAGE);
             }
             String url = fbserver + "//" + server + ":" + port + "/" + base + "?encoding=win1251";
-
-            user = user.toLowerCase();
-            connection = DriverManager.getConnection(url, user, String.valueOf(password));
+            connection = DriverManager.getConnection(url, user.toLowerCase(), String.valueOf(password));
             connection.setAutoCommit(true);
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
@@ -73,6 +68,30 @@ public class ConnFb extends dataset.ConnApp {
         return eExcep.yesConn;
     }
 
+    public eExcep createConnection(String server, String port, String base, String user, char[] password, String role) {
+        try {
+            if (Class.forName(driver) == null) {
+                JOptionPane.showMessageDialog(App.Top.frame, "Ошибка загрузки файла драйвера",
+                        "Ошибка", JOptionPane.ERROR_MESSAGE);
+            }
+            String url = fbserver + "//" + server + ":" + port + "/" + base;
+            Properties props = new Properties();
+            props.setProperty("user", user.toLowerCase());
+            props.setProperty("password", String.valueOf(password));
+            props.setProperty("roleName", role);
+            props.setProperty("encoding", "win1251");
+            connection = DriverManager.getConnection(url, props);
+            connection.setAutoCommit(true);
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+        } catch (ClassNotFoundException e) {
+            return eExcep.findDrive;
+        } catch (SQLException e) {
+            return eExcep.getError(e.getErrorCode());
+        }
+        return eExcep.yesConn;
+    }
+    
     //Добавление нового пользователя   
     //CREATE USER <user_name> PASSWORD '<user_password>' [FIRSTNAME 'FirstName'] [MIDDLENAME 'MiddleName'] [LASTNAME 'LastName'];
     public void addUser(String user, String password, String uchId, String role, boolean readwrite) {
@@ -125,10 +144,6 @@ public class ConnFb extends dataset.ConnApp {
         } catch (Exception e) {
             System.err.println(e);
         }
-    }
-
-    public String getRole() {
-        return eProfile.profile.role;
     }
     
     //Удаление пользователя

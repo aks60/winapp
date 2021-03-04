@@ -2,10 +2,11 @@ package frames;
 
 import dataset.ConnApp;
 import dataset.eExcep;
-import common.FrameToFile;
 import common.eProfile;
 import common.eProperty;
 import dataset.Query;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.SwingWorker;
 import startup.App;
 import startup.Main;
@@ -23,23 +24,22 @@ public class LogoToDb extends javax.swing.JDialog {
 
         initComponents();
 
-        new FrameToFile(this, btnClose);
-        if (Main.dev == false) {
-            btnAdm.setVisible(false);
-            btnUser.setVisible(false);
-            labUser.setPreferredSize(new java.awt.Dimension(110, 18));
-            edUser.setPreferredSize(new java.awt.Dimension(120, 18));
-            labPass.setPreferredSize(new java.awt.Dimension(110, 18));
-            edPass.setPreferredSize(new java.awt.Dimension(120, 18));
+        if (Main.dev == true) {
+            if ("tex".equals(Main.profile)) {
+                edUser.setText("TEXNOLOG"); //user
+                edPass.setText("platina6"); //pass
+            } else if ("man".equals(Main.profile)) {
+                edUser.setText("MANAGER"); //user
+                edPass.setText("platina6"); //pass
+            }
+            connectToDb();
 
         } else {
-            eProperty.logindef(false, edUser, edPass);
-            connectToDb();
+            labMes.setText("");
+            edUser.setText(eProperty.user.read());
+            edPass.requestFocus();
+            getRootPane().setDefaultButton(btnOk);
         }
-        labMes.setText("");
-        edUser.setText(eProperty.user.read());
-        edPass.requestFocus();
-        getRootPane().setDefaultButton(btnOk);
     }
 
     /**
@@ -47,8 +47,7 @@ public class LogoToDb extends javax.swing.JDialog {
      */
     private void connectToDb() {
         labMes.setText("");
-        ++countCon;
-        if (countCon > 3) {
+        if (++countCon > 3) {
             dispose();
             PathToDb.pathToDb(null);
         }
@@ -57,36 +56,36 @@ public class LogoToDb extends javax.swing.JDialog {
             @Override
             protected Object doInBackground() throws Exception {
                 progressBar.setIndeterminate(true);
-
-                //Загрузка параметров входа
-                eProperty.user.write(edUser.getText());
-                eProperty.password = String.valueOf(edPass.getPassword());
-
-                //Создание соединения
                 labMes.setText("Установка соединения с базой данных");
                 ConnApp con = ConnApp.initConnect();
-                int num_base = Integer.valueOf(eProperty.base_num.read());
-                eExcep pass = con.createConnection(num_base);
-                Query.connection = con.getConnection();
-                if (pass == eExcep.yesConn) { //запуск главного меню   
-                    
-                    if (eProfile.P02.roleSet.contains(con.getRole())) {
-                        App.createApp(eProfile.P02);
-
-                    } else if (eProfile.P16.roleSet.contains(con.getRole())) {
-                        App.createApp(eProfile.P16);
+                eExcep pass = con.createConnection(eProperty.server(), eProperty.port(), eProperty.base(), edUser.getText(), edPass.getPassword(), "DEFROLE");               
+                if (pass == eExcep.yesConn) {
+                    Statement st = con.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                    ResultSet rs = st.executeQuery("SELECT DISTINCT a.rdb$role_name , b.rdb$user FROM rdb$roles a, rdb$user_privileges b\n"
+                            + "WHERE a.rdb$role_name = b.rdb$relation_name AND a.rdb$role_name != 'DEFROLE' AND b.rdb$user = '" + edUser.getText() + "'");
+                    while (rs.next()) {                        
+                        String role = rs.getString("rdb$role_name").trim();
+                        con.getConnection().close();
+                        pass = con.createConnection(eProperty.server(), eProperty.port(), eProperty.base(), edUser.getText(), edPass.getPassword(), role);
+                        if (pass == eExcep.yesConn) {
+                            Query.connection = con.getConnection();
+                            if (eProfile.P02.roleSet.contains(role)) {
+                                App.createApp(eProfile.P02);
+                            } else if (eProfile.P16.roleSet.contains(role)) {
+                                App.createApp(eProfile.P16);
+                            }
+                            eProperty.user.write(edUser.getText().trim());
+                            eProperty.save();
+                            dispose();
+                        }
                     }
-                    eProperty.save();  //свойства текущего пользователя
-                    dispose();
-                } else if (pass == eExcep.noLogin) {
+                } 
+                if (pass == eExcep.noLogin) {
                     labMes.setText(eExcep.noLogin.mes);
-
                 } else if (pass == eExcep.noGrant) {
                     labMes.setText(eExcep.noGrant.mes);
-
                 } else {
-                    dispose();
-                    PathToDb.pathToDb(null);  //установим путь к базе
+                    labMes.setText(eExcep.noConn.mes);
                 }
                 return null;
             }
@@ -106,9 +105,7 @@ public class LogoToDb extends javax.swing.JDialog {
         edPass = new javax.swing.JPasswordField();
         labUser = new javax.swing.JLabel();
         edUser = new javax.swing.JTextField();
-        btnUser = new javax.swing.JButton();
         progressBar = new javax.swing.JProgressBar();
-        btnAdm = new javax.swing.JButton();
         labMes = new javax.swing.JLabel();
         btnOk = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
@@ -120,19 +117,19 @@ public class LogoToDb extends javax.swing.JDialog {
         setResizable(false);
 
         pan2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        pan2.setPreferredSize(new java.awt.Dimension(290, 132));
+        pan2.setPreferredSize(new java.awt.Dimension(280, 132));
 
         labPass.setFont(frames.Util.getFont(0,0));
         labPass.setText("Пароль");
         labPass.setAlignmentX(0.5F);
         labPass.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         labPass.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        labPass.setPreferredSize(new java.awt.Dimension(76, 18));
+        labPass.setPreferredSize(new java.awt.Dimension(100, 18));
 
         edPass.setFont(frames.Util.getFont(0,0));
         edPass.setText("masterkey");
         edPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        edPass.setPreferredSize(new java.awt.Dimension(72, 18));
+        edPass.setPreferredSize(new java.awt.Dimension(96, 18));
         edPass.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 passonCaretUpdate(evt);
@@ -144,31 +141,15 @@ public class LogoToDb extends javax.swing.JDialog {
         labUser.setAlignmentX(0.5F);
         labUser.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         labUser.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        labUser.setPreferredSize(new java.awt.Dimension(100, 18));
 
         edUser.setFont(frames.Util.getFont(0,0));
         edUser.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         edUser.setMinimumSize(new java.awt.Dimension(0, 0));
-        edUser.setPreferredSize(new java.awt.Dimension(72, 18));
+        edUser.setPreferredSize(new java.awt.Dimension(96, 18));
         edUser.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 useronCaretUpdate(evt);
-            }
-        });
-
-        btnUser.setFont(frames.Util.getFont(0,0));
-        btnUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d001.gif"))); // NOI18N
-        btnUser.setText("user");
-        btnUser.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnUser.setFocusable(false);
-        btnUser.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnUser.setMaximumSize(new java.awt.Dimension(38, 55));
-        btnUser.setMinimumSize(new java.awt.Dimension(38, 55));
-        btnUser.setPreferredSize(new java.awt.Dimension(42, 58));
-        btnUser.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        btnUser.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userConnect(evt);
             }
         });
 
@@ -177,24 +158,6 @@ public class LogoToDb extends javax.swing.JDialog {
         progressBar.setPreferredSize(new java.awt.Dimension(240, 2));
         progressBar.setRequestFocusEnabled(false);
         progressBar.setVerifyInputWhenFocusTarget(false);
-
-        btnAdm.setFont(frames.Util.getFont(0,0));
-        btnAdm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d001.gif"))); // NOI18N
-        btnAdm.setText("admin");
-        btnAdm.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnAdm.setFocusable(false);
-        btnAdm.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAdm.setMargin(new java.awt.Insets(20, 0, 0, 0));
-        btnAdm.setMaximumSize(new java.awt.Dimension(38, 55));
-        btnAdm.setMinimumSize(new java.awt.Dimension(38, 55));
-        btnAdm.setPreferredSize(new java.awt.Dimension(42, 58));
-        btnAdm.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        btnAdm.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnAdm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                admConnect(evt);
-            }
-        });
 
         labMes.setFont(frames.Util.getFont(0,1));
         labMes.setText("<html>Ошибка соединения с базой данных!");
@@ -217,12 +180,8 @@ public class LogoToDb extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(edPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(edUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(44, 44, 44))
+                            .addComponent(edUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(52, 52, 52))
         );
         pan2Layout.setVerticalGroup(
             pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,18 +190,14 @@ public class LogoToDb extends javax.swing.JDialog {
                 .addComponent(labMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 7, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pan2Layout.createSequentialGroup()
-                        .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(edUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
-                        .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(edPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(edUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(edPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -316,16 +271,6 @@ public class LogoToDb extends javax.swing.JDialog {
         connectToDb();
     }//GEN-LAST:event_okAction
 
-    private void admConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admConnect
-        eProperty.logindef(true, edUser, edPass);
-        connectToDb();
-    }//GEN-LAST:event_admConnect
-
-    private void userConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userConnect
-        eProperty.logindef(false, edUser, edPass);
-        connectToDb();
-    }//GEN-LAST:event_userConnect
-
     private void passonCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passonCaretUpdate
         labMes.setText("");
         if (edPass.getPassword().length > 0 && !edUser.getText().isEmpty()) {
@@ -345,10 +290,8 @@ public class LogoToDb extends javax.swing.JDialog {
     }//GEN-LAST:event_useronCaretUpdate
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdm;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnOk;
-    private javax.swing.JButton btnUser;
     private javax.swing.JPasswordField edPass;
     private javax.swing.JTextField edUser;
     private javax.swing.JLabel labMes;

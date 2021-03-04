@@ -11,6 +11,9 @@ import javax.swing.JFileChooser;
 import dataset.eExcep;
 import builder.Wincalc;
 import java.awt.Frame;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.SwingWorker;
 import startup.App;
 import startup.Main;
 
@@ -32,92 +35,64 @@ public class PathToDb extends javax.swing.JDialog {
 
         initComponents();
 
-        new FrameToFile(this, btnClose);
-
         //Загрузка параметров входа
         labMes.setText("");
-        if (eProperty.typedb.read().equals(eProperty.fb)) {
-            cboxDB.setSelectedIndex(0);
-        } else if (eProperty.typedb.read().equals(eProperty.pg)) {
-            cboxDB.setSelectedIndex(1);
-        }
-        if (num_base == 1) {
-            edHost.setText(eProperty.server1.read());
-            edPath.setText(eProperty.base1.read());
-        } else if (num_base == 2) {
-            edHost.setText(eProperty.server2.read());
-            edPath.setText(eProperty.base2.read());
-        } else if (num_base == 3) {
-            edHost.setText(eProperty.server3.read());
-            edPath.setText(eProperty.base3.read());
-        }
-        edPort.setText(eProperty.port.read());
+        edHost.setText(eProperty.server());
+        edPath.setText(eProperty.base());
+        edPort.setText(eProperty.port());
         edUser.setText(eProperty.user.read());
         edPass.setText(eProperty.password);
 
-        if (Main.dev == false) {
-            btnAdm.setVisible(false);
-            btnUser.setVisible(false);
-            //btnFile.setVisible(false);
-//            labDB.setVisible(false);
-//            cboxDB.setVisible(false);
-        }
         onCaretUpdate(null);
     }
 
-    /**
-     * Команда на соединение с БД.
-     */
+    //Соединение с БД.
     private void connectToDb() {
-
-        //Устанавливаем параметры входа
-        if (num_base == 1) {
-            eProperty.server1.write(edHost.getText());
-            eProperty.base1.write(edPath.getText());
-        } else if (num_base == 2) {
-            eProperty.server2.write(edHost.getText());
-            eProperty.base2.write(edPath.getText());
-        } else if (num_base == 3) {
-            eProperty.server3.write(edHost.getText());
-            eProperty.base3.write(edPath.getText());
-        }
-        eProperty.port.write(edPort.getText());
-        eProperty.user.write(edUser.getText().trim());
-        eProperty.password = String.valueOf(edPass.getPassword());
-
-        String file = edPath.getText();
-        int index = file.lastIndexOf(".") + 1;
-        if (index == 0 && cboxDB.getSelectedIndex() == 1) {
-            eProperty.typedb.write(eProperty.fb);
-        } else if (index == 0 && cboxDB.getSelectedIndex() == 2) {
-            eProperty.typedb.write(eProperty.pg);
-        }
-        //создание соединения
-        ConnApp con = ConnApp.initConnect();
-        eExcep pass = con.createConnection(num_base);
-        Query.connection = con.getConnection();        
-        if (pass == eExcep.yesConn) {
-            
-            if (App.Top.frame == null && eProfile.P02.roleSet.contains(con.getRole())) {
-                App.createApp(eProfile.P02);
-
-            } else if (App.Top.frame == null && eProfile.P16.roleSet.contains(con.getRole())) {
-                App.createApp(eProfile.P16);
+        new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                progressBar.setIndeterminate(true);
+                labMes.setText("Установка соединения с базой данных");
+                ConnApp con = ConnApp.initConnect();
+                eExcep pass = con.createConnection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), "DEFROLE");
+                if (pass == eExcep.yesConn) {
+                    Statement st = con.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                    ResultSet rs = st.executeQuery("SELECT DISTINCT a.rdb$role_name , b.rdb$user FROM rdb$roles a, rdb$user_privileges b\n"
+                            + "WHERE a.rdb$role_name = b.rdb$relation_name AND a.rdb$role_name != 'DEFROLE' AND b.rdb$user = '" + edUser.getText() + "'");
+                    while (rs.next()) {
+                        String role = rs.getString("rdb$role_name").trim();
+                        con.getConnection().close();
+                        pass = con.createConnection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), role);
+                        if (pass == eExcep.yesConn) {
+                            Query.connection = con.getConnection();
+                            if (eProfile.P02.roleSet.contains(role)) {
+                                App.createApp(eProfile.P02);
+                            } else if (eProfile.P16.roleSet.contains(role)) {
+                                App.createApp(eProfile.P16);
+                            }
+                            eProperty.port(edPort.getText().trim());
+                            eProperty.server(edHost.getText().trim());
+                            eProperty.base(edPath.getText().trim());
+                            eProperty.user.write(edUser.getText().trim());
+                            eProperty.save();
+                            dispose();
+                        }
+                    }
+                }
+                if (pass == eExcep.noLogin) {
+                    labMes.setText(eExcep.noLogin.mes);
+                } else if (pass == eExcep.noGrant) {
+                    labMes.setText(eExcep.noGrant.mes);
+                } else {
+                    labMes.setText(eExcep.noConn.mes);
+                }
+                return null;
             }
-            eProperty.base_num.write(String.valueOf(num_base));
-            eProperty.save(); //свойства текущего пользователя
-            dispose();
 
-        } else if (pass == eExcep.noLogin) {
-            labMes.setText(eExcep.noLogin.mes);
-
-        } else if (pass == eExcep.noGrant) {
-            labMes.setText(eExcep.noGrant.mes);
-
-        } else {
-            String mes = (Main.dev == true) ? pass.mes + " (код. " + pass.id + ")" : pass.mes;
-            labMes.setText(mes);
-        }
+            public void done() {
+                progressBar.setIndeterminate(false);
+            }
+        }.execute();
     }
 
     public static void pathToDb(Frame parent) {
@@ -140,29 +115,25 @@ public class PathToDb extends javax.swing.JDialog {
         btnFile = new javax.swing.JButton();
         labUser3 = new javax.swing.JLabel();
         edPort = new javax.swing.JTextField();
-        cboxDB = new javax.swing.JComboBox();
-        labDB = new javax.swing.JLabel();
         labUser = new javax.swing.JLabel();
         labPass = new javax.swing.JLabel();
         edUser = new javax.swing.JTextField();
         edPass = new javax.swing.JPasswordField();
-        btnUser = new javax.swing.JButton();
-        btnAdm = new javax.swing.JButton();
+        progressBar = new javax.swing.JProgressBar();
         jPanel2 = new javax.swing.JPanel();
         btnOk = new javax.swing.JButton();
-        btnHelp = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Установка соединения с базой данных");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(510, 260));
         setResizable(false);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         jPanel4.setPreferredSize(new java.awt.Dimension(510, 200));
 
-        labMes.setFont(frames.Util.getFont(1,1));
-        labMes.setForeground(new java.awt.Color(0, 0, 255));
+        labMes.setFont(frames.Util.getFont(0,1));
         labMes.setText("Ошибка соединения с базой данных!");
         labMes.setMaximumSize(new java.awt.Dimension(200, 14));
         labMes.setPreferredSize(new java.awt.Dimension(390, 14));
@@ -220,20 +191,6 @@ public class PathToDb extends javax.swing.JDialog {
         edPort.setMinimumSize(new java.awt.Dimension(0, 0));
         edPort.setPreferredSize(new java.awt.Dimension(60, 18));
 
-        cboxDB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Firebird", "Postgres" }));
-        cboxDB.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        cboxDB.setMinimumSize(new java.awt.Dimension(57, 20));
-        cboxDB.setPreferredSize(new java.awt.Dimension(80, 20));
-        cboxDB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdmDef2(evt);
-            }
-        });
-
-        labDB.setText("База");
-        labDB.setMaximumSize(new java.awt.Dimension(30, 14));
-        labDB.setPreferredSize(new java.awt.Dimension(30, 14));
-
         labUser.setFont(frames.Util.getFont(1,1));
         labUser.setText("Пользователь");
         labUser.setAlignmentX(0.5F);
@@ -264,115 +221,84 @@ public class PathToDb extends javax.swing.JDialog {
             }
         });
 
-        btnUser.setFont(frames.Util.getFont(0,0));
-        btnUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d001.gif"))); // NOI18N
-        btnUser.setText("user.");
-        btnUser.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnUser.setFocusable(false);
-        btnUser.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnUser.setMaximumSize(new java.awt.Dimension(38, 55));
-        btnUser.setMinimumSize(new java.awt.Dimension(38, 55));
-        btnUser.setPreferredSize(new java.awt.Dimension(38, 55));
-        btnUser.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        btnUser.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserDef(evt);
-            }
-        });
-
-        btnAdm.setFont(frames.Util.getFont(0,0));
-        btnAdm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d001.gif"))); // NOI18N
-        btnAdm.setText("admin");
-        btnAdm.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnAdm.setFocusable(false);
-        btnAdm.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAdm.setMargin(new java.awt.Insets(20, 0, 0, 0));
-        btnAdm.setMaximumSize(new java.awt.Dimension(38, 55));
-        btnAdm.setMinimumSize(new java.awt.Dimension(38, 55));
-        btnAdm.setPreferredSize(new java.awt.Dimension(38, 55));
-        btnAdm.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        btnAdm.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnAdm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdmDef(evt);
-            }
-        });
+        progressBar.setBorder(null);
+        progressBar.setFocusable(false);
+        progressBar.setPreferredSize(new java.awt.Dimension(340, 2));
+        progressBar.setRequestFocusEnabled(false);
+        progressBar.setVerifyInputWhenFocusTarget(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(labUser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(edHost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(labUser3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(edPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(labDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cboxDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(labMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(labUser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(labPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(edPass))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(labUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labUser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(edPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                    .addComponent(labPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(edPass))
+                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                    .addComponent(labUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(edUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(labUser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(edHost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(edUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(44, 44, 44)
-                        .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(labUser3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(edPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(53, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGap(80, 80, 80)
+                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(labMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(edHost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labUser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labUser3)
-                    .addComponent(edPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboxDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(edPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labUser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanel4, java.awt.BorderLayout.CENTER);
@@ -391,18 +317,6 @@ public class PathToDb extends javax.swing.JDialog {
         btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOkActionPerformed(evt);
-            }
-        });
-
-        btnHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b026.gif"))); // NOI18N
-        btnHelp.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnHelp.setFocusable(false);
-        btnHelp.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnHelp.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnHelp.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnHelp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHelpActionPerformed(evt);
             }
         });
 
@@ -425,9 +339,7 @@ public class PathToDb extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
+                .addContainerGap(313, Short.MAX_VALUE)
                 .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -437,11 +349,9 @@ public class PathToDb extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -457,32 +367,12 @@ public class PathToDb extends javax.swing.JDialog {
                 && edPass.getPassword().length > 0
                 && !edHost.getText().isEmpty()
                 && !edPort.getText().isEmpty()) {
-            btnUser.setEnabled(true);
-            btnAdm.setEnabled(true);
             btnOk.setEnabled(true);
         } else {
-            btnUser.setEnabled(false);
-            btnAdm.setEnabled(false);
             btnOk.setEnabled(false);
         }
 }//GEN-LAST:event_onCaretUpdate
-    //Нажал кнопку "ADM"
-    private void btnAdmDef(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmDef
 
-        eProperty.logindef(true, edUser, edPass, edHost, edPort, edPath);
-        connectToDb();
-}//GEN-LAST:event_btnAdmDef
-    //Нажал кнопку "user"
-    private void btnUserDef(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserDef
-        if (edUser.getText() == null) {
-            edUser.setText("");
-        }
-        if (edPass.getPassword() == null) {
-            edPass.setText("");
-        }
-        eProperty.logindef(false, edUser, edPass);
-        connectToDb();
-}//GEN-LAST:event_btnUserDef
     //Нажал кнопку "ОК"
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         connectToDb();
@@ -492,10 +382,6 @@ public class PathToDb extends javax.swing.JDialog {
         this.dispose();
 }//GEN-LAST:event_btnCloseActionPerformed
 
-    private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionPerformed
-        // ExecuteCmd.startHelp(this.getClass().getName());
-    }//GEN-LAST:event_btnHelpActionPerformed
-
     private void btnFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFileActionPerformed
         FilesFilter filter = new FilesFilter();
         JFileChooser chooser = new JFileChooser();
@@ -503,38 +389,15 @@ public class PathToDb extends javax.swing.JDialog {
         chooser.setFileFilter(filter);
         int result = chooser.showDialog(this, "Выбрать");
         if (result == JFileChooser.APPROVE_OPTION) {
-            String path = chooser.getSelectedFile().getPath();
-            edPath.setText(path + "?encoding=win1251");
+            edPath.setText(chooser.getSelectedFile().getPath());
         }
 }//GEN-LAST:event_btnFileActionPerformed
-    //Выбрал тип базы
-    private void btnAdmDef2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmDef2
 
-        if (cboxDB.getSelectedIndex() == 0) {
-            edHost.setText("localhost");
-            edPort.setText("3050");
-            edPath.setText("C:\\okna\\fbase\\base.gdb");
-            btnFile.setVisible(true);
-            edUser.setText("sysdba");
-            edPass.setText("masterkey");
-        } else if (cboxDB.getSelectedIndex() == 1) {
-            edHost.setText("localhost");
-            edPort.setText("5432");
-            edPath.setText("new_db1");
-            btnFile.setVisible(false);
-            edUser.setText("postgres");
-            edPass.setText("Platina6");
-        }
-    }//GEN-LAST:event_btnAdmDef2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdm;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnFile;
-    private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnOk;
-    private javax.swing.JButton btnUser;
-    private javax.swing.JComboBox cboxDB;
     private javax.swing.JTextField edHost;
     private javax.swing.JPasswordField edPass;
     private javax.swing.JTextField edPath;
@@ -542,15 +405,16 @@ public class PathToDb extends javax.swing.JDialog {
     private javax.swing.JTextField edUser;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JLabel labDB;
     private javax.swing.JLabel labMes;
     private javax.swing.JLabel labPass;
     private javax.swing.JLabel labUser;
     private javax.swing.JLabel labUser1;
     private javax.swing.JLabel labUser2;
     private javax.swing.JLabel labUser3;
+    private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
+
     // фильтр, отбирающий файлы
     class FilesFilter extends javax.swing.filechooser.FileFilter {
 

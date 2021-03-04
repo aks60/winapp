@@ -11,8 +11,8 @@ import javax.swing.JTextField;
 import startup.Main;
 
 /**
- * 
- * Параметры программы 
+ *
+ * Параметры программы
  */
 public enum eProperty {
 
@@ -21,8 +21,10 @@ public enum eProperty {
     web_port("8080"),
     web_start("false"),
     typedb("fb"),
-    port("3050"),
     user("sysdba"),
+    port1("3050"),
+    port2("3050"),
+    port3("3050"),
     server1("localhost"),
     server2("localhost"),
     server3("localhost"),
@@ -34,23 +36,23 @@ public enum eProperty {
     base2("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE2.FDB?encoding=win1251"),
     base3("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE3.FDB?encoding=win1251"),
     path_app(System.getProperty("user.home") + "/Acron/Okno", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
-    path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"),     
-    cmd_word("libreoffice -writer ", "cmd /c start winword.exe "), 
+    path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"),
+    cmd_word("libreoffice -writer ", "cmd /c start winword.exe "),
     cmd_excel("libreoffice -calc ", "cmd /c start excel.exe "),
     cmd_html("firefox ", "cmd /c start iexplore.exe "),
-    fontname("Dialog"),    
+    fontname("Dialog"),
     fontsize("11");
     private static Properties prop = null;
     public final static String filename = "v9.properties"; //имя файла properties
-    
+
     //Значения по умолчанию
     private String value;
-    
+
     public static String password = "******";
     public static FileWriter logconv = null;
     public static String fb = "fb";
     public static String pg = "pg";
-    
+
     //Значение по умолчанию
     eProperty(String value) {
         this.value = value;
@@ -67,7 +69,7 @@ public enum eProperty {
         load();
         if (prop.getProperty(this.name()) != null && prop.getProperty(this.name()).equals("")) { //свойство не записано           
             return this.value; //по умолчанию
-        } else {            
+        } else {
             return prop.getProperty(this.name(), this.value); //читаем с диска
         }
     }
@@ -85,17 +87,17 @@ public enum eProperty {
             try {
                 File file = new File(System.getProperty("user.dir"), filename);
                 if (file.exists() == true) {
-                    
+
                     path_prop.value = System.getProperty("user.dir"); //сохраним путь к файлу в path_prop
-                } else {                    
+                } else {
                     file = new File(path_prop.value, filename); //если файла нет, создадим его
                 }
-                if (file.exists() == false) {                   
+                if (file.exists() == false) {
                     File mydir = new File(path_prop.value); //если файл создать так и не удалось
                     mydir.mkdirs();
                     file.createNewFile();
-                    
-                } else {                    
+
+                } else {
                     FileInputStream inStream = new FileInputStream(file); //теперь можно грузить файл
                     prop.load(inStream);
                     inStream.close();
@@ -121,24 +123,30 @@ public enum eProperty {
         }
     }
 
-    public static void logindef(boolean adm, JTextField... val) {
-        if (typedb.read().equals(fb)) {
-            if (adm == true) {
-                val[0].setText("sysdba"); //user
-                val[1].setText("masterkey"); //pass
-            } else {
-                val[0].setText("sysdba"); //user
-                val[1].setText("masterkey"); //pass
-            }
+    public static String port() {
+        return (eProperty.base_num.read().equals("1")) ? eProperty.port1.read() : (eProperty.base_num.read().equals("2")) ? eProperty.port2.read() : eProperty.port3.read();
+    }
 
-        } else if (typedb.read().equals(pg)) {
-            if (adm == true) {
-                val[0].setText("admin"); //user
-                val[1].setText("Platina6"); //pass                
-            } else if (val[0].getText().equals("postgres")) {
-                val[0].setText("user99a"); //user
-                val[1].setText("Platina6"); //pass
-            }
-        }
+    public static void port(String name) {
+        eProperty p = (eProperty.base_num.read().equals("1")) ? eProperty.port1 : (eProperty.base_num.read().equals("2")) ? eProperty.port2 : eProperty.port3;
+        p.write(name);
+    }
+    
+    public static String server() {
+        return (eProperty.base_num.read().equals("1")) ? eProperty.server1.read() : (eProperty.base_num.read().equals("2")) ? eProperty.server2.read() : eProperty.server3.read();
+    }
+
+    public static void server(String name) {
+        eProperty p = (eProperty.base_num.read().equals("1")) ? eProperty.server1 : (eProperty.base_num.read().equals("2")) ? eProperty.server2 : eProperty.server3;
+        p.write(name);
+    }
+
+    public static String base() {
+        return (eProperty.base_num.read().equals("1")) ? eProperty.base1.read() : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
+    }
+
+    public static void base(String name) {
+        eProperty p = (eProperty.base_num.read().equals("1")) ? eProperty.base1 : (eProperty.base_num.read().equals("2")) ? eProperty.base2 : eProperty.base3;
+        p.write(name);
     }
 }

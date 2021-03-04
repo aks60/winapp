@@ -39,20 +39,19 @@ public class Convert extends javax.swing.JFrame {
 
     public Convert() {
         initComponents();
-        //initElements();
         loadingModel();
         timer.start();
     }
 
     private void loadingModel() {
         if (eProperty.base_num.read().equals("1")) {
-            labPath2.setText(eProperty.server1.read() + "/" + eProperty.port.read() + "\\" + eProperty.base1.read());
+            labPath2.setText(eProperty.server1.read() + "/" + eProperty.port1.read() + "\\" + eProperty.base1.read());
             edPath.setText("D:\\Okna\\Database\\Profstroy4\\ITEST.FDB");
         } else if (eProperty.base_num.read().equals("2")) {
-            labPath2.setText(eProperty.server2.read() + "/" + eProperty.port.read() + "\\" + eProperty.base2.read());
+            labPath2.setText(eProperty.server2.read() + "/" + eProperty.port2.read() + "\\" + eProperty.base2.read());
             edPath.setText("D:\\Okna\\Database\\Sialbase2\\base3.fdb");
         } else if (eProperty.base_num.read().equals("3")) {
-            labPath2.setText(eProperty.server3.read() + "/" + eProperty.port.read() + "\\" + eProperty.base3.read());
+            labPath2.setText(eProperty.server3.read() + "/" + eProperty.port3.read() + "\\" + eProperty.base3.read());
             edPath.setText("D:\\Okna\\Database\\Sialbase2\\base3b.fdb");
         }
         edPort.setText((eProperty.base_num.read().equals("1")) ? "3050" : "3055");

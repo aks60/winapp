@@ -8,11 +8,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-//TODO  ВАЖНО!!! В DefTableModelюgetValueAt.getValueAt удалить проверку на null
 public class Main {
 
-    public static boolean dev = false;     //разработки и тестирования
-    public static boolean locate = false;  //координаты фрейма
+    public static boolean dev = false;     //признак разработки и тестирования
+    public static boolean locate = false;  //координаты фрейма разработки и тестирования
+    public static String profile = "";     //профиль разработки и тестирования 
 
     //Конструктор
     public Main() {
@@ -27,11 +27,11 @@ public class Main {
         for (int index = 0; index < args.length; index++) {
             if (index == 0 && args[0].equals("tex")) {
                 Main.dev = true;
-                eProfile.role = "TEXNOLOG_RW";
+                Main.profile = args[0];
                 
             } else if (index == 0 && args[0].equals("man")) {
                 Main.dev = true;
-                eProfile.role = "MANAGER_RW";
+                Main.profile = args[0];
             } 
             if (index == 1 && args[1].equals("loc")) {
                 Main.locate = true;

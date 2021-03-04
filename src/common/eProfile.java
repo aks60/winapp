@@ -12,7 +12,7 @@ public enum eProfile {
 
     public final static int[] version = {1, 0}; //версия программы      
     public static eProfile profile = null; //профиль пользователя 
-    public static String role = null;
+    //public static String role = null;
     
     public String title; 
     public Set<String> roleSet;  
