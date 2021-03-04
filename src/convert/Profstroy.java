@@ -220,11 +220,27 @@ public class Profstroy {
             for (Field field : fieldsUp) {
                 executeSql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr() + "'"); //DDL описание таблиц
             }
+
+            println(Color.GREEN, "Секция создания ролей");
+            Set<String> set = new HashSet();
+            ResultSet rs = st2.executeQuery("select a.rdb$role_name from rdb$roles a where a.rdb$role_name != 'RDB$ADMIN'");
+            while (rs.next()) {
+                set.add(rs.getString("rdb$role_name"));
+            }
+            set.forEach(role -> executeSql("DROP ROLE " + role));
+            Arrays.asList("DEFROLE", "MANAGER_RO", "MANAGER_RW", "TEXNOLOG_RO", "TEXNOLOG_RW").forEach(role -> executeSql("CREATE ROLE " + role));
+            for (Field field : fieldsUp) {
+                executeSql("GRANT SELECT ON " + field.tname() + " TO MANAGER_RO");
+                executeSql("GRANT ALL ON " + field.tname() + " TO MANAGER_RW");
+                executeSql("GRANT SELECT ON " + field.tname() + " TO TEXNOLOG_RO");
+                executeSql("GRANT ALL ON " + field.tname() + " TO TEXNOLOG_RW");
+            }
+
             ConnApp.initConnect().setConnection(cn2);
             deletePart(cn2, st2);
             updatePart(cn2, st2);
             metaPart(cn2, st2);
-            loadRole(fieldsUp);
+            //loadRole(fieldsUp);
 
             println(Color.GREEN, "Удаление лищних столбцов");
             executeSql("ALTER TABLE GROUPS DROP  FK;");
@@ -745,11 +761,9 @@ public class Profstroy {
             for (String role : set) {
                 st2.executeUpdate("DROP ROLE " + role);
             }
-            executeSql("CREATE ROLE DEFROLE");
-            executeSql("CREATE ROLE MANAGER_RO");
-            executeSql("CREATE ROLE MANAGER_RW");
-            executeSql("CREATE ROLE TEXNOLOG_RO");
-            executeSql("CREATE ROLE TEXNOLOG_RW");
+            for (String role : new String[]{"DEFROLE", "MANAGER_RO", "MANAGER_RW", "TEXNOLOG_RO", "TEXNOLOG_RW"}) {
+                st2.executeUpdate("CREATE ROLE " + role);
+            }
             for (Field field : fieldsUp) {
                 st2.executeUpdate("GRANT SELECT ON " + field.tname() + " TO MANAGER_RO");
                 st2.executeUpdate("GRANT ALL ON " + field.tname() + " TO MANAGER_RW");
