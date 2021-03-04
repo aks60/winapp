@@ -6,12 +6,15 @@ import dataset.ConnApp;
 import dataset.ConnFb;
 import dataset.Query;
 import dataset.eExcep;
+import frames.PathToDb;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.Connection;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -229,7 +232,7 @@ public class Convert extends javax.swing.JFrame {
         btn10.setPreferredSize(new java.awt.Dimension(18, 18));
         btn10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn10sysfurnToStvorka(evt);
+                btnAction(evt);
             }
         });
 
@@ -452,9 +455,16 @@ public class Convert extends javax.swing.JFrame {
         initElements();
     }//GEN-LAST:event_formWindowOpened
 
-    private void btn10sysfurnToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10sysfurnToStvorka
-
-    }//GEN-LAST:event_btn10sysfurnToStvorka
+    private void btnAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAction
+//        PathToDb.FilesFilter filter = new PathToDb.FilesFilter();
+//        JFileChooser chooser = new JFileChooser();
+//        chooser.setCurrentDirectory(new File("."));
+//        chooser.setFileFilter(filter);
+//        int result = chooser.showDialog(this, "Выбрать");
+//        if (result == JFileChooser.APPROVE_OPTION) {
+//            edPath.setText(chooser.getSelectedFile().getPath());
+//        }
+    }//GEN-LAST:event_btnAction
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
