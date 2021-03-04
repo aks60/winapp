@@ -252,8 +252,8 @@ public class Man extends javax.swing.JFrame {
         btn12.setActionCommand("");
         btn12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn12.setMaximumSize(new java.awt.Dimension(120, 30));
-        btn12.setMinimumSize(new java.awt.Dimension(87, 26));
-        btn12.setPreferredSize(new java.awt.Dimension(96, 26));
+        btn12.setMinimumSize(new java.awt.Dimension(80, 26));
+        btn12.setPreferredSize(new java.awt.Dimension(80, 26));
         btn12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnExit(evt);
@@ -261,7 +261,7 @@ public class Man extends javax.swing.JFrame {
         });
         pan4.add(btn12, java.awt.BorderLayout.EAST);
 
-        tab4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp\nСправочники\n&nbsp;&nbsp", pan4);
+        tab4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp\nСправочники\n&nbsp;&nbsp", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b010.gif")), pan4); // NOI18N
 
         pan5.setMinimumSize(new java.awt.Dimension(281, 10));
         pan5.setPreferredSize(new java.awt.Dimension(308, 10));
@@ -324,8 +324,8 @@ public class Man extends javax.swing.JFrame {
         btn13.setActionCommand("");
         btn13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn13.setMaximumSize(new java.awt.Dimension(120, 30));
-        btn13.setMinimumSize(new java.awt.Dimension(87, 26));
-        btn13.setPreferredSize(new java.awt.Dimension(96, 26));
+        btn13.setMinimumSize(new java.awt.Dimension(80, 26));
+        btn13.setPreferredSize(new java.awt.Dimension(80, 26));
         btn13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnExit(evt);
@@ -333,7 +333,7 @@ public class Man extends javax.swing.JFrame {
         });
         pan5.add(btn13, java.awt.BorderLayout.EAST);
 
-        tab4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp \nЗаказы\n&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp", pan5);
+        tab4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp \nЗаказы\n&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")), pan5); // NOI18N
 
         pan6.setMinimumSize(new java.awt.Dimension(281, 10));
         pan6.setPreferredSize(new java.awt.Dimension(308, 10));
@@ -394,8 +394,8 @@ public class Man extends javax.swing.JFrame {
         btn14.setActionCommand("");
         btn14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn14.setMaximumSize(new java.awt.Dimension(120, 30));
-        btn14.setMinimumSize(new java.awt.Dimension(87, 26));
-        btn14.setPreferredSize(new java.awt.Dimension(96, 26));
+        btn14.setMinimumSize(new java.awt.Dimension(80, 26));
+        btn14.setPreferredSize(new java.awt.Dimension(80, 26));
         btn14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnExit(evt);
@@ -403,7 +403,7 @@ public class Man extends javax.swing.JFrame {
         });
         pan6.add(btn14, java.awt.BorderLayout.EAST);
 
-        tab4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp&nbsp;&nbsp\nОтчёты\n&nbsp;&nbsp&nbsp;&nbsp", pan6);
+        tab4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp&nbsp;&nbsp\nОтчёты\n&nbsp;&nbsp&nbsp;&nbsp", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")), pan6); // NOI18N
 
         pan3.add(tab4, java.awt.BorderLayout.CENTER);
         tab4.getAccessibleContext().setAccessibleName("<html><font size=\"3\"><b>\n&nbsp;&nbsp;\nСправочники\n&nbsp;&nbsp;");

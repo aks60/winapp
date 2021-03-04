@@ -223,6 +223,9 @@
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;&#xa;&amp;nbsp;&amp;nbsp&#xa;&#x421;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a;&#x438;&#xa;&amp;nbsp;&amp;nbsp">
                     <Property name="tabTitle" type="java.lang.String" value="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;&#xa;&amp;nbsp;&amp;nbsp&#xa;&#x421;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a;&#x438;&#xa;&amp;nbsp;&amp;nbsp"/>
+                    <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/resource/img16/b010.gif"/>
+                    </Property>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -356,10 +359,10 @@
                       <Dimension value="[120, 30]"/>
                     </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[87, 26]"/>
+                      <Dimension value="[80, 26]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[96, 26]"/>
+                      <Dimension value="[80, 26]"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -386,6 +389,9 @@
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;&#xa;&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp &#xa;&#x417;&#x430;&#x43a;&#x430;&#x437;&#x44b;&#xa;&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp">
                     <Property name="tabTitle" type="java.lang.String" value="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;&#xa;&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp &#xa;&#x417;&#x430;&#x43a;&#x430;&#x437;&#x44b;&#xa;&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp"/>
+                    <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/resource/img16/b041.gif"/>
+                    </Property>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -518,10 +524,10 @@
                       <Dimension value="[120, 30]"/>
                     </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[87, 26]"/>
+                      <Dimension value="[80, 26]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[96, 26]"/>
+                      <Dimension value="[80, 26]"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -548,6 +554,9 @@
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;&#xa;&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp&#xa;&#x41e;&#x442;&#x447;&#x451;&#x442;&#x44b;&#xa;&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp">
                     <Property name="tabTitle" type="java.lang.String" value="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;&#xa;&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp&#xa;&#x41e;&#x442;&#x447;&#x451;&#x442;&#x44b;&#xa;&amp;nbsp;&amp;nbsp&amp;nbsp;&amp;nbsp"/>
+                    <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/resource/img16/b037.gif"/>
+                    </Property>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -674,10 +683,10 @@
                       <Dimension value="[120, 30]"/>
                     </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[87, 26]"/>
+                      <Dimension value="[80, 26]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[96, 26]"/>
+                      <Dimension value="[80, 26]"/>
                     </Property>
                   </Properties>
                   <Events>
