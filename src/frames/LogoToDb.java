@@ -11,17 +11,13 @@ import javax.swing.SwingWorker;
 import startup.App;
 import startup.Main;
 
-/**
- * <p>
- * Установка соединения </p>
- */
+//Установка соединения
 public class LogoToDb extends javax.swing.JDialog {
 
     private int countCon = 0;
 
     public LogoToDb(java.awt.Window owner) {
         super(owner);
-
         initComponents();
 
         if (Main.dev == true) {
@@ -59,29 +55,35 @@ public class LogoToDb extends javax.swing.JDialog {
                 labMes.setText("Установка соединения с базой данных");
                 ConnApp con = ConnApp.initConnect();
                 String num = eProperty.base_num.read();
-                eExcep pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), "DEFROLE");               
-                if (pass == eExcep.yesConn) {
-                    Statement st = con.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-                    ResultSet rs = st.executeQuery("SELECT DISTINCT a.rdb$role_name , b.rdb$user FROM rdb$roles a, rdb$user_privileges b\n"
-                            + "WHERE a.rdb$role_name = b.rdb$relation_name AND a.rdb$role_name != 'DEFROLE' AND b.rdb$user = '" + edUser.getText() + "'");
-                    while (rs.next()) {                        
-                        String role = rs.getString("rdb$role_name").trim();
-                        con.getConnection().close();
-                        pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), role);
-                        if (pass == eExcep.yesConn) {
-                            Query.connection = con.getConnection();
-                            if (eProfile.P02.roleSet.contains(role)) {
-                                App.createApp(eProfile.P02);
-                            } else if (eProfile.P16.roleSet.contains(role)) {
-                                App.createApp(eProfile.P16);
+                eExcep pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), "DEFROLE");
+                if (pass == eExcep.yesConn) { 
+                    if ("SYSDBA".equalsIgnoreCase(edUser.getText()) == false) {
+                        
+                        Statement st = con.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                        ResultSet rs = st.executeQuery("SELECT DISTINCT a.rdb$role_name , b.rdb$user FROM rdb$roles a, rdb$user_privileges b\n"
+                                + "WHERE a.rdb$role_name = b.rdb$relation_name AND a.rdb$role_name != 'DEFROLE' AND b.rdb$user = '" + edUser.getText() + "'");
+                        while (rs.next()) {
+                            String role = rs.getString("rdb$role_name").trim();
+                            con.getConnection().close();
+                            pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), role);
+                            if (pass == eExcep.yesConn) {
+                                Query.connection = con.getConnection();
+                                if (eProfile.P02.roleSet.contains(role)) {
+                                    App.createApp(eProfile.P02);
+                                } else if (eProfile.P16.roleSet.contains(role)) {
+                                    App.createApp(eProfile.P16);
+                                }
+                                eProperty.user.write(edUser.getText().trim());
+                                eProperty.password = String.valueOf(edPass.getPassword()).trim();
+                                eProperty.save();
+                                dispose();
                             }
-                            eProperty.user.write(edUser.getText().trim());
-                            eProperty.password = String.valueOf(edPass.getPassword()).trim();
-                            eProperty.save();
-                            dispose();
                         }
+                    } else {
+                        App.createApp(eProfile.P02);
+                        dispose();                        
                     }
-                } 
+                }
                 if (pass == eExcep.noLogin) {
                     labMes.setText(eExcep.noLogin.mes);
                 } else if (pass == eExcep.noGrant) {

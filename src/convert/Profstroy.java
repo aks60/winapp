@@ -72,6 +72,7 @@ import java.awt.Color;
 import java.util.Arrays;
 import java.util.Queue;
 import javax.swing.JTextPane;
+import startup.Main;
 
 /**
  * В пс3 и пс4 разное количество полей в таблицах, но список столбцов в
@@ -235,12 +236,14 @@ public class Profstroy {
                 executeSql("GRANT SELECT ON " + field.tname() + " TO TEXNOLOG_RO");
                 executeSql("GRANT ALL ON " + field.tname() + " TO TEXNOLOG_RW");
             }
-
+            if (Main.dev == true) {
+                executeSql("GRANT TEXNOLOG_RW, DEFROLE TO TEXNOLOG");
+                executeSql("GRANT MANAGER_RW, DEFROLE TO MANAGER");
+            }
             ConnApp.initConnect().setConnection(cn2);
             deletePart(cn2, st2);
             updatePart(cn2, st2);
             metaPart(cn2, st2);
-            //loadRole(fieldsUp);
 
             println(Color.GREEN, "Удаление лищних столбцов");
             executeSql("ALTER TABLE GROUPS DROP  FK;");
@@ -747,31 +750,6 @@ public class Profstroy {
 
         } catch (SQLException e) {
             println(Color.RED, "Ошибка: modifyGroups().  " + e);
-        }
-    }
-
-    private static void loadRole(Field[] fieldsUp) {
-        println(Color.GREEN, "Секция создания ролей");
-        try {
-            Set<String> set = new HashSet();
-            ResultSet rs = st2.executeQuery("select a.rdb$role_name from rdb$roles a where a.rdb$role_name != 'RDB$ADMIN'");
-            while (rs.next()) {
-                set.add(rs.getString("rdb$role_name"));
-            }
-            for (String role : set) {
-                st2.executeUpdate("DROP ROLE " + role);
-            }
-            for (String role : new String[]{"DEFROLE", "MANAGER_RO", "MANAGER_RW", "TEXNOLOG_RO", "TEXNOLOG_RW"}) {
-                st2.executeUpdate("CREATE ROLE " + role);
-            }
-            for (Field field : fieldsUp) {
-                st2.executeUpdate("GRANT SELECT ON " + field.tname() + " TO MANAGER_RO");
-                st2.executeUpdate("GRANT ALL ON " + field.tname() + " TO MANAGER_RW");
-                st2.executeUpdate("GRANT SELECT ON " + field.tname() + " TO TEXNOLOG_RO");
-                st2.executeUpdate("GRANT ALL ON " + field.tname() + " TO TEXNOLOG_RW");
-            }
-        } catch (SQLException e) {
-            println(Color.RED, "Ошибка: loadRole().  " + e);
         }
     }
 

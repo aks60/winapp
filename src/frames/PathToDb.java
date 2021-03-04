@@ -42,7 +42,6 @@ public class PathToDb extends javax.swing.JDialog {
         edPort.setText(eProperty.port(num_base));
         edUser.setText(eProperty.user.read());
         edPass.setText(eProperty.password);
-
         onCaretUpdate(null);
     }
 
@@ -56,28 +55,34 @@ public class PathToDb extends javax.swing.JDialog {
                 ConnApp con = ConnApp.initConnect();
                 eExcep pass = con.createConnection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), "DEFROLE");
                 if (pass == eExcep.yesConn) {
-                    Statement st = con.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-                    ResultSet rs = st.executeQuery("SELECT DISTINCT a.rdb$role_name , b.rdb$user FROM rdb$roles a, rdb$user_privileges b\n"
-                            + "WHERE a.rdb$role_name = b.rdb$relation_name AND a.rdb$role_name != 'DEFROLE' AND b.rdb$user = '" + edUser.getText() + "'");
-                    while (rs.next()) {
-                        String role = rs.getString("rdb$role_name").trim();
-                        con.getConnection().close();
-                        pass = con.createConnection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), role);
-                        if (pass == eExcep.yesConn) {
-                            Query.connection = con.getConnection();
-                            if (App.Top.frame == null && eProfile.P02.roleSet.contains(role)) {
-                                App.createApp(eProfile.P02);
-                            } else if (App.Top.frame == null && eProfile.P16.roleSet.contains(role)) {
-                                App.createApp(eProfile.P16);
+                    if ("SYSDBA".equalsIgnoreCase(edUser.getText()) == false) {
+
+                        Statement st = con.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                        ResultSet rs = st.executeQuery("SELECT DISTINCT a.rdb$role_name , b.rdb$user FROM rdb$roles a, rdb$user_privileges b\n"
+                                + "WHERE a.rdb$role_name = b.rdb$relation_name AND a.rdb$role_name != 'DEFROLE' AND b.rdb$user = '" + edUser.getText() + "'");
+                        while (rs.next()) {
+                            String role = rs.getString("rdb$role_name").trim();
+                            con.getConnection().close();
+                            pass = con.createConnection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), role);
+                            if (pass == eExcep.yesConn) {
+                                Query.connection = con.getConnection();
+                                if (App.Top.frame == null && eProfile.P02.roleSet.contains(role)) {
+                                    App.createApp(eProfile.P02);
+                                } else if (App.Top.frame == null && eProfile.P16.roleSet.contains(role)) {
+                                    App.createApp(eProfile.P16);
+                                }
+                                eProperty.base_num.write(num_base);
+                                eProperty.port(num_base, edPort.getText().trim());
+                                eProperty.server(num_base, edHost.getText().trim());
+                                eProperty.base(num_base, edPath.getText().trim());
+                                eProperty.user.write(edUser.getText().trim());
+                                eProperty.save();
+                                dispose();
                             }
-                            eProperty.base_num.write(num_base);
-                            eProperty.port(num_base, edPort.getText().trim());
-                            eProperty.server(num_base, edHost.getText().trim());
-                            eProperty.base(num_base, edPath.getText().trim());
-                            eProperty.user.write(edUser.getText().trim());
-                            eProperty.save();
-                            dispose();
                         }
+                    } else {
+                        App.createApp(eProfile.P02);
+                        dispose();
                     }
                 }
                 if (pass == eExcep.noLogin) {
