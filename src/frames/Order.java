@@ -140,7 +140,7 @@ public class Order extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
                 record2.set(eProject.date4, calendar.getTime());
-                qProject.update(record2);
+                //qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
                 return true;
             }, 0);
@@ -152,7 +152,7 @@ public class Order extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
                 record2.set(eProject.date6, calendar.getTime());
-                qProject.update(record2);
+                //qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
                 return true;
             }, 0);
@@ -163,7 +163,7 @@ public class Order extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
                 record2.set(eProject.prjcontr_id, record.getInt(ePrjcontr.id));
-                qProject.update(record2);
+                //qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
         });
@@ -177,7 +177,7 @@ public class Order extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
                 record2.set(eProject.categ, record.getStr(0));
-                qProject.update(record2);
+                //qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }, set);
         });
@@ -189,7 +189,7 @@ public class Order extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
                 record2.set(eProject.categ, record.getStr(0));
-                qProject.update(record2);
+                //qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }, set);
         });
@@ -1603,10 +1603,11 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        loadingData();
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1);
+//        Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+//        loadingData();
+//        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+//        Util.setSelectedRow(tab1);
+    qPrjcontr.execsql();
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete

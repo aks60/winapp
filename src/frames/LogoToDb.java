@@ -23,10 +23,10 @@ public class LogoToDb extends javax.swing.JDialog {
         if (Main.dev == true) {
             if ("tex".equals(Main.profile)) {
                 edUser.setText("TEXNOLOG"); //user
-                edPass.setText("platina6"); //pass
+                edPass.setText("masterkey"); //pass
             } else if ("man".equals(Main.profile)) {
                 edUser.setText("MANAGER"); //user
-                edPass.setText("platina6"); //pass
+                edPass.setText("masterkey"); //pass
             }
             connectToDb();
 
@@ -131,7 +131,6 @@ public class LogoToDb extends javax.swing.JDialog {
         labPass.setPreferredSize(new java.awt.Dimension(100, 18));
 
         edPass.setFont(frames.Util.getFont(0,0));
-        edPass.setText("masterkey");
         edPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         edPass.setPreferredSize(new java.awt.Dimension(96, 18));
         edPass.addCaretListener(new javax.swing.event.CaretListener() {

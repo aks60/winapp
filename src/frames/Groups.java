@@ -98,14 +98,13 @@ public class Groups extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Группы");
-        setPreferredSize(new java.awt.Dimension(700, 500));
+        setPreferredSize(new java.awt.Dimension(760, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
         });
 
-        centr.setPreferredSize(new java.awt.Dimension(700, 450));
         centr.setLayout(new java.awt.BorderLayout());
 
         tabb.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -392,7 +391,7 @@ public class Groups extends javax.swing.JFrame {
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(700, 29));
+        north.setPreferredSize(new java.awt.Dimension(10, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -504,7 +503,7 @@ public class Groups extends javax.swing.JFrame {
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(700, 20));
+        south.setPreferredSize(new java.awt.Dimension(10, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N

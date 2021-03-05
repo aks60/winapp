@@ -227,7 +227,7 @@ public class Man extends javax.swing.JFrame {
         btn6.getAccessibleContext().setAccessibleName("");
 
         btn7.setFont(frames.Util.getFont(0,1));
-        btn7.setText("Vvvvv");
+        btn7.setText("Спецификация");
         btn7.setActionCommand("");
         btn7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn7.setMaximumSize(new java.awt.Dimension(120, 30));

@@ -48,7 +48,7 @@ public enum eProperty {
     //Значения по умолчанию
     private String value;
 
-    public static String password = "******";
+    public static String password = "*";
     public static FileWriter logconv = null;
     public static String fb = "fb";
     public static String pg = "pg";
