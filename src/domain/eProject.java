@@ -10,7 +10,7 @@ public enum eProject implements Field {
     num_ord("12", "32", "1", "Номер заказа", "ZNUMB"),
     num_acc("12", "32", "1", "Номер счета", "INUMB"),
     categ("12", "32", "1", "Категория", "PPREF"),    
-    prjcontr_id("4", "10", "1", "Контрагент", "prjcontr_id"),
+    prjpart_id("4", "10", "1", "Контрагент", "prjcontr_id"),
     manager("12", "64", "1", "Менеджер", "MNAME"), //это один из user программы
     square("8", "15", "1", "Площадь изделий", "PSQRA"),
     weight("8", "15", "1", "Вес изделий", "EMPTY"),  

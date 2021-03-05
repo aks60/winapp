@@ -11,7 +11,7 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eProject;
-import domain.ePrjcontr;
+import domain.ePrjpart;
 import frames.dialog.DicDate;
 import frames.dialog.DicName;
 import frames.swing.DefCellRenderer;
@@ -53,7 +53,7 @@ import startup.App;
 
 public class Order extends javax.swing.JFrame {
 
-    private Query qPrjcontr = new Query(ePrjcontr.values());
+    private Query qPrjcontr = new Query(ePrjpart.values());
     private Query qProject = new Query(eProject.values());
     private Query qPrjprod = new Query(ePrjprod.values());
     private Wincalc iwin = new Wincalc();
@@ -73,19 +73,19 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qPrjcontr.select(ePrjcontr.up);
+        qPrjcontr.select(ePrjpart.up);
         qProject.select(eProject.up, "order by", eProject.num_ord);
         qPrjprod.select(ePrjprod.up);
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.date4, eProject.date6, eProject.prjcontr_id, eProject.manager, eProject.categ) {
+        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.date4, eProject.date6, eProject.prjpart_id, eProject.manager, eProject.categ) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eProject.prjcontr_id) {
-                    Record record = qPrjcontr.stream().filter(rec -> rec.get(ePrjcontr.id).equals(val)).findFirst().orElse(ePrjcontr.up.newRecord());
-                    return record.get(ePrjcontr.contractor);
+                if (field == eProject.prjpart_id) {
+                    Record record = qPrjcontr.stream().filter(rec -> rec.get(ePrjpart.id).equals(val)).findFirst().orElse(ePrjpart.up.newRecord());
+                    return record.get(ePrjpart.partner);
                 }
                 return val;
             }
@@ -162,7 +162,7 @@ public class Order extends javax.swing.JFrame {
             new Partner(this, (record) -> {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
-                record2.set(eProject.prjcontr_id, record.getInt(ePrjcontr.id));
+                record2.set(eProject.prjpart_id, record.getInt(ePrjpart.id));
                 //qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
@@ -172,7 +172,7 @@ public class Order extends javax.swing.JFrame {
             Set set = new HashSet();
             Query q = new Query(eProject.categ);
             qProject.forEach(rec -> set.add(rec.get(eProject.categ)));
-            
+
             new DicName(this, (record) -> {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
@@ -703,6 +703,11 @@ public class Order extends javax.swing.JFrame {
         btn1.setMinimumSize(new java.awt.Dimension(18, 18));
         btn1.setName("btn1"); // NOI18N
         btn1.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn1ActionPerformed(evt);
+            }
+        });
 
         lab6.setFont(frames.Util.getFont(0,0));
         lab6.setText("Cтоимость со скидкой");
@@ -1607,11 +1612,11 @@ public class Order extends javax.swing.JFrame {
 //        loadingData();
 //        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 //        Util.setSelectedRow(tab1);
-    qPrjcontr.execsql();
+        qPrjcontr.execsql();
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        
+
         if (tab1.getBorder() != null) {
             if (Util.isDeleteRecord(tab1, this, tab2) == 0) {
                 Util.deleteRecord(tab1);
@@ -1640,14 +1645,14 @@ public class Order extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             Util.insertRecord(tab1, eProject.up, (record) -> {
-               record.set(eProject.manager, eProfile.user); 
+                record.set(eProject.manager, eProfile.user);
             });
 
         } else if (tab2.getBorder() != null) {
             new DicSyspod(this, (record) -> {
                 Record record2 = ePrjprod.up.newRecord();
                 record2.set(ePrjprod.id, ConnApp.instanc().genId(ePrjprod.up));
-                record2.set(ePrjprod.name, record.getStr(eSysprod.name));                
+                record2.set(ePrjprod.name, record.getStr(eSysprod.name));
                 record2.set(ePrjprod.script, record.getStr(eSysprod.script));
                 record2.set(ePrjprod.systree_id, record.getStr(eSysprod.systree_id));
                 record2.set(ePrjprod.order_id, qProject.getAs(Util.getIndexRec(tab1), eProject.id));
@@ -1701,6 +1706,12 @@ public class Order extends javax.swing.JFrame {
             Util.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3));
         }
     }//GEN-LAST:event_stateChanged
+
+    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
+        Currenc frame = new Currenc(this, (record) -> {
+            System.out.println(record);
+        });
+    }//GEN-LAST:event_btn1ActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

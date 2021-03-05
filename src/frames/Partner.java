@@ -3,7 +3,7 @@ package frames;
 import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
-import domain.ePrjcontr;
+import domain.ePrjpart;
 import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefFieldEditor;
 import javax.swing.JTable;
@@ -27,7 +27,7 @@ public class Partner extends javax.swing.JFrame {
 
     private Window owner = null;
     private ListenerRecord listener = null;
-    private Query qPrjcontr = new Query(ePrjcontr.values());
+    private Query qPrjcontr = new Query(ePrjpart.values());
     private DefFieldEditor rsv = null;
 
     public Partner() {
@@ -49,11 +49,11 @@ public class Partner extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qPrjcontr.select(ePrjcontr.up, "order by", ePrjcontr.category, ",", ePrjcontr.contractor);
+        qPrjcontr.select(ePrjpart.up, "order by", ePrjpart.category, ",", ePrjpart.partner);
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qPrjcontr, ePrjcontr.category, ePrjcontr.contractor, ePrjcontr.manager, ePrjcontr.flag2);
+        new DefTableModel(tab1, qPrjcontr, ePrjpart.category, ePrjpart.partner, ePrjpart.manager, ePrjpart.flag2);
 
         String arr[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
         Util.buttonCellEditor(tab1, 0).addActionListener(event -> {
@@ -61,29 +61,29 @@ public class Partner extends javax.swing.JFrame {
                     "Изменение категории контрагента", JOptionPane.QUESTION_MESSAGE, null, arr, arr[0]);
             if (result != null) {
                 Util.stopCellEditing(tab1);
-                qPrjcontr.set(result, Util.getIndexRec(tab1), ePrjcontr.category);
+                qPrjcontr.set(result, Util.getIndexRec(tab1), ePrjpart.category);
                 ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }
         });
 
-        rsv.add(ePrjcontr.addr_leve1, txt12);
-        rsv.add(ePrjcontr.addr_leve2, txt14);
-        rsv.add(ePrjcontr.addr_phone, txt13);
-        rsv.add(ePrjcontr.note, txt15);
+        rsv.add(ePrjpart.addr_leve1, txt12);
+        rsv.add(ePrjpart.addr_leve2, txt14);
+        rsv.add(ePrjpart.addr_phone, txt13);
+        rsv.add(ePrjpart.note, txt15);
 
-        rsv.add(ePrjcontr.org_name, txt8);
-        rsv.add(ePrjcontr.org_leve1, txt9);
-        rsv.add(ePrjcontr.org_leve2, txt17);
-        rsv.add(ePrjcontr.org_phone, txt10);
-        rsv.add(ePrjcontr.org_fax, txt11);
-        rsv.add(ePrjcontr.bank_name, txt1);
-        rsv.add(ePrjcontr.bank_inn, txt2);
-        rsv.add(ePrjcontr.bank_rs, txt3);
-        rsv.add(ePrjcontr.bank_bik, txt4);
-        rsv.add(ePrjcontr.bank_ks, txt5);
-        rsv.add(ePrjcontr.bank_kpp, txt6);
-        rsv.add(ePrjcontr.bank_ogrn, txt7);
-        rsv.add(ePrjcontr.note, txt16);
+        rsv.add(ePrjpart.org_name, txt8);
+        rsv.add(ePrjpart.org_leve1, txt9);
+        rsv.add(ePrjpart.org_leve2, txt17);
+        rsv.add(ePrjpart.org_phone, txt10);
+        rsv.add(ePrjpart.org_fax, txt11);
+        rsv.add(ePrjpart.bank_name, txt1);
+        rsv.add(ePrjpart.bank_inn, txt2);
+        rsv.add(ePrjpart.bank_rs, txt3);
+        rsv.add(ePrjpart.bank_bik, txt4);
+        rsv.add(ePrjpart.bank_ks, txt5);
+        rsv.add(ePrjpart.bank_kpp, txt6);
+        rsv.add(ePrjpart.bank_ogrn, txt7);
+        rsv.add(ePrjpart.note, txt16);
 
         Util.setSelectedRow(tab1);
     }
@@ -92,7 +92,7 @@ public class Partner extends javax.swing.JFrame {
         Util.stopCellEditing(tab1);
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
-            int flag = qPrjcontr.getAs(index, ePrjcontr.flag2);
+            int flag = qPrjcontr.getAs(index, ePrjpart.flag2);
             int i = (flag == 1) ? 1 : 0;
             tabb1.setSelectedIndex(i);
         }
@@ -348,7 +348,7 @@ public class Partner extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(140);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(80);
             tab1.getColumnModel().getColumn(3).setResizable(false);
-            tab1.getColumnModel().getColumn(3).setPreferredWidth(20);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(16);
             tab1.getColumnModel().getColumn(4).setMaxWidth(40);
         }
 
@@ -780,7 +780,7 @@ public class Partner extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, ePrjcontr.up, (record) -> {
+            Util.insertRecord(tab1, ePrjpart.up, (record) -> {
             });
         }
     }//GEN-LAST:event_btnInsert
@@ -832,9 +832,9 @@ public class Partner extends javax.swing.JFrame {
     private void tabb1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabb1StateChanged
         if (Util.getIndexRec(tab1) != -1) {
             if (tabb1.getSelectedIndex() == 0) {
-                qPrjcontr.set(0, Util.getIndexRec(tab1), ePrjcontr.flag2);
+                qPrjcontr.set(0, Util.getIndexRec(tab1), ePrjpart.flag2);
             } else {
-                qPrjcontr.set(1, Util.getIndexRec(tab1), ePrjcontr.flag2);
+                qPrjcontr.set(1, Util.getIndexRec(tab1), ePrjpart.flag2);
             }
             ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
         }

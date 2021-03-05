@@ -5,10 +5,10 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 
-public enum ePrjcontr implements Field {
+public enum ePrjpart implements Field {
     up("0", "0", "0", "Контрагент", "CLIENTS"),
     id("4", "10", "0", "Идентификатор", "id"),
-    contractor("12", "64", "1", "Контрагент", "KNAME"),
+    partner("12", "64", "1", "Контрагент", "KNAME"),
     manager("12", "32", "1", "Менеджер", "PNAME"),   
     category("12", "32", "1", "Категория", "KPREF"), //Заказчик, поставщик, офис, дилер, специальный   
     note("12", "256", "1", "Примечание", "note"), //Заказчик, поставщик, офис, дилер, специальный   
@@ -79,7 +79,7 @@ public enum ePrjcontr implements Field {
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
-    ePrjcontr(Object... p) {
+    ePrjpart(Object... p) {
         meta.init(p);
     }
 

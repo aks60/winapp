@@ -39,7 +39,7 @@ import domain.eKitdet;
 import domain.eKitpar1;
 import domain.eKits;
 import domain.eParams;
-import domain.ePrjcontr;
+import domain.ePrjpart;
 import domain.eRulecalc;
 import domain.eSetting;
 import domain.eSyssize;
@@ -129,7 +129,7 @@ public class Profstroy {
             eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
             eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
             eColmap.up, eColor.up,
-            ePrjprod.up, eProject.up, ePrjcontr.up,
+            ePrjprod.up, eProject.up, ePrjpart.up,
             eRulecalc.up, eSystree.up,
             eArtdet.up, eArtikl.up,
             eSyssize.up, eGroups.up, eCurrenc.up, eParams.up,};
@@ -575,9 +575,9 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color2_id, "clnu1", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
             updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");
-            updateSql(eProject.up, eProject.prjcontr_id, "kname", ePrjcontr.up, "contractor");
+            updateSql(eProject.up, eProject.prjpart_id, "kname", ePrjpart.up, "partner");
 
-            executeSql("update prjcontr set org_leve2 = trim(org_leve2)");
+            executeSql("update prjpart set org_leve2 = trim(org_leve2)");
         } catch (Exception e) {
             println(Color.RED, "Ошибка: updatePart().  " + e);
         }
@@ -631,7 +631,7 @@ public class Profstroy {
             alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
             alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
-            alterTable("project", "fk_project_1", "contractor_id", "prjcontr");
+            alterTable("project", "fk_project_1", "prjpart_id", "prjpart");
             alterTable("kits", "fk_kits1", "artikl_id", "artikl");
             alterTable("kits", "fk_kits2", "color_id", "color");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
