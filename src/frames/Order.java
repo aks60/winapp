@@ -168,6 +168,20 @@ public class Order extends javax.swing.JFrame {
             });
         });
 
+        Util.buttonCellEditor(tab1, 4).addActionListener(event -> {
+            Set set = new HashSet();
+            Query q = new Query(eProject.categ);
+            qProject.forEach(rec -> set.add(rec.get(eProject.categ)));
+            
+            new DicName(this, (record) -> {
+                Util.stopCellEditing(tab1);
+                Record record2 = qProject.get(Util.getIndexRec(tab1));
+                record2.set(eProject.categ, record.getStr(0));
+                qProject.update(record2);
+                ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
+            }, set);
+        });
+
         Util.buttonCellEditor(tab1, 5).addActionListener(event -> {
             Set set = new HashSet();
             qProject.forEach(rec -> set.add(rec.get(eProject.categ)));
@@ -1625,13 +1639,14 @@ public class Order extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             Util.insertRecord(tab1, eProject.up, (record) -> {
+               record.set(eProject.manager, eProfile.user); 
             });
 
         } else if (tab2.getBorder() != null) {
             new DicSyspod(this, (record) -> {
                 Record record2 = ePrjprod.up.newRecord();
                 record2.set(ePrjprod.id, ConnApp.instanc().genId(ePrjprod.up));
-                record2.set(ePrjprod.name, record.getStr(eSysprod.name));
+                record2.set(ePrjprod.name, record.getStr(eSysprod.name));                
                 record2.set(ePrjprod.script, record.getStr(eSysprod.script));
                 record2.set(ePrjprod.systree_id, record.getStr(eSysprod.systree_id));
                 record2.set(ePrjprod.order_id, qProject.getAs(Util.getIndexRec(tab1), eProject.id));

@@ -3,6 +3,7 @@ package startup;
 import common.FrameToFile;
 import common.eProfile;
 import convert.Convert;
+import dataset.Query;
 import dataset.Record;
 import frames.AboutBox;
 import frames.Artikles;
@@ -25,6 +26,8 @@ import frames.Systree;
 import frames.TestFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Set;
 import javax.swing.JFrame;
 
@@ -148,17 +151,25 @@ public enum App {
 
     public static void createApp(eProfile profile) {
 
-        eProfile.profile = profile; //профиль приложения
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        if (profile.equals(eProfile.P02)) {
+        try {
+            ResultSet rs = Query.connection.createStatement().executeQuery("select current_user from rdb$database");
+            rs.next();
+            eProfile.user = rs.getString(1);
+            eProfile.profile = profile; //профиль приложения
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            if (profile.equals(eProfile.P02)) {
 
-            Top.frame = new Tex();
-        } else {
-            Top.frame = new Man();
-        }        
-        Top.frame.setName(profile.name());
-        Top.frame.setLocation(0, 0);
-        Top.frame.setSize(screenSize.width, Top.frame.getHeight()); //размеры гл. окна
-        Top.frame.setVisible(true);
+                Top.frame = new Tex();
+            } else {
+                Top.frame = new Man();
+            }
+            Top.frame.setName(profile.name());
+            Top.frame.setLocation(0, 0);
+            Top.frame.setSize(screenSize.width, Top.frame.getHeight()); //размеры гл. окна
+            Top.frame.setVisible(true);
+
+        } catch (Exception e) {
+            System.out.println("Ошибка: App.createApp()");
+        }
     }
 }

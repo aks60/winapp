@@ -64,8 +64,8 @@ public class Man extends javax.swing.JFrame {
         tabb4 = new javax.swing.JTabbedPane();
         pan5 = new javax.swing.JPanel();
         pan8 = new javax.swing.JPanel();
-        btn6 = new javax.swing.JButton();
         btn5 = new javax.swing.JButton();
+        btn6 = new javax.swing.JButton();
         btn7 = new javax.swing.JButton();
         btn13 = new javax.swing.JButton();
         pan4 = new javax.swing.JPanel();
@@ -196,21 +196,6 @@ public class Man extends javax.swing.JFrame {
 
         pan8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
 
-        btn6.setFont(frames.Util.getFont(0,1));
-        btn6.setText("Заказы");
-        btn6.setActionCommand("");
-        btn6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn6.setMaximumSize(new java.awt.Dimension(120, 30));
-        btn6.setMinimumSize(new java.awt.Dimension(87, 26));
-        btn6.setPreferredSize(new java.awt.Dimension(96, 26));
-        btn6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn6(evt);
-            }
-        });
-        pan8.add(btn6);
-        btn6.getAccessibleContext().setAccessibleName("");
-
         btn5.setFont(frames.Util.getFont(0,1));
         btn5.setText("Контрагенты");
         btn5.setActionCommand("");
@@ -225,6 +210,21 @@ public class Man extends javax.swing.JFrame {
         });
         pan8.add(btn5);
         btn5.getAccessibleContext().setAccessibleName("");
+
+        btn6.setFont(frames.Util.getFont(0,1));
+        btn6.setText("Заказы");
+        btn6.setActionCommand("");
+        btn6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn6.setMaximumSize(new java.awt.Dimension(120, 30));
+        btn6.setMinimumSize(new java.awt.Dimension(87, 26));
+        btn6.setPreferredSize(new java.awt.Dimension(96, 26));
+        btn6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn6(evt);
+            }
+        });
+        pan8.add(btn6);
+        btn6.getAccessibleContext().setAccessibleName("");
 
         btn7.setFont(frames.Util.getFont(0,1));
         btn7.setText("Vvvvv");
@@ -258,7 +258,7 @@ public class Man extends javax.swing.JFrame {
         });
         pan5.add(btn13, java.awt.BorderLayout.EAST);
 
-        tabb4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp \nЗаказы\n&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")), pan5); // NOI18N
+        tabb4.addTab("<html><font size=\"3\"><b>\nЗаказы\n&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp ", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")), pan5); // NOI18N
 
         pan4.setMinimumSize(new java.awt.Dimension(281, 10));
         pan4.setPreferredSize(new java.awt.Dimension(308, 10));
@@ -329,7 +329,7 @@ public class Man extends javax.swing.JFrame {
         });
         pan4.add(btn12, java.awt.BorderLayout.EAST);
 
-        tabb4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp\nСправочники\n&nbsp;&nbsp", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b010.gif")), pan4); // NOI18N
+        tabb4.addTab("<html><font size=\"3\"><b>\nСправочники\n&nbsp;&nbsp;&nbsp;&nbsp", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b010.gif")), pan4); // NOI18N
 
         pan6.setMinimumSize(new java.awt.Dimension(281, 10));
         pan6.setPreferredSize(new java.awt.Dimension(308, 10));
@@ -399,7 +399,7 @@ public class Man extends javax.swing.JFrame {
         });
         pan6.add(btn14, java.awt.BorderLayout.EAST);
 
-        tabb4.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp&nbsp;&nbsp\nОтчёты\n&nbsp;&nbsp&nbsp;&nbsp", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b014.gif")), pan6); // NOI18N
+        tabb4.addTab("<html><font size=\"3\"><b>\nОтчёты\n&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b014.gif")), pan6); // NOI18N
 
         pan3.add(tabb4, java.awt.BorderLayout.CENTER);
         tabb4.getAccessibleContext().setAccessibleName("<html><font size=\"3\"><b>\n&nbsp;&nbsp;\nСправочники\n&nbsp;&nbsp;");
@@ -427,7 +427,7 @@ public class Man extends javax.swing.JFrame {
         btn2.getAccessibleContext().setAccessibleName("");
         btn2.getAccessibleContext().setAccessibleDescription("");
 
-        tabb1.addTab("<html><font size=\"3\"><b>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\nГл. меню\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", pan1);
+        tabb1.addTab("<html><font size=\"3\"><b>\nГл. меню\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b021.gif")), pan1); // NOI18N
 
         pan3.add(tabb1, java.awt.BorderLayout.WEST);
         tabb1.getAccessibleContext().setAccessibleName("");

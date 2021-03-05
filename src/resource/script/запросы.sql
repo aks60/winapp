@@ -26,3 +26,10 @@ select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), b
 select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from joindet  union
 select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from furndet
 
+
+SELECT u.RDB$USER, u.RDB$RELATION_NAME
+FROM RDB$USER_PRIVILEGES u
+WHERE u.rdb$relation_name = 'DEFROLE'
+ORDER BY 1, 2
+
+SELECT CURRENT_USER FROM RDB$DATABASE
