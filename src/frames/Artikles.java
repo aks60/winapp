@@ -468,9 +468,6 @@ public class Artikles extends javax.swing.JFrame {
         pan5 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
-        pan3 = new javax.swing.JPanel();
-        scr2 = new javax.swing.JScrollPane();
-        tab2 = new javax.swing.JTable();
         pan6 = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
         pan106 = new javax.swing.JPanel();
@@ -678,6 +675,9 @@ public class Artikles extends javax.swing.JFrame {
         filler43 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab35 = new javax.swing.JLabel();
         txt23 = new javax.swing.JTextField();
+        pan3 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -806,7 +806,7 @@ public class Artikles extends javax.swing.JFrame {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1499, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 671, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -826,6 +826,7 @@ public class Artikles extends javax.swing.JFrame {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
+        center.setMinimumSize(new java.awt.Dimension(0, 0));
         center.setPreferredSize(new java.awt.Dimension(900, 550));
         center.setLayout(new java.awt.BorderLayout());
 
@@ -852,7 +853,7 @@ public class Artikles extends javax.swing.JFrame {
 
         center.add(pan4, java.awt.BorderLayout.WEST);
 
-        pan5.setPreferredSize(new java.awt.Dimension(300, 500));
+        pan5.setPreferredSize(new java.awt.Dimension(280, 500));
         pan5.setLayout(new java.awt.BorderLayout());
 
         scr1.setPreferredSize(new java.awt.Dimension(0, 0));
@@ -860,15 +861,15 @@ public class Artikles extends javax.swing.JFrame {
         tab1.setFont(frames.Util.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "111", null, null, null, null, null},
-                {"2", "222", null, null, null, null, null}
+                {"1", "111", null, null, null},
+                {"2", "222", null, null, null}
             },
             new String [] {
-                "Актикул", "Наименование", "Отход %", "Коэф. ценовой", "id", "id", "ID"
+                "Актикул", "Наименование", "Отход %", "Коэф. ценовой", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -876,7 +877,9 @@ public class Artikles extends javax.swing.JFrame {
             }
         });
         tab1.setFillsViewportHeight(true);
+        tab1.setMinimumSize(new java.awt.Dimension(0, 0));
         tab1.setName("tab1"); // NOI18N
+        tab1.setPreferredSize(new java.awt.Dimension(0, 0));
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -885,73 +888,18 @@ public class Artikles extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(204);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(96);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(32);
             tab1.getColumnModel().getColumn(2).setMaxWidth(120);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(32);
             tab1.getColumnModel().getColumn(3).setMaxWidth(120);
-            tab1.getColumnModel().getColumn(6).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(4).setMaxWidth(40);
         }
 
         pan5.add(scr1, java.awt.BorderLayout.CENTER);
 
         center.add(pan5, java.awt.BorderLayout.CENTER);
-
-        pan3.setPreferredSize(new java.awt.Dimension(600, 130));
-        pan3.setLayout(new java.awt.BorderLayout());
-
-        scr2.setBorder(null);
-        scr2.setPreferredSize(new java.awt.Dimension(0, 0));
-
-        tab2.setFont(frames.Util.getFont(0,0));
-        tab2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Группа", "Название", "Применить", "Основная", "Применить", "Внутренняя", "Применить", "Внешняя", "Двухсторонняя", "За ед. веса", "Коэф. ценовой", "ID"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tab2.setFillsViewportHeight(true);
-        tab2.setName("tab2"); // NOI18N
-        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
-            }
-        });
-        scr2.setViewportView(tab2);
-        tab2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(120);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(160);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(20);
-            tab2.getColumnModel().getColumn(2).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(3).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(4).setPreferredWidth(20);
-            tab2.getColumnModel().getColumn(4).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(6).setPreferredWidth(20);
-            tab2.getColumnModel().getColumn(6).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(8).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(9).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(10).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(11).setMaxWidth(40);
-        }
-
-        pan3.add(scr2, java.awt.BorderLayout.CENTER);
-
-        center.add(pan3, java.awt.BorderLayout.SOUTH);
 
         pan6.setPreferredSize(new java.awt.Dimension(360, 500));
         pan6.setLayout(new java.awt.CardLayout());
@@ -2217,6 +2165,61 @@ public class Artikles extends javax.swing.JFrame {
         pan6.add(pan8, "pan8");
 
         center.add(pan6, java.awt.BorderLayout.EAST);
+
+        pan3.setPreferredSize(new java.awt.Dimension(600, 130));
+        pan3.setLayout(new java.awt.BorderLayout());
+
+        scr2.setBorder(null);
+
+        tab2.setFont(frames.Util.getFont(0,0));
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Группа", "Название", "Применить", "Основная", "Применить", "Внутренняя", "Применить", "Внешняя", "Двухсторонняя", "За ед. веса", "Коэф. ценовой", "ID"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab2.setFillsViewportHeight(true);
+        tab2.setName("tab2"); // NOI18N
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
+        scr2.setViewportView(tab2);
+        tab2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(160);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(20);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(20);
+            tab2.getColumnModel().getColumn(4).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(20);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(8).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(9).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(10).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(11).setMaxWidth(40);
+        }
+
+        pan3.add(scr2, java.awt.BorderLayout.CENTER);
+
+        center.add(pan3, java.awt.BorderLayout.SOUTH);
 
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
