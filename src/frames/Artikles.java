@@ -806,7 +806,7 @@ public class Artikles extends javax.swing.JFrame {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1606, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1499, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -829,11 +829,10 @@ public class Artikles extends javax.swing.JFrame {
         center.setPreferredSize(new java.awt.Dimension(900, 550));
         center.setLayout(new java.awt.BorderLayout());
 
-        pan4.setPreferredSize(new java.awt.Dimension(200, 500));
+        pan4.setPreferredSize(new java.awt.Dimension(160, 500));
         pan4.setLayout(new java.awt.BorderLayout());
 
         scrTree.setBorder(null);
-        scrTree.setPreferredSize(new java.awt.Dimension(200, 400));
 
         tree.setFont(frames.Util.getFont(0,0));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
@@ -853,8 +852,10 @@ public class Artikles extends javax.swing.JFrame {
 
         center.add(pan4, java.awt.BorderLayout.WEST);
 
-        pan5.setPreferredSize(new java.awt.Dimension(340, 500));
+        pan5.setPreferredSize(new java.awt.Dimension(300, 500));
         pan5.setLayout(new java.awt.BorderLayout());
+
+        scr1.setPreferredSize(new java.awt.Dimension(0, 0));
 
         tab1.setFont(frames.Util.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -896,10 +897,11 @@ public class Artikles extends javax.swing.JFrame {
 
         center.add(pan5, java.awt.BorderLayout.CENTER);
 
-        pan3.setPreferredSize(new java.awt.Dimension(800, 130));
+        pan3.setPreferredSize(new java.awt.Dimension(600, 130));
         pan3.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
+        scr2.setPreferredSize(new java.awt.Dimension(0, 0));
 
         tab2.setFont(frames.Util.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
@@ -954,6 +956,7 @@ public class Artikles extends javax.swing.JFrame {
         pan6.setPreferredSize(new java.awt.Dimension(360, 500));
         pan6.setLayout(new java.awt.CardLayout());
 
+        pan2.setPreferredSize(new java.awt.Dimension(360, 24));
         pan2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
         pan106.setPreferredSize(new java.awt.Dimension(360, 12));
@@ -1519,6 +1522,7 @@ public class Artikles extends javax.swing.JFrame {
 
         pan6.add(pan2, "pan2");
 
+        pan7.setPreferredSize(new java.awt.Dimension(360, 24));
         pan7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
         pan107.setPreferredSize(new java.awt.Dimension(360, 12));
@@ -1834,6 +1838,7 @@ public class Artikles extends javax.swing.JFrame {
 
         pan6.add(pan7, "pan7");
 
+        pan8.setPreferredSize(new java.awt.Dimension(360, 24));
         pan8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
         pan108.setPreferredSize(new java.awt.Dimension(360, 12));
