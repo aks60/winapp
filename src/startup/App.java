@@ -33,9 +33,9 @@ import javax.swing.JFrame;
 
 public enum App {
 
-    Top, Convert, Groups, DicCurrenc, Color, Artikles, Joining, Element, Param,
+    Top, Convert, Groups, Currenc, Color, Artikles, Joining, Element, Param,
     Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,
-    Specific, DicSyssize, TestFrame, RuleCalc;
+    Specific, Syssize, TestFrame, RuleCalc;
     public javax.swing.JFrame frame;
 
     public void createFrame(java.awt.Window parent, Object... param) {
@@ -78,7 +78,7 @@ public enum App {
                     frame = new Joining((Set) param[0], (int) param[1]);
                 }
                 break;
-            case DicCurrenc:
+            case Currenc:
                 frame = new Currenc();
                 break;
             case Element:
@@ -133,7 +133,7 @@ public enum App {
             case Specific:
                 frame = new Specific();
                 break;
-            case DicSyssize:
+            case Syssize:
                 frame = new Syssize();
                 break;
         }

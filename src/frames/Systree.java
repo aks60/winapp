@@ -62,7 +62,7 @@ import enums.LayoutArea;
 import enums.PKjson;
 import enums.TypeElem;
 import enums.TypeOpen1;
-import frames.dialog.DicColor2;
+import frames.dialog.DicColor;
 import frames.dialog.DicHandl;
 import frames.dialog.DicSysprof;
 import frames.swing.Canvas;
@@ -91,6 +91,7 @@ import common.eProfile;
 public class Systree extends javax.swing.JFrame {
 
     private Wincalc iwin = new Wincalc();
+    public static javax.swing.JFrame frame = null;
     private int systreeID = -1; //выбранная система
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
             listenerParam1, listenerParam2, listenerArt211, listenerArt212;
@@ -1127,7 +1128,7 @@ public class Systree extends javax.swing.JFrame {
         pan13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Рама, импост..", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 1)));
         pan13.setPreferredSize(new java.awt.Dimension(300, 200));
 
-        pan20.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Текстура элемента", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 0)));
+        pan20.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Текстура профиля", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 0)));
         pan20.setPreferredSize(new java.awt.Dimension(308, 104));
 
         lab28.setFont(frames.Util.getFont(0,0));
@@ -1311,6 +1312,8 @@ public class Systree extends javax.swing.JFrame {
                 .addComponent(pan20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
+
+        pan20.getAccessibleContext().setAccessibleName("Текстура профиля");
 
         pan7.add(pan13, "card13");
 
@@ -2448,7 +2451,7 @@ public class Systree extends javax.swing.JFrame {
                     colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
                 }
             });
-            DicColor2 frame = new DicColor2(this, (colorRec) -> {
+            DicColor frame = new DicColor(this, (colorRec) -> {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
@@ -2563,9 +2566,9 @@ public class Systree extends javax.swing.JFrame {
                 }
             };
             if (arr1 == null && arr2.length == 0) {
-                new DicColor2(this, listenerColor);
+                new DicColor(this, listenerColor);
             } else {
-                new DicColor2(this, listenerColor, set);
+                new DicColor(this, listenerColor, set);
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);

@@ -7,7 +7,7 @@ import dataset.Record;
 import domain.eColor;
 import domain.eCurrenc;
 import domain.eParams;
-import frames.dialog.DicColor2;
+import frames.dialog.DicColor;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -62,7 +62,7 @@ public class Param extends javax.swing.JFrame {
     private void listenerAdd() {
 
         editorBtn.getButton().addActionListener(event -> {
-            new DicColor2(this, listenerColor, false);
+            new DicColor(this, listenerColor, false);
         });
 
         listenerColor = (record) -> {

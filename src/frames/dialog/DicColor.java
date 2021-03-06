@@ -25,7 +25,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 //Текстура артикулов
-public class DicColor2 extends javax.swing.JDialog {
+public class DicColor extends javax.swing.JDialog {
 
     private static final int serialVersionUID = 1397175662;
     private ListenerRecord listener;
@@ -33,12 +33,13 @@ public class DicColor2 extends javax.swing.JDialog {
     private Query qColorAll = new Query(eColor.values());
     private Query qColor = new Query(eColor.id, eColor.name);
     private boolean master = true;
-
-    public DicColor2(Frame parent, ListenerRecord listener) {
+    
+    
+    public DicColor(Frame parent, ListenerRecord listener) {
         this(parent, listener, true);
     }
 
-    public DicColor2(Frame parent, ListenerRecord listener, HashSet<Record> colorSet) {
+    public DicColor(Frame parent, ListenerRecord listener, HashSet<Record> colorSet) {
         super(parent, true);
         initComponents();
         initElements();
@@ -58,7 +59,7 @@ public class DicColor2 extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    public DicColor2(Frame parent, ListenerRecord listener, boolean master) {
+    public DicColor(Frame parent, ListenerRecord listener, boolean master) {
         super(parent, true);
         this.master = master;
         initComponents();

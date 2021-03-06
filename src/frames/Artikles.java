@@ -1,6 +1,6 @@
 package frames;
 
-import frames.dialog.DicColor2;
+import frames.dialog.DicColor;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Field;
@@ -221,11 +221,11 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.depth, txt46);
 
         Util.buttonCellEditor(tab2, 0).addActionListener(event -> {
-            DicColor2 frame = new DicColor2(this, listenerColor);
+            DicColor frame = new DicColor(this, listenerColor);
         });
 
         Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
-            DicColor2 frame = new DicColor2(this, listenerColor);
+            DicColor frame = new DicColor(this, listenerColor);
         });
     }
 
@@ -1432,7 +1432,7 @@ public class Artikles extends javax.swing.JFrame {
         txt42.setEditable(false);
         txt42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt42.setFocusable(false);
-        txt42.setPreferredSize(new java.awt.Dimension(164, 18));
+        txt42.setPreferredSize(new java.awt.Dimension(204, 18));
         pan104.add(txt42);
 
         btn35.setText("...");

@@ -801,7 +801,7 @@
                           <Properties>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                                <TitledBorder title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430; &#x44d;&#x43b;&#x435;&#x43c;&#x435;&#x43d;&#x442;&#x430;">
+                                <TitledBorder title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430; &#x43f;&#x440;&#x43e;&#x444;&#x438;&#x43b;&#x44f;">
                                   <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
@@ -813,6 +813,9 @@
                               <Dimension value="[308, 104]"/>
                             </Property>
                           </Properties>
+                          <AccessibilityProperties>
+                            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430; &#x43f;&#x440;&#x43e;&#x444;&#x438;&#x43b;&#x44f;"/>
+                          </AccessibilityProperties>
 
                           <Layout>
                             <DimensionLayout dim="0">

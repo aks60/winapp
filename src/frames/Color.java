@@ -10,7 +10,7 @@ import domain.eColmap;
 import domain.eGroups;
 import domain.eParams;
 import enums.TypeGroups;
-import frames.dialog.DicColor2;
+import frames.dialog.DicColor;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JTable;
@@ -116,16 +116,16 @@ public class Color extends javax.swing.JFrame {
             qColor.execsql();
         });
         Util.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            DicColor2 frame = new DicColor2(this, listenerColor1);
+            DicColor frame = new DicColor(this, listenerColor1);
         });
         Util.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            DicColor2 frame = new DicColor2(this, listenerColor1);
+            DicColor frame = new DicColor(this, listenerColor1);
         });
         Util.buttonCellEditor(tab4, 2).addActionListener(event -> {
-            DicColor2 frame = new DicColor2(this, listenerColor2);
+            DicColor frame = new DicColor(this, listenerColor2);
         });
         Util.buttonCellEditor(tab4, 3).addActionListener(event -> {
-            DicColor2 frame = new DicColor2(this, listenerColor2);
+            DicColor frame = new DicColor(this, listenerColor2);
         });
     }
 

@@ -1001,7 +1001,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.DicCurrenc.createFrame(Tex.this);
+                App.Currenc.createFrame(Tex.this);
             }
         });
     }//GEN-LAST:event_mnCurrency
@@ -1101,7 +1101,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.DicSyssize.createFrame(Tex.this);
+                App.Syssize.createFrame(Tex.this);
             }
         });
     }//GEN-LAST:event_mnSyssize

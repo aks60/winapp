@@ -7,7 +7,7 @@ import dataset.Record;
 import domain.eColor;
 import domain.eSysprod;
 import enums.PKjson;
-import frames.dialog.DicColor2;
+import frames.dialog.DicColor;
 import frames.swing.DefMutableTreeNode;
 import java.awt.event.ActionEvent;
 import java.util.HashSet;
