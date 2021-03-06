@@ -38,6 +38,7 @@ import javax.swing.tree.TreePath;
 
 public class DicSyspod extends javax.swing.JDialog {
 
+    private static final int serialVersionUID = 931126542;
     private Wincalc iwin = new Wincalc();
     private ListenerRecord listener = null;
     private int systreeID = -1; //выбранная система
@@ -207,10 +208,11 @@ public class DicSyspod extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Изделия");
+        setPreferredSize(new java.awt.Dimension(600, 650));
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(460, 29));
+        north.setPreferredSize(new java.awt.Dimension(600, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -281,6 +283,7 @@ public class DicSyspod extends javax.swing.JDialog {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
+        centr.setPreferredSize(new java.awt.Dimension(600, 601));
         centr.setLayout(new java.awt.BorderLayout());
 
         pan1.setPreferredSize(new java.awt.Dimension(240, 601));
@@ -292,9 +295,11 @@ public class DicSyspod extends javax.swing.JDialog {
 
         centr.add(pan1, java.awt.BorderLayout.WEST);
 
+        pan2.setPreferredSize(new java.awt.Dimension(360, 400));
         pan2.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
+        scr2.setPreferredSize(new java.awt.Dimension(360, 400));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -337,7 +342,7 @@ public class DicSyspod extends javax.swing.JDialog {
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(460, 20));
+        south.setPreferredSize(new java.awt.Dimension(600, 20));
 
         javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
         south.setLayout(southLayout);

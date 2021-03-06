@@ -10,6 +10,7 @@ import common.ListenerRecord;
 //Тип состава
 public class DicTypset extends javax.swing.JDialog {
 
+    private static final int serialVersionUID = 1360931337;
     private ListenerRecord listener = null;
     String[] titl = {"Наименование"};
     Object[][] rows;

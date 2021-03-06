@@ -27,6 +27,7 @@ import javax.swing.event.ListSelectionListener;
 //Текстура артикулов
 public class DicColor2 extends javax.swing.JDialog {
 
+    private static final int serialVersionUID = 1397175662;
     private ListenerRecord listener;
     private Query qColgrp = new Query(eGroups.values());
     private Query qColorAll = new Query(eColor.values());

@@ -289,6 +289,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Модели конструкций");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(800, 609));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Models.this.windowClosed(evt);
@@ -297,7 +298,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(900, 29));
+        north.setPreferredSize(new java.awt.Dimension(800, 29));
         north.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panMouseClicked(evt);
@@ -463,7 +464,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 413, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -632,9 +633,10 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
         getContentPane().add(west, java.awt.BorderLayout.WEST);
 
-        centr.setPreferredSize(new java.awt.Dimension(700, 560));
+        centr.setPreferredSize(new java.awt.Dimension(600, 560));
         centr.setLayout(new java.awt.BorderLayout());
 
+        pan17.setPreferredSize(new java.awt.Dimension(600, 500));
         pan17.setLayout(new java.awt.BorderLayout());
 
         pan4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -673,7 +675,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -695,7 +697,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 295, Short.MAX_VALUE)
+            .addGap(0, 301, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -714,7 +716,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         );
         pan9Layout.setVerticalGroup(
             pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 344, Short.MAX_VALUE)
+            .addGap(0, 433, Short.MAX_VALUE)
         );
 
         pan4.add(pan9, java.awt.BorderLayout.EAST);
@@ -729,7 +731,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         );
         pan10Layout.setVerticalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 344, Short.MAX_VALUE)
+            .addGap(0, 433, Short.MAX_VALUE)
         );
 
         pan4.add(pan10, java.awt.BorderLayout.WEST);
@@ -737,7 +739,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan17.add(pan4, java.awt.BorderLayout.CENTER);
 
         pan6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan6.setPreferredSize(new java.awt.Dimension(300, 500));
+        pan6.setPreferredSize(new java.awt.Dimension(200, 500));
         pan6.setLayout(new java.awt.CardLayout());
 
         lab19.setText("jLabel19");
@@ -746,21 +748,21 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan19.setLayout(pan19Layout);
         pan19Layout.setHorizontalGroup(
             pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 196, Short.MAX_VALUE)
             .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan19Layout.createSequentialGroup()
-                    .addGap(0, 128, Short.MAX_VALUE)
+                    .addGap(0, 78, Short.MAX_VALUE)
                     .addComponent(lab19)
-                    .addGap(0, 128, Short.MAX_VALUE)))
+                    .addGap(0, 78, Short.MAX_VALUE)))
         );
         pan19Layout.setVerticalGroup(
             pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 483, Short.MAX_VALUE)
             .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan19Layout.createSequentialGroup()
-                    .addGap(0, 190, Short.MAX_VALUE)
+                    .addGap(0, 234, Short.MAX_VALUE)
                     .addComponent(lab19)
-                    .addGap(0, 190, Short.MAX_VALUE)))
+                    .addGap(0, 235, Short.MAX_VALUE)))
         );
 
         pan6.add(pan19, "pan19");
@@ -771,21 +773,21 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan20.setLayout(pan20Layout);
         pan20Layout.setHorizontalGroup(
             pan20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 196, Short.MAX_VALUE)
             .addGroup(pan20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan20Layout.createSequentialGroup()
-                    .addGap(0, 128, Short.MAX_VALUE)
+                    .addGap(0, 78, Short.MAX_VALUE)
                     .addComponent(lab20)
-                    .addGap(0, 128, Short.MAX_VALUE)))
+                    .addGap(0, 78, Short.MAX_VALUE)))
         );
         pan20Layout.setVerticalGroup(
             pan20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 483, Short.MAX_VALUE)
             .addGroup(pan20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan20Layout.createSequentialGroup()
-                    .addGap(0, 190, Short.MAX_VALUE)
+                    .addGap(0, 234, Short.MAX_VALUE)
                     .addComponent(lab20)
-                    .addGap(0, 190, Short.MAX_VALUE)))
+                    .addGap(0, 235, Short.MAX_VALUE)))
         );
 
         pan6.add(pan20, "pan20");
@@ -796,21 +798,21 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan21.setLayout(pan21Layout);
         pan21Layout.setHorizontalGroup(
             pan21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 196, Short.MAX_VALUE)
             .addGroup(pan21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan21Layout.createSequentialGroup()
-                    .addGap(0, 128, Short.MAX_VALUE)
+                    .addGap(0, 78, Short.MAX_VALUE)
                     .addComponent(lab21)
-                    .addGap(0, 128, Short.MAX_VALUE)))
+                    .addGap(0, 78, Short.MAX_VALUE)))
         );
         pan21Layout.setVerticalGroup(
             pan21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 483, Short.MAX_VALUE)
             .addGroup(pan21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan21Layout.createSequentialGroup()
-                    .addGap(0, 190, Short.MAX_VALUE)
+                    .addGap(0, 234, Short.MAX_VALUE)
                     .addComponent(lab21)
-                    .addGap(0, 190, Short.MAX_VALUE)))
+                    .addGap(0, 235, Short.MAX_VALUE)))
         );
 
         pan6.add(pan21, "pan21");
@@ -821,21 +823,21 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan22.setLayout(pan22Layout);
         pan22Layout.setHorizontalGroup(
             pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 196, Short.MAX_VALUE)
             .addGroup(pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan22Layout.createSequentialGroup()
-                    .addGap(0, 128, Short.MAX_VALUE)
+                    .addGap(0, 78, Short.MAX_VALUE)
                     .addComponent(lab22)
-                    .addGap(0, 128, Short.MAX_VALUE)))
+                    .addGap(0, 78, Short.MAX_VALUE)))
         );
         pan22Layout.setVerticalGroup(
             pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 483, Short.MAX_VALUE)
             .addGroup(pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan22Layout.createSequentialGroup()
-                    .addGap(0, 190, Short.MAX_VALUE)
+                    .addGap(0, 234, Short.MAX_VALUE)
                     .addComponent(lab22)
-                    .addGap(0, 190, Short.MAX_VALUE)))
+                    .addGap(0, 235, Short.MAX_VALUE)))
         );
 
         pan6.add(pan22, "pan22");
@@ -846,21 +848,21 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan23.setLayout(pan23Layout);
         pan23Layout.setHorizontalGroup(
             pan23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 196, Short.MAX_VALUE)
             .addGroup(pan23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan23Layout.createSequentialGroup()
-                    .addGap(0, 128, Short.MAX_VALUE)
+                    .addGap(0, 78, Short.MAX_VALUE)
                     .addComponent(lab23)
-                    .addGap(0, 128, Short.MAX_VALUE)))
+                    .addGap(0, 78, Short.MAX_VALUE)))
         );
         pan23Layout.setVerticalGroup(
             pan23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 483, Short.MAX_VALUE)
             .addGroup(pan23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan23Layout.createSequentialGroup()
-                    .addGap(0, 190, Short.MAX_VALUE)
+                    .addGap(0, 234, Short.MAX_VALUE)
                     .addComponent(lab23)
-                    .addGap(0, 190, Short.MAX_VALUE)))
+                    .addGap(0, 235, Short.MAX_VALUE)))
         );
 
         pan6.add(pan23, "pan23");
@@ -871,21 +873,21 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan24.setLayout(pan24Layout);
         pan24Layout.setHorizontalGroup(
             pan24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 196, Short.MAX_VALUE)
             .addGroup(pan24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan24Layout.createSequentialGroup()
-                    .addGap(0, 128, Short.MAX_VALUE)
+                    .addGap(0, 78, Short.MAX_VALUE)
                     .addComponent(lab24)
-                    .addGap(0, 128, Short.MAX_VALUE)))
+                    .addGap(0, 78, Short.MAX_VALUE)))
         );
         pan24Layout.setVerticalGroup(
             pan24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 483, Short.MAX_VALUE)
             .addGroup(pan24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan24Layout.createSequentialGroup()
-                    .addGap(0, 190, Short.MAX_VALUE)
+                    .addGap(0, 234, Short.MAX_VALUE)
                     .addComponent(lab24)
-                    .addGap(0, 190, Short.MAX_VALUE)))
+                    .addGap(0, 235, Short.MAX_VALUE)))
         );
 
         pan6.add(pan24, "pan24");
@@ -898,13 +900,13 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setPreferredSize(new java.awt.Dimension(800, 20));
 
         javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
         south.setLayout(southLayout);
         southLayout.setHorizontalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 795, Short.MAX_VALUE)
+            .addGap(0, 701, Short.MAX_VALUE)
         );
         southLayout.setVerticalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

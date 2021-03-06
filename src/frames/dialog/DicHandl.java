@@ -9,6 +9,7 @@ import common.ListenerRecord;
 //Справочник фурнитур
 public class DicHandl extends javax.swing.JDialog {
 
+    private static final int serialVersionUID = 1500155443;
     private ListenerRecord listener = null;
 
     public DicHandl(java.awt.Frame parent, ListenerRecord listenet, int indexPosition) {

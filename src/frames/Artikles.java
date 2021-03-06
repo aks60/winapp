@@ -861,15 +861,15 @@ public class Artikles extends javax.swing.JFrame {
         tab1.setFont(frames.Util.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "111", null, null, null},
-                {"2", "222", null, null, null}
+                {"1", "111", null, null, null, null, null},
+                {"2", "222", null, null, null, null, null}
             },
             new String [] {
-                "Актикул", "Наименование", "Отход %", "Коэф. ценовой", "ID"
+                "Актикул", "Наименование", "Отход %", "Коэф. ценовой", "id", "id", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -888,13 +888,13 @@ public class Artikles extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(96);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(68);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(120);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(32);
             tab1.getColumnModel().getColumn(2).setMaxWidth(120);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(32);
             tab1.getColumnModel().getColumn(3).setMaxWidth(120);
-            tab1.getColumnModel().getColumn(4).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(6).setMaxWidth(40);
         }
 
         pan5.add(scr1, java.awt.BorderLayout.CENTER);
@@ -1360,7 +1360,7 @@ public class Artikles extends javax.swing.JFrame {
         txt5.setFont(frames.Util.getFont(0,0));
         txt5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt5.setFocusable(false);
-        txt5.setPreferredSize(new java.awt.Dimension(40, 18));
+        txt5.setPreferredSize(new java.awt.Dimension(44, 18));
         pan102.add(txt5);
 
         btn5.setText("...");

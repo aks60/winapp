@@ -18,6 +18,7 @@ import common.ListenerRecord;
 
 public class ParColor2 extends javax.swing.JDialog {
 
+    private static final int serialVersionUID = 795439357;
     private Query qArtdet = new Query(eArtdet.values());
     private Query qGroups = new Query(eGroups.values());
     private ListenerRecord listener;

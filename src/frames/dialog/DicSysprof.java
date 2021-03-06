@@ -14,6 +14,7 @@ import common.ListenerRecord;
 
 public class DicSysprof extends javax.swing.JDialog {
 
+    private static final int serialVersionUID = 156578235;
     private ListenerRecord listener = null;
     private Query qSysprof = null;
 

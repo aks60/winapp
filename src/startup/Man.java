@@ -67,18 +67,21 @@ public class Man extends javax.swing.JFrame {
         btn5 = new javax.swing.JButton();
         btn6 = new javax.swing.JButton();
         btn7 = new javax.swing.JButton();
+        pan2 = new javax.swing.JPanel();
         btn13 = new javax.swing.JButton();
         pan4 = new javax.swing.JPanel();
         pan7 = new javax.swing.JPanel();
         btn3 = new javax.swing.JButton();
         btn4 = new javax.swing.JButton();
         btn11 = new javax.swing.JButton();
+        pan10 = new javax.swing.JPanel();
         btn12 = new javax.swing.JButton();
         pan6 = new javax.swing.JPanel();
         pan9 = new javax.swing.JPanel();
         btn8 = new javax.swing.JButton();
         btn9 = new javax.swing.JButton();
         btn10 = new javax.swing.JButton();
+        pan11 = new javax.swing.JPanel();
         btn14 = new javax.swing.JButton();
         tabb1 = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
@@ -243,6 +246,9 @@ public class Man extends javax.swing.JFrame {
 
         pan5.add(pan8, java.awt.BorderLayout.CENTER);
 
+        pan2.setPreferredSize(new java.awt.Dimension(120, 30));
+        pan2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
+
         btn13.setFont(frames.Util.getFont(0,1));
         btn13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b009.gif"))); // NOI18N
         btn13.setText("Выход");
@@ -256,7 +262,9 @@ public class Man extends javax.swing.JFrame {
                 mnExit(evt);
             }
         });
-        pan5.add(btn13, java.awt.BorderLayout.EAST);
+        pan2.add(btn13);
+
+        pan5.add(pan2, java.awt.BorderLayout.EAST);
 
         tabb4.addTab("<html><font size=\"3\"><b>\nЗаказы\n&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp ", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")), pan5); // NOI18N
 
@@ -314,6 +322,9 @@ public class Man extends javax.swing.JFrame {
 
         pan4.add(pan7, java.awt.BorderLayout.CENTER);
 
+        pan10.setPreferredSize(new java.awt.Dimension(120, 30));
+        pan10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
+
         btn12.setFont(frames.Util.getFont(0,1));
         btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b009.gif"))); // NOI18N
         btn12.setText("Выход");
@@ -327,7 +338,9 @@ public class Man extends javax.swing.JFrame {
                 mnExit(evt);
             }
         });
-        pan4.add(btn12, java.awt.BorderLayout.EAST);
+        pan10.add(btn12);
+
+        pan4.add(pan10, java.awt.BorderLayout.EAST);
 
         tabb4.addTab("<html><font size=\"3\"><b>\nСправочники\n&nbsp;&nbsp;&nbsp;&nbsp", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b010.gif")), pan4); // NOI18N
 
@@ -384,6 +397,9 @@ public class Man extends javax.swing.JFrame {
 
         pan6.add(pan9, java.awt.BorderLayout.CENTER);
 
+        pan11.setPreferredSize(new java.awt.Dimension(120, 30));
+        pan11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
+
         btn14.setFont(frames.Util.getFont(0,1));
         btn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b009.gif"))); // NOI18N
         btn14.setText("Выход");
@@ -397,7 +413,9 @@ public class Man extends javax.swing.JFrame {
                 mnExit(evt);
             }
         });
-        pan6.add(btn14, java.awt.BorderLayout.EAST);
+        pan11.add(btn14);
+
+        pan6.add(pan11, java.awt.BorderLayout.EAST);
 
         tabb4.addTab("<html><font size=\"3\"><b>\nОтчёты\n&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b014.gif")), pan6); // NOI18N
 
@@ -561,6 +579,9 @@ public class Man extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem mn62;
     private javax.swing.JCheckBoxMenuItem mn63;
     private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan10;
+    private javax.swing.JPanel pan11;
+    private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;

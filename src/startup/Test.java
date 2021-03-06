@@ -1,8 +1,6 @@
 package startup;
 
-import builder.script.JsonArea;
 import builder.script.JsonRoot;
-import builder.script.JsonElem;
 import builder.script.Winscript;
 import common.*;
 import dataset.*;
@@ -12,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.Arrays;
+import java.util.UUID;
 
 public class Test {
 
@@ -24,6 +23,7 @@ public class Test {
             //frame();
             //json();
             //parse();
+            uid();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -145,12 +145,12 @@ public class Test {
         builder.Wincalc iwin = new builder.Wincalc();
         String script = Winscript.test(601004, false);
         iwin.build(script);
-        
+
         GsonBuilder builder = new GsonBuilder();
         //builder.registerTypeAdapter(Element.class, new GsonDeserializer<Element>());
         //builder.setPrettyPrinting();
         JsonRoot root = builder.create().fromJson(script, JsonRoot.class);
-        
+
         System.out.println(root.color(1));
 //        
 //        for (Element el : root.getElements()) {
@@ -200,4 +200,15 @@ public class Test {
         con.createConnection(num_base);
         return con.getConnection();
     }
+
+    private static void uid() {
+
+        UUID idOne = UUID.randomUUID();
+        String str = "" + idOne;
+        int uid = str.hashCode();
+        String filterStr = "" + uid;
+        str = filterStr.replaceAll("-", "");
+        System.out.println(Integer.parseInt(str));
+    }
+
 }

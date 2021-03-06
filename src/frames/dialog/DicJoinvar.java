@@ -14,6 +14,7 @@ import common.ListenerRecord;
 
 public class DicJoinvar extends javax.swing.JDialog {
 
+    private static final int serialVersionUID = 1190782744;
     private ImageIcon icon[] = {
         new ImageIcon(getClass().getResource("/resource/img16/b000.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b001.gif")),

@@ -166,9 +166,11 @@ public class TestFrame extends javax.swing.JFrame {
         btn3 = new javax.swing.JButton();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
+        south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("TEST");
+        setPreferredSize(new java.awt.Dimension(900, 800));
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -195,7 +197,7 @@ public class TestFrame extends javax.swing.JFrame {
         northLayout.setHorizontalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
-                .addContainerGap(649, Short.MAX_VALUE)
+                .addContainerGap(647, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -389,6 +391,10 @@ public class TestFrame extends javax.swing.JFrame {
 
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
+        south.setPreferredSize(new java.awt.Dimension(688, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -486,6 +492,7 @@ public class TestFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
+    private javax.swing.JPanel south;
     private javax.swing.JTextField sql1;
     private javax.swing.JTextField sql2;
     private javax.swing.JTextField sql3;

@@ -14,6 +14,7 @@ import common.ListenerObject;
  */
 public class DicDate extends javax.swing.JDialog {
 
+    private static final int serialVersionUID = 2077590997;
     protected int rangeTopYear = 25;
     protected ListenerObject listener;
     protected GregorianCalendar appCalendar = new GregorianCalendar();

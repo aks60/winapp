@@ -13,6 +13,7 @@ import common.ListenerRecord;
 //Справочник фурнитур
 public class DicName extends javax.swing.JDialog {
 
+    private static final int serialVersionUID = 1510465996;
     private ListenerRecord listener = null;
     private Set<String> set = null;
     private Query query = null;

@@ -22,6 +22,7 @@ import common.ListenerRecord;
 //Справочник артикулов
 public class DicArtikl2 extends javax.swing.JDialog {
 
+    private static final int serialVersionUID = 1338000300;
     private ListenerRecord listener = null;
     private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
     private Query qArtiklAll = new Query(eArtikl.values());

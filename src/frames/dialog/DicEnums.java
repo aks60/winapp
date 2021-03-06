@@ -13,6 +13,7 @@ import common.ListenerRecord;
 //Справочник наборов Tnum
 public class DicEnums extends javax.swing.JDialog {
 
+    private static final int serialVersionUID = 1013765768;
     private ListenerRecord listener = null;
     private Enam[] enam = null;
 

@@ -19,6 +19,7 @@ import common.ListenerRecord;
 
 public class ParGrup2 extends javax.swing.JDialog {
 
+    private static final int serialVersionUID = 343749179;
     private Frame parent = null;
     private ListenerRecord listener;
     private Query qParams = new Query(eParams.values());

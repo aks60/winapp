@@ -11,6 +11,7 @@ import common.ListenerFrame;
 
 public class DicParlist extends javax.swing.JDialog implements ListenerFrame<Object, Object> {
 
+    private static final int serialVersionUID = 1749136493;
     private ListenerRecord listenet;
 
     public DicParlist(java.awt.Frame parent, ListenerRecord listenet, int... part) {
