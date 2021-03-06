@@ -373,7 +373,7 @@ public class Partner extends javax.swing.JFrame {
         lab47.setPreferredSize(new java.awt.Dimension(98, 18));
 
         txt12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt12.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt12.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab48.setFont(frames.Util.getFont(0,0));
         lab48.setText("Телефон");
@@ -384,7 +384,7 @@ public class Partner extends javax.swing.JFrame {
         lab48.setPreferredSize(new java.awt.Dimension(98, 18));
 
         txt13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt13.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt13.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab49.setFont(frames.Util.getFont(0,0));
         lab49.setText("Адрес 2го уровня");
@@ -395,7 +395,7 @@ public class Partner extends javax.swing.JFrame {
         lab49.setPreferredSize(new java.awt.Dimension(98, 18));
 
         txt14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt14.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt14.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab50.setFont(frames.Util.getFont(0,0));
         lab50.setText("Примечание");
@@ -406,7 +406,7 @@ public class Partner extends javax.swing.JFrame {
         lab50.setPreferredSize(new java.awt.Dimension(98, 18));
 
         txt15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt15.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt15.setPreferredSize(new java.awt.Dimension(300, 18));
 
         javax.swing.GroupLayout pan4Layout = new javax.swing.GroupLayout(pan4);
         pan4.setLayout(pan4Layout);
@@ -468,7 +468,7 @@ public class Partner extends javax.swing.JFrame {
         lab36.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt8.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt8.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab37.setFont(frames.Util.getFont(0,0));
         lab37.setText("Адрес 1го уровн...");
@@ -479,7 +479,7 @@ public class Partner extends javax.swing.JFrame {
         lab37.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt9.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt9.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab38.setFont(frames.Util.getFont(0,0));
         lab38.setText("Телефон");
@@ -490,7 +490,7 @@ public class Partner extends javax.swing.JFrame {
         lab38.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt10.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt10.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab39.setFont(frames.Util.getFont(0,0));
         lab39.setText("Факс");
@@ -501,7 +501,7 @@ public class Partner extends javax.swing.JFrame {
         lab39.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt11.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt11.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab40.setFont(frames.Util.getFont(0,0));
         lab40.setText("Банк");
@@ -512,7 +512,7 @@ public class Partner extends javax.swing.JFrame {
         lab40.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt1.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt1.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab41.setFont(frames.Util.getFont(0,0));
         lab41.setText("ИНН");
@@ -523,7 +523,7 @@ public class Partner extends javax.swing.JFrame {
         lab41.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt2.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt2.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab42.setFont(frames.Util.getFont(0,0));
         lab42.setText("Р/С");
@@ -534,7 +534,7 @@ public class Partner extends javax.swing.JFrame {
         lab42.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt3.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt3.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab45.setFont(frames.Util.getFont(0,0));
         lab45.setText("БИК");
@@ -545,7 +545,7 @@ public class Partner extends javax.swing.JFrame {
         lab45.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt4.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt4.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab46.setFont(frames.Util.getFont(0,0));
         lab46.setText("К/С");
@@ -556,7 +556,7 @@ public class Partner extends javax.swing.JFrame {
         lab46.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt5.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt5.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab43.setFont(frames.Util.getFont(0,0));
         lab43.setText("КПП");
@@ -567,7 +567,7 @@ public class Partner extends javax.swing.JFrame {
         lab43.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt6.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt6.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab44.setFont(frames.Util.getFont(0,0));
         lab44.setText("ОГРН");
@@ -578,7 +578,7 @@ public class Partner extends javax.swing.JFrame {
         lab44.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt7.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt7.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab51.setFont(frames.Util.getFont(0,0));
         lab51.setText("Примечание");
@@ -589,7 +589,7 @@ public class Partner extends javax.swing.JFrame {
         lab51.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt16.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt16.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab52.setFont(frames.Util.getFont(0,0));
         lab52.setText("Адрес 2го уровн...");
@@ -600,7 +600,7 @@ public class Partner extends javax.swing.JFrame {
         lab52.setPreferredSize(new java.awt.Dimension(96, 18));
 
         txt17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt17.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt17.setPreferredSize(new java.awt.Dimension(300, 18));
 
         javax.swing.GroupLayout pan3Layout = new javax.swing.GroupLayout(pan3);
         pan3.setLayout(pan3Layout);
