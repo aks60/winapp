@@ -92,16 +92,14 @@ public class Order extends javax.swing.JFrame {
                 return val;
             }
         };
-        tab2.setModel(new DefaultTableModel() {
+        new DefTableModel(tab2, qPrjprod, ePrjprod.name, ePrjprod.script) {
             @Override
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
                 if (columnIndex == 0) {
                     qPrjprod.set(aValue, Util.getIndexRec(tab2), ePrjprod.name);
-                } else {
-                    setValueAt(aValue, rowIndex, columnIndex);
                 }
             }
-        });
+        };
 
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
@@ -111,8 +109,12 @@ public class Order extends javax.swing.JFrame {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 1) {
-                    Icon icon = (Icon) value;
-                    label.setIcon(icon);
+                    Object v = qPrjprod.get(Util.getIndexRec(tab2)).get(ePrjprod.values().length);
+                    if (v instanceof Icon) {
+                        Icon icon = (Icon) v;
+                        label.setIcon(icon);
+                        label.setText(null);
+                    }
                 } else {
                     label.setIcon(null);
                 }
@@ -222,13 +224,13 @@ public class Order extends javax.swing.JFrame {
         Record projectRec = qProject.get(Util.getIndexRec(tab1));
         int id = projectRec.getInt(eProject.id);
         qPrjprod.select(ePrjprod.up, "where", ePrjprod.order_id, "=", id);
-        ((DefaultTableModel) tab2.getModel()).getDataVector().removeAllElements();
-        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        //((DefaultTableModel) tab2.getModel()).getDataVector().removeAllElements();
+        //((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
 
         int length = 68;
         for (Record record : qPrjprod) {
             try {
-                Object arrayRec[] = {record.get(ePrjprod.name), null};
+                //Object arrayRec[] = {record.get(ePrjprod.name), null};
                 Object script = record.get(ePrjprod.script);
                 iwin.build(script.toString());
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
@@ -239,8 +241,10 @@ public class Order extends javax.swing.JFrame {
                 iwin.gc2d.scale(iwin.scale, iwin.scale);
                 iwin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
-                arrayRec[1] = image;
-                ((DefaultTableModel) tab2.getModel()).addRow(arrayRec);
+                record.add(image);
+                //arrayRec[1] = image;
+                //((DefaultTableModel) tab2.getModel()).addRow(arrayRec);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
 
             } catch (Exception e) {
                 System.err.println("Ошибка:Order.loadingTab2() " + e);
@@ -587,7 +591,7 @@ public class Order extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 725, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 661, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -856,10 +860,8 @@ public class Order extends javax.swing.JFrame {
         tab2.setRowHeight(68);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(1).setMinWidth(68);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(180);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(68);
-            tab2.getColumnModel().getColumn(1).setMaxWidth(68);
         }
 
         pan4.add(scr2, java.awt.BorderLayout.CENTER);
@@ -949,7 +951,7 @@ public class Order extends javax.swing.JFrame {
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(lab32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
+                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(lab27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -998,7 +1000,7 @@ public class Order extends javax.swing.JFrame {
         pan12.setLayout(pan12Layout);
         pan12Layout.setHorizontalGroup(
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+            .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
             .addGroup(pan12Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addComponent(lab25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1163,17 +1165,17 @@ public class Order extends javax.swing.JFrame {
             .addGroup(pan13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                    .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)))
+                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan13Layout.setVerticalGroup(
@@ -1235,13 +1237,13 @@ public class Order extends javax.swing.JFrame {
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)))
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan15Layout.setVerticalGroup(
@@ -1434,7 +1436,7 @@ public class Order extends javax.swing.JFrame {
                             .addComponent(lab37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                            .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                             .addComponent(txt25, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                             .addComponent(txt22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
