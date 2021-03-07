@@ -512,7 +512,11 @@ public class Man extends javax.swing.JFrame {
     }//GEN-LAST:event_btn6
 
     private void btn7(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7
-        // TODO add your handling code here:
+    FrameProgress.create(Man.this, new ListenerFrame() {
+        public void actionRequest(Object obj) {
+            App.Specific.createFrame(Man.this);
+        }
+    });
     }//GEN-LAST:event_btn7
 
     private void btn8(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8

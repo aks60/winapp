@@ -30,10 +30,11 @@ import common.ListenerObject;
 import common.eProfile;
 import common.eProperty;
 import dataset.ConnApp;
+import domain.eArtikl;
+import domain.eColor;
 import domain.ePrjprod;
 import domain.eSysprod;
 import enums.TypeElem;
-import frames.dialog.DicArtikl;
 import frames.dialog.DicSyspod;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
@@ -45,6 +46,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -53,7 +55,7 @@ import startup.App;
 
 public class Order extends javax.swing.JFrame {
 
-    private Query qPrjcontr = new Query(ePrjpart.values());
+    private Query qPrjpart = new Query(ePrjpart.values());
     private Query qProject = new Query(eProject.values());
     private Query qPrjprod = new Query(ePrjprod.values());
     private Wincalc iwin = new Wincalc();
@@ -73,7 +75,7 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qPrjcontr.select(ePrjpart.up);
+        qPrjpart.select(ePrjpart.up);
         qProject.select(eProject.up, "order by", eProject.num_ord);
         qPrjprod.select(ePrjprod.up);
     }
@@ -84,12 +86,22 @@ public class Order extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eProject.prjpart_id) {
-                    Record record = qPrjcontr.stream().filter(rec -> rec.get(ePrjpart.id).equals(val)).findFirst().orElse(ePrjpart.up.newRecord());
+                    Record record = qPrjpart.stream().filter(rec -> rec.get(ePrjpart.id).equals(val)).findFirst().orElse(ePrjpart.up.newRecord());
                     return record.get(ePrjpart.partner);
                 }
                 return val;
             }
         };
+        tab2.setModel(new DefaultTableModel() {
+            @Override
+            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+                if (columnIndex == 0) {
+                    qPrjprod.set(aValue, Util.getIndexRec(tab2), ePrjprod.name);
+                } else {
+                    setValueAt(aValue, rowIndex, columnIndex);
+                }
+            }
+        });
 
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
@@ -205,11 +217,12 @@ public class Order extends javax.swing.JFrame {
 
     private void loadingTab2() {
 
+        Util.stopCellEditing(tab1, tab2);
+        Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
         Record projectRec = qProject.get(Util.getIndexRec(tab1));
         int id = projectRec.getInt(eProject.id);
         qPrjprod.select(ePrjprod.up, "where", ePrjprod.order_id, "=", id);
-        DefaultTableModel dm = (DefaultTableModel) tab2.getModel();
-        dm.getDataVector().removeAllElements();
+        ((DefaultTableModel) tab2.getModel()).getDataVector().removeAllElements();
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
 
         int length = 68;
@@ -227,7 +240,7 @@ public class Order extends javax.swing.JFrame {
                 iwin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
                 arrayRec[1] = image;
-                dm.addRow(arrayRec);
+                ((DefaultTableModel) tab2.getModel()).addRow(arrayRec);
 
             } catch (Exception e) {
                 System.err.println("Ошибка:Order.loadingTab2() " + e);
@@ -314,22 +327,22 @@ public class Order extends javax.swing.JFrame {
             //Основные
             if (windowsNode.com5t().type() == TypeElem.RECTANGL || windowsNode.com5t().type() == TypeElem.ARCH) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card12");
-//                ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type().name);
-//                pan12.repaint();
-//                txt9.setText(eColor.find(iwin.colorID1).getStr(eColor.name));
-//                txt13.setText(eColor.find(iwin.colorID2).getStr(eColor.name));
-//                txt14.setText(eColor.find(iwin.colorID3).getStr(eColor.name));
+                ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type().name);
+                pan12.repaint();
+                txt9.setText(eColor.find(iwin.colorID1).getStr(eColor.name));
+                txt13.setText(eColor.find(iwin.colorID2).getStr(eColor.name));
+                txt14.setText(eColor.find(iwin.colorID3).getStr(eColor.name));
 
                 //Рама, импост...
             } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE
                     || windowsNode.com5t().type() == TypeElem.STVORKA_SIDE || windowsNode.com5t().type() == TypeElem.IMPOST) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card13");
-//                ((TitledBorder) pan13.getBorder()).setTitle(windowsNode.toString());
-//                txt32.setText(windowsNode.com5t().artiklRec.getStr(eArtikl.code));
-//                txt33.setText(windowsNode.com5t().artiklRec.getStr(eArtikl.name));
-//                txt27.setText(eColor.find(windowsNode.com5t().colorID1).getStr(eColor.name));
-//                txt28.setText(eColor.find(windowsNode.com5t().colorID2).getStr(eColor.name));
-//                txt29.setText(eColor.find(windowsNode.com5t().colorID3).getStr(eColor.name));
+                ((TitledBorder) pan13.getBorder()).setTitle(windowsNode.toString());
+                txt32.setText(windowsNode.com5t().artiklRec.getStr(eArtikl.code));
+                txt33.setText(windowsNode.com5t().artiklRec.getStr(eArtikl.name));
+                txt27.setText(eColor.find(windowsNode.com5t().colorID1).getStr(eColor.name));
+                txt28.setText(eColor.find(windowsNode.com5t().colorID2).getStr(eColor.name));
+                txt29.setText(eColor.find(windowsNode.com5t().colorID3).getStr(eColor.name));
 
                 //Стеклопакет
             } else if (windowsNode.com5t().type() == TypeElem.GLASS) {
@@ -1608,11 +1621,10 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-//        Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-//        loadingData();
-//        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-//        Util.setSelectedRow(tab1);
-        qPrjcontr.execsql();
+        Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
+        loadingData();
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -1683,13 +1695,13 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFilter
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Util.stopCellEditing(tab1);
+        Util.stopCellEditing(tab1, tab2);
         eProperty.save(); //запишем текущий ordersId в файл
-        Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        Util.updateBorderAndSql(tab1, Arrays.asList(tab1));
+        Util.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn() == -1 || tab1.getSelectedColumn() == 0) ? 0 : tab1.getSelectedColumn()));
             txtFilter.setName(tab1.getName());

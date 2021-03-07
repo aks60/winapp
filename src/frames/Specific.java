@@ -36,9 +36,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableCellRenderer;
-import startup.Tex;
 import startup.App;
 import common.ListenerFrame;
+import common.eProfile;
+import domain.ePrjprod;
 
 public class Specific extends javax.swing.JFrame {
 
@@ -64,19 +65,36 @@ public class Specific extends javax.swing.JFrame {
     private void createIwin() {
 
         iwin = new Wincalc();
-        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
-        Record sysprodRec = eSysprod.find(sysprodID);
-
-        if (sysprodRec != null) {            
-            String script = sysprodRec.getStr(eSysprod.script);
-            if (script.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
-            } else {
-                JsonElement je = new Gson().fromJson(script, JsonElement.class);
-                je.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id));
-                iwin.build(je.toString());
-                Query.listOpenTable.forEach(q -> q.clear());
-                iwin.constructiv();
+        //System.out.println(eProfile.profile);
+        if (eProfile.profile == eProfile.P02) {
+            int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+            Record sysprodRec = eSysprod.find(sysprodID);
+            if (sysprodRec != null) {
+                String script = sysprodRec.getStr(eSysprod.script);
+                if (script.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
+                } else {
+                    JsonElement je = new Gson().fromJson(script, JsonElement.class);
+                    je.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id));
+                    iwin.build(je.toString());
+                    Query.listOpenTable.forEach(q -> q.clear());
+                    iwin.constructiv();
+                }
+            }
+        } else {
+            int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
+            Record prjprodRec = ePrjprod.find(prjprodID);
+            if (prjprodRec != null) {
+                String script = prjprodRec.getStr(ePrjprod.script);
+                if (script.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Выберите конструкцию в списке заказов", "Предупреждение", JOptionPane.OK_OPTION);
+                } else {
+                    JsonElement je = new Gson().fromJson(script, JsonElement.class);
+                    je.getAsJsonObject().addProperty("nuni", prjprodRec.getInt(ePrjprod.systree_id));
+                    iwin.build(je.toString());
+                    Query.listOpenTable.forEach(q -> q.clear());
+                    iwin.constructiv();
+                }
             }
         }
     }
