@@ -60,6 +60,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import startup.App;
 
 public class Order extends javax.swing.JFrame {
@@ -67,7 +68,6 @@ public class Order extends javax.swing.JFrame {
     private Query qPrjpart = new Query(ePrjpart.values());
     private Query qProject = new Query(eProject.values());
     private Query qPrjprod = new Query(ePrjprod.values());
-    //private Query qSystree = new Query(eSystree.values());
     private Wincalc iwin = new Wincalc();
     private DefMutableTreeNode windowsNode = null;
     private Canvas paintPanel = new Canvas(iwin);
@@ -206,7 +206,6 @@ public class Order extends javax.swing.JFrame {
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }, set);
         });
-
     }
 
     public void listenerSet() {
@@ -297,25 +296,25 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void selectionTab2() {
-        int index = Util.getIndexRec(tab2);
-        if (index != -1) {
-            Record prjprodRec = qPrjprod.get(index);
-            String script = prjprodRec.getStr(ePrjprod.script);
-            eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
-            App.Top.frame.setTitle(eProfile.profile.title + Util.designTitle());
-
-            //Калькуляция и прорисовка окна
-            if (script != null && script.isEmpty() == false) {
-                JsonElement script2 = gson.fromJson(script, JsonElement.class);
-                iwin.build(script2.toString()); //построение изделия
-                paintPanel.repaint(true);
-                loadingWin();
-
-            } else {
-                Graphics2D g = (Graphics2D) paintPanel.getGraphics();
-                g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
-            }
-        }
+//        int index = Util.getIndexRec(tab2);
+//        if (index != -1) {
+//            Record prjprodRec = qPrjprod.get(index);
+//            String script = prjprodRec.getStr(ePrjprod.script);
+//            eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
+//            App.Top.frame.setTitle(eProfile.profile.title + Util.designTitle());
+//
+//            //Калькуляция и прорисовка окна
+//            if (script != null && script.isEmpty() == false) {
+//                JsonElement script2 = gson.fromJson(script, JsonElement.class);
+//                iwin.build(script2.toString()); //построение изделия
+//                paintPanel.repaint(true);
+//                loadingWin();
+//
+//            } else {
+//                Graphics2D g = (Graphics2D) paintPanel.getGraphics();
+//                g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
+//            }
+//        }
     }
 
     private void selectionWin() {
@@ -373,6 +372,23 @@ public class Order extends javax.swing.JFrame {
 //                    txt29, txt19, txt20, txt30).forEach(it -> it.setCaretPosition(0));
 //            Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
+    }
+
+    private void updateScript(float selectID) {
+        String script = gson.toJson(iwin.jsonRoot);
+        Record prjprodRec = qPrjprod.get(Util.getIndexRec(tab2));
+        prjprodRec.set(ePrjprod.script, script);
+        qPrjprod.update(prjprodRec);
+        selectionTab2();
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) windowsTree.getModel().getRoot();
+        do {
+            if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
+                TreePath path = new TreePath(node.getPath());
+                windowsTree.setSelectionPath(path);
+                windowsTree.scrollPathToVisible(path);
+            }
+            node = node.getNextNode();
+        } while (node != null);
     }
 
     @SuppressWarnings("unchecked")
@@ -894,6 +910,11 @@ public class Order extends javax.swing.JFrame {
         btn13.setMinimumSize(new java.awt.Dimension(18, 18));
         btn13.setName("btn13"); // NOI18N
         btn13.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorToWindows(evt);
+            }
+        });
 
         btn2.setText("...");
         btn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -901,6 +922,11 @@ public class Order extends javax.swing.JFrame {
         btn2.setMinimumSize(new java.awt.Dimension(18, 18));
         btn2.setName("btn2"); // NOI18N
         btn2.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorToWindows(evt);
+            }
+        });
 
         txt9.setEditable(false);
         txt9.setBackground(new java.awt.Color(255, 255, 255));
@@ -1570,80 +1596,82 @@ public class Order extends javax.swing.JFrame {
 
     private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
         try {
-            float selectID = windowsNode.com5t().id();
-            HashSet<Record> set = new HashSet();
-            Record systreeRec = new Query(eSystree.values()).select(eSystree.up, "where", eSystree.id, "=", 33).get(0);
-            String[] arr2 = systreeRec.getStr(eSystree.cgrp).split(";");
-            String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
-            String jfield = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
-            Integer[] arr2 = builder.specif.Util.parserInt(jfield);
-            if (arr1 != null) {
-                for (String s1 : arr1) { //группы
-                    HashSet<Record> se2 = new HashSet();
-                    boolean b = false;
-                    for (Record rec : eColor.query()) {
+            if (windowsNode != null) {
+                float selectID = windowsNode.com5t().id();
+                HashSet<Record> set = new HashSet();
+                int id = qPrjprod.getAs(Util.getIndexRec(tab2), ePrjprod.id);
+                Record systreeRec = eSystree.find(id);
+                String[] arr1 = (systreeRec.getStr(eSystree.cgrp) != null) ? systreeRec.getStr(eSystree.cgrp).split(";") : null;
+                eSystree col = (evt.getSource() == btn9) ? eSystree.col1 : (evt.getSource() == btn13) ? eSystree.col2 : eSystree.col3;
+                Integer[] arr2 = builder.specif.Util.parserInt(systreeRec.getStr(col));
+                if (arr1 != null) {
+                    for (String s1 : arr1) { //группы
+                        HashSet<Record> se2 = new HashSet();
+                        boolean b = false;
+                        for (Record rec : eColor.query()) {
 
-                        if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-                            se2.add(rec); //текстуры группы
-
-                            for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
-                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                    b = true;
-                                }
-                            }
-                        }
-                    }
-                    if (b == false) { //если небыло пападаний то добавляем всю группу
-                        set.addAll(se2);
-                    }
-                }
-            }
-            if (arr2.length != 0) {
-                for (Record rec : eColor.query()) {
-                    if (arr1 != null) {
-
-                        for (String s1 : arr1) { //группы
                             if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-                                for (int i = 0; i < arr2.length; i = i + 2) { //текстуры
+                                se2.add(rec); //текстуры группы
+
+                                for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
                                     if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                        set.add(rec);
+                                        b = true;
                                     }
                                 }
                             }
                         }
-                    } else {
-                        for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
-                            if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                set.add(rec);
+                        if (b == false) { //если небыло пападаний то добавляем всю группу
+                            set.addAll(se2);
+                        }
+                    }
+                }
+                if (arr2.length != 0) {
+                    for (Record rec : eColor.query()) {
+                        if (arr1 != null) {
+
+                            for (String s1 : arr1) { //группы
+                                if (rec.getStr(eColor.colgrp_id).equals(s1)) {
+                                    for (int i = 0; i < arr2.length; i = i + 2) { //текстуры
+                                        if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                                            set.add(rec);
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
+                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                                    set.add(rec);
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            ListenerRecord listenerColor = (colorRec) -> {
+                ListenerRecord listenerColor = (colorRec) -> {
 
-                builder.script.JsonElem rootArea = iwin.jsonRoot.find(selectID);
-                if (rootArea != null) {
-                    String paramStr = (rootArea.param().isEmpty()) ? "{}" : rootArea.param();
-                    JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
+                    builder.script.JsonElem rootArea = iwin.jsonRoot.find(selectID);
+                    if (rootArea != null) {
+                        String paramStr = (rootArea.param().isEmpty()) ? "{}" : rootArea.param();
+                        JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
 
-                    if (evt.getSource() == btn9) {
-                        jsonObject.addProperty(PKjson.colorID1, colorRec.getStr(eColor.id));
-                    } else if (evt.getSource() == btn13) {
-                        jsonObject.addProperty(PKjson.colorID2, colorRec.getStr(eColor.id));
-                    } else if (evt.getSource() == btn2) {
-                        jsonObject.addProperty(PKjson.colorID3, colorRec.getStr(eColor.id));
+                        if (evt.getSource() == btn9) {
+                            jsonObject.addProperty(PKjson.colorID1, colorRec.getStr(eColor.id));
+                        } else if (evt.getSource() == btn13) {
+                            jsonObject.addProperty(PKjson.colorID2, colorRec.getStr(eColor.id));
+                        } else if (evt.getSource() == btn2) {
+                            jsonObject.addProperty(PKjson.colorID3, colorRec.getStr(eColor.id));
+                        }
+                        paramStr = gson.toJson(jsonObject);
+                        rootArea.param(paramStr);
+                        updateScript(selectID);
                     }
-                    paramStr = gson.toJson(jsonObject);
-                    rootArea.param(paramStr);
-                    updateScript(selectID);
+                };
+                if (arr1 == null && arr2.length == 0) {
+                    new DicColor(this, listenerColor);
+                } else {
+                    new DicColor(this, listenerColor, set);
                 }
-            };
-            if (arr1 == null && arr2.length == 0) {
-                new DicColor(this, listenerColor);
-            } else {
-                new DicColor(this, listenerColor, set);
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
