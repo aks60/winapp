@@ -7,6 +7,7 @@ import builder.model.ElemSimple;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import common.FrameToFile;
 import dataset.Field;
 import dataset.Query;
@@ -28,6 +29,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefFieldEditor;
 import common.ListenerObject;
+import common.ListenerRecord;
 import common.eProfile;
 import common.eProperty;
 import dataset.ConnApp;
@@ -37,8 +39,11 @@ import domain.eFurniture;
 import domain.ePrjprod;
 import domain.eSysfurn;
 import domain.eSysprod;
+import domain.eSystree;
 import enums.LayoutHandle;
+import enums.PKjson;
 import enums.TypeElem;
+import frames.dialog.DicColor;
 import frames.dialog.DicSyspod;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
@@ -62,6 +67,7 @@ public class Order extends javax.swing.JFrame {
     private Query qPrjpart = new Query(ePrjpart.values());
     private Query qProject = new Query(eProject.values());
     private Query qPrjprod = new Query(ePrjprod.values());
+    //private Query qSystree = new Query(eSystree.values());
     private Wincalc iwin = new Wincalc();
     private DefMutableTreeNode windowsNode = null;
     private Canvas paintPanel = new Canvas(iwin);
@@ -110,7 +116,6 @@ public class Order extends javax.swing.JFrame {
                     if (v instanceof Icon) {
                         Icon icon = (Icon) v;
                         label.setIcon(icon);
-                        label.setText(null);
                     }
                 } else {
                     label.setIcon(null);
@@ -123,9 +128,6 @@ public class Order extends javax.swing.JFrame {
         rsvOrders.add(eProject.num_acc, txt2);
         rsvOrders.add(eProject.type_currenc, txt3);
         rsvOrders.add(eProject.pric1, txt4);
-
-        rsvPrjprod = new DefFieldEditor(tab2);
-        //rsvPrjprod.add(ePrjprod.name, txt9);
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
@@ -221,13 +223,10 @@ public class Order extends javax.swing.JFrame {
         Record projectRec = qProject.get(Util.getIndexRec(tab1));
         int id = projectRec.getInt(eProject.id);
         qPrjprod.select(ePrjprod.up, "where", ePrjprod.order_id, "=", id);
-        //((DefaultTableModel) tab2.getModel()).getDataVector().removeAllElements();
-        //((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
 
         int length = 68;
         for (Record record : qPrjprod) {
             try {
-                //Object arrayRec[] = {record.get(ePrjprod.name), null};
                 Object script = record.get(ePrjprod.script);
                 iwin.build(script.toString());
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
@@ -239,8 +238,6 @@ public class Order extends javax.swing.JFrame {
                 iwin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
                 record.add(image);
-                //arrayRec[1] = image;
-                //((DefaultTableModel) tab2.getModel()).addRow(arrayRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
 
             } catch (Exception e) {
@@ -419,8 +416,6 @@ public class Order extends javax.swing.JFrame {
         pan5 = new javax.swing.JPanel();
         pan8 = new javax.swing.JPanel();
         pan12 = new javax.swing.JPanel();
-        lab25 = new javax.swing.JLabel();
-        lab26 = new javax.swing.JLabel();
         pan21 = new javax.swing.JPanel();
         lab27 = new javax.swing.JLabel();
         lab31 = new javax.swing.JLabel();
@@ -431,8 +426,6 @@ public class Order extends javax.swing.JFrame {
         txt9 = new javax.swing.JTextField();
         txt13 = new javax.swing.JTextField();
         txt14 = new javax.swing.JTextField();
-        txt10 = new javax.swing.JTextField();
-        txt12 = new javax.swing.JTextField();
         pan13 = new javax.swing.JPanel();
         pan20 = new javax.swing.JPanel();
         lab28 = new javax.swing.JLabel();
@@ -865,16 +858,6 @@ public class Order extends javax.swing.JFrame {
         pan12.setToolTipText("");
         pan12.setPreferredSize(new java.awt.Dimension(300, 200));
 
-        lab25.setFont(frames.Util.getFont(0,0));
-        lab25.setText("NUNI-PS4");
-        lab25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab25.setPreferredSize(new java.awt.Dimension(60, 18));
-
-        lab26.setFont(frames.Util.getFont(0,0));
-        lab26.setText("NUNI-PS5");
-        lab26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab26.setPreferredSize(new java.awt.Dimension(60, 18));
-
         pan21.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Текстура изделия", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 0)));
         pan21.setPreferredSize(new java.awt.Dimension(308, 104));
 
@@ -899,6 +882,11 @@ public class Order extends javax.swing.JFrame {
         btn9.setMinimumSize(new java.awt.Dimension(18, 18));
         btn9.setName("btn9"); // NOI18N
         btn9.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorToWindows(evt);
+            }
+        });
 
         btn13.setText("...");
         btn13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -976,41 +964,17 @@ public class Order extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        txt10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt10.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt10.setPreferredSize(new java.awt.Dimension(40, 18));
-
-        txt12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt12.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt12.setPreferredSize(new java.awt.Dimension(40, 18));
-
         javax.swing.GroupLayout pan12Layout = new javax.swing.GroupLayout(pan12);
         pan12.setLayout(pan12Layout);
         pan12Layout.setHorizontalGroup(
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
-            .addGroup(pan12Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(lab25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lab26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pan12Layout.setVerticalGroup(
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan12Layout.createSequentialGroup()
                 .addComponent(pan21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lab26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         pan8.add(pan12, "card12");
@@ -1604,6 +1568,88 @@ public class Order extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_btn1ActionPerformed
 
+    private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
+        try {
+            float selectID = windowsNode.com5t().id();
+            HashSet<Record> set = new HashSet();
+            Record systreeRec = new Query(eSystree.values()).select(eSystree.up, "where", eSystree.id, "=", 33).get(0);
+            String[] arr2 = systreeRec.getStr(eSystree.cgrp).split(";");
+            String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
+            String jfield = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
+            Integer[] arr2 = builder.specif.Util.parserInt(jfield);
+            if (arr1 != null) {
+                for (String s1 : arr1) { //группы
+                    HashSet<Record> se2 = new HashSet();
+                    boolean b = false;
+                    for (Record rec : eColor.query()) {
+
+                        if (rec.getStr(eColor.colgrp_id).equals(s1)) {
+                            se2.add(rec); //текстуры группы
+
+                            for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
+                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                                    b = true;
+                                }
+                            }
+                        }
+                    }
+                    if (b == false) { //если небыло пападаний то добавляем всю группу
+                        set.addAll(se2);
+                    }
+                }
+            }
+            if (arr2.length != 0) {
+                for (Record rec : eColor.query()) {
+                    if (arr1 != null) {
+
+                        for (String s1 : arr1) { //группы
+                            if (rec.getStr(eColor.colgrp_id).equals(s1)) {
+                                for (int i = 0; i < arr2.length; i = i + 2) { //текстуры
+                                    if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                                        set.add(rec);
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
+                            if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                                set.add(rec);
+                            }
+                        }
+                    }
+                }
+            }
+
+            ListenerRecord listenerColor = (colorRec) -> {
+
+                builder.script.JsonElem rootArea = iwin.jsonRoot.find(selectID);
+                if (rootArea != null) {
+                    String paramStr = (rootArea.param().isEmpty()) ? "{}" : rootArea.param();
+                    JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
+
+                    if (evt.getSource() == btn9) {
+                        jsonObject.addProperty(PKjson.colorID1, colorRec.getStr(eColor.id));
+                    } else if (evt.getSource() == btn13) {
+                        jsonObject.addProperty(PKjson.colorID2, colorRec.getStr(eColor.id));
+                    } else if (evt.getSource() == btn2) {
+                        jsonObject.addProperty(PKjson.colorID3, colorRec.getStr(eColor.id));
+                    }
+                    paramStr = gson.toJson(jsonObject);
+                    rootArea.param(paramStr);
+                    updateScript(selectID);
+                }
+            };
+            if (arr1 == null && arr2.length == 0) {
+                new DicColor(this, listenerColor);
+            } else {
+                new DicColor(this, listenerColor, set);
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_colorToWindows
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
@@ -1628,8 +1674,6 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
-    private javax.swing.JLabel lab25;
-    private javax.swing.JLabel lab26;
     private javax.swing.JLabel lab27;
     private javax.swing.JLabel lab28;
     private javax.swing.JLabel lab29;
@@ -1680,8 +1724,6 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JTable tab3;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JTextField txt1;
-    private javax.swing.JTextField txt10;
-    private javax.swing.JTextField txt12;
     private javax.swing.JTextField txt13;
     private javax.swing.JTextField txt14;
     private javax.swing.JTextField txt16;
