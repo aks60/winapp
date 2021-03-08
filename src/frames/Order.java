@@ -112,7 +112,8 @@ public class Order extends javax.swing.JFrame {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 1) {
-                    Object v = qPrjprod.get(Util.getIndexRec(tab2)).get(ePrjprod.values().length);
+                    int index = table.convertRowIndexToModel(row);                  
+                    Object v = qPrjprod.get(index).get(ePrjprod.values().length);
                     if (v instanceof Icon) {
                         Icon icon = (Icon) v;
                         label.setIcon(icon);
