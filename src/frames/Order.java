@@ -153,7 +153,6 @@ public class Order extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
                 record2.set(eProject.date4, calendar.getTime());
-                //qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
                 return true;
             }, 0);
@@ -165,7 +164,6 @@ public class Order extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
                 record2.set(eProject.date6, calendar.getTime());
-                //qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
                 return true;
             }, 0);
@@ -176,7 +174,6 @@ public class Order extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
                 record2.set(eProject.prjpart_id, record.getInt(ePrjpart.id));
-                //qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
         });
@@ -190,7 +187,6 @@ public class Order extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
                 record2.set(eProject.categ, record.getStr(0));
-                //qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }, set);
         });
@@ -202,7 +198,6 @@ public class Order extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
                 record2.set(eProject.categ, record.getStr(0));
-                //qProject.update(record2);
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }, set);
         });
@@ -296,25 +291,25 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void selectionTab2() {
-//        int index = Util.getIndexRec(tab2);
-//        if (index != -1) {
-//            Record prjprodRec = qPrjprod.get(index);
-//            String script = prjprodRec.getStr(ePrjprod.script);
-//            eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
-//            App.Top.frame.setTitle(eProfile.profile.title + Util.designTitle());
-//
-//            //Калькуляция и прорисовка окна
-//            if (script != null && script.isEmpty() == false) {
-//                JsonElement script2 = gson.fromJson(script, JsonElement.class);
-//                iwin.build(script2.toString()); //построение изделия
-//                paintPanel.repaint(true);
-//                loadingWin();
-//
-//            } else {
-//                Graphics2D g = (Graphics2D) paintPanel.getGraphics();
-//                g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
-//            }
-//        }
+        int index = Util.getIndexRec(tab2);
+        if (index != -1) {
+            Record prjprodRec = qPrjprod.get(index);
+            String script = prjprodRec.getStr(ePrjprod.script);
+            eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
+            App.Top.frame.setTitle(eProfile.profile.title + Util.designTitle());
+
+            //Калькуляция и прорисовка окна
+            if (script != null && script.isEmpty() == false) {
+                JsonElement script2 = gson.fromJson(script, JsonElement.class);
+                iwin.build(script2.toString()); //построение изделия
+                paintPanel.repaint(true);
+                loadingWin();
+
+            } else {
+                Graphics2D g = (Graphics2D) paintPanel.getGraphics();
+                g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
+            }
+        }
     }
 
     private void selectionWin() {
@@ -368,9 +363,9 @@ public class Order extends javax.swing.JFrame {
                 txt21.setText(stv.handlRec.getStr(eArtikl.name));
                 txt25.setText(eColor.find(stv.handlColor).getStr(eColor.name));
             }
-//            Arrays.asList(txt9, txt13, txt14, txt27, txt28,
-//                    txt29, txt19, txt20, txt30).forEach(it -> it.setCaretPosition(0));
-//            Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
+            Arrays.asList(txt9, txt13, txt14, txt27, txt28,
+                    txt29, txt19, txt20, txt30).forEach(it -> it.setCaretPosition(0));
+            Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
     }
 
@@ -1599,9 +1594,9 @@ public class Order extends javax.swing.JFrame {
             if (windowsNode != null) {
                 float selectID = windowsNode.com5t().id();
                 HashSet<Record> set = new HashSet();
-                int id = qPrjprod.getAs(Util.getIndexRec(tab2), ePrjprod.id);
-                Record systreeRec = eSystree.find(id);
-                String[] arr1 = (systreeRec.getStr(eSystree.cgrp) != null) ? systreeRec.getStr(eSystree.cgrp).split(";") : null;
+                int systreeID = qPrjprod.getAs(Util.getIndexRec(tab2), ePrjprod.systree_id);
+                Record systreeRec = eSystree.find(systreeID);
+                String[] arr1 = (systreeRec.getStr(eSystree.cgrp).isEmpty() == false) ? systreeRec.getStr(eSystree.cgrp).split(";") : null;
                 eSystree col = (evt.getSource() == btn9) ? eSystree.col1 : (evt.getSource() == btn13) ? eSystree.col2 : eSystree.col3;
                 Integer[] arr2 = builder.specif.Util.parserInt(systreeRec.getStr(col));
                 if (arr1 != null) {
