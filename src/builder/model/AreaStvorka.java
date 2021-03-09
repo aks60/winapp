@@ -28,7 +28,7 @@ import java.util.List;
 public class AreaStvorka extends AreaSimple {
 
     public Record sysfurnRec = eSysfurn.up.newRecord(); //фурнитура
-    public TypeOpen1 typeOpen = TypeOpen1.LEFT; //направление открывания
+    public TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
     public Record handlRec = eArtikl.up.newRecord(); //ручка
     public int handlColor = -3; //цвет ручки
     public int handlHeight = 40; //высота ручки
@@ -80,9 +80,10 @@ public class AreaStvorka extends AreaSimple {
         //Сторона открывания
         if (param(param, PKjson.typeOpen) != -1) {
             this.typeOpen = TypeOpen1.get(param(param, PKjson.typeOpen));
-        } else {
-            this.typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
-        }
+        } 
+//        else {
+//            this.typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
+//        }
         //Подбор текстуры ручки
         if (param(param, PKjson.colorHandl) != -1) {
             handlColor = param(param, PKjson.colorHandl);

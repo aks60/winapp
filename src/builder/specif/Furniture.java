@@ -5,14 +5,10 @@ import domain.eArtdet;
 import domain.eArtikl;
 import domain.eFurndet;
 import domain.eFurniture;
-import domain.eFurnpar1;
-import domain.eFurnpar2;
 import domain.eFurnside1;
 import domain.eFurnside2;
 import domain.eSysfurn;
 import enums.LayoutArea;
-import enums.LayoutFurn1;
-import enums.LayoutHandle;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import java.util.LinkedList;
@@ -24,10 +20,9 @@ import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
 import builder.param.Processing;
 import dataset.Query;
-import java.util.Arrays;
+import enums.TypeOpen1;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 /**
  * Фурнитура
@@ -78,16 +73,37 @@ public class Furniture extends Cal5e {
             List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
             List<Record> furnside1List = eFurnside1.find(furnitureRec.getInt(eFurniture.id));
             listVariants.add(furnitureRec.getInt(eFurniture.id)); //сделано для запуска формы Furniture на ветке Systree
-
+            int mask = 0b00000000;
+            
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnside1List) {
-                ElemFrame sideFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
 
+                //int mask2 =  
+                mask = mask | furnside1Rec.getInt(eFurnside1.side_use);
+                System.out.println(mask);
+                ElemFrame sideFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
+                
                 //ФИЛЬТР вариантов
                 if (furnitureVar.check(sideFrame, furnside1Rec) == false) {
                     return;
                 }
             }
+            
+            //Сторона открывания
+            if(mask == 4) {
+                System.out.println(TypeOpen1.LEFT);
+                areaStv.typeOpen = TypeOpen1.LEFT;
+            } else if(mask == 2) {
+                System.out.println(TypeOpen1.RIGHT);
+                areaStv.typeOpen = TypeOpen1.RIGHT;
+            } else if(mask == 5) {
+                System.out.println(TypeOpen1.LEFTUP);
+                areaStv.typeOpen = TypeOpen1.LEFTUP;
+            } else if(mask == 3) {
+                System.out.println(TypeOpen1.RIGHTUP);
+                areaStv.typeOpen = TypeOpen1.RIGHTUP;
+            } 
+                
             //Цикл по детализации (уровень 1)        
             for (Record furndetRec1 : furndetList) {
                 if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
@@ -122,7 +138,7 @@ public class Furniture extends Cal5e {
         try {
             Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
             if (handle == true) { //если пишем ручку в створку то всё остальное отсеиваем
-                if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id) 
+                if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)
                         && furndetRec.get(eFurndet.furniture_id2) == null) {
                     if (artiklRec.getInt(eArtikl.level1) != 2) {
                         return false;
@@ -194,7 +210,7 @@ public class Furniture extends Cal5e {
             }
 
             //Если это элемент из мат. ценности (не набор)
-            if (furndetRec.get(eFurndet.furniture_id2) == null) {                
+            if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
 
                     ElemFrame sideStv = Processing.determOfSide(mapParam, areaStv);

@@ -7,7 +7,7 @@ import static enums.TypeUse.values;
  */
 public enum TypeOpen1 implements Enam {
 
-    INVALID(-1, "empty", "Ошибка"),
+    INVALID(-1, "empty", "Вручную"),
     FIXED(0, "empty", "Глухая створка (не открывается)"),
     LEFT(1, "Левое", "Левая поворотная (открывается справа-налево, ручка справа)"),
     RIGHT(2, "Правое", "Правая поворотная (открывается слева-направо, ручка слева)"),
