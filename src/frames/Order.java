@@ -4,6 +4,8 @@ import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
+import builder.script.JsonArea;
+import builder.script.JsonElem;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -33,18 +35,26 @@ import common.ListenerRecord;
 import common.eProfile;
 import common.eProperty;
 import dataset.ConnApp;
+import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eFurniture;
 import domain.ePrjprod;
 import domain.eSysfurn;
 import domain.eSysprod;
+import domain.eSysprof;
 import domain.eSystree;
+import enums.LayoutArea;
 import enums.LayoutHandle;
 import enums.PKjson;
 import enums.TypeElem;
+import enums.TypeOpen1;
+import enums.UseArtiklTo;
+import enums.UseSide;
 import frames.dialog.DicColor;
+import frames.dialog.DicEnums;
 import frames.dialog.DicSyspod;
+import frames.dialog.DicSysprof;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import java.awt.CardLayout;
@@ -112,7 +122,7 @@ public class Order extends javax.swing.JFrame {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 1) {
-                    int index = table.convertRowIndexToModel(row);                  
+                    int index = table.convertRowIndexToModel(row);
                     Object v = qPrjprod.get(index).get(ePrjprod.values().length);
                     if (v instanceof Icon) {
                         Icon icon = (Icon) v;
@@ -233,12 +243,12 @@ public class Order extends javax.swing.JFrame {
                 iwin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
                 record.add(image);
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
 
             } catch (Exception e) {
                 System.err.println("Ошибка:Order.loadingTab2() " + e);
             }
         }
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
     }
 
     private void loadingWin() {
@@ -840,17 +850,25 @@ public class Order extends javax.swing.JFrame {
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
+                {null, null},
                 {null, null}
             },
             new String [] {
                 "Наименование", "Рисунок"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab2.setFillsViewportHeight(true);
         tab2.setRowHeight(68);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setResizable(false);
             tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(1).setMinWidth(68);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(68);
@@ -1028,6 +1046,11 @@ public class Order extends javax.swing.JFrame {
         btn18.setMinimumSize(new java.awt.Dimension(18, 18));
         btn18.setName("btnField17"); // NOI18N
         btn18.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorToFrame(evt);
+            }
+        });
 
         btn19.setText("...");
         btn19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1035,6 +1058,11 @@ public class Order extends javax.swing.JFrame {
         btn19.setMinimumSize(new java.awt.Dimension(18, 18));
         btn19.setName("btnField17"); // NOI18N
         btn19.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorToFrame(evt);
+            }
+        });
 
         btn20.setText("...");
         btn20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1042,6 +1070,11 @@ public class Order extends javax.swing.JFrame {
         btn20.setMinimumSize(new java.awt.Dimension(18, 18));
         btn20.setName("btnField17"); // NOI18N
         btn20.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorToFrame(evt);
+            }
+        });
 
         txt27.setEditable(false);
         txt27.setBackground(new java.awt.Color(255, 255, 255));
@@ -1131,6 +1164,11 @@ public class Order extends javax.swing.JFrame {
         btn22.setMinimumSize(new java.awt.Dimension(18, 18));
         btn22.setName("btnField17"); // NOI18N
         btn22.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sysprofToFrame(evt);
+            }
+        });
 
         javax.swing.GroupLayout pan13Layout = new javax.swing.GroupLayout(pan13);
         pan13.setLayout(pan13Layout);
@@ -1271,6 +1309,11 @@ public class Order extends javax.swing.JFrame {
         btn10.setMinimumSize(new java.awt.Dimension(18, 18));
         btn10.setName("btnField17"); // NOI18N
         btn10.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sysfurnToStvorka(evt);
+            }
+        });
 
         btn12.setText("...");
         btn12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1292,6 +1335,11 @@ public class Order extends javax.swing.JFrame {
         btn21.setMinimumSize(new java.awt.Dimension(18, 18));
         btn21.setName("btnField17"); // NOI18N
         btn21.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typeOpenToStvorka(evt);
+            }
+        });
 
         btn6.setText("...");
         btn6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1673,6 +1721,175 @@ public class Order extends javax.swing.JFrame {
             System.err.println("Ошибка: " + e);
         }
     }//GEN-LAST:event_colorToWindows
+
+    private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
+        try {
+            float selectID = windowsNode.com5t().id();
+            if (windowsNode != null) {
+                int systreeID = qPrjprod.getAs(Util.getIndexRec(tab2), ePrjprod.systree_id);
+                Query qSysprof = new Query(eSysprof.values(), eArtikl.values()).select(eSysprof.up, "left join",
+                        eArtikl.up, "on", eArtikl.id, "=", eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeID);
+                Query qSysprof2 = new Query(eSysprof.values(), eArtikl.values());
+                UseArtiklTo useArtiklTo = (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
+
+                for (int index = 0; index < qSysprof.size(); ++index) {
+                    Record sysprofRec = qSysprof.get(index);
+                    if (sysprofRec.getInt(eSysprof.use_type) == useArtiklTo.id) {
+                        if (sysprofRec.getInt(eSysprof.use_side) == windowsNode.com5t().layout().id
+                                || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id) {
+                            qSysprof2.add(sysprofRec);
+                            qSysprof2.table(eArtikl.up).add(qSysprof.table(eArtikl.up).get(index));
+                        }
+                    }
+                }
+                new DicSysprof(this, (sysprofRec) -> {
+
+                    float ramaId = windowsNode.com5t().id();
+                    JsonElem elemRama = iwin.jsonRoot.find(ramaId);
+
+                    if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) { //рама окна
+                        String paramStr = elemRama.param();
+                        JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                        paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
+                        paramStr = gson.toJson(paramObj);
+                        elemRama.param(paramStr);
+                        updateScript(selectID);
+
+                    } else { //рама створки
+                        float stvId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
+                        JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(stvId);
+                        String paramStr = stvArea.param();
+                        JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                        String stvKey = null;
+                        if (windowsNode.com5t().layout() == LayoutArea.BOTTOM) {
+                            stvKey = PKjson.stvorkaBottom;
+                        } else if (windowsNode.com5t().layout() == LayoutArea.RIGHT) {
+                            stvKey = PKjson.stvorkaRight;
+                        } else if (windowsNode.com5t().layout() == LayoutArea.TOP) {
+                            stvKey = PKjson.stvorkaTop;
+                        } else if (windowsNode.com5t().layout() == LayoutArea.LEFT) {
+                            stvKey = PKjson.stvorkaLeft;
+                        }
+                        JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
+                        jso.addProperty(PKjson.sysprofID, sysprofRec.getStr(eSysprof.id));
+                        paramStr = gson.toJson(paramObj);
+                        stvArea.param(paramStr);
+                        updateScript(selectID);
+                    }
+
+                }, qSysprof2);
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_sysprofToFrame
+
+    private void colorToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToFrame
+        try {
+            float selectID = windowsNode.com5t().id();
+            HashSet<Record> colorSet = new HashSet();
+            Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", windowsNode.com5t().artiklRec.getInt(eArtikl.id));
+            artdetList.forEach(rec -> {
+
+                if (rec.getInt(eArtdet.color_fk) < 0) {
+                    eColor.query().forEach(rec2 -> {
+                        if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
+                            colorSet.add(rec2);
+                        }
+                    });
+                } else {
+                    colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
+                }
+            });
+            DicColor frame = new DicColor(this, (colorRec) -> {
+
+                String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
+                float parentId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
+                JsonArea parentArea = (JsonArea) iwin.jsonRoot.find(parentId);
+
+                if (windowsNode.com5t().type() == TypeElem.STVORKA_SIDE) {
+                    String paramStr = parentArea.param();
+                    JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                    String stvKey = null;
+                    if (windowsNode.com5t().layout() == LayoutArea.BOTTOM) {
+                        stvKey = PKjson.stvorkaBottom;
+                    } else if (windowsNode.com5t().layout() == LayoutArea.RIGHT) {
+                        stvKey = PKjson.stvorkaRight;
+                    } else if (windowsNode.com5t().layout() == LayoutArea.TOP) {
+                        stvKey = PKjson.stvorkaTop;
+                    } else if (windowsNode.com5t().layout() == LayoutArea.LEFT) {
+                        stvKey = PKjson.stvorkaLeft;
+                    }
+                    JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
+                    jso.addProperty(colorID, colorRec.getStr(eColor.id));
+                    paramStr = gson.toJson(paramObj);
+                    parentArea.param(paramStr);
+                    updateScript(selectID);
+
+                } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) {
+                    for (JsonElem elem : parentArea.elements()) {
+                        if (elem.id() == ((DefMutableTreeNode) windowsNode).com5t().id()) {
+                            String paramStr = elem.param();
+                            JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                            paramObj.addProperty(colorID, colorRec.getStr(eColor.id));
+                            paramStr = gson.toJson(paramObj);
+                            elem.param(paramStr);
+                            updateScript(selectID);
+                        }
+                    }
+                }
+
+            }, colorSet);
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_colorToFrame
+
+    private void sysfurnToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysfurnToStvorka
+        try {
+            float windowsID = windowsNode.com5t().id();
+            int systreeID = qPrjprod.getAs(Util.getIndexRec(tab2), ePrjprod.systree_id);
+            
+            Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
+                    eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
+
+            new DicName(this, (sysfurnRec) -> {
+
+                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(windowsID);
+                String paramStr = stvArea.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
+                paramStr = gson.toJson(paramObj);
+                stvArea.param(paramStr);
+                updateScript(windowsID);
+
+            }, qSysfurn, eFurniture.name);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_sysfurnToStvorka
+
+    private void typeOpenToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeOpenToStvorka
+        try {
+            new DicEnums(this, (sysfurnRec) -> {
+
+                
+                float windowsID = windowsNode.com5t().id();
+                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(windowsID);
+                String paramStr = stvArea.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.addProperty(PKjson.typeOpen, sysfurnRec.getStr(eSysfurn.id));
+                paramStr = gson.toJson(paramObj);
+                stvArea.param(paramStr);
+                updateScript(windowsID);
+                
+            }, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
+                    TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTSHIFT, TypeOpen1.UPPER, TypeOpen1.FIXED);
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_typeOpenToStvorka
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

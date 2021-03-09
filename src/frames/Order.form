@@ -793,14 +793,14 @@
                         <Component class="javax.swing.JTable" name="tab2">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="2">
+                              <Table columnCount="2" rowCount="3">
                                 <Column editable="true" title="&#x41d;&#x430;&#x438;&#x43c;&#x435;&#x43d;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
-                                <Column editable="true" title="&#x420;&#x438;&#x441;&#x443;&#x43d;&#x43e;&#x43a;" type="java.lang.Object"/>
+                                <Column editable="false" title="&#x420;&#x438;&#x441;&#x443;&#x43d;&#x43e;&#x43a;" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="80" resizable="false">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="80" resizable="true">
                                   <Title/>
                                   <Editor/>
                                   <Renderer/>
@@ -1341,6 +1341,9 @@
                                       <Dimension value="[18, 18]"/>
                                     </Property>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorToFrame"/>
+                                  </Events>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="btn19">
                                   <Properties>
@@ -1361,6 +1364,9 @@
                                       <Dimension value="[18, 18]"/>
                                     </Property>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorToFrame"/>
+                                  </Events>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="btn20">
                                   <Properties>
@@ -1381,6 +1387,9 @@
                                       <Dimension value="[18, 18]"/>
                                     </Property>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorToFrame"/>
+                                  </Events>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txt27">
                                   <Properties>
@@ -1515,6 +1524,9 @@
                                   <Dimension value="[18, 18]"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sysprofToFrame"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -1885,6 +1897,9 @@
                                   <Dimension value="[18, 18]"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sysfurnToStvorka"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="btn12">
                               <Properties>
@@ -1945,6 +1960,9 @@
                                   <Dimension value="[18, 18]"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="typeOpenToStvorka"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="btn6">
                               <Properties>
