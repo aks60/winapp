@@ -646,7 +646,7 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void updateScript(float selectID) {
-        String script = gson.toJson(iwin.jsonRoot);
+        String script = gson.toJson(iwin.rootJson);
         Record sysprodRec = qSysprod.get(Util.getIndexRec(tab5));
         sysprodRec.set(eSysprod.script, script);
         qSysprod.update(sysprodRec);
@@ -1186,11 +1186,6 @@ public class Systree extends javax.swing.JFrame {
         txt29.setBackground(new java.awt.Color(255, 255, 255));
         txt29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt29.setPreferredSize(new java.awt.Dimension(180, 18));
-        txt29.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt29ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pan20Layout = new javax.swing.GroupLayout(pan20);
         pan20.setLayout(pan20Layout);
@@ -1439,6 +1434,11 @@ public class Systree extends javax.swing.JFrame {
         btn14.setMinimumSize(new java.awt.Dimension(18, 18));
         btn14.setName("btnField17"); // NOI18N
         btn14.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorToHandl(evt);
+            }
+        });
 
         btn21.setText("...");
         btn21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -2202,31 +2202,20 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         } else if (tab2.getBorder() != null) {
-            if (Util.isDeleteRecord(this) == 0) {
+            if (Util.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
                 Util.deleteRecord(tab2);
             }
         } else if (tab3.getBorder() != null) {
-            if (Util.isDeleteRecord(this) == 0) {
+            if (Util.isDeleteRecord(this) == 0 && tab3.getSelectedRow() != -1) {
                 Util.deleteRecord(tab3);
             }
-        } else if (tab4.getBorder() != null) {
+        } else if (tab4.getBorder() != null && tab4.getSelectedRow() != -1) {
             if (Util.isDeleteRecord(this) == 0) {
                 Util.deleteRecord(tab4);
             }
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
-                int row = tab5.getSelectedRow();
-                int index = Util.getIndexRec(tab5);
-                Record record = qSysprod.get(index);
-                record.set(eSysprod.up, Query.DEL);
-
-                qSysprod.delete(record);
-                qSysprod.removeRec(index);
-                ((DefaultTableModel) tab5.getModel()).removeRow(row);
-
-                row = (row > 0) ? --row : 0;
-                index = tab5.convertRowIndexToModel(row);
-                Util.setSelectedRow(tab5, index);
+                Util.deleteRecord(tab5);
             } else {
                 JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
             }
@@ -2276,7 +2265,7 @@ public class Systree extends javax.swing.JFrame {
                 new DicSysprof(this, (sysprofRec) -> {
 
                     float ramaId = windowsNode.com5t().id();
-                    JsonElem elemRama = iwin.jsonRoot.find(ramaId);
+                    JsonElem elemRama = iwin.rootJson.find(ramaId);
 
                     if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) { //рама окна
                         String paramStr = elemRama.param();
@@ -2288,7 +2277,7 @@ public class Systree extends javax.swing.JFrame {
 
                     } else { //рама створки
                         float stvId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
-                        JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(stvId);
+                        JsonArea stvArea = (JsonArea) iwin.rootJson.find(stvId);
                         String paramStr = stvArea.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         String stvKey = null;
@@ -2336,7 +2325,7 @@ public class Systree extends javax.swing.JFrame {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
-                JsonArea parentArea = (JsonArea) iwin.jsonRoot.find(parentId);
+                JsonArea parentArea = (JsonArea) iwin.rootJson.find(parentId);
 
                 if (windowsNode.com5t().type() == TypeElem.STVORKA_SIDE) {
                     String paramStr = parentArea.param();
@@ -2429,7 +2418,7 @@ public class Systree extends javax.swing.JFrame {
 
             ListenerRecord listenerColor = (colorRec) -> {
 
-                builder.script.JsonElem rootArea = iwin.jsonRoot.find(selectID);
+                builder.script.JsonElem rootArea = iwin.rootJson.find(selectID);
                 if (rootArea != null) {
                     String paramStr = (rootArea.param().isEmpty()) ? "{}" : rootArea.param();
                     JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
@@ -2472,7 +2461,7 @@ public class Systree extends javax.swing.JFrame {
 
             new DicArtikl(this, (artiklRec) -> {
 
-                JsonElem glassElem = (JsonElem) iwin.jsonRoot.find(selectID);
+                JsonElem glassElem = (JsonElem) iwin.rootJson.find(selectID);
                 String paramStr = glassElem.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
@@ -2496,7 +2485,7 @@ public class Systree extends javax.swing.JFrame {
 
             new DicName(this, (sysfurnRec) -> {
 
-                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(windowsID);
+                JsonArea stvArea = (JsonArea) iwin.rootJson.find(windowsID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
@@ -2516,7 +2505,7 @@ public class Systree extends javax.swing.JFrame {
             new DicEnums(this, (typeopenRec) -> {
 
                 float windowsID = windowsNode.com5t().id();
-                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(windowsID);
+                JsonArea stvArea = (JsonArea) iwin.rootJson.find(windowsID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
@@ -2556,7 +2545,7 @@ public class Systree extends javax.swing.JFrame {
             }
             new DicArtikl(this, (artiklRec) -> {
 
-                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(selectID);
+                JsonArea stvArea = (JsonArea) iwin.rootJson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
@@ -2583,7 +2572,7 @@ public class Systree extends javax.swing.JFrame {
         new DicHandl(this, (record) -> {
             try {
                 float selectID = areaStv.id();
-                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(selectID);
+                JsonArea stvArea = (JsonArea) iwin.rootJson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
 
@@ -2611,9 +2600,38 @@ public class Systree extends javax.swing.JFrame {
         }, indexLayoutHandl);
     }//GEN-LAST:event_heightHandlToStvorka
 
-    private void txt29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt29ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt29ActionPerformed
+    private void colorToHandl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToHandl
+        try {
+            float selectID = windowsNode.com5t().id();
+            HashSet<Record> colorSet = new HashSet();
+            Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", windowsNode.com5t().artiklRec.getInt(eArtikl.id));
+            artdetList.forEach(rec -> {
+
+                if (rec.getInt(eArtdet.color_fk) < 0) {
+                    eColor.query().forEach(rec2 -> {
+                        if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
+                            colorSet.add(rec2);
+                        }
+                    });
+                } else {
+                    colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
+                }
+            });
+            DicColor frame = new DicColor(this, (colorRec) -> {
+
+                JsonArea stvArea = (JsonArea) iwin.rootJson.find(selectID);
+                String paramStr = stvArea.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
+                paramStr = gson.toJson(paramObj);
+                stvArea.param(paramStr);
+                updateScript(selectID);             
+
+            }, colorSet);
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_colorToHandl
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

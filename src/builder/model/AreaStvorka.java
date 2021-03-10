@@ -80,10 +80,9 @@ public class AreaStvorka extends AreaSimple {
         //Сторона открывания
         if (param(param, PKjson.typeOpen) != -1) {
             this.typeOpen = TypeOpen1.get(param(param, PKjson.typeOpen));
-        } 
-//        else {
-//            this.typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
-//        }
+        } else {
+            this.typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
+        }
         //Подбор текстуры ручки
         if (param(param, PKjson.colorHandl) != -1) {
             handlColor = param(param, PKjson.colorHandl);

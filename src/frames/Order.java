@@ -38,6 +38,7 @@ import dataset.ConnApp;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
+import domain.eFurndet;
 import domain.eFurniture;
 import domain.ePrjprod;
 import domain.eSysfurn;
@@ -51,8 +52,10 @@ import enums.TypeElem;
 import enums.TypeOpen1;
 import enums.UseArtiklTo;
 import enums.UseSide;
+import frames.dialog.DicArtikl;
 import frames.dialog.DicColor;
 import frames.dialog.DicEnums;
+import frames.dialog.DicHandl;
 import frames.dialog.DicSyspod;
 import frames.dialog.DicSysprof;
 import frames.swing.Canvas;
@@ -381,7 +384,7 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void updateScript(float selectID) {
-        String script = gson.toJson(iwin.jsonRoot);
+        String script = gson.toJson(iwin.rootJson);
         Record prjprodRec = qPrjprod.get(Util.getIndexRec(tab2));
         prjprodRec.set(ePrjprod.script, script);
         qPrjprod.update(prjprodRec);
@@ -591,7 +594,7 @@ public class Order extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 584, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 794, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -835,7 +838,7 @@ public class Order extends javax.swing.JFrame {
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(313, Short.MAX_VALUE))
         );
 
         pan1.add(pan2, java.awt.BorderLayout.EAST);
@@ -967,7 +970,7 @@ public class Order extends javax.swing.JFrame {
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(lab32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
+                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(lab27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1008,7 +1011,7 @@ public class Order extends javax.swing.JFrame {
         pan12.setLayout(pan12Layout);
         pan12Layout.setHorizontalGroup(
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+            .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
         );
         pan12Layout.setVerticalGroup(
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1177,17 +1180,17 @@ public class Order extends javax.swing.JFrame {
             .addGroup(pan13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                    .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)))
+                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan13Layout.setVerticalGroup(
@@ -1228,6 +1231,11 @@ public class Order extends javax.swing.JFrame {
         btn3.setMinimumSize(new java.awt.Dimension(18, 18));
         btn3.setName("btnField17"); // NOI18N
         btn3.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn3ActionPerformed(evt);
+            }
+        });
 
         txt19.setEditable(false);
         txt19.setBackground(new java.awt.Color(255, 255, 255));
@@ -1249,13 +1257,13 @@ public class Order extends javax.swing.JFrame {
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)))
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan15Layout.setVerticalGroup(
@@ -1321,6 +1329,11 @@ public class Order extends javax.swing.JFrame {
         btn12.setMinimumSize(new java.awt.Dimension(18, 18));
         btn12.setName("btnField17"); // NOI18N
         btn12.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                handkToStvorka(evt);
+            }
+        });
 
         btn14.setText("...");
         btn14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1328,6 +1341,11 @@ public class Order extends javax.swing.JFrame {
         btn14.setMinimumSize(new java.awt.Dimension(18, 18));
         btn14.setName("btnField17"); // NOI18N
         btn14.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorToHandl(evt);
+            }
+        });
 
         btn21.setText("...");
         btn21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1347,6 +1365,11 @@ public class Order extends javax.swing.JFrame {
         btn6.setMinimumSize(new java.awt.Dimension(18, 18));
         btn6.setName("btnField17"); // NOI18N
         btn6.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                heightHandlToStvorka(evt);
+            }
+        });
 
         txt20.setEditable(false);
         txt20.setBackground(new java.awt.Color(255, 255, 255));
@@ -1389,7 +1412,7 @@ public class Order extends javax.swing.JFrame {
                             .addComponent(lab37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                            .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
                             .addComponent(txt25, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1543,23 +1566,12 @@ public class Order extends javax.swing.JFrame {
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
         if (tab1.getBorder() != null) {
-            if (Util.isDeleteRecord(tab1, this, tab2) == 0) {
+            if (Util.isDeleteRecord(tab1, this, tab2) == 0 && tab1.getSelectedRow() != -1) {
                 Util.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
-                int row = tab2.getSelectedRow();
-                int index = Util.getIndexRec(tab2);
-                Record record = qPrjprod.get(index);
-                record.set(ePrjprod.up, Query.DEL);
-
-                qPrjprod.delete(record);
-                qPrjprod.removeRec(index);
-                ((DefaultTableModel) tab2.getModel()).removeRow(row);
-
-                row = (row > 0) ? --row : 0;
-                index = tab2.convertRowIndexToModel(row);
-                Util.setSelectedRow(tab2, index);
+                Util.deleteRecord(tab2);
             } else {
                 JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
             }
@@ -1694,7 +1706,7 @@ public class Order extends javax.swing.JFrame {
 
                 ListenerRecord listenerColor = (colorRec) -> {
 
-                    builder.script.JsonElem rootArea = iwin.jsonRoot.find(selectID);
+                    builder.script.JsonElem rootArea = iwin.rootJson.find(selectID);
                     if (rootArea != null) {
                         String paramStr = (rootArea.param().isEmpty()) ? "{}" : rootArea.param();
                         JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
@@ -1745,7 +1757,7 @@ public class Order extends javax.swing.JFrame {
                 new DicSysprof(this, (sysprofRec) -> {
 
                     float ramaId = windowsNode.com5t().id();
-                    JsonElem elemRama = iwin.jsonRoot.find(ramaId);
+                    JsonElem elemRama = iwin.rootJson.find(ramaId);
 
                     if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) { //рама окна
                         String paramStr = elemRama.param();
@@ -1757,7 +1769,7 @@ public class Order extends javax.swing.JFrame {
 
                     } else { //рама створки
                         float stvId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
-                        JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(stvId);
+                        JsonArea stvArea = (JsonArea) iwin.rootJson.find(stvId);
                         String paramStr = stvArea.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         String stvKey = null;
@@ -1805,7 +1817,7 @@ public class Order extends javax.swing.JFrame {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
-                JsonArea parentArea = (JsonArea) iwin.jsonRoot.find(parentId);
+                JsonArea parentArea = (JsonArea) iwin.rootJson.find(parentId);
 
                 if (windowsNode.com5t().type() == TypeElem.STVORKA_SIDE) {
                     String paramStr = parentArea.param();
@@ -1849,13 +1861,13 @@ public class Order extends javax.swing.JFrame {
         try {
             float windowsID = windowsNode.com5t().id();
             int systreeID = qPrjprod.getAs(Util.getIndexRec(tab2), ePrjprod.systree_id);
-            
+
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
 
             new DicName(this, (sysfurnRec) -> {
 
-                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(windowsID);
+                JsonArea stvArea = (JsonArea) iwin.rootJson.find(windowsID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
@@ -1872,24 +1884,169 @@ public class Order extends javax.swing.JFrame {
 
     private void typeOpenToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeOpenToStvorka
         try {
-            new DicEnums(this, (sysfurnRec) -> {
+            new DicEnums(this, (typeopenRec) -> {
 
-                
                 float windowsID = windowsNode.com5t().id();
-                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(windowsID);
+                JsonArea stvArea = (JsonArea) iwin.rootJson.find(windowsID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                paramObj.addProperty(PKjson.typeOpen, sysfurnRec.getStr(eSysfurn.id));
+                paramObj.addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
                 updateScript(windowsID);
-                
+
             }, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
                     TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTSHIFT, TypeOpen1.UPPER, TypeOpen1.FIXED);
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
     }//GEN-LAST:event_typeOpenToStvorka
+
+    private void colorToHandl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToHandl
+        try {
+            float selectID = windowsNode.com5t().id();
+            HashSet<Record> colorSet = new HashSet();
+            Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", windowsNode.com5t().artiklRec.getInt(eArtikl.id));
+            artdetList.forEach(rec -> {
+
+                if (rec.getInt(eArtdet.color_fk) < 0) {
+                    eColor.query().forEach(rec2 -> {
+                        if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
+                            colorSet.add(rec2);
+                        }
+                    });
+                } else {
+                    colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
+                }
+            });
+            DicColor frame = new DicColor(this, (colorRec) -> {
+
+                JsonArea stvArea = (JsonArea) iwin.rootJson.find(selectID);
+                String paramStr = stvArea.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
+                paramStr = gson.toJson(paramObj);
+                stvArea.param(paramStr);
+                updateScript(selectID);
+
+            }, colorSet);
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_colorToHandl
+
+    private void handkToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handkToStvorka
+        try {
+            float selectID = windowsNode.com5t().id();
+            int furnitureID = ((AreaStvorka) windowsNode.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
+            Query qFurndet = new Query(eFurndet.values()).select(eFurndet.up, "where", eFurndet.furniture_id1, "=", furnitureID);
+            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 11");
+            Query qArtikl2 = new Query(eArtikl.values());
+            for (Record furndetRec : qFurndet) { //первый уровень
+                for (Record artiklRec : qArtikl) {
+                    if (furndetRec.getInt(eFurndet.artikl_id) == artiklRec.getInt(eArtikl.id)) {
+                        qArtikl2.add(artiklRec);
+                    }
+                }
+                Query qFurndet2 = new Query(eFurndet.values()).select(eFurndet.up, "where",
+                        eFurndet.furndet_id, "=", furndetRec.getInt(eFurndet.id), "and", eFurndet.furndet_id, "!=", eFurndet.id);
+                for (Record furndet2Rec : qFurndet2) { //второй уровень
+                    for (Record artiklRec : qArtikl) {
+                        if (furndet2Rec.getInt(eFurndet.artikl_id) == artiklRec.getInt(eArtikl.id)) {
+                            qArtikl2.add(artiklRec);
+                        }
+                    }
+                }
+            }
+            new DicArtikl(this, (artiklRec) -> {
+
+                JsonArea stvArea = (JsonArea) iwin.rootJson.find(selectID);
+                String paramStr = stvArea.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
+                paramStr = gson.toJson(paramObj);
+                stvArea.param(paramStr);
+                updateScript(selectID);
+
+            }, qArtikl2);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_handkToStvorka
+
+    private void heightHandlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heightHandlToStvorka
+
+        AreaStvorka areaStv = (AreaStvorka) windowsNode.com5t();
+        int indexLayoutHandl = 0;
+        if (LayoutHandle.CONST.name.equals(txt16.getText())) {
+            indexLayoutHandl = 1;
+        } else if (LayoutHandle.SET.name.equals(txt16.getText())) {
+            indexLayoutHandl = 2;
+        }
+        new DicHandl(this, (record) -> {
+            try {
+                float selectID = areaStv.id();
+                JsonArea stvArea = (JsonArea) iwin.rootJson.find(selectID);
+                String paramStr = stvArea.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+
+                if (record.getInt(0) == 0) {
+                    paramObj.addProperty(PKjson.positionHandl, LayoutHandle.MIDL.id);
+                    txt31.setEditable(false);
+
+                } else if (record.getInt(0) == 1) {
+                    paramObj.addProperty(PKjson.positionHandl, LayoutHandle.CONST.id);
+                    txt31.setEditable(false);
+
+                } else if (record.getInt(0) == 2) {
+                    paramObj.addProperty(PKjson.positionHandl, LayoutHandle.SET.id);
+                    paramObj.addProperty(PKjson.heightHandl, record.getInt(1));
+                    txt31.setEditable(true);
+                }
+                paramStr = gson.toJson(paramObj);
+                stvArea.param(paramStr);
+                updateScript(selectID);
+
+            } catch (Exception e) {
+                System.err.println("Ошибка: " + e);
+            }
+
+        }, indexLayoutHandl);
+    }//GEN-LAST:event_heightHandlToStvorka
+
+    private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
+        try {
+            float selectID = windowsNode.com5t().id();
+            int systreeID = qPrjprod.getAs(Util.getIndexRec(tab2), ePrjprod.systree_id);
+            Record systreeRec = eSystree.find(systreeID);
+            String depth = systreeRec.getStr(eSystree.depth);
+            if (depth != null && depth.isEmpty() == false) {
+                depth = depth.replace(";", ",");
+                if (depth.charAt(depth.length() - 1) == ',') {
+                    depth = depth.substring(0, depth.length() - 1);
+                }
+            }
+            depth = (depth != null && depth.isEmpty() == false) ? " and " + eArtikl.depth.name() + " in (" + depth + ")" : "";
+            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where",
+                    eArtikl.level1, "= 5 and", eArtikl.level2, "in (1,2,3)", depth);
+
+            new DicArtikl(this, (artiklRec) -> {
+
+                JsonElem glassElem = (JsonElem) iwin.rootJson.find(selectID);
+                String paramStr = glassElem.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
+                paramStr = gson.toJson(paramObj);
+                glassElem.param(paramStr);
+                updateScript(selectID);
+
+            }, qArtikl);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_btn3ActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

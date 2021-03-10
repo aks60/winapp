@@ -1037,9 +1037,6 @@
                                   <Dimension value="[180, 18]"/>
                                 </Property>
                               </Properties>
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt29ActionPerformed"/>
-                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -1548,6 +1545,9 @@
                               <Dimension value="[18, 18]"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorToHandl"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btn21">
                           <Properties>

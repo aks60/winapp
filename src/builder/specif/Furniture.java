@@ -20,7 +20,11 @@ import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
 import builder.param.Processing;
 import dataset.Query;
+import static domain.eFurnside1.furniture_id;
+import static domain.eFurnside1.up;
+import static domain.eFurnside1.values;
 import enums.TypeOpen1;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -73,14 +77,12 @@ public class Furniture extends Cal5e {
             List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
             List<Record> furnside1List = eFurnside1.find(furnitureRec.getInt(eFurniture.id));
             listVariants.add(furnitureRec.getInt(eFurniture.id)); //сделано для запуска формы Furniture на ветке Systree
-            int mask = 0b00000000;
-            
+            //int mask[] = {0,0,0,0,0};
+
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnside1List) {
 
-                //int mask2 =  
-                mask = mask | furnside1Rec.getInt(eFurnside1.side_use);
-                System.out.println(mask);
+                //mask[furnside1Rec.getInt(eFurnside1.side_num)] = furnside1Rec.getInt(eFurnside1.side_use);
                 ElemFrame sideFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
                 
                 //ФИЛЬТР вариантов
@@ -88,21 +90,12 @@ public class Furniture extends Cal5e {
                     return;
                 }
             }
-            
             //Сторона открывания
-            if(mask == 4) {
-                System.out.println(TypeOpen1.LEFT);
-                areaStv.typeOpen = TypeOpen1.LEFT;
-            } else if(mask == 2) {
-                System.out.println(TypeOpen1.RIGHT);
-                areaStv.typeOpen = TypeOpen1.RIGHT;
-            } else if(mask == 5) {
-                System.out.println(TypeOpen1.LEFTUP);
-                areaStv.typeOpen = TypeOpen1.LEFTUP;
-            } else if(mask == 3) {
-                System.out.println(TypeOpen1.RIGHTUP);
-                areaStv.typeOpen = TypeOpen1.RIGHTUP;
-            } 
+            //if(mask[2] == 2) {
+            //    areaStv.typeOpen = (mask[1] == 2) ?TypeOpen1.RIGHTUP :TypeOpen1.RIGHT;
+            //} else if(mask[4] == 2) {
+            //    areaStv.typeOpen = (mask[1] == 2) ?TypeOpen1.LEFTUP :TypeOpen1.LEFT;
+            //}
                 
             //Цикл по детализации (уровень 1)        
             for (Record furndetRec1 : furndetList) {
@@ -220,9 +213,7 @@ public class Furniture extends Cal5e {
                         //Пишем ручку в створку
                         if (handle == true && artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
                             if (artiklRec.getStr(eArtikl.name).toLowerCase().contains("ручк")) {
-
                                 areaStv.handlRec = artiklRec;
-                                areaStv.handlColor = specif.colorID1;
                             }
                         }
                         specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
