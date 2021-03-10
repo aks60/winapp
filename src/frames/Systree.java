@@ -2513,18 +2513,18 @@ public class Systree extends javax.swing.JFrame {
 
     private void typeOpenToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeOpenToStvorka
         try {
-            new DicEnums(this, (record) -> {
+            new DicEnums(this, (typeopenRec) -> {
 
-//                float windowsID = windowsNode.com5t().id();
-//                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(windowsID);
-//                String paramStr = stvArea.param();
-//                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-//                paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
-//                paramStr = gson.toJson(paramObj);
-//                stvArea.param(paramStr);
-//                updateScript(windowsID);
+                float windowsID = windowsNode.com5t().id();
+                JsonArea stvArea = (JsonArea) iwin.jsonRoot.find(windowsID);
+                String paramStr = stvArea.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
+                paramStr = gson.toJson(paramObj);
+                stvArea.param(paramStr);
+                updateScript(windowsID);
                 
-            }, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
+            }, TypeOpen1.INVALID, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
                     TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTSHIFT, TypeOpen1.UPPER, TypeOpen1.FIXED);
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
