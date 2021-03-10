@@ -236,15 +236,7 @@ public class Order extends javax.swing.JFrame {
         for (Record record : qPrjprod) {
             try {
                 Object script = record.get(ePrjprod.script);
-                iwin.build(script.toString());
-                BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-                iwin.gc2d = bi.createGraphics();
-                iwin.gc2d.fillRect(0, 0, length, length);
-                iwin.scale = (length / iwin.width > length / iwin.heightAdd) ? length / (iwin.heightAdd + 200) : length / (iwin.width + 200);
-                iwin.gc2d.translate(2, 2);
-                iwin.gc2d.scale(iwin.scale, iwin.scale);
-                iwin.rootArea.draw(length, length);
-                ImageIcon image = new ImageIcon(bi);
+                ImageIcon image = Util.imageWin(iwin, script, length);
                 record.add(image);
 
             } catch (Exception e) {
@@ -1736,19 +1728,21 @@ public class Order extends javax.swing.JFrame {
 
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         try {
-            float selectID = windowsNode.com5t().id();
             if (windowsNode != null) {
+                float selectID = windowsNode.com5t().id();
                 int systreeID = qPrjprod.getAs(Util.getIndexRec(tab2), ePrjprod.systree_id);
                 Query qSysprof = new Query(eSysprof.values(), eArtikl.values()).select(eSysprof.up, "left join",
                         eArtikl.up, "on", eArtikl.id, "=", eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeID);
                 Query qSysprof2 = new Query(eSysprof.values(), eArtikl.values());
-                UseArtiklTo useArtiklTo = (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
+                UseArtiklTo useArtiklTo = (windowsNode.com5t().type() == TypeElem.IMPOST) ? UseArtiklTo.IMPOST
+                        : (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
 
                 for (int index = 0; index < qSysprof.size(); ++index) {
                     Record sysprofRec = qSysprof.get(index);
                     if (sysprofRec.getInt(eSysprof.use_type) == useArtiklTo.id) {
                         if (sysprofRec.getInt(eSysprof.use_side) == windowsNode.com5t().layout().id
-                                || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id) {
+                                || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
+                                || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {
                             qSysprof2.add(sysprofRec);
                             qSysprof2.table(eArtikl.up).add(qSysprof.table(eArtikl.up).get(index));
                         }
