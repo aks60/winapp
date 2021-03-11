@@ -347,16 +347,8 @@ public class Systree extends javax.swing.JFrame {
         for (Record record : qSysprod.table(eSysprod.up)) {
             try {
                 Object script = record.get(eSysprod.script);
-                iwin.build(script.toString());
-                BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-                iwin.gc2d = bi.createGraphics();
-                iwin.gc2d.fillRect(0, 0, length, length);
-                iwin.scale = (length / iwin.width > length / iwin.heightAdd) ? length / (iwin.heightAdd + 200) : length / (iwin.width + 200);
-                iwin.gc2d.translate(2, 2);
-                iwin.gc2d.scale(iwin.scale, iwin.scale);
-                iwin.rootArea.draw(length, length);
-                ImageIcon image = new ImageIcon(bi);
-                record.add(image);                
+                ImageIcon image = Util.imageWin(iwin, script, length);
+                record.add(image);
 
             } catch (Exception e) {
                 System.err.println("Ошибка:Systree.loadingTab5() " + e);
@@ -556,8 +548,8 @@ public class Systree extends javax.swing.JFrame {
                     || windowsNode.com5t().type() == TypeElem.STVORKA_SIDE || windowsNode.com5t().type() == TypeElem.IMPOST) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(windowsNode.toString());
-                txt32.setText(windowsNode.com5t().artiklRec.getStr(eArtikl.code));
-                txt33.setText(windowsNode.com5t().artiklRec.getStr(eArtikl.name));
+                txt32.setText(windowsNode.com5t().artiklRecAn.getStr(eArtikl.code));
+                txt33.setText(windowsNode.com5t().artiklRecAn.getStr(eArtikl.name));
                 txt27.setText(eColor.find(windowsNode.com5t().colorID1).getStr(eColor.name));
                 txt28.setText(eColor.find(windowsNode.com5t().colorID2).getStr(eColor.name));
                 txt29.setText(eColor.find(windowsNode.com5t().colorID3).getStr(eColor.name));
@@ -2247,16 +2239,18 @@ public class Systree extends javax.swing.JFrame {
 
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         try {
-            float selectID = windowsNode.com5t().id();
             if (windowsNode != null) {
-                Query qSysprof2 = new Query(eSysprof.values(), eArtikl.values());
-                UseArtiklTo useArtiklTo = (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
+                float selectID = windowsNode.com5t().id();
+                Query qSysprof2 = new Query(eSysprof.values(), eArtikl.values());               
+                UseArtiklTo useArtiklTo = (windowsNode.com5t().type() == TypeElem.IMPOST) ? UseArtiklTo.IMPOST : 
+                        (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
 
                 for (int index = 0; index < qSysprof.size(); ++index) {
                     Record sysprofRec = qSysprof.get(index);
                     if (sysprofRec.getInt(eSysprof.use_type) == useArtiklTo.id) {
                         if (sysprofRec.getInt(eSysprof.use_side) == windowsNode.com5t().layout().id
-                                || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id) {
+                                || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
+                                || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {
                             qSysprof2.add(sysprofRec);
                             qSysprof2.table(eArtikl.up).add(qSysprof.table(eArtikl.up).get(index));
                         }
@@ -2512,7 +2506,7 @@ public class Systree extends javax.swing.JFrame {
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
                 updateScript(windowsID);
-                
+
             }, TypeOpen1.INVALID, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
                     TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTSHIFT, TypeOpen1.UPPER, TypeOpen1.FIXED);
         } catch (Exception e) {
@@ -2625,7 +2619,7 @@ public class Systree extends javax.swing.JFrame {
                 paramObj.addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
-                updateScript(selectID);             
+                updateScript(selectID);
 
             }, colorSet);
         } catch (Exception e) {

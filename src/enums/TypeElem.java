@@ -4,15 +4,14 @@ package enums;
 public enum TypeElem implements Enam {
 
     //TypeElem
-    FRAME_SIDE(2, "Рама коробки"),
-    IMPOST(3, "Импост"),
-    STVORKA_SIDE(4, "Рама створки"), //элемент STVORKA
+    FRAME_SIDE(2, 1, "Рама коробки"),
+    IMPOST(3, 3, "Импост"),
+    STVORKA_SIDE(4, 2, "Рама створки"), //элемент STVORKA
     GLASS(5, "Стеклопакет"),
-    SHTULP(10, "Штульп"),    
-    RASKLADKA(14, "Раскладка"),
+    SHTULP(10, 9, "Штульп"),
+    RASKLADKA(14, 7, "Раскладка"),
     MOSKITKA(13, "Москитка"),
     MOSKITKA_SET(-13, "Москитка"), //непонятно
-    //STVORKA(23, "Створка"), //без импоста
     SAND(100, "Сэндвич"),
     JALOUSIE(101, "Жалюзи"),
     //TypeArea
@@ -23,13 +22,20 @@ public enum TypeElem implements Enam {
     ARCH(1004, "Арочное окно"),
     STVORKA(1005, "Створка"), //см. ElemFrame.typeProfile, ElemFrame.typeElem
     SUPPORT(1006, "Подкладка"),
-    NONE(0, "Не определено");
+    NONE(0, 0, "Не определено");
 
     public int id;
+    public int id2;
     public String name;
 
     TypeElem(int id, String name) {
         this.id = id;
+        this.name = name;
+    }
+    
+    TypeElem(int id, int id2, String name) {
+        this.id = id;
+        this.id2 = id2;
         this.name = name;
     }
 }

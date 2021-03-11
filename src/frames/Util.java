@@ -1,5 +1,6 @@
 package frames;
 
+import builder.Wincalc;
 import common.eProperty;
 import dataset.ConnApp;
 import dataset.Field;
@@ -48,9 +49,10 @@ import common.ListenerSQL;
 import common.ListenerObject;
 import common.eProfile;
 import domain.ePrjprod;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import enums.TypeElem;
+import enums.UseArtiklTo;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 
 /**
  * <p>
@@ -182,7 +184,7 @@ public class Util {
                     }
                     return "   Изделие: " + eSystree.patch(productRec.getInt(eSysprod.systree_id), "") + "/" + str;
                 }
-                
+
             } else if (eProfile.profile == eProfile.P16) {
                 int productID = Integer.valueOf(eProperty.prjprodID.read());
                 Record productRec = ePrjprod.find(productID);
@@ -606,5 +608,30 @@ public class Util {
                 }
             });
         }
+    }
+
+    public static ImageIcon imageWin(Wincalc iwin, Object script, int length) {
+
+        iwin.build(script.toString());
+        BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+        iwin.gc2d = bi.createGraphics();
+        iwin.gc2d.fillRect(0, 0, length, length);
+        iwin.scale = (length / iwin.width > length / iwin.heightAdd) ? length / (iwin.heightAdd + 200) : length / (iwin.width + 200);
+        iwin.gc2d.translate(2, 2);
+        iwin.gc2d.scale(iwin.scale, iwin.scale);
+        iwin.rootArea.draw(length, length);
+        ImageIcon image = new ImageIcon(bi);
+        return image;
+    }
+
+    public static UseArtiklTo vvv(TypeElem typeElem) {
+        if (typeElem == TypeElem.IMPOST) {
+            return UseArtiklTo.IMPOST;
+        } else if (typeElem == TypeElem.FRAME_SIDE) {
+            return UseArtiklTo.FRAME;
+        } else if (typeElem == TypeElem.STVORKA_SIDE) {
+            return UseArtiklTo.STVORKA;
+        }
+        return null;
     }
 }

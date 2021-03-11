@@ -43,7 +43,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     private ArrayList<Icon> listIcon1 = new ArrayList<Icon>();
     private ArrayList<Icon> listIcon2 = new ArrayList<Icon>();
     private ListenerRecord listenet = null;
-    private Canvas paintPanel = new Canvas(iwinMax); 
+    private Canvas paintPanel = new Canvas(iwinMax);
     private Query qModels1 = new Query(eSysmodel.values());
     private Query qModels2 = new Query(eSysmodel.values());
 
@@ -79,15 +79,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             try {
                 Object obj[] = {record.get(eSysmodel.npp), record.get(eSysmodel.name), ""};
                 Object script = record.get(eSysmodel.script);
-                iwinMin.build(script.toString());
-                BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-                iwinMin.gc2d = bi.createGraphics();
-                iwinMin.gc2d.fillRect(0, 0, length, length);
-                iwinMin.scale = (length / iwinMin.width > length / iwinMin.heightAdd) ? length / (iwinMin.heightAdd + 200) : length / (iwinMin.width + 200);
-                iwinMin.gc2d.translate(2, 2);
-                iwinMin.gc2d.scale(iwinMin.scale, iwinMin.scale);
-                iwinMin.rootArea.draw(length, length);
-                ImageIcon image = new ImageIcon(bi);
+                ImageIcon image = Util.imageWin(iwinMin, script, length);
                 obj[2] = image;
                 listIcon1.add(image);
                 dm1.addRow(obj);
@@ -99,15 +91,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             try {
                 Object obj[] = {record.get(eSysmodel.npp), record.get(eSysmodel.name), ""};
                 Object script = record.get(eSysmodel.script);
-                iwinMin.build(script.toString());
-                BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-                iwinMin.gc2d = bi.createGraphics();
-                iwinMin.gc2d.fillRect(0, 0, length, length);
-                iwinMin.scale = (length / iwinMin.width > length / iwinMin.heightAdd) ? length / (iwinMin.heightAdd + 200) : length / (iwinMin.width + 200);
-                iwinMin.gc2d.translate(2, 2);
-                iwinMin.gc2d.scale(iwinMin.scale, iwinMin.scale);
-                iwinMin.rootArea.draw(length, length);
-                ImageIcon image = new ImageIcon(bi);
+                ImageIcon image = Util.imageWin(iwinMin, script, length);
                 obj[2] = image;
                 listIcon2.add(image);
                 dm2.addRow(obj);
@@ -122,27 +106,27 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }
 
     private void loadingTree() {
-            DefMutableTreeNode root = new DefMutableTreeNode(iwinMax.rootArea);
-            Set<AreaSimple> set = new HashSet();
-            for (ElemSimple elem5e : iwinMax.listElem) {
-                if (elem5e.owner().type() != TypeElem.STVORKA) {
-                    root.add(new DefMutableTreeNode(elem5e));
-                } else {
-                    set.add(elem5e.owner());
+        DefMutableTreeNode root = new DefMutableTreeNode(iwinMax.rootArea);
+        Set<AreaSimple> set = new HashSet();
+        for (ElemSimple elem5e : iwinMax.listElem) {
+            if (elem5e.owner().type() != TypeElem.STVORKA) {
+                root.add(new DefMutableTreeNode(elem5e));
+            } else {
+                set.add(elem5e.owner());
+            }
+        }
+        for (AreaSimple areaStv : set) {
+            DefMutableTreeNode nodeStv = new DefMutableTreeNode(areaStv);
+            root.add(nodeStv);
+            for (ElemSimple elemStv : iwinMax.listElem) {
+                if (elemStv.owner() == areaStv) {
+                    nodeStv.add(new DefMutableTreeNode(elemStv));
                 }
             }
-            for (AreaSimple areaStv : set) {
-                DefMutableTreeNode nodeStv = new DefMutableTreeNode(areaStv);
-                root.add(nodeStv);
-                for (ElemSimple elemStv : iwinMax.listElem) {
-                    if (elemStv.owner() == areaStv) {
-                        nodeStv.add(new DefMutableTreeNode(elemStv));
-                    }
-                }
-            }
-            tree.setModel(new DefaultTreeModel(root));
-            //Util.expandTree(tree2, new TreePath(root), true);
-            tree.setSelectionRow(0);          
+        }
+        tree.setModel(new DefaultTreeModel(root));
+        //Util.expandTree(tree2, new TreePath(root), true);
+        tree.setSelectionRow(0);
     }
 
     private void selectionTree() {
@@ -226,7 +210,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     private void selectionTab3(ListSelectionEvent event) {
 
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

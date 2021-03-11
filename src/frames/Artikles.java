@@ -856,8 +856,6 @@ public class Artikles extends javax.swing.JFrame {
         pan5.setPreferredSize(new java.awt.Dimension(280, 500));
         pan5.setLayout(new java.awt.BorderLayout());
 
-        scr1.setPreferredSize(new java.awt.Dimension(0, 0));
-
         tab1.setFont(frames.Util.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -879,7 +877,6 @@ public class Artikles extends javax.swing.JFrame {
         tab1.setFillsViewportHeight(true);
         tab1.setMinimumSize(new java.awt.Dimension(0, 0));
         tab1.setName("tab1"); // NOI18N
-        tab1.setPreferredSize(new java.awt.Dimension(0, 0));
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
