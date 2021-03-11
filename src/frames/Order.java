@@ -236,7 +236,7 @@ public class Order extends javax.swing.JFrame {
         for (Record record : qPrjprod) {
             try {
                 Object script = record.get(ePrjprod.script);
-                ImageIcon image = Util.imageWin(iwin, script, length);
+                ImageIcon image = Util.createWindraw(iwin, script, length);
                 record.add(image);
 
             } catch (Exception e) {
@@ -1698,9 +1698,9 @@ public class Order extends javax.swing.JFrame {
 
                 ListenerRecord listenerColor = (colorRec) -> {
 
-                    builder.script.JsonElem rootArea = iwin.rootJson.find(selectID);
-                    if (rootArea != null) {
-                        String paramStr = (rootArea.param().isEmpty()) ? "{}" : rootArea.param();
+                    JsonElem jsonElem = iwin.rootJson.find(selectID);
+                    if (jsonElem != null) {
+                        String paramStr = (jsonElem.param().isEmpty()) ? "{}" : jsonElem.param();
                         JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
 
                         if (evt.getSource() == btn9) {
@@ -1711,7 +1711,7 @@ public class Order extends javax.swing.JFrame {
                             jsonObject.addProperty(PKjson.colorID3, colorRec.getStr(eColor.id));
                         }
                         paramStr = gson.toJson(jsonObject);
-                        rootArea.param(paramStr);
+                        jsonElem.param(paramStr);
                         updateScript(selectID);
                     }
                 };
@@ -1751,14 +1751,14 @@ public class Order extends javax.swing.JFrame {
                 new DicSysprof(this, (sysprofRec) -> {
 
                     float ramaId = windowsNode.com5t().id();
-                    JsonElem elemRama = iwin.rootJson.find(ramaId);
+                    JsonElem jsonElem = iwin.rootJson.find(ramaId);
 
                     if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) { //рама окна
-                        String paramStr = elemRama.param();
+                        String paramStr = jsonElem.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         paramStr = gson.toJson(paramObj);
-                        elemRama.param(paramStr);
+                        jsonElem.param(paramStr);
                         updateScript(selectID);
 
                     } else { //рама створки
@@ -1811,10 +1811,10 @@ public class Order extends javax.swing.JFrame {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
-                JsonArea parentArea = (JsonArea) iwin.rootJson.find(parentId);
+                JsonArea jsonArea = (JsonArea) iwin.rootJson.find(parentId);
 
                 if (windowsNode.com5t().type() == TypeElem.STVORKA_SIDE) {
-                    String paramStr = parentArea.param();
+                    String paramStr = jsonArea.param();
                     JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                     String stvKey = null;
                     if (windowsNode.com5t().layout() == LayoutArea.BOTTOM) {
@@ -1829,11 +1829,11 @@ public class Order extends javax.swing.JFrame {
                     JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
                     jso.addProperty(colorID, colorRec.getStr(eColor.id));
                     paramStr = gson.toJson(paramObj);
-                    parentArea.param(paramStr);
+                    jsonArea.param(paramStr);
                     updateScript(selectID);
 
                 } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) {
-                    for (JsonElem elem : parentArea.elements()) {
+                    for (JsonElem elem : jsonArea.elements()) {
                         if (elem.id() == ((DefMutableTreeNode) windowsNode).com5t().id()) {
                             String paramStr = elem.param();
                             JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
@@ -1861,12 +1861,12 @@ public class Order extends javax.swing.JFrame {
 
             new DicName(this, (sysfurnRec) -> {
 
-                JsonArea stvArea = (JsonArea) iwin.rootJson.find(windowsID);
-                String paramStr = stvArea.param();
+                JsonArea jsonStv = (JsonArea) iwin.rootJson.find(windowsID);
+                String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
                 paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
+                jsonStv.param(paramStr);
                 updateScript(windowsID);
 
             }, qSysfurn, eFurniture.name);
@@ -1880,14 +1880,14 @@ public class Order extends javax.swing.JFrame {
         try {
             new DicEnums(this, (typeopenRec) -> {
 
-                float windowsID = windowsNode.com5t().id();
-                JsonArea stvArea = (JsonArea) iwin.rootJson.find(windowsID);
-                String paramStr = stvArea.param();
+                float elemID = windowsNode.com5t().id();
+                JsonArea jsonStv = (JsonArea) iwin.rootJson.find(elemID);
+                String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
                 paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
-                updateScript(windowsID);
+                jsonStv.param(paramStr);
+                updateScript(elemID);
 
             }, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
                     TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTSHIFT, TypeOpen1.UPPER, TypeOpen1.FIXED);
@@ -1915,12 +1915,12 @@ public class Order extends javax.swing.JFrame {
             });
             DicColor frame = new DicColor(this, (colorRec) -> {
 
-                JsonArea stvArea = (JsonArea) iwin.rootJson.find(selectID);
-                String paramStr = stvArea.param();
+                JsonArea jsonStv = (JsonArea) iwin.rootJson.find(selectID);
+                String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
                 paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
+                jsonStv.param(paramStr);
                 updateScript(selectID);
 
             }, colorSet);
@@ -1954,12 +1954,12 @@ public class Order extends javax.swing.JFrame {
             }
             new DicArtikl(this, (artiklRec) -> {
 
-                JsonArea stvArea = (JsonArea) iwin.rootJson.find(selectID);
-                String paramStr = stvArea.param();
+                JsonArea jsonStv = (JsonArea) iwin.rootJson.find(selectID);
+                String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
                 paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
+                jsonStv.param(paramStr);
                 updateScript(selectID);
 
             }, qArtikl2);
@@ -1981,8 +1981,8 @@ public class Order extends javax.swing.JFrame {
         new DicHandl(this, (record) -> {
             try {
                 float selectID = areaStv.id();
-                JsonArea stvArea = (JsonArea) iwin.rootJson.find(selectID);
-                String paramStr = stvArea.param();
+                JsonArea jsonStv = (JsonArea) iwin.rootJson.find(selectID);
+                String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
 
                 if (record.getInt(0) == 0) {
@@ -1999,7 +1999,7 @@ public class Order extends javax.swing.JFrame {
                     txt31.setEditable(true);
                 }
                 paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
+                jsonStv.param(paramStr);
                 updateScript(selectID);
 
             } catch (Exception e) {

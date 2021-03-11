@@ -610,7 +610,7 @@ public class Util {
         }
     }
 
-    public static ImageIcon imageWin(Wincalc iwin, Object script, int length) {
+    public static ImageIcon createWindraw(Wincalc iwin, Object script, int length) {
 
         iwin.build(script.toString());
         BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
@@ -622,16 +622,5 @@ public class Util {
         iwin.rootArea.draw(length, length);
         ImageIcon image = new ImageIcon(bi);
         return image;
-    }
-
-    public static UseArtiklTo vvv(TypeElem typeElem) {
-        if (typeElem == TypeElem.IMPOST) {
-            return UseArtiklTo.IMPOST;
-        } else if (typeElem == TypeElem.FRAME_SIDE) {
-            return UseArtiklTo.FRAME;
-        } else if (typeElem == TypeElem.STVORKA_SIDE) {
-            return UseArtiklTo.STVORKA;
-        }
-        return null;
     }
 }

@@ -312,15 +312,15 @@ public class Systree extends javax.swing.JFrame {
         try {
             int row[] = windowsTree.getSelectionRows();
             DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
-            Set<AreaSimple> set = new HashSet();
+            Set<AreaSimple> setStv = new HashSet();
             for (ElemSimple elem5e : iwin.listElem) {
                 if (elem5e.owner().type() != TypeElem.STVORKA) {
                     root.add(new DefMutableTreeNode(elem5e));
                 } else {
-                    set.add(elem5e.owner());
+                    setStv.add(elem5e.owner());
                 }
             }
-            for (AreaSimple areaStv : set) {
+            for (AreaSimple areaStv : setStv) {
                 DefMutableTreeNode nodeStv = new DefMutableTreeNode(areaStv);
                 root.add(nodeStv);
                 for (ElemSimple elemStv : iwin.listElem) {
@@ -347,7 +347,7 @@ public class Systree extends javax.swing.JFrame {
         for (Record record : qSysprod.table(eSysprod.up)) {
             try {
                 Object script = record.get(eSysprod.script);
-                ImageIcon image = Util.imageWin(iwin, script, length);
+                ImageIcon image = Util.createWindraw(iwin, script, length);
                 record.add(image);
 
             } catch (Exception e) {
@@ -2597,14 +2597,14 @@ public class Systree extends javax.swing.JFrame {
         try {
             new DicEnums(this, (typeopenRec) -> {
 
-                float windowsID = windowsNode.com5t().id();
-                JsonArea stvArea = (JsonArea) iwin.rootJson.find(windowsID);
-                String paramStr = stvArea.param();
+                float elemID = windowsNode.com5t().id();
+                JsonArea jsonStv = (JsonArea) iwin.rootJson.find(elemID);
+                String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
                 paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
-                updateScript(windowsID);
+                jsonStv.param(paramStr);
+                updateScript(elemID);
 
             }, TypeOpen1.INVALID, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTSHIFT,
                     TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTSHIFT, TypeOpen1.UPPER, TypeOpen1.FIXED);

@@ -79,7 +79,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             try {
                 Object obj[] = {record.get(eSysmodel.npp), record.get(eSysmodel.name), ""};
                 Object script = record.get(eSysmodel.script);
-                ImageIcon image = Util.imageWin(iwinMin, script, length);
+                ImageIcon image = Util.createWindraw(iwinMin, script, length);
                 obj[2] = image;
                 listIcon1.add(image);
                 dm1.addRow(obj);
@@ -91,7 +91,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             try {
                 Object obj[] = {record.get(eSysmodel.npp), record.get(eSysmodel.name), ""};
                 Object script = record.get(eSysmodel.script);
-                ImageIcon image = Util.imageWin(iwinMin, script, length);
+                ImageIcon image = Util.createWindraw(iwinMin, script, length);
                 obj[2] = image;
                 listIcon2.add(image);
                 dm2.addRow(obj);
