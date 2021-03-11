@@ -529,7 +529,8 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.setPreferredSize(new java.awt.Dimension(800, 25));
 
-        mn01.setText("  Настройки  ");
+        mn01.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b016.gif"))); // NOI18N
+        mn01.setText("Настройки  ");
         mn01.setActionCommand("*Учреждение");
         mn01.setFont(frames.Util.getFont(1,1));
 
@@ -658,7 +659,8 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn01);
 
-        mn02.setText("  Справочники  ");
+        mn02.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b010.gif"))); // NOI18N
+        mn02.setText("Справочники  ");
         mn02.setFont(frames.Util.getFont(1,1));
 
         mn26.setFont(frames.Util.getFont(1,1));
@@ -713,7 +715,8 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn02);
 
-        mn09.setText("  Системы  ");
+        mn09.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b063.gif"))); // NOI18N
+        mn09.setText("Системы  ");
         mn09.setFont(frames.Util.getFont(1,1));
 
         mn91.setFont(frames.Util.getFont(1,1));
@@ -749,7 +752,8 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn09);
 
-        mn03.setText("  Составы  ");
+        mn03.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b014.gif"))); // NOI18N
+        mn03.setText("Составы  ");
         mn03.setFont(frames.Util.getFont(1,1));
 
         mn31.setFont(frames.Util.getFont(1,1));
@@ -815,7 +819,8 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn03);
 
-        mn06.setText("  Сервис  ");
+        mn06.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b015.gif"))); // NOI18N
+        mn06.setText("Сервис  ");
         mn06.setFont(frames.Util.getFont(1,1));
 
         mn61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b059.gif"))); // NOI18N
@@ -871,7 +876,8 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn06);
 
-        mn05.setText("  Справка  ");
+        mn05.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b013.gif"))); // NOI18N
+        mn05.setText("Справка  ");
         mn05.setFont(frames.Util.getFont(1,1));
 
         mn51.setFont(frames.Util.getFont(1,1));

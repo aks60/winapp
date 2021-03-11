@@ -106,9 +106,12 @@ public class Profstroy {
             if (Integer.valueOf(eProperty.base_num.read()) == 1) {
                 src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
                 out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
-            } else {
-                src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base3.fdb?encoding=win1251";
+            } else if (Integer.valueOf(eProperty.base_num.read()) == 2) {
+                src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase3\\sial3.fdb?encoding=win1251";
                 out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
+            } else {
+                src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Alutex3\\alutech3x.fdb?encoding=win1251";
+                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\ALUTECH.FDB?encoding=win1251";               
             }
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
             cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
