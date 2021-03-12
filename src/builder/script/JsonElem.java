@@ -9,6 +9,7 @@ import enums.TypeElem;
 public class JsonElem {
 
     protected float id = -1;  //ориентация при размещении
+    protected transient JsonArea parent = null;  //родитель
     protected LayoutArea layout = null; //сторона располодения эл. рамы
     protected TypeElem type = TypeElem.NONE; //тип элемента
     protected String param = ""; //параметры элемента
