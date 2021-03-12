@@ -37,7 +37,7 @@ public class JsonArea extends JsonElem {
 
     //Добавление элемента в дерево
     public JsonArea addArea(JsonArea area) {
-        
+
         if (TypeElem.STVORKA == area.type) {
             area.width = this.width;
             area.height = this.height;
@@ -77,11 +77,32 @@ public class JsonArea extends JsonElem {
     }
 
     public void updateWidth(float width) {
-        float dx = this.width - width;
-        for (JsonArea area : parent.areas) {
-            area.width = area.width + dx / parent.areas.size();
-        }
         this.width = width;
+        float dx = this.width - width;
+
+        for (JsonArea area1 : parent.areas) {
+            if (area1 == this) {
+                area1.width = width;
+            } else {
+                area1.width = area1.width + dx / parent.areas.size();
+            }
+            
+            for (JsonArea area2 : area1.parent.areas) {
+                if (area1 == area2) {
+                    area2.width = width;
+                } else {
+                    area2.width = area2.width + dx / area1.parent.areas.size();
+                }
+                
+                for (JsonArea area3 : area2.parent.areas) {
+                    if (area2 == area3) {
+                        area3.width = width;
+                    } else {
+                        area3.width = area3.width + dx / area3.parent.areas.size();
+                    }
+                }
+            }
+        }
     }
 
     public LinkedList<JsonArea> areas() {
