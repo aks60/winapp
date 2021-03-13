@@ -2746,7 +2746,7 @@ public class Systree extends javax.swing.JFrame {
         try {
             float windowsID = windowsNode.com5t().id();
             JsonArea jsonStv = (JsonArea) iwin.rootJson.find(windowsID);
-            jsonStv.updateWidth(700);
+            //jsonStv.width(700);
             updateScript(windowsID);
 
         } catch (Exception e) {
