@@ -68,40 +68,28 @@ public class JsonArea extends JsonElem {
         return width;
     }
 
-    public void updateHeight(float height) {
-        float dy = this.height - height;
-        for (JsonArea area : parent.areas) {
-            area.height = area.height - dy / areas.size();
+    public void widthUp(float w_new) {
+        
+        widthDown(this, w_new / this.width);
+        
+        for (JsonArea area2 : this.parent.areas) {            
+            
+            if (this.parent.layout == LayoutArea.HORIZ) {
+                float w_calc = (area2 == this) ? w_new : area2.width + (this.width - w_new) / this.parent.areas.size();
+                area2.width = w_calc;
+
+            } else {
+                area2.width = w_new;
+            }
+            area2.widthUp(area2.width);
         }
-        this.height = height;
     }
 
-    public void updateWidth(float width) {
-        this.width = width;
-        float dx = this.width - width;
-
-        for (JsonArea area1 : parent.areas) {
-            if (area1 == this) {
-                area1.width = width;
-            } else {
-                area1.width = area1.width + dx / parent.areas.size();
-            }
+    public void widthDown(JsonArea area, float dx) {
+        for (JsonArea area2 : area.areas) {
             
-            for (JsonArea area2 : area1.parent.areas) {
-                if (area1 == area2) {
-                    area2.width = width;
-                } else {
-                    area2.width = area2.width + dx / area1.parent.areas.size();
-                }
-                
-                for (JsonArea area3 : area2.parent.areas) {
-                    if (area2 == area3) {
-                        area3.width = width;
-                    } else {
-                        area3.width = area3.width + dx / area3.parent.areas.size();
-                    }
-                }
-            }
+            widthDown( area2, (dx * area2.width) / area2.width);
+            area2.width = dx * area2.width;
         }
     }
 
