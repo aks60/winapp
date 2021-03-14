@@ -82,7 +82,7 @@ public class Wincalc {
         genId = 100;
 
         //Парсинг входного скрипта
-        parsingScript(productJson);
+        parsing(productJson);
 
         //Соединения 
         rootArea.joinFrame(); //соединения рамы
@@ -121,9 +121,10 @@ public class Wincalc {
     }
 
     // Парсим входное json окно и строим объектную модель окна
-    private void parsingScript(String json) {
+    private void parsing(String json) {
         try {            
             //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json))); //для тестирования
+            //System.out.println(new GsonBuilder().create().toJson(new JsonParser().parse(json))); //для тестирования
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(json, GsonRoot.class);
             rootGson.setParent(rootGson);

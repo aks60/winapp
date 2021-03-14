@@ -12,7 +12,7 @@ public class GsonArea extends GsonElem {
 
     protected float width = 0; //ширина area, мм
     protected float height = 0; //высота area, мм
-    protected Float lengthSide = null; //ширина или высота добавляемой area, зависит от layoutArea, нужна на этапе конструирования (см. функцию add())
+    protected transient Float lengthSide = null; //ширина или высота добавляемой area, зависит от layoutArea, нужна на этапе конструирования (см. функцию add())
     private LinkedList<GsonElem> elements = new LinkedList();  //список area
     private LinkedList<GsonArea> areas = new LinkedList();  //список элементов
 
@@ -63,8 +63,16 @@ public class GsonArea extends GsonElem {
         return height;
     }
 
+    public void height(float height) {
+       this.height = height;
+    }
+    
     public float width() {
         return width;
+    }
+    
+    public void width(float width) {
+        this.width = width;
     }
 
     public void heightUp(float h_new) {
@@ -89,7 +97,7 @@ public class GsonArea extends GsonElem {
     }
 
     public void widthUp(float w_new) {
-
+        
         if (this.parent.areas.size() == 1 || this.parent.layout == LayoutArea.VERT) {
             this.parent.widthUp(w_new);
 

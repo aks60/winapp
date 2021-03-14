@@ -56,7 +56,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import domain.eArtdet;
 import domain.eColor;
-import domain.eCurrenc;
 import domain.eFurndet;
 import enums.LayoutArea;
 import enums.PKjson;
@@ -69,7 +68,6 @@ import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.Icon;
@@ -81,12 +79,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
-import startup.Tex;
 import startup.Main;
 import startup.App;
 import common.ListenerRecord;
 import common.ListenerFrame;
 import common.eProfile;
+import java.awt.event.KeyEvent;
 
 public class Systree extends javax.swing.JFrame {
 
@@ -538,10 +536,13 @@ public class Systree extends javax.swing.JFrame {
             if (windowsNode.com5t().type() == TypeElem.RECTANGL || windowsNode.com5t().type() == TypeElem.ARCH) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card12");
                 ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type().name);
-                pan12.repaint();
                 txt9.setText(eColor.find(iwin.colorID1).getStr(eColor.name));
                 txt13.setText(eColor.find(iwin.colorID2).getStr(eColor.name));
                 txt14.setText(eColor.find(iwin.colorID3).getStr(eColor.name));
+                txt17.setText(String.valueOf(iwin.rootGson.width()));
+                txt22.setText(String.valueOf(iwin.rootGson.height()));
+                txt23.setText(String.valueOf(iwin.rootGson.heightAdd()));
+                txt23.setEditable(windowsNode.com5t().type() == TypeElem.ARCH);
 
                 //Рама, импост...
             } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE
@@ -583,7 +584,7 @@ public class Systree extends javax.swing.JFrame {
             }
             Arrays.asList(txt9, txt13, txt14, txt27, txt28,
                     txt29, txt19, txt20, txt30).forEach(it -> it.setCaretPosition(0));
-            Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
+            //Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
     }
 
@@ -610,6 +611,7 @@ public class Systree extends javax.swing.JFrame {
                 iwin.build(script2.toString()); //построение изделия
                 paintPanel.repaint(true);
                 loadingWin();
+                windowsTree.setSelectionInterval(0, 0);
 
             } else {
                 Graphics2D g = (Graphics2D) paintPanel.getGraphics();
@@ -673,6 +675,7 @@ public class Systree extends javax.swing.JFrame {
         pan2 = new javax.swing.JPanel();
         panDesign = new javax.swing.JPanel();
         pan7 = new javax.swing.JPanel();
+        pan11 = new javax.swing.JPanel();
         pan12 = new javax.swing.JPanel();
         lab25 = new javax.swing.JLabel();
         lab26 = new javax.swing.JLabel();
@@ -694,6 +697,8 @@ public class Systree extends javax.swing.JFrame {
         txt17 = new javax.swing.JTextField();
         txt22 = new javax.swing.JTextField();
         txt23 = new javax.swing.JTextField();
+        btn17 = new javax.swing.JButton();
+        btn23 = new javax.swing.JButton();
         pan13 = new javax.swing.JPanel();
         pan20 = new javax.swing.JPanel();
         lab28 = new javax.swing.JLabel();
@@ -951,6 +956,19 @@ public class Systree extends javax.swing.JFrame {
         pan7.setPreferredSize(new java.awt.Dimension(300, 200));
         pan7.setLayout(new java.awt.CardLayout());
 
+        javax.swing.GroupLayout pan11Layout = new javax.swing.GroupLayout(pan11);
+        pan11.setLayout(pan11Layout);
+        pan11Layout.setHorizontalGroup(
+            pan11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 268, Short.MAX_VALUE)
+        );
+        pan11Layout.setVerticalGroup(
+            pan11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 232, Short.MAX_VALUE)
+        );
+
+        pan7.add(pan11, "card11");
+
         pan12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Основные", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Util.getFont(0, 1)));
         pan12.setToolTipText("");
         pan12.setPreferredSize(new java.awt.Dimension(300, 200));
@@ -1107,6 +1125,11 @@ public class Systree extends javax.swing.JFrame {
         txt17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt17.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt17.setPreferredSize(new java.awt.Dimension(60, 18));
+        txt17.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtKeyEnter(evt);
+            }
+        });
 
         txt22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt22.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -1115,6 +1138,30 @@ public class Systree extends javax.swing.JFrame {
         txt23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt23.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt23.setPreferredSize(new java.awt.Dimension(60, 18));
+
+        btn17.setText("...");
+        btn17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn17.setMaximumSize(new java.awt.Dimension(18, 18));
+        btn17.setMinimumSize(new java.awt.Dimension(18, 18));
+        btn17.setName("btnField17"); // NOI18N
+        btn17.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn17Act(evt);
+            }
+        });
+
+        btn23.setText("...");
+        btn23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn23.setMaximumSize(new java.awt.Dimension(18, 18));
+        btn23.setMinimumSize(new java.awt.Dimension(18, 18));
+        btn23.setName("btnField17"); // NOI18N
+        btn23.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn23Act(evt);
+            }
+        });
 
         javax.swing.GroupLayout pan12Layout = new javax.swing.GroupLayout(pan12);
         pan12.setLayout(pan12Layout);
@@ -1127,11 +1174,15 @@ public class Systree extends javax.swing.JFrame {
                     .addGroup(pan12Layout.createSequentialGroup()
                         .addComponent(lab35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan12Layout.createSequentialGroup()
                         .addComponent(lab38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan12Layout.createSequentialGroup()
                         .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1151,11 +1202,13 @@ public class Systree extends javax.swing.JFrame {
             .addGroup(pan12Layout.createSequentialGroup()
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1576,7 +1629,7 @@ public class Systree extends javax.swing.JFrame {
         btn15.setPreferredSize(new java.awt.Dimension(18, 18));
         btn15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn15Test(evt);
+                btn15Act(evt);
             }
         });
 
@@ -1588,7 +1641,7 @@ public class Systree extends javax.swing.JFrame {
         btn16.setPreferredSize(new java.awt.Dimension(18, 18));
         btn16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn16ActionPerformed(evt);
+                btn16Act(evt);
             }
         });
 
@@ -2759,7 +2812,7 @@ public class Systree extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_colorToHandl
 
-    private void btn15Test(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn15Test
+    private void btn15Act(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn15Act
         try {
             float windowsID = windowsNode.com5t().id();
             GsonArea jsonStv = (GsonArea) iwin.rootGson.find(windowsID);
@@ -2769,9 +2822,9 @@ public class Systree extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
-    }//GEN-LAST:event_btn15Test
+    }//GEN-LAST:event_btn15Act
 
-    private void btn16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn16ActionPerformed
+    private void btn16Act(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn16Act
         try {
             float windowsID = windowsNode.com5t().id();
             GsonArea jsonStv = (GsonArea) iwin.rootGson.find(windowsID);
@@ -2781,7 +2834,41 @@ public class Systree extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
-    }//GEN-LAST:event_btn16ActionPerformed
+    }//GEN-LAST:event_btn16Act
+
+    private void btn17Act(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn17Act
+        try {
+            float windowsID = windowsNode.com5t().id();
+            float dx = Float.valueOf(txt17.getText()) / iwin.rootGson.width();
+            iwin.rootGson.width(Float.valueOf(txt17.getText()));
+            iwin.rootGson.widthDown(iwin.rootGson, dx);
+            updateScript(windowsID);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_btn17Act
+
+    private void btn23Act(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn23Act
+        try {
+            float windowsID = windowsNode.com5t().id();
+            float dy = Float.valueOf(txt22.getText()) / iwin.rootGson.height();
+            iwin.rootGson.height(Float.valueOf(txt22.getText()));
+            iwin.rootGson.heightAdd(Float.valueOf(txt22.getText()));
+            iwin.rootGson.heightDown(iwin.rootGson, dy);
+            updateScript(windowsID);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_btn23Act
+
+    private void txtKeyEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyEnter
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            System.out.println("frames.Systree.txt17KeyPressed()"); 
+        }
+    }//GEN-LAST:event_txtKeyEnter
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2792,12 +2879,14 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JButton btn14;
     private javax.swing.JButton btn15;
     private javax.swing.JButton btn16;
+    private javax.swing.JButton btn17;
     private javax.swing.JButton btn18;
     private javax.swing.JButton btn19;
     private javax.swing.JButton btn2;
     private javax.swing.JButton btn20;
     private javax.swing.JButton btn21;
     private javax.swing.JButton btn22;
+    private javax.swing.JButton btn23;
     private javax.swing.JButton btn3;
     private javax.swing.JButton btn4;
     private javax.swing.JToggleButton btn5;
@@ -2846,6 +2935,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
+    private javax.swing.JPanel pan11;
     private javax.swing.JPanel pan12;
     private javax.swing.JPanel pan13;
     private javax.swing.JPanel pan15;

@@ -45,6 +45,10 @@ public class GsonRoot extends GsonArea {
         return heightAdd;
     }
 
+    public void heightAdd(float heightAdd) {
+        this.heightAdd = heightAdd;
+    }
+
     public int color(int index) {
         if (param != null && param.isEmpty() == false) {
             JsonObject jsonObj = new Gson().fromJson(param, JsonObject.class);
