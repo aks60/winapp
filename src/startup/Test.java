@@ -1,6 +1,6 @@
 package startup;
 
-import builder.script.JsonRoot;
+import builder.script.GsonRoot;
 import builder.script.Winscript;
 import common.*;
 import dataset.*;
@@ -149,7 +149,7 @@ public class Test {
         GsonBuilder builder = new GsonBuilder();
         //builder.registerTypeAdapter(Element.class, new GsonDeserializer<Element>());
         //builder.setPrettyPrinting();
-        JsonRoot root = builder.create().fromJson(script, JsonRoot.class);
+        GsonRoot root = builder.create().fromJson(script, GsonRoot.class);
 
         System.out.println(root.color(1));
 //        

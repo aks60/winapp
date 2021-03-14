@@ -6,33 +6,33 @@ import enums.TypeElem;
 /**
  * Элементы передачи данных Элемент не может быть контейнером
  */
-public class JsonElem {
+public class GsonElem {
 
     protected float id = -1;  //ориентация при размещении
-    protected transient JsonArea parent = null;  //родитель
+    protected transient GsonArea parent = null;  //родитель
     protected LayoutArea layout = null; //сторона располодения эл. рамы
     protected TypeElem type = TypeElem.NONE; //тип элемента
     protected String param = ""; //параметры элемента
 
     //Конструктор
-    public JsonElem() {
+    public GsonElem() {
     }
 
     //Конструктор
-    public JsonElem(float id, TypeElem elemType) {
+    public GsonElem(float id, TypeElem elemType) {
         this.id = id;
         this.type = elemType;
     }
 
     //Конструктор
-    public JsonElem(float id, TypeElem elemType, String paramJson) {
+    public GsonElem(float id, TypeElem elemType, String paramJson) {
         this.id = id;
         this.type = elemType;
         this.param = paramJson;
     }
 
     //Конструктор
-    public JsonElem(float id, TypeElem elemType, LayoutArea layoutRama) {
+    public GsonElem(float id, TypeElem elemType, LayoutArea layoutRama) {
         this.id = id;
         this.type = elemType;
         this.layout = layoutRama;

@@ -36,9 +36,9 @@ import builder.specif.Filling;
 import builder.specif.Furniture;
 import builder.model.ElemFrame;
 import builder.model.ElemSimple;
-import builder.script.JsonArea;
-import builder.script.JsonRoot;
-import builder.script.JsonElem;
+import builder.script.GsonArea;
+import builder.script.GsonRoot;
+import builder.script.GsonElem;
 import builder.script.Mediate;
 import com.google.gson.JsonParser;
 import frames.swing.Draw;
@@ -67,7 +67,7 @@ public class Wincalc {
     public String labelSketch = "empty"; //надпись на эскизе
 
     public AreaSimple rootArea = null;
-    public JsonRoot rootJson = null;
+    public GsonRoot rootGson = null;
     public HashMap<Integer, Record> mapParamDef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
@@ -125,17 +125,17 @@ public class Wincalc {
         try {            
             //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json))); //для тестирования
             Gson gson = new GsonBuilder().create();
-            rootJson = gson.fromJson(json, JsonRoot.class);
-            rootJson.setParent(rootJson);
+            rootGson = gson.fromJson(json, GsonRoot.class);
+            rootGson.setParent(rootGson);
 
-            this.nuni = rootJson.nuni();
-            float id = rootJson.id();
-            this.width = rootJson.width();
-            this.height = rootJson.height();
-            this.heightAdd = rootJson.heightAdd();
-            this.colorID1 = rootJson.color(1);
-            this.colorID2 = rootJson.color(2);
-            this.colorID3 = rootJson.color(3);
+            this.nuni = rootGson.nuni();
+            float id = rootGson.id();
+            this.width = rootGson.width();
+            this.height = rootGson.height();
+            this.heightAdd = rootGson.heightAdd();
+            this.colorID1 = rootGson.color(1);
+            this.colorID2 = rootGson.color(2);
+            this.colorID3 = rootGson.color(3);
 
             //Инит конструктив
             Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
@@ -145,17 +145,17 @@ public class Wincalc {
 
             //Главное окно
             LinkedList<Mediate> fromjsonList = new LinkedList(); //промежуточная конструкция
-            Mediate mediateRoot = new Mediate(null, id, rootJson.type().name(), rootJson.layout().name(), width, height, rootJson.param());
+            Mediate mediateRoot = new Mediate(null, id, rootGson.type().name(), rootGson.layout().name(), width, height, rootGson.param());
             fromjsonList.add(mediateRoot);
 
             //Добавим рамы         
-            for (builder.script.JsonElem elem : rootJson.elements()) {
+            for (builder.script.GsonElem elem : rootGson.elements()) {
                 if (TypeElem.FRAME_SIDE.equals(elem.type())) {
                     fromjsonList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layout().name(), elem.param()));
                 }
             }
             //Добавим все остальные Mediate, через рекурсию
-            recursionArea(rootJson, mediateRoot, fromjsonList);
+            recursionArea(rootGson, mediateRoot, fromjsonList);
             
             //Упорядочим порядок построения окна
             Collections.sort(fromjsonList, (o1, o2) -> Float.compare(o1.id(), o2.id())); 
@@ -169,9 +169,9 @@ public class Wincalc {
     }
 
     //Промежуточный список окна (для ранжирования элементов построения)
-    private void recursionArea(JsonArea el, Mediate med, LinkedList<Mediate> mediateList) {
+    private void recursionArea(GsonArea el, Mediate med, LinkedList<Mediate> mediateList) {
         try {
-            for (JsonArea area : el.areas()) {
+            for (GsonArea area : el.areas()) {
                 float width = (med.layout() == LayoutArea.VERT) ? med.width() : area.width();
                 float height = (med.layout() == LayoutArea.VERT) ? area.height() : med.height();
                 Mediate med2 = new Mediate(med, area.id(), area.type().name(), area.layout().name(), width, height, area.param());
@@ -180,7 +180,7 @@ public class Wincalc {
                 recursionArea(area, med2, mediateList); //рекурсия
 
             }
-            for (JsonElem elem : el.elements()) {
+            for (GsonElem elem : el.elements()) {
                 if (TypeElem.IMPOST.equals(elem.type())) {
                     mediateList.add(new Mediate(med, elem.id(), elem.type().name(), LayoutArea.ANY.name(), elem.param()));
                 } else if (TypeElem.GLASS.equals(elem.type())) {

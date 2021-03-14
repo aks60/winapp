@@ -6,7 +6,7 @@ import enums.LayoutArea;
 import enums.PKjson;
 import enums.TypeElem;
 
-public class JsonRoot extends JsonArea {
+public class GsonRoot extends GsonArea {
 
     private String name = "Конструкция";
     private Integer nuni = null;  //nuni профиля (PRO4_SYSPROF.NUNI)
@@ -17,7 +17,7 @@ public class JsonRoot extends JsonArea {
     private String prj = null; //номер тестируемого проекта, поле нужно только для тестов       
 
     //Контруктор главного окна
-    public JsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {
+    public GsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {
         super.id = id;
         this.layout = layoutArea;
         this.type = type;

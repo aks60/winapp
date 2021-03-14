@@ -50,8 +50,8 @@ import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
-import builder.script.JsonArea;
-import builder.script.JsonElem;
+import builder.script.GsonArea;
+import builder.script.GsonElem;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import domain.eArtdet;
@@ -638,7 +638,7 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void updateScript(float selectID) {
-        String script = gson.toJson(iwin.rootJson);
+        String script = gson.toJson(iwin.rootGson);
         Record sysprodRec = qSysprod.get(Util.getIndexRec(tab5));
         sysprodRec.set(eSysprod.script, script);
         qSysprod.update(sysprodRec);
@@ -737,6 +737,7 @@ public class Systree extends javax.swing.JFrame {
         lab42 = new javax.swing.JLabel();
         txt26 = new javax.swing.JTextField();
         btn15 = new javax.swing.JButton();
+        btn16 = new javax.swing.JButton();
         tabb1 = new javax.swing.JTabbedPane();
         pan6 = new javax.swing.JPanel();
         lab13 = new javax.swing.JLabel();
@@ -1578,6 +1579,18 @@ public class Systree extends javax.swing.JFrame {
             }
         });
 
+        btn16.setText("...");
+        btn16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn16.setMaximumSize(new java.awt.Dimension(18, 18));
+        btn16.setMinimumSize(new java.awt.Dimension(18, 18));
+        btn16.setName("btnField17"); // NOI18N
+        btn16.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn16ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pan16Layout = new javax.swing.GroupLayout(pan16);
         pan16.setLayout(pan16Layout);
         pan16Layout.setHorizontalGroup(
@@ -1623,7 +1636,9 @@ public class Systree extends javax.swing.JFrame {
                             .addGroup(pan16Layout.createSequentialGroup()
                                 .addComponent(lab42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pan16Layout.createSequentialGroup()
                                 .addComponent(lab41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1643,7 +1658,8 @@ public class Systree extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2374,7 +2390,7 @@ public class Systree extends javax.swing.JFrame {
                 new DicSysprof(this, (sysprofRec) -> {
 
                     float ramaId = windowsNode.com5t().id();
-                    JsonElem elemRama = iwin.rootJson.find(ramaId);
+                    GsonElem elemRama = iwin.rootGson.find(ramaId);
 
                     if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) { //рама окна
                         String paramStr = elemRama.param();
@@ -2386,7 +2402,7 @@ public class Systree extends javax.swing.JFrame {
 
                     } else { //рама створки
                         float stvId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
-                        JsonArea stvArea = (JsonArea) iwin.rootJson.find(stvId);
+                        GsonArea stvArea = (GsonArea) iwin.rootGson.find(stvId);
                         String paramStr = stvArea.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         String stvKey = null;
@@ -2434,7 +2450,7 @@ public class Systree extends javax.swing.JFrame {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
-                JsonArea parentArea = (JsonArea) iwin.rootJson.find(parentId);
+                GsonArea parentArea = (GsonArea) iwin.rootGson.find(parentId);
 
                 if (windowsNode.com5t().type() == TypeElem.STVORKA_SIDE) {
                     String paramStr = parentArea.param();
@@ -2456,7 +2472,7 @@ public class Systree extends javax.swing.JFrame {
                     updateScript(selectID);
 
                 } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) {
-                    for (JsonElem elem : parentArea.elements()) {
+                    for (GsonElem elem : parentArea.elements()) {
                         if (elem.id() == ((DefMutableTreeNode) windowsNode).com5t().id()) {
                             String paramStr = elem.param();
                             JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
@@ -2527,7 +2543,7 @@ public class Systree extends javax.swing.JFrame {
 
             ListenerRecord listenerColor = (colorRec) -> {
 
-                builder.script.JsonElem rootArea = iwin.rootJson.find(selectID);
+                builder.script.GsonElem rootArea = iwin.rootGson.find(selectID);
                 if (rootArea != null) {
                     String paramStr = (rootArea.param().isEmpty()) ? "{}" : rootArea.param();
                     JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
@@ -2570,7 +2586,7 @@ public class Systree extends javax.swing.JFrame {
 
             new DicArtikl(this, (artiklRec) -> {
 
-                JsonElem glassElem = (JsonElem) iwin.rootJson.find(selectID);
+                GsonElem glassElem = (GsonElem) iwin.rootGson.find(selectID);
                 String paramStr = glassElem.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
@@ -2594,7 +2610,7 @@ public class Systree extends javax.swing.JFrame {
 
             new DicName(this, (sysfurnRec) -> {
 
-                JsonArea stvArea = (JsonArea) iwin.rootJson.find(windowsID);
+                GsonArea stvArea = (GsonArea) iwin.rootGson.find(windowsID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
@@ -2614,7 +2630,7 @@ public class Systree extends javax.swing.JFrame {
             new DicEnums(this, (typeopenRec) -> {
 
                 float elemID = windowsNode.com5t().id();
-                JsonArea jsonStv = (JsonArea) iwin.rootJson.find(elemID);
+                GsonArea jsonStv = (GsonArea) iwin.rootGson.find(elemID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
@@ -2654,7 +2670,7 @@ public class Systree extends javax.swing.JFrame {
             }
             new DicArtikl(this, (artiklRec) -> {
 
-                JsonArea stvArea = (JsonArea) iwin.rootJson.find(selectID);
+                GsonArea stvArea = (GsonArea) iwin.rootGson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
@@ -2681,7 +2697,7 @@ public class Systree extends javax.swing.JFrame {
         new DicHandl(this, (record) -> {
             try {
                 float selectID = areaStv.id();
-                JsonArea stvArea = (JsonArea) iwin.rootJson.find(selectID);
+                GsonArea stvArea = (GsonArea) iwin.rootGson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
 
@@ -2728,7 +2744,7 @@ public class Systree extends javax.swing.JFrame {
             });
             DicColor frame = new DicColor(this, (colorRec) -> {
 
-                JsonArea stvArea = (JsonArea) iwin.rootJson.find(selectID);
+                GsonArea stvArea = (GsonArea) iwin.rootGson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
@@ -2745,7 +2761,7 @@ public class Systree extends javax.swing.JFrame {
     private void btn15Test(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn15Test
         try {
             float windowsID = windowsNode.com5t().id();
-            JsonArea jsonStv = (JsonArea) iwin.rootJson.find(windowsID);
+            GsonArea jsonStv = (GsonArea) iwin.rootGson.find(windowsID);
             jsonStv.widthUp(700);
             updateScript(windowsID);
 
@@ -2753,6 +2769,18 @@ public class Systree extends javax.swing.JFrame {
             System.err.println("Ошибка: " + e);
         }
     }//GEN-LAST:event_btn15Test
+
+    private void btn16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn16ActionPerformed
+        try {
+            float windowsID = windowsNode.com5t().id();
+            GsonArea jsonStv = (GsonArea) iwin.rootGson.find(windowsID);
+            jsonStv.heightUp(900);
+            updateScript(windowsID);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }
+    }//GEN-LAST:event_btn16ActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2762,6 +2790,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JButton btn13;
     private javax.swing.JButton btn14;
     private javax.swing.JButton btn15;
+    private javax.swing.JButton btn16;
     private javax.swing.JButton btn18;
     private javax.swing.JButton btn19;
     private javax.swing.JButton btn2;
