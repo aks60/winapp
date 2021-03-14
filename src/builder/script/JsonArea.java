@@ -69,27 +69,31 @@ public class JsonArea extends JsonElem {
     }
 
     public void widthUp(float w_new) {
-        
-        widthDown(this, w_new / this.width);
-        
-        for (JsonArea area2 : this.parent.areas) {            
-            
-            if (this.parent.layout == LayoutArea.HORIZ) {
-                float w_calc = (area2 == this) ? w_new : area2.width + (this.width - w_new) / this.parent.areas.size();
-                area2.width = w_calc;
 
-            } else {
-                area2.width = w_new;
+        if (this.parent.areas.size() == 1) {
+            this.parent.widthUp(w_new);
+
+        } else {
+            float dx = this.width - w_new;
+            for (JsonArea area2 : this.parent.areas) {
+                
+                float w_old = area2.width;
+                if (this.parent.layout == LayoutArea.HORIZ) {
+                    area2.width = (area2 == this) ? w_new : area2.width + dx / (this.parent.areas.size() - 1);
+
+                } else {
+                    area2.width = w_new;
+                }
+                widthDown(area2, area2.width / w_old);
             }
-            area2.widthUp(area2.width);
         }
     }
 
-    public void widthDown(JsonArea area, float dx) {
+    public void widthDown(JsonArea area, float wt) {
         for (JsonArea area2 : area.areas) {
-            
-            widthDown( area2, (dx * area2.width) / area2.width);
-            area2.width = dx * area2.width;
+
+            widthDown(area2, (wt * area2.width) / area2.width);
+            area2.width = wt * area2.width;
         }
     }
 

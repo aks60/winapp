@@ -123,7 +123,7 @@ public class Wincalc {
     // Парсим входное json окно и строим объектную модель окна
     private void parsingScript(String json) {
         try {            
-            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json))); //для тестирования
+            //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json))); //для тестирования
             Gson gson = new GsonBuilder().create();
             rootJson = gson.fromJson(json, JsonRoot.class);
             rootJson.setParent(rootJson);
