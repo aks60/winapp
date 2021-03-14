@@ -649,6 +649,7 @@ public class Systree extends javax.swing.JFrame {
                 TreePath path = new TreePath(node.getPath());
                 windowsTree.setSelectionPath(path);
                 windowsTree.scrollPathToVisible(path);
+                return;
             }
             node = node.getNextNode();
         } while (node != null);
