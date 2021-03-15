@@ -314,26 +314,7 @@ public class Systree extends javax.swing.JFrame {
     private void loadingWin() {
         try {
             int row[] = windowsTree.getSelectionRows();
-            DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
-//            for (Com5t comp : root.com5t().listChild) {
-//                
-//                if (comp.type() == TypeElem.FRAME_SIDE) {
-//                    root.add(new DefMutableTreeNode(comp));
-//                    
-//                } else if (comp.type() == TypeElem.IMPOST) {
-//                    root.add(new DefMutableTreeNode(comp)); 
-//                    
-//                } else if (comp.type() == TypeElem.AREA) {
-//                    
-//                    root.add(new DefMutableTreeNode(comp));
-//                    for (Com5t comp2 : comp.listChild) {
-//                        if (comp2.type() == TypeElem.GLASS) {
-//                  
-//                        }
-//                    }
-//                }                
-//            }
-            
+            DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);            
             LinkedHashSet<AreaSimple> setStv = new LinkedHashSet();
             for (ElemSimple elem5e : iwin.listElem) {
                 if (elem5e.owner().type() != TypeElem.STVORKA) {
@@ -342,7 +323,6 @@ public class Systree extends javax.swing.JFrame {
                     setStv.add(elem5e.owner());
                 }
             }
-            //Collections.sort(setStv, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
             for (AreaSimple areaStv : setStv) {
                 DefMutableTreeNode nodeStv = new DefMutableTreeNode(areaStv);
                 root.add(nodeStv);
@@ -612,6 +592,7 @@ public class Systree extends javax.swing.JFrame {
             }
             Arrays.asList(txt9, txt13, txt14, txt27, txt28,
                     txt29, txt19, txt20, txt30).forEach(it -> it.setCaretPosition(0));
+            Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
     }
 

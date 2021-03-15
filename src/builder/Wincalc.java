@@ -91,7 +91,7 @@ public class Wincalc {
 
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.GLASS);
-        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
+        Collections.sort(listElem, (a, b) -> Float.compare(a.id(), b.id()));
         return rootArea;
     }
 
@@ -99,7 +99,7 @@ public class Wincalc {
     private void parsing(String json) {
         try {
             //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json))); //для тестирования
-            System.out.println(new GsonBuilder().create().toJson(new JsonParser().parse(json))); //для тестирования
+            //System.out.println(new GsonBuilder().create().toJson(new JsonParser().parse(json))); //для тестирования
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(json, GsonRoot.class);
             rootGson.setParent(rootGson);
