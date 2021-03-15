@@ -49,6 +49,7 @@ import frames.swing.DefTableModel;
 import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
+import builder.model.Com5t;
 import builder.model.ElemSimple;
 import builder.script.GsonElem;
 import com.google.gson.GsonBuilder;
@@ -86,6 +87,7 @@ import common.eProfile;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 
@@ -313,6 +315,25 @@ public class Systree extends javax.swing.JFrame {
         try {
             int row[] = windowsTree.getSelectionRows();
             DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
+            for (Com5t comp : root.com5t().listChild) {
+                
+                if (comp.type() == TypeElem.FRAME_SIDE) {
+                    root.add(new DefMutableTreeNode(comp));
+                    
+                } else if (comp.type() == TypeElem.IMPOST) {
+                    root.add(new DefMutableTreeNode(comp)); 
+                    
+                } else if (comp.type() == TypeElem.AREA) {
+                    
+                    root.add(new DefMutableTreeNode(comp));
+                    for (Com5t comp2 : comp.listChild) {
+                        if (comp2.type() == TypeElem.GLASS) {
+                  
+                        }
+                    }
+                }                
+            }
+            /*
             LinkedHashSet<AreaSimple> setStv = new LinkedHashSet();
             for (ElemSimple elem5e : iwin.listElem) {
                 if (elem5e.owner().type() != TypeElem.STVORKA) {
@@ -321,6 +342,7 @@ public class Systree extends javax.swing.JFrame {
                     setStv.add(elem5e.owner());
                 }
             }
+            //Collections.sort(setStv, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
             for (AreaSimple areaStv : setStv) {
                 DefMutableTreeNode nodeStv = new DefMutableTreeNode(areaStv);
                 root.add(nodeStv);
@@ -330,6 +352,7 @@ public class Systree extends javax.swing.JFrame {
                     }
                 }
             }
+            */
             windowsTree.setModel(new DefaultTreeModel(root));
             windowsTree.setSelectionRows(row);
 
