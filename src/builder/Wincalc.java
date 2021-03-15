@@ -64,8 +64,9 @@ public class Wincalc {
     public double scale = 1; //коэффициент сжатия
     public String labelSketch = "empty"; //надпись на эскизе
 
-    public AreaSimple rootArea = null;
-    public GsonRoot rootGson = null;
+    public AreaSimple rootArea = null; //главное окно кострукции
+    public GsonRoot rootGson = null; //главное окно кострукции в формате gson
+    
     public HashMap<Integer, Record> mapParamDef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
@@ -98,7 +99,7 @@ public class Wincalc {
     private void parsing(String json) {
         try {
             //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json))); //для тестирования
-            System.out.println(new GsonBuilder().create().toJson(new JsonParser().parse(json))); //для тестирования
+            //System.out.println(new GsonBuilder().create().toJson(new JsonParser().parse(json))); //для тестирования
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(json, GsonRoot.class);
             rootGson.setParent(rootGson);

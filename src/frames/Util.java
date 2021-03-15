@@ -583,26 +583,17 @@ public class Util {
             System.err.println(e);
         }
     }
-
+    
     //Проверка на коррекность ввода
-    public static void documentFilter1(JTextField... txtField) {
+    public static void documentFilter(int numb, JTextField... txtField) {
         for (JTextField txtField2 : txtField) {
             ((PlainDocument) txtField2.getDocument()).setDocumentFilter(new DocumentFilter() {
                 public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                    if (string.length() > 1 || "0123456789;".indexOf(string) != -1) {
+                    if (numb == 1 && (string.length() > 1 || "0123456789;-".indexOf(string) != -1)) {
                         super.replace(fb, offset, length, string, attrs);
-                    }
-                }
-            });
-        }
-    }
-
-    //Проверка на коррекность ввода
-    public static void documentFilter2(JTextField... txtField) {
-        for (JTextField txtField2 : txtField) {
-            ((PlainDocument) txtField2.getDocument()).setDocumentFilter(new DocumentFilter() {
-                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                    if (string.length() > 1 || "0123456789;-".indexOf(string) != -1) {
+                    } else if (numb == 2 && (string.length() > 1 || "0123456789;-".indexOf(string) != -1)) {
+                        super.replace(fb, offset, length, string, attrs);
+                    } else if (numb == 3 && (string.length() > 1 || "0123456789.".indexOf(string) != -1)) {
                         super.replace(fb, offset, length, string, attrs);
                     }
                 }
