@@ -13,14 +13,14 @@ public class GsonElem {
 
     protected float id = -1;  //ориентация при размещении
     protected transient GsonElem parent = null;  //родитель
-    private LinkedList<GsonElem> childs = null;  //список детей
+    protected LinkedList<GsonElem> childs = null;  //список детей
     protected LayoutArea layout = null; //сторона располодения эл. рамы
     protected TypeElem type = null; //тип элемента
     protected String param = null; //параметры элемента
     protected Float width = null; //ширина area, мм
     protected Float height = null; //высота area, мм
     protected transient Float lengthSide = null; //ширина или высота добавляемой area
-    
+
     public GsonElem() {
     }
 
@@ -62,7 +62,7 @@ public class GsonElem {
 
     public GsonElem addArea(GsonElem area) {
         childs = (childs == null) ? new LinkedList() : childs;
-        
+
         if (TypeElem.STVORKA == area.type) {
             area.width = this.width;
             area.height = this.height;
@@ -82,7 +82,7 @@ public class GsonElem {
 
     public GsonElem addElem(GsonElem element) {
         childs = (childs == null) ? new LinkedList() : childs;
-        
+
         this.childs.add(element);
         return element;
     }
@@ -179,6 +179,10 @@ public class GsonElem {
             widthDown(area2, (wt * area2.width) / area2.width);
             area2.width = wt * area2.width;
         }
+    }
+
+    public LinkedList<GsonElem> childs() {
+        return childs;
     }
 
     public LinkedList<GsonElem> areas() {

@@ -145,60 +145,7 @@ public class Wincalc {
             eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
 
             //Главное окно
-            LinkedList<Mediate> fromjsonList = new LinkedList(); //промежуточная конструкция
-            Mediate mediateRoot = new Mediate(null, id, rootGson.type().name(), rootGson.layout().name(), width, height, rootGson.param());
-            fromjsonList.add(mediateRoot);
-
-            //Добавим рамы         
-            for (builder.script.GsonElem elem : rootGson.elements()) {
-                if (TypeElem.FRAME_SIDE.equals(elem.type())) {
-                    fromjsonList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layout().name(), elem.param()));
-                }
-            }
-            //Добавим все остальные Mediate, через рекурсию
-            recursionArea(rootGson, mediateRoot, fromjsonList);
-            
-            //Упорядочим порядок построения окна
-            Collections.sort(fromjsonList, (o1, o2) -> Float.compare(o1.id(), o2.id())); 
-
-            //Строим конструкцию из промежуточного списка
-            windowsBuild(fromjsonList);
-
-        } catch (Exception e) {
-            System.err.println("Ошибка:Wincalc.parsingScript() " + e);
-        }
-    }
-
-    //Промежуточный список окна (для ранжирования элементов построения)
-    private void recursionArea(GsonElem el, Mediate med, LinkedList<Mediate> mediateList) {
-        try {
-            for (GsonElem area : el.areas()) {
-                float width = (med.layout() == LayoutArea.VERT) ? med.width() : area.width();
-                float height = (med.layout() == LayoutArea.VERT) ? area.height() : med.height();
-                Mediate med2 = new Mediate(med, area.id(), area.type().name(), area.layout().name(), width, height, area.param());
-                mediateList.add(med2);
-
-                recursionArea(area, med2, mediateList); //рекурсия
-
-            }
-            for (GsonElem elem : el.elements()) {
-                if (TypeElem.IMPOST.equals(elem.type())) {
-                    mediateList.add(new Mediate(med, elem.id(), elem.type().name(), LayoutArea.ANY.name(), elem.param()));
-                } else if (TypeElem.GLASS.equals(elem.type())) {
-                    mediateList.add(new Mediate(med, elem.id(), elem.type().name(), LayoutArea.ANY.name(), elem.param()));
-                }
-            }
-
-        } catch (Exception e) {
-            System.err.println("wincalc.Wincalc.intermBuild() " + e);
-        }
-    }
-
-    //Строим конструкцию из промежуточного списка
-    private void windowsBuild(LinkedList<Mediate> mediateList) {
-        try {
-            //Главное окно        
-            Mediate mdtRoot = mediateList.getFirst();
+            GsonRoot mdtRoot = new GsonRoot(id, rootGson.layout(), rootGson.type(), width, height, heightAdd, colorID1, colorID2, colorID3, rootGson.param());
             if (TypeElem.RECTANGL == mdtRoot.type()) {
                 rootArea = new AreaRectangl(this, null, mdtRoot.id(), TypeElem.RECTANGL, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.param()); //простое
             } else if (TypeElem.TRAPEZE == mdtRoot.type()) {
@@ -208,10 +155,7 @@ public class Wincalc {
             } else if (TypeElem.ARCH == mdtRoot.type()) {
                 rootArea = new AreaArch(this, null, mdtRoot.id(), TypeElem.ARCH, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.param()); //арка
             }
-            mdtRoot.area5e = rootArea;
-
-            //Цикл по элементам конструкции ранж. по ключам.
-            for (Mediate mdt : mediateList) {
+            for (GsonElem mdt : mdtRoot.childs()) {
 
                 //Добавим рамы в гпавное окно
                 if (TypeElem.FRAME_SIDE == mdt.type()) {
@@ -229,9 +173,9 @@ public class Wincalc {
                 } else if (TypeElem.GLASS == mdt.type()) {
                     mdt.addElem(new ElemGlass(mdt.owner.area5e, mdt.id(), mdt.param()));
                 }
-            }
+            }            
         } catch (Exception e) {
-            System.err.println("Ошибка:wincalc.Wincalc.windowsBuild() " + e);
+            System.err.println("Ошибка:Wincalc.parsingScript() " + e);
         }
     }
 }
