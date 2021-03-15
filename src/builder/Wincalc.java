@@ -8,7 +8,6 @@ import builder.model.ElemJoining;
 import builder.model.AreaSimple;
 import builder.model.AreaRectangl;
 import builder.model.AreaTrapeze;
-import builder.model.Com5t;
 import builder.model.ElemImpost;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -37,6 +36,7 @@ import builder.model.ElemFrame;
 import builder.model.ElemSimple;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
+import com.google.gson.JsonParser;
 import frames.swing.Draw;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -93,12 +93,12 @@ public class Wincalc {
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
         return rootArea;
     }
-    
+
     // Парсим входное json окно и строим объектную модель окна
     private void parsing(String json) {
         try {
             //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json))); //для тестирования
-            //System.out.println(new GsonBuilder().create().toJson(new JsonParser().parse(json))); //для тестирования
+            System.out.println(new GsonBuilder().create().toJson(new JsonParser().parse(json))); //для тестирования
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(json, GsonRoot.class);
             rootGson.setParent(rootGson);
@@ -107,10 +107,10 @@ public class Wincalc {
             this.nuni = rootGson.nuni();
             this.width = rootGson.width();
             this.height = rootGson.height();
-            this.heightAdd = rootGson.heightAdd();
+            this.heightAdd = (rootGson.heightAdd() == null) ? this.height : rootGson.heightAdd();
             this.colorID1 = rootGson.color(1);
             this.colorID2 = rootGson.color(2);
-            this.colorID3 = rootGson.color(3);            
+            this.colorID3 = rootGson.color(3);
             this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
             this.syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
             eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
@@ -156,7 +156,7 @@ public class Wincalc {
                     AreaSimple area5e = new AreaSimple(Wincalc.this, owner, el.id(), el.type(), el.layout(), el.width(), el.height(), -1, -1, -1, null);
                     owner.listChild.add(area5e);
                     hm.put(area5e, el);
-                    
+
                     //Добавим Element
                 } else if (TypeElem.IMPOST == el.type()) {
                     owner.listChild.add(new ElemImpost(owner, el.id(), el.param()));
@@ -164,17 +164,17 @@ public class Wincalc {
                     owner.listChild.add(new ElemGlass(owner, el.id(), el.param()));
                 }
             }
-            
+
             //Теперь вложенные элементы
             for (Map.Entry<AreaSimple, GsonElem> entry : hm.entrySet()) {
-                recursion(entry.getKey(), entry.getValue());               
+                recursion(entry.getKey(), entry.getValue());
             }
 
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.recursion() " + e);
         }
     }
-    
+
     //Конструктив и тарификация 
     public void constructiv() {
         try {
@@ -198,5 +198,5 @@ public class Wincalc {
             System.err.println("Ошибка:Wincalc.constructiv(" + e);
         }
     }
-    
+
 }

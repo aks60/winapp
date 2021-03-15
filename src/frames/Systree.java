@@ -2304,22 +2304,23 @@ public class Systree extends javax.swing.JFrame {
 
         if (systreeNode != null) {
             if (systemTree.getBorder() != null) {
-                Record record = eSystree.up.newRecord(Query.INS);
-                int id = ConnApp.instanc().genId(eSystree.id);
-                record.setNo(eSystree.id, id);
-                //int parent_id = (systreeNode.rec().getInt(eSystree.id) == systreeNode.rec().getInt(eSystree.parent_id))
-                //        ? record.getInt(eSystree.id) : systreeNode.rec().getInt(eSystree.id);
-                int parent_id = (systreeNode.rec().getInt(eSystree.id) == -1) ? id : systreeNode.rec().getInt(eSystree.id);
-                record.setNo(eSystree.parent_id, parent_id);
-                record.setNo(eSystree.name, "P" + id + "." + parent_id);
-                qSystree.insert(record); //record сохраним в базе
-                record.set(eSystree.up, Query.SEL);
-                qSystree.add(record); //добавим record в список
-                DefMutableTreeNode newNode = new DefMutableTreeNode(record);
-                ((DefaultTreeModel) systemTree.getModel()).insertNodeInto(newNode, systreeNode, systreeNode.getChildCount()); //добавим node в tree
-                TreeNode[] nodes = ((DefaultTreeModel) systemTree.getModel()).getPathToRoot(newNode);
-                systemTree.scrollPathToVisible(new TreePath(nodes));
-                systemTree.setSelectionPath(new TreePath(nodes));
+                if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите добавить ветку в систему?", "Предупреждение",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+                    Record record = eSystree.up.newRecord(Query.INS);
+                    int id = ConnApp.instanc().genId(eSystree.id);
+                    record.setNo(eSystree.id, id);
+                    int parent_id = (systreeNode.rec().getInt(eSystree.id) == -1) ? id : systreeNode.rec().getInt(eSystree.id);
+                    record.setNo(eSystree.parent_id, parent_id);
+                    record.setNo(eSystree.name, "P" + id + "." + parent_id);
+                    qSystree.insert(record); //record сохраним в базе
+                    record.set(eSystree.up, Query.SEL);
+                    qSystree.add(record); //добавим record в список
+                    DefMutableTreeNode newNode = new DefMutableTreeNode(record);
+                    ((DefaultTreeModel) systemTree.getModel()).insertNodeInto(newNode, systreeNode, systreeNode.getChildCount()); //добавим node в tree
+                    TreeNode[] nodes = ((DefaultTreeModel) systemTree.getModel()).getPathToRoot(newNode);
+                    systemTree.scrollPathToVisible(new TreePath(nodes));
+                    systemTree.setSelectionPath(new TreePath(nodes));
+                }
 
             } else if (tab2.getBorder() != null) {
                 Util.insertRecord(tab2, eSysprof.up, (record) -> {
@@ -2864,9 +2865,9 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btn23Act
 
     private void txtKeyEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyEnter
-        
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("frames.Systree.txt17KeyPressed()"); 
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            System.out.println("frames.Systree.txt17KeyPressed()");
         }
     }//GEN-LAST:event_txtKeyEnter
 

@@ -16,14 +16,17 @@ public class GsonRoot extends GsonElem {
     private Integer color3 = null;  //внешняя текстура    
     private String prj = null; //номер тестируемого проекта, поле нужно только для тестов       
 
-    //Контруктор главного окна
+    public GsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3, String paramJson) {
+        this(id, layoutArea, type, width, height, 0, color1, color2, color3, paramJson);
+    }
+
     public GsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {
         super.id = id;
         this.layout = layoutArea;
         this.type = type;
         this.width = width;
         this.height = height;
-        this.heightAdd = heightAdd;
+        this.heightAdd = (heightAdd == 0) ? null : heightAdd;
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
@@ -41,7 +44,7 @@ public class GsonRoot extends GsonElem {
         }
     }
 
-    public float heightAdd() {
+    public Float heightAdd() {
         return heightAdd;
     }
 
