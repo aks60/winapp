@@ -31,8 +31,6 @@ import java.lang.annotation.ElementType;
 
 public class AreaSimple extends Com5t {
 
-    //public float dx = 0;
-    //public float dy = 0;
     public float gsize = 0; //размер от оси профиля до заполнения (стеклопакета)
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне  
 

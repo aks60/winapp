@@ -1,25 +1,22 @@
 package builder.script;
 
+import builder.model.AreaSimple;
 import enums.LayoutArea;
 import enums.TypeElem;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
-/**
- * Контернер передачи данных. В контейнере могут находиться другие контейнеры и
- * элементы.
- */
 public class GsonElem {
 
     protected float id = -1;  //ориентация при размещении
-    protected transient GsonElem parent = null;  //родитель
+    public transient GsonElem parenet = null;  //владелец 
     protected LinkedList<GsonElem> childs = null;  //список детей
     protected LayoutArea layout = null; //сторона располодения эл. рамы
     protected TypeElem type = null; //тип элемента
     protected String param = null; //параметры элемента
     protected Float width = null; //ширина area, мм
     protected Float height = null; //высота area, мм
-    protected transient Float lengthSide = null; //ширина или высота добавляемой area
+    protected transient Float lengthSide = null; //ширина или высота добавляемой area    
 
     public GsonElem() {
     }
@@ -125,16 +122,16 @@ public class GsonElem {
 
     public void heightUp(float h_new) {
 
-        if (this.parent.areas().size() == 1 || this.parent.layout == LayoutArea.HORIZ) {
-            this.parent.heightUp(h_new);
+        if (this.parenet.areas().size() == 1 || this.parenet.layout == LayoutArea.HORIZ) {
+            this.parenet.heightUp(h_new);
 
         } else {
             float dy = this.height - h_new;
-            for (GsonElem area2 : this.parent.areas()) {
+            for (GsonElem area2 : this.parenet.areas()) {
 
                 float h_old = area2.height;
-                if (this.parent.layout == LayoutArea.VERT) {
-                    area2.height = (area2 == this) ? h_new : area2.height + dy / (this.parent.areas().size() - 1);
+                if (this.parenet.layout == LayoutArea.VERT) {
+                    area2.height = (area2 == this) ? h_new : area2.height + dy / (this.parenet.areas().size() - 1);
 
                 } else {
                     area2.height = h_new;
@@ -146,16 +143,16 @@ public class GsonElem {
 
     public void widthUp(float w_new) {
 
-        if (this.parent.areas().size() == 1 || this.parent.layout == LayoutArea.VERT) {
-            this.parent.widthUp(w_new);
+        if (this.parenet.areas().size() == 1 || this.parenet.layout == LayoutArea.VERT) {
+            this.parenet.widthUp(w_new);
 
         } else {
             float dx = this.width - w_new;
-            for (GsonElem area2 : this.parent.areas()) {
+            for (GsonElem area2 : this.parenet.areas()) {
 
                 float w_old = area2.width;
-                if (this.parent.layout == LayoutArea.HORIZ) {
-                    area2.width = (area2 == this) ? w_new : area2.width + dx / (this.parent.areas().size() - 1);
+                if (this.parenet.layout == LayoutArea.HORIZ) {
+                    area2.width = (area2 == this) ? w_new : area2.width + dx / (this.parenet.areas().size() - 1);
 
                 } else {
                     area2.width = w_new;
@@ -259,8 +256,8 @@ public class GsonElem {
 
     public void setParent(GsonElem trunk) {
         for (GsonElem area : trunk.areas()) {
-            area.parent = trunk;
-            area.elements().forEach(elem -> elem.parent = trunk);
+            area.parenet = trunk;
+            area.elements().forEach(elem -> elem.parenet = trunk);
             setParent(area);
         }
     }
