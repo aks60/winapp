@@ -315,25 +315,25 @@ public class Systree extends javax.swing.JFrame {
         try {
             int row[] = windowsTree.getSelectionRows();
             DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
-            for (Com5t comp : root.com5t().listChild) {
-                
-                if (comp.type() == TypeElem.FRAME_SIDE) {
-                    root.add(new DefMutableTreeNode(comp));
-                    
-                } else if (comp.type() == TypeElem.IMPOST) {
-                    root.add(new DefMutableTreeNode(comp)); 
-                    
-                } else if (comp.type() == TypeElem.AREA) {
-                    
-                    root.add(new DefMutableTreeNode(comp));
-                    for (Com5t comp2 : comp.listChild) {
-                        if (comp2.type() == TypeElem.GLASS) {
-                  
-                        }
-                    }
-                }                
-            }
-            /*
+//            for (Com5t comp : root.com5t().listChild) {
+//                
+//                if (comp.type() == TypeElem.FRAME_SIDE) {
+//                    root.add(new DefMutableTreeNode(comp));
+//                    
+//                } else if (comp.type() == TypeElem.IMPOST) {
+//                    root.add(new DefMutableTreeNode(comp)); 
+//                    
+//                } else if (comp.type() == TypeElem.AREA) {
+//                    
+//                    root.add(new DefMutableTreeNode(comp));
+//                    for (Com5t comp2 : comp.listChild) {
+//                        if (comp2.type() == TypeElem.GLASS) {
+//                  
+//                        }
+//                    }
+//                }                
+//            }
+            
             LinkedHashSet<AreaSimple> setStv = new LinkedHashSet();
             for (ElemSimple elem5e : iwin.listElem) {
                 if (elem5e.owner().type() != TypeElem.STVORKA) {
@@ -352,7 +352,6 @@ public class Systree extends javax.swing.JFrame {
                     }
                 }
             }
-            */
             windowsTree.setModel(new DefaultTreeModel(root));
             windowsTree.setSelectionRows(row);
 
