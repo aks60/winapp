@@ -8,16 +8,15 @@ import builder.model.ElemJoining;
 import builder.model.AreaSimple;
 import builder.model.AreaRectangl;
 import builder.model.AreaTrapeze;
+import builder.model.Com5t;
 import builder.model.ElemImpost;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSyssize;
 import domain.eSyspar1;
 import domain.eSysprof;
-import enums.LayoutArea;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.specif.Cal5e;
@@ -36,12 +35,11 @@ import builder.specif.Filling;
 import builder.specif.Furniture;
 import builder.model.ElemFrame;
 import builder.model.ElemSimple;
-import builder.script.GsonArea;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
-import builder.script.Mediate;
-import com.google.gson.JsonParser;
 import frames.swing.Draw;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Wincalc {
 
@@ -95,10 +93,91 @@ public class Wincalc {
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
         return rootArea;
     }
+    
+    // Парсим входное json окно и строим объектную модель окна
+    private void parsing(String json) {
+        try {
+            //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json))); //для тестирования
+            //System.out.println(new GsonBuilder().create().toJson(new JsonParser().parse(json))); //для тестирования
+            Gson gson = new GsonBuilder().create();
+            rootGson = gson.fromJson(json, GsonRoot.class);
+            rootGson.setParent(rootGson);
 
+            //Инит конструктива
+            this.nuni = rootGson.nuni();
+            this.width = rootGson.width();
+            this.height = rootGson.height();
+            this.heightAdd = rootGson.heightAdd();
+            this.colorID1 = rootGson.color(1);
+            this.colorID2 = rootGson.color(2);
+            this.colorID3 = rootGson.color(3);            
+            this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
+            this.syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
+            eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
+
+            //Главное окно
+            if (TypeElem.RECTANGL == rootGson.type()) {
+                rootArea = new AreaRectangl(this, null, rootGson.id(), TypeElem.RECTANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //простое
+            } else if (TypeElem.TRAPEZE == rootGson.type()) {
+                rootArea = new AreaTrapeze(this, null, rootGson.id(), TypeElem.TRAPEZE, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //трапеция
+            } else if (TypeElem.TRIANGL == rootGson.type()) {
+                rootArea = new AreaTriangl(this, null, rootGson.id(), TypeElem.TRIANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //треугольник
+            } else if (TypeElem.ARCH == rootGson.type()) {
+                rootArea = new AreaArch(this, null, rootGson.id(), TypeElem.ARCH, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //арка
+            }
+
+            //Добавим рамы
+            for (GsonElem gsonElem : rootGson.childs()) {
+                if (TypeElem.FRAME_SIDE == gsonElem.type()) {
+                    rootArea.mapFrame.put(gsonElem.layout(), new ElemFrame(rootArea, gsonElem.id(), gsonElem.layout(), gsonElem.param()));
+                }
+            }
+
+            //Всё остальное
+            recursion(rootArea, rootGson);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Wincalc.parsing() " + e);
+        }
+    }
+
+    //Рекурсия дерева конструкции
+    private void recursion(AreaSimple owner, GsonElem gsonElem) {
+        try {
+            LinkedHashMap<AreaSimple, GsonElem> hm = new LinkedHashMap();
+            for (GsonElem el : gsonElem.childs()) {
+
+                //Добавим Area
+                if (TypeElem.STVORKA == el.type()) {
+                    AreaSimple area5e = new AreaStvorka(Wincalc.this, owner, el.id(), el.param());
+                    owner.listChild.add(area5e);
+                    hm.put(area5e, el);
+                } else if (TypeElem.AREA == el.type()) {
+                    AreaSimple area5e = new AreaSimple(Wincalc.this, owner, el.id(), el.type(), el.layout(), el.width(), el.height(), -1, -1, -1, null);
+                    owner.listChild.add(area5e);
+                    hm.put(area5e, el);
+                    
+                    //Добавим Element
+                } else if (TypeElem.IMPOST == el.type()) {
+                    owner.listChild.add(new ElemImpost(owner, el.id(), el.param()));
+                } else if (TypeElem.GLASS == el.type()) {
+                    owner.listChild.add(new ElemGlass(owner, el.id(), el.param()));
+                }
+            }
+            
+            //Теперь вложенные элементы
+            for (Map.Entry<AreaSimple, GsonElem> entry : hm.entrySet()) {
+                recursion(entry.getKey(), entry.getValue());               
+            }
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Wincalc.recursion() " + e);
+        }
+    }
+    
     //Конструктив и тарификация 
     public void constructiv() {
-        try {            
+        try {
             calcJoining = new Joining(this); //соединения
             calcJoining.calc();
             calcElements = new Elements(this); //составы
@@ -119,119 +198,5 @@ public class Wincalc {
             System.err.println("Ошибка:Wincalc.constructiv(" + e);
         }
     }
-
-    // Парсим входное json окно и строим объектную модель окна
-    private void parsing(String json) {
-        try {            
-            //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json))); //для тестирования
-            //System.out.println(new GsonBuilder().create().toJson(new JsonParser().parse(json))); //для тестирования
-            Gson gson = new GsonBuilder().create();
-            rootGson = gson.fromJson(json, GsonRoot.class);
-            rootGson.setParent(rootGson);
-
-            this.nuni = rootGson.nuni();
-            float id = rootGson.id();
-            this.width = rootGson.width();
-            this.height = rootGson.height();
-            this.heightAdd = rootGson.heightAdd();
-            this.colorID1 = rootGson.color(1);
-            this.colorID2 = rootGson.color(2);
-            this.colorID3 = rootGson.color(3);
-
-            //Инит конструктив
-            Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
-            artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-            syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
-            eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
-
-            //Главное окно
-            LinkedList<Mediate> fromjsonList = new LinkedList(); //промежуточная конструкция
-            Mediate mediateRoot = new Mediate(null, id, rootGson.type().name(), rootGson.layout().name(), width, height, rootGson.param());
-            fromjsonList.add(mediateRoot);
-
-            //Добавим рамы         
-            for (builder.script.GsonElem elem : rootGson.elements()) {
-                if (TypeElem.FRAME_SIDE.equals(elem.type())) {
-                    fromjsonList.add(new Mediate(mediateRoot, elem.id(), TypeElem.FRAME_SIDE.name(), elem.layout().name(), elem.param()));
-                }
-            }
-            //Добавим все остальные Mediate, через рекурсию
-            recursionArea(rootGson, mediateRoot, fromjsonList);
-            
-            //Упорядочим порядок построения окна
-            Collections.sort(fromjsonList, (o1, o2) -> Float.compare(o1.id(), o2.id())); 
-
-            //Строим конструкцию из промежуточного списка
-            windowsBuild(fromjsonList);
-
-        } catch (Exception e) {
-            System.err.println("Ошибка:Wincalc.parsingScript() " + e);
-        }
-    }
-
-    //Промежуточный список окна (для ранжирования элементов построения)
-    private void recursionArea(GsonArea el, Mediate med, LinkedList<Mediate> mediateList) {
-        try {
-            for (GsonArea area : el.areas()) {
-                float width = (med.layout() == LayoutArea.VERT) ? med.width() : area.width();
-                float height = (med.layout() == LayoutArea.VERT) ? area.height() : med.height();
-                Mediate med2 = new Mediate(med, area.id(), area.type().name(), area.layout().name(), width, height, area.param());
-                mediateList.add(med2);
-
-                recursionArea(area, med2, mediateList); //рекурсия
-
-            }
-            for (GsonElem elem : el.elements()) {
-                if (TypeElem.IMPOST.equals(elem.type())) {
-                    mediateList.add(new Mediate(med, elem.id(), elem.type().name(), LayoutArea.ANY.name(), elem.param()));
-                } else if (TypeElem.GLASS.equals(elem.type())) {
-                    mediateList.add(new Mediate(med, elem.id(), elem.type().name(), LayoutArea.ANY.name(), elem.param()));
-                }
-            }
-
-        } catch (Exception e) {
-            System.err.println("wincalc.Wincalc.intermBuild() " + e);
-        }
-    }
-
-    //Строим конструкцию из промежуточного списка
-    private void windowsBuild(LinkedList<Mediate> mediateList) {
-        try {
-            //Главное окно        
-            Mediate mdtRoot = mediateList.getFirst();
-            if (TypeElem.RECTANGL == mdtRoot.type()) {
-                rootArea = new AreaRectangl(this, null, mdtRoot.id(), TypeElem.RECTANGL, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.param()); //простое
-            } else if (TypeElem.TRAPEZE == mdtRoot.type()) {
-                rootArea = new AreaTrapeze(this, null, mdtRoot.id(), TypeElem.TRAPEZE, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.param()); //трапеция
-            } else if (TypeElem.TRIANGL == mdtRoot.type()) {
-                rootArea = new AreaTriangl(this, null, mdtRoot.id(), TypeElem.TRIANGL, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.param()); //треугольник
-            } else if (TypeElem.ARCH == mdtRoot.type()) {
-                rootArea = new AreaArch(this, null, mdtRoot.id(), TypeElem.ARCH, mdtRoot.layout(), mdtRoot.width(), mdtRoot.height(), colorID1, colorID2, colorID3, mdtRoot.param()); //арка
-            }
-            mdtRoot.area5e = rootArea;
-
-            //Цикл по элементам конструкции ранж. по ключам.
-            for (Mediate mdt : mediateList) {
-
-                //Добавим рамы в гпавное окно
-                if (TypeElem.FRAME_SIDE == mdt.type()) {
-                    ElemFrame elemFrame = new ElemFrame(rootArea, mdt.id(), mdt.layout(), mdt.param());
-                    rootArea.mapFrame.put(elemFrame.layout(), elemFrame);
-                    continue;
-                }
-
-                if (TypeElem.STVORKA == mdt.type()) {
-                    mdt.addArea(new AreaStvorka(this, mdt.owner.area5e, mdt.id(), mdt.param()));
-                } else if (TypeElem.AREA == mdt.type()) {
-                    mdt.addArea(new AreaSimple(this, mdt.owner.area5e, mdt.id(), mdt.type(), mdt.layout(), mdt.width(), mdt.height(), -1, -1, -1, null)); //простое
-                } else if (TypeElem.IMPOST == mdt.type()) {
-                    mdt.addElem(new ElemImpost(mdt.owner.area5e, mdt.id(), mdt.param()));
-                } else if (TypeElem.GLASS == mdt.type()) {
-                    mdt.addElem(new ElemGlass(mdt.owner.area5e, mdt.id(), mdt.param()));
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка:wincalc.Wincalc.windowsBuild() " + e);
-        }
-    }
+    
 }

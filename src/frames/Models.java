@@ -24,7 +24,6 @@ import builder.model.ElemSimple;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import frames.swing.Canvas;
-import builder.script.Mediate;
 import java.awt.CardLayout;
 import java.util.Enumeration;
 import java.util.HashSet;

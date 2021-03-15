@@ -6,7 +6,7 @@ import enums.LayoutArea;
 import enums.PKjson;
 import enums.TypeElem;
 
-public class GsonRoot extends GsonArea {
+public class GsonRoot extends GsonElem {
 
     private String name = "Конструкция";
     private Integer nuni = null;  //nuni профиля (PRO4_SYSPROF.NUNI)

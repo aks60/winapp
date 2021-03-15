@@ -4,7 +4,7 @@ import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
-import builder.script.GsonArea;
+import builder.script.GsonElem;
 import builder.script.GsonElem;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -1763,7 +1763,7 @@ public class Order extends javax.swing.JFrame {
 
                     } else { //рама створки
                         float stvId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
-                        GsonArea stvArea = (GsonArea) iwin.rootGson.find(stvId);
+                        GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
                         String paramStr = stvArea.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         String stvKey = null;
@@ -1811,7 +1811,7 @@ public class Order extends javax.swing.JFrame {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
-                GsonArea jsonArea = (GsonArea) iwin.rootGson.find(parentId);
+                GsonElem jsonArea = (GsonElem) iwin.rootGson.find(parentId);
 
                 if (windowsNode.com5t().type() == TypeElem.STVORKA_SIDE) {
                     String paramStr = jsonArea.param();
@@ -1861,7 +1861,7 @@ public class Order extends javax.swing.JFrame {
 
             new DicName(this, (sysfurnRec) -> {
 
-                GsonArea jsonStv = (GsonArea) iwin.rootGson.find(windowsID);
+                GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
@@ -1881,7 +1881,7 @@ public class Order extends javax.swing.JFrame {
             new DicEnums(this, (typeopenRec) -> {
 
                 float elemID = windowsNode.com5t().id();
-                GsonArea jsonStv = (GsonArea) iwin.rootGson.find(elemID);
+                GsonElem jsonStv = (GsonElem) iwin.rootGson.find(elemID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
@@ -1915,7 +1915,7 @@ public class Order extends javax.swing.JFrame {
             });
             DicColor frame = new DicColor(this, (colorRec) -> {
 
-                GsonArea jsonStv = (GsonArea) iwin.rootGson.find(selectID);
+                GsonElem jsonStv = (GsonElem) iwin.rootGson.find(selectID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
@@ -1954,7 +1954,7 @@ public class Order extends javax.swing.JFrame {
             }
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonArea jsonStv = (GsonArea) iwin.rootGson.find(selectID);
+                GsonElem jsonStv = (GsonElem) iwin.rootGson.find(selectID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
@@ -1981,7 +1981,7 @@ public class Order extends javax.swing.JFrame {
         new DicHandl(this, (record) -> {
             try {
                 float selectID = areaStv.id();
-                GsonArea jsonStv = (GsonArea) iwin.rootGson.find(selectID);
+                GsonElem jsonStv = (GsonElem) iwin.rootGson.find(selectID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
 
