@@ -52,6 +52,9 @@ import domain.ePrjprod;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 
 /**
@@ -60,6 +63,7 @@ import javax.swing.ImageIcon;
  */
 public class Util {
 
+    public static DecimalFormat df = new DecimalFormat("0.0#", new DecimalFormatSymbols(Locale.ENGLISH));
     private static GregorianCalendar appCalendar = new GregorianCalendar(); //календарь программы    
     private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM); //формат даты
     public static SimpleDateFormat simpleFormat = new SimpleDateFormat("dd.MM.yyyy"); //"yyyy-MM-dd" формат для баз где даты utf8

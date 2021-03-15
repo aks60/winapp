@@ -51,7 +51,6 @@ import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
 import builder.script.GsonElem;
-import builder.script.GsonElem;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import domain.eArtdet;
@@ -85,6 +84,10 @@ import common.ListenerRecord;
 import common.ListenerFrame;
 import common.eProfile;
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.LinkedHashSet;
+import java.util.Locale;
 
 public class Systree extends javax.swing.JFrame {
 
@@ -310,7 +313,7 @@ public class Systree extends javax.swing.JFrame {
         try {
             int row[] = windowsTree.getSelectionRows();
             DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
-            Set<AreaSimple> setStv = new HashSet();
+            LinkedHashSet<AreaSimple> setStv = new LinkedHashSet();
             for (ElemSimple elem5e : iwin.listElem) {
                 if (elem5e.owner().type() != TypeElem.STVORKA) {
                     root.add(new DefMutableTreeNode(elem5e));
@@ -581,10 +584,9 @@ public class Systree extends javax.swing.JFrame {
                 iwin.calcFurniture = new builder.specif.Furniture(iwin, true); //фурнитура 
                 iwin.calcFurniture.calc();
                 txt21.setText(stv.handlRec.getStr(eArtikl.name));
-                txt25.setText(eColor.find(stv.handlColor).getStr(eColor.name));                
-                txt24.setText(String.valueOf(iwin.rootGson.find(stv.id()).width()));
-                txt24a.setText(String.valueOf(iwin.rootGson.find(stv.id()).width()));
-                txt26.setText(String.valueOf(iwin.rootGson.find(stv.id()).height()));                
+                txt24.setText(Util.df.format(iwin.rootGson.find(stv.id()).width())); 
+                txt26.setText(Util.df.format(iwin.rootGson.find(stv.id()).height()));
+                txt25.setText(eColor.find(stv.handlColor).getStr(eColor.name));                                                  
             }
             Arrays.asList(txt9, txt13, txt14, txt27, txt28,
                     txt29, txt19, txt20, txt30).forEach(it -> it.setCaretPosition(0));
