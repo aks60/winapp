@@ -103,19 +103,16 @@ public class Wincalc {
             rootGson = gson.fromJson(json, GsonRoot.class);
             rootGson.setParent(rootGson);
 
+            //Инит конструктива
             this.nuni = rootGson.nuni();
-            float id = rootGson.id();
             this.width = rootGson.width();
             this.height = rootGson.height();
             this.heightAdd = rootGson.heightAdd();
             this.colorID1 = rootGson.color(1);
             this.colorID2 = rootGson.color(2);
-            this.colorID3 = rootGson.color(3);
-
-            //Инит конструктива
-            Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
-            artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-            syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
+            this.colorID3 = rootGson.color(3);            
+            this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
+            this.syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
             eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
 
             //Главное окно
@@ -132,8 +129,7 @@ public class Wincalc {
             //Добавим рамы
             for (GsonElem gsonElem : rootGson.childs()) {
                 if (TypeElem.FRAME_SIDE == gsonElem.type()) {
-                    ElemFrame elemFrame = new ElemFrame(rootArea, gsonElem.id(), gsonElem.layout(), gsonElem.param());
-                    rootArea.mapFrame.put(elemFrame.layout(), elemFrame);
+                    rootArea.mapFrame.put(gsonElem.layout(), new ElemFrame(rootArea, gsonElem.id(), gsonElem.layout(), gsonElem.param()));
                 }
             }
 
