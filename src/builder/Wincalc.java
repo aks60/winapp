@@ -36,7 +36,7 @@ import builder.specif.Filling;
 import builder.specif.Furniture;
 import builder.model.ElemFrame;
 import builder.model.ElemSimple;
-import builder.script.GsonArea;
+import builder.script.GsonElem;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
 import builder.script.Mediate;
@@ -170,9 +170,9 @@ public class Wincalc {
     }
 
     //Промежуточный список окна (для ранжирования элементов построения)
-    private void recursionArea(GsonArea el, Mediate med, LinkedList<Mediate> mediateList) {
+    private void recursionArea(GsonElem el, Mediate med, LinkedList<Mediate> mediateList) {
         try {
-            for (GsonArea area : el.areas()) {
+            for (GsonElem area : el.areas()) {
                 float width = (med.layout() == LayoutArea.VERT) ? med.width() : area.width();
                 float height = (med.layout() == LayoutArea.VERT) ? area.height() : med.height();
                 Mediate med2 = new Mediate(med, area.id(), area.type().name(), area.layout().name(), width, height, area.param());
