@@ -41,7 +41,7 @@ public class GsonElem {
         this.layout = layoutRama;
     }
 
-    //Конструктор вложенной Area
+    //Конструктор Area
     public GsonElem(float id, LayoutArea layout, TypeElem elemType, float lengthSide) {
         this.id = id;
         this.layout = layout;

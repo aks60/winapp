@@ -93,31 +93,7 @@ public class Wincalc {
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
         return rootArea;
     }
-
-    //Конструктив и тарификация 
-    public void constructiv() {
-        try {
-            calcJoining = new Joining(this); //соединения
-            calcJoining.calc();
-            calcElements = new Elements(this); //составы
-            calcElements.calc();
-            calcFilling = new Filling(this); //заполнения
-            calcFilling.calc();
-            calcFurniture = new Furniture(this); //фурнитура 
-            calcFurniture.calc();
-            calTariffication = new Tariffication(this); //тарификация
-            calTariffication.calc();
-            for (ElemSimple elemRec : listElem) {
-                listSpec.add(elemRec.specificationRec);
-                listSpec.addAll(elemRec.specificationRec.specificationList);
-            }
-            Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width));
-
-        } catch (Exception e) {
-            System.err.println("Ошибка:Wincalc.constructiv(" + e);
-        }
-    }
-
+    
     // Парсим входное json окно и строим объектную модель окна
     private void parsing(String json) {
         try {
@@ -136,7 +112,7 @@ public class Wincalc {
             this.colorID2 = rootGson.color(2);
             this.colorID3 = rootGson.color(3);
 
-            //Инит конструктив
+            //Инит конструктива
             Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
             artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
@@ -169,6 +145,7 @@ public class Wincalc {
         }
     }
 
+    //Рекурсия дерева конструкции
     private void recursion(AreaSimple owner, GsonElem gsonElem) {
         try {
             LinkedHashMap<AreaSimple, GsonElem> hm = new LinkedHashMap();
@@ -201,4 +178,29 @@ public class Wincalc {
             System.err.println("Ошибка:Wincalc.recursion() " + e);
         }
     }
+    
+    //Конструктив и тарификация 
+    public void constructiv() {
+        try {
+            calcJoining = new Joining(this); //соединения
+            calcJoining.calc();
+            calcElements = new Elements(this); //составы
+            calcElements.calc();
+            calcFilling = new Filling(this); //заполнения
+            calcFilling.calc();
+            calcFurniture = new Furniture(this); //фурнитура 
+            calcFurniture.calc();
+            calTariffication = new Tariffication(this); //тарификация
+            calTariffication.calc();
+            for (ElemSimple elemRec : listElem) {
+                listSpec.add(elemRec.specificationRec);
+                listSpec.addAll(elemRec.specificationRec.specificationList);
+            }
+            Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width));
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Wincalc.constructiv(" + e);
+        }
+    }
+    
 }
