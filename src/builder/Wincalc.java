@@ -99,7 +99,7 @@ public class Wincalc {
     private void parsing(String json) {
         try {
             //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json))); //для тестирования
-            System.out.println(new GsonBuilder().create().toJson(new JsonParser().parse(json))); //для тестирования
+            //System.out.println(new GsonBuilder().create().toJson(new JsonParser().parse(json))); //для тестирования
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(json, GsonRoot.class);
             rootGson.setParent(rootGson);
