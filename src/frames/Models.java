@@ -1,14 +1,12 @@
 package frames;
 
 import common.FrameToFile;
-import common.eProperty;
 import dataset.Query;
 import dataset.Record;
 import domain.eSysmodel;
 import enums.TypeElem;
 import java.awt.Component;
 import java.awt.Window;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -19,30 +17,23 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
-import builder.model.AreaSimple;
-import builder.model.ElemSimple;
-import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import frames.swing.Canvas;
 import java.awt.CardLayout;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 import common.ListenerRecord;
 import common.ListenerFrame;
+import javax.swing.tree.TreePath;
 
 public class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
 
-    public Wincalc iwinMax = new Wincalc();
-    public Wincalc iwinMin = new Wincalc();
+    public Wincalc iwin = new Wincalc();
     private Window owner = null;
     private ArrayList<Icon> listIcon1 = new ArrayList<Icon>();
     private ArrayList<Icon> listIcon2 = new ArrayList<Icon>();
     private ListenerRecord listenet = null;
-    private Canvas paintPanel = new Canvas(iwinMax);
+    private Canvas paintPanel = new Canvas(iwin);
     private Query qModels1 = new Query(eSysmodel.values());
     private Query qModels2 = new Query(eSysmodel.values());
 
@@ -67,6 +58,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
     private void loadingData() {
 
+        Wincalc iwinMin = new Wincalc();
         qModels1.select(eSysmodel.up, "where", eSysmodel.form, "=", TypeElem.RECTANGL.id, "order by", eSysmodel.npp);
         qModels2.select(eSysmodel.up, "where", eSysmodel.form, "=", TypeElem.ARCH.id, "order by", eSysmodel.npp);
         DefaultTableModel dm1 = (DefaultTableModel) tab1.getModel();
@@ -104,28 +96,16 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         Util.setSelectedRow(tab1);
     }
 
-    private void loadingTree() {
-        DefMutableTreeNode root = new DefMutableTreeNode(iwinMax.rootArea);
-        Set<AreaSimple> set = new HashSet();
-        for (ElemSimple elem5e : iwinMax.listElem) {
-            if (elem5e.owner().type() != TypeElem.STVORKA) {
-                root.add(new DefMutableTreeNode(elem5e));
-            } else {
-                set.add(elem5e.owner());
-            }
-        }
-        for (AreaSimple areaStv : set) {
-            DefMutableTreeNode nodeStv = new DefMutableTreeNode(areaStv);
-            root.add(nodeStv);
-            for (ElemSimple elemStv : iwinMax.listElem) {
-                if (elemStv.owner() == areaStv) {
-                    nodeStv.add(new DefMutableTreeNode(elemStv));
-                }
-            }
-        }
-        tree.setModel(new DefaultTreeModel(root));
-        //Util.expandTree(tree2, new TreePath(root), true);
-        tree.setSelectionRow(0);
+    private void loadingWin() {
+        try {
+            DefMutableTreeNode root = iwin.rootArea.treeWin(iwin);
+            tree.setModel(new DefaultTreeModel(root));
+            Util.expandTree(tree, new TreePath(root), true);
+            tree.setSelectionRow(0);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: Systree.loadingWin() " + e);
+        }        
     }
 
     private void selectionTree() {
@@ -192,7 +172,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
             Object script = qModels1.get(index, eSysmodel.script);
-            iwinMax.build(script.toString());
+            iwin.build(script.toString());
             paintPanel.repaint(true);
         }
     }
@@ -201,7 +181,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         int index = Util.getIndexRec(tab2);
         if (index != -1) {
             Object script = qModels2.get(index, eSysmodel.script);
-            iwinMax.build(script.toString());
+            iwin.build(script.toString());
             paintPanel.repaint(true);
         }
     }
@@ -962,7 +942,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             selectionTab3(null);
             ((CardLayout) west.getLayout()).show(west, "pan15");
         } else {
-            loadingTree();
+            loadingWin();
             ((CardLayout) west.getLayout()).show(west, "pan18");
         }
     }//GEN-LAST:event_btnToggl
