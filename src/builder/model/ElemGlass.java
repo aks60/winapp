@@ -28,7 +28,7 @@ public class ElemGlass extends ElemSimple {
         initСonstructiv(param);
 
         if (TypeElem.ARCH == owner.type) {
-            setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2);
+            setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2); 
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }

@@ -546,9 +546,13 @@ public class Systree extends javax.swing.JFrame {
                 Record artiklRec = eArtikl.find(windowsNode.com5t().artiklRec.getInt(eArtikl.id), false);
                 txt19.setText(artiklRec.getStr(eArtikl.code));
                 txt18.setText(artiklRec.getStr(eArtikl.name));
-                txt34.setText(String.valueOf(iwin.rootGson.find(windowsNode.com5t().id()).parent.width()));
-                txt35.setText(String.valueOf(iwin.rootGson.find(windowsNode.com5t().id()).parent.height()));
-                System.out.println(windowsNode.com5t().id());
+                if (iwin.rootGson.type() == TypeElem.ARCH) {
+                    txt34.setText(Util.df.format(iwin.heightAdd - iwin.height));
+                    txt35.setText(Util.df.format(iwin.width));
+                } else {
+                    txt34.setText(String.valueOf(iwin.rootGson.find(windowsNode.com5t().id()).parent.width()));
+                    txt35.setText(String.valueOf(iwin.rootGson.find(windowsNode.com5t().id()).parent.height()));
+                }
 
                 //Створка
             } else if (windowsNode.com5t().type() == TypeElem.STVORKA) {
