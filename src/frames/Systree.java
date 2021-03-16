@@ -2642,6 +2642,17 @@ public class Systree extends javax.swing.JFrame {
                             updateScript(selectID);
                         }
                     }
+                } else if (windowsNode.com5t().type() == TypeElem.IMPOST) {
+                    for (GsonElem elem : parentArea.elements()) {
+                        if (elem.id() == ((DefMutableTreeNode) windowsNode).com5t().id()) {
+                            String paramStr = elem.param();
+                            JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                            paramObj.addProperty(colorID, colorRec.getStr(eColor.id));
+                            paramStr = gson.toJson(paramObj);
+                            elem.param(paramStr);
+                            updateScript(selectID);
+                        }
+                    }
                 }
 
             }, colorSet);
