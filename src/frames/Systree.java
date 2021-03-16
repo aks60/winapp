@@ -547,6 +547,8 @@ public class Systree extends javax.swing.JFrame {
                 txt19.setText(artiklRec.getStr(eArtikl.code));
                 txt18.setText(artiklRec.getStr(eArtikl.name));
                 txt34.setText(String.valueOf(iwin.rootGson.find(windowsNode.com5t().id()).parent.width()));
+                txt35.setText(String.valueOf(iwin.rootGson.find(windowsNode.com5t().id()).parent.height()));
+                System.out.println(windowsNode.com5t().type());
 
                 //Створка
             } else if (windowsNode.com5t().type() == TypeElem.STVORKA) {
@@ -2955,9 +2957,9 @@ public class Systree extends javax.swing.JFrame {
         float windowsID = windowsNode.com5t().id();
         float dy = Float.valueOf(txt22.getText()) / iwin.rootGson.height();
         iwin.rootGson.height(Float.valueOf(txt22.getText()));
-        if (iwin.rootGson.heightAdd() != null) {
-            iwin.rootGson.heightAdd(Float.valueOf(txt22.getText()));
-        }
+//        if (iwin.rootGson.heightAdd() != null) {
+//            iwin.rootGson.heightAdd(Float.valueOf(txt22.getText()));
+//        }
         iwin.rootGson.heightDown(iwin.rootGson, dy);
         updateScript(windowsID);
     }//GEN-LAST:event_txt22Update

@@ -165,7 +165,7 @@ public class GsonElem {
     public void heightDown(GsonElem area, float wt) {
         for (GsonElem area2 : area.areas()) {
 
-            widthDown(area2, (wt * area2.height) / area2.height);
+            heightDown(area2, (wt * area2.height) / area2.height);
             area2.height = wt * area2.height;
         }
     }
