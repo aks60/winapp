@@ -64,8 +64,8 @@ public class AreaArch extends AreaSimple {
         iwin().mapJoin.put(x2 + ":" + y2, elem4);
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + ", radiusArch=" + radiusArch;
-    }
+//    @Override
+//    public String toString() {
+//        return super.toString() + ", radiusArch=" + radiusArch;
+//    }
 }

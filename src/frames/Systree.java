@@ -548,7 +548,7 @@ public class Systree extends javax.swing.JFrame {
                 txt18.setText(artiklRec.getStr(eArtikl.name));
                 txt34.setText(String.valueOf(iwin.rootGson.find(windowsNode.com5t().id()).parent.width()));
                 txt35.setText(String.valueOf(iwin.rootGson.find(windowsNode.com5t().id()).parent.height()));
-                System.out.println(windowsNode.com5t().type());
+                System.out.println(windowsNode.com5t().id());
 
                 //Створка
             } else if (windowsNode.com5t().type() == TypeElem.STVORKA) {
