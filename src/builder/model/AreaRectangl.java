@@ -15,7 +15,6 @@ public class AreaRectangl extends AreaSimple {
         if (param(param, PKjson.colorID1) != -1) {
             this.colorID1 = param(param, PKjson.colorID1);
         }
-        //System.out.println(colorID1);
     }
 
     @Override
