@@ -85,11 +85,8 @@ import common.ListenerRecord;
 import common.ListenerFrame;
 import common.eProfile;
 import java.awt.event.KeyEvent;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.Locale;
+import java.util.LinkedList;
 
 public class Systree extends javax.swing.JFrame {
 
@@ -314,24 +311,7 @@ public class Systree extends javax.swing.JFrame {
     private void loadingWin() {
         try {
             int row[] = windowsTree.getSelectionRows();
-            DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);            
-            LinkedHashSet<AreaSimple> setStv = new LinkedHashSet();
-            for (ElemSimple elem5e : iwin.listElem) {
-                if (elem5e.owner().type() != TypeElem.STVORKA) {
-                    root.add(new DefMutableTreeNode(elem5e));
-                } else {
-                    setStv.add(elem5e.owner());
-                }
-            }
-            for (AreaSimple areaStv : setStv) {
-                DefMutableTreeNode nodeStv = new DefMutableTreeNode(areaStv);
-                root.add(nodeStv);
-                for (ElemSimple elemStv : iwin.listElem) {
-                    if (elemStv.owner() == areaStv) {
-                        nodeStv.add(new DefMutableTreeNode(elemStv));
-                    }
-                }
-            }
+            DefMutableTreeNode root = iwin.rootArea.treeWin(iwin);
             windowsTree.setModel(new DefaultTreeModel(root));
             windowsTree.setSelectionRows(row);
 
@@ -586,9 +566,9 @@ public class Systree extends javax.swing.JFrame {
                 iwin.calcFurniture = new builder.specif.Furniture(iwin, true); //фурнитура 
                 iwin.calcFurniture.calc();
                 txt21.setText(stv.handlRec.getStr(eArtikl.name));
-                txt24.setText(Util.df.format(iwin.rootGson.find(stv.id()).width())); 
+                txt24.setText(Util.df.format(iwin.rootGson.find(stv.id()).width()));
                 txt26.setText(Util.df.format(iwin.rootGson.find(stv.id()).height()));
-                txt25.setText(eColor.find(stv.handlColor).getStr(eColor.name));                                                  
+                txt25.setText(eColor.find(stv.handlColor).getStr(eColor.name));
             }
             Arrays.asList(txt9, txt13, txt14, txt27, txt28,
                     txt29, txt19, txt20, txt30).forEach(it -> it.setCaretPosition(0));
@@ -3093,3 +3073,32 @@ public class Systree extends javax.swing.JFrame {
         model.reload();
     }
 }
+/*
+    private void loadingWin() {
+        try {
+            int row[] = windowsTree.getSelectionRows();
+            DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
+
+            LinkedList<ElemSimple> list = iwin.rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.GLASS);
+            for (ElemSimple elem5e : list) {
+                if (elem5e.owner().type() != TypeElem.STVORKA) {
+                    root.add(new DefMutableTreeNode(elem5e));
+                }
+            }
+            LinkedList<AreaSimple> list2 = iwin.rootArea.listElem(TypeElem.STVORKA);
+            for (AreaSimple areaStv : list2) {
+                root.add(new DefMutableTreeNode(areaStv));
+                for (ElemSimple elemStv : list) {
+                    if (elemStv.owner() == areaStv) {
+                        root.getLastLeaf().add(new DefMutableTreeNode(elemStv));
+                    }
+                }
+            }
+            windowsTree.setModel(new DefaultTreeModel(root));
+            windowsTree.setSelectionRows(row);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: Systree.loadingWin() " + e);
+        }
+    }
+*/

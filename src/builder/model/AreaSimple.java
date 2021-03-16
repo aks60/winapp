@@ -26,8 +26,10 @@ import java.util.List;
 import startup.Main;
 import builder.Wincalc;
 import enums.PKjson;
+import frames.swing.DefMutableTreeNode;
 import java.awt.BasicStroke;
 import java.lang.annotation.ElementType;
+import java.util.Map;
 
 public class AreaSimple extends Com5t {
 
@@ -127,16 +129,34 @@ public class AreaSimple extends Com5t {
             list.add((E) com5t);
         }
         if (com5t instanceof AreaSimple) {
-            Collection<ElemFrame> set = ((AreaSimple) com5t).mapFrame.values();
-            for (ElemFrame frm : set) {
+            for (ElemFrame frm : ((AreaSimple) com5t).mapFrame.values()) {
                 if (type.contains(frm.type)) {
                     list.add((E) frm);
                 }
             }
         }
-        for (Com5t com5t2 : com5t.listChild) {
-            listElem(com5t2, list, type);
+        com5t.listChild.forEach(comp -> listElem(comp, list, type));
+    }
+
+    public DefMutableTreeNode treeWin(Wincalc iwin) {
+        DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
+
+        LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.GLASS);
+        for (ElemSimple elem5e : listElem) {
+            if (elem5e.owner().type() != TypeElem.STVORKA) {
+                root.add(new DefMutableTreeNode(elem5e));
+            }
         }
+        LinkedList<AreaSimple> listStv = iwin.rootArea.listElem(TypeElem.STVORKA);
+        for (AreaSimple areaStv : listStv) {
+            root.add(new DefMutableTreeNode(areaStv));
+            for (ElemSimple elemStv : iwin.listElem) {
+                if (elemStv.owner() == areaStv) {
+                    ((DefMutableTreeNode) root.getLastChild()).add(new DefMutableTreeNode(elemStv));
+                }
+            }
+        }
+        return root;
     }
 
     public void joinFrame() {

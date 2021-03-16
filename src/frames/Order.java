@@ -249,24 +249,7 @@ public class Order extends javax.swing.JFrame {
     private void loadingWin() {
         try {
             int row[] = windowsTree.getSelectionRows();
-            DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
-            Set<AreaSimple> set = new HashSet();
-            for (ElemSimple elem5e : iwin.listElem) {
-                if (elem5e.owner().type() != TypeElem.STVORKA) {
-                    root.add(new DefMutableTreeNode(elem5e));
-                } else {
-                    set.add(elem5e.owner());
-                }
-            }
-            for (AreaSimple areaStv : set) {
-                DefMutableTreeNode nodeStv = new DefMutableTreeNode(areaStv);
-                root.add(nodeStv);
-                for (ElemSimple elemStv : iwin.listElem) {
-                    if (elemStv.owner() == areaStv) {
-                        nodeStv.add(new DefMutableTreeNode(elemStv));
-                    }
-                }
-            }
+            DefMutableTreeNode root = iwin.rootArea.treeWin(iwin);
             windowsTree.setModel(new DefaultTreeModel(root));
             windowsTree.setSelectionRows(row);
 
