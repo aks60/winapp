@@ -1,7 +1,7 @@
 package frames;
 
 import common.FrameToFile;
-import dataset.Connfb;
+import dataset.Confb;
 import dataset.Query;
 import dataset.Record;
 import domain.eCurrenc;

@@ -2,7 +2,7 @@ package frames;
 
 import builder.Wincalc;
 import common.eProperty;
-import dataset.Connfb;
+import dataset.Confb;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -369,7 +369,7 @@ public class Util {
 
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = field.newRecord(Query.INS);
-        record.setNo(field.fields()[1], Connfb.instanc().genId(field));
+        record.setNo(field.fields()[1], Confb.instanc().genId(field));
         query.add(record);
         preset.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);

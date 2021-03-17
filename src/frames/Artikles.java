@@ -2,7 +2,7 @@ package frames;
 
 import frames.dialog.DicColor;
 import common.FrameToFile;
-import dataset.Connfb;
+import dataset.Confb;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -2276,7 +2276,7 @@ public class Artikles extends javax.swing.JFrame {
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 Record artdetRec = eArtdet.up.newRecord(Query.INS);
-                artdetRec.setNo(eArtdet.id, Connfb.instanc().genId(eArtdet.up));
+                artdetRec.setNo(eArtdet.id, Confb.instanc().genId(eArtdet.up));
                 artdetRec.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
                 qArtdet.add(artdetRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();

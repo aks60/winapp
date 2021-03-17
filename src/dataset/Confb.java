@@ -2,6 +2,7 @@ package dataset;
 
 import common.eProfile;
 import common.eProperty;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,12 +14,44 @@ import startup.App;
 /**
  * Соединение через PostgresSQL
  */
-public class ConnFb extends dataset.ConnApp {
+public class Confb {
 
+    private static Confb instanceClass = null;
+    protected Connection connection = null;
+    protected Statement statement = null;
+    protected boolean autoCommit = false;        
     public final static String driver = "org.firebirdsql.jdbc.FBDriver";
     public final static String fbserver = "jdbc:firebirdsql:";
     public String url = "";
 
+
+    public static Confb initConnect() {
+
+        instanceClass = new Confb();
+        return instanceClass;
+    }
+
+    public static Confb instanc() {
+        return instanceClass;
+    }
+    
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    public void setAutoCommit(boolean autoCommit) {
+        try {
+            connection.setAutoCommit(autoCommit);
+        } catch (SQLException e) {
+            System.out.println("dataset.IConnect.setAutoCommit() " + e);
+        }
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }    
+    
     /**
      * Соединение с БД
      */
@@ -129,7 +162,6 @@ public class ConnFb extends dataset.ConnApp {
     }
 
     //Генератор ключа ID
-    @Override
     public int genId(Field field) {
         try {
             int next_id = 0;
@@ -149,7 +181,6 @@ public class ConnFb extends dataset.ConnApp {
         }
     }
 
-    @Override
     public String version() {
         try {
             Statement statement = connection.createStatement();

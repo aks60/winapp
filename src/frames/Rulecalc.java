@@ -1,7 +1,7 @@
 package frames;
 
 import common.FrameToFile;
-import dataset.Connfb;
+import dataset.Confb;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -365,8 +365,8 @@ public class Rulecalc extends javax.swing.JFrame {
         if (tab2.getBorder() != null) {
             Record rulecalcRec = eRulecalc.up.newRecord(Query.INS);
             Record artiklRec = eArtikl.up.newRecord();
-            rulecalcRec.setNo(eRulecalc.id, Connfb.instanc().genId(eRulecalc.up));
-            rulecalcRec.setNo(eRulecalc.id, Connfb.instanc().genId(eRulecalc.up));
+            rulecalcRec.setNo(eRulecalc.id, Confb.instanc().genId(eRulecalc.up));
+            rulecalcRec.setNo(eRulecalc.id, Confb.instanc().genId(eRulecalc.up));
             qRulecalc.add(rulecalcRec);
             qRulecalc.table(eArtikl.up).add(artiklRec);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
