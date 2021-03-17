@@ -3,6 +3,7 @@ package frames;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
+import builder.specif.Specification;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -2426,7 +2427,29 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_txt26Update
 
     private void btnCalcresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcresh
-        // TODO add your handling code here:
+        try {
+            if (Util.getIndexRec(tab1) != -1) {
+                int projectID = qProject.get(Util.getIndexRec(tab1)).getInt(eProject.id);
+                for (Record prjprodRec : qPrjprod) {
+                    if (prjprodRec.getInt(ePrjprod.order_id) == projectID) {
+                        
+                        String script = prjprodRec.getStr(ePrjprod.script);
+                        JsonElement je = new Gson().fromJson(script, JsonElement.class);
+                        je.getAsJsonObject().addProperty("nuni", prjprodRec.getInt(ePrjprod.systree_id));
+                        iwin.build(je.toString());
+                        Query.listOpenTable.forEach(q -> q.clear());
+                        iwin.constructiv();
+                        for (Specification spc : iwin.listSpec) {
+                            String key = spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.width + spc.height + spc.anglCut1 + spc.anglCut2 + spc.wastePrc + spc.inPrice + spc.discount;
+                            //: spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.wastePrc + spc.inPrice + spc.discount;
+                            System.out.println(key);
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btnCalcresh
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

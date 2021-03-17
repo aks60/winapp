@@ -84,6 +84,7 @@ import startup.App;
 import common.ListenerRecord;
 import common.ListenerFrame;
 import common.eProfile;
+import domain.ePrjprod;
 import java.awt.event.KeyEvent;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -410,6 +411,11 @@ public class Systree extends javax.swing.JFrame {
         };
         listenerModel = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
+            
+            String script = record.get(2).toString();
+            JsonElement je = new Gson().fromJson(script, JsonElement.class);
+            je.getAsJsonObject().addProperty("nuni", systreeID);
+            
             Record sysprodRec = eSysprod.up.newRecord(Query.INS);
             sysprodRec.setNo(eSysprod.id, Confb.instanc().genId(eSysprod.id));
             sysprodRec.setNo(eSysprod.systree_id, systreeID);
