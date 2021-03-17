@@ -26,6 +26,7 @@ import java.util.List;
 import startup.Main;
 import builder.Wincalc;
 import enums.PKjson;
+import frames.Util;
 import frames.swing.DefMutableTreeNode;
 import java.awt.BasicStroke;
 import java.lang.annotation.ElementType;
@@ -293,7 +294,8 @@ public class AreaSimple extends Com5t {
     private void line(float x1, float y1, float x2, float y2, float dy) {
 
         iwin().gc2d.setColor(java.awt.Color.BLACK);
-        iwin().gc2d.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 60));
+        int size = (iwin().scale > .3) ? 40 : (iwin().scale > .2) ? 55 : 70;
+        iwin().gc2d.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, size));
         iwin().gc2d.setStroke(new BasicStroke(6)); //толщина линии
         y1 = y1 + dy;
         y2 = y2 + dy;
@@ -306,7 +308,7 @@ public class AreaSimple extends Com5t {
             iwin().draw.drawLine(x2, y2, x2 + 12, y2 - 24);
             iwin().draw.drawLine(x2, y2, x2 - 12, y2 - 24);
             iwin().gc2d.rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2);
-            iwin().gc2d.drawString(String.valueOf((int) (y2 - y1)), x1 + 60, y1 + (y2 - y1) / 2);
+            iwin().gc2d.drawString(Util.df.format((float) (y2 - y1)), x1 + 60, y1 + (y2 - y1) / 2);
             iwin().gc2d.rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);
         } else if (y1 == y2 && x2 - x1 != 0) {
             iwin().draw.drawLine(x1, y1 - 24, x1, y1 + 24);
@@ -315,7 +317,7 @@ public class AreaSimple extends Com5t {
             iwin().draw.drawLine(x1, y1, x1 + 24, y1 + 12);
             iwin().draw.drawLine(x2, y2, x2 - 24, y2 - 12);
             iwin().draw.drawLine(x2, y2, x2 - 24, y2 + 12);
-            iwin().gc2d.drawString(String.valueOf((int) (x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
+            iwin().gc2d.drawString(Util.df.format((float) (x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
         }
     }
 }

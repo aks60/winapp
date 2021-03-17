@@ -319,7 +319,10 @@ public class Util {
 
     //Прокрутить скроллинг и сделать ячейку видимой
     public static void scrollRectToRow(int row, JTable table) {
-        if (table.getRowCount() > row) {
+        if (table.getRowCount() > row + 4) {
+            Rectangle cellRect = table.getCellRect(row + 4, 0, false);
+            table.scrollRectToVisible(cellRect);
+        } else if (table.getRowCount() > row) {
             Rectangle cellRect = table.getCellRect(row, 0, false);
             table.scrollRectToVisible(cellRect);
         }
@@ -587,7 +590,7 @@ public class Util {
             System.err.println(e);
         }
     }
-    
+
     //Проверка на коррекность ввода
     public static void documentFilter(int numb, JTextField... txtField) {
         for (JTextField txtField2 : txtField) {

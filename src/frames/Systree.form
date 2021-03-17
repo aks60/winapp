@@ -868,7 +868,7 @@
                             </Property>
                           </Properties>
                           <Events>
-                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtKeyEnter"/>
+                            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtKeyEnter"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txt23">
@@ -2012,6 +2012,9 @@
                               <Dimension value="[60, 18]"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtKeyEnter"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btn15">
                           <Properties>

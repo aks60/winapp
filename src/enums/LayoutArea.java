@@ -6,8 +6,8 @@ import java.util.Arrays;
 //Расположение area  и profile объединены в один список Enum
 public enum LayoutArea implements Enam {
     ANY(-1, "Любая"),
-    HORIZ(-2, "Горизонтальное"),
-    VERT(-3, "Вертикальное"),
+    HORIZ(-2, "Горизонт."),
+    VERT(-3, "Вертикальн."),
     BOTTOM(1, "Нижняя"),
     RIGHT(2, "Правая"),
     TOP(3, "Верхняя"),

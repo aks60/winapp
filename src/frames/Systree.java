@@ -509,7 +509,8 @@ public class Systree extends javax.swing.JFrame {
                 Util.setSelectedRow(tab5);
             }
         } else {
-            //createWincalc(-1); //рисуем виртуалку
+            Graphics2D g = (Graphics2D) paintPanel.getGraphics();
+            g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
         }
     }
 
@@ -633,10 +634,10 @@ public class Systree extends javax.swing.JFrame {
             Record sysprodRec = qSysprod.get(Util.getIndexRec(tab5));
             sysprodRec.set(eSysprod.script, script);
             qSysprod.update(sysprodRec);
-            
+
             //Перерисум paintPanel 
             selectionTab5();
-            
+
             //Установим курсор выделения
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) windowsTree.getModel().getRoot();
             do {
@@ -1132,7 +1133,7 @@ public class Systree extends javax.swing.JFrame {
         txt22.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt22.setPreferredSize(new java.awt.Dimension(60, 18));
         txt22.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtKeyEnter(evt);
             }
         });
@@ -1647,6 +1648,11 @@ public class Systree extends javax.swing.JFrame {
         txt26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt26.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt26.setPreferredSize(new java.awt.Dimension(60, 18));
+        txt26.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtKeyEnter(evt);
+            }
+        });
 
         btn15.setText("...");
         btn15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -2471,18 +2477,17 @@ public class Systree extends javax.swing.JFrame {
                 }
                 new DicSysprof(this, (sysprofRec) -> {
 
-                    float ramaId = windowsNode.com5t().id();
-                    GsonElem elemRama = iwin.rootGson.find(ramaId);
-
                     if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) { //рама окна
-                        String paramStr = elemRama.param();
+                        float elemId = windowsNode.com5t().id();
+                        GsonElem gsonRama = iwin.rootGson.find(elemId);
+                        String paramStr = gsonRama.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         paramStr = gson.toJson(paramObj);
-                        elemRama.param(paramStr);
+                        gsonRama.param(paramStr);
                         updateScript(selectID);
 
-                    } else { //рама створки
+                    } else if (windowsNode.com5t().type() == TypeElem.STVORKA_SIDE) { //рама створки
                         float stvId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
                         GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
                         String paramStr = stvArea.param();
@@ -2501,6 +2506,16 @@ public class Systree extends javax.swing.JFrame {
                         jso.addProperty(PKjson.sysprofID, sysprofRec.getStr(eSysprof.id));
                         paramStr = gson.toJson(paramObj);
                         stvArea.param(paramStr);
+                        updateScript(selectID);
+
+                    } else {  //импост
+                        float elemId = windowsNode.com5t().id();
+                        GsonElem gsonElem = iwin.rootGson.find(elemId);
+                        String paramStr = gsonElem.param();
+                        JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                        paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
+                        paramStr = gson.toJson(paramObj);
+                        gsonElem.param(paramStr);
                         updateScript(selectID);
                     }
 
