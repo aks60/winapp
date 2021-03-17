@@ -197,7 +197,7 @@ public class Test {
         eProperty.password = String.valueOf("masterkey");
         String num_base = eProperty.base_num.read();
         ConnApp con = ConnApp.initConnect();
-        con.createConnection(num_base);
+        con.createConnection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);;
         return con.getConnection();
     }
 

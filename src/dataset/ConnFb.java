@@ -22,46 +22,6 @@ public class ConnFb extends dataset.ConnApp {
     /**
      * Соединение с БД
      */
-    public eExcep createConnection(String num_base) {
-        try {
-            if (Class.forName(driver) == null) {
-                return eExcep.loadDrive; //Ошибка загрузки файла драйвера;
-            }
-            url = fbserver + "//" + eProperty.server(num_base) + ":" + eProperty.port(num_base) + "/" + eProperty.base(num_base);
-            String user2 = eProperty.user.read();
-            String passw = eProperty.password;
-            connection = DriverManager.getConnection(url, user2, passw);
-            connection.setAutoCommit(true);
-            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-
-        } catch (ClassNotFoundException e) {
-            return eExcep.findDrive;
-        } catch (SQLException e) {
-            System.err.println(e);
-            return eExcep.getError(e.getErrorCode());
-        }
-        return eExcep.yesConn;
-    }
-
-    public eExcep createConnection(String server, String port, String base, String user, char[] password) {
-        try {
-            if (Class.forName(driver) == null) {
-                JOptionPane.showMessageDialog(App.Top.frame, "Ошибка загрузки файла драйвера",
-                        "Ошибка", JOptionPane.ERROR_MESSAGE);
-            }
-            String url = fbserver + "//" + server + ":" + port + "/" + base + "?encoding=win1251";
-            connection = DriverManager.getConnection(url, user.toLowerCase(), String.valueOf(password));
-            connection.setAutoCommit(true);
-            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-
-        } catch (ClassNotFoundException e) {
-            return eExcep.findDrive;
-        } catch (SQLException e) {
-            return eExcep.getError(e.getErrorCode());
-        }
-        return eExcep.yesConn;
-    }
-
     public eExcep createConnection(String server, String port, String base, String user, char[] password, String role) {
         try {
             if (Class.forName(driver) == null) {
@@ -72,7 +32,9 @@ public class ConnFb extends dataset.ConnApp {
             Properties props = new Properties();
             props.setProperty("user", user.toLowerCase());
             props.setProperty("password", String.valueOf(password));
-            props.setProperty("roleName", role);
+            if (role != null) {
+                props.setProperty("roleName", role);
+            }
             props.setProperty("encoding", "win1251");
             connection = DriverManager.getConnection(url, props);
             connection.setAutoCommit(true);
@@ -85,7 +47,7 @@ public class ConnFb extends dataset.ConnApp {
         }
         return eExcep.yesConn;
     }
-    
+
     //Добавление нового пользователя   
     //CREATE USER <user_name> PASSWORD '<user_password>' [FIRSTNAME 'FirstName'] [MIDDLENAME 'MiddleName'] [LASTNAME 'LastName'];
     public void addUser(String user, String password, String uchId, String role, boolean readwrite) {
@@ -139,7 +101,7 @@ public class ConnFb extends dataset.ConnApp {
             System.err.println(e);
         }
     }
-    
+
     //Удаление пользователя
     public void deleteUser(String user) {
         try {

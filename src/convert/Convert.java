@@ -405,7 +405,7 @@ public class Convert extends javax.swing.JFrame {
     private void btnTestBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestBtnStartClick
         ConnApp Src = new ConnFb();
         eExcep excep = Src.createConnection(edServer.getText().trim(), edPort.getText().trim(),
-                edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray());
+                edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray(), null);
         JOptionPane.showMessageDialog(this, edPath.getText().trim() + "  \n" + excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnTestBtnStartClick
 
@@ -420,11 +420,11 @@ public class Convert extends javax.swing.JFrame {
             eProperty.password = String.valueOf("masterkey");
             String num_base = eProperty.base_num.read();
             ConnApp con2 = ConnApp.initConnect();
-            con2.createConnection(num_base);
+            con2.createConnection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);
             Connection c2 = con2.getConnection();
 
             ConnApp con1 = new ConnFb();
-            con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray());
+            con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray(), null);
             Connection c1 = con1.getConnection();
 
             txtPane.setText("");
