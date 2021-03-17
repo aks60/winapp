@@ -31,7 +31,7 @@ import common.ListenerObject;
 import common.ListenerRecord;
 import common.eProfile;
 import common.eProperty;
-import dataset.ConnApp;
+import dataset.Connfb;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
@@ -1858,7 +1858,7 @@ public class Order extends javax.swing.JFrame {
         } else if (tab2.getBorder() != null) {
             new DicSyspod(this, (record) -> {
                 Record record2 = ePrjprod.up.newRecord();
-                record2.set(ePrjprod.id, ConnApp.instanc().genId(ePrjprod.up));
+                record2.set(ePrjprod.id, Connfb.instanc().genId(ePrjprod.up));
                 record2.set(ePrjprod.name, record.getStr(eSysprod.name));
                 record2.set(ePrjprod.script, record.getStr(eSysprod.script));
                 record2.set(ePrjprod.systree_id, record.getStr(eSysprod.systree_id));

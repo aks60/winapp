@@ -1,6 +1,6 @@
 package frames;
 
-import dataset.ConnApp;
+import dataset.Connfb;
 import dataset.eExcep;
 import common.eProfile;
 import common.eProperty;
@@ -53,7 +53,7 @@ public class LogoToDb extends javax.swing.JDialog {
             protected Object doInBackground() throws Exception {
                 progressBar.setIndeterminate(true);
                 labMes.setText("Установка соединения с базой данных");
-                ConnApp con = ConnApp.initConnect();
+                Connfb con = Connfb.initConnect();
                 String num = eProperty.base_num.read();
                 eExcep pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), "DEFROLE");
                 if (pass == eExcep.yesConn) { 

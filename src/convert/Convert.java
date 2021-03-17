@@ -2,21 +2,16 @@ package convert;
 
 import common.FrameToFile;
 import common.eProperty;
-import dataset.ConnApp;
-import dataset.ConnFb;
+import dataset.Connfb;
 import dataset.Query;
 import dataset.eExcep;
-import frames.PathToDb;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.sql.Connection;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.text.AttributeSet;
@@ -403,7 +398,7 @@ public class Convert extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTestBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestBtnStartClick
-        ConnApp Src = new ConnFb();
+        Connfb Src = new Connfb();
         eExcep excep = Src.createConnection(edServer.getText().trim(), edPort.getText().trim(),
                 edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray(), null);
         JOptionPane.showMessageDialog(this, edPath.getText().trim() + "  \n" + excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
@@ -419,11 +414,11 @@ public class Convert extends javax.swing.JFrame {
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
             String num_base = eProperty.base_num.read();
-            ConnApp con2 = ConnApp.initConnect();
+            Connfb con2 = Connfb.initConnect();
             con2.createConnection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);
             Connection c2 = con2.getConnection();
 
-            ConnApp con1 = new ConnFb();
+            Connfb con1 = new Connfb();
             con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray(), null);
             Connection c1 = con1.getConnection();
 
@@ -498,7 +493,7 @@ public class Convert extends javax.swing.JFrame {
     private void initElements() {
         new FrameToFile(this, btnExit);
         appendToPane("\n", Color.GRAY);
-        appendToPane("    У Вас установлена версия Firebird " + ConnApp.instanc().version() + "\n", Color.GRAY);
+        appendToPane("    У Вас установлена версия Firebird " + Connfb.instanc().version() + "\n", Color.GRAY);
         appendToPane("\n", Color.GRAY);
         appendToPane("    Внимание!!! Перенос данных из ПрофСтрой-3 должен\n", Color.GRAY);
         appendToPane("    выполняться под управлением Firebird 2.1 НЕ ВЫШЕ.\n", Color.GRAY);
