@@ -100,7 +100,7 @@ public class Order extends javax.swing.JFrame {
     private void loadingData() {
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qPrjpart.select(ePrjpart.up);
-        qProject.select(eProject.up, "order by", eProject.date4);
+        qProject.select(eProject.up, "order by", eProject.date4, "desc");
         qPrjprod.select(ePrjprod.up);
     }
 
@@ -220,20 +220,7 @@ public class Order extends javax.swing.JFrame {
                 record2.set(eProject.prjpart_id, record.getInt(ePrjpart.id));
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
-        });
-
-        Util.buttonCellEditor(tab1, 4).addActionListener(event -> {
-            Set set = new HashSet();
-            Query q = new Query(eProject.categ);
-            qProject.forEach(rec -> set.add(rec.get(eProject.categ)));
-
-            new DicName(this, (record) -> {
-                Util.stopCellEditing(tab1);
-                Record record2 = qProject.get(Util.getIndexRec(tab1));
-                record2.set(eProject.categ, record.getStr(0));
-                ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
-            }, set);
-        });
+        });       
     }
 
     public void listenerSet() {

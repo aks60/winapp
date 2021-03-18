@@ -138,10 +138,6 @@ public class Util {
         return appCalendar.get(Calendar.YEAR);
     }
 
-    public static void setGregorianCalendar(Object obj) {
-        appCalendar = (java.util.GregorianCalendar) obj;
-    }
-
     public static GregorianCalendar сalendar() {
         return appCalendar;
     }
