@@ -419,16 +419,12 @@ public class Order extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup = new javax.swing.ButtonGroup();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnCalc = new javax.swing.JButton();
-        btnCard1 = new javax.swing.JToggleButton();
-        btnCard2 = new javax.swing.JToggleButton();
-        btnCard3 = new javax.swing.JToggleButton();
         centr = new javax.swing.JPanel();
         tabb1 = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
@@ -634,52 +630,6 @@ public class Order extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup.add(btnCard1);
-        btnCard1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnCard1.setSelected(true);
-        btnCard1.setText("Заказы");
-        btnCard1.setFocusable(false);
-        btnCard1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnCard1.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnCard1.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnCard1.setPreferredSize(new java.awt.Dimension(102, 25));
-        btnCard1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnCard1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard1btnBase(evt);
-            }
-        });
-
-        buttonGroup.add(btnCard2);
-        btnCard2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnCard2.setText("Изделия");
-        btnCard2.setFocusable(false);
-        btnCard2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnCard2.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnCard2.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnCard2.setPreferredSize(new java.awt.Dimension(102, 25));
-        btnCard2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnCard2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard2btnBase(evt);
-            }
-        });
-
-        buttonGroup.add(btnCard3);
-        btnCard3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnCard3.setText("Комплетации");
-        btnCard3.setFocusable(false);
-        btnCard3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnCard3.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnCard3.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnCard3.setPreferredSize(new java.awt.Dimension(102, 25));
-        btnCard3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnCard3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard3btnBase(evt);
-            }
-        });
-
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -693,13 +643,7 @@ public class Order extends javax.swing.JFrame {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnCalc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
-                .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 698, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -711,13 +655,9 @@ public class Order extends javax.swing.JFrame {
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCalc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -2541,39 +2481,6 @@ public class Order extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCalcresh
 
-    private void btnCard1btnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard1btnBase
-//        if (btnCard1.isSelected()) {
-//            mn631.setSelected(true);
-//        } else if (btnCard2.isSelected()) {
-//            mn632.setSelected(true);
-//        } else if (btnCard3.isSelected()) {
-//            mn633.setSelected(true);
-//        }
-//        mnBase(null);
-    }//GEN-LAST:event_btnCard1btnBase
-
-    private void btnCard2btnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard2btnBase
-//        if (btnCard1.isSelected()) {
-//            mn631.setSelected(true);
-//        } else if (btnCard2.isSelected()) {
-//            mn632.setSelected(true);
-//        } else if (btnCard3.isSelected()) {
-//            mn633.setSelected(true);
-//        }
-//        mnBase(null);
-    }//GEN-LAST:event_btnCard2btnBase
-
-    private void btnCard3btnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard3btnBase
-//        if (btnCard1.isSelected()) {
-//            mn631.setSelected(true);
-//        } else if (btnCard2.isSelected()) {
-//            mn632.setSelected(true);
-//        } else if (btnCard3.isSelected()) {
-//            mn633.setSelected(true);
-//        }
-//        mnBase(null);
-    }//GEN-LAST:event_btnCard3btnBase
-
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
@@ -2596,14 +2503,10 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JButton btn6;
     private javax.swing.JButton btn9;
     private javax.swing.JButton btnCalc;
-    private javax.swing.JToggleButton btnCard1;
-    private javax.swing.JToggleButton btnCard2;
-    private javax.swing.JToggleButton btnCard3;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JComboBox<String> jComboBox1;
