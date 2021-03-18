@@ -412,21 +412,26 @@ public class Systree extends javax.swing.JFrame {
         listenerModel = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
             
-            String script = record.get(2).toString();
-            JsonElement je = new Gson().fromJson(script, JsonElement.class);
-            je.getAsJsonObject().addProperty("nuni", systreeID);
-            
+            //Запишем в скрипт ветку из которого будет создаваться окно  
+            String script = record.get(2).toString();              
+            JsonObject je = gson.fromJson(script, JsonObject.class);
+            je.addProperty("nuni", systreeID);
+            String script2 = gson.toJson(je);
+
+            //Сохраним скрипт в базе
             Record sysprodRec = eSysprod.up.newRecord(Query.INS);
             sysprodRec.setNo(eSysprod.id, Confb.instanc().genId(eSysprod.id));
             sysprodRec.setNo(eSysprod.systree_id, systreeID);
             sysprodRec.setNo(eSysprod.name, record.get(1));
-            sysprodRec.setNo(eSysprod.script, record.get(2));
+            sysprodRec.setNo(eSysprod.script, script2);
             qSysprod.insert(sysprodRec);
+            
             loadingTab5();
+            
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             for (int index = 0; index < qSysprod.size(); ++index) {
                 if (qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)) {
-                    Util.setSelectedRow(tab5, index);
+                    Util.setSelectedRow(tab5, index); //выделение рабочей записи
                     Util.scrollRectToRow(index, tab5);
                     windowsTree.setSelectionRow(0);
                 }
