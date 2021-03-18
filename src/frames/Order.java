@@ -100,12 +100,12 @@ public class Order extends javax.swing.JFrame {
     private void loadingData() {
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qPrjpart.select(ePrjpart.up);
-        qProject.select(eProject.up, "order by", eProject.num_ord);
+        qProject.select(eProject.up, "order by", eProject.date4);
         qPrjprod.select(ePrjprod.up);
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.date4, eProject.date6, eProject.prjpart_id, eProject.manager, eProject.categ) {
+        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.date4, eProject.date6, eProject.prjpart_id, eProject.manager) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -227,17 +227,6 @@ public class Order extends javax.swing.JFrame {
             Query q = new Query(eProject.categ);
             qProject.forEach(rec -> set.add(rec.get(eProject.categ)));
 
-            new DicName(this, (record) -> {
-                Util.stopCellEditing(tab1);
-                Record record2 = qProject.get(Util.getIndexRec(tab1));
-                record2.set(eProject.categ, record.getStr(0));
-                ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
-            }, set);
-        });
-
-        Util.buttonCellEditor(tab1, 5).addActionListener(event -> {
-            Set set = new HashSet();
-            qProject.forEach(rec -> set.add(rec.get(eProject.categ)));
             new DicName(this, (record) -> {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
@@ -681,15 +670,15 @@ public class Order extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Номер заказа", "Дата от", "Дата до", "Контрагент", "Менеджер", "Фильтр"
+                "Номер заказа", "Дата от", "Дата до", "Контрагент", "Менеджер"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -712,7 +701,6 @@ public class Order extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(2).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(120);
             tab1.getColumnModel().getColumn(4).setPreferredWidth(120);
-            tab1.getColumnModel().getColumn(5).setPreferredWidth(60);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -1467,7 +1455,7 @@ public class Order extends javax.swing.JFrame {
         btn3.setPreferredSize(new java.awt.Dimension(18, 18));
         btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn3ActionPerformed(evt);
+                btnToArtiklGlass(evt);
             }
         });
 
@@ -1902,8 +1890,9 @@ public class Order extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, eProject.up, (record) -> {
-                record.set(eProject.manager, eProfile.user);
+            Util.insertRecord(tab1, eProject.up, (projectRec) -> {
+                projectRec.set(eProject.manager, eProfile.user);
+                projectRec.set(eProject.date4, Util.getDateCur());
             });
 
         } else if (tab2.getBorder() != null || tab4.getBorder() != null) {
@@ -2357,7 +2346,7 @@ public class Order extends javax.swing.JFrame {
         }, indexLayoutHandl);
     }//GEN-LAST:event_heightHandlToStvorka
 
-    private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
+    private void btnToArtiklGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToArtiklGlass
         try {
             float selectID = windowsNode.com5t().id();
             int systreeID = qPrjprod.getAs(Util.getIndexRec(tab2), ePrjprod.systree_id);
@@ -2388,7 +2377,7 @@ public class Order extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
-    }//GEN-LAST:event_btn3ActionPerformed
+    }//GEN-LAST:event_btnToArtiklGlass
 
     private void txtKeyEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyEnter
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -2468,9 +2457,9 @@ public class Order extends javax.swing.JFrame {
                             total[++i] = total[i] + spc.outPrice; //Себес-сть за злемент
                             total[++i] = total[i] + spc.inCost; //Стоимость без скидки
                             total[++i] = total[i] + spc.outCost; //Стоимость со скидкой
-                        }                        
+                        }
                     }
-                }                
+                }
                 txt4.setText(Util.df.format(total[1]));
                 txt5.setText(Util.df.format(total[2]));
                 txt6.setText(Util.df.format(total[3]));

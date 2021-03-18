@@ -4,23 +4,19 @@ import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
 import domain.ePrjpart;
-import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefFieldEditor;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
-import java.awt.CardLayout;
-import java.awt.Component;
 import java.awt.Frame;
 import java.awt.Window;
 import java.util.Arrays;
 import java.util.stream.Stream;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import common.ListenerRecord;
+import java.sql.ResultSet;
 import javax.swing.event.ListSelectionListener;
 
 public class Partner extends javax.swing.JFrame {
@@ -29,6 +25,7 @@ public class Partner extends javax.swing.JFrame {
     private ListenerRecord listener = null;
     private Query qPrjcontr = new Query(ePrjpart.values());
     private DefFieldEditor rsv = null;
+    private String arrCateg[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
 
     public Partner() {
         initComponents();
@@ -55,10 +52,9 @@ public class Partner extends javax.swing.JFrame {
     private void loadingModel() {
         new DefTableModel(tab1, qPrjcontr, ePrjpart.category, ePrjpart.partner, ePrjpart.manager, ePrjpart.flag2);
 
-        String arr[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
         Util.buttonCellEditor(tab1, 0).addActionListener(event -> {
             Object result = JOptionPane.showInputDialog(Partner.this, "Выберите категорию",
-                    "Изменение категории контрагента", JOptionPane.QUESTION_MESSAGE, null, arr, arr[0]);
+                    "Изменение категории контрагента", JOptionPane.QUESTION_MESSAGE, null, arrCateg, arrCateg[0]);
             if (result != null) {
                 Util.stopCellEditing(tab1);
                 qPrjcontr.set(result, Util.getIndexRec(tab1), ePrjpart.category);
@@ -780,7 +776,16 @@ public class Partner extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, ePrjpart.up, (record) -> {
+            Util.insertRecord(tab1, ePrjpart.up, (prjpartRec) -> {
+                try {
+                    ResultSet rs = Query.connection.createStatement().executeQuery("SELECT current_user FROM rdb$database");
+                    rs.next();
+                    prjpartRec.setNo(ePrjpart.manager, rs.getString(1));
+                    prjpartRec.setNo(ePrjpart.category, arrCateg[0]);
+
+                } catch (Exception e) {
+                    System.err.println("frames.Partner.btnInsert()");
+                }
             });
         }
     }//GEN-LAST:event_btnInsert
@@ -900,6 +905,7 @@ public class Partner extends javax.swing.JFrame {
     private void initElements() {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
+        Util.updateBorderAndSql(tab1, null);
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

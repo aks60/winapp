@@ -73,7 +73,7 @@ public class DicName extends javax.swing.JDialog {
         btnIns = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Справочник фурнитуры");
+        setTitle("Справочник");
         setPreferredSize(new java.awt.Dimension(400, 500));
 
         centr.setPreferredSize(new java.awt.Dimension(400, 500));
@@ -84,11 +84,11 @@ public class DicName extends javax.swing.JDialog {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Nmae 0"},
-                {"Name 0"}
+                {"Name 1"},
+                {"Name 2"}
             },
             new String [] {
-                "Название фурнитуры"
+                "Название"
             }
         ));
         tab1.setFillsViewportHeight(true);
