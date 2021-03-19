@@ -81,6 +81,7 @@ public class Order extends javax.swing.JFrame {
     private Query qCurrenc = new Query(eCurrenc.values());
     private Query qPrjpart = new Query(ePrjpart.values());
     private Query qProject = new Query(eProject.values());
+    private Query qProjectAll = new Query(eProject.values());
     private Query qPrjprod = new Query(ePrjprod.values());
     private Wincalc iwin = new Wincalc();
     private DefMutableTreeNode windowsNode = null;
@@ -100,7 +101,7 @@ public class Order extends javax.swing.JFrame {
     private void loadingData() {
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qPrjpart.select(ePrjpart.up);
-        qProject.select(eProject.up, "order by", eProject.date4, "desc");
+        qProjectAll.select(eProject.up, "order by", eProject.date4, "desc");
         qPrjprod.select(ePrjprod.up);
     }
 
@@ -220,7 +221,7 @@ public class Order extends javax.swing.JFrame {
                 record2.set(eProject.prjpart_id, record.getInt(ePrjpart.id));
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
-        });       
+        });
     }
 
     public void listenerSet() {
@@ -270,6 +271,11 @@ public class Order extends javax.swing.JFrame {
         int index = Util.getIndexRec(tab1);
         int orderID = qProject.getAs(index, eProject.id);
         eProperty.orderID.write(String.valueOf(orderID));
+        qProject.clear();
+        int k = (btnF1.isSelected()) ? qProjectAll.size() : (btnF2.isSelected()) ? qProjectAll.size() - 30 :qProjectAll.size() - 90;
+        for (int i = qProjectAll.size(); i < k; --i) {
+             qProject.add(qProjectAll.get(i));
+        }
         rsvPrj.load();
         loadingTab24();
         index = -1;
@@ -395,12 +401,16 @@ public class Order extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup = new javax.swing.ButtonGroup();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnCalc = new javax.swing.JButton();
+        btnF1 = new javax.swing.JToggleButton();
+        btnF2 = new javax.swing.JToggleButton();
+        btnF3 = new javax.swing.JToggleButton();
         centr = new javax.swing.JPanel();
         tabb1 = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
@@ -606,6 +616,34 @@ public class Order extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup.add(btnF1);
+        btnF1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnF1.setSelected(true);
+        btnF1.setFocusable(false);
+        btnF1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnF1.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnF1.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnF1.setPreferredSize(new java.awt.Dimension(47, 25));
+        btnF1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        buttonGroup.add(btnF2);
+        btnF2.setText("30");
+        btnF2.setFocusable(false);
+        btnF2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnF2.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnF2.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnF2.setPreferredSize(new java.awt.Dimension(47, 25));
+        btnF2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        buttonGroup.add(btnF3);
+        btnF3.setText("90");
+        btnF3.setFocusable(false);
+        btnF3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnF3.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnF3.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnF3.setPreferredSize(new java.awt.Dimension(47, 25));
+        btnF3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -619,22 +657,34 @@ public class Order extends javax.swing.JFrame {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnCalc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 698, Short.MAX_VALUE)
+                .addGap(116, 116, 116)
+                .addComponent(btnF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 429, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         northLayout.setVerticalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(northLayout.createSequentialGroup()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCalc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(northLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnClose, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRef, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCalc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, northLayout.createSequentialGroup()
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(northLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnF3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -2481,8 +2531,12 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JButton btnCalc;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
+    private javax.swing.JToggleButton btnF1;
+    private javax.swing.JToggleButton btnF2;
+    private javax.swing.JToggleButton btnF3;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
+    private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -2590,6 +2644,7 @@ public class Order extends javax.swing.JFrame {
             }
         });
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1)));
+        Arrays.asList(btnF1, btnF2, btnF3).forEach(b -> b.addActionListener(l -> selectionTab1(null)));
         windowsTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
