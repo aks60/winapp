@@ -215,13 +215,6 @@ public class Order extends javax.swing.JFrame {
         });
     }
 
-    public void listenerSet() {
-
-        listenerDate = (obj) -> {
-            return true;
-        };
-    }
-
     private void loadingTab24() {
         Util.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
@@ -259,7 +252,7 @@ public class Order extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab1(ListSelectionEvent event) {
+    private void selectionTab1() {
         int index = -1;
         Util.stopCellEditing(tab1);
         if (tab1.getSelectedRow() != -1) {
@@ -2681,7 +2674,7 @@ public class Order extends javax.swing.JFrame {
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab1(event);
+                    selectionTab1();
                 }
             }
         });
