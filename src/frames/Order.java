@@ -101,7 +101,7 @@ public class Order extends javax.swing.JFrame {
     private void loadingData() {
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qPrjpart.select(ePrjpart.up);
-        qProjectAll.select(eProject.up, "order by", eProject.date4, "desc");
+        qProjectAll.select(eProject.up, "order by", eProject.date4);
         qPrjprod.select(ePrjprod.up);
     }
 
@@ -129,10 +129,13 @@ public class Order extends javax.swing.JFrame {
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 1) {
                     int index = table.convertRowIndexToModel(row);
-                    Object v = qPrjprod.get(index).get(ePrjprod.values().length);
-                    if (v instanceof Icon) {
-                        Icon icon = (Icon) v;
-                        label.setIcon(icon);
+                    Record rec = qPrjprod.get(index);
+                    if (rec.size() > ePrjprod.values().length) {
+                        Object v = rec.get(ePrjprod.values().length);
+                        if (v instanceof Icon) {
+                            Icon icon = (Icon) v;
+                            label.setIcon(icon);
+                        }
                     }
                 } else {
                     label.setIcon(null);
@@ -142,6 +145,8 @@ public class Order extends javax.swing.JFrame {
         };
         tab2.setDefaultRenderer(Object.class, defaultTableCellRenderer);
         tab4.setDefaultRenderer(Object.class, defaultTableCellRenderer);
+
+        btnFilter(null);
 
         rsvPrj = new DefFieldEditor(tab1) {
 
@@ -267,30 +272,28 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        Util.stopCellEditing(tab1);
-        int index = Util.getIndexRec(tab1);
-        int orderID = qProject.getAs(index, eProject.id);
-        eProperty.orderID.write(String.valueOf(orderID));
-        qProject.clear();
-        int k = (btnF1.isSelected()) ? qProjectAll.size() : (btnF2.isSelected()) ? qProjectAll.size() - 30 :qProjectAll.size() - 90;
-        for (int i = qProjectAll.size(); i < k; --i) {
-             qProject.add(qProjectAll.get(i));
-        }
-        rsvPrj.load();
-        loadingTab24();
-        index = -1;
-        int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
-        for (int i = 0; i < qPrjprod.size(); ++i) {
-            if (qPrjprod.get(i).getInt(ePrjprod.id) == prjprodID) {
-                index = i;
+
+        if (qPrjprod.isEmpty() == false) {
+            Util.stopCellEditing(tab1);
+            int index = Util.getIndexRec(tab1);
+            int orderID = qProject.getAs(index, eProject.id);
+            eProperty.orderID.write(String.valueOf(orderID));
+            rsvPrj.load();
+            loadingTab24();
+            index = -1;
+            int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
+            for (int i = 0; i < qPrjprod.size(); ++i) {
+                if (qPrjprod.get(i).getInt(ePrjprod.id) == prjprodID) {
+                    index = i;
+                }
             }
-        }
-        if (index != -1) {
-            Util.setSelectedRow(tab2, index);
-            Util.setSelectedRow(tab4, index);
-        } else {
-            Util.setSelectedRow(tab2);
-            Util.setSelectedRow(tab4);
+            if (index != -1) {
+                Util.setSelectedRow(tab2, index);
+                Util.setSelectedRow(tab4, index);
+            } else {
+                Util.setSelectedRow(tab2);
+                Util.setSelectedRow(tab4);
+            }
         }
     }
 
@@ -561,6 +564,7 @@ public class Order extends javax.swing.JFrame {
         btnRef.setMaximumSize(new java.awt.Dimension(25, 25));
         btnRef.setMinimumSize(new java.awt.Dimension(25, 25));
         btnRef.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnRef.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnRef.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -576,6 +580,7 @@ public class Order extends javax.swing.JFrame {
         btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
         btnDel.setMinimumSize(new java.awt.Dimension(25, 25));
         btnDel.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnDel.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -591,6 +596,7 @@ public class Order extends javax.swing.JFrame {
         btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
         btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
         btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnIns.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnIns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -600,7 +606,6 @@ public class Order extends javax.swing.JFrame {
 
         btnCalc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnCalc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c031.gif"))); // NOI18N
-        btnCalc.setText("Пересчитать");
         btnCalc.setToolTipText(bundle.getString("Обновить")); // NOI18N
         btnCalc.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnCalc.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
@@ -609,7 +614,8 @@ public class Order extends javax.swing.JFrame {
         btnCalc.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnCalc.setMaximumSize(new java.awt.Dimension(25, 25));
         btnCalc.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnCalc.setPreferredSize(new java.awt.Dimension(116, 25));
+        btnCalc.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnCalc.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnCalc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCalcresh(evt);
@@ -619,30 +625,51 @@ public class Order extends javax.swing.JFrame {
         buttonGroup.add(btnF1);
         btnF1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnF1.setSelected(true);
+        btnF1.setText("30");
+        btnF1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnF1.setFocusable(false);
         btnF1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnF1.setMaximumSize(new java.awt.Dimension(28, 25));
         btnF1.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnF1.setPreferredSize(new java.awt.Dimension(47, 25));
+        btnF1.setPreferredSize(new java.awt.Dimension(32, 25));
         btnF1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnF1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilter(evt);
+            }
+        });
 
         buttonGroup.add(btnF2);
-        btnF2.setText("30");
+        btnF2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnF2.setText("90");
+        btnF2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnF2.setFocusable(false);
         btnF2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnF2.setMaximumSize(new java.awt.Dimension(28, 25));
         btnF2.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnF2.setPreferredSize(new java.awt.Dimension(47, 25));
+        btnF2.setPreferredSize(new java.awt.Dimension(32, 25));
         btnF2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnF2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilter(evt);
+            }
+        });
 
         buttonGroup.add(btnF3);
-        btnF3.setText("90");
+        btnF3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnF3.setText("∑");
+        btnF3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnF3.setFocusable(false);
         btnF3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnF3.setMaximumSize(new java.awt.Dimension(28, 25));
         btnF3.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnF3.setPreferredSize(new java.awt.Dimension(47, 25));
+        btnF3.setPreferredSize(new java.awt.Dimension(32, 25));
         btnF3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnF3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilter(evt);
+            }
+        });
 
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
@@ -653,17 +680,17 @@ public class Order extends javax.swing.JFrame {
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCalc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(116, 116, 116)
+                .addGap(80, 80, 80)
                 .addComponent(btnF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 429, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 629, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -711,7 +738,7 @@ public class Order extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Номер заказа", "Дата от", "Дата до", "Контрагент", "Менеджер"
+                "Номер заказа", "Дата от...", "Дата до...", "Контрагент", "Менеджер"
             }
         ) {
             Class[] types = new Class [] {
@@ -2506,6 +2533,15 @@ public class Order extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnCalcresh
+
+    private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
+        qProject.clear();
+        int first = (btnF1.isSelected()) ? qProjectAll.size() - 30 : (btnF2.isSelected()) ? qProjectAll.size() - 90 : 0;
+        for (int i = first;  i < qProjectAll.size(); ++i) {
+                qProject.add(qProjectAll.get(i));
+        }
+        ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+    }//GEN-LAST:event_btnFilter
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -213,6 +213,7 @@ public class Specific extends javax.swing.JFrame {
         btnRef.setMaximumSize(new java.awt.Dimension(25, 25));
         btnRef.setMinimumSize(new java.awt.Dimension(25, 25));
         btnRef.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnRef.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnRef.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,6 +229,7 @@ public class Specific extends javax.swing.JFrame {
         btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
         btnDel.setMinimumSize(new java.awt.Dimension(25, 25));
         btnDel.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnDel.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,6 +245,7 @@ public class Specific extends javax.swing.JFrame {
         btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
         btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
         btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnIns.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnIns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,6 +261,7 @@ public class Specific extends javax.swing.JFrame {
         btnReport.setMaximumSize(new java.awt.Dimension(25, 25));
         btnReport.setMinimumSize(new java.awt.Dimension(25, 25));
         btnReport.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnReport.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -273,6 +277,7 @@ public class Specific extends javax.swing.JFrame {
         btnArtikles.setMaximumSize(new java.awt.Dimension(25, 25));
         btnArtikles.setMinimumSize(new java.awt.Dimension(25, 25));
         btnArtikles.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnArtikles.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnArtikles.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnArtikles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,6 +293,7 @@ public class Specific extends javax.swing.JFrame {
         btnConstructiv.setMaximumSize(new java.awt.Dimension(25, 25));
         btnConstructiv.setMinimumSize(new java.awt.Dimension(25, 25));
         btnConstructiv.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnConstructiv.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnConstructiv.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnConstructiv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

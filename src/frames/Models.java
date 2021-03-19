@@ -252,7 +252,6 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Модели конструкций");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(800, 609));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Models.this.windowClosed(evt);
@@ -292,6 +291,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         btnRef.setMaximumSize(new java.awt.Dimension(25, 25));
         btnRef.setMinimumSize(new java.awt.Dimension(25, 25));
         btnRef.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnRef.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnRef.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,6 +307,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
         btnDel.setMinimumSize(new java.awt.Dimension(25, 25));
         btnDel.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnDel.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -322,6 +323,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
         btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
         btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnIns.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnIns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -337,6 +339,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         btnChoice.setMaximumSize(new java.awt.Dimension(25, 25));
         btnChoice.setMinimumSize(new java.awt.Dimension(25, 25));
         btnChoice.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnChoice.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnChoice.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnChoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -352,6 +355,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         btnRemov.setMaximumSize(new java.awt.Dimension(25, 25));
         btnRemov.setMinimumSize(new java.awt.Dimension(25, 25));
         btnRemov.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnRemov.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnRemov.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemov.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

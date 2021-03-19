@@ -106,6 +106,7 @@ public class Currenc extends javax.swing.JFrame {
         btnRef.setMaximumSize(new java.awt.Dimension(25, 25));
         btnRef.setMinimumSize(new java.awt.Dimension(25, 25));
         btnRef.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnRef.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnRef.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +122,7 @@ public class Currenc extends javax.swing.JFrame {
         btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
         btnDel.setMinimumSize(new java.awt.Dimension(25, 25));
         btnDel.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnDel.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,6 +138,7 @@ public class Currenc extends javax.swing.JFrame {
         btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
         btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
         btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnIns.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnIns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +154,7 @@ public class Currenc extends javax.swing.JFrame {
         btnChoice.setMaximumSize(new java.awt.Dimension(25, 25));
         btnChoice.setMinimumSize(new java.awt.Dimension(25, 25));
         btnChoice.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnChoice.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnChoice.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnChoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +170,7 @@ public class Currenc extends javax.swing.JFrame {
         btnRemove.setMaximumSize(new java.awt.Dimension(25, 25));
         btnRemove.setMinimumSize(new java.awt.Dimension(25, 25));
         btnRemove.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnRemove.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -90,7 +90,8 @@ public class Man extends javax.swing.JFrame {
         ppmMain.setFont(frames.Util.getFont(1,1));
 
         mn10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn10.setText("Данные                                   ");
+        mn10.setText("Установки                                  ");
+        mn10.setToolTipText("");
         mn10.setFont(frames.Util.getFont(1,1));
 
         mn11.setFont(frames.Util.getFont(1,1));
@@ -116,7 +117,7 @@ public class Man extends javax.swing.JFrame {
         ppmMain.add(mn10);
 
         mn60.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
-        mn60.setText("Установка соединения");
+        mn60.setText("База данных");
         mn60.setFont(frames.Util.getFont(1,1));
 
         buttonBaseGroup.add(mn61);
