@@ -18,7 +18,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img16/b031.gif"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x423;&#x441;&#x442;&#x430;&#x43d;&#x43e;&#x432;&#x43a;&#x438;                                  "/>
+            <Property name="text" type="java.lang.String" value="&#x423;&#x441;&#x442;&#x430;&#x43d;&#x43e;&#x432;&#x43a;&#x438;"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="frames.Util.getFont(1,1)" type="code"/>

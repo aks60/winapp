@@ -90,7 +90,7 @@ public class Man extends javax.swing.JFrame {
         ppmMain.setFont(frames.Util.getFont(1,1));
 
         mn10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn10.setText("Установки                                  ");
+        mn10.setText("Установки");
         mn10.setToolTipText("");
         mn10.setFont(frames.Util.getFont(1,1));
 
