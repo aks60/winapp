@@ -95,6 +95,7 @@ public class Order extends javax.swing.JFrame {
         initElements();
         loadingData();
         loadingModel();
+        btnFilter(null);
         listenerAdd();
     }
 
@@ -146,8 +147,6 @@ public class Order extends javax.swing.JFrame {
         tab2.setDefaultRenderer(Object.class, defaultTableCellRenderer);
         tab4.setDefaultRenderer(Object.class, defaultTableCellRenderer);
 
-        btnFilter(null);
-
         rsvPrj = new DefFieldEditor(tab1) {
 
             public Set<JTextField> set = new HashSet();
@@ -180,19 +179,6 @@ public class Order extends javax.swing.JFrame {
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
-        int index = -1;
-        int orderID = Integer.valueOf(eProperty.orderID.read());
-        for (int index2 = 0; index2 < qProject.size(); ++index2) {
-            if (qProject.get(index2).getInt(eSysprod.id) == orderID) {
-                index = index2;
-            }
-        }
-        if (index != -1) {
-            Util.setSelectedRow(tab1, index);
-        } else {
-            Util.setSelectedRow(tab1);
-        }
-        Util.scrollRectToRow(index, tab1);
     }
 
     private void listenerAdd() {
@@ -237,26 +223,28 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingTab24() {
-
         Util.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
-        Record projectRec = qProject.get(Util.getIndexRec(tab1));
-        int id = projectRec.getInt(eProject.id);
-        qPrjprod.select(ePrjprod.up, "where", ePrjprod.order_id, "=", id);
+        if (tab1.getSelectedRow() != -1) {
 
-        int length = 68;
-        for (Record record : qPrjprod) {
-            try {
-                Object script = record.get(ePrjprod.script);
-                ImageIcon image = Util.createWindraw(iwin, script, length);
-                record.add(image);
+            Record projectRec = qProject.get(Util.getIndexRec(tab1));
+            int id = projectRec.getInt(eProject.id);
+            qPrjprod.select(ePrjprod.up, "where", ePrjprod.order_id, "=", id);
 
-            } catch (Exception e) {
-                System.err.println("Ошибка:Order.loadingTab2() " + e);
+            int length = 68;
+            for (Record record : qPrjprod) {
+                try {
+                    Object script = record.get(ePrjprod.script);
+                    ImageIcon image = Util.createWindraw(iwin, script, length);
+                    record.add(image);
+
+                } catch (Exception e) {
+                    System.err.println("Ошибка:Order.loadingTab2() " + e);
+                }
             }
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
         }
-        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
     }
 
     private void loadingWin() {
@@ -272,11 +260,11 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
+        int index = -1;
+        Util.stopCellEditing(tab1);
+        if (tab1.getSelectedRow() != -1) {
 
-        if (qPrjprod.isEmpty() == false) {
-            Util.stopCellEditing(tab1);
-            int index = Util.getIndexRec(tab1);
-            int orderID = qProject.getAs(index, eProject.id);
+            int orderID = qProject.getAs(Util.getIndexRec(tab1), eProject.id);
             eProperty.orderID.write(String.valueOf(orderID));
             rsvPrj.load();
             loadingTab24();
@@ -287,13 +275,13 @@ public class Order extends javax.swing.JFrame {
                     index = i;
                 }
             }
-            if (index != -1) {
-                Util.setSelectedRow(tab2, index);
-                Util.setSelectedRow(tab4, index);
-            } else {
-                Util.setSelectedRow(tab2);
-                Util.setSelectedRow(tab4);
-            }
+        }
+        if (index != -1) {
+            Util.setSelectedRow(tab2, index);
+            Util.setSelectedRow(tab4, index);
+        } else {
+            Util.setSelectedRow(tab2);
+            Util.setSelectedRow(tab4);
         }
     }
 
@@ -625,7 +613,7 @@ public class Order extends javax.swing.JFrame {
         buttonGroup.add(btnF1);
         btnF1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnF1.setSelected(true);
-        btnF1.setText("30");
+        btnF1.setText("10");
         btnF1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnF1.setFocusable(false);
         btnF1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -641,7 +629,7 @@ public class Order extends javax.swing.JFrame {
 
         buttonGroup.add(btnF2);
         btnF2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnF2.setText("90");
+        btnF2.setText("30");
         btnF2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnF2.setFocusable(false);
         btnF2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -2536,11 +2524,25 @@ public class Order extends javax.swing.JFrame {
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
         qProject.clear();
-        int first = (btnF1.isSelected()) ? qProjectAll.size() - 30 : (btnF2.isSelected()) ? qProjectAll.size() - 90 : 0;
-        for (int i = first;  i < qProjectAll.size(); ++i) {
-                qProject.add(qProjectAll.get(i));
+        int first = (btnF1.isSelected()) ? qProjectAll.size() - 10 : (btnF2.isSelected()) ? qProjectAll.size() - 30 : 0;
+        for (int i = first; i < qProjectAll.size(); ++i) {
+            qProject.add(qProjectAll.get(i));
         }
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+
+        int index = -1;
+        int orderID = Integer.valueOf(eProperty.orderID.read());
+        for (int index2 = 0; index2 < qProject.size(); ++index2) {
+            if (qProject.get(index2).getInt(eSysprod.id) == orderID) {
+                index = index2;
+            }
+        }
+        if (index != -1) {
+            Util.setSelectedRow(tab1, index);
+        } else {
+            Util.setSelectedRow(tab1);
+        }
+        Util.scrollRectToRow(index, tab1);
     }//GEN-LAST:event_btnFilter
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -2674,14 +2676,15 @@ public class Order extends javax.swing.JFrame {
         Util.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
-        tab1.getSelectionModel().addListSelectionListener(event -> {
-            if (event.getValueIsAdjusting() == false) {
-                selectionTab1(event);
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1)));
+        windowsTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab1(event);
+                }
             }
         });
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1)));
-        Arrays.asList(btnF1, btnF2, btnF3).forEach(b -> b.addActionListener(l -> selectionTab1(null)));
-        windowsTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false && tab2.getSelectedRow() != -1) {
