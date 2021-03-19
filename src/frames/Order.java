@@ -95,8 +95,8 @@ public class Order extends javax.swing.JFrame {
         initElements();
         loadingData();
         loadingModel();
-        btnFilter(null);
         listenerAdd();
+        loadingTab1();
     }
 
     private void loadingData() {
@@ -107,7 +107,7 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.date4, eProject.date6, eProject.prjpart_id, eProject.manager) {
+        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.num_acc, eProject.date4, eProject.date6, eProject.prjpart_id, eProject.manager) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -170,7 +170,6 @@ public class Order extends javax.swing.JFrame {
                 set.forEach(s -> s.setText(null));
             }
         };
-        rsvPrj.add(eProject.num_acc, txt2);
         rsvPrj.add(eProject.pric1, txt4);
         rsvPrj.add(eProject.pric5, txt5);
         rsvPrj.add(eProject.cost4, txt6);
@@ -183,7 +182,7 @@ public class Order extends javax.swing.JFrame {
 
     private void listenerAdd() {
 
-        Util.buttonCellEditor(tab1, 1).addActionListener(event -> {
+        Util.buttonCellEditor(tab1, 2).addActionListener(event -> {
             new DicDate(this, (obj) -> {
                 GregorianCalendar calendar = (GregorianCalendar) obj;
                 Util.stopCellEditing(tab1);
@@ -194,7 +193,7 @@ public class Order extends javax.swing.JFrame {
             }, 0);
         });
 
-        Util.buttonCellEditor(tab1, 2).addActionListener(event -> {
+        Util.buttonCellEditor(tab1, 3).addActionListener(event -> {
             new DicDate(this, (obj) -> {
                 GregorianCalendar calendar = (GregorianCalendar) obj;
                 Util.stopCellEditing(tab1);
@@ -205,7 +204,7 @@ public class Order extends javax.swing.JFrame {
             }, 0);
         });
 
-        Util.buttonCellEditor(tab1, 3).addActionListener(event -> {
+        Util.buttonCellEditor(tab1, 4).addActionListener(event -> {
             new Partner(this, (record) -> {
                 Util.stopCellEditing(tab1);
                 Record record2 = qProject.get(Util.getIndexRec(tab1));
@@ -215,6 +214,29 @@ public class Order extends javax.swing.JFrame {
         });
     }
 
+    private void loadingTab1() {                           
+        qProject.clear();
+        int first = (btnF1.isSelected()) ? qProjectAll.size() - 10 : (btnF2.isSelected()) ? qProjectAll.size() - 30 : 0;
+        for (int i = first; i < qProjectAll.size(); ++i) {
+            qProject.add(qProjectAll.get(i));
+        }
+        ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+
+        int index = -1;
+        int orderID = Integer.valueOf(eProperty.orderID.read());
+        for (int index2 = 0; index2 < qProject.size(); ++index2) {
+            if (qProject.get(index2).getInt(eSysprod.id) == orderID) {
+                index = index2;
+            }
+        }
+        if (index != -1) {
+            Util.setSelectedRow(tab1, index);
+        } else {
+            Util.setSelectedRow(tab1);
+        }
+        Util.scrollRectToRow(index, tab1);
+    } 
+    
     private void loadingTab24() {
         Util.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
@@ -403,11 +425,9 @@ public class Order extends javax.swing.JFrame {
         pan11 = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
         lab1 = new javax.swing.JLabel();
-        lab2 = new javax.swing.JLabel();
         lab3 = new javax.swing.JLabel();
         lab4 = new javax.swing.JLabel();
         lab5 = new javax.swing.JLabel();
-        txt2 = new javax.swing.JTextField();
         txt3 = new javax.swing.JTextField();
         txt4 = new javax.swing.JTextField();
         txt5 = new javax.swing.JTextField();
@@ -671,7 +691,7 @@ public class Order extends javax.swing.JFrame {
                 .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 629, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 557, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -715,15 +735,15 @@ public class Order extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Номер заказа", "Дата от...", "Дата до...", "Контрагент", "Менеджер"
+                "Номер заказа", "Номер счёта", "Дата от...", "Дата до...", "Контрагент", "Менеджер"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -744,8 +764,9 @@ public class Order extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(60);
-            tab1.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tab1.getColumnModel().getColumn(5).setPreferredWidth(120);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -753,57 +774,47 @@ public class Order extends javax.swing.JFrame {
         pan11.setPreferredSize(new java.awt.Dimension(286, 470));
         pan11.setLayout(new java.awt.BorderLayout());
 
-        pan2.setPreferredSize(new java.awt.Dimension(300, 214));
+        pan2.setPreferredSize(new java.awt.Dimension(264, 200));
 
         lab1.setFont(frames.Util.getFont(0,0));
         lab1.setText("Тип расчтета");
         lab1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab1.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab1.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab1.setPreferredSize(new java.awt.Dimension(120, 18));
-
-        lab2.setFont(frames.Util.getFont(0,0));
-        lab2.setText("Номер счета");
-        lab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab2.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab2.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab2.setPreferredSize(new java.awt.Dimension(120, 18));
+        lab1.setPreferredSize(new java.awt.Dimension(140, 18));
 
         lab3.setFont(frames.Util.getFont(0,0));
         lab3.setText("Валюта название");
         lab3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab3.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab3.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab3.setPreferredSize(new java.awt.Dimension(120, 18));
+        lab3.setPreferredSize(new java.awt.Dimension(140, 18));
 
         lab4.setFont(frames.Util.getFont(0,0));
         lab4.setText("Cебестоимость");
         lab4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab4.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab4.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab4.setPreferredSize(new java.awt.Dimension(120, 18));
+        lab4.setPreferredSize(new java.awt.Dimension(140, 18));
 
         lab5.setFont(frames.Util.getFont(0,0));
         lab5.setText("Cтоимость без скидки");
         lab5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab5.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab5.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab5.setPreferredSize(new java.awt.Dimension(120, 18));
-
-        txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt2.setPreferredSize(new java.awt.Dimension(120, 18));
+        lab5.setPreferredSize(new java.awt.Dimension(140, 18));
 
         txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt3.setFocusable(false);
-        txt3.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt3.setPreferredSize(new java.awt.Dimension(60, 20));
 
         txt4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt4.setFocusable(false);
-        txt4.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt4.setPreferredSize(new java.awt.Dimension(60, 20));
 
         txt5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt5.setFocusable(false);
-        txt5.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt5.setPreferredSize(new java.awt.Dimension(60, 20));
 
         btn1.setText("...");
         btn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -822,38 +833,38 @@ public class Order extends javax.swing.JFrame {
         lab6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab6.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab6.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab6.setPreferredSize(new java.awt.Dimension(120, 18));
+        lab6.setPreferredSize(new java.awt.Dimension(140, 18));
 
         txt6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt6.setFocusable(false);
-        txt6.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt6.setPreferredSize(new java.awt.Dimension(60, 20));
 
         lab7.setFont(frames.Util.getFont(0,0));
         lab7.setText("Общий вес");
         lab7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab7.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab7.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab7.setPreferredSize(new java.awt.Dimension(120, 18));
+        lab7.setPreferredSize(new java.awt.Dimension(140, 18));
 
         txt7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt7.setFocusable(false);
-        txt7.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt7.setPreferredSize(new java.awt.Dimension(60, 20));
 
         lab8.setFont(frames.Util.getFont(0,0));
         lab8.setText("Общая площадь");
         lab8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab8.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab8.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab8.setPreferredSize(new java.awt.Dimension(120, 18));
+        lab8.setPreferredSize(new java.awt.Dimension(140, 18));
 
         txt8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt8.setFocusable(false);
-        txt8.setPreferredSize(new java.awt.Dimension(120, 18));
+        txt8.setPreferredSize(new java.awt.Dimension(60, 20));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "По спецификации" }));
         jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jComboBox1.setMinimumSize(new java.awt.Dimension(12, 12));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(146, 18));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(120, 18));
 
         javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
         pan2.setLayout(pan2Layout);
@@ -872,10 +883,6 @@ public class Order extends javax.swing.JFrame {
                         .addComponent(txt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pan2Layout.createSequentialGroup()
-                        .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -897,7 +904,7 @@ public class Order extends javax.swing.JFrame {
                             .addComponent(lab8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         pan2Layout.setVerticalGroup(
             pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -906,10 +913,6 @@ public class Order extends javax.swing.JFrame {
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -935,7 +938,7 @@ public class Order extends javax.swing.JFrame {
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pan11.add(pan2, java.awt.BorderLayout.NORTH);
@@ -1028,7 +1031,7 @@ public class Order extends javax.swing.JFrame {
         pan14.setLayout(pan14Layout);
         pan14Layout.setHorizontalGroup(
             pan14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 567, Short.MAX_VALUE)
+            .addGap(0, 495, Short.MAX_VALUE)
         );
         pan14Layout.setVerticalGroup(
             pan14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1120,7 +1123,7 @@ public class Order extends javax.swing.JFrame {
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(lab32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(lab27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1242,15 +1245,9 @@ public class Order extends javax.swing.JFrame {
             .addGroup(pan12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                    .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
                     .addGroup(pan12Layout.createSequentialGroup()
                         .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pan12Layout.createSequentialGroup()
-                                .addComponent(lab38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pan12Layout.createSequentialGroup()
                                 .addComponent(lab35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1258,6 +1255,12 @@ public class Order extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pan12Layout.createSequentialGroup()
+                                .addComponent(lab38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1277,13 +1280,12 @@ public class Order extends javax.swing.JFrame {
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(pan21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1447,17 +1449,17 @@ public class Order extends javax.swing.JFrame {
             .addGroup(pan13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                    .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)))
+                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan13Layout.setVerticalGroup(
@@ -1524,13 +1526,13 @@ public class Order extends javax.swing.JFrame {
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)))
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan15Layout.setVerticalGroup(
@@ -1731,7 +1733,7 @@ public class Order extends javax.swing.JFrame {
                             .addComponent(lab37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                            .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                             .addComponent(txt25, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1759,19 +1761,17 @@ public class Order extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(pan16Layout.createSequentialGroup()
-                        .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pan16Layout.createSequentialGroup()
-                                .addComponent(lab42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pan16Layout.createSequentialGroup()
-                                .addComponent(lab41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lab41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lab42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1782,12 +1782,11 @@ public class Order extends javax.swing.JFrame {
                 .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lab42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2516,26 +2515,7 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCalcresh
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
-        qProject.clear();
-        int first = (btnF1.isSelected()) ? qProjectAll.size() - 10 : (btnF2.isSelected()) ? qProjectAll.size() - 30 : 0;
-        for (int i = first; i < qProjectAll.size(); ++i) {
-            qProject.add(qProjectAll.get(i));
-        }
-        ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-
-        int index = -1;
-        int orderID = Integer.valueOf(eProperty.orderID.read());
-        for (int index2 = 0; index2 < qProject.size(); ++index2) {
-            if (qProject.get(index2).getInt(eSysprod.id) == orderID) {
-                index = index2;
-            }
-        }
-        if (index != -1) {
-            Util.setSelectedRow(tab1, index);
-        } else {
-            Util.setSelectedRow(tab1);
-        }
-        Util.scrollRectToRow(index, tab1);
+        loadingTab1();
     }//GEN-LAST:event_btnFilter
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -2572,7 +2552,6 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel lab1;
-    private javax.swing.JLabel lab2;
     private javax.swing.JLabel lab27;
     private javax.swing.JLabel lab28;
     private javax.swing.JLabel lab29;
@@ -2636,7 +2615,6 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JTextField txt17;
     private javax.swing.JTextField txt18;
     private javax.swing.JTextField txt19;
-    private javax.swing.JTextField txt2;
     private javax.swing.JTextField txt20;
     private javax.swing.JTextField txt21;
     private javax.swing.JTextField txt22;
