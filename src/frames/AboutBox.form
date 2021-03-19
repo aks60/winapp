@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
-  <NonVisualComponents>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Util.getFont(0, 1)" type="code"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;body&gt;&#xa;&lt;p&gt;&amp;nbsp;&amp;nbsp;&lt;b&gt;&lt;span lang=&quot;en-us&quot;&gt; &lt;/span&gt;&#x41f;&#x440;&#x43e;&#x433;&#x440;&#x430;&#x43c;&#x43c;&#x430; &#x434;&#x43b;&#x44f; &#x440;&#x430;&#x441;&#x447;&#x435;&#x442;&#x430; &#x43e;&#x43a;&#x43e;&#x43d;&lt;br&gt;&amp;nbsp;&amp;nbsp; &#x438;&#x437; &#x43f;&#x43b;&#x430;&#x441;&#x442;&#x438;&#x43a;&#x430;, &#x434;&#x435;&#x440;&#x435;&#x432;&#x430; &#x438; &#x430;&#x43b;&#x44e;&#x43c;&#x438;&#x43d;&#x438;&#x44f;.&lt;/b&gt;&lt;/p&gt;&lt;br&gt;&#xa;&lt;p&gt;&lt;b&gt;&lt;span lang=&quot;en-us&quot;&gt;&amp;nbsp;&lt;/span&gt;&#x420;&#x430;&#x437;&#x440;&#x430;&#x431;&#x43e;&#x442;&#x447;&#x438;&#x43a; &#x410;&#x43a;&#x441;&#x451;&#x43d;&#x43e;&#x432; &#x421;&#x435;&#x440;&#x433;&#x435;&#x439; &#x410;&#x440;&#x43a;&#x430;&#x434;&#x44c;&#x435;&#x432;&#x438;&#x447;&lt;span lang=&quot;en-us&quot;&gt;&#xa;&lt;/span&gt;&amp;nbsp;&lt;span lang=&quot;en-us&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;br&gt;&#xa;&lt;span lang=&quot;en-us&quot;&gt;&amp;nbsp;&lt;/span&gt;&#x421;&#x430;&#x439;&#x442; &#x440;&#x430;&#x437;&#x440;&#x430;&#x431;&#x43e;&#x442;&#x447;&#x438;&#x43a;&#x430;:&lt;font color=&quot;#0000FF&quot;&gt;&#xa;&lt;span lang=&quot;en-us&quot;&gt;&lt;a href=&quot; http://www.iicokna.ru&quot;&gt;&amp;nbsp www.iicokna.ru&lt;/a&gt;&lt;/span&gt;.&lt;br&gt;&#xa;&lt;span lang=&quot;en-us&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&#x422;&#x435;&#x43b;&#x435;&#x444;&#x43e;&#x43d;&lt;span lang=&quot;en-us&quot;&gt;:&lt;/span&gt;+7 (903) XXX-XX-XX &lt;br&gt;&#xa;&amp;nbsp;E-mail:&lt;/span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;span lang=&quot;en-us&quot;&gt;gonved60@gmail.com&lt;/span&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&#xa;&lt;span lang=&quot;en-us&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&#x412;&#x44b;&#x43f;&#x443;&#x441;&#x43a; &#x43f;&#x435;&#x440;&#x432;&#x43e;&#x439; &#x43f;&#x440;&#x43e;&#x433;&#x440;&#x430;&#x43c;&#x43c;&#x44b; 2021&lt;span lang=&quot;en-us&quot;&gt;:&lt;/span&gt;+7 (903) XXX-XX-XX &lt;br&gt;&lt;/p&gt;&#xa;&lt;/body&gt;&#xa;&lt;/html&gt;"/>
-        <Property name="opaque" type="boolean" value="true"/>
-      </Properties>
-    </Component>
-  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="iconImage" type="java.awt.Image" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">

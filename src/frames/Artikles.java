@@ -1442,11 +1442,6 @@ public class Artikles extends javax.swing.JFrame {
         btn35.setMaximumSize(new java.awt.Dimension(18, 18));
         btn35.setMinimumSize(new java.awt.Dimension(18, 18));
         btn35.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn35.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn35(evt);
-            }
-        });
         pan104.add(btn35);
 
         pan2.add(pan104);
@@ -1777,11 +1772,6 @@ public class Artikles extends javax.swing.JFrame {
         btn36.setMaximumSize(new java.awt.Dimension(18, 18));
         btn36.setMinimumSize(new java.awt.Dimension(18, 18));
         btn36.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn36.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn36(evt);
-            }
-        });
         pan19.add(btn36);
 
         pan7.add(pan19);
@@ -2435,16 +2425,8 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMove
 
     private void btn34(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn34
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btn34
-
-    private void btn35(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn35
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn35
-
-    private void btn36(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn36
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn36
 
     private void btn37(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn37
         DicGroups groups = new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF);

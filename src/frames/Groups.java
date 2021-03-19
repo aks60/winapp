@@ -371,11 +371,6 @@ public class Groups extends javax.swing.JFrame {
         tab6.setFillsViewportHeight(true);
         tab6.setName("tab4"); // NOI18N
         tab6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab6tabMousePressed(evt);
-            }
-        });
         scr6.setViewportView(tab6);
         if (tab6.getColumnModel().getColumnCount() > 0) {
             tab6.getColumnModel().getColumn(1).setMaxWidth(40);
@@ -648,10 +643,6 @@ public class Groups extends javax.swing.JFrame {
             Util.updateBorderAndSql(tab6, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
         }
     }//GEN-LAST:event_tabbStateChanged
-
-    private void tab6tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab6tabMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tab6tabMousePressed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables

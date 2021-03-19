@@ -16,7 +16,6 @@ public class AboutBox extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
         north = new javax.swing.JPanel();
         labTitle = new javax.swing.JLabel();
         pan2 = new javax.swing.JPanel();
@@ -34,11 +33,6 @@ public class AboutBox extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         south = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
-
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(Util.getFont(0, 1));
-        jLabel2.setText("<html>\n<body>\n<p>&nbsp;&nbsp;<b><span lang=\"en-us\"> </span>Программа для расчета окон<br>&nbsp;&nbsp; из пластика, дерева и алюминия.</b></p><br>\n<p><b><span lang=\"en-us\">&nbsp;</span>Разработчик Аксёнов Сергей Аркадьевич<span lang=\"en-us\">\n</span>&nbsp;<span lang=\"en-us\"> </span><br><br>\n<span lang=\"en-us\">&nbsp;</span>Сайт разработчика:<font color=\"#0000FF\">\n<span lang=\"en-us\"><a href=\" http://www.iicokna.ru\">&nbsp www.iicokna.ru</a></span>.<br>\n<span lang=\"en-us\">&nbsp;</span></font>Телефон<span lang=\"en-us\">:</span>+7 (903) XXX-XX-XX <br>\n&nbsp;E-mail:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span lang=\"en-us\">gonved60@gmail.com</span></b><br>&nbsp;\n<span lang=\"en-us\">&nbsp;</span></font>Выпуск первой программы 2021<span lang=\"en-us\">:</span>+7 (903) XXX-XX-XX <br></p>\n</body>\n</html>");
-        jLabel2.setOpaque(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
@@ -212,7 +206,6 @@ public class AboutBox extends javax.swing.JFrame {
     private javax.swing.JButton btnClose;
     private javax.swing.JPanel centr;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

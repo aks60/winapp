@@ -2026,9 +2026,6 @@
                           <Dimension value="[18, 18]"/>
                         </Property>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn35"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -2901,9 +2898,6 @@
                           <Dimension value="[18, 18]"/>
                         </Property>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn36"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

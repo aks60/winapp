@@ -315,7 +315,7 @@ public class Man extends javax.swing.JFrame {
         btn11.setPreferredSize(new java.awt.Dimension(96, 26));
         btn11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn11(evt);
+                btn11ActionPerformed(evt);
             }
         });
         pan7.add(btn11);
@@ -488,11 +488,11 @@ public class Man extends javax.swing.JFrame {
     }//GEN-LAST:event_windowIconified
 
     private void btn3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3
-        // TODO add your handling code here:
+ 
     }//GEN-LAST:event_btn3
 
     private void btn4(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btn4
 
     private void btn5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5
@@ -521,20 +521,16 @@ public class Man extends javax.swing.JFrame {
     }//GEN-LAST:event_btn7
 
     private void btn8(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btn8
 
     private void btn9(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btn9
 
     private void btn10(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn10
 
-    private void btn11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn11
+    }//GEN-LAST:event_btn10
 
     private void tabb1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabb1MouseClicked
         ppmMain.show(pan1, pan1.getX(), pan1.getY() - pan1.getHeight());
@@ -556,6 +552,10 @@ public class Man extends javax.swing.JFrame {
             mn63.setSelected(true);
         }
     }//GEN-LAST:event_mnBase
+
+    private void btn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn11ActionPerformed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables

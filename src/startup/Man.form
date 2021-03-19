@@ -506,7 +506,7 @@
                         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
                       </AccessibilityProperties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn11"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn11ActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
