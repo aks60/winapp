@@ -148,6 +148,7 @@ public class Adm extends javax.swing.JFrame {
         mn10 = new javax.swing.JMenu();
         mn11 = new javax.swing.JMenuItem();
         mn12 = new javax.swing.JMenuItem();
+        mn20 = new javax.swing.JMenuItem();
         mn63 = new javax.swing.JMenu();
         mn631 = new javax.swing.JCheckBoxMenuItem();
         mn632 = new javax.swing.JCheckBoxMenuItem();
@@ -225,6 +226,15 @@ public class Adm extends javax.swing.JFrame {
         mn10.add(mn12);
 
         ppmMain.add(mn10);
+
+        mn20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b059.gif"))); // NOI18N
+        mn20.setText("SA-OKNA <= ПрофСтрой(3,4)");
+        mn20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnCard(evt);
+            }
+        });
+        ppmMain.add(mn20);
 
         mn63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         mn63.setText("База данных");
@@ -490,7 +500,7 @@ public class Adm extends javax.swing.JFrame {
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnConv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -506,7 +516,7 @@ public class Adm extends javax.swing.JFrame {
                 .addComponent(btnT9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 349, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 353, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -957,6 +967,12 @@ public class Adm extends javax.swing.JFrame {
         connectBaseNumb(num_base);
     }//GEN-LAST:event_mnBase
 
+    private void mnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCard
+        ((CardLayout) center.getLayout()).show(center, "pan5");
+        timer.start();
+        south.setVisible(false);
+    }//GEN-LAST:event_mnCard
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn10;
@@ -995,6 +1011,7 @@ public class Adm extends javax.swing.JFrame {
     private javax.swing.JMenu mn10;
     private javax.swing.JMenuItem mn11;
     private javax.swing.JMenuItem mn12;
+    private javax.swing.JMenuItem mn20;
     private javax.swing.JMenuItem mn30;
     private javax.swing.JMenu mn62;
     private javax.swing.JMenu mn63;
@@ -1025,7 +1042,7 @@ public class Adm extends javax.swing.JFrame {
         appendToPane("    выполняться под управлением Firebird 2.1 НЕ ВЫШЕ.\n", Color.GRAY);
         appendToPane("    Если версия выше чем 2.1 переустановите Firebird.\n", Color.GRAY);
         appendToPane("\n", Color.GRAY);
-        appendToPane("    PS. У Вас установлена версия Firebird " + Confb.instanc().version() + "\n", Color.GRAY);        
+        appendToPane("    PS. У Вас установлена версия Firebird " + Confb.instanc().version() + "\n", Color.GRAY);
 
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
