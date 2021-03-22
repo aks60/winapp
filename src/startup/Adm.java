@@ -167,7 +167,7 @@ public class Adm extends javax.swing.JFrame {
         btnT9 = new javax.swing.JToggleButton();
         btnMenu = new javax.swing.JButton();
         btnConv = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
+        btnBaseEdit = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
         center = new javax.swing.JPanel();
         pan8 = new javax.swing.JPanel();
@@ -193,7 +193,12 @@ public class Adm extends javax.swing.JFrame {
         pan4 = new javax.swing.JPanel();
         txtPane = new javax.swing.JTextPane();
         pan2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        pan9 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
+        pan10 = new javax.swing.JPanel();
+        scr3 = new javax.swing.JScrollPane();
+        tab3 = new javax.swing.JTable();
         pan3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         south = new javax.swing.JPanel();
@@ -457,17 +462,17 @@ public class Adm extends javax.swing.JFrame {
             }
         });
 
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c068.gif"))); // NOI18N
-        btnEdit.setToolTipText(bundle.getString("Обновить")); // NOI18N
-        btnEdit.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnEdit.setFocusable(false);
-        btnEdit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnEdit.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnEdit.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnEdit.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnEdit.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnEdit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+        btnBaseEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c068.gif"))); // NOI18N
+        btnBaseEdit.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnBaseEdit.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnBaseEdit.setFocusable(false);
+        btnBaseEdit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnBaseEdit.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnBaseEdit.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnBaseEdit.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnBaseEdit.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnBaseEdit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnBaseEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCard(evt);
             }
@@ -505,7 +510,7 @@ public class Adm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnConv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBaseEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -534,7 +539,7 @@ public class Adm extends javax.swing.JFrame {
                     .addComponent(btnRef, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnConv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBaseEdit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -782,24 +787,52 @@ public class Adm extends javax.swing.JFrame {
 
         center.add(pan5, "pan5");
 
-        jLabel1.setText("jLabel1");
+        pan2.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
-        pan2.setLayout(pan2Layout);
-        pan2Layout.setHorizontalGroup(
-            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(817, Short.MAX_VALUE))
-        );
-        pan2Layout.setVerticalGroup(
-            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel1)
-                .addContainerGap(467, Short.MAX_VALUE))
-        );
+        pan9.setPreferredSize(new java.awt.Dimension(400, 510));
+        pan9.setLayout(new java.awt.BorderLayout());
+
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ));
+        scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setMaxWidth(40);
+        }
+
+        pan9.add(scr2, java.awt.BorderLayout.CENTER);
+
+        pan2.add(pan9, java.awt.BorderLayout.WEST);
+
+        pan10.setLayout(new java.awt.BorderLayout());
+
+        tab3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ));
+        scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(0).setMaxWidth(40);
+        }
+
+        pan10.add(scr3, java.awt.BorderLayout.CENTER);
+
+        pan2.add(pan10, java.awt.BorderLayout.CENTER);
 
         center.add(pan2, "pan2");
 
@@ -894,7 +927,7 @@ public class Adm extends javax.swing.JFrame {
             timer.start();
             south.setVisible(false);
 
-        } else if (button == btnEdit) {
+        } else if (button == btnBaseEdit) {
             ((CardLayout) center.getLayout()).show(center, "pan2");
             south.setVisible(true);
 
@@ -976,10 +1009,10 @@ public class Adm extends javax.swing.JFrame {
 // <editor-fold defaultstate="collapsed" desc="Generated Code">    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn10;
+    private javax.swing.JButton btnBaseEdit;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnConv;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnMenu;
@@ -999,7 +1032,6 @@ public class Adm extends javax.swing.JFrame {
     private javax.swing.JTextField edPort;
     private javax.swing.JTextField edServer;
     private javax.swing.JTextField edUser;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
@@ -1019,17 +1051,23 @@ public class Adm extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem mn632;
     private javax.swing.JCheckBoxMenuItem mn633;
     private javax.swing.JPanel north;
+    private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan8;
+    private javax.swing.JPanel pan9;
     private javax.swing.JPanel pn7;
     private javax.swing.JPopupMenu ppmMain;
     private javax.swing.JScrollPane scr1;
+    private javax.swing.JScrollPane scr2;
+    private javax.swing.JScrollPane scr3;
     private javax.swing.JPopupMenu.Separator sep1;
     private javax.swing.JPanel south;
+    private javax.swing.JTable tab2;
+    private javax.swing.JTable tab3;
     private javax.swing.JTextPane txtPane;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
