@@ -21,7 +21,10 @@ public class LogoToDb extends javax.swing.JDialog {
         initComponents();
 
         if (Main.dev == true) {
-            if ("tex".equals(Main.profile)) {
+            if ("adm".equals(Main.profile)) {
+                edUser.setText("SYSDBA"); //user
+                edPass.setText("masterkey"); //pass
+            } else if ("tex".equals(Main.profile)) {
                 edUser.setText("TEXNOLOG"); //user
                 edPass.setText("masterkey"); //pass
             } else if ("man".equals(Main.profile)) {
@@ -56,9 +59,9 @@ public class LogoToDb extends javax.swing.JDialog {
                 Confb con = Confb.initConnect();
                 String num = eProperty.base_num.read();
                 eExcep pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), "DEFROLE");
-                if (pass == eExcep.yesConn) { 
+                if (pass == eExcep.yesConn) {
                     if ("SYSDBA".equalsIgnoreCase(edUser.getText()) == false) {
-                        
+
                         Statement st = con.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
                         //ResultSet rs = st.executeQuery("SELECT DISTINCT a.rdb$role_name , b.rdb$user FROM rdb$roles a, rdb$user_privileges b WHERE a.rdb$role_name = b.rdb$relation_name AND a.rdb$role_name != 'DEFROLE' AND b.rdb$user = '" + edUser.getText() + "'");
                         ResultSet rs = st.executeQuery("SELECT u.RDB$USER, u.RDB$RELATION_NAME FROM RDB$USER_PRIVILEGES u WHERE u.RDB$RELATION_NAME != 'DEFROLE' and u.RDB$USER = '" + edUser.getText() + "'");
@@ -70,8 +73,8 @@ public class LogoToDb extends javax.swing.JDialog {
                                 Query.connection = con.getConnection();
                                 if (eProfile.P02.roleSet.contains(role)) {
                                     App.createApp(eProfile.P02);
-                                } else if (eProfile.P16.roleSet.contains(role)) {
-                                    App.createApp(eProfile.P16);
+                                } else if (eProfile.P03.roleSet.contains(role)) {
+                                    App.createApp(eProfile.P03);
                                 }
                                 eProperty.user.write(edUser.getText().trim());
                                 eProperty.password = String.valueOf(edPass.getPassword()).trim();
@@ -80,8 +83,15 @@ public class LogoToDb extends javax.swing.JDialog {
                             }
                         }
                     } else {
-                        App.createApp(eProfile.P02);
-                        dispose();                        
+                        pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), null);
+                        if (pass == eExcep.yesConn) {
+                            Query.connection = con.getConnection();
+                            App.createApp(eProfile.P01);
+                            eProperty.user.write(edUser.getText().trim());
+                            eProperty.password = String.valueOf(edPass.getPassword()).trim();
+                            eProperty.save();
+                            dispose();
+                        }
                     }
                 }
                 if (pass == eExcep.noLogin) {

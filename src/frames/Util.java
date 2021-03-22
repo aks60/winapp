@@ -185,7 +185,49 @@ public class Util {
                     return "   Изделие: " + eSystree.patch(productRec.getInt(eSysprod.systree_id), "") + "/" + str;
                 }
 
-            } else if (eProfile.profile == eProfile.P16) {
+            } else if (eProfile.profile == eProfile.P03) {
+                int productID = Integer.valueOf(eProperty.prjprodID.read());
+                Record productRec = ePrjprod.find(productID);
+                if (productRec != null) {
+
+                    String str = productRec.getStr(ePrjprod.name);
+                    if (str.length() > 6) {
+                        if (str.length() < 128) {
+                            str = str.substring(6, str.length());
+                        } else {
+                            str = str.substring(6, 128);
+                        }
+                    }
+                    return "   Изделие: " + eSystree.patch(productRec.getInt(ePrjprod.systree_id), "") + "/" + str;
+                }
+            }
+            return "";
+
+        } catch (Exception e) {
+            System.err.println("frames.Util.designName() " + e);
+            return "";
+        }
+    }
+    
+    public static String designProject() {
+        try {
+            if (eProfile.profile == eProfile.P02) {
+                int productID = Integer.valueOf(eProperty.sysprodID.read());
+                Record productRec = eSysprod.find(productID);
+                if (productRec != null) {
+
+                    String str = productRec.getStr(eSysprod.name);
+                    if (str.length() > 6) {
+                        if (str.length() < 128) {
+                            str = str.substring(6, str.length());
+                        } else {
+                            str = str.substring(6, 128);
+                        }
+                    }
+                    return "<html><font size='3' color='blue'>Проект: " + str;
+                }
+
+            } else if (eProfile.profile == eProfile.P03) {
                 int productID = Integer.valueOf(eProperty.prjprodID.read());
                 Record productRec = ePrjprod.find(productID);
                 if (productRec != null) {

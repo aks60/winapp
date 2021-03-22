@@ -59,7 +59,7 @@ public class PathToDb extends javax.swing.JDialog {
 
                         Statement st = con.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
                         //ResultSet rs = st.executeQuery("SELECT DISTINCT a.rdb$role_name , b.rdb$user FROM rdb$roles a, rdb$user_privileges b WHERE a.rdb$role_name = b.rdb$relation_name AND a.rdb$role_name != 'DEFROLE' AND b.rdb$user = '" + edUser.getText() + "'");
-                         ResultSet rs = st.executeQuery("SELECT u.RDB$USER, u.RDB$RELATION_NAME FROM RDB$USER_PRIVILEGES u WHERE u.RDB$RELATION_NAME != 'DEFROLE' and u.RDB$USER = '" + edUser.getText() + "'");
+                        ResultSet rs = st.executeQuery("SELECT u.RDB$USER, u.RDB$RELATION_NAME FROM RDB$USER_PRIVILEGES u WHERE u.RDB$RELATION_NAME != 'DEFROLE' and u.RDB$USER = '" + edUser.getText() + "'");
                         while (rs.next()) {
                             String role = rs.getString("RDB$RELATION_NAME").trim();
                             con.getConnection().close();
@@ -68,8 +68,8 @@ public class PathToDb extends javax.swing.JDialog {
                                 Query.connection = con.getConnection();
                                 if (App.Top.frame == null && eProfile.P02.roleSet.contains(role)) {
                                     App.createApp(eProfile.P02);
-                                } else if (App.Top.frame == null && eProfile.P16.roleSet.contains(role)) {
-                                    App.createApp(eProfile.P16);
+                                } else if (App.Top.frame == null && eProfile.P03.roleSet.contains(role)) {
+                                    App.createApp(eProfile.P03);
                                 }
                                 eProperty.base_num.write(num_base);
                                 eProperty.port(num_base, edPort.getText().trim());
@@ -81,15 +81,21 @@ public class PathToDb extends javax.swing.JDialog {
                             }
                         }
                     } else {
-                        if (App.Top.frame == null) {
-                            App.createApp(eProfile.P02);
+                        pass = con.createConnection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), null);
+                        if (pass == eExcep.yesConn) {
+                            Query.connection = con.getConnection();
+                            if (App.Top.frame == null) {
+                                App.createApp(eProfile.P01);
+                            }
+                            eProperty.user.write(edUser.getText().trim());
+                            eProperty.password = String.valueOf(edPass.getPassword()).trim();
+                            eProperty.base_num.write(num_base);
+                            eProperty.port(num_base, edPort.getText().trim());
+                            eProperty.server(num_base, edHost.getText().trim());
+                            eProperty.base(num_base, edPath.getText().trim());
+                            eProperty.save();
+                            dispose();
                         }
-                        eProperty.base_num.write(num_base);
-                        eProperty.port(num_base, edPort.getText().trim());
-                        eProperty.server(num_base, edHost.getText().trim());
-                        eProperty.base(num_base, edPath.getText().trim());
-                        eProperty.save();
-                        dispose();
                     }
                 }
                 if (pass == eExcep.noLogin) {

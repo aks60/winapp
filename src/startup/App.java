@@ -157,15 +157,23 @@ public enum App {
             eProfile.user = rs.getString(1);
             eProfile.profile = profile; //профиль приложения
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            if (profile.equals(eProfile.P02)) {
 
+            if (profile.equals(eProfile.P01)) {
+                Top.frame = new Adm();
+
+            } else if (profile.equals(eProfile.P02)) {
                 Top.frame = new Tex();
+
             } else {
                 Top.frame = new Man();
             }
             Top.frame.setName(profile.name());
-            Top.frame.setLocation(0, 0);
-            Top.frame.setSize(screenSize.width, Top.frame.getHeight()); //размеры гл. окна
+            if (profile.equals(eProfile.P01)) {
+                FrameToFile.setFrameSize(Top.frame); //размеры окна
+            } else {
+                Top.frame.setLocation(0, 0);
+                Top.frame.setSize(screenSize.width, Top.frame.getHeight()); //размеры гл. окна
+            }
             Top.frame.setVisible(true);
 
         } catch (Exception e) {

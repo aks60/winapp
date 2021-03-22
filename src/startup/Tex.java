@@ -147,6 +147,7 @@ public class Tex extends javax.swing.JFrame {
         mn51 = new javax.swing.JMenuItem();
         mn52 = new javax.swing.JMenuItem();
         mn54 = new javax.swing.JMenuItem();
+        mn99 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SA-OKNA   <АРМ Технолог>");
@@ -906,6 +907,11 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn05);
 
+        mn99.setText("<html><font size=\"3\" color=\"blue\">Проект №601002:  Хххххх ммммм");
+        mn99.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        mn99.setMargin(new java.awt.Insets(2, 80, 2, 2));
+        mn0.add(mn99);
+
         setJMenuBar(mn0);
 
         getAccessibleContext().setAccessibleName("");
@@ -1259,6 +1265,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn91;
     private javax.swing.JMenuItem mn92;
     private javax.swing.JPopupMenu.Separator mn93;
+    private javax.swing.JMenu mn99;
     private javax.swing.JToolBar tb1;
     private javax.swing.JToolBar tb2;
     private javax.swing.JToolBar tb4;
@@ -1269,6 +1276,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void initElements() {
         setTitle(eProfile.profile.title + Util.designTitle());
+        mn99.setText(Util.designProject());
+        
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();

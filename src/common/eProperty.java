@@ -36,7 +36,7 @@ public enum eProperty {
     base2("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE2.FDB?encoding=win1251"),
     base3("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE3.FDB?encoding=win1251"),
     path_app(System.getProperty("user.home") + "/Acron/Okno", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
-    path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"),
+    path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"), //Аркаим или Arkaim
     cmd_word("libreoffice -writer ", "cmd /c start winword.exe "),
     cmd_excel("libreoffice -calc ", "cmd /c start excel.exe "),
     cmd_html("firefox ", "cmd /c start iexplore.exe "),
