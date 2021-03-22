@@ -28,7 +28,11 @@ import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.Timer;
 import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -94,13 +98,30 @@ public class Adm extends javax.swing.JFrame {
         dm.getDataVector().clear();
         int npp = 0;
         for (Field up : App.db) {
-           List rec = Arrays.asList(++npp, up.tname(), up.meta().descr());
-           Vector vec = new Vector(rec);
-           dm.getDataVector().add(vec);
+            List rec = Arrays.asList(++npp, up.tname(), up.meta().descr());
+            Vector vec = new Vector(rec);
+            dm.getDataVector().add(vec);
         }
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
     }
-    
+
+    private void loadingTab3() {
+        int row = tab2.getSelectedRow();
+        Field fieldUp = App.db[row];
+        DefaultTableColumnModel cm = (DefaultTableColumnModel) tab3.getColumnModel();
+        while (cm.getColumnCount() != 0) {
+            TableColumn column = cm.getColumn(0);
+            cm.removeColumn(column);
+        }
+        for (Field field : fieldUp.fields()) {
+            TableColumn tc = new TableColumn();
+            ((DefaultTableColumnModel) tab3.getColumnModel()).addColumn(tc);
+        }
+        ((DefaultTableModel) tab3.getModel()).setColumnCount(fieldUp.fields().length - 1);
+        ((DefaultTableModel) tab3.getModel()).fireTableStructureChanged();
+        ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+    }
+
     private void clearListQue() {
 
         if (listQue.isEmpty() == false) {
@@ -850,7 +871,7 @@ public class Adm extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Title 1a", "Title 2a", "Title 3a"
             }
         ));
         tab3.setFillsViewportHeight(true);
@@ -1139,5 +1160,12 @@ public class Adm extends javax.swing.JFrame {
             btnT9.setSelected(true);
             mn633.setSelected(true);
         }
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    loadingTab3();
+                }
+            }
+        });
     }
 }
