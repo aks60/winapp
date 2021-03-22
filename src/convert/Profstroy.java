@@ -13,7 +13,6 @@ import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eColmap;
-import domain.eCurrenc;
 import domain.eElemdet;
 import domain.eElement;
 import domain.eJoining;
@@ -38,16 +37,11 @@ import domain.eJoinvar;
 import domain.eKitdet;
 import domain.eKitpar1;
 import domain.eKits;
-import domain.eParams;
 import domain.ePrjpart;
 import domain.eRulecalc;
 import domain.eSetting;
-import domain.eSyssize;
-import domain.eSysdata;
 import domain.eSysfurn;
 import domain.eSyspar1;
-import domain.eSysmodel;
-import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.TypeElem;
@@ -66,12 +60,12 @@ import java.util.Map;
 import java.util.Set;
 import builder.script.Winscript;
 import domain.eProject;
-import domain.ePrjprod;
 import domain.eSysmodel;
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.Queue;
 import javax.swing.JTextPane;
+import startup.App;
 import startup.Main;
 
 /**
@@ -123,21 +117,7 @@ public class Profstroy {
     }
 
     public static void script() {
-        Field[] fieldsUp = { //в порядке удаления
-            eSetting.up, eSysdata.up,
-            eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSysmodel.up,
-            eKitpar1.up, eKitdet.up, eKits.up,
-            eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
-            eElempar1.up, eElempar2.up, eElemdet.up, eElement.up,
-            eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
-            eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
-            eColmap.up, eColor.up,
-            ePrjprod.up, eProject.up, ePrjpart.up,
-            eRulecalc.up, eSystree.up,
-            eArtdet.up, eArtikl.up,
-            eSyssize.up, eGroups.up, eCurrenc.up, eParams.up,};
         try {
-
             println(Color.GREEN, "Подготовка методанных");
             cn2.setAutoCommit(false);
             Query.connection = cn2;
@@ -169,7 +149,7 @@ public class Profstroy {
             println(Color.BLACK, "Методанные готовы");
             println(Color.GREEN, "Перенос данных");
             //Цикл по доменам приложения
-            for (Field fieldUp : fieldsUp) {
+            for (Field fieldUp : App.db) {
                 println(Color.GREEN, " *** Секция " + fieldUp.tname() + " ***");
 
                 //Поля не вошедшие в eEnum.values()
@@ -221,7 +201,7 @@ public class Profstroy {
             }
 
             println(Color.GREEN, "Добавление комментариев к полям");
-            for (Field field : fieldsUp) {
+            for (Field field : App.db) {
                 executeSql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr() + "'"); //DDL описание таблиц
             }
 
@@ -233,7 +213,7 @@ public class Profstroy {
             }
             set.forEach(role -> executeSql("DROP ROLE " + role));
             Arrays.asList("DEFROLE", "MANAGER_RO", "MANAGER_RW", "TEXNOLOG_RO", "TEXNOLOG_RW").forEach(role -> executeSql("CREATE ROLE " + role));
-            for (Field field : fieldsUp) {
+            for (Field field : App.db) {
                 executeSql("GRANT SELECT ON " + field.tname() + " TO MANAGER_RO");
                 executeSql("GRANT ALL ON " + field.tname() + " TO MANAGER_RW");
                 executeSql("GRANT SELECT ON " + field.tname() + " TO TEXNOLOG_RO");
@@ -250,7 +230,7 @@ public class Profstroy {
 
             println(Color.GREEN, "Удаление лищних столбцов");
             executeSql("ALTER TABLE GROUPS DROP  FK;");
-            for (Field fieldUp : fieldsUp) {
+            for (Field fieldUp : App.db) {
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                     executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");

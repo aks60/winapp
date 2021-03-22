@@ -3,8 +3,52 @@ package startup;
 import common.FrameToFile;
 import common.eProfile;
 import convert.Convert;
+import dataset.Field;
 import dataset.Query;
 import dataset.Record;
+import domain.eArtdet;
+import domain.eArtikl;
+import domain.eColmap;
+import domain.eColor;
+import domain.eCurrenc;
+import domain.eElemdet;
+import domain.eElement;
+import domain.eElempar1;
+import domain.eElempar2;
+import domain.eFurndet;
+import domain.eFurniture;
+import domain.eFurnpar1;
+import domain.eFurnpar2;
+import domain.eFurnside1;
+import domain.eFurnside2;
+import domain.eGlasdet;
+import domain.eGlasgrp;
+import domain.eGlaspar1;
+import domain.eGlaspar2;
+import domain.eGlasprof;
+import domain.eGroups;
+import domain.eJoindet;
+import domain.eJoining;
+import domain.eJoinpar1;
+import domain.eJoinpar2;
+import domain.eJoinvar;
+import domain.eKitdet;
+import domain.eKitpar1;
+import domain.eKits;
+import domain.eParams;
+import domain.ePrjpart;
+import domain.ePrjprod;
+import domain.eProject;
+import domain.eRulecalc;
+import domain.eSetting;
+import domain.eSysdata;
+import domain.eSysfurn;
+import domain.eSysmodel;
+import domain.eSyspar1;
+import domain.eSysprod;
+import domain.eSysprof;
+import domain.eSyssize;
+import domain.eSystree;
 import frames.AboutBox;
 import frames.Artikles;
 import frames.Color;
@@ -27,7 +71,6 @@ import frames.TestFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Set;
 import javax.swing.JFrame;
 
@@ -180,4 +223,18 @@ public enum App {
             System.out.println("Ошибка: App.createApp()");
         }
     }
+
+    public static Field[] db = { //в порядке удаления при конвертирования из базы приёмника
+        eSetting.up, eSysdata.up,
+        eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSysmodel.up,
+        eKitpar1.up, eKitdet.up, eKits.up,
+        eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
+        eElempar1.up, eElempar2.up, eElemdet.up, eElement.up,
+        eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
+        eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
+        eColmap.up, eColor.up,
+        ePrjprod.up, eProject.up, ePrjpart.up,
+        eRulecalc.up, eSystree.up,
+        eArtdet.up, eArtikl.up,
+        eSyssize.up, eGroups.up, eCurrenc.up, eParams.up,};
 }
