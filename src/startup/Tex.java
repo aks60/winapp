@@ -68,12 +68,33 @@ public class Tex extends javax.swing.JFrame {
         }
     }
 
+    private void connectBaseNumb(String num_base) {
+        Arrays.asList(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
+        PathToDb frame = new PathToDb(this, num_base);
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);
+
+        if (eProperty.base_num.read().equals("1")) {
+            btnT7.setSelected(true);
+            mn631.setSelected(true);
+
+        } else if (eProperty.base_num.read().equals("2")) {
+            btnT8.setSelected(true);
+            mn632.setSelected(true);
+
+        } else if (eProperty.base_num.read().equals("3")) {
+            btnT9.setSelected(true);
+            mn633.setSelected(true);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         buttonLookAndFiilGroup = new javax.swing.ButtonGroup();
-        buttonBaseGroup = new javax.swing.ButtonGroup();
+        buttonBaseGroup1 = new javax.swing.ButtonGroup();
+        buttonBaseGroup2 = new javax.swing.ButtonGroup();
         buttonMenuGroup = new javax.swing.ButtonGroup();
         tb1 = new javax.swing.JToolBar();
         btn15 = new javax.swing.JButton();
@@ -441,7 +462,7 @@ public class Tex extends javax.swing.JFrame {
         tb6.setMinimumSize(new java.awt.Dimension(96, 28));
         tb6.setPreferredSize(new java.awt.Dimension(96, 28));
 
-        buttonBaseGroup.add(btnT7);
+        buttonBaseGroup1.add(btnT7);
         btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c057.gif"))); // NOI18N
         btnT7.setSelected(true);
         btnT7.setFocusable(false);
@@ -457,7 +478,7 @@ public class Tex extends javax.swing.JFrame {
         });
         tb6.add(btnT7);
 
-        buttonBaseGroup.add(btnT8);
+        buttonBaseGroup1.add(btnT8);
         btnT8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c058.gif"))); // NOI18N
         btnT8.setFocusable(false);
         btnT8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -472,7 +493,7 @@ public class Tex extends javax.swing.JFrame {
         });
         tb6.add(btnT8);
 
-        buttonBaseGroup.add(btnT9);
+        buttonBaseGroup1.add(btnT9);
         btnT9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c059.gif"))); // NOI18N
         btnT9.setFocusable(false);
         btnT9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1142,34 +1163,13 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_windowDeiconified
 
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
-        Arrays.asList(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
-
         String num_base = (mn631.isSelected()) ? "1" : (mn632.isSelected()) ? "2" : "3";
-        PathToDb frame = new PathToDb(this, num_base);
-        FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);
-
-        if (eProperty.base_num.read().equals("1")) {
-            mn631.setSelected(true);
-            btnT7.setSelected(true);
-        } else if (eProperty.base_num.read().equals("2")) {
-            mn632.setSelected(true);
-            btnT8.setSelected(true);
-        } else if (eProperty.base_num.read().equals("3")) {
-            mn633.setSelected(true);
-            btnT9.setSelected(true);
-        }
+        connectBaseNumb(num_base);
     }//GEN-LAST:event_mnBase
 
     private void btnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBase
-        if (btnT7.isSelected()) {
-            mn631.setSelected(true);
-        } else if (btnT8.isSelected()) {
-            mn632.setSelected(true);
-        } else if (btnT9.isSelected()) {
-            mn633.setSelected(true);
-        }
-        mnBase(null);
+        String num_base = (btnT7.isSelected()) ? "1" : (btnT8.isSelected()) ? "2" : "3";
+        connectBaseNumb(num_base);
     }//GEN-LAST:event_btnBase
 
     private void mnGroup(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGroup
@@ -1216,7 +1216,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JToggleButton btnT7;
     private javax.swing.JToggleButton btnT8;
     private javax.swing.JToggleButton btnT9;
-    private javax.swing.ButtonGroup buttonBaseGroup;
+    private javax.swing.ButtonGroup buttonBaseGroup1;
+    private javax.swing.ButtonGroup buttonBaseGroup2;
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;
     private javax.swing.ButtonGroup buttonMenuGroup;
     private javax.swing.JMenuBar mn0;
@@ -1277,7 +1278,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void initElements() {
         setTitle(eProfile.profile.title + Util.designTitle());
         mn99.setText(Util.designProject());
-        
+
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();

@@ -118,12 +118,32 @@ public class Adm extends javax.swing.JFrame {
         txtPane.replaceSelection(msg);
     }
 
+    private void connectBaseNumb(String num_base) {
+        PathToDb frame = new PathToDb(this, num_base);
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);
+
+        if (eProperty.base_num.read().equals("1")) {
+            btnT7.setSelected(true);
+            mn631.setSelected(true);
+
+        } else if (eProperty.base_num.read().equals("2")) {
+            btnT8.setSelected(true);
+            mn632.setSelected(true);
+
+        } else if (eProperty.base_num.read().equals("3")) {
+            btnT9.setSelected(true);
+            mn633.setSelected(true);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         buttonLookAndFiilGroup = new javax.swing.ButtonGroup();
-        buttonBaseGroup = new javax.swing.ButtonGroup();
+        buttonBaseGroup1 = new javax.swing.ButtonGroup();
+        buttonBaseGroup2 = new javax.swing.ButtonGroup();
         ppmMain = new javax.swing.JPopupMenu();
         mn10 = new javax.swing.JMenu();
         mn11 = new javax.swing.JMenuItem();
@@ -210,7 +230,7 @@ public class Adm extends javax.swing.JFrame {
         mn63.setText("База данных");
         mn63.setFont(frames.Util.getFont(1,1));
 
-        buttonBaseGroup.add(mn631);
+        buttonBaseGroup1.add(mn631);
         mn631.setFont(frames.Util.getFont(1,1));
         mn631.setText("База 1");
         mn631.addActionListener(new java.awt.event.ActionListener() {
@@ -220,7 +240,7 @@ public class Adm extends javax.swing.JFrame {
         });
         mn63.add(mn631);
 
-        buttonBaseGroup.add(mn632);
+        buttonBaseGroup1.add(mn632);
         mn632.setFont(frames.Util.getFont(1,1));
         mn632.setText("База 2");
         mn632.addActionListener(new java.awt.event.ActionListener() {
@@ -230,7 +250,7 @@ public class Adm extends javax.swing.JFrame {
         });
         mn63.add(mn632);
 
-        buttonBaseGroup.add(mn633);
+        buttonBaseGroup1.add(mn633);
         mn633.setFont(frames.Util.getFont(1,1));
         mn633.setText("База 3");
         mn633.addActionListener(new java.awt.event.ActionListener() {
@@ -351,7 +371,7 @@ public class Adm extends javax.swing.JFrame {
             }
         });
 
-        buttonBaseGroup.add(btnT7);
+        buttonBaseGroup2.add(btnT7);
         btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c057.gif"))); // NOI18N
         btnT7.setSelected(true);
         btnT7.setFocusable(false);
@@ -366,7 +386,7 @@ public class Adm extends javax.swing.JFrame {
             }
         });
 
-        buttonBaseGroup.add(btnT8);
+        buttonBaseGroup2.add(btnT8);
         btnT8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c058.gif"))); // NOI18N
         btnT8.setFocusable(false);
         btnT8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -380,7 +400,7 @@ public class Adm extends javax.swing.JFrame {
             }
         });
 
-        buttonBaseGroup.add(btnT9);
+        buttonBaseGroup2.add(btnT9);
         btnT9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c059.gif"))); // NOI18N
         btnT9.setFocusable(false);
         btnT9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -394,16 +414,17 @@ public class Adm extends javax.swing.JFrame {
             }
         });
 
+        btnMenu.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c066.gif"))); // NOI18N
+        btnMenu.setText("Гл. меню");
         btnMenu.setToolTipText(bundle.getString("Обновить")); // NOI18N
         btnMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnMenu.setFocusable(false);
-        btnMenu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMenu.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnMenu.setMaximumSize(new java.awt.Dimension(25, 25));
         btnMenu.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnMenu.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnMenu.setPreferredSize(new java.awt.Dimension(96, 25));
         btnMenu.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnMenu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMenu(evt);
@@ -471,21 +492,21 @@ public class Adm extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75)
+                .addGap(18, 18, 18)
                 .addComponent(btnConv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92)
+                .addGap(18, 18, 18)
                 .addComponent(btnT7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnT8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnT9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
+                .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 349, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -522,7 +543,7 @@ public class Adm extends javax.swing.JFrame {
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 880, Short.MAX_VALUE)
+            .addGap(0, 865, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -636,7 +657,7 @@ public class Adm extends javax.swing.JFrame {
         btnTest.setMargin(new java.awt.Insets(0, 14, 2, 14));
         btnTest.setMaximumSize(new java.awt.Dimension(21, 21));
         btnTest.setMinimumSize(new java.awt.Dimension(0, 0));
-        btnTest.setPreferredSize(new java.awt.Dimension(50, 25));
+        btnTest.setPreferredSize(new java.awt.Dimension(54, 25));
         btnTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTestBtnStartClick(evt);
@@ -651,7 +672,7 @@ public class Adm extends javax.swing.JFrame {
         btnStart.setMargin(new java.awt.Insets(0, 14, 2, 14));
         btnStart.setMaximumSize(new java.awt.Dimension(120, 25));
         btnStart.setMinimumSize(new java.awt.Dimension(0, 0));
-        btnStart.setPreferredSize(new java.awt.Dimension(120, 25));
+        btnStart.setPreferredSize(new java.awt.Dimension(116, 25));
         btnStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStart(evt);
@@ -690,7 +711,7 @@ public class Adm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(lab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labPath2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labPath2, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -759,7 +780,7 @@ public class Adm extends javax.swing.JFrame {
             .addGroup(pan2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(836, Short.MAX_VALUE))
+                .addContainerGap(821, Short.MAX_VALUE))
         );
         pan2Layout.setVerticalGroup(
             pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -780,7 +801,7 @@ public class Adm extends javax.swing.JFrame {
             .addGroup(pan3Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addContainerGap(828, Short.MAX_VALUE))
+                .addContainerGap(813, Short.MAX_VALUE))
         );
         pan3Layout.setVerticalGroup(
             pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -802,7 +823,7 @@ public class Adm extends javax.swing.JFrame {
         south.setLayout(southLayout);
         southLayout.setHorizontalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 876, Short.MAX_VALUE)
+            .addGap(0, 861, Short.MAX_VALUE)
         );
         southLayout.setVerticalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -847,14 +868,8 @@ public class Adm extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosing
 
     private void btnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBase
-        if (btnT7.isSelected()) {
-            mn631.setSelected(true);
-        } else if (btnT8.isSelected()) {
-            mn632.setSelected(true);
-        } else if (btnT9.isSelected()) {
-            mn633.setSelected(true);
-        }
-        mnBase(null);
+        String num_base = (btnT7.isSelected()) ? "1" : (btnT8.isSelected()) ? "2" : "3";
+        connectBaseNumb(num_base);
     }//GEN-LAST:event_btnBase
 
     private void btnMenu(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenu
@@ -932,29 +947,14 @@ public class Adm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_mn12cellValueType
 
-    private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
-        Arrays.asList(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
-
-        String num_base = (mn631.isSelected()) ? "1" : (mn632.isSelected()) ? "2" : "3";
-        PathToDb frame = new PathToDb(this, num_base);
-        FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);
-
-        if (eProperty.base_num.read().equals("1")) {
-            mn631.setSelected(true);
-            btnT7.setSelected(true);
-        } else if (eProperty.base_num.read().equals("2")) {
-            mn632.setSelected(true);
-            btnT8.setSelected(true);
-        } else if (eProperty.base_num.read().equals("3")) {
-            mn633.setSelected(true);
-            btnT9.setSelected(true);
-        }                
-    }//GEN-LAST:event_mnBase
-
     private void mn30mnExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn30mnExit
         Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
     }//GEN-LAST:event_mn30mnExit
+
+    private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
+        String num_base = (mn631.isSelected()) ? "1" : (mn632.isSelected()) ? "2" : "3";
+        connectBaseNumb(num_base);
+    }//GEN-LAST:event_mnBase
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">    
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -973,7 +973,8 @@ public class Adm extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnT8;
     private javax.swing.JToggleButton btnT9;
     private javax.swing.JButton btnTest;
-    private javax.swing.ButtonGroup buttonBaseGroup;
+    private javax.swing.ButtonGroup buttonBaseGroup1;
+    private javax.swing.ButtonGroup buttonBaseGroup2;
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;
     private javax.swing.JPanel center;
     private javax.swing.JTextField edPass;
@@ -1019,12 +1020,12 @@ public class Adm extends javax.swing.JFrame {
         setTitle(eProfile.profile.title);
         new FrameToFile(this, btnClose);
         appendToPane("\n", Color.GRAY);
-        appendToPane("    У Вас установлена версия Firebird " + Confb.instanc().version() + "\n", Color.GRAY);
-        appendToPane("\n", Color.GRAY);
         appendToPane("    Внимание!!! Перенос данных из ПрофСтрой-3 должен\n", Color.GRAY);
         appendToPane("    выполняться под управлением Firebird 2.1 НЕ ВЫШЕ.\n", Color.GRAY);
         appendToPane("    Если версия выше чем 2.1 переустановите Firebird.\n", Color.GRAY);
-        
+        appendToPane("\n", Color.GRAY);
+        appendToPane("    PS. У Вас установлена версия Firebird " + Confb.instanc().version() + "\n", Color.GRAY);        
+
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();
@@ -1043,14 +1044,16 @@ public class Adm extends javax.swing.JFrame {
             }
         }
         if (eProperty.base_num.read().equals("1")) {
-            mn631.setSelected(true);
             btnT7.setSelected(true);
+            mn631.setSelected(true);
+
         } else if (eProperty.base_num.read().equals("2")) {
-            mn632.setSelected(true);
             btnT8.setSelected(true);
+            mn632.setSelected(true);
+
         } else if (eProperty.base_num.read().equals("3")) {
-            mn633.setSelected(true);
             btnT9.setSelected(true);
+            mn633.setSelected(true);
         }
     }
 }

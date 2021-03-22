@@ -4,7 +4,9 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonLookAndFiilGroup">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonBaseGroup">
+    <Component class="javax.swing.ButtonGroup" name="buttonBaseGroup1">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonBaseGroup2">
     </Component>
     <Component class="javax.swing.ButtonGroup" name="buttonMenuGroup">
     </Component>
@@ -1213,7 +1215,7 @@
         <Component class="javax.swing.JToggleButton" name="btnT7">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="buttonBaseGroup"/>
+              <ComponentRef name="buttonBaseGroup1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img24/c057.gif"/>
@@ -1239,7 +1241,7 @@
         <Component class="javax.swing.JToggleButton" name="btnT8">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="buttonBaseGroup"/>
+              <ComponentRef name="buttonBaseGroup1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img24/c058.gif"/>
@@ -1264,7 +1266,7 @@
         <Component class="javax.swing.JToggleButton" name="btnT9">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="buttonBaseGroup"/>
+              <ComponentRef name="buttonBaseGroup1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img24/c059.gif"/>
