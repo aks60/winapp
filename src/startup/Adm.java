@@ -8,6 +8,9 @@ import convert.Profstroy;
 import dataset.Confb;
 import dataset.Field;
 import dataset.Query;
+import static dataset.Query.SEL;
+import static dataset.Query.connection;
+import dataset.Record;
 import dataset.eExcep;
 import frames.PathToDb;
 import java.awt.CardLayout;
@@ -15,8 +18,11 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Queue;
@@ -106,20 +112,44 @@ public class Adm extends javax.swing.JFrame {
     }
 
     private void loadingTab3() {
-        int row = tab2.getSelectedRow();
-        Field fieldUp = App.db[row];
-        DefaultTableColumnModel cm = (DefaultTableColumnModel) tab3.getColumnModel();
-        while (cm.getColumnCount() != 0) {
-            TableColumn column = cm.getColumn(0);
-            cm.removeColumn(column);
+        try {
+            int row = tab2.getSelectedRow();
+            Field fieldUp = App.db[row];
+
+            DefaultTableColumnModel cm = (DefaultTableColumnModel) tab3.getColumnModel();
+            while (cm.getColumnCount() != 0) {
+                TableColumn column = cm.getColumn(0);
+                cm.removeColumn(column);
+            }
+            Vector columnName = new Vector();
+            Vector column = new Vector();
+            for (int i = 1; i < fieldUp.fields().length; ++i) {
+                TableColumn tc = new TableColumn();
+                column.add(tc);
+                columnName.add(fieldUp.fields()[i].name());
+            }
+            Vector<Vector> table = new Vector();
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery("select * from " + fieldUp.tname());
+
+            while (rs.next()) {
+                Vector vector = new Vector();
+                table.add(vector);
+                for (int i = 1; i < fieldUp.fields().length; ++i) {
+                    vector.add(rs.getObject(i));
+                }
+            }
+            st.close();
+            DefaultTableModel dm = new DefaultTableModel(table, columnName);
+            tab3.setModel(dm);
+
+            ((DefaultTableModel) tab3.getModel()).setColumnCount(fieldUp.fields().length - 1);
+            ((DefaultTableModel) tab3.getModel()).fireTableStructureChanged();
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+
+        } catch (Exception e) {
+            System.err.println("Adm.loadingTab3() " + e);
         }
-        for (Field field : fieldUp.fields()) {
-            TableColumn tc = new TableColumn();
-            ((DefaultTableColumnModel) tab3.getColumnModel()).addColumn(tc);
-        }
-        ((DefaultTableModel) tab3.getModel()).setColumnCount(fieldUp.fields().length - 1);
-        ((DefaultTableModel) tab3.getModel()).fireTableStructureChanged();
-        ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
     }
 
     private void clearListQue() {
@@ -861,21 +891,21 @@ public class Adm extends javax.swing.JFrame {
         pan10.setPreferredSize(new java.awt.Dimension(400, 500));
         pan10.setLayout(new java.awt.BorderLayout());
 
-        scr3.setPreferredSize(new java.awt.Dimension(400, 500));
+        scr3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1a", "Title 2a", "Title 3a"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
             }
         ));
+        tab3.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tab3.setFillsViewportHeight(true);
-        tab3.setPreferredSize(new java.awt.Dimension(400, 500));
         scr3.setViewportView(tab3);
 
         pan10.add(scr3, java.awt.BorderLayout.CENTER);
