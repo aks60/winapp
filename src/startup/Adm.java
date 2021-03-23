@@ -8,6 +8,7 @@ import convert.Profstroy;
 import dataset.Confb;
 import dataset.Field;
 import dataset.Query;
+import static dataset.Query.connection;
 import dataset.eExcep;
 import frames.PathToDb;
 import frames.Util;
@@ -16,6 +17,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -136,14 +139,20 @@ public class Adm extends javax.swing.JFrame {
     }
 
     private void loadingTab4() {
-        /*
-SELECT DISTINCT a.rdb$role_name , b.rdb$user
-      FROM rdb$roles a, rdb$user_privileges b
-      WHERE a.rdb$role_name = b.rdb$relation_name AND
-            b.rdb$user != 'SYSDBA'                AND
-            NOT EXISTS (SELECT * FROM rdb$roles C
-                         WHERE C.rdb$role_name = b.rdb$user)        
-         */
+        try {
+            String sql = "SELECT DISTINCT a.rdb$role_name , b.rdb$user FROM rdb$roles a, "
+                    + "rdb$user_privileges b WHERE a.rdb$role_name = b.rdb$relation_name AND  "
+                    + "a.rdb$role_name != 'DEFROLE' AND b.rdb$user != 'SYSDBA' AND NOT EXISTS "
+                    + "(SELECT * FROM rdb$roles c WHERE c.rdb$role_name = b.rdb$user)";
+            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                Object val = rs.getObject(2);
+                System.out.println(val);
+            }
+        } catch (Exception e) {
+            System.out.println("Ошибка: Adm.loadingTab4() " + e);
+        }
     }
 
     private void clearListQue() {
@@ -1156,6 +1165,7 @@ SELECT DISTINCT a.rdb$role_name , b.rdb$user
 
         } else if (button == btnLogin) {
             ((CardLayout) center.getLayout()).show(center, "pan3");
+            loadingTab4();
             south.setVisible(true);
         }
     }//GEN-LAST:event_btnCard
