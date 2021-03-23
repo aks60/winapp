@@ -309,7 +309,8 @@ SELECT DISTINCT a.rdb$role_name , b.rdb$user
 
         mn20.setFont(frames.Util.getFont(1,1));
         mn20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b059.gif"))); // NOI18N
-        mn20.setText("SA-OKNA <= ПрофСтрой(3,4)");
+        mn20.setText("SA-Okna <= ПрофСтрой(3,4)");
+        mn20.setActionCommand("sa-okna <= ПрофСтрой(3,4)");
         mn20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnCard(evt);

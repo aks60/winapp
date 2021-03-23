@@ -65,7 +65,8 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img16/b059.gif"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="SA-OKNA &lt;= &#x41f;&#x440;&#x43e;&#x444;&#x421;&#x442;&#x440;&#x43e;&#x439;(3,4)"/>
+            <Property name="text" type="java.lang.String" value="SA-Okna &lt;= &#x41f;&#x440;&#x43e;&#x444;&#x421;&#x442;&#x440;&#x43e;&#x439;(3,4)"/>
+            <Property name="actionCommand" type="java.lang.String" value="sa-okna &lt;= &#x41f;&#x440;&#x43e;&#x444;&#x421;&#x442;&#x440;&#x43e;&#x439;(3,4)"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnCard"/>
