@@ -8,21 +8,16 @@ import convert.Profstroy;
 import dataset.Confb;
 import dataset.Field;
 import dataset.Query;
-import static dataset.Query.SEL;
-import static dataset.Query.connection;
-import dataset.Record;
 import dataset.eExcep;
 import frames.PathToDb;
+import frames.Util;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Queue;
@@ -36,23 +31,21 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
 public class Adm extends javax.swing.JFrame {
-
+    
     private Locale locale;
     private Thread thread = null;
     private Queue<Object[]> listQue = new ConcurrentLinkedQueue<Object[]>();
     private ListenerFrame listenerMenu;
     private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();
     javax.swing.Timer timer = new Timer(100, new ActionListener() {
-
+        
         public void actionPerformed(ActionEvent ev) {
             if (listQue.isEmpty()) {
                 Thread.yield();
@@ -61,18 +54,18 @@ public class Adm extends javax.swing.JFrame {
             }
         }
     });
-
+    
     public Adm() {
         initComponents();
         initElements();
         loadingModel();
-
+        
         locale = this.getLocale();
         Locale loc = new Locale("ru", "RU");
         this.setLocale(loc);
         this.getInputContext().selectInputMethod(loc);
     }
-
+    
     private void mnLookAndFeel(java.awt.event.ActionEvent evt) {
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             if (((JCheckBoxMenuItem) evt.getSource()).getText().equals(laf.getName()) == true) {
@@ -81,7 +74,7 @@ public class Adm extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void loadingModel() {
         if (eProperty.base_num.read().equals("1")) {
             labPath2.setText(eProperty.server1.read() + "/" + eProperty.port1.read() + "\\" + eProperty.base1.read());
@@ -98,8 +91,9 @@ public class Adm extends javax.swing.JFrame {
         edUser.setText("sysdba");
         edPass.setText("masterkey");
     }
-
+    
     private void loadingTab2() {
+        
         DefaultTableModel dm = (DefaultTableModel) tab2.getModel();
         dm.getDataVector().clear();
         int npp = 0;
@@ -109,51 +103,40 @@ public class Adm extends javax.swing.JFrame {
             dm.getDataVector().add(vec);
         }
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(tab2);
     }
-
+    
     private void loadingTab3() {
         try {
             int row = tab2.getSelectedRow();
             Field fieldUp = App.db[row];
-
-            DefaultTableColumnModel cm = (DefaultTableColumnModel) tab3.getColumnModel();
-            while (cm.getColumnCount() != 0) {
-                TableColumn column = cm.getColumn(0);
-                cm.removeColumn(column);
+            Query qTable = new Query(fieldUp.fields()).select(fieldUp);
+            
+            String[] columnArr = new String[fieldUp.fields().length - 1];
+            for (int k = 1; k < fieldUp.fields().length; k++) {
+                columnArr[k - 1] = fieldUp.fields()[k].name();
             }
-            Vector columnName = new Vector();
-            Vector column = new Vector();
-            for (int i = 1; i < fieldUp.fields().length; ++i) {
-                TableColumn tc = new TableColumn();
-                column.add(tc);
-                columnName.add(fieldUp.fields()[i].name());
-            }
-            Vector<Vector> table = new Vector();
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("select * from " + fieldUp.tname());
-
-            while (rs.next()) {
-                Vector vector = new Vector();
-                table.add(vector);
-                for (int i = 1; i < fieldUp.fields().length; ++i) {
-                    vector.add(rs.getObject(i));
+            Object dataArr[][] = new Object[qTable.size()][fieldUp.fields().length - 1];
+            for (int i = 0; i < qTable.size(); ++i) {
+                for (int k = 1; k < fieldUp.fields().length; ++k) {
+                    dataArr[i][k - 1] = qTable.get(i).get(k);
                 }
             }
-            st.close();
-            DefaultTableModel dm = new DefaultTableModel(table, columnName);
-            tab3.setModel(dm);
-
-            ((DefaultTableModel) tab3.getModel()).setColumnCount(fieldUp.fields().length - 1);
-            ((DefaultTableModel) tab3.getModel()).fireTableStructureChanged();
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-
+            tab3.setModel(new DefaultTableModel(dataArr, columnArr) {
+                public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+                    super.setValueAt(aValue, rowIndex, columnIndex);
+                    qTable.get(rowIndex).set(columnIndex + 1, aValue);
+                    qTable.update(qTable.get(rowIndex));
+                }
+            });
+            
         } catch (Exception e) {
             System.err.println("Adm.loadingTab3() " + e);
         }
     }
-
+    
     private void clearListQue() {
-
+        
         if (listQue.isEmpty() == false) {
             for (int i = 0; i < listQue.size(); ++i) {
                 Object obj[] = listQue.poll();
@@ -170,39 +153,39 @@ public class Adm extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void appendToPane(String msg, Color c) {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-
+        
         aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
         aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-
+        
         int len = txtPane.getDocument().getLength();
         txtPane.setCaretPosition(len);
         txtPane.setCharacterAttributes(aset, false);
         txtPane.replaceSelection(msg);
     }
-
+    
     private void connectBaseNumb(String num_base) {
         PathToDb frame = new PathToDb(this, num_base);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
-
+        
         if (eProperty.base_num.read().equals("1")) {
             btnT7.setSelected(true);
             mn631.setSelected(true);
-
+            
         } else if (eProperty.base_num.read().equals("2")) {
             btnT8.setSelected(true);
             mn632.setSelected(true);
-
+            
         } else if (eProperty.base_num.read().equals("3")) {
             btnT9.setSelected(true);
             mn633.setSelected(true);
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -359,6 +342,7 @@ public class Adm extends javax.swing.JFrame {
         ppmMain.add(mn30);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(900, 503));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -895,17 +879,16 @@ public class Adm extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         tab3.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tab3.setFillsViewportHeight(true);
         scr3.setViewportView(tab3);
 
         pan10.add(scr3, java.awt.BorderLayout.CENTER);
@@ -974,7 +957,17 @@ public class Adm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        tab3.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null},
+                    {null, null, null}
+                },
+                new String[]{
+                    "T1", "T2", "T3"
+                }
+        ));
     }//GEN-LAST:event_btnReport
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
@@ -1004,12 +997,12 @@ public class Adm extends javax.swing.JFrame {
             ((CardLayout) center.getLayout()).show(center, "pan5");
             timer.start();
             south.setVisible(false);
-
+            
         } else if (button == btnBaseEdit) {
             ((CardLayout) center.getLayout()).show(center, "pan2");
             loadingTab2();
             south.setVisible(true);
-
+            
         } else if (button == btnLogin) {
             ((CardLayout) center.getLayout()).show(center, "pan3");
             south.setVisible(true);
@@ -1036,20 +1029,20 @@ public class Adm extends javax.swing.JFrame {
             Confb con2 = Confb.initConnect();
             con2.createConnection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);
             Connection c2 = con2.getConnection();
-
+            
             Confb con1 = new Confb();
             con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray(), null);
             Connection c1 = con1.getConnection();
-
+            
             txtPane.setText("");
             thread = new Thread(new Runnable() {
                 public void run() {
                     Profstroy.exec(listQue, c1, c2);
                 }
-
+                
             });
             thread.start();
-
+            
         } catch (Exception e) {
             System.err.println(e);
         }
@@ -1160,7 +1153,7 @@ public class Adm extends javax.swing.JFrame {
         appendToPane("    Если версия выше чем 2.1 переустановите Firebird.\n", Color.GRAY);
         appendToPane("\n", Color.GRAY);
         appendToPane("    PS. У Вас установлена версия Firebird " + Confb.instanc().version() + "\n", Color.GRAY);
-
+        
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();
@@ -1181,11 +1174,11 @@ public class Adm extends javax.swing.JFrame {
         if (eProperty.base_num.read().equals("1")) {
             btnT7.setSelected(true);
             mn631.setSelected(true);
-
+            
         } else if (eProperty.base_num.read().equals("2")) {
             btnT8.setSelected(true);
             mn632.setSelected(true);
-
+            
         } else if (eProperty.base_num.read().equals("3")) {
             btnT9.setSelected(true);
             mn633.setSelected(true);
