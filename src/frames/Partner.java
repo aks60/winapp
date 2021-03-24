@@ -317,7 +317,7 @@ public class Partner extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Категория", "Контрагент", "Менеджер", "", "ID"
+                "Категория", "Контрагент", "User", "", "ID"
             }
         ) {
             Class[] types = new Class [] {

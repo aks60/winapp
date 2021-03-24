@@ -182,7 +182,7 @@ public class Util {
                             str = str.substring(6, 128);
                         }
                     }
-                    return "   Изделие: " + eSystree.patch(productRec.getInt(eSysprod.systree_id), "") + ".  " + str;
+                    return "   Изделие: " + eSystree.patch(productRec.getInt(eSysprod.systree_id), "") + "/" + str;
                 }
 
             } else if (eProfile.profile == eProfile.P03) {

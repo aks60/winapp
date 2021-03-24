@@ -331,7 +331,7 @@
                       <Table columnCount="5" rowCount="2">
                         <Column editable="true" title="&#x41a;&#x430;&#x442;&#x435;&#x433;&#x43e;&#x440;&#x438;&#x44f;" type="java.lang.String"/>
                         <Column editable="true" title="&#x41a;&#x43e;&#x43d;&#x442;&#x440;&#x430;&#x433;&#x435;&#x43d;&#x442;" type="java.lang.String"/>
-                        <Column editable="true" title="&#x41c;&#x435;&#x43d;&#x435;&#x434;&#x436;&#x435;&#x440;" type="java.lang.String"/>
+                        <Column editable="true" title="User" type="java.lang.String"/>
                         <Column editable="false" title="" type="java.lang.Boolean"/>
                         <Column editable="false" title="ID" type="java.lang.Integer"/>
                       </Table>

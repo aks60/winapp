@@ -739,7 +739,7 @@ public class Order extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Номер заказа", "Номер счёта", "Дата от...", "Дата до...", "Контрагент", "Менеджер"
+                "Номер заказа", "Номер счёта", "Дата от...", "Дата до...", "Контрагент", "User"
             }
         ) {
             Class[] types = new Class [] {

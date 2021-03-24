@@ -1288,8 +1288,8 @@
                           <Table columnCount="4" rowCount="4">
                             <Column editable="false" title="&#x2116;&#x43f;&#x43f;" type="java.lang.Object"/>
                             <Column editable="false" title="&#x41f;&#x43e;&#x43b;&#x44c;&#x437;&#x43e;&#x432;&#x430;&#x442;&#x435;&#x43b;&#x44c;" type="java.lang.Object"/>
-                            <Column editable="false" title="&#x420;&#x43e;&#x43b;&#x44c;" type="java.lang.Object"/>
-                            <Column editable="false" title="&#x41f;&#x440;&#x43e;&#x444;&#x438;&#x43b;&#x44c;" type="java.lang.Object"/>
+                            <Column editable="false" title="&#x41f;&#x440;&#x430;&#x432;&#x430; &#x434;&#x43e;&#x441;&#x442;&#x443;&#x43f;&#x430;" type="java.lang.Object"/>
+                            <Column editable="false" title="&#x41f;&#x440;&#x43e;&#x444;&#x438;&#x43b;&#x44c; &#x432; &#x43f;&#x440;&#x438;&#x43b;&#x43e;&#x436;&#x435;&#x43d;&#x438;&#x438;" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

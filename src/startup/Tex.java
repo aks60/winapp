@@ -1257,8 +1257,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void initElements() {
         setTitle(eProfile.profile.title + Util.designTitle());
-        //mn99.setText(Util.designProject());
-
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();

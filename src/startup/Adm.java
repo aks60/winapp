@@ -893,7 +893,7 @@ public class Adm extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "№пп", "Пользователь", "Роль", "Профиль"
+                "№пп", "Пользователь", "Права доступа", "Профиль в приложении"
             }
         ) {
             boolean[] canEdit = new boolean [] {
