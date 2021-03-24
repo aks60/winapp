@@ -196,7 +196,7 @@ public class Test {
         eProperty.user.write("sysdba");
         eProperty.password = String.valueOf("masterkey");
         String num_base = eProperty.base_num.read();
-        Confb con = Confb.initConnect();
+        Conn con = Conn.initConnect();
         con.createConnection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);;
         return con.getConnection();
     }

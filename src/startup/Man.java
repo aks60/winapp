@@ -446,7 +446,7 @@ public class Man extends javax.swing.JFrame {
         btn2.getAccessibleContext().setAccessibleName("");
         btn2.getAccessibleContext().setAccessibleDescription("");
 
-        tabb1.addTab("<html><font size=\"3\"><b>\nГл. меню\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b021.gif")), pan1); // NOI18N
+        tabb1.addTab("<html><font size=\"3\"><b> Гл. меню &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b016.gif")), pan1); // NOI18N
 
         pan3.add(tabb1, java.awt.BorderLayout.WEST);
         tabb1.getAccessibleContext().setAccessibleName("");

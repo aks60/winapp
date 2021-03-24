@@ -2,7 +2,7 @@ package convert;
 
 import common.FrameToFile;
 import common.eProperty;
-import dataset.Confb;
+import dataset.Conn;
 import dataset.Query;
 import dataset.eExcep;
 import java.awt.Color;
@@ -398,7 +398,7 @@ public class Convert extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTestBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestBtnStartClick
-        Confb Src = new Confb();
+        Conn Src = new Conn();
         eExcep excep = Src.createConnection(edServer.getText().trim(), edPort.getText().trim(),
                 edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray(), null);
         JOptionPane.showMessageDialog(this, edPath.getText().trim() + "  \n" + excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
@@ -414,11 +414,11 @@ public class Convert extends javax.swing.JFrame {
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
             String num_base = eProperty.base_num.read();
-            Confb con2 = Confb.initConnect();
+            Conn con2 = Conn.initConnect();
             con2.createConnection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);
             Connection c2 = con2.getConnection();
 
-            Confb con1 = new Confb();
+            Conn con1 = new Conn();
             con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray(), null);
             Connection c1 = con1.getConnection();
 
@@ -493,7 +493,7 @@ public class Convert extends javax.swing.JFrame {
     private void initElements() {
         new FrameToFile(this, btnExit);
         appendToPane("\n", Color.GRAY);
-        appendToPane("    У Вас установлена версия Firebird " + Confb.instanc().version() + "\n", Color.GRAY);
+        appendToPane("    У Вас установлена версия Firebird " + Conn.instanc().version() + "\n", Color.GRAY);
         appendToPane("\n", Color.GRAY);
         appendToPane("    Внимание!!! Перенос данных из ПрофСтрой-3 должен\n", Color.GRAY);
         appendToPane("    выполняться под управлением Firebird 2.1 НЕ ВЫШЕ.\n", Color.GRAY);

@@ -3,7 +3,7 @@ package frames;
 import common.FrameToFile;
 import common.eProfile;
 import common.eProperty;
-import dataset.Confb;
+import dataset.Conn;
 import dataset.Query;
 import java.io.File;
 import java.util.Locale;
@@ -52,7 +52,7 @@ public class PathToDb extends javax.swing.JDialog {
             protected Object doInBackground() throws Exception {
                 progressBar.setIndeterminate(true);
                 labMes.setText("Установка соединения с базой данных");
-                Confb con = Confb.initConnect();
+                Conn con = Conn.initConnect();
                 eExcep pass = con.createConnection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), "DEFROLE");
                 if (pass == eExcep.yesConn) {
                     if ("SYSDBA".equalsIgnoreCase(edUser.getText()) == false) {

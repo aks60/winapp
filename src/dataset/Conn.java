@@ -14,27 +14,25 @@ import startup.App;
 /**
  * Соединение через PostgresSQL
  */
-public class Confb {
+public class Conn {
 
-    private static Confb instanceClass = null;
+    private static Conn instanceClass = null;
     protected Connection connection = null;
     protected Statement statement = null;
-    protected boolean autoCommit = false;        
+    protected boolean autoCommit = false;
     public final static String driver = "org.firebirdsql.jdbc.FBDriver";
     public final static String fbserver = "jdbc:firebirdsql:";
     public String url = "";
 
+    public static Conn initConnect() {
 
-    public static Confb initConnect() {
-
-        instanceClass = new Confb();
+        instanceClass = new Conn();
         return instanceClass;
     }
 
-    public static Confb instanc() {
+    public static Conn instanc() {
         return instanceClass;
     }
-    
 
     public void setConnection(Connection connection) {
         this.connection = connection;
@@ -50,8 +48,8 @@ public class Confb {
 
     public Connection getConnection() {
         return connection;
-    }    
-    
+    }
+
     /**
      * Соединение с БД
      */
@@ -82,33 +80,12 @@ public class Confb {
     }
 
     //Добавление нового пользователя   
-    //CREATE USER <user_name> PASSWORD '<user_password>' [FIRSTNAME 'FirstName'] [MIDDLENAME 'MiddleName'] [LASTNAME 'LastName'];
-    public void addUser(String user, String password, String uchId, String role, boolean readwrite) {
+    public void addUser(String user, char[] password, String role) {
         try {
-            //создание пользователя
-            user = user.toLowerCase();
-            String sql = "select a.user2 from school.uchusers a where a.user2 = '" + user + "'";
-            ResultSet rs = connection.createStatement().executeQuery(sql);
-            if (rs.next()) {
-                JOptionPane.showMessageDialog(App.Top.frame, "Есть уже такой пользователь в базе данных !", "Сообщение", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                String sql1 = "create user " + user + " with password '" + password + "'";
-                connection.createStatement().executeUpdate(sql1);
-                sql1 = "GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA school, logger to " + user;
-                connection.createStatement().executeUpdate(sql1);
-                sql1 = "GRANT UPDATE ON ALL SEQUENCES IN SCHEMA school, logger to " + user;
-                connection.createStatement().executeUpdate(sql1);
-                sql1 = "GRANT USAGE ON SCHEMA school, logger TO " + user;
-                connection.createStatement().executeUpdate(sql1);
-                if (readwrite == true) {
-                    role = role + "_RW";
-                } else {
-                    role = role + "_RO";
-                }
-                //такой записи вообще нет
-                sql = "insert into school.uchusers(user2, uch, role) values('" + user + "'," + uchId + ",'" + role + "')";
-                connection.createStatement().executeUpdate(sql);
-            }
+            connection.createStatement().executeUpdate("create user " + user + " password '" + password + "'");
+            connection.createStatement().executeUpdate("grant DEFROLE to " + user);
+            connection.createStatement().executeUpdate("grant " + role + " to " + user);
+            
         } catch (Exception e) {
             System.err.println(e);
         }
@@ -138,11 +115,11 @@ public class Confb {
     //Удаление пользователя
     public void deleteUser(String user) {
         try {
-            connection.createStatement().executeUpdate("delete from school.uchusers where user2 = '" + user + "'");
-            connection.createStatement().executeUpdate("REVOKE SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA school, logger from " + user);
-            connection.createStatement().executeUpdate("REVOKE GRANT OPTION FOR ALL PRIVILEGES ON DATABASE " + eProperty.base1.read() + " FROM " + user);
-            connection.createStatement().executeUpdate("REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA school, logger FROM " + user);
-            connection.createStatement().executeUpdate("REVOKE USAGE ON SCHEMA school, logger FROM " + user);
+            //connection.createStatement().executeUpdate("delete from school.uchusers where user2 = '" + user + "'");
+            //connection.createStatement().executeUpdate("REVOKE SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA school, logger from " + user);
+            //connection.createStatement().executeUpdate("REVOKE GRANT OPTION FOR ALL PRIVILEGES ON DATABASE " + eProperty.base1.read() + " FROM " + user);
+            //connection.createStatement().executeUpdate("REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA school, logger FROM " + user);
+            //connection.createStatement().executeUpdate("REVOKE USAGE ON SCHEMA school, logger FROM " + user);
             connection.createStatement().executeUpdate("DROP USER " + user);
 
         } catch (SQLException e) {
@@ -154,7 +131,7 @@ public class Confb {
     public void modifyPassword(String user, String pass) {
         try {
             user = user.toLowerCase();
-            String sql = "ALTER USER " + user + " WITH PASSWORD '" + pass + "'";
+            String sql = "ALTER USER " + user + " PASSWORD '" + pass + "'";
             connection.createStatement().executeUpdate(sql);
         } catch (Exception e) {
             System.err.println(e);

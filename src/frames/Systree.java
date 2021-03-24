@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import common.FrameProgress;
 import common.FrameToFile;
 import common.eProperty;
-import dataset.Confb;
+import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -420,7 +420,7 @@ public class Systree extends javax.swing.JFrame {
 
             //Сохраним скрипт в базе
             Record sysprodRec = eSysprod.up.newRecord(Query.INS);
-            sysprodRec.setNo(eSysprod.id, Confb.instanc().genId(eSysprod.id));
+            sysprodRec.setNo(eSysprod.id, Conn.instanc().genId(eSysprod.id));
             sysprodRec.setNo(eSysprod.systree_id, systreeID);
             sysprodRec.setNo(eSysprod.name, record.get(1));
             sysprodRec.setNo(eSysprod.script, script2);
@@ -2356,7 +2356,7 @@ public class Systree extends javax.swing.JFrame {
                 if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите добавить ветку в систему?", "Предупреждение",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
                     Record record = eSystree.up.newRecord(Query.INS);
-                    int id = Confb.instanc().genId(eSystree.id);
+                    int id = Conn.instanc().genId(eSystree.id);
                     record.setNo(eSystree.id, id);
                     int parent_id = (systreeNode.rec().getInt(eSystree.id) == -1) ? id : systreeNode.rec().getInt(eSystree.id);
                     record.setNo(eSystree.parent_id, parent_id);

@@ -1,7 +1,7 @@
 package frames;
 
 import common.FrameToFile;
-import dataset.Confb;
+import dataset.Conn;
 import dataset.Query;
 import dataset.Record;
 import domain.eColor;
@@ -381,7 +381,7 @@ public class Kits extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
             Record record = eKits.up.newRecord(Query.INS);
-            int id = Confb.instanc().genId(eKits.up);
+            int id = Conn.instanc().genId(eKits.up);
             record.setNo(eKits.id, id);
             qKits.add(record);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -390,7 +390,7 @@ public class Kits extends javax.swing.JFrame {
             int index = Util.getIndexRec(tab1);
             Record kitsRec = qKits.get(index);
             Record kitdetRec = eKitdet.up.newRecord(Query.INS);
-            kitdetRec.setNo(eKitdet.id, Confb.instanc().genId(eKitdet.up));
+            kitdetRec.setNo(eKitdet.id, Conn.instanc().genId(eKitdet.up));
             kitdetRec.setNo(eKitdet.kits_id, kitsRec.getInt(eKits.id));
             qKitdet.add(kitdetRec);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -400,7 +400,7 @@ public class Kits extends javax.swing.JFrame {
             int index = Util.getIndexRec(tab2);
             Record kitdetRec = qKitdet.get(index);
             Record kitpar1Rec = eKitpar1.up.newRecord(Query.INS);
-            kitpar1Rec.setNo(eColmap.id, Confb.instanc().genId(eColmap.up));
+            kitpar1Rec.setNo(eColmap.id, Conn.instanc().genId(eColmap.up));
             kitpar1Rec.setNo(eKitpar1.kitdet_id, kitdetRec.getInt(eKitdet.id));
             qKitpar1.add(kitpar1Rec);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
