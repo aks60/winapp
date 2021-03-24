@@ -74,6 +74,7 @@ public class Conn {
         } catch (ClassNotFoundException e) {
             return eExcep.findDrive;
         } catch (SQLException e) {
+            System.out.println(e);
             return eExcep.getError(e.getErrorCode());
         }
         return eExcep.yesConn;
@@ -82,7 +83,7 @@ public class Conn {
     //Добавление нового пользователя   
     public void addUser(String user, char[] password, String role) {
         try {
-            connection.createStatement().executeUpdate("create user " + user + " password '" + password + "'");
+            connection.createStatement().executeUpdate("create user " + user + " password '" + String.valueOf(password) + "'");
             connection.createStatement().executeUpdate("grant DEFROLE to " + user);
             connection.createStatement().executeUpdate("grant " + role + " to " + user);
             
@@ -91,35 +92,13 @@ public class Conn {
         }
     }
 
-    public String getUser() {
-        return "null";
-    }
-
-    //Изменение привилегий пользователя
-    public void grantUser(String user, String password, String role, boolean rw) {
-        String sql;
-        if (rw == true) {
-            role = role + "_RW";
-        } else {
-            role = role + "_RO";
-        }
-        user = user.toLowerCase();
-        sql = "update school.uchusers set role = '" + role + "' where user2 = '" + user + "'";
-        try {
-            connection.createStatement().executeUpdate(sql);
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-    }
-
     //Удаление пользователя
     public void deleteUser(String user) {
         try {
-            //connection.createStatement().executeUpdate("delete from school.uchusers where user2 = '" + user + "'");
-            //connection.createStatement().executeUpdate("REVOKE SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA school, logger from " + user);
-            //connection.createStatement().executeUpdate("REVOKE GRANT OPTION FOR ALL PRIVILEGES ON DATABASE " + eProperty.base1.read() + " FROM " + user);
-            //connection.createStatement().executeUpdate("REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA school, logger FROM " + user);
-            //connection.createStatement().executeUpdate("REVOKE USAGE ON SCHEMA school, logger FROM " + user);
+            connection.createStatement().executeUpdate("REVOKE TEXNOLOG_RW FROM " + user);
+            connection.createStatement().executeUpdate("REVOKE MANAGER_RW FROM " + user);
+            connection.createStatement().executeUpdate("REVOKE TEXNOLOG_RO FROM " + user);
+            connection.createStatement().executeUpdate("REVOKE MANAGER_RO FROM " + user);
             connection.createStatement().executeUpdate("DROP USER " + user);
 
         } catch (SQLException e) {
@@ -128,10 +107,9 @@ public class Conn {
     }
 
     //Изменение параметров пользователя
-    public void modifyPassword(String user, String pass) {
+    public void modifyPassword(String user, char[] password) {
         try {
-            user = user.toLowerCase();
-            String sql = "ALTER USER " + user + " PASSWORD '" + pass + "'";
+            String sql = "ALTER USER " + user + " PASSWORD '" + String.valueOf(password) + "'";
             connection.createStatement().executeUpdate(sql);
         } catch (Exception e) {
             System.err.println(e);

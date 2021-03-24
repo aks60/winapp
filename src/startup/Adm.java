@@ -19,17 +19,18 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Queue;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.LookAndFeel;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -43,7 +44,6 @@ import javax.swing.text.StyleContext;
 
 public class Adm extends javax.swing.JFrame {
 
-    private Locale locale;
     private Thread thread = null;
     private Queue<Object[]> listQue = new ConcurrentLinkedQueue<Object[]>();
     private ListenerFrame listenerMenu;
@@ -63,11 +63,6 @@ public class Adm extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingModel();
-
-        locale = this.getLocale();
-        Locale loc = new Locale("ru", "RU");
-        this.setLocale(loc);
-        this.getInputContext().selectInputMethod(loc);
     }
 
     private void mnLookAndFeel(java.awt.event.ActionEvent evt) {
@@ -283,6 +278,7 @@ public class Adm extends javax.swing.JFrame {
         btnIns = new javax.swing.JButton();
         btnUp = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
+        btnSysdba = new javax.swing.JButton();
         pan13 = new javax.swing.JPanel();
         pan12 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -953,7 +949,7 @@ public class Adm extends javax.swing.JFrame {
         btnUp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userUpete(evt);
+                userUpdate(evt);
             }
         });
 
@@ -973,6 +969,22 @@ public class Adm extends javax.swing.JFrame {
             }
         });
 
+        btnSysdba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c071.gif"))); // NOI18N
+        btnSysdba.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnSysdba.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSysdba.setFocusable(false);
+        btnSysdba.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSysdba.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnSysdba.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnSysdba.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnSysdba.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnSysdba.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSysdba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSysdba(evt);
+            }
+        });
+
         javax.swing.GroupLayout pan14Layout = new javax.swing.GroupLayout(pan14);
         pan14.setLayout(pan14Layout);
         pan14Layout.setHorizontalGroup(
@@ -984,13 +996,16 @@ public class Adm extends javax.swing.JFrame {
                 .addComponent(btnUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(736, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(btnSysdba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(671, Short.MAX_VALUE))
         );
         pan14Layout.setVerticalGroup(
             pan14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnIns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSysdba, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pan11.add(pan14, java.awt.BorderLayout.PAGE_START);
@@ -1001,18 +1016,19 @@ public class Adm extends javax.swing.JFrame {
 
         jLabel1.setText("Профиль");
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel1.setPreferredSize(new java.awt.Dimension(120, 18));
+        jLabel1.setPreferredSize(new java.awt.Dimension(140, 18));
 
-        jLabel2.setText("Пользователь (english)");
+        jLabel2.setText("Пользователь  (english)");
         jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel2.setPreferredSize(new java.awt.Dimension(140, 18));
 
         jLabel3.setText("Права");
         jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel3.setPreferredSize(new java.awt.Dimension(120, 18));
+        jLabel3.setPreferredSize(new java.awt.Dimension(140, 18));
 
-        jLabel4.setText("Пароль (english)");
+        jLabel4.setText("Пароль  (english)");
         jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel4.setPreferredSize(new java.awt.Dimension(120, 18));
+        jLabel4.setPreferredSize(new java.awt.Dimension(140, 18));
 
         box1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Технолог", "Менеджер" }));
         box1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1027,7 +1043,7 @@ public class Adm extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b044.gif"))); // NOI18N
         jButton1.setText("OK");
-        jButton1.setPreferredSize(new java.awt.Dimension(128, 23));
+        jButton1.setPreferredSize(new java.awt.Dimension(140, 23));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adminOk(evt);
@@ -1039,7 +1055,12 @@ public class Adm extends javax.swing.JFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b044.gif"))); // NOI18N
         jButton2.setText("Отмена");
-        jButton2.setPreferredSize(new java.awt.Dimension(128, 23));
+        jButton2.setPreferredSize(new java.awt.Dimension(140, 23));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                admCancel(evt);
+            }
+        });
 
         javax.swing.GroupLayout pan12Layout = new javax.swing.GroupLayout(pan12);
         pan12.setLayout(pan12Layout);
@@ -1047,29 +1068,28 @@ public class Adm extends javax.swing.JFrame {
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan12Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(pan12Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(box2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pan12Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan12Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pan12Layout.createSequentialGroup()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(box1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pan12Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pan12Layout.createSequentialGroup()
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(541, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan12Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(box1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan12Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan12Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(519, Short.MAX_VALUE))
         );
         pan12Layout.setVerticalGroup(
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1080,7 +1100,7 @@ public class Adm extends javax.swing.JFrame {
                     .addComponent(box1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1131,30 +1151,53 @@ public class Adm extends javax.swing.JFrame {
 
     private void userDel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDel
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущего пользователя?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
-            System.out.println("startup.Adm.userDel()");
+            int row = tab4.getSelectedRow();
+            if (row != -1) {
+                String user = String.valueOf(tab4.getValueAt(row, 1));
+                Conn.instanc().deleteUser(user);
+                loadingTab4();
+            }
         }
     }//GEN-LAST:event_userDel
 
-    private void userUpete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userUpete
-        ((CardLayout) pan3.getLayout()).show(pan3, "pan13");
-    }//GEN-LAST:event_userUpete
+    private void userUpdate(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userUpdate
+        int row = tab4.getSelectedRow();
+        if (row != -1) {
+            box1.setEnabled(false);
+            box2.setEnabled(false);
+            txt1.setEditable(false);
+
+            int index1 = ("Технолог".equals(tab4.getValueAt(row, 3))) ? 1 : 2;
+            box1.setSelectedIndex(index1);
+            int index2 = ("чтение-запись".equals(tab4.getValueAt(row, 2))) ? 0 : 1;
+            box2.setSelectedIndex(index2);
+            String user = String.valueOf(tab4.getValueAt(row, 1));
+            txt1.setText(user);
+            ((CardLayout) pan3.getLayout()).show(pan3, "pan13");
+        }
+    }//GEN-LAST:event_userUpdate
 
     private void addUser(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUser
+        box1.setEnabled(true);
+        box1.setSelectedIndex(0);
+        box2.setEnabled(true);
+        box2.setSelectedIndex(0);
+        txt1.setEditable(true);
+        txt1.setText("");
         ((CardLayout) pan3.getLayout()).show(pan3, "pan13");
     }//GEN-LAST:event_addUser
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         try {
-            Conn.instanc().getConnection().createStatement().executeUpdate("grant TEXNOLOG_RW to AKS");
-            System.out.println("grant TEXNOLOG_RW to AKS");
-            
+            Conn.instanc().getConnection().createStatement().executeUpdate("create user AKS2 password '1'");
+            Conn.instanc().getConnection().createStatement().executeUpdate("grant DEFROLE to AKS2");
+            Conn.instanc().getConnection().createStatement().executeUpdate("grant TEXNOLOG_RW to AKS2");
+
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnReport
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        this.setLocale(locale);
-        this.getInputContext().selectInputMethod(locale);
         timer.stop();
         if (thread != null)
             thread.stop();
@@ -1178,17 +1221,14 @@ public class Adm extends javax.swing.JFrame {
         if (button == btnConv) {
             ((CardLayout) center.getLayout()).show(center, "pan5");
             timer.start();
-            south.setVisible(false);
 
         } else if (button == btnBaseEdit) {
             ((CardLayout) center.getLayout()).show(center, "pan2");
             loadingTab2();
-            south.setVisible(true);
 
         } else if (button == btnLogin) {
             ((CardLayout) center.getLayout()).show(center, "pan3");
             loadingTab4();
-            south.setVisible(true);
         }
     }//GEN-LAST:event_btnCard
 
@@ -1262,30 +1302,60 @@ public class Adm extends javax.swing.JFrame {
     }//GEN-LAST:event_mnCard
 
     private void adminOk(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminOk
-        if (box1.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Укажите профиль пользователя", "Предупреждение", JOptionPane.NO_OPTION);
-        } else if (txt1.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Укажите имя пользователя", "Предупреждение", JOptionPane.NO_OPTION);
-        } else if (txt2.getPassword().length == 0) {
-            JOptionPane.showMessageDialog(this, "Укажите пароль пользователя", "Предупреждение", JOptionPane.NO_OPTION);
+
+        if (txt1.isEditable() == true) {
+
+            if (box1.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "Укажите профиль пользователя", "Предупреждение", JOptionPane.NO_OPTION);
+            } else if (txt1.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Укажите имя пользователя", "Предупреждение", JOptionPane.NO_OPTION);
+            } else if (txt2.getPassword().length == 0) {
+                JOptionPane.showMessageDialog(this, "Укажите пароль пользователя", "Предупреждение", JOptionPane.NO_OPTION);
+            } else {
+                for (char c : txt1.getText().toCharArray()) {
+                    if (((c >= 'а') && (c <= 'я')) || ((c >= 'А') && (c <= 'Я'))) {
+                        JOptionPane.showMessageDialog(this, "В имени пользователя есть символы  принадлежащие русскому алфавиту", "Предупреждение", JOptionPane.NO_OPTION);
+                        return;
+                    }
+                }
+                for (char c : txt2.getPassword()) {
+                    if (((c >= 'а') && (c <= 'я')) || ((c >= 'А') && (c <= 'Я'))) {
+                        JOptionPane.showMessageDialog(this, "В пароле есть символы принадлежащие русскому алфавиту", "Предупреждение", JOptionPane.NO_OPTION);
+                        return;
+                    }
+                }
+                String role = (box1.getSelectedIndex() == 1) ? "TEXNOLOG" : "MANAGER";
+                role = (box2.getSelectedIndex() == 0) ? role + "_RW" : role + "_RO";
+                Conn.instanc().addUser(txt1.getText().trim(), txt2.getPassword(), role);
+                loadingTab4();
+            }
         } else {
-            for (char c : txt1.getText().toCharArray()) {
-                if (((c >= 'а') && (c <= 'я')) || ((c >= 'А') && (c <= 'Я'))) {
-                    JOptionPane.showMessageDialog(this, "В имени пользователя есть символы  принадлежащие русскому алфавиту", "Предупреждение", JOptionPane.NO_OPTION);
-                    return;
-                }
-            }
-            for (char c : txt2.getPassword()) {
-                if (((c >= 'а') && (c <= 'я')) || ((c >= 'А') && (c <= 'Я'))) {
-                    JOptionPane.showMessageDialog(this, "В пароле есть символы принадлежащие русскому алфавиту", "Предупреждение", JOptionPane.NO_OPTION);
-                    return;
-                }
-            }
-            String profile = (box1.getSelectedIndex() == 0) ? "TEXNOLOG" : "MANAGER";
-            profile = (box2.getSelectedIndex() == 0) ? profile + "_RW" : profile + "_RO";
-            Conn.instanc().addUser(txt1.getText().trim(), txt2.getPassword(), profile);
+            Conn.instanc().modifyPassword(txt1.getText().trim(), txt2.getPassword());
         }
+        ((CardLayout) pan3.getLayout()).show(pan3, "pan11");
     }//GEN-LAST:event_adminOk
+
+    private void admCancel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admCancel
+        ((CardLayout) pan3.getLayout()).show(pan3, "pan11");
+    }//GEN-LAST:event_admCancel
+
+    private void btnSysdba(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSysdba
+
+        JTextField pass1 = new JPasswordField();
+        JPasswordField pass2 = new JPasswordField();
+        Object[] ob = {"Изменение пароля SYSDBA", pass1, "Подтвердите новый пароль", pass2};
+        int result = JOptionPane.showConfirmDialog(null, ob, "Изменение пароля", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {            
+            if (pass1.getText().equals(pass2.getText()))  {
+                
+                Conn.instanc().modifyPassword("sysdba", pass2.getPassword());
+                JOptionPane.showMessageDialog(this, "Операция выполнена успешно!", "Изменение паспорта SYSDBA", JOptionPane.NO_OPTION);
+            } else {
+                JOptionPane.showMessageDialog(this, "Имена не совпали", "Неудача", JOptionPane.NO_OPTION);
+            }
+        }
+
+    }//GEN-LAST:event_btnSysdba
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">    
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1301,6 +1371,7 @@ public class Adm extends javax.swing.JFrame {
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnStart;
+    private javax.swing.JButton btnSysdba;
     private javax.swing.JToggleButton btnT7;
     private javax.swing.JToggleButton btnT8;
     private javax.swing.JToggleButton btnT9;
@@ -1414,8 +1485,5 @@ public class Adm extends javax.swing.JFrame {
                 }
             }
         });
-
-//        scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-//                "Список пользователей", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
     }
 }
