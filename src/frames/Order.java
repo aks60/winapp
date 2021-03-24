@@ -214,9 +214,10 @@ public class Order extends javax.swing.JFrame {
         });
     }
 
-    private void loadingTab1() {                           
+    private void loadingTab1() {
         qProject.clear();
         int first = (btnF1.isSelected()) ? qProjectAll.size() - 10 : (btnF2.isSelected()) ? qProjectAll.size() - 30 : 0;
+        first = (first < 0) ? 0 : first;
         for (int i = first; i < qProjectAll.size(); ++i) {
             qProject.add(qProjectAll.get(i));
         }
@@ -235,8 +236,8 @@ public class Order extends javax.swing.JFrame {
             Util.setSelectedRow(tab1);
         }
         Util.scrollRectToRow(index, tab1);
-    } 
-    
+    }
+
     private void loadingTab24() {
         Util.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());

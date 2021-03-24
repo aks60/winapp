@@ -27,7 +27,7 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -219,10 +219,10 @@ public class Adm extends javax.swing.JFrame {
         buttonBaseGroup1 = new javax.swing.ButtonGroup();
         buttonBaseGroup2 = new javax.swing.ButtonGroup();
         ppmMain = new javax.swing.JPopupMenu();
-        mn10 = new javax.swing.JMenu();
-        mn11 = new javax.swing.JMenuItem();
-        mn12 = new javax.swing.JMenuItem();
         mn20 = new javax.swing.JMenuItem();
+        mn10 = new javax.swing.JMenuItem();
+        mn40 = new javax.swing.JMenuItem();
+        sep2 = new javax.swing.JPopupMenu.Separator();
         mn63 = new javax.swing.JMenu();
         mn631 = new javax.swing.JCheckBoxMenuItem();
         mn632 = new javax.swing.JCheckBoxMenuItem();
@@ -295,43 +295,37 @@ public class Adm extends javax.swing.JFrame {
 
         ppmMain.setFont(frames.Util.getFont(1,1));
 
-        mn10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn10.setText("Установки");
-        mn10.setToolTipText("");
-        mn10.setFont(frames.Util.getFont(1,1));
-
-        mn11.setFont(frames.Util.getFont(1,1));
-        mn11.setText("Текст ячейки");
-        mn11.setName("1"); // NOI18N
-        mn11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn11cellValueType(evt);
-            }
-        });
-        mn10.add(mn11);
-
-        mn12.setFont(frames.Util.getFont(1,1));
-        mn12.setText("Целое число");
-        mn12.setName("2"); // NOI18N
-        mn12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn12cellValueType(evt);
-            }
-        });
-        mn10.add(mn12);
-
-        ppmMain.add(mn10);
-
         mn20.setFont(frames.Util.getFont(1,1));
         mn20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b059.gif"))); // NOI18N
-        mn20.setText("SA-Okna <= ПрофСтрой(3,4)");
         mn20.setActionCommand("sa-okna <= ПрофСтрой(3,4)");
+        mn20.setLabel("БД <= ПрофСтрой(3,4)");
         mn20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnCard(evt);
             }
         });
         ppmMain.add(mn20);
+
+        mn10.setFont(frames.Util.getFont(1,1));
+        mn10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b051.gif"))); // NOI18N
+        mn10.setText("Правка БД");
+        mn10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnCard(evt);
+            }
+        });
+        ppmMain.add(mn10);
+
+        mn40.setFont(frames.Util.getFont(1,1));
+        mn40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b032.gif"))); // NOI18N
+        mn40.setText("Пользователи БД");
+        mn40.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnCard(evt);
+            }
+        });
+        ppmMain.add(mn40);
+        ppmMain.add(sep2);
 
         mn63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         mn63.setText("База данных");
@@ -376,6 +370,7 @@ public class Adm extends javax.swing.JFrame {
         ppmMain.add(sep1);
 
         mn30.setFont(frames.Util.getFont(1,1));
+        mn30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b009.gif"))); // NOI18N
         mn30.setText("Выход");
         mn30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -549,19 +544,19 @@ public class Adm extends javax.swing.JFrame {
                 .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnConv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBaseEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
                 .addComponent(btnT7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(btnT8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(btnT9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 388, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 392, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1278,14 +1273,6 @@ public class Adm extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, edPath.getText().trim() + "  \n" + excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnTestBtnStartClick
 
-    private void mn11cellValueType(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn11cellValueType
-
-    }//GEN-LAST:event_mn11cellValueType
-
-    private void mn12cellValueType(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn12cellValueType
-
-    }//GEN-LAST:event_mn12cellValueType
-
     private void mn30mnExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn30mnExit
         Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
     }//GEN-LAST:event_mn30mnExit
@@ -1296,9 +1283,19 @@ public class Adm extends javax.swing.JFrame {
     }//GEN-LAST:event_mnBase
 
     private void mnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCard
-        ((CardLayout) center.getLayout()).show(center, "pan5");
-        timer.start();
-        south.setVisible(false);
+        JMenuItem button = (JMenuItem) evt.getSource();
+        if (button == mn20) {
+            ((CardLayout) center.getLayout()).show(center, "pan5");
+            timer.start();
+
+        } else if (button == mn10) {
+            ((CardLayout) center.getLayout()).show(center, "pan2");
+            loadingTab2();
+
+        } else if (button == mn40) {
+            ((CardLayout) center.getLayout()).show(center, "pan3");
+            loadingTab4();
+        }
     }//GEN-LAST:event_mnCard
 
     private void adminOk(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminOk
@@ -1399,11 +1396,10 @@ public class Adm extends javax.swing.JFrame {
     private javax.swing.JLabel lab5;
     private javax.swing.JLabel lab6;
     private javax.swing.JLabel labPath2;
-    private javax.swing.JMenu mn10;
-    private javax.swing.JMenuItem mn11;
-    private javax.swing.JMenuItem mn12;
+    private javax.swing.JMenuItem mn10;
     private javax.swing.JMenuItem mn20;
     private javax.swing.JMenuItem mn30;
+    private javax.swing.JMenuItem mn40;
     private javax.swing.JMenu mn62;
     private javax.swing.JMenu mn63;
     private javax.swing.JCheckBoxMenuItem mn631;
@@ -1429,6 +1425,7 @@ public class Adm extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JPopupMenu.Separator sep1;
+    private javax.swing.JPopupMenu.Separator sep2;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;

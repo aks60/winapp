@@ -158,7 +158,6 @@ public class Tex extends javax.swing.JFrame {
         mn38 = new javax.swing.JPopupMenu.Separator();
         mn37 = new javax.swing.JMenuItem();
         mn06 = new javax.swing.JMenu();
-        mn61 = new javax.swing.JMenuItem();
         mn63 = new javax.swing.JMenu();
         mn631 = new javax.swing.JCheckBoxMenuItem();
         mn632 = new javax.swing.JCheckBoxMenuItem();
@@ -351,7 +350,7 @@ public class Tex extends javax.swing.JFrame {
         tb2.setMinimumSize(new java.awt.Dimension(176, 28));
         tb2.setPreferredSize(new java.awt.Dimension(200, 28));
 
-        btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c032.gif"))); // NOI18N
+        btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif"))); // NOI18N
         btn1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
         btn1.setFocusable(false);
         btn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -840,15 +839,6 @@ public class Tex extends javax.swing.JFrame {
         mn06.setFont(frames.Util.getFont(1,1));
         mn06.setLabel("  Сервис  ");
 
-        mn61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b059.gif"))); // NOI18N
-        mn61.setText("SA-OKNA <= ПрофСтрой(3,4)");
-        mn61.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnConvert(evt);
-            }
-        });
-        mn06.add(mn61);
-
         mn63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         mn63.setText("Установка соединения");
         mn63.setFont(frames.Util.getFont(1,1));
@@ -928,7 +918,6 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn05);
 
-        mn99.setText("<html><font size=\"3\" color=\"blue\">Проект №601002:  Хххххх ммммм");
         mn99.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         mn99.setMargin(new java.awt.Insets(2, 80, 2, 2));
         mn0.add(mn99);
@@ -1116,14 +1105,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         });
     }//GEN-LAST:event_mnKits
 
-    private void mnConvert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConvert
-        FrameProgress.create(Tex.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {
-                App.Convert.createFrame(Tex.this);
-            }
-        });
-    }//GEN-LAST:event_mnConvert
-
     private void mnSyssize(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSyssize
 
         FrameProgress.create(Tex.this, new ListenerFrame() {
@@ -1257,7 +1238,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn51;
     private javax.swing.JMenuItem mn52;
     private javax.swing.JMenuItem mn54;
-    private javax.swing.JMenuItem mn61;
     private javax.swing.JMenu mn62;
     private javax.swing.JMenu mn63;
     private javax.swing.JCheckBoxMenuItem mn631;
@@ -1277,7 +1257,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void initElements() {
         setTitle(eProfile.profile.title + Util.designTitle());
-        mn99.setText(Util.designProject());
+        //mn99.setText(Util.designProject());
 
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {

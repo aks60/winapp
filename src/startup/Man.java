@@ -160,6 +160,7 @@ public class Man extends javax.swing.JFrame {
         ppmMain.add(sep1);
 
         mn30.setFont(frames.Util.getFont(1,1));
+        mn30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b009.gif"))); // NOI18N
         mn30.setText("Выход");
         mn30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,7 +248,7 @@ public class Man extends javax.swing.JFrame {
 
         pan5.add(pan8, java.awt.BorderLayout.CENTER);
 
-        pan2.setPreferredSize(new java.awt.Dimension(120, 30));
+        pan2.setPreferredSize(new java.awt.Dimension(100, 30));
         pan2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
 
         btn13.setFont(frames.Util.getFont(0,1));
@@ -323,7 +324,7 @@ public class Man extends javax.swing.JFrame {
 
         pan4.add(pan7, java.awt.BorderLayout.CENTER);
 
-        pan10.setPreferredSize(new java.awt.Dimension(120, 30));
+        pan10.setPreferredSize(new java.awt.Dimension(100, 30));
         pan10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
 
         btn12.setFont(frames.Util.getFont(0,1));
@@ -398,7 +399,7 @@ public class Man extends javax.swing.JFrame {
 
         pan6.add(pan9, java.awt.BorderLayout.CENTER);
 
-        pan11.setPreferredSize(new java.awt.Dimension(120, 30));
+        pan11.setPreferredSize(new java.awt.Dimension(100, 30));
         pan11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
 
         btn14.setFont(frames.Util.getFont(0,1));
