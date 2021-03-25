@@ -572,7 +572,7 @@ public class Tex extends javax.swing.JFrame {
         mn11.setText("Группы");
         mn11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnCalc(evt);
+                mnGroup1(evt);
             }
         });
         mn01.add(mn11);
@@ -1062,14 +1062,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         this.setLocale(locale);
         this.getInputContext().selectInputMethod(locale);
     }//GEN-LAST:event_windowClosed
-
-    private void mnCalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCalc
-        FrameProgress.create(Tex.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {
-                App.Groups.createFrame(Tex.this);
-            }
-        });
-    }//GEN-LAST:event_mnCalc
 
     private void mnGroup1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGroup1
         FrameProgress.create(Tex.this, new ListenerFrame() {
