@@ -128,10 +128,6 @@ public class Tex extends javax.swing.JFrame {
         mn01 = new javax.swing.JMenu();
         mn11 = new javax.swing.JMenuItem();
         mn15 = new javax.swing.JMenuItem();
-        mn12 = new javax.swing.JMenu();
-        mn0122 = new javax.swing.JMenuItem();
-        mn0123 = new javax.swing.JMenuItem();
-        mn0121 = new javax.swing.JMenuItem();
         mn13 = new javax.swing.JSeparator();
         mn14 = new javax.swing.JMenuItem();
         mn02 = new javax.swing.JMenu();
@@ -200,7 +196,7 @@ public class Tex extends javax.swing.JFrame {
         btn2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnGroup(evt);
+                mnGroup1(evt);
             }
         });
         tb7.add(btn2);
@@ -239,7 +235,7 @@ public class Tex extends javax.swing.JFrame {
         btn16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnGroup(evt);
+                mnGroup2(evt);
             }
         });
         tb1.add(btn16);
@@ -590,42 +586,6 @@ public class Tex extends javax.swing.JFrame {
             }
         });
         mn01.add(mn15);
-
-        mn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn12.setText("Графические");
-        mn12.setFont(frames.Util.getFont(1,1));
-
-        mn0122.setFont(frames.Util.getFont(1,1));
-        mn0122.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn0122.setText("Форматы");
-        mn0122.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn0122ActionPerformed(evt);
-            }
-        });
-        mn12.add(mn0122);
-
-        mn0123.setFont(frames.Util.getFont(1,1));
-        mn0123.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn0123.setText("Надписи");
-        mn0123.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mDictDicAddr(evt);
-            }
-        });
-        mn12.add(mn0123);
-
-        mn0121.setFont(frames.Util.getFont(1,1));
-        mn0121.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn0121.setText("Размерные");
-        mn0121.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnColor(evt);
-            }
-        });
-        mn12.add(mn0121);
-
-        mn01.add(mn12);
         mn01.add(mn13);
 
         mn14.setFont(frames.Util.getFont(1,1));
@@ -648,7 +608,7 @@ public class Tex extends javax.swing.JFrame {
         mn22.setText("Группы");
         mn22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnGroup(evt);
+                mnGroup2(evt);
             }
         });
         mn02.add(mn22);
@@ -912,10 +872,6 @@ public class Tex extends javax.swing.JFrame {
         Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
 }//GEN-LAST:event_mnExit
 
-private void mDictDicAddr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDictDicAddr
-
-}//GEN-LAST:event_mDictDicAddr
-
 private void mnAboutBox(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAboutBox
 
     App.AboutBox.createFrame(Tex.this);
@@ -941,10 +897,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         }
     });
 }//GEN-LAST:event_mn25
-
-    private void mn0122ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0122ActionPerformed
-
-    }//GEN-LAST:event_mn0122ActionPerformed
 
     private void mHowTo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHowTo
 
@@ -1090,13 +1042,13 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         connectBaseNumb(num_base);
     }//GEN-LAST:event_btnBase
 
-    private void mnGroup(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGroup
+    private void mnGroup2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGroup2
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.Groups.createFrame(Tex.this);
+                App.Groups.createFrame(Tex.this, 0, 1, 2, 3);
             }
         });
-    }//GEN-LAST:event_mnGroup
+    }//GEN-LAST:event_mnGroup2
 
     private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
         FrameProgress.create(Tex.this, new ListenerFrame() {
@@ -1118,6 +1070,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             }
         });
     }//GEN-LAST:event_mnCalc
+
+    private void mnGroup1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGroup1
+        FrameProgress.create(Tex.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.Groups.createFrame(Tex.this, 4, 5, 6);
+            }
+        });
+    }//GEN-LAST:event_mnGroup1
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1149,16 +1109,12 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.ButtonGroup buttonMenuGroup;
     private javax.swing.JMenuBar mn0;
     private javax.swing.JMenu mn01;
-    private javax.swing.JMenuItem mn0121;
-    private javax.swing.JMenuItem mn0122;
-    private javax.swing.JMenuItem mn0123;
     private javax.swing.JMenu mn02;
     private javax.swing.JMenu mn03;
     private javax.swing.JMenu mn05;
     private javax.swing.JMenu mn06;
     private javax.swing.JMenu mn09;
     private javax.swing.JMenuItem mn11;
-    private javax.swing.JMenu mn12;
     private javax.swing.JSeparator mn13;
     private javax.swing.JMenuItem mn14;
     private javax.swing.JMenuItem mn15;

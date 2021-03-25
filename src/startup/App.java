@@ -83,97 +83,101 @@ public enum App {
         if (frame != null) {
             frame.dispose();
         }
-        switch (this) {
+        try {
+            switch (this) {
 
-            case TestFrame:
-                frame = new TestFrame();
-                break;
-            case RuleCalc:
-                frame = new Rulecalc();
-                break;
-            case AboutBox:
-                frame = new AboutBox();
-                break;
-            case Artikles:
-                if (param.length == 1) {
-                    frame = new Artikles(parent, (Record) param[0]);
-                } else {
-                    frame = new Artikles();
-                }
-                break;
-            case Groups:
-                frame = new Groups();
-                break;
-            case Color:
-                frame = new Color();
-                break;
-            case Joining:
-                if (param.length == 0) {
-                    frame = new Joining();
-                } else if (param.length == 1) {
-                    frame = new Joining((Set) param[0]);
-                } else {
-                    frame = new Joining((Set) param[0], (int) param[1]);
-                }
-                break;
-            case Currenc:
-                frame = new Currenc();
-                break;
-            case Element:
-                if (param.length == 0) {
-                    frame = new Element();
-                } else if (param.length == 1) {
-                    frame = new Element((Set) param[0]);
-                } else {
-                    frame = new Element((Set) param[0], (int) param[1]);
-                }
-                break;
-            case Param:
-                frame = new Param();
-                break;
-            case Filling:
-                if (param.length == 0) {
-                    frame = new Filling();
-                } else if (param.length == 1) {
-                    frame = new Filling((Set) param[0]);
-                } else {
-                    frame = new Filling((Set) param[0], (int) param[1]);
-                }
-                break;
-            case Furniture:
-                if (param.length == 0) {
-                    frame = new Furniture();
-                } else if (param.length == 1) {
-                    frame = new Furniture((Set) param[0]);
-                } else {
-                    frame = new Furniture((Set) param[0], (int) param[1]);
-                }
-                break;
-            case Kits:
-                frame = new Kits();
-                break;
-            case Systree:
-                if (param.length == 0) {
-                    frame = new Systree();
-                } else {
-                    frame = new Systree((int) param[0]);
-                }
-                break;
-            case Partner:
-                frame = new Partner();
-                break;
-            case Order:
-                frame = new Order();
-                break;
-            case Models:
-                frame = new Models();
-                break;
-            case Specific:
-                frame = new Specific();
-                break;
-            case Syssize:
-                frame = new Syssize();
-                break;
+                case TestFrame:
+                    frame = new TestFrame();
+                    break;
+                case RuleCalc:
+                    frame = new Rulecalc();
+                    break;
+                case AboutBox:
+                    frame = new AboutBox();
+                    break;
+                case Artikles:
+                    if (param.length == 1) {
+                        frame = new Artikles(parent, (Record) param[0]);
+                    } else {
+                        frame = new Artikles();
+                    }
+                    break;
+                case Groups:
+                    frame = new Groups(param);
+                    break;
+                case Color:
+                    frame = new Color();
+                    break;
+                case Joining:
+                    if (param.length == 0) {
+                        frame = new Joining();
+                    } else if (param.length == 1) {
+                        frame = new Joining((Set) param[0]);
+                    } else {
+                        frame = new Joining((Set) param[0], (int) param[1]);
+                    }
+                    break;
+                case Currenc:
+                    frame = new Currenc();
+                    break;
+                case Element:
+                    if (param.length == 0) {
+                        frame = new Element();
+                    } else if (param.length == 1) {
+                        frame = new Element((Set) param[0]);
+                    } else {
+                        frame = new Element((Set) param[0], (int) param[1]);
+                    }
+                    break;
+                case Param:
+                    frame = new Param();
+                    break;
+                case Filling:
+                    if (param.length == 0) {
+                        frame = new Filling();
+                    } else if (param.length == 1) {
+                        frame = new Filling((Set) param[0]);
+                    } else {
+                        frame = new Filling((Set) param[0], (int) param[1]);
+                    }
+                    break;
+                case Furniture:
+                    if (param.length == 0) {
+                        frame = new Furniture();
+                    } else if (param.length == 1) {
+                        frame = new Furniture((Set) param[0]);
+                    } else {
+                        frame = new Furniture((Set) param[0], (int) param[1]);
+                    }
+                    break;
+                case Kits:
+                    frame = new Kits();
+                    break;
+                case Systree:
+                    if (param.length == 0) {
+                        frame = new Systree();
+                    } else {
+                        frame = new Systree((int) param[0]);
+                    }
+                    break;
+                case Partner:
+                    frame = new Partner();
+                    break;
+                case Order:
+                    frame = new Order();
+                    break;
+                case Models:
+                    frame = new Models();
+                    break;
+                case Specific:
+                    frame = new Specific();
+                    break;
+                case Syssize:
+                    frame = new Syssize();
+                    break;
+            }
+        } catch (Exception e) {
+            System.err.println("startup.App.createFrame() " + e);
         }
         //eProfile.appframe = frame;
         frame.setName(this.name());
