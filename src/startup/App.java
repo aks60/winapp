@@ -40,7 +40,6 @@ import domain.ePrjprod;
 import domain.eProject;
 import domain.eRulecalc;
 import domain.eSetting;
-import domain.eSysdata;
 import domain.eSysfurn;
 import domain.eSysmodel;
 import domain.eSyspar1;
@@ -221,8 +220,7 @@ public enum App {
     }
 
     public static Field[] db = { //в порядке удаления при конвертирования из базы приёмника
-        eSetting.up, eSysdata.up,
-        eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSysmodel.up,
+        eSetting.up, eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSysmodel.up,
         eKitpar1.up, eKitdet.up, eKits.up,
         eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
         eElempar1.up, eElempar2.up, eElemdet.up, eElement.up,

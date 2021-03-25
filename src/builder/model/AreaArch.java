@@ -1,7 +1,6 @@
 package builder.model;
 
 import domain.eArtikl;
-import domain.eSysdata;
 import enums.LayoutJoin;
 import enums.TypeJoin;
 import enums.LayoutArea;

@@ -7,7 +7,6 @@ import domain.eColor;
 import domain.eCurrenc;
 import domain.eGroups;
 import domain.eRulecalc;
-import domain.eSysdata;
 import domain.eSystree;
 import enums.LayoutArea;
 import enums.TypeElem;
@@ -300,7 +299,7 @@ public class Tariffication extends Cal5e {
     //Процентная надбавка на изделия сложной формы
     private float percentMarkup() {
         if (TypeElem.ARCH == iwin.rootArea.type()) {
-            return eSysdata.find(2101).getFloat(eSysdata.val);
+            return eGroups.find(2101).getFloat(eGroups.val);
         }
         return 0;
     }
