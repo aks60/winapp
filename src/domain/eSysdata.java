@@ -8,9 +8,11 @@ import java.util.List;
 
 public enum eSysdata implements Field {
     up("0", "0", "0", "Расч. данные настройки", "SYSDATA"),
-    id("4", "10", "0", "Идентификатор", "SUNIC"),    
+    id("4", "10", "0", "Идентификатор", "SUNIC"), 
+    grup("5", "5", "0", "Группа", "grup"),
+    npp("4", "10", "1", "Ном.п.п", "npp"),
     name("12", "64", "1", "Наименование", "SNAME"),
-    text("12", "128", "1", "Значение техт", "STEXT"),
+    txt("12", "32", "1", "Значение текст", "STEXT"),
     val("8", "15", "1", "Значение цыфра", "SFLOT");
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
