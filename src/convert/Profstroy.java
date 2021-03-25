@@ -712,7 +712,14 @@ public class Profstroy {
         println(Color.BLACK, mes);
         try {
             executeSql("ALTER TABLE GROUPS ADD FK INTEGER;");
-            ResultSet rs = st1.executeQuery("select * from GRUPCOL");
+            ResultSet rs = st1.executeQuery("select * from SYSDATA where SUNIC in ()");
+            while (rs.next()) {
+                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
+                        + Conn.instanc().genId(eGroups.up) + "," + TypeGroups.COLOR.id + ",'" + rs.getString("GNAME") + "',"
+                        + rs.getString("GKOEF") + "," + rs.getInt("GUNIC") + ")";
+                st2.executeUpdate(sql);
+            }
+            rs = st1.executeQuery("select * from GRUPCOL");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
                         + Conn.instanc().genId(eGroups.up) + "," + TypeGroups.COLOR.id + ",'" + rs.getString("GNAME") + "',"
