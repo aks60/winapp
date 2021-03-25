@@ -10,7 +10,8 @@ public enum TypeGroups implements Enam {
     PRICE_DEC(5, "Группы скидок"),
     CATEG_PRF(6, "Категогии профилей"),
     COLMAP(7, "Группы соответствия цветов"),
-    CATEG_VST(8, "Категории вставок");
+    CATEG_VST(8, "Категории вставок"),
+    SYS_DATA(9, "Сист. данные из PS");
 
     public int id = 0;
     public String name = "";
