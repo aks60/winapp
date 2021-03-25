@@ -71,15 +71,15 @@ public class Groups extends javax.swing.JFrame {
         pan2 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        pan5 = new javax.swing.JPanel();
+        scr5 = new javax.swing.JScrollPane();
+        tab5 = new javax.swing.JTable();
         pan3 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
         pan4 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
-        pan5 = new javax.swing.JPanel();
-        scr5 = new javax.swing.JScrollPane();
-        tab5 = new javax.swing.JTable();
         pan6 = new javax.swing.JPanel();
         scr6 = new javax.swing.JScrollPane();
         tab6 = new javax.swing.JTable();
@@ -158,7 +158,7 @@ public class Groups extends javax.swing.JFrame {
 
         panl1.add(scr1, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Группы наценок", panl1);
+        tabb.addTab("<html><font size=\"3\">МЦ группы наценок", panl1);
 
         pan2.setLayout(new java.awt.BorderLayout());
 
@@ -205,7 +205,53 @@ public class Groups extends javax.swing.JFrame {
 
         pan2.add(scr2, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Группы скидок", pan2);
+        tabb.addTab("<html><font size=\"3\">МЦ группы скидок", pan2);
+
+        pan5.setLayout(new java.awt.BorderLayout());
+
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Наименование групп", "Коэффициент", "ID"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab5.setFillsViewportHeight(true);
+        tab5.setName("tab5"); // NOI18N
+        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tab5.getColumnModel().getColumn(1).setMaxWidth(80);
+            tab5.getColumnModel().getColumn(2).setMaxWidth(40);
+        }
+
+        pan5.add(scr5, java.awt.BorderLayout.CENTER);
+
+        tabb.addTab("<html><font size=\"3\">МЦ группы текстур", pan5);
 
         pan3.setLayout(new java.awt.BorderLayout());
 
@@ -293,52 +339,6 @@ public class Groups extends javax.swing.JFrame {
         pan4.add(scr4, java.awt.BorderLayout.CENTER);
 
         tabb.addTab("<html><font size=\"3\">Категории профилей", pan4);
-
-        pan5.setLayout(new java.awt.BorderLayout());
-
-        tab5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Наименование групп", "Коэффициент", "ID"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                true, true, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tab5.setFillsViewportHeight(true);
-        tab5.setName("tab5"); // NOI18N
-        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
-            }
-        });
-        scr5.setViewportView(tab5);
-        if (tab5.getColumnModel().getColumnCount() > 0) {
-            tab5.getColumnModel().getColumn(1).setPreferredWidth(60);
-            tab5.getColumnModel().getColumn(1).setMaxWidth(80);
-            tab5.getColumnModel().getColumn(2).setMaxWidth(40);
-        }
-
-        pan5.add(scr5, java.awt.BorderLayout.CENTER);
-
-        tabb.addTab("<html><font size=\"3\">Группы текстур", pan5);
 
         pan6.setLayout(new java.awt.BorderLayout());
 
@@ -634,11 +634,11 @@ public class Groups extends javax.swing.JFrame {
         } else if (tabb.getSelectedIndex() == 1) {
             Util.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
         } else if (tabb.getSelectedIndex() == 2) {
-            Util.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
+            Util.updateBorderAndSql(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));            
         } else if (tabb.getSelectedIndex() == 3) {
-            Util.updateBorderAndSql(tab4, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
+            Util.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
         } else if (tabb.getSelectedIndex() == 4) {
-            Util.updateBorderAndSql(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
+            Util.updateBorderAndSql(tab4, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
         } else if (tabb.getSelectedIndex() == 5) {
             Util.updateBorderAndSql(tab6, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6));
         }
