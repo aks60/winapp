@@ -2,7 +2,6 @@ package startup;
 
 import common.FrameToFile;
 import common.eProfile;
-import convert.Convert;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -76,7 +75,7 @@ import javax.swing.JFrame;
 
 public enum App {
 
-    Top, Convert, Groups, Currenc, Color, Artikles, Joining, Element, Param,
+    Top, Groups, Currenc, Color, Artikles, Joining, Element, Param,
     Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,
     Specific, Syssize, TestFrame, RuleCalc;
     public javax.swing.JFrame frame;
@@ -105,9 +104,6 @@ public enum App {
                 break;
             case Groups:
                 frame = new Groups();
-                break;
-            case Convert:
-                frame = new Convert();
                 break;
             case Color:
                 frame = new Color();
