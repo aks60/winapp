@@ -124,18 +124,12 @@ public class Tex extends javax.swing.JFrame {
         btn42 = new javax.swing.JButton();
         mn0 = new javax.swing.JMenuBar();
         mn01 = new javax.swing.JMenu();
-        mn11 = new javax.swing.JMenu();
-        mn0112 = new javax.swing.JMenuItem();
-        mn0113 = new javax.swing.JMenuItem();
-        mn0114 = new javax.swing.JMenuItem();
-        mn0111 = new javax.swing.JMenuItem();
-        mn0115 = new javax.swing.JMenuItem();
-        mn0116 = new javax.swing.JMenuItem();
+        mn11 = new javax.swing.JMenuItem();
+        mn15 = new javax.swing.JMenuItem();
         mn12 = new javax.swing.JMenu();
         mn0122 = new javax.swing.JMenuItem();
         mn0123 = new javax.swing.JMenuItem();
         mn0121 = new javax.swing.JMenuItem();
-        mn15 = new javax.swing.JMenuItem();
         mn13 = new javax.swing.JSeparator();
         mn14 = new javax.swing.JMenuItem();
         mn02 = new javax.swing.JMenu();
@@ -206,7 +200,7 @@ public class Tex extends javax.swing.JFrame {
         btn15.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mRulecalc(evt);
+                mnRulecalc(evt);
             }
         });
         tb1.add(btn15);
@@ -554,74 +548,28 @@ public class Tex extends javax.swing.JFrame {
         mn01.setFont(frames.Util.getFont(1,1));
         mn01.setLabel("  Настройки  ");
 
-        mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn11.setText("Расчётные данные");
         mn11.setFont(frames.Util.getFont(1,1));
-
-        mn0112.setFont(frames.Util.getFont(1,1));
-        mn0112.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn0112.setText("Скидки/Наценки");
-        mn0112.addActionListener(new java.awt.event.ActionListener() {
+        mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
+        mn11.setText("Расчётные");
+        mn11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn0112(evt);
+                mnCalc(evt);
             }
         });
-        mn11.add(mn0112);
-
-        mn0113.setFont(frames.Util.getFont(1,1));
-        mn0113.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn0113.setText("Расчётные");
-        mn0113.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn0113(evt);
-            }
-        });
-        mn11.add(mn0113);
-
-        mn0114.setFont(frames.Util.getFont(1,1));
-        mn0114.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn0114.setText("Технологические");
-        mn0114.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn0114(evt);
-            }
-        });
-        mn11.add(mn0114);
-
-        mn0111.setFont(frames.Util.getFont(1,1));
-        mn0111.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn0111.setText("Ценовые");
-        mn0111.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn0111ActionPerformed(evt);
-            }
-        });
-        mn11.add(mn0111);
-
-        mn0115.setFont(frames.Util.getFont(1,1));
-        mn0115.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn0115.setText("Дополнительно");
-        mn0115.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn0115(evt);
-            }
-        });
-        mn11.add(mn0115);
-
-        mn0116.setFont(frames.Util.getFont(1,1));
-        mn0116.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn0116.setText("Раскрои");
-        mn0116.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn0116(evt);
-            }
-        });
-        mn11.add(mn0116);
-
         mn01.add(mn11);
 
+        mn15.setFont(frames.Util.getFont(1,1));
+        mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
+        mn15.setText("Правила расчёта");
+        mn15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnRulecalc(evt);
+            }
+        });
+        mn01.add(mn15);
+
         mn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn12.setText("Графические настройки");
+        mn12.setText("Графические");
         mn12.setFont(frames.Util.getFont(1,1));
 
         mn0122.setFont(frames.Util.getFont(1,1));
@@ -655,16 +603,6 @@ public class Tex extends javax.swing.JFrame {
         mn12.add(mn0121);
 
         mn01.add(mn12);
-
-        mn15.setFont(frames.Util.getFont(1,1));
-        mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn15.setText("Правила расчёта");
-        mn15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mRulecalc(evt);
-            }
-        });
-        mn01.add(mn15);
         mn01.add(mn13);
 
         mn14.setFont(frames.Util.getFont(1,1));
@@ -963,22 +901,6 @@ private void mnAboutBox(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAbo
 private void mn51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn51ActionPerformed
 }//GEN-LAST:event_mn51ActionPerformed
 
-private void mn0113(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0113
-
-}//GEN-LAST:event_mn0113
-
-private void mn0112(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0112
-
-}//GEN-LAST:event_mn0112
-
-private void mn0114(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0114
-
-}//GEN-LAST:event_mn0114
-
-private void mn0111ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0111ActionPerformed
-
-}//GEN-LAST:event_mn0111ActionPerformed
-
 private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
 
     FrameProgress.create(Tex.this, new ListenerFrame() {
@@ -1004,14 +926,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mHowTo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHowTo
 
     }//GEN-LAST:event_mHowTo
-
-    private void mn0115(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0115
-        //
-    }//GEN-LAST:event_mn0115
-
-    private void mn0116(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0116
-        //
-    }//GEN-LAST:event_mn0116
 
     private void mnCurrency(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCurrency
 
@@ -1127,13 +1041,13 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         mnExit(null);
     }//GEN-LAST:event_windowClosing
 
-    private void mRulecalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mRulecalc
+    private void mnRulecalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRulecalc
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.RuleCalc.createFrame(Tex.this);
             }
         });
-    }//GEN-LAST:event_mRulecalc
+    }//GEN-LAST:event_mnRulecalc
 
     private void windowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowIconified
         Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.ICONIFIED));
@@ -1174,6 +1088,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         this.getInputContext().selectInputMethod(locale);
     }//GEN-LAST:event_windowClosed
 
+    private void mnCalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCalc
+        FrameProgress.create(Tex.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.Groups.createFrame(Tex.this);
+            }
+        });
+    }//GEN-LAST:event_mnCalc
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btn1;
@@ -1203,12 +1125,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.ButtonGroup buttonMenuGroup;
     private javax.swing.JMenuBar mn0;
     private javax.swing.JMenu mn01;
-    private javax.swing.JMenuItem mn0111;
-    private javax.swing.JMenuItem mn0112;
-    private javax.swing.JMenuItem mn0113;
-    private javax.swing.JMenuItem mn0114;
-    private javax.swing.JMenuItem mn0115;
-    private javax.swing.JMenuItem mn0116;
     private javax.swing.JMenuItem mn0121;
     private javax.swing.JMenuItem mn0122;
     private javax.swing.JMenuItem mn0123;
@@ -1217,7 +1133,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenu mn05;
     private javax.swing.JMenu mn06;
     private javax.swing.JMenu mn09;
-    private javax.swing.JMenu mn11;
+    private javax.swing.JMenuItem mn11;
     private javax.swing.JMenu mn12;
     private javax.swing.JSeparator mn13;
     private javax.swing.JMenuItem mn14;

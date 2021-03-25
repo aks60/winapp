@@ -29,7 +29,8 @@ public class Groups extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingData();
-        loadingModel();
+        loadingModel(); 
+        //tabb.remove(pan6);
     }
 
     private void loadingData() {
