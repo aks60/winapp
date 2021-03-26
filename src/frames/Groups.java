@@ -1,19 +1,24 @@
 package frames;
 
 import common.FrameToFile;
+import dataset.Field;
 import dataset.Query;
 import dataset.Record;
+import domain.eArtdet;
+import domain.eColor;
 import domain.eGroups;
 import enums.TypeGroups;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class Groups extends javax.swing.JFrame {
@@ -58,6 +63,18 @@ public class Groups extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
         tab5.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
+        tab7.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                if (column == 1) {
+                    int id = qDecInc.getAs(row, eGroups.id);
+                    if (id != -1 && (id == 2055 || id == 2056 || id == 2058 || id == 2101 || id == 2104)) {
+                        value = value + "%";
+                    }
+                }
+                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            }
+        });
         Util.setSelectedRow(tab1);
         Util.setSelectedRow(tab2);
         Util.setSelectedRow(tab3);
