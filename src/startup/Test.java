@@ -18,7 +18,7 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec2();
-            //wincalc();
+            wincalc();
             //query();
             //frame();
             //json();
@@ -33,10 +33,10 @@ public class Test {
 
         Query.connection = connection();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.prj = 601004;
+            iwin.prj = 601001;
             iwin.build(builder.script.Winscript.test(iwin.prj, false));
             iwin.constructiv();
             //Specification.write_txt1(iwin.listSpec);
