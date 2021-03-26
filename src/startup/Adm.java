@@ -62,7 +62,7 @@ public class Adm extends javax.swing.JFrame {
     public Adm() {
         initComponents();
         initElements();
-        loadingModel();
+        //loadingModel();
     }
 
     private void mnLookAndFeel(java.awt.event.ActionEvent evt) {
@@ -74,7 +74,7 @@ public class Adm extends javax.swing.JFrame {
         }
     }
 
-    private void loadingModel() {
+    private void loadingPath() {
         if (eProperty.base_num.read().equals("1")) {
             labPath2.setText(eProperty.server1.read() + "/" + eProperty.port1.read() + "\\" + eProperty.base1.read());
             edPath.setText("D:\\Okna\\Database\\Profstroy4\\ITEST.FDB");
@@ -209,6 +209,7 @@ public class Adm extends javax.swing.JFrame {
             btnT9.setSelected(true);
             mn633.setSelected(true);
         }
+        loadingPath();
     }
 
     @SuppressWarnings("unchecked")
@@ -1216,6 +1217,7 @@ public class Adm extends javax.swing.JFrame {
         if (button == btnConv) {
             ((CardLayout) center.getLayout()).show(center, "pan5");
             timer.start();
+            loadingPath();
 
         } else if (button == btnBaseEdit) {
             ((CardLayout) center.getLayout()).show(center, "pan2");
@@ -1287,6 +1289,7 @@ public class Adm extends javax.swing.JFrame {
         if (button == mn20) {
             ((CardLayout) center.getLayout()).show(center, "pan5");
             timer.start();
+            loadingPath();
 
         } else if (button == mn10) {
             ((CardLayout) center.getLayout()).show(center, "pan2");

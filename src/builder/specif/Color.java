@@ -37,7 +37,8 @@ public class Color {
                         spc.setColor(side, artdetColorFK);
 
                     } else {
-                        spc.setColor(side, colorFromFirst(spc)); //первая в списке
+                        return false;
+                        //spc.setColor(side, colorFromFirst(spc)); //первая в списке
                     }
                 } else if (colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id || colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id) {
                     artdetColorFK = colorFromArtikl(spc.artiklRec.getInt(eArtikl.id), side, elemColorID);
