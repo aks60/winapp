@@ -466,7 +466,9 @@ public class Profstroy {
     private static void updatePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция коррекции внешних ключей");
-            loadSetting("Функция loadSetting()");            
+            loadSetting("Функция loadSetting()"); 
+            loadGroups("Функция loadGroups()");
+            executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
@@ -475,8 +477,6 @@ public class Profstroy {
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update params a set a.params_id = (select b.id from params b where a.pnumb = b.pnumb and b.znumb = 0)");
-            loadGroups("Функция loadGroups()");
-            executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
             executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
             executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.CATEG_PRF.numb() + ")");
