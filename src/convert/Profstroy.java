@@ -81,35 +81,14 @@ public class Profstroy {
     private static Queue<Object[]> que = null;
     private static int count = 0;
     private static String versionPs = "4";
+    private static int numDb = Integer.valueOf(eProperty.base_num.read());
     private static Connection cn1;
     private static Connection cn2;
     private static Statement st1; //источник 
     private static Statement st2;//приёмник
     private static String src, out;
     private static JTextPane tp = null;
-/*
-2002-Коэффициент рентабельности производства
-2003-Коэффициент наценки на материал
-2004-Коэффициент наценки на заполнения
-2005-Коэффициент раскроя профилей
 
-
-2007-Учитывать норму отхода в себестоимости
-2009-Минимальная торговая наценка , %
-2010-Припуск для реза, мм
-2013-Проверять минимальный радиус гиба профилей
-
-2055-Максимальная скидка на конструкцию
-2056-Максимальная скидка на комплектацию
-2057-Максимальная скидка на работы
-2058-Максимальная скидка общая
-
-
-2062-Расчет себестоимости профилей по целым хлыстам
-2101-Наценка на изделие с коробками арочной формы
-2104-Наценка на изделие с непрямоуголными коробками    
-    */
-    
     public static void exec(Queue<Object[]> _que, Connection _cn1, Connection _cn2) {
         que = _que;
         cn1 = _cn1;
@@ -119,15 +98,15 @@ public class Profstroy {
 
     public static void exec2() {
         try {
-            if (Integer.valueOf(eProperty.base_num.read()) == 1) {
+            if (numDb == 1) {
                 src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
                 out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
-            } else if (Integer.valueOf(eProperty.base_num.read()) == 2) {
+            } else if (numDb == 2) {
                 src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase3\\sial3.fdb?encoding=win1251";
                 out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
             } else {
                 src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Alutex3\\alutech3x.fdb?encoding=win1251";
-                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\ALUTECH.FDB?encoding=win1251";               
+                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\ALUTECH.FDB?encoding=win1251";
             }
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
             cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
@@ -466,7 +445,7 @@ public class Profstroy {
     private static void updatePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция коррекции внешних ключей");
-            loadSetting("Функция loadSetting()"); 
+            loadSetting("Функция loadSetting()");
             loadGroups("Функция loadGroups()");
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
@@ -654,25 +633,28 @@ public class Profstroy {
     private static void loadModels() {
         try {
             println(Color.BLACK, "loadModels()");
-            Integer prj[] = {601001, 601002, 601003, 601004, 601005, 601006, 601007,
-                601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010};
+            
+            List<Integer> prjList = (numDb == 1) ? Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)
+                    : Arrays.asList(601001, 601002, 601003);
+            
             String script;
             cn2.commit();
-            for (int index = 0; index < prj.length; ++index) {
+            int index = 0;
+            for (int prj : prjList) {
 
                 if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
-                    script = Winscript.testPs3(prj[index], true);
+                    script = Winscript.testPs3(prj, true);
                 } else {
-                    script = Winscript.testPs4(prj[index], true);
+                    script = Winscript.testPs4(prj, true);
                 }
                 if (script != null) {
                     JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
                     JsonObject jsonObj = jsonElem.getAsJsonObject();
-                    String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + " " + jsonObj.get("name").getAsString();
+                    String name = "<html>" + jsonObj.get("prj").getAsString() + " " + jsonObj.get("name").getAsString();
                     int form = (jsonObj.get("prj").getAsInt() < 601999) ? TypeElem.RECTANGL.id : TypeElem.ARCH.id;
                     Query q = new Query(eSysmodel.values());
                     Record record = eSysmodel.up.newRecord(Query.INS);
-                    record.setNo(eSysmodel.npp, index + 1);
+                    record.setNo(eSysmodel.npp, ++index);
                     record.setNo(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));
                     record.setNo(eSysmodel.name, name);
                     record.setNo(eSysmodel.script, script);
@@ -710,7 +692,7 @@ public class Profstroy {
 
     private static void loadGroups(String mes) {
         println(Color.BLACK, mes);
-        try {            
+        try {
             ResultSet rs = st1.executeQuery("select * from SYSDATA where SUNIC in (2002, 2003, 2004, 2005, 2007, 2009, 2010, 2013, 2055, 2056, 2057, 2058, 2062, 2101, 2104)");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL) values ("
@@ -719,7 +701,7 @@ public class Profstroy {
             }
             executeSql("ALTER TABLE GROUPS ADD FK INTEGER;");
             executeSql("SET GENERATOR  GEN_GROUPS TO " + 10000);
-            
+
             rs = st1.executeQuery("select * from GRUPCOL");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("

@@ -17,7 +17,7 @@ public class Winscript {
             return builder.script.Winscript.testPs3(project, model);
         }
     }
-    
+
     public static String testPs4(Integer project, boolean model) {
 
         if (project == 601001) {
@@ -307,15 +307,24 @@ public class Winscript {
         }
         if (model == true) {
             rootArea.propery(project.toString(), -3, null);
-        }    
+        }
         return new GsonBuilder().create().toJson(rootArea);
     }
 
     public static String testPs3(Integer project, boolean model) {
 
         if (project == 601001) {
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 800, 1200, 25, 25, 25, "");
+            rootArea.propery(project.toString(), 32, "СИАЛ\\КП45\\Окна\\601001");
+            rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
+            rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
+            rootArea.addElem(new GsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
+            rootArea.addElem(new GsonElem(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            rootArea.addElem(new GsonElem(6, TypeElem.GLASS, "{'artglasID':285}"));
+
+        } else if (project == 601002) {
             rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 600, 25, 25, 25, "");
-            rootArea.propery(project.toString(), 31, "СИАЛ\\КП40\\Окна");
+            rootArea.propery(project.toString(), 31, "СИАЛ\\КП40\\Окна\\601002");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.addElem(new GsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
@@ -323,9 +332,9 @@ public class Winscript {
             GsonElem area2 = (GsonElem) rootArea.addArea(new GsonElem(6, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2}"));
             area2.addElem(new GsonElem(7, TypeElem.GLASS, "{'artglasID':285}"));
 
-        } else if (project == 601002) {
-            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1200, 1600, 25, 25, 25, "");
-            rootArea.propery(project.toString(), 23, "СИАЛ\\КП40\\Окна");
+        } else if (project == 601003) {
+            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1200, 1600, 30, 30, 30, "");
+            rootArea.propery(project.toString(), 31, "СИАЛ\\КП40\\Окна\\601003");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.addElem(new GsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
@@ -338,14 +347,14 @@ public class Winscript {
             area4.addElem(new GsonElem(11, TypeElem.GLASS, "{'artglasID':285}"));
             area5.addElem(new GsonElem(12, TypeElem.GLASS, "{'artglasID':285}"));
 
-        } else if (project == 601006) {
-            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 25, 25, 25, "");
-            rootArea.propery(project.toString(), 24, "СИАЛ\\КП45\\Окна");
-            rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
-            rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
-            rootArea.addElem(new GsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootArea.addElem(new GsonElem(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
-            rootArea.addElem(new GsonElem(6, TypeElem.GLASS, "{'artglasID':285}"));
+//        } else if (project == 601004) {
+//            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 25, 25, 25, "");
+//            rootArea.propery(project.toString(), 24, "СИАЛ\\КП45\\Окна\\601004");
+//            rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
+//            rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
+//            rootArea.addElem(new GsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
+//            rootArea.addElem(new GsonElem(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+//            rootArea.addElem(new GsonElem(6, TypeElem.GLASS, "{'artglasID':285}"));
         } else {
             return null;
         }

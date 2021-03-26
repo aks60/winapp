@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class Test {
@@ -17,8 +18,8 @@ public class Test {
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
-            //convert.Profstroy.exec2();
-            wincalc();
+            convert.Profstroy.exec2();
+            //wincalc();
             //query();
             //frame();
             //json();
@@ -31,40 +32,44 @@ public class Test {
 
     private static void wincalc() throws Exception {
 
+        int numDb = Integer.valueOf(eProperty.base_num.read());
         Query.connection = connection();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.prj = 601001;
+            iwin.prj = 601002;
             iwin.build(builder.script.Winscript.test(iwin.prj, false));
             iwin.constructiv();
             //Specification.write_txt1(iwin.listSpec);
             Specification.compareIWin(iwin.listSpec, iwin.prj, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
-        
-        } else {
-            if (_case.equals("min")) {
-                for (int i : Arrays.asList(601001, 601002, 601007)) {
-                    iwin.prj = i;
-                    String script = builder.script.Winscript.test(iwin.prj, false);
-                    if (script != null) {
-                        iwin.build(script);
-                        iwin.constructiv();
-                        Specification.compareIWin(iwin.listSpec, iwin.prj, false);
-                    }
+
+        } else if (_case.equals("min")) {
+            List<Integer> prjList = (numDb == 1) ? Arrays.asList(601001, 601002, 601007)
+                    : Arrays.asList(601001, 601002, 601003);
+
+            for (int i : prjList) {
+                iwin.prj = i;
+                String script = builder.script.Winscript.test(iwin.prj, false);
+                if (script != null) {
+                    iwin.build(script);
+                    iwin.constructiv();
+                    Specification.compareIWin(iwin.listSpec, iwin.prj, false);
                 }
-           
-            } else if (_case.equals("max")) {
-                for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007,
-                        601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)) {
-                    iwin.prj = i;
-                    String script = builder.script.Winscript.test(iwin.prj, false);
-                    if (script != null) {
-                        iwin.build(script);
-                        iwin.constructiv();
-                        Specification.compareIWin(iwin.listSpec, iwin.prj, false);
-                    }
+            }
+
+        } else if (_case.equals("max")) {
+            List<Integer> prjList = (numDb == 1) ? Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)
+                    : Arrays.asList(601001, 601002, 601003);
+
+            for (int i : prjList) {
+                iwin.prj = i;
+                String script = builder.script.Winscript.test(iwin.prj, false);
+                if (script != null) {
+                    iwin.build(script);
+                    iwin.constructiv();
+                    Specification.compareIWin(iwin.listSpec, iwin.prj, false);
                 }
             }
         }
