@@ -315,7 +315,7 @@ public class Winscript {
 
         if (project == 601001) {
             rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 600, 25, 25, 25, "");
-            rootArea.propery(project.toString(), 23, "СИАЛ\\КП40\\Окна");
+            rootArea.propery(project.toString(), 31, "СИАЛ\\КП40\\Окна");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.addElem(new GsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));

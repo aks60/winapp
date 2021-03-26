@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Vector;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
+import domain.eSetting;
 import java.util.LinkedHashMap;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -176,7 +177,7 @@ public class Specification {
         }
         return String.valueOf(def);
     }
-    
+
     public static void write_csv(ArrayList<Specification> spcList) {
         Writer writer = null;
         try {
@@ -265,53 +266,75 @@ public class Specification {
         System.out.println();
         System.out.println("Prj=" + prj);
         Float iwinTotal = 0f, jarTotal = 0f;
-        String path = "src\\resource\\xls\\p" + prj + ".xls";
+        String path = "src\\resource\\xls\\ps4\\p" + prj + ".xls";
+        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
+            path = "src\\resource\\xls\\ps3\\p" + prj + ".xls";
+        }
         //Specification.sort(spcList);
-        Map<String, Float> hmDll = new LinkedHashMap();
+        Map<String, Float> hmXls = new LinkedHashMap();
         Map<String, Float> hmJar = new LinkedHashMap();
-        Map<String, String> hmJarArt = new LinkedHashMap();
+        Map<String, String> hmArt = new LinkedHashMap();
         for (Specification spc : spcList) {
 
             String key = spc.name.trim().replaceAll("[\\s]{1,}", " ");
             Float val = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
             hmJar.put(key, val + spc.inCost);
-            hmJarArt.put(key, spc.artikl);
+            hmArt.put(key, spc.artikl);
         }
-        Workbook w;
-        File inputWorkbook = new File(path);
         try {
-            w = Workbook.getWorkbook(inputWorkbook);
-            Sheet sheet = w.getSheet(0);
-            for (int i = 5; i < sheet.getRows(); i++) {
+            Sheet sheet = Workbook.getWorkbook(new File(path)).getSheet(0);
+            if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {               
+                for (int i = 2; i < sheet.getRows(); i++) {
 
-                String art = sheet.getCell(1, i).getContents().trim();
-                String key = sheet.getCell(2, i).getContents().trim().replaceAll("[\\s]{1,}", " ");
-                String val = sheet.getCell(10, i).getContents();
-                if (key.isEmpty() || art.isEmpty() || val.isEmpty()) {
-                    continue;
+                    String art = sheet.getCell(0, i).getContents().trim();
+                    String key = sheet.getCell(1, i).getContents().trim().replaceAll("[\\s]{1,}", " ");
+                    String val = sheet.getCell(6, i).getContents();
+                    if (key.isEmpty() || art.isEmpty() || val.isEmpty()) {
+                        continue;
+                    }
+                    //System.out.println(art + " - " + key + " - " + val);
+                    val = val.replaceAll("[\\s|\\u00A0]+", "").replace(",", ".");
+                    Float val2 = (hmXls.get(key) == null) ? 0.f : hmXls.get(key);
+                    try {
+                        Float val3 = Float.valueOf(val) + val2;
+                        hmXls.put(key, val3);
+                        hmArt.put(key, art);
+                    } catch (Exception e) {
+                        System.err.println("Ошибка:Main.compareIWin " + e);
+                        continue;
+                    }
                 }
+            } else {
+                for (int i = 5; i < sheet.getRows(); i++) {
 
-                val = val.replaceAll("[\\s|\\u00A0]+", "");
-                val = val.replace(",", ".");
-                Float val2 = (hmDll.get(key) == null) ? 0.f : hmDll.get(key);
-                try {
-                    Float val3 = Float.valueOf(val) + val2;
-                    hmDll.put(key, val3);
-                    hmJarArt.put(key, art);
-                } catch (Exception e) {
-                    System.err.println("Ошибка:Main.compareIWin " + e);
-                    continue;
+                    String art = sheet.getCell(1, i).getContents().trim();
+                    String key = sheet.getCell(2, i).getContents().trim().replaceAll("[\\s]{1,}", " ");
+                    String val = sheet.getCell(10, i).getContents();
+                    if (key.isEmpty() || art.isEmpty() || val.isEmpty()) {
+                        continue;
+                    }
+                    //System.out.println(art + " - " + key + " - " + val);
+                    val = val.replaceAll("[\\s|\\u00A0]+", "").replace(",", ".");
+                    Float val2 = (hmXls.get(key) == null) ? 0.f : hmXls.get(key);
+                    try {
+                        Float val3 = Float.valueOf(val) + val2;
+                        hmXls.put(key, val3);
+                        hmArt.put(key, art);
+                    } catch (Exception e) {
+                        System.err.println("Ошибка:Main.compareIWin " + e);
+                        continue;
+                    }
                 }
             }
             if (detail == true) {
-                System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "Dll", "Jar", "Delta"});
+                System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "Xls", "Jar", "Delta"});
                 System.out.println();
-                for (Map.Entry<String, Float> entry : hmDll.entrySet()) {
+                for (Map.Entry<String, Float> entry : hmXls.entrySet()) {
                     String key = entry.getKey();
                     Float val1 = entry.getValue();
                     Float val2 = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
                     hmJar.remove(key);
-                    System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{key, hmJarArt.get(key), val1, val2, Math.abs(val1 - val2)});
+                    System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{key, hmArt.get(key), val1, val2, Math.abs(val1 - val2)});
                     System.out.println();
                     jarTotal = jarTotal + val2;
                     iwinTotal = iwinTotal + val1;
@@ -324,12 +347,12 @@ public class Specification {
                 for (Map.Entry<String, Float> entry : hmJar.entrySet()) {
                     String key = entry.getKey();
                     Float value3 = entry.getValue();
-                    System.out.printf("%-72s%-24s%-16.2f", "Лишние: " + key, hmJarArt.get(key), value3);
+                    System.out.printf("%-72s%-24s%-16.2f", "Лишние: " + key, hmArt.get(key), value3);
                     System.out.println();
                     jarTotal = jarTotal + value3;
                 }
             } else {
-                for (Map.Entry<String, Float> entry : hmDll.entrySet()) {
+                for (Map.Entry<String, Float> entry : hmXls.entrySet()) {
                     String key = entry.getKey();
                     Float val1 = entry.getValue();
                     Float val2 = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
@@ -350,5 +373,5 @@ public class Specification {
         } catch (Exception e2) {
             System.err.println("Ошибка:Main.compareIWin " + e2);
         }
-    }   
+    }
 }

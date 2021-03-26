@@ -42,6 +42,7 @@ public class Test {
             //Specification.write_txt1(iwin.listSpec);
             Specification.compareIWin(iwin.listSpec, iwin.prj, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
+        
         } else {
             if (_case.equals("min")) {
                 for (int i : Arrays.asList(601001, 601002, 601007)) {
@@ -53,6 +54,7 @@ public class Test {
                         Specification.compareIWin(iwin.listSpec, iwin.prj, false);
                     }
                 }
+           
             } else if (_case.equals("max")) {
                 for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007,
                         601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)) {
