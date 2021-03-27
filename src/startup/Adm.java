@@ -77,13 +77,13 @@ public class Adm extends javax.swing.JFrame {
     private void loadingPath() {
         if (eProperty.base_num.read().equals("1")) {
             labPath2.setText(eProperty.server1.read() + "/" + eProperty.port1.read() + "\\" + eProperty.base1.read());
-            edPath.setText("D:\\Okna\\Database\\Profstroy4\\ITEST.FDB");
+            edPath.setText("D:\\Okna\\Database\\Profstroy4\\bimax\\ITEST.FDB");
         } else if (eProperty.base_num.read().equals("2")) {
             labPath2.setText(eProperty.server2.read() + "/" + eProperty.port2.read() + "\\" + eProperty.base2.read());
-            edPath.setText("D:\\Okna\\Database\\Sialbase3\\sial3.fdb");
+            edPath.setText("D:\\Okna\\Database\\Profstroy3\\Sialbase3\\sial3.fdb");
         } else if (eProperty.base_num.read().equals("3")) {
             labPath2.setText(eProperty.server3.read() + "/" + eProperty.port3.read() + "\\" + eProperty.base3.read());
-            edPath.setText("D:\\Okna\\Database\\Alutex3\\alutech3x.fdb");
+            edPath.setText("D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb");
         }
         edPort.setText((eProperty.base_num.read().equals("1")) ? "3050" : "3055");
         edServer.setText("localhost");
