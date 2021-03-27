@@ -158,7 +158,7 @@ public class Test {
         //builder.setPrettyPrinting();
         GsonRoot root = builder.create().fromJson(script, GsonRoot.class);
 
-        System.out.println(root.color(1));
+        System.out.println(root.color1);
 //        
 //        for (Element el : root.getElements()) {
 //            System.out.println(el.getElemType());

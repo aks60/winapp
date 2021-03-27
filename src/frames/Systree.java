@@ -54,6 +54,7 @@ import builder.model.ElemSimple;
 import builder.script.GsonElem;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import domain.eArtdet;
 import domain.eColor;
 import domain.eFurndet;
@@ -411,9 +412,9 @@ public class Systree extends javax.swing.JFrame {
         };
         listenerModel = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4, tab5);
-            
+
             //Запишем в скрипт ветку из которого будет создаваться окно  
-            String script = record.get(2).toString();              
+            String script = record.get(2).toString();
             JsonObject je = gson.fromJson(script, JsonObject.class);
             je.addProperty("nuni", systreeID);
             String script2 = gson.toJson(je);
@@ -425,9 +426,9 @@ public class Systree extends javax.swing.JFrame {
             sysprodRec.setNo(eSysprod.name, record.get(1));
             sysprodRec.setNo(eSysprod.script, script2);
             qSysprod.insert(sysprodRec);
-            
+
             loadingTab5();
-            
+
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             for (int index = 0; index < qSysprod.size(); ++index) {
                 if (qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)) {
@@ -2669,18 +2670,13 @@ public class Systree extends javax.swing.JFrame {
 
                 builder.script.GsonElem rootArea = iwin.rootGson.find(selectID);
                 if (rootArea != null) {
-                    String paramStr = (rootArea.param().isEmpty()) ? "{}" : rootArea.param();
-                    JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
-
                     if (evt.getSource() == btn9) {
-                        jsonObject.addProperty(PKjson.colorID1, colorRec.getStr(eColor.id));
+                        iwin.rootGson.color1 = colorRec.getInt(eColor.id);
                     } else if (evt.getSource() == btn13) {
-                        jsonObject.addProperty(PKjson.colorID2, colorRec.getStr(eColor.id));
-                    } else if (evt.getSource() == btn2) {
-                        jsonObject.addProperty(PKjson.colorID3, colorRec.getStr(eColor.id));
+                        iwin.rootGson.color2 = colorRec.getInt(eColor.id);
+                    } else {
+                        iwin.rootGson.color3 = colorRec.getInt(eColor.id);
                     }
-                    paramStr = gson.toJson(jsonObject);
-                    rootArea.param(paramStr);
                     updateScript(selectID);
                 }
             };

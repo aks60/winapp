@@ -98,7 +98,7 @@ public class Wincalc {
     // Парсим входное json окно и строим объектную модель окна
     private void parsing(String json) {
         try {
-            //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json))); //для тестирования
+            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json))); //для тестирования
             //System.out.println(new GsonBuilder().create().toJson(new JsonParser().parse(json))); //для тестирования
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(json, GsonRoot.class);
@@ -109,9 +109,9 @@ public class Wincalc {
             this.width = rootGson.width();
             this.height = rootGson.height();
             this.heightAdd = (rootGson.heightAdd() == null) ? this.height : rootGson.heightAdd();
-            this.colorID1 = rootGson.color(1);
-            this.colorID2 = rootGson.color(2);
-            this.colorID3 = rootGson.color(3);
+            this.colorID1 = rootGson.color1;
+            this.colorID2 = rootGson.color2;
+            this.colorID3 = rootGson.color3;
             this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
             this.syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
             eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
