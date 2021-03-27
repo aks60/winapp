@@ -76,7 +76,8 @@ public class Specific extends javax.swing.JFrame {
                 } else {
                     JsonElement je = new Gson().fromJson(script, JsonElement.class);
                     je.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id));
-                    iwin.build(je.toString());
+                    //iwin.build(je.toString());
+                    iwin.build(builder.script.Winscript.test(iwin.prj, false));
                     Query.listOpenTable.forEach(q -> q.clear());
                     iwin.constructiv();
                 }

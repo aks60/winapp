@@ -35,14 +35,14 @@ public class Test {
         int numDb = Integer.valueOf(eProperty.base_num.read());
         Query.connection = connection();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.prj = 601002;
+            iwin.prj = 601001;
             iwin.build(builder.script.Winscript.test(iwin.prj, false));
             iwin.constructiv();
-            //Specification.write_txt1(iwin.listSpec);
-            Specification.compareIWin(iwin.listSpec, iwin.prj, true);
+            Specification.write_txt1(iwin.listSpec);
+            //Specification.compareIWin(iwin.listSpec, iwin.prj, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else if (_case.equals("min")) {
