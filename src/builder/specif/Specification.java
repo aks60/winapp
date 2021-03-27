@@ -280,7 +280,6 @@ public class Specification {
             Float val = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
             hmJar.put(key, val + spc.inCost);
             hmArt.put(key, spc.artikl);
-            System.out.println(key + "   " + spc.inCost);
         }
         try {
             Sheet sheet = Workbook.getWorkbook(new File(path)).getSheet(0);
