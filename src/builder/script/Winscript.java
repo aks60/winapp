@@ -21,7 +21,7 @@ public class Winscript {
     public static String testPs4(Integer project, boolean model) {
 
         if (project == 601001) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 1300, 1009, 10009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 1300, 1009, 10009, 1009);
             rootArea.propery(project.toString(), 387, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -31,7 +31,7 @@ public class Winscript {
             area2.addElem(new GsonElem(7, TypeElem.GLASS));
 
         } else if (project == 601002) {
-            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1009, 10009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1009, 10009, 1009);
             rootArea.propery(project.toString(), 433, "Montblanc\\Nord\\1 ОКНА");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -46,7 +46,7 @@ public class Winscript {
             area5.addElem(new GsonElem(12, TypeElem.GLASS));
 
         } else if (project == 601003) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 1440, 1700, 1009, 1009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 1440, 1700, 1009, 1009, 1009);
             rootArea.propery(project.toString(), 4, "Darrio\\DARRIO 200\\1 ОКНА");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -65,7 +65,7 @@ public class Winscript {
             area9.addElem(new GsonElem(16, TypeElem.GLASS));
 
         } else if (project == 601004) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 1440, 1700, 1009, 1009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 1440, 1700, 1009, 1009, 1009);
             rootArea.propery(project.toString(), 387, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -84,7 +84,7 @@ public class Winscript {
             area9.addElem(new GsonElem(16, TypeElem.GLASS));
 
         } else if (project == 601005) {
-            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1600, 1700, 1009, 1009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1600, 1700, 1009, 1009, 1009);
             rootArea.propery(project.toString(), 387, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -99,7 +99,7 @@ public class Winscript {
             area5.addElem(new GsonElem(12, TypeElem.GLASS));
 
         } else if (project == 601006) {
-            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 900, 1400, 1009, 1009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 900, 1400, 1009, 1009, 1009);
             rootArea.propery(project.toString(), 10, "RAZIO\\RAZIO 58 N\\1 ОКНА");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -108,7 +108,7 @@ public class Winscript {
             rootArea.addElem(new GsonElem(6, TypeElem.GLASS, "{'artglasID':5746}")); //или 'R4x10x4x10x4'
 
         } else if (project == 601007) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 1100, 1400, 1009, 10018, 10018, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 1100, 1400, 1009, 10018, 10018);
             rootArea.propery(project.toString(), 5, "NOVOTEX\\Techno 58\\1 ОКНА");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -127,7 +127,7 @@ public class Winscript {
             area9.addElem(new GsonElem(16, TypeElem.GLASS));
 
         } else if (project == 601008) {
-            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1200, 1700, 1009, 28014, 21057, "");
+            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1200, 1700, 1009, 28014, 21057);
             rootArea.propery(project.toString(), 9, "Rehau\\Blitz new\\1 ОКНА");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -145,7 +145,7 @@ public class Winscript {
             area5.addElem(new GsonElem(15, TypeElem.GLASS));
 
         } else if (project == 601009) {
-            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 700, 1400, 1009, 1009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 700, 1400, 1009, 1009, 1009);
             rootArea.propery(project.toString(), 371, "KBE\\KBE Эксперт\\1 ОКНА\\Открывание внутрь (ств. Z 77)");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -169,7 +169,7 @@ public class Winscript {
             area5.addElem(new GsonElem(12, TypeElem.GLASS, "{'artglasID':4663}"));
 
         } else if (project == 604004) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1050, 1700, 1009, 1009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1050, 1700, 1009, 1009, 1009);
             rootArea.propery(project.toString(), 435, "Rehau\\Delight\\1 ОКНА");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -186,7 +186,7 @@ public class Winscript {
             area6.addElem(new GsonElem(14, TypeElem.GLASS));
 
         } else if (project == 604005) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1200, 1500, 1009, 10009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1200, 1500, 1009, 10009, 1009);
             rootArea.propery(project.toString(), 14, "Wintech\\Termotech 742\\1 ОКНА");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -204,7 +204,7 @@ public class Winscript {
             area7.addElem(new GsonElem(15, TypeElem.GLASS));
 
         } else if (project == 604006) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1100, 1220, 1600, 1009, 1009, 10012, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1100, 1220, 1600, 1009, 1009, 10012);
             rootArea.propery(project.toString(), 14, "Wintech\\Termotech 742\\1 ОКНА");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -222,7 +222,7 @@ public class Winscript {
             area7.addElem(new GsonElem(15, TypeElem.GLASS));
 
         } else if (project == 604007) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1400, 1300, 1700, 1009, 1009, 10001, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1400, 1300, 1700, 1009, 1009, 10001);
             rootArea.propery(project.toString(), 9, "Rehau\\Blitz new\\1 ОКНА");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -240,7 +240,7 @@ public class Winscript {
             area7.addElem(new GsonElem(15, TypeElem.GLASS));
 
         } else if (project == 604008) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1200, 1500, 1009, 10009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1200, 1500, 1009, 10009, 1009);
             rootArea.propery(project.toString(), 387, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -258,7 +258,7 @@ public class Winscript {
             area7.addElem(new GsonElem(15, TypeElem.GLASS));
 
         } else if (project == 604009) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1200, 1500, 1009, 10009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1200, 1500, 1009, 10009, 1009);
             rootArea.propery(project.toString(), 387, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -270,7 +270,7 @@ public class Winscript {
             area3.addElem(new GsonElem(9, TypeElem.GLASS));
 
         } else if (project == 604010) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1400, 1700, 1009, 10009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1400, 1700, 1009, 10009, 1009);
             rootArea.propery(project.toString(), 433, "Montblanc\\Nord\\1 ОКНА");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -291,7 +291,7 @@ public class Winscript {
             area14.addElem(new GsonElem(18, TypeElem.GLASS));
 
         } else if (project == 605001) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.TRAPEZE, 1300, 1200, 1500, 1009, 10009, 1009, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.TRAPEZE, 1300, 1200, 1500, 1009, 10009, 1009);
             rootArea.propery(project.toString(), 387, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -314,7 +314,7 @@ public class Winscript {
     public static String testPs3(Integer project, boolean model) {
 
         if (project == 601001) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 800, 1200, 25, 25, 25, null);
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 800, 1200, 25, 25, 25);
             rootArea.propery(project.toString(), 32, "СИАЛ\\КП45\\Окна\\601001");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -323,7 +323,7 @@ public class Winscript {
             rootArea.addElem(new GsonElem(6, TypeElem.GLASS, "{'artglasID':285}"));
 
         } else if (project == 601002) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 600, 25, 25, 25, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 600, 25, 25, 25);
             rootArea.propery(project.toString(), 31, "СИАЛ\\КП40\\Окна\\601002");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -333,7 +333,7 @@ public class Winscript {
             area2.addElem(new GsonElem(7, TypeElem.GLASS, "{'artglasID':285}"));
 
         } else if (project == 601003) {
-            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1200, 1600, 30, 30, 30, "");
+            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1200, 1600, 30, 30, 30);
             rootArea.propery(project.toString(), 31, "СИАЛ\\КП40\\Окна\\601003");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -348,7 +348,7 @@ public class Winscript {
             area5.addElem(new GsonElem(12, TypeElem.GLASS, "{'artglasID':285}"));
 
 //        } else if (project == 601004) {
-//            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 25, 25, 25, "");
+//            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 25, 25, 25);
 //            rootArea.propery(project.toString(), 24, "СИАЛ\\КП45\\Окна\\601004");
 //            rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
 //            rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));

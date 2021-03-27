@@ -2076,16 +2076,13 @@ public class Order extends javax.swing.JFrame {
                     if (jsonElem != null) {
                         String paramStr = (jsonElem.param().isEmpty()) ? "{}" : jsonElem.param();
                         JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
-
                         if (evt.getSource() == btn9) {
-                            jsonObject.addProperty(PKjson.colorID1, colorRec.getStr(eColor.id));
+                            iwin.rootGson.color1 = colorRec.getInt(eColor.id);
                         } else if (evt.getSource() == btn13) {
-                            jsonObject.addProperty(PKjson.colorID2, colorRec.getStr(eColor.id));
-                        } else if (evt.getSource() == btn2) {
-                            jsonObject.addProperty(PKjson.colorID3, colorRec.getStr(eColor.id));
+                            iwin.rootGson.color2 = colorRec.getInt(eColor.id);
+                        } else {
+                            iwin.rootGson.color3 = colorRec.getInt(eColor.id);
                         }
-                        paramStr = gson.toJson(jsonObject);
-                        jsonElem.param(paramStr);
                         updateScript(selectID);
                     }
                 };

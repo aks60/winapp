@@ -19,9 +19,13 @@ public class GsonRoot extends GsonElem {
     public GsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3) {
         this(id, layoutArea, type, width, height, 0, color1, color2, color3, null);
     }
-    
+
     public GsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3, String paramJson) {
         this(id, layoutArea, type, width, height, 0, color1, color2, color3, paramJson);
+    }
+
+    public GsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3) {
+        this(id, layoutArea, type, width, height, heightAdd, color1, color2, color3, null);
     }
 
     public GsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {
