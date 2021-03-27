@@ -314,7 +314,7 @@ public class Winscript {
     public static String testPs3(Integer project, boolean model) {
 
         if (project == 601001) {
-            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 800, 1200, 25, 25, 25, "");
+            rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 800, 1200, 25, 25, 25, null);
             rootArea.propery(project.toString(), 32, "СИАЛ\\КП45\\Окна\\601001");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
