@@ -16,7 +16,7 @@ public class TestFrame extends javax.swing.JFrame {
     private TableRowSorter<DefTableModel> sorter1 = null;
     private TableRowSorter<DefTableModel> sorter2 = null;
     private TableRowSorter<DefTableModel> sorter3 = null;
-    //private String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
+    //private String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\bimax\\ITEST.FDB?encoding=win1251";
     //private Connection cn;
     private Query qOrders = new Query(eProject.values());
 
