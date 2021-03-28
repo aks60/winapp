@@ -508,6 +508,7 @@ public class Specific extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(36);
             tab1.getColumnModel().getColumn(0).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(1).setMinWidth(0);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(1).setMaxWidth(60);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(46);
@@ -523,7 +524,7 @@ public class Specific extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(14).setPreferredWidth(20);
             tab1.getColumnModel().getColumn(15).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(16).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(17).setPreferredWidth(46);
+            tab1.getColumnModel().getColumn(17).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(18).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(19).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(20).setPreferredWidth(44);
