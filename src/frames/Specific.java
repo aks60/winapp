@@ -478,14 +478,14 @@ public class Specific extends javax.swing.JFrame {
                 {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "Ед.изм", "<html>Процент<br/> отх.", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "<html>Себест.<br/> за ед. измерения", "<html>Себест.<br/> с отх.", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой"
+                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "<html>Единица<br/>измерения", "<html>Процент<br/> отхода", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "<html>Себест.<br/> за ед. измерения", "<html>Себест.<br/> с отх.", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -521,10 +521,12 @@ public class Specific extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(11).setPreferredWidth(30);
             tab1.getColumnModel().getColumn(12).setPreferredWidth(30);
             tab1.getColumnModel().getColumn(13).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(14).setPreferredWidth(20);
+            tab1.getColumnModel().getColumn(14).setPreferredWidth(24);
             tab1.getColumnModel().getColumn(15).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(16).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(17).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(17).setMinWidth(0);
+            tab1.getColumnModel().getColumn(17).setPreferredWidth(0);
+            tab1.getColumnModel().getColumn(17).setMaxWidth(0);
             tab1.getColumnModel().getColumn(18).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(19).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(20).setPreferredWidth(44);

@@ -41,7 +41,7 @@ public class DicGroups extends javax.swing.JDialog {
     }
 
     private void loadingData() {
-        qGroups.select(eGroups.up, "where grup =", grup.numb());
+        qGroups.select(eGroups.up, "where grup =", grup.numb(), "order by", eGroups.name);
     }
 
     private void loadingModel() {
@@ -434,6 +434,7 @@ public class DicGroups extends javax.swing.JDialog {
     private javax.swing.JTable tab4;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
+    
     private void initElements() {
 
         FrameToFile.setFrameSize(this);
