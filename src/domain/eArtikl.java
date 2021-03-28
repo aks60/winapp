@@ -20,31 +20,31 @@ public enum eArtikl implements Field {
     size_falz("8", "15", "1", "Глубина до фальца или наплав(полка)", "ASIZN"),
     size_centr("8", "15", "1", "B - Смещение оси от центра", "ASIZB"),
     size_frez("8", "15", "1", "Толщина фрезы", "AFREZ"),
-    size_furn("8", "15", "1", "Фурнитурный паз", "ASIZF"),    
+    size_furn("8", "15", "1", "Фурнитурный паз", "ASIZF"),
     len_unit("8", "15", "1", "Длина ед. поставки", "ALENG"),
     height("8", "15", "1", "Ширина", "AHEIG"),
     depth("8", "15", "1", "Толщина", "AFRIC"),
+    syssize_id("4", "10", "1", "Системные константы", "syssize_id"),
     unit("5", "5", "1", "Ед. измерения", "ATYPI"),
     density("8", "15", "1", "Удельный вес", "AMASS"),
     section("8", "15", "1", "Сечение", "ASECH"),
     noopt("5", "5", "1", "Не оптимизировать", "NOOPT"),
-    otx_norm("8", "15", "1", "Норма отхода", "AOUTS"),
-    coeff("8", "15", "1", "Ценовой коэффицент", "AKOEF"),
     ost_delov("8", "15", "1", "Деловой остаток", "AOSTD"),
     cut_perim("8", "15", "1", "Периметр сечения", "APERI"),
-    min_rad("8", "15", "1", "Мин.радиус гиба", "AMINR"),    
+    min_rad("8", "15", "1", "Мин.радиус гиба", "AMINR"),
     nokom("5", "5", "1", "Доступ для выбора", "NOKOM"), // ( -2 - Только в комплектах, -1 - Только в комплектации, 0- Доступен везде, 1 - Не доступен, 2 - Только в изделиях и ввод блоков, 4 - Только в изделиях)
     noskl("5", "5", "1", "Не для склада", "NOSKL"),
     sel_color("5", "5", "1", "Подбор текстур", "ACOLL"),
-    with_seal("5", "5", "1", "С уплотнением", "AWORK"),    
+    with_seal("5", "5", "1", "С уплотнением", "AWORK"),
+    otx_norm("8", "15", "1", "Норма отхода", "AOUTS"),
+    coeff("8", "15", "1", "Ценовой коэффицент", "AKOEF"),
     artgrp1_id("4", "10", "1", "Группы наценок", "artgrp1_id"),
     artgrp2_id("4", "10", "1", "Группы скидок", "artgrp2_id"),
+    currenc1_id("4", "10", "1", "Основная валюта", "CNUMB"),
+    currenc2_id("4", "10", "1", "Неосновная валюта", "CNUMT"),
     artgrp3_id("4", "10", "1", "Категория профилей", "artgrp3_id"),
     analog_id("4", "10", "1", "Аналог профиля", "analog_id"),
-    series_id("4", "10", "1", "Серия профиля", "series_id"),
-    syssize_id("4", "10", "1", "Системные константы", "syssize_id"),
-    currenc1_id("4", "10", "1", "Основная валюта", "CNUMB"),
-    currenc2_id("4", "10", "1", "Неосновная валюта", "CNUMT");    
+    series_id("4", "10", "1", "Серия профиля", "series_id");
     //group2("12", "32", "1", "Категория", "APREF")
     //series("12", "32", "1", "Серия", "ASERI"),
     //amain("12", "32", "1", "Артикул аналога?", "AMAIN"),
@@ -122,7 +122,7 @@ public enum eArtikl implements Field {
         Query recordList = new Query(values()).select(up, "where", code, "='", _code, "'");
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
-    
+
     public static List<Record> find3(int _series_id) {
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> _series_id == rec.getInt(series_id)).collect(Collectors.toList());

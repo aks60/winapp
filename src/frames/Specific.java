@@ -129,8 +129,8 @@ public class Specific extends javax.swing.JFrame {
 
         for (Specification spc : iwin.listSpec) {
             String key = (num == 1)
-                    ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.width + spc.height + spc.anglCut1 + spc.anglCut2 + spc.wastePrc + spc.inPrice + spc.discount
-                    : spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.wastePrc + spc.inPrice + spc.discount;
+                    ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.width + spc.height + spc.anglCut1 + spc.anglCut2 + spc.wastePrc + spc.price1
+                    : spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.wastePrc + spc.price1;
             if (hs.add(key)) {
                 map.put(key, new Specification(spc));
             } else {
@@ -140,11 +140,11 @@ public class Specific extends javax.swing.JFrame {
                 s.anglCut2 = 0;
                 s.anglHoriz = 0;
                 s.count = s.count + spc.count;
-                s.quantity = s.quantity + spc.quantity;
-                s.quantity2 = s.quantity2 + spc.quantity2;
-                s.outPrice = s.outPrice + spc.outPrice;
-                s.inCost = s.inCost + spc.inCost;
-                s.outCost = s.outCost + spc.outCost;
+                s.quant1 = s.quant1 + spc.quant1;
+                s.quant2 = s.quant2 + spc.quant2;
+                s.price2 = s.price2 + spc.price2;
+                s.cost1 = s.cost1 + spc.cost1;
+                s.cost2 = s.cost2 + spc.cost2;
             }
         }
         map.entrySet().forEach(act -> list.add(act.getValue()));
@@ -478,7 +478,7 @@ public class Specific extends javax.swing.JFrame {
                 {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "Ед.изм", "<html>Кол.без<br/>отхода", "<html>Процент<br/> отх.", "<html>Кол. с <br/>отходом", "<html>Себест.<br/> за ед. измерения", "<html>Себест.<br/> с отх.", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой"
+                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "Ед.изм", "<html>Процент<br/> отх.", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "<html>Себест.<br/> за ед. измерения", "<html>Себест.<br/> с отх.", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой"
             }
         ) {
             Class[] types = new Class [] {
@@ -522,8 +522,8 @@ public class Specific extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(13).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(14).setPreferredWidth(20);
             tab1.getColumnModel().getColumn(15).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(16).setPreferredWidth(46);
-            tab1.getColumnModel().getColumn(17).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(16).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(17).setPreferredWidth(46);
             tab1.getColumnModel().getColumn(18).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(19).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(20).setPreferredWidth(44);

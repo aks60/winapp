@@ -81,7 +81,7 @@ public class Processing extends Par5s {
             spсAdd.width = spсAdd.width + Float.valueOf(spсAdd.getParam(0, 34051)); //Поправка, мм
 
         } else if (UseUnit.ML.id == spсAdd.artiklRec.getInt(eArtikl.unit)) { //мл.
-            spсAdd.quantity = Float.valueOf(spсAdd.getParam(spсAdd.quantity, 11030, 33030, 14030));
+            spсAdd.quant1 = Float.valueOf(spсAdd.getParam(spсAdd.quant1, 11030, 33030, 14030));
         }
     }
 

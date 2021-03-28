@@ -2497,9 +2497,9 @@ public class Order extends javax.swing.JFrame {
                         for (Specification spc : iwin.listSpec) {
                             int i = -1;
                             total[++i] = total[i] + spc.weight; //масса
-                            total[++i] = total[i] + spc.outPrice; //Себес-сть за злемент
-                            total[++i] = total[i] + spc.inCost; //Стоимость без скидки
-                            total[++i] = total[i] + spc.outCost; //Стоимость со скидкой
+                            total[++i] = total[i] + spc.price2; //Себес-сть за злемент
+                            total[++i] = total[i] + spc.cost1; //Стоимость без скидки
+                            total[++i] = total[i] + spc.cost2; //Стоимость со скидкой
                         }
                     }
                 }

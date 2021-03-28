@@ -3,6 +3,7 @@ package convert;
 import builder.Wincalc;
 import builder.specif.Specification;
 import common.eProperty;
+import dataset.Record;
 import domain.eSetting;
 import java.io.File;
 import java.sql.Connection;
@@ -46,7 +47,7 @@ public class DBCompare {
 
             String key = spc.name.trim().replaceAll("[\\s]{1,}", " ");
             Float val = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
-            hmJar.put(key, val + spc.inCost);
+            hmJar.put(key, val + spc.cost1);
             hmArt.put(key, spc.artikl);
         }
         try {
@@ -100,7 +101,7 @@ public class DBCompare {
                 for (Map.Entry<String, Float> entry : hmXls.entrySet()) {
                     String key = entry.getKey();
                     Float val1 = entry.getValue();
-                    Float val2 = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
+                    Float val2 = hmJar.getOrDefault(key, 0.f);
                     hmJar.remove(key);
                     System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{key, hmArt.get(key), val1, val2, Math.abs(val1 - val2)});
                     System.out.println();
@@ -123,7 +124,7 @@ public class DBCompare {
                 for (Map.Entry<String, Float> entry : hmXls.entrySet()) {
                     String key = entry.getKey();
                     Float val1 = entry.getValue();
-                    Float val2 = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
+                    Float val2 = hmJar.getOrDefault(key, 0.f);
                     hmJar.remove(key);
                     jarTotal = jarTotal + val2;
                     iwinTotal = iwinTotal + val1;
@@ -146,17 +147,26 @@ public class DBCompare {
     //System.out.println("\u001B[31m XXX \u001B[0m");
     public static void iwinRec(Wincalc iwin, int pnumb) {
         try {
-            Map<String, List> map = new HashMap();
+            Map<String, Record> hm = new HashMap();
             Connection cn = Test.connect(numDb)[0];
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = st.executeQuery("select a.* from SPECPAU a left join LISTPRJ b on a.PUNIC = b.PUNIC where b.PNUMB = " + pnumb);
             while (rs.next()) {
-                List rec = new ArrayList();
+                Record rec = new Record();
+                String key = rs.getString("ANUMB").trim().replaceAll("[\\s]{1,}", " ") + rs.getString("CLNUM") 
+                        + rs.getString("CLNU1") + rs.getString("CLNU2") + rs.getString("AUGO1") + rs.getString("AUGO2")
+                        + rs.getString("ARADI") + rs.getString("ALENG");
+                
                 for (int i = 0; i < Fld.values().length; i++) {
                     rec.add(rs.getObject(Fld.values()[i].name()));
                 }
-                map.put(rs.getString("ANUMB"), rec);
-                System.out.println(rec);            
+                Record rec2 = hm.get(rs.getString("ANUMB"));
+                if (rec2 != null) {
+                    rec.set(Fld.ALENG.ordinal(), rec.getFloat(Fld.ALENG.ordinal()) + rec2.getFloat(Fld.ALENG.ordinal()));
+
+                }
+                hm.put(rs.getString("ANUMB"), rec);
+                System.out.println(rec);
             }
 
         } catch (SQLException e) {

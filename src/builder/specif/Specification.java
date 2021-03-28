@@ -50,15 +50,14 @@ public class Specification {
     public int count = 1;  //Кол. единиц
     public int unit = 0; //Ед.изм
     public float wastePrc = 0;  //Процент отхода
-    public float quantity = 0; //Количество без отхода
-    public float quantity2 = 0;  //Количество с отходом
-    public float inPrice = 0;  //Себес-сть за ед. изм.
     
-    public float outPrice = 0;  //Себес-сть за ед с отходом
-    public float inCost = 0; //Стоимость без скидки
-    public float outCost = 0; //Стоимость со скидкой
-    
-    public float discount = 0;  //Скидка
+    public float quant1 = 0;     //Количество без отхода
+    public float quant2 = 0;     //Количество с отходом
+    public float price1 = 0;     //Себест. за ед. без отхода     
+    public float price2 = 0;     //Себест. за ед с отходом
+    public float cost1 = 0;      //Стоимость без скидки
+    public float cost2 = 0;      //Стоимость со скидкой
+
 
     public Specification(float id, ElemSimple elem5e) {
         this.id = id;
@@ -94,14 +93,13 @@ public class Specification {
         this.anglCut1 = spec.anglCut1;
         this.count = spec.count;
         this.unit = spec.unit;
-        this.quantity = spec.quantity;
+        this.quant1 = spec.quant1;
         this.wastePrc = spec.wastePrc;
-        this.quantity2 = spec.quantity2;
-        this.inPrice = spec.inPrice;
-        this.outPrice = spec.outPrice;
-        this.inCost = spec.inCost;
-        this.outCost = spec.outCost;
-        this.discount = spec.discount;
+        this.quant2 = spec.quant2;
+        this.price1 = spec.price1;
+        this.price2 = spec.price2;
+        this.cost1 = spec.cost1;
+        this.cost2 = spec.cost2;
         this.anglHoriz = spec.anglHoriz;
         this.mapParam = spec.mapParam;
         this.elem5e = spec.elem5e;
@@ -111,7 +109,7 @@ public class Specification {
     public Vector getVector(int npp) {
         List list = Arrays.asList(npp, id, place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
                 eColor.find(colorID3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2, anglHoriz,
-                count, UseUnit.getName(unit), quantity, wastePrc, quantity2, inPrice, outPrice, inCost, outCost
+                count, UseUnit.getName(unit), wastePrc, quant1, quant2, price1, price2, cost1, cost2
         );
         return new Vector(list);
     }
@@ -192,7 +190,7 @@ public class Specification {
 
                 String str = spc.id + "," + spc.place + "," + spc.artikl + "," + spc.name + "," + spc.colorID1 + "," + spc.colorID2 + "," + spc.colorID3
                         + "," + String.format("%.1f", spc.width) + String.format("%.1f", spc.height) + String.format("%.2f", spc.anglCut2)
-                        + String.format("%.2f", spc.anglCut1) + spc.count + spc.width + spc.unit + spc.discount + "\n";
+                        + String.format("%.2f", spc.anglCut1) + spc.count + spc.width + spc.unit + "\n";
 
                 str = new String(str.getBytes(), "windows-1251");
 
@@ -226,15 +224,15 @@ public class Specification {
                 eColor.find(s.colorID1).getStr(eColor.name),
                 eColor.find(s.colorID2).getStr(eColor.name),
                 eColor.find(s.colorID3).getStr(eColor.name),
-                String.valueOf(s.count), String.valueOf(s.quantity),
-                UseUnit.getName(s.unit), "0", String.valueOf(s.inPrice), String.valueOf(s.outPrice), String.valueOf(s.inCost),
+                String.valueOf(s.count), String.valueOf(s.quant1),
+                UseUnit.getName(s.unit), "0", String.valueOf(s.price1), String.valueOf(s.price2), String.valueOf(s.cost1),
                 String.valueOf(s.width), String.valueOf(s.height), "0", "0", "0", String.valueOf(s.id), "0", "0", "0", "0", "0",
                 "0", "0", "0", String.valueOf(s.anglCut2), String.valueOf(s.anglCut1), "0", "0"};
             System.out.printf(format, str2);
         }
         float totalVal = 0;
         for (Specification s : specList) {
-            totalVal = totalVal + s.outCost;
+            totalVal = totalVal + s.cost2;
         }
         String str4 = new String(("Суммарная цена = " + totalVal).getBytes());
         System.out.println(str4);
@@ -250,7 +248,7 @@ public class Specification {
             float total = 0;
             for (Specification s : specList) {
                 Object str2[] = {String.valueOf(++npp), s.place, s.name, s.artikl,
-                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.specificationRec.artiklRec.get(eArtikl.code), s.inPrice};
+                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.specificationRec.artiklRec.get(eArtikl.code), s.price1};
                 total = total + s.weight;
                 System.out.printf(format, str2);
                 System.out.println();

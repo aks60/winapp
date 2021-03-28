@@ -33,15 +33,15 @@ public class Tariffication extends Cal5e {
 
             //Расчёт  собес-сть за ед. изм. по таблице мат. ценностей
             for (ElemSimple elem5e : iwin.listElem) {
-                elem5e.specificationRec.inPrice += calcPrice(elem5e.specificationRec); //себес-сть за ед. изм.
-                elem5e.specificationRec.quantity = formatAmount(elem5e.specificationRec); //количество без отхода
-                elem5e.specificationRec.quantity2 = elem5e.specificationRec.quantity
-                        + (elem5e.specificationRec.quantity * elem5e.specificationRec.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
+                elem5e.specificationRec.price1 += calcPrice(elem5e.specificationRec); //себес-сть за ед. изм.
+                elem5e.specificationRec.quant1 = formatAmount(elem5e.specificationRec); //количество без отхода
+                elem5e.specificationRec.quant2 = elem5e.specificationRec.quant1
+                        + (elem5e.specificationRec.quant1 * elem5e.specificationRec.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
 
                 for (Specification specificationRec2 : elem5e.specificationRec.specificationList) {
-                    specificationRec2.inPrice += calcPrice(specificationRec2); //себес-сть за ед. изм.
-                    specificationRec2.quantity = formatAmount(specificationRec2); //количество без отхода
-                    specificationRec2.quantity2 = specificationRec2.quantity + (specificationRec2.quantity * specificationRec2.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
+                    specificationRec2.price1 += calcPrice(specificationRec2); //себес-сть за ед. изм.
+                    specificationRec2.quant1 = formatAmount(specificationRec2); //количество без отхода
+                    specificationRec2.quant2 = specificationRec2.quant1 + (specificationRec2.quant1 * specificationRec2.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
                 }
             }
 
@@ -75,11 +75,11 @@ public class Tariffication extends Cal5e {
                     }
                 }
 
-                elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //себестоимость с отходом
+                elem5e.specificationRec.price2 = elem5e.specificationRec.price1 * elem5e.specificationRec.quant2; //себестоимость с отходом
                 Record artgrp1Rec = eGroups.find(elem5e.specificationRec.artiklRec.getInt(eArtikl.artgrp1_id));
-                elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrp1Rec.getFloat(eGroups.val, 1) * systreeRec.getFloat(eSystree.coef, 1);
-                elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup; //стоимость без скидки                     
-                elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой 
+                elem5e.specificationRec.cost1 = elem5e.specificationRec.price2 * artgrp1Rec.getFloat(eGroups.val, 1) * systreeRec.getFloat(eSystree.coef, 1);
+                elem5e.specificationRec.cost1 = elem5e.specificationRec.cost1 + (elem5e.specificationRec.cost1 / 100) * percentMarkup; //стоимость без скидки                     
+                elem5e.specificationRec.cost2 = elem5e.specificationRec.cost1; //стоимость со скидкой 
 
                 for (Specification specificationRec2 : elem5e.specificationRec.specificationList) {
 
@@ -90,18 +90,18 @@ public class Tariffication extends Cal5e {
                             rulePrise(rulecalcRec, specificationRec2);
                         }
                     }
-                    specificationRec2.outPrice = specificationRec2.inPrice * specificationRec2.quantity2; //себестоимости с отходом
+                    specificationRec2.price2 = specificationRec2.price1 * specificationRec2.quant2; //себестоимости с отходом
                     Record artgrp1Rec2 = eGroups.find(specificationRec2.artiklRec.getInt(eArtikl.artgrp1_id));
-                    specificationRec2.inCost = specificationRec2.outPrice * artgrp1Rec2.getFloat(eGroups.val, 1) * systreeRec.getFloat(eSystree.coef);
-                    specificationRec2.inCost = specificationRec2.inCost + (specificationRec2.inCost / 100) * percentMarkup; //стоимость без скидки                        
-                    specificationRec2.outCost = specificationRec2.inCost; //стоимость со скидкой 
+                    specificationRec2.cost1 = specificationRec2.price2 * artgrp1Rec2.getFloat(eGroups.val, 1) * systreeRec.getFloat(eSystree.coef);
+                    specificationRec2.cost1 = specificationRec2.cost1 + (specificationRec2.cost1 / 100) * percentMarkup; //стоимость без скидки                        
+                    specificationRec2.cost2 = specificationRec2.cost1; //стоимость со скидкой 
                 }
             }
 
             //Расчёт веса элемента конструкции
             for (ElemSimple elem5e : iwin.listElem) {
                 for (Specification spec : elem5e.specificationRec.specificationList) {
-                    spec.weight = spec.quantity * spec.artiklRec.getFloat(eArtikl.density);
+                    spec.weight = spec.quant1 * spec.artiklRec.getFloat(eArtikl.density);
                 }
             }
         } catch (Exception e) {
@@ -158,8 +158,8 @@ public class Tariffication extends Cal5e {
                     artdetUsed = true;
                 }
             }
-            if (artdetUsed && artdetRec.getFloat(eArtdet.cost_min) != 0 && specificRec.quantity != 0 && artdetTariff * specificRec.quantity < artdetRec.getFloat(eArtdet.cost_min)) {
-                artdetTariff = artdetRec.getFloat(eArtdet.cost_min) / specificRec.quantity;    //используем минимальный тариф 
+            if (artdetUsed && artdetRec.getFloat(eArtdet.cost_min) != 0 && specificRec.quant1 != 0 && artdetTariff * specificRec.quant1 < artdetRec.getFloat(eArtdet.cost_min)) {
+                artdetTariff = artdetRec.getFloat(eArtdet.cost_min) / specificRec.quant1;    //используем минимальный тариф 
             }
             if (artdetUsed) {
                 inPrice = inPrice + (artdetTariff * artdetRec.getFloat(eArtdet.price_coeff));
@@ -216,8 +216,8 @@ public class Tariffication extends Cal5e {
                     }
                 }
             }
-            if (artdetUsed && artdetRec.getFloat(eArtdet.cost_min) != 0 && specificRec.quantity != 0 && artdetTariff * specificRec.quantity < artdetRec.getFloat(eArtdet.cost_min)) {
-                artdetTariff = artdetRec.getFloat(eArtdet.cost_min) / specificRec.quantity;    //используем минимальный тариф 
+            if (artdetUsed && artdetRec.getFloat(eArtdet.cost_min) != 0 && specificRec.quant1 != 0 && artdetTariff * specificRec.quant1 < artdetRec.getFloat(eArtdet.cost_min)) {
+                artdetTariff = artdetRec.getFloat(eArtdet.cost_min) / specificRec.quant1;    //используем минимальный тариф 
             }
             if (artdetUsed) {
                 inPrice = inPrice + (artdetTariff * artdetRec.getFloat(eArtdet.price_coeff));
@@ -239,8 +239,8 @@ public class Tariffication extends Cal5e {
                     && Util.containsInt(rulecalcRec.getStr(eRulecalc.color3), specifRec.colorID3) == true) {
 
                 if (rulecalcRec.getInt(eRulecalc.common) == 0) {
-                    if (Util.containsFloat(rulecalcRec.getStr(eRulecalc.quant), specifRec.quantity2) == true) {
-                        specifRec.inPrice = specifRec.inPrice * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr);  //увеличение себестоимости в coegg раз и на incr величину надбавки
+                    if (Util.containsFloat(rulecalcRec.getStr(eRulecalc.quant), specifRec.quant2) == true) {
+                        specifRec.price1 = specifRec.price1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr);  //увеличение себестоимости в coegg раз и на incr величину надбавки
                     }
 
                 } else if (rulecalcRec.getInt(eRulecalc.common) == 1) { //по использованию c расчётом общего количества по артикулу, подтипу, типу
@@ -249,11 +249,11 @@ public class Tariffication extends Cal5e {
                     if (rulecalcRec.get(eRulecalc.artikl_id) != null) { //по артикулу
                         for (ElemSimple elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
                             if (elem5e.specificationRec.artikl.equals(specifRec.artikl)) {
-                                quantity3 = quantity3 + elem5e.specificationRec.quantity;
+                                quantity3 = quantity3 + elem5e.specificationRec.quant1;
                             }
                             for (Specification specifRec2 : elem5e.specificationRec.specificationList) {
                                 if (specifRec2.artikl.equals(specifRec.artikl)) {
-                                    quantity3 = quantity3 + specifRec2.quantity;
+                                    quantity3 = quantity3 + specifRec2.quant1;
                                 }
                             }
                         }
@@ -261,17 +261,17 @@ public class Tariffication extends Cal5e {
                         for (ElemSimple elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
                             Specification specifRec2 = elem5e.specificationRec;
                             if (specifRec2.artiklRec.getInt(eArtikl.level1) * 100 + specifRec2.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
-                                quantity3 = quantity3 + elem5e.specificationRec.quantity;
+                                quantity3 = quantity3 + elem5e.specificationRec.quant1;
                             }
                             for (Specification specifRec3 : specifRec2.specificationList) {
                                 if (specifRec3.artiklRec.getInt(eArtikl.level1) * 100 + specifRec3.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
-                                    quantity3 = quantity3 + specifRec3.quantity;
+                                    quantity3 = quantity3 + specifRec3.quant1;
                                 }
                             }
                         }
                     }
                     if (Util.containsFloat(rulecalcRec.getStr(eRulecalc.quant), quantity3) == true) {
-                        specifRec.inPrice = specifRec.inPrice * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
+                        specifRec.price1 = specifRec.price1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
                     }
                 }
             }
@@ -291,7 +291,7 @@ public class Tariffication extends Cal5e {
             return specificRec.count;
 
         } else if (UseUnit.ML.id == specificRec.artiklRec.getInt(eArtikl.unit)) { //мл
-            return specificRec.quantity;
+            return specificRec.quant1;
         }
         return 0;
     }

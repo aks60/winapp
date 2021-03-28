@@ -26,10 +26,23 @@ public class DicGroups extends javax.swing.JDialog {
     private Enam grup = null;
     private ListenerRecord listener = null;
     private Query qGroups = new Query(eGroups.values());
+    private int row = 0;
 
     public DicGroups(java.awt.Frame parent, ListenerRecord listenet, Enam grup) {
         super(parent, true);
         this.grup = grup;
+        this.listener = listenet;
+        initComponents();
+        initElements();
+        loadingData();
+        loadingModel();
+        setVisible(true);
+    }
+
+    public DicGroups(java.awt.Frame parent, ListenerRecord listenet, Enam grup, int row) {
+        super(parent, true);
+        this.grup = grup;
+        this.row = row;
         this.listener = listenet;
         initComponents();
         initElements();
@@ -48,30 +61,40 @@ public class DicGroups extends javax.swing.JDialog {
             ((CardLayout) centr.getLayout()).show(centr, "pan1");
             tab1.setModel(new DefTableModel(tab1, qGroups, eGroups.name));
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab1);
-            Util.updateBorderAndSql(tab1, null);
+            setSelectedRow(tab1);
         } else if (grup.numb() == TypeGroups.PRICE_INC.id) {
             setTitle("Группы наценок");
             ((CardLayout) centr.getLayout()).show(centr, "pan2");
             tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.name, eGroups.val));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2);
-            Util.updateBorderAndSql(tab2, null);
+            setSelectedRow(tab2);
         } else if (grup.numb() == TypeGroups.PRICE_DEC.id) {
             setTitle("Группы скидок");
             ((CardLayout) centr.getLayout()).show(centr, "pan3");
             tab3.setModel(new DefTableModel(tab3, qGroups, eGroups.name, eGroups.val));
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3);
-            Util.updateBorderAndSql(tab3, null);
+            setSelectedRow(tab3);
         } else if (grup.numb() == TypeGroups.CATEG_PRF.id) {
             setTitle("Группы фильтров");
             ((CardLayout) centr.getLayout()).show(centr, "pan4");
             tab4.setModel(new DefTableModel(tab4, qGroups, eGroups.name));
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4);
-            Util.updateBorderAndSql(tab4, null);
+            setSelectedRow(tab4);
         }
+    }
+
+    private void setSelectedRow(JTable tab) {
+        if (row > 0) {
+            for (int i = 0; i < qGroups.size(); ++i) {
+                if (qGroups.get(i).getInt(eGroups.id) == row) {
+                    Util.setSelectedRow(tab, i);
+                    Util.scrollRectToRow(i, tab);
+                }
+            }
+        } else {
+            Util.setSelectedRow(tab);
+        }
+        Util.updateBorderAndSql(tab, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -365,7 +388,7 @@ public class DicGroups extends javax.swing.JDialog {
         if (index != -1) {
             listener.action(qGroups.get(index));
             this.dispose();
-        }        
+        }
 
     }//GEN-LAST:event_btnChoice
 

@@ -2382,7 +2382,12 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn18
 
     private void btn19(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn19
-        new DicGroups(this, listenerArtincr, TypeGroups.PRICE_INC);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            int id = qArtikl.getAs(index, eArtikl.artgrp1_id);
+            new DicGroups(this, listenerArtincr, TypeGroups.PRICE_INC, id);
+        }
+        
     }//GEN-LAST:event_btn19
 
     private void btn20(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn20
