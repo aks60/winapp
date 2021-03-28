@@ -24,7 +24,7 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            wincalc();
+            //wincalc();
             //query();
             //frame();
             //json();
