@@ -2341,7 +2341,11 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFilterCaretUpdate
 
     private void btn8(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8
-        DicGroups groups = new DicGroups(this, listenerSeriesFilter, TypeGroups.SERI_PROF);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            int id = qArtikl.getAs(index, eArtikl.artgrp1_id);
+            new DicGroups(this, listenerSeriesFilter, TypeGroups.SERI_PROF, id);
+        }
     }//GEN-LAST:event_btn8
 
     private void checkBox1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox1Action
@@ -2387,19 +2391,30 @@ public class Artikles extends javax.swing.JFrame {
             int id = qArtikl.getAs(index, eArtikl.artgrp1_id);
             new DicGroups(this, listenerArtincr, TypeGroups.PRICE_INC, id);
         }
-        
     }//GEN-LAST:event_btn19
 
     private void btn20(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn20
-        new DicGroups(this, listenerArtdecr, TypeGroups.PRICE_DEC);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            int id = qArtikl.getAs(index, eArtikl.artgrp1_id);
+            new DicGroups(this, listenerArtdecr, TypeGroups.PRICE_DEC, id);
+        }
     }//GEN-LAST:event_btn20
 
     private void btn13(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn13
-        DicGroups groups = new DicGroups(this, listenerCategFilter, TypeGroups.CATEG_PRF);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            int id = qArtikl.getAs(index, eArtikl.artgrp1_id);
+            new DicGroups(this, listenerCategFilter, TypeGroups.CATEG_PRF, id);
+        }
     }//GEN-LAST:event_btn13
 
     private void btn22(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn22
-        DicGroups groups = new DicGroups(this, listenerCateg, TypeGroups.CATEG_PRF);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            int id = qArtikl.getAs(index, eArtikl.artgrp1_id);
+            new DicGroups(this, listenerCateg, TypeGroups.CATEG_PRF, id);
+        }
     }//GEN-LAST:event_btn22
 
     private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove
@@ -2434,7 +2449,11 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn34
 
     private void btn37(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn37
-        DicGroups groups = new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            int id = qArtikl.getAs(index, eArtikl.artgrp1_id);
+            new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF, id);
+        }
     }//GEN-LAST:event_btn37
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

@@ -225,7 +225,11 @@ public class Element extends javax.swing.JFrame {
         });
 
         Util.buttonCellEditor(tab2, 4).addActionListener(event -> {
-            DicGroups frame = new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF);
+            int index = Util.getIndexRec(tab2);
+            if (index != -1) {
+                int id = qElement.getAs(index, eElement.series_id);
+                new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF, id);
+            }
         });
 
         Util.buttonCellEditor(tab3, 0).addActionListener(event -> {
@@ -1012,7 +1016,7 @@ public class Element extends javax.swing.JFrame {
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
 
         //int index = Util.get;
-        int row = tab2.getRowCount()-1;
+        int row = tab2.getRowCount() - 1;
         Util.scrollRectToRow(row, tab2);
         Util.setSelectedRow(tab1, row);
 

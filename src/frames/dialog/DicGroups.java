@@ -28,17 +28,6 @@ public class DicGroups extends javax.swing.JDialog {
     private Query qGroups = new Query(eGroups.values());
     private int row = 0;
 
-    public DicGroups(java.awt.Frame parent, ListenerRecord listenet, Enam grup) {
-        super(parent, true);
-        this.grup = grup;
-        this.listener = listenet;
-        initComponents();
-        initElements();
-        loadingData();
-        loadingModel();
-        setVisible(true);
-    }
-
     public DicGroups(java.awt.Frame parent, ListenerRecord listenet, Enam grup, int row) {
         super(parent, true);
         this.grup = grup;
