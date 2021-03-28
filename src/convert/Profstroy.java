@@ -89,32 +89,17 @@ public class Profstroy {
     private static String src, out;
     private static JTextPane tp = null;
 
+    public static void exec() {
+        cn1 = startup.Test.connect(numDb)[0]; //источник
+        cn2 = startup.Test.connect(numDb)[1]; //приёмник
+        script();
+    }
+
     public static void exec(Queue<Object[]> _que, Connection _cn1, Connection _cn2) {
         que = _que;
         cn1 = _cn1;
         cn2 = _cn2;
         script();
-    }
-
-    public static void exec2() {
-        try {
-            if (numDb == 1) {
-                src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\Bimax\\ITEST.FDB?encoding=win1251";
-                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
-            } else if (numDb == 2) {
-                src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Sialbase3\\sial3.fdb?encoding=win1251";
-                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
-            } else {
-                src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb?encoding=win1251";
-                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\ALUTECH.FDB?encoding=win1251";
-            }
-            cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
-            cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
-            script();
-
-        } catch (Exception e) {
-            System.err.println("Ошибка: exec2() " + e);
-        }
     }
 
     public static void script() {
@@ -633,10 +618,10 @@ public class Profstroy {
     private static void loadModels() {
         try {
             println(Color.BLACK, "loadModels()");
-            
+
             List<Integer> prjList = (numDb == 1) ? Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)
                     : Arrays.asList(601001, 601002, 601003);
-            
+
             String script;
             cn2.commit();
             int index = 0;

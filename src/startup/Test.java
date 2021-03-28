@@ -8,6 +8,7 @@ import domain.eArtdet;
 import builder.specif.Specification;
 import com.google.gson.GsonBuilder;
 import convert.DBCompare;
+import static convert.Profstroy.script;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.Arrays;
@@ -16,11 +17,14 @@ import java.util.UUID;
 
 public class Test {
 
+    public static int numDb = Integer.valueOf(eProperty.base_num.read());
+    
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
+
         Main.dev = true;
         try {
-            //convert.Profstroy.exec2();
-            wincalc();
+            //convert.Profstroy.exec();
+            //wincalc();
             //query();
             //frame();
             //json();
@@ -33,7 +37,6 @@ public class Test {
 
     private static void wincalc() throws Exception {
 
-        int numDb = Integer.valueOf(eProperty.base_num.read());
         Query.connection = connection();
         builder.Wincalc iwin = new builder.Wincalc();
         String _case = "max";
@@ -218,5 +221,29 @@ public class Test {
         str = filterStr.replaceAll("-", "");
         System.out.println(Integer.parseInt(str));
     }
+    
+    public static Connection[] connect(int numDb) {
+        try {
+            Connection conn[] = {null, null};
+            String src, out;
+            if (numDb == 1) {
+                src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\Bimax\\ITEST.FDB?encoding=win1251";
+                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
+            } else if (numDb == 2) {
+                src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Sialbase3\\sial3.fdb?encoding=win1251";
+                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
+            } else {
+                src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb?encoding=win1251";
+                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\ALUTECH.FDB?encoding=win1251";
+            }
+            conn[0] = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
+            conn[1] = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
 
+            return conn;
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Test.connect() " + e);
+            return null;
+        }
+    }
 }
