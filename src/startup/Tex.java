@@ -7,15 +7,10 @@ import frames.Util;
 import common.FrameProgress;
 import common.FrameToFile;
 import common.eProperty;
-import dataset.Query;
 import dataset.Record;
 import builder.Wincalc;
 import domain.eSysprod;
-import frames.dialog.DicDate;
 import java.awt.Frame;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
@@ -24,7 +19,7 @@ import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import common.ListenerFrame;
 import common.eProfile;
-import convert.DBCompare;
+import frames.DBCompare;
 
 /**
  * <p>
@@ -1052,12 +1047,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnGroup2
 
     private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
-          DBCompare.iwinRec(iwin, 601002);
-//        FrameProgress.create(Tex.this, new ListenerFrame() {
-//            public void actionRequest(Object obj) {
-//                App.TestFrame.createFrame(Tex.this);
-//            }
-//        });
+          new DBCompare(iwin);
     }//GEN-LAST:event_btnHelp
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed

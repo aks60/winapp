@@ -587,11 +587,7 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
-        //TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
-        //tab1.setRowSorter(sorter);
-        dtm.getDataVector().clear();
-        dtm.fireTableDataChanged();
+        new DBCompare(iwin);
     }//GEN-LAST:event_btnReport
 
     private void filterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterUpdate

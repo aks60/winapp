@@ -5,10 +5,8 @@ import builder.script.Winscript;
 import common.*;
 import dataset.*;
 import domain.eArtdet;
-import builder.specif.Specification;
 import com.google.gson.GsonBuilder;
-import convert.DBCompare;
-import static convert.Profstroy.script;
+import frames.DBCompare;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.Arrays;
@@ -39,7 +37,7 @@ public class Test {
 
         Query.connection = connection();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
             iwin.prj = 601001;

@@ -14,7 +14,7 @@ public class GsonRoot extends GsonElem {
     public Integer color1 = null;  //основная текстура
     public Integer color2 = null;  //внутренняя текстура
     public Integer color3 = null;  //внешняя текстура    
-    private String prj = null; //номер тестируемого проекта, поле нужно только для тестов       
+    public String prj = null; //номер тестируемого проекта, поле нужно только для тестов       
 
     public GsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3) {
         this(id, layoutArea, type, width, height, 0, color1, color2, color3, null);

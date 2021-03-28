@@ -32,19 +32,19 @@ public class DBCompare extends javax.swing.JFrame {
         ANUMB, CLNUM, CLNU1, CLNU2, ALENG, ARADI, AUG01, AUG02, AQTYP, AQTYA, APERC, ASEB1, APRC1, APRCD
     }
 
-    public DBCompare(Wincalc iwin, int pnumb) {
+    public DBCompare(Wincalc iwin) {
         initComponents();
         initElements();
-        loadingTab1(iwin, pnumb);
+        loadingTab1(iwin);
         setVisible(true); 
     }
 
-    public void loadingTab1(Wincalc iwin, int prj) {
+    public void loadingTab1(Wincalc iwin) {
         try {
             ((DefaultTableModel) tab.getModel()).getDataVector().clear();
             Connection cn = Test.connect(numDb)[0];
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select a.* from SPECPAU a left join LISTPRJ b on a.PUNIC = b.PUNIC where b.PNUMB = " + prj);
+            ResultSet rs = st.executeQuery("select a.* from SPECPAU a left join LISTPRJ b on a.PUNIC = b.PUNIC where b.PNUMB = " + iwin.rootGson.prj + " order by a.anumb");
             int npp = 0;
             while (rs.next()) {
                 Vector vectorRec = new Vector();
@@ -54,6 +54,7 @@ public class DBCompare extends javax.swing.JFrame {
                 }
                 ((DefaultTableModel) tab.getModel()).getDataVector().add(vectorRec);
             }
+            rs.close();
 
         } catch (SQLException e) {
             println("Ошибка: DBCompare.iwinRec().  " + e);
@@ -117,20 +118,20 @@ public class DBCompare extends javax.swing.JFrame {
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "№пп", "Артикул", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Угол 1", "Угол 2", "Погонаж", "Норма отхода", "Себесоимость", "Себест.без скидки", "Себест.со скидкой"
+                "№пп", "Артикул", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Угол 1", "Угол 2", "Количествр", "Погонаж", "Норма отхода", "Себесn.за единицу", "Себест.без скидки", "Себест.со скидкой"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, true, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -154,11 +155,11 @@ public class DBCompare extends javax.swing.JFrame {
             tab.getColumnModel().getColumn(6).setPreferredWidth(60);
             tab.getColumnModel().getColumn(7).setPreferredWidth(60);
             tab.getColumnModel().getColumn(8).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(9).setPreferredWidth(60);
             tab.getColumnModel().getColumn(10).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(11).setPreferredWidth(80);
+            tab.getColumnModel().getColumn(11).setPreferredWidth(60);
             tab.getColumnModel().getColumn(12).setPreferredWidth(80);
             tab.getColumnModel().getColumn(13).setPreferredWidth(80);
+            tab.getColumnModel().getColumn(14).setPreferredWidth(80);
         }
 
         center.add(scr, java.awt.BorderLayout.CENTER);
