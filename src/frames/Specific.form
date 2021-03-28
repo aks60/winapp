@@ -619,7 +619,7 @@
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
-                    <Column editable="false" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;" type="java.lang.Object">
+                    <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;" type="java.lang.Object">
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
