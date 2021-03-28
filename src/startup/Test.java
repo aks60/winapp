@@ -7,6 +7,7 @@ import dataset.*;
 import domain.eArtdet;
 import builder.specif.Specification;
 import com.google.gson.GsonBuilder;
+import convert.DBCompare;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.Arrays;
@@ -42,7 +43,7 @@ public class Test {
             iwin.build(builder.script.Winscript.test(iwin.prj, false));
             iwin.constructiv();
             //Specification.write_txt1(iwin.listSpec);
-            Specification.compareIWin(iwin.listSpec, iwin.prj, true);
+            DBCompare.iwinXls(iwin.listSpec, iwin.prj, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else if (_case.equals("min")) {
@@ -55,7 +56,7 @@ public class Test {
                 if (script != null) {
                     iwin.build(script);
                     iwin.constructiv();
-                    Specification.compareIWin(iwin.listSpec, iwin.prj, false);
+                    DBCompare.iwinXls(iwin.listSpec, iwin.prj, false);
                 }
             }
 
@@ -69,7 +70,7 @@ public class Test {
                 if (script != null) {
                     iwin.build(script);
                     iwin.constructiv();
-                    Specification.compareIWin(iwin.listSpec, iwin.prj, false);
+                    DBCompare.iwinXls(iwin.listSpec, iwin.prj, false);
                 }
             }
         }
