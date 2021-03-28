@@ -49,13 +49,15 @@ public class Specification {
     public float anglHoriz = 0; // Угол к горизонту    
     public int count = 1;  //Кол. единиц
     public int unit = 0; //Ед.изм
-    public float quantity = 0; //Количество без отхода
     public float wastePrc = 0;  //Процент отхода
+    public float quantity = 0; //Количество без отхода
     public float quantity2 = 0;  //Количество с отходом
     public float inPrice = 0;  //Себес-сть за ед. изм.
-    public float outPrice = 0;  //Себес-сть за злемент с отходом
+    
+    public float outPrice = 0;  //Себес-сть за ед с отходом
     public float inCost = 0; //Стоимость без скидки
     public float outCost = 0; //Стоимость со скидкой
+    
     public float discount = 0;  //Скидка
 
     public Specification(float id, ElemSimple elem5e) {
