@@ -1,15 +1,31 @@
 package convert;
 
+import builder.Wincalc;
 import builder.specif.Specification;
+import common.eProperty;
 import domain.eSetting;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import static jdk.nashorn.internal.objects.Global.println;
 import jxl.Sheet;
 import jxl.Workbook;
+import startup.Test;
 
 public class DBCompare {
+
+    public static int numDb = Integer.valueOf(eProperty.base_num.read());
+
+    enum Fld { //артикул, color1, color2, color3, ширина, уг1, уг2, длина, кол, погона, норм.отх, себест, без.скидк, со.скидк
+        ANUMB, CLNUM, CLNU1, CLNU2, ARADI, AUG01, AUG02, ALENG, AQTYP, AQTYA, APERC, ASEB1, APRC1, APRCD
+    }
 
     //сравнение спецификации с профстроем
     public static void iwinXls(ArrayList<Specification> spcList, int prj, boolean detail) {
@@ -124,6 +140,27 @@ public class DBCompare {
 
         } catch (Exception e2) {
             System.err.println("Ошибка:Main.compareIWin " + e2);
+        }
+    }
+
+    //System.out.println("\u001B[31m XXX \u001B[0m");
+    public static void iwinRec(Wincalc iwin, int pnumb) {
+        try {
+            Map<String, List> map = new HashMap();
+            Connection cn = Test.connect(numDb)[0];
+            Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery("select a.* from SPECPAU a left join LISTPRJ b on a.PUNIC = b.PUNIC where b.PNUMB = " + pnumb);
+            while (rs.next()) {
+                List rec = new ArrayList();
+                for (int i = 0; i < Fld.values().length; i++) {
+                    rec.add(rs.getObject(Fld.values()[i].name()));
+                }
+                map.put(rs.getString("ANUMB"), rec);
+                System.out.println(rec);            
+            }
+
+        } catch (SQLException e) {
+            println("Ошибка: DBCompare.iwinRec().  " + e);
         }
     }
 }

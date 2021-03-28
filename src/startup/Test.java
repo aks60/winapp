@@ -224,22 +224,22 @@ public class Test {
     
     public static Connection[] connect(int numDb) {
         try {
-            Connection conn[] = {null, null};
-            String src, out;
+            Connection cn[] = {null, null};
+            String ur1, ur2;
             if (numDb == 1) {
-                src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\Bimax\\ITEST.FDB?encoding=win1251";
-                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
+                ur1 = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\Bimax\\ITEST.FDB?encoding=win1251";
+                ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
             } else if (numDb == 2) {
-                src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Sialbase3\\sial3.fdb?encoding=win1251";
-                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
+                ur1 = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Sialbase3\\sial3.fdb?encoding=win1251";
+                ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
             } else {
-                src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb?encoding=win1251";
-                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\ALUTECH.FDB?encoding=win1251";
+                ur1 = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb?encoding=win1251";
+                ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\ALUTECH.FDB?encoding=win1251";
             }
-            conn[0] = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
-            conn[1] = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
+            cn[0] = java.sql.DriverManager.getConnection(ur1, "sysdba", "masterkey"); //источник
+            cn[1] = java.sql.DriverManager.getConnection(ur2, "sysdba", "masterkey"); //приёмник
 
-            return conn;
+            return cn;
 
         } catch (Exception e) {
             System.err.println("Ошибка:Test.connect() " + e);

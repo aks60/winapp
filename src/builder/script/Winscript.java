@@ -315,7 +315,7 @@ public class Winscript {
 
         if (project == 601001) {
             rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 800, 1200, 25, 25, 25);
-            rootArea.propery(project.toString(), 32, "СИАЛ\\КП45\\Окна\\601001");
+            rootArea.propery(project.toString(), 32, "СИАЛ\\КП45\\Окна");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.addElem(new GsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
@@ -324,7 +324,7 @@ public class Winscript {
 
         } else if (project == 601002) {
             rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 600, 25, 25, 25);
-            rootArea.propery(project.toString(), 31, "СИАЛ\\КП40\\Окна\\601002");
+            rootArea.propery(project.toString(), 31, "СИАЛ\\КП40\\Окна");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.addElem(new GsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
@@ -334,7 +334,7 @@ public class Winscript {
 
         } else if (project == 601003) {
             rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1200, 1600, 30, 30, 30);
-            rootArea.propery(project.toString(), 31, "СИАЛ\\КП40\\Окна\\601003");
+            rootArea.propery(project.toString(), 31, "СИАЛ\\КП40\\Окна");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.addElem(new GsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
