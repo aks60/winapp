@@ -3,8 +3,9 @@ package frames;
 import builder.Wincalc;
 import builder.specif.Specification;
 import common.FrameToFile;
-import common.eProperty;
+import dataset.Query;
 import dataset.Record;
+import domain.eArtikl;
 import domain.eSetting;
 import java.awt.Dimension;
 import java.io.File;
@@ -12,24 +13,22 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Vector;
-import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import static jdk.nashorn.internal.objects.Global.println;
 import jxl.Sheet;
 import jxl.Workbook;
-import static startup.App.Top;
 import startup.Test;
 
 public class DBCompare extends javax.swing.JFrame {
 
-    public static int numDb = Integer.valueOf(eProperty.base_num.read());
+//    public static int numDb = -1;
+//    private static Connection conn = null;
+//    private static Query qArtikl = new Query(eArtikl.code, eArtikl.name);
 
     enum Fld {
         ATYPM("уров1"), ATYPP("уров2"), ANUMB("артикул"), CLNUM("color1"), CLNU1("color2"), CLNU2("color3"),
@@ -46,10 +45,15 @@ public class DBCompare extends javax.swing.JFrame {
         loadingTab1(iwin);
     }
 
+//    public static void initData() {
+//        conn = Test.connect()[0];
+//        qArtikl.select(eArtikl.up);
+//    }
+
     public void loadingTab1(Wincalc iwin) {
         try {
             ((DefaultTableModel) tab.getModel()).getDataVector().clear();
-            Connection cn = Test.connect(numDb)[0];
+            Connection cn = Test.connect()[0];
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
             rs.next();
@@ -386,8 +390,8 @@ public class DBCompare extends javax.swing.JFrame {
         Map<String, Float> hmDB1 = new LinkedHashMap();
         Map<String, Float> hmDB2 = new LinkedHashMap();
         try {
-            Connection cn = Test.connect(numDb)[0];
-            Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            Connection conn = Test.connect()[0];
+            Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
             rs.next();
             int punic = rs.getInt("PUNIC");
@@ -404,7 +408,7 @@ public class DBCompare extends javax.swing.JFrame {
                 String key = rs.getString("ANUMB");
                 hmDB1.put(key, value2);
             }
-            cn.close();
+            conn.close();
             
             for (Specification spc : iwin.listSpec) {
                 String key = spc.artikl;
@@ -413,14 +417,15 @@ public class DBCompare extends javax.swing.JFrame {
             }
 
             if (detail == true) {
-                System.out.printf("%-24s%-16s%-16s%-16s", new Object[]{"Artikl", "DB1", "DB2", "Delta"});
+                System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "DB1", "DB2", "Delta"});
                 System.out.println();
                 for (Map.Entry<String, Float> entry : hmDB1.entrySet()) {
                     String key = entry.getKey();
                     Float val1 = entry.getValue();
                     Float val2 = hmDB2.getOrDefault(key, 0.f);
                     hmDB2.remove(key);
-                    System.out.printf("%-24s%-16.2f%-16.2f%-16.2f", new Object[]{key, val1, val2, Math.abs(val1 - val2)});
+                    Record rec = eArtikl.query().stream().filter(r -> key.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
+                    System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{rec.get(eArtikl.name), key, val1, val2, Math.abs(val1 - val2)});
                     System.out.println();
                     jarTotal = jarTotal + val2;
                     iwinTotal = iwinTotal + val1;

@@ -19,7 +19,7 @@ public class Test {
     public static int numDb = Integer.valueOf(eProperty.base_num.read());
 
     // <editor-fold defaultstate="collapsed" desc="Connection[] connect(int numDb)">
-    public static Connection[] connect(int numDb) {
+    public static Connection[] connect() {
         try {
             Connection cn[] = {null, null};
             String ur1, ur2;
@@ -64,9 +64,9 @@ public class Test {
 
     private static void wincalc() throws Exception {
 
-        Query.connection = connection();
+        Query.connection = Test.connect()[1];        
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
             iwin.prj = 601001;
@@ -74,7 +74,7 @@ public class Test {
             iwin.constructiv();
             //Specification.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            DBCompare.iwinRec(iwin, false);
+            DBCompare.iwinRec(iwin, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else if (_case.equals("min")) {
@@ -87,7 +87,8 @@ public class Test {
                 if (script != null) {
                     iwin.build(script);
                     iwin.constructiv();
-                    DBCompare.iwinXls(iwin, false);
+                    //DBCompare.iwinXls(iwin, false);
+                    DBCompare.iwinRec(iwin, true);
                 }
             }
 
@@ -110,7 +111,7 @@ public class Test {
 
     private static void frame() throws Exception {
 
-        Query.connection = connection();
+        Query.connection = Test.connect()[1]; 
         lookAndFeel();
         Tex app = new Tex();
         app.setVisible(true);
@@ -122,7 +123,7 @@ public class Test {
 
     private static void query() {
         try {
-            Query.connection = connection();
+            Query.connection = Test.connect()[1]; 
             Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.id, "=", 19143);
             Record artdetRec = qArtdet.get(0);
             int side = 1;
@@ -181,7 +182,7 @@ public class Test {
 
     private static void json() {
 
-        Query.connection = connection();
+        Query.connection = Test.connect()[1]; 
         builder.Wincalc iwin = new builder.Wincalc();
         String script = Winscript.test(601004, false);
         iwin.build(script);
@@ -230,15 +231,6 @@ public class Test {
         } catch (Exception e) {
             System.err.println(e);
         }
-    }
-
-    private static Connection connection() {
-        eProperty.user.write("sysdba");
-        eProperty.password = String.valueOf("masterkey");
-        String num_base = eProperty.base_num.read();
-        Conn con = Conn.initConnect();
-        con.createConnection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);;
-        return con.getConnection();
     }
 
     private static void uid() {

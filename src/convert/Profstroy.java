@@ -91,8 +91,8 @@ public class Profstroy {
     private static JTextPane tp = null;
 
     public static void exec() {
-        cn1 = startup.Test.connect(numDb)[0]; //источник
-        cn2 = startup.Test.connect(numDb)[1]; //приёмник
+        cn1 = startup.Test.connect()[0]; //источник
+        cn2 = startup.Test.connect()[1]; //приёмник
         if (JOptionPane.showConfirmDialog(null, "КОНВЕРТАЦИЯ БАЗЫ ДАННЫХ", "КОНВЕРТАЦИЯ",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
             script();
