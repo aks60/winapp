@@ -1,5 +1,6 @@
 package startup;
 
+import builder.Wincalc;
 import common.FrameToFile;
 import common.eProfile;
 import dataset.Field;
@@ -51,6 +52,7 @@ import frames.AboutBox;
 import frames.Artikles;
 import frames.Color;
 import frames.Currenc;
+import frames.DBCompare;
 import frames.Element;
 import frames.Filling;
 import frames.Furniture;
@@ -76,7 +78,7 @@ public enum App {
 
     Top, Groups, Currenc, Color, Artikles, Joining, Element, Param,
     Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,
-    Specific, Syssize, TestFrame, RuleCalc;
+    Specific, Syssize, TestFrame, RuleCalc, DBCompare;
     public javax.swing.JFrame frame;
 
     public void createFrame(java.awt.Window parent, Object... param) {
@@ -174,6 +176,9 @@ public enum App {
                     break;
                 case Syssize:
                     frame = new Syssize();
+                    break;
+                case DBCompare:
+                    frame = new DBCompare((Wincalc) param[0]);
                     break;
             }
         } catch (Exception e) {

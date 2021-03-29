@@ -6,6 +6,7 @@ import common.FrameToFile;
 import common.eProperty;
 import dataset.Record;
 import domain.eSetting;
+import java.awt.Dimension;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,6 +19,8 @@ import java.util.Map;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import static jdk.nashorn.internal.objects.Global.println;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -28,15 +31,14 @@ public class DBCompare extends javax.swing.JFrame {
 
     public static int numDb = Integer.valueOf(eProperty.base_num.read());
 
-    enum Fld { //артикул, color1, color2, color3, длина, ширина, уг1, уг2, кол, погонаж, норм.отх, себест, без.скидк, со.скидк
-        ANUMB, CLNUM, CLNU1, CLNU2, ALENG, ARADI, AUG01, AUG02, AQTYP, AQTYA, APERC, ASEB1, APRC1, APRCD
+    enum Fld { //уров1, уров2, артикул, color1, color2, color3, длина, ширина, уг1, уг2, кол, погонаж, норм.отх, себест, без.скидк, со.скидк
+        ATYPM, ATYPP, ANUMB, CLNUM, CLNU1, CLNU2, ALENG, ARADI, AUG01, AUG02, AQTYP, AQTYA, APERC, ASEB1, APRC1, APRCD
     }
 
     public DBCompare(Wincalc iwin) {
         initComponents();
         initElements();
         loadingTab1(iwin);
-        setVisible(true); 
     }
 
     public void loadingTab1(Wincalc iwin) {
@@ -44,7 +46,11 @@ public class DBCompare extends javax.swing.JFrame {
             ((DefaultTableModel) tab.getModel()).getDataVector().clear();
             Connection cn = Test.connect(numDb)[0];
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select a.* from SPECPAU a left join LISTPRJ b on a.PUNIC = b.PUNIC where b.PNUMB = " + iwin.rootGson.prj + " order by a.anumb");
+            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = "  + iwin.rootGson.prj);
+            rs.next();
+            int punic = rs.getInt("PUNIC");
+            System.out.println(punic);
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " +  punic + " order by a.anumb");
             int npp = 0;
             while (rs.next()) {
                 Vector vectorRec = new Vector();
@@ -52,6 +58,7 @@ public class DBCompare extends javax.swing.JFrame {
                 for (int i = 0; i < Fld.values().length; i++) {
                     vectorRec.add(rs.getObject(Fld.values()[i].name()));
                 }
+                vectorRec.add(0);
                 ((DefaultTableModel) tab.getModel()).getDataVector().add(vectorRec);
             }
             rs.close();
@@ -73,6 +80,7 @@ public class DBCompare extends javax.swing.JFrame {
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("DBCompare");
         setPreferredSize(new java.awt.Dimension(800, 650));
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -118,20 +126,20 @@ public class DBCompare extends javax.swing.JFrame {
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "№пп", "Артикул", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Угол 1", "Угол 2", "Количествр", "Погонаж", "Норма отхода", "Себесn.за единицу", "Себест.без скидки", "Себест.со скидкой"
+                "№пп", "L1", "L2", "Артикул", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Угол 1", "Угол 2", "Количествр", "Погонаж", "Норма отхода", "<html>Себестоимость<br/> за ед.изм.", "<html>Стоим.без.ск<br/> за ед.изм.", "<html>Стоим.со.ск<br/> за ед.изм.", "<html>Стоим.елем.<br/>без.скидки"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, true, false, false
+                false, true, true, false, false, false, false, false, false, false, false, false, false, false, true, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -147,19 +155,22 @@ public class DBCompare extends javax.swing.JFrame {
         if (tab.getColumnModel().getColumnCount() > 0) {
             tab.getColumnModel().getColumn(0).setPreferredWidth(40);
             tab.getColumnModel().getColumn(0).setMaxWidth(60);
-            tab.getColumnModel().getColumn(1).setPreferredWidth(140);
-            tab.getColumnModel().getColumn(2).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(3).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(4).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(5).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(6).setPreferredWidth(60);
+            tab.getColumnModel().getColumn(1).setPreferredWidth(20);
+            tab.getColumnModel().getColumn(2).setPreferredWidth(20);
+            tab.getColumnModel().getColumn(3).setPreferredWidth(200);
+            tab.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tab.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab.getColumnModel().getColumn(6).setPreferredWidth(40);
             tab.getColumnModel().getColumn(7).setPreferredWidth(60);
             tab.getColumnModel().getColumn(8).setPreferredWidth(60);
+            tab.getColumnModel().getColumn(9).setPreferredWidth(60);
             tab.getColumnModel().getColumn(10).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(11).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(12).setPreferredWidth(80);
-            tab.getColumnModel().getColumn(13).setPreferredWidth(80);
-            tab.getColumnModel().getColumn(14).setPreferredWidth(80);
+            tab.getColumnModel().getColumn(12).setPreferredWidth(60);
+            tab.getColumnModel().getColumn(13).setPreferredWidth(60);
+            tab.getColumnModel().getColumn(14).setPreferredWidth(120);
+            tab.getColumnModel().getColumn(15).setPreferredWidth(120);
+            tab.getColumnModel().getColumn(16).setPreferredWidth(120);
+            tab.getColumnModel().getColumn(17).setPreferredWidth(120);
         }
 
         center.add(scr, java.awt.BorderLayout.CENTER);
@@ -203,6 +214,9 @@ public class DBCompare extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab.getModel());
+        tab.setRowSorter(sorter);
+        tab.getTableHeader().setPreferredSize(new Dimension(0, 32));        
     }
     
     //сравнение спецификации с профстроем

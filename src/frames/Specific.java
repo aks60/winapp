@@ -40,6 +40,7 @@ import startup.App;
 import common.ListenerFrame;
 import common.eProfile;
 import domain.ePrjprod;
+import startup.Tex;
 
 public class Specific extends javax.swing.JFrame {
 
@@ -65,7 +66,6 @@ public class Specific extends javax.swing.JFrame {
     private void createIwin() {
 
         iwin = new Wincalc();
-        //System.out.println(eProfile.profile);
         if (eProfile.profile == eProfile.P02) {
             int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
             Record sysprodRec = eSysprod.find(sysprodID);
@@ -587,7 +587,11 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        new DBCompare(iwin);
+        FrameProgress.create(Specific.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.DBCompare.createFrame(Specific.this, iwin);
+            }
+        });
     }//GEN-LAST:event_btnReport
 
     private void filterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterUpdate
