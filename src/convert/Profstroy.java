@@ -64,6 +64,7 @@ import domain.eSysmodel;
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.Queue;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import startup.App;
 import startup.Main;
@@ -92,7 +93,10 @@ public class Profstroy {
     public static void exec() {
         cn1 = startup.Test.connect(numDb)[0]; //источник
         cn2 = startup.Test.connect(numDb)[1]; //приёмник
-        script();
+        if (JOptionPane.showConfirmDialog(null, "КОНВЕРТАЦИЯ БАЗЫ ДАННЫХ", "КОНВЕРТАЦИЯ",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+            script();
+        }
     }
 
     public static void exec(Queue<Object[]> _que, Connection _cn1, Connection _cn2) {

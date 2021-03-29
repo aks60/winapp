@@ -12,17 +12,18 @@ import javax.swing.UIManager;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import javax.swing.JOptionPane;
 
 public class Test {
 
     public static int numDb = Integer.valueOf(eProperty.base_num.read());
-    
+
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
 
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            //wincalc();
+            wincalc();
             //query();
             //frame();
             //json();
@@ -219,7 +220,7 @@ public class Test {
         str = filterStr.replaceAll("-", "");
         System.out.println(Integer.parseInt(str));
     }
-    
+
     public static Connection[] connect(int numDb) {
         try {
             Connection cn[] = {null, null};

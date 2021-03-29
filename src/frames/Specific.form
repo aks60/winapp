@@ -607,15 +607,15 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="23" rowCount="2">
-                    <Column editable="false" title="N&#x43f;&#x43f;" type="java.lang.Object">
+                    <Column editable="true" title="N&#x43f;&#x43f;" type="java.lang.Object">
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
-                    <Column editable="false" title="&lt;HTML&gt;ID&lt;/HTML&gt;" type="java.lang.Object">
+                    <Column editable="true" title="&lt;HTML&gt;ID&lt;/HTML&gt;" type="java.lang.Object">
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
-                    <Column editable="false" title="&#x420;&#x430;&#x441;&#x43f;&#x43e;&#x43b;&#x43e;&#x436;&#x435;&#x43d;&#x43d;&#x438;&#x435;" type="java.lang.Object">
+                    <Column editable="true" title="&#x420;&#x430;&#x441;&#x43f;&#x43e;&#x43b;&#x43e;&#x436;&#x435;&#x43d;&#x43d;&#x438;&#x435;" type="java.lang.Object">
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
@@ -623,36 +623,36 @@
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
-                    <Column editable="false" title="&#x41d;&#x430;&#x438;&#x43c;&#x435;&#x43d;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object">
+                    <Column editable="true" title="&#x41d;&#x430;&#x438;&#x43c;&#x435;&#x43d;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object">
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
-                    <Column editable="false" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Object">
+                    <Column editable="true" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Object">
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
-                    <Column editable="false" title="&#x412;&#x43d;&#x443;&#x442;&#x440;&#x435;&#x43d;&#x43d;&#x44f;&#x44f;" type="java.lang.Object">
+                    <Column editable="true" title="&#x412;&#x43d;&#x443;&#x442;&#x440;&#x435;&#x43d;&#x43d;&#x44f;&#x44f;" type="java.lang.Object">
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
-                    <Column editable="false" title="&#x412;&#x43d;&#x435;&#x448;&#x43d;&#x44f;&#x44f;" type="java.lang.Object">
+                    <Column editable="true" title="&#x412;&#x43d;&#x435;&#x448;&#x43d;&#x44f;&#x44f;" type="java.lang.Object">
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
-                    <Column editable="false" title="&#x414;&#x43b;&#x438;&#x43d;&#x430;" type="java.lang.Float"/>
-                    <Column editable="false" title="&#x428;&#x438;&#x440;&#x438;&#x43d;&#x430;" type="java.lang.Object"/>
-                    <Column editable="false" title="&#x41c;&#x430;&#x441;&#x441;&#x430;" type="java.lang.Object"/>
-                    <Column editable="false" title="&lt;html&gt;&#x423;&#x433;&#x43e;&#x43b; &lt;br/&gt;  1" type="java.lang.Object"/>
-                    <Column editable="false" title="&lt;html&gt;&#x423;&#x433;&#x43e;&#x43b;&lt;br/&gt;  2" type="java.lang.Object"/>
-                    <Column editable="false" title="&lt;html&gt;&#x423;&#x433;&#x43e;&#x43b; &#x43a;&lt;br/&gt; &#x433;&#x43e;&#x440;&#x438;&#x437;&#x43e;&#x43d;&#x442;&#x443;" type="java.lang.Object"/>
-                    <Column editable="false" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;.&lt;br/&gt;&#x435;&#x434;&#x438;&#x43d;&#x438;&#x446;" type="java.lang.Object"/>
-                    <Column editable="false" title="&lt;html&gt;&#x415;&#x434;&#x438;&#x43d;&#x438;&#x446;&#x430;&lt;br/&gt;&#x438;&#x437;&#x43c;&#x435;&#x440;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
-                    <Column editable="false" title="&lt;html&gt;&#x41f;&#x440;&#x43e;&#x446;&#x435;&#x43d;&#x442;&lt;br/&gt; &#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;" type="java.lang.Object"/>
-                    <Column editable="false" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;.&#x431;&#x435;&#x437;&lt;br/&gt;&#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;" type="java.lang.Object"/>
-                    <Column editable="false" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;. &#x441; &lt;br/&gt;&#x43e;&#x442;&#x445;&#x43e;&#x434;&#x43e;&#x43c;" type="java.lang.Object"/>
-                    <Column editable="false" title="&lt;html&gt;&#x421;&#x435;&#x431;&#x435;&#x441;&#x442;.&lt;br/&gt; &#x437;&#x430; &#x435;&#x434;. &#x438;&#x437;&#x43c;&#x435;&#x440;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
-                    <Column editable="false" title="&lt;html&gt;&#x421;&#x435;&#x431;&#x435;&#x441;&#x442;.&lt;br/&gt; &#x441; &#x43e;&#x442;&#x445;." type="java.lang.Object"/>
-                    <Column editable="false" title="&lt;html&gt;&#x421;&#x442;&#x43e;&#x438;&#x43c;.&lt;br/&gt; &#x431;&#x435;&#x437;_&#x441;&#x43a;&#x438;&#x434;&#x43a;&#x438;" type="java.lang.Object"/>
+                    <Column editable="true" title="&#x414;&#x43b;&#x438;&#x43d;&#x430;" type="java.lang.Float"/>
+                    <Column editable="true" title="&#x428;&#x438;&#x440;&#x438;&#x43d;&#x430;" type="java.lang.Object"/>
+                    <Column editable="true" title="&#x41c;&#x430;&#x441;&#x441;&#x430;" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x423;&#x433;&#x43e;&#x43b; &lt;br/&gt;  1" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x423;&#x433;&#x43e;&#x43b;&lt;br/&gt;  2" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x423;&#x433;&#x43e;&#x43b; &#x43a;&lt;br/&gt; &#x433;&#x43e;&#x440;&#x438;&#x437;&#x43e;&#x43d;&#x442;&#x443;" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;.&lt;br/&gt;&#x435;&#x434;&#x438;&#x43d;&#x438;&#x446;" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x415;&#x434;&#x438;&#x43d;&#x438;&#x446;&#x430;&lt;br/&gt;&#x438;&#x437;&#x43c;&#x435;&#x440;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x41f;&#x440;&#x43e;&#x446;&#x435;&#x43d;&#x442;&lt;br/&gt; &#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;.&#x431;&#x435;&#x437;&lt;br/&gt;&#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;. &#x441; &lt;br/&gt;&#x43e;&#x442;&#x445;&#x43e;&#x434;&#x43e;&#x43c;" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x421;&#x435;&#x431;&#x435;&#x441;&#x442;.&lt;br/&gt; &#x437;&#x430; &#x435;&#x434;. &#x438;&#x437;&#x43c;&#x435;&#x440;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x421;&#x435;&#x431;&#x435;&#x441;&#x442;.&lt;br/&gt; &#x441; &#x43e;&#x442;&#x445;." type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x421;&#x442;&#x43e;&#x438;&#x43c;.&lt;br/&gt; &#x431;&#x435;&#x437;_&#x441;&#x43a;&#x438;&#x434;&#x43a;&#x438;" type="java.lang.Object"/>
                     <Column editable="true" title="&lt;html&gt;&#x421;&#x442;&#x43e;&#x438;&#x43c;. &lt;br/&gt;&#x441;&#x43e;_&#x441;&#x43a;&#x438;&#x434;&#x43a;&#x43e;&#x439;" type="java.lang.Object"/>
                   </Table>
                 </Property>
