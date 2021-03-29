@@ -66,7 +66,7 @@ public class Test {
 
         Query.connection = connection();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.prj = 601001;
@@ -101,7 +101,8 @@ public class Test {
                 if (script != null) {
                     iwin.build(script);
                     iwin.constructiv();
-                    DBCompare.iwinXls(iwin, false);
+                    //DBCompare.iwinXls(iwin, false);
+                    DBCompare.iwinRec(iwin, false);
                 }
             }
         }

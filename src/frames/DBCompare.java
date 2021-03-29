@@ -404,7 +404,8 @@ public class DBCompare extends javax.swing.JFrame {
                 String key = rs.getString("ANUMB");
                 hmDB1.put(key, value2);
             }
-
+            cn.close();
+            
             for (Specification spc : iwin.listSpec) {
                 String key = spc.artikl;
                 Float val = (hmDB2.get(key) == null) ? 0.f : hmDB2.get(key);
