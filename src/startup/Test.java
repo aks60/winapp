@@ -18,6 +18,34 @@ public class Test {
 
     public static int numDb = Integer.valueOf(eProperty.base_num.read());
 
+    // <editor-fold defaultstate="collapsed" desc="Connection[] connect(int numDb)">
+    public static Connection[] connect(int numDb) {
+        try {
+            Connection cn[] = {null, null};
+            String ur1, ur2;
+            if (numDb == 1) {
+                ur1 = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\Bimax\\ITEST.FDB?encoding=win1251";
+                ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
+            } else if (numDb == 2) {
+                ur1 = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Sialbase3\\sial3.fdb?encoding=win1251";
+                ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
+            } else {
+                ur1 = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb?encoding=win1251";
+                ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\ALUTECH.FDB?encoding=win1251";
+                //ur1 = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\othe\\vidnal.fdb?encoding=win1251";
+                //ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\vidnal.fdb?encoding=win1251";
+            }
+            cn[0] = java.sql.DriverManager.getConnection(ur1, "sysdba", "masterkey"); //источник
+            cn[1] = java.sql.DriverManager.getConnection(ur2, "sysdba", "masterkey"); //приёмник
+            return cn;
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Test.connect() " + e);
+            return null;
+        }
+    }
+// </editor-fold>     
+
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
 
         Main.dev = true;
@@ -219,30 +247,5 @@ public class Test {
         String filterStr = "" + uid;
         str = filterStr.replaceAll("-", "");
         System.out.println(Integer.parseInt(str));
-    }
-
-    public static Connection[] connect(int numDb) {
-        try {
-            Connection cn[] = {null, null};
-            String ur1, ur2;
-            if (numDb == 1) {
-                ur1 = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\Bimax\\ITEST.FDB?encoding=win1251";
-                ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
-            } else if (numDb == 2) {
-                ur1 = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Sialbase3\\sial3.fdb?encoding=win1251";
-                ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
-            } else {
-                ur1 = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb?encoding=win1251";
-                ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\ALUTECH.FDB?encoding=win1251";
-            }
-            cn[0] = java.sql.DriverManager.getConnection(ur1, "sysdba", "masterkey"); //источник
-            cn[1] = java.sql.DriverManager.getConnection(ur2, "sysdba", "masterkey"); //приёмник
-
-            return cn;
-
-        } catch (Exception e) {
-            System.err.println("Ошибка:Test.connect() " + e);
-            return null;
-        }
     }
 }

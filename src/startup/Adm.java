@@ -12,10 +12,12 @@ import static dataset.Query.connection;
 import dataset.eExcep;
 import frames.PathToDb;
 import frames.Util;
+import frames.swing.FilesFilter;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -27,6 +29,7 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -76,16 +79,20 @@ public class Adm extends javax.swing.JFrame {
 
     private void loadingPath() {
         if (eProperty.base_num.read().equals("1")) {
-            labPath2.setText(eProperty.server1.read() + "/" + eProperty.port1.read() + "\\" + eProperty.base1.read());
             edPath.setText("D:\\Okna\\Database\\Profstroy4\\bimax\\ITEST.FDB");
+            labPath2.setText(eProperty.server1.read() + "/" + eProperty.port1.read() + "\\" + eProperty.base1.read());
+            
         } else if (eProperty.base_num.read().equals("2")) {
-            labPath2.setText(eProperty.server2.read() + "/" + eProperty.port2.read() + "\\" + eProperty.base2.read());
             edPath.setText("D:\\Okna\\Database\\Profstroy3\\Sialbase3\\sial3.fdb");
+            labPath2.setText(eProperty.server2.read() + "/" + eProperty.port2.read() + "\\" + eProperty.base2.read());
+            
         } else if (eProperty.base_num.read().equals("3")) {
+            edPath.setText("");
             labPath2.setText(eProperty.server3.read() + "/" + eProperty.port3.read() + "\\" + eProperty.base3.read());
-            edPath.setText("D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb");
+            
         }
-        edPort.setText((eProperty.base_num.read().equals("1")) ? "3050" : "3055");
+
+        edPort.setText((eProperty.base_num.read().equals("2")) ? "3055" : "3050");
         edServer.setText("localhost");
         edUser.setText("sysdba");
         edPass.setText("masterkey");
@@ -1230,14 +1237,14 @@ public class Adm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCard
 
     private void btn10btnAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10btnAction
-        //        PathToDb.FilesFilter filter = new PathToDb.FilesFilter();
-        //        JFileChooser chooser = new JFileChooser();
-        //        chooser.setCurrentDirectory(new File("."));
-        //        chooser.setFileFilter(filter);
-        //        int result = chooser.showDialog(this, "Выбрать");
-        //        if (result == JFileChooser.APPROVE_OPTION) {
-        //            edPath.setText(chooser.getSelectedFile().getPath());
-        //        }
+        FilesFilter filter = new FilesFilter();
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new File("."));
+        chooser.setFileFilter(filter);
+        int result = chooser.showDialog(this, "Выбрать");
+        if (result == JFileChooser.APPROVE_OPTION) {
+            edPath.setText(chooser.getSelectedFile().getPath());
+        }        
     }//GEN-LAST:event_btn10btnAction
 
     private void btnStart(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStart

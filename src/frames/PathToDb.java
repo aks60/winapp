@@ -9,13 +9,12 @@ import java.io.File;
 import java.util.Locale;
 import javax.swing.JFileChooser;
 import dataset.eExcep;
-import builder.Wincalc;
+import frames.swing.FilesFilter;
 import java.awt.Frame;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.SwingWorker;
 import startup.App;
-import startup.Main;
 
 /**
  * <p>
@@ -429,31 +428,4 @@ public class PathToDb extends javax.swing.JDialog {
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
-
-    // фильтр, отбирающий файлы
-    class FilesFilter extends javax.swing.filechooser.FileFilter {
-
-        // принимаем файл или отказываем ему
-        public boolean accept(java.io.File f) {
-            // все каталоги принимаем
-            if (f.isDirectory()) {
-                return true;
-            }
-            // для файлов смотрим на расширение
-            String fileName = f.getName();
-            int i = fileName.lastIndexOf('.');
-            if ((i > 0) && (i < (fileName.length() - 1))) {
-                String fileExt = fileName.substring(i + 1);
-                if ("gdb".equalsIgnoreCase(fileExt) || "fdb".equalsIgnoreCase(fileExt)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        // возвращаем описание фильтра
-        public String getDescription() {
-            return "Файлы баз данных (*.gdb; *.fdb))";
-        }
-    }
 }
