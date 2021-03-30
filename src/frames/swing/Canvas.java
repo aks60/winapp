@@ -90,7 +90,8 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
             iwin.rootArea.draw(getWidth(), getHeight());
 
         } else {
-            g.clearRect(0, 0, getWidth(), getHeight());
+            g.setColor(getBackground());
+            g.fillRect(0, 0, this.getWidth(), this.getHeight());
         }
     }
 }

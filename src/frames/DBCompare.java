@@ -26,9 +26,6 @@ import startup.Test;
 
 public class DBCompare extends javax.swing.JFrame {
 
-//    public static int numDb = -1;
-//    private static Connection conn = null;
-//    private static Query qArtikl = new Query(eArtikl.code, eArtikl.name);
 
     enum Fld {
         ATYPM("уров1"), ATYPP("уров2"), ANUMB("артикул"), CLNUM("color1"), CLNU1("color2"), CLNU2("color3"),
@@ -44,11 +41,6 @@ public class DBCompare extends javax.swing.JFrame {
         initElements();
         loadingTab1(iwin);
     }
-
-//    public static void initData() {
-//        conn = Test.connect()[0];
-//        qArtikl.select(eArtikl.up);
-//    }
 
     public void loadingTab1(Wincalc iwin) {
         try {

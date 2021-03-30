@@ -2467,10 +2467,11 @@ public class Systree extends javax.swing.JFrame {
             }
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
+                iwin.rootArea = null;
+                paintPanel.paint(paintPanel.getGraphics());  //paintComponent(paintPanel.getGraphics());
                 Util.deleteRecord(tab5);
-            } else {
-                JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
             }
+//          else {    JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);     }
         }
     }//GEN-LAST:event_btnDelete
 
@@ -2490,7 +2491,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        System.out.println(systreeNode.rec());
+
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
