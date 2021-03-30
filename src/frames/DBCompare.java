@@ -65,17 +65,18 @@ public class DBCompare extends javax.swing.JFrame {
                 double perc = rs.getDouble("APERC"); //отход
                 double cost = rs.getDouble("APRC1"); //стоим.без.ск.за ед.изм
                 double costdec = rs.getDouble("APRCD"); //стоим.со.ск.за.ед.изм
+                
                 double value1 = (perc * pogonag / 100 + pogonag) * cost;
                 double value2 = (perc * pogonag / 100 + pogonag) * costdec;
                 sum1 = sum1 + value1;
                 sum2 = sum2 + value2;
-                vectorRec.add(value1);
-                vectorRec.add(value2);
+                vectorRec.add(value1); //стоим. элемента без скидки
+                vectorRec.add(value2); //стоим. элемента со скидкой
                 ((DefaultTableModel) tab.getModel()).getDataVector().add(vectorRec);
             }
             rs.close();
-            lab1.setText("Проект:pnumb = " + iwin.rootGson.prj + "    Изделие:punic = "
-                    + punic + "   Стоим.без.скидки = " + Util.df.format(sum1) + "   Стоим.со.скидкой = " + Util.df.format(sum2));
+            lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = "
+                    + punic + "   Стоим.без.ск = " + Util.df.format(sum1) + "   Стоим.со.ск = " + Util.df.format(sum2));
 
         } catch (SQLException e) {
             println("Ошибка: DBCompare.iwinRec().  " + e);

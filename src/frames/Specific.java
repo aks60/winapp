@@ -99,23 +99,26 @@ public class Specific extends javax.swing.JFrame {
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
         dtm.getDataVector().clear();
         dtm.fireTableDataChanged();
-        int indexLast = listSpec.get(0).getVector(0).size();
-        float sum1 = 0, sum2 = 0, sum3 = 0;
-        for (int i = 0; i < listSpec.size(); i++) { //заполним спецификацию
-            Vector v = listSpec.get(i).getVector(i);
-            dtm.addRow(v);
-            sum1 = sum1 + (Float) v.get(indexLast - 1);
-            sum2 = sum2 + (Float) v.get(indexLast - 2);
-            sum3 = sum3 + (Float) v.get(indexLast - 13);
+
+        if (listSpec != null && listSpec.isEmpty() == false) {
+            int indexLast = listSpec.get(0).getVector(0).size();
+            float sum1 = 0, sum2 = 0, sum3 = 0;
+            for (int i = 0; i < listSpec.size(); i++) { //заполним спецификацию
+                Vector v = listSpec.get(i).getVector(i);
+                dtm.addRow(v);
+                sum1 = sum1 + (Float) v.get(indexLast - 1);
+                sum2 = sum2 + (Float) v.get(indexLast - 2);
+                sum3 = sum3 + (Float) v.get(indexLast - 13);
+            }
+            Vector vectorLast = new Vector();
+            for (int i = 0; i < indexLast; i++) {
+                vectorLast.add(null);
+            }
+            vectorLast.set(indexLast - 1, sum1);
+            vectorLast.set(indexLast - 2, sum2);
+            vectorLast.set(indexLast - 13, sum3);
+            dtm.addRow(vectorLast);
         }
-        Vector vectorLast = new Vector();
-        for (int i = 0; i < indexLast; i++) {
-            vectorLast.add(null);
-        }
-        vectorLast.set(indexLast - 1, sum1);
-        vectorLast.set(indexLast - 2, sum2);
-        vectorLast.set(indexLast - 13, sum3);
-        dtm.addRow(vectorLast);
     }
 
     private List<Specification> groups(int num) {
@@ -168,6 +171,7 @@ public class Specific extends javax.swing.JFrame {
         btnFix = new javax.swing.JToggleButton();
         btnFill = new javax.swing.JToggleButton();
         btnFurn = new javax.swing.JToggleButton();
+        cbx1 = new javax.swing.JComboBox<>();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -396,6 +400,16 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
+        cbx1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbx1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Детализация 1ур.", "Детализация 2ур.", "Детализация 3ур.", "Соединения", "Вставки", "Заполнения", "Фурнитура" }));
+        cbx1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        cbx1.setPreferredSize(new java.awt.Dimension(140, 25));
+        cbx1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFilter(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -411,11 +425,13 @@ public class Specific extends javax.swing.JFrame {
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnArtikles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addGap(18, 18, 18)
+                .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(196, 196, 196)
                 .addComponent(btnGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGroup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addGap(2, 2, 2)
                 .addComponent(btnGroup3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -427,7 +443,7 @@ public class Specific extends javax.swing.JFrame {
                 .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -435,11 +451,6 @@ public class Specific extends javax.swing.JFrame {
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGroup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -452,7 +463,10 @@ public class Specific extends javax.swing.JFrame {
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnGroup3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnGroup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -652,7 +666,7 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
-        float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
+        float id = (Util.getIndexRec(tab1) == -1) ? -1 : Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
         JToggleButton tab = (JToggleButton) evt.getSource();
         List<Specification> listSpec = null;
         if (tab == btnJoin) {
@@ -710,6 +724,44 @@ public class Specific extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGroup3
 
+    private void cbxFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFilter
+        float id = (Util.getIndexRec(tab1) == -1) ? -1 : Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
+
+        if (cbx1.getSelectedIndex() == 0) {
+            loadingData(iwin.listSpec);
+
+        } else if (cbx1.getSelectedIndex() == 1) {
+            loadingData(groups(1));
+
+        } else if (cbx1.getSelectedIndex() == 2) {
+            loadingData(groups(2));
+
+        } else if (cbx1.getSelectedIndex() == 3) {
+            List<Specification> listSpec = iwin.listSpec.stream().filter(rec -> "СОЕ".equals(rec.place.substring(0, 3))).collect(toList());
+            loadingData(listSpec);
+
+        } else if (cbx1.getSelectedIndex() == 4) {
+            List<Specification> listSpec = iwin.listSpec.stream().filter(rec -> "ВСТ".equals(rec.place.substring(0, 3))).collect(toList());
+            loadingData(listSpec);
+
+        } else if (cbx1.getSelectedIndex() == 5) {
+            List<Specification> listSpec = iwin.listSpec.stream().filter(rec -> "ЗАП".equals(rec.place.substring(0, 3))).collect(toList());
+            loadingData(listSpec);
+            
+        } else if (cbx1.getSelectedIndex() == 6) {
+            List<Specification> listSpec = iwin.listSpec.stream().filter(rec -> "ФУР".equals(rec.place.substring(0, 3))).collect(toList());
+            loadingData(listSpec);
+        }
+
+        for (int i = 0; i < tab1.getRowCount() - 1; i++) {
+            if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
+                Util.setSelectedRow(tab1, i);
+                return;
+            }
+        }
+        Util.setSelectedRow(tab1);
+    }//GEN-LAST:event_cbxFilter
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArtikles;
@@ -727,6 +779,7 @@ public class Specific extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnJoin;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
+    private javax.swing.JComboBox<String> cbx1;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel labFilter;
