@@ -231,24 +231,18 @@ public class ElemGlass extends ElemSimple {
             }
             //Всё остальное
         } else {
-            /*if (specificationAdd.artiklRec.getInt(eArtikl.level1) == 1
+            if (specificationAdd.artiklRec.getInt(eArtikl.level1) == 1
                     && specificationAdd.artiklRec.getInt(eArtikl.level1) == 3) {
                 //UseUnit.METR
-            } else if (specificationAdd.artiklRec.getInt(eArtikl.level1) == 2) {
-                if (specificationAdd.artiklRec.getInt(eArtikl.level2) == 4) {
-                    //UseUnit.PIE, UseUnit.ML, UseUnit.GRAM, UseUnit.KG, UseUnit.LITER, UseUnit.DOSE);
-                } else {
-                    //UseUnit.PIE, UseUnit.SET, UseUnit.PAIR);
-                }
-            } else if (specificationAdd.artiklRec.getInt(eArtikl.level1) == 4) {
-                if (specificationAdd.artiklRec.getInt(eArtikl.level2) == 1) {
-                    //UseUnit.PIE, UseUnit.SET, UseUnit.PAIR, UseUnit.MONTH);
-                } else {
-                    //UseUnit.PIE, UseUnit.SET, UseUnit.MONTH);
-                }
+            
             } else if (specificationAdd.artiklRec.getInt(eArtikl.level1) == 5) {
                 //UseUnit.METR2);
-            }*/
+                        
+            } else {
+                //UseUnit.PIE, UseUnit.ML, UseUnit.GRAM, UseUnit.KG, UseUnit.LITER, UseUnit.SET, UseUnit.DOSE, UseUnit.MONTH, UseUnit.PAIR;
+            
+            }
+
             proc.amount(specificationRec, specificationAdd); //количество от параметра
 
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
