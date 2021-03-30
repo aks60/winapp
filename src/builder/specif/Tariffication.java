@@ -22,8 +22,11 @@ import dataset.Query;
  */
 public class Tariffication extends Cal5e {
 
-    public Tariffication(Wincalc iwin) {
+    private boolean norm_otx = true;
+
+    public Tariffication(Wincalc iwin, boolean norm_otx) {
         super(iwin);
+        this.norm_otx = norm_otx;
     }
 
     public void calc() {
@@ -35,13 +38,17 @@ public class Tariffication extends Cal5e {
             for (ElemSimple elem5e : iwin.listElem) {
                 elem5e.specificationRec.price1 += calcPrice(elem5e.specificationRec); //себес-сть за ед. изм.
                 elem5e.specificationRec.quant1 = formatAmount(elem5e.specificationRec); //количество без отхода
-                elem5e.specificationRec.quant2 = elem5e.specificationRec.quant1
-                        + (elem5e.specificationRec.quant1 * elem5e.specificationRec.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
-
+                elem5e.specificationRec.quant2 = elem5e.specificationRec.quant1;
+                if (norm_otx == true) {
+                    elem5e.specificationRec.quant2 = elem5e.specificationRec.quant2 + (elem5e.specificationRec.quant1 * elem5e.specificationRec.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
+                }
                 for (Specification specificationRec2 : elem5e.specificationRec.specificationList) {
                     specificationRec2.price1 += calcPrice(specificationRec2); //себес-сть за ед. изм.
                     specificationRec2.quant1 = formatAmount(specificationRec2); //количество без отхода
-                    specificationRec2.quant2 = specificationRec2.quant1 + (specificationRec2.quant1 * specificationRec2.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
+                    specificationRec2.quant2 = specificationRec2.quant1;
+                    if (norm_otx == true) {
+                        specificationRec2.quant2 = specificationRec2.quant2 + (specificationRec2.quant1 * specificationRec2.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
+                    }
                 }
             }
 
@@ -137,7 +144,7 @@ public class Tariffication extends Cal5e {
             } else {
 
                 if (isTariff(artdetRec, color1Rec)) { //подбираем тариф основной текстуры
-                    Record colgrpRec = eGroups.find(color1Rec.getInt(eColor.colgrp_id));                   
+                    Record colgrpRec = eGroups.find(color1Rec.getInt(eColor.colgrp_id));
                     artdetTariff += (artdetRec.getFloat(eArtdet.cost_c1) * color1Rec.getFloat(eColor.coef1) * colgrpRec.getFloat(eGroups.val)) / kursBaseRec.getFloat(eCurrenc.cross_cour);
                     artdetUsed = true;
                 }
@@ -147,8 +154,8 @@ public class Tariffication extends Cal5e {
                     Object o1 = artdetRec.getFloat(eArtdet.cost_c2);
                     Object o2 = color2Rec.getFloat(eColor.coef2);
                     Object o3 = colgrpRec.getFloat(eGroups.val);
-                    Object o4 =  kursNoBaseRec.getFloat(eCurrenc.cross_cour);
-                    
+                    Object o4 = kursNoBaseRec.getFloat(eCurrenc.cross_cour);
+
                     artdetTariff += (artdetRec.getFloat(eArtdet.cost_c2) * color2Rec.getFloat(eColor.coef2) * colgrpRec.getFloat(eGroups.val)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
                     artdetUsed = true;
                 }

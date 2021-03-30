@@ -2493,7 +2493,7 @@ public class Order extends javax.swing.JFrame {
                         JsonElement je = new Gson().fromJson(script, JsonElement.class);
                         iwin.build(je.toString());
                         Query.listOpenTable.forEach(q -> q.clear());
-                        iwin.constructiv();
+                        iwin.constructiv(true);
                         for (Specification spc : iwin.listSpec) {
                             int i = -1;
                             total[++i] = total[i] + spc.weight; //масса

@@ -488,25 +488,24 @@ public class Systree extends javax.swing.JFrame {
         Arrays.asList(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
 
         systreeNode = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
-        if (systreeNode != null) {
+        systreeID = systreeNode.rec().getInt(eSystree.id);
+        rsvSystree.load();
+        qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
+                eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
+        qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
+                eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
+        qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", systreeNode.rec().getInt(eSystree.id));
 
-            systreeID = systreeNode.rec().getInt(eSystree.id);
-            rsvSystree.load();
-            qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
-                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
-            qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
-                    eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
-            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", systreeNode.rec().getInt(eSystree.id));
+        loadingTab5();
 
-            loadingTab5();
-
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2);
-            Util.setSelectedRow(tab3);
-            Util.setSelectedRow(tab4);
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+        ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+        ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(tab2);
+        Util.setSelectedRow(tab3);
+        Util.setSelectedRow(tab4);
+        if (qSysprod.isEmpty() == false) {
 
             int index = -1;
             int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
@@ -522,8 +521,8 @@ public class Systree extends javax.swing.JFrame {
                 Util.setSelectedRow(tab5);
             }
         } else {
-            Graphics2D g = (Graphics2D) paintPanel.getGraphics();
-            g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
+            iwin.rootArea = null;
+            paintPanel.paint(paintPanel.getGraphics());
         }
     }
 
@@ -2468,7 +2467,7 @@ public class Systree extends javax.swing.JFrame {
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
                 iwin.rootArea = null;
-                paintPanel.paint(paintPanel.getGraphics());  //paintComponent(paintPanel.getGraphics());
+                paintPanel.paint(paintPanel.getGraphics());
                 Util.deleteRecord(tab5);
             }
 //          else {    JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);     }

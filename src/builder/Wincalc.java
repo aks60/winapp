@@ -66,7 +66,7 @@ public class Wincalc {
 
     public AreaSimple rootArea = null; //главное окно кострукции
     public GsonRoot rootGson = null; //главное окно кострукции в формате gson
-    
+
     public HashMap<Integer, Record> mapParamDef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
@@ -75,10 +75,10 @@ public class Wincalc {
 
     public AreaSimple build(String productJson) {
 
+        genId = 100;
+        listSpec.clear();
         mapParamDef.clear();
         mapJoin.clear();
-        listSpec.clear();
-        genId = 100;
 
         //Парсинг входного скрипта
         parsing(productJson);
@@ -177,7 +177,7 @@ public class Wincalc {
     }
 
     //Конструктив и тарификация 
-    public void constructiv() {
+    public void constructiv(boolean norm_otx) {
         try {
             calcJoining = new Joining(this); //соединения
             calcJoining.calc();
@@ -187,8 +187,9 @@ public class Wincalc {
             calcFilling.calc();
             calcFurniture = new Furniture(this); //фурнитура 
             calcFurniture.calc();
-            calTariffication = new Tariffication(this); //тарификация
+            calTariffication = new Tariffication(this, norm_otx); //тарификация
             calTariffication.calc();
+
             for (ElemSimple elemRec : listElem) {
                 listSpec.add(elemRec.specificationRec);
                 listSpec.addAll(elemRec.specificationRec.specificationList);

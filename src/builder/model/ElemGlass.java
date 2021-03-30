@@ -13,6 +13,9 @@ import enums.UseArtiklTo;
 import builder.specif.Specification;
 import builder.param.Processing;
 import enums.PKjson;
+import enums.UseUnit;
+import frames.Util;
+import frames.dialog.DicEnums;
 
 public class ElemGlass extends ElemSimple {
 
@@ -28,7 +31,7 @@ public class ElemGlass extends ElemSimple {
         initСonstructiv(param);
 
         if (TypeElem.ARCH == owner.type) {
-            setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2); 
+            setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2);
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }
@@ -101,7 +104,6 @@ public class ElemGlass extends ElemSimple {
 
     @Override //Вложеная спецификация 
     public void addSpecific(Specification specificationAdd) {
-
         //Стеклопакет
         if (TypeArtikl.GLASS.isType(specificationAdd.artiklRec)) {
             return;
@@ -229,6 +231,24 @@ public class ElemGlass extends ElemSimple {
             }
             //Всё остальное
         } else {
+            /*if (specificationAdd.artiklRec.getInt(eArtikl.level1) == 1
+                    && specificationAdd.artiklRec.getInt(eArtikl.level1) == 3) {
+                //UseUnit.METR
+            } else if (specificationAdd.artiklRec.getInt(eArtikl.level1) == 2) {
+                if (specificationAdd.artiklRec.getInt(eArtikl.level2) == 4) {
+                    //UseUnit.PIE, UseUnit.ML, UseUnit.GRAM, UseUnit.KG, UseUnit.LITER, UseUnit.DOSE);
+                } else {
+                    //UseUnit.PIE, UseUnit.SET, UseUnit.PAIR);
+                }
+            } else if (specificationAdd.artiklRec.getInt(eArtikl.level1) == 4) {
+                if (specificationAdd.artiklRec.getInt(eArtikl.level2) == 1) {
+                    //UseUnit.PIE, UseUnit.SET, UseUnit.PAIR, UseUnit.MONTH);
+                } else {
+                    //UseUnit.PIE, UseUnit.SET, UseUnit.MONTH);
+                }
+            } else if (specificationAdd.artiklRec.getInt(eArtikl.level1) == 5) {
+                //UseUnit.METR2);
+            }*/
             proc.amount(specificationRec, specificationAdd); //количество от параметра
 
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
@@ -259,9 +279,9 @@ public class ElemGlass extends ElemSimple {
             iwin().gc2d.fillArc((int) ((int) root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
         } else {
-            float h = iwin().heightAdd - iwin().height;            
+            float h = iwin().heightAdd - iwin().height;
             iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);
+                    new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);
         }
     }
 

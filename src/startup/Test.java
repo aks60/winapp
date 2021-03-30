@@ -71,7 +71,7 @@ public class Test {
         if (_case.equals("one")) {
             iwin.prj = 601001;
             iwin.build(builder.script.Winscript.test(iwin.prj, false));
-            iwin.constructiv();
+            iwin.constructiv(true);
             //Specification.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
             DBCompare.iwinRec(iwin, true);
@@ -86,7 +86,7 @@ public class Test {
                 String script = builder.script.Winscript.test(iwin.prj, false);
                 if (script != null) {
                     iwin.build(script);
-                    iwin.constructiv();
+                    iwin.constructiv(true);
                     //DBCompare.iwinXls(iwin, false);
                     DBCompare.iwinRec(iwin, true);
                 }
@@ -101,7 +101,7 @@ public class Test {
                 String script = builder.script.Winscript.test(iwin.prj, false);
                 if (script != null) {
                     iwin.build(script);
-                    iwin.constructiv();
+                    iwin.constructiv(true);
                     //DBCompare.iwinXls(iwin, false);
                     DBCompare.iwinRec(iwin, false);
                 }

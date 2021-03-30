@@ -19,6 +19,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import builder.Wincalc;
 import builder.specif.Specification;
+import builder.specif.Tariffication;
 import dataset.Query;
 import domain.eSysprod;
 import java.awt.Component;
@@ -34,13 +35,11 @@ import java.util.Vector;
 import static java.util.stream.Collectors.toList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.App;
 import common.ListenerFrame;
 import common.eProfile;
 import domain.ePrjprod;
-import startup.Tex;
 
 public class Specific extends javax.swing.JFrame {
 
@@ -48,13 +47,13 @@ public class Specific extends javax.swing.JFrame {
     private DecimalFormat df1 = new DecimalFormat("#0.0");
     private DecimalFormat df2 = new DecimalFormat("#0.00");
     private DecimalFormat df3 = new DecimalFormat("#0.000");
-    private builder.Wincalc iwin = null;
+    private builder.Wincalc iwin = new Wincalc();;
 
     public Specific() {
         initComponents();
         initElements();
         createIwin();
-        loadingData(iwin.listSpec);
+        loadingTab1(iwin.listSpec);
         Util.setSelectedRow(tab1);
     }
 
@@ -69,11 +68,10 @@ public class Specific extends javax.swing.JFrame {
             } else {
                 String script = sysprodRec.getStr(eSysprod.script);
                 JsonElement je = new Gson().fromJson(script, JsonElement.class);
-                je.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id));
-                iwin = new Wincalc();
+                je.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id));                
                 iwin.build(je.toString());
                 Query.listOpenTable.forEach(q -> q.clear());
-                iwin.constructiv();
+                iwin.constructiv(cbx2.getSelectedIndex() == 0);
             }
 
         } else {
@@ -90,25 +88,27 @@ public class Specific extends javax.swing.JFrame {
                 iwin = new Wincalc();
                 iwin.build(je.toString());
                 Query.listOpenTable.forEach(q -> q.clear());
-                iwin.constructiv();
+                iwin.constructiv(true);
             }
         }
     }
 
-    private void loadingData(List<Specification> listSpec) {
+    private void loadingTab1(List<Specification> listSpec) {
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
         dtm.getDataVector().clear();
         dtm.fireTableDataChanged();
 
         if (listSpec != null && listSpec.isEmpty() == false) {
             int indexLast = listSpec.get(0).getVector(0).size();
-            float sum1 = 0, sum2 = 0, sum3 = 0;
+            float sum1 = 0, sum2 = 0, sum13 = 0;
+            int sum9 = 0;
             for (int i = 0; i < listSpec.size(); i++) { //заполним спецификацию
                 Vector v = listSpec.get(i).getVector(i);
                 dtm.addRow(v);
                 sum1 = sum1 + (Float) v.get(indexLast - 1);
                 sum2 = sum2 + (Float) v.get(indexLast - 2);
-                sum3 = sum3 + (Float) v.get(indexLast - 13);
+                sum9 = sum9 + (int) v.get(indexLast - 9);
+                sum13 = sum13 + (Float) v.get(indexLast - 13);
             }
             Vector vectorLast = new Vector();
             for (int i = 0; i < indexLast; i++) {
@@ -116,7 +116,8 @@ public class Specific extends javax.swing.JFrame {
             }
             vectorLast.set(indexLast - 1, sum1);
             vectorLast.set(indexLast - 2, sum2);
-            vectorLast.set(indexLast - 13, sum3);
+            vectorLast.set(indexLast - 9, sum9);
+            vectorLast.set(indexLast - 13, sum13);
             dtm.addRow(vectorLast);
         }
     }
@@ -158,20 +159,11 @@ public class Specific extends javax.swing.JFrame {
         btnGroup = new javax.swing.ButtonGroup();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
-        btnRef = new javax.swing.JButton();
-        btnDel = new javax.swing.JButton();
-        btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
         btnArtikles = new javax.swing.JButton();
         btnConstructiv = new javax.swing.JButton();
-        btnGroup1 = new javax.swing.JToggleButton();
-        btnGroup2 = new javax.swing.JToggleButton();
-        btnGroup3 = new javax.swing.JToggleButton();
-        btnJoin = new javax.swing.JToggleButton();
-        btnFix = new javax.swing.JToggleButton();
-        btnFill = new javax.swing.JToggleButton();
-        btnFurn = new javax.swing.JToggleButton();
         cbx1 = new javax.swing.JComboBox<>();
+        cbx2 = new javax.swing.JComboBox<>();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -202,54 +194,6 @@ public class Specific extends javax.swing.JFrame {
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClose(evt);
-            }
-        });
-
-        btnRef.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c038.gif"))); // NOI18N
-        btnRef.setToolTipText(bundle.getString("Обновить")); // NOI18N
-        btnRef.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnRef.setFocusable(false);
-        btnRef.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnRef.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnRef.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnRef.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnRef.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnRef.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnRef.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefresh(evt);
-            }
-        });
-
-        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
-        btnDel.setToolTipText(bundle.getString("Удалить")); // NOI18N
-        btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnDel.setFocusable(false);
-        btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnDel.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnDel.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnDel.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnDel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelete(evt);
-            }
-        });
-
-        btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
-        btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
-        btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnIns.setFocusable(false);
-        btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnIns.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnIns.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnIns.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnIns.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnIns.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInsert(evt);
             }
         });
 
@@ -295,118 +239,36 @@ public class Specific extends javax.swing.JFrame {
         btnConstructiv.setPreferredSize(new java.awt.Dimension(25, 25));
         btnConstructiv.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnConstructiv.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnConstructiv.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                btnConstructivFocusLost(evt);
+            }
+        });
         btnConstructiv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConstructiv(evt);
             }
         });
 
-        btnGroup.add(btnGroup1);
-        btnGroup1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnGroup1.setSelected(true);
-        btnGroup1.setText("Гр.1");
-        btnGroup1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnGroup1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnGroup1.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnGroup1.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnGroup1.setPreferredSize(new java.awt.Dimension(36, 25));
-        btnGroup1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGroup1(evt);
-            }
-        });
-
-        btnGroup.add(btnGroup2);
-        btnGroup2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnGroup2.setText("Гр.2");
-        btnGroup2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnGroup2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnGroup2.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnGroup2.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnGroup2.setPreferredSize(new java.awt.Dimension(36, 25));
-        btnGroup2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGroup2(evt);
-            }
-        });
-
-        btnGroup.add(btnGroup3);
-        btnGroup3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnGroup3.setText("Гр.3");
-        btnGroup3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnGroup3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnGroup3.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnGroup3.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnGroup3.setPreferredSize(new java.awt.Dimension(36, 25));
-        btnGroup3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGroup3(evt);
-            }
-        });
-
-        btnGroup.add(btnJoin);
-        btnJoin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnJoin.setText("Соед");
-        btnJoin.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnJoin.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnJoin.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnJoin.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnJoin.setPreferredSize(new java.awt.Dimension(36, 25));
-        btnJoin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFilter(evt);
-            }
-        });
-
-        btnGroup.add(btnFix);
-        btnFix.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnFix.setText("Вст.");
-        btnFix.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnFix.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnFix.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnFix.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnFix.setPreferredSize(new java.awt.Dimension(36, 25));
-        btnFix.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFilter(evt);
-            }
-        });
-
-        btnGroup.add(btnFill);
-        btnFill.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnFill.setText("Зап.");
-        btnFill.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnFill.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnFill.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnFill.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnFill.setPreferredSize(new java.awt.Dimension(36, 25));
-        btnFill.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFilter(evt);
-            }
-        });
-
-        btnGroup.add(btnFurn);
-        btnFurn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnFurn.setText("Фурн");
-        btnFurn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnFurn.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnFurn.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnFurn.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnFurn.setPreferredSize(new java.awt.Dimension(36, 25));
-        btnFurn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFilter(evt);
-            }
-        });
-
+        cbx1.setBackground(new java.awt.Color(212, 208, 200));
         cbx1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbx1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Детализация 1ур.", "Детализация 2ур.", "Детализация 3ур.", "Соединения", "Вставки", "Заполнения", "Фурнитура" }));
         cbx1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         cbx1.setPreferredSize(new java.awt.Dimension(140, 25));
         cbx1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxFilter(evt);
+                cbxGroupBy(evt);
+            }
+        });
+
+        cbx2.setBackground(new java.awt.Color(212, 208, 200));
+        cbx2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbx2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Учитывать норму отх.", "Без нормы отхода " }));
+        cbx2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        cbx2.setPreferredSize(new java.awt.Dimension(160, 25));
+        cbx2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCalcType(evt);
             }
         });
 
@@ -416,34 +278,16 @@ public class Specific extends javax.swing.JFrame {
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbx2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnArtikles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(196, 196, 196)
-                .addComponent(btnGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGroup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(btnGroup3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -452,24 +296,13 @@ public class Specific extends javax.swing.JFrame {
             .addGroup(northLayout.createSequentialGroup()
                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnArtikles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnConstructiv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnGroup3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnGroup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbx2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -488,7 +321,7 @@ public class Specific extends javax.swing.JFrame {
                 {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "<html>Единица<br/>измерения", "<html>Процент<br/> отхода", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "<html>Себест.<br/> за ед. измерения", "<html>Себест.<br/> с отх.", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой"
+                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "<html>Единица<br/>измерения", "<html>Процент<br/> отхода", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "<html>Себест.<br/> за ед. измерения", "<html>Себест.<br/>элемента", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой"
             }
         ) {
             Class[] types = new Class [] {
@@ -527,9 +360,7 @@ public class Specific extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(14).setPreferredWidth(24);
             tab1.getColumnModel().getColumn(15).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(16).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(17).setMinWidth(0);
-            tab1.getColumnModel().getColumn(17).setPreferredWidth(0);
-            tab1.getColumnModel().getColumn(17).setMaxWidth(0);
+            tab1.getColumnModel().getColumn(17).setPreferredWidth(48);
             tab1.getColumnModel().getColumn(18).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(19).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(20).setPreferredWidth(44);
@@ -577,18 +408,6 @@ public class Specific extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnClose
 
-    private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
-    }//GEN-LAST:event_btnRefresh
-
-    private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-
-    }//GEN-LAST:event_btnDelete
-
-    private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-
-    }//GEN-LAST:event_btnInsert
-
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         FrameProgress.create(Specific.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
@@ -598,9 +417,7 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReport
 
     private void filterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterUpdate
-
         JTable table = tab1;
-        btnIns.setEnabled(txtFilter.getText().length() == 0);
         if (txtFilter.getText().length() == 0) {
             ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(null);
         } else {
@@ -665,92 +482,33 @@ public class Specific extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnConstructiv
 
-    private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
-        float id = (Util.getIndexRec(tab1) == -1) ? -1 : Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
-        JToggleButton tab = (JToggleButton) evt.getSource();
-        List<Specification> listSpec = null;
-        if (tab == btnJoin) {
-            listSpec = iwin.listSpec.stream().filter(rec -> "СОЕ".equals(rec.place.substring(0, 3))).collect(toList());
-        } else if (tab == btnFix) {
-            listSpec = iwin.listSpec.stream().filter(rec -> "ВСТ".equals(rec.place.substring(0, 3))).collect(toList());
-        } else if (tab == btnFill) {
-            listSpec = iwin.listSpec.stream().filter(rec -> "ЗАП".equals(rec.place.substring(0, 3))).collect(toList());
-        } else if (tab == btnFurn) {
-            listSpec = iwin.listSpec.stream().filter(rec -> "ФУР".equals(rec.place.substring(0, 3))).collect(toList());
-        }
-        loadingData(listSpec);
-        for (int i = 0; i < tab1.getRowCount() - 1; i++) {
-            if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
-                Util.setSelectedRow(tab1, i);
-                return;
-            }
-        }
-        Util.setSelectedRow(tab1);
-    }//GEN-LAST:event_btnFilter
-
-    private void btnGroup2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup2
-
-        float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
-        loadingData(groups(1));
-        for (int i = 0; i < tab1.getRowCount() - 1; i++) {
-            if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
-                Util.setSelectedRow(tab1, i);
-                return;
-            }
-        }
-    }//GEN-LAST:event_btnGroup2
-
-    private void btnGroup1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup1
-
-        float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
-        loadingData(iwin.listSpec);
-        for (int i = 0; i < tab1.getRowCount() - 1; i++) {
-            if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
-                Util.setSelectedRow(tab1, i);
-                return;
-            }
-        }
-    }//GEN-LAST:event_btnGroup1
-
-    private void btnGroup3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup3
-
-        float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
-        loadingData(groups(2));
-        for (int i = 0; i < tab1.getRowCount() - 1; i++) {
-            if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
-                Util.setSelectedRow(tab1, i);
-                return;
-            }
-        }
-    }//GEN-LAST:event_btnGroup3
-
-    private void cbxFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFilter
+    private void cbxGroupBy(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupBy
         float id = (Util.getIndexRec(tab1) == -1) ? -1 : Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
 
         if (cbx1.getSelectedIndex() == 0) {
-            loadingData(iwin.listSpec);
+            loadingTab1(iwin.listSpec);
 
         } else if (cbx1.getSelectedIndex() == 1) {
-            loadingData(groups(1));
+            loadingTab1(groups(1));
 
         } else if (cbx1.getSelectedIndex() == 2) {
-            loadingData(groups(2));
+            loadingTab1(groups(2));
 
         } else if (cbx1.getSelectedIndex() == 3) {
             List<Specification> listSpec = iwin.listSpec.stream().filter(rec -> "СОЕ".equals(rec.place.substring(0, 3))).collect(toList());
-            loadingData(listSpec);
+            loadingTab1(listSpec);
 
         } else if (cbx1.getSelectedIndex() == 4) {
             List<Specification> listSpec = iwin.listSpec.stream().filter(rec -> "ВСТ".equals(rec.place.substring(0, 3))).collect(toList());
-            loadingData(listSpec);
+            loadingTab1(listSpec);
 
         } else if (cbx1.getSelectedIndex() == 5) {
             List<Specification> listSpec = iwin.listSpec.stream().filter(rec -> "ЗАП".equals(rec.place.substring(0, 3))).collect(toList());
-            loadingData(listSpec);
+            loadingTab1(listSpec);
             
         } else if (cbx1.getSelectedIndex() == 6) {
             List<Specification> listSpec = iwin.listSpec.stream().filter(rec -> "ФУР".equals(rec.place.substring(0, 3))).collect(toList());
-            loadingData(listSpec);
+            loadingTab1(listSpec);
         }
 
         for (int i = 0; i < tab1.getRowCount() - 1; i++) {
@@ -760,26 +518,27 @@ public class Specific extends javax.swing.JFrame {
             }
         }
         Util.setSelectedRow(tab1);
-    }//GEN-LAST:event_cbxFilter
+    }//GEN-LAST:event_cbxGroupBy
+
+    private void cbxCalcType(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCalcType
+        createIwin();
+        loadingTab1(iwin.listSpec);
+        Util.setSelectedRow(tab1);
+    }//GEN-LAST:event_cbxCalcType
+
+    private void btnConstructivFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnConstructivFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConstructivFocusLost
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArtikles;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnConstructiv;
-    private javax.swing.JButton btnDel;
-    private javax.swing.JToggleButton btnFill;
-    private javax.swing.JToggleButton btnFix;
-    private javax.swing.JToggleButton btnFurn;
     private javax.swing.ButtonGroup btnGroup;
-    private javax.swing.JToggleButton btnGroup1;
-    private javax.swing.JToggleButton btnGroup2;
-    private javax.swing.JToggleButton btnGroup3;
-    private javax.swing.JButton btnIns;
-    private javax.swing.JToggleButton btnJoin;
-    private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JComboBox<String> cbx1;
+    private javax.swing.JComboBox<String> cbx2;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel labFilter;
@@ -846,9 +605,9 @@ public class Specific extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(12).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(13).setCellRenderer(cellRenderer0);
-        tab1.getColumnModel().getColumn(16).setCellRenderer(cellRenderer3);
+        tab1.getColumnModel().getColumn(16).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(17).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(18).setCellRenderer(cellRenderer3);
+        tab1.getColumnModel().getColumn(18).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(19).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(20).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer2);

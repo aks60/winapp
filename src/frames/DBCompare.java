@@ -59,19 +59,23 @@ public class DBCompare extends javax.swing.JFrame {
                 for (int i = 0; i < Fld.values().length; i++) {
                     vectorRec.add(rs.getObject(Fld.values()[i].name()));
                 }
+                String artikl = rs.getString("ANUMB"); //длина
                 double leng = rs.getDouble("ALENG"); //длина
                 double count = rs.getDouble("AQTYP"); //колич
                 double pogonag = rs.getDouble("AQTYA"); //погонаж
                 double perc = rs.getDouble("APERC"); //отход
                 double cost = rs.getDouble("APRC1"); //стоим.без.ск.за ед.изм
-                double costdec = rs.getDouble("APRCD"); //стоим.со.ск.за.ед.изм
-                
+                double costdec = rs.getDouble("APRCD"); //стоим.со.ск.за.ед.изм                                
                 double value1 = (perc * pogonag / 100 + pogonag) * cost;
-                double value2 = (perc * pogonag / 100 + pogonag) * costdec;
+                double value2 = (perc * pogonag / 100 + pogonag) * costdec;                
+                Record artiklRec = eArtikl.query().stream().filter(r -> artikl.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
                 sum1 = sum1 + value1;
                 sum2 = sum2 + value2;
+                
+                vectorRec.add(4, artiklRec.get(eArtikl.name)); //имя артикула                
                 vectorRec.add(value1); //стоим. элемента без скидки
                 vectorRec.add(value2); //стоим. элемента со скидкой
+                
                 ((DefaultTableModel) tab.getModel()).getDataVector().add(vectorRec);
             }
             rs.close();
@@ -157,20 +161,20 @@ public class DBCompare extends javax.swing.JFrame {
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "№пп", "ATYPM", "ATYPP", "Артикул", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Угол 1", "Угол 2", "Количествр", "Погонаж", "Норма отхода", "<html>Себестоимость<br/> за ед.изм.", "<html>Стоим.без.ск<br/> за ед.изм.", "<html>Стоим.со.ск<br/> за ед.изм.", "<html>Стоим.елем.<br/>без.скидки", "<html>Стоим.елем.<br/>со.скидкой"
+                "№пп", "ATYPM", "ATYPP", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Угол 1", "Угол 2", "Количествщ", "Погонаж", "<html>Норма<br/>отхода", "<html>Себестоимость<br/> за ед.изм.", "<html>Стоим.без.ск<br/> за ед.изм.", "<html>Стоим.со.ск<br/> за ед.изм.", "<html>Стоим.елем.<br/>без.скидки", "<html>Стоим.елем.<br/>со.скидкой"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, false, false, false, false, false, false, false, false, false, false, false, true, false, false, true, true
+                false, true, true, false, true, false, false, false, false, false, false, false, false, false, false, true, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -192,21 +196,22 @@ public class DBCompare extends javax.swing.JFrame {
             tab.getColumnModel().getColumn(2).setMinWidth(0);
             tab.getColumnModel().getColumn(2).setPreferredWidth(0);
             tab.getColumnModel().getColumn(2).setMaxWidth(0);
-            tab.getColumnModel().getColumn(3).setPreferredWidth(200);
-            tab.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tab.getColumnModel().getColumn(3).setPreferredWidth(140);
+            tab.getColumnModel().getColumn(4).setPreferredWidth(240);
             tab.getColumnModel().getColumn(5).setPreferredWidth(40);
             tab.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab.getColumnModel().getColumn(7).setPreferredWidth(60);
+            tab.getColumnModel().getColumn(7).setPreferredWidth(40);
             tab.getColumnModel().getColumn(8).setPreferredWidth(60);
             tab.getColumnModel().getColumn(9).setPreferredWidth(60);
             tab.getColumnModel().getColumn(10).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(12).setPreferredWidth(60);
+            tab.getColumnModel().getColumn(11).setPreferredWidth(60);
             tab.getColumnModel().getColumn(13).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(14).setPreferredWidth(120);
-            tab.getColumnModel().getColumn(15).setPreferredWidth(120);
-            tab.getColumnModel().getColumn(16).setPreferredWidth(120);
-            tab.getColumnModel().getColumn(17).setPreferredWidth(120);
-            tab.getColumnModel().getColumn(18).setPreferredWidth(120);
+            tab.getColumnModel().getColumn(14).setPreferredWidth(60);
+            tab.getColumnModel().getColumn(15).setPreferredWidth(80);
+            tab.getColumnModel().getColumn(16).setPreferredWidth(80);
+            tab.getColumnModel().getColumn(17).setPreferredWidth(80);
+            tab.getColumnModel().getColumn(18).setPreferredWidth(80);
+            tab.getColumnModel().getColumn(19).setPreferredWidth(80);
         }
 
         center.add(scr, java.awt.BorderLayout.CENTER);
@@ -221,7 +226,7 @@ public class DBCompare extends javax.swing.JFrame {
         south.setLayout(southLayout);
         southLayout.setHorizontalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 722, Short.MAX_VALUE)
+            .addGap(0, 840, Short.MAX_VALUE)
         );
         southLayout.setVerticalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
