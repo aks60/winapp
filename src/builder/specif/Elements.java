@@ -36,7 +36,8 @@ public class Elements extends Cal5e {
     //Но при проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
     public void calc() {
         super.calc();
-        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST);
+        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE
+                , TypeElem.STVORKA_SIDE, TypeElem.IMPOST); //список сторон рам, створок и импостов
         try {
             //Цикл по списку элементов конструкции
             for (ElemSimple elem5e : listElem) {
