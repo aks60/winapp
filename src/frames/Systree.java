@@ -2500,19 +2500,23 @@ public class Systree extends javax.swing.JFrame {
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         try {
             if (windowsNode != null) {
-                float selectID = windowsNode.com5t().id();
-                Query qSysprof2 = new Query(eSysprof.values(), eArtikl.values());
+                float selectID = windowsNode.com5t().id(); //id элемента который уже есть в конструкции, это либо виртуал. либо найденный по приоритету при построении модели
+                Query qSysprofFilter = new Query(eSysprof.values(), eArtikl.values()); //тут будет список допустимых профилей из ветки системы
                 UseArtiklTo useArtiklTo = (windowsNode.com5t().type() == TypeElem.IMPOST) ? UseArtiklTo.IMPOST
                         : (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
 
+                //Цикл по профилям ветки 
                 for (int index = 0; index < qSysprof.size(); ++index) {
                     Record sysprofRec = qSysprof.get(index);
+                    
+                    //Отфильтруем подходящие по параметрам
                     if (sysprofRec.getInt(eSysprof.use_type) == useArtiklTo.id) {
                         if (sysprofRec.getInt(eSysprof.use_side) == windowsNode.com5t().layout().id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {
-                            qSysprof2.add(sysprofRec);
-                            qSysprof2.table(eArtikl.up).add(qSysprof.table(eArtikl.up).get(index));
+                            
+                            qSysprofFilter.add(sysprofRec);
+                            qSysprofFilter.table(eArtikl.up).add(qSysprof.table(eArtikl.up).get(index));
                         }
                     }
                 }
@@ -2560,7 +2564,7 @@ public class Systree extends javax.swing.JFrame {
                         updateScript(selectID);
                     }
 
-                }, qSysprof2);
+                }, qSysprofFilter);
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
@@ -2717,6 +2721,7 @@ public class Systree extends javax.swing.JFrame {
     private void artiklToGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artiklToGlass
         try {
             float selectID = windowsNode.com5t().id();
+            //Список доступных толщин в ветке системы например 4;5;8
             String depth = systreeNode.rec().getStr(eSystree.depth);
             if (depth != null && depth.isEmpty() == false) {
                 depth = depth.replace(";", ",");
@@ -2724,9 +2729,10 @@ public class Systree extends javax.swing.JFrame {
                     depth = depth.substring(0, depth.length() - 1);
                 }
             }
+            //Список стеклопакетов
             depth = (depth != null && depth.isEmpty() == false) ? " and " + eArtikl.depth.name() + " in (" + depth + ")" : "";
-            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where",
-                    eArtikl.level1, "= 5 and", eArtikl.level2, "in (1,2,3)", depth);
+            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, 
+                    "where", eArtikl.level1, "= 5 and", eArtikl.level2, "in (1,2,3)", depth);
 
             new DicArtikl(this, (artiklRec) -> {
 

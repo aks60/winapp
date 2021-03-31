@@ -51,29 +51,21 @@ public class Filling extends Cal5e {
             String depthSet = systreeRec.getStr(eSystree.depth); //доступные толщины
             List<Record> sysprofList = eSysprof.find(iwin().nuni); //список профилей в ветке
             LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS); //список стеклопакетов
-            
+
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
                 UseArtiklTo typeProf = (elemGlass.owner().type() == TypeElem.STVORKA)
                         ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //стекло может быть в створке или раме
                 Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth); //толщина стекла в стеклопакете
-                Record artprofRec = null;
+                
+                //Цикл по профилям в стеклопакете    
+                for (Map.Entry<LayoutArea, ElemFrame> entry : elemGlass.owner().mapFrame.entrySet()) {
+                    ElemFrame elemFrame = entry.getValue();
 
-                //Если есть такая допустимая толщина
-                if (Util.containsFloat(depthSet, depth) == true) {
-
-                    //Цикл по списку профилей в ветке системы. Ищем артикул системы профилей
-                    for (Record sysprofRec : sysprofList) {
-                        if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
-                            artprofRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //включая аналог!
-                            break;
-                        }
-                    }
-                    
                     //Цикл по группам заполнений
                     for (Record glasgrpRec : eGlasgrp.findAll()) {
 
-                        //Доступные толщины 
+                        //Доступные толщины в группе заполнения 
                         if (Util.containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth) == true) {
                             listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
 
@@ -81,9 +73,8 @@ public class Filling extends Cal5e {
                             for (Record glasprofRec : eGlasprof.findAll()) {
 
                                 if (glasgrpRec.getInt(eGlasgrp.id) == glasprofRec.getInt(eGlasprof.glasgrp_id)) {
-                                    //if (artprofRec != null && artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
-                                    if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
-                                        if (glasprofRec.getInt(eGlasprof.inside) == 1) {
+                                    if (elemFrame.artiklRecAn.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
+                                        if (glasprofRec.getInt(eGlasprof.inside) == 1) { //пока только для внутреннего
 
                                             //Данные для старого алгоритма расчёта
                                             elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
@@ -104,7 +95,7 @@ public class Filling extends Cal5e {
             Query.conf = conf;
         }
     }
-    
+
     public void calc() {
         super.calc();
         try {
@@ -120,7 +111,7 @@ public class Filling extends Cal5e {
                 Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth); //толщина стекда
                 Record artprofRec = null;
 
-                //Доступные толщины
+                //Если есть такая допустимая толщина. Мы уже пользовались этой проверкой при постоении модели
                 if (Util.containsFloat(depthSet, depth) == true) {
 
                     //Цикл по системе конструкций, ищем артикул системы профилей

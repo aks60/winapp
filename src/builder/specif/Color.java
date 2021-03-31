@@ -211,7 +211,7 @@ public class Color {
     private static int colorFromArtikl(int artiklID, int side, int elemColorID) {
         try {
             List<Record> artdetList = eArtdet.find(artiklID);
-            //Цыкл по ARTDET определённого артикула
+            //Цикл по ARTDET определённого артикула
             for (Record artdetRec : artdetList) {
                 //Сторона подлежит рассмотрению?
                 if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
@@ -221,7 +221,7 @@ public class Color {
                     //Группа текстур
                     if (artdetRec.getInt(eArtdet.color_fk) < 0) {
                         List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk) * -1); //фильтр списка определённой группы
-                        //Цыкл по COLOR определённой группы
+                        //Цикл по COLOR определённой группы
                         for (Record colorRec : colorList) {
                             if (colorRec.getInt(eColor.id) == elemColorID) {
                                 return elemColorID;
@@ -253,7 +253,7 @@ public class Color {
             List<Record> colmapList = eColmap.find3(elemColorID, paramFk);
             List<Record> artdetList = eArtdet.find(artiklID);
 
-            //Цыкл по ARTDET определённого артикула
+            //Цикл по ARTDET определённого артикула
             for (Record artdetRec : artdetList) {
                 //Сторона подлежит рассмотрению?
                 if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
@@ -263,7 +263,7 @@ public class Color {
                     //Группа текстур
                     if (artdetRec.getInt(eArtdet.color_fk) < 0) {
                         List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk) * -1); //фильтр списка определённой группы
-                        //Цыкл по COLOR определённой группы
+                        //Цикл по COLOR определённой группы
                         for (Record colorRec : colorList) {
 
                             List<Record> colmapList2 = eColmap.find(colorRec.getInt(eColor.id));
@@ -342,7 +342,7 @@ public class Color {
     public static int colorFromArtikl(int artiklId) {
         try {
             List<Record> artdetList = eArtdet.find(artiklId);
-            //Цыкл по ARTDET определённого артикула
+            //Цикл по ARTDET определённого артикула
             for (Record artdetRec : artdetList) {
                 if (artdetRec.getInt(eArtdet.color_fk) >= 0) {
                     if ("1".equals(artdetRec.getStr(eArtdet.mark_c1))

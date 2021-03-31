@@ -170,7 +170,7 @@ public class AreaSimple extends Com5t {
 
         //Цикл по импостам
         for (ElemSimple elemImp : impList) {
-            //Цыкл по сторонам рамы и импостам (т.к. в створке Т-обр. соединений нет)
+            //Цикл по сторонам рамы и импостам (т.к. в створке Т-обр. соединений нет)
             for (ElemSimple elem5e : elemList) {
 
                 ElemJoining el = new ElemJoining(iwin());
