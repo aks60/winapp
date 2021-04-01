@@ -143,7 +143,7 @@ public class Furniture extends Cal5e {
 
             //Подбор текстуры ручки
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
-                if (artiklRec != null && TypeArtikl.FURNRUCHKA.isType(artiklRec)) {
+                if (artiklRec != null && TypeArtikl.X211.isType(artiklRec)) {
                     if (furndetRec.getInt(eFurndet.color_fk) > 0) {
                         boolean empty = true;
                         List<Record> artdetList = eArtdet.find(furndetRec.getInt(eFurndet.artikl_id));

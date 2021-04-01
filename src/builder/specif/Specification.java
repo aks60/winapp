@@ -136,14 +136,14 @@ public class Specification {
 
     protected void setAnglCut() {
         //TODO Тут логическая ошибка
-        if (TypeArtikl.FURNITURA.isType(artiklRec)
-                || TypeArtikl.KONZEVPROF.isType(artiklRec)
-                || TypeArtikl.MONTPROF.isType(artiklRec)
-                || TypeArtikl.FIKSPROF.isType(artiklRec)) {
+        if (TypeArtikl.X109.isType(artiklRec)
+                || TypeArtikl.X135.isType(artiklRec)
+                || TypeArtikl.X117.isType(artiklRec)
+                || TypeArtikl.X136.isType(artiklRec)) {
             anglCut2 = 90;
             anglCut1 = 90;
 
-        } else if (TypeArtikl.FURNITURA.isType(artiklRec)) {
+        } else if (TypeArtikl.X109.isType(artiklRec)) {
             anglCut2 = 0;
             anglCut1 = 0;
         }

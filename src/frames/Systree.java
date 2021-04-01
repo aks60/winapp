@@ -382,12 +382,12 @@ public class Systree extends javax.swing.JFrame {
 
         Util.buttonCellEditor(tab3, 5).addActionListener(event -> {
             int furnityreId = qSysfurn.getAs(Util.getIndexRec(tab3), eSysfurn.furniture_id);
-            DicArtikl artikl = new DicArtikl(this, listenerArt211, furnityreId, TypeArtikl.FURNRUCHKA.id1, TypeArtikl.FURNRUCHKA.id2);
+            DicArtikl artikl = new DicArtikl(this, listenerArt211, furnityreId, TypeArtikl.X211.id1, TypeArtikl.X211.id2);
         });
 
         Util.buttonCellEditor(tab3, 6).addActionListener(event -> {
             int furnityreId = qSysfurn.getAs(Util.getIndexRec(tab3), eSysfurn.furniture_id);
-            DicArtikl artikl = new DicArtikl(this, listenerArt212, furnityreId, TypeArtikl.FURNLOOP.id1, TypeArtikl.FURNLOOP.id2);
+            DicArtikl artikl = new DicArtikl(this, listenerArt212, furnityreId, TypeArtikl.X212.id1, TypeArtikl.X212.id2);
         });
 
         Util.buttonCellEditor(tab4, 0).addActionListener(event -> {

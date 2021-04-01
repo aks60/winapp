@@ -105,7 +105,7 @@ public class ElemFrame extends ElemSimple {
     public void addSpecific(Specification specificationAdd) { //добавление спесификаций зависимых элементов
 
         //Армирование
-        if (TypeArtikl.ARMIROVANIE.isType(specificationAdd.artiklRec)) {
+        if (TypeArtikl.X107.isType(specificationAdd.artiklRec)) {
             specificationAdd.place = "ВСТ." + layout().name.substring(0, 1);
             specificationAdd.anglCut1 = 90;
             specificationAdd.anglCut2 = 90;
@@ -135,7 +135,7 @@ public class ElemFrame extends ElemSimple {
             }
 
             //Концевой профиль
-        } else if (TypeArtikl.KONZEVPROF.isType(specificationAdd.artiklRec) == true) {
+        } else if (TypeArtikl.X135.isType(specificationAdd.artiklRec) == true) {
             String str = specificationAdd.getParam(0, 12030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
@@ -146,13 +146,13 @@ public class ElemFrame extends ElemSimple {
             }
 
             //Монтажный профиль
-        } else if (TypeArtikl.MONTPROF.isType(specificationAdd.artiklRec) == true) {
+        } else if (TypeArtikl.X117.isType(specificationAdd.artiklRec) == true) {
             //float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
             //specificationRec.width = x2 - x1 + prip * 2;
             //specif.width = specificationRec.weight;
 
             //Соединитель
-        } else if (TypeArtikl.SOEDINITEL.isType(specificationAdd.artiklRec) == true) {
+        } else if (TypeArtikl.X205.isType(specificationAdd.artiklRec) == true) {
             specificationAdd.colorID1 = -3;
             specificationAdd.colorID2 = -3;
             specificationAdd.colorID3 = -3;

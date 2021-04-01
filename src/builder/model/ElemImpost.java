@@ -122,14 +122,14 @@ public class ElemImpost extends ElemSimple {
     public void addSpecific(Specification specificationAdd) {
 
         //Армирование
-        if (TypeArtikl.ARMIROVANIE.isType(specificationAdd.artiklRec)) {
+        if (TypeArtikl.X107.isType(specificationAdd.artiklRec)) {
             specificationAdd.place = "ВСТ." + layout().name.substring(0, 1);
             specificationAdd.anglCut2 = 90;
             specificationAdd.anglCut1 = 90;
             specificationAdd.width = specificationRec.width;
 
             //Соединитель
-        } else if (TypeArtikl.SOEDINITEL.isType(specificationAdd.artiklRec)) {
+        } else if (TypeArtikl.X205.isType(specificationAdd.artiklRec)) {
             //
 
             //Остальные

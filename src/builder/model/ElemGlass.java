@@ -109,7 +109,7 @@ public class ElemGlass extends ElemSimple {
             return;
 
             //Штапик
-        } else if (TypeArtikl.SHTAPIK.isType(specificationAdd.artiklRec)) {
+        } else if (TypeArtikl.X108.isType(specificationAdd.artiklRec)) {
 
             Float overLength = (specificationAdd.getParam(null, 15050) == null) ? 0.f : Float.valueOf(specificationAdd.getParam(0, 15050).toString());
             if (TypeElem.ARCH == owner().type()) {
@@ -179,7 +179,7 @@ public class ElemGlass extends ElemSimple {
                 }
             }
             //Уплотнитель
-        } else if (TypeArtikl.KONZEVPROF.isType(specificationAdd.artiklRec)) {
+        } else if (TypeArtikl.X135.isType(specificationAdd.artiklRec)) {
 
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
                 //По основанию арки

@@ -89,7 +89,7 @@ public class Elements extends Cal5e {
                                 specif.place = "ВСТ";
 
                                 //Если (контейнер) в списке детализации, например профиль с префиксом @
-                                if (TypeArtikl.isType(artiklRec, TypeArtikl.KOROBKA, TypeArtikl.STVORKA, TypeArtikl.IMPOST)) {
+                                if (TypeArtikl.isType(artiklRec, TypeArtikl.KOROBKA, TypeArtikl.X102, TypeArtikl.X103)) {
                                     elem5e.specificationRec.setArtiklRec(specif.artiklRec); //переназначаем артикл, как правило это c префиксом артикла @
                                     elem5e.specificationRec.mapParam = specif.mapParam; //переназначаем mapParam
 

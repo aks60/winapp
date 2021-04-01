@@ -352,23 +352,23 @@ public class Artikles extends javax.swing.JFrame {
         DefaultMutableTreeNode node = null;
         for (TypeArtikl it : TypeArtikl.values()) {
             if (it.id1 == 1 && it.id2 == 0) {
-                node = new DefaultMutableTreeNode(TypeArtikl.PROFIL); //"Профили"
+                node = new DefaultMutableTreeNode(TypeArtikl.X100); //"Профили"
 
             } else if (it.id1 == 2 && it.id2 == 0) {
                 nodeRoot.add(node);
-                node = new DefaultMutableTreeNode(TypeArtikl.ACSESYAR); //"Аксессуары"
+                node = new DefaultMutableTreeNode(TypeArtikl.X200); //"Аксессуары"
 
             } else if (it.id1 == 3 && it.id2 == 0) {
                 nodeRoot.add(node);
-                node = new DefaultMutableTreeNode(TypeArtikl.POGONAG); //"Погонаж"
+                node = new DefaultMutableTreeNode(TypeArtikl.X300); //"Погонаж"
 
             } else if (it.id1 == 4 && it.id2 == 0) {
                 nodeRoot.add(node);
-                node = new DefaultMutableTreeNode(TypeArtikl.INSTRYMENT); //"Инструмент"
+                node = new DefaultMutableTreeNode(TypeArtikl.X400); //"Инструмент"
 
             } else if (it.id1 == 5 && it.id2 == 0) {
                 nodeRoot.add(node);
-                node = new DefaultMutableTreeNode(TypeArtikl.ZAPOLNEN); //"Заполнения"
+                node = new DefaultMutableTreeNode(TypeArtikl.X500); //"Заполнения"
 
             } else if (it.id2 > 0) {   //остальное       
                 nodeRoot.add(node);
