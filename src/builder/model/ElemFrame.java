@@ -9,7 +9,7 @@ import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.specif.SpecificRec;
-import builder.param.Processing;
+import builder.specif.SpecificAdd;
 import enums.PKjson;
 
 public class ElemFrame extends ElemSimple {

@@ -14,11 +14,11 @@ import enums.TypeElem;
 import java.util.LinkedList;
 import java.util.List;
 import builder.Wincalc;
+import builder.model.AreaSimple;
 import builder.param.FurnitureDet;
 import builder.param.FurnitureVar;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
-import builder.param.Processing;
 import dataset.Query;
 import static domain.eFurnside1.furniture_id;
 import static domain.eFurnside1.up;
@@ -84,7 +84,7 @@ public class Furniture extends Cal5e {
 
                 //mask[furnside1Rec.getInt(eFurnside1.side_num)] = furnside1Rec.getInt(eFurnside1.side_use);
                 ElemFrame sideFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
-                
+
                 //ФИЛЬТР вариантов
                 if (furnitureVar.check(sideFrame, furnside1Rec) == false) {
                     return;
@@ -96,7 +96,7 @@ public class Furniture extends Cal5e {
             //} else if(mask[4] == 2) {
             //    areaStv.typeOpen = (mask[1] == 2) ?TypeOpen1.LEFTUP :TypeOpen1.LEFT;
             //}
-                
+
             //Цикл по детализации (уровень 1)        
             for (Record furndetRec1 : furndetList) {
                 if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
@@ -206,7 +206,7 @@ public class Furniture extends Cal5e {
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
 
-                    ElemFrame sideStv = Processing.determOfSide(mapParam, areaStv);
+                    ElemFrame sideStv = determOfSide(mapParam, areaStv);
                     SpecificRec specif = new SpecificRec(furndetRec, artiklRec, sideStv, mapParam);
                     if (Color.colorFromProduct(specif, 1)) { //попадает или нет в спецификацию по цвету
 
@@ -237,6 +237,33 @@ public class Furniture extends Cal5e {
         } catch (Exception e) {
             System.err.println("estimate.constr.Furniture.detail() " + e);
             return false;
+        }
+    }
+
+    public ElemFrame determOfSide(HashMap<Integer, String> mapParam, AreaSimple area5e) {
+
+        //Через параметр
+        if ("1".equals(mapParam.get(25010))) {
+            return area5e.mapFrame.get(LayoutArea.BOTTOM);
+        } else if ("2".equals(mapParam.get(25010))) {
+            return area5e.mapFrame.get(LayoutArea.RIGHT);
+        } else if ("3".equals(mapParam.get(25010))) {
+            return area5e.mapFrame.get(LayoutArea.TOP);
+        } else if ("4".equals(mapParam.get(25010))) {
+            return area5e.mapFrame.get(LayoutArea.LEFT);
+        } else {
+            //Там где крепится ручка
+            if (area5e instanceof AreaStvorka) {
+                int id = ((AreaStvorka) area5e).typeOpen.id;
+                if (Arrays.asList(1, 3, 11).contains(id)) {
+                    return area5e.mapFrame.get(LayoutArea.LEFT);
+                } else if (Arrays.asList(2, 4, 12).contains(id)) {
+                    return area5e.mapFrame.get(LayoutArea.RIGHT);
+                } else {
+                    return area5e.mapFrame.get(LayoutArea.BOTTOM);
+                }
+            }
+            return area5e.mapFrame.values().stream().findFirst().get();  //первая попавшаяся
         }
     }
 }
