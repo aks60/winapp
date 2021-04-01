@@ -45,7 +45,7 @@ public class DBCompare extends javax.swing.JFrame {
     public void loadingTab1(Wincalc iwin) {
         try {
             ((DefaultTableModel) tab.getModel()).getDataVector().clear();
-            Connection cn = Test.connect()[0];
+            Connection cn = Test.connect1();
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
             rs.next();
@@ -388,7 +388,7 @@ public class DBCompare extends javax.swing.JFrame {
         Map<String, Float> hmDB1 = new LinkedHashMap();
         Map<String, Float> hmDB2 = new LinkedHashMap();
         try {
-            Connection conn = Test.connect()[0];
+            Connection conn = Test.connect1();
             Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
             rs.next();

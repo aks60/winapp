@@ -16,35 +16,41 @@ import javax.swing.JOptionPane;
 
 public class Test {
 
-    public static int numDb = Integer.valueOf(eProperty.base_num.read());
+    public static Integer numDb = Integer.valueOf(eProperty.base_num.read());
 
     // <editor-fold defaultstate="collapsed" desc="Connection[] connect(int numDb)">
-    public static Connection[] connect() {
+    
+    public static Connection connect1() {
         try {
-            Connection cn[] = {null, null};
-            String ur1, ur2;
             if (numDb == 1) {
-                ur1 = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\Bimax\\ITEST.FDB?encoding=win1251";
-                ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
+                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\Bimax\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             } else if (numDb == 2) {
-                ur1 = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Sialbase3\\sial3.fdb?encoding=win1251";
-                ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
+                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Sialbase3\\sial3.fdb?encoding=win1251", "sysdba", "masterkey");
             } else {
-                ur1 = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb?encoding=win1251";
-                ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\ALUTECH.FDB?encoding=win1251";
-                //ur1 = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\othe\\vidnal.fdb?encoding=win1251";
-                //ur2 = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\vidnal.fdb?encoding=win1251";
+                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb?encoding=win1251", "sysdba", "masterkey");
+                //return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\othe\\vidnal.fdb?encoding=win1251", "sysdba", "masterkey");
             }
-            cn[0] = java.sql.DriverManager.getConnection(ur1, "sysdba", "masterkey"); //источник
-            cn[1] = java.sql.DriverManager.getConnection(ur2, "sysdba", "masterkey"); //приёмник
-            return cn;
 
         } catch (Exception e) {
             System.err.println("Ошибка:Test.connect() " + e);
             return null;
         }
     }
-// </editor-fold>     
+
+    public static Connection connect2() {
+        try {
+            eProperty.user.write("sysdba");
+            eProperty.password = String.valueOf("masterkey");
+            Conn con = Conn.initConnect();
+            con.createConnection(eProperty.server(numDb.toString()), eProperty.port(numDb.toString()), eProperty.base(numDb.toString()), eProperty.user.read(), eProperty.password.toCharArray(), null);;
+            return con.getConnection();
+        } catch (Exception e) {
+            System.err.println("Ошибка:Test.connect() " + e);
+            return null;
+        }
+    }
+    
+    // </editor-fold>     
 
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
 
@@ -64,7 +70,7 @@ public class Test {
 
     private static void wincalc() throws Exception {
 
-        Query.connection = Test.connect()[1];        
+        Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
         String _case = "max";
 
@@ -111,7 +117,7 @@ public class Test {
 
     private static void frame() throws Exception {
 
-        Query.connection = Test.connect()[1]; 
+        Query.connection = Test.connect2();
         lookAndFeel();
         Tex app = new Tex();
         app.setVisible(true);
@@ -123,7 +129,7 @@ public class Test {
 
     private static void query() {
         try {
-            Query.connection = Test.connect()[1]; 
+            Query.connection = Test.connect2();
             Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.id, "=", 19143);
             Record artdetRec = qArtdet.get(0);
             int side = 1;
@@ -182,7 +188,7 @@ public class Test {
 
     private static void json() {
 
-        Query.connection = Test.connect()[1]; 
+        Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
         String script = Winscript.test(601004, false);
         iwin.build(script);
