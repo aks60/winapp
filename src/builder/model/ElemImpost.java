@@ -12,7 +12,7 @@ import enums.UseSide;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import builder.specif.Specification;
+import builder.specif.SpecificRec;
 import domain.eSyssize;
 import enums.TypeJoin;
 import builder.specif.Util;
@@ -119,25 +119,25 @@ public class ElemImpost extends ElemSimple {
     }
 
     @Override //Вложеная спецификация      
-    public void addSpecific(Specification specificationAdd) {
+    public void addSpecific(SpecificRec spcAdd) {
 
         //Армирование
-        if (TypeArtikl.X107.isType(specificationAdd.artiklRec)) {
-            specificationAdd.place = "ВСТ." + layout().name.substring(0, 1);
-            specificationAdd.anglCut2 = 90;
-            specificationAdd.anglCut1 = 90;
-            specificationAdd.width = spcRec.width;
+        if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
+            spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
+            spcAdd.anglCut2 = 90;
+            spcAdd.anglCut1 = 90;
+            spcAdd.width = spcRec.width;
 
             //Соединитель
-        } else if (TypeArtikl.X205.isType(specificationAdd.artiklRec)) {
+        } else if (TypeArtikl.X205.isType(spcAdd.artiklRec)) {
             //
 
             //Остальные
         } else {
             //
         }
-        proc.amount(spcRec, specificationAdd); //количество от параметра
-        spcRec.spcList.add(specificationAdd);
+        proc.amount(spcRec, spcAdd); //количество от параметра
+        spcRec.spcList.add(spcAdd);
     }
 
     //Вычисление захода импоста через параметр

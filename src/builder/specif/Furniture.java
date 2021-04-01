@@ -207,7 +207,7 @@ public class Furniture extends Cal5e {
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
 
                     ElemFrame sideStv = Processing.determOfSide(mapParam, areaStv);
-                    Specification specif = new Specification(furndetRec, artiklRec, sideStv, mapParam);
+                    SpecificRec specif = new SpecificRec(furndetRec, artiklRec, sideStv, mapParam);
                     if (Color.colorFromProduct(specif, 1)) { //попадает или нет в спецификацию по цвету
 
                         //Пишем ручку в створку

@@ -5,7 +5,7 @@ import enums.LayoutJoin;
 import enums.TypeJoin;
 import java.util.ArrayList;
 import builder.Wincalc;
-import builder.specif.Specification;
+import builder.specif.SpecificRec;
 
 public class ElemJoining {
 

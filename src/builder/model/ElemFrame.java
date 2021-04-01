@@ -8,7 +8,7 @@ import enums.LayoutArea;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import builder.specif.Specification;
+import builder.specif.SpecificRec;
 import builder.param.Processing;
 import enums.PKjson;
 
@@ -102,24 +102,24 @@ public class ElemFrame extends ElemSimple {
     }
 
     @Override //Вложеная спецификация
-    public void addSpecific(Specification specificationAdd) { //добавление спесификаций зависимых элементов
+    public void addSpecific(SpecificRec spcAdd) { //добавление спесификаций зависимых элементов
 
         //Армирование
-        if (TypeArtikl.X107.isType(specificationAdd.artiklRec)) {
-            specificationAdd.place = "ВСТ." + layout().name.substring(0, 1);
-            specificationAdd.anglCut1 = 90;
-            specificationAdd.anglCut2 = 90;
+        if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
+            spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
+            spcAdd.anglCut1 = 90;
+            spcAdd.anglCut2 = 90;
 
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
-                specificationAdd.width = x2 - x1;
+                spcAdd.width = x2 - x1;
 
             } else if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
-                specificationAdd.width = y2 - y1;
+                spcAdd.width = y2 - y1;
             }
-            if ("от внутреннего угла".equals(specificationAdd.getParam(null, 34010))) {
+            if ("от внутреннего угла".equals(spcAdd.getParam(null, 34010))) {
                 Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
                 Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
-                specificationAdd.width = specificationAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
+                spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
 
             } else {
 //                Double dw1 = 0.0;
@@ -135,38 +135,38 @@ public class ElemFrame extends ElemSimple {
             }
 
             //Концевой профиль
-        } else if (TypeArtikl.X135.isType(specificationAdd.artiklRec) == true) {
-            String str = specificationAdd.getParam(0, 12030);
+        } else if (TypeArtikl.X135.isType(spcAdd.artiklRec) == true) {
+            String str = spcAdd.getParam(0, 12030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
-                specificationAdd.width = spcRec.width * 2 * koef;
+                spcAdd.width = spcRec.width * 2 * koef;
             } else {
-                specificationAdd.width = spcRec.height * 2 * koef;
+                spcAdd.width = spcRec.height * 2 * koef;
             }
 
             //Монтажный профиль
-        } else if (TypeArtikl.X117.isType(specificationAdd.artiklRec) == true) {
+        } else if (TypeArtikl.X117.isType(spcAdd.artiklRec) == true) {
             //float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
             //specificationRec.width = x2 - x1 + prip * 2;
             //specif.width = specificationRec.weight;
 
             //Соединитель
-        } else if (TypeArtikl.X205.isType(specificationAdd.artiklRec) == true) {
-            specificationAdd.colorID1 = -3;
-            specificationAdd.colorID2 = -3;
-            specificationAdd.colorID3 = -3;
+        } else if (TypeArtikl.X205.isType(spcAdd.artiklRec) == true) {
+            spcAdd.colorID1 = -3;
+            spcAdd.colorID2 = -3;
+            spcAdd.colorID3 = -3;
 
             //Всё остальное
         } else {
 
         }
 
-        proc.amount(spcRec, specificationAdd); //количество от параметра
-        spcRec.spcList.add(specificationAdd);
+        proc.amount(spcRec, spcAdd); //количество от параметра
+        spcRec.spcList.add(spcAdd);
 
-        if (specificationAdd.mapParam.get(25013) != null) {
-            proc.param(specificationAdd, 25013);
+        if (spcAdd.mapParam.get(25013) != null) {
+            proc.param(spcAdd, 25013);
         }
     }
 

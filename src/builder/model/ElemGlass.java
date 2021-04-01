@@ -10,7 +10,7 @@ import enums.LayoutArea;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import builder.specif.Specification;
+import builder.specif.SpecificRec;
 import builder.param.Processing;
 import enums.PKjson;
 import enums.UseUnit;
@@ -103,7 +103,7 @@ public class ElemGlass extends ElemSimple {
     }
 
     @Override //Вложеная спецификация 
-    public void addSpecific(Specification spcAdd) {
+    public void addSpecific(SpecificRec spcAdd) {
         
         //param(param, key)
         //spcAdd.mapParam.g
@@ -136,7 +136,7 @@ public class ElemGlass extends ElemSimple {
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcAdd.anglCut2 = (float) ang;
                 spcAdd.anglCut1 = (float) ang;
-                spcRec.spcList.add(new Specification(spcAdd)); //добавим спецификацию
+                spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
 
                 //По дуге арки
                 double ang2 = Math.toDegrees(Math.asin(l2 / r2));
@@ -156,7 +156,7 @@ public class ElemGlass extends ElemSimple {
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcAdd.anglCut2 = (float) ang3;
                 spcAdd.anglCut1 = (float) ang3;
-                spcRec.spcList.add(new Specification(spcAdd)); //добавим спецификацию
+                spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
 
             } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
                 spcAdd.anglCut2 = 45;
@@ -164,15 +164,15 @@ public class ElemGlass extends ElemSimple {
                 //По горизонтали                
                 spcAdd.width = width() + 2 * gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                Specification specificationHor1 = new Specification(spcAdd);
-                Specification specificationHor2 = new Specification(spcAdd);
+                SpecificRec specificationHor1 = new SpecificRec(spcAdd);
+                SpecificRec specificationHor2 = new SpecificRec(spcAdd);
                 spcRec.spcList.add(specificationHor1);
                 spcRec.spcList.add(specificationHor2);
                 //По вертикали
                 spcAdd.width = height() + 2 * gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                Specification specificationVer1 = new Specification(spcAdd);
-                Specification specificationVer2 = new Specification(spcAdd);
+                SpecificRec specificationVer1 = new SpecificRec(spcAdd);
+                SpecificRec specificationVer2 = new SpecificRec(spcAdd);
                 spcRec.spcList.add(specificationVer1);
                 spcRec.spcList.add(specificationVer2);
 
@@ -205,7 +205,7 @@ public class ElemGlass extends ElemSimple {
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcAdd.anglCut2 = (float) ang;
                 spcAdd.anglCut1 = (float) ang;
-                spcRec.spcList.add(new Specification(spcAdd)); //добавим спецификацию
+                spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
 
                 //По дуге арки
                 double ang2 = Math.toDegrees(Math.asin(l2 / r2));
@@ -219,7 +219,7 @@ public class ElemGlass extends ElemSimple {
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcAdd.anglCut2 = (float) ang3;
                 spcAdd.anglCut1 = (float) ang3;
-                spcRec.spcList.add(new Specification(spcAdd)); //добавим спецификацию                
+                spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию                
 
             } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
                 spcAdd.anglCut2 = 45;
@@ -227,13 +227,13 @@ public class ElemGlass extends ElemSimple {
                 //По горизонтали                
                 spcAdd.width = width() + 2 * gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcRec.spcList.add(new Specification(spcAdd));
-                spcRec.spcList.add(new Specification(spcAdd));
+                spcRec.spcList.add(new SpecificRec(spcAdd));
+                spcRec.spcList.add(new SpecificRec(spcAdd));
                 //По вертикали
                 spcAdd.width = height() + 2 * gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcRec.spcList.add(new Specification(spcAdd));
-                spcRec.spcList.add(new Specification(spcAdd));
+                spcRec.spcList.add(new SpecificRec(spcAdd));
+                spcRec.spcList.add(new SpecificRec(spcAdd));
             }
             //Всё остальное
         } else {
@@ -253,15 +253,15 @@ public class ElemGlass extends ElemSimple {
 
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {
-                    spcRec.spcList.add(new Specification(spcAdd));
+                    spcRec.spcList.add(new SpecificRec(spcAdd));
                 }
             } else if (TypeElem.ARCH == owner().type()) {
                 for (int index = 0; index < 2; index++) {
-                    spcRec.spcList.add(new Specification(spcAdd));
+                    spcRec.spcList.add(new SpecificRec(spcAdd));
                 }
             } else {
                 //specificationRec.specificationList.add(new Specification(specificationAdd));
-                spcRec.spcList.add(new Specification(spcAdd));
+                spcRec.spcList.add(new SpecificRec(spcAdd));
             }
         }
     }

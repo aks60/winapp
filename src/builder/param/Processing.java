@@ -5,7 +5,7 @@ import domain.eArtikl;
 import enums.LayoutArea;
 import enums.ParamList;
 import enums.UseUnit;
-import builder.specif.Specification;
+import builder.specif.SpecificRec;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
@@ -20,7 +20,7 @@ public class Processing extends Par5s {
         super(iwin);
     }
 
-    public void param(Specification spc, int code) {
+    public void param(SpecificRec spc, int code) {
         try {
             HashMap<Integer, String> map = spc.mapParam;
             ElemSimple el = spc.elem5e;
@@ -54,7 +54,7 @@ public class Processing extends Par5s {
     }
 
     //Расчёт количества материала в зависимости от ед. измерения
-    public void amount(Specification spсRec, Specification spсAdd) {
+    public void amount(SpecificRec spсRec, SpecificRec spсAdd) {
 
         if (UseUnit.PIE.id == spсAdd.artiklRec.getInt(eArtikl.unit)) { //шт.
             spсAdd.count = Integer.valueOf(spсAdd.getParam(spсAdd.count, 11030, 33030, 14030));

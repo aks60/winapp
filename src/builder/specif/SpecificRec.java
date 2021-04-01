@@ -26,9 +26,9 @@ import jxl.Workbook;
 /**
  * Спецификация элемента окна
  */
-public class Specification {
+public class SpecificRec {
 
-    public ArrayList<Specification> spcList = new ArrayList(); //список составов, фарнитур и т.д.
+    public ArrayList<SpecificRec> spcList = new ArrayList(); //список составов, фарнитур и т.д.
     public HashMap<Integer, String> mapParam = null; //параметры спецификации
     public ElemSimple elem5e = null; //элемент пораждающий спецификацию
     public Record artiklRec = null; //профиль в спецификации
@@ -59,17 +59,17 @@ public class Specification {
     public float cost2 = 0;      //Стоимость со скидкой
 
 
-    public Specification(float id, ElemSimple elem5e) {
+    public SpecificRec(float id, ElemSimple elem5e) {
         this.id = id;
         this.elem5e = elem5e;
         this.mapParam = new HashMap();
     }
 
-    public Specification(Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
+    public SpecificRec(Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
         this(null, artiklRec, elem5e, mapParam);
     }
 
-    public Specification(Record deteilRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
+    public SpecificRec(Record deteilRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
         this.id = ++elem5e.iwin().genId;
         this.elem5e = elem5e;
         this.mapParam = mapParam;
@@ -77,7 +77,7 @@ public class Specification {
         setArtiklRec(artiklRec);
     }
 
-    public Specification(Specification spec) {
+    public SpecificRec(SpecificRec spec) {
         this.id = spec.id; //++spec.elem5e.iwin().genId;
         this.place = spec.place;
         this.artikl = spec.artikl;
@@ -178,7 +178,7 @@ public class Specification {
         return String.valueOf(def);
     }
 
-    public static void write_csv(ArrayList<Specification> spcList) {
+    public static void write_csv(ArrayList<SpecificRec> spcList) {
         Writer writer = null;
         try {
             File file = new File("C:\\Java\\IWinCalc\\out\\Specification.csv.");
@@ -186,7 +186,7 @@ public class Specification {
 
             writer.write(new String(("TEST Изделие, Элемент, Артикул, Наименование, Текстура, Внутренняя, Внешняя, Длина. мм, "
                     + "Ширина. мм, Угол1, Угол2, Количество, Погонаж, Ед.изм, Ед.изм, Скидка, Скидка").getBytes("windows-1251"), "UTF-8"));
-            for (Specification spc : spcList) {
+            for (SpecificRec spc : spcList) {
 
                 String str = spc.id + "," + spc.place + "," + spc.artikl + "," + spc.name + "," + spc.colorID1 + "," + spc.colorID2 + "," + spc.colorID3
                         + "," + String.format("%.1f", spc.width) + String.format("%.1f", spc.height) + String.format("%.2f", spc.anglCut2)
@@ -208,7 +208,7 @@ public class Specification {
         }
     }
 
-    public static void write_txt1(ArrayList<Specification> specList) {
+    public static void write_txt1(ArrayList<SpecificRec> specList) {
         int npp = 0;
         String format = "%-6s%-42s%-24s%-18s%-18s%-18s%-8s%-8s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s"
                 + "%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s %n";
@@ -218,7 +218,7 @@ public class Specification {
             "AccessoryID", "PriceGRP", "PrintGroup", "CutAngle1", "CutAngle2", "Composite", "Усл.окна"};
         String str3 = new String(("Спецификация (" + specList.size() + " строк):").getBytes());
         System.out.printf(format, str);
-        for (Specification s : specList) {
+        for (SpecificRec s : specList) {
 
             Object str2[] = {String.valueOf(++npp), s.name, s.artikl,
                 eColor.find(s.colorID1).getStr(eColor.name),
@@ -231,14 +231,14 @@ public class Specification {
             System.out.printf(format, str2);
         }
         float totalVal = 0;
-        for (Specification s : specList) {
+        for (SpecificRec s : specList) {
             totalVal = totalVal + s.cost2;
         }
         String str4 = new String(("Суммарная цена = " + totalVal).getBytes());
         System.out.println(str4);
     }
 
-    public static void write_txt2(ArrayList<Specification> specList) {
+    public static void write_txt2(ArrayList<SpecificRec> specList) {
         try {
             int npp = 0;
             String format = "%-6s%-16s%-60s%-26s%-12s%-12s%-12s%-12s";
@@ -246,7 +246,7 @@ public class Specification {
             System.out.printf(format, str);
             System.out.println();
             float total = 0;
-            for (Specification s : specList) {
+            for (SpecificRec s : specList) {
                 Object str2[] = {String.valueOf(++npp), s.place, s.name, s.artikl,
                     s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.spcRec.artiklRec.get(eArtikl.code), s.price1};
                 total = total + s.weight;

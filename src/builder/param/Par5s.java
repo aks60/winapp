@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import startup.Main;
 import builder.Wincalc;
-import builder.specif.Specification;
+import builder.specif.SpecificRec;
 import builder.model.Com5t;
 
 public class Par5s {
@@ -90,7 +90,7 @@ public class Par5s {
     }
 
     //Необработанные параметры
-    protected void message(Specification spc, int code) {
+    protected void message(SpecificRec spc, int code) {
         if (code >= 0) {
             System.err.println("ОШИБКА! ID " + spc.id + " КОД " + code + " VALUE " + spc.getParam(code) + " НЕ ОБРАБОТАНЫ.");
         }

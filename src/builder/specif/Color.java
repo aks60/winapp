@@ -19,7 +19,7 @@ public class Color {
     private static final int COLOR_FK = 3;
     private static final int ARTIKL_ID = 4;
 
-    public static boolean colorFromProduct(Specification spc, int side) {  //см. http://help.profsegment.ru/?id=1107        
+    public static boolean colorFromProduct(SpecificRec spc, int side) {  //см. http://help.profsegment.ru/?id=1107        
 
         int colorFk = spc.detailRec.getInt(COLOR_FK);
         int types = spc.detailRec.getInt(TYPES);
@@ -150,7 +150,7 @@ public class Color {
     }
 
     //Первая в списке запись цвета
-    private static int colorFromFirst(Specification spc) {
+    private static int colorFromFirst(SpecificRec spc) {
         Record artdetRec = eArtdet.find2(spc.detailRec.getInt(ARTIKL_ID));
         if (artdetRec != null) {
             int colorFK2 = artdetRec.getInt(eArtdet.color_fk);
@@ -169,7 +169,7 @@ public class Color {
     }
 
     //Первая в списке запись цвета (Не в группе)
-    private static int colorFromFirst2(Specification spc) {
+    private static int colorFromFirst2(SpecificRec spc) {
         List<Record> artdetList = eArtdet.find(spc.artiklRec.getInt(ARTIKL_ID));
         for (Record record : artdetList) {
             if (record.getInt(eArtdet.color_fk) >= 0) {
@@ -298,7 +298,7 @@ public class Color {
     }
 
     // Выдает цвет из текущего изделия в соответствии с заданным вариантом подбора текстуры   
-    private static int colorFromTypes(Specification spc, int colorType, int side) {
+    private static int colorFromTypes(SpecificRec spc, int colorType, int side) {
         try {
             switch (colorType) {
                 case 0:

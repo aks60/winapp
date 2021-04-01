@@ -6,7 +6,7 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eSysprof;
 import enums.UseUnit;
-import builder.specif.Specification;
+import builder.specif.SpecificRec;
 import enums.UseArtiklTo;
 import java.awt.Color;
 import java.util.HashMap;
@@ -16,14 +16,14 @@ public abstract class ElemSimple extends Com5t {
 
     public float anglCut1 = 45; //Угол реза рамы
     public float anglCut2 = 45; //Угол реза рамы
-    public Specification spcRec = null; //спецификация элемента
+    public SpecificRec spcRec = null; //спецификация элемента
     public float anglHoriz = -1; //угол к горизонту
     public Color borderColor = Color.BLACK;
     public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);
-        spcRec = new Specification(id, this);
+        spcRec = new SpecificRec(id, this);
     }
 
     //Клик мышки попадает в контур элемента
@@ -40,7 +40,7 @@ public abstract class ElemSimple extends Com5t {
     public abstract void setSpecific();
 
     //Вложеная спецификация
-    public abstract void addSpecific(Specification specification);
+    public abstract void addSpecific(SpecificRec specification);
 
     @Override
     public String toString() {

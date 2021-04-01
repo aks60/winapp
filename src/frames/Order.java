@@ -3,7 +3,7 @@ package frames;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
-import builder.specif.Specification;
+import builder.specif.SpecificRec;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -2494,7 +2494,7 @@ public class Order extends javax.swing.JFrame {
                         iwin.build(je.toString());
                         Query.listOpenTable.forEach(q -> q.clear());
                         iwin.constructiv(true);
-                        for (Specification spc : iwin.listSpec) {
+                        for (SpecificRec spc : iwin.listSpec) {
                             int i = -1;
                             total[++i] = total[i] + spc.weight; //масса
                             total[++i] = total[i] + spc.price2; //Себес-сть за злемент

@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.specif.Specification;
+import builder.specif.SpecificRec;
 import builder.specif.Util;
 import builder.model.ElemSimple;
 import java.util.LinkedList;
