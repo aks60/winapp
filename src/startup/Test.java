@@ -103,7 +103,7 @@ public class Test {
                     iwin.build(script);
                     iwin.constructiv(true);
                     //DBCompare.iwinXls(iwin, false);
-                    DBCompare.iwinRec(iwin, false);
+                    DBCompare.iwinRec(iwin, true);
                 }
             }
         }

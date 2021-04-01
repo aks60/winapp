@@ -1047,7 +1047,11 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnGroup2
 
     private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
-          
+        FrameProgress.create(Tex.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.TestFrame.createFrame(Tex.this);
+            }
+        });          
     }//GEN-LAST:event_btnHelp
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed

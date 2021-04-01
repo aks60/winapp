@@ -3,12 +3,15 @@ package frames;
 import common.FrameToFile;
 import dataset.Query;
 import domain.eProject;
-import java.sql.Connection;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import frames.swing.DefTableModel;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.util.Vector;
 import javax.swing.JTable;
 
 public class TestFrame extends javax.swing.JFrame {
@@ -17,16 +20,16 @@ public class TestFrame extends javax.swing.JFrame {
     private TableRowSorter<DefTableModel> sorter2 = null;
     private TableRowSorter<DefTableModel> sorter3 = null;
     //private String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\bimax\\ITEST.FDB?encoding=win1251";
-    //private Connection cn;
+    private Connection cn;
     private Query qOrders = new Query(eProject.values());
 
     public TestFrame() {
         initComponents();
         initElements();
-//        try {
-//            cn = Query.connection;  //java.sql.DriverManager.getConnection(src, "sysdba", "masterkey");
-//        } catch (Exception e) {
-//        }
+        try {
+            cn = Query.connection;  //java.sql.DriverManager.getConnection(src, "sysdba", "masterkey");
+        } catch (Exception e) {
+        }
 //        //sql1.setText("SELECT * from connlst where anum1 like '@21301-0%' order by cname");
 //        sql1.setText("SELECT * from orders a");
         loadingData();
@@ -40,31 +43,31 @@ public class TestFrame extends javax.swing.JFrame {
 
     private void loadingTab1() {
         try {
-            DefTableModel dtm = new DefTableModel(tab1, qOrders, eProject.values()) {
-                @Override
-                public String getColumnName(int columnIndex) {
-                    return columns[columnIndex].name();
-                }
-            };
-            for (int i = 0; i < dtm.columns.length; i++) {
-
-            }
-//            ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
-//            ResultSetMetaData rsmd = rs.getMetaData();
-//
-//            Vector column = new Vector();
-//            for (int i = 0; i < rsmd.getColumnCount(); ++i) {
-//                column.add(rsmd.getColumnName(i + 1));
-//            }
-//            Vector<Vector> data = new Vector();
-//            while (rs.next()) {
-//                Vector vector = new Vector();
-//                for (int i = 0; i < column.size(); i++) {
-//                    vector.add(rs.getObject(i + 1));
+//            DefTableModel dtm = new DefTableModel(tab1, qOrders, eProject.values()) {
+//                @Override
+//                public String getColumnName(int columnIndex) {
+//                    return columns[columnIndex].name();
 //                }
-//                data.add(vector);
+//            };
+//            for (int i = 0; i < dtm.columns.length; i++) {
+//
 //            }
-//            tab1.setModel(new DefaultTableModel(data, column));
+            ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            Vector column = new Vector();
+            for (int i = 0; i < rsmd.getColumnCount(); ++i) {
+                column.add(rsmd.getColumnName(i + 1));
+            }
+            Vector<Vector> data = new Vector();
+            while (rs.next()) {
+                Vector vector = new Vector();
+                for (int i = 0; i < column.size(); i++) {
+                    vector.add(rs.getObject(i + 1));
+                }
+                data.add(vector);
+            }
+            tab1.setModel(new DefaultTableModel(data, column));
 
             Util.setSelectedRow(tab1);
             ((DefaultTableModel) tab2.getModel()).setRowCount(0);
@@ -197,7 +200,7 @@ public class TestFrame extends javax.swing.JFrame {
         northLayout.setHorizontalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
-                .addContainerGap(647, Short.MAX_VALUE)
+                .addContainerGap(872, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

@@ -835,7 +835,7 @@ public class Artikles extends javax.swing.JFrame {
         center.setPreferredSize(new java.awt.Dimension(900, 550));
         center.setLayout(new java.awt.BorderLayout());
 
-        pan4.setPreferredSize(new java.awt.Dimension(160, 500));
+        pan4.setPreferredSize(new java.awt.Dimension(180, 500));
         pan4.setLayout(new java.awt.BorderLayout());
 
         scrTree.setBorder(null);
