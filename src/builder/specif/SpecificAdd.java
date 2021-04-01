@@ -15,10 +15,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class SpecificAdd extends Par5s {
+public class SpecificAdd {
 
-    public SpecificAdd(Wincalc iwin) {
-        super(iwin);
+    protected ElemSimple elem5e = null;
+    protected int count[] = {};
+
+    public SpecificAdd(ElemSimple elem5e) {
+        this.elem5e = elem5e;
     }
 
     public void param(SpecificRec spc, int code) {
@@ -58,14 +61,15 @@ public class SpecificAdd extends Par5s {
     public void amount(SpecificRec spсRec, SpecificRec spсAdd) {
 
         if (UseUnit.PIE.id == spсAdd.artiklRec.getInt(eArtikl.unit)) { //шт.
+            //spсAdd.count = Integer.valueOf(spсAdd.getParam(spсAdd.count, 11030, 12060, 14030, 15040, 24030, 25060, 33030, 34060, 38030, 39060));
             spсAdd.count = Integer.valueOf(spсAdd.getParam(spсAdd.count, 11030, 33030, 14030));
             if (spсAdd.getParam(0, 33050).equals("0") == false) {
                 float widthBegin = Float.valueOf(spсAdd.getParam(0, 33040));
                 int countStep = Integer.valueOf(spсAdd.getParam(1, 33050, 33060));
                 float count = (spсRec.width - widthBegin) / Integer.valueOf(spсAdd.getParam(1, 33050, 33060));
+
                 if ((spсRec.width - widthBegin) % Integer.valueOf(spсAdd.getParam(1, 33050, 33060)) == 0) {
                     spсAdd.count = (int) count;
-
                 } else {
                     spсAdd.count = (int) count + 1;
                 }
@@ -85,4 +89,17 @@ public class SpecificAdd extends Par5s {
             spсAdd.quant1 = Float.valueOf(spсAdd.getParam(spсAdd.quant1, 11030, 33030, 14030));
         }
     }
+    /*
+                if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
+                    && spcAdd.artiklRec.getInt(eArtikl.level1) == 3) {
+                //UseUnit.METR
+
+            } else if (spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
+                //UseUnit.METR2);
+
+            } else {
+                //UseUnit.PIE, UseUnit.ML, UseUnit.GRAM, UseUnit.KG, UseUnit.LITER, UseUnit.SET, UseUnit.DOSE, UseUnit.MONTH, UseUnit.PAIR;
+
+            }
+     */
 }

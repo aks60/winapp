@@ -57,7 +57,7 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            //wincalc();
+            wincalc();
             //query();
             //frame();
             //json();
@@ -109,7 +109,7 @@ public class Test {
                     iwin.build(script);
                     iwin.constructiv(true);
                     //DBCompare.iwinXls(iwin, false);
-                    DBCompare.iwinRec(iwin, true);
+                    DBCompare.iwinRec(iwin, false);
                 }
             }
         }

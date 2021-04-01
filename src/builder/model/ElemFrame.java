@@ -162,11 +162,11 @@ public class ElemFrame extends ElemSimple {
 
         }
 
-        proc.amount(spcRec, spcAdd); //количество от параметра
+        spc7d.amount(spcRec, spcAdd); //количество от параметра
         spcRec.spcList.add(spcAdd);
 
         if (spcAdd.mapParam.get(25013) != null) {
-            proc.param(spcAdd, 25013);
+            spc7d.param(spcAdd, 25013);
         }
     }
 

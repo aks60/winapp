@@ -15,7 +15,6 @@ public abstract class Com5t {
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий              
 
-    protected SpecificAdd proc = null;
     protected TypeElem type = TypeElem.NONE; //Тип элемента   
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов ...
     public Record sysprofRec = null; //профиль в системе
@@ -34,7 +33,6 @@ public abstract class Com5t {
         this.id = id;
         this.owner = owner;
         this.iwin = iwin;
-        proc = new SpecificAdd(iwin);
     }
 
     public float id() {

@@ -237,19 +237,8 @@ public class ElemGlass extends ElemSimple {
             }
             //Всё остальное
         } else {
-            if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
-                    && spcAdd.artiklRec.getInt(eArtikl.level1) == 3) {
-                //UseUnit.METR
 
-            } else if (spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
-                //UseUnit.METR2);
-
-            } else {
-                //UseUnit.PIE, UseUnit.ML, UseUnit.GRAM, UseUnit.KG, UseUnit.LITER, UseUnit.SET, UseUnit.DOSE, UseUnit.MONTH, UseUnit.PAIR;
-
-            }
-
-            proc.amount(spcRec, spcAdd); //количество от параметра
+            spc7d.amount(spcRec, spcAdd); //количество от параметра
 
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {

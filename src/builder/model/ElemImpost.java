@@ -136,7 +136,7 @@ public class ElemImpost extends ElemSimple {
         } else {
             //
         }
-        proc.amount(spcRec, spcAdd); //количество от параметра
+        spc7d.amount(spcRec, spcAdd); //количество от параметра
         spcRec.spcList.add(spcAdd);
     }
 
