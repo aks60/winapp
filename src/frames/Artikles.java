@@ -402,6 +402,8 @@ public class Artikles extends javax.swing.JFrame {
                 qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
         }
+        DefaultMutableTreeNode node2 = (DefaultMutableTreeNode) node.getParent();
+        lab1.setText((node2 != null && node.getParent() != null) ? " Тип = " + ((TypeArtikl) node2.getUserObject()).id1 + ",  подтип = " + ((TypeArtikl) node.getUserObject()).id2 : "");
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);
 
@@ -419,6 +421,7 @@ public class Artikles extends javax.swing.JFrame {
             ((CardLayout) pan6.getLayout()).show(pan6, name);
 
             int id = record.getInt(eArtikl.id);
+            lab2.setText(", id = " + id);
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
             rsvArtikl.load();
             checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
@@ -684,7 +687,9 @@ public class Artikles extends javax.swing.JFrame {
             public JTable table = null;
         };
         checkFilter = new javax.swing.JCheckBox();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(80, 0), new java.awt.Dimension(80, 0), new java.awt.Dimension(80, 32767));
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
+        lab1 = new javax.swing.JLabel();
+        lab2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Материальные ценности");
@@ -2241,7 +2246,15 @@ public class Artikles extends javax.swing.JFrame {
 
         checkFilter.setText("в конце строки");
         south.add(checkFilter);
+
+        filler1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.add(filler1);
+
+        lab1.setText("___");
+        south.add(lab1);
+
+        lab2.setText("___");
+        south.add(lab2);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
@@ -2546,12 +2559,14 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler7;
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
+    private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab13;
     private javax.swing.JLabel lab14;
     private javax.swing.JLabel lab15;
     private javax.swing.JLabel lab16;
     private javax.swing.JLabel lab18;
     private javax.swing.JLabel lab19;
+    private javax.swing.JLabel lab2;
     private javax.swing.JLabel lab20;
     private javax.swing.JLabel lab21;
     private javax.swing.JLabel lab22;
