@@ -13,45 +13,30 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.Vector;
 import javax.swing.JTable;
+import startup.Test;
 
 public class TestFrame extends javax.swing.JFrame {
 
     private TableRowSorter<DefTableModel> sorter1 = null;
     private TableRowSorter<DefTableModel> sorter2 = null;
     private TableRowSorter<DefTableModel> sorter3 = null;
-    //private String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\bimax\\ITEST.FDB?encoding=win1251";
-    private Connection cn;
+    private Connection cn = Test.connect1();
     private Query qOrders = new Query(eProject.values());
 
     public TestFrame() {
         initComponents();
         initElements();
-        try {
-            cn = Query.connection;  //java.sql.DriverManager.getConnection(src, "sysdba", "masterkey");
-        } catch (Exception e) {
-        }
-//        //sql1.setText("SELECT * from connlst where anum1 like '@21301-0%' order by cname");
-//        sql1.setText("SELECT * from orders a");
         loadingData();
         loadingTab1();
     }
 
     private void loadingData() {
-        qOrders.select(eProject.up, "order by", eProject.id);
 
     }
 
     private void loadingTab1() {
         try {
-//            DefTableModel dtm = new DefTableModel(tab1, qOrders, eProject.values()) {
-//                @Override
-//                public String getColumnName(int columnIndex) {
-//                    return columns[columnIndex].name();
-//                }
-//            };
-//            for (int i = 0; i < dtm.columns.length; i++) {
-//
-//            }
+            sql1.setText("select * from LISTPRJ");
             ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
             ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -80,10 +65,10 @@ public class TestFrame extends javax.swing.JFrame {
 
     private void selectionTab2() {
         try {
-            /*int row = tab1.getSelectedRow();
+            int row = tab1.getSelectedRow();
             if (row != -1) {
-                Object id = tab1.getValueAt(row, 3);
-                sql2.setText("select * from connvar where cconn = " + id + " order by cprio");
+                Object id = tab1.getValueAt(row, 2);
+                sql2.setText("select a.* from SPECPAU a where a.PUNIC = " + id + " order by a.anumb");
                 ResultSet rs = cn.createStatement().executeQuery(sql2.getText());
                 ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -102,7 +87,11 @@ public class TestFrame extends javax.swing.JFrame {
                 tab2.setModel(new DefaultTableModel(data, column));
                 ((DefaultTableModel) tab3.getModel()). setRowCount(0);
                 Util.setSelectedRow(tab2);
-            }*/
+            } else {
+                sql2.setText("");
+                ((DefaultTableModel) tab2.getModel()).getDataVector().clear();
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            }
 
         } catch (Exception e) {
             System.err.println("frames.TestFrame.selectionTab2() " + e);
@@ -219,9 +208,15 @@ public class TestFrame extends javax.swing.JFrame {
         pan1.setLayout(new java.awt.BorderLayout());
 
         sql1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        sql1.setText("'select * from LISTPRJ'");
         sql1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         sql1.setMinimumSize(new java.awt.Dimension(6, 20));
         sql1.setPreferredSize(new java.awt.Dimension(600, 20));
+        sql1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sql1ActionPerformed(evt);
+            }
+        });
         pan1.add(sql1, java.awt.BorderLayout.CENTER);
 
         pan11.setLayout(new java.awt.BorderLayout());
@@ -253,7 +248,7 @@ public class TestFrame extends javax.swing.JFrame {
 
         scr1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scr1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scr1.setPreferredSize(new java.awt.Dimension(800, 604));
+        scr1.setPreferredSize(new java.awt.Dimension(800, 204));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -300,6 +295,7 @@ public class TestFrame extends javax.swing.JFrame {
         pan2.add(pan22, java.awt.BorderLayout.WEST);
 
         sql2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        sql2.setText("'select a.* from SPECPAU a where a.PUNIC = ' + id + ' order by a.anumb'");
         sql2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pan2.add(sql2, java.awt.BorderLayout.CENTER);
 
@@ -313,7 +309,7 @@ public class TestFrame extends javax.swing.JFrame {
 
         center.add(pan2);
 
-        scr2.setPreferredSize(new java.awt.Dimension(800, 304));
+        scr2.setPreferredSize(new java.awt.Dimension(800, 400));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -367,7 +363,7 @@ public class TestFrame extends javax.swing.JFrame {
 
         center.add(pan3);
 
-        scr3.setPreferredSize(new java.awt.Dimension(800, 300));
+        scr3.setPreferredSize(new java.awt.Dimension(800, 200));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -475,6 +471,10 @@ public class TestFrame extends javax.swing.JFrame {
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
         selectionTab2();
     }//GEN-LAST:event_btn2ActionPerformed
+
+    private void sql1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sql1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sql1ActionPerformed
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;

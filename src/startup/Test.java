@@ -27,8 +27,8 @@ public class Test {
             } else if (numDb == 2) {
                 return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Sialbase3\\sial3.fdb?encoding=win1251", "sysdba", "masterkey");
             } else {
-                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb?encoding=win1251", "sysdba", "masterkey");
-                //return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\othe\\vidnal.fdb?encoding=win1251", "sysdba", "masterkey");
+                //return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb?encoding=win1251", "sysdba", "masterkey");
+                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\othe\\zip\\vidnal.fdb?encoding=win1251", "sysdba", "masterkey");
             }
 
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            wincalc();
+            //wincalc();
             //query();
             //frame();
             //json();
