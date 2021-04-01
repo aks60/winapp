@@ -55,7 +55,7 @@ public class ElemImpost extends ElemSimple {
                 sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.IMPOST, UseSide.VERT, UseSide.ANY);
             }
         }
-        specificationRec.place = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
+        spcRec.place = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
@@ -83,14 +83,14 @@ public class ElemImpost extends ElemSimple {
     @Override //Главная спецификация
     public void setSpecific() {
 
-        specificationRec.place = (LayoutArea.HORIZ == owner().layout()) ? "ВСТ.В" : "ВСТ.Г";
-        specificationRec.setArtiklRec(artiklRec);
-        specificationRec.colorID1 = colorID1;
-        specificationRec.colorID2 = colorID2;
-        specificationRec.colorID3 = colorID3;
-        specificationRec.anglCut2 = 90;
-        specificationRec.anglCut1 = 90;
-        specificationRec.anglHoriz = anglHoriz;
+        spcRec.place = (LayoutArea.HORIZ == owner().layout()) ? "ВСТ.В" : "ВСТ.Г";
+        spcRec.setArtiklRec(artiklRec);
+        spcRec.colorID1 = colorID1;
+        spcRec.colorID2 = colorID2;
+        spcRec.colorID3 = colorID3;
+        spcRec.anglCut2 = 90;
+        spcRec.anglCut1 = 90;
+        spcRec.anglHoriz = anglHoriz;
 
         //Заход импоста на эскизе не показываю, сразу пишу в спецификацию
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
@@ -98,22 +98,22 @@ public class ElemImpost extends ElemSimple {
 
             if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
                 ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
-                specificationRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
-                specificationRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
+                spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
                 ElemSimple insideLeft = join(LayoutArea.LEFT), insideRight = join(LayoutArea.RIGHT);
-                specificationRec.width = insideRight.x1 - insideLeft.x2 + zax * 2 + insideLeft.artiklRec.getFloat(eArtikl.size_falz) + insideRight.artiklRec.getFloat(eArtikl.size_falz);
-                specificationRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.width = insideRight.x1 - insideLeft.x2 + zax * 2 + insideLeft.artiklRec.getFloat(eArtikl.size_falz) + insideRight.artiklRec.getFloat(eArtikl.size_falz);
+                spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
         } else {
             if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
                 ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
-                specificationRec.width = insideBott.y2 - insideTop.y1 - 2 * offset(this, join(LayoutArea.TOP));
-                specificationRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.width = insideBott.y2 - insideTop.y1 - 2 * offset(this, join(LayoutArea.TOP));
+                spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
                 ElemSimple insideLeft = join(LayoutArea.LEFT), insideRight = join(LayoutArea.RIGHT);
-                specificationRec.width = insideRight.x1 - insideLeft.x2 - 2 * offset(this, join(LayoutArea.LEFT));
-                specificationRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.width = insideRight.x1 - insideLeft.x2 - 2 * offset(this, join(LayoutArea.LEFT));
+                spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
         }
     }
@@ -126,7 +126,7 @@ public class ElemImpost extends ElemSimple {
             specificationAdd.place = "ВСТ." + layout().name.substring(0, 1);
             specificationAdd.anglCut2 = 90;
             specificationAdd.anglCut1 = 90;
-            specificationAdd.width = specificationRec.width;
+            specificationAdd.width = spcRec.width;
 
             //Соединитель
         } else if (TypeArtikl.X205.isType(specificationAdd.artiklRec)) {
@@ -136,8 +136,8 @@ public class ElemImpost extends ElemSimple {
         } else {
             //
         }
-        proc.amount(specificationRec, specificationAdd); //количество от параметра
-        specificationRec.specificationList.add(specificationAdd);
+        proc.amount(spcRec, specificationAdd); //количество от параметра
+        spcRec.spcList.add(specificationAdd);
     }
 
     //Вычисление захода импоста через параметр

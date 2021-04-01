@@ -66,38 +66,38 @@ public class ElemFrame extends ElemSimple {
     @Override //Главная спецификация
     public void setSpecific() {  //добавление основной спесификации
 
-        specificationRec.place = "ВСТ." + layout().name.substring(0, 1);
-        specificationRec.setArtiklRec(artiklRec);
-        specificationRec.colorID1 = colorID1;
-        specificationRec.colorID2 = colorID2;
-        specificationRec.colorID3 = colorID3;
-        specificationRec.anglCut2 = anglCut2;
-        specificationRec.anglCut1 = anglCut1;
-        specificationRec.anglHoriz = anglHoriz;
+        spcRec.place = "ВСТ." + layout().name.substring(0, 1);
+        spcRec.setArtiklRec(artiklRec);
+        spcRec.colorID1 = colorID1;
+        spcRec.colorID2 = colorID2;
+        spcRec.colorID3 = colorID3;
+        spcRec.anglCut2 = anglCut2;
+        spcRec.anglCut1 = anglCut1;
+        spcRec.anglHoriz = anglHoriz;
         float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
 
         if (LayoutArea.ARCH == layout()) {
             AreaArch areaArch = (AreaArch) root();
             double angl = Math.toDegrees(Math.asin(width() / (areaArch.radiusArch * 2)));
             length = (float) (Math.PI * areaArch.radiusArch * angl * 2) / 180;
-            specificationRec.width = length + prip; // ssizp * 2; //TODO ВАЖНО !!! расчет требует корректировки
-            specificationRec.height = artiklRec.getFloat(eArtikl.height);
+            spcRec.width = length + prip; // ssizp * 2; //TODO ВАЖНО !!! расчет требует корректировки
+            spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.TOP == layout) {
-            specificationRec.width = x2 - x1 + prip * 2;
-            specificationRec.height = artiklRec.getFloat(eArtikl.height);
+            spcRec.width = x2 - x1 + prip * 2;
+            spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.BOTTOM == layout) {
-            specificationRec.width = x2 - x1 + prip * 2;
-            specificationRec.height = artiklRec.getFloat(eArtikl.height);
+            spcRec.width = x2 - x1 + prip * 2;
+            spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.LEFT == layout) {
-            specificationRec.width = y2 - y1 + prip * 2;
-            specificationRec.height = artiklRec.getFloat(eArtikl.height);
+            spcRec.width = y2 - y1 + prip * 2;
+            spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.RIGHT == layout) {
-            specificationRec.width = y2 - y1 + prip * 2;
-            specificationRec.height = artiklRec.getFloat(eArtikl.height);
+            spcRec.width = y2 - y1 + prip * 2;
+            spcRec.height = artiklRec.getFloat(eArtikl.height);
         }
     }
 
@@ -140,9 +140,9 @@ public class ElemFrame extends ElemSimple {
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
-                specificationAdd.width = specificationRec.width * 2 * koef;
+                specificationAdd.width = spcRec.width * 2 * koef;
             } else {
-                specificationAdd.width = specificationRec.height * 2 * koef;
+                specificationAdd.width = spcRec.height * 2 * koef;
             }
 
             //Монтажный профиль
@@ -162,8 +162,8 @@ public class ElemFrame extends ElemSimple {
 
         }
 
-        proc.amount(specificationRec, specificationAdd); //количество от параметра
-        specificationRec.specificationList.add(specificationAdd);
+        proc.amount(spcRec, specificationAdd); //количество от параметра
+        spcRec.spcList.add(specificationAdd);
 
         if (specificationAdd.mapParam.get(25013) != null) {
             proc.param(specificationAdd, 25013);

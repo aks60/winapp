@@ -37,7 +37,7 @@ public class Processing extends Par5s {
                     } else if (list.get(2).equals(map.get(25013))) {
                         AreaStvorka stv = (AreaStvorka) el.owner();
                         ElemFrame fr = stv.mapFrame.get(stv.typeOpen.axisStv());
-                        spc.weight = fr.specificationRec.weight - dx;
+                        spc.weight = fr.spcRec.weight - dx;
                     } else if (list.get(3).equals(map.get(25013))) {
                         spc.weight = spc.weight / 2 - dx;
                     }

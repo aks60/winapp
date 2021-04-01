@@ -74,7 +74,7 @@ public class FillingVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 13099:  //Трудозатраты, ч/ч. 
-                        elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
+                        elem5e.spcRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     default:
                         message(rec.getInt(GRUP));

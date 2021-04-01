@@ -59,10 +59,10 @@ public class AreaStvorka extends AreaSimple {
 
         initFurniture(param);
 
-        stvBot.specificationRec.width = width();
-        stvTop.specificationRec.width = width();
-        stvRigh.specificationRec.height = height();
-        stvLeft.specificationRec.height = height();
+        stvBot.spcRec.width = width();
+        stvTop.spcRec.width = width();
+        stvRigh.spcRec.height = height();
+        stvLeft.spcRec.height = height();
     }
 
     public void initFurniture(String param) {

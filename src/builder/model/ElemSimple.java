@@ -16,14 +16,14 @@ public abstract class ElemSimple extends Com5t {
 
     public float anglCut1 = 45; //Угол реза рамы
     public float anglCut2 = 45; //Угол реза рамы
-    public Specification specificationRec = null; //спецификация элемента
+    public Specification spcRec = null; //спецификация элемента
     public float anglHoriz = -1; //угол к горизонту
     public Color borderColor = Color.BLACK;
     public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);
-        specificationRec = new Specification(id, this);
+        spcRec = new Specification(id, this);
     }
 
     //Клик мышки попадает в контур элемента

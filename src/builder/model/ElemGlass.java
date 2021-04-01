@@ -58,12 +58,12 @@ public class ElemGlass extends ElemSimple {
     @Override //Главная спецификация
     public void setSpecific() {
 
-        specificationRec.place = "ЗАП";
-        specificationRec.setArtiklRec(artiklRec);
-        specificationRec.colorID1 = colorID1;
-        specificationRec.colorID2 = colorID2;
-        specificationRec.colorID3 = colorID3;
-        specificationRec.id = id();
+        spcRec.place = "ЗАП";
+        spcRec.setArtiklRec(artiklRec);
+        spcRec.colorID1 = colorID1;
+        spcRec.colorID2 = colorID2;
+        spcRec.colorID3 = colorID3;
+        spcRec.id = id();
 
         if (owner() instanceof AreaArch) { //если арка
 
@@ -98,24 +98,27 @@ public class ElemGlass extends ElemSimple {
                 y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
         }
-        specificationRec.width = width();
-        specificationRec.height = height();
+        spcRec.width = width();
+        spcRec.height = height();
     }
 
     @Override //Вложеная спецификация 
-    public void addSpecific(Specification specificationAdd) {
+    public void addSpecific(Specification spcAdd) {
+        
+        //param(param, key)
+        //spcAdd.mapParam.g
         //Стеклопакет
-        if (TypeArtikl.GLASS.isType(specificationAdd.artiklRec)) {
+        if (TypeArtikl.X502.isType(spcAdd.artiklRec)) {
             return;
 
             //Штапик
-        } else if (TypeArtikl.X108.isType(specificationAdd.artiklRec)) {
+        } else if (TypeArtikl.X108.isType(spcAdd.artiklRec)) {
 
-            Float overLength = (specificationAdd.getParam(null, 15050) == null) ? 0.f : Float.valueOf(specificationAdd.getParam(0, 15050).toString());
+            Float overLength = (spcAdd.getParam(null, 15050) == null) ? 0.f : Float.valueOf(spcAdd.getParam(0, 15050).toString());
             if (TypeElem.ARCH == owner().type()) {
 
                 //По основанию арки
-                double dh2 = specificationAdd.artiklRec.getDbl(eArtikl.height) - gzazo;
+                double dh2 = spcAdd.artiklRec.getDbl(eArtikl.height) - gzazo;
                 double r1 = radiusGlass - dh2;
                 double h1 = height() - 2 * dh2;
                 double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний периметр
@@ -129,19 +132,19 @@ public class ElemGlass extends ElemSimple {
                 double h5 = height() + 2 * gzazo;
                 double l5 = overLength + 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
 
-                specificationAdd.width = (float) l5;
-                specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
-                specificationAdd.anglCut2 = (float) ang;
-                specificationAdd.anglCut1 = (float) ang;
-                specificationRec.specificationList.add(new Specification(specificationAdd)); //добавим спецификацию
+                spcAdd.width = (float) l5;
+                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                spcAdd.anglCut2 = (float) ang;
+                spcAdd.anglCut1 = (float) ang;
+                spcRec.spcList.add(new Specification(spcAdd)); //добавим спецификацию
 
                 //По дуге арки
                 double ang2 = Math.toDegrees(Math.asin(l2 / r2));
                 double ang3 = 90 - (90 - ang2 + ang);
                 double koef = 2; //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста                
                 ElemSimple ramaArch = root().mapFrame.get(LayoutArea.ARCH);
-                double R2 = ((AreaArch) iwin().rootArea).radiusArch - ramaArch.specificationRec.height + specificationAdd.artiklRec.getDbl(eArtikl.height);
-                double L2 = iwin().rootArea.width() - ramaArch.specificationRec.height * 2 + specificationAdd.artiklRec.getDbl(eArtikl.height) * 2 - koef;
+                double R2 = ((AreaArch) iwin().rootArea).radiusArch - ramaArch.spcRec.height + spcAdd.artiklRec.getDbl(eArtikl.height);
+                double L2 = iwin().rootArea.width() - ramaArch.spcRec.height * 2 + spcAdd.artiklRec.getDbl(eArtikl.height) * 2 - koef;
                 double ANGL2 = Math.toDegrees(Math.asin(L2 / (R2 * 2)));
                 double M2 = (R2 * 2) * Math.toRadians(ANGL2); // +  overLength;
                 double Z = 3 * gzazo;
@@ -149,41 +152,44 @@ public class ElemGlass extends ElemSimple {
                 double L = width();
                 double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((R + Z) * 2)));
                 double M = ((R + Z) * 2) * Math.toRadians(ang5);
-                specificationAdd.width = (float) (overLength + M2);
-                specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
-                specificationAdd.anglCut2 = (float) ang3;
-                specificationAdd.anglCut1 = (float) ang3;
-                specificationRec.specificationList.add(new Specification(specificationAdd)); //добавим спецификацию
+                spcAdd.width = (float) (overLength + M2);
+                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                spcAdd.anglCut2 = (float) ang3;
+                spcAdd.anglCut1 = (float) ang3;
+                spcRec.spcList.add(new Specification(spcAdd)); //добавим спецификацию
 
             } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
-                specificationAdd.anglCut2 = 45;
-                specificationAdd.anglCut1 = 45;
+                spcAdd.anglCut2 = 45;
+                spcAdd.anglCut1 = 45;
                 //По горизонтали                
-                specificationAdd.width = width() + 2 * gzazo;
-                specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
-                Specification specificationHor1 = new Specification(specificationAdd);
-                Specification specificationHor2 = new Specification(specificationAdd);
-                specificationRec.specificationList.add(specificationHor1);
-                specificationRec.specificationList.add(specificationHor2);
+                spcAdd.width = width() + 2 * gzazo;
+                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                Specification specificationHor1 = new Specification(spcAdd);
+                Specification specificationHor2 = new Specification(spcAdd);
+                spcRec.spcList.add(specificationHor1);
+                spcRec.spcList.add(specificationHor2);
                 //По вертикали
-                specificationAdd.width = height() + 2 * gzazo;
-                specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
-                Specification specificationVer1 = new Specification(specificationAdd);
-                Specification specificationVer2 = new Specification(specificationAdd);
-                specificationRec.specificationList.add(specificationVer1);
-                specificationRec.specificationList.add(specificationVer2);
+                spcAdd.width = height() + 2 * gzazo;
+                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                Specification specificationVer1 = new Specification(spcAdd);
+                Specification specificationVer2 = new Specification(spcAdd);
+                spcRec.spcList.add(specificationVer1);
+                spcRec.spcList.add(specificationVer2);
 
-                if ("Нет".equals(specificationAdd.mapParam.get(15010))) {
+                if ("Нет".equals(spcAdd.mapParam.get(15010))) {
                     specificationVer1.width = specificationVer1.width - 2 * specificationHor1.height;
                     specificationVer2.width = specificationVer2.width - 2 * specificationHor2.height;
                 }
             }
-            //Уплотнитель
-        } else if (TypeArtikl.X135.isType(specificationAdd.artiklRec)) {
+
+            //Концнвой профиль 
+            //Уплотнение притвора
+        } else if (TypeArtikl.X135.isType(spcAdd.artiklRec)
+                || TypeArtikl.X301.isType(spcAdd.artiklRec)) {
 
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
                 //По основанию арки
-                double dh2 = specificationAdd.artiklRec.getFloat(eArtikl.height) - gzazo;
+                double dh2 = spcAdd.artiklRec.getFloat(eArtikl.height) - gzazo;
                 double r1 = radiusGlass - dh2;
                 double h1 = height() - 2 * dh2;
                 double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний перимет
@@ -195,11 +201,11 @@ public class ElemGlass extends ElemSimple {
                 double h5 = height() + 2 * gzazo;
                 double l5 = 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
                 double ang = Math.toDegrees(Math.atan(dh2 / l3)); //угол реза
-                specificationAdd.width = (float) l5;
-                specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
-                specificationAdd.anglCut2 = (float) ang;
-                specificationAdd.anglCut1 = (float) ang;
-                specificationRec.specificationList.add(new Specification(specificationAdd)); //добавим спецификацию
+                spcAdd.width = (float) l5;
+                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                spcAdd.anglCut2 = (float) ang;
+                spcAdd.anglCut1 = (float) ang;
+                spcRec.spcList.add(new Specification(spcAdd)); //добавим спецификацию
 
                 //По дуге арки
                 double ang2 = Math.toDegrees(Math.asin(l2 / r2));
@@ -209,53 +215,53 @@ public class ElemGlass extends ElemSimple {
                 double L = width();
                 double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((R + Z) * 2)));
                 double M = ((R + Z) * 2) * Math.toRadians(ang5);
-                specificationAdd.width = (float) M;
-                specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
-                specificationAdd.anglCut2 = (float) ang3;
-                specificationAdd.anglCut1 = (float) ang3;
-                specificationRec.specificationList.add(new Specification(specificationAdd)); //добавим спецификацию
+                spcAdd.width = (float) M;
+                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                spcAdd.anglCut2 = (float) ang3;
+                spcAdd.anglCut1 = (float) ang3;
+                spcRec.spcList.add(new Specification(spcAdd)); //добавим спецификацию                
 
             } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
-                specificationAdd.anglCut2 = 45;
-                specificationAdd.anglCut1 = 45;
+                spcAdd.anglCut2 = 45;
+                spcAdd.anglCut1 = 45;
                 //По горизонтали                
-                specificationAdd.width = width() + 2 * gzazo;
-                specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
-                specificationRec.specificationList.add(new Specification(specificationAdd));
-                specificationRec.specificationList.add(new Specification(specificationAdd));
+                spcAdd.width = width() + 2 * gzazo;
+                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                spcRec.spcList.add(new Specification(spcAdd));
+                spcRec.spcList.add(new Specification(spcAdd));
                 //По вертикали
-                specificationAdd.width = height() + 2 * gzazo;
-                specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
-                specificationRec.specificationList.add(new Specification(specificationAdd));
-                specificationRec.specificationList.add(new Specification(specificationAdd));
+                spcAdd.width = height() + 2 * gzazo;
+                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                spcRec.spcList.add(new Specification(spcAdd));
+                spcRec.spcList.add(new Specification(spcAdd));
             }
             //Всё остальное
         } else {
-            if (specificationAdd.artiklRec.getInt(eArtikl.level1) == 1
-                    && specificationAdd.artiklRec.getInt(eArtikl.level1) == 3) {
+            if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
+                    && spcAdd.artiklRec.getInt(eArtikl.level1) == 3) {
                 //UseUnit.METR
-            
-            } else if (specificationAdd.artiklRec.getInt(eArtikl.level1) == 5) {
+
+            } else if (spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
                 //UseUnit.METR2);
-                        
+
             } else {
                 //UseUnit.PIE, UseUnit.ML, UseUnit.GRAM, UseUnit.KG, UseUnit.LITER, UseUnit.SET, UseUnit.DOSE, UseUnit.MONTH, UseUnit.PAIR;
-            
+
             }
 
-            proc.amount(specificationRec, specificationAdd); //количество от параметра
+            proc.amount(spcRec, spcAdd); //количество от параметра
 
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {
-                    specificationRec.specificationList.add(new Specification(specificationAdd));
+                    spcRec.spcList.add(new Specification(spcAdd));
                 }
             } else if (TypeElem.ARCH == owner().type()) {
                 for (int index = 0; index < 2; index++) {
-                    specificationRec.specificationList.add(new Specification(specificationAdd));
+                    spcRec.spcList.add(new Specification(spcAdd));
                 }
             } else {
                 //specificationRec.specificationList.add(new Specification(specificationAdd));
-                specificationRec.specificationList.add(new Specification(specificationAdd));
+                spcRec.spcList.add(new Specification(spcAdd));
             }
         }
     }

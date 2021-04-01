@@ -183,19 +183,19 @@ public class Furniture extends Cal5e {
                 if (side == 1) {
                     el = areaStv.mapFrame.get(LayoutArea.BOTTOM);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
-                    width = el.specificationRec.width - 2 * size_falz;
+                    width = el.spcRec.width - 2 * size_falz;
                 } else if (side == 2) {
                     el = areaStv.mapFrame.get(LayoutArea.RIGHT);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
-                    width = el.specificationRec.width - 2 * size_falz;
+                    width = el.spcRec.width - 2 * size_falz;
                 } else if (side == 3) {
                     el = areaStv.mapFrame.get(LayoutArea.TOP);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
-                    width = el.specificationRec.width - 2 * size_falz;
+                    width = el.spcRec.width - 2 * size_falz;
                 } else if (side == 4) {
                     el = areaStv.mapFrame.get(LayoutArea.LEFT);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
-                    width = el.specificationRec.width - 2 * size_falz;
+                    width = el.spcRec.width - 2 * size_falz;
                 }
                 if (furnside2Rec.getFloat(eFurnside2.len_max) < width || (furnside2Rec.getFloat(eFurnside2.len_min) > width)) {
                     return false;

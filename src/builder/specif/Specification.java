@@ -28,7 +28,7 @@ import jxl.Workbook;
  */
 public class Specification {
 
-    public ArrayList<Specification> specificationList = new ArrayList(); //список составов, фарнитур и т.д.
+    public ArrayList<Specification> spcList = new ArrayList(); //список составов, фарнитур и т.д.
     public HashMap<Integer, String> mapParam = null; //параметры спецификации
     public ElemSimple elem5e = null; //элемент пораждающий спецификацию
     public Record artiklRec = null; //профиль в спецификации
@@ -248,7 +248,7 @@ public class Specification {
             float total = 0;
             for (Specification s : specList) {
                 Object str2[] = {String.valueOf(++npp), s.place, s.name, s.artikl,
-                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.specificationRec.artiklRec.get(eArtikl.code), s.price1};
+                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.spcRec.artiklRec.get(eArtikl.code), s.price1};
                 total = total + s.weight;
                 System.out.printf(format, str2);
                 System.out.println();

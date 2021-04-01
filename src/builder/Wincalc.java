@@ -191,8 +191,8 @@ public class Wincalc {
             calTariffication.calc();
 
             for (ElemSimple elemRec : listElem) {
-                listSpec.add(elemRec.specificationRec);
-                listSpec.addAll(elemRec.specificationRec.specificationList);
+                listSpec.add(elemRec.spcRec);
+                listSpec.addAll(elemRec.spcRec.spcList);
             }
             Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width));
 

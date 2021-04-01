@@ -127,7 +127,7 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31015:  //Разбиение профиля по уровням 
-                        if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.specificationRec.getParam("empty", 13015)) == false) {
+                        if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.spcRec.getParam("empty", 13015)) == false) {
                             return false;
                         }
                         break;
@@ -189,7 +189,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31052:  //Поправка в спецификацию, мм 
                         if (elem5e.layout() == LayoutArea.ARCH) {
-                            elem5e.specificationRec.width = elem5e.specificationRec.width + rec.getFloat(TEXT);
+                            elem5e.spcRec.width = elem5e.spcRec.width + rec.getFloat(TEXT);
                         }
                         break;
                     case 31054:  //Коды основной текстуры изделия 
@@ -229,10 +229,10 @@ public class ElementVar extends Par5s {
                         break;
                     case 31085:  //Надпись на элементе 
                     case 37085:  //Надпись на элементе   
-                        elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
+                        elem5e.spcRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     case 31090:  //Изменение сторон покраски 
-                        if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.specificationRec.getParam("empty", 31090)) == false) {
+                        if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.spcRec.getParam("empty", 31090)) == false) {
                             return false;
                         }
                         break;
@@ -244,7 +244,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31099:  //Трудозатраты, ч/ч. 
                     case 37099:  //Трудозатраты, ч/ч.  
-                        elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
+                        elem5e.spcRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     case 31097:  //Трудозатраты по длине 
                         message(grup);
@@ -300,10 +300,10 @@ public class ElementVar extends Par5s {
                         }
                         break;
                     case 37042:  //Мин. соотношение габаритов (б/м) или Допустимое соотношение габаритов б/м для Ps4
-                        elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
+                        elem5e.spcRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     case 37043:  //Макс. соотношение габаритов (б/м)
-                        elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
+                        elem5e.spcRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     case 37054:  //Коды основной текстуры изделия 
                         message(grup);

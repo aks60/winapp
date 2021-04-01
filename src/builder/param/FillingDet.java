@@ -177,7 +177,7 @@ public class FillingDet extends Par5s {
                         mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 15051:  //Удлинение на один пог.м., мм 
-                        if (elem5e.specificationRec.getParam("0", 31052).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                        if (elem5e.spcRec.getParam("0", 31052).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                             mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         }
                         break;

@@ -240,7 +240,7 @@ public class ElementDet extends Par5s {
                         hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 34051:  //Поправка, мм 
-                        if (elem5e.specificationRec.getParam("0", 31052).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                        if (elem5e.spcRec.getParam("0", 31052).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                             hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         }
                         break;
