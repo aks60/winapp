@@ -6,6 +6,7 @@ import enums.TypeJoin;
 import enums.LayoutArea;
 import enums.TypeElem;
 import builder.Wincalc;
+import builder.specif.SpecificRec;
 
 public class AreaArch extends AreaSimple {
 
@@ -14,7 +15,7 @@ public class AreaArch extends AreaSimple {
     public AreaArch(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3, param);
     }
-    
+
     @Override
     public void joinFrame() {
 
@@ -52,19 +53,33 @@ public class AreaArch extends AreaSimple {
         ElemJoining elem3 = new ElemJoining(iwin());
         elem3.id = id() + .3f;
         elem3.init(TypeJoin.VAR20, LayoutJoin.LBOT, mapFrame.get(LayoutArea.LEFT), mapFrame.get(LayoutArea.BOTTOM));
-        elem3.anglProf = 90;             
+        elem3.anglProf = 90;
         iwin().mapJoin.put(x1 + ":" + y2, elem3);
 
         //Угловое соединение правое нижнее
         ElemJoining elem4 = new ElemJoining(iwin());
         elem4.id = id() + .4f;
         elem4.init(TypeJoin.VAR20, LayoutJoin.LBOT, mapFrame.get(LayoutArea.BOTTOM), mapFrame.get(LayoutArea.RIGHT));
-        elem4.anglProf = 90;             
+        elem4.anglProf = 90;
         iwin().mapJoin.put(x2 + ":" + y2, elem4);
     }
 
-//    @Override
-//    public String toString() {
-//        return super.toString() + ", radiusArch=" + radiusArch;
-//    }
+    public double widthBaseArch(ElemGlass elemGlass, SpecificRec spcAdd) {
+
+        Float overLength = (spcAdd.getParam(null, 15050) == null) ? 0.f : Float.valueOf(spcAdd.getParam(0, 15050).toString());
+        double dh2 = spcAdd.artiklRec.getDbl(eArtikl.height) - elemGlass.gzazo;
+        double r1 = elemGlass.radiusGlass - dh2;
+        double h1 = height() - 2 * dh2;
+        double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний периметр
+        double r2 = elemGlass.radiusGlass;
+        double h2 = height();
+        double l2 = Math.sqrt(2 * h2 * r2 - h2 * h2); //нижний периметр
+        double l3 = l2 - l1;
+        double ang = Math.toDegrees(Math.atan(dh2 / l3)); //угол реза
+
+        double r5 = elemGlass.radiusGlass + elemGlass.gzazo;
+        double h5 = height() + 2 * elemGlass.gzazo;
+        double l5 = overLength + 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
+        return l5;
+    }
 }

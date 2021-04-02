@@ -121,6 +121,8 @@ public class ElemImpost extends ElemSimple {
     @Override //Вложеная спецификация      
     public void addSpecific(SpecificRec spcAdd) {
 
+        spc7d.calcCount(spcRec, spcAdd); 
+        
         //Армирование
         if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
             spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
@@ -136,7 +138,7 @@ public class ElemImpost extends ElemSimple {
         } else {
             //
         }
-        spc7d.amount(spcRec, spcAdd); //количество от параметра
+        spc7d.calcAmount(spcRec, spcAdd); //количество от параметра
         spcRec.spcList.add(spcAdd);
     }
 

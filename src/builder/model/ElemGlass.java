@@ -105,8 +105,8 @@ public class ElemGlass extends ElemSimple {
     @Override //Вложеная спецификация 
     public void addSpecific(SpecificRec spcAdd) {
         
-        //param(param, key)
-        //spcAdd.mapParam.g
+        spc7d.calcCount(spcRec, spcAdd);
+        
         //Стеклопакет
         if (TypeArtikl.X502.isType(spcAdd.artiklRec)) {
             return;
@@ -132,6 +132,7 @@ public class ElemGlass extends ElemSimple {
                 double h5 = height() + 2 * gzazo;
                 double l5 = overLength + 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
 
+                
                 spcAdd.width = (float) l5;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcAdd.anglCut2 = (float) ang;
@@ -237,9 +238,6 @@ public class ElemGlass extends ElemSimple {
             }
             //Всё остальное
         } else {
-
-            spc7d.amount(spcRec, spcAdd); //количество от параметра
-
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {
                     spcRec.spcList.add(new SpecificRec(spcAdd));
@@ -249,7 +247,7 @@ public class ElemGlass extends ElemSimple {
                     spcRec.spcList.add(new SpecificRec(spcAdd));
                 }
             } else {
-                //specificationRec.specificationList.add(new Specification(specificationAdd));
+                spc7d.calcAmount(spcRec, spcAdd); //количество от параметра
                 spcRec.spcList.add(new SpecificRec(spcAdd));
             }
         }

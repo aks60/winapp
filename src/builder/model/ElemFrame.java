@@ -104,6 +104,8 @@ public class ElemFrame extends ElemSimple {
     @Override //Вложеная спецификация
     public void addSpecific(SpecificRec spcAdd) { //добавление спесификаций зависимых элементов
 
+        spc7d.calcCount(spcRec, spcAdd); 
+        
         //Армирование
         if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
             spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
@@ -162,12 +164,9 @@ public class ElemFrame extends ElemSimple {
 
         }
 
-        spc7d.amount(spcRec, spcAdd); //количество от параметра
+        spc7d.calcAmount(spcRec, spcAdd); //количество от параметра
         spcRec.spcList.add(spcAdd);
-
-        if (spcAdd.mapParam.get(25013) != null) {
-            spc7d.param(spcAdd, 25013);
-        }
+            spc7d.heightHand(spcAdd);
     }
 
     @Override

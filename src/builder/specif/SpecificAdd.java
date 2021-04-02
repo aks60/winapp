@@ -18,88 +18,81 @@ import java.util.List;
 public class SpecificAdd {
 
     protected ElemSimple elem5e = null;
-    protected int count[] = {};
 
     public SpecificAdd(ElemSimple elem5e) {
         this.elem5e = elem5e;
     }
 
-    public void param(SpecificRec spc, int code) {
-        try {
-            HashMap<Integer, String> map = spc.mapParam;
-            ElemSimple el = spc.elem5e;
+    //Укорочение мм
+    public void heightHand(SpecificRec spc) {
+        HashMap<Integer, String> map = spc.mapParam;
+        ElemSimple el = spc.elem5e;
 
-            switch (code) {
-
-                case 25013: {
-                    List<String> list = ParamList.find(code).dict(); //{"длины стороны", "высоты ручки", "сторона выс-ручки", "половины стороны"}
-                    int dx = spc.getParam(25030); //"Укорочение, мм"
-                    if (list.get(0).equals(map.get(25013))) {
-                        spc.weight = spc.weight - dx;
-                    } else if (list.get(1).equals(map.get(25013))) {
-                        spc.weight = ((AreaStvorka) el.owner()).handlHeight - dx;
-                    } else if (list.get(2).equals(map.get(25013))) {
-                        AreaStvorka stv = (AreaStvorka) el.owner();
-                        ElemFrame fr = stv.mapFrame.get(stv.typeOpen.axisStv());
-                        spc.weight = fr.spcRec.weight - dx;
-                    } else if (list.get(3).equals(map.get(25013))) {
-                        spc.weight = spc.weight / 2 - dx;
-                    }
-                    return;
-                }
-                case 33001: {
-
-                    return;
-                }
+        if (spc.mapParam.get(25013) != null) {
+            List<String> list = ParamList.find(25013).dict(); //{"длины стороны", "высоты ручки", "сторона выс-ручки", "половины стороны"}
+            int dx = spc.getParam(25030); //"Укорочение, мм"
+            if (list.get(0).equals(map.get(25013))) {
+                spc.weight = spc.weight - dx;
+            } else if (list.get(1).equals(map.get(25013))) {
+                spc.weight = ((AreaStvorka) el.owner()).handlHeight - dx;
+            } else if (list.get(2).equals(map.get(25013))) {
+                AreaStvorka stv = (AreaStvorka) el.owner();
+                ElemFrame fr = stv.mapFrame.get(stv.typeOpen.axisStv());
+                spc.weight = fr.spcRec.weight - dx;
+            } else if (list.get(3).equals(map.get(25013))) {
+                spc.weight = spc.weight / 2 - dx;
             }
-        } catch (Exception e) {
-            System.err.println("Ошибка:Processing.param() " + e);
         }
     }
 
-    //Расчёт количества материала в зависимости от ед. измерения
-    public void amount(SpecificRec spсRec, SpecificRec spсAdd) {
+    //Количество ед.
+    public void calcCount(SpecificRec spсRec, SpecificRec spcAdd) {
 
-        if (UseUnit.PIE.id == spсAdd.artiklRec.getInt(eArtikl.unit)) { //шт.
-            //spсAdd.count = Integer.valueOf(spсAdd.getParam(spсAdd.count, 11030, 12060, 14030, 15040, 24030, 25060, 33030, 34060, 38030, 39060));
-            spсAdd.count = Integer.valueOf(spсAdd.getParam(spсAdd.count, 11030, 33030, 14030));
-            if (spсAdd.getParam(0, 33050).equals("0") == false) {
-                float widthBegin = Float.valueOf(spсAdd.getParam(0, 33040));
-                int countStep = Integer.valueOf(spсAdd.getParam(1, 33050, 33060));
-                float count = (spсRec.width - widthBegin) / Integer.valueOf(spсAdd.getParam(1, 33050, 33060));
+        spcAdd.count = Integer.valueOf(spcAdd.getParam(spcAdd.count, 11030, 12060, 14030, 15040, 25060, 33030, 34060, 38030, 39060));
 
-                if ((spсRec.width - widthBegin) % Integer.valueOf(spсAdd.getParam(1, 33050, 33060)) == 0) {
-                    spсAdd.count = (int) count;
-                } else {
-                    spсAdd.count = (int) count + 1;
-                }
-                if (widthBegin != 0) {
-                    ++spсAdd.count;
-                }
-            }
+        //с шагом
+        if (spcAdd.getParam(0, 33050).equals("0") == false) {
+            float widthBegin = Float.valueOf(spcAdd.getParam(0, 33040));
+            int countStep = Integer.valueOf(spcAdd.getParam(1, 33050, 33060));
+            float count = (spсRec.width - widthBegin) / Integer.valueOf(spcAdd.getParam(1, 33050, 33060));
 
-        } else if (UseUnit.METR.id == spсAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
-            if (spсAdd.width == 0) {
-                spсAdd.width = spсRec.width; //TODO вообще это неправильно, надо проанализировать. Без этой записи специф. считается неправильно.
-            }
-            spсAdd.width = Float.valueOf(spсAdd.getParam(spсAdd.width, 34070)); //Длина, мм (должна быть первой)
-            spсAdd.width = spсAdd.width + Float.valueOf(spсAdd.getParam(0, 34051)); //Поправка, мм
-
-        } else if (UseUnit.ML.id == spсAdd.artiklRec.getInt(eArtikl.unit)) { //мл.
-            spсAdd.quant1 = Float.valueOf(spсAdd.getParam(spсAdd.quant1, 11030, 33030, 14030));
-        }
-    }
-    /*
-                if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
-                    && spcAdd.artiklRec.getInt(eArtikl.level1) == 3) {
-                //UseUnit.METR
-
-            } else if (spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
-                //UseUnit.METR2);
-
+            if ((spсRec.width - widthBegin) % Integer.valueOf(spcAdd.getParam(1, 33050, 33060)) == 0) {
+                spcAdd.count = (int) count;
             } else {
-                //UseUnit.PIE, UseUnit.ML, UseUnit.GRAM, UseUnit.KG, UseUnit.LITER, UseUnit.SET, UseUnit.DOSE, UseUnit.MONTH, UseUnit.PAIR;
-
+                spcAdd.count = (int) count + 1;
             }
-     */
+            if (widthBegin != 0) {
+                ++spcAdd.count;
+            }
+        }
+    }
+
+    //
+    public void calcAmount(SpecificRec spсRec, SpecificRec spcAdd) {
+
+        if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
+            if (spcAdd.width == 0) {
+                spcAdd.width = spсRec.width; //TODO вообще это неправильно, надо проанализировать. Без этой записи специф. считается неправильно.
+            }
+            spcAdd.width = Float.valueOf(spcAdd.getParam(spcAdd.width, 34070)); //Длина, мм (должна быть первой)
+            spcAdd.width = spcAdd.width + Float.valueOf(spcAdd.getParam(0, 34051)); //Поправка, мм
+
+        } else if (UseUnit.ML.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //мл.
+            spcAdd.quant1 = Float.valueOf(spcAdd.getParam(spcAdd.quant1, 11030, 33030, 14030));
+        }
+    }
 }
+
+/*
+if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
+        && spcAdd.artiklRec.getInt(eArtikl.level1) == 3) {
+    //UseUnit.METR
+
+} else if (spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
+    //UseUnit.METR2);
+
+} else {
+    //UseUnit.PIE, UseUnit.ML, UseUnit.GRAM, UseUnit.KG, UseUnit.LITER, UseUnit.SET, UseUnit.DOSE, UseUnit.MONTH, UseUnit.PAIR;
+
+}
+ */

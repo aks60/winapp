@@ -32,37 +32,37 @@ import java.util.HashSet;
  * Фурнитура
  */
 public class Furniture extends Cal5e {
-
+    
     private FurnitureVar furnitureVar = null;
     private FurnitureDet furnitureDet = null;
     private HashSet<Record> setFurndet = new HashSet();
     public boolean handle = false;
-
+    
     public Furniture(Wincalc iwin) {
         this(iwin, false);
     }
-
+    
     public Furniture(Wincalc iwin, boolean handle) {
         super(iwin);
         furnitureVar = new FurnitureVar(iwin);
         furnitureDet = new FurnitureDet(iwin);
         this.handle = handle;
     }
-
+    
     public void calc() {
         super.calc();
         LinkedList<AreaStvorka> stvorkaList = root().listElem(TypeElem.STVORKA);
         try {
             //Цикл по створкам      
             for (AreaStvorka areaStv : stvorkaList) {
-
+                
                 setFurndet.clear();
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
-                Record sysfurnRec = sysfurnList.get(0);
+                Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию
                 sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnRec.getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);//теперь sysfurnRec соответствует параметру полученному из i-okna                                                             
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
-
+                
                 middle(areaStv, furnityreRec, 1); //основная фурнитура
             }
         } catch (Exception e) {
@@ -71,13 +71,12 @@ public class Furniture extends Cal5e {
             Query.conf = conf;
         }
     }
-
+    
     protected void middle(AreaStvorka areaStv, Record furnitureRec, int count) {
         try {
             List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
             List<Record> furnside1List = eFurnside1.find(furnitureRec.getInt(eFurniture.id));
             listVariants.add(furnitureRec.getInt(eFurniture.id)); //сделано для запуска формы Furniture на ветке Systree
-            //int mask[] = {0,0,0,0,0};
 
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnside1List) {
@@ -85,17 +84,11 @@ public class Furniture extends Cal5e {
                 //mask[furnside1Rec.getInt(eFurnside1.side_num)] = furnside1Rec.getInt(eFurnside1.side_use);
                 ElemFrame sideFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
 
-                //ФИЛЬТР вариантов
+                //ФИЛЬТР вариантов с учётом стороны
                 if (furnitureVar.check(sideFrame, furnside1Rec) == false) {
                     return;
                 }
             }
-            //Сторона открывания
-            //if(mask[2] == 2) {
-            //    areaStv.typeOpen = (mask[1] == 2) ?TypeOpen1.RIGHTUP :TypeOpen1.RIGHT;
-            //} else if(mask[4] == 2) {
-            //    areaStv.typeOpen = (mask[1] == 2) ?TypeOpen1.LEFTUP :TypeOpen1.LEFT;
-            //}
 
             //Цикл по детализации (уровень 1)        
             for (Record furndetRec1 : furndetList) {
@@ -112,7 +105,7 @@ public class Furniture extends Cal5e {
                                     for (Record furndetRec3 : furndetList) {
                                         if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec2.getInt(eFurndet.id)
                                                 && furndetRec3.getInt(eFurndet.furndet_id) != furndetRec3.getInt(eFurndet.id)) {
-
+                                            
                                             detail(areaStv, furndetRec3, count);
                                         }
                                     }
@@ -127,19 +120,21 @@ public class Furniture extends Cal5e {
         }
     }
 
-    protected boolean detail(AreaStvorka areaStv, Record furndetRec, int count) {
+    //countKit - количество комплектов, наборов
+    protected boolean detail(AreaStvorka areaStv, Record furndetRec, int countKit) {
         try {
             Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
-            if (handle == true) { //если пишем ручку в створку то всё остальное отсеиваем
+
+            //Сделано для убыстрения поиска ручки при конструировании окна. Если ручки нет то сразу выход.
+            if (handle == true) {                
                 if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)
                         && furndetRec.get(eFurndet.furniture_id2) == null) {
-                    if (artiklRec.getInt(eArtikl.level1) != 2) {
+                    if (artiklRec.getInt(eArtikl.level1) != 2) { //т.к. ручки на уровне 2
                         return false;
                     }
                 }
             }
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
-            Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id1));
 
             //Подбор текстуры ручки
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
@@ -170,7 +165,7 @@ public class Furniture extends Cal5e {
                 ElemFrame el = null;
                 float width = 0;
                 int side = furnside2Rec.getInt(eFurnside2.side_num);
-
+                
                 if (side < 0) {
                     String txt = (furnitureDet.mapParamTmp.get(24038) == null) ? furnitureDet.mapParamTmp.get(25038) : furnitureDet.mapParamTmp.get(24038);
                     String[] par = txt.split("/");
@@ -205,7 +200,7 @@ public class Furniture extends Cal5e {
             //Если это элемент из мат. ценности (не набор)
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
-
+                    
                     ElemFrame sideStv = determOfSide(mapParam, areaStv);
                     SpecificRec specif = new SpecificRec(furndetRec, artiklRec, sideStv, mapParam);
                     if (Color.colorFromProduct(specif, 1)) { //попадает или нет в спецификацию по цвету
@@ -217,7 +212,7 @@ public class Furniture extends Cal5e {
                             }
                         }
                         specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
-                        specif.count = specif.count * count;
+                        specif.count = specif.count * countKit; //умножаю на количество комплектов
                         specif.place = "ФУРН";
                         sideStv.addSpecific(specif); //добавим спецификацию в элемент
                     }
@@ -225,10 +220,10 @@ public class Furniture extends Cal5e {
 
                 //Если это нобор   
             } else {
-                int count2 = (mapParam.get(24030) == null) ? 1 : Integer.valueOf((mapParam.get(24030)));
+                int countKi2 = (mapParam.get(24030) == null) ? 1 : Integer.valueOf((mapParam.get(24030)));
                 Record furnitureRec2 = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id2));
                 try {
-                    middle(areaStv, furnitureRec2, count2); //рекурсия обработки наборов
+                    middle(areaStv, furnitureRec2, countKi2); //рекурсия обработки наборов
                 } catch (Exception e) {
                     System.err.println("Ошибка:Furniture.middle() " + e);
                 }
@@ -239,7 +234,7 @@ public class Furniture extends Cal5e {
             return false;
         }
     }
-
+    
     public ElemFrame determOfSide(HashMap<Integer, String> mapParam, AreaSimple area5e) {
 
         //Через параметр
