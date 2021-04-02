@@ -104,9 +104,9 @@ public class ElemGlass extends ElemSimple {
 
     @Override //Вложеная спецификация 
     public void addSpecific(SpecificRec spcAdd) {
-        
+
         spc7d.calcCount(spcRec, spcAdd);
-        
+
         //Стеклопакет
         if (TypeArtikl.X502.isType(spcAdd.artiklRec)) {
             return;
@@ -114,50 +114,8 @@ public class ElemGlass extends ElemSimple {
             //Штапик
         } else if (TypeArtikl.X108.isType(spcAdd.artiklRec)) {
 
-            Float overLength = (spcAdd.getParam(null, 15050) == null) ? 0.f : Float.valueOf(spcAdd.getParam(0, 15050).toString());
             if (TypeElem.ARCH == owner().type()) {
-
-                //По основанию арки
-                double dh2 = spcAdd.artiklRec.getDbl(eArtikl.height) - gzazo;
-                double r1 = radiusGlass - dh2;
-                double h1 = height() - 2 * dh2;
-                double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний периметр
-                double r2 = radiusGlass;
-                double h2 = height();
-                double l2 = Math.sqrt(2 * h2 * r2 - h2 * h2); //нижний периметр
-                double l3 = l2 - l1;
-                double ang = Math.toDegrees(Math.atan(dh2 / l3)); //угол реза
-
-                double r5 = radiusGlass + gzazo;
-                double h5 = height() + 2 * gzazo;
-                double l5 = overLength + 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
-
-                
-                spcAdd.width = (float) l5;
-                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.anglCut2 = (float) ang;
-                spcAdd.anglCut1 = (float) ang;
-                spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
-
-                //По дуге арки
-                double ang2 = Math.toDegrees(Math.asin(l2 / r2));
-                double ang3 = 90 - (90 - ang2 + ang);
-                double koef = 2; //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста                
-                ElemSimple ramaArch = root().mapFrame.get(LayoutArea.ARCH);
-                double R2 = ((AreaArch) iwin().rootArea).radiusArch - ramaArch.spcRec.height + spcAdd.artiklRec.getDbl(eArtikl.height);
-                double L2 = iwin().rootArea.width() - ramaArch.spcRec.height * 2 + spcAdd.artiklRec.getDbl(eArtikl.height) * 2 - koef;
-                double ANGL2 = Math.toDegrees(Math.asin(L2 / (R2 * 2)));
-                double M2 = (R2 * 2) * Math.toRadians(ANGL2); // +  overLength;
-                double Z = 3 * gzazo;
-                double R = radiusGlass;
-                double L = width();
-                double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((R + Z) * 2)));
-                double M = ((R + Z) * 2) * Math.toRadians(ang5);
-                spcAdd.width = (float) (overLength + M2);
-                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.anglCut2 = (float) ang3;
-                spcAdd.anglCut1 = (float) ang3;
-                spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
+                ((AreaArch) root()).calcShtapik(this, spcAdd);
 
             } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
                 spcAdd.anglCut2 = 45;
@@ -183,44 +141,12 @@ public class ElemGlass extends ElemSimple {
                 }
             }
 
-            //Концнвой профиль 
-            //Уплотнение притвора
+            //Концнвой профиль, уплотнение притвора
         } else if (TypeArtikl.X135.isType(spcAdd.artiklRec)
                 || TypeArtikl.X301.isType(spcAdd.artiklRec)) {
 
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
-                //По основанию арки
-                double dh2 = spcAdd.artiklRec.getFloat(eArtikl.height) - gzazo;
-                double r1 = radiusGlass - dh2;
-                double h1 = height() - 2 * dh2;
-                double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний перимет
-                double r2 = radiusGlass;
-                double h2 = height();
-                double l2 = Math.sqrt(2 * h2 * r2 - h2 * h2); //нижний периметр
-                double l3 = l2 - l1;
-                double r5 = radiusGlass + gzazo;
-                double h5 = height() + 2 * gzazo;
-                double l5 = 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
-                double ang = Math.toDegrees(Math.atan(dh2 / l3)); //угол реза
-                spcAdd.width = (float) l5;
-                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.anglCut2 = (float) ang;
-                spcAdd.anglCut1 = (float) ang;
-                spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
-
-                //По дуге арки
-                double ang2 = Math.toDegrees(Math.asin(l2 / r2));
-                double ang3 = 90 - (90 - ang2 + ang);
-                double Z = 3 * gzazo;
-                double R = radiusGlass;
-                double L = width();
-                double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((R + Z) * 2)));
-                double M = ((R + Z) * 2) * Math.toRadians(ang5);
-                spcAdd.width = (float) M;
-                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.anglCut2 = (float) ang3;
-                spcAdd.anglCut1 = (float) ang3;
-                spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию                
+                ((AreaArch) root()).calcSeal(this, spcAdd);
 
             } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
                 spcAdd.anglCut2 = 45;

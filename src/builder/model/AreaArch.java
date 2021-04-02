@@ -7,6 +7,7 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import builder.Wincalc;
 import builder.specif.SpecificRec;
+import enums.TypeArtikl;
 
 public class AreaArch extends AreaSimple {
 
@@ -64,9 +65,10 @@ public class AreaArch extends AreaSimple {
         iwin().mapJoin.put(x2 + ":" + y2, elem4);
     }
 
-    public double widthBaseArch(ElemGlass elemGlass, SpecificRec spcAdd) {
+    public void calcShtapik(ElemGlass elemGlass, SpecificRec spcAdd) {
 
         Float overLength = (spcAdd.getParam(null, 15050) == null) ? 0.f : Float.valueOf(spcAdd.getParam(0, 15050).toString());
+        //По основанию арки
         double dh2 = spcAdd.artiklRec.getDbl(eArtikl.height) - elemGlass.gzazo;
         double r1 = elemGlass.radiusGlass - dh2;
         double h1 = height() - 2 * dh2;
@@ -80,6 +82,67 @@ public class AreaArch extends AreaSimple {
         double r5 = elemGlass.radiusGlass + elemGlass.gzazo;
         double h5 = height() + 2 * elemGlass.gzazo;
         double l5 = overLength + 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
-        return l5;
+
+        spcAdd.width = (float) l5;
+        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+        spcAdd.anglCut2 = (float) ang;
+        spcAdd.anglCut1 = (float) ang;
+        elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
+
+        //По дуге арки
+        double ang2 = Math.toDegrees(Math.asin(l2 / r2));
+        double ang3 = 90 - (90 - ang2 + ang);
+        double koef = 2; //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста                
+        ElemSimple ramaArch = root().mapFrame.get(LayoutArea.ARCH);
+        double R2 = ((AreaArch) iwin().rootArea).radiusArch - ramaArch.spcRec.height + spcAdd.artiklRec.getDbl(eArtikl.height);
+        double L2 = iwin().rootArea.width() - ramaArch.spcRec.height * 2 + spcAdd.artiklRec.getDbl(eArtikl.height) * 2 - koef;
+        double ANGL2 = Math.toDegrees(Math.asin(L2 / (R2 * 2)));
+        double M2 = (R2 * 2) * Math.toRadians(ANGL2); // +  overLength;
+        double Z = 3 * elemGlass.gzazo;
+        double R = elemGlass.radiusGlass;
+        double L = width();
+        double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((R + Z) * 2)));
+        double M = ((R + Z) * 2) * Math.toRadians(ang5);
+        spcAdd.width = (float) (overLength + M2);
+        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+        spcAdd.anglCut2 = (float) ang3;
+        spcAdd.anglCut1 = (float) ang3;
+        elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
+    }
+
+    public void calcSeal(ElemGlass elemGlass, SpecificRec spcAdd) {
+
+        //По основанию арки
+        double dh2 = spcAdd.artiklRec.getFloat(eArtikl.height) - elemGlass.gzazo;
+        double r1 = elemGlass.radiusGlass - dh2;
+        double h1 = height() - 2 * dh2;
+        double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний перимет
+        double r2 = elemGlass.radiusGlass;
+        double h2 = height();
+        double l2 = Math.sqrt(2 * h2 * r2 - h2 * h2); //нижний периметр
+        double l3 = l2 - l1;
+        double r5 = elemGlass.radiusGlass + elemGlass.gzazo;
+        double h5 = height() + 2 * elemGlass.gzazo;
+        double l5 = 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
+        double ang = Math.toDegrees(Math.atan(dh2 / l3)); //угол реза
+        spcAdd.width = (float) l5;
+        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+        spcAdd.anglCut2 = (float) ang;
+        spcAdd.anglCut1 = (float) ang;
+        elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
+
+        //По дуге арки
+        double ang2 = Math.toDegrees(Math.asin(l2 / r2));
+        double ang3 = 90 - (90 - ang2 + ang);
+        double Z = 3 * elemGlass.gzazo;
+        double R = elemGlass.radiusGlass;
+        double L = width();
+        double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((R + Z) * 2)));
+        double M = ((R + Z) * 2) * Math.toRadians(ang5);
+        spcAdd.width = (float) M;
+        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+        spcAdd.anglCut2 = (float) ang3;
+        spcAdd.anglCut1 = (float) ang3;
+        elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию                
     }
 }
