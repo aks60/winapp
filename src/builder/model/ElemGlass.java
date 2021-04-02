@@ -146,7 +146,7 @@ public class ElemGlass extends ElemSimple {
                 || TypeArtikl.X301.isType(spcAdd.artiklRec)) {
 
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
-                ((AreaArch) root()).calcSeal(this, spcAdd);
+                ((AreaArch) root()).calcPadding(this, spcAdd);
 
             } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
                 spcAdd.anglCut2 = 45;

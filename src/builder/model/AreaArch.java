@@ -71,16 +71,16 @@ public class AreaArch extends AreaSimple {
         //По основанию арки
         double dh2 = spcAdd.artiklRec.getDbl(eArtikl.height) - elemGlass.gzazo;
         double r1 = elemGlass.radiusGlass - dh2;
-        double h1 = height() - 2 * dh2;
+        double h1 = elemGlass.height() - 2 * dh2;
         double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний периметр
         double r2 = elemGlass.radiusGlass;
-        double h2 = height();
+        double h2 = elemGlass.height();
         double l2 = Math.sqrt(2 * h2 * r2 - h2 * h2); //нижний периметр
         double l3 = l2 - l1;
         double ang = Math.toDegrees(Math.atan(dh2 / l3)); //угол реза
 
         double r5 = elemGlass.radiusGlass + elemGlass.gzazo;
-        double h5 = height() + 2 * elemGlass.gzazo;
+        double h5 = elemGlass.height() + 2 * elemGlass.gzazo;
         double l5 = overLength + 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
 
         spcAdd.width = (float) l5;
@@ -100,7 +100,7 @@ public class AreaArch extends AreaSimple {
         double M2 = (R2 * 2) * Math.toRadians(ANGL2); // +  overLength;
         double Z = 3 * elemGlass.gzazo;
         double R = elemGlass.radiusGlass;
-        double L = width();
+        double L = elemGlass.width();
         double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((R + Z) * 2)));
         double M = ((R + Z) * 2) * Math.toRadians(ang5);
         spcAdd.width = (float) (overLength + M2);
@@ -110,19 +110,19 @@ public class AreaArch extends AreaSimple {
         elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
     }
 
-    public void calcSeal(ElemGlass elemGlass, SpecificRec spcAdd) {
+    public void calcPadding(ElemGlass elemGlass, SpecificRec spcAdd) {
 
         //По основанию арки
         double dh2 = spcAdd.artiklRec.getFloat(eArtikl.height) - elemGlass.gzazo;
         double r1 = elemGlass.radiusGlass - dh2;
-        double h1 = height() - 2 * dh2;
+        double h1 = elemGlass.height() - 2 * dh2;
         double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний перимет
         double r2 = elemGlass.radiusGlass;
-        double h2 = height();
+        double h2 = elemGlass.height();
         double l2 = Math.sqrt(2 * h2 * r2 - h2 * h2); //нижний периметр
         double l3 = l2 - l1;
         double r5 = elemGlass.radiusGlass + elemGlass.gzazo;
-        double h5 = height() + 2 * elemGlass.gzazo;
+        double h5 = elemGlass.height() + 2 * elemGlass.gzazo;
         double l5 = 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
         double ang = Math.toDegrees(Math.atan(dh2 / l3)); //угол реза
         spcAdd.width = (float) l5;
@@ -136,7 +136,7 @@ public class AreaArch extends AreaSimple {
         double ang3 = 90 - (90 - ang2 + ang);
         double Z = 3 * elemGlass.gzazo;
         double R = elemGlass.radiusGlass;
-        double L = width();
+        double L = elemGlass.width();
         double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((R + Z) * 2)));
         double M = ((R + Z) * 2) * Math.toRadians(ang5);
         spcAdd.width = (float) M;
