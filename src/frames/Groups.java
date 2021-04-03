@@ -49,7 +49,7 @@ public class Groups extends javax.swing.JFrame {
         qArtDecr.select(eGroups.up, "where", eGroups.grup, "= 5", "order by", eGroups.name);
         qCategProf.select(eGroups.up, "where", eGroups.grup, "= 6", "order by", eGroups.name);
         qCategVst.select(eGroups.up, "where", eGroups.grup, "= 8", "order by", eGroups.name);
-        qDecInc.select(eGroups.up, "where", eGroups.grup, "= 9 and", eGroups.id, "in (2003, 2004, 2055, 2056, 2058, 2101, 2104)", "order by", eGroups.name);
+        qDecInc.select(eGroups.up, "where", eGroups.grup, "= 9 and", eGroups.id, "in (2003, 2004, 2055, 2056, 2058, 2101, 2104, 2073)", "order by", eGroups.name);
         //qDecInc.select(eGroups.up, "where", eGroups.grup, "= 9 order by", eGroups.name);
     }
 

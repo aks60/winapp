@@ -103,7 +103,7 @@ public class DBCompare extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DBCompare");
-        setPreferredSize(new java.awt.Dimension(800, 650));
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -156,7 +156,7 @@ public class DBCompare extends javax.swing.JFrame {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        center.setPreferredSize(new java.awt.Dimension(800, 600));
+        center.setPreferredSize(new java.awt.Dimension(800, 550));
         center.setLayout(new java.awt.BorderLayout());
 
         tab.setModel(new javax.swing.table.DefaultTableModel(
@@ -167,7 +167,7 @@ public class DBCompare extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "№пп", "ATYPM", "ATYPP", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Угол 1", "Угол 2", "Количествщ", "Погонаж", "<html>Норма<br/>отхода", "<html>Себестоимость<br/> за ед.изм.", "<html>Стоим.без.ск<br/> за ед.изм.", "<html>Стоим.со.ск<br/> за ед.изм.", "<html>Стоим.елем.<br/>без.скидки", "<html>Стоим.елем.<br/>со.скидкой"
+                "№пп", "ATYPM", "ATYPP", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Угол 1", "Угол 2", "Количествщ", "Погонаж", "<html>Норма<br/>отхода", "<html>Себестоимость<br/> за ед.изм.", "<html>Ст.без.ск<br/> за ед.изм.", "<html>Ст.со.ск<br/> за ед.изм.", "<html>Стоим.<br/>без.скид.", "<html>Стоим.<br/>со.скидк."
             }
         ) {
             Class[] types = new Class [] {
