@@ -121,8 +121,9 @@ public class ElemImpost extends ElemSimple {
     @Override //Вложеная спецификация      
     public void addSpecific(SpecificRec spcAdd) {
 
-        spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        
+        spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
+        spcAdd.count = spc7d.calcCountStep(spcRec, spcAdd); //кол. ед. с шагом
+
         //Армирование
         if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
             spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
@@ -138,8 +139,8 @@ public class ElemImpost extends ElemSimple {
         } else {
             //
         }
-        spc7d.calcCountStep(spcRec, spcAdd); //кол. ед. с шагом
-        spc7d.calcAmount(spcRec, spcAdd); //количество от параметра
+        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //пог. метр
+        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра
         spcRec.spcList.add(spcAdd);
     }
 

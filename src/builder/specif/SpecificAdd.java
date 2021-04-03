@@ -46,13 +46,13 @@ public class SpecificAdd {
     }
 
     //Количество ед.
-    public void calcCount(SpecificRec spсRec, SpecificRec spcAdd) {
-
-        spcAdd.count = Integer.valueOf(spcAdd.getParam(spcAdd.count, 11030, 12060, 14030, 15040, 25060, 33030, 34060, 38030, 39060));
+    public int calcCount(SpecificRec spсRec, SpecificRec spcAdd) {
+        return Integer.valueOf(spcAdd.getParam(spcAdd.count,
+                11030, 12060, 14030, 15040, 25060, 33030, 34060, 38030, 39060));
     }
-    
+
     //Количество ед. с шагом
-    public void calcCountStep(SpecificRec spсRec, SpecificRec spcAdd) {
+    public int calcCountStep(SpecificRec spсRec, SpecificRec spcAdd) {
 
         int step = Integer.valueOf(spcAdd.getParam(1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
         if (step > 1) {
@@ -60,44 +60,31 @@ public class SpecificAdd {
             int count_step = Integer.valueOf(spcAdd.getParam(1, 11060, 14060, 24060, 33060, 38060)); //"Количество на шаг"
 
             float count = (spсRec.width - width_begin) / step;
-
             if ((spсRec.width - width_begin) % count_step == 0) {
-                spcAdd.count = (int) count;
-            } else {
-                spcAdd.count = (int) count + 1;
+
+                count = count + 1;
             }
-            if (width_begin != 0) {
-                spcAdd.count = spcAdd.count + 1;
-            }
+            return (width_begin != 0) ? (int) (count + 1) : (int) count;
         }
+        return spcAdd.count;
     }
 
-    //
-    public void calcAmount(SpecificRec spсRec, SpecificRec spcAdd) {
-
+    //Пог. метры
+    public float calcAmountMetr(SpecificRec spcRec, SpecificRec spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
-            if (spcAdd.width == 0) {
-                spcAdd.width = spсRec.width; //TODO вообще это неправильно, надо проанализировать. Без этой записи специф. считается неправильно.
-            }
-            spcAdd.width = Float.valueOf(spcAdd.getParam(spcAdd.width, 34070)); //Длина, мм (должна быть первой)
-            spcAdd.width = spcAdd.width + Float.valueOf(spcAdd.getParam(0, 34051)); //Поправка, мм
 
-        } else if (UseUnit.ML.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //мл.
-            spcAdd.quant1 = Float.valueOf(spcAdd.getParam(spcAdd.quant1, 11030, 33030, 14030));
+            if (spcAdd.width == 0) {
+                spcAdd.width = spcRec.width; //TODO вообще это неправильно, надо проанализировать. Без этой записи специф. считается неправильно.
+            }
+            float width = Float.valueOf(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм (должна быть первой)
+            return width + Float.valueOf(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
         }
+        return spcAdd.width;
+    }
+
+    //Othe
+    public float calcAmount(SpecificRec spcRec, SpecificRec spcAdd) {
+        return Float.valueOf(spcAdd.getParam(spcAdd.quant1,
+                11030, 12060, 14030, 15040, 24030, 25060, 33030, 34060, 38030, 39060));
     }
 }
-
-/*
-if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
-        && spcAdd.artiklRec.getInt(eArtikl.level1) == 3) {
-    //UseUnit.METR
-
-} else if (spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
-    //UseUnit.METR2);
-
-} else {
-    //UseUnit.PIE, UseUnit.ML, UseUnit.GRAM, UseUnit.KG, UseUnit.LITER, UseUnit.SET, UseUnit.DOSE, UseUnit.MONTH, UseUnit.PAIR;
-
-}
- */

@@ -28,15 +28,15 @@ import jxl.Workbook;
  */
 public class SpecificRec {
 
-    public ArrayList<SpecificRec> spcList = new ArrayList(); //список составов, фарнитур и т.д.
-    public HashMap<Integer, String> mapParam = null; //параметры спецификации
-    public ElemSimple elem5e = null; //элемент пораждающий спецификацию
-    public Record artiklRec = null; //профиль в спецификации
-    public Record detailRec = null; //профиль в спецификации
+    public ArrayList<SpecificRec> spcList = new ArrayList();  //список составов, фарнитур и т.д.
+    public HashMap<Integer, String> mapParam = null;  //параметры спецификации
+    public ElemSimple elem5e = null;  //элемент пораждающий спецификацию
+    public Record artiklRec = null;  //профиль в спецификации
+    public Record detailRec = null;  //профиль в спецификации
 
     public float id = -1; //ID
-    public String place = "---"; //Место расмешения
-    public String name = "-"; //Наименование
+    public String place = "---";  //Место расмешения
+    public String name = "-";  //Наименование
     public String artikl = "-";  //Артикул
     public int colorID1 = -1;  //Осн.текстура
     public int colorID2 = -1;  //Внутр.текстура
@@ -48,15 +48,15 @@ public class SpecificRec {
     public float anglCut2 = 0;  //Угол2
     public float anglHoriz = 0; // Угол к горизонту    
     public int count = 1;  //Кол. единиц
-    public int unit = 0; //Ед.изм
     public float wastePrc = 0;  //Процент отхода
     
-    public float quant1 = 0;     //Количество без отхода
-    public float quant2 = 0;     //Количество с отходом
-    public float price1 = 0;     //Себест. за ед. без отхода     
-    public float price2 = 0;     //Себест. за ед с отходом
-    public float cost1 = 0;      //Стоимость без скидки
-    public float cost2 = 0;      //Стоимость со скидкой
+    public int unit = 0;  //Ед.изм    
+    public float quant1 = 0;  //Количество без отхода
+    public float quant2 = 0;  //Количество с отходом
+    public float price1 = 0;  //Себест. за ед. без отхода     
+    public float price2 = 0;  //Себест. за ед с отходом
+    public float cost1 = 0;  //Стоимость без скидки
+    public float cost2 = 0;  //Стоимость со скидкой
 
 
     public SpecificRec(float id, ElemSimple elem5e) {
