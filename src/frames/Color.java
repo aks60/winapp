@@ -136,9 +136,7 @@ public class Color extends javax.swing.JFrame {
             int index = Util.getIndexRec(tab4);
             Record record2 = qColmap.get(index);
             record2.set(eColmap.color_id1, record.getInt(eParams.id));
-            qColmap.update(record2);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, index);
+            ((DefaultTableModel) tab4.getModel()).fireTableRowsUpdated(tab4.getSelectedRow(), tab4.getSelectedRow());
         };
 
         listenerColor2 = (record) -> {
@@ -146,9 +144,7 @@ public class Color extends javax.swing.JFrame {
             int index = Util.getIndexRec(tab4);
             Record record2 = qColmap.get(index);
             record2.set(eColmap.color_id2, record.getInt(eParams.id));
-            qColmap.update(record2);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, index);
+            ((DefaultTableModel) tab4.getModel()).fireTableRowsUpdated(tab4.getSelectedRow(), tab4.getSelectedRow());
         };
     }
 
