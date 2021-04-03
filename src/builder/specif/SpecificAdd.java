@@ -52,13 +52,14 @@ public class SpecificAdd {
 
         //с шагом
         if (spcAdd.getParam(0, 33050).equals("0") == false) {
-            float widthBegin = Float.valueOf(spcAdd.getParam(0, 33040));
-            int countStep = Integer.valueOf(spcAdd.getParam(1, 33050, 33060));
-            float count = (spсRec.width - widthBegin) / Integer.valueOf(spcAdd.getParam(1, 33050, 33060));
-            //float count = (spсRec.width - widthBegin) / Integer.valueOf(spcAdd.getParam(1, 11050, 14050, 24050, 33050, 38050));
+            float widthBegin = Float.valueOf(spcAdd.getParam(0, 11040, 14040, 24040, 33040, 38040));
+            //float widthBegin = Float.valueOf(spcAdd.getParam(0, 33040));
+            int countStep = Integer.valueOf(spcAdd.getParam(1, 33060)); //"Количество на шаг"
+            //float count = (spсRec.width - widthBegin) / Integer.valueOf(spcAdd.getParam(1, 33050, 33060));
+            float count = (spсRec.width - widthBegin) / Integer.valueOf(spcAdd.getParam(1, 11050, 14050, 24050, 33050, 38050)); //
 
-            if ((spсRec.width - widthBegin) % Integer.valueOf(spcAdd.getParam(1, 33050, 33060)) == 0) {
-           //if ((spсRec.width - widthBegin) % Integer.valueOf(spcAdd.getParam(1, 11060, 14060, 24060, 33060, 38060)) == 0) {
+            //if ((spсRec.width - widthBegin) % Integer.valueOf(spcAdd.getParam(1, 33050, 33060)) == 0) {
+           if ((spсRec.width - widthBegin) % Integer.valueOf(spcAdd.getParam(1, 11060, 14060, 24060, 33060, 38060)) == 0) {
                 spcAdd.count = (int) count;
             } else {
                 spcAdd.count = (int) count + 1;
