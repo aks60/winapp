@@ -105,7 +105,7 @@ public class ElemGlass extends ElemSimple {
     @Override //Вложеная спецификация 
     public void addSpecific(SpecificRec spcAdd) {
 
-        spc7d.calcCount(spcRec, spcAdd);
+        spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам.
 
         //Стеклопакет
         if (TypeArtikl.X502.isType(spcAdd.artiklRec)) {
@@ -173,6 +173,7 @@ public class ElemGlass extends ElemSimple {
                     spcRec.spcList.add(new SpecificRec(spcAdd));
                 }
             } else {
+                spc7d.calcCountStep(spcRec, spcAdd); //кол. ед. с шагом
                 spc7d.calcAmount(spcRec, spcAdd); //количество от параметра
                 spcRec.spcList.add(new SpecificRec(spcAdd));
             }

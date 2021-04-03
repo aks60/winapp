@@ -104,7 +104,7 @@ public class ElemFrame extends ElemSimple {
     @Override //Вложеная спецификация
     public void addSpecific(SpecificRec spcAdd) { //добавление спесификаций зависимых элементов
 
-        spc7d.calcCount(spcRec, spcAdd); 
+        spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         
         //Армирование
         if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
@@ -164,6 +164,7 @@ public class ElemFrame extends ElemSimple {
 
         }
 
+        spc7d.calcCountStep(spcRec, spcAdd); //кол. ед. с шагом
         spc7d.calcAmount(spcRec, spcAdd); //количество от параметра
         spcRec.spcList.add(spcAdd);
             spc7d.heightHand(spcAdd);
