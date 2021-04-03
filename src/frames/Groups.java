@@ -1,22 +1,16 @@
 package frames;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import common.FrameToFile;
-import dataset.Field;
 import dataset.Query;
-import dataset.Record;
-import domain.eArtdet;
-import domain.eColor;
 import domain.eGroups;
 import enums.TypeGroups;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
-import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.Arrays;
 import java.util.stream.Stream;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JToggleButton;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -60,7 +54,7 @@ public class Groups extends javax.swing.JFrame {
         new DefTableModel(tab4, qCategProf, eGroups.name);
         new DefTableModel(tab5, qColgrp, eGroups.name, eGroups.val);
         new DefTableModel(tab6, qCategVst, eGroups.name);
-        new DefTableModel(tab7, qDecInc, eGroups.name, eGroups.val);
+        new DefTableModel(tab7, qDecInc, eGroups.name, eGroups.val); 
         tab1.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
         tab5.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
@@ -69,7 +63,17 @@ public class Groups extends javax.swing.JFrame {
                     boolean isSelected, boolean hasFocus, int row, int column) {
                 if (column == 1) {
                     int id = qDecInc.getAs(row, eGroups.id);
-                    if (id != -1 && (id == 2055 || id == 2056 || id == 2058 || id == 2101 || id == 2104)) {
+                    if (id == 2073) {
+                        if ((double) value == 3) {
+                            value = "1 мм";
+                        } else if ((double) value == 2) {
+                            value = "0.5 мм";
+                        } else if ((double) value == 1) {
+                            value = "0.1 мм";
+                        } else if ((double) value == 0) {
+                            value = "точн.";
+                        }
+                    } else if (id != -1 && (id == 2055 || id == 2056 || id == 2058 || id == 2101 || id == 2104)) {
                         value = value + "%";
                     }
                 }
