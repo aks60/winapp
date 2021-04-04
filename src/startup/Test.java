@@ -59,7 +59,7 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            //wincalc();
+            wincalc();
             //query();
             //frame();
             //json();
@@ -78,7 +78,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.prj = 601003;
+            iwin.prj = 601004;
             iwin.build(builder.script.Winscript.test(iwin.prj, false));
             iwin.constructiv(true);
             //Specification.write_txt1(iwin.listSpec);

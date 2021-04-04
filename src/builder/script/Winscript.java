@@ -347,14 +347,25 @@ public class Winscript {
             area4.addElem(new GsonElem(11, TypeElem.GLASS, "{'artglasID':285}"));
             area5.addElem(new GsonElem(12, TypeElem.GLASS, "{'artglasID':285}"));
 
-//        } else if (project == 601004) {
-//            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 25, 25, 25);
-//            rootArea.propery(project.toString(), 24, "СИАЛ\\КП45\\Окна\\601004");
-//            rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
-//            rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
-//            rootArea.addElem(new GsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
-//            rootArea.addElem(new GsonElem(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
-//            rootArea.addElem(new GsonElem(6, TypeElem.GLASS, "{'artglasID':285}"));
+        } else if (project == 601004) {
+            rootArea = new GsonRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 2010, 1600, 27, 27, 27);
+            rootArea.propery(project.toString(), 24, "СИАЛ\\КП45\\Окна\\601004");
+            rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
+            rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
+            rootArea.addElem(new GsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
+            rootArea.addElem(new GsonElem(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            GsonElem area2 = (GsonElem) rootArea.addArea(new GsonElem(6, LayoutArea.HORIZ, TypeElem.AREA, 670));
+            rootArea.addElem(new GsonElem(7, TypeElem.IMPOST));
+            GsonElem area3 = (GsonElem) rootArea.addArea(new GsonElem(8, LayoutArea.HORIZ, TypeElem.AREA, 670));
+            rootArea.addElem(new GsonElem(9, TypeElem.IMPOST));
+            GsonElem area4 = (GsonElem) rootArea.addArea(new GsonElem(10, LayoutArea.HORIZ, TypeElem.AREA, 670));
+            
+            GsonElem area5 = (GsonElem) area2.addArea(new GsonElem(11, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':3"));
+            GsonElem area6 = (GsonElem) area3.addArea(new GsonElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4"));
+            area5.addElem(new GsonElem(13, TypeElem.GLASS));
+            area6.addElem(new GsonElem(14, TypeElem.GLASS));            
+            area3.addElem(new GsonElem(15, TypeElem.GLASS));            
+
         } else {
             return null;
         }

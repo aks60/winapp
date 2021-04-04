@@ -40,7 +40,7 @@ public class Tariffication extends Cal5e {
             super.calc();
             float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
 
-            //Расчёт  собес-сть за ед. изм. по таблице мат. ценностей
+            //Расчёт  себес-сть за ед. изм. по таблице мат. ценностей
             for (ElemSimple elem5e : iwin.listElem) {
                 elem5e.spcRec.price1 += calcPrice(elem5e.spcRec); //себест. за ед. без отхода
                 elem5e.spcRec.quant1 = formatAmount(elem5e.spcRec); //количество без отхода
@@ -332,7 +332,6 @@ public class Tariffication extends Cal5e {
     }
 
     private static float round(float value, int places) {
-        System.out.println(value);
         if (places == 0) {
             return value;
         }
