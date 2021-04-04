@@ -208,7 +208,7 @@ public class Util {
             return "";
         }
     }
-    
+
     public static String designProject() {
         try {
             if (eProfile.profile == eProfile.P02) {
@@ -403,15 +403,22 @@ public class Util {
     }
 
     //Вставить запись
-    public static void insertRecord(JTable table, Field field, ListenerSQL preset) {
+    public static void insertRecord(JTable table, Field field, ListenerSQL listener) {
 
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = field.newRecord(Query.INS);
         record.setNo(field.fields()[1], Conn.instanc().genId(field));
         query.add(record);
-        preset.action(record);
+        listener.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
         Util.scrollRectToIndex(query.size() - 1, table);
+    }
+
+    //Изменить запись
+    public static void updateRecord(JTable table, ListenerSQL listener) {
+        Record record = ((DefTableModel) table.getModel()).getQuery().get(Util.getIndexRec(table));
+        listener.action(record);
+        ((DefaultTableModel) table.getModel()).fireTableRowsUpdated(table.getSelectedRow(), table.getSelectedRow());
     }
 
     //Удалить запись

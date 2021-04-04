@@ -135,7 +135,7 @@ public class Furniture extends Cal5e {
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
 
             //Подбор текстуры ручки
-            if (furndetRec.get(eFurndet.furniture_id2) == null) {
+            /*if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 if (artiklRec != null && TypeArtikl.X211.isType(artiklRec)) { //если ветка ркчки
                     if (furndetRec.getInt(eFurndet.color_fk) > 0) { //установлена в ручную
                         boolean empty = true;
@@ -150,7 +150,8 @@ public class Furniture extends Cal5e {
                         }
                     }
                 }
-            }
+            }*/
+            
             //ФИЛЬТР детализации            
             furnitureDet.detailRec = furndetRec; //для тестирования
             if (furnitureDet.check(mapParam, areaStv, furndetRec) == false) {

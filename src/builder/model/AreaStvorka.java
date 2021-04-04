@@ -87,7 +87,7 @@ public class AreaStvorka extends AreaSimple {
         if (param(param, PKjson.colorHandl) != -1) {
             handleColor = param(param, PKjson.colorHandl);
         } else {
-            handleColor = iwin().colorID1; //если цвет не установлен подбираю по основной текстуре
+            handleColor = -3; //iwin().colorID1; //если цвет не установлен подбираю по основной текстуре
         }
         //Положение или высота ручки на створке
         if (param(param, PKjson.positionHandl) != -1) {

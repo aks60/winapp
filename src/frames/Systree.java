@@ -146,23 +146,9 @@ public class Systree extends javax.swing.JFrame {
         qSystree.select(eSystree.up);
         qParams.select(eParams.up, "where", eParams.id, "< 0").table(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
-        ((DefaultTreeCellEditor) systemTree.getCellEditor()).addCellEditorListener(new CellEditorListener() {
-
-            public void editingStopped(ChangeEvent e) {
-                String str = ((DefaultTreeCellEditor) systemTree.getCellEditor()).getCellEditorValue().toString();
-                systreeNode.rec().set(eSystree.name, str);
-                systreeNode.setUserObject(str);
-                txt8.setText(str);
-                qSystree.update(systreeNode.rec()); //сохраним в базе
-            }
-
-            public void editingCanceled(ChangeEvent e) {
-                editingStopped(e);
-            }
-        });
     }
 
-    private void loadingSys() {
+    private void loadingSys() {      
         Record recordRoot = eSystree.up.newRecord(Query.SEL);
         recordRoot.set(eSystree.id, -1);
         recordRoot.set(eSystree.parent_id, -1);
@@ -187,7 +173,20 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
+        ((DefaultTreeCellEditor) systemTree.getCellEditor()).addCellEditorListener(new CellEditorListener() {
 
+            public void editingStopped(ChangeEvent e) {
+                String str = ((DefaultTreeCellEditor) systemTree.getCellEditor()).getCellEditorValue().toString();
+                systreeNode.rec().set(eSystree.name, str);
+                systreeNode.setUserObject(str);
+                txt8.setText(str);
+                qSystree.update(systreeNode.rec()); //сохраним в базе
+            }
+
+            public void editingCanceled(ChangeEvent e) {
+                editingStopped(e);
+            }
+        }); 
         new DefTableModel(tab2, qSysprof, eSysprof.use_type, eSysprof.use_side, eArtikl.code, eArtikl.name, eSysprof.prio) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -596,7 +595,7 @@ public class Systree extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab5() {
+    private void selectionTab5() {        
         int index = Util.getIndexRec(tab5);
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
@@ -2476,7 +2475,10 @@ public class Systree extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         Query.listOpenTable.forEach(q -> q.clear());
-        loadingWin();
+        int row[] = windowsTree.getSelectionRows();      
+        loadingData();
+        selectionSys(); 
+        windowsTree.setSelectionRows(row);       
     }//GEN-LAST:event_btnRefresh
 
     private void findFromArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findFromArtikl
