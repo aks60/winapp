@@ -567,20 +567,20 @@ public class Systree extends javax.swing.JFrame {
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);
                 txt20.setText(eFurniture.find(id).getStr(eFurniture.name));
                 txt30.setText(stv.typeOpen.name2);
-                txt16.setText(stv.handlLayout.name);
-                if (stv.handlLayout == LayoutHandle.SET) {
+                txt16.setText(stv.handleLayout.name);
+                if (stv.handleLayout == LayoutHandle.SET) {
                     txt31.setEditable(true);
-                    txt31.setText(String.valueOf(stv.handlHeight));
+                    txt31.setText(String.valueOf(stv.handleHeight));
                 } else {
                     txt31.setEditable(false);
                     txt31.setText("");
                 }
                 iwin.calcFurniture = new builder.specif.Furniture(iwin, true); //фурнитура 
                 iwin.calcFurniture.calc();
-                txt21.setText(stv.handlRec.getStr(eArtikl.name));
+                txt21.setText(stv.handleRec.getStr(eArtikl.name));
                 txt24.setText(Util.df.format(iwin.rootGson.find(stv.id()).width()));
                 txt26.setText(Util.df.format(iwin.rootGson.find(stv.id()).height()));
-                txt25.setText(eColor.find(stv.handlColor).getStr(eColor.name));
+                txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
             }
             Arrays.asList(txt9, txt13, txt14, txt27, txt28,
                     txt29, txt19, txt20, txt30).forEach(it -> it.setCaretPosition(0));

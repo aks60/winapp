@@ -29,10 +29,10 @@ public class AreaStvorka extends AreaSimple {
 
     public Record sysfurnRec = eSysfurn.up.newRecord(); //фурнитура
     public TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
-    public Record handlRec = eArtikl.up.newRecord(); //ручка
-    public int handlColor = -3; //цвет ручки
-    public int handlHeight = 40; //высота ручки
-    public LayoutHandle handlLayout = LayoutHandle.SET; //положение ручки на створке       
+    public Record handleRec = eArtikl.up.newRecord(); //ручка
+    public int handleColor = -3; //цвет ручки
+    public int handleHeight = 40; //высота ручки
+    public LayoutHandle handleLayout = LayoutHandle.SET; //положение ручки на створке       
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
@@ -75,7 +75,7 @@ public class AreaStvorka extends AreaSimple {
         }
         //Ручка
         if (param(param, PKjson.artiklHandl) != -1) {
-            handlRec = eArtikl.find(param(param, PKjson.artiklHandl), false);
+            handleRec = eArtikl.find(param(param, PKjson.artiklHandl), false);
         }
         //Сторона открывания
         if (param(param, PKjson.typeOpen) != -1) {
@@ -85,27 +85,27 @@ public class AreaStvorka extends AreaSimple {
         }
         //Подбор текстуры ручки
         if (param(param, PKjson.colorHandl) != -1) {
-            handlColor = param(param, PKjson.colorHandl);
+            handleColor = param(param, PKjson.colorHandl);
         } else {
-            handlColor = iwin().colorID1; //если цвет не установлен подбираю по основной текстуре
+            handleColor = iwin().colorID1; //если цвет не установлен подбираю по основной текстуре
         }
         //Положение или высота ручки на створке
         if (param(param, PKjson.positionHandl) != -1) {
             int position = param(param, PKjson.positionHandl);
             if (position == LayoutHandle.SET.id) {
-                handlLayout = LayoutHandle.SET;
-                handlHeight = param(param, PKjson.heightHandl);
+                handleLayout = LayoutHandle.SET;
+                handleHeight = param(param, PKjson.heightHandl);
             } else {
-                handlLayout = (position == LayoutHandle.MIDL.id) ? LayoutHandle.MIDL : LayoutHandle.CONST;
+                handleLayout = (position == LayoutHandle.MIDL.id) ? LayoutHandle.MIDL : LayoutHandle.CONST;
             }
         } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDL.id) {
-            handlLayout = LayoutHandle.MIDL;
+            handleLayout = LayoutHandle.MIDL;
         } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.CONST.id) {
-            handlLayout = LayoutHandle.CONST;
+            handleLayout = LayoutHandle.CONST;
         } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.SET.id) {
-            handlLayout = LayoutHandle.SET;
+            handleLayout = LayoutHandle.SET;
         } else {
-            handlLayout = LayoutHandle.MIDL; //по умолчанию
+            handleLayout = LayoutHandle.MIDL; //по умолчанию
         }
     }
 

@@ -34,7 +34,7 @@ public class SpecificAdd {
             if (list.get(0).equals(map.get(25013))) {
                 spc.weight = spc.weight - dx;
             } else if (list.get(1).equals(map.get(25013))) {
-                spc.weight = ((AreaStvorka) el.owner()).handlHeight - dx;
+                spc.weight = ((AreaStvorka) el.owner()).handleHeight - dx;
             } else if (list.get(2).equals(map.get(25013))) {
                 AreaStvorka stv = (AreaStvorka) el.owner();
                 ElemFrame fr = stv.mapFrame.get(stv.typeOpen.axisStv());
