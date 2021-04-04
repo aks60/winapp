@@ -60,7 +60,7 @@ public class Joining extends javax.swing.JFrame {
     private int[] indexIcon = {10, 20, 30, 31, 40, 41};
 
     private Query qGroups = new Query(eGroups.values());
-    private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
+    private Query qParams = new Query(eParams.values());
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
     private Query qArtikl = new Query(eArtikl.values());
     private Query qJoining = new Query(eJoining.values());

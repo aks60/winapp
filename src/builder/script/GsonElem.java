@@ -258,7 +258,7 @@ public class GsonElem {
         for (GsonElem area : trunk.areas()) {
             area.parent = trunk;
             area.elements().forEach(elem -> elem.parent = trunk);
-            setParent(area);
+            setParent(area); //реккурсия
         }
     }
 }

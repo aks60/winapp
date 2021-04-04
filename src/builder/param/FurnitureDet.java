@@ -140,13 +140,13 @@ public class FurnitureDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 24040:  //Порог расчета, мм 
-                        message(rec.getInt(GRUP));
+                        mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 24050:  //Шаг, мм 
-                        message(rec.getInt(GRUP));
+                        mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 24060:  //Количество на шаг 
-                        message(rec.getInt(GRUP));
+                        mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 24063:  //Диапазон веса, кг 
                         message(rec.getInt(GRUP));
