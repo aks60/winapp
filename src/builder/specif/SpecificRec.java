@@ -49,12 +49,12 @@ public class SpecificRec {
     public float anglHoriz = 0; // Угол к горизонту    
     public int count = 1;  //Кол. единиц
     
-    public int unit = 0;  //Ед.изм    
+    public int unit = 0;  //Ед.изм   
+    public float wastePrc = 0;  //Процент отхода    
     public float quant1 = 0;  //Количество без отхода
-    public float wastePrc = 0;  //Процент отхода
     public float quant2 = 0;  //Количество с отходом
     public float price1 = 0;  //Себест. за ед. без отхода     
-    public float price2 = 0;  //Себест. за ед с отходом
+    public float price2 = 0;  //Себест. за ед. с отходом
     public float cost1 = 0;  //Стоимость без скидки
     public float cost2 = 0;  //Стоимость со скидкой
 

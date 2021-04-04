@@ -48,8 +48,7 @@ public class Groups extends javax.swing.JFrame {
         qArtDecr.select(eGroups.up, "where", eGroups.grup, "= 5", "order by", eGroups.name);
         qCategProf.select(eGroups.up, "where", eGroups.grup, "= 6", "order by", eGroups.name);
         qCategVst.select(eGroups.up, "where", eGroups.grup, "= 8", "order by", eGroups.name);
-        qDecInc.select(eGroups.up, "where", eGroups.grup, "= 9 and", eGroups.id, "in (2003, 2004, 2055, 2056, 2058, 2101, 2104, 2073)", "order by", eGroups.name);
-        //qDecInc.select(eGroups.up, "where", eGroups.grup, "= 9 order by", eGroups.name);
+        qDecInc.select(eGroups.up, "where", eGroups.grup, "= 9 and", eGroups.id, "in (2002, 2003, 2004, 2055, 2056, 2058, 2101, 2104, 2073)", "order by", eGroups.name);
     }
 
     private void loadingModel() {
@@ -76,7 +75,7 @@ public class Groups extends javax.swing.JFrame {
                         } else if ((double) value == 1) {
                             value = "0.1 мм";
                         } else if ((double) value == 0) {
-                            value = "точн.";
+                            value = "точное";
                         }
                     } else if (id != -1 && (id == 2055 || id == 2056 || id == 2058 || id == 2101 || id == 2104)) {
                         value = value + "%";
@@ -111,16 +110,19 @@ public class Groups extends javax.swing.JFrame {
                 return ("0123456789.".indexOf(txt) != -1);
             }
             return true;
-            
+
         }).addActionListener(event -> {
-            String arrCateg[] = {"0.01", "0.1", "0.5", "1.0"};
+            String arrStr[] = {"точное", "0.1 мм", "0.5 мм", "1.0 мм"};
+            double arrDbl[] = {0, 1, 2, 3};
             Object result = JOptionPane.showInputDialog(Groups.this, "Выберите точность рассчёта",
-                    "Округление длины профилей", JOptionPane.QUESTION_MESSAGE, null, arrCateg, arrCateg[0]);
-            if (result != null) {
-                Util.stopCellEditing(tab7);
-                qDecInc.set(Double.valueOf(result.toString()), Util.getIndexRec(tab7), eGroups.val);
-                ((DefTableModel) tab7.getModel()).fireTableRowsUpdated(tab7.getSelectedRow(), tab7.getSelectedRow());
-            }            
+                    "Округление длины профилей", JOptionPane.QUESTION_MESSAGE, null, arrStr, arrStr[0]);
+            for (int i = 0; i < arrStr.length; ++i) {
+                if (arrStr[i].equals(result)) {
+                    Util.stopCellEditing(tab7);
+                    qDecInc.set(arrDbl[i], Util.getIndexRec(tab7), eGroups.val);
+                    ((DefTableModel) tab7.getModel()).fireTableRowsUpdated(tab7.getSelectedRow(), tab7.getSelectedRow());
+                }
+            }
         });
     }
 

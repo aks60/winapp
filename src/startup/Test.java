@@ -7,19 +7,22 @@ import dataset.*;
 import domain.eArtdet;
 import com.google.gson.GsonBuilder;
 import frames.DBCompare;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import javax.swing.UIManager;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
-import javax.swing.JOptionPane;
 
 public class Test {
 
     public static Integer numDb = Integer.valueOf(eProperty.base_num.read());
 
     // <editor-fold defaultstate="collapsed" desc="Connection[] connect(int numDb)">
-    
     public static Connection connect1() {
         try {
             if (numDb == 1) {
@@ -49,20 +52,20 @@ public class Test {
             return null;
         }
     }
-    
-    // </editor-fold>     
 
+    // </editor-fold>     
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
 
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            wincalc();
+            //wincalc();
             //query();
             //frame();
             //json();
             //parse();
             //uid();
+
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }

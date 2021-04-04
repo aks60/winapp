@@ -16,6 +16,11 @@ import java.util.LinkedList;
 import builder.Wincalc;
 import builder.model.ElemSimple;
 import dataset.Query;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 /**
  * Расчёт стоимости элементов окна
@@ -23,6 +28,7 @@ import dataset.Query;
 public class Tariffication extends Cal5e {
 
     private boolean norm_otx = true;
+    private int precision = Math.round(new Query(eGroups.values()).select(eGroups.up).get(0).getFloat(eGroups.val)); //округление длины профилей
 
     public Tariffication(Wincalc iwin, boolean norm_otx) {
         super(iwin);
@@ -36,14 +42,14 @@ public class Tariffication extends Cal5e {
 
             //Расчёт  собес-сть за ед. изм. по таблице мат. ценностей
             for (ElemSimple elem5e : iwin.listElem) {
-                elem5e.spcRec.price1 += calcPrice(elem5e.spcRec); //себес-сть за ед. изм.
+                elem5e.spcRec.price1 += calcPrice(elem5e.spcRec); //себест. за ед. без отхода
                 elem5e.spcRec.quant1 = formatAmount(elem5e.spcRec); //количество без отхода
                 elem5e.spcRec.quant2 = elem5e.spcRec.quant1;
                 if (norm_otx == true) {
                     elem5e.spcRec.quant2 = elem5e.spcRec.quant2 + (elem5e.spcRec.quant1 * elem5e.spcRec.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
                 }
                 for (SpecificRec specificationRec2 : elem5e.spcRec.spcList) {
-                    specificationRec2.price1 += calcPrice(specificationRec2); //себес-сть за ед. изм.
+                    specificationRec2.price1 += calcPrice(specificationRec2); //себест. за ед. без отхода
                     specificationRec2.quant1 = formatAmount(specificationRec2); //количество без отхода
                     specificationRec2.quant2 = specificationRec2.quant1;
                     if (norm_otx == true) {
@@ -82,7 +88,7 @@ public class Tariffication extends Cal5e {
                     }
                 }
 
-                elem5e.spcRec.price2 = elem5e.spcRec.price1 * elem5e.spcRec.quant2; //себестоимость с отходом
+                elem5e.spcRec.price2 = elem5e.spcRec.price1 * elem5e.spcRec.quant2; //себест. за ед. без отхода  
                 Record artgrp1Rec = eGroups.find(elem5e.spcRec.artiklRec.getInt(eArtikl.artgrp1_id));
                 elem5e.spcRec.cost1 = elem5e.spcRec.price2 * artgrp1Rec.getFloat(eGroups.val, 1) * systreeRec.getFloat(eSystree.coef, 1);
                 elem5e.spcRec.cost1 = elem5e.spcRec.cost1 + (elem5e.spcRec.cost1 / 100) * percentMarkup; //стоимость без скидки                     
@@ -97,7 +103,7 @@ public class Tariffication extends Cal5e {
                             rulePrise(rulecalcRec, specificationRec2);
                         }
                     }
-                    specificationRec2.price2 = specificationRec2.price1 * specificationRec2.quant2; //себестоимости с отходом
+                    specificationRec2.price2 = specificationRec2.price1 * specificationRec2.quant2; //себест. за ед. без отхода 
                     Record artgrp1Rec2 = eGroups.find(specificationRec2.artiklRec.getInt(eArtikl.artgrp1_id));
                     specificationRec2.cost1 = specificationRec2.price2 * artgrp1Rec2.getFloat(eGroups.val, 1) * systreeRec.getFloat(eSystree.coef);
                     specificationRec2.cost1 = specificationRec2.cost1 + (specificationRec2.cost1 / 100) * percentMarkup; //стоимость без скидки                        
@@ -288,11 +294,12 @@ public class Tariffication extends Cal5e {
     //В зав. от единицы изм. форматируется количество
     private float formatAmount(SpecificRec specificRec) {
         //TODO Нужна доработка для расчёта по минимальному тарифу. См. dll VirtualPro4::CalcArtTariff
+        
         if (UseUnit.METR.id == specificRec.artiklRec.getInt(eArtikl.unit)) { //метры
-            return specificRec.width / 1000;
+            return round(specificRec.width, precision) / 1000;
 
         } else if (UseUnit.METR2.id == specificRec.artiklRec.getInt(eArtikl.unit)) { //кв. метры
-            return specificRec.width * specificRec.height / 1000000;
+            return round(specificRec.width, precision) * round(specificRec.height, precision) / 1000000;
 
         } else if (UseUnit.PIE.id == specificRec.artiklRec.getInt(eArtikl.unit)) { //шт.
             return specificRec.count;
@@ -322,5 +329,16 @@ public class Tariffication extends Cal5e {
             return true; //текстуры совпали
         }
         return false;
+    }
+
+    private static float round(float value, int places) {
+        System.out.println(value);
+        if (places == 0) {
+            return value;
+        }
+        places = (places == 3) ? 1 : (places == 2) ? 2 : 3;
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.floatValue();
     }
 }
