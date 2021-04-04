@@ -108,7 +108,7 @@ public class Joining extends javax.swing.JFrame {
 
         tab1.setToolTipText("");
         qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
-        qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.id, "=", eParams.id, "order by", eParams.text);
+        qParams.select(eParams.up, "where", eParams.joint, "= 1 order by", eParams.text);
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         if (subsql == null) {
@@ -146,7 +146,7 @@ public class Joining extends javax.swing.JFrame {
                 if (val != null && eJoinpar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eJoinpar1.params_id) + ":" + record.getStr(eJoinpar1.text) : record.getStr(eJoinpar1.text);
+                        return (Main.dev) ? record.getStr(eParams.id) + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
