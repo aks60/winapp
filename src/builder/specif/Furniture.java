@@ -36,7 +36,7 @@ public class Furniture extends Cal5e {
     private FurnitureVar furnitureVar = null;
     private FurnitureDet furnitureDet = null;
     private HashSet<Record> setFurndet = new HashSet();
-    public boolean handle = false;
+    public boolean takeHandle = false;
     
     public Furniture(Wincalc iwin) {
         this(iwin, false);
@@ -46,7 +46,7 @@ public class Furniture extends Cal5e {
         super(iwin);
         furnitureVar = new FurnitureVar(iwin);
         furnitureDet = new FurnitureDet(iwin);
-        this.handle = handle;
+        this.takeHandle = handle;
     }
     
     public void calc() {
@@ -80,8 +80,6 @@ public class Furniture extends Cal5e {
 
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnside1List) {
-
-                //mask[furnside1Rec.getInt(eFurnside1.side_num)] = furnside1Rec.getInt(eFurnside1.side_use);
                 ElemFrame sideFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
 
                 //ФИЛЬТР вариантов с учётом стороны
@@ -126,7 +124,7 @@ public class Furniture extends Cal5e {
             Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
 
             //Сделано для убыстрения поиска ручки при конструировании окна. Если ручки нет то сразу выход.
-            if (handle == true) {                
+            if (takeHandle == true) {                
                 if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)
                         && furndetRec.get(eFurndet.furniture_id2) == null) {
                     if (artiklRec.getInt(eArtikl.level1) != 2) { //т.к. ручки на уровне 2
@@ -138,12 +136,12 @@ public class Furniture extends Cal5e {
 
             //Подбор текстуры ручки
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
-                if (artiklRec != null && TypeArtikl.X211.isType(artiklRec)) {
-                    if (furndetRec.getInt(eFurndet.color_fk) > 0) {
+                if (artiklRec != null && TypeArtikl.X211.isType(artiklRec)) { //если ветка ркчки
+                    if (furndetRec.getInt(eFurndet.color_fk) > 0) { //установлена в ручную
                         boolean empty = true;
-                        List<Record> artdetList = eArtdet.find(furndetRec.getInt(eFurndet.artikl_id));
+                        List<Record> artdetList = eArtdet.find(furndetRec.getInt(eFurndet.artikl_id)); //все возможные цвета ручки
                         for (Record artdetRec : artdetList) {
-                            if (artdetRec.getInt(eArtdet.color_fk) == areaStv.handlColor) {
+                            if (artdetRec.getInt(eArtdet.color_fk) == areaStv.handleColor) {
                                 empty = false;
                             }
                         }
@@ -203,12 +201,15 @@ public class Furniture extends Cal5e {
                     
                     ElemFrame sideStv = determOfSide(mapParam, areaStv);
                     SpecificRec specif = new SpecificRec(furndetRec, artiklRec, sideStv, mapParam);
-                    if (Color.colorFromProduct(specif, 1)) { //попадает или нет в спецификацию по цвету
+                    
+                    //Попадает или нет в спецификацию по цвету
+                    if (Color.colorFromProduct(specif, 1)) { 
 
                         //Пишем ручку в створку
-                        if (handle == true && artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
+                        if (takeHandle == true && artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
                             if (artiklRec.getStr(eArtikl.name).toLowerCase().contains("ручк")) {
-                                areaStv.handlRec = artiklRec;
+                                areaStv.handleRec = artiklRec;
+                                areaStv.handleColor = specif.colorID1;
                             }
                         }
                         specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
