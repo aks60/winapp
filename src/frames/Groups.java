@@ -3,13 +3,18 @@ package frames;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import common.FrameToFile;
 import dataset.Query;
+import domain.eGlaspar1;
 import domain.eGroups;
+import enums.Enam;
+import enums.ParamList;
 import enums.TypeGroups;
+import static frames.Util.getIndexRec;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
 import java.awt.Component;
 import java.util.Arrays;
 import java.util.stream.Stream;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -54,7 +59,7 @@ public class Groups extends javax.swing.JFrame {
         new DefTableModel(tab4, qCategProf, eGroups.name);
         new DefTableModel(tab5, qColgrp, eGroups.name, eGroups.val);
         new DefTableModel(tab6, qCategVst, eGroups.name);
-        new DefTableModel(tab7, qDecInc, eGroups.name, eGroups.val); 
+        new DefTableModel(tab7, qDecInc, eGroups.name, eGroups.val);
         tab1.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
         tab5.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
@@ -87,6 +92,36 @@ public class Groups extends javax.swing.JFrame {
         Util.setSelectedRow(tab5);
         Util.setSelectedRow(tab6);
         Util.setSelectedRow(tab7);
+
+        Util.buttonCellEditor(tab7, 1, (component) -> {
+
+            if (component instanceof DefCellEditor) { //установим вид и тип ячейки
+                DefCellEditor editor = (DefCellEditor) component;
+                int groupsID = qDecInc.getAs(getIndexRec(tab7), eGroups.id);
+                if (groupsID == 2073) {
+                    editor.getButton().setVisible(true);
+                    editor.getTextField().setEnabled(false);
+                } else { //вводимые пользователем
+                    editor.getButton().setVisible(false);
+                    editor.getTextField().setEnabled(true);
+                    editor.getTextField().setEditable(true);
+                }
+            } else {  //проверка на коррекность ввода
+                String txt = (String) component;
+                return ("0123456789.".indexOf(txt) != -1);
+            }
+            return true;
+            
+        }).addActionListener(event -> {
+            String arrCateg[] = {"0.01", "0.1", "0.5", "1.0"};
+            Object result = JOptionPane.showInputDialog(Groups.this, "Выберите точность рассчёта",
+                    "Округление длины профилей", JOptionPane.QUESTION_MESSAGE, null, arrCateg, arrCateg[0]);
+            if (result != null) {
+                Util.stopCellEditing(tab7);
+                qDecInc.set(Double.valueOf(result.toString()), Util.getIndexRec(tab7), eGroups.val);
+                ((DefTableModel) tab7.getModel()).fireTableRowsUpdated(tab7.getSelectedRow(), tab7.getSelectedRow());
+            }            
+        });
     }
 
     @SuppressWarnings("unchecked")

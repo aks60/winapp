@@ -47,7 +47,9 @@ public class Specific extends javax.swing.JFrame {
     private DecimalFormat df1 = new DecimalFormat("#0.0");
     private DecimalFormat df2 = new DecimalFormat("#0.00");
     private DecimalFormat df3 = new DecimalFormat("#0.000");
-    private builder.Wincalc iwin = new Wincalc();;
+    private builder.Wincalc iwin = new Wincalc();
+
+    ;
 
     public Specific() {
         initComponents();
@@ -68,7 +70,7 @@ public class Specific extends javax.swing.JFrame {
             } else {
                 String script = sysprodRec.getStr(eSysprod.script);
                 JsonElement je = new Gson().fromJson(script, JsonElement.class);
-                je.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id));                
+                je.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id));
                 iwin.build(je.toString());
                 Query.listOpenTable.forEach(q -> q.clear());
                 iwin.constructiv(cbx2.getSelectedIndex() == 0);
@@ -252,7 +254,7 @@ public class Specific extends javax.swing.JFrame {
 
         cbx1.setBackground(new java.awt.Color(212, 208, 200));
         cbx1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        cbx1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Детализация 3ур.", "Детализация 2ур.", "Детализация 1ур.", "Соединения", "Вставки", "Заполнения", "Фурнитура" }));
+        cbx1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Детализация 1 ур.", "Детализация 2 ур.", "Детализация 3 ур.", "Соединения", "Вставки", "Заполнения", "Фурнитура" }));
         cbx1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         cbx1.setPreferredSize(new java.awt.Dimension(140, 25));
         cbx1.addActionListener(new java.awt.event.ActionListener() {
@@ -505,7 +507,7 @@ public class Specific extends javax.swing.JFrame {
         } else if (cbx1.getSelectedIndex() == 5) {
             List<SpecificRec> listSpec = iwin.listSpec.stream().filter(rec -> "ЗАП".equals(rec.place.substring(0, 3))).collect(toList());
             loadingTab1(listSpec);
-            
+
         } else if (cbx1.getSelectedIndex() == 6) {
             List<SpecificRec> listSpec = iwin.listSpec.stream().filter(rec -> "ФУР".equals(rec.place.substring(0, 3))).collect(toList());
             loadingTab1(listSpec);
@@ -521,9 +523,13 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxGroupBy
 
     private void cbxCalcType(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCalcType
-        createIwin();
-        loadingTab1(iwin.listSpec);
-        Util.setSelectedRow(tab1);
+        FrameProgress.create(this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                createIwin();
+                loadingTab1(iwin.listSpec);
+                Util.setSelectedRow(tab1);
+            }
+        });
     }//GEN-LAST:event_cbxCalcType
 
     private void btnConstructivFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnConstructivFocusLost
