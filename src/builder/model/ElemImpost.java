@@ -123,24 +123,20 @@ public class ElemImpost extends ElemSimple {
 
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count = spc7d.calcCountStep(spcRec, spcAdd); //кол. ед. с шагом
+        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //пог. метр
+        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра        
 
         //Армирование
         if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
             spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
             spcAdd.anglCut2 = 90;
             spcAdd.anglCut1 = 90;
-            spcAdd.width = spcRec.width;
-
-            //Соединитель
-        } else if (TypeArtikl.X205.isType(spcAdd.artiklRec)) {
-            //
+            spcAdd.width += spcRec.width;
 
             //Остальные
         } else {
-            //
+            spcAdd.width += spcRec.width;
         }
-        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //пог. метр
-        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра
         spcRec.spcList.add(spcAdd);
     }
 

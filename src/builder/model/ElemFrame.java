@@ -106,6 +106,8 @@ public class ElemFrame extends ElemSimple {
 
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count = spc7d.calcCountStep(spcRec, spcAdd); //кол. ед. с шагом
+        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //пог. метр
+        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра        
 
         //Армирование
         if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
@@ -114,10 +116,10 @@ public class ElemFrame extends ElemSimple {
             spcAdd.anglCut2 = 90;
 
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
-                spcAdd.width = x2 - x1;
+                spcAdd.width += x2 - x1;
 
             } else if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
-                spcAdd.width = y2 - y1;
+                spcAdd.width += y2 - y1;
             }
             if ("от внутреннего угла".equals(spcAdd.getParam(null, 34010))) {
                 Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
@@ -143,9 +145,9 @@ public class ElemFrame extends ElemSimple {
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
-                spcAdd.width = spcRec.width * 2 * koef;
+                spcAdd.width += spcRec.width * 2 * koef;
             } else {
-                spcAdd.width = spcRec.height * 2 * koef;
+                spcAdd.width += spcRec.height * 2 * koef;
             }
 
             //Монтажный профиль
@@ -162,10 +164,8 @@ public class ElemFrame extends ElemSimple {
 
             //Всё остальное
         } else {
-
+            spcAdd.width += spcRec.width;
         }
-        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //пог. метр
-        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра
         spcRec.spcList.add(spcAdd);
         spc7d.heightHand(spcAdd);
     }

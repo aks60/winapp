@@ -55,7 +55,7 @@ public class Specific extends javax.swing.JFrame {
         initComponents();
         initElements();
         createIwin();
-        loadingTab1(iwin.listSpec);
+        loadingTab1(groups(1));
         Util.setSelectedRow(tab1);
     }
 
@@ -255,6 +255,7 @@ public class Specific extends javax.swing.JFrame {
         cbx1.setBackground(new java.awt.Color(212, 208, 200));
         cbx1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbx1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Детализация 1 ур.", "Детализация 2 ур.", "Детализация 3 ур.", "Соединения", "Вставки", "Заполнения", "Фурнитура" }));
+        cbx1.setSelectedIndex(1);
         cbx1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         cbx1.setPreferredSize(new java.awt.Dimension(140, 25));
         cbx1.addActionListener(new java.awt.event.ActionListener() {
