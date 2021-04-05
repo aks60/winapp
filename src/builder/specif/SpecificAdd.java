@@ -72,12 +72,14 @@ public class SpecificAdd {
     //Пог. метры
     public float calcAmountMetr(SpecificRec spcRec, SpecificRec spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
-
-//            if (spcAdd.width == 0) {
-//                spcAdd.width = spcRec.width; //TODO вообще это неправильно, надо проанализировать. Без этой записи специф. считается неправильно.
-//            }
-            float width = Float.valueOf(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм (должна быть первой)
-            return width + Float.valueOf(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
+            return Float.valueOf(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
+        }
+        return spcAdd.width;
+    }
+    //Пог. метры
+    public float calcAmountLenght(SpecificRec spcRec, SpecificRec spcAdd) {
+        if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
+            return Float.valueOf(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм (должна быть первой)
         }
         return spcAdd.width;
     }

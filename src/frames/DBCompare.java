@@ -521,7 +521,7 @@ public class DBCompare extends javax.swing.JFrame {
             }
 
             if (detail == true) {
-                System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "DB1", "DB2", "Delta"});
+                System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "PS", "SA", "Delta"});
                 System.out.println();
                 for (Map.Entry<String, Float> entry : hmDB1.entrySet()) {
                     String key = entry.getKey();
@@ -560,7 +560,7 @@ public class DBCompare extends javax.swing.JFrame {
                     jarTotal = jarTotal + value3;
                 }
             }
-            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.prj, "DB1=" + String.format("%.2f", iwinTotal), "DB2="
+            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.prj, "PS=" + String.format("%.2f", iwinTotal), "SA="
                     + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
             System.out.println();
 

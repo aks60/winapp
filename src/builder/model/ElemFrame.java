@@ -106,7 +106,7 @@ public class ElemFrame extends ElemSimple {
 
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count = spc7d.calcCountStep(spcRec, spcAdd); //кол. ед. с шагом
-        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //пог. метр
+        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //поправка мм
         spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра        
 
         //Армирование
@@ -141,20 +141,19 @@ public class ElemFrame extends ElemSimple {
 
             //Концевой профиль
         } else if (TypeArtikl.X135.isType(spcAdd.artiklRec) == true) {
-            String str = spcAdd.getParam(0, 12030);
+            String str = spcAdd.getParam(0, 12030, 15030, 25035, 34030, 39030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
-                spcAdd.width += spcRec.width * 2 * koef;
+                spcAdd.width += spcRec.width  * koef;
             } else {
-                spcAdd.width += spcRec.height * 2 * koef;
+                spcAdd.width += spcRec.height  * koef;
             }
 
             //Монтажный профиль
         } else if (TypeArtikl.X117.isType(spcAdd.artiklRec) == true) {
-            //float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
-            //specificationRec.width = x2 - x1 + prip * 2;
-            //specif.width = specificationRec.weight;
+            float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
+            spcAdd.width += x2 - x1 + prip * 2;
 
             //Соединитель
         } else if (TypeArtikl.X205.isType(spcAdd.artiklRec) == true) {
@@ -164,8 +163,9 @@ public class ElemFrame extends ElemSimple {
 
             //Всё остальное
         } else {
-            spcAdd.width += spcRec.width;
+            //spcAdd.width += spcRec.width;
         }
+        spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
         spcRec.spcList.add(spcAdd);
         spc7d.heightHand(spcAdd);
     }
