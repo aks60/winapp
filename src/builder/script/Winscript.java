@@ -315,7 +315,7 @@ public class Winscript {
 
         if (project == 601001) {
             rootArea = new GsonRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 800, 1200, 25, 25, 25);
-            rootArea.propery(project.toString(), 29, "СИАЛ\\КП45\\Окна");
+            rootArea.propery(project.toString(), 12, "СИАЛ\\КП45\\Окна");
             rootArea.addElem(new GsonElem(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.addElem(new GsonElem(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.addElem(new GsonElem(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
@@ -359,8 +359,8 @@ public class Winscript {
             GsonElem area3 = (GsonElem) rootArea.addArea(new GsonElem(8, LayoutArea.HORIZ, TypeElem.AREA, 670));
             rootArea.addElem(new GsonElem(9, TypeElem.IMPOST));
             GsonElem area4 = (GsonElem) rootArea.addArea(new GsonElem(10, LayoutArea.HORIZ, TypeElem.AREA, 670));             
-            GsonElem area5 = (GsonElem) area2.addArea(new GsonElem(11, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':3, 'sysfurnID':143}"));
-            GsonElem area6 = (GsonElem) area4.addArea(new GsonElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':143}"));
+            GsonElem area5 = (GsonElem) area2.addArea(new GsonElem(11, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':143}"));
+            GsonElem area6 = (GsonElem) area4.addArea(new GsonElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2, 'sysfurnID':143}"));
             area5.addElem(new GsonElem(13, TypeElem.GLASS, "{'artglasID':285}"));
             area6.addElem(new GsonElem(14, TypeElem.GLASS, "{'artglasID':285}"));            
             area3.addElem(new GsonElem(15, TypeElem.GLASS, "{'artglasID':285}"));            

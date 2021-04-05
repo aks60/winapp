@@ -50,7 +50,7 @@ public class Filling extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
-    private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
+    private Query qParams = new Query(eParams.values());
     private Query qGlasgrp = new Query(eGlasgrp.values());
     private Query qGlasdet = new Query(eGlasdet.values(), eArtikl.values());
     private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values());
@@ -141,7 +141,7 @@ public class Filling extends javax.swing.JFrame {
                 if (val != null && eGlaspar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eGlaspar1.params_id) + ":" + record.getStr(eGlaspar1.text) : record.getStr(eGlaspar1.text);
+                        return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -157,7 +157,7 @@ public class Filling extends javax.swing.JFrame {
                 if (val != null && field == eGlaspar2.params_id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eGlaspar2.id) + ":" + record.getStr(eGlaspar2.text) : record.getStr(eGlaspar2.text);
+                        return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();

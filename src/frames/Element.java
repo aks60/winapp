@@ -53,7 +53,7 @@ public class Element extends javax.swing.JFrame {
     private Query qGrMap = new Query(eGroups.values());
     private Query qGrSeri = new Query(eGroups.values());
     private Query qGrCateg = new Query(eGroups.values());
-    private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
+    private Query qParams = new Query(eParams.values());
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
@@ -174,8 +174,8 @@ public class Element extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && eElempar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record elempar1Rec = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? elempar1Rec.getStr(eElempar1.params_id) + ":" + elempar1Rec.getStr(eElempar1.text) : elempar1Rec.getStr(eElempar1.text);
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -192,7 +192,7 @@ public class Element extends javax.swing.JFrame {
                     if (field == eElempar2.params_id) {
                         if (Integer.valueOf(String.valueOf(val)) < 0) {
                             Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                            return (Main.dev) ? record.getStr(eElempar2.id) + ":" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
+                            return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                         } else {
                             Enam en = ParamList.find(Integer.valueOf(val.toString()));
                             return (Main.dev) ? en.numb() + "-" + en.text() : en.text();

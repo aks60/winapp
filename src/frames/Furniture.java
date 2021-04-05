@@ -56,7 +56,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
-    private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
+    private Query qParams = new Query(eParams.values());
     private Query qFurnall = new Query(eFurniture.values());
     private Query qFurniture = new Query(eFurniture.values());
     private Query qArtikl = new Query(eArtikl.values());
@@ -282,7 +282,7 @@ public class Furniture extends javax.swing.JFrame {
                 if (field == eFurnpar1.params_id && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eFurnpar1.params_id) + ":" + record.getStr(eFurnpar1.text) : record.getStr(eFurnpar1.text);
+                        return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -311,7 +311,7 @@ public class Furniture extends javax.swing.JFrame {
                 if (val != null && field == eFurnpar2.params_id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eFurnpar2.id) + ":" + record.getStr(eFurnpar2.text) : record.getStr(eFurnpar2.text);
+                        return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
