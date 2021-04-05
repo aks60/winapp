@@ -143,7 +143,7 @@ public class Systree extends javax.swing.JFrame {
         if (sysprodRec != null) {
             systreeID = sysprodRec.getInt(eSysprod.systree_id);
         }
-        qSystree.select(eSystree.up);
+        qSystree.select(eSystree.up, "order by", eSystree.name);
         qParams.select(eParams.up, "where", eParams.id, "< 0").table(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
     }
