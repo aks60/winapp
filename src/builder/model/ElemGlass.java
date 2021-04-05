@@ -142,6 +142,24 @@ public class ElemGlass extends ElemSimple {
                 }
             }
 
+            //Уплотнитель заполнения
+        } else if (TypeArtikl.X302.isType(spcAdd.artiklRec)) {
+            if (TypeElem.ARCH == owner().type()) {
+                System.out.println("КОД ОТСУТСТВУЕТ!!!");  
+            } else {
+                spcAdd.anglCut2 = 45;
+                spcAdd.anglCut1 = 45;
+                //По горизонтали                
+                spcAdd.width = width() + 2 * gzazo;
+                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                spcRec.spcList.add(new SpecificRec(spcAdd));
+                spcRec.spcList.add(new SpecificRec(spcAdd));
+                //По вертикали
+                spcAdd.width = height() + 2 * gzazo;
+                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                spcRec.spcList.add(new SpecificRec(spcAdd));
+                spcRec.spcList.add(new SpecificRec(spcAdd));            
+            }
             //Концнвой профиль, уплотнение притвора
         } else if (TypeArtikl.X135.isType(spcAdd.artiklRec)
                 || TypeArtikl.X301.isType(spcAdd.artiklRec)) {

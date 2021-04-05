@@ -3,7 +3,6 @@ package frames;
 import builder.Wincalc;
 import builder.specif.SpecificRec;
 import common.FrameToFile;
-import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSetting;
@@ -13,8 +12,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -25,7 +30,6 @@ import jxl.Workbook;
 import startup.Test;
 
 public class DBCompare extends javax.swing.JFrame {
-
 
     enum Fld {
         ATYPM("уров1"), ATYPP("уров2"), ANUMB("артикул"), CLNUM("color1"), CLNU1("color2"), CLNU2("color3"),
@@ -40,11 +44,24 @@ public class DBCompare extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingTab1(iwin);
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
+        tab1.setRowSorter(sorter);
     }
 
     public void loadingTab1(Wincalc iwin) {
         try {
-            ((DefaultTableModel) tab.getModel()).getDataVector().clear();
+            Map<String, Vector> hmSpc = new HashMap();
+            Set<String> setSpc1 = new HashSet();
+            Set<String> setSpc2 = new HashSet();
+            iwin.listSpec.forEach(rec -> setSpc1.add(rec.artikl));
+            setSpc1.forEach(el -> hmSpc.put(el, new Vector(Arrays.asList(el, 0f, 0f, 0f, 0f, 0f, 0f))));
+            iwin.listSpec.forEach(rec -> {
+                List<Float> val = hmSpc.get(rec.artikl);
+                val.set(1, val.get(1) + rec.count);
+                val.set(3, val.get(3) + rec.quant1);
+            });
+
+            ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
             Connection cn = Test.connect1();
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
@@ -59,28 +76,48 @@ public class DBCompare extends javax.swing.JFrame {
                 for (int i = 0; i < Fld.values().length; i++) {
                     vectorRec.add(rs.getObject(Fld.values()[i].name()));
                 }
-                String artikl = rs.getString("ANUMB"); //длина
+                String artikl = rs.getString("ANUMB"); //артикл
                 double leng = rs.getDouble("ALENG"); //длина
-                double count = rs.getDouble("AQTYP"); //колич
-                double pogonag = rs.getDouble("AQTYA"); //погонаж
+                float count = rs.getFloat("AQTYP"); //колич
+                float pogonag = rs.getFloat("AQTYA"); //погонаж
                 double perc = rs.getDouble("APERC"); //отход
                 double cost = rs.getDouble("APRC1"); //стоим.без.ск.за ед.изм
                 double costdec = rs.getDouble("APRCD"); //стоим.со.ск.за.ед.изм                                
                 double value1 = (perc * pogonag / 100 + pogonag) * cost;
-                double value2 = (perc * pogonag / 100 + pogonag) * costdec;                
+                double value2 = (perc * pogonag / 100 + pogonag) * costdec;
                 Record artiklRec = eArtikl.query().stream().filter(r -> artikl.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
                 sum1 = sum1 + value1;
                 sum2 = sum2 + value2;
-                
+                setSpc2.add(artikl);
+                List<Float> val = hmSpc.get(artikl);
+                val.set(2, val.get(2) + count);
+                val.set(4, val.get(4) + pogonag);
+
                 vectorRec.add(4, artiklRec.get(eArtikl.name)); //имя артикула                
                 vectorRec.add(value1); //стоим. элемента без скидки
                 vectorRec.add(value2); //стоим. элемента со скидкой
-                
-                ((DefaultTableModel) tab.getModel()).getDataVector().add(vectorRec);
+
+                ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
             }
             rs.close();
             lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = "
                     + punic + "   Стоим.без.ск = " + Util.df.format(sum1) + "   Стоим.со.ск = " + Util.df.format(sum2));
+            ////////////////////////////////////////////////////////////////////
+            ((DefaultTableModel) tab2.getModel()).getDataVector().clear();
+            Set<String> setSpc1x = new HashSet(setSpc1);
+            Set<String> setSpc2x = new HashSet(setSpc2);
+            setSpc1x.removeAll(setSpc2);
+            setSpc2x.removeAll(setSpc1);
+            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- SAOkna  за.выч.Профстрой ---")));
+            setSpc1x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
+            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- ПрофСтрой  за.выч.SAOkna ---")));
+            setSpc2x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
+            ////////////////////////////////////////////////////////////////////
+            ((DefaultTableModel) tab3.getModel()).getDataVector().clear();
+            for (Map.Entry<String, Vector> entry : hmSpc.entrySet()) {
+                ((DefaultTableModel) tab3.getModel()).getDataVector().add(entry.getValue());
+            }
+            ////////////////////////////////////////////////////////////////////
 
         } catch (SQLException e) {
             println("Ошибка: DBCompare.iwinRec().  " + e);
@@ -97,8 +134,16 @@ public class DBCompare extends javax.swing.JFrame {
         pan1 = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         center = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        pan4 = new javax.swing.JPanel();
         scr = new javax.swing.JScrollPane();
-        tab = new javax.swing.JTable();
+        tab1 = new javax.swing.JTable();
+        pan3 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
+        pan5 = new javax.swing.JPanel();
+        scr3 = new javax.swing.JScrollPane();
+        tab3 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -159,7 +204,9 @@ public class DBCompare extends javax.swing.JFrame {
         center.setPreferredSize(new java.awt.Dimension(800, 550));
         center.setLayout(new java.awt.BorderLayout());
 
-        tab.setModel(new javax.swing.table.DefaultTableModel(
+        pan4.setLayout(new java.awt.BorderLayout());
+
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -185,36 +232,87 @@ public class DBCompare extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tab.setFillsViewportHeight(true);
-        scr.setViewportView(tab);
-        if (tab.getColumnModel().getColumnCount() > 0) {
-            tab.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tab.getColumnModel().getColumn(0).setMaxWidth(60);
-            tab.getColumnModel().getColumn(1).setMinWidth(0);
-            tab.getColumnModel().getColumn(1).setPreferredWidth(0);
-            tab.getColumnModel().getColumn(1).setMaxWidth(0);
-            tab.getColumnModel().getColumn(2).setMinWidth(0);
-            tab.getColumnModel().getColumn(2).setPreferredWidth(0);
-            tab.getColumnModel().getColumn(2).setMaxWidth(0);
-            tab.getColumnModel().getColumn(3).setPreferredWidth(140);
-            tab.getColumnModel().getColumn(4).setPreferredWidth(240);
-            tab.getColumnModel().getColumn(5).setPreferredWidth(40);
-            tab.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab.getColumnModel().getColumn(7).setPreferredWidth(40);
-            tab.getColumnModel().getColumn(8).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(9).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(10).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(11).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(13).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(14).setPreferredWidth(60);
-            tab.getColumnModel().getColumn(15).setPreferredWidth(80);
-            tab.getColumnModel().getColumn(16).setPreferredWidth(80);
-            tab.getColumnModel().getColumn(17).setPreferredWidth(80);
-            tab.getColumnModel().getColumn(18).setPreferredWidth(80);
-            tab.getColumnModel().getColumn(19).setPreferredWidth(80);
+        tab1.setFillsViewportHeight(true);
+        scr.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(0).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(1).setMinWidth(0);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(0);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(0);
+            tab1.getColumnModel().getColumn(2).setMinWidth(0);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(0);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(0);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(140);
+            tab1.getColumnModel().getColumn(4).setPreferredWidth(240);
+            tab1.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(8).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(9).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(10).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(11).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(13).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(14).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(15).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(16).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(17).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(18).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(19).setPreferredWidth(80);
         }
 
-        center.add(scr, java.awt.BorderLayout.CENTER);
+        pan4.add(scr, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane1.addTab("Спецификация\n", pan4);
+
+        pan3.setLayout(new java.awt.BorderLayout());
+
+        scr2.setPreferredSize(new java.awt.Dimension(454, 200));
+
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null}
+            },
+            new String [] {
+                "Артикул"
+            }
+        ));
+        tab2.setFillsViewportHeight(true);
+        scr2.setViewportView(tab2);
+
+        pan3.add(scr2, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane1.addTab("Сравнение 1", pan3);
+
+        pan5.setLayout(new java.awt.BorderLayout());
+
+        tab3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Артикул", "Колич.  SA", "Колич.  PS", "Погонаж  SA", "Погонаж  PS"
+            }
+        ));
+        tab3.setFillsViewportHeight(true);
+        scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tab3.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tab3.getColumnModel().getColumn(3).setPreferredWidth(50);
+            tab3.getColumnModel().getColumn(4).setPreferredWidth(50);
+        }
+
+        pan5.add(scr3, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane1.addTab("Сравнение 2", pan5);
+
+        center.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
@@ -246,13 +344,21 @@ public class DBCompare extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JPanel center;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lab1;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
+    private javax.swing.JPanel pan3;
+    private javax.swing.JPanel pan4;
+    private javax.swing.JPanel pan5;
     private javax.swing.JScrollPane scr;
+    private javax.swing.JScrollPane scr2;
+    private javax.swing.JScrollPane scr3;
     private javax.swing.JPanel south;
-    private javax.swing.JTable tab;
+    private javax.swing.JTable tab1;
+    private javax.swing.JTable tab2;
+    private javax.swing.JTable tab3;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
@@ -260,9 +366,9 @@ public class DBCompare extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab.getModel());
-        tab.setRowSorter(sorter);
-        tab.getTableHeader().setPreferredSize(new Dimension(0, 32));
+        //TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
+        //tab1.setRowSorter(sorter);
+        tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
     }
 
     //Сравнение спецификации с профстроем
@@ -407,7 +513,7 @@ public class DBCompare extends javax.swing.JFrame {
                 hmDB1.put(key, value2);
             }
             conn.close();
-            
+
             for (SpecificRec spc : iwin.listSpec) {
                 String key = spc.artikl;
                 Float val = (hmDB2.get(key) == null) ? 0.f : hmDB2.get(key);

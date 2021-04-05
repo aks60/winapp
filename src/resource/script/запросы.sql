@@ -11,14 +11,14 @@ left join systree j on k.parent_id = j.id
 order by c.id, k.name, e.name, d.name, b.code
 
 
-select grup, text from elempar1 where grup > 0 union
-select grup, text from elempar2 where grup > 0 union
-select grup, text from furnpar1 where grup > 0 union
-select grup, text from furnpar2 where grup > 0 union
-select grup, text from glaspar1 where grup > 0 union
-select grup, text from glaspar2 where grup > 0 union
-select grup, text from joinpar1 where grup > 0 union
-select grup, text from joinpar2 where grup > 0 order by 1
+select params_id, text from elempar1 where params_id = 1010 union
+select params_id, text from elempar2 where params_id = 1010 union
+select params_id, text from furnpar1 where params_id = 1010 union
+select params_id, text from furnpar2 where params_id = 1010 union
+select params_id, text from glaspar1 where params_id = 1010 union
+select params_id, text from glaspar2 where params_id = 1010 union
+select params_id, text from joinpar1 where params_id = 1010 union
+select params_id, text from joinpar2 where params_id = 1010 order by 1
 
 
 select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from elemdet  union
