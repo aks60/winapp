@@ -168,15 +168,12 @@ public class Profstroy {
                 }
                 //Создание генератора
                 executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
-                
-                //т.к после конвертирования ветки систем плывут, а это не айс при тестировании
-                if (Main.dev == true) { 
-                    eSystree.id.meta().fname = "NUNI";
+
+                //Особенности таблицы SYSTREE и PARAMS
+                if ("SYSTREE".equals(fieldUp.tname()) == true) {
                     executeSql("set generator GEN_SYSTREE to 10000");
-                }
-                //Особенности таблицы PARAMS
-                if ("PARAMS".equals(fieldUp.tname()) == true) {
-                    executeSql("SET GENERATOR  GEN_" + fieldUp.tname() + " TO " + -10000);
+                } else if ("PARAMS".equals(fieldUp.tname()) == true) {
+                    executeSql("SET GENERATOR  GEN_PARAMS TO -10000");
                 }
                 //Заполнение таблицы ключами
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
@@ -422,10 +419,10 @@ public class Profstroy {
             //теряется ссылка в furnside2 executeSql("delete from furndet where not exists (select id from color a where a.cnumb = furndet.color_fk) and furndet.color_fk > 0 and furndet.color_fk != 100000"); //color_fk           
             deleteSql(eFurnpar2.up, "psss", eFurndet.up, "id");//furndet_id           
             deleteSql(eSysprof.up, "anumb", eArtikl.up, "code");//artikl_id 
-            deleteSql(eSysprof.up, "nuni", eSystree.up, "nuni");//systree_id 
+            deleteSql(eSysprof.up, "nuni", eSystree.up, "id");//systree_id 
             deleteSql(eSysfurn.up, "funic", eFurniture.up, "funic");//furniture_id 
-            deleteSql(eSysfurn.up, "nuni", eSystree.up, "nuni");//systree_id
-            deleteSql(eSyspar1.up, "psss", eSystree.up, "nuni");//systree_id 
+            deleteSql(eSysfurn.up, "nuni", eSystree.up, "id");//systree_id
+            deleteSql(eSyspar1.up, "psss", eSystree.up, "id");//systree_id 
             deleteSql(eKits.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitdet.up, "kunic", eKits.up, "kunic");//kits_id  
             deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
@@ -532,17 +529,17 @@ public class Profstroy {
             executeSql("update furndet set furndet_id = id where furndet_id = 0");
             executeSql("update furndet set color_fk = null where furniture_id2 > 0"); //ссылка на набор
             executeSql("set generator GEN_" + eFurndet.up.tname() + " to " + new Query(eFurndet.id).select("select max(id) as id from " + eFurndet.up.tname()).get(0, eFurndet.id));
-            executeSql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
+            executeSql("update systree set parent_id = (select id from systree a where a.id = systree.npar and systree.npar != 0)");
             executeSql("update systree set parent_id = id where npar = 0");
             updateSql(eSysprof.up, eSysprof.artikl_id, "anumb", eArtikl.up, "code");
-            updateSql(eSysprof.up, eSysprof.systree_id, "nuni", eSystree.up, "nuni");
+            updateSql(eSysprof.up, eSysprof.systree_id, "nuni", eSystree.up, "id");
             updateSql(eSysfurn.up, eSysfurn.furniture_id, "funic", eFurniture.up, "funic");
-            updateSql(eSysfurn.up, eSysfurn.systree_id, "nuni", eSystree.up, "nuni");
+            updateSql(eSysfurn.up, eSysfurn.systree_id, "nuni", eSystree.up, "id");
             updateSql(eSysfurn.up, eSysfurn.artikl_id1, "aruch", eArtikl.up, "code");
             updateSql(eSysfurn.up, eSysfurn.artikl_id2, "apetl", eArtikl.up, "code");
             executeSql("update sysfurn set side_open = (CASE  WHEN (NOTKR = 'запрос') THEN 1 WHEN (NOTKR = 'левое') THEN 2 WHEN (NOTKR = 'правое') THEN 3 ELSE  (1) END )");
             executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
-            updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "nuni");
+            updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "id");
             executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             loadModels();
             updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");

@@ -423,7 +423,7 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="pan21" alignment="0" pref="283" max="32767" attributes="0"/>
+                              <Component id="pan21" pref="283" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -448,17 +448,13 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="btn25" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lab25" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txt12" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
                                           <Component id="lab26" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="txt6" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="47" max="32767" attributes="0"/>
+                                  <EmptySpace pref="105" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -486,9 +482,7 @@
                                   <Component id="pan21" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="lab25" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="lab26" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txt12" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt6" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -497,28 +491,12 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="lab25">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="frames.Util.getFont(0,0)" type="code"/>
-                            </Property>
-                            <Property name="text" type="java.lang.String" value="NUNI-PS4"/>
-                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                                <EtchetBorder bevelType="0"/>
-                              </Border>
-                            </Property>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[60, 18]"/>
-                            </Property>
-                          </Properties>
-                        </Component>
                         <Component class="javax.swing.JLabel" name="lab26">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="NUNI-PS5"/>
+                            <Property name="text" type="java.lang.String" value="NUNI"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>
@@ -773,21 +751,6 @@
                           </SubComponents>
                         </Container>
                         <Component class="javax.swing.JTextField" name="txt6">
-                          <Properties>
-                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                                <EtchetBorder bevelType="0"/>
-                              </Border>
-                            </Property>
-                            <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="0" green="0" red="0" type="rgb"/>
-                            </Property>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[40, 18]"/>
-                            </Property>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="txt12">
                           <Properties>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -3127,6 +3090,35 @@
         <Component class="javax.swing.JCheckBox" name="checkFilter">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x432; &#x43a;&#x43e;&#x43d;&#x446;&#x435; &#x441;&#x442;&#x440;&#x43e;&#x43a;&#x438;"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[120, 23]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[120, 23]"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.Box$Filler" name="filler1">
+          <Properties>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[4, 32767]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[4, 0]"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder bevelType="0"/>
+              </Border>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lab1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="___"/>
           </Properties>
         </Component>
       </SubComponents>

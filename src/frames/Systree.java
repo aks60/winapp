@@ -297,7 +297,6 @@ public class Systree extends javax.swing.JFrame {
         rsvSystree.add(eSystree.col3, txt5);
         rsvSystree.add(eSystree.id, txt6);
         rsvSystree.add(eSystree.pref, txt10);
-        rsvSystree.add(eSystree.nuni, txt12);
         rsvSystree.add(eSystree.cgrp, txt15);
         rsvSystree.add(eSystree.coef, txt35);
 
@@ -494,7 +493,8 @@ public class Systree extends javax.swing.JFrame {
         qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                 eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
         qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", systreeNode.rec().getInt(eSystree.id));
-
+        lab1.setText("ID = " + systreeID);
+        
         loadingTab5();
 
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -686,7 +686,6 @@ public class Systree extends javax.swing.JFrame {
         pan7 = new javax.swing.JPanel();
         pan11 = new javax.swing.JPanel();
         pan12 = new javax.swing.JPanel();
-        lab25 = new javax.swing.JLabel();
         lab26 = new javax.swing.JLabel();
         pan21 = new javax.swing.JPanel();
         lab27 = new javax.swing.JLabel();
@@ -699,7 +698,6 @@ public class Systree extends javax.swing.JFrame {
         txt13 = new javax.swing.JTextField();
         txt14 = new javax.swing.JTextField();
         txt6 = new javax.swing.JTextField();
-        txt12 = new javax.swing.JTextField();
         lab35 = new javax.swing.JLabel();
         lab38 = new javax.swing.JLabel();
         lab40 = new javax.swing.JLabel();
@@ -801,6 +799,8 @@ public class Systree extends javax.swing.JFrame {
             public JTable table = null;
         };
         checkFilter = new javax.swing.JCheckBox();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
+        lab1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Системы профилей");
@@ -989,13 +989,8 @@ public class Systree extends javax.swing.JFrame {
         pan12.setToolTipText("");
         pan12.setPreferredSize(new java.awt.Dimension(300, 200));
 
-        lab25.setFont(frames.Util.getFont(0,0));
-        lab25.setText("NUNI-PS4");
-        lab25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab25.setPreferredSize(new java.awt.Dimension(60, 18));
-
         lab26.setFont(frames.Util.getFont(0,0));
-        lab26.setText("NUNI-PS5");
+        lab26.setText("NUNI");
         lab26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab26.setPreferredSize(new java.awt.Dimension(60, 18));
 
@@ -1119,10 +1114,6 @@ public class Systree extends javax.swing.JFrame {
         txt6.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt6.setPreferredSize(new java.awt.Dimension(40, 18));
 
-        txt12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt12.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt12.setPreferredSize(new java.awt.Dimension(40, 18));
-
         lab35.setFont(frames.Util.getFont(0,0));
         lab35.setText("Ширина");
         lab35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1228,14 +1219,10 @@ public class Systree extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan12Layout.createSequentialGroup()
-                        .addComponent(lab25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(lab26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         pan12Layout.setVerticalGroup(
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1258,9 +1245,7 @@ public class Systree extends javax.swing.JFrame {
                 .addComponent(pan21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lab26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1939,7 +1924,6 @@ public class Systree extends javax.swing.JFrame {
         lab47.setFont(frames.Util.getFont(0,0));
         lab47.setText("Коэф. рентабельности");
         lab47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab47.setPreferredSize(new java.awt.Dimension(120, 18));
 
         txt35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt35.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -2034,7 +2018,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lab47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lab47)
                     .addComponent(txt35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2282,7 +2266,15 @@ public class Systree extends javax.swing.JFrame {
         south.add(txtFilter);
 
         checkFilter.setText("в конце строки");
+        checkFilter.setMaximumSize(new java.awt.Dimension(120, 23));
+        checkFilter.setPreferredSize(new java.awt.Dimension(120, 23));
         south.add(checkFilter);
+
+        filler1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.add(filler1);
+
+        lab1.setText("___");
+        south.add(lab1);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
@@ -3000,6 +2992,8 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JButton btnReport1;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab13;
     private javax.swing.JLabel lab14;
     private javax.swing.JLabel lab15;
@@ -3010,7 +3004,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JLabel lab20;
     private javax.swing.JLabel lab23;
     private javax.swing.JLabel lab24;
-    private javax.swing.JLabel lab25;
     private javax.swing.JLabel lab26;
     private javax.swing.JLabel lab27;
     private javax.swing.JLabel lab28;
@@ -3067,7 +3060,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JTextField txt1;
     private javax.swing.JTextField txt10;
     private javax.swing.JTextField txt11;
-    private javax.swing.JTextField txt12;
     private javax.swing.JTextField txt13;
     private javax.swing.JTextField txt14;
     private javax.swing.JTextField txt15;
