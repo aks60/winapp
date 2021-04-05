@@ -168,7 +168,12 @@ public class Profstroy {
                 }
                 //Создание генератора
                 executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
-
+                
+                //т.к после конвертирования ветки систем плывут, а это не айс при тестировании
+                if (Main.dev == true) { 
+                    eSystree.id.meta().fname = "NUNI";
+                    executeSql("set generator GEN_SYSTREE to 10000");
+                }
                 //Особенности таблицы PARAMS
                 if ("PARAMS".equals(fieldUp.tname()) == true) {
                     executeSql("SET GENERATOR  GEN_" + fieldUp.tname() + " TO " + -10000);
