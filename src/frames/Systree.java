@@ -148,7 +148,7 @@ public class Systree extends javax.swing.JFrame {
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
     }
 
-    private void loadingSys() {      
+    private void loadingSys() {
         Record recordRoot = eSystree.up.newRecord(Query.SEL);
         recordRoot.set(eSystree.id, -1);
         recordRoot.set(eSystree.parent_id, -1);
@@ -186,7 +186,7 @@ public class Systree extends javax.swing.JFrame {
             public void editingCanceled(ChangeEvent e) {
                 editingStopped(e);
             }
-        }); 
+        });
         new DefTableModel(tab2, qSysprof, eSysprof.use_type, eSysprof.use_side, eArtikl.code, eArtikl.name, eSysprof.prio) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -486,44 +486,46 @@ public class Systree extends javax.swing.JFrame {
         Arrays.asList(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
 
         systreeNode = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
-        systreeID = systreeNode.rec().getInt(eSystree.id);
-        rsvSystree.load();
-        qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
-                eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
-        qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
-                eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
-        qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", systreeNode.rec().getInt(eSystree.id));
-        lab1.setText("ID = " + systreeID);
-        
-        loadingTab5();
+        if (systreeNode != null) {
+            systreeID = systreeNode.rec().getInt(eSystree.id);
+            rsvSystree.load();
+            qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
+                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
+            qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
+                    eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
+            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", systreeNode.rec().getInt(eSystree.id));
+            lab1.setText("ID = " + systreeID);
 
-        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-        ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-        ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab2);
-        Util.setSelectedRow(tab3);
-        Util.setSelectedRow(tab4);
-        if (qSysprod.isEmpty() == false) {
+            loadingTab5();
 
-            int index = -1;
-            int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
-            for (int i = 0; i < qSysprod.size(); ++i) {
-                if (qSysprod.get(i).getInt(eSysprod.id) == sysprodID) {
-                    index = i;
-                    tabb1.setSelectedIndex(4);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2);
+            Util.setSelectedRow(tab3);
+            Util.setSelectedRow(tab4);
+            if (qSysprod.isEmpty() == false) {
+
+                int index = -1;
+                int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+                for (int i = 0; i < qSysprod.size(); ++i) {
+                    if (qSysprod.get(i).getInt(eSysprod.id) == sysprodID) {
+                        index = i;
+                        tabb1.setSelectedIndex(4);
+                    }
                 }
-            }
-            if (index != -1) {
-                Util.setSelectedRow(tab5, index);
+                if (index != -1) {
+                    Util.setSelectedRow(tab5, index);
+                } else {
+                    Util.setSelectedRow(tab5);
+                }
             } else {
-                Util.setSelectedRow(tab5);
+                AreaSimple ra = iwin.rootArea;
+                iwin.rootArea = null;
+                paintPanel.paint(paintPanel.getGraphics());
+                iwin.rootArea = ra;
             }
-        } else {
-            AreaSimple ra = iwin.rootArea;
-            iwin.rootArea = null;
-            paintPanel.paint(paintPanel.getGraphics());
-            iwin.rootArea = ra;
         }
     }
 
@@ -597,7 +599,7 @@ public class Systree extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab5() {        
+    private void selectionTab5() {
         int index = Util.getIndexRec(tab5);
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
@@ -2469,10 +2471,10 @@ public class Systree extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         Query.listOpenTable.forEach(q -> q.clear());
-        int row[] = windowsTree.getSelectionRows();      
+        int row[] = windowsTree.getSelectionRows();
         loadingData();
-        selectionSys(); 
-        windowsTree.setSelectionRows(row);       
+        selectionSys();
+        windowsTree.setSelectionRows(row);
     }//GEN-LAST:event_btnRefresh
 
     private void findFromArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findFromArtikl
@@ -2504,13 +2506,13 @@ public class Systree extends javax.swing.JFrame {
                 //Цикл по профилям ветки 
                 for (int index = 0; index < qSysprof.size(); ++index) {
                     Record sysprofRec = qSysprof.get(index);
-                    
+
                     //Отфильтруем подходящие по параметрам
                     if (sysprofRec.getInt(eSysprof.use_type) == useArtiklTo.id) {
                         if (sysprofRec.getInt(eSysprof.use_side) == windowsNode.com5t().layout().id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {
-                            
+
                             qSysprofFilter.add(sysprofRec);
                             qSysprofFilter.table(eArtikl.up).add(qSysprof.table(eArtikl.up).get(index));
                         }
@@ -2727,7 +2729,7 @@ public class Systree extends javax.swing.JFrame {
             }
             //Список стеклопакетов
             depth = (depth != null && depth.isEmpty() == false) ? " and " + eArtikl.depth.name() + " in (" + depth + ")" : "";
-            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, 
+            Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up,
                     "where", eArtikl.level1, "= 5 and", eArtikl.level2, "in (1,2,3)", depth);
 
             new DicArtikl(this, (artiklRec) -> {
