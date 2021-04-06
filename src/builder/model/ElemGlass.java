@@ -158,13 +158,13 @@ public class ElemGlass extends ElemSimple {
                 spcAdd.anglCut1 = 45;
                 //По горизонтали 
                 float widthFromParam = spcAdd.width;
-                spcAdd.width += width(); // + 2 * gzazo;
+                spcAdd.width += width() + 2 * gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcRec.spcList.add(new SpecificRec(spcAdd));
                 spcRec.spcList.add(new SpecificRec(spcAdd));
                 //По вертикали
                 spcAdd.width = widthFromParam;
-                spcAdd.width += height(); // + 2 * gzazo;
+                spcAdd.width += height() + 2 * gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcRec.spcList.add(new SpecificRec(spcAdd));
                 spcRec.spcList.add(new SpecificRec(spcAdd));

@@ -209,7 +209,6 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.size_centr, txt8);
         rsvArtikl.add(eArtikl.size_furn, txt9);
         rsvArtikl.add(eArtikl.min_rad, txt12);
-        rsvArtikl.add(eArtikl.id, txt13);
         rsvArtikl.add(eArtikl.tech_code, txt14);
         rsvArtikl.add(eArtikl.size_falz, txt15);
         rsvArtikl.add(eArtikl.size_tech, txt16);
@@ -567,8 +566,6 @@ public class Artikles extends javax.swing.JFrame {
         btn35 = new javax.swing.JButton();
         pan105 = new javax.swing.JPanel();
         filler20 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab25 = new javax.swing.JLabel();
-        txt13 = new javax.swing.JTextField();
         pan7 = new javax.swing.JPanel();
         pan107 = new javax.swing.JPanel();
         pan11 = new javax.swing.JPanel();
@@ -1454,19 +1451,6 @@ public class Artikles extends javax.swing.JFrame {
         pan105.setPreferredSize(new java.awt.Dimension(360, 24));
         pan105.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan105.add(filler20);
-
-        lab25.setFont(frames.Util.getFont(0,0));
-        lab25.setText("ID");
-        lab25.setToolTipText("");
-        lab25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab25.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab25.setMinimumSize(new java.awt.Dimension(34, 14));
-        pan105.add(lab25);
-
-        txt13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt13.setFocusable(false);
-        txt13.setPreferredSize(new java.awt.Dimension(44, 18));
-        pan105.add(txt13);
 
         pan2.add(pan105);
 
@@ -2572,7 +2556,6 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JLabel lab22;
     private javax.swing.JLabel lab23;
     private javax.swing.JLabel lab24;
-    private javax.swing.JLabel lab25;
     private javax.swing.JLabel lab26;
     private javax.swing.JLabel lab27;
     private javax.swing.JLabel lab28;
@@ -2659,7 +2642,6 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JTextField txt10;
     private javax.swing.JTextField txt11;
     private javax.swing.JTextField txt12;
-    private javax.swing.JTextField txt13;
     private javax.swing.JTextField txt14;
     private javax.swing.JTextField txt15;
     private javax.swing.JTextField txt16;

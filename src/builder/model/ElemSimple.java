@@ -47,6 +47,6 @@ public abstract class ElemSimple extends Com5t {
 
     @Override
     public String toString() {
-        return super.toString() + ", anglHoriz=" + anglHoriz + ", length" + length();
+        return super.toString() + ", anglHoriz=" + anglHoriz + ", length=" + length();
     }
 }

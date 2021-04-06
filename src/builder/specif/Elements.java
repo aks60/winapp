@@ -44,15 +44,15 @@ public class Elements extends Cal5e {
 
                 elem5e.setSpecific(); //коррекция спецификации              
 
-                //Варианты состава для серии профилей
-                int series_id = elem5e.artiklRecAn.getInt(eArtikl.series_id);
-                List<Record> elementList2 = eElement.find(series_id);
-                detail(elementList2, elem5e);
-
                 //Варианты состава для артикула профиля
                 int artikl_id = elem5e.artiklRecAn.getInt(eArtikl.id);
                 List<Record> elementList3 = eElement.find2(artikl_id);
                 detail(elementList3, elem5e);
+                
+                //Варианты состава для серии профилей
+                int series_id = elem5e.artiklRecAn.getInt(eArtikl.series_id);
+                List<Record> elementList2 = eElement.find(series_id);
+                detail(elementList2, elem5e);
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Elements.calc() " + e);

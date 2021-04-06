@@ -127,33 +127,24 @@ public class ElemFrame extends ElemSimple {
                 spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
 
             } else {
-//                Double dw1 = 0.0;
-//                Double dw2 = 0.0;
-//                if (anglCut1 != 90) {
-//                    dw1 = specificationAdd.artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
-//                }
-//                if (anglCut1 != 90) {
-//                    dw2 = specificationAdd.artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
-//                }
-//                specificationAdd.width = specificationAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();                 
                 //TODO тут код незакончен
             }
+
+            //Фурнитура
+        } else if (TypeArtikl.X109.isType(spcAdd.artiklRec) == true) {
+            spcAdd.width += spcRec.width;
+
+            //Монтажный профиль
+        } else if (TypeArtikl.X117.isType(spcAdd.artiklRec) == true) {
+            float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
+            spcAdd.width += x2 - x1 + prip * 2;
 
             //Концевой профиль
         } else if (TypeArtikl.X135.isType(spcAdd.artiklRec) == true) {
             String str = spcAdd.getParam(0, 12030, 15030, 25035, 34030, 39030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
-            if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
-                spcAdd.width += spcRec.width  * koef;
-            } else {
-                spcAdd.width += spcRec.height  * koef;
-            }
-
-            //Монтажный профиль
-        } else if (TypeArtikl.X117.isType(spcAdd.artiklRec) == true) {
-            float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
-            spcAdd.width += x2 - x1 + prip * 2;
+            spcAdd.width += spcRec.width * koef;
 
             //Соединитель
         } else if (TypeArtikl.X205.isType(spcAdd.artiklRec) == true) {

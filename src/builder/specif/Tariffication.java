@@ -292,20 +292,20 @@ public class Tariffication extends Cal5e {
     }
 
     //В зав. от единицы изм. форматируется количество
-    private float formatAmount(SpecificRec specificRec) {
+    private float formatAmount(SpecificRec spcRec) {
         //TODO Нужна доработка для расчёта по минимальному тарифу. См. dll VirtualPro4::CalcArtTariff
         
-        if (UseUnit.METR.id == specificRec.artiklRec.getInt(eArtikl.unit)) { //метры
-            return round(specificRec.width, precision) / 1000;
+        if (UseUnit.METR.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //метры
+            return spcRec.count * round(spcRec.width, precision) / 1000;
 
-        } else if (UseUnit.METR2.id == specificRec.artiklRec.getInt(eArtikl.unit)) { //кв. метры
-            return round(specificRec.width, precision) * round(specificRec.height, precision) / 1000000;
+        } else if (UseUnit.METR2.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //кв. метры
+            return spcRec.count * round(spcRec.width, precision) * round(spcRec.height, precision) / 1000000;
 
-        } else if (UseUnit.PIE.id == specificRec.artiklRec.getInt(eArtikl.unit)) { //шт.
-            return specificRec.count;
+        } else if (UseUnit.PIE.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //шт.
+            return spcRec.count;
 
-        } else if (UseUnit.ML.id == specificRec.artiklRec.getInt(eArtikl.unit)) { //мл
-            return specificRec.quant1;
+        } else if (UseUnit.ML.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //мл
+            return spcRec.quant1;
         }
         return 0;
     }

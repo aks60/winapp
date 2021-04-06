@@ -304,7 +304,7 @@ public class Tex extends javax.swing.JFrame {
         td5.setMinimumSize(new java.awt.Dimension(96, 28));
         td5.setPreferredSize(new java.awt.Dimension(96, 28));
 
-        btn52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c019a.gif"))); // NOI18N
+        btn52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c012.gif"))); // NOI18N
         btn52.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
         btn52.setFocusable(false);
         btn52.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

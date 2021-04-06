@@ -520,8 +520,10 @@ public class Systree extends javax.swing.JFrame {
                 Util.setSelectedRow(tab5);
             }
         } else {
+            AreaSimple ra = iwin.rootArea;
             iwin.rootArea = null;
             paintPanel.paint(paintPanel.getGraphics());
+            iwin.rootArea = ra;
         }
     }
 

@@ -79,7 +79,7 @@ public class SpecificAdd {
     //Пог. метры
     public float calcAmountLenght(SpecificRec spcRec, SpecificRec spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
-            return Float.valueOf(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм (должна быть первой)
+            return Float.valueOf(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
         }
         return spcAdd.width;
     }
