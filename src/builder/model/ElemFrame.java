@@ -137,7 +137,7 @@ public class ElemFrame extends ElemSimple {
             //Монтажный профиль
         } else if (TypeArtikl.X117.isType(spcAdd.artiklRec) == true) {
             float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
-            spcAdd.width += x2 - x1 + prip * 2;
+            spcAdd.width += width() + prip * 2;
 
             //Концевой профиль
         } else if (TypeArtikl.X135.isType(spcAdd.artiklRec) == true) {
