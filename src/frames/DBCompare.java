@@ -43,12 +43,12 @@ public class DBCompare extends javax.swing.JFrame {
     public DBCompare(Wincalc iwin) {
         initComponents();
         initElements();
-        loadingTab1(iwin);
+        loadingTab(iwin);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
     }
 
-    public void loadingTab1(Wincalc iwin) {
+    public void loadingTab(Wincalc iwin) {
         try {
             Map<String, Vector> hmSpc = new HashMap();
             Set<String> setSpc1 = new HashSet();
@@ -61,6 +61,7 @@ public class DBCompare extends javax.swing.JFrame {
                 val.set(3, val.get(3) + rec.quant1);
             });
 
+            //=== Таблица 1 ===
             ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
             Connection cn = Test.connect1();
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -90,6 +91,10 @@ public class DBCompare extends javax.swing.JFrame {
                 sum2 = sum2 + value2;
                 setSpc2.add(artikl);
                 List<Float> val = hmSpc.get(artikl);
+                if (val == null) {
+                    hmSpc.put(artikl, new Vector(Arrays.asList(artikl, 0f, 0f, 0f, 0f, 0f, 0f)));
+                    val = hmSpc.get(artikl);
+                }
                 val.set(2, val.get(2) + count);
                 val.set(4, val.get(4) + pogonag);
 
@@ -102,7 +107,8 @@ public class DBCompare extends javax.swing.JFrame {
             rs.close();
             lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = "
                     + punic + "   Стоим.без.ск = " + Util.df.format(sum1) + "   Стоим.со.ск = " + Util.df.format(sum2));
-            ////////////////////////////////////////////////////////////////////
+
+            //=== Таблица 2 ===
             ((DefaultTableModel) tab2.getModel()).getDataVector().clear();
             Set<String> setSpc1x = new HashSet(setSpc1);
             Set<String> setSpc2x = new HashSet(setSpc2);
@@ -112,13 +118,14 @@ public class DBCompare extends javax.swing.JFrame {
             setSpc1x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
             ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- ПрофСтрой  за.выч.SAOkna ---")));
             setSpc2x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
-            ////////////////////////////////////////////////////////////////////
+
+            //=== Таблица 3 ===
             ((DefaultTableModel) tab3.getModel()).getDataVector().clear();
             for (Map.Entry<String, Vector> entry : hmSpc.entrySet()) {
-                ((DefaultTableModel) tab3.getModel()).getDataVector().add(entry.getValue());
+                Vector vec = entry.getValue();
+                vec.set(5, (float) vec.get(3) - (float) vec.get(4));
+                ((DefaultTableModel) tab3.getModel()).getDataVector().add(vec);
             }
-            ////////////////////////////////////////////////////////////////////
-
         } catch (SQLException e) {
             println("Ошибка: DBCompare.iwinRec().  " + e);
         }
@@ -289,15 +296,23 @@ public class DBCompare extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Артикул", "Колич.  SA", "Колич.  PS", "Погонаж  SA", "Погонаж  PS"
+                "Артикул", "Колич.  SA", "Колич.  PS", "Погонаж  SA", "Погонаж  PS", "Дельта"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab3.setFillsViewportHeight(true);
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
@@ -306,6 +321,7 @@ public class DBCompare extends javax.swing.JFrame {
             tab3.getColumnModel().getColumn(2).setPreferredWidth(50);
             tab3.getColumnModel().getColumn(3).setPreferredWidth(50);
             tab3.getColumnModel().getColumn(4).setPreferredWidth(50);
+            tab3.getColumnModel().getColumn(5).setPreferredWidth(50);
         }
 
         pan5.add(scr3, java.awt.BorderLayout.CENTER);
