@@ -148,7 +148,7 @@ public class ElemGlass extends ElemSimple {
             }
         } else if (TypeArtikl.X109.isType(spcAdd.artiklRec)) {
             String str = spcAdd.getParam("", 25013);
-            //ParamList.Dictionary dictionary = ParamList.P25013.
+            //ParamList.Dictionary dictionary = ParamList.find(25013);
             
             
             //Концнвой профиль, уплотнение притвора, уплотнитель заполнения
