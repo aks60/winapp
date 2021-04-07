@@ -77,8 +77,8 @@ public class Joining extends javax.swing.JFrame {
         initElements();
         loadingData();
         loadingModel();
-        listenerSet();
-        listenerAdd();
+//        listenerSet();
+//        listenerAdd();
     }
 
     public Joining(Set<Object> keys) {
