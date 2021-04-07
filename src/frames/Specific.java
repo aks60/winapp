@@ -440,7 +440,7 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
-        float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
+        float id = Float.valueOf(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         SpecificRec recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
@@ -450,8 +450,9 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnArtikles
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        float id = Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
-        String str = tab1.getValueAt(Util.getIndexRec(tab1), 2).toString().substring(0, 3);
+        float id = Float.valueOf(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
+        System.out.println(id);
+        String str = tab1.getValueAt(tab1.getSelectedRow(), 2).toString().substring(0, 3);
         SpecificRec recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         Record recordDet = recordSpc.detailRec;
         if (recordDet != null) {
@@ -515,7 +516,7 @@ public class Specific extends javax.swing.JFrame {
         }
 
         for (int i = 0; i < tab1.getRowCount() - 1; i++) {
-            if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
+            if (tab1.getValueAt(i, 1) != null && Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
                 Util.setSelectedRow(tab1, i);
                 return;
             }

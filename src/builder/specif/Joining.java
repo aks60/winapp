@@ -73,13 +73,13 @@ public class Joining extends Cal5e {
                                 //ФИЛЬТР детализации 
                                 if (joiningDet.check(mapParam, joinElem1, joindetRec) == true) {
                                     Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
-                                    SpecificRec specif = new SpecificRec(joindetRec, artiklRec, joinElem1, mapParam);
-                                    if (Color.colorFromProduct(specif, 1)
-                                            && Color.colorFromProduct(specif, 2)
-                                            && Color.colorFromProduct(specif, 3)) {
+                                    SpecificRec spcAdd = new SpecificRec(joindetRec, artiklRec, joinElem1, mapParam);
+                                    if (Color.colorFromProduct(spcAdd, 1)
+                                            && Color.colorFromProduct(spcAdd, 2)
+                                            && Color.colorFromProduct(spcAdd, 3)) {
 
-                                        specif.place = "СОЕД";
-                                        joinElem1.addSpecific(specif);
+                                        spcAdd.place = "СОЕД";
+                                        joinElem1.addSpecific(spcAdd);
                                     }
                                 }
                             }

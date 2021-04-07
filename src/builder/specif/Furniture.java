@@ -202,22 +202,22 @@ public class Furniture extends Cal5e {
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
                     
                     ElemFrame sideStv = determOfSide(mapParam, areaStv);
-                    SpecificRec specif = new SpecificRec(furndetRec, artiklRec, sideStv, mapParam);
+                    SpecificRec spcAdd = new SpecificRec(furndetRec, artiklRec, sideStv, mapParam);
                     
                     //Попадает или нет в спецификацию по цвету
-                    if (Color.colorFromProduct(specif, 1)) { 
+                    if (Color.colorFromProduct(spcAdd, 1)) { 
 
                         //Пишем ручку в створку
                         if (takeHandle == true && artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
                             if (artiklRec.getStr(eArtikl.name).toLowerCase().contains("ручк")) {
                                 areaStv.handleRec = artiklRec;
-                                areaStv.handleColor = specif.colorID1;
+                                areaStv.handleColor = spcAdd.colorID1;
                             }
                         }
-                        specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
-                        specif.count = specif.count * countKit; //умножаю на количество комплектов
-                        specif.place = "ФУРН";
-                        sideStv.addSpecific(specif); //добавим спецификацию в элемент
+                        spcAdd.count = Integer.valueOf(spcAdd.getParam(spcAdd.count, 24030));
+                        spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
+                        spcAdd.place = "ФУРН";
+                        sideStv.addSpecific(spcAdd); //добавим спецификацию в элемент
                     }
                 }
 

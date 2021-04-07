@@ -140,10 +140,11 @@ public class ElemFrame extends ElemSimple {
             spcAdd.width += width() + prip * 2;
 
             //Концевой профиль
-        } else if (TypeArtikl.X135.isType(spcAdd.artiklRec) == true) {
+        } else if (TypeArtikl.X135.isType(spcAdd.artiklRec) == true
+                || TypeArtikl.X301.isType(spcAdd.artiklRec)) {
             String str = spcAdd.getParam(0, 12030, 15030, 25035, 34030, 39030);
-            str = str.replace(",", ".");
-            Float koef = Float.valueOf(str);
+            Float koef = Float.valueOf(str.replace(",", "."));
+            koef = (koef == 0) ? 1 : koef;
             spcAdd.width += spcRec.width * koef;
 
             //Соединитель

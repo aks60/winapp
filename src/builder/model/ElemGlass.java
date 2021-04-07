@@ -13,6 +13,7 @@ import enums.UseArtiklTo;
 import builder.specif.SpecificRec;
 import builder.specif.SpecificAdd;
 import enums.PKjson;
+import enums.ParamList;
 import enums.UseUnit;
 import frames.Util;
 import frames.dialog.DicEnums;
@@ -145,11 +146,14 @@ public class ElemGlass extends ElemSimple {
                     specificationVer2.width = specificationVer2.width - 2 * specificationHor2.height;
                 }
             }
+        } else if (TypeArtikl.X109.isType(spcAdd.artiklRec)) {
+            String str = spcAdd.getParam("", 25013);
+            //ParamList.Dictionary dictionary = ParamList.P25013.
+            
+            
             //Концнвой профиль, уплотнение притвора, уплотнитель заполнения
         } else if (TypeArtikl.X135.isType(spcAdd.artiklRec)
-                || TypeArtikl.X301.isType(spcAdd.artiklRec)
-                || TypeArtikl.X302.isType(spcAdd.artiklRec)) {
-
+                || TypeArtikl.X301.isType(spcAdd.artiklRec)) {
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
                 ((AreaArch) root()).calcPadding(this, spcAdd);
 
@@ -168,11 +172,33 @@ public class ElemGlass extends ElemSimple {
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcRec.spcList.add(new SpecificRec(spcAdd));
                 spcRec.spcList.add(new SpecificRec(spcAdd));
+
+            }
+        } else if (TypeArtikl.X302.isType(spcAdd.artiklRec)) {
+            if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
+                ((AreaArch) root()).calcPadding(this, spcAdd);
+
+            } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
+                spcAdd.anglCut2 = 45;
+                spcAdd.anglCut1 = 45;
+                //По горизонтали 
+                float widthFromParam = spcAdd.width;
+                spcAdd.width += width();
+                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                spcRec.spcList.add(new SpecificRec(spcAdd));
+                spcRec.spcList.add(new SpecificRec(spcAdd));
+                //По вертикали
+                spcAdd.width = widthFromParam;
+                spcAdd.width += height();
+                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                spcRec.spcList.add(new SpecificRec(spcAdd));
+                spcRec.spcList.add(new SpecificRec(spcAdd));
+
             }
             //Всё остальное
         } else {
             spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
-            
+
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {
                     spcRec.spcList.add(new SpecificRec(spcAdd));
