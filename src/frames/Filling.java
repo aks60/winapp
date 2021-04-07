@@ -143,8 +143,8 @@ public class Filling extends javax.swing.JFrame {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
-                        ParamList en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.grup + "-" + en.text : en.text;
+                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -159,8 +159,8 @@ public class Filling extends javax.swing.JFrame {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
-                        ParamList en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.grup + "-" + en.text : en.text;
+                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -227,7 +227,7 @@ public class Filling extends javax.swing.JFrame {
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {
-                List list = ParamList.find(grup).dictionary.dict();
+                List list = ParamList.find(grup).dict();
                 ParGrup2b frame = new ParGrup2b(this, listenerPar1, list);
             }
         });
@@ -251,7 +251,7 @@ public class Filling extends javax.swing.JFrame {
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
             } else {
-                List list = ParamList.find(grup).dictionary.dict();
+                List list = ParamList.find(grup).dict();
                 ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
             }
         });

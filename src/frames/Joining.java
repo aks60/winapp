@@ -148,8 +148,8 @@ public class Joining extends javax.swing.JFrame {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
-                        ParamList en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.grup + "-" + en.text : en.text;
+                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -206,8 +206,8 @@ public class Joining extends javax.swing.JFrame {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
-                        ParamList en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.grup + "-" + en.text : en.text;
+                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -270,7 +270,7 @@ public class Joining extends javax.swing.JFrame {
                     Util.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, grup);
             } else {
-                List list = ParamList.find(grup).dictionary.dict();
+                List list = ParamList.find(grup).dict();
                 new ParGrup2b(this, (rec) -> {
                     Util.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, list);
@@ -336,7 +336,7 @@ public class Joining extends javax.swing.JFrame {
                     Util.listenerParam(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, grup);
             } else {
-                List list = ParamList.find(grup).dictionary.dict();
+                List list = ParamList.find(grup).dict();
                 new ParGrup2b(this, (rec) -> {
                     Util.listenerParam(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, list);

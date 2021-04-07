@@ -29,7 +29,7 @@ public class SpecificAdd {
         ElemSimple el = spc.elem5e;
 
         if (spc.mapParam.get(25013) != null) {
-            List<String> list = ParamList.find(25013).dictionary.dict(); //{"длины стороны", "высоты ручки", "сторона выс-ручки", "половины стороны"}
+            List<String> list = ParamList.find(25013).dict(); //{"длины стороны", "высоты ручки", "сторона выс-ручки", "половины стороны"}
             int dx = spc.getParam(25030); //"Укорочение, мм"
             if (list.get(0).equals(map.get(25013))) {
                 spc.weight = spc.weight - dx;

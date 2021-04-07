@@ -10,7 +10,6 @@ import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.specif.SpecificRec;
 import builder.specif.SpecificAdd;
-import common.LambdaPar;
 import enums.PKjson;
 import enums.ParamList;
 
@@ -137,13 +136,13 @@ public class ElemFrame extends ElemSimple {
             String ps = spcAdd.getParam(0, 24010, 25010, 38010, 39002);
             if (layout.id == Integer.valueOf(ps)) {
                 ps = spcAdd.getParam(0, 25013); //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]
-                if (LambdaPar.dic_25013.dict().get(0).equals(ps)) {
+                if (ParamList.find(25013).dict().get(0).equals(ps)) {
                     spcAdd.width += spcRec.width;
-                } else if (LambdaPar.dic_25013.dict().get(1).equals(ps)) {
+                } else if (ParamList.find(25013).dict().get(1).equals(ps)) {
                     spcAdd.width += ((AreaStvorka) owner()).handleHeight;
-                } else if (LambdaPar.dic_25013.dict().get(2).equals(ps)) {
+                } else if (ParamList.find(25013).dict().get(2).equals(ps)) {
                     spcAdd.width += spcRec.width - ((AreaStvorka) owner()).handleHeight;
-                } else if (LambdaPar.dic_25013.dict().get(3).equals(ps)) {
+                } else if (ParamList.find(25013).dict().get(3).equals(ps)) {
                     spcAdd.width += spcRec.width / 2;
                 }
             }

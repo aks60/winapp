@@ -28,13 +28,13 @@ public class DicParlist extends javax.swing.JDialog implements ListenerFrame<Obj
         dm.getDataVector().clear();
         List<List> list = new Vector();
         
-        for (ParamList el : ParamList.values()) {
+        for (Enam el : ParamList.values()) {
             for (int it : part) {
-                if (el.grup >= it && el.grup < it + 1000) {
+                if (el.numb() >= it && el.numb() < it + 1000) {
                     
                     List rec = new Vector();
-                    rec.add(el.grup);
-                    rec.add(el.text);
+                    rec.add(el.numb());
+                    rec.add(el.text());
                     list.add(rec);
                 }
             }
