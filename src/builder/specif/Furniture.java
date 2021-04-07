@@ -134,24 +134,6 @@ public class Furniture extends Cal5e {
                 }
             }
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
-
-            //Подбор текстуры ручки
-            /*if (furndetRec.get(eFurndet.furniture_id2) == null) {
-                if (artiklRec != null && TypeArtikl.X211.isType(artiklRec)) { //если ветка ркчки
-                    if (furndetRec.getInt(eFurndet.color_fk) > 0) { //установлена в ручную
-                        boolean empty = true;
-                        List<Record> artdetList = eArtdet.find(furndetRec.getInt(eFurndet.artikl_id)); //все возможные цвета ручки
-                        for (Record artdetRec : artdetList) {
-                            if (artdetRec.getInt(eArtdet.color_fk) == areaStv.handleColor) {
-                                empty = false;
-                            }
-                        }
-                        if (empty == true) {
-                            return false;
-                        }
-                    }
-                }
-            }*/
             
             //ФИЛЬТР детализации            
             furnitureDet.detailRec = furndetRec; //для тестирования

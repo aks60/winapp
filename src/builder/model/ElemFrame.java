@@ -10,7 +10,9 @@ import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.specif.SpecificRec;
 import builder.specif.SpecificAdd;
+import common.LambdaPar;
 import enums.PKjson;
+import enums.ParamList;
 
 public class ElemFrame extends ElemSimple {
 
@@ -132,7 +134,19 @@ public class ElemFrame extends ElemSimple {
 
             //Фурнитура
         } else if (TypeArtikl.X109.isType(spcAdd.artiklRec) == true) {
-            spcAdd.width += spcRec.width;
+            String ps = spcAdd.getParam(0, 24010, 25010, 38010, 39002);
+            if (layout.id == Integer.valueOf(ps)) {
+                ps = spcAdd.getParam(0, 25013); //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]
+                if (LambdaPar.dic_25013.dict().get(0).equals(ps)) {
+                    spcAdd.width += spcRec.width;
+                } else if (LambdaPar.dic_25013.dict().get(1).equals(ps)) {
+                    spcAdd.width += ((AreaStvorka) owner()).handleHeight;
+                } else if (LambdaPar.dic_25013.dict().get(2).equals(ps)) {
+                    spcAdd.width += spcRec.width - ((AreaStvorka) owner()).handleHeight;
+                } else if (LambdaPar.dic_25013.dict().get(3).equals(ps)) {
+                    spcAdd.width += spcRec.width / 2;
+                }
+            }
 
             //Монтажный профиль
         } else if (TypeArtikl.X117.isType(spcAdd.artiklRec) == true) {

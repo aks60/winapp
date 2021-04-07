@@ -506,33 +506,11 @@ public enum ParamList {
         }
     }
 
-
     public static ParamList find(int grup) {
         return Arrays.asList(ParamList.values()).stream().filter(en -> en.grup == grup).findFirst().orElse(null);
     }
 
-    
-//    public int numb() {
-//        return grup;
-//    }
-//
-//    public String text() {
-//        return text;
-//    }
-//
-//    public String def() {
-//        return defparam.def();
-//    }
-//
-//    public List dict() {
-//        return dictionary.dict();
-//    }
-
     public AbstractFormatterFactory format() {
         return formatter.format();
     }
-
-//    public boolean check(String c) {
-//        return check.check(c);
-//    }
 }
