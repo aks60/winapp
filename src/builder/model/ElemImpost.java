@@ -135,7 +135,7 @@ public class ElemImpost extends ElemSimple {
 
             //Остальные
         } else {
-            spcAdd.width += spcRec.width;
+            spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
         }
         spcRec.spcList.add(spcAdd);
     }

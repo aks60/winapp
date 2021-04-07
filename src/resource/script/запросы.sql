@@ -1,4 +1,6 @@
 
+ALTER TABLE artikls DROP CONSTRAINT IARTIKLS;
+ALTER TABLE artikls ALTER COLUMN aname TYPE VARCHAR(120);
 update artikls set aname = cast(atypm as varchar(2)) || '.' || cast(atypp as varchar(2)) || '-' || aname
 
 select c.name, j.name || ' / ' || k.name || ' / ' || e.name || ' / ' || d.name, b.code,  b.name

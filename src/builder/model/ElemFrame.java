@@ -154,9 +154,8 @@ public class ElemFrame extends ElemSimple {
 
             //Всё остальное
         } else {
-            //spcAdd.width += spcRec.width;
+            spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
         }
-        spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
         spcRec.spcList.add(spcAdd);
         spc7d.heightHand(spcAdd);
     }

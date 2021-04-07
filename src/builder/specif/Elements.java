@@ -81,20 +81,20 @@ public class Elements extends Cal5e {
                         if (elementDet.check(mapParam, elem5e, elemdetRec) == true) {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
-                            SpecificRec specif = new SpecificRec(elemdetRec, artiklRec, elem5e, mapParam);
-                            if (Color.colorFromProduct(specif, 1)
-                                    && Color.colorFromProduct(specif, 2)
-                                    && Color.colorFromProduct(specif, 3)) {
+                            SpecificRec spcAdd = new SpecificRec(elemdetRec, artiklRec, elem5e, mapParam);
+                            if (Color.colorFromProduct(spcAdd, 1)
+                                    && Color.colorFromProduct(spcAdd, 2)
+                                    && Color.colorFromProduct(spcAdd, 3)) {
 
-                                specif.place = "ВСТ";
+                                spcAdd.place = "ВСТ";
 
                                 //Если (контейнер) в списке детализации, например профиль с префиксом @
                                 if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, TypeArtikl.X103)) {
-                                    elem5e.spcRec.setArtiklRec(specif.artiklRec); //переназначаем артикл, как правило это c префиксом артикла @
-                                    elem5e.spcRec.mapParam = specif.mapParam; //переназначаем mapParam
+                                    elem5e.spcRec.setArtiklRec(spcAdd.artiklRec); //переназначаем артикл, как правило это c префиксом артикла @
+                                    elem5e.spcRec.mapParam = spcAdd.mapParam; //переназначаем mapParam
 
                                 } else {
-                                    elem5e.addSpecific(specif); //коррекция спецификации 
+                                    elem5e.addSpecific(spcAdd); //коррекция спецификации 
                                 }
                             }
                         }

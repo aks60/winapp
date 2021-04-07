@@ -400,10 +400,11 @@ public class Artikles extends javax.swing.JFrame {
             } else {
                 qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
+            DefaultMutableTreeNode node2 = (DefaultMutableTreeNode) node.getParent();
+            lab1.setText((node2 != null && node.getParent() != null) ? "Тип = " + ((TypeArtikl) node2.getUserObject()).id1
+                    + ", подтип = " + ((TypeArtikl) node.getUserObject()).id2 + ", " : "");
+            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         }
-        DefaultMutableTreeNode node2 = (DefaultMutableTreeNode) node.getParent();
-        lab1.setText((node2 != null && node.getParent() != null) ? " Тип = " + ((TypeArtikl) node2.getUserObject()).id1 + ",  подтип = " + ((TypeArtikl) node.getUserObject()).id2 : "");
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);
 
     }
@@ -420,7 +421,7 @@ public class Artikles extends javax.swing.JFrame {
             ((CardLayout) pan6.getLayout()).show(pan6, name);
 
             int id = record.getInt(eArtikl.id);
-            lab2.setText(", id = " + id);
+            lab2.setText("id = " + id);
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
             rsvArtikl.load();
             checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
@@ -2234,10 +2235,20 @@ public class Artikles extends javax.swing.JFrame {
         filler1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.add(filler1);
 
+        lab1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lab1.setText("___");
+        lab1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lab1.setMaximumSize(new java.awt.Dimension(110, 14));
+        lab1.setPreferredSize(new java.awt.Dimension(110, 14));
+        lab1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         south.add(lab1);
 
+        lab2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lab2.setText("___");
+        lab2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lab2.setMaximumSize(new java.awt.Dimension(60, 14));
+        lab2.setPreferredSize(new java.awt.Dimension(60, 14));
+        lab2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         south.add(lab2);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);

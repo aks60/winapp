@@ -172,10 +172,7 @@ public class ElemGlass extends ElemSimple {
             //Всё остальное
         } else {
             spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
-            if (spcAdd.width == 0) {
-                spcAdd.width = spcRec.width;
-            }
-
+            
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {
                     spcRec.spcList.add(new SpecificRec(spcAdd));
