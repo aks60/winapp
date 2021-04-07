@@ -68,7 +68,8 @@ public class JoiningDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 11009:  //Внешнее соединение 
-                        message(rec.getInt(GRUP));
+                    case 12009:  //Внешнее соединение                      
+                        //message(rec.getInt(GRUP)); //У SA всегда внутреннее
                         break;
                     case 11010:  //Рассчитывать с Артикулом 1 
                     case 12010:  //Рассчитывать с Артикулом 1                    
@@ -154,9 +155,6 @@ public class JoiningDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 12008:  //Эффективное заполнение изд., мм 
-                        message(rec.getInt(GRUP));
-                        break;
-                    case 12009:  //Внешнее соединение 
                         message(rec.getInt(GRUP));
                         break;
                     case 12020:  //Рассчитывать с Артикулом 2 
