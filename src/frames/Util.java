@@ -550,8 +550,8 @@ public class Util {
                 editor.getButton().setVisible(true);
                 editor.getTextField().setEnabled(false);
             } else {
-                Enam enam = ParamList.find(paramsID);
-                if (enam.dict() != null) { //системный список параметров
+                ParamList enam = ParamList.find(paramsID);
+                if (enam.dictionary.dict() != null) { //системный список параметров
                     editor.getButton().setVisible(true);
                     editor.getTextField().setEnabled(false);
 
@@ -564,7 +564,7 @@ public class Util {
 
         } else if (component != null && component instanceof String) {  //проверка на коррекность ввода
             String txt = (String) component;
-            return ParamList.find(qParam.getAs(Util.getIndexRec(table), params_id)).check(txt);
+            return ParamList.find(qParam.getAs(Util.getIndexRec(table), params_id)).check.check(txt);
         }
         return true;
     }
@@ -578,11 +578,11 @@ public class Util {
 
         if (eParams.values().length == record.size()) {
             record2.set(paramsID, record.getInt(eParams.id));
-            record2.set(text, ParamList.find(record.getInt(eParams.id)).def());
+            record2.set(text, ParamList.find(record.getInt(eParams.id)).defparam.def());
 
         } else if (record.size() == 2) {
             record2.set(paramsID, record.getInt(0));
-            record2.set(text, ParamList.find(record.getInt(0)).def());
+            record2.set(text, ParamList.find(record.getInt(0)).defparam.def());
 
         } else if (record.size() == 1) {
             System.out.println("УРА!!! Я НАШОЛ ТЕБЯ.");

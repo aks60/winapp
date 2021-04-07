@@ -45,13 +45,13 @@ public class ParGrup2 extends javax.swing.JDialog {
         DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
         dm.getDataVector().clear();
         List<List> recordList = new Vector();
-        for (Enam el : ParamList.values()) {
+        for (ParamList el : ParamList.values()) {
             for (int it : part) {
-                if (el.numb() >= it && el.numb() < it + 1000) {
+                if (el.grup >= it && el.grup < it + 1000) {
 
                     List record = new Vector();
-                    record.add(el.numb());
-                    record.add(el.text());
+                    record.add(el.grup);
+                    record.add(el.text);
                     recordList.add(record);
                 }
             }
