@@ -31,7 +31,7 @@ public class ParamList {
         P1005(1005, "Контейнер Артикула 1 имеет тип", dic_4005_11005_12005_31050_33071_34071),
         P1006(1006, "Контейнер Артикула 2 имеет тип", dic_4005_11005_12005_31050_33071_34071),
         P1008(1008, "Эффективное заполнение изд., мм", check_FLOAT_LIST),
-        P1010(1010, "Внешнее соединение", dic_OK_NO),
+        P1010(1010, 0, "Внешнее соединение", dic_OK_NO),
         P1011(1011, "Для Артикула 1 указан состав", check_STRING),
         P1012(1012, "Для Артикула 2 указан состав", check_STRING),
         P1013(1013, "Для Артикулов не указан состав", check_STRING),
@@ -100,7 +100,7 @@ public class ParamList {
         P4002(4002, "Вид Т-образного варианта", dic_4002),
         P4005(4005, "Контейнер Артикула 1 имеет тип", dic_4005_11005_12005_31050_33071_34071),
         P4006(4006, "Контейнер Артикула 2 имеет тип", dic_4005_11005_12005_31050_33071_34071),
-        P4010(4010, "Внешнее соединение", dic_OK_NO),
+        P4010(4010, 0, "Внешнее соединение", dic_OK_NO),
         P4011(4011, "Для Артикула 1 указан состав", check_STRING),
         P4012(4012, "Для Артикула 2 указан состав", check_STRING),
         P4013(4013, "Для Артикулов не указан состав", check_STRING),
@@ -498,20 +498,22 @@ public class ParamList {
         //P31095(31095, "Технологическая операция"),
         //P37095(37095, "Технологическая операция"),
         // </editor-fold>  
-        public int grup = 0;
-        public String text = "";
+        private int grup = 0;
+        private int pass = 1;
+        private String text = "";
+
         public Defparam defparam = def_Default;
         public Dictionary dictionary = null;
         public Formatter formatter = ParamList.frm_Default;
         public Checkparam check = check_STRING;
 
-        Ps3(int numb, String text) {
-            this.grup = numb;
-            this.text = text;
+        Ps3(int numb, String text, Object... obj) {
+            this(numb, 1, text, obj);
         }
 
-        Ps3(int numb, String text, Object... obj) {
+        Ps3(int numb, int pas, String text, Object... obj) {
             this.grup = numb;
+            this.pass = pas;
             this.text = text;
             for (Object o : obj) {
                 if (o instanceof Dictionary) {
@@ -528,6 +530,10 @@ public class ParamList {
 
         public int numb() {
             return grup;
+        }
+
+        public int pass() {
+            return pass;
         }
 
         public String text() {
@@ -559,7 +565,7 @@ public class ParamList {
 
         P1005(1005, "Контейнер имеет тип Артикула1/Артикула2", check_INT_LIST2),
         P1008(1008, "Эффективное заполнение изд., мм", check_FLOAT_LIST),
-        P1010(1010, "Внешнее соединение", dic_OK_NO),
+        P1010(1010, 0, "Внешнее соединение", dic_OK_NO),
         P1011(1011, "Для Артикула 1 указан состав", check_STRING),
         P1012(1012, "Для Артикула 2 указан состав", check_STRING),
         P1013(1013, "Для Артикулов не указан состав", check_STRING),
@@ -611,7 +617,7 @@ public class ParamList {
         P3085(3085, "Надпись на элементе", check_STRING),
         P4002(4002, "Вид Т-образного варианта", dic_4002),
         P4005(4005, "Контейнер имеет тип Артикула1/Артикула2", check_FLOAT_LIST2),
-        P4010(4010, "Внешнее соединение", dic_OK_NO),
+        P4010(4010, 0, "Внешнее соединение", dic_OK_NO),
         P4011(4011, "Для Артикула 1 указан состав", check_STRING),
         P4012(4012, "Для Артикула 2 указан состав", check_STRING),
         P4013(4013, "Для Артикулов не указан состав", check_STRING),
@@ -636,7 +642,7 @@ public class ParamList {
         P11002(11002, "Если признак состава Арт.2", check_STRING),
         P11008(11008, "Эффективное заполнение изд., мм", check_FLOAT_LIST),
         P11005(11005, "Контейнер типа", dic_4005_11005_12005_31050_33071_34071),
-        P11009(11009, "Внешнее соединение", dic_OK_NO),
+        P11009(11009, 0, "Внешнее соединение", dic_OK_NO),
         P11010(11010, "Рассчитывать с Артикулом 1", dic_OK_NO),
         P11020(11020, "Рассчитывать с Артикулом 2", dic_OK_NO),
         P11028(11028, "Диапозон веса заполнения, кг", check_FLOAT),
@@ -657,7 +663,7 @@ public class ParamList {
         P12002(12002, "Если признак состава Арт.2", check_STRING),
         P12005(12005, "Контейнер типа", dic_4005_11005_12005_31050_33071_34071),
         P12008(12008, "Эффективное заполнение изд., мм", check_FLOAT_LIST),
-        P12009(12009, "Внешнее соединение", dic_OK_NO),
+        P12009(12009, 0, "Внешнее соединение", dic_OK_NO),
         P12010(12010, "Рассчитывать с Артикулом 1", dic_OK_NO),
         P12020(12020, "Рассчитывать с Артикулом 2", dic_OK_NO),
         P12027(12027, "Рассчитывать для профиля", dic_15027_12027),
@@ -1022,21 +1028,22 @@ public class ParamList {
         //P40109(40109, "Возможное управление жалюзи"),
         //P40113(40113, "Установить текстуру по");
         // </editor-fold> 
-        public int grup = 0;
-        public String text = "";
+        private int grup = 0;
+        private String text = "";
+        private int pass = 1;
 
         public Defparam defparam = def_Default;
         public Dictionary dictionary = dic_DEFAULT;
         public Formatter formatter = frm_Default;
         public Checkparam check = check_STRING;
 
-        Ps4(int numb, String text) {
-            this.grup = numb;
-            this.text = text;
+        Ps4(int numb, String text, Object... obj) {
+            this(numb, 1, text, obj);
         }
 
-        Ps4(int numb, String text, Object... obj) {
+        Ps4(int numb, int pas, String text, Object... obj) {
             this.grup = numb;
+            this.pass = pas;
             this.text = text;
             for (Object o : obj) {
                 if (o instanceof Dictionary) {
@@ -1053,6 +1060,10 @@ public class ParamList {
 
         public int numb() {
             return grup;
+        }
+
+        public int pass() {
+            return pass;
         }
 
         public String text() {
@@ -1076,7 +1087,6 @@ public class ParamList {
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////
     //Default value
     // <editor-fold defaultstate="collapsed" desc="Generated Defparam">   
     interface Defparam {

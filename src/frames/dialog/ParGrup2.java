@@ -47,7 +47,7 @@ public class ParGrup2 extends javax.swing.JDialog {
         List<List> recordList = new Vector();
         for (Enam el : ParamList.values()) {
             for (int it : part) {
-                if (el.numb() >= it && el.numb() < it + 1000) {
+                if (el.pass() == 1 && el.numb() >= it && el.numb() < it + 1000) {
 
                     List record = new Vector();
                     record.add(el.numb());

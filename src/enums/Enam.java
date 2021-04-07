@@ -14,11 +14,11 @@ public interface Enam {
 
     public int ordinal();
 
-    default int id() {
+    default int numb() {
         return -1;
     }
 
-    default int numb() {
+    default int pass() {
         return -1;
     }
 
@@ -33,11 +33,11 @@ public interface Enam {
     default Enam find(int id) {
         return Stream.of(fields()).filter(en -> en.numb() == id).findFirst().orElse(null);
     }
-    
+
     default List<String> dict() {
         return null;
     }
-    
+
     default String def() {
         return null;
     }

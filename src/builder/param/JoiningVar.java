@@ -65,7 +65,8 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 1010:  //Внешнее соединение 
-                        message(rec.getInt(GRUP));
+                    case 4010:  //Внешнее соединение                     
+                        //message(rec.getInt(GRUP)); //У SA всегда внутреннее
                         break;
                     case 1011:  //Для Артикула 1 указан состав 
                     case 4011:  //Для Артикула 1 указан состав     
@@ -305,9 +306,6 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 3097:  //Трудозатраты по длине 
-                        message(rec.getInt(GRUP));
-                        break;
-                    case 4010:  //Внешнее соединение 
                         message(rec.getInt(GRUP));
                         break;
                     case 4015:  //Ориентация Артикула1/Артикула2, ° 

@@ -6,6 +6,7 @@ import common.*;
 import dataset.*;
 import domain.eArtdet;
 import com.google.gson.GsonBuilder;
+import enums.ParamList;
 import frames.DBCompare;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -60,12 +61,11 @@ public class Test {
         try {
             //convert.Profstroy.exec();
             //wincalc();
-            //query();
+            query();
             //frame();
             //json();
             //parse();
             //uid();
-
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -133,17 +133,9 @@ public class Test {
     private static void query() {
         try {
             Query.connection = Test.connect2();
-            Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.id, "=", 19143);
-            Record artdetRec = qArtdet.get(0);
-            int side = 1;
-            if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
-                    || (side == 2 && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))))
-                    || (side == 3 && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))) {
+            Object obj = ParamList.find(4010).pass();            
+            System.out.println(obj);            
 
-                System.out.println("++++++");
-            } else {
-                System.out.println("------");
-            }
         } catch (Exception e) {
             System.out.println("main.Test.query()");
         }

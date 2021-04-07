@@ -77,8 +77,8 @@ public class Joining extends javax.swing.JFrame {
         initElements();
         loadingData();
         loadingModel();
-//        listenerSet();
-//        listenerAdd();
+        listenerSet();
+        listenerAdd();
     }
 
     public Joining(Set<Object> keys) {
@@ -254,6 +254,7 @@ public class Joining extends javax.swing.JFrame {
                 Record record = qJoinvar.get(index);
                 int joinVar = record.getInt(eJoinvar.types);
                 new ParGrup2(this, (rec) -> {
+                    
                     Util.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, eParams.joint, joinVar * 100);
             }

@@ -38,4 +38,8 @@ public enum TypeElem implements Enam {
         this.id2 = id2;
         this.name = name;
     }
+    
+    public int numb() {
+        return id;
+    }    
 }

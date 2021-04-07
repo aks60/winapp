@@ -11,7 +11,6 @@ import common.ListenerFrame;
 
 public class DicParlist extends javax.swing.JDialog implements ListenerFrame<Object, Object> {
 
-    private static final int serialVersionUID = 1749136493;
     private ListenerRecord listenet;
 
     public DicParlist(java.awt.Frame parent, ListenerRecord listenet, int... part) {
@@ -30,7 +29,7 @@ public class DicParlist extends javax.swing.JDialog implements ListenerFrame<Obj
         
         for (Enam el : ParamList.values()) {
             for (int it : part) {
-                if (el.numb() >= it && el.numb() < it + 1000) {
+                if (el.pass() == 1 && el.numb() >= it && el.numb() < it + 1000) {
                     
                     List rec = new Vector();
                     rec.add(el.numb());
