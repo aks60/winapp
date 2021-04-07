@@ -79,6 +79,7 @@ public class JoiningVar extends Par5s {
                                 break;
                             }
                         }
+                        
                         if (substr == false) {
                             return false;
                         }
