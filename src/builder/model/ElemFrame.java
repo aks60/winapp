@@ -10,6 +10,7 @@ import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.specif.SpecificRec;
 import builder.specif.SpecificAdd;
+import domain.eGlasgrp;
 import enums.PKjson;
 import enums.ParamList;
 
@@ -37,6 +38,8 @@ public class ElemFrame extends ElemSimple {
         sysprofRec = (param(param, PKjson.sysprofID) != -1) ? eSysprof.find3(param(param, PKjson.sysprofID)) : owner().sysprofRec;
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        
+        //Record rec = eGlasgrp.find(colorID1)
     }
 
     //Установка координат

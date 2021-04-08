@@ -22,7 +22,7 @@ public abstract class Com5t {
     public Record artiklRecAn = null;  //аналог мат. средства    
 
     private float id = -1; //идентификатор    
-    private AreaSimple owner = null; //владелец
+    protected AreaSimple owner = null; //владелец
     public LinkedList<Com5t> listChild = new LinkedList(); //дети
     private Wincalc iwin = null; //главный класс калькуляции
 

@@ -55,17 +55,17 @@ public class Filling extends Cal5e {
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
                 UseArtiklTo typeProf = (elemGlass.owner().type() == TypeElem.STVORKA)
-                        ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //стекло может быть в створке или раме
+                        ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //стекло может быть в створке или коробке
                 Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth); //толщина стекда
-                Record artprofRec = null;
+                Record artprofRec = iwin().artiklRec;
 
-                //Цикл по системе конструкций, ищем артикул системы профилей
-                for (Record sysprofRec : sysprofList) {
-                    if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
-                        artprofRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //включая аналог!
-                        break;
-                    }
-                }
+//                //Цикл по системе конструкций, ищем артикул системы профилей
+//                for (Record sysprofRec : sysprofList) {
+//                    if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
+//                        artprofRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //включая аналог!
+//                        break;
+//                    }
+//                }
                 //Цикл по группам заполнений
                 for (Record glasgrpRec : eGlasgrp.findAll()) {
 
@@ -77,7 +77,6 @@ public class Filling extends Cal5e {
                         for (Record glasprofRec : eGlasprof.findAll()) {
 
                             if (glasgrpRec.getInt(eGlasgrp.id) == glasprofRec.getInt(eGlasprof.glasgrp_id)) {
-                                //if (artprofRec != null && artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
                                 if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
                                     if (glasprofRec.getInt(eGlasprof.inside) == 1) {
 
