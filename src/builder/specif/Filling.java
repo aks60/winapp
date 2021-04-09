@@ -56,31 +56,12 @@ public class Filling extends Cal5e {
                         ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //стекло может быть в створке или коробке
                 Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth); //толщина стекда
 
-                Set<Integer> setArr = new HashSet();
-                if (TypeElem.ARCH == elemGlass.owner().type()) {
-
-                    if (elemGlass.id() == 8 || elemGlass.id() == 13) {
-//                        List<ElemSimple> listElem = root().listElem(TypeElem.IMPOST);
-//                        ElemSimple tlemSimple = listElem.stream().filter(el -> el.inside(elemGlass.x1 + elemGlass.width() / 2, elemGlass.y2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
-                        
-                        List<ElemSimple> els = root().listElem(TypeElem.IMPOST);
-                        Com5t com5t = els.stream().filter(it -> it.id() == 6).findFirst().orElse(null);
-                        boolean bbbb = com5t.inside((elemGlass.x1 + elemGlass.width()) / 2, elemGlass.y2);
-                        
-                        System.err.println(elemGlass.join(LayoutArea.BOTTOM));
-                        System.err.println((elemGlass.x1 + elemGlass.width()) / 2 + "   " + elemGlass.y2);
-                        System.err.println(elemGlass);
-                        System.err.println(elemGlass.owner());
-
-                        
-                        setArr.add(elemGlass.owner().mapFrame.get(LayoutArea.ARCH).artiklRec.getInt(eArtikl.id));
-//                    setArr.addAll(Arrays.asList(elemGlass.join(LayoutArea.LEFT).artiklRec.getInt(eArtikl.id),
-//                            elemGlass.join(LayoutArea.BOTTOM).artiklRec.getInt(eArtikl.id), elemGlass.join(LayoutArea.RIGHT).artiklRec.getInt(eArtikl.id)));
-                    }
-                } else {
-                    setArr.addAll(Arrays.asList(elemGlass.join(LayoutArea.LEFT).artiklRec.getInt(eArtikl.id), elemGlass.join(LayoutArea.TOP).artiklRec.getInt(eArtikl.id),
-                            elemGlass.join(LayoutArea.BOTTOM).artiklRec.getInt(eArtikl.id), elemGlass.join(LayoutArea.RIGHT).artiklRec.getInt(eArtikl.id)));
+                Set<Integer> setArt = new HashSet();
+                if (TypeElem.RECTANGL == elemGlass.owner().type()) {
+                    setArt.addAll(Arrays.asList(elemGlass.join(LayoutArea.LEFT).artiklRecAn.getInt(eArtikl.id), elemGlass.join(LayoutArea.TOP).artiklRecAn.getInt(eArtikl.id),
+                            elemGlass.join(LayoutArea.BOTTOM).artiklRecAn.getInt(eArtikl.id), elemGlass.join(LayoutArea.RIGHT).artiklRecAn.getInt(eArtikl.id)));
                 }
+                System.out.println(setArt.size());
 
                 Record artprofRec = null;
                 //Цикл по системе конструкций, ищем артикул системы профилей
@@ -96,31 +77,29 @@ public class Filling extends Cal5e {
                     //Доступные толщины 
                     if (Util.containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth) == true) {
                         listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
-
-                        Set<Integer> setArt2 = new HashSet();
-                        for (Record glasprofRec : eGlasprof.findAll()) {
-                            if (glasgrpRec.getInt(eGlasgrp.id) == glasprofRec.getInt(eGlasprof.glasgrp_id)) {
-                                if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
-                                    if (glasprofRec.getInt(eGlasprof.inside) == 1) {
-                                        setArt2.add(glasprofRec.getInt(eGlasprof.artikl_id));
-                                    }
-                                }
-                            }
-                        }
-
+                        List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
+                        
                         //Цикл по профилям в группах заполнений
-                        for (Record glasprofRec : eGlasprof.findAll()) {
+                        for (Record glasprofRec : glasprofList) {
+                            if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
+                                if (glasprofRec.getInt(eGlasprof.inside) == 1) {
 
-                            if (glasgrpRec.getInt(eGlasgrp.id) == glasprofRec.getInt(eGlasprof.glasgrp_id)) {
-                                if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
-                                    if (glasprofRec.getInt(eGlasprof.inside) == 1) {
-
-                                        //Данные для старого алгоритма расчёта
-                                        elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
-                                        elemGlass.owner().gsize = glasprofRec.getFloat(eGlasprof.gsize);
-
-                                        detail(elemGlass, glasgrpRec);
-                                    }
+                                    
+                                    elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
+                                    
+                                    //Данные для старого алгоритма расчёта
+                                    elemGlass.owner().gsize = glasprofRec.getFloat(eGlasprof.gsize);
+                                    for (Integer id : setArt) {
+                                        for (Record record : glasprofList) {
+                                            if(id == record.getInt(eGlasprof.artikl_id)) {
+                                                elemGlass.hmGsize.put(id, record.getFloat(eGlasprof.gsize));
+                                            }
+                                        }
+                                    } 
+//                                    System.out.println(setArt.size());
+//                                    System.out.println(elemGlass.hmGsize.size());
+//                                    System.out.println("------------------");
+                                    detail(elemGlass, glasgrpRec);
                                 }
                             }
                         }

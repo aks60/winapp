@@ -11,16 +11,13 @@ import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.specif.SpecificRec;
-import builder.specif.SpecificAdd;
 import enums.PKjson;
-import enums.ParamList;
-import enums.UseUnit;
-import frames.Util;
-import frames.dialog.DicEnums;
+import java.util.HashMap;
 
 public class ElemGlass extends ElemSimple {
 
     public float radiusGlass = 0; //радиус арки
+    public HashMap<Integer, Float> hmGsize = new HashMap();
     public float gzazo = 0; //зазор между фальцем и стеклопакетом  
 
     public ElemGlass(AreaSimple owner, float id, String param) {
