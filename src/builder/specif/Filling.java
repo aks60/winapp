@@ -81,8 +81,8 @@ public class Filling extends Cal5e {
                         for (Record glasprofRec : glasprofList) {
                             if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
                                 if (glasprofRec.getInt(eGlasprof.inside) == 1) {
-
                                     elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
+
                                     //Данные для старого алгоритма расчёта 
                                     if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
                                         for (Integer id : setArt) {
