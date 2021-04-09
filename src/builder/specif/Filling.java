@@ -57,11 +57,10 @@ public class Filling extends Cal5e {
                 Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth); //толщина стекда
 
                 Set<Integer> setArt = new HashSet();
-                if (TypeElem.RECTANGL == elemGlass.owner().type()) {
+                if (TypeElem.ARCH != elemGlass.owner().type()) {
                     setArt.addAll(Arrays.asList(elemGlass.join(LayoutArea.LEFT).artiklRecAn.getInt(eArtikl.id), elemGlass.join(LayoutArea.TOP).artiklRecAn.getInt(eArtikl.id),
                             elemGlass.join(LayoutArea.BOTTOM).artiklRecAn.getInt(eArtikl.id), elemGlass.join(LayoutArea.RIGHT).artiklRecAn.getInt(eArtikl.id)));
                 }
-                System.out.println(setArt.size());
 
                 Record artprofRec = null;
                 //Цикл по системе конструкций, ищем артикул системы профилей
@@ -72,10 +71,8 @@ public class Filling extends Cal5e {
                     }
                 }
                 //Цикл по группам заполнений
-                for (Record glasgrpRec : eGlasgrp.findAll()) {
-
-                    //Доступные толщины 
-                    if (Util.containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth) == true) {
+                for (Record glasgrpRec : eGlasgrp.findAll()) {                   
+                    if (Util.containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth) == true) { //доступные толщины 
                         listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
                         List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
                         
@@ -84,11 +81,9 @@ public class Filling extends Cal5e {
                             if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
                                 if (glasprofRec.getInt(eGlasprof.inside) == 1) {
 
-                                    
-                                    elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
-                                    
+                                    elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);                                   
                                     //Данные для старого алгоритма расчёта
-                                    elemGlass.owner().gsize = glasprofRec.getFloat(eGlasprof.gsize);
+                                    elemGlass.owner().gsize = glasprofRec.getFloat(eGlasprof.gsize);                                   
                                     for (Integer id : setArt) {
                                         for (Record record : glasprofList) {
                                             if(id == record.getInt(eGlasprof.artikl_id)) {
@@ -96,9 +91,6 @@ public class Filling extends Cal5e {
                                             }
                                         }
                                     } 
-//                                    System.out.println(setArt.size());
-//                                    System.out.println(elemGlass.hmGsize.size());
-//                                    System.out.println("------------------");
                                     detail(elemGlass, glasgrpRec);
                                 }
                             }
