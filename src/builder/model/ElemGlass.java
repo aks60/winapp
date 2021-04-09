@@ -86,10 +86,10 @@ public class ElemGlass extends ElemSimple {
             ElemSimple insideLeft = stv.mapFrame.get(LayoutArea.LEFT), insideTop = stv.mapFrame.get(LayoutArea.TOP), insideBott = stv.mapFrame.get(LayoutArea.BOTTOM), insideRight = stv.mapFrame.get(LayoutArea.RIGHT);
 
             if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-                x1 = insideLeft.x1 + stv.gsize;
-                y1 = insideTop.y1 + stv.gsize;
-                x2 = insideRight.x2 - stv.gsize;
-                y2 = insideBott.y2 - stv.gsize;
+                x1 = insideLeft.x1 + hmGsize.get(insideLeft.artiklRec.getInt(eArtikl.id));
+                y1 = insideTop.y1 + hmGsize.get(insideTop.artiklRec.getInt(eArtikl.id));
+                x2 = insideRight.x2 - hmGsize.get(insideRight.artiklRec.getInt(eArtikl.id));
+                y2 = insideBott.y2 - hmGsize.get(insideBott.artiklRec.getInt(eArtikl.id)); 
             } else {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
                 y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
@@ -99,15 +99,11 @@ public class ElemGlass extends ElemSimple {
         } else {
             ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
 
-            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-                x1 = owner.x1 + owner.gsize;
-                y1 = owner.y1 + owner.gsize;
-                x2 = owner.x2 - owner.gsize;
-                y2 = owner.y2 - owner.gsize;
-//                x1 = owner.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).get(0).getFloat(eGlasprof.gsize);
-//                y1 = owner.y1 + eGlasprof.find2(insideTop.artiklRec.getInt(eArtikl.id)).get(0).getFloat(eGlasprof.gsize);
-//                x2 = owner.x2 - eGlasprof.find2(insideRight.artiklRec.getInt(eArtikl.id)).get(0).getFloat(eGlasprof.gsize);
-//                y2 = owner.y2 - eGlasprof.find2(insideBott.artiklRec.getInt(eArtikl.id)).get(0).getFloat(eGlasprof.gsize);                
+            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {               
+                x1 = owner.x1 + hmGsize.get(insideLeft.artiklRec.getInt(eArtikl.id));
+                y1 = owner.y1 + hmGsize.get(insideTop.artiklRec.getInt(eArtikl.id));
+                x2 = owner.x2 - hmGsize.get(insideRight.artiklRec.getInt(eArtikl.id));
+                y2 = owner.y2 - hmGsize.get(insideBott.artiklRec.getInt(eArtikl.id));               
             } else {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
                 y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;

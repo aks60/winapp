@@ -21,6 +21,7 @@ import builder.param.FillingVar;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import dataset.Query;
+import domain.eSyssize;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -71,26 +72,27 @@ public class Filling extends Cal5e {
                     }
                 }
                 //Цикл по группам заполнений
-                for (Record glasgrpRec : eGlasgrp.findAll()) {                   
+                for (Record glasgrpRec : eGlasgrp.findAll()) {
                     if (Util.containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth) == true) { //доступные толщины 
                         listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
                         List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
-                        
+
                         //Цикл по профилям в группах заполнений
                         for (Record glasprofRec : glasprofList) {
                             if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
                                 if (glasprofRec.getInt(eGlasprof.inside) == 1) {
 
-                                    elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);                                   
-                                    //Данные для старого алгоритма расчёта
-                                    elemGlass.owner().gsize = glasprofRec.getFloat(eGlasprof.gsize);                                   
-                                    for (Integer id : setArt) {
-                                        for (Record record : glasprofList) {
-                                            if(id == record.getInt(eGlasprof.artikl_id)) {
-                                                elemGlass.hmGsize.put(id, record.getFloat(eGlasprof.gsize));
+                                    elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
+                                    //Данные для старого алгоритма расчёта 
+                                    if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
+                                        for (Integer id : setArt) {
+                                            for (Record record : glasprofList) {
+                                                if (id == record.getInt(eGlasprof.artikl_id)) {
+                                                    elemGlass.hmGsize.put(id, record.getFloat(eGlasprof.gsize));
+                                                }
                                             }
                                         }
-                                    } 
+                                    }
                                     detail(elemGlass, glasgrpRec);
                                 }
                             }

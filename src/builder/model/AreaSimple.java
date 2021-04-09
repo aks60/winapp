@@ -34,7 +34,6 @@ import java.util.Map;
 
 public class AreaSimple extends Com5t {
 
-    public float gsize = 0; //размер от оси профиля до заполнения (стеклопакета)
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне  
 
     public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
