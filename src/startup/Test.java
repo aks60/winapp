@@ -78,7 +78,7 @@ public class Test {
         String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.prj = 601003;
+            iwin.prj = 604009;
             iwin.build(builder.script.Winscript.test(iwin.prj, false));
             iwin.constructiv(true);
             //Specification.write_txt1(iwin.listSpec);
@@ -87,7 +87,7 @@ public class Test {
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else if (_case.equals("min")) {
-            List<Integer> prjList = (numDb == 1) ? Arrays.asList(601001, 601002, 601007)
+            List<Integer> prjList = (numDb == 1) ? Arrays.asList(604008, 604009)
                     : Arrays.asList(601001, 601002, 601003);
 
             for (int i : prjList) {
@@ -97,7 +97,7 @@ public class Test {
                     iwin.build(script);
                     iwin.constructiv(true);
                     //DBCompare.iwinXls(iwin, false);
-                    DBCompare.iwinRec(iwin, true);
+                    DBCompare.iwinRec(iwin, false);
                 }
             }
 

@@ -2981,7 +2981,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_txt23Update
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        // TODO add your handling code here:
+        System.out.println(iwin.rootArea.mapFrame);
     }//GEN-LAST:event_btnTest
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
