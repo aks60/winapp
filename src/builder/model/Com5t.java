@@ -101,7 +101,7 @@ public abstract class Com5t {
         return ((x2 < x1 || x2 >= x) && (y2 < y1 || y2 >= y));
     }
     
-    public ElemSimple join(LayoutArea layoutArea) {
+    public ElemSimple join2(LayoutArea layoutArea) {
         LinkedList<ElemSimple> listElem = (owner.type == TypeElem.STVORKA) ? root().listElem(TypeElem.STVORKA_SIDE) : root().listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST); //список элементов
         if (LayoutArea.BOTTOM == layoutArea) {
             return listElem.stream().filter(el -> el.inside(x1 + width() / 2, y2) == true && el.owner.layout() != LayoutArea.VERT).findFirst().orElse(null);
@@ -115,7 +115,7 @@ public abstract class Com5t {
         return null;
     }
     
-    public ElemSimple join2(LayoutArea layoutArea) {
+    public ElemSimple join(LayoutArea layoutArea) {
         LinkedList<ElemSimple> listElem = (owner.type == TypeElem.STVORKA) ? root().listElem(TypeElem.STVORKA_SIDE) : root().listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST); //список элементов
         if (LayoutArea.BOTTOM == layoutArea) {
             return listElem.stream().filter(el -> el.inside(x1 + width() / 2, y2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
