@@ -24,42 +24,32 @@ public class SpecificAdd {
     }
 
     //Укорочение мм от высоты ручки
-    public void heightHand(SpecificRec spcRec, SpecificRec spcAdd) {
-        
-            String ps = spcAdd.getParam("null", 25013); //Укорочение от
-            List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
-            int dx = spcAdd.getParam(25030); //"Укорочение, мм"
-            
-            if (list.get(0).equals(ps)) {
-                spcAdd.width = spcRec.height - dx;
+    public float heightHand(SpecificRec spcRec, SpecificRec spcAdd) {
 
-            } else if (list.get(1).equals(ps)) {
-                AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
-                spcAdd.width = stv.handleHeight - dx;
+        String ps = spcAdd.getParam("null", 25013); //Укорочение от
+        List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
+        int dx = spcAdd.getParam(25030); //"Укорочение, мм"
+        float length = (spcRec.elem5e.layout() == LayoutArea.LEFT || spcRec.elem5e.layout() == LayoutArea.RIGHT)
+                ? spcRec.height : spcRec.width;
 
-            } else if (list.get(2).equals(ps)) {
-                AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
-                ElemFrame fr = stv.mapFrame.get(stv.typeOpen.axisStv());
-                spcAdd.width = fr.spcRec.width - stv.handleHeight - dx;
+        if (list.get(0).equals(ps)) {
+            return length - dx;
 
-            } else if (list.get(3).equals(ps)) {
-                spcAdd.width = spcRec.height / 2 - dx;
-            }
+        } else if (list.get(1).equals(ps)) {
+            AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
+            return stv.handleHeight - dx;
+
+        } else if (list.get(2).equals(ps)) {
+            AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
+            return length - stv.handleHeight - dx;
+
+        } else if (list.get(3).equals(ps)) {
+            return length / 2 - dx;
+        }
+        return spcAdd.width;
     }
 
     //Расчёт количества ед. с шагом
-    public int calcCountStep2(SpecificRec spcRec, SpecificRec spcAdd) {
-
-        int width_step = Integer.valueOf(spcAdd.getParam(1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
-        if (width_step > 1) {
-            float width_begin = Float.valueOf(spcAdd.getParam(0, 11040, 14040, 24040, 33040, 38040)); //Порог расчета, мм
-            int count_step = Integer.valueOf(spcAdd.getParam(1, 11060, 14060, 24060, 33060, 38060)); //"Количество на шаг"
-
-            return (int) ((spcRec.width - width_begin) / width_step + 1) * count_step;
-        }
-        return spcAdd.count;
-    }
-    
     public int calcCountStep(SpecificRec spcRec, SpecificRec spcAdd) {
 
         int step = Integer.valueOf(spcAdd.getParam(1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
@@ -82,7 +72,7 @@ public class SpecificAdd {
         return Integer.valueOf(spcAdd.getParam(spcAdd.count,
                 11030, 12060, 14030, 15040, 25060, 33030, 34060, 38030, 39060));
     }
-    
+
     //Пог. метры
     public float calcAmountMetr(SpecificRec spcRec, SpecificRec spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
@@ -97,6 +87,12 @@ public class SpecificAdd {
             return Float.valueOf(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
         }
         return spcAdd.width;
+    }
+
+    //Коэффициент
+    public float calcCoeff(SpecificRec spcRec, SpecificRec spcAdd) {
+        String coef = spcAdd.getParam("0", 12030, 15030, 25035, 34030, 39030); //"[ * коэф-т ]" 
+        return ("0".equals(coef)) ? 1 : Float.parseFloat(coef.replace(",", "."));
     }
 
     //Othe
