@@ -48,19 +48,19 @@ public class SpecificAdd {
     }
 
     //Расчёт количества ед. с шагом
-    public int calcCountStep(SpecificRec spcRec, SpecificRec spcAdd) {
+    public int calcCountStep2(SpecificRec spcRec, SpecificRec spcAdd) {
 
         int width_step = Integer.valueOf(spcAdd.getParam(1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
         if (width_step > 1) {
             float width_begin = Float.valueOf(spcAdd.getParam(0, 11040, 14040, 24040, 33040, 38040)); //Порог расчета, мм
             int count_step = Integer.valueOf(spcAdd.getParam(1, 11060, 14060, 24060, 33060, 38060)); //"Количество на шаг"
 
-            return (int) (spcRec.width - width_begin) / width_step * count_step;
+            return (int) ((spcRec.width - width_begin) / width_step + 1) * count_step;
         }
         return spcAdd.count;
     }
     
-    public int calcCountStep2(SpecificRec spcRec, SpecificRec spcAdd) {
+    public int calcCountStep(SpecificRec spcRec, SpecificRec spcAdd) {
 
         int step = Integer.valueOf(spcAdd.getParam(1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
         if (step > 1) {
