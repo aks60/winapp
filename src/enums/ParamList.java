@@ -1228,7 +1228,7 @@ public class ParamList {
     };
 
     public static Dictionary dic_25013 = () -> {
-        return Arrays.asList("длины стороны", "высоты ручки", "сторона выс-ручки", "половины стороны");
+        return Arrays.asList("длины стороны", "высоты ручки", "сторона - выс. ручки", "половины стороны");
     };
 
     public static Dictionary dic_33004_34004 = () -> {

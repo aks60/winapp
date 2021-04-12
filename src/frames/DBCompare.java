@@ -228,7 +228,7 @@ public class DBCompare extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, false, true, false, false, false, false, false, false, false, false, false, false, true, false, false, true, true
+                false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, true, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {

@@ -38,7 +38,7 @@ public class ElemFrame extends ElemSimple {
         sysprofRec = (param(param, PKjson.sysprofID) != -1) ? eSysprof.find3(param(param, PKjson.sysprofID)) : owner().sysprofRec;
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-        
+
         //Record rec = eGlasgrp.find(colorID1)
     }
 
@@ -136,23 +136,15 @@ public class ElemFrame extends ElemSimple {
 
             //Фурнитура
         } else if (TypeArtikl.X109.isType(spcAdd.artiklRec) == true) {
-            String ps = spcAdd.getParam("empty", 24010, 25010, 38010, 39002); //"Номер стороны"
-            if ("empty".equals(ps) || layout.id == Integer.valueOf(ps)) {
-                ps = spcAdd.getParam("empty", 25013); //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]
-                if ("empty".equals(ps) == false) {
-                    if (ParamList.find(25013).dict().get(0).equals(ps)) {
-                        spcAdd.width += spcRec.width;
-                    } else if (ParamList.find(25013).dict().get(1).equals(ps)) {
-                        spcAdd.width += ((AreaStvorka) owner()).handleHeight;
-                    } else if (ParamList.find(25013).dict().get(2).equals(ps)) {
-                        spcAdd.width += spcRec.width - ((AreaStvorka) owner()).handleHeight;
-                    } else if (ParamList.find(25013).dict().get(3).equals(ps)) {
-                        spcAdd.width += spcRec.width / 2;
-                    }
+            if (layout.id == Integer.valueOf(spcAdd.getParam(0, 24010, 25010, 38010, 39002))) { //"Номер стороны
+
+                if ("no".equals(spcAdd.getParam("no", 25013)) == false) { //"Укорочение от"                    
+                    spc7d.heightHand(spcRec, spcAdd);//Укорочение от высоты ручки
                 } else {
                     spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
                 }
             }
+
             //Монтажный профиль
         } else if (TypeArtikl.X117.isType(spcAdd.artiklRec) == true) {
             spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
@@ -171,12 +163,15 @@ public class ElemFrame extends ElemSimple {
             spcAdd.colorID2 = -3;
             spcAdd.colorID3 = -3;
 
+//            //Фурнитура штучная
+//        } else if (TypeArtikl.X210.isType(spcAdd.artiklRec) == true) {
+//            spc7d.calcCountStep(spcRec, spcAdd);
+
             //Всё остальное
         } else {
             spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
         }
         spcRec.spcList.add(spcAdd);
-        spc7d.heightHand(spcAdd);
     }
 
     @Override

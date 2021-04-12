@@ -31,7 +31,7 @@ public class AreaStvorka extends AreaSimple {
     public TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
     public Record handleRec = eArtikl.up.newRecord(); //ручка
     public int handleColor = -3; //цвет ручки
-    public int handleHeight = 40; //высота ручки
+    public float handleHeight = 0; //высота ручки
     public LayoutHandle handleLayout = LayoutHandle.SET; //положение ручки на створке       
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
@@ -65,8 +65,35 @@ public class AreaStvorka extends AreaSimple {
         stvLeft.spcRec.height = height();
     }
 
+    //Коррекция координат створки с учётом нахлёста
+    private void setLocation(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
+
+        ElemSimple adjacentLef = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
+                adjacentBot = join(LayoutArea.BOTTOM), adjacentRig = join(LayoutArea.RIGHT);
+
+        if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
+            x1 = adjacentLef.x2 - adjacentLef.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
+            y1 = adjacentTop.y2 - adjacentTop.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
+            x2 = adjacentRig.x1 + adjacentRig.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
+            y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
+
+        } else {
+            float X1 = (adjacentLef.type() == TypeElem.IMPOST) ? adjacentLef.x1 + adjacentLef.width() / 2 : adjacentLef.x1;
+            float Y2 = (adjacentBot.type() == TypeElem.IMPOST) ? adjacentBot.y2 - adjacentBot.height() / 2 : adjacentBot.y2;
+            float X2 = (adjacentRig.type() == TypeElem.IMPOST) ? adjacentRig.x2 - adjacentRig.width() / 2 : adjacentRig.x2;
+            float Y1 = (adjacentTop.type() == TypeElem.IMPOST) ? adjacentTop.y1 + adjacentTop.height() / 2 : adjacentTop.y1;
+            x1 = X1 + offset(stvLef, adjacentLef);
+            y2 = Y2 - offset(stvBot, adjacentBot);
+            x2 = X2 - offset(stvRig, adjacentRig);
+            y1 = Y1 + offset(stvTop, adjacentTop);
+        }
+    }
+
+
     public void initFurniture(String param) {
 
+        ElemFrame stvLeft = mapFrame.get(LayoutArea.LEFT);
+        
         //Фурнитура створки, ручка, подвес
         if (param(param, PKjson.sysfurnID) != -1) {
             sysfurnRec = eSysfurn.find2(param(param, PKjson.sysfurnID));
@@ -97,42 +124,23 @@ public class AreaStvorka extends AreaSimple {
                 handleHeight = param(param, PKjson.heightHandl);
             } else {
                 handleLayout = (position == LayoutHandle.MIDL.id) ? LayoutHandle.MIDL : LayoutHandle.CONST;
+                handleHeight = stvLeft.height()/ 2;
             }
         } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDL.id) {
             handleLayout = LayoutHandle.MIDL;
+            handleHeight = stvLeft.height() / 2;
         } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.CONST.id) {
             handleLayout = LayoutHandle.CONST;
+            handleHeight = stvLeft.height() / 2;
         } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.SET.id) {
             handleLayout = LayoutHandle.SET;
+            handleHeight = stvLeft.height() / 2;
         } else {
             handleLayout = LayoutHandle.MIDL; //по умолчанию
+            handleHeight = stvLeft.height() / 2;
         }
     }
-
-    //Коррекция координат створки с учётом нахлёста
-    private void setLocation(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
-
-        ElemSimple adjacentLef = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
-                adjacentBot = join(LayoutArea.BOTTOM), adjacentRig = join(LayoutArea.RIGHT);
-
-        if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
-            x1 = adjacentLef.x2 - adjacentLef.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
-            y1 = adjacentTop.y2 - adjacentTop.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
-            x2 = adjacentRig.x1 + adjacentRig.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
-            y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
-
-        } else {
-            float X1 = (adjacentLef.type() == TypeElem.IMPOST) ? adjacentLef.x1 + adjacentLef.width() / 2 : adjacentLef.x1;
-            float Y2 = (adjacentBot.type() == TypeElem.IMPOST) ? adjacentBot.y2 - adjacentBot.height() / 2 : adjacentBot.y2;
-            float X2 = (adjacentRig.type() == TypeElem.IMPOST) ? adjacentRig.x2 - adjacentRig.width() / 2 : adjacentRig.x2;
-            float Y1 = (adjacentTop.type() == TypeElem.IMPOST) ? adjacentTop.y1 + adjacentTop.height() / 2 : adjacentTop.y1;
-            x1 = X1 + offset(stvLef, adjacentLef);
-            y2 = Y2 - offset(stvBot, adjacentBot);
-            x2 = X2 - offset(stvRig, adjacentRig);
-            y1 = Y1 + offset(stvTop, adjacentTop);
-        }
-    }
-
+    
     @Override
     public void joinFrame() {
         //Цикл по сторонам створки
