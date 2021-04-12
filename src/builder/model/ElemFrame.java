@@ -111,7 +111,8 @@ public class ElemFrame extends ElemSimple {
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count = spc7d.calcCountStep(spcRec, spcAdd); //кол. ед. с шагом
         spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //поправка мм
-        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра        
+        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра
+        spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм        
 
         //Армирование
         if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
@@ -129,20 +130,18 @@ public class ElemFrame extends ElemSimple {
                 Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
                 Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
                 spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
-
-            } else {
-                //TODO тут код незакончен
             }
 
             //Фурнитура
         } else if (TypeArtikl.X109.isType(spcAdd.artiklRec) == true) {
-            if (layout.id == Integer.valueOf(spcAdd.getParam(0, 24010, 25010, 38010, 39002))) { //"Номер стороны
+            if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
+                if ("no".equals(spcAdd.getParam("no", 25013)) == false //"Укорочение от"
+                        && spcAdd.getParam(0, 25030).equals(0) == false) { //"Укорочение, мм"  
 
-                if ("no".equals(spcAdd.getParam("no", 25013)) == false) { //"Укорочение от"                    
-                    spc7d.heightHand(spcRec, spcAdd);//Укорочение от высоты ручки
-                } else {
-                    spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
+                    spcAdd.width = spc7d.heightHand(spcRec, spcAdd); //Укорочение от высоты ручки
                 }
+            } else {
+                spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
             }
 
             //Монтажный профиль
@@ -152,25 +151,11 @@ public class ElemFrame extends ElemSimple {
             //Концевой профиль
         } else if (TypeArtikl.X135.isType(spcAdd.artiklRec) == true
                 || TypeArtikl.X301.isType(spcAdd.artiklRec)) {
-            String str = spcAdd.getParam(0, 12030, 15030, 25035, 34030, 39030); //"[ * коэф-т ]"
-            Float koef = Float.valueOf(str.replace(",", "."));
-            koef = (koef == 0) ? 1 : koef;
-            spcAdd.width += spcRec.width * koef;
+            spcAdd.width += spcRec.width; 
 
-            //Соединитель
-        } else if (TypeArtikl.X205.isType(spcAdd.artiklRec) == true) {
-            spcAdd.colorID1 = -3;
-            spcAdd.colorID2 = -3;
-            spcAdd.colorID3 = -3;
-
-//            //Фурнитура штучная
-//        } else if (TypeArtikl.X210.isType(spcAdd.artiklRec) == true) {
-//            spc7d.calcCountStep(spcRec, spcAdd);
-
-            //Всё остальное
-        } else {
-            spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
         }
+        spcAdd.width = spcAdd.width * spc7d.calcCoeff(spcRec, spcAdd);//"[ * коэф-т ]"
+
         spcRec.spcList.add(spcAdd);
     }
 

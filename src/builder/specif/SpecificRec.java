@@ -38,9 +38,9 @@ public class SpecificRec {
     public String place = "---";  //Место расмешения
     public String name = "-";  //Наименование
     public String artikl = "-";  //Артикул
-    public int colorID1 = -1;  //Осн.текстура
-    public int colorID2 = -1;  //Внутр.текстура
-    public int colorID3 = -1;  //Внешн.текстура
+    public int colorID1 = -3;  //Осн.текстура
+    public int colorID2 = -3;  //Внутр.текстура
+    public int colorID3 = -3;  //Внешн.текстура
     public float width = 0;  //Длина
     public float height = 0;  //Ширина
     public float weight = 0;  //Масса
