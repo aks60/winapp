@@ -75,10 +75,10 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.prj = 601001;
+            iwin.prj = 601005;
             iwin.build(builder.script.Winscript.test(iwin.prj, false));
             iwin.constructiv(true);
             //Specification.write_txt1(iwin.listSpec);
@@ -88,7 +88,7 @@ public class Test {
 
         } else if (_case.equals("min")) {
             List<Integer> prjList = (numDb == 1) ? Arrays.asList(604008, 604009)
-                    : Arrays.asList(601001, 601002, 601003);
+                    : Arrays.asList(601001, 601002, 601003, 601004);
 
             for (int i : prjList) {
                 iwin.prj = i;
@@ -103,7 +103,7 @@ public class Test {
 
         } else if (_case.equals("max")) {
             List<Integer> prjList = (numDb == 1) ? Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)
-                    : Arrays.asList(601001, 601002, 601003);
+                    : Arrays.asList(601001, 601002, 601003, 601004);
 
             for (int i : prjList) {
                 iwin.prj = i;

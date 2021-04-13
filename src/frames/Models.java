@@ -17,6 +17,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import frames.swing.DefMutableTreeNode;
 import frames.swing.Canvas;
 import java.awt.CardLayout;
@@ -898,7 +900,10 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-
+            iwin.prj = 601005;
+            String script = builder.script.Winscript.test(iwin.prj, false);
+            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(script)));  
+            Query qModel = new Query(eSysmodel.values()).select(eSysmodel.up, "where", eSysmodel.form, "=");
     }//GEN-LAST:event_btnInsert
 
     private void panMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panMouseClicked
