@@ -164,19 +164,9 @@ public class ElemGlass extends ElemSimple {
                 ((AreaArch) root()).calcPadding(this, spcAdd);
 
             } else {
-                //По горизонтали 
-                float widthFromParam = spcAdd.width;
-                spcAdd.width += width() + 2 * gzazo;
-                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcRec.spcList.add(new SpecificRec(spcAdd));
-                spcRec.spcList.add(new SpecificRec(spcAdd));
-                //По вертикали
-                spcAdd.width = widthFromParam;
-                spcAdd.width += height() + 2 * gzazo;
-                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcRec.spcList.add(new SpecificRec(spcAdd));
-                spcRec.spcList.add(new SpecificRec(spcAdd));
-
+                spcAdd.width = spcAdd.width * 4 + width() * 2 + height() * 2 + gzazo * 4; //поправка *4 плюс периметр
+                spcAdd.count = 1;
+                spcRec.spcList.add(spcAdd);
             }
         } else if (TypeArtikl.X302.isType(spcAdd.artiklRec)) {
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
