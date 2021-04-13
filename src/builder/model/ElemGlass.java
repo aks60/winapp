@@ -164,7 +164,7 @@ public class ElemGlass extends ElemSimple {
                 ((AreaArch) root()).calcPadding(this, spcAdd);
 
             } else {
-                spcAdd.width = spcAdd.width * 4 + width() * 2 + height() * 2 + gzazo * 4; //поправка *4 плюс периметр
+                spcAdd.width = spcAdd.width * 4 + width() * 2 + height() * 2 + gzazo * 4; //поправка *4 плюс периметр плюс зазор * 4
                 spcAdd.count = 1;
                 spcRec.spcList.add(spcAdd);
             }
