@@ -29,11 +29,9 @@ public class SpecificAdd {
         String ps = spcAdd.getParam("null", 25013); //Укорочение от
         List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
         int dx = spcAdd.getParam(25030); //"Укорочение, мм"
-        float length = (spcRec.elem5e.layout() == LayoutArea.LEFT || spcRec.elem5e.layout() == LayoutArea.RIGHT)
-                ? spcRec.height : spcRec.width;
-
+        
         if (list.get(0).equals(ps)) {
-            return length - dx;
+            return spcRec.width - dx;
 
         } else if (list.get(1).equals(ps)) {
             AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
@@ -41,10 +39,10 @@ public class SpecificAdd {
 
         } else if (list.get(2).equals(ps)) {
             AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
-            return length - stv.handleHeight - dx;
+            return spcRec.width - stv.handleHeight - dx;
 
         } else if (list.get(3).equals(ps)) {
-            return length / 2 - dx;
+            return spcRec.width / 2 - dx;
         }
         return spcAdd.width;
     }

@@ -132,7 +132,6 @@ public class ElemFrame extends ElemSimple {
                 spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
             }
 
-            //Фурнитура
         } else if (TypeArtikl.X109.isType(spcAdd.artiklRec) == true) {
             if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
                 if ("no".equals(spcAdd.getParam("no", 25013)) == false //"Укорочение от"
@@ -144,16 +143,15 @@ public class ElemFrame extends ElemSimple {
                 spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
             }
 
-            //Монтажный профиль
         } else if (TypeArtikl.X117.isType(spcAdd.artiklRec) == true) {
             spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
 
-            //Концевой профиль
         } else if (TypeArtikl.X135.isType(spcAdd.artiklRec) == true
-                || TypeArtikl.X301.isType(spcAdd.artiklRec)) {
+                || TypeArtikl.X301.isType(spcAdd.artiklRec)
+                || TypeArtikl.X302.isType(spcAdd.artiklRec)) {
             spcAdd.width += spcRec.width; 
-
         }
+        
         spcAdd.width = spcAdd.width * spc7d.calcCoeff(spcRec, spcAdd);//"[ * коэф-т ]"
 
         spcRec.spcList.add(spcAdd);

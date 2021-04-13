@@ -89,7 +89,7 @@ public class ElemGlass extends ElemSimple {
                 x1 = insideLeft.x1 + hmGsize.get(insideLeft.artiklRec.getInt(eArtikl.id));
                 y1 = insideTop.y1 + hmGsize.get(insideTop.artiklRec.getInt(eArtikl.id));
                 x2 = insideRight.x2 - hmGsize.get(insideRight.artiklRec.getInt(eArtikl.id));
-                y2 = insideBott.y2 - hmGsize.get(insideBott.artiklRec.getInt(eArtikl.id)); 
+                y2 = insideBott.y2 - hmGsize.get(insideBott.artiklRec.getInt(eArtikl.id));
             } else {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
                 y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
@@ -99,11 +99,11 @@ public class ElemGlass extends ElemSimple {
         } else {
             ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
 
-            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {               
+            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
                 x1 = owner.x1 + hmGsize.get(insideLeft.artiklRec.getInt(eArtikl.id));
                 y1 = owner.y1 + hmGsize.get(insideTop.artiklRec.getInt(eArtikl.id));
                 x2 = owner.x2 - hmGsize.get(insideRight.artiklRec.getInt(eArtikl.id));
-                y2 = owner.y2 - hmGsize.get(insideBott.artiklRec.getInt(eArtikl.id));               
+                y2 = owner.y2 - hmGsize.get(insideBott.artiklRec.getInt(eArtikl.id));
             } else {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
                 y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
@@ -133,9 +133,7 @@ public class ElemGlass extends ElemSimple {
             if (TypeElem.ARCH == owner().type()) {
                 ((AreaArch) root()).calcShtapik(this, spcAdd);
 
-            } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
-                spcAdd.anglCut2 = 45;
-                spcAdd.anglCut1 = 45;
+            } else {
                 //По горизонтали
                 float widthFromParam = spcAdd.width;
                 spcAdd.width += width() + 2 * gzazo;
@@ -158,9 +156,6 @@ public class ElemGlass extends ElemSimple {
                     specificationVer2.width = specificationVer2.width - 2 * specificationHor2.height;
                 }
             }
-        } else if (TypeArtikl.X109.isType(spcAdd.artiklRec)) {
-            String str = spcAdd.getParam("", 25013);
-            //ParamList.Dictionary dictionary = ParamList.find(25013);
 
             //Концнвой профиль, уплотнение притвора, уплотнитель заполнения
         } else if (TypeArtikl.X135.isType(spcAdd.artiklRec)
@@ -168,9 +163,7 @@ public class ElemGlass extends ElemSimple {
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
                 ((AreaArch) root()).calcPadding(this, spcAdd);
 
-            } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
-                spcAdd.anglCut2 = 45;
-                spcAdd.anglCut1 = 45;
+            } else {
                 //По горизонтали 
                 float widthFromParam = spcAdd.width;
                 spcAdd.width += width() + 2 * gzazo;
@@ -189,21 +182,10 @@ public class ElemGlass extends ElemSimple {
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
                 ((AreaArch) root()).calcPadding(this, spcAdd);
 
-            } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
-                spcAdd.anglCut2 = 45;
-                spcAdd.anglCut1 = 45;
-                //По горизонтали 
-                float widthFromParam = spcAdd.width;
-                spcAdd.width += width();
-                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcRec.spcList.add(new SpecificRec(spcAdd));
-                spcRec.spcList.add(new SpecificRec(spcAdd));
-                //По вертикали
-                spcAdd.width = widthFromParam;
-                spcAdd.width += height();
-                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcRec.spcList.add(new SpecificRec(spcAdd));
-                spcRec.spcList.add(new SpecificRec(spcAdd));
+            } else {
+                spcAdd.width = spcAdd.width * 4 + width() * 2 + height() * 2; //поправка *4 плюс периметр
+                spcAdd.count = 1;
+                spcRec.spcList.add(spcAdd);
 
             }
             //Всё остальное

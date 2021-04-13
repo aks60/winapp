@@ -44,8 +44,8 @@ public class SpecificRec {
     public float width = 0;  //Длина
     public float height = 0;  //Ширина
     public float weight = 0;  //Масса
-    public float anglCut1 = 0;  //Угол1
-    public float anglCut2 = 0;  //Угол2
+    public float anglCut1 = 45;  //Угол1
+    public float anglCut2 = 45;  //Угол2
     public float anglHoriz = 0; // Угол к горизонту    
     public int count = 1;  //Кол. единиц
     
