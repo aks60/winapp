@@ -26,6 +26,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import common.ListenerRecord;
 import common.ListenerFrame;
+import dataset.Conn;
 import javax.swing.tree.TreePath;
 
 public class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
@@ -903,7 +904,9 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             iwin.prj = 601005;
             String script = builder.script.Winscript.test(iwin.prj, false);
             System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(script)));  
-            Query qModel = new Query(eSysmodel.values()).select(eSysmodel.up, "where", eSysmodel.form, "=");
+            Query qModel = new Query(eSysmodel.values()).select(eSysmodel.up, "where", eSysmodel.form, "= 1001");
+            Record record = eSysmodel.up.newRecord(Query.INS);
+            record.set(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));
     }//GEN-LAST:event_btnInsert
 
     private void panMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panMouseClicked
