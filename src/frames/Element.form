@@ -90,9 +90,9 @@
                   <Component id="btnConstructiv" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
                   <Component id="btnReport" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnTest" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="524" max="32767" attributes="0"/>
+                  <Component id="btnTest" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnClose" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -108,7 +108,7 @@
                       <Component id="btnConstructiv" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="btnDel" alignment="0" max="32767" attributes="1"/>
                                   <Component id="btnIns" alignment="0" max="32767" attributes="1"/>
                               </Group>
