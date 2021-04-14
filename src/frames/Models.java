@@ -29,6 +29,8 @@ import javax.swing.tree.DefaultTreeModel;
 import common.ListenerRecord;
 import common.ListenerFrame;
 import dataset.Conn;
+import frames.swing.DefCellBoolRenderer;
+import frames.swing.DefTableModel;
 import java.util.Arrays;
 import javax.swing.tree.TreePath;
 
@@ -36,72 +38,79 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
     public Wincalc iwin = new Wincalc();
     private Window owner = null;
-    private ArrayList<Icon> listIcon1 = new ArrayList<Icon>();
-    private ArrayList<Icon> listIcon2 = new ArrayList<Icon>();
     private ListenerRecord listenet = null;
     private Canvas paintPanel = new Canvas(iwin);
-    private Query qModels1 = new Query(eSysmodel.values());
-    private Query qModels2 = new Query(eSysmodel.values());
+    private Query qModels = new Query(eSysmodel.values());
 
     public Models() {
         initComponents();
         initElements();
+        loadingData();
         loadingModel();
         btnChoice.setVisible(false);
-        btnRemov.setVisible(false);
-        loadingData();
+        btnRemov.setVisible(false);        
+        loadingTab(tab1, 1001);
     }
 
     public Models(java.awt.Window owner, ListenerRecord listener) {
         initComponents();
         initElements();
+        loadingData();
         loadingModel();
         this.owner = owner;
         this.listenet = listener;
-        owner.setEnabled(false);
-        loadingData();
+        owner.setEnabled(false);        
+        loadingTab(tab1, 1001);
     }
 
     private void loadingData() {
-
-        Wincalc iwinMin = new Wincalc();
-        qModels1.select(eSysmodel.up, "where", eSysmodel.form, "=", TypeElem.RECTANGL.id, "order by", eSysmodel.npp);
-        qModels2.select(eSysmodel.up, "where", eSysmodel.form, "=", TypeElem.ARCH.id, "order by", eSysmodel.npp);
-        DefaultTableModel dm1 = (DefaultTableModel) tab1.getModel();
-        DefaultTableModel dm2 = (DefaultTableModel) tab2.getModel();
-        dm1.getDataVector().removeAllElements();
-        dm2.getDataVector().removeAllElements();
-        int length = 68;
-        for (Record record : qModels1) {
-            try {
-                Object obj[] = {record.get(eSysmodel.npp), record.get(eSysmodel.name), ""};
-                Object script = record.get(eSysmodel.script);
-                ImageIcon image = Util.createWindraw(iwinMin, script, length);
-                obj[2] = image;
-                listIcon1.add(image);
-                dm1.addRow(obj);
-            } catch (Exception e) {
-                System.err.println("Ошибка " + e);
-            }
-        }
-        for (Record record : qModels2) {
-            try {
-                Object obj[] = {record.get(eSysmodel.npp), record.get(eSysmodel.name), ""};
-                Object script = record.get(eSysmodel.script);
-                ImageIcon image = Util.createWindraw(iwinMin, script, length);
-                obj[2] = image;
-                listIcon2.add(image);
-                dm2.addRow(obj);
-            } catch (Exception e) {
-                System.err.println("Ошибка " + e);
-            }
-        }
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab2);
-        Util.setSelectedRow(tab1);
+        //
     }
 
+    private void loadingModel() {
+        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
+        paintPanel.setVisible(true);
+        new DefTableModel(tab1, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);       
+        tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (column == 2) {
+                    int index = table.convertRowIndexToModel(row);
+                    Object v = qModels.get(index).get(eSysmodel.values().length);
+                    if (v instanceof Icon) {
+                        Icon icon = (Icon) v;
+                        label.setIcon(icon);
+                    }
+                } else {
+                    label.setIcon(null);
+                }
+                return label;
+            }
+        }); 
+    }
+
+    private void loadingTab(JTable tab, int form) {
+
+        qModels.select(eSysmodel.up, "where", eSysmodel.form, "=", form);
+        DefaultTableModel dm = (DefaultTableModel) tab.getModel();
+        dm.getDataVector().removeAllElements();
+
+        int length = 68;
+        for (Record record : qModels.table(eSysmodel.up)) {
+            try {
+                Object script = record.get(eSysmodel.script);
+                ImageIcon image = Util.createWindraw(iwin, script, length);
+                record.add(image);
+
+            } catch (Exception e) {
+                System.err.println("Ошибка:Models.loadingTab() " + e);
+            }
+        }
+        ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
+    }
+    
     private void loadingWin() {
         try {
             DefMutableTreeNode root = iwin.rootArea.treeWin(iwin);
@@ -113,6 +122,28 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             System.err.println("Ошибка: Systree.loadingWin() " + e);
         }
     }
+    
+    private void selectionTab1(ListSelectionEvent event) {
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            Object script = qModels.get(index, eSysmodel.script);
+            iwin.build(script.toString());
+            paintPanel.repaint(true);
+        }
+    }
+
+    private void selectionTab2(ListSelectionEvent event) {
+        int index = Util.getIndexRec(tab2);
+        if (index != -1) {
+            Object script = qModels.get(index, eSysmodel.script);
+            iwin.build(script.toString());
+            paintPanel.repaint(true);
+        }
+    }
+
+    private void selectionTab3(ListSelectionEvent event) {
+
+    }        
 
     private void selectionTree() {
 
@@ -138,64 +169,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             }
         }
     }
-
-    private void loadingModel() {
-        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
-        paintPanel.setVisible(true);
-        tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (column == 2) {
-                    Icon icon = listIcon1.get(row);
-                    label.setIcon(icon);
-                } else {
-                    label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-                    label.setIcon(null);
-                }
-                return label;
-            }
-        });
-        tab2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (column == 2) {
-                    Icon icon = listIcon2.get(row);
-                    label.setIcon(icon);
-                } else {
-                    label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-                    label.setIcon(null);
-                }
-                return label;
-            }
-        });
-    }
-
-    private void selectionTab1(ListSelectionEvent event) {
-        int index = Util.getIndexRec(tab1);
-        if (index != -1) {
-            Object script = qModels1.get(index, eSysmodel.script);
-            iwin.build(script.toString());
-            paintPanel.repaint(true);
-        }
-    }
-
-    private void selectionTab2(ListSelectionEvent event) {
-        int index = Util.getIndexRec(tab2);
-        if (index != -1) {
-            Object script = qModels2.get(index, eSysmodel.script);
-            iwin.build(script.toString());
-            paintPanel.repaint(true);
-        }
-    }
-
-    private void selectionTab3(ListSelectionEvent event) {
-
-    }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -915,13 +889,13 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-//        if (tab1.getBorder() != null) {
-//            if (Util.isDeleteRecord(this) == 0 && tab1.getSelectedRow() != -1) {
-//                //iwin.rootArea = null;
-//                //paintPanel.paint(paintPanel.getGraphics());
-//                Util.deleteRecord(tab1);
-//            }
-//        }
+        if (tab1.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0 && tab1.getSelectedRow() != -1) {
+                iwin.rootArea = null;
+                paintPanel.paint(paintPanel.getGraphics());
+                Util.deleteRecord(tab1);
+            }
+        }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
@@ -943,24 +917,24 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }//GEN-LAST:event_panMouseClicked
 
     private void btnChoiceresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoiceresh
-        JTable table = null;
-        Query query = null;
-        if (btnT1.isSelected()) {
-            query = qModels1;
-            table = tab1;
-        } else if (btnT2.isSelected()) {
-            query = qModels2;
-            table = tab2;
-        }
-        int index = Util.getIndexRec(table);
-        if (index != -1) {
-            Record record = new Record();
-            record.add(query.get(index, eSysmodel.id));
-            record.add(query.get(index, eSysmodel.name));
-            record.add(query.get(index, eSysmodel.script));
-            listenet.action(record);
-        }
-        this.dispose();
+//        JTable table = null;
+//        Query query = null;
+//        if (btnT1.isSelected()) {
+//            query = qModels1;
+//            table = tab1;
+//        } else if (btnT2.isSelected()) {
+//            query = qModels2;
+//            table = tab2;
+//        }
+//        int index = Util.getIndexRec(table);
+//        if (index != -1) {
+//            Record record = new Record();
+//            record.add(query.get(index, eSysmodel.id));
+//            record.add(query.get(index, eSysmodel.name));
+//            record.add(query.get(index, eSysmodel.script));
+//            listenet.action(record);
+//        }
+//        this.dispose();
     }//GEN-LAST:event_btnChoiceresh
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
@@ -974,10 +948,10 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
     private void btnToggl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToggl
         if (btnT1.isSelected()) {
-            selectionTab1(null);
+            loadingTab(tab1, 1001);
             ((CardLayout) west.getLayout()).show(west, "pan13");
         } else if (btnT2.isSelected()) {
-            selectionTab2(null);
+            loadingTab(tab1, 1008);
             ((CardLayout) west.getLayout()).show(west, "pan14");
         } else if (btnT3.isSelected()) {
             selectionTab3(null);

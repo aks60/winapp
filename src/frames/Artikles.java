@@ -2369,7 +2369,7 @@ public class Artikles extends javax.swing.JFrame {
     private void btn8(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
-            int id = qArtikl.getAs(index, eArtikl.artgrp1_id);
+            int id = qArtikl.getAs(index, eArtikl.series_id);
             new DicGroups(this, listenerSeriesFilter, TypeGroups.SERI_PROF, id);
         }
     }//GEN-LAST:event_btn8
@@ -2430,7 +2430,7 @@ public class Artikles extends javax.swing.JFrame {
     private void btn13(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn13
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
-            int id = qArtikl.getAs(index, eArtikl.artgrp1_id);
+            int id = qArtikl.getAs(index, eArtikl.series_id);
             new DicGroups(this, listenerCategFilter, TypeGroups.CATEG_PRF, id);
         }
     }//GEN-LAST:event_btn13

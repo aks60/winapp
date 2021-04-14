@@ -26,12 +26,12 @@ public class DicGroups extends javax.swing.JDialog {
     private Enam grup = null;
     private ListenerRecord listener = null;
     private Query qGroups = new Query(eGroups.values());
-    private int row = 0;
+    private int ID = 0;
 
-    public DicGroups(java.awt.Frame parent, ListenerRecord listenet, Enam grup, int row) {
+    public DicGroups(java.awt.Frame parent, ListenerRecord listenet, Enam grup, int id) {
         super(parent, true);
         this.grup = grup;
-        this.row = row;
+        this.ID = id;
         this.listener = listenet;
         initComponents();
         initElements();
@@ -73,9 +73,9 @@ public class DicGroups extends javax.swing.JDialog {
     }
 
     private void setSelectedRow(JTable tab) {
-        if (row > 0) {
+        if (ID > 0) {
             for (int i = 0; i < qGroups.size(); ++i) {
-                if (qGroups.get(i).getInt(eGroups.id) == row) {
+                if (qGroups.get(i).getInt(eGroups.id) == ID) {
                     Util.setSelectedRow(tab, i);
                     Util.scrollRectToRow(i, tab);
                 }
