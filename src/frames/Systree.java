@@ -580,7 +580,7 @@ public class Systree extends javax.swing.JFrame {
                 }
                 iwin.calcFurniture = new builder.specif.Furniture(iwin, true); //фурнитура 
                 iwin.calcFurniture.calc();
-                txt21.setText(stv.handleRec.getStr(eArtikl.name));
+                txt21.setText(stv.handleRec.getStr(eArtikl.code));
                 txt24.setText(Util.df.format(iwin.rootGson.find(stv.id()).width()));
                 txt26.setText(Util.df.format(iwin.rootGson.find(stv.id()).height()));
                 txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
@@ -1541,7 +1541,7 @@ public class Systree extends javax.swing.JFrame {
         lab30.setPreferredSize(new java.awt.Dimension(80, 18));
 
         lab37.setFont(frames.Util.getFont(0,0));
-        lab37.setText("Ручка");
+        lab37.setText("Арт. ручки");
         lab37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab37.setPreferredSize(new java.awt.Dimension(80, 18));
 

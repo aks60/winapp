@@ -1685,7 +1685,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="frames.Util.getFont(0,0)" type="code"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="&#x420;&#x443;&#x447;&#x43a;&#x430;"/>
+                            <Property name="text" type="java.lang.String" value="&#x410;&#x440;&#x442;. &#x440;&#x443;&#x447;&#x43a;&#x438;"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                                 <EtchetBorder bevelType="0"/>

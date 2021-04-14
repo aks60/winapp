@@ -381,10 +381,11 @@ public class Winscript {
             area3.addElem(new GsonElem(10, TypeElem.IMPOST));
             GsonElem area5 = area3.addArea(new GsonElem(11, LayoutArea.VERT, TypeElem.AREA, 1220));
             
-            GsonElem area6 = area4.addArea(new GsonElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2, 'sysfurnID':147}"));
-            area2.addElem(new GsonElem(13, TypeElem.GLASS, "{'artglasID':286}"));
+            GsonElem area6 = area2.addArea(new GsonElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':147}"));
+            GsonElem area7 = area4.addArea(new GsonElem(13, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2, 'sysfurnID':147}"));
             area6.addElem(new GsonElem(14, TypeElem.GLASS, "{'artglasID':286}"));
-            area5.addElem(new GsonElem(15, TypeElem.GLASS, "{'artglasID':286}"));
+            area7.addElem(new GsonElem(15, TypeElem.GLASS, "{'artglasID':286}"));
+            area5.addElem(new GsonElem(16, TypeElem.GLASS, "{'artglasID':286}"));
             
         } else {
             return null;

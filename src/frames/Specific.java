@@ -121,6 +121,7 @@ public class Specific extends javax.swing.JFrame {
             vectorLast.set(indexLast - 9, sum9);
             vectorLast.set(indexLast - 13, sum13);
             dtm.addRow(vectorLast);
+            labSum.setText("Итого:" + sum1);
         }
     }
 
@@ -176,6 +177,7 @@ public class Specific extends javax.swing.JFrame {
             public JTable table = null;
         };
         checkFilter = new javax.swing.JCheckBox();
+        labSum = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Спецификация");
@@ -415,8 +417,14 @@ public class Specific extends javax.swing.JFrame {
         });
         south.add(txtFilter);
 
-        checkFilter.setText("в конце строки");
+        checkFilter.setText("в конце строки   ");
         south.add(checkFilter);
+
+        labSum.setText("sum:0");
+        labSum.setMaximumSize(new java.awt.Dimension(200, 14));
+        labSum.setMinimumSize(new java.awt.Dimension(200, 14));
+        labSum.setPreferredSize(new java.awt.Dimension(200, 14));
+        south.add(labSum);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
@@ -571,6 +579,7 @@ public class Specific extends javax.swing.JFrame {
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel labFilter;
+    private javax.swing.JLabel labSum;
     private javax.swing.JPanel north;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JPanel south;

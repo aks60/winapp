@@ -602,7 +602,21 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="checkFilter">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x432; &#x43a;&#x43e;&#x43d;&#x446;&#x435; &#x441;&#x442;&#x440;&#x43e;&#x43a;&#x438;"/>
+            <Property name="text" type="java.lang.String" value="&#x432; &#x43a;&#x43e;&#x43d;&#x446;&#x435; &#x441;&#x442;&#x440;&#x43e;&#x43a;&#x438;   "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labSum">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="sum:0"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[200, 14]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[200, 14]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[200, 14]"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

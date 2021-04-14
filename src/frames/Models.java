@@ -48,7 +48,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         loadingData();
         loadingModel();
         btnChoice.setVisible(false);
-        btnRemov.setVisible(false);        
+        btnRemov.setVisible(false);
         loadingTab(tab1, 1001);
     }
 
@@ -59,7 +59,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         loadingModel();
         this.owner = owner;
         this.listenet = listener;
-        owner.setEnabled(false);        
+        owner.setEnabled(false);
         loadingTab(tab1, 1001);
     }
 
@@ -70,7 +70,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     private void loadingModel() {
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
-        new DefTableModel(tab1, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);       
+        new DefTableModel(tab1, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
         tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -88,7 +88,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 }
                 return label;
             }
-        }); 
+        });
     }
 
     private void loadingTab(JTable tab, int form) {
@@ -110,7 +110,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         }
         ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
     }
-    
+
     private void loadingWin() {
         try {
             DefMutableTreeNode root = iwin.rootArea.treeWin(iwin);
@@ -122,7 +122,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             System.err.println("Ошибка: Systree.loadingWin() " + e);
         }
     }
-    
+
     private void selectionTab1(ListSelectionEvent event) {
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
@@ -143,7 +143,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
     private void selectionTab3(ListSelectionEvent event) {
 
-    }        
+    }
 
     private void selectionTree() {
 
@@ -169,7 +169,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             }
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -323,7 +323,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         btnChoice.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnChoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChoiceresh(evt);
+                btnChoice(evt);
             }
         });
 
@@ -901,41 +901,43 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         String json = builder.script.Winscript.test(601005, true);
         GsonRoot gson = new Gson().fromJson(json, GsonRoot.class);
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json)));
-        Query qModel = new Query(eSysmodel.values()).select(eSysmodel.up, "where", eSysmodel.form, "= 1001");
         Record record = eSysmodel.up.newRecord(Query.INS);
         record.set(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));
-        record.set(eSysmodel.npp, qModel.size() + 1);
+        record.set(eSysmodel.npp, qModels.size());
         record.set(eSysmodel.name, "<html>" + gson.prj + " " + gson.name);
         record.set(eSysmodel.script, json);
         record.set(eSysmodel.form, 1001);
-        qModel.insert(record);
+        qModels.insert(record);
+        if (tab1.getBorder() != null) {
+            loadingTab(tab1, 1001);
+        } else if (tab2.getBorder() != null) {
+            loadingTab(tab2, 1008);
+        }
     }//GEN-LAST:event_btnInsert
 
     private void panMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panMouseClicked
         System.out.println(evt.getX() + " " + evt.getY());
     }//GEN-LAST:event_panMouseClicked
 
-    private void btnChoiceresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoiceresh
-//        JTable table = null;
-//        Query query = null;
-//        if (btnT1.isSelected()) {
-//            query = qModels1;
-//            table = tab1;
-//        } else if (btnT2.isSelected()) {
-//            query = qModels2;
-//            table = tab2;
-//        }
-//        int index = Util.getIndexRec(table);
-//        if (index != -1) {
-//            Record record = new Record();
-//            record.add(query.get(index, eSysmodel.id));
-//            record.add(query.get(index, eSysmodel.name));
-//            record.add(query.get(index, eSysmodel.script));
-//            listenet.action(record);
-//        }
-//        this.dispose();
-    }//GEN-LAST:event_btnChoiceresh
+    private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
+        JTable table = null;
+        if (btnT1.isSelected()) {
+            table = tab1;
+        } else if (btnT2.isSelected()) {
+            table = tab2;
+        } else if (btnT2.isSelected()) {
+            table = tab3;
+        }
+        int index = Util.getIndexRec(table);
+        if (index != -1) {
+            Record record = new Record();
+            record.add(qModels.get(index, eSysmodel.id));
+            record.add(qModels.get(index, eSysmodel.name));
+            record.add(qModels.get(index, eSysmodel.script));
+            listenet.action(record);
+        }
+        this.dispose();
+    }//GEN-LAST:event_btnChoice
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         if (owner != null)
