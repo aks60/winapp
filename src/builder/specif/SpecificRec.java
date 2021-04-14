@@ -153,12 +153,12 @@ public class SpecificRec {
         mapParam.put(key, val);
     }
 
-    public int getParam(int key) {
+    public float getParam(int key) {
 
         if (mapParam != null) {
             String str = mapParam.get(Integer.valueOf(key));
             if (str != null || str.isEmpty() == false) {
-                return Integer.valueOf(str);
+                return Float.parseFloat(str.replace(",", "."));
             }
         }
         return 0;

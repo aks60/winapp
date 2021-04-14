@@ -28,7 +28,7 @@ public class SpecificAdd {
 
         String ps = spcAdd.getParam("null", 25013); //Укорочение от
         List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
-        int dx = spcAdd.getParam(25030); //"Укорочение, мм"
+        float dx = spcAdd.getParam(25030); //"Укорочение, мм"
         
         if (list.get(0).equals(ps)) {
             return spcRec.width - dx;
