@@ -69,6 +69,7 @@ import frames.Syssize;
 import frames.Systree;
 import frames.TestFrame;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.util.Set;
@@ -221,13 +222,17 @@ public enum App {
                 Top.frame.setLocation(0, 0);
                 Top.frame.setSize(screenSize.width, Top.frame.getHeight()); //размеры гл. окна
             }
+            
             Top.frame.setVisible(true);
+            //Top.frame.setExtendedState(JFrame.ICONIFIED);
+            //Top.frame.setState(Frame.ICONIFIED);
 
         } catch (Exception e) {
             System.out.println("Ошибка: App.createApp()");
         }
     }
 
+    //Список таблиц базы данных
     public static Field[] db = { //в порядке удаления при конвертирования из базы приёмника
         eSetting.up, eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSysmodel.up,
         eKitpar1.up, eKitdet.up, eKits.up,

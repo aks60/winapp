@@ -17,6 +17,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
+import builder.script.GsonRoot;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import frames.swing.DefMutableTreeNode;
@@ -27,6 +29,7 @@ import javax.swing.tree.DefaultTreeModel;
 import common.ListenerRecord;
 import common.ListenerFrame;
 import dataset.Conn;
+import java.util.Arrays;
 import javax.swing.tree.TreePath;
 
 public class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
@@ -108,7 +111,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
         } catch (Exception e) {
             System.err.println("Ошибка: Systree.loadingWin() " + e);
-        }        
+        }
     }
 
     private void selectionTree() {
@@ -493,6 +496,11 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         tab1.setRowHeight(68);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setResizable(false);
@@ -518,6 +526,11 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
         scr2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         scr2.setPreferredSize(new java.awt.Dimension(200, 560));
+        scr2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -563,6 +576,11 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
         scr3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         scr3.setPreferredSize(new java.awt.Dimension(200, 560));
+        scr3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -897,16 +915,27 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-
+//        if (tab1.getBorder() != null) {
+//            if (Util.isDeleteRecord(this) == 0 && tab1.getSelectedRow() != -1) {
+//                //iwin.rootArea = null;
+//                //paintPanel.paint(paintPanel.getGraphics());
+//                Util.deleteRecord(tab1);
+//            }
+//        }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-            iwin.prj = 601005;
-            String script = builder.script.Winscript.test(iwin.prj, false);
-            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(script)));  
-            Query qModel = new Query(eSysmodel.values()).select(eSysmodel.up, "where", eSysmodel.form, "= 1001");
-            Record record = eSysmodel.up.newRecord(Query.INS);
-            record.set(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));
+        String json = builder.script.Winscript.test(601005, true);
+        GsonRoot gson = new Gson().fromJson(json, GsonRoot.class);
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json)));
+        Query qModel = new Query(eSysmodel.values()).select(eSysmodel.up, "where", eSysmodel.form, "= 1001");
+        Record record = eSysmodel.up.newRecord(Query.INS);
+        record.set(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));
+        record.set(eSysmodel.npp, qModel.size() + 1);
+        record.set(eSysmodel.name, "<html>" + gson.prj + " " + gson.name);
+        record.set(eSysmodel.script, json);
+        record.set(eSysmodel.form, 1001);
+        qModel.insert(record);
     }//GEN-LAST:event_btnInsert
 
     private void panMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panMouseClicked
@@ -958,6 +987,11 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             ((CardLayout) west.getLayout()).show(west, "pan18");
         }
     }//GEN-LAST:event_btnToggl
+
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+        JTable table = (JTable) evt.getSource();
+        Util.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3));
+    }//GEN-LAST:event_tabMousePressed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables

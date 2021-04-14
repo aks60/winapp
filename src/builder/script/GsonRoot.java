@@ -8,7 +8,7 @@ import enums.TypeElem;
 
 public class GsonRoot extends GsonElem {
 
-    private String name = "Конструкция";
+    public String name = "Конструкция";
     private Integer nuni = null;  //nuni профиля (PRO4_SYSPROF.NUNI)
     private Float heightAdd = null;  //дополнительная высота, мм. Для прямоугольного изделия = height.
     public Integer color1 = null;  //основная текстура
