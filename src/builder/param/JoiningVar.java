@@ -33,7 +33,7 @@ public class JoiningVar extends Par5s {
         List<Record> paramList = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
         if (filterParamDef(paramList) == false) {
             return false;
-        }        
+        }
         //цикл по параметрам элементов соединения
         for (Record rec : paramList) {
 
@@ -69,7 +69,7 @@ public class JoiningVar extends Par5s {
                         //message(rec.getInt(GRUP)); //У SA всегда внутреннее
                         break;
                     case 1011:  //Для Артикула 1 указан состав 
-                    case 4011:  //Для Артикула 1 указан состав     
+                    case 4011: //Для Артикула 1 указан состав     
                     {
                         boolean substr = false;
                         List<Record> elementList = eElement.find3(elemJoin.joinElement1.artiklRec.getInt(eArtikl.code), elemJoin.joinElement1.artiklRec.getInt(eArtikl.series_id));
@@ -103,7 +103,7 @@ public class JoiningVar extends Par5s {
                     case 1013:  //Для Артикулов не указан состав
                     case 2013:  //Для Артикулов не указан состав 
                     case 3013:  //Для Артикулов не указан состав
-                    case 4013:  //Для Артикулов не указан состав  
+                    case 4013: //Для Артикулов не указан состав  
                     {
 
                         List<Record> elementList1 = eElement.find3(elemJoin.joinElement1.artiklRec.getInt(eArtikl.code), elemJoin.joinElement1.artiklRec.getInt(eArtikl.series_id));
@@ -218,6 +218,8 @@ public class JoiningVar extends Par5s {
                         break;
 
                     case 2021: //Точный угол, °
+                    case 3021:
+                    case 4031:
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
                             if (rec.getFloat(TEXT) != elemJoin.anglProf) {
                                 return false;
@@ -319,13 +321,8 @@ public class JoiningVar extends Par5s {
                             return false;
                         }
                         break;
-                    case 4031: // Точный угол, °
-                        if (rec.getFloat(TEXT) != elemJoin.joinElement1.anglHoriz) {
-                            return false;
-                        }
-                        break;
-                    case 4040:  //Размер от оси профиля, мм. или заход импоста
-                        //Параметр вычисляктся на раннем этапе см. код
+                    case 4040: //Размер от оси профиля, мм. или заход импоста 
+                        elemJoin.joinElement1.spcRec.width += -rec.getFloat(TEXT);
                         break;
                     case 4044:  //Размер от края пакета, мм 
                         message(rec.getInt(GRUP));

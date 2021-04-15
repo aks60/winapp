@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -152,6 +153,12 @@ public class DBCompare extends javax.swing.JFrame {
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
+        labFilter = new javax.swing.JLabel();
+        txtFilter = new javax.swing.JTextField(){
+            public JTable table = null;
+        };
+        checkFilter = new javax.swing.JCheckBox();
+        labSum = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DBCompare");
@@ -232,6 +239,11 @@ public class DBCompare extends javax.swing.JFrame {
             }
         });
         tab1.setFillsViewportHeight(true);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tab1MousePressed(evt);
+            }
+        });
         scr.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -326,18 +338,36 @@ public class DBCompare extends javax.swing.JFrame {
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(800, 20));
+        south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
-        south.setLayout(southLayout);
-        southLayout.setHorizontalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
-        );
-        southLayout.setVerticalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
+        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        labFilter.setText("Поле");
+        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
+        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
+        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
+        south.add(labFilter);
+
+        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
+        txtFilter.setName(""); // NOI18N
+        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
+        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtFilterfilterUpdate(evt);
+            }
+        });
+        south.add(txtFilter);
+
+        checkFilter.setText("в конце строки   ");
+        south.add(checkFilter);
+
+        labSum.setText("sum:0");
+        labSum.setMaximumSize(new java.awt.Dimension(200, 14));
+        labSum.setMinimumSize(new java.awt.Dimension(200, 14));
+        labSum.setPreferredSize(new java.awt.Dimension(200, 14));
+        south.add(labSum);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
@@ -348,12 +378,35 @@ public class DBCompare extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnClose
 
+    private void txtFilterfilterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterfilterUpdate
+        JTable table = tab1;
+        if (txtFilter.getText().length() == 0) {
+            ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(null);
+        } else {
+            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, index));
+        }
+    }//GEN-LAST:event_txtFilterfilterUpdate
+
+    private void tab1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MousePressed
+        JTable table = (JTable) evt.getSource();
+        Util.updateBorderAndSql(table, Arrays.asList(tab1));
+        if (txtFilter.getText().length() == 0) {
+            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txtFilter.setName(table.getName());
+        }
+    }//GEN-LAST:event_tab1MousePressed
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JPanel center;
+    private javax.swing.JCheckBox checkFilter;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lab1;
+    private javax.swing.JLabel labFilter;
+    private javax.swing.JLabel labSum;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
@@ -367,6 +420,7 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
+    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 

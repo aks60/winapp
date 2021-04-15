@@ -507,6 +507,10 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void cbxGroupBy(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupBy
+        if(txtFilter.getText().isEmpty() == false) {
+            JOptionPane.showMessageDialog(null, "Сначала закройте фильтр", "Предупреждение", JOptionPane.NO_OPTION);
+        }
+        
         float id = (Util.getIndexRec(tab1) == -1) ? -1 : Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
 
         if (cbx1.getSelectedIndex() == 0) {

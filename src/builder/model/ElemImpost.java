@@ -65,7 +65,7 @@ public class ElemImpost extends ElemSimple {
         for (int index = owner().listChild.size() - 1; index >= 0; --index) {
             if (owner().listChild.get(index).type == TypeElem.AREA) {
                 Com5t prevArea = owner().listChild.get(index); //index указывает на предыдущий элемент
-                float db = artiklRec.getFloat(eArtikl.size_centr);
+                float db = artiklRecAn.getFloat(eArtikl.size_centr);
 
                 if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
                     setDimension(prevArea.x1, prevArea.y2 - db, prevArea.x2, prevArea.y2 + db);
@@ -92,14 +92,15 @@ public class ElemImpost extends ElemSimple {
         spcRec.anglCut1 = 90;
         spcRec.anglHoriz = anglHoriz;
 
-        //Заход импоста на эскизе не показываю, сразу пишу в спецификацию
+        //На эскизе заход импоста не показываю, сразу пишу в спецификацию
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
             float zax = iwin().syssizeRec.getFloat(eSyssize.zax);
-
+            
             if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
                 ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
                 spcRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
+                
             } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
                 ElemSimple insideLeft = join(LayoutArea.LEFT), insideRight = join(LayoutArea.RIGHT);
                 spcRec.width = insideRight.x1 - insideLeft.x2 + zax * 2 + insideLeft.artiklRec.getFloat(eArtikl.size_falz) + insideRight.artiklRec.getFloat(eArtikl.size_falz);
@@ -107,13 +108,12 @@ public class ElemImpost extends ElemSimple {
             }
         } else {
             if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
-                ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
-                spcRec.width = insideBott.y2 - insideTop.y1 - 2 * offset(this, join(LayoutArea.TOP));
+                spcRec.width = y2 - y1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
+                
             } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
-                ElemSimple insideLeft = join(LayoutArea.LEFT), insideRight = join(LayoutArea.RIGHT);
-                spcRec.width = insideRight.x1 - insideLeft.x2 - 2 * offset(this, join(LayoutArea.LEFT));
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+                spcRec.width = x2 - x1;
+                spcRec.height = artiklRec.getFloat(eArtikl.height);                
             }
         }
     }

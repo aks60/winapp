@@ -303,6 +303,9 @@ public class Tariffication extends Cal5e {
 
         } else if (UseUnit.PIE.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //шт.
             return spcRec.count;
+            
+        } else if (UseUnit.SET.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //комп.
+            return spcRec.count;
 
         } else if (UseUnit.ML.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //мл
             return spcRec.quant1;
