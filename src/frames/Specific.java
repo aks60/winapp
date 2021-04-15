@@ -19,7 +19,6 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import builder.Wincalc;
 import builder.specif.SpecificRec;
-import builder.specif.Tariffication;
 import dataset.Query;
 import domain.eSysprod;
 import java.awt.Component;
@@ -40,6 +39,10 @@ import startup.App;
 import common.ListenerFrame;
 import common.eProfile;
 import domain.ePrjprod;
+import frames.swing.colgroup.ColumnGroup;
+import frames.swing.colgroup.GroupableTableHeader;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 
 public class Specific extends javax.swing.JFrame {
 
@@ -48,8 +51,6 @@ public class Specific extends javax.swing.JFrame {
     private DecimalFormat df2 = new DecimalFormat("#0.00");
     private DecimalFormat df3 = new DecimalFormat("#0.000");
     private builder.Wincalc iwin = new Wincalc();
-
-    ;
 
     public Specific() {
         initComponents();
@@ -170,7 +171,11 @@ public class Specific extends javax.swing.JFrame {
         btnTest = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
-        tab1 = new javax.swing.JTable();
+        tab1 = new javax.swing.JTable() {
+            protected JTableHeader createDefaultTableHeader() {
+                return new GroupableTableHeader(columnModel);
+            }
+        };
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -342,7 +347,7 @@ public class Specific extends javax.swing.JFrame {
                 {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "<html>Единица<br/>измерения", "<html>Процент<br/> отхода", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "<html>Себест.<br/> за ед. измерения", "<html>Себест.<br/>с отх.", "<html>Стоим.<br/> без ск.", "<html>Стоим. <br/>со ск."
+                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "  1", "  2", "гориз.", "<html>Кол.<br/>единиц", "<html>Единица<br/>измерения", "<html>Процент<br/> отхода", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "<html>Себест.<br/> за ед. измерения", "<html>Себест.<br/>с отх.", "<html>Стоим.<br/> без ск.", "<html>Стоим. <br/>со ск."
             }
         ) {
             Class[] types = new Class [] {
@@ -507,10 +512,10 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void cbxGroupBy(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupBy
-        if(txtFilter.getText().isEmpty() == false) {
+        if (txtFilter.getText().isEmpty() == false) {
             JOptionPane.showMessageDialog(null, "Сначала закройте фильтр", "Предупреждение", JOptionPane.NO_OPTION);
         }
-        
+
         float id = (Util.getIndexRec(tab1) == -1) ? -1 : Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
 
         if (cbx1.getSelectedIndex() == 0) {
@@ -654,5 +659,12 @@ public class Specific extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(20).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer2);
+        TableColumnModel cm = tab1.getColumnModel();
+        ColumnGroup angl = new ColumnGroup("Угол");
+        angl.add(cm.getColumn(11));
+        angl.add(cm.getColumn(12));
+        angl.add(cm.getColumn(13));
+        GroupableTableHeader header = (GroupableTableHeader) tab1.getTableHeader();
+        header.addColumnGroup(angl);
     }
 }

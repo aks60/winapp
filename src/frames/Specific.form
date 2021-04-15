@@ -386,9 +386,9 @@
                     <Column editable="true" title="&#x414;&#x43b;&#x438;&#x43d;&#x430;" type="java.lang.Float"/>
                     <Column editable="true" title="&#x428;&#x438;&#x440;&#x438;&#x43d;&#x430;" type="java.lang.Object"/>
                     <Column editable="true" title="&#x41c;&#x430;&#x441;&#x441;&#x430;" type="java.lang.Object"/>
-                    <Column editable="true" title="&lt;html&gt;&#x423;&#x433;&#x43e;&#x43b; &lt;br/&gt;  1" type="java.lang.Object"/>
-                    <Column editable="true" title="&lt;html&gt;&#x423;&#x433;&#x43e;&#x43b;&lt;br/&gt;  2" type="java.lang.Object"/>
-                    <Column editable="true" title="&lt;html&gt;&#x423;&#x433;&#x43e;&#x43b; &#x43a;&lt;br/&gt; &#x433;&#x43e;&#x440;&#x438;&#x437;&#x43e;&#x43d;&#x442;&#x443;" type="java.lang.Object"/>
+                    <Column editable="true" title="  1" type="java.lang.Object"/>
+                    <Column editable="true" title="  2" type="java.lang.Object"/>
+                    <Column editable="true" title="&#x433;&#x43e;&#x440;&#x438;&#x437;." type="java.lang.Object"/>
                     <Column editable="true" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;.&lt;br/&gt;&#x435;&#x434;&#x438;&#x43d;&#x438;&#x446;" type="java.lang.Object"/>
                     <Column editable="true" title="&lt;html&gt;&#x415;&#x434;&#x438;&#x43d;&#x438;&#x446;&#x430;&lt;br/&gt;&#x438;&#x437;&#x43c;&#x435;&#x440;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
                     <Column editable="true" title="&lt;html&gt;&#x41f;&#x440;&#x43e;&#x446;&#x435;&#x43d;&#x442;&lt;br/&gt; &#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;" type="java.lang.Object"/>
@@ -531,6 +531,9 @@
               <Events>
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mousePressed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable() {&#xa;      protected JTableHeader createDefaultTableHeader() {&#xa;          return new GroupableTableHeader(columnModel);&#xa;      }&#xa;    }"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
