@@ -899,7 +899,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        String json = builder.script.Winscript.test(601005, true);
+        String json = builder.script.Winscript.test(601003, true);
         GsonRoot gson = new Gson().fromJson(json, GsonRoot.class);
         Record record = eSysmodel.up.newRecord(Query.INS);
         record.set(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));

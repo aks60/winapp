@@ -8,7 +8,8 @@ import java.util.stream.Collectors;
 
 public class GsonElem {
 
-    protected float id = -1;  //ориентация при размещении
+    protected float id = -1;  //идентификатор
+    protected static transient float genId = -1;  //идентификатор
     public transient GsonElem parent = null;  //владелец 
     protected LinkedList<GsonElem> childs = null;  //список детей
     protected LayoutArea layout = null; //сторона располодения эл. рамы
@@ -52,6 +53,42 @@ public class GsonElem {
     //Конструктор створки
     public GsonElem(int id, LayoutArea layout, TypeElem type, String paramJson) {
         this.id = id;
+        this.layout = layout;
+        this.type = type;
+        this.param = paramJson; //параметры элемента
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    //Конструктор Elem
+    public GsonElem(TypeElem elemType) {
+        this.id = ++genId;
+        this.type = elemType;
+    }
+
+    //Конструктор Elem
+    public GsonElem(TypeElem elemType, String paramJson) {
+        this.id = ++genId;
+        this.type = elemType;
+        this.param = paramJson;
+    }
+
+    //Конструктор Elem
+    public GsonElem(TypeElem elemType, LayoutArea layoutRama) {
+        this.id = ++genId;
+        this.type = elemType;
+        this.layout = layoutRama;
+    }
+
+    //Конструктор Area
+    public GsonElem(LayoutArea layout, TypeElem elemType, float lengthSide) {
+        this.id = ++genId;
+        this.layout = layout;
+        this.type = elemType;
+        this.lengthSide = lengthSide; //длина стороны, сторона зависит от направлени расположения area
+    }
+
+    //Конструктор створки
+    public GsonElem(LayoutArea layout, TypeElem type, String paramJson) {
+        this.id = ++genId;
         this.layout = layout;
         this.type = type;
         this.param = paramJson; //параметры элемента
