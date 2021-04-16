@@ -7,7 +7,6 @@ import domain.eSysmodel;
 import enums.TypeElem;
 import java.awt.Component;
 import java.awt.Window;
-import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -19,8 +18,6 @@ import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
 import builder.script.GsonRoot;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
 import frames.swing.DefMutableTreeNode;
 import frames.swing.Canvas;
 import java.awt.CardLayout;
@@ -29,9 +26,9 @@ import javax.swing.tree.DefaultTreeModel;
 import common.ListenerRecord;
 import common.ListenerFrame;
 import dataset.Conn;
-import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 import javax.swing.tree.TreePath;
 
 public class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
@@ -899,19 +896,22 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        String json = builder.script.Winscript.test(601003, true);
-        GsonRoot gson = new Gson().fromJson(json, GsonRoot.class);
-        Record record = eSysmodel.up.newRecord(Query.INS);
-        record.set(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));
-        record.set(eSysmodel.npp, qModels.size());
-        record.set(eSysmodel.name, "<html>" + gson.prj + " " + gson.name);
-        record.set(eSysmodel.script, json);
-        record.set(eSysmodel.form, 1001);
-        qModels.insert(record);
-        if (tab1.getBorder() != null) {
-            loadingTab(tab1, 1001);
-        } else if (tab2.getBorder() != null) {
-            loadingTab(tab2, 1008);
+        Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
+        if (prj != null) {
+            String json = builder.script.Winscript.test(Integer.valueOf(prj.toString()), true);
+            GsonRoot gson = new Gson().fromJson(json, GsonRoot.class);
+            Record record = eSysmodel.up.newRecord(Query.INS);
+            record.set(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));
+            record.set(eSysmodel.npp, qModels.size());
+            record.set(eSysmodel.name, "<html>" + gson.prj + " " + gson.name);
+            record.set(eSysmodel.script, json);
+            record.set(eSysmodel.form, 1001);
+            qModels.insert(record);
+            if (tab1.getBorder() != null) {
+                loadingTab(tab1, 1001);
+            } else if (tab2.getBorder() != null) {
+                loadingTab(tab2, 1008);
+            }
         }
     }//GEN-LAST:event_btnInsert
 

@@ -9,39 +9,30 @@ import enums.TypeElem;
 public class GsonRoot extends GsonElem {
 
     public String name = "Конструкция";
-    private Integer nuni = null;  //nuni профиля (PRO4_SYSPROF.NUNI)
+    public String prj = ""; //номер тестируемого проекта, поле нужно только для тестов 
+    private Integer nuni = -3;  //nuni профиля (PRO4_SYSPROF.NUNI)
     private Float heightAdd = null;  //дополнительная высота, мм. Для прямоугольного изделия = height.
-    public Integer color1 = null;  //основная текстура
-    public Integer color2 = null;  //внутренняя текстура
-    public Integer color3 = null;  //внешняя текстура    
-    public String prj = null; //номер тестируемого проекта, поле нужно только для тестов       
-
-    public GsonRoot(LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3) {
-        this(++genId, layoutArea, type, width, height, 0, color1, color2, color3, null);
+    public Integer color1 = -3;  //основная текстура
+    public Integer color2 = -3;  //внутренняя текстура
+    public Integer color3 = -3;  //внешняя текстура    
+  
+    public GsonRoot(int prj, int nuni, String name, LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3) {
+        this(++genId, prj, nuni, name, layoutArea, type, width, height, 0, color1, color2, color3, null);
     }
 
-    public GsonRoot(LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3, String paramJson) {
-        this(++genId, layoutArea, type, width, height, 0, color1, color2, color3, paramJson);
+    public GsonRoot(int prj, int nuni, String name, LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3, String paramJson) {
+        this(++genId, prj, nuni, name,  layoutArea, type, width, height, 0, color1, color2, color3, paramJson);
     }
 
-    public GsonRoot(LayoutArea layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3) {
-        this(++genId, layoutArea, type, width, height, heightAdd, color1, color2, color3, null);
+    public GsonRoot(int prj, int nuni, String name, LayoutArea layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3) {
+        this(++genId, prj, nuni, name,  layoutArea, type, width, height, heightAdd, color1, color2, color3, null);
     }
 
-    public GsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3) {
-        this(id, layoutArea, type, width, height, 0, color1, color2, color3, null);
-    }
-
-    public GsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3, String paramJson) {
-        this(id, layoutArea, type, width, height, 0, color1, color2, color3, paramJson);
-    }
-
-    public GsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3) {
-        this(id, layoutArea, type, width, height, heightAdd, color1, color2, color3, null);
-    }
-
-    public GsonRoot(float id, LayoutArea layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {
+    public GsonRoot(float id, int prj, int nuni, String name, LayoutArea layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {
         super.id = id;
+        this.prj = String.valueOf(prj);
+        this.nuni = nuni;
+        this.name = name;
         this.layout = layoutArea;
         this.type = type;
         this.width = width;
@@ -50,7 +41,7 @@ public class GsonRoot extends GsonElem {
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
-        this.param = paramJson;
+        this.param = paramJson;        
     }
 
     public void propery(String prj, int nuni, String name) {

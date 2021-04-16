@@ -75,7 +75,7 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.prj = 601003;
@@ -87,7 +87,7 @@ public class Test {
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.spcRec.artikl + ":" + it.getValue().joinElement2.spcRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else if (_case.equals("min")) {
-            List<Integer> prjList = (numDb == 1) ? Arrays.asList(604008, 604009)
+            List<Integer> prjList = (numDb == 1) ? Arrays.asList(604004, 604005, 604006, 604007, 604008, 604009, 604010)
                     : Arrays.asList(601001, 601002, 601003, 601004);
 
             for (int i : prjList) {
