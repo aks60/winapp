@@ -57,7 +57,7 @@ public class GsonElem {
         this.type = type;
         this.param = paramJson; //параметры элемента
     }
-    ////////////////////////////////////////////////////////////////////////////
+
     //Конструктор Elem
     public GsonElem(TypeElem elemType) {
         this.id = ++genId;

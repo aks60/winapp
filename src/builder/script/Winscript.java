@@ -392,31 +392,31 @@ public class Winscript {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
 
-            rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 900))
+            rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 633.33f))
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':147}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':286}"));
             rootGson.addElem(new GsonElem(TypeElem.IMPOST));
 
-            rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 900))
+            rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 633.33f))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':286}"));
             rootGson.addElem(new GsonElem(TypeElem.IMPOST));
 
-            rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 900))
+            rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 633.33f))
+                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2, 'sysfurnID':147}"))
+                    .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':286}"));
+            rootGson.addElem(new GsonElem(TypeElem.IMPOST));
+
+            rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 633.33f))
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':147}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':286}"));
             rootGson.addElem(new GsonElem(TypeElem.IMPOST));
 
-            rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 900))
-                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':147}"))
+            rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 633.33f))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':286}"));
             rootGson.addElem(new GsonElem(TypeElem.IMPOST));
 
-            rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 900))
-                    .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':286}"));
-            rootGson.addElem(new GsonElem(TypeElem.IMPOST));
-
-            rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 900))
-                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':147}"))
+            rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 633.33f))
+                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2, 'sysfurnID':147}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':286}"));
             rootGson.addElem(new GsonElem(TypeElem.IMPOST));
         } else {
