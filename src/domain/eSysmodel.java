@@ -10,7 +10,7 @@ public enum eSysmodel implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     npp("4", "10", "0", "Номе п/п", "npp"),
     name("12", "128", "1", "Название типового изделия", "name"),
-    script("12", "2048", "0", "Скрипт построения окна", "script"),
+    script("12", "4096", "0", "Скрипт построения окна", "script"),
     form("4", "10", "0", "Тип", "form");
 
     private MetaField meta = new MetaField(this);

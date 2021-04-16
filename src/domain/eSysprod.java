@@ -9,7 +9,7 @@ public enum eSysprod implements Field {
     up("0", "0", "0", "Cписок типовых изделий", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "128", "1", "Название изделия", "name"),
-    script("12", "2048", "0", "Скрипт построения окна", "script"),
+    script("12", "4096", "0", "Скрипт построения окна", "script"),
     systree_id("4", "10", "0", "Ссылка", "systree_id");
 
     private MetaField meta = new MetaField(this);
