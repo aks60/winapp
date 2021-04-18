@@ -1,4 +1,4 @@
-package builder.calc;
+package builder.calculate;
 
 import dataset.Record;
 import domain.eArtikl;
