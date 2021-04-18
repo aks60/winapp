@@ -6,12 +6,12 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eSysprof;
 import enums.UseUnit;
-import builder.specif.SpecificRec;
+import builder.calc.SpecificRec;
 import enums.UseArtiklTo;
 import java.awt.Color;
 import java.util.HashMap;
 import builder.Wincalc;
-import builder.specif.SpecificAdd;
+import builder.calc.SpecificAdd;
 
 public abstract class ElemSimple extends Com5t {
 

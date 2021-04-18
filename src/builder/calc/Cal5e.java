@@ -1,4 +1,4 @@
-package builder.specif;
+package builder.calc;
 
 import domain.eArtikl;
 import enums.UseUnit;

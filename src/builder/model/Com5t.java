@@ -7,7 +7,7 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import java.util.LinkedList;
 import builder.Wincalc;
-import builder.specif.SpecificAdd;
+import builder.calc.SpecificAdd;
 
 public abstract class Com5t {
 

@@ -11,7 +11,7 @@ import enums.UseArtiklTo;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.specif.Util;
+import builder.calc.Util;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;

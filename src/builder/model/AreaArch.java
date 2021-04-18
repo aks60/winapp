@@ -6,7 +6,7 @@ import enums.TypeJoin;
 import enums.LayoutArea;
 import enums.TypeElem;
 import builder.Wincalc;
-import builder.specif.SpecificRec;
+import builder.calc.SpecificRec;
 import enums.TypeArtikl;
 
 public class AreaArch extends AreaSimple {

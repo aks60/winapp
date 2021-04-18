@@ -10,7 +10,7 @@ import enums.LayoutArea;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import builder.specif.SpecificRec;
+import builder.calc.SpecificRec;
 import enums.PKjson;
 import java.util.HashMap;
 

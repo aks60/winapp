@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import startup.Main;
 import builder.Wincalc;
-import builder.specif.SpecificRec;
+import builder.calc.SpecificRec;
 import builder.model.Com5t;
 
 public class Par5s {

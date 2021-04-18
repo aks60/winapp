@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import builder.Wincalc;
-import builder.specif.SpecificRec;
+import builder.calc.SpecificRec;
 import dataset.Query;
 import domain.eSysprod;
 import java.awt.Component;

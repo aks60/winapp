@@ -1,11 +1,11 @@
-package builder.specif;
+package builder.calc;
 
 import builder.Wincalc;
 import domain.eArtikl;
 import enums.LayoutArea;
 import enums.ParamList;
 import enums.UseUnit;
-import builder.specif.SpecificRec;
+import builder.calc.SpecificRec;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
