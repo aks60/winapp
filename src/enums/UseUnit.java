@@ -7,7 +7,7 @@ public enum UseUnit implements Enam {
     METR2(2, "кв.м."),
     PIE(3, "шт."),
     ML(4, "мл."),
-    SET(5, "комп."),
+    KIT(5, "комп."),
     GRAM(6, "грамм."),
     KG(7, "кг."),
     LITER(8, "литр"),
