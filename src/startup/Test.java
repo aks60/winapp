@@ -66,6 +66,7 @@ public class Test {
             //json();
             //parse();
             //uid();
+            
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -78,7 +79,7 @@ public class Test {
         String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.prj = 601003;
+            iwin.prj = 601001;
             iwin.build(builder.script.Winscript.test(iwin.prj, false));
             iwin.constructiv(true);
             //Specification.write_txt1(iwin.listSpec);

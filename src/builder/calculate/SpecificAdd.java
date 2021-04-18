@@ -29,7 +29,7 @@ public class SpecificAdd {
         String ps = spcAdd.getParam("null", 25013); //Укорочение от
         List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
         float dx = spcAdd.getParam(25030); //"Укорочение, мм"
-        
+
         if (list.get(0).equals(ps)) {
             return spcRec.width - dx;
 
@@ -48,21 +48,26 @@ public class SpecificAdd {
     }
 
     //Расчёт количества ед. с шагом
-    public int calcCountStep(SpecificRec spcRec, SpecificRec spcAdd) {
+    public int calcCountStep(ElemSimple elem5e, SpecificRec spcAdd) {
 
-        int step = Integer.valueOf(spcAdd.getParam(1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
-        if (step > 1) {
+        //if (UseUnit.PIE.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
+        int step = Integer.valueOf(spcAdd.getParam(-1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
+        if (step != -1) {
             float width_begin = Float.valueOf(spcAdd.getParam(0, 11040, 14040, 24040, 33040, 38040)); //Порог расчета, мм
             int count_step = Integer.valueOf(spcAdd.getParam(1, 11060, 14060, 24060, 33060, 38060)); //"Количество на шаг"
+            float width_next = elem5e.length() - width_begin;
 
-            float count = (spcRec.width - width_begin) / step;
-            if ((spcRec.width - width_begin) % count_step == 0) {
-
-                count = count + 1;
+            int count = (int) width_next / step;
+            if (count_step == 1) {
+                return (width_next % step > 0) ? ++count : count;
+            } else {
+                int count2 = (int) width_next / step;
+                int count3 = (int) (width_next % step) / (step / count_step);
+                return ((width_next % step) % (step / count_step) > 0) ? count2 * count_step + count3 + 1 : count2 * count_step + count3;
             }
-            return (width_begin != 0) ? (int) (count + 1) : (int) count;
         }
-        return spcAdd.count;
+        //}
+        return 0;
     }
 
     //Количество ед.

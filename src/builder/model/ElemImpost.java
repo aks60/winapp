@@ -122,7 +122,7 @@ public class ElemImpost extends ElemSimple {
     public void addSpecific(SpecificRec spcAdd) {
 
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count = spc7d.calcCountStep(spcRec, spcAdd); //кол. ед. с шагом
+        spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
         spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //поправка мм
         spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра        
 
