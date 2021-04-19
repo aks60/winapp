@@ -29,7 +29,7 @@ public class AreaStvorka extends AreaSimple {
 
     public Record sysfurnRec = eSysfurn.up.newRecord(); //фурнитура
     public TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
-    public Record handleRec = eArtikl.up.newRecord(); //ручка
+    public Record handleRec = null; //eArtikl.up.newRecord(); //ручка
     public int handleColor = -3; //цвет ручки
     public float handleHeight = 0; //высота ручки
     public LayoutHandle handleLayout = LayoutHandle.SET; //положение ручки на створке       

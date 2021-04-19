@@ -124,7 +124,7 @@ public class Furniture extends Cal5e {
         try {
             Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
 
-            //Сделано для убыстрения поиска ручки при конструировании окна. Если ручки нет то сразу выход.
+            //Сделано для убыстрения поиска ручки при конструировании окна. Если ручки нет (eArtikl.level1) != 2) то сразу выход.
             if (takeHandle == true) {                
                 if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)
                         && furndetRec.get(eFurndet.furniture_id2) == null) {
@@ -191,10 +191,10 @@ public class Furniture extends Cal5e {
 
                         //Пишем ручку в створку
                         if (takeHandle == true && artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
-                            if (artiklRec.getStr(eArtikl.name).toLowerCase().contains("ручк")) {
+                            //if (artiklRec.getStr(eArtikl.name).toLowerCase().contains("ручк")) {
                                 areaStv.handleRec = artiklRec;
                                 areaStv.handleColor = spcAdd.colorID1;
-                            }
+                            //}
                         }
                         spcAdd.count = Integer.valueOf(spcAdd.getParam(spcAdd.count, 24030));
                         spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов

@@ -578,8 +578,10 @@ public class Systree extends javax.swing.JFrame {
                     txt31.setEditable(false);
                     txt31.setText("");
                 }
-                iwin.calcFurniture = new builder.calculate.Furniture(iwin, true); //фурнитура 
-                iwin.calcFurniture.calc();
+                //if (stv.handleRec == null) { 
+                    iwin.calcFurniture = new builder.calculate.Furniture(iwin, true); //фурнитура 
+                    iwin.calcFurniture.calc();
+                //}
                 txt21.setText(stv.handleRec.getStr(eArtikl.code));
                 txt24.setText(Util.df.format(iwin.rootGson.find(stv.id()).width()));
                 txt26.setText(Util.df.format(iwin.rootGson.find(stv.id()).height()));
@@ -2816,11 +2818,12 @@ public class Systree extends javax.swing.JFrame {
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 11");
             Query qArtikl2 = new Query(eArtikl.values());
             for (Record furndetRec : qFurndet) { //первый уровень
-                for (Record artiklRec : qArtikl) {
+                for (Record artiklRec : qArtikl) { //все ручки первого уровня
                     if (furndetRec.getInt(eFurndet.artikl_id) == artiklRec.getInt(eArtikl.id)) {
                         qArtikl2.add(artiklRec);
                     }
                 }
+
                 Query qFurndet2 = new Query(eFurndet.values()).select(eFurndet.up, "where",
                         eFurndet.furndet_id, "=", furndetRec.getInt(eFurndet.id), "and", eFurndet.furndet_id, "!=", eFurndet.id);
                 for (Record furndet2Rec : qFurndet2) { //второй уровень

@@ -374,8 +374,10 @@ public class Order extends javax.swing.JFrame {
                     txt31.setEditable(false);
                     txt31.setText("");
                 }
-                iwin.calcFurniture = new builder.calculate.Furniture(iwin, true); //фурнитура 
-                iwin.calcFurniture.calc();
+                //if (stv.handleRec == null) {
+                    iwin.calcFurniture = new builder.calculate.Furniture(iwin, true); //фурнитура 
+                    iwin.calcFurniture.calc();
+                //}
                 txt21.setText(stv.handleRec.getStr(eArtikl.name));
                 txt24.setText(Util.df.format(iwin.rootGson.find(stv.id()).width()));
                 txt26.setText(Util.df.format(iwin.rootGson.find(stv.id()).height()));

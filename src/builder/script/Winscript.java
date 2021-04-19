@@ -161,11 +161,11 @@ public class Winscript {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 650))
-                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'sysprofID':1121, 'typeOpen':1,'sysfurnID':2335}"))
+                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'sysprofID':1121, 'typeOpen':1,'sysfurnID':2335, 'artiklHandl':2159}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':4663}"));
             rootGson.addElem(new GsonElem(TypeElem.IMPOST));
             rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 650))
-                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'sysprofID':1121, 'typeOpen':4,'sysfurnID':2916}"))
+                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'sysprofID':1121, 'typeOpen':4,'sysfurnID':2916, 'artiklHandl':2159}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':4663}"));
 
         } else if (project == 604004) {
