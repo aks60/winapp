@@ -95,12 +95,12 @@ public class ElemImpost extends ElemSimple {
         //На эскизе заход импоста не показываю, сразу пишу в спецификацию
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
             float zax = iwin().syssizeRec.getFloat(eSyssize.zax);
-            
+
             if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
                 ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
                 spcRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
-                
+
             } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
                 ElemSimple insideLeft = join(LayoutArea.LEFT), insideRight = join(LayoutArea.RIGHT);
                 spcRec.width = insideRight.x1 - insideLeft.x2 + zax * 2 + insideLeft.artiklRec.getFloat(eArtikl.size_falz) + insideRight.artiklRec.getFloat(eArtikl.size_falz);
@@ -110,20 +110,20 @@ public class ElemImpost extends ElemSimple {
             if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
                 spcRec.width = y2 - y1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
-                
+
             } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
                 spcRec.width = x2 - x1;
-                spcRec.height = artiklRec.getFloat(eArtikl.height);                
+                spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
         }
     }
 
     @Override //Вложеная спецификация  
-        public void addSpecific(SpecificRec spcAdd) { //добавление спесификаций зависимых элементов
+    public void addSpecific(SpecificRec spcAdd) { //добавление спесификаций зависимых элементов
 
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
-        spcAdd.quant1 += spc7d.calcKitCountStep(this, spcAdd); //кол. ед. с шагом
+        spcAdd.quant1 += spc7d.calcKitCountStep(this, spcAdd); //кол. с шагом
         spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //поправка мм
         spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра                
 
@@ -132,9 +132,14 @@ public class ElemImpost extends ElemSimple {
             spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
             spcAdd.anglCut1 = 90;
             spcAdd.anglCut2 = 90;
-        } 
-        
-        spcAdd.width += spcRec.width;
+        }
+
+        if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
+                && spcAdd.artiklRec.getInt(eArtikl.level1) == 3
+                && spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
+            spcAdd.width += spcRec.width;
+        }
+
         spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
         spcAdd.width = spcAdd.width * spc7d.calcCoeff(spcRec, spcAdd);//"[ * коэф-т ]"
 

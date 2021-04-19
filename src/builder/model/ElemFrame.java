@@ -110,7 +110,7 @@ public class ElemFrame extends ElemSimple {
 
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
-        spcAdd.quant1 += spc7d.calcKitCountStep(this, spcAdd); //кол. ед. с шагом
+        spcAdd.quant1 += spc7d.calcKitCountStep(this, spcAdd); //кол. с шагом
         spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //поправка мм
         spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра                
 
@@ -143,7 +143,11 @@ public class ElemFrame extends ElemSimple {
                 spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
             }
         } else {
-            spcAdd.width += spcRec.width;
+            if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
+                    && spcAdd.artiklRec.getInt(eArtikl.level1) == 3
+                    && spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
+                spcAdd.width += spcRec.width;
+            }
         }
         spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
         spcAdd.width = spcAdd.width * spc7d.calcCoeff(spcRec, spcAdd);//"[ * коэф-т ]"
