@@ -106,6 +106,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             }
         }
         ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(tab);
     }
 
     private void loadingWin() {
