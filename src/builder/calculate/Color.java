@@ -40,6 +40,9 @@ public class Color {
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
                             return false;
                         }
+                        if (spc.artiklRec.getInt(eArtikl.level1) == 2 && (spc.artiklRec.getInt(eArtikl.level2) == 11 || spc.artiklRec.getInt(eArtikl.level2) == 13)) {
+                            return false;
+                        }
                         spc.setColor(side, colorFromFirst(spc)); //первая в списке
                     }
                 } else if (colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id || colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id) {
