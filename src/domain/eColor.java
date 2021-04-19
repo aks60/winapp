@@ -61,7 +61,7 @@ public enum eColor implements Field {
 
     public static Record find(int _id) {
         if (_id == -3) {
-            return record();
+            return virtualRec();
         }
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
@@ -80,7 +80,7 @@ public enum eColor implements Field {
 
     public static Record find3(int _color_fk) {
         if (_color_fk == -3) {
-            return record();
+            return virtualRec();
         }
         if (Query.conf.equals("calc")) {
             if (_color_fk < 0) {
@@ -96,7 +96,7 @@ public enum eColor implements Field {
         }
     }
 
-    public static Record record() {
+    public static Record virtualRec() {
         Record record = up.newRecord();
         record.setNo(id, -3);
         record.setNo(code, 33240);

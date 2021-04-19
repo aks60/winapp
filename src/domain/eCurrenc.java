@@ -42,13 +42,13 @@ public enum eCurrenc implements Field {
 
     public static Record find(int _id) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(record());
+            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(virtualRec());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
-        return (recordList.isEmpty() == true) ? record() : recordList.get(0);
+        return (recordList.isEmpty() == true) ? virtualRec() : recordList.get(0);
     }
 
-    public static Record record() {
+    public static Record virtualRec() {
         Record record = up.newRecord();
         record.setNo(id, -3);
         record.setNo(cross_cour, 1);

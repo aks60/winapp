@@ -374,7 +374,7 @@ public class Order extends javax.swing.JFrame {
                     txt31.setEditable(false);
                     txt31.setText("");
                 }
-                //if (stv.handleRec == null) {
+                //if (stv.handleRec.getInt(eArtikl.id) == -3) {
                     iwin.calcFurniture = new builder.calculate.Furniture(iwin, true); //фурнитура 
                     iwin.calcFurniture.calc();
                 //}
