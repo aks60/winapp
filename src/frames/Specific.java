@@ -169,6 +169,7 @@ public class Specific extends javax.swing.JFrame {
         cbx1 = new javax.swing.JComboBox<>();
         cbx2 = new javax.swing.JComboBox<>();
         btnTest = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable() {
@@ -294,22 +295,40 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c038.gif"))); // NOI18N
+        btnRefresh.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnRefresh.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnRefresh.setFocusable(false);
+        btnRefresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRefresh.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnRefresh.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnRefresh.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnRefresh.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnRefresh.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefresh(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(cbx2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(18, 18, 18)
                 .addComponent(btnArtikles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -329,7 +348,8 @@ public class Specific extends javax.swing.JFrame {
                                 .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(cbx2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -375,15 +395,15 @@ public class Specific extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(1).setMaxWidth(60);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(46);
             tab1.getColumnModel().getColumn(2).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(3).setPreferredWidth(120);
-            tab1.getColumnModel().getColumn(4).setPreferredWidth(220);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tab1.getColumnModel().getColumn(4).setPreferredWidth(240);
             tab1.getColumnModel().getColumn(8).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(9).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(10).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(11).setPreferredWidth(30);
             tab1.getColumnModel().getColumn(12).setPreferredWidth(30);
             tab1.getColumnModel().getColumn(13).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(14).setPreferredWidth(24);
+            tab1.getColumnModel().getColumn(14).setPreferredWidth(30);
             tab1.getColumnModel().getColumn(15).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(16).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(17).setPreferredWidth(48);
@@ -476,7 +496,6 @@ public class Specific extends javax.swing.JFrame {
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         float id = Float.valueOf(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
-        System.out.println(id);
         String str = tab1.getValueAt(tab1.getSelectedRow(), 2).toString().substring(0, 3);
         SpecificRec recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         Record recordDet = recordSpc.detailRec;
@@ -514,6 +533,7 @@ public class Specific extends javax.swing.JFrame {
     private void cbxGroupBy(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupBy
         if (txtFilter.getText().isEmpty() == false) {
             JOptionPane.showMessageDialog(null, "Сначала закройте фильтр", "Предупреждение", JOptionPane.NO_OPTION);
+            return;
         }
 
         float id = (Util.getIndexRec(tab1) == -1) ? -1 : Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
@@ -575,12 +595,20 @@ public class Specific extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_btnTest
 
+    private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
+        int index = Util.getIndexRec(tab1);
+        createIwin();
+        loadingTab1(groups(1));
+        Util.setSelectedRow(tab1, index);
+    }//GEN-LAST:event_btnRefresh
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArtikles;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnConstructiv;
     private javax.swing.ButtonGroup btnGroup;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnTest;
     private javax.swing.JComboBox<String> cbx1;
@@ -605,9 +633,7 @@ public class Specific extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer0 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
-                    if (Float.valueOf(value.toString()) > 0) {
-                        value = df0.format(value);
-                    }
+                    value = (value.equals("virtual")) ? null : value;
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;
@@ -616,9 +642,7 @@ public class Specific extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer1 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
-                    if (Float.valueOf(value.toString()) > 0) {
-                        value = df1.format(value);
-                    }
+                    value = (Float.valueOf(value.toString()) > 0) ? df0.format(value) : null;
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;
@@ -627,9 +651,7 @@ public class Specific extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer2 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
-                    if (Float.valueOf(value.toString()) > 0) {
-                        value = df2.format(value);
-                    }
+                    value = (Float.valueOf(value.toString()) > 0) ? df1.format(value) : null;
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;
@@ -638,27 +660,37 @@ public class Specific extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
-                    if (Float.valueOf(value.toString()) > 0) {
-                        value = df3.format(value);
-                    }
+                    value = (Float.valueOf(value.toString()) > 0) ? df2.format(value) : null;
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;
             }
         };
-        tab1.getColumnModel().getColumn(8).setCellRenderer(cellRenderer1);
-        tab1.getColumnModel().getColumn(9).setCellRenderer(cellRenderer1);
-        tab1.getColumnModel().getColumn(10).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer0);
-        tab1.getColumnModel().getColumn(12).setCellRenderer(cellRenderer0);
-        tab1.getColumnModel().getColumn(13).setCellRenderer(cellRenderer0);
-        tab1.getColumnModel().getColumn(16).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(17).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(18).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(19).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(20).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer2);
+        DefaultTableCellRenderer cellRenderer4 = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                if (value != null) {
+                    value = (Float.valueOf(value.toString()) > 0) ? df3.format(value) : null;
+                }
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                return label;
+            }
+        };
+        tab1.getColumnModel().getColumn(5).setCellRenderer(cellRenderer0);
+        tab1.getColumnModel().getColumn(6).setCellRenderer(cellRenderer0);
+        tab1.getColumnModel().getColumn(7).setCellRenderer(cellRenderer0);
+        tab1.getColumnModel().getColumn(8).setCellRenderer(cellRenderer2);
+        tab1.getColumnModel().getColumn(9).setCellRenderer(cellRenderer2);
+        tab1.getColumnModel().getColumn(10).setCellRenderer(cellRenderer3);
+        tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer1);
+        tab1.getColumnModel().getColumn(12).setCellRenderer(cellRenderer1);
+        tab1.getColumnModel().getColumn(13).setCellRenderer(cellRenderer1);
+        tab1.getColumnModel().getColumn(16).setCellRenderer(cellRenderer3);
+        tab1.getColumnModel().getColumn(17).setCellRenderer(cellRenderer3);
+        tab1.getColumnModel().getColumn(18).setCellRenderer(cellRenderer3);
+        tab1.getColumnModel().getColumn(19).setCellRenderer(cellRenderer3);
+        tab1.getColumnModel().getColumn(20).setCellRenderer(cellRenderer3);
+        tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer3);
+        tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer3);
         TableColumnModel cm = tab1.getColumnModel();
         ColumnGroup angl = new ColumnGroup("Угол");
         angl.add(cm.getColumn(11));

@@ -37,8 +37,10 @@ public class Color {
                         spc.setColor(side, artdetColorFK);
 
                     } else {
-                        return false;
-                        //spc.setColor(side, colorFromFirst(spc)); //первая в списке
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                            return false;
+                        }
+                        spc.setColor(side, colorFromFirst(spc)); //первая в списке
                     }
                 } else if (colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id || colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id) {
                     artdetColorFK = colorFromArtikl(spc.artiklRec.getInt(eArtikl.id), side, elemColorID);
@@ -270,9 +272,9 @@ public class Color {
 
                             for (Record colmapRec : colmapList) {
                                 for (Record colmapRec2 : colmapList2) {
-                                    if (colmapRec.getInt(eColmap.colgrp_id) == colmapRec2.getInt(eColmap.colgrp_id) 
+                                    if (colmapRec.getInt(eColmap.colgrp_id) == colmapRec2.getInt(eColmap.colgrp_id)
                                             && colmapRec.getInt(eColmap.color_id1) == colmapRec2.getInt(eColmap.color_id1)) {
-                                        
+
                                         return colmapRec2.getInt(eColmap.color_id2);
                                     }
                                 }

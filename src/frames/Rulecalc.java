@@ -379,10 +379,7 @@ public class Rulecalc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        Object obj = ((DefTableModel) tab2.getModel()).getValueAt(0, 4);
-        Object obj2 = qRulecalc.get(0).get(eRulecalc.quant);
-        System.out.println(obj);
-        System.out.println(obj2);
+
     }//GEN-LAST:event_btnReport
 
     private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate

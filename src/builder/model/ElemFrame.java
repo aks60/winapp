@@ -144,8 +144,8 @@ public class ElemFrame extends ElemSimple {
             }
         } else {
             if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
-                    && spcAdd.artiklRec.getInt(eArtikl.level1) == 3
-                    && spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
+                    || spcAdd.artiklRec.getInt(eArtikl.level1) == 3
+                    || spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
                 spcAdd.width += spcRec.width;
             }
         }

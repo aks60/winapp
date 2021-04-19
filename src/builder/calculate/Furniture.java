@@ -201,7 +201,7 @@ public class Furniture extends Cal5e {
                     if (Color.colorFromProduct(spcAdd, 1)) {
 
                         //Пишем ручку в створку
-                        if (takeHandle == true && artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11)) { // || artiklRec.getInt(eArtikl.level2) == 13)) {
+                        if (takeHandle == true && artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
                             areaStv.handleRec = artiklRec;
                             areaStv.handleColor = spcAdd.colorID1;
                         }

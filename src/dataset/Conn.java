@@ -74,7 +74,7 @@ public class Conn {
         } catch (ClassNotFoundException e) {
             return eExcep.findDrive;
         } catch (SQLException e) {
-            System.out.println(e);
+            System.err.println(e);
             return eExcep.getError(e.getErrorCode());
         }
         return eExcep.yesConn;
