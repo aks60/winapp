@@ -12,6 +12,7 @@ import startup.Main;
 import builder.Wincalc;
 import builder.calculate.SpecificRec;
 import builder.model.Com5t;
+import enums.ParamList;
 
 public class Par5s {
 
@@ -78,21 +79,27 @@ public class Par5s {
     //Необработанные параметры
     protected void message(int code) {
         if (code >= 0) {
-            System.err.println("ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
+            if (ParamList.find(code).pass() != 0) {
+                System.err.println("ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
+            }
         }
     }
 
     //Необработанные параметры
     protected void message(HashMap<Integer, String> mapParam, int code) {
         if (code >= 0) {
-            System.err.println("ОШИБКА! КОД " + code + " VALUE " + mapParam.get(code) + " НЕ ОБРАБОТАНЫ.");
+            if (ParamList.find(code).pass() != 0) {
+                System.err.println("ОШИБКА! КОД " + code + " VALUE " + mapParam.get(code) + " НЕ ОБРАБОТАНЫ.");
+            }
         }
     }
 
     //Необработанные параметры
     protected void message(SpecificRec spc, int code) {
         if (code >= 0) {
-            System.err.println("ОШИБКА! ID " + spc.id + " КОД " + code + " VALUE " + spc.getParam(code) + " НЕ ОБРАБОТАНЫ.");
+            if (ParamList.find(code).pass() != 0) {
+                System.err.println("ОШИБКА! ID " + spc.id + " КОД " + code + " VALUE " + spc.getParam(code) + " НЕ ОБРАБОТАНЫ.");
+            }
         }
     }
 }
