@@ -352,7 +352,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
-        listener.action(eArtikl.up.newRecord());
+        listener.action(eArtikl.virtualRec());
         this.dispose();
     }//GEN-LAST:event_btnRemov
 

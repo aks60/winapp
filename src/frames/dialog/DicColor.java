@@ -33,8 +33,7 @@ public class DicColor extends javax.swing.JDialog {
     private Query qColorAll = new Query(eColor.values());
     private Query qColor = new Query(eColor.id, eColor.name);
     private boolean master = true;
-    
-    
+
     public DicColor(Frame parent, ListenerRecord listener) {
         this(parent, listener, true);
     }
@@ -332,7 +331,10 @@ public class DicColor extends javax.swing.JDialog {
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
         listener.action(eGroups.up.newRecord());
-        this.dispose();
+        if (tab2.getBorder() != null) {
+            listener.action(eColor.virtualRec());
+            this.dispose();
+        }
     }//GEN-LAST:event_btnRemov
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
@@ -359,10 +361,10 @@ public class DicColor extends javax.swing.JDialog {
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
-        } 
+        }
         if (evt.getClickCount() == 2) {
             btnChoice(null);
-        }         
+        }
     }//GEN-LAST:event_tabMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
