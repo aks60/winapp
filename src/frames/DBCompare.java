@@ -7,6 +7,8 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eSetting;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -40,6 +43,16 @@ public class DBCompare extends javax.swing.JFrame {
         Fld(Object o) {
         }
     }
+    private Connection cn = null;
+    private Graphics2D gc2d = null;
+    private JPanel paintPanel = new JPanel() {
+
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D gc2d = (Graphics2D) g;
+            gc2d.drawLine(0, 0, 40, 40);
+        }
+    };
 
     public DBCompare(Wincalc iwin) {
         initComponents();
@@ -47,6 +60,7 @@ public class DBCompare extends javax.swing.JFrame {
         loadingTab(iwin);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
+        pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
     }
 
     public void loadingTab(Wincalc iwin) {
@@ -64,7 +78,7 @@ public class DBCompare extends javax.swing.JFrame {
 
             //=== Таблица 1 ===
             ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
-            Connection cn = Test.connect1();
+            cn = Test.connect1();
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
             rs.next();
@@ -127,6 +141,12 @@ public class DBCompare extends javax.swing.JFrame {
                 vec.set(5, (float) vec.get(3) - (float) vec.get(4));
                 ((DefaultTableModel) tab3.getModel()).getDataVector().add(vec);
             }
+            
+            //=== Таблица  ===
+            st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rs = st.executeQuery("select * from SAVEELM where PUNIC = " + iwin.rootGson.prj); 
+            rs.close();
+            
         } catch (SQLException e) {
             println("Ошибка: DBCompare.iwinRec().  " + e);
         }
@@ -152,6 +172,11 @@ public class DBCompare extends javax.swing.JFrame {
         pan5 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
+        pan6 = new javax.swing.JPanel();
+        pan7 = new javax.swing.JPanel();
+        pan8 = new javax.swing.JPanel();
+        scr4 = new javax.swing.JScrollPane();
+        tab4 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -332,6 +357,34 @@ public class DBCompare extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Сравнение 2", pan5);
 
+        pan6.setLayout(new java.awt.BorderLayout());
+
+        pan7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pan7.setLayout(new java.awt.BorderLayout());
+        pan6.add(pan7, java.awt.BorderLayout.CENTER);
+
+        pan8.setPreferredSize(new java.awt.Dimension(400, 342));
+        pan8.setLayout(new java.awt.BorderLayout());
+
+        tab4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "X1", "Y1", "X2", "Y2"
+            }
+        ));
+        scr4.setViewportView(tab4);
+
+        pan8.add(scr4, java.awt.BorderLayout.CENTER);
+
+        pan6.add(pan8, java.awt.BorderLayout.EAST);
+
+        jTabbedPane1.addTab("Рисунок конструкции", pan6);
+
         center.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
@@ -413,13 +466,18 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
+    private javax.swing.JPanel pan6;
+    private javax.swing.JPanel pan7;
+    private javax.swing.JPanel pan8;
     private javax.swing.JScrollPane scr;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
+    private javax.swing.JScrollPane scr4;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
+    private javax.swing.JTable tab4;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
