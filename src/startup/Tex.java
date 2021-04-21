@@ -27,7 +27,6 @@ import frames.Specific;
  */
 public class Tex extends javax.swing.JFrame {
 
-    private Locale locale;
     private Wincalc iwin = new Wincalc();
     private javax.swing.Timer timer = null;
     private ListenerFrame listenerMenu;
@@ -37,11 +36,6 @@ public class Tex extends javax.swing.JFrame {
 
         initComponents();
         initElements();
-
-        locale = this.getLocale();
-        Locale loc = new Locale("ru", "RU");
-        this.setLocale(loc);
-        this.getInputContext().selectInputMethod(loc);
     }
 
     private void constructive() {
@@ -1060,8 +1054,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_btnHelp
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        this.setLocale(locale);
-        this.getInputContext().selectInputMethod(locale);
+
     }//GEN-LAST:event_windowClosed
 
     private void mnGroup1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGroup1

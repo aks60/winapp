@@ -367,7 +367,7 @@ public class Specific extends javax.swing.JFrame {
                 {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "  1", "  2", "гориз.", "<html>Кол.<br/>единиц", "<html>Единица<br/>измерения", "<html>Процент<br/> отхода", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "<html>Себест.<br/> за ед. измерения", "<html>Себест.<br/>с отх.", "<html>Стоим.<br/> без ск.", "<html>Стоим. <br/>со ск."
+                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "  1", "  2", "гориз.", "<html>Кол.<br/>единиц", "<html>Единица<br/>измерения", "<html>Процент<br/> отхода", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "за ед. изм.", "с отх.", "без ск.", "со ск."
             }
         ) {
             Class[] types = new Class [] {
@@ -388,20 +388,20 @@ public class Specific extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(36);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(24);
             tab1.getColumnModel().getColumn(0).setMaxWidth(40);
             tab1.getColumnModel().getColumn(1).setMinWidth(0);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(1).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(46);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(2).setMaxWidth(60);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(100);
             tab1.getColumnModel().getColumn(4).setPreferredWidth(240);
             tab1.getColumnModel().getColumn(8).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(9).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(10).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(11).setPreferredWidth(30);
-            tab1.getColumnModel().getColumn(12).setPreferredWidth(30);
+            tab1.getColumnModel().getColumn(11).setPreferredWidth(28);
+            tab1.getColumnModel().getColumn(12).setPreferredWidth(28);
             tab1.getColumnModel().getColumn(13).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(14).setPreferredWidth(30);
             tab1.getColumnModel().getColumn(15).setPreferredWidth(40);
@@ -696,7 +696,15 @@ public class Specific extends javax.swing.JFrame {
         angl.add(cm.getColumn(11));
         angl.add(cm.getColumn(12));
         angl.add(cm.getColumn(13));
+        ColumnGroup sebe = new ColumnGroup("Себестоимость");
+        sebe.add(cm.getColumn(19));
+        sebe.add(cm.getColumn(20));        
+        ColumnGroup cost = new ColumnGroup("Стоимость");
+        cost.add(cm.getColumn(21));
+        cost.add(cm.getColumn(22));        
         GroupableTableHeader header = (GroupableTableHeader) tab1.getTableHeader();
+        header.addColumnGroup(sebe);
         header.addColumnGroup(angl);
+        header.addColumnGroup(cost);
     }
 }

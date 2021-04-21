@@ -60,12 +60,15 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            wincalc();
+            //wincalc();
             //query();
             //frame();
             //json();
             //parse();
             //uid();
+//            Locale.setDefault(new Locale("en", "RU"));
+//            double dd = 9.88;
+//            System.out.println(dd);
             
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);

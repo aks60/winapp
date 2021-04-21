@@ -18,7 +18,6 @@ import javax.swing.UIManager;
 
 public class Man extends javax.swing.JFrame {
 
-    private Locale locale;
     private Wincalc iwin = new Wincalc();
     private javax.swing.Timer timer = null;
     private ListenerFrame listenerMenu;
@@ -27,11 +26,6 @@ public class Man extends javax.swing.JFrame {
     public Man() {
         initComponents();
         initElements();
-
-        locale = this.getLocale();
-        Locale loc = new Locale("ru", "RU");
-        this.setLocale(loc);
-        this.getInputContext().selectInputMethod(loc);
     }
 
     private void mnLookAndFeel(java.awt.event.ActionEvent evt) {
@@ -472,8 +466,7 @@ public class Man extends javax.swing.JFrame {
     }//GEN-LAST:event_mnExit
 
     private void wndowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_wndowClosed
-        this.setLocale(locale);
-        this.getInputContext().selectInputMethod(locale);
+
     }//GEN-LAST:event_wndowClosed
 
     private void windowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosing

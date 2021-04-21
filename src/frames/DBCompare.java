@@ -49,8 +49,20 @@ public class DBCompare extends javax.swing.JFrame {
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
+            double dx = .16;
+            double h = this.getHeight() / dx;
             Graphics2D gc2d = (Graphics2D) g;
-            gc2d.drawLine(0, 0, 40, 40);
+            gc2d.scale(.16, .16);
+            gc2d.translate(20, -40);
+            for (int i = 0; i < tab4.getRowCount(); i++) {
+                double x1 = (double) tab4.getValueAt(i, 4);
+                double y1 = (double) tab4.getValueAt(i, 5);
+                double x2 = (double) tab4.getValueAt(i, 6);
+                double y2 = (double) tab4.getValueAt(i, 7);
+                //gc2d.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2),  - (int) Math.round(y2));
+                gc2d.drawLine((int) Math.round(x1), (int) Math.round(h - y1), (int) Math.round(x2), (int) Math.round(h - y2));
+            }
+            //gc2d.rotate(30);
         }
     };
 
@@ -141,12 +153,31 @@ public class DBCompare extends javax.swing.JFrame {
                 vec.set(5, (float) vec.get(3) - (float) vec.get(4));
                 ((DefaultTableModel) tab3.getModel()).getDataVector().add(vec);
             }
-            
-            //=== Таблица  ===
+
+            //=== Таблица 4 ===
+            npp = 0;
+            ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
             st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rs = st.executeQuery("select * from SAVEELM where PUNIC = " + iwin.rootGson.prj); 
+            rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + punic + "order by TYPP");
+            while (rs.next()) {
+                Vector vectorRec = new Vector();
+                vectorRec.add(++npp);
+                vectorRec.add(rs.getObject("PUNIC"));
+                vectorRec.add(rs.getObject("ONUMB"));
+                vectorRec.add(rs.getObject("ANUMB"));
+                vectorRec.add(rs.getObject("C1X"));
+                vectorRec.add(rs.getObject("C1Y"));
+                vectorRec.add(rs.getObject("C2X"));
+                vectorRec.add(rs.getObject("C2Y"));
+                vectorRec.add(rs.getObject("ALENG"));
+                vectorRec.add(rs.getObject("ALEN1"));
+                vectorRec.add(rs.getObject("ALEN2"));
+                vectorRec.add(rs.getObject("RAD"));
+                vectorRec.add(rs.getObject("TYPP"));
+                ((DefaultTableModel) tab4.getModel()).getDataVector().add(vectorRec);
+            }
             rs.close();
-            
+
         } catch (SQLException e) {
             println("Ошибка: DBCompare.iwinRec().  " + e);
         }
@@ -360,28 +391,31 @@ public class DBCompare extends javax.swing.JFrame {
         pan6.setLayout(new java.awt.BorderLayout());
 
         pan7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pan7.setPreferredSize(new java.awt.Dimension(400, 4));
         pan7.setLayout(new java.awt.BorderLayout());
-        pan6.add(pan7, java.awt.BorderLayout.CENTER);
+        pan6.add(pan7, java.awt.BorderLayout.WEST);
 
-        pan8.setPreferredSize(new java.awt.Dimension(400, 342));
         pan8.setLayout(new java.awt.BorderLayout());
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "X1", "Y1", "X2", "Y2"
+                "№пп", "Проект", "Заказ", "Артикл", "X1", "Y1", "X2", "Y2", "Длина", "Ширина", "Высота", "Радиус", "Тип"
             }
         ));
+        tab4.setFillsViewportHeight(true);
         scr4.setViewportView(tab4);
+        if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(20);
+            tab4.getColumnModel().getColumn(2).setPreferredWidth(20);
+        }
 
         pan8.add(scr4, java.awt.BorderLayout.CENTER);
 
-        pan6.add(pan8, java.awt.BorderLayout.EAST);
+        pan6.add(pan8, java.awt.BorderLayout.CENTER);
 
         jTabbedPane1.addTab("Рисунок конструкции", pan6);
 

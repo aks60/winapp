@@ -430,16 +430,16 @@
                     <Column editable="true" title="&lt;html&gt;&#x41f;&#x440;&#x43e;&#x446;&#x435;&#x43d;&#x442;&lt;br/&gt; &#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;" type="java.lang.Object"/>
                     <Column editable="true" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;.&#x431;&#x435;&#x437;&lt;br/&gt;&#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;" type="java.lang.Object"/>
                     <Column editable="true" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;. &#x441; &lt;br/&gt;&#x43e;&#x442;&#x445;&#x43e;&#x434;&#x43e;&#x43c;" type="java.lang.Object"/>
-                    <Column editable="true" title="&lt;html&gt;&#x421;&#x435;&#x431;&#x435;&#x441;&#x442;.&lt;br/&gt; &#x437;&#x430; &#x435;&#x434;. &#x438;&#x437;&#x43c;&#x435;&#x440;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
-                    <Column editable="true" title="&lt;html&gt;&#x421;&#x435;&#x431;&#x435;&#x441;&#x442;.&lt;br/&gt;&#x441; &#x43e;&#x442;&#x445;." type="java.lang.Object"/>
-                    <Column editable="true" title="&lt;html&gt;&#x421;&#x442;&#x43e;&#x438;&#x43c;.&lt;br/&gt; &#x431;&#x435;&#x437; &#x441;&#x43a;." type="java.lang.Object"/>
-                    <Column editable="true" title="&lt;html&gt;&#x421;&#x442;&#x43e;&#x438;&#x43c;. &lt;br/&gt;&#x441;&#x43e; &#x441;&#x43a;." type="java.lang.Object"/>
+                    <Column editable="true" title="&#x437;&#x430; &#x435;&#x434;. &#x438;&#x437;&#x43c;." type="java.lang.Object"/>
+                    <Column editable="true" title="&#x441; &#x43e;&#x442;&#x445;." type="java.lang.Object"/>
+                    <Column editable="true" title="&#x431;&#x435;&#x437; &#x441;&#x43a;." type="java.lang.Object"/>
+                    <Column editable="true" title="&#x441;&#x43e; &#x441;&#x43a;." type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="autoResizeMode" type="int" value="0"/>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="40" minWidth="-1" prefWidth="36" resizable="true">
+                    <Column maxWidth="40" minWidth="-1" prefWidth="24" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -449,7 +449,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="60" minWidth="-1" prefWidth="46" resizable="true">
+                    <Column maxWidth="60" minWidth="-1" prefWidth="40" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -494,12 +494,12 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="28" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="28" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>

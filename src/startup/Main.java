@@ -4,6 +4,7 @@ import frames.LogoToDb;
 import common.FrameToFile;
 import common.eProfile;
 import common.eProperty;
+import java.util.Locale;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -23,20 +24,21 @@ public class Main {
 
     //java -jar C:\\Okna\\winapp\\dist\\winapp.jar tex loc
     public static void main(String[] args) {
-
+        Locale.setDefault(Locale.ENGLISH);
+        
         for (int index = 0; index < args.length; index++) {
             if (index == 0 && args[0].equals("adm")) {
                 Main.dev = true;
                 Main.profile = args[0];
-                
+
             } else if (index == 0 && args[0].equals("tex")) {
                 Main.dev = true;
                 Main.profile = args[0];
-                
+
             } else if (index == 0 && args[0].equals("man")) {
                 Main.dev = true;
                 Main.profile = args[0];
-            } 
+            }
             if (index == 1 && args[1].equals("loc")) {
                 Main.locate = true;
             }
