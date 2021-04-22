@@ -68,11 +68,13 @@ public class DBCompare extends javax.swing.JFrame {
                 double y1 = (double) tab4.getValueAt(i, 5);
                 double x2 = (double) tab4.getValueAt(i, 6);
                 double y2 = (double) tab4.getValueAt(i, 7);
-                
-                if (tab4.getValueAt(i, 12).equals(2)) {
+
+                if (tab4.getValueAt(i, 12).equals(1)) {
+                    g.setColor(java.awt.Color.BLACK);
+                } else if (tab4.getValueAt(i, 12).equals(2)) {
                     g.setColor(java.awt.Color.BLUE);
                 } else {
-                    g.setColor(java.awt.Color.BLACK);
+                    g.setColor(java.awt.Color.RED);
                 }
                 gc2d.drawLine((int) Math.round(x1), (int) Math.round(h2 - y1), (int) Math.round(x2), (int) Math.round(h2 - y2));
             }
