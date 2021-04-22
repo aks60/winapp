@@ -29,7 +29,7 @@ public class ElemGlass extends ElemSimple {
         initСonstructiv(param);
 
         if (TypeElem.ARCH == owner.type) {
-            setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2);
+            setDimension(0, 0, owner.x2, iwin().heightAdd - iwin().height);
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }
@@ -117,11 +117,7 @@ public class ElemGlass extends ElemSimple {
 
     @Override //Вложеная спецификация 
     public void addSpecific(SpecificRec spcAdd) {
-
-//        spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам.
-//        spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
-//        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //поправка мм
-//        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра     
+  
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
         spcAdd.quant1 += spc7d.calcKitCountStep(this, spcAdd); //кол. с шагом
