@@ -86,6 +86,25 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 return label;
             }
         });
+        new DefTableModel(tab2, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
+        tab2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (column == 2) {
+                    int index = table.convertRowIndexToModel(row);
+                    Object v = qModels.get(index).get(eSysmodel.values().length);
+                    if (v instanceof Icon) {
+                        Icon icon = (Icon) v;
+                        label.setIcon(icon);
+                    }
+                } else {
+                    label.setIcon(null);
+                }
+                return label;
+            }
+        });
     }
 
     private void loadingTab(JTable tab, int form) {
@@ -954,7 +973,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             loadingTab(tab1, 1001);
             ((CardLayout) west.getLayout()).show(west, "pan13");
         } else if (btnT2.isSelected()) {
-            loadingTab(tab1, 1008);
+            loadingTab(tab2, 1004);
             ((CardLayout) west.getLayout()).show(west, "pan14");
         } else if (btnT3.isSelected()) {
             selectionTab3(null);

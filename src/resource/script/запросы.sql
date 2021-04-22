@@ -23,6 +23,11 @@ select params_id, text from glaspar2 where params_id = 1010 union
 select params_id, text from joinpar1 where params_id = 1010 union
 select params_id, text from joinpar2 where params_id = 1010 order by 1
 
+//Поиск артикула в конструктиве
+--select * from VSTASPC where anumb = 'Самор.3,9х25 с/св'
+--select * from CONNSPC where anumb = 'Самор.3,9х25 с/св'
+--select * from GLASART where anumb = 'Самор.3,9х25 с/св'
+--select * from FURNSPC where anumb = 'Самор.3,9х25 с/св'
 
 select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from elemdet  union
 select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from glasdet  union

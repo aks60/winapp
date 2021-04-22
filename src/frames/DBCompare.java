@@ -69,7 +69,7 @@ public class DBCompare extends javax.swing.JFrame {
                 double x2 = (double) tab4.getValueAt(i, 6);
                 double y2 = (double) tab4.getValueAt(i, 7);
 
-                if (tab4.getValueAt(i, 12).equals(1)) {
+                if (tab4.getValueAt(i, 12).equals(1) || tab4.getValueAt(i, 12).equals(3)) {
                     g.setColor(java.awt.Color.BLACK);
                 } else if (tab4.getValueAt(i, 12).equals(2)) {
                     g.setColor(java.awt.Color.BLUE);
