@@ -112,7 +112,7 @@ public class Tex extends javax.swing.JFrame {
         btnT8 = new javax.swing.JToggleButton();
         btnT9 = new javax.swing.JToggleButton();
         tb4 = new javax.swing.JToolBar();
-        btn41 = new javax.swing.JButton();
+        btnTest = new javax.swing.JButton();
         btn42 = new javax.swing.JButton();
         mn0 = new javax.swing.JMenuBar();
         mn01 = new javax.swing.JMenu();
@@ -517,21 +517,17 @@ public class Tex extends javax.swing.JFrame {
         tb4.setMinimumSize(new java.awt.Dimension(70, 28));
         tb4.setPreferredSize(new java.awt.Dimension(70, 28));
 
-        btn41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c013.gif"))); // NOI18N
-        btn41.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btn41.setFocusable(false);
-        btn41.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn41.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn41.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn41.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn41.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn41.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn41.addActionListener(new java.awt.event.ActionListener() {
+        btnTest.setText("Test");
+        btnTest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTest.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnTest.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnTest.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHelp(evt);
+                btnTest(evt);
             }
         });
-        tb4.add(btn41);
+        tb4.add(btnTest);
 
         btn42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         btn42.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -1040,19 +1036,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         });
     }//GEN-LAST:event_mnGroup2
 
-    private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
-//        FrameProgress.create(Tex.this, new ListenerFrame() {
-//            public void actionRequest(Object obj) {
-//                App.TestFrame.createFrame(Tex.this);
-//            }
-//        });          
-        FrameProgress.create(Tex.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {
-                App.DBCompare.createFrame(Tex.this, iwin);
-            }
-        });
-    }//GEN-LAST:event_btnHelp
-
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
 
     }//GEN-LAST:event_windowClosed
@@ -1064,6 +1047,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             }
         });
     }//GEN-LAST:event_mnGroup1
+
+    private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
+        FrameProgress.create(Tex.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.DBCompare.createFrame(Tex.this);
+            }
+        });
+    }//GEN-LAST:event_btnTest
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1081,7 +1072,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JButton btn25;
     private javax.swing.JButton btn26;
     private javax.swing.JButton btn27;
-    private javax.swing.JButton btn41;
     private javax.swing.JButton btn42;
     private javax.swing.JButton btn51;
     private javax.swing.JButton btn52;
@@ -1089,6 +1079,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JToggleButton btnT7;
     private javax.swing.JToggleButton btnT8;
     private javax.swing.JToggleButton btnT9;
+    private javax.swing.JButton btnTest;
     private javax.swing.ButtonGroup buttonBaseGroup1;
     private javax.swing.ButtonGroup buttonBaseGroup2;
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;

@@ -179,7 +179,11 @@ public enum App {
                     frame = new Syssize();
                     break;
                 case DBCompare:
-                    frame = new DBCompare((Wincalc) param[0]);
+                    if (param.length == 0) {
+                        frame = new DBCompare();
+                    } else {
+                        frame = new DBCompare((Wincalc) param[0]);
+                    }
                     break;
             }
         } catch (Exception e) {
@@ -222,7 +226,7 @@ public enum App {
                 Top.frame.setLocation(0, 0);
                 Top.frame.setSize(screenSize.width, Top.frame.getHeight()); //размеры гл. окна
             }
-            
+
             Top.frame.setVisible(true);
             //Top.frame.setExtendedState(JFrame.ICONIFIED);
             //Top.frame.setState(Frame.ICONIFIED);

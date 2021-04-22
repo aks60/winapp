@@ -49,20 +49,33 @@ public class DBCompare extends javax.swing.JFrame {
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            double dx = .16;
-            double h = this.getHeight() / dx;
             Graphics2D gc2d = (Graphics2D) g;
-            gc2d.scale(.16, .16);
-            gc2d.translate(20, -40);
+            double max_w = 0;
+            double max_h = 0;
+            for (int i = 0; i < tab4.getRowCount(); i++) {
+                double w = (double) tab4.getValueAt(i, 6);
+                max_w = (w >= max_w) ? w : max_w;
+                double h = (double) tab4.getValueAt(i, 7);
+                max_h = (h >= max_h) ? h : max_h;
+            }
+            double k = (getWidth() / max_w > getHeight() / max_h) ? getHeight() / (max_h + 40) : getWidth() / (max_w + 40);
+            double h2 = (this.getHeight()) / k;
+            gc2d.scale(k, k);
+            gc2d.translate(20, -20);
+
             for (int i = 0; i < tab4.getRowCount(); i++) {
                 double x1 = (double) tab4.getValueAt(i, 4);
                 double y1 = (double) tab4.getValueAt(i, 5);
                 double x2 = (double) tab4.getValueAt(i, 6);
                 double y2 = (double) tab4.getValueAt(i, 7);
-                //gc2d.drawLine((int) Math.round(x1), (int) Math.round(y1), (int) Math.round(x2),  - (int) Math.round(y2));
-                gc2d.drawLine((int) Math.round(x1), (int) Math.round(h - y1), (int) Math.round(x2), (int) Math.round(h - y2));
+                
+                if (tab4.getValueAt(i, 12).equals(2)) {
+                    g.setColor(java.awt.Color.BLUE);
+                } else {
+                    g.setColor(java.awt.Color.BLACK);
+                }
+                gc2d.drawLine((int) Math.round(x1), (int) Math.round(h2 - y1), (int) Math.round(x2), (int) Math.round(h2 - y2));
             }
-            //gc2d.rotate(30);
         }
     };
 
@@ -73,6 +86,14 @@ public class DBCompare extends javax.swing.JFrame {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
+    }
+
+    public DBCompare() {
+        initComponents();
+        initElements();
+        loadingTab4();
+        pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
+        tabb.setSelectedIndex(3);
     }
 
     public void loadingTab(Wincalc iwin) {
@@ -179,7 +200,42 @@ public class DBCompare extends javax.swing.JFrame {
             rs.close();
 
         } catch (SQLException e) {
-            println("Ошибка: DBCompare.iwinRec().  " + e);
+            println("Ошибка: DBCompare.loadingTab().  " + e);
+        }
+    }
+
+    //=== Таблица 4 ===
+    public void loadingTab4() {
+        try {
+            int npp = 0;
+            ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
+            cn = Test.connect1();
+            Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            System.out.println("select * from SAVEELM where TYPP != 0 and PUNIC = " + txt19.getText() + " and ONUMB = " + txt20.getText() + " order by TYPP");
+            ResultSet rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + txt19.getText() + " and ONUMB = " + txt20.getText() + " order by TYPP");
+            while (rs.next()) {
+                Vector vectorRec = new Vector();
+                vectorRec.add(++npp);
+                vectorRec.add(rs.getObject("PUNIC"));
+                vectorRec.add(rs.getObject("ONUMB"));
+                vectorRec.add(rs.getObject("ANUMB"));
+                vectorRec.add(rs.getObject("C1X"));
+                vectorRec.add(rs.getObject("C1Y"));
+                vectorRec.add(rs.getObject("C2X"));
+                vectorRec.add(rs.getObject("C2Y"));
+                vectorRec.add(rs.getObject("ALENG"));
+                vectorRec.add(rs.getObject("ALEN1"));
+                vectorRec.add(rs.getObject("ALEN2"));
+                vectorRec.add(rs.getObject("RAD"));
+                vectorRec.add(rs.getObject("TYPP"));
+                ((DefaultTableModel) tab4.getModel()).getDataVector().add(vectorRec);
+            }
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            paintPanel.repaint();
+            rs.close();
+
+        } catch (SQLException e) {
+            println("Ошибка: DBCompare.loadingTab4().  " + e);
         }
     }
 
@@ -193,7 +249,7 @@ public class DBCompare extends javax.swing.JFrame {
         pan1 = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         center = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabb = new javax.swing.JTabbedPane();
         pan4 = new javax.swing.JPanel();
         scr = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -208,6 +264,12 @@ public class DBCompare extends javax.swing.JFrame {
         pan8 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        lab19 = new javax.swing.JLabel();
+        lab20 = new javax.swing.JLabel();
+        txt19 = new javax.swing.JTextField();
+        txt20 = new javax.swing.JTextField();
+        btn1 = new javax.swing.JButton();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -224,11 +286,11 @@ public class DBCompare extends javax.swing.JFrame {
         north.setPreferredSize(new java.awt.Dimension(800, 29));
         north.setLayout(new java.awt.BorderLayout());
 
-        pan2.setLayout(new java.awt.BorderLayout());
+        pan2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         lab1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lab1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        pan2.add(lab1, java.awt.BorderLayout.CENTER);
+        pan2.add(lab1);
 
         north.add(pan2, java.awt.BorderLayout.CENTER);
 
@@ -330,7 +392,7 @@ public class DBCompare extends javax.swing.JFrame {
 
         pan4.add(scr, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Спецификация\n", pan4);
+        tabb.addTab("Спецификация\n", pan4);
 
         pan3.setLayout(new java.awt.BorderLayout());
 
@@ -350,7 +412,7 @@ public class DBCompare extends javax.swing.JFrame {
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Сравнение 1", pan3);
+        tabb.addTab("Сравнение 1", pan3);
 
         pan5.setLayout(new java.awt.BorderLayout());
 
@@ -386,7 +448,7 @@ public class DBCompare extends javax.swing.JFrame {
 
         pan5.add(scr3, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Сравнение 2", pan5);
+        tabb.addTab("Сравнение 2", pan5);
 
         pan6.setLayout(new java.awt.BorderLayout());
 
@@ -415,11 +477,87 @@ public class DBCompare extends javax.swing.JFrame {
 
         pan8.add(scr4, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(263, 40));
+
+        lab19.setFont(frames.Util.getFont(0,0));
+        lab19.setText("PUNIC");
+        lab19.setToolTipText("");
+        lab19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab19.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab19.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab19.setPreferredSize(new java.awt.Dimension(98, 18));
+
+        lab20.setFont(frames.Util.getFont(0,0));
+        lab20.setText("ONUMB");
+        lab20.setToolTipText("");
+        lab20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab20.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab20.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab20.setPreferredSize(new java.awt.Dimension(98, 18));
+
+        txt19.setFont(frames.Util.getFont(0,0));
+        txt19.setText("1");
+        txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt19.setPreferredSize(new java.awt.Dimension(80, 18));
+        txt19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt19ActionPerformed(evt);
+            }
+        });
+
+        txt20.setFont(frames.Util.getFont(0,0));
+        txt20.setText("1");
+        txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt20.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        btn1.setText("Пересчитать");
+        btn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn1.setMaximumSize(new java.awt.Dimension(18, 18));
+        btn1.setMinimumSize(new java.awt.Dimension(18, 18));
+        btn1.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn1(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lab19, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lab20, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(126, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lab20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pan8.add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
         pan6.add(pan8, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Рисунок конструкции", pan6);
+        tabb.addTab("Рисунок конструкции", pan6);
 
-        center.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+        center.add(tabb, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
@@ -485,13 +623,26 @@ public class DBCompare extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tab1MousePressed
 
+    private void btn1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1
+        loadingTab4();
+    }//GEN-LAST:event_btn1
+
+    private void txt19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt19ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt19ActionPerformed
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">   
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn1;
+    private javax.swing.JButton btn7;
+    private javax.swing.JButton btn8;
     private javax.swing.JButton btnClose;
     private javax.swing.JPanel center;
     private javax.swing.JCheckBox checkFilter;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lab1;
+    private javax.swing.JLabel lab19;
+    private javax.swing.JLabel lab20;
     private javax.swing.JLabel labFilter;
     private javax.swing.JLabel labSum;
     private javax.swing.JPanel north;
@@ -512,6 +663,9 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
+    private javax.swing.JTabbedPane tabb;
+    private javax.swing.JTextField txt19;
+    private javax.swing.JTextField txt20;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
