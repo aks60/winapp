@@ -66,10 +66,6 @@ public class Test {
             //json();
             //parse();
             //uid();
-//            Locale.setDefault(new Locale("en", "RU"));
-//            double dd = 9.88;
-//            System.out.println(dd);
-            
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
