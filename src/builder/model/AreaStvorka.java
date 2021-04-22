@@ -237,23 +237,21 @@ public class AreaStvorka extends AreaSimple {
             ElemSimple elemT = mapFrame.get(LayoutArea.TOP);
             ElemSimple elemB = mapFrame.get(LayoutArea.BOTTOM);
 
-            float dy = iwin().heightAdd - iwin().height;
-
             if (typeOpen.id == 1 || typeOpen.id == 3) {
                 X1 = elemR.x1 + (elemR.x2 - elemR.x1) / 2;
                 Y1 = elemR.y1 + (elemR.y2 - elemR.y1) / 2;
-                iwin().draw.drawLine(elemL.x1, elemL.y1 + dy, elemR.x2, elemR.y1 + dy + (elemR.y2 - elemR.y1) / 2);
-                iwin().draw.drawLine(elemL.x1, elemL.y2 + dy, elemR.x2, elemR.y1 + dy + (elemR.y2 - elemR.y1) / 2);
+                iwin().draw.drawLine(elemL.x1, elemL.y1, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
+                iwin().draw.drawLine(elemL.x1, elemL.y2, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
 
             } else if (typeOpen.id == 2 || typeOpen.id == 4) {
                 X1 = elemL.x1 + (elemL.x2 - elemL.x1) / 2;
                 Y1 = elemL.y1 + (elemL.y2 - elemL.y1) / 2;
-                iwin().draw.drawLine(elemR.x2, elemR.y1 + dy, elemL.x1, elemL.y1 + dy + (elemL.y2 - elemL.y1) / 2);
-                iwin().draw.drawLine(elemR.x2, elemR.y2 + dy, elemL.x1, elemL.y1 + dy + (elemL.y2 - elemL.y1) / 2);
+                iwin().draw.drawLine(elemR.x2, elemR.y1, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
+                iwin().draw.drawLine(elemR.x2, elemR.y2, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
             }
             if (typeOpen.id == 3 || typeOpen.id == 4) {
-                iwin().draw.drawLine(elemB.x1, elemB.y2 + dy, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1 + dy);
-                iwin().draw.drawLine(elemB.x2, elemB.y2 + dy, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1 + dy);
+                iwin().draw.drawLine(elemB.x1, elemB.y2, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1);
+                iwin().draw.drawLine(elemB.x2, elemB.y2, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1);
             }
             iwin().draw.strokePolygon(X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
             DX = DX - 12;

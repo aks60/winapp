@@ -122,7 +122,6 @@ public class ElemGlass extends ElemSimple {
 //        spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
 //        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //поправка мм
 //        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра     
-
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
         spcAdd.quant1 += spc7d.calcKitCountStep(this, spcAdd); //кол. с шагом
@@ -215,9 +214,8 @@ public class ElemGlass extends ElemSimple {
             iwin().gc2d.fillArc((int) ((int) root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
         } else {
-            float h = iwin().heightAdd - iwin().height;
             iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                    new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);
+                    new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
         }
     }
 

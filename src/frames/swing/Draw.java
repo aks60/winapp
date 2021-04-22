@@ -23,14 +23,13 @@ public class Draw {
            iwin.gc2d.setStroke(new BasicStroke(6)); //толщина линии 
         } else {
            iwin.gc2d.setStroke(new BasicStroke(1)); //толщина линии 
-        }
-        float dy = iwin.heightAdd - iwin.height;   
+        }  
         iwin.gc2d.setColor(new java.awt.Color(rgbFill));
         iwin.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
-                new int[]{(int) (y1 + dy), (int) (y2 + dy), (int) (y3 + dy), (int) (y4 + dy)}, 4);
+                new int[]{(int) y1, (int) y2, (int) y3, (int) y4}, 4);
         iwin.gc2d.setColor(rgbStroke);
         iwin.gc2d.drawPolygon(new int[]{(int) (x1), (int) (x2), (int) (x3), (int) (x4)},
-                new int[]{(int) (y1 + dy), (int) (y2+ dy), (int) (y3 + dy), (int) (y4 + dy)}, 4);        
+                new int[]{(int) y1, (int) y2, (int) y3, (int) y4}, 4);        
     }
 
     public void strokeArc(double x, double y, double w, double h, double startAngle,

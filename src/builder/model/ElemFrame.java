@@ -158,10 +158,7 @@ public class ElemFrame extends ElemSimple {
     @Override
     public void paint() {
         float d1z = artiklRec.getFloat(eArtikl.height);
-        float h = iwin().heightAdd - iwin().height;
         float w = root().width();
-        float y1h = y1 + h;
-        float y2h = y2 + h;
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
         if (LayoutArea.ARCH == layout) { //прорисовка арки
@@ -186,7 +183,7 @@ public class ElemFrame extends ElemSimple {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
                 double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
-                iwin().draw.strokePolygon(x1, x2, x2, x1, y1, (float) (r - a - h), y2 - d1z, y2, rgb, borderColor);
+                iwin().draw.strokePolygon(x1, x2, x2, x1, y1, (float) (r - a), y2 - d1z, y2, rgb, borderColor);
             } else {
                 iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + d1z, y2 - d1z, y2, rgb, borderColor);
             }
@@ -195,7 +192,7 @@ public class ElemFrame extends ElemSimple {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
                 double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
-                iwin().draw.strokePolygon(x1, x2, x2, x1, (float) (r - a - h), y1, y2, y2 - d1z, rgb, borderColor);
+                iwin().draw.strokePolygon(x1, x2, x2, x1, (float) (r - a), y1, y2, y2 - d1z, rgb, borderColor);
             } else {
                 iwin().draw.strokePolygon(x1, x2, x2, x1, y1 + d1z, y1, y2, y2 - d1z, rgb, borderColor);
             }

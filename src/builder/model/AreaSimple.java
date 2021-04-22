@@ -68,7 +68,7 @@ public class AreaSimple extends Com5t {
     protected void initDimension(float width, float height) {
 
         if (owner() == null) { //для root area
-            setDimension(0, 0, width, height);
+            setDimension(0, iwin().heightAdd - iwin().height, width, iwin().heightAdd - iwin().height + height);
 
         } else {
             //Первая area добавляемая в area владельца
@@ -257,7 +257,6 @@ public class AreaSimple extends Com5t {
                 }
                 Collections.sort(ls1);
                 Collections.sort(ls2);
-                float dy = iwin().heightAdd - iwin().height;
                 int mov = 80;
                 for (int i = 1; i < ls1.size(); i++) {
                     float x1 = ls1.get(i - 1), x2 = ls1.get(i);
@@ -265,7 +264,7 @@ public class AreaSimple extends Com5t {
                 }
                 for (int i = 1; i < ls2.size(); i++) {
                     float y1 = ls2.get(i - 1), y2 = ls2.get(i);
-                    line((this.x2 + mov), y1, (this.x2 + mov), y2, dy);
+                    line((this.x2 + mov), y1, (this.x2 + mov), y2, 0);
                 }
                 if (ls1.size() > 2) { //линия общей ширины
                     line(root().x1, iwin().heightAdd + mov * 2, root().x2, iwin().heightAdd + mov * 2, 0);
