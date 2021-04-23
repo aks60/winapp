@@ -574,7 +574,7 @@ public class Systree extends javax.swing.JFrame {
                     txt31.setText("");
                 }
                 //if (stv.handleRec.getInt(eArtikl.id) == -3) {
-                iwin.calcFurniture = new builder.calculate.Furniture(iwin, true); //фурнитура 
+                iwin.calcFurniture = new builder.making.Furniture(iwin, true); //фурнитура 
                 iwin.calcFurniture.calc();
                 //}
                 txt21.setText(stv.handleRec.getStr(eArtikl.code));
@@ -2674,7 +2674,7 @@ public class Systree extends javax.swing.JFrame {
             HashSet<Record> set = new HashSet();
             String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
             String jfield = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
-            Integer[] arr2 = builder.calculate.Util.parserInt(jfield);
+            Integer[] arr2 = builder.making.Util.parserInt(jfield);
             if (arr1 != null) {
                 for (String s1 : arr1) { //группы
                     HashSet<Record> se2 = new HashSet();

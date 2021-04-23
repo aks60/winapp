@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import startup.Main;
 import builder.Wincalc;
-import builder.calculate.SpecificRec;
+import builder.making.SpecificRec;
 import builder.model.Com5t;
 import enums.ParamList;
 

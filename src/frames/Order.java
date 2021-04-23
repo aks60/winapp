@@ -3,7 +3,7 @@ package frames;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
-import builder.calculate.SpecificRec;
+import builder.making.SpecificRec;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -377,7 +377,7 @@ public class Order extends javax.swing.JFrame {
                     txt31.setText("");
                 }
                 //if (stv.handleRec.getInt(eArtikl.id) == -3) {
-                    iwin.calcFurniture = new builder.calculate.Furniture(iwin, true); //фурнитура 
+                    iwin.calcFurniture = new builder.making.Furniture(iwin, true); //фурнитура 
                     iwin.calcFurniture.calc();
                 //}
                 txt21.setText(stv.handleRec.getStr(eArtikl.code));
@@ -2063,7 +2063,7 @@ public class Order extends javax.swing.JFrame {
                 Record systreeRec = eSystree.find(systreeID);
                 String[] arr1 = (systreeRec.getStr(eSystree.cgrp).isEmpty() == false) ? systreeRec.getStr(eSystree.cgrp).split(";") : null;
                 eSystree col = (evt.getSource() == btn9) ? eSystree.col1 : (evt.getSource() == btn13) ? eSystree.col2 : eSystree.col3;
-                Integer[] arr2 = builder.calculate.Util.parserInt(systreeRec.getStr(col));
+                Integer[] arr2 = builder.making.Util.parserInt(systreeRec.getStr(col));
                 if (arr1 != null) {
                     for (String s1 : arr1) { //группы
                         HashSet<Record> se2 = new HashSet();

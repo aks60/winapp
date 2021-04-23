@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import builder.Wincalc;
-import builder.calculate.Util;
+import builder.making.Util;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 
@@ -273,7 +273,7 @@ public class ElementVar extends Par5s {
                         }
                         break;
                     case 37010:  //Ограничение ширины/высоты листа, мм 
-                        if (builder.calculate.Util.containsFloat(rec.getStr(TEXT), elem5e.width(), elem5e.height()) == false) {
+                        if (builder.making.Util.containsFloat(rec.getStr(TEXT), elem5e.width(), elem5e.height()) == false) {
                             return false;
                         }
                         break;

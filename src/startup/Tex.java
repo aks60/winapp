@@ -905,7 +905,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     App.Element.createFrame(Tex.this);
                 } else {
                     constructive();
-                    iwin.calcElements = new builder.calculate.Elements(iwin);
+                    iwin.calcElements = new builder.making.Elements(iwin);
                     iwin.calcElements.calc();
                     App.Element.createFrame(Tex.this, iwin.calcElements.listVariants);
                 }
@@ -921,7 +921,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     App.Furniture.createFrame(Tex.this);
                 } else {
                     constructive();
-                    iwin.calcFurniture = new builder.calculate.Furniture(iwin); //фурнитура 
+                    iwin.calcFurniture = new builder.making.Furniture(iwin); //фурнитура 
                     iwin.calcFurniture.calc();
                     App.Furniture.createFrame(Tex.this, iwin.calcFurniture.listVariants);
                 }
@@ -946,7 +946,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     App.Joining.createFrame(Tex.this);
                 } else {
                     constructive();
-                    iwin.calcJoining = new builder.calculate.Joining(iwin);
+                    iwin.calcJoining = new builder.making.Joining(iwin);
                     iwin.calcJoining.calc();
                     App.Joining.createFrame(Tex.this, iwin.calcJoining.listVariants);
 
@@ -963,7 +963,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     App.Filling.createFrame(Tex.this);
                 } else {
                     constructive();
-                    iwin.calcFilling = new builder.calculate.Filling(iwin);
+                    iwin.calcFilling = new builder.making.Filling(iwin);
                     iwin.calcFilling.calc();
                     App.Filling.createFrame(Tex.this, iwin.calcFilling.listVariants);
                 }
