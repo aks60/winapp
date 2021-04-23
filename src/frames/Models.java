@@ -31,13 +31,13 @@ import javax.swing.JOptionPane;
 import javax.swing.tree.TreePath;
 
 public class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
-
+    
     public Wincalc iwin = new Wincalc();
     private Window owner = null;
     private ListenerRecord listenet = null;
     private Canvas paintPanel = new Canvas(iwin);
     private Query qModels = new Query(eSysmodel.values());
-
+    
     public Models() {
         initComponents();
         initElements();
@@ -47,7 +47,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         btnRemov.setVisible(false);
         loadingTab(tab1, 1001);
     }
-
+    
     public Models(java.awt.Window owner, ListenerRecord listener) {
         initComponents();
         initElements();
@@ -58,19 +58,19 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         owner.setEnabled(false);
         loadingTab(tab1, 1001);
     }
-
+    
     private void loadingData() {
         //
     }
-
+    
     private void loadingModel() {
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
         new DefTableModel(tab1, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
         tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-
+            
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
+                
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
                     int index = table.convertRowIndexToModel(row);
@@ -87,9 +87,9 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         new DefTableModel(tab2, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
         tab2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-
+            
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
+                
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
                     int index = table.convertRowIndexToModel(row);
@@ -105,20 +105,20 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             }
         });
     }
-
+    
     private void loadingTab(JTable tab, int form) {
-
+        
         qModels.select(eSysmodel.up, "where", eSysmodel.form, "=", form);
         DefaultTableModel dm = (DefaultTableModel) tab.getModel();
         dm.getDataVector().removeAllElements();
-
+        
         int length = 68;
         for (Record record : qModels.table(eSysmodel.up)) {
             try {
                 Object script = record.get(eSysmodel.script);
                 ImageIcon image = Util.createWindraw(iwin, script, length);
                 record.add(image);
-
+                
             } catch (Exception e) {
                 System.err.println("Ошибка:Models.loadingTab() " + e);
             }
@@ -126,19 +126,19 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab);
     }
-
+    
     private void loadingWin() {
         try {
             DefMutableTreeNode root = iwin.rootArea.treeWin(iwin);
             tree.setModel(new DefaultTreeModel(root));
             Util.expandTree(tree, new TreePath(root), true);
             tree.setSelectionRow(0);
-
+            
         } catch (Exception e) {
             System.err.println("Ошибка: Systree.loadingWin() " + e);
         }
     }
-
+    
     private void selectionTab1(ListSelectionEvent event) {
         int index = Util.getIndexRec(tab1);
         if (index != -1) {
@@ -147,7 +147,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             paintPanel.repaint(true);
         }
     }
-
+    
     private void selectionTab2(ListSelectionEvent event) {
         int index = Util.getIndexRec(tab2);
         if (index != -1) {
@@ -156,36 +156,36 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             paintPanel.repaint(true);
         }
     }
-
+    
     private void selectionTab3(ListSelectionEvent event) {
-
+        
     }
-
+    
     private void selectionTree() {
-
+        
         DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.com5t().type() == TypeElem.RECTANGL || selectedNode.com5t().type() == TypeElem.ARCH) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan19");
-
+                
             } else if (selectedNode.com5t().type() == TypeElem.AREA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan20");
-
+                
             } else if (selectedNode.com5t().type() == TypeElem.FRAME_SIDE) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan21");
-
+                
             } else if (selectedNode.com5t().type() == TypeElem.STVORKA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan22");
-
+                
             } else if (selectedNode.com5t().type() == TypeElem.IMPOST) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan23");
-
+                
             } else if (selectedNode.com5t().type() == TypeElem.GLASS) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan24");
             }
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -484,6 +484,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 return canEdit [columnIndex];
             }
         });
+        tab1.setFillsViewportHeight(true);
         tab1.setRowHeight(68);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -539,8 +540,14 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 return canEdit [columnIndex];
             }
         });
+        tab2.setFillsViewportHeight(true);
         tab2.setRowHeight(68);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setResizable(false);
@@ -581,8 +588,14 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 "Ном.п/п", "Наименование конструкции", "Рисунок конструкции"
             }
         ));
+        tab3.setFillsViewportHeight(true);
         tab3.setRowHeight(80);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(0).setPreferredWidth(20);
@@ -911,6 +924,12 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 paintPanel.paint(paintPanel.getGraphics());
                 Util.deleteRecord(tab1);
             }
+        } else if (tab2.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
+                iwin.rootArea = null;
+                paintPanel.paint(paintPanel.getGraphics());
+                Util.deleteRecord(tab2);
+            }
         }
     }//GEN-LAST:event_btnDelete
 
@@ -924,12 +943,21 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             record.set(eSysmodel.npp, qModels.size());
             record.set(eSysmodel.name, "<html>" + gson.prj + " " + gson.name);
             record.set(eSysmodel.script, json);
-            record.set(eSysmodel.form, 1001);
+            
+            if (tab1.getBorder() != null) {
+                record.set(eSysmodel.form, 1001);
+            } else if (tab2.getBorder() != null) {
+                record.set(eSysmodel.form, 1004);
+            }
             qModels.insert(record);
             if (tab1.getBorder() != null) {
                 loadingTab(tab1, 1001);
+                Util.setSelectedRow(tab1, qModels.size() - 1);
+                Util.scrollRectToIndex(qModels.size() - 1, tab1);                 
             } else if (tab2.getBorder() != null) {
-                loadingTab(tab2, 1008);
+                loadingTab(tab2, 1004);  
+                Util.setSelectedRow(tab2, qModels.size() - 1);
+                Util.scrollRectToIndex(qModels.size() - 1, tab2);                
             }
         }
     }//GEN-LAST:event_btnInsert
@@ -971,9 +999,13 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         if (btnT1.isSelected()) {
             loadingTab(tab1, 1001);
             ((CardLayout) west.getLayout()).show(west, "pan13");
+            Util.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2));
+            Util.setSelectedRow(tab1);
         } else if (btnT2.isSelected()) {
             loadingTab(tab2, 1004);
             ((CardLayout) west.getLayout()).show(west, "pan14");
+            Util.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2));
+            Util.setSelectedRow(tab2);            
         } else if (btnT3.isSelected()) {
             selectionTab3(null);
             ((CardLayout) west.getLayout()).show(west, "pan15");
@@ -1047,7 +1079,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     // End of variables declaration//GEN-END:variables
 // </editor-fold>
     private void initElements() {
-
+        
         new FrameToFile(this, btnClose);
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));

@@ -283,11 +283,11 @@ public class Winscript {
                     .addElem(new GsonElem(TypeElem.GLASS));
             area.addElem(new GsonElem(TypeElem.IMPOST));
             GsonElem area2 = (GsonElem) area.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 650));
-            area2.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 550))
+            area2.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 557))
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':701}"))
                     .addElem(new GsonElem(TypeElem.GLASS));
             area2.addElem(new GsonElem(TypeElem.IMPOST));
-            area2.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 850))
+            area2.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 843))
                     .addElem(new GsonElem(TypeElem.GLASS));
 
         } else if (project == 605001) {
