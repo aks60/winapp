@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import frames.Util;
 import dataset.Record;
 import enums.Enam;
@@ -8,7 +8,7 @@ import enums.LayoutFurn1;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 //Справочник наборов Tnum
 public class DicEnums extends javax.swing.JDialog {

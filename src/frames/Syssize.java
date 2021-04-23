@@ -1,6 +1,5 @@
 package frames;
 
-import common.FrameToFile;
 import dataset.Conn;
 import dataset.Query;
 import dataset.Record;
@@ -18,7 +17,7 @@ import frames.swing.DefTableModel;
 import java.util.Arrays;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 public class Syssize extends javax.swing.JFrame {
 

@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -10,7 +10,7 @@ import enums.UseSide;
 import frames.Util;
 import frames.swing.DefTableModel;
 import java.util.List;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 public class DicSysprof extends javax.swing.JDialog {
 

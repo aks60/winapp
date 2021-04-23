@@ -1,4 +1,4 @@
-package common;
+package frames.swing.listener;
 
 public interface ListenerObject {
 

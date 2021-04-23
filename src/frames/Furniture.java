@@ -1,7 +1,5 @@
 package frames;
 
-import common.FrameProgress;
-import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -49,8 +47,8 @@ import javax.swing.RowFilter;
 import startup.Main;
 import startup.App;
 import javax.swing.JOptionPane;
-import common.ListenerRecord;
-import common.ListenerFrame;
+import frames.swing.listener.ListenerRecord;
+import frames.swing.listener.ListenerFrame;
 
 public class Furniture extends javax.swing.JFrame {
 

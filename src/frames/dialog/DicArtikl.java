@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import frames.Util;
 import dataset.Field;
 import dataset.Query;
@@ -12,7 +12,7 @@ import java.util.Arrays;
 import frames.swing.DefTableModel;
 import java.util.List;
 import java.util.stream.Collectors;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 //Справочник артикулов
 public class DicArtikl extends javax.swing.JDialog {

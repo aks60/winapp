@@ -1,12 +1,12 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import frames.Util;
 import dataset.Record;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 public class ParGrup2b extends javax.swing.JDialog {
 

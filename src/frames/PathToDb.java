@@ -1,6 +1,5 @@
 package frames;
 
-import common.FrameToFile;
 import common.eProfile;
 import common.eProperty;
 import dataset.Conn;

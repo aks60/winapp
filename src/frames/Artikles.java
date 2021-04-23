@@ -1,7 +1,6 @@
 package frames;
 
 import frames.dialog.DicColor;
-import common.FrameToFile;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
@@ -40,7 +39,7 @@ import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 import javax.swing.event.ListSelectionListener;
 
 /**

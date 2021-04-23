@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import frames.Util;
 import dataset.Query;
 import dataset.Record;
@@ -14,7 +14,7 @@ import frames.swing.DefTableModel;
 import domain.eGroups;
 import enums.TypeGroups;
 import enums.UseColor;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 public class ParColor2 extends javax.swing.JDialog {
 

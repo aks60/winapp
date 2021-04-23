@@ -2,8 +2,6 @@ package frames;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import common.FrameProgress;
-import common.FrameToFile;
 import common.eProperty;
 import dataset.Record;
 import domain.eArtikl;
@@ -36,7 +34,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.App;
-import common.ListenerFrame;
+import frames.swing.listener.ListenerFrame;
 import common.eProfile;
 import domain.ePrjprod;
 import frames.swing.colgroup.ColumnGroup;

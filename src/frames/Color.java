@@ -1,6 +1,5 @@
 package frames;
 
-import common.FrameToFile;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
@@ -27,8 +26,8 @@ import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
-import common.ListenerSQL;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerSQL;
+import frames.swing.listener.ListenerRecord;
 
 public class Color extends javax.swing.JFrame {
 

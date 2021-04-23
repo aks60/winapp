@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import frames.Util;
 import dataset.Record;
 import enums.TypeJoin;
@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 public class DicJoinvar extends javax.swing.JDialog {
 

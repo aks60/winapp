@@ -1,5 +1,5 @@
 
-package common;
+package frames.swing.listener;
 
 import dataset.Record;
 

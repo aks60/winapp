@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import frames.Util;
 import enums.Enam;
 import dataset.Field;
@@ -15,7 +15,7 @@ import java.util.Vector;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 public class ParGrup2 extends javax.swing.JDialog {
 

@@ -1,13 +1,13 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import frames.Util;
 import dataset.Query;
 import dataset.Record;
 import domain.eParams;
 import javax.swing.table.TableColumn;
 import frames.swing.DefTableModel;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 public class ParGrup2a extends javax.swing.JDialog {
 

@@ -1,6 +1,5 @@
 package frames;
 
-import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
 import domain.ePrjpart;
@@ -15,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 import java.sql.ResultSet;
 import javax.swing.event.ListSelectionListener;
 

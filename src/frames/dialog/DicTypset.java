@@ -1,11 +1,11 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import frames.Util;
 import dataset.Record;
 import enums.TypeSet;
 import javax.swing.table.DefaultTableModel;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 //Тип состава
 public class DicTypset extends javax.swing.JDialog {

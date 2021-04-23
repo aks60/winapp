@@ -1,13 +1,13 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import frames.Util;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import common.ListenerObject;
+import frames.swing.listener.ListenerObject;
 
 /**
  *Календарь

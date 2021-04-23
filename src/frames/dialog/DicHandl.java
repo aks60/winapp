@@ -1,10 +1,10 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import dataset.Record;
 import domain.eFurniture;
 import java.util.ArrayList;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 //Справочник фурнитур
 public class DicHandl extends javax.swing.JDialog {

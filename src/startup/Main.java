@@ -1,7 +1,7 @@
 package startup;
 
 import frames.LogoToDb;
-import common.FrameToFile;
+import frames.FrameToFile;
 import common.eProfile;
 import common.eProperty;
 import java.util.Locale;

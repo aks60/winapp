@@ -1,6 +1,5 @@
 package frames;
 
-import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
 import domain.eSysmodel;
@@ -23,8 +22,8 @@ import frames.swing.Canvas;
 import java.awt.CardLayout;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import common.ListenerRecord;
-import common.ListenerFrame;
+import frames.swing.listener.ListenerRecord;
+import frames.swing.listener.ListenerFrame;
 import dataset.Conn;
 import frames.swing.DefTableModel;
 import java.util.Arrays;

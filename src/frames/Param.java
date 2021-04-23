@@ -1,6 +1,5 @@
 package frames;
 
-import common.FrameToFile;
 import dataset.Conn;
 import dataset.Query;
 import dataset.Record;
@@ -21,7 +20,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 public class Param extends javax.swing.JFrame {
 

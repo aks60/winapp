@@ -1,6 +1,5 @@
 package frames;
 
-import common.FrameToFile;
 import dataset.Conn;
 import dataset.Query;
 import dataset.Record;
@@ -15,7 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 public class Currenc extends javax.swing.JFrame {
 

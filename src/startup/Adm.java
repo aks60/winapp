@@ -1,7 +1,7 @@
 package startup;
 
-import common.FrameToFile;
-import common.ListenerFrame;
+import frames.FrameToFile;
+import frames.swing.listener.ListenerFrame;
 import common.eProfile;
 import common.eProperty;
 import convert.Profstroy;

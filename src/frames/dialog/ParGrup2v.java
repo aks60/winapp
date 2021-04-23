@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import frames.Util;
 import dataset.Field;
 import dataset.Query;
@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
 import javax.swing.JTable;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 

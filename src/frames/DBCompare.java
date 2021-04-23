@@ -2,7 +2,6 @@ package frames;
 
 import builder.Wincalc;
 import builder.making.SpecificRec;
-import common.FrameToFile;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSetting;

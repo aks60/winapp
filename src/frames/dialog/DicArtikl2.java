@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import frames.Util;
 import dataset.Query;
 import dataset.Record;
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 //Справочник артикулов
 public class DicArtikl2 extends javax.swing.JDialog {

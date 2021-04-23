@@ -1,7 +1,5 @@
 package frames;
 
-import common.FrameProgress;
-import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -42,9 +40,9 @@ import frames.swing.DefCellBoolRenderer;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.App;
-import common.ListenerRecord;
-import common.ListenerObject;
-import common.ListenerFrame;
+import frames.swing.listener.ListenerRecord;
+import frames.swing.listener.ListenerObject;
+import frames.swing.listener.ListenerFrame;
 
 public class Filling extends javax.swing.JFrame {
 

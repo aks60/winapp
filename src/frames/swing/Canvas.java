@@ -12,7 +12,7 @@ import builder.model.Com5t;
 import builder.model.ElemSimple;
 import enums.TypeElem;
 import java.util.LinkedList;
-import common.ListenerFrame;
+import frames.swing.listener.ListenerFrame;
 
 public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEvent> {
 

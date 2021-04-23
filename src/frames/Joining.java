@@ -5,8 +5,6 @@ import frames.dialog.ParGrup2b;
 import frames.dialog.ParColor2;
 import frames.dialog.ParGrup2a;
 import frames.dialog.DicArtikl;
-import common.FrameProgress;
-import common.FrameToFile;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -43,9 +41,9 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.Main;
 import startup.App;
-import common.ListenerRecord;
-import common.ListenerObject;
-import common.ListenerFrame;
+import frames.swing.listener.ListenerRecord;
+import frames.swing.listener.ListenerObject;
+import frames.swing.listener.ListenerFrame;
 
 //варианты соединений
 public class Joining extends javax.swing.JFrame {

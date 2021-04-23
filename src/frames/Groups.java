@@ -1,7 +1,6 @@
 package frames;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
-import common.FrameToFile;
 import dataset.Query;
 import domain.eGlaspar1;
 import domain.eGroups;

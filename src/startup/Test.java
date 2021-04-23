@@ -1,5 +1,6 @@
 package startup;
 
+import frames.FrameToFile;
 import builder.script.GsonRoot;
 import builder.script.Winscript;
 import common.*;
@@ -75,7 +76,7 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.prj = 604008;

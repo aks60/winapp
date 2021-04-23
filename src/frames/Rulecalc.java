@@ -1,6 +1,5 @@
 package frames;
 
-import common.FrameToFile;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
@@ -18,7 +17,7 @@ import java.util.stream.Stream;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 public class Rulecalc extends javax.swing.JFrame {
 

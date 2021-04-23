@@ -1,12 +1,12 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import frames.Util;
 import dataset.Record;
 import enums.UseColor;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 //Варианты текстур
 public class DicColvar extends javax.swing.JDialog {

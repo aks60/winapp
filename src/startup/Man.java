@@ -1,15 +1,15 @@
 package startup;
 
 import builder.Wincalc;
-import common.FrameProgress;
-import common.FrameToFile;
+import frames.FrameProgress;
+import frames.FrameToFile;
 import frames.Util;
 import java.awt.Frame;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import javax.swing.JCheckBoxMenuItem;
-import common.ListenerFrame;
+import frames.swing.listener.ListenerFrame;
 import common.eProfile;
 import common.eProperty;
 import frames.PathToDb;

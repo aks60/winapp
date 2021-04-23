@@ -1,6 +1,6 @@
 package frames.dialog;
 
-import common.FrameToFile;
+import frames.FrameToFile;
 import frames.Util;
 import dataset.Query;
 import dataset.Record;
@@ -17,7 +17,7 @@ import java.awt.CardLayout;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JToggleButton;
-import common.ListenerRecord;
+import frames.swing.listener.ListenerRecord;
 
 //TODO для справочника сделать вставку и редактирование
 public class DicGroups extends javax.swing.JDialog {
