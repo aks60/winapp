@@ -56,6 +56,9 @@ public class Specific extends javax.swing.JFrame {
         createIwin();
         loadingTab1(groups(1));
         Util.setSelectedRow(tab1);
+        tab1.setColumnSelectionInterval(3, 3);
+        labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn())));
+        txtFilter.setName(tab1.getName());        
     }
 
     private void createIwin() {
@@ -593,7 +596,7 @@ public class Specific extends javax.swing.JFrame {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         int index = Util.getIndexRec(tab1);
         createIwin();
-        loadingTab1(groups(1));
+        loadingTab1(groups(cbx1.getSelectedIndex()));
         Util.setSelectedRow(tab1, index);
     }//GEN-LAST:event_btnRefresh
 
@@ -693,10 +696,10 @@ public class Specific extends javax.swing.JFrame {
         angl.add(cm.getColumn(13));
         ColumnGroup sebe = new ColumnGroup("Себестоимость");
         sebe.add(cm.getColumn(19));
-        sebe.add(cm.getColumn(20));        
+        sebe.add(cm.getColumn(20));
         ColumnGroup cost = new ColumnGroup("Стоимость");
         cost.add(cm.getColumn(21));
-        cost.add(cm.getColumn(22));        
+        cost.add(cm.getColumn(22));
         GroupableTableHeader header = (GroupableTableHeader) tab1.getTableHeader();
         header.addColumnGroup(sebe);
         header.addColumnGroup(angl);

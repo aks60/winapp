@@ -70,8 +70,8 @@ public abstract class Com5t {
     public float length() {
         if (TypeElem.FRAME_SIDE == type() || TypeElem.STVORKA_SIDE == type()) {
             return (LayoutArea.TOP == layout() || LayoutArea.BOTTOM == layout()) ? x2 - x1 : y2 - y1;
-        }
-        return (LayoutArea.HORIZ == owner.layout()) ? x2 - x1 : y2 - y1;
+        } 
+        return (LayoutArea.HORIZ == layout()) ? x2 - x1 : y2 - y1;
     }
 
     public float width() {

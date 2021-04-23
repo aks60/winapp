@@ -87,7 +87,7 @@ public class DBCompare extends javax.swing.JFrame {
                 gc2d.drawLine((int) Math.round(x1), (int) Math.round(this.getHeight() / k - y2), (int) Math.round(x2), (int) Math.round(this.getHeight() / k - y1));
 
                 if (Double.valueOf(tab4.getValueAt(i, 11).toString()) > 0) {
-                    gc2d.drawArc((int) Math.round(x2), (int) Math.round(h2 - y2 - 100), (int) (x1-x2), 180, 0, 180);
+                    gc2d.drawArc((int) Math.round(x2), (int) Math.round(h2 - y2 - 100), (int) (x1 - x2), 180, 0, 180);
                 }
             }
         }
@@ -102,6 +102,9 @@ public class DBCompare extends javax.swing.JFrame {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
+        tab1.setColumnSelectionInterval(3, 3);
+        labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn())));
+        txtFilter.setName(tab1.getName());         
     }
 
     public DBCompare() {
@@ -112,6 +115,9 @@ public class DBCompare extends javax.swing.JFrame {
         loadingTab4();
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
         tabb.setSelectedIndex(3);
+        tab1.setColumnSelectionInterval(3, 3);
+        labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn())));
+        txtFilter.setName(tab1.getName());          
     }
 
     public void loadingData() {
