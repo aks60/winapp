@@ -171,46 +171,48 @@ public class AreaSimple extends Com5t {
         for (ElemSimple elemImp : impList) {
             //Цикл по сторонам рамы и импостам (т.к. в створке Т-обр. соединений нет)
             for (ElemSimple elem5e : elemList) {
+                if (elem5e.layout != LayoutArea.ARCH) { //для арки inside() не работает
+                    
+                    ElemJoining el = new ElemJoining(iwin());
+                    el.anglProf = 90;
+                    elemImp.anglCut1 = 90;
+                    elemImp.anglCut2 = 90;
 
-                ElemJoining el = new ElemJoining(iwin());
-                el.anglProf = 90;
-                elemImp.anglCut1 = 90;
-                elemImp.anglCut2 = 90;
+                    //Элементы расположены по горизонтали
+                    if (elemImp.owner().layout() == LayoutArea.HORIZ) {
+                        elemImp.anglHoriz = 90;
+                        float x3 = elemImp.x1 + (elemImp.x2 - elemImp.x1) / 2;
 
-                //Элементы расположены по горизонтали
-                if (elemImp.owner().layout() == LayoutArea.HORIZ) {
-                    elemImp.anglHoriz = 90;
-                    float x3 = elemImp.x1 + (elemImp.x2 - elemImp.x1) / 2;
+                        if (elem5e.inside(elemImp.x1, elemImp.y1) == true
+                                && iwin().mapJoin.get(x3 + ":" + elemImp.y1) == null) { //T - соединение верхнее                       
+                            el.id = id() + 1f / 100;
+                            el.init(TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e);
+                            iwin().mapJoin.put(x3 + ":" + elemImp.y1, el);
 
-                    if (elem5e.inside(elemImp.x1, elemImp.y1) == true
-                            && iwin().mapJoin.get(x3 + ":" + elemImp.y1) == null) { //T - соединение верхнее                       
-                        el.id = id() + 1f / 100;
-                        el.init(TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e);
-                        iwin().mapJoin.put(x3 + ":" + elemImp.y1, el);
+                        } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
+                                && iwin().mapJoin.get(x3 + ":" + elemImp.y2) == null) { //T - соединение нижнее                        
+                            el.id = id() + 2f / 100;
+                            el.init(TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e);
+                            iwin().mapJoin.put(x3 + ":" + elemImp.y2, el);
+                        }
 
-                    } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
-                            && iwin().mapJoin.get(x3 + ":" + elemImp.y2) == null) { //T - соединение нижнее                        
-                        el.id = id() + 2f / 100;
-                        el.init(TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e);
-                        iwin().mapJoin.put(x3 + ":" + elemImp.y2, el);
-                    }
+                        //Элементы расположены по вертикали
+                    } else {
+                        elemImp.anglHoriz = 0;
+                        float y3 = elemImp.y1 + (elemImp.y2 - elemImp.y1) / 2;
 
-                    //Элементы расположены по вертикали
-                } else {
-                    elemImp.anglHoriz = 0;
-                    float y3 = elemImp.y1 + (elemImp.y2 - elemImp.y1) / 2;
+                        if (elem5e.inside(elemImp.x1, elemImp.y1) == true
+                                && iwin().mapJoin.get(elemImp.x1 + ":" + y3) == null) { //T - соединение левое                        
+                            el.id = id() + 3f / 100;
+                            el.init(TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e);
+                            iwin().mapJoin.put(elemImp.x1 + ":" + y3, el);
 
-                    if (elem5e.inside(elemImp.x1, elemImp.y1) == true
-                            && iwin().mapJoin.get(elemImp.x1 + ":" + y3) == null) { //T - соединение левое                        
-                        el.id = id() + 3f / 100;
-                        el.init(TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e);
-                        iwin().mapJoin.put(elemImp.x1 + ":" + y3, el);
-
-                    } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
-                            && iwin().mapJoin.get(elemImp.x2 + ":" + y3) == null) { //T - соединение правое                        
-                        el.id = id() + 4f / 100;
-                        el.init(TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e);
-                        iwin().mapJoin.put(elemImp.x2 + ":" + y3, el);
+                        } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
+                                && iwin().mapJoin.get(elemImp.x2 + ":" + y3) == null) { //T - соединение правое                        
+                            el.id = id() + 4f / 100;
+                            el.init(TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e);
+                            iwin().mapJoin.put(elemImp.x2 + ":" + y3, el);
+                        }
                     }
                 }
             }

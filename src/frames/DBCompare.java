@@ -5,6 +5,8 @@ import builder.making.SpecificRec;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSetting;
+import java.awt.BasicStroke;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,6 +15,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,9 +24,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -44,6 +49,9 @@ public class DBCompare extends javax.swing.JFrame {
     }
     private Connection cn = null;
     private Graphics2D gc2d = null;
+    private DecimalFormat df1 = new DecimalFormat("#0.0");
+    private DecimalFormat df2 = new DecimalFormat("#0.00");
+    private HashMap<Integer, String> hmColor = new HashMap();
     private JPanel paintPanel = new JPanel() {
 
         public void paintComponent(Graphics g) {
@@ -57,10 +65,11 @@ public class DBCompare extends javax.swing.JFrame {
                 double h = (double) tab4.getValueAt(i, 7);
                 max_h = (h >= max_h) ? h : max_h;
             }
-            double k = (getWidth() / max_w > getHeight() / max_h) ? getHeight() / (max_h + 40) : getWidth() / (max_w + 40);
+            double k = (getWidth() / max_w > getHeight() / max_h) ? getHeight() / (max_h + 180) : getWidth() / (max_w + 40);
             double h2 = (this.getHeight()) / k;
             gc2d.scale(k, k);
-            gc2d.translate(20, -20);
+            gc2d.setStroke(new BasicStroke(6)); //толщина линии
+            gc2d.translate(10, -10);
 
             for (int i = 0; i < tab4.getRowCount(); i++) {
                 double x1 = (double) tab4.getValueAt(i, 4);
@@ -75,7 +84,11 @@ public class DBCompare extends javax.swing.JFrame {
                 } else {
                     g.setColor(java.awt.Color.RED);
                 }
-                gc2d.drawLine((int) Math.round(x1), (int) Math.round(h2 - y1), (int) Math.round(x2), (int) Math.round(h2 - y2));
+                gc2d.drawLine((int) Math.round(x1), (int) Math.round(this.getHeight() / k - y2), (int) Math.round(x2), (int) Math.round(this.getHeight() / k - y1));
+
+                if (Double.valueOf(tab4.getValueAt(i, 11).toString()) > 0) {
+                    gc2d.drawArc((int) Math.round(x2), (int) Math.round(h2 - y2 - 100), (int) (x1-x2), 180, 0, 180);
+                }
             }
         }
     };
@@ -83,6 +96,8 @@ public class DBCompare extends javax.swing.JFrame {
     public DBCompare(Wincalc iwin) {
         initComponents();
         initElements();
+        cn = Test.connect1();
+        loadingData();
         loadingTab(iwin);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
@@ -92,9 +107,23 @@ public class DBCompare extends javax.swing.JFrame {
     public DBCompare() {
         initComponents();
         initElements();
+        cn = Test.connect1();
+        loadingData();
         loadingTab4();
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
         tabb.setSelectedIndex(3);
+    }
+
+    public void loadingData() {
+        try {
+            Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery("select CNUMB, CNAME from COLSLST");
+            while (rs.next()) {
+                hmColor.put(rs.getInt("CNUMB"), rs.getString("CNAME"));
+            }
+        } catch (SQLException e) {
+            println("Ошибка: DBCompare.loadingData().  " + e);
+        }
     }
 
     public void loadingTab(Wincalc iwin) {
@@ -112,7 +141,6 @@ public class DBCompare extends javax.swing.JFrame {
 
             //=== Таблица 1 ===
             ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
-            cn = Test.connect1();
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
             rs.next();
@@ -126,6 +154,9 @@ public class DBCompare extends javax.swing.JFrame {
                 for (int i = 0; i < Fld.values().length; i++) {
                     vectorRec.add(rs.getObject(Fld.values()[i].name()));
                 }
+                vectorRec.set(4, hmColor.get(vectorRec.get(4)));  //цвет
+                vectorRec.set(5, hmColor.get(vectorRec.get(5)));  //цвет
+                vectorRec.set(6, hmColor.get(vectorRec.get(6)));  //цвет
                 String artikl = rs.getString("ANUMB"); //артикл
                 double leng = rs.getDouble("ALENG"); //длина
                 float count = rs.getFloat("AQTYP"); //колич
@@ -237,6 +268,204 @@ public class DBCompare extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             println("Ошибка: DBCompare.loadingTab4().  " + e);
+        }
+    }
+
+    //Сравнение спецификации с профстроем
+    public static void iwinXls(Wincalc iwin, boolean detail) {
+
+        System.out.println();
+        System.out.println("Prj=" + iwin.prj);
+        Float iwinTotal = 0f, jarTotal = 0f;
+        String path = "src\\resource\\xls\\ps4\\p" + iwin.prj + ".xls";
+        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
+            path = "src\\resource\\xls\\ps3\\p" + iwin.prj + ".xls";
+        }
+        //Specification.sort(spcList);
+        Map<String, Float> hmXls = new LinkedHashMap();
+        Map<String, Float> hmJar = new LinkedHashMap();
+        Map<String, String> hmArt = new LinkedHashMap();
+        for (SpecificRec spc : iwin.listSpec) {
+
+            String key = spc.name.trim().replaceAll("[\\s]{1,}", " ");
+            Float val = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
+            hmJar.put(key, val + spc.cost1);
+            hmArt.put(key, spc.artikl);
+        }
+        try {
+            Sheet sheet = Workbook.getWorkbook(new File(path)).getSheet(0);
+            if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
+                for (int i = 2; i < sheet.getRows(); i++) {
+
+                    String art = sheet.getCell(0, i).getContents().trim();
+                    String key = sheet.getCell(1, i).getContents().trim().replaceAll("[\\s]{1,}", " ");
+                    String val = sheet.getCell(6, i).getContents();
+                    if (key.isEmpty() || art.isEmpty() || val.isEmpty()) {
+                        continue;
+                    }
+                    //System.out.println(art + " - " + key + " - " + val);
+                    val = val.replaceAll("[\\s|\\u00A0]+", "").replace(",", ".");
+                    Float val2 = (hmXls.get(key) == null) ? 0.f : hmXls.get(key);
+                    try {
+                        Float val3 = Float.valueOf(val) + val2;
+                        hmXls.put(key, val3);
+                        hmArt.put(key, art);
+                    } catch (Exception e) {
+                        System.err.println("Ошибка:Main.compareIWin " + e);
+                        continue;
+                    }
+                }
+            } else {
+                for (int i = 5; i < sheet.getRows(); i++) {
+
+                    String art = sheet.getCell(1, i).getContents().trim();
+                    String key = sheet.getCell(2, i).getContents().trim().replaceAll("[\\s]{1,}", " ");
+                    String val = sheet.getCell(10, i).getContents();
+                    if (key.isEmpty() || art.isEmpty() || val.isEmpty()) {
+                        continue;
+                    }
+                    //System.out.println(art + " - " + key + " - " + val);
+                    val = val.replaceAll("[\\s|\\u00A0]+", "").replace(",", ".");
+                    Float val2 = (hmXls.get(key) == null) ? 0.f : hmXls.get(key);
+                    try {
+                        Float val3 = Float.valueOf(val) + val2;
+                        hmXls.put(key, val3);
+                        hmArt.put(key, art);
+                    } catch (Exception e) {
+                        System.err.println("Ошибка:Main.compareIWin " + e);
+                        continue;
+                    }
+                }
+            }
+            if (detail == true) {
+                System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "Xls", "Jar", "Delta"});
+                System.out.println();
+                for (Map.Entry<String, Float> entry : hmXls.entrySet()) {
+                    String key = entry.getKey();
+                    Float val1 = entry.getValue();
+                    Float val2 = hmJar.getOrDefault(key, 0.f);
+                    hmJar.remove(key);
+                    System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{key, hmArt.get(key), val1, val2, Math.abs(val1 - val2)});
+                    System.out.println();
+                    jarTotal = jarTotal + val2;
+                    iwinTotal = iwinTotal + val1;
+                }
+                //System.out.println();
+                if (hmJar.isEmpty() == false) {
+                    System.out.printf("%-72s%-24s%-20s", new Object[]{"Name", "Artikl", "Value"});
+                }
+                System.out.println();
+                for (Map.Entry<String, Float> entry : hmJar.entrySet()) {
+                    String key = entry.getKey();
+                    Float value3 = entry.getValue();
+                    System.out.printf("%-72s%-24s%-16.2f", "Лишние: " + key, hmArt.get(key), value3);
+                    System.out.println();
+                    jarTotal = jarTotal + value3;
+                }
+            } else {
+                for (Map.Entry<String, Float> entry : hmXls.entrySet()) {
+                    String key = entry.getKey();
+                    Float val1 = entry.getValue();
+                    Float val2 = hmJar.getOrDefault(key, 0.f);
+                    hmJar.remove(key);
+                    jarTotal = jarTotal + val2;
+                    iwinTotal = iwinTotal + val1;
+                }
+                for (Map.Entry<String, Float> entry : hmJar.entrySet()) {
+                    String key = entry.getKey();
+                    Float value3 = entry.getValue();
+                    jarTotal = jarTotal + value3;
+                }
+            }
+            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.prj, "iwin=" + String.format("%.2f", iwinTotal), "jar="
+                    + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
+            System.out.println();
+
+        } catch (Exception e2) {
+            System.err.println("Ошибка:Main.compareIWin " + e2);
+        }
+    }
+
+    //Сравнение спецификации с профстроем
+    public static void iwinRec(Wincalc iwin, boolean detail) {
+        System.out.println();
+        System.out.println("Prj=" + iwin.prj);
+        Float iwinTotal = 0f, jarTotal = 0f;
+        Map<String, Float> hmDB1 = new LinkedHashMap();
+        Map<String, Float> hmDB2 = new LinkedHashMap();
+        try {
+            Connection conn = Test.connect1();
+            Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
+            rs.next();
+            int punic = rs.getInt("PUNIC");
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + " order by a.anumb");
+            while (rs.next()) {
+                float leng = rs.getFloat("ALENG"); //длина
+                float count = rs.getFloat("AQTYP"); //колич
+                float pogonag = rs.getFloat("AQTYA"); //погонаж
+                float perc = rs.getFloat("APERC"); //отход
+                float cost = rs.getFloat("APRC1"); //стоим.без.ск.за ед.изм
+                float value1 = (perc * pogonag / 100 + pogonag) * cost;
+                float value2 = (hmDB1.get(rs.getString("ANUMB")) == null) ? value1
+                        : value1 + hmDB1.get(rs.getString("ANUMB"));
+                String key = rs.getString("ANUMB");
+                hmDB1.put(key, value2);
+            }
+            conn.close();
+
+            for (SpecificRec spc : iwin.listSpec) {
+                String key = spc.artikl;
+                Float val = (hmDB2.get(key) == null) ? 0.f : hmDB2.get(key);
+                hmDB2.put(key, val + spc.cost1);
+            }
+
+            if (detail == true) {
+                System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "PS", "SA", "Delta"});
+                System.out.println();
+                for (Map.Entry<String, Float> entry : hmDB1.entrySet()) {
+                    String key = entry.getKey();
+                    Float val1 = entry.getValue();
+                    Float val2 = hmDB2.getOrDefault(key, 0.f);
+                    hmDB2.remove(key);
+                    Record rec = eArtikl.query().stream().filter(r -> key.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
+                    System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{rec.get(eArtikl.name), key, val1, val2, Math.abs(val1 - val2)});
+                    System.out.println();
+                    jarTotal = jarTotal + val2;
+                    iwinTotal = iwinTotal + val1;
+                }
+                if (hmDB2.isEmpty() == false) {
+                    System.out.printf("%-24s%-20s", new Object[]{"Artikl", "Value"});
+                }
+                System.out.println();
+                for (Map.Entry<String, Float> entry : hmDB2.entrySet()) {
+                    String key = entry.getKey();
+                    Float value3 = entry.getValue();
+                    System.out.printf("%-24s%-16.2f", "Лишние: " + key, value3);
+                    System.out.println();
+                    jarTotal = jarTotal + value3;
+                }
+            } else {
+                for (Map.Entry<String, Float> entry : hmDB1.entrySet()) {
+                    String key = entry.getKey();
+                    Float val1 = entry.getValue();
+                    Float val2 = hmDB2.getOrDefault(key, 0.f);
+                    hmDB2.remove(key);
+                    jarTotal = jarTotal + val2;
+                    iwinTotal = iwinTotal + val1;
+                }
+                for (Map.Entry<String, Float> entry : hmDB2.entrySet()) {
+                    String key = entry.getKey();
+                    Float value3 = entry.getValue();
+                    jarTotal = jarTotal + value3;
+                }
+            }
+            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.prj, "PS=" + String.format("%.2f", iwinTotal), "SA="
+                    + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
+            System.out.println();
+
+        } catch (SQLException e) {
+            println("Ошибка: DBCompare.iwinRec().  " + e);
         }
     }
 
@@ -635,8 +864,6 @@ public class DBCompare extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
-    private javax.swing.JButton btn7;
-    private javax.swing.JButton btn8;
     private javax.swing.JButton btnClose;
     private javax.swing.JPanel center;
     private javax.swing.JCheckBox checkFilter;
@@ -675,206 +902,22 @@ public class DBCompare extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        //TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
-        //tab1.setRowSorter(sorter);
+        DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                if (value != null) {
+                    value = (Float.valueOf(value.toString()) > 0) ? df2.format(value) : null;
+                }
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                return label;
+            }
+        };
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
-    }
-
-    //Сравнение спецификации с профстроем
-    public static void iwinXls(Wincalc iwin, boolean detail) {
-
-        System.out.println();
-        System.out.println("Prj=" + iwin.prj);
-        Float iwinTotal = 0f, jarTotal = 0f;
-        String path = "src\\resource\\xls\\ps4\\p" + iwin.prj + ".xls";
-        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
-            path = "src\\resource\\xls\\ps3\\p" + iwin.prj + ".xls";
-        }
-        //Specification.sort(spcList);
-        Map<String, Float> hmXls = new LinkedHashMap();
-        Map<String, Float> hmJar = new LinkedHashMap();
-        Map<String, String> hmArt = new LinkedHashMap();
-        for (SpecificRec spc : iwin.listSpec) {
-
-            String key = spc.name.trim().replaceAll("[\\s]{1,}", " ");
-            Float val = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
-            hmJar.put(key, val + spc.cost1);
-            hmArt.put(key, spc.artikl);
-        }
-        try {
-            Sheet sheet = Workbook.getWorkbook(new File(path)).getSheet(0);
-            if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
-                for (int i = 2; i < sheet.getRows(); i++) {
-
-                    String art = sheet.getCell(0, i).getContents().trim();
-                    String key = sheet.getCell(1, i).getContents().trim().replaceAll("[\\s]{1,}", " ");
-                    String val = sheet.getCell(6, i).getContents();
-                    if (key.isEmpty() || art.isEmpty() || val.isEmpty()) {
-                        continue;
-                    }
-                    //System.out.println(art + " - " + key + " - " + val);
-                    val = val.replaceAll("[\\s|\\u00A0]+", "").replace(",", ".");
-                    Float val2 = (hmXls.get(key) == null) ? 0.f : hmXls.get(key);
-                    try {
-                        Float val3 = Float.valueOf(val) + val2;
-                        hmXls.put(key, val3);
-                        hmArt.put(key, art);
-                    } catch (Exception e) {
-                        System.err.println("Ошибка:Main.compareIWin " + e);
-                        continue;
-                    }
-                }
-            } else {
-                for (int i = 5; i < sheet.getRows(); i++) {
-
-                    String art = sheet.getCell(1, i).getContents().trim();
-                    String key = sheet.getCell(2, i).getContents().trim().replaceAll("[\\s]{1,}", " ");
-                    String val = sheet.getCell(10, i).getContents();
-                    if (key.isEmpty() || art.isEmpty() || val.isEmpty()) {
-                        continue;
-                    }
-                    //System.out.println(art + " - " + key + " - " + val);
-                    val = val.replaceAll("[\\s|\\u00A0]+", "").replace(",", ".");
-                    Float val2 = (hmXls.get(key) == null) ? 0.f : hmXls.get(key);
-                    try {
-                        Float val3 = Float.valueOf(val) + val2;
-                        hmXls.put(key, val3);
-                        hmArt.put(key, art);
-                    } catch (Exception e) {
-                        System.err.println("Ошибка:Main.compareIWin " + e);
-                        continue;
-                    }
-                }
-            }
-            if (detail == true) {
-                System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "Xls", "Jar", "Delta"});
-                System.out.println();
-                for (Map.Entry<String, Float> entry : hmXls.entrySet()) {
-                    String key = entry.getKey();
-                    Float val1 = entry.getValue();
-                    Float val2 = hmJar.getOrDefault(key, 0.f);
-                    hmJar.remove(key);
-                    System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{key, hmArt.get(key), val1, val2, Math.abs(val1 - val2)});
-                    System.out.println();
-                    jarTotal = jarTotal + val2;
-                    iwinTotal = iwinTotal + val1;
-                }
-                //System.out.println();
-                if (hmJar.isEmpty() == false) {
-                    System.out.printf("%-72s%-24s%-20s", new Object[]{"Name", "Artikl", "Value"});
-                }
-                System.out.println();
-                for (Map.Entry<String, Float> entry : hmJar.entrySet()) {
-                    String key = entry.getKey();
-                    Float value3 = entry.getValue();
-                    System.out.printf("%-72s%-24s%-16.2f", "Лишние: " + key, hmArt.get(key), value3);
-                    System.out.println();
-                    jarTotal = jarTotal + value3;
-                }
-            } else {
-                for (Map.Entry<String, Float> entry : hmXls.entrySet()) {
-                    String key = entry.getKey();
-                    Float val1 = entry.getValue();
-                    Float val2 = hmJar.getOrDefault(key, 0.f);
-                    hmJar.remove(key);
-                    jarTotal = jarTotal + val2;
-                    iwinTotal = iwinTotal + val1;
-                }
-                for (Map.Entry<String, Float> entry : hmJar.entrySet()) {
-                    String key = entry.getKey();
-                    Float value3 = entry.getValue();
-                    jarTotal = jarTotal + value3;
-                }
-            }
-            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.prj, "iwin=" + String.format("%.2f", iwinTotal), "jar="
-                    + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
-            System.out.println();
-
-        } catch (Exception e2) {
-            System.err.println("Ошибка:Main.compareIWin " + e2);
-        }
-    }
-
-    //Сравнение спецификации с профстроем
-    public static void iwinRec(Wincalc iwin, boolean detail) {
-        System.out.println();
-        System.out.println("Prj=" + iwin.prj);
-        Float iwinTotal = 0f, jarTotal = 0f;
-        Map<String, Float> hmDB1 = new LinkedHashMap();
-        Map<String, Float> hmDB2 = new LinkedHashMap();
-        try {
-            Connection conn = Test.connect1();
-            Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
-            rs.next();
-            int punic = rs.getInt("PUNIC");
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + " order by a.anumb");
-            while (rs.next()) {
-                float leng = rs.getFloat("ALENG"); //длина
-                float count = rs.getFloat("AQTYP"); //колич
-                float pogonag = rs.getFloat("AQTYA"); //погонаж
-                float perc = rs.getFloat("APERC"); //отход
-                float cost = rs.getFloat("APRC1"); //стоим.без.ск.за ед.изм
-                float value1 = (perc * pogonag / 100 + pogonag) * cost;
-                float value2 = (hmDB1.get(rs.getString("ANUMB")) == null) ? value1
-                        : value1 + hmDB1.get(rs.getString("ANUMB"));
-                String key = rs.getString("ANUMB");
-                hmDB1.put(key, value2);
-            }
-            conn.close();
-
-            for (SpecificRec spc : iwin.listSpec) {
-                String key = spc.artikl;
-                Float val = (hmDB2.get(key) == null) ? 0.f : hmDB2.get(key);
-                hmDB2.put(key, val + spc.cost1);
-            }
-
-            if (detail == true) {
-                System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "PS", "SA", "Delta"});
-                System.out.println();
-                for (Map.Entry<String, Float> entry : hmDB1.entrySet()) {
-                    String key = entry.getKey();
-                    Float val1 = entry.getValue();
-                    Float val2 = hmDB2.getOrDefault(key, 0.f);
-                    hmDB2.remove(key);
-                    Record rec = eArtikl.query().stream().filter(r -> key.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
-                    System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{rec.get(eArtikl.name), key, val1, val2, Math.abs(val1 - val2)});
-                    System.out.println();
-                    jarTotal = jarTotal + val2;
-                    iwinTotal = iwinTotal + val1;
-                }
-                if (hmDB2.isEmpty() == false) {
-                    System.out.printf("%-24s%-20s", new Object[]{"Artikl", "Value"});
-                }
-                System.out.println();
-                for (Map.Entry<String, Float> entry : hmDB2.entrySet()) {
-                    String key = entry.getKey();
-                    Float value3 = entry.getValue();
-                    System.out.printf("%-24s%-16.2f", "Лишние: " + key, value3);
-                    System.out.println();
-                    jarTotal = jarTotal + value3;
-                }
-            } else {
-                for (Map.Entry<String, Float> entry : hmDB1.entrySet()) {
-                    String key = entry.getKey();
-                    Float val1 = entry.getValue();
-                    Float val2 = hmDB2.getOrDefault(key, 0.f);
-                    hmDB2.remove(key);
-                    jarTotal = jarTotal + val2;
-                    iwinTotal = iwinTotal + val1;
-                }
-                for (Map.Entry<String, Float> entry : hmDB2.entrySet()) {
-                    String key = entry.getKey();
-                    Float value3 = entry.getValue();
-                    jarTotal = jarTotal + value3;
-                }
-            }
-            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.prj, "PS=" + String.format("%.2f", iwinTotal), "SA="
-                    + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
-            System.out.println();
-
-        } catch (SQLException e) {
-            println("Ошибка: DBCompare.iwinRec().  " + e);
-        }
+        tab4.getColumnModel().getColumn(4).setCellRenderer(cellRenderer3);
+        tab4.getColumnModel().getColumn(5).setCellRenderer(cellRenderer3);
+        tab4.getColumnModel().getColumn(6).setCellRenderer(cellRenderer3);
+        tab4.getColumnModel().getColumn(7).setCellRenderer(cellRenderer3);
+        tab4.getColumnModel().getColumn(9).setCellRenderer(cellRenderer3);
+        tab4.getColumnModel().getColumn(10).setCellRenderer(cellRenderer3);
+        tab4.getColumnModel().getColumn(11).setCellRenderer(cellRenderer3);
     }
 }
