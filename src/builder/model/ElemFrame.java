@@ -96,6 +96,8 @@ public class ElemFrame extends ElemSimple {
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.LEFT == layout) {
+            //System.out.println(prip * Math.sin(Math.toRadians(anglCut1)));
+            //System.out.println(prip * Math.sin(Math.toRadians(anglCut2)));
             spcRec.width = y2 - y1 + prip * 2;
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
