@@ -80,7 +80,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.prj = 604010;
+            iwin.prj = 604004;
             iwin.build(builder.script.Winscript.test(iwin.prj, false));
             iwin.constructiv(true);
             //Specification.write_txt1(iwin.listSpec);

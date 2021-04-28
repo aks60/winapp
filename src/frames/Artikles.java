@@ -2407,7 +2407,13 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn5
 
     private void btn18(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn18
-        new Syssize(this, listenerSyssize);
+        int index = Util.getIndexRec(tab1);
+        if (index != -1) {
+            Record artiklRec = qArtikl.get(index);
+            new Syssize(this, listenerSyssize, artiklRec.getInt(eArtikl.syssize_id));
+        } else {
+            new Syssize(this, listenerSyssize, -1);
+        }
     }//GEN-LAST:event_btn18
 
     private void btn19(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn19

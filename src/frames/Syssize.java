@@ -33,7 +33,7 @@ public class Syssize extends javax.swing.JFrame {
         btnChoice.setVisible(false);
     }
 
-    public Syssize(Frame owner, ListenerRecord listener) {
+    public Syssize(Frame owner, ListenerRecord listener, int id) {
         initComponents();
         initElements();
         loadingData();
@@ -41,6 +41,11 @@ public class Syssize extends javax.swing.JFrame {
         this.owner = owner;
         owner.setEnabled(false);
         this.listener = listener;
+        for (int i = 0; i < qSyssize.size(); i++) {
+            if (qSyssize.get(i).getInt(eSyssize.id) == id) {
+                Util.setSelectedRow(tab1, i);
+            }
+        }
         btnChoice.setVisible(true);
         setVisible(true);
     }
