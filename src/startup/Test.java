@@ -67,6 +67,7 @@ public class Test {
             //json();
             //parse();
             //uid();
+
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -84,7 +85,7 @@ public class Test {
             iwin.constructiv(true);
             //Specification.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            DBCompare.iwinRec(iwin, false);
+            DBCompare.iwinRec(iwin, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.spcRec.artikl + ":" + it.getValue().joinElement2.spcRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else if (_case.equals("min")) {
@@ -134,8 +135,8 @@ public class Test {
     private static void query() {
         try {
             Query.connection = Test.connect2();
-            Object obj = ParamList.find(4010).pass();            
-            System.out.println(obj);            
+            Object obj = ParamList.find(4010).pass();
+            System.out.println(obj);
 
         } catch (Exception e) {
             System.out.println("main.Test.query()");
