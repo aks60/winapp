@@ -132,7 +132,7 @@ public class ElemGlass extends ElemSimple {
         } else if (TypeArtikl.X108.isType(spcAdd.artiklRec)) {
 
             if (TypeElem.ARCH == owner().type()) {
-                ((AreaArch) root()).calcShtapik(this, spcAdd);
+                ((AreaArch) root()).shtapik(this, spcAdd);
 
             } else {
                 //По горизонтали
@@ -162,7 +162,7 @@ public class ElemGlass extends ElemSimple {
         } else if (TypeArtikl.X135.isType(spcAdd.artiklRec)
                 || TypeArtikl.X301.isType(spcAdd.artiklRec)) {
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
-                ((AreaArch) root()).calcPadding(this, spcAdd);
+                ((AreaArch) root()).padding(this, spcAdd);
 
             } else {
                 spcAdd.width = spcAdd.width * 4 + width() * 2 + height() * 2 + gzazo * 4; //поправка *4 плюс периметр плюс зазор * 4
@@ -171,7 +171,7 @@ public class ElemGlass extends ElemSimple {
             }
         } else if (TypeArtikl.X302.isType(spcAdd.artiklRec)) {
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
-                ((AreaArch) root()).calcPadding(this, spcAdd);
+                ((AreaArch) root()).padding(this, spcAdd);
 
             } else {
                 spcAdd.width = spcAdd.width * 4 + width() * 2 + height() * 2; //поправка *4 плюс периметр
