@@ -7,7 +7,6 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import builder.Wincalc;
 import builder.making.SpecificRec;
-import enums.TypeArtikl;
 
 public class AreaArch extends AreaSimple {
 
@@ -24,20 +23,23 @@ public class AreaArch extends AreaSimple {
         ElemJoining elem1 = new ElemJoining(iwin());
         elem1.id = id() + .1f;
         elem1.init(TypeJoin.VAR20, LayoutJoin.LTOP, mapFrame.get(LayoutArea.ARCH), mapFrame.get(LayoutArea.LEFT));
-        float dh = elem1.joinElement1.artiklRec.getFloat(eArtikl.height);
-        float h = iwin().heightAdd - height();
-        float w = width();
-        double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки
-        radiusArch = r; //запишем радиус дуги в AreaArch
-        double angl = 90 - Math.toDegrees(Math.asin(w / (r * 2))); // Math.toDegrees() — преобразование радианов в градусы ... Math.asin() — арксинус
-        double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * dh) / ((r - dh) * 2)));
-        double a1 = r * Math.sin(Math.toRadians(angl));
-        double a2 = (r - dh) * Math.sin(Math.toRadians(ang2));
+
+        double dh = elem1.joinElement1.artiklRec.getFloat(eArtikl.height);
+        double dw = elem1.joinElement2.artiklRec.getFloat(eArtikl.height);
+        double h = iwin().heightAdd - height();
+        double w = width();
+        double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки        
+        double ang1 = Math.acos(w / (r * 2)); // Math.toDegrees() — преобразование радианов в градусы ... Math.asin() — арксинус
+        double ang2 = Math.acos((w - 2 * dh) / ((r - dh) * 2));
+        double a1 = r * Math.sin(ang1);
+        double a2 = (r - dh) * Math.sin(ang2);
         double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dh)); //угол реза рамы
-        
-        double a3 = Math.sqrt(Math.pow(r, 2) + Math.pow(r - dh, 2) - 2 * r * (r - dh) * Math.cos(Math.toRadians(ang2 - angl)));
-        double ang4 = 90 - Math.toDegrees((Math.acos((Math.pow(a3, 2) + Math.pow(r, 2) - Math.pow(r - dh, 2)) / (2 * r * a3))));
-        
+        double da = Math.sqrt(Math.pow(r, 2) + Math.pow(r - dh, 2) - 2 * r * (r - dh) * Math.cos(ang2 - ang1));
+        double ang4 = 90 - Math.toDegrees((Math.acos((Math.pow(da, 2) + Math.pow(r, 2) - Math.pow(r - dh, 2)) / (2 * r * da))));
+        //double da = (r * Math.sin(ang1)) - ((r - dh) * Math.sin(ang2));
+        //double ang4 = 90 - Math.toDegrees(ang2 - Math.asin(da / dw));        
+         
+        radiusArch = r; 
         elem1.anglProf = (float) ang4;
         elem1.joinElement1.anglCut2 = (float) ang4;  //угол реза арки
         elem1.joinElement2.anglCut1 = (float) ang3;  //угол реза рамы
@@ -80,19 +82,14 @@ public class AreaArch extends AreaSimple {
         double h2 = h1 - 2 * spcAdd.artiklRec.getDbl(eArtikl.height);
         double l2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны штапика
         double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (l1 - l2))); //угол реза
-        spcAdd.width = (float) (2 * l1 + dw); 
+        spcAdd.width = (float) (2 * l1 + dw);
         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
         spcAdd.anglCut2 = (float) ang1;
         spcAdd.anglCut1 = (float) ang1;
         elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
 
-        //По дуге арки
-        //double ang2 = Math.toDegrees(Math.asin(l1 / elemGlass.radiusGlass));
-        //double ang3 = 90 - (90 - ang2 + ang1);        
-        
-        Object obj = (l1 - l2);
-        double ang3 = Math.toDegrees(Math.atan((l1 - l2) / imp.artiklRec.getDbl(eArtikl.height)));   
-        
+        //По дуге арки       
+        double ang3 = Math.toDegrees(Math.atan((l1 - l2) / imp.artiklRec.getDbl(eArtikl.height)));
         double r3 = radiusArch - arch.artiklRec.getDbl(eArtikl.height) + spcAdd.artiklRec.getDbl(eArtikl.height); //радиус - шир.проф.арки + шир.проф.штап
         double l3 = width() - arch.artiklRec.getDbl(eArtikl.height) * 2 + spcAdd.artiklRec.getDbl(eArtikl.height) * 2;
         double ang4 = Math.toDegrees(Math.asin((l3 / 2) / r3));
