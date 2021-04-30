@@ -24,18 +24,20 @@ public class AreaArch extends AreaSimple {
         ElemJoining elem1 = new ElemJoining(iwin());
         elem1.id = id() + .1f;
         elem1.init(TypeJoin.VAR20, LayoutJoin.LTOP, mapFrame.get(LayoutArea.ARCH), mapFrame.get(LayoutArea.LEFT));
-        float dz = elem1.joinElement1.artiklRec.getFloat(eArtikl.height);
+        float dh = elem1.joinElement1.artiklRec.getFloat(eArtikl.height);
         float h = iwin().heightAdd - height();
         float w = width();
         double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки
         radiusArch = r; //запишем радиус дуги в AreaArch
         double angl = 90 - Math.toDegrees(Math.asin(w / (r * 2))); // Math.toDegrees() — преобразование радианов в градусы ... Math.asin() — арксинус
-        double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * dz) / ((r - dz) * 2)));
+        double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * dh) / ((r - dh) * 2)));
         double a1 = r * Math.sin(Math.toRadians(angl));
-        double a2 = (r - dz) * Math.sin(Math.toRadians(ang2));
-        double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dz)); //угол реза рамы
-        double a3 = Math.sqrt(Math.pow(r, 2) + Math.pow(r - dz, 2) - 2 * r * (r - dz) * Math.cos(Math.toRadians(ang2 - angl)));
-        double ang4 = 90 - Math.toDegrees((Math.acos((Math.pow(a3, 2) + Math.pow(r, 2) - Math.pow(r - dz, 2)) / (2 * r * a3))));
+        double a2 = (r - dh) * Math.sin(Math.toRadians(ang2));
+        double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dh)); //угол реза рамы
+        
+        double a3 = Math.sqrt(Math.pow(r, 2) + Math.pow(r - dh, 2) - 2 * r * (r - dh) * Math.cos(Math.toRadians(ang2 - angl)));
+        double ang4 = 90 - Math.toDegrees((Math.acos((Math.pow(a3, 2) + Math.pow(r, 2) - Math.pow(r - dh, 2)) / (2 * r * a3))));
+        
         elem1.anglProf = (float) ang4;
         elem1.joinElement1.anglCut2 = (float) ang4;  //угол реза арки
         elem1.joinElement2.anglCut1 = (float) ang3;  //угол реза рамы
@@ -67,48 +69,39 @@ public class AreaArch extends AreaSimple {
 
     public void shtapik(ElemGlass elemGlass, SpecificRec spcAdd) {
         Float dw = spcAdd.width;
-        AreaStvorka stv = (AreaStvorka) owner();
-        //ElemSimple insideLeft = stv.mapFrame.get(LayoutArea.LEFT), insideTop = stv.mapFrame.get(LayoutArea.TOP), insideBott = stv.mapFrame.get(LayoutArea.BOTTOM), insideRight = stv.mapFrame.get(LayoutArea.RIGHT);
+        ElemSimple imp = elemGlass.join(LayoutArea.BOTTOM);
+        ElemSimple arch = mapFrame.get(LayoutArea.ARCH);
 
         //По основанию арки
-        double dh2 = spcAdd.artiklRec.getDbl(eArtikl.height) - elemGlass.gzazo;
-        double r1 = elemGlass.radiusGlass - dh2;
-        double h1 = elemGlass.height() - 2 * dh2;
-        double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний периметр
-        double l2 = Math.sqrt(2 * elemGlass.height() * elemGlass.radiusGlass - elemGlass.height() * elemGlass.height()); //нижний периметр
-        double l3 = l2 - l1;
-        double ang1 = Math.toDegrees(Math.atan(dh2 / l3)); //угол реза
-        double r5 = elemGlass.radiusGlass + elemGlass.gzazo;
-        double h5 = elemGlass.height() + 2 * elemGlass.gzazo;
-        spcAdd.width = (float) (dw + 2 * Math.sqrt(2 * h5 * r5 - h5 * h5)); //хорда
+        double r1 = radiusArch - (arch.artiklRec.getFloat(eArtikl.height) - arch.artiklRec.getDbl(eArtikl.size_falz)); //внешний радиус
+        double h1 = imp.y1 + imp.artiklRec.getDbl(eArtikl.size_falz) - arch.artiklRec.getDbl(eArtikl.height) + arch.artiklRec.getDbl(eArtikl.size_falz);
+        double l1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны штапика
+        double r2 = r1 - spcAdd.artiklRec.getDbl(eArtikl.height); //внутренний радиус
+        double h2 = h1 - 2 * spcAdd.artiklRec.getDbl(eArtikl.height);
+        double l2 = Math.sqrt((2 * r2 * h2) - (h2 * h2)); //длина верхней стороны штапика
+        double ang1 = Math.toDegrees(Math.atan(spcAdd.artiklRec.getDbl(eArtikl.height) / (l1 - l2))); //угол реза
+        spcAdd.width = (float) (2 * l1 + dw); 
         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
         spcAdd.anglCut2 = (float) ang1;
         spcAdd.anglCut1 = (float) ang1;
         elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
 
         //По дуге арки
-        double ang2 = Math.toDegrees(Math.asin(l2 / elemGlass.radiusGlass));
-        double ang3 = 90 - (90 - ang2 + ang1);
-        //double koef = 2; //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста                
-        ElemSimple ramaArch = root().mapFrame.get(LayoutArea.ARCH);
-
-        double R2 = radiusArch - ramaArch.spcRec.height + spcAdd.artiklRec.getDbl(eArtikl.height); //радиус - шир.проф.арки + шир.проф.штап
-        double L2 = width() - ramaArch.spcRec.height * 2 + spcAdd.artiklRec.getDbl(eArtikl.height) * 2;
-        double angl2 = Math.toDegrees(Math.asin((L2 / 2) / R2));
-        double M2 = (R2 * 2) * Math.toRadians(angl2) + 3;
+        //double ang2 = Math.toDegrees(Math.asin(l1 / elemGlass.radiusGlass));
+        //double ang3 = 90 - (90 - ang2 + ang1);        
+        
+        Object obj = (l1 - l2);
+        double ang3 = Math.toDegrees(Math.atan((l1 - l2) / imp.artiklRec.getDbl(eArtikl.height)));   
+        
+        double r3 = radiusArch - arch.artiklRec.getDbl(eArtikl.height) + spcAdd.artiklRec.getDbl(eArtikl.height); //радиус - шир.проф.арки + шир.проф.штап
+        double l3 = width() - arch.artiklRec.getDbl(eArtikl.height) * 2 + spcAdd.artiklRec.getDbl(eArtikl.height) * 2;
+        double ang4 = Math.toDegrees(Math.asin((l3 / 2) / r3));
+        double M2 = (r3 * 2) * Math.toRadians(ang4);
         spcAdd.width = (float) (dw + M2);
         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
         spcAdd.anglCut2 = (float) ang3;
         spcAdd.anglCut1 = (float) ang3;
         elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
-        {
-            ElemFrame el = mapFrame.get(LayoutArea.ARCH);
-            double Ra = radiusArch - el.artiklRec.getDbl(eArtikl.size_falz) + elemGlass.gzazo;
-            double La =  (width() - 2 * el.artiklRec.getDbl(eArtikl.size_falz) + 2 * elemGlass.gzazo) / 2;
-            double ang = Math.asin(La / Ra);
-            double Ma =  Ra * ang * 2;
-            System.out.println(Ma);
-        }
     }
 
     public void padding(ElemGlass elemGlass, SpecificRec spcAdd) {
