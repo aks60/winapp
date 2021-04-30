@@ -93,27 +93,22 @@ public class AreaArch extends AreaSimple {
         ElemSimple ramaArch = root().mapFrame.get(LayoutArea.ARCH);
 
         double R2 = radiusArch - ramaArch.spcRec.height + spcAdd.artiklRec.getDbl(eArtikl.height); //радиус - шир.проф.арки + шир.проф.штап
-        double L2 = iwin().rootArea.width() - ramaArch.spcRec.height * 2 + spcAdd.artiklRec.getDbl(eArtikl.height) * 2;
+        double L2 = width() - ramaArch.spcRec.height * 2 + spcAdd.artiklRec.getDbl(eArtikl.height) * 2;
         double angl2 = Math.toDegrees(Math.asin((L2 / 2) / R2));
-        double M2 = (R2 * 2) * Math.toRadians(angl2);
-
-        {
-            ElemFrame fr = mapFrame.get(LayoutArea.ARCH);
-            double R2a = radiusArch - fr.height() - fr.artiklRec.getDbl(eArtikl.size_falz) + elemGlass.gzazo ;
-            double L2a = width() + 2 * elemGlass.gzazo;
-            double angl2a = Math.toDegrees(Math.asin((L2a / 2) / R2a));
-            double M2a = (R2 * 2) * Math.toRadians(angl2) + dw;
-            System.out.println(M2a);
-        }
-        double Z = 3 * elemGlass.gzazo;
-        double L = elemGlass.width();
-        double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((elemGlass.radiusGlass + Z) * 2)));
-        double M = ((elemGlass.radiusGlass + Z) * 2) * Math.toRadians(ang5);
+        double M2 = (R2 * 2) * Math.toRadians(angl2) + 3;
         spcAdd.width = (float) (dw + M2);
         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
         spcAdd.anglCut2 = (float) ang3;
         spcAdd.anglCut1 = (float) ang3;
         elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
+        {
+            ElemFrame el = mapFrame.get(LayoutArea.ARCH);
+            double Ra = radiusArch - el.artiklRec.getDbl(eArtikl.size_falz) + elemGlass.gzazo;
+            double La =  (width() - 2 * el.artiklRec.getDbl(eArtikl.size_falz) + 2 * elemGlass.gzazo) / 2;
+            double ang = Math.asin(La / Ra);
+            double Ma =  Ra * ang * 2;
+            System.out.println(Ma);
+        }
     }
 
     public void padding(ElemGlass elemGlass, SpecificRec spcAdd) {
