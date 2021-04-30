@@ -66,13 +66,13 @@ public class ElemGlass extends ElemSimple {
         if (owner() instanceof AreaArch) { //если арка
 
             ElemFrame elemArch = root().mapFrame.get(LayoutArea.ARCH);
-            ElemImpost elemImpost = null;  //первый импост в стеклопакете снизу;
-            for (Com5t elemBase : root().listChild) {
+            ElemSimple elemImpost = join(LayoutArea.BOTTOM);
+            /*for (Com5t elemBase : root().listChild) { //первый импост в стеклопакете снизу;
                 if (TypeElem.IMPOST == elemBase.type) {
                     elemImpost = (ElemImpost) elemBase;
                     break;
                 }
-            }
+            }*/
             y1 = y1 + elemArch.artiklRec.getFloat(eArtikl.height) - elemArch.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
             y2 = y2 + elemImpost.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec.getFloat(eArtikl.height) + elemArch.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
