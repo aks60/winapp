@@ -29,16 +29,20 @@ public class AreaArch extends AreaSimple {
         double h = iwin().heightAdd - height();
         double w = width();
         double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки        
-        double ang1 = Math.acos(w / (r * 2)); // Math.toDegrees() — преобразование радианов в градусы ... Math.asin() — арксинус
-        double ang2 = Math.acos((w - 2 * dh) / ((r - dh) * 2));
-        double a1 = r * Math.sin(ang1);
-        double a2 = (r - dh) * Math.sin(ang2);
+        double rad1 = Math.acos(w / (r * 2)); // Math.toDegrees() — преобразование радианов в градусы ... Math.asin() — арксинус
+        double rad2 = Math.acos((w - 2 * dh) / ((r - dh) * 2));
+        double a1 = r * Math.sin(rad1);
+        double a2 = (r - dh) * Math.sin(rad2);
         double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dh)); //угол реза рамы
-        double da = Math.sqrt(Math.pow(r, 2) + Math.pow(r - dh, 2) - 2 * r * (r - dh) * Math.cos(ang2 - ang1));
-        double ang4 = 90 - Math.toDegrees((Math.acos((Math.pow(da, 2) + Math.pow(r, 2) - Math.pow(r - dh, 2)) / (2 * r * da))));
+        //Вариант №1
+        //double da = Math.sqrt(Math.pow(r, 2) + Math.pow(r - dh, 2) - 2 * r * (r - dh) * Math.cos(rad2 - rad1));
+        //double ang4 = 90 - Math.toDegrees((Math.acos((Math.pow(da, 2) + Math.pow(r, 2) - Math.pow(r - dh, 2)) / (2 * r * da))));
+        //Вариант №2
         //double da = (r * Math.sin(ang1)) - ((r - dh) * Math.sin(ang2));
-        //double ang4 = 90 - Math.toDegrees(ang2 - Math.asin(da / dw));        
-         
+        //double ang4 = 90 - Math.toDegrees(ang2 - Math.asin(da / dw));
+        //Вариант №3
+        double ang4 = 90 - (Math.toDegrees(rad1) - (90 - ang3)); 
+        
         radiusArch = r; 
         elem1.anglProf = (float) ang4;
         elem1.joinElement1.anglCut2 = (float) ang4;  //угол реза арки
