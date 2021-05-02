@@ -96,10 +96,13 @@ public class AreaArch extends AreaSimple {
 
         //По дуге арки         
         double rad4 = Math.asin(l1 / r1); 
+        double rad5 = Math.asin(l2 / r2);
         double l4 = (2 * Math.PI * r1 * Math.toDegrees(rad4)) / 180; //длина верхней стороны эллипса штапика
-        double ang3 = (90 - Math.toDegrees(rad4)) -  ang1;
+        double ang3 = (90 - Math.toDegrees(rad5)) -  ang1;
         
-        System.out.println( Math.toDegrees(rad4));
+//        double ang2 = Math.toDegrees(Math.asin(l2 / r2));
+//        double ang3 = 90 - (90 - ang2 + ang1);
+//        System.out.println( Math.toDegrees(rad4));
         
         spcAdd.width = (float) (dw + l4);
         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);

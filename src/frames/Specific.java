@@ -58,7 +58,7 @@ public class Specific extends javax.swing.JFrame {
         Util.setSelectedRow(tab1);
         tab1.setColumnSelectionInterval(3, 3);
         labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn())));
-        txtFilter.setName(tab1.getName());        
+        txtFilter.setName(tab1.getName());
     }
 
     private void createIwin() {
@@ -628,6 +628,11 @@ public class Specific extends javax.swing.JFrame {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
+//        DefaultTableModel dtm = new DefaultTableModel() {
+//            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+//            }
+//        };
+//        tab1.setModel(dtm);
         DefaultTableCellRenderer cellRenderer0 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
