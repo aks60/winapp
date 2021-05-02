@@ -34,14 +34,7 @@ public class AreaArch extends AreaSimple {
         double a1 = r * Math.sin(rad1);
         double a2 = (r - dh) * Math.sin(rad2);
         double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dh)); //угол реза рамы
-        //Вариант №1
-        //double da = Math.sqrt(Math.pow(r, 2) + Math.pow(r - dh, 2) - 2 * r * (r - dh) * Math.cos(rad2 - rad1));
-        //double ang4 = 90 - Math.toDegrees((Math.acos((Math.pow(da, 2) + Math.pow(r, 2) - Math.pow(r - dh, 2)) / (2 * r * da))));
-        //Вариант №2
-        //double da = (r * Math.sin(ang1)) - ((r - dh) * Math.sin(ang2));
-        //double ang4 = 90 - Math.toDegrees(ang2 - Math.asin(da / dw));
-        //Вариант №3
-        double ang4 = 90 - (Math.toDegrees(rad1) - (90 - ang3)); 
+        double ang4 = 90 - (Math.toDegrees(rad1) - (90 - ang3)); //угол реза арки
         
         radiusArch = r; 
         elem1.anglProf = (float) ang4;
