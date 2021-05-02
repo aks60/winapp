@@ -35,9 +35,6 @@ public class AreaArch extends AreaSimple {
         double a2 = (r - dh) * Math.sin(rad2);
         double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dh)); //угол реза рамы
         double ang4 = 90 - (Math.toDegrees(rad1) - (90 - ang3)); //угол реза арки
-                
-        System.out.println(90 - (Math.toDegrees(rad2) - (90 - ang3)));
-
         radiusArch = r;
         elem1.anglProf = (float) ang4;
         elem1.joinElement1.anglCut2 = (float) ang4;  //угол реза арки
@@ -70,8 +67,8 @@ public class AreaArch extends AreaSimple {
 
     protected void frame(ElemFrame elemFrame, double katet) {
         AreaArch areaArch = (AreaArch) root();
-        double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));        
-        elemFrame.length = (float) (2 * Math.PI * areaArch.radiusArch * angl) / 180;
+        double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
+        elemFrame.length = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
         elemFrame.spcRec.width = elemFrame.length + (float) (katet / Math.sin(Math.toRadians(elemFrame.anglCut1)) + katet / Math.sin(Math.toRadians(elemFrame.anglCut2)));
         elemFrame.spcRec.height = artiklRec.getFloat(eArtikl.height);
     }
@@ -97,12 +94,10 @@ public class AreaArch extends AreaSimple {
         elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
 
         //По дуге арки         
-        double rad4 = Math.asin(l1 / r1); 
-        double rad5 = Math.asin(l2 / r2);
-        double l4 = (2 * Math.PI * r1 * Math.toDegrees(rad4)) / 180; //длина верхней стороны эллипса штапика
-        double ang3 = 90 - (Math.toDegrees(rad5) + ang1);
-
-        //System.out.println(Math.toDegrees(rad5));
+        //double ang2 = Math.toDegrees(Math.asin(l1 / r1));
+        double ang2 = Math.toDegrees(Math.asin(l1 / r1));
+        double l4 = ((2 * Math.PI * r1) / 360) * ang2 * 2; //длина верхней стороны арки штапика
+        double ang3 = 90 - (90 - ang2 + ang1);
         
         spcAdd.width = (float) (dw + l4);
         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
