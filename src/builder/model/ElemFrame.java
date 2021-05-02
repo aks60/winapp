@@ -81,11 +81,7 @@ public class ElemFrame extends ElemSimple {
         double katet =  iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
         
         if (LayoutArea.ARCH == layout()) {
-            AreaArch areaArch = (AreaArch) root();
-            double angl = Math.toDegrees(Math.asin(width() / (areaArch.radiusArch * 2)));
-            length = (float) (2 * Math.PI * areaArch.radiusArch * angl) / 180;
-            spcRec.width = length + (float) (katet / Math.sin(Math.toRadians(anglCut1)) + katet / Math.sin(Math.toRadians(anglCut2)));
-            spcRec.height = artiklRec.getFloat(eArtikl.height);
+            ((AreaArch) root()).frame(this, katet); 
 
         } else if (LayoutArea.TOP == layout) {
             spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(anglCut1)) + katet / Math.sin(Math.toRadians(anglCut2)));
