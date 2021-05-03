@@ -94,11 +94,9 @@ public class AreaArch extends AreaSimple {
         elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
 
         //По дуге арки         
-        //double ang2 = Math.toDegrees(Math.asin(l1 / r1));
         double ang2 = Math.toDegrees(Math.asin(l1 / r1));
         double l4 = ((2 * Math.PI * r1) / 360) * ang2 * 2; //длина верхней стороны арки штапика
-        double ang3 = 90 - (90 - ang2 + ang1);
-        
+        double ang3 = 90 - (90 - ang2 + ang1);        
         spcAdd.width = (float) (dw + l4);
         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
         spcAdd.anglCut2 = (float) ang3;

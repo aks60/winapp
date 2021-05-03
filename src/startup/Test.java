@@ -67,7 +67,6 @@ public class Test {
             //json();
             //parse();
             //uid();
-
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -77,7 +76,7 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
             iwin.prj = 604004;
