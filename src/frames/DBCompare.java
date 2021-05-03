@@ -249,7 +249,6 @@ public class DBCompare extends javax.swing.JFrame {
             ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
             cn = Test.connect1();
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            System.out.println("select * from SAVEELM where TYPP != 0 and PUNIC = " + txt19.getText() + " and ONUMB = " + txt20.getText() + " order by TYPP");
             ResultSet rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + txt19.getText() + " and ONUMB = " + txt20.getText() + " order by TYPP");
             while (rs.next()) {
                 Vector vectorRec = new Vector();
@@ -500,7 +499,8 @@ public class DBCompare extends javax.swing.JFrame {
         pan8 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        pan9 = new javax.swing.JPanel();
+        pan10 = new javax.swing.JPanel();
         lab19 = new javax.swing.JLabel();
         lab20 = new javax.swing.JLabel();
         txt19 = new javax.swing.JTextField();
@@ -713,7 +713,10 @@ public class DBCompare extends javax.swing.JFrame {
 
         pan8.add(scr4, java.awt.BorderLayout.CENTER);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(263, 40));
+        pan9.setPreferredSize(new java.awt.Dimension(263, 40));
+        pan9.setLayout(new java.awt.BorderLayout());
+
+        pan10.setPreferredSize(new java.awt.Dimension(100, 40));
 
         lab19.setFont(frames.Util.getFont(0,0));
         lab19.setText("PUNIC");
@@ -757,37 +760,39 @@ public class DBCompare extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pan10Layout = new javax.swing.GroupLayout(pan10);
+        pan10.setLayout(pan10Layout);
+        pan10Layout.setHorizontalGroup(
+            pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lab19, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lab20, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        pan10Layout.setVerticalGroup(
+            pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lab19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lab20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
-        pan8.add(jPanel1, java.awt.BorderLayout.PAGE_START);
+        pan9.add(pan10, java.awt.BorderLayout.PAGE_START);
+
+        pan8.add(pan9, java.awt.BorderLayout.NORTH);
 
         pan6.add(pan8, java.awt.BorderLayout.CENTER);
 
@@ -873,7 +878,6 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JButton btnClose;
     private javax.swing.JPanel center;
     private javax.swing.JCheckBox checkFilter;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab19;
     private javax.swing.JLabel lab20;
@@ -881,6 +885,7 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JLabel labSum;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
@@ -888,6 +893,7 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
     private javax.swing.JPanel pan8;
+    private javax.swing.JPanel pan9;
     private javax.swing.JScrollPane scr;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
