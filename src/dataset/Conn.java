@@ -63,9 +63,9 @@ public class Conn {
             Properties props = new Properties();
             props.setProperty("user", user.toLowerCase());
             props.setProperty("password", String.valueOf(password));
-            if (role != null) {
+            if (role != null) {  //&& user.equalsIgnoreCase("sysdba") == false) {
                 props.setProperty("roleName", role);
-            }
+            } 
             props.setProperty("encoding", "win1251");
             connection = DriverManager.getConnection(url, props);
             connection.setAutoCommit(true);

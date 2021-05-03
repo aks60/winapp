@@ -51,7 +51,7 @@ public enum eProperty {
     public static String password = "*";
     public static FileWriter logconv = null;
     public static String fb = "fb";
-    public static String pg = "pg";
+    //public static String pg = "pg";
 
     //Значение по умолчанию
     eProperty(String value) {
