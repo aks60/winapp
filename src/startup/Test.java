@@ -76,11 +76,11 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.prj = 604004;
-            iwin.build(builder.script.Winscript.test(iwin.prj, false));
+            iwin.rootGson.prj = 604004;
+            iwin.build(builder.script.Winscript.test(iwin.rootGson.prj, false));
             iwin.constructiv(true);
             //Specification.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
@@ -91,9 +91,8 @@ public class Test {
             List<Integer> prjList = (numDb == 1) ? Arrays.asList(604004, 604005, 604006, 604007, 604008, 604009, 604010)
                     : Arrays.asList(601001, 601002, 601003, 601004);
 
-            for (int i : prjList) {
-                iwin.prj = i;
-                String script = builder.script.Winscript.test(iwin.prj, false);
+            for (int prj : prjList) {
+                String script = builder.script.Winscript.test(prj, false);
                 if (script != null) {
                     iwin.build(script);
                     iwin.constructiv(true);
@@ -106,9 +105,8 @@ public class Test {
             List<Integer> prjList = (numDb == 1) ? Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)
                     : Arrays.asList(601001, 601002, 601003, 601004);
 
-            for (int i : prjList) {
-                iwin.prj = i;
-                String script = builder.script.Winscript.test(iwin.prj, false);
+            for (int prj : prjList) {
+                String script = builder.script.Winscript.test(prj, false);
                 if (script != null) {
                     iwin.build(script);
                     iwin.constructiv(true);
@@ -127,7 +125,7 @@ public class Test {
         app.setVisible(true);
         frames.Joining frm = new frames.Joining();
         FrameToFile.setFrameSize(frm);
-        //frm.iwin.build(Winscript.test(Winscript.prj, null));
+        //frm.iwin.build(Winscript.test(Winscript.rootGson.prj, null));
         frm.setVisible(true);
     }
 

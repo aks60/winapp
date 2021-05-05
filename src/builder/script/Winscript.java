@@ -11,18 +11,18 @@ public class Winscript {
 
     public static GsonRoot rootGson;
 
-    public static String test(Integer project, boolean model) {
+    public static String test(Integer prj, boolean model) {
         String base_name = (eProperty.base_num.read().equals("1")) ? eProperty.base1.read()
                 : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
         
-        if (base_name.contains("sial3.fdb")) {
-            return ITest.script(project, model);
+        if (base_name.toLowerCase().contains("sial.fdb")) {
+            return Sial.script(prj, model);
             
-        } else if (base_name.contains("itest.fdb")) {
-            return ITest.script(project, model);
+        } else if (base_name.toLowerCase().contains("bimax.fdb")) {
+            return ITest.script(prj, model);
             
-        } else if (base_name.contains("vidnal.fdb")) {
-            return Vidnal.script(project, model);
+        } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
+            return Vidnal.script(prj, model);
         }
         return null;
     }

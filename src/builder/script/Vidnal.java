@@ -7,11 +7,11 @@ import enums.TypeElem;
 
 public final class Vidnal {
 
-    public static String script(Integer project, boolean model) {
+    public static String script(Integer prj, boolean model) {
         
-        if (project == 601001) {
-            rootGson = new GsonRoot(project, 8, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
-                    LayoutArea.VERT, TypeElem.RECTANGL, 900, 1300, 1009, 10009, 1009);
+        if (prj == 1) {
+            rootGson = new GsonRoot(prj, 3, 5, "VIDNAL F50/F50 стоечно-ригельная",
+                    LayoutArea.VERT, TypeElem.RECTANGL, 2500, 2500, 1009, 10009, 1009);
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
@@ -23,7 +23,7 @@ public final class Vidnal {
             return null;
         }
         if (model == true) {
-            rootGson.propery(project.toString(), -3, null);
+            rootGson.propery(prj.toString(), -3, null);
         }
         return new GsonBuilder().create().toJson(rootGson);
     }

@@ -45,7 +45,6 @@ public class Wincalc {
 
     public Connection conn;
     public Integer nuni = 0;
-    public int prj = -1;
     public Record artiklRec = null; //главный артикл системы профилей   
     public Record syssizeRec = null; //константы    
     public float genId = 100; //генерация ключа в спецификации

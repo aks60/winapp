@@ -32,7 +32,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import static jdk.nashorn.internal.objects.Global.println;
 import jxl.Sheet;
 import jxl.Workbook;
 import startup.Test;
@@ -128,7 +127,7 @@ public class DBCompare extends javax.swing.JFrame {
                 hmColor.put(rs.getInt("CNUMB"), rs.getString("CNAME"));
             }
         } catch (SQLException e) {
-            println("Ошибка: DBCompare.loadingData().  " + e);
+            System.err.println("Ошибка: DBCompare.loadingData().  " + e);
         }
     }
 
@@ -148,10 +147,10 @@ public class DBCompare extends javax.swing.JFrame {
             //=== Таблица 1 ===
             ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
+            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);            
             rs.next();
             int punic = rs.getInt("PUNIC");
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + " order by a.anumb");
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + iwin.rootGson.ord + "order by a.anumb");
             int npp = 0;
             double sum1 = 0, sum2 = 0;
             while (rs.next()) {
@@ -238,7 +237,7 @@ public class DBCompare extends javax.swing.JFrame {
             rs.close();
 
         } catch (SQLException e) {
-            println("Ошибка: DBCompare.loadingTab().  " + e);
+            System.err.println("Ошибка: DBCompare.loadingTab().  " + e);
         }
     }
 
@@ -270,10 +269,9 @@ public class DBCompare extends javax.swing.JFrame {
             }
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             paintPanel.repaint();
-            rs.close();
 
         } catch (SQLException e) {
-            println("Ошибка: DBCompare.loadingTab4().  " + e);
+            System.err.println("Ошибка: DBCompare.loadingTab4().  " + e);
         }
     }
 
@@ -281,11 +279,11 @@ public class DBCompare extends javax.swing.JFrame {
     public static void iwinXls(Wincalc iwin, boolean detail) {
 
         System.out.println();
-        System.out.println("Prj=" + iwin.prj);
+        System.out.println("Prj=" + iwin.rootGson.prj);
         Float iwinTotal = 0f, jarTotal = 0f;
-        String path = "src\\resource\\xls\\ps4\\p" + iwin.prj + ".xls";
+        String path = "src\\resource\\xls\\ps4\\p" + iwin.rootGson.prj + ".xls";
         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
-            path = "src\\resource\\xls\\ps3\\p" + iwin.prj + ".xls";
+            path = "src\\resource\\xls\\ps3\\p" + iwin.rootGson.prj + ".xls";
         }
         //Specification.sort(spcList);
         Map<String, Float> hmXls = new LinkedHashMap();
@@ -383,7 +381,7 @@ public class DBCompare extends javax.swing.JFrame {
                     jarTotal = jarTotal + value3;
                 }
             }
-            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.prj, "iwin=" + String.format("%.2f", iwinTotal), "jar="
+            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.rootGson.prj, "iwin=" + String.format("%.2f", iwinTotal), "jar="
                     + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
             System.out.println();
 
@@ -395,7 +393,7 @@ public class DBCompare extends javax.swing.JFrame {
     //Сравнение спецификации с профстроем
     public static void iwinRec(Wincalc iwin, boolean detail) {
         System.out.println();
-        System.out.println("Prj=" + iwin.prj);
+        System.out.println("Prj=" + iwin.rootGson.prj);
         Float iwinTotal = 0f, jarTotal = 0f;
         Map<String, Float> hmDB1 = new LinkedHashMap();
         Map<String, Float> hmDB2 = new LinkedHashMap();
@@ -466,12 +464,12 @@ public class DBCompare extends javax.swing.JFrame {
                     jarTotal = jarTotal + value3;
                 }
             }
-            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.prj, "PS=" + String.format("%.2f", iwinTotal), "SA="
+            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.rootGson.prj, "PS=" + String.format("%.2f", iwinTotal), "SA="
                     + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
             System.out.println();
 
         } catch (SQLException e) {
-            println("Ошибка: DBCompare.iwinRec().  " + e);
+            System.err.println("Ошибка: DBCompare.iwinRec().  " + e);
         }
     }
 

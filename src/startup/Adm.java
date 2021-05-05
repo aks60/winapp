@@ -87,7 +87,7 @@ public class Adm extends javax.swing.JFrame {
             labPath2.setText(eProperty.server2.read() + "/" + eProperty.port2.read() + "\\" + eProperty.base2.read());
             
         } else if (eProperty.base_num.read().equals("3")) {
-            edPath.setText("");
+            edPath.setText("D:\\Okna\\Database\\Profstroy4\\othe\\zip\\vidnal.fdb");
             labPath2.setText(eProperty.server3.read() + "/" + eProperty.port3.read() + "\\" + eProperty.base3.read());
             
         }
