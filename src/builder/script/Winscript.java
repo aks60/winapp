@@ -19,7 +19,7 @@ public class Winscript {
             return Sial.script(prj, model);
             
         } else if (base_name.toLowerCase().contains("bimax.fdb")) {
-            return ITest.script(prj, model);
+            return Bimax.script(prj, model);
             
         } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
             return Vidnal.script(prj, model);

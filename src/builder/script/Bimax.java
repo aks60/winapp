@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import enums.LayoutArea;
 import enums.TypeElem;
 
-public final class ITest {
+public final class Bimax {
     
     public static String script(Integer prj, boolean model) {
 
