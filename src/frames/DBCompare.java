@@ -97,7 +97,7 @@ public class DBCompare extends javax.swing.JFrame {
         initElements();
         cn = Test.connect1();
         loadingData();
-        loadingTab(iwin);
+        loadingTab14(iwin);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
@@ -111,7 +111,7 @@ public class DBCompare extends javax.swing.JFrame {
         initElements();
         cn = Test.connect1();
         loadingData();
-        loadingTab4();
+        loadingTab41();
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
         tabb.setSelectedIndex(3);
         tab1.setColumnSelectionInterval(3, 3);
@@ -131,7 +131,7 @@ public class DBCompare extends javax.swing.JFrame {
         }
     }
 
-    public void loadingTab(Wincalc iwin) {
+    public void loadingTab14(Wincalc iwin) {
         try {
             Map<String, Vector> hmSpc = new HashMap();
             Set<String> setSpc1 = new HashSet();
@@ -240,11 +240,11 @@ public class DBCompare extends javax.swing.JFrame {
             System.err.println("Ошибка: DBCompare.loadingTab().  " + e);
         }
     }
-
-    //=== Таблица 4 === 
+    
     //select distinct a.punic, a.onumb from saveelm a, specpau b where a.punic = b.punic and a.onumb = b.onumb
-    public void loadingTab4() {
+    public void loadingTab41() {
         try {
+            //=== Таблица 4 === 
             int npp = 0;
             ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
             cn = Test.connect1();
@@ -269,6 +269,28 @@ public class DBCompare extends javax.swing.JFrame {
             }
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             paintPanel.repaint();
+            
+            //=== Таблица 1 ===
+            ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + txt19.getText() + "and a.ONUMB = " + txt20.getText() + "order by a.anumb");
+            npp = 0;
+            while (rs.next()) {
+                Vector vectorRec = new Vector();
+                vectorRec.add(++npp);
+                for (int i = 0; i < Fld.values().length; i++) {
+                    vectorRec.add(rs.getObject(Fld.values()[i].name()));
+                }
+                vectorRec.set(4, hmColor.get(vectorRec.get(4)));  //цвет
+                vectorRec.set(5, hmColor.get(vectorRec.get(5)));  //цвет
+                vectorRec.set(6, hmColor.get(vectorRec.get(6)));  //цвет
+                String artikl = rs.getString("ANUMB"); //артикл                              
+                Record artiklRec = eArtikl.query().stream().filter(r -> artikl.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
+                vectorRec.add(4, artiklRec.get(eArtikl.name)); //имя артикула                 
+                vectorRec.add(null); //стоим. элемента без скидки
+                vectorRec.add(null); //стоим. элемента со скидкой                
+                ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
+            }
+            rs.close();           
 
         } catch (SQLException e) {
             System.err.println("Ошибка: DBCompare.loadingTab4().  " + e);
@@ -393,7 +415,7 @@ public class DBCompare extends javax.swing.JFrame {
     //Сравнение спецификации с профстроем
     public static void iwinRec(Wincalc iwin, boolean detail) {
         System.out.println();
-        System.out.println("Prj=" + iwin.rootGson.prj);
+        System.out.println("Prj=" + iwin.rootGson.prj + " Ord=" + iwin.rootGson.ord);
         Float iwinTotal = 0f, jarTotal = 0f;
         Map<String, Float> hmDB1 = new LinkedHashMap();
         Map<String, Float> hmDB2 = new LinkedHashMap();
@@ -864,7 +886,7 @@ public class DBCompare extends javax.swing.JFrame {
     }//GEN-LAST:event_tab1MousePressed
 
     private void btn1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1
-        loadingTab4();
+        loadingTab41();
     }//GEN-LAST:event_btn1
 
     private void txt19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt19ActionPerformed

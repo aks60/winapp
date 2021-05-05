@@ -76,11 +76,10 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.rootGson.prj = 604004;
-            iwin.build(builder.script.Winscript.test(iwin.rootGson.prj, false));
+            iwin.build(builder.script.Winscript.test(1, false));
             iwin.constructiv(true);
             //Specification.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
@@ -88,9 +87,7 @@ public class Test {
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.spcRec.artikl + ":" + it.getValue().joinElement2.spcRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else if (_case.equals("min")) {
-            List<Integer> prjList = (numDb == 1) ? Arrays.asList(604004, 604005, 604006, 604007, 604008, 604009, 604010)
-                    : Arrays.asList(601001, 601002, 601003, 601004);
-
+            List<Integer> prjList = Winscript.models();
             for (int prj : prjList) {
                 String script = builder.script.Winscript.test(prj, false);
                 if (script != null) {
@@ -102,9 +99,7 @@ public class Test {
             }
 
         } else if (_case.equals("max")) {
-            List<Integer> prjList = (numDb == 1) ? Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)
-                    : Arrays.asList(601001, 601002, 601003, 601004);
-
+            List<Integer> prjList = Winscript.models();
             for (int prj : prjList) {
                 String script = builder.script.Winscript.test(prj, false);
                 if (script != null) {

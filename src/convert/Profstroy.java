@@ -624,10 +624,8 @@ public class Profstroy {
     private static void loadModels() {
         try {
             println(Color.BLACK, "loadModels()");
-
-            List<Integer> prjList = (numDb == 1) ? Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)
-                    : Arrays.asList(601001, 601002, 601003, 601004);
-
+            List<Integer> prjList = Winscript.models();
+            
             cn2.commit();
             int index = 0;
             for (int prj : prjList) {
@@ -635,7 +633,7 @@ public class Profstroy {
                 if (script != null) {
                     JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
                     JsonObject jsonObj = jsonElem.getAsJsonObject();
-                    String name = "<html>" + jsonObj.get("prj").getAsString() + " " + jsonObj.get("name").getAsString();
+                    String name = "<html>" + jsonObj.get("prj").getAsString() + "/" + jsonObj.get("ord").getAsString() + " " + jsonObj.get("name").getAsString();
                     int form = (jsonObj.get("prj").getAsInt() < 601999) ? TypeElem.RECTANGL.id : TypeElem.ARCH.id;
                     Query q = new Query(eSysmodel.values());
                     Record record = eSysmodel.up.newRecord(Query.INS);

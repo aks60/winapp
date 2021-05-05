@@ -118,6 +118,11 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31011:  //Толщина внешнего/внутреннего заполнения, мм 
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+
+                        } else {
+
+                        }
                         message(grup);
                         break;
                     case 31017:  //Код системы содержит строку 
