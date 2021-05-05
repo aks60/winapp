@@ -296,14 +296,17 @@ public class Element extends javax.swing.JFrame {
         Util.buttonCellEditor(tab5, 0).addActionListener(event -> {
             int index = Util.getIndexRec(tab3);
             if (index != -1) {
-                Record recordJoin = qElemdet.get(index);
-                int artikl_id = recordJoin.getInt(eJoindet.artikl_id);
+                int levelGrp = qGrCateg.getAs(Util.getIndexRec(tab1), eGroups.npp);
+                Record recordDet = qElemdet.get(index);
+                int artikl_id = recordDet.getInt(eJoindet.artikl_id);
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
-                Integer[] part = {0, 39000, 38000, 39000, 38000, 40000, 0};
+                Integer[] part1 = {0, 34000, 33000, 34000, 33000, 40000, 0};
+                Integer[] part2 = {0, 39000, 38000, 39000, 38000, 40000, 0};
+                int grup = (levelGrp == 1) ? part1[level] : part2[level];
                 ParGrup2 frame = new ParGrup2(this, (rec) -> {
                     Util.listenerParam(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
-                }, eParams.joint, part[level]);
+                }, eParams.elem, grup);
             }
         });
 
@@ -1073,7 +1076,8 @@ public class Element extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        // TODO add your handling code here:
+        int leve = qGrCateg.getAs(Util.getIndexRec(tab1), eGroups.npp);
+        System.out.println(leve);
     }//GEN-LAST:event_btnTest
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
