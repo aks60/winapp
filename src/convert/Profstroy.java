@@ -628,16 +628,10 @@ public class Profstroy {
             List<Integer> prjList = (numDb == 1) ? Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)
                     : Arrays.asList(601001, 601002, 601003, 601004);
 
-            String script;
             cn2.commit();
             int index = 0;
             for (int prj : prjList) {
-
-                if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
-                    script = Winscript.testPs3(prj, true);
-                } else {
-                    script = Winscript.testPs4(prj, true);
-                }
+                String script = Winscript.test(prj, true);
                 if (script != null) {
                     JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
                     JsonObject jsonObj = jsonElem.getAsJsonObject();

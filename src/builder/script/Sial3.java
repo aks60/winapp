@@ -123,6 +123,5 @@ public final class Sial3 {
         }
 
         return new GsonBuilder().create().toJson(rootGson);
-    }
- 
+    } 
 }
