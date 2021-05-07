@@ -260,29 +260,3 @@ public class AreaStvorka extends AreaSimple {
         }
     }
 }
-/*
-            if (index == 0) { //Прилигающее верхнее 
-                el.layoutJoin = LayoutJoin.CTOP;                
-                el.joinElement1 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null);
-                el.joinElement2 = mapFrame.get(LayoutArea.TOP);
-                iwin().mapJoin.put(String.valueOf(x1 + width() / 2) + ":" + String.valueOf(y1), el);
-
-            } else if (index == 1) { //Прилигающее нижнее
-                el.layoutJoin = LayoutJoin.CBOT;                
-                el.joinElement1 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null);
-                el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
-                iwin().mapJoin.put(String.valueOf(x1 + width() / 2) + ":" + String.valueOf(y2), el);
-
-            } else if (index == 2) { //Прилигающее левое
-                el.layoutJoin = LayoutJoin.CLEFT;
-                el.joinElement1 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1, y1 + height() / 2) == true).findFirst().orElse(null);
-                el.joinElement2 = mapFrame.get(LayoutArea.LEFT);
-                iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1 + height() / 2), el);
-
-            } else if (index == 3) { //Прилигающее правое
-                el.layoutJoin = LayoutJoin.CRIGH;
-                el.joinElement1 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x2, y1 + height() / 2) == true).findFirst().orElse(null);
-                el.joinElement2 = mapFrame.get(LayoutArea.RIGHT);
-                iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1 + height() / 2), el);
-            }
-*/
