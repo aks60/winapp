@@ -121,7 +121,14 @@ public class ElementVar extends Par5s {
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
 
                         } else {
-
+                            if (elem5e.layout() == LayoutArea.HORIZ) {
+                                ElemJoining el = iwin.mapJoin.get(String.valueOf(elem5e.x1 + elem5e.width() / 2) + ":" + String.valueOf(elem5e.y1));
+                                System.out.println(el);
+                                if (el != null) {
+                                }
+                            } else {
+                                ElemJoining el = iwin.mapJoin.get(String.valueOf(elem5e.x1 + elem5e.width() / 2) + ":" + String.valueOf(elem5e.y1));
+                            }
                         }
                         message(grup);
                         break;

@@ -25,7 +25,7 @@ public enum TypeElem implements Enam {
     NONE(0, 0, "Не определено");
 
     public int id;
-    public int id2;
+    public int id2; //это UseArtiklTo
     public String name;
 
     TypeElem(int id, String name) {

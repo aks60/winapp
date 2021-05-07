@@ -216,7 +216,7 @@ public class DBCompare extends javax.swing.JFrame {
             npp = 0;
             ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
             st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + punic + "order by TYPP");
+            rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + punic+ "and ONUMB=" + iwin.rootGson.ord + "order by TYPP");
             while (rs.next()) {
                 Vector vectorRec = new Vector();
                 vectorRec.add(++npp);

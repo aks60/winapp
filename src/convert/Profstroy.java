@@ -633,7 +633,7 @@ public class Profstroy {
                 if (script != null) {
                     JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
                     JsonObject jsonObj = jsonElem.getAsJsonObject();
-                    String name = "<html>" + jsonObj.get("prj").getAsString() + "/" + jsonObj.get("ord").getAsString() + " " + jsonObj.get("name").getAsString();
+                    String name = "<html> Проект:" + jsonObj.get("prj").getAsString() + "/Заказ:" + jsonObj.get("ord").getAsString() + " " + jsonObj.get("name").getAsString();
                     int form = (jsonObj.get("prj").getAsInt() < 601999) ? TypeElem.RECTANGL.id : TypeElem.ARCH.id;
                     Query q = new Query(eSysmodel.values());
                     Record record = eSysmodel.up.newRecord(Query.INS);

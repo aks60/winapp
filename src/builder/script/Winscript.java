@@ -40,7 +40,7 @@ public class Winscript {
             return Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010);
             
         } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
-            return Arrays.asList(1);
+            return Arrays.asList(26);
         }
         return null;
     }

@@ -9,17 +9,18 @@ public final class Vidnal {
 
     public static String script(Integer prj, boolean model) {
         
-        if (prj == 1) {
-            rootGson = new GsonRoot(prj, 3, 5, "VIDNAL F50/F50 стоечно-ригельная",
-                    LayoutArea.VERT, TypeElem.RECTANGL, 2500, 2500, 1001, 1001, 1001);
+        if (prj == 26) {
+            rootGson = new GsonRoot(prj, 2, 5, "VIDNAL V60/V60 окна-витражи",
+                    LayoutArea.VERT, TypeElem.RECTANGL, 1090, 2470, 1000, 1000, 1000);
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
-            rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1250))
+            rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1028))
+                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA))
                     .addElem(new GsonElem(TypeElem.GLASS));
             rootGson.addElem(new GsonElem(TypeElem.IMPOST));
-            rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1250))
+            rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1442))
                     .addElem(new GsonElem(TypeElem.GLASS));
 
         } else {

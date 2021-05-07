@@ -9,8 +9,8 @@ import enums.TypeElem;
 public class GsonRoot extends GsonElem {
 
     public String name = "Конструкция";
-    public int prj = 1; //номер тестируемого проекта, поле нужно только для тестов 
-    public int ord = 1; //номер тестируемого заказа, поле нужно только для тестов 
+    public int prj = 1; //PNUMB - номер тестируемого проекта, поле пока нужно только для тестов 
+    public int ord = 1; //ONUMB - номер тестируемого заказа, поле пока нужно только для тестов 
     private Integer nuni = -3;  //nuni профиля (PRO4_SYSPROF.NUNI)
     private Float heightAdd = null;  //дополнительная высота, мм. Для прямоугольного изделия = height.
     public Integer color1 = -3;  //основная текстура

@@ -105,7 +105,7 @@ public class ElementDet extends Par5s {
 //                                return false;
 //                            }
                             message(grup);
-                        } else {
+                        } else {                            
                             message(grup);
                         }
                     }

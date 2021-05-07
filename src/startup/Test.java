@@ -79,7 +79,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(1, false));
+            iwin.build(builder.script.Winscript.test(36, false));
             iwin.constructiv(true);
             //Specification.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);

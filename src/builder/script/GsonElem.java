@@ -23,42 +23,6 @@ public class GsonElem {
     }
 
     //Конструктор Elem
-    public GsonElem(float id, TypeElem elemType) {
-        this.id = id;
-        this.type = elemType;
-    }
-
-    //Конструктор Elem
-    public GsonElem(float id, TypeElem elemType, String paramJson) {
-        this.id = id;
-        this.type = elemType;
-        this.param = paramJson;
-    }
-
-    //Конструктор Elem
-    public GsonElem(float id, TypeElem elemType, LayoutArea layoutRama) {
-        this.id = id;
-        this.type = elemType;
-        this.layout = layoutRama;
-    }
-
-    //Конструктор Area
-    public GsonElem(float id, LayoutArea layout, TypeElem elemType, float lengthSide) {
-        this.id = id;
-        this.layout = layout;
-        this.type = elemType;
-        this.lengthSide = lengthSide; //длина стороны, сторона зависит от направлени расположения area
-    }
-
-    //Конструктор створки
-    public GsonElem(int id, LayoutArea layout, TypeElem type, String paramJson) {
-        this.id = id;
-        this.layout = layout;
-        this.type = type;
-        this.param = paramJson; //параметры элемента
-    }
-
-    //Конструктор Elem
     public GsonElem(TypeElem elemType) {
         this.id = ++genId;
         this.type = elemType;
@@ -86,6 +50,13 @@ public class GsonElem {
         this.lengthSide = lengthSide; //длина стороны, сторона зависит от направлени расположения area
     }
 
+    //Конструктор створки
+    public GsonElem(LayoutArea layout, TypeElem type) {
+        this.id = ++genId;
+        this.layout = layout;
+        this.type = type;
+    }
+    
     //Конструктор створки
     public GsonElem(LayoutArea layout, TypeElem type, String paramJson) {
         this.id = ++genId;
