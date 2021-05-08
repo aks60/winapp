@@ -7,7 +7,6 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eParams;
 import domain.eSysprof;
-import frames.swing.Draw;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.LayoutJoin;
@@ -20,18 +19,15 @@ import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import startup.Main;
 import builder.Wincalc;
-import builder.making.Uti2;
+import builder.param.Par5s;
 import enums.PKjson;
 import frames.Util;
 import frames.swing.DefMutableTreeNode;
 import java.awt.BasicStroke;
-import java.lang.annotation.ElementType;
-import java.util.Map;
 
 public class AreaSimple extends Com5t {
 

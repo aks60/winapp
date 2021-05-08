@@ -15,6 +15,7 @@ import enums.UseUnit;
 import java.util.LinkedList;
 import builder.Wincalc;
 import builder.model.ElemSimple;
+import builder.param.Par5s;
 import dataset.Query;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -247,12 +248,12 @@ public class Tariffication extends Cal5e {
                 || ((specifRec.artiklRec.getInt(eArtikl.level1) * 100
                 + specifRec.artiklRec.getInt(eArtikl.level2)) == rulecalcRec.getInt(eRulecalc.type))) {
 
-            if (Uti2.containsInt(rulecalcRec.getStr(eRulecalc.color1), specifRec.colorID1) == true
-                    && Uti2.containsInt(rulecalcRec.getStr(eRulecalc.color2), specifRec.colorID2) == true
-                    && Uti2.containsInt(rulecalcRec.getStr(eRulecalc.color3), specifRec.colorID3) == true) {
+            if (Par5s.containsInt(rulecalcRec.getStr(eRulecalc.color1), specifRec.colorID1) == true
+                    && Par5s.containsInt(rulecalcRec.getStr(eRulecalc.color2), specifRec.colorID2) == true
+                    && Par5s.containsInt(rulecalcRec.getStr(eRulecalc.color3), specifRec.colorID3) == true) {
 
                 if (rulecalcRec.getInt(eRulecalc.common) == 0) {
-                    if (Uti2.containsFloat(rulecalcRec.getStr(eRulecalc.quant), specifRec.quant2) == true) {
+                    if (Par5s.containsFloat(rulecalcRec.getStr(eRulecalc.quant), specifRec.quant2) == true) {
                         specifRec.price1 = specifRec.price1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr);  //увеличение себестоимости в coegg раз и на incr величину надбавки
                     }
 
@@ -283,7 +284,7 @@ public class Tariffication extends Cal5e {
                             }
                         }
                     }
-                    if (Uti2.containsFloat(rulecalcRec.getStr(eRulecalc.quant), quantity3) == true) {
+                    if (Par5s.containsFloat(rulecalcRec.getStr(eRulecalc.quant), quantity3) == true) {
                         specifRec.price1 = specifRec.price1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
                     }
                 }

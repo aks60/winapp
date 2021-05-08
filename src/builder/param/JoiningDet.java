@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.making.Uti2;
 import builder.model.ElemSimple;
 
 //Cоединения
@@ -46,7 +45,7 @@ public class JoiningDet extends Par5s {
                         String[] strList = artiklVRec.getStr(eArtikl.tech_code).split(";");
                         boolean ret2 = false;
                         for (String str : strList) {
-                            if (Uti2.containsStr(rec.getStr(TEXT), str) == true) {
+                            if (containsStr(rec.getStr(TEXT), str) == true) {
                                 ret2 = true;
                             }
                         }
@@ -104,20 +103,20 @@ public class JoiningDet extends Par5s {
                     case 11067:  //Коды основной текстуры изделия 
                     case 12067:  //Коды основной текстуры изделия
                         int c1 = elem5e.iwin().colorID1;
-                        if (Uti2.containsInt(rec.getStr(TEXT), c1) == false) {
+                        if (containsInt(rec.getStr(TEXT), c1) == false) {
                             return false;
                         }
                         break;
                     case 11068:  //Коды внутр. текстуры изделия 
                     case 12068:  //Коды внутр. текстуры изделия 
-                        if (Uti2.containsInt(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
+                        if (containsInt(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
                             return false;
                         }
                         break;
                     case 11069:  //Коды внешн. текстуры изделия
                     case 12069:  //Коды внешн. текстуры изделия     
                         int c3 = elem5e.iwin().colorID3;
-                        if (Uti2.containsInt(rec.getStr(TEXT), c3) == false) {
+                        if (containsInt(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }
                         break;

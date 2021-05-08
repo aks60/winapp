@@ -11,11 +11,8 @@ import enums.UseArtiklTo;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.making.Uti2;
-import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
-import builder.model.ElemSimple;
 
 //Фурнитура
 public class FurnitureDet extends Par5s {
@@ -159,14 +156,14 @@ public class FurnitureDet extends Par5s {
                         break;
                     case 24068:  //Коды внутр. текстуры изделия 
                         int c2 = areaStv.iwin().colorID2;
-                        if (Uti2.containsInt(rec.getStr(TEXT), c2) == false) {
+                        if (containsInt(rec.getStr(TEXT), c2) == false) {
                             return false;
                         }
                         break;
                     case 24069:  //Коды внешн. текстуры изделия 
                     case 25069:  //Коды внешн. текстуры изделия     
                         int c3 = areaStv.iwin().colorID3;
-                        if (Uti2.containsInt(rec.getStr(TEXT), c3) == false) {
+                        if (containsInt(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }
                         break;

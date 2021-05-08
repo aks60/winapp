@@ -47,6 +47,7 @@ import frames.swing.DefTableModel;
 import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
+import builder.param.Par5s;
 import builder.script.GsonElem;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -82,7 +83,6 @@ import frames.swing.listener.ListenerFrame;
 import common.eProfile;
 import java.awt.event.KeyEvent;
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toSet;
 
 public class Systree extends javax.swing.JFrame {
 
@@ -2672,7 +2672,7 @@ public class Systree extends javax.swing.JFrame {
             HashSet<Record> set = new HashSet();
             String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
             String jfield = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
-            Integer[] arr2 = builder.making.Uti2.parserInt(jfield);
+            Integer[] arr2 = Par5s.parserInt(jfield);
             if (arr1 != null) {
                 for (String s1 : arr1) { //группы
                     HashSet<Record> se2 = new HashSet();

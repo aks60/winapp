@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.making.Uti2;
 import builder.model.ElemSimple;
 import enums.TypeElem;
 
@@ -104,21 +103,21 @@ public class FillingDet extends Par5s {
                     case 14067:  //Коды основной текстуры изделия 
                     case 15067:  //Коды основной текстуры изделия    
                         int c1 = elem5e.iwin().colorID1;
-                        if (Uti2.containsInt(rec.getStr(TEXT), c1) == false) {
+                        if (containsInt(rec.getStr(TEXT), c1) == false) {
                             return false;
                         }
                         break;
                     case 14068:  //Коды внутр. текстуры изделия 
                     case 15068:  //Коды внутр. текстуры изделия     
                         int c2 = elem5e.iwin().colorID2;
-                        if (Uti2.containsInt(rec.getStr(TEXT), c2) == false) {
+                        if (containsInt(rec.getStr(TEXT), c2) == false) {
                             return false;
                         }
                         break;
                     case 14069:  //Коды внешн. текстуры изделия 
                     case 15069:  //Коды внешн. текстуры изделия     
                         int c3 = elem5e.iwin().colorID3;
-                        if (Uti2.containsInt(rec.getStr(TEXT), c3) == false) {
+                        if (containsInt(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }
                         break;

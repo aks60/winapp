@@ -15,8 +15,7 @@ import enums.UseArtiklTo;
 import builder.making.SpecificRec;
 import domain.eSyssize;
 import enums.TypeJoin;
-import builder.making.Uti2;
-import builder.making.SpecificAdd;
+import builder.param.Par5s;
 import enums.PKjson;
 import java.util.List;
 
@@ -176,7 +175,7 @@ public class ElemImpost extends ElemSimple {
             List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
             Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.params_id) == 4040).findFirst().orElse(null);
             if (joinpar1Rec != null) {
-                return Uti2.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
+                return Par5s.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
             }
         }
         return 0;

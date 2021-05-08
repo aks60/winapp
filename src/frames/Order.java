@@ -4,6 +4,7 @@ import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
 import builder.making.SpecificRec;
+import builder.param.Par5s;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -2062,7 +2063,7 @@ public class Order extends javax.swing.JFrame {
                 Record systreeRec = eSystree.find(systreeID);
                 String[] arr1 = (systreeRec.getStr(eSystree.cgrp).isEmpty() == false) ? systreeRec.getStr(eSystree.cgrp).split(";") : null;
                 eSystree col = (evt.getSource() == btn9) ? eSystree.col1 : (evt.getSource() == btn13) ? eSystree.col2 : eSystree.col3;
-                Integer[] arr2 = builder.making.Uti2.parserInt(systreeRec.getStr(col));
+                Integer[] arr2 = Par5s.parserInt(systreeRec.getStr(col));
                 if (arr1 != null) {
                     for (String s1 : arr1) { //группы
                         HashSet<Record> se2 = new HashSet();

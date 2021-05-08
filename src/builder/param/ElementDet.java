@@ -1,23 +1,13 @@
 package builder.param;
 
 import dataset.Record;
-import domain.eArtikl;
 import domain.eElemdet;
 import domain.eElempar2;
 import domain.eSetting;
-import domain.eSysprof;
-import domain.eSystree;
-import enums.LayoutArea;
-import enums.TypeElem;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.making.SpecificRec;
-import builder.making.Uti2;
 import builder.model.ElemSimple;
-import java.util.LinkedList;
-import java.util.Map;
 
 //Составы
 public class ElementDet extends Par5s {
@@ -59,19 +49,19 @@ public class ElementDet extends Par5s {
                         break;
                     case 33005:  //Коды основной текстуры контейнера 
                     case 34005:  //Коды основной текстуры контейнера
-                        if (Uti2.containsInt(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
+                        if (containsInt(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
                             return false;
                         }
                         break;
                     case 33006:  //Коды внутр. текстуры контейнера
                     case 34006:  //Коды внутр. текстуры контейнера 
-                        if (Uti2.containsInt(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
+                        if (containsInt(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
                             return false;
                         }
                         break;
                     case 33007:  //Коды внешн. текстуры контейнера 
                     case 34007:  //Коды внешн. текстуры контейнера     
-                        if (Uti2.containsInt(rec.getStr(TEXT), elem5e.iwin().colorID3) == false) {
+                        if (containsInt(rec.getStr(TEXT), elem5e.iwin().colorID3) == false) {
                             return false;
                         }
                         break;
@@ -247,7 +237,7 @@ public class ElementDet extends Par5s {
                     case 39067:  //Коды основной текстуры изделия
                     case 40067:  //Коды основной текстуры изделия                     
                         int c1 = elem5e.iwin().colorID1;
-                        if (Uti2.containsInt(rec.getStr(TEXT), c1) == false) {
+                        if (containsInt(rec.getStr(TEXT), c1) == false) {
                             return false;
                         }
                         break;
@@ -257,7 +247,7 @@ public class ElementDet extends Par5s {
                     case 39068:  //Коды внутр. текстуры изделия
                     case 40068:  //Коды внутр. текстуры изделия    
                         int c2 = elem5e.iwin().colorID2;
-                        if (Uti2.containsInt(rec.getStr(TEXT), c2) == false) {
+                        if (containsInt(rec.getStr(TEXT), c2) == false) {
                             return false;
                         }
                         break;
@@ -268,7 +258,7 @@ public class ElementDet extends Par5s {
                     case 40069: //Коды внешн. текстуры изделия  
                     {
                         int c3 = elem5e.iwin().colorID3;
-                        if (Uti2.containsInt(rec.getStr(TEXT), c3) == false) {
+                        if (containsInt(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }
                     }
