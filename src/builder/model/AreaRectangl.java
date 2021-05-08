@@ -30,19 +30,19 @@ public class AreaRectangl extends AreaSimple {
             el.anglProf = 90;
             if (index == 0) { //Угловое соединение левое верхнее
                 el.init(TypeJoin.VAR20, LayoutJoin.LTOP, mapFrame.get(LayoutArea.TOP), mapFrame.get(LayoutArea.LEFT));
-                iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1), el);
+                iwin().mapJoin.put(x1 + ":" + y1, el);
 
             } else if (index == 1) { //Угловое соединение левое нижнее
                 el.init(TypeJoin.VAR20, LayoutJoin.LBOT, mapFrame.get(LayoutArea.LEFT), mapFrame.get(LayoutArea.BOTTOM));
-                iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y2), el);
+                iwin().mapJoin.put(x1 + ":" + y2, el);
 
             } else if (index == 2) { //Угловое соединение правое нижнее
                 el.init(TypeJoin.VAR20, LayoutJoin.RBOT, mapFrame.get(LayoutArea.BOTTOM), mapFrame.get(LayoutArea.RIGHT));
-                iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y2), el);
+                iwin().mapJoin.put(x2 + ":" + y2, el);
 
             } else if (index == 3) { //Угловое соединение правое верхнее
                 el.init(TypeJoin.VAR20, LayoutJoin.RTOP, mapFrame.get(LayoutArea.RIGHT), mapFrame.get(LayoutArea.TOP));
-                iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1), el);
+                iwin().mapJoin.put(x2 + ":" + y1, el);
             }
         }
     }
