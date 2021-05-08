@@ -197,10 +197,11 @@ public class ElementVar extends Par5s {
                         }
                         break;
                     case 31050:  //Контейнер имеет тип 
-                        TypeElem type = elem5e.type();
-                        if (type.id != rec.getInt(TEXT)) {
-                            return false;
-                        }
+//                        TypeElem type = elem5e.type();
+//                        if (type.id != rec.getInt(TEXT)) {
+//                            return false;
+//                        }
+                        message(grup);
                         break;
                     case 31051:  //Если створка фурнитуры 
                         message(grup);

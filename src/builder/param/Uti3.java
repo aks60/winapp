@@ -34,6 +34,11 @@ public class Uti3 {
         return true;
     }
 
+    public static boolean dic_4005_11005_12005_31050_33071_34071() {
+        
+        return true;
+    }
+    
     //Для технологического кода контейнера 
     public static boolean check_STRING_33000_34000(String txt, ElemSimple elem5e) {
         Record sysprofRec = elem5e.sysprofRec;
