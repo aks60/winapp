@@ -227,7 +227,7 @@ public class ElementDet extends Par5s {
                         break;
                     case 34066:  //Если номер стороны в контуре 
                     case 33066:  //Если номер стороны в контуре
-                        if (Uti3.check_INT_33066_34066(rec.getStr(TEXT), elem5e)) {
+                        if (!Uti3.check_INT_33066_34066(rec.getStr(TEXT), elem5e)) {
                             return false;
                         }
                         break;

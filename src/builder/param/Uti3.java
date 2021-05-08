@@ -57,6 +57,7 @@ public class Uti3 {
         return true;
     }
 
+    //Если признак системы конструкции
     public static boolean check_STRING_33095_34095_38095_39095_40095(String txt, ElemSimple elem5e, int nuni) {
         Record systreefRec = eSystree.find(nuni);
         String[] arr = txt.split(";");
@@ -73,6 +74,7 @@ public class Uti3 {
         return true;
     }
 
+    //Если номер стороны в контуре
     public static boolean check_INT_33066_34066(String txt, ElemSimple elem5e) {
         if ("1".equals(txt) == true && LayoutArea.BOTTOM != elem5e.layout()) {
             return false;
