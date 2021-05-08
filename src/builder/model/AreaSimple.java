@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 import startup.Main;
 import builder.Wincalc;
+import builder.making.Uti2;
 import enums.PKjson;
 import frames.Util;
 import frames.swing.DefMutableTreeNode;
@@ -181,37 +182,35 @@ public class AreaSimple extends Com5t {
                     //Элементы расположены по горизонтали
                     if (elemImp.owner().layout() == LayoutArea.HORIZ) {
                         elemImp.anglHoriz = 90;
-                        float x3 = elemImp.x1 + (elemImp.x2 - elemImp.x1) / 2;
 
                         if (elem5e.inside(elemImp.x1, elemImp.y1) == true
-                                && iwin().mapJoin.get(x3 + ":" + elemImp.y1) == null) { //T - соединение верхнее                       
+                                && iwin().mapJoin.get(Uti2.joinPoint(elemImp, 1)) == null) { //T - соединение верхнее                       
                             el.id = id() + 1f / 100;
                             el.init(TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e);
-                            iwin().mapJoin.put(x3 + ":" + elemImp.y1, el);
+                            iwin().mapJoin.put(Uti2.joinPoint(elemImp, 1), el);
 
                         } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
-                                && iwin().mapJoin.get(x3 + ":" + elemImp.y2) == null) { //T - соединение нижнее                        
+                                && iwin().mapJoin.get(Uti2.joinPoint(elemImp, 0)) == null) { //T - соединение нижнее                        
                             el.id = id() + 2f / 100;
                             el.init(TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e);
-                            iwin().mapJoin.put(x3 + ":" + elemImp.y2, el);
+                            iwin().mapJoin.put(Uti2.joinPoint(elemImp, 0), el);
                         }
 
                         //Элементы расположены по вертикали
                     } else {
                         elemImp.anglHoriz = 0;
-                        float y3 = elemImp.y1 + (elemImp.y2 - elemImp.y1) / 2;
 
                         if (elem5e.inside(elemImp.x1, elemImp.y1) == true
-                                && iwin().mapJoin.get(elemImp.x1 + ":" + y3) == null) { //T - соединение левое                        
+                                && iwin().mapJoin.get(Uti2.joinPoint(elemImp, 0)) == null) { //T - соединение левое                        
                             el.id = id() + 3f / 100;
                             el.init(TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e);
-                            iwin().mapJoin.put(elemImp.x1 + ":" + y3, el);
+                            iwin().mapJoin.put(Uti2.joinPoint(elemImp, 0), el);
 
                         } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
-                                && iwin().mapJoin.get(elemImp.x2 + ":" + y3) == null) { //T - соединение правое                        
+                                && iwin().mapJoin.get(Uti2.joinPoint(elemImp, 1)) == null) { //T - соединение правое                        
                             el.id = id() + 4f / 100;
                             el.init(TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e);
-                            iwin().mapJoin.put(elemImp.x2 + ":" + y3, el);
+                            iwin().mapJoin.put(Uti2.joinPoint(elemImp, 1), el);
                         }
                     }
                 }
