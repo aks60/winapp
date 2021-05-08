@@ -36,14 +36,6 @@ public class Par5s {
         return p2 > 0.00005;
     }
 
-    public static Float getFloat(String str) {
-        if (str != null && str.isEmpty() == false) {
-            str = str.replace(",", ".");
-            return Float.valueOf(str);
-        }
-        return 0f;
-    }
-
     //1;79-10;0-10=>[1,1,79,10,0,10]
     public static Integer[] parserInt(String str) {
         if (str.isEmpty()) {

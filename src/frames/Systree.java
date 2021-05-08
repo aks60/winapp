@@ -51,6 +51,7 @@ import builder.param.Par5s;
 import builder.script.GsonElem;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import common.Util;
 import domain.eArtdet;
 import domain.eColor;
 import domain.eFurndet;
@@ -2962,31 +2963,31 @@ public class Systree extends javax.swing.JFrame {
     private void txt24Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt24Update
         float windowsID = windowsNode.com5t().id();
         GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
-        jsonStv.widthUp(Float.valueOf(txt24.getText()));
+        jsonStv.widthUp(Util.getFloat(txt24.getText()));
         updateScript(windowsID);
     }//GEN-LAST:event_txt24Update
 
     private void txt26Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt26Update
         float windowsID = windowsNode.com5t().id();
         GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
-        jsonStv.heightUp(Float.valueOf(txt26.getText()));
+        jsonStv.heightUp(Util.getFloat(txt26.getText()));
         updateScript(windowsID);
     }//GEN-LAST:event_txt26Update
 
     private void txt17Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt17Update
         float windowsID = windowsNode.com5t().id();
-        float dx = Float.valueOf(txt17.getText()) / iwin.rootGson.width();
-        iwin.rootGson.width(Float.valueOf(txt17.getText()));
+        float dx = Util.getFloat(txt17.getText()) / iwin.rootGson.width();
+        iwin.rootGson.width(Util.getFloat(txt17.getText()));
         iwin.rootGson.widthDown(iwin.rootGson, dx);
         updateScript(windowsID);
     }//GEN-LAST:event_txt17Update
 
     private void txt22Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt22Update
         float windowsID = windowsNode.com5t().id();
-        float dy = Float.valueOf(txt22.getText()) / iwin.rootGson.height();
-        iwin.rootGson.height(Float.valueOf(txt22.getText()));
+        float dy = Util.getFloat(txt22.getText()) / iwin.rootGson.height();
+        iwin.rootGson.height(Util.getFloat(txt22.getText()));
 //        if (iwin.rootGson.heightAdd() != null) {
-//            iwin.rootGson.heightAdd(Float.valueOf(txt22.getText()));
+//            iwin.rootGson.heightAdd(Util.getFloat(txt22.getText()));
 //        }
         iwin.rootGson.heightDown(iwin.rootGson, dy);
         updateScript(windowsID);
@@ -3011,9 +3012,9 @@ public class Systree extends javax.swing.JFrame {
 
     private void txt23Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt23Update
 //            float windowsID = windowsNode.com5t().id();
-//            float dy = Float.valueOf(txt22.getText()) / iwin.rootGson.height();
-//            iwin.rootGson.height(Float.valueOf(txt22.getText()));
-//            iwin.rootGson.heightAdd(Float.valueOf(txt22.getText()));
+//            float dy = Util.getFloat(txt22.getText()) / iwin.rootGson.height();
+//            iwin.rootGson.height(Util.getFloat(txt22.getText()));
+//            iwin.rootGson.heightAdd(Util.getFloat(txt22.getText()));
 //            iwin.rootGson.heightDown(iwin.rootGson, dy);
 //            updateScript(windowsID);
     }//GEN-LAST:event_txt23Update

@@ -2,6 +2,7 @@ package frames;
 
 import builder.Wincalc;
 import builder.making.SpecificRec;
+import common.Util;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSetting;
@@ -333,7 +334,7 @@ public class DBCompare extends javax.swing.JFrame {
                     val = val.replaceAll("[\\s|\\u00A0]+", "").replace(",", ".");
                     Float val2 = (hmXls.get(key) == null) ? 0.f : hmXls.get(key);
                     try {
-                        Float val3 = Float.valueOf(val) + val2;
+                        Float val3 = Util.getFloat(val) + val2;
                         hmXls.put(key, val3);
                         hmArt.put(key, art);
                     } catch (Exception e) {
@@ -354,7 +355,7 @@ public class DBCompare extends javax.swing.JFrame {
                     val = val.replaceAll("[\\s|\\u00A0]+", "").replace(",", ".");
                     Float val2 = (hmXls.get(key) == null) ? 0.f : hmXls.get(key);
                     try {
-                        Float val3 = Float.valueOf(val) + val2;
+                        Float val3 = Util.getFloat(val) + val2;
                         hmXls.put(key, val3);
                         hmArt.put(key, art);
                     } catch (Exception e) {
@@ -938,7 +939,7 @@ public class DBCompare extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
-                    value = (Float.valueOf(value.toString()) > 0) ? df2.format(value) : null;
+                    value = (Util.getFloat(value.toString()) > 0) ? df2.format(value) : null;
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;
