@@ -2672,7 +2672,7 @@ public class Systree extends javax.swing.JFrame {
             HashSet<Record> set = new HashSet();
             String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
             String jfield = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
-            Integer[] arr2 = builder.making.Util.parserInt(jfield);
+            Integer[] arr2 = builder.making.Uti2.parserInt(jfield);
             if (arr1 != null) {
                 for (String s1 : arr1) { //группы
                     HashSet<Record> se2 = new HashSet();

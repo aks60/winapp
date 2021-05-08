@@ -15,7 +15,7 @@ import java.util.HashMap;
  *
  * @author aks
  */
-public class Util {
+public class Uti2 {
 
     public boolean DblNotZero(Object p) {
         float p2 = (float) p;

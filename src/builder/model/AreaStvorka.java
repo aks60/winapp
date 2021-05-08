@@ -14,7 +14,7 @@ import enums.TypeJoin;
 import java.awt.Color;
 import java.util.LinkedList;
 import builder.Wincalc;
-import builder.making.Util;
+import builder.making.Uti2;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -216,7 +216,7 @@ public class AreaStvorka extends AreaSimple {
             List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
             Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.params_id) == 1040).findFirst().orElse(null);
             if (joinpar1Rec != null) {
-                return Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
+                return Uti2.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
             }
         }
         return 0;

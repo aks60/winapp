@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import builder.Wincalc;
-import builder.making.Util;
+import builder.making.Uti2;
 import builder.model.ElemJoining;
 
 //Соединения
@@ -52,7 +52,7 @@ public class JoiningVar extends Par5s {
                             String strTxt = rec.getStr(TEXT);
                             String type1 = String.valueOf(elemJoin.joinElement1.type().id);
                             String type2 = String.valueOf(elemJoin.joinElement2.type().id);
-                            if (Util.containsStr(strTxt, type1, type2) == false) {
+                            if (Uti2.containsStr(strTxt, type1, type2) == false) {
                                 return false;
                             }
                         } catch (Exception e) {
@@ -348,7 +348,7 @@ public class JoiningVar extends Par5s {
                     case 4095: //Если признак системы конструкции 
                     {
                         Record record = eSystree.find(iwin.nuni);
-                        if (Util.containsInt(rec.getStr(TEXT), record.getInt(eSystree.types)) == false) {
+                        if (Uti2.containsInt(rec.getStr(TEXT), record.getInt(eSystree.types)) == false) {
                             return false;
                         }
                     }

@@ -247,12 +247,12 @@ public class Tariffication extends Cal5e {
                 || ((specifRec.artiklRec.getInt(eArtikl.level1) * 100
                 + specifRec.artiklRec.getInt(eArtikl.level2)) == rulecalcRec.getInt(eRulecalc.type))) {
 
-            if (Util.containsInt(rulecalcRec.getStr(eRulecalc.color1), specifRec.colorID1) == true
-                    && Util.containsInt(rulecalcRec.getStr(eRulecalc.color2), specifRec.colorID2) == true
-                    && Util.containsInt(rulecalcRec.getStr(eRulecalc.color3), specifRec.colorID3) == true) {
+            if (Uti2.containsInt(rulecalcRec.getStr(eRulecalc.color1), specifRec.colorID1) == true
+                    && Uti2.containsInt(rulecalcRec.getStr(eRulecalc.color2), specifRec.colorID2) == true
+                    && Uti2.containsInt(rulecalcRec.getStr(eRulecalc.color3), specifRec.colorID3) == true) {
 
                 if (rulecalcRec.getInt(eRulecalc.common) == 0) {
-                    if (Util.containsFloat(rulecalcRec.getStr(eRulecalc.quant), specifRec.quant2) == true) {
+                    if (Uti2.containsFloat(rulecalcRec.getStr(eRulecalc.quant), specifRec.quant2) == true) {
                         specifRec.price1 = specifRec.price1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr);  //увеличение себестоимости в coegg раз и на incr величину надбавки
                     }
 
@@ -283,7 +283,7 @@ public class Tariffication extends Cal5e {
                             }
                         }
                     }
-                    if (Util.containsFloat(rulecalcRec.getStr(eRulecalc.quant), quantity3) == true) {
+                    if (Uti2.containsFloat(rulecalcRec.getStr(eRulecalc.quant), quantity3) == true) {
                         specifRec.price1 = specifRec.price1 * rulecalcRec.getFloat(eRulecalc.coeff) + rulecalcRec.getFloat(eRulecalc.incr); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
                     }
                 }
