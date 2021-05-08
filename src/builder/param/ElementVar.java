@@ -20,7 +20,7 @@ import builder.model.ElemSimple;
 //Составы
 public class ElementVar extends Par5s {
 
-    private int[] par = {31000, 31001, 31002, 31003, 31004, 31005, 31006, 31007, 31008, 31015, 31016, 31020, 31033, 31034, 31037, 31041, 31050, 31052, 31055, 31056, 31080, 31085, 31090, 31095, 31097, 31099, 37001, 37002, 37009, 37010, 37030, 37042, 37056, 37080, 37085, 37099};
+    //private int[] par = {31000, 31001, 31002, 31003, 31004, 31005, 31006, 31007, 31008, 31015, 31016, 31020, 31033, 31034, 31037, 31041, 31050, 31052, 31055, 31056, 31080, 31085, 31090, 31095, 31097, 31099, 37001, 37002, 37009, 37010, 37030, 37042, 37056, 37080, 37085, 37099};
 
     public ElementVar(Wincalc iwin) {
         super(iwin);
@@ -280,14 +280,13 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 37008:  //Тип проема 
-                        message(grup);
+                        if (!Uti3.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                            return false;
+                        }
                         break;
                     case 37009:  //Тип заполнения 
-                        //Все, Произвольное, Прямоугольное, Арочное                                            
-                        if ("Прямоугольное".equalsIgnoreCase(rec.getStr(TEXT)) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) || TypeElem.AREA.equals(elem5e.owner().type()) == false)) {
-                            return false;
-                        } else if ("Арочное".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
-                            return false;
+                        if (!Uti3.dic_37009(rec.getStr(TEXT), elem5e)) {
+                           return false;
                         }
                         break;
                     case 37010:  //Ограничение ширины/высоты листа, мм 

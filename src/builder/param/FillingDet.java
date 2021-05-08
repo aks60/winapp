@@ -12,11 +12,12 @@ import java.util.List;
 import builder.Wincalc;
 import builder.making.Uti2;
 import builder.model.ElemSimple;
+import enums.TypeElem;
 
 //Заполнения
 public class FillingDet extends Par5s {
 
-    private int[] par = {14000, 14030, 14040, 14050, 14060, 14065, 14068, 15000, 15005, 15011, 15013, 15027, 15030, 15040, 15045, 15050, 15055, 15068, 15069};
+    //private int[] par = {14000, 14030, 14040, 14050, 14060, 14065, 14068, 15000, 15005, 15011, 15013, 15027, 15030, 15040, 15045, 15050, 15055, 15068, 15069};
 
     public FillingDet(Wincalc iwin) {
         super(iwin);
@@ -60,13 +61,19 @@ public class FillingDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 14005:  //Тип проема 
-                        message(rec.getInt(GRUP));
+                    case 15005: 
+                        if(!Uti3.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                            return false;
+                        }
                         break;
                     case 14008:  //Эффективное заполнение изд., мм 
                         message(rec.getInt(GRUP));
                         break;
                     case 14009:  //Арочное заполнение 
-                        message(rec.getInt(GRUP));
+                    case 15009:  
+                        if(elem5e.owner().type() != TypeElem.ARCH){
+                            return false;
+                        }
                         break;
                     case 14017:  //Код системы содержит строку 
                         message(rec.getInt(GRUP));
@@ -138,13 +145,7 @@ public class FillingDet extends Par5s {
                     case 15001:  //Если признак состава 
                         message(rec.getInt(GRUP));
                         break;
-                    case 15005:  //Тип проема 
-                        message(rec.getInt(GRUP));
-                        break;
                     case 15008:  //Эффективное заполнение изд., мм 
-                        message(rec.getInt(GRUP));
-                        break;
-                    case 15009:  //Арочное заполнение 
                         message(rec.getInt(GRUP));
                         break;
                     case 15010:  //Расчет реза штапика 

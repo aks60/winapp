@@ -41,27 +41,10 @@ public class ElementDet extends Par5s {
 
                     case 33000: //Для технологического кода контейнера 
                     case 34000: //Для технологического кода контейнера 
-                    {
-                        Record sysprofRec = elem5e.sysprofRec;
-                        Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-                        if (artiklVRec.get(eArtikl.tech_code) == null) {
+                        if (!Uti3.check_STRING_33000_34000(rec.getStr(TEXT), elem5e)) {
                             return false;
                         }
-                        String[] strList = rec.getStr(TEXT).split(";");
-                        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
-                        boolean ret2 = false;
-                        for (String str : strList) {
-                            for (String str2 : strList2) {
-                                if (str.equalsIgnoreCase(str2)) {
-                                    ret2 = true;
-                                }
-                            }
-                        }
-                        if (ret2 == false) {
-                            return false;
-                        }
-                    }
-                    break;
+                        break;
                     case 33001:  //Если признак состава 
                         message(grup);
                         break;
@@ -105,7 +88,7 @@ public class ElementDet extends Par5s {
 //                                return false;
 //                            }
                             message(grup);
-                        } else {                            
+                        } else {
                             message(grup);
                         }
                     }
@@ -172,21 +155,10 @@ public class ElementDet extends Par5s {
                     case 38095:  //Если признак системы конструкции
                     case 39095:  //Если признак системы конструкции
                     case 40095: //Если признак системы конструкции 
-                    {
-                        Record systreefRec = eSystree.find(iwin.nuni);
-                        String[] arr = rec.getStr(TEXT).split(";");
-                        List<String> arrList = Arrays.asList(arr);
-                        boolean ret = false;
-                        for (String str : arrList) {
-                            if (systreefRec.getInt(eSystree.types) == Integer.valueOf(str) == true) {
-                                ret = true;
-                            }
-                        }
-                        if (ret == false) {
+                        if (!Uti3.check_STRING_33095_34095_38095_39095_40095(rec.getStr(TEXT), elem5e, iwin.nuni)) {
                             return false;
                         }
-                    }
-                    break;
+                        break;
                     case 33099:  //Трудозатраты, ч/ч. 
                     case 34099:  //Трудозатраты, ч/ч.
                     case 38099:  //Трудозатраты, ч/ч. 
@@ -265,13 +237,7 @@ public class ElementDet extends Par5s {
                         break;
                     case 34066:  //Если номер стороны в контуре 
                     case 33066:  //Если номер стороны в контуре
-                        if ("1".equals(rec.getStr(TEXT)) == true && LayoutArea.BOTTOM != elem5e.layout()) {
-                            return false;
-                        } else if ("2".equals(rec.getStr(TEXT)) == true && LayoutArea.RIGHT != elem5e.layout()) {
-                            return false;
-                        } else if ("3".equals(rec.getStr(TEXT)) == true && LayoutArea.TOP != elem5e.layout()) {
-                            return false;
-                        } else if ("4".equals(rec.getStr(TEXT)) == true && LayoutArea.LEFT != elem5e.layout()) {
+                        if (Uti3.check_INT_33066_34066(rec.getStr(TEXT), elem5e)) {
                             return false;
                         }
                         break;
