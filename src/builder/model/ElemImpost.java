@@ -115,7 +115,7 @@ public class ElemImpost extends ElemSimple {
                 spcRec.width = x2 - x1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
-        }
+        }   
     }
 
     //@Override //Вложеная спецификация 
