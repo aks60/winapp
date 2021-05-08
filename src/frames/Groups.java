@@ -6,7 +6,7 @@ import domain.eGroups;
 import enums.Enam;
 import enums.ParamList;
 import enums.TypeGroups;
-import static frames.Util.getIndexRec;
+import static frames.Uti4.getIndexRec;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
 import java.awt.Component;
@@ -82,15 +82,15 @@ public class Groups extends javax.swing.JFrame {
                 return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             }
         });
-        Util.setSelectedRow(tab1);
-        Util.setSelectedRow(tab2);
-        Util.setSelectedRow(tab3);
-        Util.setSelectedRow(tab4);
-        Util.setSelectedRow(tab5);
-        Util.setSelectedRow(tab6);
-        Util.setSelectedRow(tab7);
+        Uti4.setSelectedRow(tab1);
+        Uti4.setSelectedRow(tab2);
+        Uti4.setSelectedRow(tab3);
+        Uti4.setSelectedRow(tab4);
+        Uti4.setSelectedRow(tab5);
+        Uti4.setSelectedRow(tab6);
+        Uti4.setSelectedRow(tab7);
 
-        Util.buttonCellEditor(tab7, 1, (component) -> {
+        Uti4.buttonCellEditor(tab7, 1, (component) -> {
 
             if (component instanceof DefCellEditor) { //установим вид и тип ячейки
                 DefCellEditor editor = (DefCellEditor) component;
@@ -116,8 +116,8 @@ public class Groups extends javax.swing.JFrame {
                     "Округление длины профилей", JOptionPane.QUESTION_MESSAGE, null, arrStr, arrStr[0]);
             for (int i = 0; i < arrStr.length; ++i) {
                 if (arrStr[i].equals(result)) {
-                    Util.stopCellEditing(tab7);
-                    qDecInc.set(arrDbl[i], Util.getIndexRec(tab7), eGroups.val);
+                    Uti4.stopCellEditing(tab7);
+                    qDecInc.set(arrDbl[i], Uti4.getIndexRec(tab7), eGroups.val);
                     ((DefTableModel) tab7.getModel()).fireTableRowsUpdated(tab7.getSelectedRow(), tab7.getSelectedRow());
                 }
             }
@@ -650,23 +650,23 @@ public class Groups extends javax.swing.JFrame {
         Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> ((DefaultTableModel) tab.getModel()).fireTableDataChanged());
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> Util.setSelectedRow(tab));
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> Uti4.setSelectedRow(tab));
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (Util.isDeleteRecord(this) == 0) {
+        if (Uti4.isDeleteRecord(this) == 0) {
             if (tab1.getBorder() != null) {
-                Util.deleteRecord(tab1);
+                Uti4.deleteRecord(tab1);
             } else if (tab2.getBorder() != null) {
-                Util.deleteRecord(tab2);
+                Uti4.deleteRecord(tab2);
             } else if (tab3.getBorder() != null) {
-                Util.deleteRecord(tab3);
+                Uti4.deleteRecord(tab3);
             } else if (tab4.getBorder() != null) {
-                Util.deleteRecord(tab4);
+                Uti4.deleteRecord(tab4);
             } else if (tab5.getBorder() != null) {
-                Util.deleteRecord(tab5);
+                Uti4.deleteRecord(tab5);
             } else if (tab6.getBorder() != null) {
-                Util.deleteRecord(tab6);
+                Uti4.deleteRecord(tab6);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -674,32 +674,32 @@ public class Groups extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, eGroups.up, (record) -> {
+            Uti4.insertRecord(tab1, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.PRICE_INC.id);
             });
 
         } else if (tab2.getBorder() != null) {
-            Util.insertRecord(tab2, eGroups.up, (record) -> {
+            Uti4.insertRecord(tab2, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.PRICE_DEC.id);
             });
 
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab3, eGroups.up, (record) -> {
+            Uti4.insertRecord(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.SERI_PROF.id);
             });
 
         } else if (tab4.getBorder() != null) {
-            Util.insertRecord(tab4, eGroups.up, (record) -> {
+            Uti4.insertRecord(tab4, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.CATEG_PRF.id);
             });
 
         } else if (tab5.getBorder() != null) {
-            Util.insertRecord(tab5, eGroups.up, (record) -> {
+            Uti4.insertRecord(tab5, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLOR.id);
             });
 
         } else if (tab6.getBorder() != null) {
-            Util.insertRecord(tab6, eGroups.up, (record) -> {
+            Uti4.insertRecord(tab6, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.CATEG_VST.id);
             });
         }
@@ -724,7 +724,7 @@ public class Groups extends javax.swing.JFrame {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Util.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
@@ -732,27 +732,27 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_tabMousePressed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6, tab7);
+        Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6, tab7);
         Arrays.asList(qArtIncr, qArtDecr, qArtSeri, qCategProf, qColgrp, qCategVst, qDecInc).forEach(q -> q.execsql());
     }//GEN-LAST:event_formWindowClosed
 
     private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6);
+        Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6);
         Arrays.asList(qArtIncr, qArtDecr, qArtSeri, qCategProf, qColgrp, qCategVst, qDecInc).forEach(q -> q.execsql());
         if (tabb.getSelectedIndex() == 0) {
-            Util.updateBorderAndSql(tab7, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            Uti4.updateBorderAndSql(tab7, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         } else if (tabb.getSelectedIndex() == 1) {
-            Util.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            Uti4.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         } else if (tabb.getSelectedIndex() == 2) {
-            Util.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            Uti4.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         } else if (tabb.getSelectedIndex() == 3) {
-            Util.updateBorderAndSql(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            Uti4.updateBorderAndSql(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         } else if (tabb.getSelectedIndex() == 4) {
-            Util.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            Uti4.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         } else if (tabb.getSelectedIndex() == 5) {
-            Util.updateBorderAndSql(tab4, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            Uti4.updateBorderAndSql(tab4, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         } else if (tabb.getSelectedIndex() == 6) {
-            Util.updateBorderAndSql(tab6, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            Uti4.updateBorderAndSql(tab6, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         }
     }//GEN-LAST:event_tabbStateChanged
 
@@ -798,6 +798,6 @@ public class Groups extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(btn -> btn.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6, tab7)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(btn -> btn.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6, tab7)));
     }
 }

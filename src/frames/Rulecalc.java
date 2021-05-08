@@ -65,39 +65,39 @@ public class Rulecalc extends javax.swing.JFrame {
         tab2.getColumnModel().getColumn(9).setCellEditor(new DefCellEditor(5));
         tab2.getColumnModel().getColumn(10).setCellEditor(new DefCellEditor(5));
 
-        Util.buttonCellEditor(tab2, 1).addActionListener(event -> {
+        Uti4.buttonCellEditor(tab2, 1).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, (artiklRec) -> {
-                Util.stopCellEditing(tab2);
+                Uti4.stopCellEditing(tab2);
                 int val = artiklRec.getInt(eArtikl.level1) * 100 + artiklRec.getInt(eArtikl.level2);
-                qRulecalc.set(val, Util.getIndexRec(tab2), eRulecalc.type);
+                qRulecalc.set(val, Uti4.getIndexRec(tab2), eRulecalc.type);
                 ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
             }, 1, 2, 3, 4, 5);
         });
 
-        Util.buttonCellEditor(tab2, 2).addActionListener(event -> {
+        Uti4.buttonCellEditor(tab2, 2).addActionListener(event -> {
             int type = qRulecalc.getAs(tab2.getSelectedRow(), eRulecalc.type);
             int[] arr = (type == -1) ? new int[]{1, 2, 3, 4, 5} : new int[]{type / 100};
             new DicArtikl2(this, listenerArtikl, arr);
         });
 
-        Util.buttonCellEditor(tab2, 3).addActionListener(event -> {
+        Uti4.buttonCellEditor(tab2, 3).addActionListener(event -> {
             int type = qRulecalc.getAs(tab2.getSelectedRow(), eRulecalc.type);
             int[] arr = (type == -1) ? new int[]{1, 2, 3, 4, 5} : new int[]{type / 100};
             new DicArtikl2(this, listenerArtikl, arr);
         });
 
-        Util.buttonCellEditor(tab2, 11).addActionListener(event -> {
-            new DicEnums(this, (record) -> Util.listenerEnums(record, tab2, eRulecalc.form, tab2), TypeForm.values());
+        Uti4.buttonCellEditor(tab2, 11).addActionListener(event -> {
+            new DicEnums(this, (record) -> Uti4.listenerEnums(record, tab2, eRulecalc.form, tab2), TypeForm.values());
         });
 
-        Util.setSelectedRow(tab2);
+        Uti4.setSelectedRow(tab2);
     }
 
     private void listenerSet() {
 
         listenerArtikl = (arttiklRec) -> {
-            int index = Util.getIndexRec(tab2);
-            Util.stopCellEditing(tab2);
+            int index = Uti4.getIndexRec(tab2);
+            Uti4.stopCellEditing(tab2);
             qRulecalc.table(eRulecalc.up).set(arttiklRec.getInt(eArtikl.id), index, eRulecalc.artikl_id);
             qRulecalc.table(eArtikl.up).set(arttiklRec.get(eArtikl.code), index, eArtikl.code);
             qRulecalc.table(eArtikl.up).set(arttiklRec.get(eArtikl.name), index, eArtikl.name);
@@ -351,16 +351,16 @@ public class Rulecalc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Util.stopCellEditing(tab2);
+        Uti4.stopCellEditing(tab2);
         qRulecalc.execsql();
         loadingData();
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab2);
+        Uti4.setSelectedRow(tab2);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (Util.isDeleteRecord(tab2, this) == 0) {
-            Util.deleteRecord(tab2);
+        if (Uti4.isDeleteRecord(tab2, this) == 0) {
+            Uti4.deleteRecord(tab2);
         }
     }//GEN-LAST:event_btnDelete
 
@@ -373,7 +373,7 @@ public class Rulecalc extends javax.swing.JFrame {
             qRulecalc.add(rulecalcRec);
             qRulecalc.table(eArtikl.up).add(artiklRec);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.scrollRectToIndex(qRulecalc.size() - 1, tab2);
+            Uti4.scrollRectToIndex(qRulecalc.size() - 1, tab2);
         }
     }//GEN-LAST:event_btnInsert
 
@@ -397,7 +397,7 @@ public class Rulecalc extends javax.swing.JFrame {
     private void tab2tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2tabMousePressed
 
         JTable table = (JTable) evt.getSource();
-        Util.updateBorderAndSql(table, Arrays.asList(tab2));
+        Uti4.updateBorderAndSql(table, Arrays.asList(tab2));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
@@ -405,7 +405,7 @@ public class Rulecalc extends javax.swing.JFrame {
     }//GEN-LAST:event_tab2tabMousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Util.stopCellEditing(tab2);
+        Uti4.stopCellEditing(tab2);
         qRulecalc.execsql();
     }//GEN-LAST:event_windowClosed
 
@@ -433,6 +433,6 @@ public class Rulecalc extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         labFilter.setText(tab2.getColumnName(0));
         txtFilter.setName(tab2.getName());
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab2)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab2)));
     }
 }

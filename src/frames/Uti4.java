@@ -61,7 +61,7 @@ import javax.swing.ImageIcon;
  * <p>
  * Параметры приложения </p>
  */
-public class Util {
+public class Uti4 {
 
     public static DecimalFormat df = new DecimalFormat("0.0#", new DecimalFormatSymbols(Locale.ENGLISH));
     private static GregorianCalendar appCalendar = new GregorianCalendar(); //календарь программы    
@@ -411,12 +411,12 @@ public class Util {
         query.add(record);
         listener.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
-        Util.scrollRectToIndex(query.size() - 1, table);
+        Uti4.scrollRectToIndex(query.size() - 1, table);
     }
 
     //Изменить запись
     public static void updateRecord(JTable table, ListenerSQL listener) {
-        Record record = ((DefTableModel) table.getModel()).getQuery().get(Util.getIndexRec(table));
+        Record record = ((DefTableModel) table.getModel()).getQuery().get(Uti4.getIndexRec(table));
         listener.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsUpdated(table.getSelectedRow(), table.getSelectedRow());
     }
@@ -437,7 +437,7 @@ public class Util {
             row = (row > 0) ? --row : 0;
             if (query.size() > 0) {
                 index = table.convertRowIndexToModel(row);
-                Util.setSelectedRow(table, index);
+                Uti4.setSelectedRow(table, index);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
@@ -476,7 +476,7 @@ public class Util {
             tabList.forEach(tab -> tab.setBorder(null));
             tabList.forEach(tab -> {
                 if (tab != table) {
-                    Util.stopCellEditing(tab);
+                    Uti4.stopCellEditing(tab);
                     if (tab.getModel() instanceof DefTableModel) {
                         ((DefTableModel) tab.getModel()).getQuery().execsql();
                     }
@@ -564,17 +564,17 @@ public class Util {
 
         } else if (component != null && component instanceof String) {  //проверка на коррекность ввода
             String txt = (String) component;
-            return ParamList.find(qParam.getAs(Util.getIndexRec(table), params_id)).check(txt);
+            return ParamList.find(qParam.getAs(Uti4.getIndexRec(table), params_id)).check(txt);
         }
         return true;
     }
 
     //Слушатель редактирование параметров
     public static void listenerParam(Record record, JTable table, Field paramsID, Field text, JTable... tables) {
-        Util.stopCellEditing(tables);
+        Uti4.stopCellEditing(tables);
         int index = getIndexRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
-        Record record2 = query.get(Util.getIndexRec(table));
+        Record record2 = query.get(Uti4.getIndexRec(table));
 
         if (eParams.values().length == record.size()) {
             record2.set(paramsID, record.getInt(eParams.id));
@@ -589,12 +589,12 @@ public class Util {
             record2.set(text, record.getStr(0));
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(table, index);
+        Uti4.setSelectedRow(table, index);
     }
 
     //Слушатель редактирование палитры
     public static void listenerColor(Record record, JTable table, Field color_fk, Field types, JTable... tables) {
-        Util.stopCellEditing(tables);
+        Uti4.stopCellEditing(tables);
         int index = getIndexRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record elemdetRec = query.get(index);
@@ -610,16 +610,16 @@ public class Util {
             elemdetRec.set(types, val);
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(table, index);
+        Uti4.setSelectedRow(table, index);
     }
 
     public static void listenerEnums(Record record, JTable table, Field field_fk, JTable... tables) {
-        Util.stopCellEditing(tables);
+        Uti4.stopCellEditing(tables);
         Query query = ((DefTableModel) table.getModel()).getQuery();
         int index = getIndexRec(table);
         query.set(record.getInt(0), getIndexRec(table), field_fk);
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(table, index);
+        Uti4.setSelectedRow(table, index);
     }
 
     //Программный клик на компоненте

@@ -191,7 +191,7 @@ public class DBCompare extends javax.swing.JFrame {
             }
             rs.close();
             lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = "
-                    + punic + "   Стоим.без.ск = " + Util.df.format(sum1) + "   Стоим.со.ск = " + Util.df.format(sum2));
+                    + punic + "   Стоим.без.ск = " + Uti4.df.format(sum1) + "   Стоим.со.ск = " + Uti4.df.format(sum2));
 
             //=== Таблица 2 ===
             ((DefaultTableModel) tab2.getModel()).getDataVector().clear();
@@ -739,7 +739,7 @@ public class DBCompare extends javax.swing.JFrame {
 
         pan10.setPreferredSize(new java.awt.Dimension(100, 40));
 
-        lab19.setFont(frames.Util.getFont(0,0));
+        lab19.setFont(frames.Uti4.getFont(0,0));
         lab19.setText("PUNIC");
         lab19.setToolTipText("");
         lab19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -747,7 +747,7 @@ public class DBCompare extends javax.swing.JFrame {
         lab19.setMinimumSize(new java.awt.Dimension(34, 14));
         lab19.setPreferredSize(new java.awt.Dimension(98, 18));
 
-        lab20.setFont(frames.Util.getFont(0,0));
+        lab20.setFont(frames.Uti4.getFont(0,0));
         lab20.setText("ONUMB");
         lab20.setToolTipText("");
         lab20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -755,7 +755,7 @@ public class DBCompare extends javax.swing.JFrame {
         lab20.setMinimumSize(new java.awt.Dimension(34, 14));
         lab20.setPreferredSize(new java.awt.Dimension(98, 18));
 
-        txt19.setFont(frames.Util.getFont(0,0));
+        txt19.setFont(frames.Uti4.getFont(0,0));
         txt19.setText("1");
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -765,7 +765,7 @@ public class DBCompare extends javax.swing.JFrame {
             }
         });
 
-        txt20.setFont(frames.Util.getFont(0,0));
+        txt20.setFont(frames.Uti4.getFont(0,0));
         txt20.setText("1");
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt20.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -878,7 +878,7 @@ public class DBCompare extends javax.swing.JFrame {
 
     private void tab1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MousePressed
         JTable table = (JTable) evt.getSource();
-        Util.updateBorderAndSql(table, Arrays.asList(tab1));
+        Uti4.updateBorderAndSql(table, Arrays.asList(tab1));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());

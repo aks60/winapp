@@ -65,20 +65,20 @@ public class Param extends javax.swing.JFrame {
         });
 
         listenerColor = (record) -> {
-            Util.stopCellEditing(tab1, tab2);
-            int index = Util.getIndexRec(tab2);
+            Uti4.stopCellEditing(tab1, tab2);
+            int index = Uti4.getIndexRec(tab2);
             if (index != -1) {
                 Record pardetRec = qPardet.get(index);
                 pardetRec.set(eParams.text, record.getStr(eColor.name));
                 qPardet.update(pardetRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, index);
+                Uti4.setSelectedRow(tab2, index);
             }
         };
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int index = Util.getIndexRec(tab1);
+        int index = Uti4.getIndexRec(tab1);
         if (index != -1) {
             Record record = qParams.get(index);
             Integer p1 = record.getInt(eParams.id);
@@ -91,7 +91,7 @@ public class Param extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int index = Util.getIndexRec(tab1);
+        int index = Uti4.getIndexRec(tab1);
         if (index != -1) {
             Record record = qParams.get(index);
             if (record.getInt(eParams.color) == 1) {
@@ -375,20 +375,20 @@ public class Param extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Util.stopCellEditing(tab1, tab2);
+        Uti4.stopCellEditing(tab1, tab2);
         Arrays.asList(tab1, tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadData();
-        Util.setSelectedRow(tab1);
+        Uti4.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
-            if (Util.isDeleteRecord(this, tab2) == 0) {
-                Util.deleteRecord(tab1);
+            if (Uti4.isDeleteRecord(this, tab2) == 0) {
+                Uti4.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab2);
+            if (Uti4.isDeleteRecord(this) == 0) {
+                Uti4.deleteRecord(tab2);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -396,14 +396,14 @@ public class Param extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, eParams.up, (record) -> {
+            Uti4.insertRecord(tab1, eParams.up, (record) -> {
                 record.setNo(eParams.params_id, record.getInt(eParams.id));
                 Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
             });
         } else if (tab2.getBorder() != null) {
-            Util.insertRecord(tab2, eParams.up, (record) -> {
-                Record record2 = qParams.get(Util.getIndexRec(tab1));
+            Uti4.insertRecord(tab2, eParams.up, (record) -> {
+                Record record2 = qParams.get(Uti4.getIndexRec(tab1));
                 record.setNo(eParams.params_id, record2.getInt(eParams.id));
                 Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
@@ -412,7 +412,7 @@ public class Param extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Util.stopCellEditing(tab1, tab2);
+        Uti4.stopCellEditing(tab1, tab2);
         Arrays.asList(qParams, qPardet).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
@@ -421,7 +421,7 @@ public class Param extends javax.swing.JFrame {
         if (table == tab2) {
             selectionTab2(null);
         }
-        Util.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
+        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
@@ -464,11 +464,11 @@ public class Param extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
+                "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Значение параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
+                "Значение параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
 
         tab1.getSelectionModel().addListSelectionListener(event -> {
             if (event.getValueIsAdjusting() == false) {

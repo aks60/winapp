@@ -55,7 +55,7 @@ public class Specific extends javax.swing.JFrame {
         initElements();
         createIwin();
         loadingTab1(groups(1));
-        Util.setSelectedRow(tab1);
+        Uti4.setSelectedRow(tab1);
         tab1.setColumnSelectionInterval(3, 3);
         labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn())));
         txtFilter.setName(tab1.getName());
@@ -485,7 +485,7 @@ public class Specific extends javax.swing.JFrame {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        Util.updateBorderAndSql(table, Arrays.asList(tab1));
+        Uti4.updateBorderAndSql(table, Arrays.asList(tab1));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
@@ -541,7 +541,7 @@ public class Specific extends javax.swing.JFrame {
     private void cbxGroupBy(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupBy
 
         txtFilter.setText(null);
-        float id = (Util.getIndexRec(tab1) == -1) ? -1 : Float.valueOf(tab1.getValueAt(Util.getIndexRec(tab1), 1).toString());
+        float id = (Uti4.getIndexRec(tab1) == -1) ? -1 : Float.valueOf(tab1.getValueAt(Uti4.getIndexRec(tab1), 1).toString());
 
         if (cbx1.getSelectedIndex() == 0) {
             loadingTab1(iwin.listSpec);
@@ -571,11 +571,11 @@ public class Specific extends javax.swing.JFrame {
 
         for (int i = 0; i < tab1.getRowCount() - 1; i++) {
             if (tab1.getValueAt(i, 1) != null && Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
-                Util.setSelectedRow(tab1, i);
+                Uti4.setSelectedRow(tab1, i);
                 return;
             }
         }
-        Util.setSelectedRow(tab1);
+        Uti4.setSelectedRow(tab1);
     }//GEN-LAST:event_cbxGroupBy
 
     private void cbxCalcType(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCalcType
@@ -583,7 +583,7 @@ public class Specific extends javax.swing.JFrame {
             public void actionRequest(Object obj) {
                 createIwin();
                 loadingTab1(iwin.listSpec);
-                Util.setSelectedRow(tab1);
+                Uti4.setSelectedRow(tab1);
             }
         });
     }//GEN-LAST:event_cbxCalcType
@@ -601,10 +601,10 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTest
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        int index = Util.getIndexRec(tab1);
+        int index = Uti4.getIndexRec(tab1);
         createIwin();
         loadingTab1(groups(cbx1.getSelectedIndex()));
-        Util.setSelectedRow(tab1, index);
+        Uti4.setSelectedRow(tab1, index);
     }//GEN-LAST:event_btnRefresh
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     

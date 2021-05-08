@@ -150,18 +150,18 @@ public class PathToDb extends javax.swing.JDialog {
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         jPanel4.setPreferredSize(new java.awt.Dimension(510, 200));
 
-        labMes.setFont(frames.Util.getFont(0,1));
+        labMes.setFont(frames.Uti4.getFont(0,1));
         labMes.setText("Ошибка соединения с базой данных!");
         labMes.setMaximumSize(new java.awt.Dimension(200, 14));
         labMes.setPreferredSize(new java.awt.Dimension(390, 14));
 
-        labUser1.setFont(frames.Util.getFont(1,1));
+        labUser1.setFont(frames.Uti4.getFont(1,1));
         labUser1.setText("Сервер");
         labUser1.setAlignmentX(0.5F);
         labUser1.setMaximumSize(new java.awt.Dimension(60, 14));
         labUser1.setPreferredSize(new java.awt.Dimension(60, 14));
 
-        edHost.setFont(frames.Util.getFont(0,0));
+        edHost.setFont(frames.Uti4.getFont(0,0));
         edHost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         edHost.setMinimumSize(new java.awt.Dimension(0, 0));
         edHost.setPreferredSize(new java.awt.Dimension(146, 18));
@@ -171,13 +171,13 @@ public class PathToDb extends javax.swing.JDialog {
             }
         });
 
-        labUser2.setFont(frames.Util.getFont(1,1));
+        labUser2.setFont(frames.Uti4.getFont(1,1));
         labUser2.setText("Файл БД");
         labUser2.setAlignmentX(0.5F);
         labUser2.setMaximumSize(new java.awt.Dimension(60, 14));
         labUser2.setPreferredSize(new java.awt.Dimension(60, 14));
 
-        edPath.setFont(frames.Util.getFont(0,0));
+        edPath.setFont(frames.Uti4.getFont(0,0));
         edPath.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         edPath.setMinimumSize(new java.awt.Dimension(0, 0));
         edPath.setPreferredSize(new java.awt.Dimension(340, 16));
@@ -187,7 +187,7 @@ public class PathToDb extends javax.swing.JDialog {
             }
         });
 
-        btnFile.setFont(frames.Util.getFont(0,0));
+        btnFile.setFont(frames.Uti4.getFont(0,0));
         btnFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b033.gif"))); // NOI18N
         btnFile.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFile.setMaximumSize(new java.awt.Dimension(27, 16));
@@ -199,28 +199,28 @@ public class PathToDb extends javax.swing.JDialog {
             }
         });
 
-        labUser3.setFont(frames.Util.getFont(1,1));
+        labUser3.setFont(frames.Uti4.getFont(1,1));
         labUser3.setText("Порт");
         labUser3.setAlignmentX(0.5F);
 
-        edPort.setFont(frames.Util.getFont(0,0));
+        edPort.setFont(frames.Uti4.getFont(0,0));
         edPort.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         edPort.setMinimumSize(new java.awt.Dimension(0, 0));
         edPort.setPreferredSize(new java.awt.Dimension(60, 18));
 
-        labUser.setFont(frames.Util.getFont(1,1));
+        labUser.setFont(frames.Uti4.getFont(1,1));
         labUser.setText("Пользователь");
         labUser.setAlignmentX(0.5F);
         labUser.setMaximumSize(new java.awt.Dimension(120, 14));
         labUser.setPreferredSize(new java.awt.Dimension(96, 14));
 
-        labPass.setFont(frames.Util.getFont(1,1));
+        labPass.setFont(frames.Uti4.getFont(1,1));
         labPass.setText("Пароль");
         labPass.setAlignmentX(0.5F);
         labPass.setMaximumSize(new java.awt.Dimension(120, 14));
         labPass.setPreferredSize(new java.awt.Dimension(96, 14));
 
-        edUser.setFont(frames.Util.getFont(0,0));
+        edUser.setFont(frames.Uti4.getFont(0,0));
         edUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         edUser.setMinimumSize(new java.awt.Dimension(0, 0));
         edUser.setPreferredSize(new java.awt.Dimension(120, 16));
@@ -230,7 +230,7 @@ public class PathToDb extends javax.swing.JDialog {
             }
         });
 
-        edPass.setFont(frames.Util.getFont(0,0));
+        edPass.setFont(frames.Uti4.getFont(0,0));
         edPass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         edPass.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
@@ -318,7 +318,7 @@ public class PathToDb extends javax.swing.JDialog {
 
         jPanel2.setPreferredSize(new java.awt.Dimension(510, 46));
 
-        btnOk.setFont(frames.Util.getFont(0,0));
+        btnOk.setFont(frames.Uti4.getFont(0,0));
         btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         btnOk.setText("ОК");
         btnOk.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -333,7 +333,7 @@ public class PathToDb extends javax.swing.JDialog {
             }
         });
 
-        btnClose.setFont(frames.Util.getFont(0,0));
+        btnClose.setFont(frames.Uti4.getFont(0,0));
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b029.gif"))); // NOI18N
         btnClose.setText("Отмена");
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));

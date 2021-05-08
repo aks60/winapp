@@ -1,6 +1,6 @@
 package frames.swing;
 
-import frames.Util;
+import frames.Uti4;
 import common.eProfile;
 import dataset.Field;
 import dataset.Query;
@@ -60,7 +60,7 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
         sorter = new TableRowSorter<DefTableModel>((DefTableModel) table.getModel());
         table.setRowSorter(sorter);
         JTableHeader header = table.getTableHeader();
-        header.setFont(Util.getFont(0, 0));
+        header.setFont(Uti4.getFont(0, 0));
 
         for (int index = 0; index < columnModel.getColumnCount(); index++) {
             columnModel.getColumn(index).setResizable(resizableList.get(index));
@@ -146,7 +146,7 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
             if (field.meta().edit() == true) {
                 if (value != null && String.valueOf(value).isEmpty() == false) {
                     if (field.meta().type().equals(Field.TYPE.DATE)) {
-                        Date d = Util.StrToDate(value.toString());
+                        Date d = Uti4.StrToDate(value.toString());
                         if (d != null) {
                             GregorianCalendar d1 = new GregorianCalendar(1917, 01, 01);
                             GregorianCalendar d2 = new GregorianCalendar(2040, 01, 01);

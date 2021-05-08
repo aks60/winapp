@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Util;
+import frames.Uti4;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -232,7 +232,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
         scrTree.setBorder(null);
         scrTree.setPreferredSize(new java.awt.Dimension(200, 600));
 
-        tree.setFont(frames.Util.getFont(0,0));
+        tree.setFont(frames.Uti4.getFont(0,0));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Мат. ценности");
         javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Профили");
@@ -329,8 +329,8 @@ public class DicArtikl2 extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
         Record record = eArtikl.up.newRecord();
-        Util.stopCellEditing(tab1);
-        int index = Util.getIndexRec(tab1);
+        Uti4.stopCellEditing(tab1);
+        int index = Uti4.getIndexRec(tab1);
         if (index != -1) {
             Record record2 = qArtikl.get(index);
             record.set(eArtikl.id, record2.get(eArtikl.id));
@@ -370,7 +370,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        Util.updateBorderAndSql(table, Arrays.asList(tab1));
+        Uti4.updateBorderAndSql(table, Arrays.asList(tab1));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
@@ -413,9 +413,9 @@ public class DicArtikl2 extends javax.swing.JDialog {
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
         scrTree.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
+                "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Список артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
+                "Список артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
         tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
     }
 }

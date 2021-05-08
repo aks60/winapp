@@ -1,6 +1,6 @@
 package frames;
 
-import frames.Util;
+import frames.Uti4;
 
 public class AboutBox extends javax.swing.JFrame {
 
@@ -47,7 +47,7 @@ public class AboutBox extends javax.swing.JFrame {
         north.setLayout(new java.awt.BorderLayout());
 
         labTitle.setBackground(new java.awt.Color(255, 255, 255));
-        labTitle.setFont(Util.getFont(0, 1));
+        labTitle.setFont(Uti4.getFont(0, 1));
         labTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labTitle.setText("<<SA-OKNA>>");
         labTitle.setOpaque(true);
@@ -57,13 +57,13 @@ public class AboutBox extends javax.swing.JFrame {
         pan2.setBackground(new java.awt.Color(255, 255, 255));
         pan2.setPreferredSize(new java.awt.Dimension(200, 60));
 
-        labProjectVersion.setFont(Util.getFont(0, 1));
+        labProjectVersion.setFont(Uti4.getFont(0, 1));
         labProjectVersion.setText("Верия программы - 1.0");
 
-        labBase.setFont(Util.getFont(0, 1));
+        labBase.setFont(Uti4.getFont(0, 1));
         labBase.setText("Версия базы данных - 1.0");
 
-        labConfig.setFont(Util.getFont(0, 1));
+        labConfig.setFont(Uti4.getFont(0, 1));
         labConfig.setText("Конфигурация  - 2.0");
 
         labImage.setBackground(new java.awt.Color(255, 255, 255));
@@ -162,7 +162,7 @@ public class AboutBox extends javax.swing.JFrame {
 
         south.setPreferredSize(new java.awt.Dimension(300, 40));
 
-        btnClose.setFont(Util.getFont(0, 1));
+        btnClose.setFont(Uti4.getFont(0, 1));
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
         btnClose.setText("ОК");
         btnClose.setPreferredSize(new java.awt.Dimension(69, 20));

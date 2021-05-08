@@ -51,12 +51,12 @@ public class Partner extends javax.swing.JFrame {
     private void loadingModel() {
         new DefTableModel(tab1, qPrjcontr, ePrjpart.category, ePrjpart.partner, ePrjpart.manager, ePrjpart.flag2);
 
-        Util.buttonCellEditor(tab1, 0).addActionListener(event -> {
+        Uti4.buttonCellEditor(tab1, 0).addActionListener(event -> {
             Object result = JOptionPane.showInputDialog(Partner.this, "Выберите категорию",
                     "Изменение категории контрагента", JOptionPane.QUESTION_MESSAGE, null, arrCateg, arrCateg[0]);
             if (result != null) {
-                Util.stopCellEditing(tab1);
-                qPrjcontr.set(result, Util.getIndexRec(tab1), ePrjpart.category);
+                Uti4.stopCellEditing(tab1);
+                qPrjcontr.set(result, Uti4.getIndexRec(tab1), ePrjpart.category);
                 ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }
         });
@@ -80,12 +80,12 @@ public class Partner extends javax.swing.JFrame {
         rsv.add(ePrjpart.bank_ogrn, txt7);
         rsv.add(ePrjpart.note, txt16);
 
-        Util.setSelectedRow(tab1);
+        Uti4.setSelectedRow(tab1);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        Util.stopCellEditing(tab1);
-        int index = Util.getIndexRec(tab1);
+        Uti4.stopCellEditing(tab1);
+        int index = Uti4.getIndexRec(tab1);
         if (index != -1) {
             int flag = qPrjcontr.getAs(index, ePrjpart.flag2);
             int i = (flag == 1) ? 1 : 0;
@@ -364,7 +364,7 @@ public class Partner extends javax.swing.JFrame {
 
         pan4.setName(""); // NOI18N
 
-        lab47.setFont(frames.Util.getFont(0,0));
+        lab47.setFont(frames.Uti4.getFont(0,0));
         lab47.setText("Адрес 1го уровня");
         lab47.setToolTipText("");
         lab47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -375,7 +375,7 @@ public class Partner extends javax.swing.JFrame {
         txt12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt12.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab48.setFont(frames.Util.getFont(0,0));
+        lab48.setFont(frames.Uti4.getFont(0,0));
         lab48.setText("Телефон");
         lab48.setToolTipText("");
         lab48.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -386,7 +386,7 @@ public class Partner extends javax.swing.JFrame {
         txt13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt13.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab49.setFont(frames.Util.getFont(0,0));
+        lab49.setFont(frames.Uti4.getFont(0,0));
         lab49.setText("Адрес 2го уровня");
         lab49.setToolTipText("");
         lab49.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -397,7 +397,7 @@ public class Partner extends javax.swing.JFrame {
         txt14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt14.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab50.setFont(frames.Util.getFont(0,0));
+        lab50.setFont(frames.Uti4.getFont(0,0));
         lab50.setText("Примечание");
         lab50.setToolTipText("");
         lab50.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -459,7 +459,7 @@ public class Partner extends javax.swing.JFrame {
 
         pan3.setName(""); // NOI18N
 
-        lab36.setFont(frames.Util.getFont(0,0));
+        lab36.setFont(frames.Uti4.getFont(0,0));
         lab36.setText("Организация");
         lab36.setToolTipText("");
         lab36.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -470,7 +470,7 @@ public class Partner extends javax.swing.JFrame {
         txt8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt8.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab37.setFont(frames.Util.getFont(0,0));
+        lab37.setFont(frames.Uti4.getFont(0,0));
         lab37.setText("Адрес 1го уровн...");
         lab37.setToolTipText("");
         lab37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -481,7 +481,7 @@ public class Partner extends javax.swing.JFrame {
         txt9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt9.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab38.setFont(frames.Util.getFont(0,0));
+        lab38.setFont(frames.Uti4.getFont(0,0));
         lab38.setText("Телефон");
         lab38.setToolTipText("");
         lab38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -492,7 +492,7 @@ public class Partner extends javax.swing.JFrame {
         txt10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt10.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab39.setFont(frames.Util.getFont(0,0));
+        lab39.setFont(frames.Uti4.getFont(0,0));
         lab39.setText("Факс");
         lab39.setToolTipText("");
         lab39.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -503,7 +503,7 @@ public class Partner extends javax.swing.JFrame {
         txt11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt11.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab40.setFont(frames.Util.getFont(0,0));
+        lab40.setFont(frames.Uti4.getFont(0,0));
         lab40.setText("Банк");
         lab40.setToolTipText("");
         lab40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -514,7 +514,7 @@ public class Partner extends javax.swing.JFrame {
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab41.setFont(frames.Util.getFont(0,0));
+        lab41.setFont(frames.Uti4.getFont(0,0));
         lab41.setText("ИНН");
         lab41.setToolTipText("");
         lab41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -525,7 +525,7 @@ public class Partner extends javax.swing.JFrame {
         txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt2.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab42.setFont(frames.Util.getFont(0,0));
+        lab42.setFont(frames.Uti4.getFont(0,0));
         lab42.setText("Р/С");
         lab42.setToolTipText("");
         lab42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -536,7 +536,7 @@ public class Partner extends javax.swing.JFrame {
         txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt3.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab45.setFont(frames.Util.getFont(0,0));
+        lab45.setFont(frames.Uti4.getFont(0,0));
         lab45.setText("БИК");
         lab45.setToolTipText("");
         lab45.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -547,7 +547,7 @@ public class Partner extends javax.swing.JFrame {
         txt4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt4.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab46.setFont(frames.Util.getFont(0,0));
+        lab46.setFont(frames.Uti4.getFont(0,0));
         lab46.setText("К/С");
         lab46.setToolTipText("");
         lab46.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -558,7 +558,7 @@ public class Partner extends javax.swing.JFrame {
         txt5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt5.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab43.setFont(frames.Util.getFont(0,0));
+        lab43.setFont(frames.Uti4.getFont(0,0));
         lab43.setText("КПП");
         lab43.setToolTipText("");
         lab43.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -569,7 +569,7 @@ public class Partner extends javax.swing.JFrame {
         txt6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt6.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab44.setFont(frames.Util.getFont(0,0));
+        lab44.setFont(frames.Uti4.getFont(0,0));
         lab44.setText("ОГРН");
         lab44.setToolTipText("");
         lab44.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -580,7 +580,7 @@ public class Partner extends javax.swing.JFrame {
         txt7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt7.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab51.setFont(frames.Util.getFont(0,0));
+        lab51.setFont(frames.Uti4.getFont(0,0));
         lab51.setText("Примечание");
         lab51.setToolTipText("");
         lab51.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -591,7 +591,7 @@ public class Partner extends javax.swing.JFrame {
         txt16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt16.setPreferredSize(new java.awt.Dimension(300, 18));
 
-        lab52.setFont(frames.Util.getFont(0,0));
+        lab52.setFont(frames.Uti4.getFont(0,0));
         lab52.setText("Адрес 2го уровн...");
         lab52.setToolTipText("");
         lab52.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -767,20 +767,20 @@ public class Partner extends javax.swing.JFrame {
         Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1);
+        Uti4.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
-            if (Util.isDeleteRecord(tab1, this) == 0) {
-                Util.deleteRecord(tab1);
+            if (Uti4.isDeleteRecord(tab1, this) == 0) {
+                Uti4.deleteRecord(tab1);
             }
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, ePrjpart.up, (prjpartRec) -> {
+            Uti4.insertRecord(tab1, ePrjpart.up, (prjpartRec) -> {
                 try {
                     ResultSet rs = Query.connection.createStatement().executeQuery("SELECT current_user FROM rdb$database");
                     rs.next();
@@ -807,7 +807,7 @@ public class Partner extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFilter
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        Util.updateBorderAndSql(tab1, Arrays.asList(tab1));
+        Uti4.updateBorderAndSql(tab1, Arrays.asList(tab1));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn() == -1 || tab1.getSelectedColumn() == 0) ? 0 : tab1.getSelectedColumn()));
             txtFilter.setName(tab1.getName());
@@ -815,7 +815,7 @@ public class Partner extends javax.swing.JFrame {
     }//GEN-LAST:event_tabMousePressed
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int index = Util.getIndexRec(tab1);
+        int index = Uti4.getIndexRec(tab1);
         if (index != -1 && listener != null) {
             Record record = qPrjcontr.get(index);
             listener.action(record);
@@ -828,7 +828,7 @@ public class Partner extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemove
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Util.stopCellEditing(tab1);
+        Uti4.stopCellEditing(tab1);
         Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (owner != null)
             owner.setEnabled(true);
@@ -839,11 +839,11 @@ public class Partner extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveMouseClicked
 
     private void tabb1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabb1StateChanged
-        if (Util.getIndexRec(tab1) != -1) {
+        if (Uti4.getIndexRec(tab1) != -1) {
             if (tabb1.getSelectedIndex() == 0) {
-                qPrjcontr.set(0, Util.getIndexRec(tab1), ePrjpart.flag2);
+                qPrjcontr.set(0, Uti4.getIndexRec(tab1), ePrjpart.flag2);
             } else {
-                qPrjcontr.set(1, Util.getIndexRec(tab1), ePrjpart.flag2);
+                qPrjcontr.set(1, Uti4.getIndexRec(tab1), ePrjpart.flag2);
             }
             ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
         }
@@ -909,7 +909,7 @@ public class Partner extends javax.swing.JFrame {
     private void initElements() {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
-        Util.updateBorderAndSql(tab1, null);
+        Uti4.updateBorderAndSql(tab1, null);
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -919,7 +919,7 @@ public class Partner extends javax.swing.JFrame {
                 }
             }
         });
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1)));
         rsv = new DefFieldEditor(tab1);
     }
 }

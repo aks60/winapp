@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Util;
+import frames.Uti4;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -70,7 +70,7 @@ public class DicArtikl extends javax.swing.JDialog {
                 return val;
             }
         };
-        Util.setSelectedRow(tab2);
+        Uti4.setSelectedRow(tab2);
     }
 
     @SuppressWarnings("unchecked")
@@ -232,7 +232,7 @@ public class DicArtikl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int index = Util.getIndexRec(tab2);
+        int index = Uti4.getIndexRec(tab2);
         if (index != -1) {
             Record record = qArtikl.get(index);
             listener.action(record);
