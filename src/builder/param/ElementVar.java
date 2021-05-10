@@ -202,6 +202,8 @@ public class ElementVar extends Par5s {
 //                        if (type.id != rec.getInt(TEXT)) {
 //                            return false;
 //                        }
+                        System.out.println(rec.getInt(TEXT));
+                        
                         message(grup);
                         break;
                     case 31051:  //Если створка фурнитуры 

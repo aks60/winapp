@@ -34,7 +34,7 @@ public class Uti3 {
         return true;
     }
 
-    static boolean dic_4005_11005_12005_31050_33071_34071() {
+    static boolean dic_11005_12005_31050_33071_34071() {
 
         return true;
     }
