@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Тип профиля (SYSPROA.ATYPE) в системе конструкций
+ * Тип профиля в системе конструкций
  */
 public enum UseArtiklTo implements Enam {
     ANY(0, "Любой тип"),
