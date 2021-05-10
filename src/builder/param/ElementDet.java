@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
 import builder.model.ElemSimple;
+import common.Util;
+import static common.Util.containsInt;
 
 //Составы
 public class ElementDet extends Par5s {
@@ -49,7 +51,7 @@ public class ElementDet extends Par5s {
                         break;
                     case 33005:  //Коды основной текстуры контейнера 
                     case 34005:  //Коды основной текстуры контейнера
-                        if (containsInt(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
+                        if (Util.containsInt(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
                             return false;
                         }
                         break;

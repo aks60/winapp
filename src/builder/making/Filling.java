@@ -18,7 +18,7 @@ import builder.param.ElementDet;
 import builder.param.FillingDet;
 import builder.param.FillingVar;
 import builder.model.ElemGlass;
-import builder.param.Par5s;
+import common.Util;
 import dataset.Query;
 import domain.eSyssize;
 import java.util.Arrays;
@@ -72,7 +72,7 @@ public class Filling extends Cal5e {
                 }
                 //Цикл по группам заполнений
                 for (Record glasgrpRec : eGlasgrp.findAll()) {
-                    if (Par5s.containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth) == true) { //доступные толщины 
+                    if (Util.containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth) == true) { //доступные толщины 
                         listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
                         List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
 

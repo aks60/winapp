@@ -118,34 +118,14 @@ public class ElemImpost extends ElemSimple {
     }
 
     //@Override //Вложеная спецификация 
-    public void addSpecific2(SpecificRec spcAdd) {
-
-        spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count = spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
-        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //поправка мм
-        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра        
-
-        //Армирование
-        if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
-            spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
-            spcAdd.anglCut2 = 90;
-            spcAdd.anglCut1 = 90;
-            spcAdd.width += spcRec.width;
-
-            //Остальные
-        } else {
-            spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
-        }
-        spcRec.spcList.add(spcAdd);
-    }
-
     public void addSpecific(SpecificRec spcAdd) { //добавление спесификаций зависимых элементов
 
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
         spcAdd.quant1 += spc7d.calcKitCountStep(this, spcAdd); //кол. с шагом
         spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //поправка мм
-        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра                
+        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра 
+        spc7d.setAngl(spcAdd); //задать Угол_реза_1/Угол_реза_2
 
         //Армирование
         if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {

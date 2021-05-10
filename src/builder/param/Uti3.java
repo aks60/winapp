@@ -14,7 +14,7 @@ import java.util.List;
 public class Uti3 {
 
     //Тип заполнения 
-    public static boolean dic_37009(String txt, ElemSimple elem5e) {
+    static boolean dic_37009(String txt, ElemSimple elem5e) {
         //Все, Произвольное, Прямоугольное, Арочное                                            
         if ("Прямоугольное".equalsIgnoreCase(txt) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) || TypeElem.AREA.equals(elem5e.owner().type()) == false)) {
             return false;
@@ -25,7 +25,7 @@ public class Uti3 {
     }
 
     //Тип проема 
-    public static boolean dic_13003_14005_15005_37008(String txt, ElemSimple elem5e) {
+    static boolean dic_13003_14005_15005_37008(String txt, ElemSimple elem5e) {
         if ("глухой".equals(txt) == true && elem5e.owner().type() == TypeElem.STVORKA == true) {
             return false;
         } else if ("не глухой".equals(txt) == true && elem5e.owner().type() == TypeElem.STVORKA == false) {
@@ -34,13 +34,13 @@ public class Uti3 {
         return true;
     }
 
-    public static boolean dic_4005_11005_12005_31050_33071_34071() {
-        
+    static boolean dic_4005_11005_12005_31050_33071_34071() {
+
         return true;
     }
-    
+
     //Для технологического кода контейнера 
-    public static boolean check_STRING_33000_34000(String txt, ElemSimple elem5e) {
+    static boolean check_STRING_33000_34000(String txt, ElemSimple elem5e) {
         Record sysprofRec = elem5e.sysprofRec;
         Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklVRec.get(eArtikl.tech_code) == null) {
@@ -63,7 +63,7 @@ public class Uti3 {
     }
 
     //Если признак системы конструкции
-    public static boolean check_STRING_33095_34095_38095_39095_40095(String txt, ElemSimple elem5e, int nuni) {
+    static boolean check_STRING_33095_34095_38095_39095_40095(String txt, ElemSimple elem5e, int nuni) {
         Record systreefRec = eSystree.find(nuni);
         String[] arr = txt.split(";");
         List<String> arrList = Arrays.asList(arr);
@@ -80,7 +80,7 @@ public class Uti3 {
     }
 
     //Если номер стороны в контуре
-    public static boolean check_INT_33066_34066(String txt, ElemSimple elem5e) {
+    static boolean check_INT_33066_34066(String txt, ElemSimple elem5e) {
         if ("1".equals(txt) == true && LayoutArea.BOTTOM != elem5e.layout()) {
             return false;
         } else if ("2".equals(txt) == true && LayoutArea.RIGHT != elem5e.layout()) {

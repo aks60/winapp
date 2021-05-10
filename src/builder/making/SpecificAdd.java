@@ -63,7 +63,7 @@ public class SpecificAdd {
         }
         return 0;
     }
-    
+
     //Расчёт комплекта с шагом
     public float calcKitCountStep(ElemSimple elem5e, SpecificRec spcAdd) {
 
@@ -74,7 +74,7 @@ public class SpecificAdd {
                 int count_step = Integer.valueOf(spcAdd.getParam(1, 11060, 14060, 24060, 33060, 38060)); //"Количество на шаг"
                 float width_next = elem5e.length() - width_begin;
 
-                float count =  width_next / step;
+                float count = width_next / step;
                 if (count_step == 1) {
                     return (width_next % step > 0) ? ++count : count;
                 } else {
@@ -120,19 +120,26 @@ public class SpecificAdd {
         return Util.getFloat(spcAdd.getParam(spcAdd.quant1,
                 11030, 12060, 14030, 15040, 24030, 25060, 33030, 34060, 38030, 39060));
     }
-    
+
     //Задать Угол_реза_1/Угол_реза_2, °
     public void setAngl(SpecificRec spcAdd) {
-        if("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
-            if(spcAdd.getParam("-1", 34077).equals("-1") == false) {
+        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+            if (spcAdd.getParam("-1", 34077).equals("-1") == false) {
                 spcAdd.anglCut1 = Util.getFloat(spcAdd.getParam("-1", 34077));
             }
-            if(spcAdd.getParam("-1", 34078).equals("-1") == false) {
+            if (spcAdd.getParam("-1", 34078).equals("-1") == false) {
                 spcAdd.anglCut2 = Util.getFloat(spcAdd.getParam("-1", 34078));
-            }  
-        }
-        if(spcAdd.getParam("-1", 34077).equals("-1") == false) {
-            String str = spcAdd.getParam("-1", 34077);
+            }
+        } else {
+            if (spcAdd.getParam("-1", 34077).equals("-1") == false) {
+                String[] arr = spcAdd.getParam("-1", 34077).split("/");
+                if (arr[0].equals("*") == false) {
+                    spcAdd.anglCut1 = Util.getFloat(arr[0]);
+                }
+                if (arr[1].equals("*") == false) {
+                    spcAdd.anglCut2 = Util.getFloat(arr[1]);
+                }
+            }
         }
     }
 }
