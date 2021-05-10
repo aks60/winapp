@@ -1327,7 +1327,7 @@ public class ParamList {
     };
     
     public static Checkparam check_INT_LIST2b = (c) -> {
-        return ("0123456789;/".indexOf(c) != -1);
+        return ("0123456789;-/".indexOf(c) != -1);
     };
 
     public static Checkparam check_FLOAT = (c) -> {
