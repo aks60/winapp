@@ -198,11 +198,11 @@ public class ElementVar extends Par5s {
                         }
                         break;
                     case 31050:  //Контейнер имеет тип 
-                        TypeElem type = elem5e.type();
-                        if (type.id != rec.getInt(TEXT)) {
-                            return false;
-                        }
-                        System.out.println(rec.getInt(TEXT));
+//                        TypeElem type = elem5e.type();
+//                        if (type.id != rec.getInt(TEXT)) {
+//                            return false;
+//                        }
+                        hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         
                         message(grup);
                         break;
