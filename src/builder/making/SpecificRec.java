@@ -149,10 +149,6 @@ public class SpecificRec {
         }
     }
 
-    public void putParam(Integer key, String val) {
-        mapParam.put(key, val);
-    }
-
     public float getParam(int key) {
 
         if (mapParam != null) {

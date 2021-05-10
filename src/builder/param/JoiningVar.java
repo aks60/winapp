@@ -239,8 +239,8 @@ public class JoiningVar extends Par5s {
                             strTxt = strTxt.substring(0, strTxt.length() - 1);
                         }
                         String arr2[] = strTxt.split("/");
-                        elemJoin.joinElement1.spcRec.putParam(2030, arr2[0]);
-                        elemJoin.joinElement2.spcRec.putParam(2030, arr2[1]);
+                        elemJoin.joinElement1.spcRec.mapParam.put(2030, arr2[0]);
+                        elemJoin.joinElement2.spcRec.mapParam.put(2030, arr2[1]);
                     }
                     break;
                     case 2055:  //Продолжение общей арки 

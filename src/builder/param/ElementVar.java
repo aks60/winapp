@@ -202,8 +202,7 @@ public class ElementVar extends Par5s {
 //                        if (type.id != rec.getInt(TEXT)) {
 //                            return false;
 //                        }
-                        hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                        
+                        elem5e.spcRec.mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));                  
                         message(grup);
                         break;
                     case 31051:  //Если створка фурнитуры 
@@ -251,7 +250,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31085:  //Надпись на элементе 
                     case 37085:  //Надпись на элементе   
-                        elem5e.spcRec.putParam(grup, rec.getStr(TEXT));
+                        elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                         break;
                     case 31090:  //Изменение сторон покраски 
                         if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.spcRec.getParam("empty", 31090)) == false) {
@@ -266,7 +265,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31099:  //Трудозатраты, ч/ч. 
                     case 37099:  //Трудозатраты, ч/ч.  
-                        elem5e.spcRec.putParam(grup, rec.getStr(TEXT));
+                        elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                         break;
                     case 31097:  //Трудозатраты по длине 
                         message(grup);
@@ -321,10 +320,10 @@ public class ElementVar extends Par5s {
                         }
                         break;
                     case 37042:  //Мин. соотношение габаритов (б/м) или Допустимое соотношение габаритов б/м для Ps4
-                        elem5e.spcRec.putParam(grup, rec.getStr(TEXT));
+                        elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                         break;
                     case 37043:  //Макс. соотношение габаритов (б/м)
-                        elem5e.spcRec.putParam(grup, rec.getStr(TEXT));
+                        elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                         break;
                     case 37054:  //Коды основной текстуры изделия 
                         message(grup);
