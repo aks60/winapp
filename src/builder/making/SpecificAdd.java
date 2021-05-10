@@ -6,6 +6,7 @@ import enums.UseUnit;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
 import common.Util;
+import domain.eSetting;
 import java.util.List;
 
 public class SpecificAdd {
@@ -118,5 +119,20 @@ public class SpecificAdd {
     public float calcAmount(SpecificRec spcRec, SpecificRec spcAdd) {
         return Util.getFloat(spcAdd.getParam(spcAdd.quant1,
                 11030, 12060, 14030, 15040, 24030, 25060, 33030, 34060, 38030, 39060));
+    }
+    
+    //Задать Угол_реза_1/Угол_реза_2, °
+    public void setAngl(SpecificRec spcAdd) {
+        if("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+            if(spcAdd.getParam("-1", 34077).equals("-1") == false) {
+                spcAdd.anglCut1 = Util.getFloat(spcAdd.getParam("-1", 34077));
+            }
+            if(spcAdd.getParam("-1", 34078).equals("-1") == false) {
+                spcAdd.anglCut2 = Util.getFloat(spcAdd.getParam("-1", 34078));
+            }  
+        }
+        if(spcAdd.getParam("-1", 34077).equals("-1") == false) {
+            String str = spcAdd.getParam("-1", 34077);
+        }
     }
 }

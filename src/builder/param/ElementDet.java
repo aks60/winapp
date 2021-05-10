@@ -283,10 +283,14 @@ public class ElementDet extends Par5s {
                         hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 34077:  //Задать Угол_реза_1/Угол_реза_2, ° 
-                        message(grup);
+                        hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 34078:  //Ставить однократно 
-                        message(grup);
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                            hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                        } else {
+                            message(grup);
+                        }
                         break;
                     case 34079:  //Длина подбирается из списка, мм 
                         message(grup);
