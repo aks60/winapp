@@ -9,11 +9,11 @@ import common.Util;
 import domain.eSetting;
 import java.util.List;
 
-public class SpecificAdd {
+public class CheckPar2 {
 
     protected ElemSimple elem5e = null;
 
-    public SpecificAdd(ElemSimple elem5e) {
+    public CheckPar2(ElemSimple elem5e) {
         this.elem5e = elem5e;
     }
 

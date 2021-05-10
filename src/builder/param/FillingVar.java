@@ -34,7 +34,7 @@ public class FillingVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 13003:  //Тип проема 
-                        if (!Uti3.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                        if (!CheckPar1.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                             return false;
                         }
                         break;

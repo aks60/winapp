@@ -11,7 +11,7 @@ import static java.awt.SystemColor.TEXT;
 import java.util.Arrays;
 import java.util.List;
 
-public class Uti3 {
+public class CheckPar1 {
 
     //Тип заполнения 
     static boolean dic_37009(String txt, ElemSimple elem5e) {

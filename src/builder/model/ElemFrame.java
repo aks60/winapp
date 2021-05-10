@@ -9,7 +9,7 @@ import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.making.SpecificRec;
-import builder.making.SpecificAdd;
+import builder.making.CheckPar2;
 import domain.eGlasgrp;
 import enums.PKjson;
 import enums.ParamList;
