@@ -34,7 +34,7 @@ public class CheckPar1 {
         return true;
     }
 
-    static boolean dic_11005_12005_31050_33071_34071() {
+    static boolean dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071() {
 
         return true;
     }
