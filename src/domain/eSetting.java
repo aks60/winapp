@@ -42,6 +42,14 @@ public enum eSetting implements Field {
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
+    
+    public static String find2(int _id) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord()).getStr(val);
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
+        return (recordList.isEmpty() == true) ? "" : recordList.getAs(0, val);
+    }
 
     public String toString() {
         return meta.descr();
