@@ -365,7 +365,7 @@ public class JoiningVar extends Par5s {
                     case 4095: //Если признак системы конструкции 
                     {
                         Record record = eSystree.find(iwin.nuni);
-                        if (Util.containsInt(rec.getStr(TEXT), record.getInt(eSystree.types)) == false) {
+                        if (Util.containsNumb(rec.getStr(TEXT), record.getInt(eSystree.types)) == false) {
                             return false;
                         }
                     }

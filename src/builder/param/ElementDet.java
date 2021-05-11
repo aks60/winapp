@@ -9,7 +9,6 @@ import java.util.List;
 import builder.Wincalc;
 import builder.model.ElemSimple;
 import common.Util;
-import static common.Util.containsInt;
 
 //Составы
 public class ElementDet extends Par5s {
@@ -51,19 +50,19 @@ public class ElementDet extends Par5s {
                         break;
                     case 33005:  //Коды основной текстуры контейнера 
                     case 34005:  //Коды основной текстуры контейнера
-                        if (Util.containsInt(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
+                        if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
                             return false;
                         }
                         break;
                     case 33006:  //Коды внутр. текстуры контейнера
                     case 34006:  //Коды внутр. текстуры контейнера 
-                        if (containsInt(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
+                        if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
                             return false;
                         }
                         break;
                     case 33007:  //Коды внешн. текстуры контейнера 
                     case 34007:  //Коды внешн. текстуры контейнера     
-                        if (containsInt(rec.getStr(TEXT), elem5e.iwin().colorID3) == false) {
+                        if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID3) == false) {
                             return false;
                         }
                         break;
@@ -239,7 +238,7 @@ public class ElementDet extends Par5s {
                     case 39067:  //Коды основной текстуры изделия
                     case 40067:  //Коды основной текстуры изделия                     
                         int c1 = elem5e.iwin().colorID1;
-                        if (containsInt(rec.getStr(TEXT), c1) == false) {
+                        if (Util.containsNumb(rec.getStr(TEXT), c1) == false) {
                             return false;
                         }
                         break;
@@ -249,7 +248,7 @@ public class ElementDet extends Par5s {
                     case 39068:  //Коды внутр. текстуры изделия
                     case 40068:  //Коды внутр. текстуры изделия    
                         int c2 = elem5e.iwin().colorID2;
-                        if (containsInt(rec.getStr(TEXT), c2) == false) {
+                        if (Util.containsNumb(rec.getStr(TEXT), c2) == false) {
                             return false;
                         }
                         break;
@@ -260,7 +259,7 @@ public class ElementDet extends Par5s {
                     case 40069: //Коды внешн. текстуры изделия  
                     {
                         int c3 = elem5e.iwin().colorID3;
-                        if (containsInt(rec.getStr(TEXT), c3) == false) {
+                        if (Util.containsNumb(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }
                     }
