@@ -215,6 +215,8 @@ public class DBCompare extends javax.swing.JFrame {
 
             //=== Таблица 4 ===
             npp = 0;
+            txt20.setText(String.valueOf(iwin.rootGson.prj));
+            txt20.setText(String.valueOf(iwin.rootGson.ord));
             ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
             st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + punic+ "and ONUMB=" + iwin.rootGson.ord + "order by TYPP");
