@@ -1,5 +1,6 @@
 package convert;
 
+import builder.script.GsonRoot;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -631,17 +632,15 @@ public class Profstroy {
             for (int prj : prjList) {
                 String script = Winscript.test(prj, true);
                 if (script != null) {
-                    JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
-                    JsonObject jsonObj = jsonElem.getAsJsonObject();
-                    String name = "<html> Проект:" + jsonObj.get("prj").getAsString() + "/Заказ:" + jsonObj.get("ord").getAsString() + " " + jsonObj.get("name").getAsString();
-                    int form = (jsonObj.get("prj").getAsInt() < 601999) ? TypeElem.RECTANGL.id : TypeElem.ARCH.id;
+                    GsonRoot gson = new Gson().fromJson(script, GsonRoot.class);
+                    String name = "<html> Проект:" + gson.prj + "/Заказ:" + gson.ord + " " + gson.name;
                     Query q = new Query(eSysmodel.values());
                     Record record = eSysmodel.up.newRecord(Query.INS);
                     record.setNo(eSysmodel.npp, ++index);
                     record.setNo(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));
                     record.setNo(eSysmodel.name, name);
                     record.setNo(eSysmodel.script, script);
-                    record.setNo(eSysmodel.form, form);
+                    record.setNo(eSysmodel.form, gson.type().id);
                     q.insert(record);
                 }
             }

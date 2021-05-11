@@ -123,7 +123,7 @@ public class ElementVar extends Par5s {
                         } else {
                             if (elem5e.layout() == LayoutArea.HORIZ) {
                                 ElemJoining el = iwin.mapJoin.get((elem5e.x1 + elem5e.width() / 2) + ":" + elem5e.y1);
-                                System.out.println(el);
+                                //System.out.println(el);
                                 if (el != null) {
                                 }
                             } else {
