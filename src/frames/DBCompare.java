@@ -104,7 +104,7 @@ public class DBCompare extends javax.swing.JFrame {
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
         tab1.setColumnSelectionInterval(3, 3);
         labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn())));
-        txtFilter.setName(tab1.getName());         
+        txtFilter.setName(tab1.getName());
     }
 
     public DBCompare() {
@@ -117,7 +117,7 @@ public class DBCompare extends javax.swing.JFrame {
         tabb.setSelectedIndex(3);
         tab1.setColumnSelectionInterval(3, 3);
         labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn())));
-        txtFilter.setName(tab1.getName());          
+        txtFilter.setName(tab1.getName());
     }
 
     public void loadingData() {
@@ -148,7 +148,7 @@ public class DBCompare extends javax.swing.JFrame {
             //=== Таблица 1 ===
             ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);            
+            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
             rs.next();
             int punic = rs.getInt("PUNIC");
             rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + iwin.rootGson.ord + "order by a.anumb");
@@ -214,12 +214,15 @@ public class DBCompare extends javax.swing.JFrame {
             }
 
             //=== Таблица 4 ===
+            rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord + " and a.funic = b.funic");
+            rs.next();
+            labFurn.setText(rs.getString("FNAME"));
+            rs.close();
             npp = 0;
             txt20.setText(String.valueOf(iwin.rootGson.prj));
             txt20.setText(String.valueOf(iwin.rootGson.ord));
             ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
-            st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + punic+ "and ONUMB=" + iwin.rootGson.ord + "order by TYPP");
+            rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + punic + "and ONUMB=" + iwin.rootGson.ord + "order by TYPP");
             while (rs.next()) {
                 Vector vectorRec = new Vector();
                 vectorRec.add(++npp);
@@ -243,7 +246,7 @@ public class DBCompare extends javax.swing.JFrame {
             System.err.println("Ошибка: DBCompare.loadingTab().  " + e);
         }
     }
-    
+
     //select distinct a.punic, a.onumb from saveelm a, specpau b where a.punic = b.punic and a.onumb = b.onumb
     public void loadingTab41() {
         try {
@@ -252,7 +255,11 @@ public class DBCompare extends javax.swing.JFrame {
             ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
             cn = Test.connect1();
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + txt19.getText() + " and ONUMB = " + txt20.getText() + " order by TYPP");
+            ResultSet rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + txt19.getText() + " and a.onumb = " + txt20.getText() + " and a.funic = b.funic");
+            rs.next();
+            labFurn.setText(rs.getString("FNAME"));
+            rs.close();
+            rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + txt19.getText() + " and ONUMB = " + txt20.getText() + " order by TYPP");
             while (rs.next()) {
                 Vector vectorRec = new Vector();
                 vectorRec.add(++npp);
@@ -272,7 +279,7 @@ public class DBCompare extends javax.swing.JFrame {
             }
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             paintPanel.repaint();
-            
+
             //=== Таблица 1 ===
             ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
             rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + txt19.getText() + "and a.ONUMB = " + txt20.getText() + "order by a.anumb");
@@ -293,7 +300,7 @@ public class DBCompare extends javax.swing.JFrame {
                 vectorRec.add(null); //стоим. элемента со скидкой                
                 ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
             }
-            rs.close();           
+            rs.close();
 
         } catch (SQLException e) {
             System.err.println("Ошибка: DBCompare.loadingTab4().  " + e);
@@ -530,6 +537,7 @@ public class DBCompare extends javax.swing.JFrame {
         txt19 = new javax.swing.JTextField();
         txt20 = new javax.swing.JTextField();
         btn1 = new javax.swing.JButton();
+        labFurn = new javax.swing.JLabel();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -748,7 +756,7 @@ public class DBCompare extends javax.swing.JFrame {
         lab19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab19.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab19.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab19.setPreferredSize(new java.awt.Dimension(98, 18));
+        lab19.setPreferredSize(new java.awt.Dimension(40, 18));
 
         lab20.setFont(frames.Uti4.getFont(0,0));
         lab20.setText("ONUMB");
@@ -756,12 +764,11 @@ public class DBCompare extends javax.swing.JFrame {
         lab20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab20.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab20.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab20.setPreferredSize(new java.awt.Dimension(98, 18));
 
         txt19.setFont(frames.Uti4.getFont(0,0));
         txt19.setText("1");
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt19.setPreferredSize(new java.awt.Dimension(80, 18));
+        txt19.setPreferredSize(new java.awt.Dimension(30, 18));
         txt19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt19ActionPerformed(evt);
@@ -771,7 +778,7 @@ public class DBCompare extends javax.swing.JFrame {
         txt20.setFont(frames.Uti4.getFont(0,0));
         txt20.setText("1");
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt20.setPreferredSize(new java.awt.Dimension(80, 18));
+        txt20.setPreferredSize(new java.awt.Dimension(20, 18));
 
         btn1.setText("Пересчитать");
         btn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -784,22 +791,27 @@ public class DBCompare extends javax.swing.JFrame {
             }
         });
 
+        labFurn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        labFurn.setPreferredSize(new java.awt.Dimension(200, 19));
+
         javax.swing.GroupLayout pan10Layout = new javax.swing.GroupLayout(pan10);
         pan10.setLayout(pan10Layout);
         pan10Layout.setHorizontalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lab19, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lab19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addComponent(lab20, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lab20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(labFurn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pan10Layout.setVerticalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -810,7 +822,8 @@ public class DBCompare extends javax.swing.JFrame {
                     .addComponent(txt19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lab19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lab20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -906,6 +919,7 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JLabel lab19;
     private javax.swing.JLabel lab20;
     private javax.swing.JLabel labFilter;
+    private javax.swing.JLabel labFurn;
     private javax.swing.JLabel labSum;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;

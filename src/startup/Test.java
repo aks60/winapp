@@ -28,13 +28,13 @@ public class Test {
     public static Connection connect1() {
         try {
             if (numDb == 1) {
-                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\Bimax\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
+                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\ps4\\Bimax\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             } else if (numDb == 2) {
-                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Sialbase3\\sial3.fdb?encoding=win1251", "sysdba", "masterkey");
+                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\ps3\\sial3.fdb?encoding=win1251", "sysdba", "masterkey");
             } else {
-                //return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Profstroy3\\Alutex3\\alutech3x.fdb?encoding=win1251", "sysdba", "masterkey");
-                //return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\othe\\zip\\krauss.fdb?encoding=win1251", "sysdba", "masterkey");
-                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\othe\\zip\\vidnal.fdb?encoding=win1251", "sysdba", "masterkey");
+                //return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\ps3\\alutech3x.fdb?encoding=win1251", "sysdba", "masterkey");
+                //return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\ps4\\othe\\krauss.fdb?encoding=win1251", "sysdba", "masterkey");
+                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\ps4\\vidnal.fdb?encoding=win1251", "sysdba", "masterkey");
             }
 
         } catch (Exception e) {
@@ -57,6 +57,7 @@ public class Test {
     }
 
     // </editor-fold>     
+    //
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
 
         Main.dev = true;
