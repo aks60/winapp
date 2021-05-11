@@ -16,12 +16,12 @@ public final class Vidnal {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
-            rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1028))
-                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':3, 'sysfurnID':180}"))
-                    .addElem(new GsonElem(TypeElem.GLASS));
-            rootGson.addElem(new GsonElem(TypeElem.IMPOST));
             rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1442))
-                    .addElem(new GsonElem(TypeElem.GLASS));
+                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':3, 'sysfurnID':180}"))
+                    .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':150}"));
+            rootGson.addElem(new GsonElem(TypeElem.IMPOST));
+            rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1028))
+                    .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':150}"));
 
         } else {
             return null;
