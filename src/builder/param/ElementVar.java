@@ -22,7 +22,6 @@ import common.Util;
 public class ElementVar extends Par5s {
 
     //private int[] par = {31000, 31001, 31002, 31003, 31004, 31005, 31006, 31007, 31008, 31015, 31016, 31020, 31033, 31034, 31037, 31041, 31050, 31052, 31055, 31056, 31080, 31085, 31090, 31095, 31097, 31099, 37001, 37002, 37009, 37010, 37030, 37042, 37056, 37080, 37085, 37099};
-
     public ElementVar(Wincalc iwin) {
         super(iwin);
     }
@@ -198,12 +197,19 @@ public class ElementVar extends Par5s {
                         }
                         break;
                     case 31050:  //Контейнер имеет тип 
-//                        TypeElem type = elem5e.type();
-//                        if (type.id != rec.getInt(TEXT)) {
-//                            return false;
-//                        }
-                        elem5e.spcRec.mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));                  
-                        message(grup);
+                        if ("ps3".equals(eSetting.find(2))) {
+                            String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
+                            int[] index = {1, 2, 3, 5, 19};
+                            for (int i = 0; i < arr.length; i++) {
+                                if (arr.equals(rec.getStr(TEXT)) && Util.containsNumb(String.valueOf(index[i]), elem5e.type().id) == false) {
+                                    return false;
+                                }
+                            }
+                        } else {
+                            if (Util.containsNumb(rec.getStr(TEXT), elem5e.type().id) == false) {
+                                return false;
+                            }
+                        }
                         break;
                     case 31051:  //Если створка фурнитуры 
                         message(grup);
@@ -289,7 +295,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 37009:  //Тип заполнения 
                         if (!CheckPar1.dic_37009(rec.getStr(TEXT), elem5e)) {
-                           return false;
+                            return false;
                         }
                         break;
                     case 37010:  //Ограничение ширины/высоты листа, мм 

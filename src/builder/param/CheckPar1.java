@@ -34,22 +34,22 @@ public class CheckPar1 {
         return true;
     }
 
-    static boolean dic_1005x6_2005x6_3005x6_4005x6(ElemSimple el, String s) {
-
-        String t = String.valueOf(el.type().id);
-        if ("коробка".equals(s) && !"1".equals(t)) {
-            return false;
-        } else if ("створка".equals(s) && !"2".equals(t)) {
-            return false;
-        } else if ("импост".equals(s) && !"3".equals(t)) {
-            return false;
-        } else if ("стойка".equals(s) && !"5".equals(t)) {
-            return false;
-        } else if ("эркер".equals(s) && !"19".equals(t)) {
-            return false;
-        }
-        return true;
-    }
+//    static boolean dic_1005x6_2005x6_3005x6_4005x6(ElemSimple el, String s) {
+//
+//        String t = String.valueOf(el.type().id);
+//        if ("коробка".equals(s) && !"1".equals(t)) {
+//            return false;
+//        } else if ("створка".equals(s) && !"2".equals(t)) {
+//            return false;
+//        } else if ("импост".equals(s) && !"3".equals(t)) {
+//            return false;
+//        } else if ("стойка".equals(s) && !"5".equals(t)) {
+//            return false;
+//        } else if ("эркер".equals(s) && !"19".equals(t)) {
+//            return false;
+//        }
+//        return true;
+//    }
 
     static boolean check_dic_1005_2005_3005_4005_11005_12005_31050_33071_34071() {
       

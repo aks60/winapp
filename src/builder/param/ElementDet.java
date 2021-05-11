@@ -127,7 +127,20 @@ public class ElementDet extends Par5s {
                         message(grup);
                         break;
                     case 33071:  //Контейнер типа 
-                        message(grup);
+                    case 34071:
+                        if ("ps3".equals(eSetting.find(2))) {
+                            String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
+                            int[] index = {1, 2, 3, 5, 19};
+                            for (int i = 0; i < arr.length; i++) {
+                                if (arr.equals(rec.getStr(TEXT)) && Util.containsNumb(String.valueOf(index[i]), elem5e.type().id) == false) {
+                                    return false;
+                                }
+                            }
+                        } else {
+                            if (Util.containsNumb(rec.getStr(TEXT), elem5e.type().id) == false) {
+                                return false;
+                            }
+                        }
                         break;
                     case 33074:  //На прилегающей створке 
                         message(grup);
@@ -267,9 +280,6 @@ public class ElementDet extends Par5s {
                     case 34070:  //Длина, мм 
                     case 39070:  //Длина, мм
                         hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                        break;
-                    case 34071:  //Контейнер типа 
-                        message(grup);
                         break;
                     case 34072:  //Смещение от уровня деления, мм 
                         message(grup);

@@ -16,7 +16,7 @@ import common.Util;
 //Соединения
 public class JoiningVar extends Par5s {
 
-    private int[] parConv = {1005, 1008, 1010, 1011, 1012, 1013, 1020, 1040, 1085, 1099, 2005, 2012, 2013, 2020, 2030, 2061, 2099, 3002, 3003, 3005, 3015, 3020, 3031, 3050, 3099, 4002, 4005, 4011, 4012, 4013, 4015, 4018, 4020, 4040, 4044, 4085, 4095, 4099};
+    //private int[] parConv = {1005, 1008, 1010, 1011, 1012, 1013, 1020, 1040, 1085, 1099, 2005, 2012, 2013, 2020, 2030, 2061, 2099, 3002, 3003, 3005, 3015, 3020, 3031, 3050, 3099, 4002, 4005, 4011, 4012, 4013, 4015, 4018, 4020, 4040, 4044, 4085, 4095, 4099};
 
     //Соединения
     public JoiningVar(Wincalc iwin) {
@@ -44,28 +44,18 @@ public class JoiningVar extends Par5s {
                     case 3005:
                     case 4005: {
                         if ("ps3".equals(eSetting.find(2))) {
-                            if (CheckPar1.dic_1005x6_2005x6_3005x6_4005x6(elemJoin.joinElement1, rec.getStr(TEXT)) == false) {
-                                return false;
+                            String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
+                            int[] index = {1, 2, 3, 5, 19};
+                            for (int i = 0; i < arr.length; i++) {
+                                if (arr.equals(rec.getStr(TEXT)) && Util.containsNumb(String.valueOf(index[i]), elemJoin.joinElement1.type().id) == false) {
+                                    return false;
+                                }
                             }
                         } else {
-                            String type1 = String.valueOf(elemJoin.joinElement1.type().id);
-                            String type2 = String.valueOf(elemJoin.joinElement2.type().id);
-                            
-                            String[] arr = rec.getStr(TEXT).split("/");
-                            
+                            if (Util.containsNumb(rec.getStr(TEXT), elemJoin.joinElement1.type().id, elemJoin.joinElement2.type().id) == false) {
+                                return false;
+                            }
                         }
-//                            try {
-//                                String strTxt = rec.getStr(TEXT);
-//                                String type1 = String.valueOf(elemJoin.joinElement1.type().id);
-//                                String type2 = String.valueOf(elemJoin.joinElement2.type().id);
-//                                if (Util.containsStr(strTxt, type1, type2) == false) {
-//                                    return false;
-//                                }
-//                            } catch (Exception e) {
-//                                System.err.println("Ошибка2:JoiningVar.check() " + e);
-//                                return false;
-//                            }
-//                        }
                     }
                     break;
                     case 1006:  //Контейнер Артикула 2 имеет тип (ps3)
@@ -73,8 +63,11 @@ public class JoiningVar extends Par5s {
                     case 3006:
                     case 4006:
                         if ("ps3".equals(eSetting.find(2))) {
-                            if (CheckPar1.dic_1005x6_2005x6_3005x6_4005x6(elemJoin.joinElement2, rec.getStr(TEXT)) == false) {
-                                return false;
+                            String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
+                            for (int i = 1; i < arr.length; i++) {
+                                if (arr.equals(rec.getStr(TEXT)) && Util.containsNumb(String.valueOf(i), elemJoin.joinElement1.type().id) == false) {
+                                    return false;
+                                }
                             }
                         }
                         break;
