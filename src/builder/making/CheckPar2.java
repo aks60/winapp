@@ -123,7 +123,7 @@ public class CheckPar2 {
 
     //Задать Угол_реза_1/Угол_реза_2, °
     public void setAngl(SpecificRec spcAdd) {
-        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+        if ("ps3".equals(eSetting.find(2))) {
             if (spcAdd.getParam("-1", 34077).equals("-1") == false) {
                 spcAdd.anglCut1 = Util.getFloat(spcAdd.getParam("-1", 34077));
             }

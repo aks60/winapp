@@ -2,6 +2,7 @@ package common;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Util {
 
@@ -20,19 +21,20 @@ public class Util {
         }
         return .0;
     }
-    
-    public boolean DblNotZero(Object p) {
+
+    public boolean dblNotZero(Object p) {
         float p2 = (float) p;
         return p2 > 0.00005;
     }
 
     //1;79-10;0-10=>[1,1,79,10,0,10]
-    public static Integer[] parserInt(String str) {
-        if (str.isEmpty()) {
+    public static Integer[] parserInt(String txt) {
+        if (txt.isEmpty()) {
             return new Integer[]{};
         }
         ArrayList<Object> arrList = new ArrayList();
-        String[] arr = str.split(";");
+        txt = (txt.charAt(txt.length() - 1) == '@') ? txt.substring(0, txt.length() - 1) : txt;
+        String[] arr = txt.split(";");
         if (arr.length == 1) {
             arr = arr[0].split("-");
             if (arr.length == 1) {
@@ -88,10 +90,76 @@ public class Util {
         }
         return arrList.stream().toArray(Float[]::new);
     }
-
+ 
+    //"180",  "30-179",  "0-89,99;90,01-150;180,01-269,99;270,01-359,99"
+    public static boolean containsObj(String txt, Number value) {
+        if (txt == null || txt.isEmpty() || txt.equals("*")) {
+            return true;
+        }
+        ArrayList<Float> arrList = new ArrayList();
+        txt = txt.replace(",", ".");
+        String[] arr = txt.split(";");
+        if (arr.length == 1) {
+            arr = arr[0].split("-");
+            if (arr.length == 1) {
+                arrList.add(Float.valueOf(arr[0]));
+                arrList.add(Float.valueOf(arr[0]));
+            } else {
+                arrList.add(Float.valueOf(arr[0]));
+                arrList.add(Float.valueOf(arr[1]));
+            }
+        } else {
+            for (int index = 0; index < arr.length; index++) {
+                String[] arr2 = arr[index].split("-");
+                if (arr2.length == 1) {
+                    arrList.add(Float.valueOf(arr2[0]));
+                    arrList.add(Float.valueOf(arr2[0]));
+                } else {
+                    arrList.add(Float.valueOf(arr2[0]));
+                    arrList.add(Float.valueOf(arr2[1]));
+                }
+            }
+        }
+        for (int index = 0; index < arrList.size(); ++index) {
+            float v1 = arrList.get(index);
+            float v2 = arrList.get(++index);
+            float v3 = (float) value;
+            if (v1 <= v3 && v3 <= v2) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    //"288-488/1028,01-1128", "2000,2-3000/0-1250@", "55;/*"
+    public static boolean containsObj(String txt, Number val1, Number val2) {
+        if (txt == null || txt.isEmpty()) {
+            return true;
+        }
+        char symmetry = txt.charAt(txt.length() - 1);
+        if (symmetry == '@') {
+            txt = txt.substring(0, txt.length() - 1);
+        }
+        String[] arr = txt.split("/");
+        if (symmetry == '@') {
+            if (containsObj(arr[0], val1) == true || containsObj(arr[1], val2) == true) {
+                return true;
+            }
+            if (containsObj(arr[1], val1) == true || containsObj(arr[0], val2) == true) {
+                return true;
+            }
+            return false;
+        } else {
+            if (containsObj(arr[0], val1) == true && containsObj(arr[1], val2) == true) {
+                return true;
+            }
+            return false;
+        }
+    }
+    
     //"30-89,99;90,01-150;180,01-269,99;270,01-359,99"
     public static boolean containsInt(String str, int value) {
-        if (str == null || str.isEmpty()) {
+        if (str == null || str.isEmpty() || str.equals("*")) {
             return true;
         }
         ArrayList<Integer> arrList = new ArrayList();
@@ -128,6 +196,32 @@ public class Util {
         return false;
     }
 
+    //"288-488/1028,01-1128", "2000,2-3000/0-1250@", "55;/*"
+    public static boolean containsInt(String str, int val1, int val2) {
+        if (str == null || str.isEmpty()) {
+            return true;
+        }
+        char symmetry = str.charAt(str.length() - 1);
+        if (symmetry == '@') {
+            str = str.substring(0, str.length() - 1);
+        }
+        String[] arr = str.split("/");
+        if (symmetry == '@') {
+            if (containsInt(arr[0], val1) == true || containsInt(arr[1], val2) == true) {
+                return true;
+            }
+            if (containsInt(arr[1], val1) == true || containsInt(arr[0], val2) == true) {
+                return true;
+            }
+            return false;
+        } else {
+            if (containsInt(arr[0], val1) == true && containsInt(arr[1], val2) == true) {
+                return true;
+            }
+            return false;
+        }
+    }
+    
     //"180",  "30-179",  "0-89,99;90,01-150;180,01-269,99;270,01-359,99"
     public static boolean containsFloat(String str, float value) {
         if (str == null || str.isEmpty() || str.equals("*")) {
@@ -166,7 +260,7 @@ public class Util {
         }
         return false;
     }
-
+        
     //"288-488/1028,01-1128", "2000,2-3000/0-1250@", "55;/*"
     public static boolean containsFloat(String str, float val1, float val2) {
         if (str == null || str.isEmpty()) {
@@ -216,17 +310,14 @@ public class Util {
         }
         return false;
     }
-    
-    public static boolean compareBetween(String ptext, float value) {
-        if (ptext == null) {
+
+    public static boolean compareBetween(String txt, float value) {
+        if (txt == null) {
             return true;
         }
-        ptext = ptext.replace(",", "."); //парсинг параметра
-        char symmetry = ptext.charAt(ptext.length() - 1);
-        if (symmetry == '@') {
-            ptext = ptext.substring(0, ptext.length() - 1);
-        }
-        String[] arr = ptext.split(";");
+        txt = txt.replace(",", "."); //парсинг параметра
+        txt = (txt.charAt(txt.length() - 1) == '@') ? txt.substring(0, txt.length() - 1) : txt;
+        String[] arr = txt.split(";");
         for (String str : Arrays.asList(arr)) {
 
             String[] p = str.split("-");
@@ -246,5 +337,5 @@ public class Util {
         }
         return false;
     }
-    
+
 }

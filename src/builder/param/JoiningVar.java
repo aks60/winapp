@@ -40,27 +40,43 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 1005:  //Контейнер имеет тип Артикула1/Артикула2
-                    case 2005:  //Контейнер имеет тип Артикула1/Артикула2  
-                    case 3005:  //Контейнер имеет тип Артикула1/Артикула2 
-                    case 4005:  //Контейнер имеет тип Артикула1/Артикула2    
-                    {
-                        try {
-                            String strTxt = rec.getStr(TEXT);
-                            String type1 = String.valueOf(elemJoin.joinElement1.type().id);
-                            String type2 = String.valueOf(elemJoin.joinElement2.type().id);
-                            if (Util.containsStr(strTxt, type1, type2) == false) {
+                    case 2005:  //Контейнер Артикула 1 имеет тип (ps3) 
+                    case 3005:
+                    case 4005: {
+                        if ("ps3".equals(eSetting.find(2))) {
+                            if (CheckPar1.dic_1005x6_2005x6_3005x6_4005x6(elemJoin.joinElement1, rec.getStr(TEXT)) == false) {
                                 return false;
                             }
-                        } catch (Exception e) {
-                            System.err.println("Ошибка2:JoiningVar.check() " + e);
-                            return false;
+                        } else {
+                            String type1 = String.valueOf(elemJoin.joinElement1.type().id);
+                            String type2 = String.valueOf(elemJoin.joinElement2.type().id);
+                            
+                            String[] arr = rec.getStr(TEXT).split("/");
+                            
                         }
+//                            try {
+//                                String strTxt = rec.getStr(TEXT);
+//                                String type1 = String.valueOf(elemJoin.joinElement1.type().id);
+//                                String type2 = String.valueOf(elemJoin.joinElement2.type().id);
+//                                if (Util.containsStr(strTxt, type1, type2) == false) {
+//                                    return false;
+//                                }
+//                            } catch (Exception e) {
+//                                System.err.println("Ошибка2:JoiningVar.check() " + e);
+//                                return false;
+//                            }
+//                        }
                     }
                     break;
-                    case 1006:  //Контейнер имеет тип Артикула1/Артикула2
-                    case 2006:  //Контейнер имеет тип Артикула1/Артикула2  
-                    case 3006:  //Контейнер имеет тип Артикула1/Артикула2 
-                    case 4006:  //Контейнер имеет тип Артикула1/Артикула2
+                    case 1006:  //Контейнер Артикула 2 имеет тип (ps3)
+                    case 2006:
+                    case 3006:
+                    case 4006:
+                        if ("ps3".equals(eSetting.find(2))) {
+                            if (CheckPar1.dic_1005x6_2005x6_3005x6_4005x6(elemJoin.joinElement2, rec.getStr(TEXT)) == false) {
+                                return false;
+                            }
+                        }
                         break;
                     case 1008:  //Эффективное заполнение изд., мм
                         message(rec.getInt(GRUP));
@@ -172,7 +188,7 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 2010:  //Угол минимальный, °
-                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                        if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) < elemJoin.anglProf) {
                                 return false;
                             }
@@ -209,7 +225,7 @@ public class JoiningVar extends Par5s {
                     case 2020:  //Ограничение угла, ° 
                     case 3020:  //Ограничение угла, ° 
                     case 4020:  //Ограничение угла, ° или Угол минимальный, ° для ps3 
-                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                        if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) < elemJoin.anglProf) {
                                 return false;
                             }
@@ -221,7 +237,7 @@ public class JoiningVar extends Par5s {
                     case 2021: //Точный угол, °
                     case 3021:
                     case 4031:
-                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                        if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) != elemJoin.anglProf) {
                                 return false;
                             }
@@ -230,7 +246,7 @@ public class JoiningVar extends Par5s {
                     case 2022: //Исключить угол, °
                     case 3022:
                     case 4032:
-                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                        if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) == elemJoin.anglProf) {
                                 return false;
                             }

@@ -119,7 +119,7 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31011:  //Толщина внешнего/внутреннего заполнения, мм 
-                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                        if ("ps3".equals(eSetting.find(2))) {
 
                         } else {
                             if (elem5e.layout() == LayoutArea.HORIZ) {
@@ -151,7 +151,7 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31020:  //Ограничение угла к горизонту, ° (Угол к горизонту минимальный, ° для ps3)
-                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                        if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) > ((ElemSimple) elem5e).anglHoriz) {
                                 return false;
                             }
@@ -168,7 +168,7 @@ public class ElementVar extends Par5s {
                             return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Uti2.joinPoint(elem5e, 0)).joinElement1.artiklRecAn) == true) ? true : false;
                         }
                     case 31030:  //Угол к горизонту максимальный, °
-                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                        if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) < ((ElemSimple) elem5e).anglHoriz) {
                                 return false;
                             }

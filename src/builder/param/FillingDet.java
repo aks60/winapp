@@ -95,7 +95,7 @@ public class FillingDet extends Par5s {
                         break;
                     case 14066: //Исключить угол, °
                     case 15056:
-                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                        if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) == elem5e.anglHoriz) {
                                 return false;
                             }

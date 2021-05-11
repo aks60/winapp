@@ -62,7 +62,7 @@ public class FurnitureVar extends Par5s {
                         } else if (LayoutArea.TOP == elem5e.layout() || LayoutArea.BOTTOM == elem5e.layout()) {
                             length = elem5e.width();
                         }
-                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) { //Минимальная длина, мм
+                        if ("ps3".equals(eSetting.find(2))) { //Минимальная длина, мм
                             if (rec.getInt(TEXT) > length) {
                                 return false;
                             }
@@ -93,7 +93,7 @@ public class FurnitureVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 2145: //Исключить угол, °
-                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                        if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) == elem5e.anglHoriz) {
                                 return false;
                             }

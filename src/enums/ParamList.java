@@ -15,11 +15,11 @@ import java.util.ArrayList;
 public class ParamList {
 
     public static Enam[] values() {
-        return ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) ? Ps3.values() : Ps4.values();
+        return ("ps3".equals(eSetting.find(2)) == true) ? Ps3.values() : Ps4.values();
     }
 
     public static Enam find(int grup) {
-        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
+        if ("ps3".equals(eSetting.find(2)) == true) {
             return Arrays.stream(Ps3.values()).filter(en -> en.numb() == grup).findFirst().orElse(null);
         } else {
             return Arrays.stream(Ps4.values()).filter(en -> en.numb() == grup).findFirst().orElse(null);
@@ -563,7 +563,7 @@ public class ParamList {
 
     public static enum Ps4 implements Enam {
 
-        P1005(1005, "Контейнер имеет тип Артикула1/Артикула2", check_INT_LIST2b),    //dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071), 
+        P1005(1005, "Контейнер имеет тип Артикула1/Артикула2", check_INT_LIST2),    //dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071), 
         P1008(1008, "Эффективное заполнение изд., мм", check_FLOAT_LIST),
         P1010(1010, 0, "Внешнее соединение", dic_OK_NO),
         P1011(1011, "Для Артикула 1 указан состав", check_STRING),
@@ -581,7 +581,7 @@ public class ParamList {
         P1097(1097, 0, "Трудозатраты по длине", dic_OK_NO),
         P1085(1085, 0, "Надпись на элементе", check_STRING),
         P2003(2003, "Угол варианта", dic_2003_3003),
-        P2005(2005, "Контейнер имеет тип Артикула1/Артикула2", check_INT_LIST2b),    //dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071),
+        P2005(2005, "Контейнер имеет тип Артикула1/Артикула2", check_INT_LIST2),    //dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071),
         P2012(2012, "Для Артикулов указан состав", check_STRING),
         P2013(2013, "Для Артикулов не указан состав", check_STRING),
         P2015(2015, "Ориентация Артикула1/Артикула2, °", check_FLOAT_LIST2),
@@ -598,7 +598,7 @@ public class ParamList {
         P2085(2085, 0, "Надпись на элементе", check_STRING),
         P3002(3002, "Вид L-образного варианта", dic_3002),
         P3003(3003, "Угол варианта", dic_2003_3003),
-        P3005(3005, "Контейнер имеет тип Артикула1/Артикула2", check_INT_LIST2b),    //dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071),
+        P3005(3005, "Контейнер имеет тип Артикула1/Артикула2", check_INT_LIST2),    //dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071),
         P3012(3012, "Для Артикулов указан состав", check_STRING),
         P3013(3013, "Для Артикулов не указан состав", check_STRING),
         P3015(3015, "Ориентация Артикула1/Артикула2, °", check_FLOAT_LIST2),
@@ -616,7 +616,7 @@ public class ParamList {
         P3097(3097, 0, "Трудозатраты по длине", dic_OK_NO),
         P3085(3085, 0, "Надпись на элементе", check_STRING),
         P4002(4002, "Вид Т-образного варианта", dic_4002),
-        P4005(4005, "Контейнер имеет тип Артикула1/Артикула2", check_INT_LIST2b),    //dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071),
+        P4005(4005, "Контейнер имеет тип Артикула1/Артикула2", check_INT_LIST2),    //dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071),
         P4010(4010, 0, "Внешнее соединение", dic_OK_NO),
         P4011(4011, "Для Артикула 1 указан состав", check_STRING),
         P4012(4012, "Для Артикула 2 указан состав", check_STRING),
@@ -1160,7 +1160,8 @@ public class ParamList {
     };
 
     public static Dictionary dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071 = () -> {
-        return Arrays.asList("коробка", "створка", "импост", "ригель/импост", "стойка", "стойка/коробка", "эркер", "грань");
+        //return Arrays.asList("коробка", "створка", "импост", "ригель/импост", "стойка", "стойка/коробка", "эркер", "грань");
+        return Arrays.asList("коробка", "створка", "импост", "стойка", "эркер");
     };
 
     public static Dictionary dic_24070_25070 = () -> {
@@ -1321,13 +1322,9 @@ public class ParamList {
     public static Checkparam check_INT_LIST = (c) -> {
         return ("0123456789-;".indexOf(c) != -1);
     };
-
-    public static Checkparam check_INT_LIST2 = (c) -> {
-        return ("0123456789-/@".indexOf(c) != -1);
-    };
     
-    public static Checkparam check_INT_LIST2b = (c) -> {
-        return ("0123456789*;-/".indexOf(c) != -1);
+    public static Checkparam check_INT_LIST2 = (c) -> {
+        return ("0123456789*;-/@".indexOf(c) != -1);
     };
 
     public static Checkparam check_FLOAT = (c) -> {

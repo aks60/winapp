@@ -305,7 +305,7 @@ public class DBCompare extends javax.swing.JFrame {
         System.out.println("Prj=" + iwin.rootGson.prj);
         Float iwinTotal = 0f, jarTotal = 0f;
         String path = "src\\resource\\xls\\ps4\\p" + iwin.rootGson.prj + ".xls";
-        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
+        if ("ps3".equals(eSetting.find(2)) == true) {
             path = "src\\resource\\xls\\ps3\\p" + iwin.rootGson.prj + ".xls";
         }
         //Specification.sort(spcList);
@@ -321,7 +321,7 @@ public class DBCompare extends javax.swing.JFrame {
         }
         try {
             Sheet sheet = Workbook.getWorkbook(new File(path)).getSheet(0);
-            if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
+            if ("ps3".equals(eSetting.find(2)) == true) {
                 for (int i = 2; i < sheet.getRows(); i++) {
 
                     String art = sheet.getCell(0, i).getContents().trim();
