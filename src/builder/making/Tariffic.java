@@ -142,8 +142,7 @@ public class Tariffic extends Cal5e {
 
             if (artdetRec.getFloat(eArtdet.cost_c4) != 0 && color2Rec.getInt(eColor.id) == color3Rec.getInt(eColor.id)
                     && isTariff(artdetRec, color2Rec)) { //если двухсторонняя текстура
-
-                artdetTariff += (artdetRec.getInt(eArtdet.cost_c4) * Math.max(color2Rec.getFloat(eColor.coef2), color2Rec.getFloat(eColor.coef3)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour));
+                artdetTariff += (artdetRec.getFloat(eArtdet.cost_c4) * Math.max(color2Rec.getFloat(eColor.coef2), color2Rec.getFloat(eColor.coef3)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour));
                 artdetUsed = true;
 
             } else {
