@@ -27,16 +27,21 @@ public class Test {
     // <editor-fold defaultstate="collapsed" desc="Connection[] connect(int numDb)">
     public static Connection connect1() {
         try {
-            if (numDb == 1) {
-                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\ps4\\Bimax\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
-            } else if (numDb == 2) {
+            String db = (numDb == 1) ? eProperty.base1.read() : (numDb == 2) ? eProperty.base2.read() : eProperty.base3.read();
+            if (db.toUpperCase().contains("BIMAX.FDB")) {
+                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\ps4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
+            } else if (db.toUpperCase().contains("SIAL3.FDB")) {
                 return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\ps3\\sial3.fdb?encoding=win1251", "sysdba", "masterkey");
-            } else {
-                //return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\ps3\\alutech3x.fdb?encoding=win1251", "sysdba", "masterkey");
-                //return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\ps4\\othe\\krauss.fdb?encoding=win1251", "sysdba", "masterkey");
+            } else if (db.toUpperCase().contains("ALUTECH3.FDB")) {
+                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\ps3\\alutech3x.fdb?encoding=win1251", "sysdba", "masterkey");
+            } else if (db.toUpperCase().contains("KRAUSS.FDB")) {
+                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\ps4\\othe\\krauss.fdb?encoding=win1251", "sysdba", "masterkey");
+            } else if (db.toUpperCase().contains("VIDNAL.FDB")) {
                 return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\ps4\\vidnal.fdb?encoding=win1251", "sysdba", "masterkey");
+            } else if (db.toUpperCase().contains("SOKOL.FDB")) {
+                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\ps4\\sokol.fdb?encoding=win1251", "sysdba", "masterkey");
             }
-
+            return null;
         } catch (Exception e) {
             System.err.println("Ошибка:Test.connect() " + e);
             return null;
@@ -78,7 +83,7 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(26, false));

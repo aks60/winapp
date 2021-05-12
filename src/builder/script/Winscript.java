@@ -17,14 +17,17 @@ public class Winscript {
         String base_name = (eProperty.base_num.read().equals("1")) ? eProperty.base1.read()
                 : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
         
-        if (base_name.toLowerCase().contains("sial.fdb")) {
-            return Sial.script(prj, model);
+        if (base_name.toLowerCase().contains("sial3.fdb")) {
+            return Sial3.script(prj, model);
             
         } else if (base_name.toLowerCase().contains("bimax.fdb")) {
             return Bimax.script(prj, model);
             
         } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
             return Vidnal.script(prj, model);
+            
+        } else if (base_name.toLowerCase().contains("krauss.fdb")) {
+            return Krauss.script(prj, model);
         }
         return null;
     }
@@ -33,7 +36,7 @@ public class Winscript {
         String base_name = (eProperty.base_num.read().equals("1")) ? eProperty.base1.read()
                 : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
         
-        if (base_name.toLowerCase().contains("sial.fdb")) {
+        if (base_name.toLowerCase().contains("sial3.fdb")) {
             return Arrays.asList(601001, 601002, 601003, 601004);
             
         } else if (base_name.toLowerCase().contains("bimax.fdb")) {
@@ -41,6 +44,9 @@ public class Winscript {
             
         } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
             return Arrays.asList(26);
+
+        } else if (base_name.toLowerCase().contains("krauss.fdb")) {
+            return null;
         }
         return null;
     }

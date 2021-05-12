@@ -143,6 +143,15 @@ public class Tariffic extends Cal5e {
             if (artdetRec.getFloat(eArtdet.cost_c4) != 0 && color2Rec.getInt(eColor.id) == color3Rec.getInt(eColor.id)
                     && isTariff(artdetRec, color2Rec)) { //если двухсторонняя текстура
                 artdetTariff += (artdetRec.getFloat(eArtdet.cost_c4) * Math.max(color2Rec.getFloat(eColor.coef2), color2Rec.getFloat(eColor.coef3)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour));
+
+                if (isTariff(artdetRec, color1Rec)) { //подбираем тариф основной текстуры
+                    if (artdetRec.getFloat(eArtdet.cost_unit) > 0 && specificRec.elem5e.artiklRec.getFloat(eArtikl.density) > 0) {
+                        artdetTariff += artdetRec.getFloat(eArtdet.cost_unit) * specificRec.elem5e.artiklRec.getFloat(eArtikl.density);
+                    } else {
+                        Record colgrpRec = eGroups.find(color1Rec.getInt(eColor.colgrp_id));
+                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_c1) * color1Rec.getFloat(eColor.coef1) * colgrpRec.getFloat(eGroups.val)) / kursBaseRec.getFloat(eCurrenc.cross_cour);
+                    }
+                }
                 artdetUsed = true;
 
             } else {
@@ -292,7 +301,7 @@ public class Tariffic extends Cal5e {
     //В зав. от единицы изм. форматируется количество
     private float formatAmount(Specific spcRec) {
         //TODO Нужна доработка для расчёта по минимальному тарифу. См. dll VirtualPro4::CalcArtTariff
-        
+
         if (UseUnit.METR.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //метры
             return spcRec.count * round(spcRec.width, precision) / 1000;
 
@@ -301,7 +310,7 @@ public class Tariffic extends Cal5e {
 
         } else if (UseUnit.PIE.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //шт.
             return spcRec.count;
-            
+
         } else if (UseUnit.KIT.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //комп.
             return spcRec.count;
 
