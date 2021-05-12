@@ -74,10 +74,10 @@ public enum eArtdet implements Field {
             return record();
         }
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(artikl_id) == _artikl_id).findFirst().orElse(null);
+            return query().stream().filter(rec -> rec.getInt(artikl_id) == _artikl_id).findFirst().orElse(record());
         }
         List<Record> record = new Query(values()).select("select first 1 * from " + up.tname() + " where " + artikl_id.name() + " = " + _artikl_id);
-        return (record.size() == 0) ? null : record.get(0);
+        return (record.size() == 0) ? record() : record.get(0);
     }
 
     public static Record record() {
