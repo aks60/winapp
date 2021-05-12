@@ -566,7 +566,6 @@ public class DBCompare extends javax.swing.JFrame {
 
         lab1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lab1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lab1.setText("select distinct a.punic, b.pnumb, a.onumb from specpau a, listprj b where a.punic = b.punic order by a.punic, b.pnumb, a.onumb");
         pan2.add(lab1);
 
         north.add(pan2, java.awt.BorderLayout.CENTER);
