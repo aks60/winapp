@@ -122,7 +122,7 @@ public class Filling extends Cal5e {
                     //ФИЛЬТР детализации, параметры накапливаются в mapParam
                     if (fillingDet.check(mapParam, elemGlass, glasdetRec) == true) {
                         Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
-                        SpecificRec spcAdd = new SpecificRec(glasdetRec, artiklRec, elemGlass, mapParam);
+                        Specific spcAdd = new Specific(glasdetRec, artiklRec, elemGlass, mapParam);
                         if (Color.colorFromProduct(spcAdd, 1)
                                 && Color.colorFromProduct(spcAdd, 2)
                                 && Color.colorFromProduct(spcAdd, 3)) {

@@ -10,7 +10,7 @@ import enums.LayoutArea;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import builder.making.SpecificRec;
+import builder.making.Specific;
 import enums.PKjson;
 import java.util.HashMap;
 
@@ -116,7 +116,7 @@ public class ElemGlass extends ElemSimple {
     }
 
     @Override //Вложеная спецификация 
-    public void addSpecific(SpecificRec spcAdd) {
+    public void addSpecific(Specific spcAdd) {
   
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
@@ -139,16 +139,16 @@ public class ElemGlass extends ElemSimple {
                 float widthFromParam = spcAdd.width;
                 spcAdd.width += width() + 2 * gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                SpecificRec specificationHor1 = new SpecificRec(spcAdd);
-                SpecificRec specificationHor2 = new SpecificRec(spcAdd);
+                Specific specificationHor1 = new Specific(spcAdd);
+                Specific specificationHor2 = new Specific(spcAdd);
                 spcRec.spcList.add(specificationHor1);
                 spcRec.spcList.add(specificationHor2);
                 //По вертикали
                 spcAdd.width = widthFromParam;
                 spcAdd.width += height() + 2 * gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                SpecificRec specificationVer1 = new SpecificRec(spcAdd);
-                SpecificRec specificationVer2 = new SpecificRec(spcAdd);
+                Specific specificationVer1 = new Specific(spcAdd);
+                Specific specificationVer2 = new Specific(spcAdd);
                 spcRec.spcList.add(specificationVer1);
                 spcRec.spcList.add(specificationVer2);
 
@@ -185,14 +185,14 @@ public class ElemGlass extends ElemSimple {
 
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {
-                    spcRec.spcList.add(new SpecificRec(spcAdd));
+                    spcRec.spcList.add(new Specific(spcAdd));
                 }
             } else if (TypeElem.ARCH == owner().type()) {
                 for (int index = 0; index < 2; index++) {
-                    spcRec.spcList.add(new SpecificRec(spcAdd));
+                    spcRec.spcList.add(new Specific(spcAdd));
                 }
             } else {
-                spcRec.spcList.add(new SpecificRec(spcAdd));
+                spcRec.spcList.add(new Specific(spcAdd));
             }
         }
     }

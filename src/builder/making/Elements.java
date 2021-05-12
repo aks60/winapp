@@ -81,7 +81,7 @@ public class Elements extends Cal5e {
                         if (elementDet.check(mapParam, elem5e, elemdetRec) == true) {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
-                            SpecificRec spcAdd = new SpecificRec(elemdetRec, artiklRec, elem5e, mapParam);
+                            Specific spcAdd = new Specific(elemdetRec, artiklRec, elem5e, mapParam);
                             if (Color.colorFromProduct(spcAdd, 1)
                                     && Color.colorFromProduct(spcAdd, 2)
                                     && Color.colorFromProduct(spcAdd, 3)) {

@@ -6,7 +6,7 @@ import enums.TypeJoin;
 import enums.LayoutArea;
 import enums.TypeElem;
 import builder.Wincalc;
-import builder.making.SpecificRec;
+import builder.making.Specific;
 
 public class AreaArch extends AreaSimple {
 
@@ -73,7 +73,7 @@ public class AreaArch extends AreaSimple {
         elemFrame.spcRec.height = artiklRec.getFloat(eArtikl.height);
     }
 
-    protected void shtapik(ElemGlass elemGlass, SpecificRec spcAdd) {
+    protected void shtapik(ElemGlass elemGlass, Specific spcAdd) {
         Float dw = spcAdd.width;
         ElemSimple imp = elemGlass.join(LayoutArea.BOTTOM);
         ElemSimple arch = mapFrame.get(LayoutArea.ARCH);
@@ -91,7 +91,7 @@ public class AreaArch extends AreaSimple {
         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
         spcAdd.anglCut2 = (float) ang1;
         spcAdd.anglCut1 = (float) ang1;
-        elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
+        elemGlass.spcRec.spcList.add(new Specific(spcAdd)); //добавим спецификацию
 
         //По дуге арки         
         double ang2 = Math.toDegrees(Math.asin(l1 / r1));
@@ -101,10 +101,10 @@ public class AreaArch extends AreaSimple {
         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
         spcAdd.anglCut2 = (float) ang3;
         spcAdd.anglCut1 = (float) ang3;
-        elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
+        elemGlass.spcRec.spcList.add(new Specific(spcAdd)); //добавим спецификацию
     }
 
-    protected void padding(ElemGlass elemGlass, SpecificRec spcAdd) {
+    protected void padding(ElemGlass elemGlass, Specific spcAdd) {
 
         //По основанию арки
         double dh2 = spcAdd.artiklRec.getFloat(eArtikl.height) - elemGlass.gzazo;
@@ -123,7 +123,7 @@ public class AreaArch extends AreaSimple {
         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
         spcAdd.anglCut2 = (float) ang;
         spcAdd.anglCut1 = (float) ang;
-        elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию
+        elemGlass.spcRec.spcList.add(new Specific(spcAdd)); //добавим спецификацию
 
         //По дуге арки
         double ang2 = Math.toDegrees(Math.asin(l2 / r2));
@@ -137,6 +137,6 @@ public class AreaArch extends AreaSimple {
         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
         spcAdd.anglCut2 = (float) ang3;
         spcAdd.anglCut1 = (float) ang3;
-        elemGlass.spcRec.spcList.add(new SpecificRec(spcAdd)); //добавим спецификацию                
+        elemGlass.spcRec.spcList.add(new Specific(spcAdd)); //добавим спецификацию                
     }
 }

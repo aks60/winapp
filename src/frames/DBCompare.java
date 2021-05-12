@@ -1,7 +1,7 @@
 package frames;
 
 import builder.Wincalc;
-import builder.making.SpecificRec;
+import builder.making.Specific;
 import common.Util;
 import dataset.Record;
 import domain.eArtikl;
@@ -321,7 +321,7 @@ public class DBCompare extends javax.swing.JFrame {
         Map<String, Float> hmXls = new LinkedHashMap();
         Map<String, Float> hmJar = new LinkedHashMap();
         Map<String, String> hmArt = new LinkedHashMap();
-        for (SpecificRec spc : iwin.listSpec) {
+        for (Specific spc : iwin.listSpec) {
 
             String key = spc.name.trim().replaceAll("[\\s]{1,}", " ");
             Float val = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
@@ -450,7 +450,7 @@ public class DBCompare extends javax.swing.JFrame {
             }
             conn.close();
 
-            for (SpecificRec spc : iwin.listSpec) {
+            for (Specific spc : iwin.listSpec) {
                 String key = spc.artikl;
                 Float val = (hmDB2.get(key) == null) ? 0.f : hmDB2.get(key);
                 hmDB2.put(key, val + spc.cost1);

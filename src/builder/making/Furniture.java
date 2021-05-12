@@ -53,7 +53,7 @@ public class Furniture extends Cal5e {
                 //Если ручка выбрана вручную
                 if (areaStv.handleRec.getInt(eArtikl.id) != -3) {
                     ElemFrame sideStv = determOfSide(areaStv);
-                    SpecificRec spcAdd = new SpecificRec(null, areaStv.handleRec, sideStv, new HashMap());
+                    Specific spcAdd = new Specific(null, areaStv.handleRec, sideStv, new HashMap());
                     spcAdd.colorID1 = areaStv.handleColor;
                     spcAdd.place = "ФУРН";
                     sideStv.addSpecific(spcAdd); //добавим спецификацию в элемент                    
@@ -195,7 +195,7 @@ public class Furniture extends Cal5e {
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
 
                     ElemFrame sideStv = determOfSide(mapParam, areaStv);
-                    SpecificRec spcAdd = new SpecificRec(furndetRec, artiklRec, sideStv, mapParam);
+                    Specific spcAdd = new Specific(furndetRec, artiklRec, sideStv, mapParam);
 
                     //Попадает или нет в спецификацию по цвету
                     if (Color.colorFromProduct(spcAdd, 1)) {

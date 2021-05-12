@@ -8,7 +8,7 @@ import enums.LayoutArea;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import builder.making.SpecificRec;
+import builder.making.Specific;
 import builder.making.CheckPar2;
 import domain.eGlasgrp;
 import enums.PKjson;
@@ -102,7 +102,7 @@ public class ElemFrame extends ElemSimple {
     }
 
     @Override //Вложеная спецификация
-    public void addSpecific(SpecificRec spcAdd) { //добавление спесификаций зависимых элементов
+    public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
 
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом

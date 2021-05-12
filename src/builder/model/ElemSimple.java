@@ -6,7 +6,7 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eSysprof;
 import enums.UseUnit;
-import builder.making.SpecificRec;
+import builder.making.Specific;
 import enums.UseArtiklTo;
 import java.awt.Color;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ public abstract class ElemSimple extends Com5t {
 
     public float anglCut1 = 45; //Угол реза рамы
     public float anglCut2 = 45; //Угол реза рамы
-    public SpecificRec spcRec = null; //спецификация элемента
+    public Specific spcRec = null; //спецификация элемента
     protected CheckPar2 spc7d = null;
     public float anglHoriz = -1; //угол к горизонту
     public Color borderColor = Color.BLACK;
@@ -25,7 +25,7 @@ public abstract class ElemSimple extends Com5t {
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);        
-        spcRec = new SpecificRec(id, this);
+        spcRec = new Specific(id, this);
         spc7d = new CheckPar2(this);
     }
 
@@ -43,7 +43,7 @@ public abstract class ElemSimple extends Com5t {
     public abstract void setSpecific();
 
     //Вложеная спецификация
-    public abstract void addSpecific(SpecificRec specification);
+    public abstract void addSpecific(Specific specification);
 
     @Override
     public String toString() {

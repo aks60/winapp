@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
-import builder.making.SpecificRec;
-import builder.making.Tariffication;
+import builder.making.Specific;
+import builder.making.Tariffic;
 import builder.making.Joining;
 import builder.making.Elements;
 import builder.making.Filling;
@@ -69,7 +69,7 @@ public class Wincalc {
     public HashMap<Integer, Record> mapParamDef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
-    public ArrayList<SpecificRec> listSpec = new ArrayList(); //спецификация
+    public ArrayList<Specific> listSpec = new ArrayList(); //спецификация
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calTariffication; //объекты калькуляции конструктива
 
     public AreaSimple build(String productJson) {
@@ -187,7 +187,7 @@ public class Wincalc {
             calcFilling.calc();
             calcFurniture = new Furniture(this); //фурнитура 
             calcFurniture.calc();
-            calTariffication = new Tariffication(this, norm_otx); //тарификация
+            calTariffication = new Tariffic(this, norm_otx); //тарификация
             calTariffication.calc();
 
             for (ElemSimple elemRec : listElem) {

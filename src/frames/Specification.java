@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import builder.Wincalc;
-import builder.making.SpecificRec;
+import builder.making.Specific;
 import common.Util;
 import dataset.Query;
 import domain.eSysprod;
@@ -98,7 +98,7 @@ public class Specification extends javax.swing.JFrame {
         }
     }
 
-    private void loadingTab1(List<SpecificRec> listSpec) {
+    private void loadingTab1(List<Specific> listSpec) {
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
         dtm.getDataVector().clear();
         dtm.fireTableDataChanged();
@@ -128,19 +128,19 @@ public class Specification extends javax.swing.JFrame {
         }
     }
 
-    private List<SpecificRec> groups(int num) {
+    private List<Specific> groups(int num) {
         HashSet<String> hs = new HashSet();
-        List<SpecificRec> list = new ArrayList();
-        Map<String, SpecificRec> map = new HashMap();
+        List<Specific> list = new ArrayList();
+        Map<String, Specific> map = new HashMap();
 
-        for (SpecificRec spc : iwin.listSpec) {
+        for (Specific spc : iwin.listSpec) {
             String key = (num == 1)
                     ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.width + spc.height + spc.anglCut1 + spc.anglCut2 + spc.wastePrc + spc.price1
                     : spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.wastePrc + spc.price1;
             if (hs.add(key)) {
-                map.put(key, new SpecificRec(spc));
+                map.put(key, new Specific(spc));
             } else {
-                SpecificRec s = map.get(key);
+                Specific s = map.get(key);
                 s.weight = s.weight + spc.weight;
                 s.anglCut1 = 0;
                 s.anglCut2 = 0;
@@ -495,7 +495,7 @@ public class Specification extends javax.swing.JFrame {
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
         float id = Util.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
-        SpecificRec recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
+        Specific recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(Specification.this, recordSpc.artiklRec);
@@ -506,7 +506,7 @@ public class Specification extends javax.swing.JFrame {
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         float id = Util.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         String str = tab1.getValueAt(tab1.getSelectedRow(), 2).toString().substring(0, 3);
-        SpecificRec recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
+        Specific recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         Record recordDet = recordSpc.detailRec;
         if (recordDet != null) {
             FrameProgress.create(Specification.this, new ListenerFrame() {
@@ -554,19 +554,19 @@ public class Specification extends javax.swing.JFrame {
             loadingTab1(groups(2));
 
         } else if (cbx1.getSelectedIndex() == 3) {
-            List<SpecificRec> listSpec = iwin.listSpec.stream().filter(rec -> "СОЕ".equals(rec.place.substring(0, 3))).collect(toList());
+            List<Specific> listSpec = iwin.listSpec.stream().filter(rec -> "СОЕ".equals(rec.place.substring(0, 3))).collect(toList());
             loadingTab1(listSpec);
 
         } else if (cbx1.getSelectedIndex() == 4) {
-            List<SpecificRec> listSpec = iwin.listSpec.stream().filter(rec -> "ВСТ".equals(rec.place.substring(0, 3))).collect(toList());
+            List<Specific> listSpec = iwin.listSpec.stream().filter(rec -> "ВСТ".equals(rec.place.substring(0, 3))).collect(toList());
             loadingTab1(listSpec);
 
         } else if (cbx1.getSelectedIndex() == 5) {
-            List<SpecificRec> listSpec = iwin.listSpec.stream().filter(rec -> "ЗАП".equals(rec.place.substring(0, 3))).collect(toList());
+            List<Specific> listSpec = iwin.listSpec.stream().filter(rec -> "ЗАП".equals(rec.place.substring(0, 3))).collect(toList());
             loadingTab1(listSpec);
 
         } else if (cbx1.getSelectedIndex() == 6) {
-            List<SpecificRec> listSpec = iwin.listSpec.stream().filter(rec -> "ФУР".equals(rec.place.substring(0, 3))).collect(toList());
+            List<Specific> listSpec = iwin.listSpec.stream().filter(rec -> "ФУР".equals(rec.place.substring(0, 3))).collect(toList());
             loadingTab1(listSpec);
         }
 

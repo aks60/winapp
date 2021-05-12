@@ -12,7 +12,7 @@ import enums.UseSide;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import builder.making.SpecificRec;
+import builder.making.Specific;
 import domain.eSyssize;
 import enums.TypeJoin;
 import common.Util;
@@ -118,7 +118,7 @@ public class ElemImpost extends ElemSimple {
     }
 
     //@Override //Вложеная спецификация 
-    public void addSpecific(SpecificRec spcAdd) { //добавление спесификаций зависимых элементов
+    public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
 
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом

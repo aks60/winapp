@@ -24,12 +24,12 @@ import java.math.RoundingMode;
 /**
  * Расчёт стоимости элементов окна
  */
-public class Tariffication extends Cal5e {
+public class Tariffic extends Cal5e {
 
     private boolean norm_otx = true;
     private int precision = Math.round(new Query(eGroups.values()).select(eGroups.up).get(0).getFloat(eGroups.val)); //округление длины профилей
 
-    public Tariffication(Wincalc iwin, boolean norm_otx) {
+    public Tariffic(Wincalc iwin, boolean norm_otx) {
         super(iwin);
         this.norm_otx = norm_otx;
     }
@@ -47,7 +47,7 @@ public class Tariffication extends Cal5e {
                 if (norm_otx == true) {
                     elem5e.spcRec.quant2 = elem5e.spcRec.quant2 + (elem5e.spcRec.quant1 * elem5e.spcRec.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
                 }
-                for (SpecificRec specificationRec2 : elem5e.spcRec.spcList) {
+                for (Specific specificationRec2 : elem5e.spcRec.spcList) {
                     specificationRec2.price1 += calcPrice(specificationRec2); //себест. за ед. без отхода
                     specificationRec2.quant1 = formatAmount(specificationRec2); //количество без отхода
                     specificationRec2.quant2 = specificationRec2.quant1;
@@ -93,7 +93,7 @@ public class Tariffication extends Cal5e {
                 elem5e.spcRec.cost1 = elem5e.spcRec.cost1 + (elem5e.spcRec.cost1 / 100) * percentMarkup; //стоимость без скидки                     
                 elem5e.spcRec.cost2 = elem5e.spcRec.cost1; //стоимость со скидкой 
 
-                for (SpecificRec specificationRec2 : elem5e.spcRec.spcList) {
+                for (Specific specificationRec2 : elem5e.spcRec.spcList) {
 
                     //Цикл по правилам расчёта.
                     for (Record rulecalcRec : eRulecalc.get()) {
@@ -112,7 +112,7 @@ public class Tariffication extends Cal5e {
 
             //Расчёт веса элемента конструкции
             for (ElemSimple elem5e : iwin.listElem) {
-                for (SpecificRec spec : elem5e.spcRec.spcList) {
+                for (Specific spec : elem5e.spcRec.spcList) {
                     spec.weight = spec.quant1 * spec.artiklRec.getFloat(eArtikl.density);
                 }
             }
@@ -124,7 +124,7 @@ public class Tariffication extends Cal5e {
     }
 
     //Себес-сть за ед. изм. Считает тариф для заданного артикула заданных цветов по таблице eArtdet
-    public float calcPrice(SpecificRec specificRec) {
+    public float calcPrice(Specific specificRec) {
 
         float inPrice = 0;
         Record color1Rec = eColor.find(specificRec.colorID1);  //основная
@@ -181,7 +181,7 @@ public class Tariffication extends Cal5e {
     }
 
     //Себес-сть за ед. изм. Считает тариф для заданного артикула заданных цветов по таблице eArtdet
-    public float calcPrice2(SpecificRec specificRec) {
+    public float calcPrice2(Specific specificRec) {
 
         float inPrice = 0;
         Record color1Rec = eColor.find(specificRec.colorID1);  //основная
@@ -239,7 +239,7 @@ public class Tariffication extends Cal5e {
     }
 
     //Правила расчёта. Фильтр по полю form, color(1,2,3) таблицы RULECALC
-    private void rulePrise(Record rulecalcRec, SpecificRec specifRec) {
+    private void rulePrise(Record rulecalcRec, Specific specifRec) {
 
         //Если артикл ИЛИ тип ИЛИ подтип совпали
         if (specifRec.artikl.equals(rulecalcRec.getStr(eArtikl.code))
@@ -263,7 +263,7 @@ public class Tariffication extends Cal5e {
                             if (elem5e.spcRec.artikl.equals(specifRec.artikl)) {
                                 quantity3 = quantity3 + elem5e.spcRec.quant1;
                             }
-                            for (SpecificRec specifRec2 : elem5e.spcRec.spcList) {
+                            for (Specific specifRec2 : elem5e.spcRec.spcList) {
                                 if (specifRec2.artikl.equals(specifRec.artikl)) {
                                     quantity3 = quantity3 + specifRec2.quant1;
                                 }
@@ -271,11 +271,11 @@ public class Tariffication extends Cal5e {
                         }
                     } else { //по подтипу, типу
                         for (ElemSimple elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
-                            SpecificRec specifRec2 = elem5e.spcRec;
+                            Specific specifRec2 = elem5e.spcRec;
                             if (specifRec2.artiklRec.getInt(eArtikl.level1) * 100 + specifRec2.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
                                 quantity3 = quantity3 + elem5e.spcRec.quant1;
                             }
-                            for (SpecificRec specifRec3 : specifRec2.spcList) {
+                            for (Specific specifRec3 : specifRec2.spcList) {
                                 if (specifRec3.artiklRec.getInt(eArtikl.level1) * 100 + specifRec3.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
                                     quantity3 = quantity3 + specifRec3.quant1;
                                 }
@@ -291,7 +291,7 @@ public class Tariffication extends Cal5e {
     }
 
     //В зав. от единицы изм. форматируется количество
-    private float formatAmount(SpecificRec spcRec) {
+    private float formatAmount(Specific spcRec) {
         //TODO Нужна доработка для расчёта по минимальному тарифу. См. dll VirtualPro4::CalcArtTariff
         
         if (UseUnit.METR.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //метры

@@ -18,7 +18,7 @@ public class CheckPar2 {
     }
 
     //Укорочение мм от высоты ручки
-    public float heightHand(SpecificRec spcRec, SpecificRec spcAdd) {
+    public float heightHand(Specific spcRec, Specific spcAdd) {
 
         String ps = spcAdd.getParam("null", 25013); //Укорочение от
         List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
@@ -42,7 +42,7 @@ public class CheckPar2 {
     }
 
     //Расчёт количества ед. с шагом
-    public int calcCountStep(ElemSimple elem5e, SpecificRec spcAdd) {
+    public int calcCountStep(ElemSimple elem5e, Specific spcAdd) {
 
         if (UseUnit.PIE.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
             int step = Integer.valueOf(spcAdd.getParam(-1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
@@ -65,7 +65,7 @@ public class CheckPar2 {
     }
 
     //Расчёт комплекта с шагом
-    public float calcKitCountStep(ElemSimple elem5e, SpecificRec spcAdd) {
+    public float calcKitCountStep(ElemSimple elem5e, Specific spcAdd) {
 
         if (UseUnit.KIT.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
             int step = Integer.valueOf(spcAdd.getParam(-1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
@@ -88,13 +88,13 @@ public class CheckPar2 {
     }
 
     //Количество ед.
-    public int calcCount(SpecificRec spсRec, SpecificRec spcAdd) {
+    public int calcCount(Specific spсRec, Specific spcAdd) {
         return Integer.valueOf(spcAdd.getParam(spcAdd.count,
                 11030, 12060, 14030, 15040, 25060, 33030, 34060, 38030, 39060));
     }
 
     //Пог. метры
-    public float calcAmountMetr(SpecificRec spcRec, SpecificRec spcAdd) {
+    public float calcAmountMetr(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
             return Util.getFloat(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
         }
@@ -102,7 +102,7 @@ public class CheckPar2 {
     }
 
     //Пог. метры длина
-    public float calcAmountLenght(SpecificRec spcRec, SpecificRec spcAdd) {
+    public float calcAmountLenght(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
             return Util.getFloat(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
         }
@@ -110,19 +110,19 @@ public class CheckPar2 {
     }
 
     //Коэффициент
-    public float calcCoeff(SpecificRec spcRec, SpecificRec spcAdd) {
+    public float calcCoeff(Specific spcRec, Specific spcAdd) {
         String coef = spcAdd.getParam("0", 12030, 15030, 25035, 34030, 39030); //"[ * коэф-т ]" 
         return ("0".equals(coef)) ? 1 : Float.parseFloat(coef.replace(",", "."));
     }
 
     //Othe
-    public float calcAmount(SpecificRec spcRec, SpecificRec spcAdd) {
+    public float calcAmount(Specific spcRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam(spcAdd.quant1,
                 11030, 12060, 14030, 15040, 24030, 25060, 33030, 34060, 38030, 39060));
     }
 
     //Задать Угол_реза_1/Угол_реза_2, °
-    public void setAngl(SpecificRec spcAdd) {
+    public void setAngl(Specific spcAdd) {
         if ("ps3".equals(eSetting.find(2))) {
             if (spcAdd.getParam("-1", 34077).equals("-1") == false) {
                 spcAdd.anglCut1 = Util.getFloat(spcAdd.getParam("-1", 34077));
