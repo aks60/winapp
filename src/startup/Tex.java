@@ -19,7 +19,7 @@ import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import frames.swing.listener.ListenerFrame;
 import common.eProfile;
-import frames.Specific;
+import frames.Specification;
 
 /**
  * <p>
@@ -870,7 +870,7 @@ private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
 
     FrameProgress.create(Tex.this, new ListenerFrame() {
         public void actionRequest(Object obj) {
-            App.Specific.createFrame(Tex.this);
+            App.Specification.createFrame(Tex.this);
         }
     });
 }//GEN-LAST:event_mn41

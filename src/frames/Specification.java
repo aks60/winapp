@@ -43,7 +43,7 @@ import frames.swing.colgroup.GroupableTableHeader;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
-public class Specific extends javax.swing.JFrame {
+public class Specification extends javax.swing.JFrame {
 
     private DecimalFormat df0 = new DecimalFormat("#0");
     private DecimalFormat df1 = new DecimalFormat("#0.0");
@@ -51,7 +51,7 @@ public class Specific extends javax.swing.JFrame {
     private DecimalFormat df3 = new DecimalFormat("#0.000");
     private builder.Wincalc iwin = new Wincalc();
 
-    public Specific() {
+    public Specification() {
         initComponents();
         initElements();
         createIwin();
@@ -392,7 +392,7 @@ public class Specific extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Specific.this.mousePressed(evt);
+                Specification.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -498,7 +498,7 @@ public class Specific extends javax.swing.JFrame {
         SpecificRec recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.Artikles.createFrame(Specific.this, recordSpc.artiklRec);
+                App.Artikles.createFrame(Specification.this, recordSpc.artiklRec);
             }
         });
     }//GEN-LAST:event_btnArtikles
@@ -509,30 +509,30 @@ public class Specific extends javax.swing.JFrame {
         SpecificRec recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         Record recordDet = recordSpc.detailRec;
         if (recordDet != null) {
-            FrameProgress.create(Specific.this, new ListenerFrame() {
+            FrameProgress.create(Specification.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
-                        App.Element.createFrame(Specific.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
+                        App.Element.createFrame(Specification.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
 
                     } else if (str.equals("СОЕ")) {
-                        App.Joining.createFrame(Specific.this, iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));
+                        App.Joining.createFrame(Specification.this, iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));
 
                     } else if (str.equals("ЗАП")) {
-                        App.Filling.createFrame(Specific.this, iwin.calcFilling.listVariants, recordDet.getInt(eGlasdet.id));
+                        App.Filling.createFrame(Specification.this, iwin.calcFilling.listVariants, recordDet.getInt(eGlasdet.id));
 
                     } else if (str.equals("ФУР")) {
-                        App.Furniture.createFrame(Specific.this, iwin.calcFurniture.listVariants, recordDet.getInt(eFurndet.id));
+                        App.Furniture.createFrame(Specification.this, iwin.calcFurniture.listVariants, recordDet.getInt(eFurndet.id));
                     }
                 }
             });
         } else {
-            FrameProgress.create(Specific.this, new ListenerFrame() {
+            FrameProgress.create(Specification.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
-                        App.Systree.createFrame(Specific.this, recordSpc.artiklRec.getInt(eArtikl.id));
+                        App.Systree.createFrame(Specification.this, recordSpc.artiklRec.getInt(eArtikl.id));
 
                     } else if (str.equals("ЗАП")) {
-                        App.Systree.createFrame(Specific.this);
+                        App.Systree.createFrame(Specification.this);
                     }
                 }
             });
@@ -594,9 +594,9 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructivFocusLost
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        FrameProgress.create(Specific.this, new ListenerFrame() {
+        FrameProgress.create(Specification.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.DBCompare.createFrame(Specific.this, iwin);
+                App.DBCompare.createFrame(Specification.this, iwin);
             }
         });
     }//GEN-LAST:event_btnTest

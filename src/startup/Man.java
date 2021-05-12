@@ -509,7 +509,7 @@ public class Man extends javax.swing.JFrame {
     private void btn7(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7
     FrameProgress.create(Man.this, new ListenerFrame() {
         public void actionRequest(Object obj) {
-            App.Specific.createFrame(Man.this);
+            App.Specification.createFrame(Man.this);
         }
     });
     }//GEN-LAST:event_btn7

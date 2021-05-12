@@ -64,7 +64,7 @@ import frames.Order;
 import frames.Param;
 import frames.Partner;
 import frames.Rulecalc;
-import frames.Specific;
+import frames.Specification;
 import frames.Syssize;
 import frames.Systree;
 import frames.TestFrame;
@@ -79,7 +79,7 @@ public enum App {
 
     Top, Groups, Currenc, Color, Artikles, Joining, Element, Param,
     Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,
-    Specific, Syssize, TestFrame, RuleCalc, DBCompare;
+    Specification, Syssize, TestFrame, RuleCalc, DBCompare;
     public javax.swing.JFrame frame;
 
     public void createFrame(java.awt.Window parent, Object... param) {
@@ -172,8 +172,8 @@ public enum App {
                 case Models:
                     frame = new Models();
                     break;
-                case Specific:
-                    frame = new Specific();
+                case Specification:
+                    frame = new Specification();
                     break;
                 case Syssize:
                     frame = new Syssize();
