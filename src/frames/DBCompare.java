@@ -3,7 +3,6 @@ package frames;
 import builder.Wincalc;
 import builder.making.Specific;
 import common.Util;
-import common.eProperty;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSetting;
@@ -216,8 +215,9 @@ public class DBCompare extends javax.swing.JFrame {
 
             //=== Таблица 4 ===
             rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord + " and a.funic = b.funic");
-            rs.next();
-            labFurn.setText(rs.getString("FNAME"));
+            while (rs.next()) {
+                ((DefaultTableModel) tab2.getModel()).addRow(new Object[] {rs.getString("FNAME")});
+            }
             rs.close();
             npp = 0;
             txt20.setText(String.valueOf(iwin.rootGson.prj));
@@ -276,11 +276,11 @@ public class DBCompare extends javax.swing.JFrame {
                     ((DefaultTableModel) tab4.getModel()).getDataVector().add(vectorRec);
                 }
             }
+            npp = 0;
             rs.close();
             rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + txt19.getText() + " and a.onumb = " + txt20.getText() + " and a.funic = b.funic");
-            if (rs.isLast() == false) {
-                rs.next();
-                labFurn.setText(rs.getString("FNAME"));
+            while (rs.next()) {
+                ((DefaultTableModel) tab2.getModel()).addRow(new Object[] {rs.getString("FNAME")});
             }
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             paintPanel.repaint();
@@ -676,8 +676,8 @@ public class DBCompare extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"select distinct a.punic, b.pnumb, a.onumb, c.oname from specpau a, listprj b, listord c"},
-                {"where a.punic = b.punic and a.punic = c.punic and a.onumb = c.onumb order by a.punic, b.pnumb, a.onumb"}
+                {"select distinct a.punic, b.pnumb, a.onumb, c.oname from specpau a, listprj b, listord c where a.punic = b.punic and a.punic = c.punic and a.onumb = c.onumb order by a.punic, b.pnumb, a.onumb"},
+                {""}
             },
             new String [] {
                 "Артикул"

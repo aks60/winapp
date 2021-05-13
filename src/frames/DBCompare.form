@@ -358,8 +358,8 @@
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="1" rowCount="2">
                             <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;" type="java.lang.Object">
-                              <Data value="select distinct a.punic, b.pnumb, a.onumb, c.oname from specpau a, listprj b, listord c"/>
-                              <Data value="where a.punic = b.punic and a.punic = c.punic and a.onumb = c.onumb order by a.punic, b.pnumb, a.onumb"/>
+                              <Data value="select distinct a.punic, b.pnumb, a.onumb, c.oname from specpau a, listprj b, listord c where a.punic = b.punic and a.punic = c.punic and a.onumb = c.onumb order by a.punic, b.pnumb, a.onumb"/>
+                              <Data value=""/>
                             </Column>
                           </Table>
                         </Property>
