@@ -78,8 +78,9 @@ public class Adm extends javax.swing.JFrame {
     }
 
     private void loadingPath() {
+        
         if (eProperty.base_num.read().equals("1")) {
-            edPath.setText("D:\\Okna\\Database\\ps4\\bimax\\ITEST.FDB");
+            edPath.setText("D:\\Okna\\Database\\ps4\\ITEST.FDB");
             labPath2.setText(eProperty.server1.read() + "/" + eProperty.port1.read() + "\\" + eProperty.base1.read());
             
         } else if (eProperty.base_num.read().equals("2")) {
