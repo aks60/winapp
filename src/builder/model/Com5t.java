@@ -103,7 +103,8 @@ public abstract class Com5t {
    
     
     public ElemSimple join(LayoutArea layoutArea) {
-        LinkedList<ElemSimple> listElem = (owner.type == TypeElem.STVORKA) ? root().listElem(TypeElem.STVORKA_SIDE) : root().listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST); //список элементов
+        LinkedList<ElemSimple> listElem = (owner.type == TypeElem.STVORKA) ? root().listElem(TypeElem.STVORKA_SIDE) 
+                : root().listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список элементов
         if (LayoutArea.BOTTOM == layoutArea) {
             return listElem.stream().filter(el -> el.inside(x1 + width() / 2, y2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
         } else if (LayoutArea.LEFT == layoutArea) {

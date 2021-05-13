@@ -78,10 +78,10 @@ public class AreaStvorka extends AreaSimple {
             y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
 
         } else {
-            float X1 = (adjacentLef.type() == TypeElem.IMPOST) ? adjacentLef.x1 + adjacentLef.width() / 2 : adjacentLef.x1;
-            float Y2 = (adjacentBot.type() == TypeElem.IMPOST) ? adjacentBot.y2 - adjacentBot.height() / 2 : adjacentBot.y2;
-            float X2 = (adjacentRig.type() == TypeElem.IMPOST) ? adjacentRig.x2 - adjacentRig.width() / 2 : adjacentRig.x2;
-            float Y1 = (adjacentTop.type() == TypeElem.IMPOST) ? adjacentTop.y1 + adjacentTop.height() / 2 : adjacentTop.y1;
+            float X1 = (adjacentLef.type() == TypeElem.IMPOST || adjacentLef.type() == TypeElem.SHTULP) ? adjacentLef.x1 + adjacentLef.width() / 2 : adjacentLef.x1;
+            float Y2 = (adjacentBot.type() == TypeElem.IMPOST || adjacentBot.type() == TypeElem.SHTULP) ? adjacentBot.y2 - adjacentBot.height() / 2 : adjacentBot.y2;
+            float X2 = (adjacentRig.type() == TypeElem.IMPOST || adjacentRig.type() == TypeElem.SHTULP) ? adjacentRig.x2 - adjacentRig.width() / 2 : adjacentRig.x2;
+            float Y1 = (adjacentTop.type() == TypeElem.IMPOST || adjacentTop.type() == TypeElem.SHTULP) ? adjacentTop.y1 + adjacentTop.height() / 2 : adjacentTop.y1;
             x1 = X1 + offset(stvLef, adjacentLef);
             y2 = Y2 - offset(stvBot, adjacentBot);
             x2 = X2 - offset(stvRig, adjacentRig);
@@ -174,7 +174,7 @@ public class AreaStvorka extends AreaSimple {
             }
         }
 
-        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST);
+        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP);
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
             el.id = id() + (float) (index + 5) / 100;

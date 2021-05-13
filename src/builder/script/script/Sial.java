@@ -1,4 +1,4 @@
-package builder.script;
+package builder.script.script;
 
 public class Sial {
     

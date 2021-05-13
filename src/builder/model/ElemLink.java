@@ -19,18 +19,19 @@ import common.Util;
 import enums.PKjson;
 import java.util.List;
 
-public class ElemCrossbar extends ElemSimple {
+public class ElemLink extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
-
-    public ElemCrossbar(AreaSimple owner, float id, String param) {
+    
+    public ElemLink(AreaSimple owner, TypeElem type, float id, String param) {
 
         super(id, owner.iwin(), owner);
         this.layout = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
         colorID1 = iwin().colorID1;
         colorID2 = iwin().colorID2;
         colorID3 = iwin().colorID3;
-        this.type = TypeElem.IMPOST;
+        //this.type = TypeElem.IMPOST;
+        this.type = type;
 
         initСonstructiv(param);
 
@@ -48,7 +49,7 @@ public class ElemCrossbar extends ElemSimple {
             sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
         } else {
             if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-                sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.IMPOST, UseSide.HORIZ, UseSide.ANY);
+                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.HORIZ, UseSide.ANY);
 
             } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
                 sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.IMPOST, UseSide.VERT, UseSide.ANY);

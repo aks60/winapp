@@ -8,8 +8,9 @@ public enum TypeElem implements Enam {
     IMPOST(3, 3, "Импост"),
     STVORKA_SIDE(4, 2, "Рама створки"), //элемент STVORKA
     GLASS(5, "Стеклопакет"),
-    /*SHTULP(10, 9, "Штульп"),
-    RASKLADKA(14, 7, "Раскладка"),
+    //STOIKA(6, 5, "Стойка"),
+    SHTULP(10, 9, "Штульп"),
+    /*RASKLADKA(14, 7, "Раскладка"),
     MOSKITKA(13, "Москитка"),
     MOSKITKA_SET(-13, "Москитка"), //непонятно
     SAND(100, "Сэндвич"),

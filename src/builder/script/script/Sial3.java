@@ -1,5 +1,7 @@
-package builder.script;
+package builder.script.script;
 
+import builder.script.GsonElem;
+import builder.script.GsonRoot;
 import static builder.script.Winscript.rootGson;
 import com.google.gson.GsonBuilder;
 import enums.LayoutArea;

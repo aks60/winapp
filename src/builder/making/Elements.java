@@ -37,7 +37,7 @@ public class Elements extends Cal5e {
     public void calc() {
         super.calc();
         LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE
-                , TypeElem.STVORKA_SIDE, TypeElem.IMPOST); //список сторон рам, створок и импостов
+                , TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список сторон рам, створок и импостов
         try {
             //Цикл по списку элементов конструкции
             for (ElemSimple elem5e : listElem) {

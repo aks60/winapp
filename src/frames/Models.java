@@ -178,7 +178,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             } else if (selectedNode.com5t().type() == TypeElem.STVORKA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan22");
                 
-            } else if (selectedNode.com5t().type() == TypeElem.IMPOST) {
+            } else if (selectedNode.com5t().type() == TypeElem.IMPOST 
+                    || selectedNode.com5t().type() == TypeElem.SHTULP) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan23");
                 
             } else if (selectedNode.com5t().type() == TypeElem.GLASS) {

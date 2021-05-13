@@ -65,6 +65,7 @@ import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.List;
 import static java.util.stream.Collectors.toList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -346,7 +347,9 @@ public class Order extends javax.swing.JFrame {
 
                 //Рама, импост...
             } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE
-                    || windowsNode.com5t().type() == TypeElem.STVORKA_SIDE || windowsNode.com5t().type() == TypeElem.IMPOST) {
+                    || windowsNode.com5t().type() == TypeElem.STVORKA_SIDE
+                    || windowsNode.com5t().type() == TypeElem.IMPOST
+                    || windowsNode.com5t().type() == TypeElem.SHTULP) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(windowsNode.toString());
                 txt32.setText(windowsNode.com5t().artiklRec.getStr(eArtikl.code));
@@ -2139,17 +2142,18 @@ public class Order extends javax.swing.JFrame {
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         try {
             if (windowsNode != null) {
+                TypeElem typeEl = windowsNode.com5t().type();
                 float selectID = windowsNode.com5t().id();
                 int systreeID = qPrjprod.getAs(Uti4.getIndexRec(tab2), ePrjprod.systree_id);
                 Query qSysprof = new Query(eSysprof.values(), eArtikl.values()).select(eSysprof.up, "left join",
                         eArtikl.up, "on", eArtikl.id, "=", eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeID);
                 Query qSysprof2 = new Query(eSysprof.values(), eArtikl.values());
-                UseArtiklTo useArtiklTo = (windowsNode.com5t().type() == TypeElem.IMPOST) ? UseArtiklTo.IMPOST
-                        : (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
+                List<Integer> list = (typeEl == TypeElem.IMPOST || typeEl == TypeElem.SHTULP) ? Arrays.asList(TypeElem.IMPOST.id2, TypeElem.SHTULP.id2) 
+                        :(typeEl == TypeElem.FRAME_SIDE) ? Arrays.asList(TypeElem.FRAME_SIDE.id2) :Arrays.asList(TypeElem.STVORKA_SIDE.id2); 
 
                 for (int index = 0; index < qSysprof.size(); ++index) {
                     Record sysprofRec = qSysprof.get(index);
-                    if (sysprofRec.getInt(eSysprof.use_type) == useArtiklTo.id) {
+                    if (list.contains(sysprofRec.getInt(eSysprof.use_type))) {
                         if (sysprofRec.getInt(eSysprof.use_side) == windowsNode.com5t().layout().id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {

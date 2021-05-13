@@ -59,7 +59,7 @@ public enum eSysprof implements Field {
 
     public static Record find2(int _nuni, UseArtiklTo _type) {
         if (_nuni == -3) {
-            return record(_type);
+            return record(_type.id);
         }
         if (Query.conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
@@ -95,7 +95,7 @@ public enum eSysprof implements Field {
     
     public static Record find4(int nuni, UseArtiklTo _type, UseSide... _side) {
         if (nuni == -3) {
-            return record(_type);
+            return record(_type.id);
         }
         List<Integer> _side2 = Arrays.asList(_side).stream().map(s -> s.id).collect(Collectors.toList());
         if (Query.conf.equals("calc")) {
@@ -108,12 +108,28 @@ public enum eSysprof implements Field {
                 nuni, "and ", use_type, "=", _type.id, "and", use_side, "in", str, "order by", prio);
         return (sysprofList.isEmpty() == true) ? up.newRecord() : sysprofList.get(0);
     }
+    
+    public static Record find4(int nuni, int typeId, UseSide... _side) {
+        if (nuni == -3) {
+            return record(typeId);
+        }
+        List<Integer> _side2 = Arrays.asList(_side).stream().map(s -> s.id).collect(Collectors.toList());
+        if (Query.conf.equals("calc")) {
 
-    public static Record record(UseArtiklTo _type) {
+            return query().stream().filter(rec -> rec.getInt(systree_id) == nuni && rec.getInt(use_type) == typeId
+                    && _side2.contains(rec.getInt(use_side))).findFirst().orElse(up.newRecord());
+        }
+        String str = _side2.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",", "(", ")"));
+        Query sysprofList = new Query(values()).select(up, "where", systree_id, " = ",
+                nuni, "and ", use_type, "=", typeId, "and", use_side, "in", str, "order by", prio);
+        return (sysprofList.isEmpty() == true) ? up.newRecord() : sysprofList.get(0);
+    }
+
+    public static Record record(int typeId) {
 
         Record record = up.newRecord();
         record.setNo(id, -3);
-        record.setNo(use_type, _type.id);
+        record.setNo(use_type, typeId);
         record.setNo(use_side, UseSide.ANY.id);
         record.setNo(systree_id, -3);
         record.setNo(artikl_id, -3);

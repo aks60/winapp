@@ -8,7 +8,7 @@ import builder.model.ElemJoining;
 import builder.model.AreaSimple;
 import builder.model.AreaRectangl;
 import builder.model.AreaTrapeze;
-import builder.model.ElemCrossbar;
+import builder.model.ElemLink;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dataset.Record;
@@ -89,7 +89,7 @@ public class Wincalc {
         listAreaStv.stream().forEach(area5e -> area5e.joinFrame());  //соединения створок
 
         //Список элементов, (важно! получаем после построения створки)
-        listElem = rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.GLASS);
+        listElem = rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP, TypeElem.GLASS);
         //Важно! Не нарушаем последовательность построения окна
         Collections.sort(listElem, (a, b) -> Float.compare(a.id(), b.id()));  
         return rootArea;
@@ -159,8 +159,9 @@ public class Wincalc {
                     hm.put(area5e, el);
 
                     //Добавим Element
-                } else if (TypeElem.IMPOST == el.type()) {
-                    owner.listChild.add(new ElemCrossbar(owner, el.id(), el.param()));
+                } else if (TypeElem.IMPOST == el.type() 
+                        || TypeElem.SHTULP == el.type()) {
+                    owner.listChild.add(new ElemLink(owner, el.type(), el.id(), el.param()));
                 } else if (TypeElem.GLASS == el.type()) {
                     owner.listChild.add(new ElemGlass(owner, el.id(), el.param()));
                 }

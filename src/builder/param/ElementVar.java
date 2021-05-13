@@ -78,11 +78,6 @@ public class ElementVar extends Par5s {
                     {
                         HashMap<String, ElemJoining> mapJoin = elem5e.iwin().mapJoin;
                         pass = 0;
-
-                        for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
-                            ElemJoining el = entry.getValue();
-                        }
-
                         for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
                             ElemJoining el = entry.getValue();
                             if (TypeJoin.VAR10 == el.typeJoin

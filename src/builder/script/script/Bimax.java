@@ -1,5 +1,7 @@
-package builder.script;
+package builder.script.script;
 
+import builder.script.GsonElem;
+import builder.script.GsonRoot;
 import static builder.script.Winscript.rootGson;
 import com.google.gson.GsonBuilder;
 import enums.LayoutArea;
@@ -167,7 +169,7 @@ public final class Bimax {
             rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 450))
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1}"))
                     .addElem(new GsonElem(TypeElem.GLASS));
-            rootGson.addElem(new GsonElem(TypeElem.IMPOST));
+            rootGson.addElem(new GsonElem(TypeElem.SHTULP));
             rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 850))
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2}"))
                     .addElem(new GsonElem(TypeElem.GLASS));

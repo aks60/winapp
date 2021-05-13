@@ -47,7 +47,6 @@ import frames.swing.DefTableModel;
 import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
-import builder.param.Par5s;
 import builder.script.GsonElem;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -83,6 +82,7 @@ import frames.swing.listener.ListenerRecord;
 import frames.swing.listener.ListenerFrame;
 import common.eProfile;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 public class Systree extends javax.swing.JFrame {
@@ -541,7 +541,9 @@ public class Systree extends javax.swing.JFrame {
 
                 //Рама, импост...
             } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE
-                    || windowsNode.com5t().type() == TypeElem.STVORKA_SIDE || windowsNode.com5t().type() == TypeElem.IMPOST) {
+                    || windowsNode.com5t().type() == TypeElem.STVORKA_SIDE 
+                    || windowsNode.com5t().type() == TypeElem.IMPOST
+                    || windowsNode.com5t().type() == TypeElem.SHTULP) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(windowsNode.toString());
                 txt32.setText(windowsNode.com5t().artiklRecAn.getStr(eArtikl.code));
@@ -2524,17 +2526,17 @@ public class Systree extends javax.swing.JFrame {
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         try {
             if (windowsNode != null) {
+                TypeElem typeEl = windowsNode.com5t().type();
                 float selectID = windowsNode.com5t().id(); //id элемента который уже есть в конструкции, это либо виртуал. либо найденный по приоритету при построении модели
                 Query qSysprofFilter = new Query(eSysprof.values(), eArtikl.values()); //тут будет список допустимых профилей из ветки системы
-                UseArtiklTo useArtiklTo = (windowsNode.com5t().type() == TypeElem.IMPOST) ? UseArtiklTo.IMPOST
-                        : (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) ? UseArtiklTo.FRAME : UseArtiklTo.STVORKA;
-
+                List<Integer> list = (typeEl == TypeElem.IMPOST || typeEl == TypeElem.SHTULP) ? Arrays.asList(TypeElem.IMPOST.id2, TypeElem.SHTULP.id2) 
+                        :(typeEl == TypeElem.FRAME_SIDE) ? Arrays.asList(TypeElem.FRAME_SIDE.id2) :Arrays.asList(TypeElem.STVORKA_SIDE.id2); 
                 //Цикл по профилям ветки 
                 for (int index = 0; index < qSysprof.size(); ++index) {
                     Record sysprofRec = qSysprof.get(index);
 
                     //Отфильтруем подходящие по параметрам
-                    if (sysprofRec.getInt(eSysprof.use_type) == useArtiklTo.id) {
+                    if (list.contains(sysprofRec.getInt(eSysprof.use_type))) {
                         if (sysprofRec.getInt(eSysprof.use_side) == windowsNode.com5t().layout().id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {
@@ -2648,7 +2650,8 @@ public class Systree extends javax.swing.JFrame {
                             updateScript(selectID);
                         }
                     }
-                } else if (windowsNode.com5t().type() == TypeElem.IMPOST) {
+                } else if (windowsNode.com5t().type() == TypeElem.IMPOST 
+                        || windowsNode.com5t().type() == TypeElem.SHTULP) {
                     for (GsonElem elem : parentArea.elements()) {
                         if (elem.id() == ((DefMutableTreeNode) windowsNode).com5t().id()) {
                             String paramStr = elem.param();
