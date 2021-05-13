@@ -1825,7 +1825,7 @@ public class Systree extends javax.swing.JFrame {
         });
 
         lab13.setFont(frames.Uti4.getFont(0,0));
-        lab13.setText("Зап-ие по умолчанию");
+        lab13.setText("Заполн. по умолчанию");
         lab13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab13.setPreferredSize(new java.awt.Dimension(112, 18));
 
@@ -2526,17 +2526,14 @@ public class Systree extends javax.swing.JFrame {
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         try {
             if (windowsNode != null) {
-                TypeElem typeEl = windowsNode.com5t().type();
                 float selectID = windowsNode.com5t().id(); //id элемента который уже есть в конструкции, это либо виртуал. либо найденный по приоритету при построении модели
                 Query qSysprofFilter = new Query(eSysprof.values(), eArtikl.values()); //тут будет список допустимых профилей из ветки системы
-                List<Integer> list = (typeEl == TypeElem.IMPOST || typeEl == TypeElem.SHTULP) ? Arrays.asList(TypeElem.IMPOST.id2, TypeElem.SHTULP.id2) 
-                        :(typeEl == TypeElem.FRAME_SIDE) ? Arrays.asList(TypeElem.FRAME_SIDE.id2) :Arrays.asList(TypeElem.STVORKA_SIDE.id2); 
                 //Цикл по профилям ветки 
                 for (int index = 0; index < qSysprof.size(); ++index) {
                     Record sysprofRec = qSysprof.get(index);
 
                     //Отфильтруем подходящие по параметрам
-                    if (list.contains(sysprofRec.getInt(eSysprof.use_type))) {
+                    if (windowsNode.com5t().type().id2 == sysprofRec.getInt(eSysprof.use_type)) {
                         if (sysprofRec.getInt(eSysprof.use_side) == windowsNode.com5t().layout().id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {

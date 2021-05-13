@@ -52,7 +52,7 @@ public class ElemLink extends ElemSimple {
                 sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.HORIZ, UseSide.ANY);
 
             } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
-                sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.IMPOST, UseSide.VERT, UseSide.ANY);
+                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.VERT, UseSide.ANY);
             }
         }
         spcRec.place = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;

@@ -159,8 +159,8 @@ public final class Bimax {
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'sysprofID':1121, 'typeOpen':4,'sysfurnID':2916}")) //, 'artiklHandl':2159}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':4663}"));
         
-        } else if (prj == 700027) {  //punic = 427872
-            rootGson = new GsonRoot(prj, 1, 198, "Montblanc / Eco / 1 ОКНА",
+        } else if (prj == 700027) {  //punic = 427872 штульповое
+            rootGson = new GsonRoot(prj, 1, 198, "Montblanc / Eco / 1 ОКНА (штульп)",
                     LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1009, 1009, 1009);
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));

@@ -2142,18 +2142,16 @@ public class Order extends javax.swing.JFrame {
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         try {
             if (windowsNode != null) {
-                TypeElem typeEl = windowsNode.com5t().type();
                 float selectID = windowsNode.com5t().id();
                 int systreeID = qPrjprod.getAs(Uti4.getIndexRec(tab2), ePrjprod.systree_id);
                 Query qSysprof = new Query(eSysprof.values(), eArtikl.values()).select(eSysprof.up, "left join",
                         eArtikl.up, "on", eArtikl.id, "=", eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeID);
                 Query qSysprof2 = new Query(eSysprof.values(), eArtikl.values());
-                List<Integer> list = (typeEl == TypeElem.IMPOST || typeEl == TypeElem.SHTULP) ? Arrays.asList(TypeElem.IMPOST.id2, TypeElem.SHTULP.id2) 
-                        :(typeEl == TypeElem.FRAME_SIDE) ? Arrays.asList(TypeElem.FRAME_SIDE.id2) :Arrays.asList(TypeElem.STVORKA_SIDE.id2); 
 
+                //Отфильтруем подходящие по параметрам
                 for (int index = 0; index < qSysprof.size(); ++index) {
                     Record sysprofRec = qSysprof.get(index);
-                    if (list.contains(sysprofRec.getInt(eSysprof.use_type))) {
+                    if (windowsNode.com5t().type().id2 == sysprofRec.getInt(eSysprof.use_type)) {
                         if (sysprofRec.getInt(eSysprof.use_side) == windowsNode.com5t().layout().id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {
