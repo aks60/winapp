@@ -19,11 +19,11 @@ import common.Util;
 import enums.PKjson;
 import java.util.List;
 
-public class ElemImpost extends ElemSimple {
+public class ElemCrossbar extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
 
-    public ElemImpost(AreaSimple owner, float id, String param) {
+    public ElemCrossbar(AreaSimple owner, float id, String param) {
 
         super(id, owner.iwin(), owner);
         this.layout = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;

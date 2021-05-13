@@ -224,7 +224,7 @@ public class AreaSimple extends Com5t {
             elemGlassList.stream().forEach(el -> el.paint());
 
             //Прорисовка импостов
-            LinkedList<ElemImpost> elemImpostList = root().listElem(TypeElem.IMPOST);
+            LinkedList<ElemCrossbar> elemImpostList = root().listElem(TypeElem.IMPOST);
             elemImpostList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам
@@ -244,7 +244,7 @@ public class AreaSimple extends Com5t {
             //Прорисовка размера  
             if (iwin().scale > 0.1) {
                 LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
-                LinkedList<ElemImpost> impostList = root().listElem(TypeElem.IMPOST);
+                LinkedList<ElemCrossbar> impostList = root().listElem(TypeElem.IMPOST);
                 for (ElemSimple impostElem : impostList) { //по импостам определим точки разрыва линии
                     if (LayoutArea.VERT == impostElem.owner().layout) {
                         ls2.add(impostElem.y1 + (impostElem.y2 - impostElem.y1) / 2);

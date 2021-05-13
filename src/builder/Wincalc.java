@@ -8,7 +8,7 @@ import builder.model.ElemJoining;
 import builder.model.AreaSimple;
 import builder.model.AreaRectangl;
 import builder.model.AreaTrapeze;
-import builder.model.ElemImpost;
+import builder.model.ElemCrossbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dataset.Record;
@@ -160,7 +160,7 @@ public class Wincalc {
 
                     //Добавим Element
                 } else if (TypeElem.IMPOST == el.type()) {
-                    owner.listChild.add(new ElemImpost(owner, el.id(), el.param()));
+                    owner.listChild.add(new ElemCrossbar(owner, el.id(), el.param()));
                 } else if (TypeElem.GLASS == el.type()) {
                     owner.listChild.add(new ElemGlass(owner, el.id(), el.param()));
                 }
