@@ -254,7 +254,7 @@ public class Order extends javax.swing.JFrame {
             for (Record record : qPrjprod) {
                 try {
                     Object script = record.get(ePrjprod.script);
-                    ImageIcon image = Uti4.createWindraw(iwin, script, length);
+                    ImageIcon image = Uti4.createImageIcon(iwin, script, length);
                     record.add(image);
 
                 } catch (Exception e) {

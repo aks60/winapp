@@ -116,7 +116,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         for (Record record : qModels.table(eSysmodel.up)) {
             try {
                 Object script = record.get(eSysmodel.script);
-                ImageIcon image = Uti4.createWindraw(iwin, script, length);
+                ImageIcon image = Uti4.createImageIcon(iwin, script, length);
                 record.add(image);
                 
             } catch (Exception e) {
@@ -124,6 +124,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             }
         }
         ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
+        Uti4.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2));
         Uti4.setSelectedRow(tab);
     }
     

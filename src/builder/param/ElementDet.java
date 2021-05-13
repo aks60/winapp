@@ -378,7 +378,8 @@ public class ElementDet extends Par5s {
                     case 39081:  //Если артикул профиля контура 
                         message(grup);
                         break;
-                    case 39093:  //Поперечину ставить : 
+                    case 39093:  //Поперечину ставить :
+                        hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         message(grup);
                         break;
                     case 39097:  //Трудозатраты по периметру 

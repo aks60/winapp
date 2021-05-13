@@ -1,4 +1,5 @@
 
+update  parlist set pname = pnumb || '-' || pname where pnumb > 0
 ALTER TABLE artikls DROP CONSTRAINT IARTIKLS;
 ALTER TABLE artikls ALTER COLUMN aname TYPE VARCHAR(120);
 update artikls set aname = cast(atypm as varchar(2)) || '.' || cast(atypp as varchar(2)) || '-' || aname
@@ -12,7 +13,6 @@ left join systree e on d.parent_id = e.id
 left join systree k on e.parent_id = k.id
 left join systree j on k.parent_id = j.id
 order by c.id, k.name, e.name, d.name, b.code
-
 
 select params_id, text from elempar1 where params_id = 1010 union
 select params_id, text from elempar2 where params_id = 1010 union

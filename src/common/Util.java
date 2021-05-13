@@ -127,6 +127,7 @@ public class Util {
     }
     
     //"288-488/1028,01-1128", "2000,2-3000/0-1250@", "55;/*"
+    //TODO необходимо учесть такой вариант -27,5/-27,5 см. 34049
     public static boolean containsNumb(String txt, Number val1, Number val2) {
         if (txt == null || txt.isEmpty()) {
             return true;

@@ -49,8 +49,6 @@ import frames.swing.listener.ListenerSQL;
 import frames.swing.listener.ListenerObject;
 import common.eProfile;
 import domain.ePrjprod;
-import enums.TypeElem;
-import enums.UseArtiklTo;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -653,17 +651,21 @@ public class Uti4 {
         }
     }
 
-    public static ImageIcon createWindraw(Wincalc iwin, Object script, int length) {
-
-        iwin.build(script.toString());
-        BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-        iwin.gc2d = bi.createGraphics();
-        iwin.gc2d.fillRect(0, 0, length, length);
-        iwin.scale = (length / iwin.width > length / iwin.heightAdd) ? length / (iwin.heightAdd + 200) : length / (iwin.width + 200);
-        iwin.gc2d.translate(2, 2);
-        iwin.gc2d.scale(iwin.scale, iwin.scale);
-        iwin.rootArea.draw(length, length);
-        ImageIcon image = new ImageIcon(bi);
-        return image;
+    public static ImageIcon createImageIcon(Wincalc iwin, Object script, int length) {
+        try {
+            iwin.build(script.toString());
+            BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+            iwin.gc2d = bi.createGraphics();
+            iwin.gc2d.fillRect(0, 0, length, length);
+            iwin.scale = (length / iwin.width > length / iwin.heightAdd) ? length / (iwin.heightAdd + 200) : length / (iwin.width + 200);
+            iwin.gc2d.translate(2, 2);
+            iwin.gc2d.scale(iwin.scale, iwin.scale);
+            iwin.rootArea.draw(length, length);
+            ImageIcon image = new ImageIcon(bi);
+            return image;
+        } catch (Exception e) {
+            System.err.println("Ошибка:Util4.loadingTab() " + e);
+            return new ImageIcon();
+        }
     }
 }

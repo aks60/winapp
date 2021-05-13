@@ -157,6 +157,9 @@ public class Tex extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(659, 80));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Tex.this.windowClosed(evt);
             }
@@ -1055,6 +1058,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             }
         });
     }//GEN-LAST:event_btnTest
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        /*Arrays.asList(App.values()).forEach(act -> {
+            if (act.frame != null && act != App.Top && act.frame.isVisible() == false) {
+                act.frame.setVisible(true);
+            }
+        });*/
+    }//GEN-LAST:event_formWindowActivated
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
