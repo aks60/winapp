@@ -139,7 +139,7 @@ public class Systree extends javax.swing.JFrame {
             systreeID = sysprodRec.getInt(eSysprod.systree_id);
         }
         qSystree.select(eSystree.up, "order by id");
-        qParams.select(eParams.up, "where", eParams.id, "< 0").table(eParams.up);
+        qParams.select(eParams.up).table(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
     }
 
@@ -2083,7 +2083,7 @@ public class Systree extends javax.swing.JFrame {
                 .addContainerGap(73, Short.MAX_VALUE))
         );
 
-        tabb1.addTab("<html><font size=\"3\">Основные", pan6);
+        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp\nОсновные\n&nbsp;&nbsp;&nbsp", pan6);
 
         pan3.setLayout(new java.awt.BorderLayout());
 
@@ -2129,7 +2129,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("<html><font size=\"3\">Профили", pan3);
+        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp\nПрофили\n&nbsp;&nbsp;&nbsp", pan3);
 
         pan4.setLayout(new java.awt.BorderLayout());
 
@@ -2175,7 +2175,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan4.add(scr3, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("<html><font size=\"3\">Фурнитура", pan4);
+        tabb1.addTab("<html><font size=\"3\">&nbsp;&nbsp;&nbsp\nФурнитура\n&nbsp;&nbsp;&nbsp", pan4);
 
         pan5.setLayout(new java.awt.BorderLayout());
 
@@ -2218,7 +2218,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan5.add(scr4, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("<html><font size=\"3\">Параметры", pan5);
+        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp\nПараметры\n&nbsp;&nbsp;&nbsp", pan5);
 
         pan10.setLayout(new java.awt.BorderLayout());
 
@@ -2265,9 +2265,10 @@ public class Systree extends javax.swing.JFrame {
 
         pan10.add(scr6, java.awt.BorderLayout.EAST);
 
-        tabb1.addTab("<html><font size=\"3\">Модели", pan10);
+        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp\nМодели\n&nbsp;&nbsp;&nbsp", pan10);
 
         pan1.add(tabb1);
+        tabb1.getAccessibleContext().setAccessibleName("<html><font size=\"3\">&nbsp;&nbsp;&nbsp\nОсновные\n&nbsp;&nbsp;&nbsp");
 
         centr.add(pan1, java.awt.BorderLayout.CENTER);
 

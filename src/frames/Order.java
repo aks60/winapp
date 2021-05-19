@@ -4,7 +4,7 @@ import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
 import builder.making.Specific;
-import builder.param.Par5s;
+import builder.script.GsonRoot;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -40,8 +40,10 @@ import domain.eColor;
 import domain.eCurrenc;
 import domain.eFurndet;
 import domain.eFurniture;
+import domain.eParams;
 import domain.ePrjprod;
 import domain.eSysfurn;
+import domain.eSyspar1;
 import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
@@ -50,7 +52,6 @@ import enums.LayoutHandle;
 import enums.PKjson;
 import enums.TypeElem;
 import enums.TypeOpen1;
-import enums.UseArtiklTo;
 import enums.UseSide;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicColor;
@@ -58,6 +59,7 @@ import frames.dialog.DicEnums;
 import frames.dialog.DicHandl;
 import frames.dialog.DicSyspod;
 import frames.dialog.DicSysprof;
+import frames.dialog.ParDefault;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import java.awt.CardLayout;
@@ -65,7 +67,6 @@ import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.List;
 import static java.util.stream.Collectors.toList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -79,14 +80,17 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import startup.App;
+import startup.Main;
 
 public class Order extends javax.swing.JFrame {
 
+    private Query qParams = new Query(eParams.values());
     private Query qCurrenc = new Query(eCurrenc.values());
     private Query qPrjpart = new Query(ePrjpart.values());
     private Query qProject = new Query(eProject.values());
     private Query qProjectAll = new Query(eProject.values());
     private Query qPrjprod = new Query(ePrjprod.values());
+    private Query qSyspar1 = new Query(eSyspar1.values());
     private Wincalc iwin = new Wincalc();
     private DefMutableTreeNode windowsNode = null;
     private Canvas paintPanel = new Canvas(iwin);
@@ -104,6 +108,7 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingData() {
+        qParams.select(eParams.up).table(eParams.up);
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qPrjpart.select(ePrjpart.up);
         qProjectAll.select(eProject.up, "order by", eProject.date4);
@@ -124,6 +129,21 @@ public class Order extends javax.swing.JFrame {
         };
         new DefTableModel(tab2, qPrjprod, ePrjprod.name, ePrjprod.id);
         new DefTableModel(tab4, qPrjprod, ePrjprod.name, ePrjprod.id);
+        new DefTableModel(tab5, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
+            public Object getValueAt(int col, int row, Object val) {
+                Field field = columns[col];
+                if (val != null && field == eSyspar1.params_id) {
+                    if (Main.dev == true) {
+                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                    } else {
+                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                    }
+                }
+                return val;
+            }
+        };
 
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
@@ -215,6 +235,25 @@ public class Order extends javax.swing.JFrame {
                 record2.set(eProject.prjpart_id, record.getInt(ePrjpart.id));
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
+        });
+
+        Uti4.buttonCellEditor(tab5, 1).addActionListener(event -> {
+            Integer grup = qSyspar1.getAs(Uti4.getIndexRec(tab5), eSyspar1.params_id);
+
+            ParDefault frame = new ParDefault(this, recocord -> {
+                Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
+                int index = Uti4.getIndexRec(tab2);
+                if (index != -1) {
+                    Record prjprodRec = qPrjprod.get(index);
+                    String script = prjprodRec.getStr(ePrjprod.script);
+                    GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
+                    gsonRoot.paramDef.put(recocord.getInt(eSyspar1.id), recocord.getStr(eSyspar1.text));
+                    String script2 = gson.toJson(gsonRoot);
+                    prjprodRec.set(ePrjprod.script, script2);
+                    qPrjprod.execsql();
+                    Uti4.setSelectedRow(tab5, index);
+                }
+            }, grup);
         });
     }
 
@@ -310,13 +349,16 @@ public class Order extends javax.swing.JFrame {
         if (index != -1) {
             Record prjprodRec = qPrjprod.get(index);
             String script = prjprodRec.getStr(ePrjprod.script);
+            String systreeId = prjprodRec.getStr(ePrjprod.systree_id);
             eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
-            App.Top.frame.setTitle(eProfile.profile.title + Uti4.designTitle());
+            App.Top.frame.setTitle(eProfile.profile.title + Uti4.designTitle());            
+            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", systreeId);            
 
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
-                JsonElement script2 = gson.fromJson(script, JsonElement.class);
-                iwin.build(script2.toString()); //построение изделия
+                GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
+                JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
+                iwin.build(jsonElem.toString()); //построение изделия
                 paintPanel.repaint(true);
                 loadingWin();
                 windowsTree.setSelectionRow(0);
@@ -325,6 +367,7 @@ public class Order extends javax.swing.JFrame {
                 Graphics2D g = (Graphics2D) paintPanel.getGraphics();
                 g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
             }
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
         }
     }
 
@@ -381,8 +424,8 @@ public class Order extends javax.swing.JFrame {
                     txt31.setText("");
                 }
                 //if (stv.handleRec.getInt(eArtikl.id) == -3) {
-                    iwin.calcFurniture = new builder.making.Furniture(iwin, true); //фурнитура 
-                    iwin.calcFurniture.calc();
+                iwin.calcFurniture = new builder.making.Furniture(iwin, true); //фурнитура 
+                iwin.calcFurniture.calc();
                 //}
                 txt21.setText(stv.handleRec.getStr(eArtikl.code));
                 txt34.setText(stv.handleRec.getStr(eArtikl.name));
@@ -427,6 +470,7 @@ public class Order extends javax.swing.JFrame {
         btnF1 = new javax.swing.JToggleButton();
         btnF2 = new javax.swing.JToggleButton();
         btnF3 = new javax.swing.JToggleButton();
+        btnTest = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         tabb1 = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
@@ -531,6 +575,9 @@ public class Order extends javax.swing.JFrame {
         panDesign = new javax.swing.JPanel();
         scr6 = new javax.swing.JScrollPane();
         windowsTree = new javax.swing.JTree();
+        pan10 = new javax.swing.JPanel();
+        scr5 = new javax.swing.JScrollPane();
+        tab5 = new javax.swing.JTable();
         pan6 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
@@ -684,6 +731,17 @@ public class Order extends javax.swing.JFrame {
             }
         });
 
+        btnTest.setText("Test");
+        btnTest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTest.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnTest.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnTest.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTest(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -703,28 +761,32 @@ public class Order extends javax.swing.JFrame {
                 .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 557, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 514, Short.MAX_VALUE)
+                .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         northLayout.setVerticalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnClose, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCalc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(northLayout.createSequentialGroup()
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCalc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnF3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnF3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(northLayout.createSequentialGroup()
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -1882,6 +1944,49 @@ public class Order extends javax.swing.JFrame {
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\nИзделия\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", pan3);
 
+        pan10.setLayout(new java.awt.BorderLayout());
+
+        scr5.setBorder(null);
+        scr5.setPreferredSize(new java.awt.Dimension(450, 300));
+
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Параметр", "Значение по умолчанию", "ID"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab5.setFillsViewportHeight(true);
+        tab5.setName("tab4"); // NOI18N
+        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tab5MousePressed(evt);
+            }
+        });
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(0).setPreferredWidth(400);
+            tab5.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab5.getColumnModel().getColumn(2).setMaxWidth(40);
+        }
+
+        pan10.add(scr5, java.awt.BorderLayout.CENTER);
+
+        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp;\nПараметры\n&nbsp;&nbsp;&nbsp", pan10);
+
         pan6.setLayout(new java.awt.BorderLayout());
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
@@ -2586,6 +2691,26 @@ public class Order extends javax.swing.JFrame {
         loadingTab1();
     }//GEN-LAST:event_btnFilter
 
+    private void tab5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab5MousePressed
+//        JTable table = (JTable) evt.getSource();
+//        Uti4.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
+//        if (systemTree.isEditing()) {
+//            systemTree.getCellEditor().stopCellEditing();
+//        }
+//        systemTree.setBorder(null);
+//        if (txtFilter.getText().length() == 0) {
+//            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+//            txtFilter.setName(table.getName());
+//        }
+    }//GEN-LAST:event_tab5MousePressed
+
+    private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
+        int index = Uti4.getIndexRec(tab5);
+        Record prjprodRec = qPrjprod.get(index);
+        String script = prjprodRec.getStr(ePrjprod.script);
+        System.out.println(script);
+    }//GEN-LAST:event_btnTest
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
@@ -2616,6 +2741,7 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnF3;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
+    private javax.swing.JButton btnTest;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
@@ -2651,6 +2777,7 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan11;
     private javax.swing.JPanel pan12;
     private javax.swing.JPanel pan13;
@@ -2672,12 +2799,14 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
+    private javax.swing.JScrollPane scr5;
     private javax.swing.JScrollPane scr6;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
+    private javax.swing.JTable tab5;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JTextField txt13;
     private javax.swing.JTextField txt14;
