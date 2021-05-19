@@ -59,7 +59,6 @@ import frames.dialog.DicEnums;
 import frames.dialog.DicHandl;
 import frames.dialog.DicSyspod;
 import frames.dialog.DicSysprof;
-import frames.dialog.ParDefault;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import java.awt.CardLayout;
@@ -67,6 +66,9 @@ import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 import static java.util.stream.Collectors.toList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -84,13 +86,14 @@ import startup.Main;
 
 public class Order extends javax.swing.JFrame {
 
-    private Query qParams = new Query(eParams.values());
+    private Query qParams = new Query(eParams.id, eParams.params_id, eParams.text);
     private Query qCurrenc = new Query(eCurrenc.values());
     private Query qPrjpart = new Query(ePrjpart.values());
     private Query qProject = new Query(eProject.values());
     private Query qProjectAll = new Query(eProject.values());
     private Query qPrjprod = new Query(ePrjprod.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
+    private Map<Integer, String> mapParams = new HashMap();
     private Wincalc iwin = new Wincalc();
     private DefMutableTreeNode windowsNode = null;
     private Canvas paintPanel = new Canvas(iwin);
@@ -108,7 +111,8 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qParams.select(eParams.up).table(eParams.up);
+        qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id);
+        qParams.forEach(rec -> mapParams.put(rec.getInt(eParams.id), rec.getStr(eParams.text)));
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qPrjpart.select(ePrjpart.up);
         qProjectAll.select(eProject.up, "order by", eProject.date4);
@@ -129,21 +133,6 @@ public class Order extends javax.swing.JFrame {
         };
         new DefTableModel(tab2, qPrjprod, ePrjprod.name, ePrjprod.id);
         new DefTableModel(tab4, qPrjprod, ePrjprod.name, ePrjprod.id);
-        new DefTableModel(tab5, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
-            public Object getValueAt(int col, int row, Object val) {
-                Field field = columns[col];
-                if (val != null && field == eSyspar1.params_id) {
-                    if (Main.dev == true) {
-                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
-                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
-                    } else {
-                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
-                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
-                    }
-                }
-                return val;
-            }
-        };
 
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
@@ -170,6 +159,21 @@ public class Order extends javax.swing.JFrame {
         };
         tab2.setDefaultRenderer(Object.class, defaultTableCellRenderer);
         tab4.setDefaultRenderer(Object.class, defaultTableCellRenderer);
+        new DefTableModel(tab5, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
+            public Object getValueAt(int col, int row, Object val) {
+                Field field = columns[col];
+                if (val != null && field == eSyspar1.params_id) {
+                    if (Main.dev == true) {
+                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                    } else {
+                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                    }
+                }
+                return val;
+            }
+        };        
 
         rsvPrj = new DefFieldEditor(tab1) {
 
@@ -237,24 +241,26 @@ public class Order extends javax.swing.JFrame {
             });
         });
 
-        Uti4.buttonCellEditor(tab5, 1).addActionListener(event -> {
-            Integer grup = qSyspar1.getAs(Uti4.getIndexRec(tab5), eSyspar1.params_id);
-
-            ParDefault frame = new ParDefault(this, recocord -> {
-                Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
-                int index = Uti4.getIndexRec(tab2);
-                if (index != -1) {
-                    Record prjprodRec = qPrjprod.get(index);
-                    String script = prjprodRec.getStr(ePrjprod.script);
-                    GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
-                    gsonRoot.paramDef.put(recocord.getInt(eSyspar1.id), recocord.getStr(eSyspar1.text));
-                    String script2 = gson.toJson(gsonRoot);
-                    prjprodRec.set(ePrjprod.script, script2);
-                    qPrjprod.execsql();
-                    Uti4.setSelectedRow(tab5, index);
-                }
-            }, grup);
-        });
+        Uti4.buttonCellEditor(tab5, 1);
+        //.addActionListener(event -> {
+//            System.out.println("frames.Order.listenerAdd()");
+//            Object grup = tab5.getValueAt(tab5.getSelectedRow(), 2);
+//
+//            ParDefault frame = new ParDefault(this, recocord -> {
+//                Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
+//                int index = Uti4.getIndexRec(tab2);
+//                if (index != -1) {
+//                    Record prjprodRec = qPrjprod.get(index);
+//                    String script = prjprodRec.getStr(ePrjprod.script);
+//                    GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
+//                    gsonRoot.paramDef.put(recocord.getInt(eSyspar1.id), recocord.getStr(eSyspar1.text));
+//                    String script2 = gson.toJson(gsonRoot);
+//                    prjprodRec.set(ePrjprod.script, script2);
+//                    qPrjprod.execsql();
+//                    Uti4.setSelectedRow(tab5, index);
+//                }
+//            }, (int) grup);
+//        });
     }
 
     private void loadingTab1() {
@@ -309,7 +315,7 @@ public class Order extends javax.swing.JFrame {
     private void loadingWin() {
         try {
             int row[] = windowsTree.getSelectionRows();
-            DefMutableTreeNode root = iwin.rootArea.treeWin(iwin);
+            DefMutableTreeNode root = Uti4.iwinTree(iwin);
             windowsTree.setModel(new DefaultTreeModel(root));
             windowsTree.setSelectionRows(row);
 
@@ -351,12 +357,13 @@ public class Order extends javax.swing.JFrame {
             String script = prjprodRec.getStr(ePrjprod.script);
             String systreeId = prjprodRec.getStr(ePrjprod.systree_id);
             eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
-            App.Top.frame.setTitle(eProfile.profile.title + Uti4.designTitle());            
-            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", systreeId);            
+            App.Top.frame.setTitle(eProfile.profile.title + Uti4.designTitle());
+            //qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", systreeId);            
 
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
                 GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
+
                 JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
                 iwin.build(jsonElem.toString()); //построение изделия
                 paintPanel.repaint(true);
@@ -375,7 +382,7 @@ public class Order extends javax.swing.JFrame {
         windowsNode = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
         if (windowsNode != null) {
 
-            //Основные
+            //Конструкции
             if (windowsNode.com5t().type() == TypeElem.RECTANGL || windowsNode.com5t().type() == TypeElem.ARCH) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card12");
                 ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type().name);
@@ -387,6 +394,17 @@ public class Order extends javax.swing.JFrame {
                 txt22.setText(String.valueOf(iwin.rootGson.height()));
                 txt23.setText(String.valueOf(iwin.rootGson.heightAdd()));
                 txt23.setEditable(windowsNode.com5t().type() == TypeElem.ARCH);
+
+                //Параметры
+            } else if (windowsNode.com5t().type() == TypeElem.PARAM) {
+                ((CardLayout) pan8.getLayout()).show(pan8, "card14");
+                //DefaultTableModel dtm = (DefaultTableModel) tab5.getModel();
+                //dtm.getDataVector().clear();
+                Map<Integer, String> map = new HashMap();
+                iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
+                iwin.rootGson.paramDef.forEach((pk, txt) -> map.put(pk, txt));
+                //qSyspar1.
+                //map.forEach((pk, txt) -> dtm.addRow(new Vector(Arrays.asList(mapParams.get(pk), txt, pk))));
 
                 //Рама, импост...
             } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE
@@ -461,6 +479,7 @@ public class Order extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup = new javax.swing.ButtonGroup();
+        pan10 = new javax.swing.JPanel();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -503,6 +522,8 @@ public class Order extends javax.swing.JFrame {
         pan5 = new javax.swing.JPanel();
         pan8 = new javax.swing.JPanel();
         pan14 = new javax.swing.JPanel();
+        scr5 = new javax.swing.JScrollPane();
+        tab5 = new javax.swing.JTable();
         pan12 = new javax.swing.JPanel();
         pan21 = new javax.swing.JPanel();
         lab27 = new javax.swing.JLabel();
@@ -575,9 +596,6 @@ public class Order extends javax.swing.JFrame {
         panDesign = new javax.swing.JPanel();
         scr6 = new javax.swing.JScrollPane();
         windowsTree = new javax.swing.JTree();
-        pan10 = new javax.swing.JPanel();
-        scr5 = new javax.swing.JScrollPane();
-        tab5 = new javax.swing.JTable();
         pan6 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
@@ -587,6 +605,8 @@ public class Order extends javax.swing.JFrame {
             public JTable table = null;
         };
         checkFilter = new javax.swing.JCheckBox();
+
+        pan10.setLayout(new java.awt.BorderLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заказы");
@@ -761,7 +781,7 @@ public class Order extends javax.swing.JFrame {
                 .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 514, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 538, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1101,16 +1121,44 @@ public class Order extends javax.swing.JFrame {
         pan8.setPreferredSize(new java.awt.Dimension(10, 200));
         pan8.setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout pan14Layout = new javax.swing.GroupLayout(pan14);
-        pan14.setLayout(pan14Layout);
-        pan14Layout.setHorizontalGroup(
-            pan14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 495, Short.MAX_VALUE)
-        );
-        pan14Layout.setVerticalGroup(
-            pan14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
+        pan14.setLayout(new java.awt.BorderLayout());
+
+        scr5.setBorder(null);
+        scr5.setPreferredSize(new java.awt.Dimension(450, 300));
+
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Параметр", "Значение по умолчанию", "ID"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab5.setFillsViewportHeight(true);
+        tab5.setName("tab5"); // NOI18N
+        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tab5MousePressed(evt);
+            }
+        });
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(0).setPreferredWidth(400);
+            tab5.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab5.getColumnModel().getColumn(2).setMaxWidth(40);
+        }
+
+        pan14.add(scr5, java.awt.BorderLayout.CENTER);
 
         pan8.add(pan14, "card14");
 
@@ -1197,7 +1245,7 @@ public class Order extends javax.swing.JFrame {
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(lab32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
+                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
                     .addGroup(pan21Layout.createSequentialGroup()
                         .addComponent(lab27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1319,7 +1367,7 @@ public class Order extends javax.swing.JFrame {
             .addGroup(pan12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+                    .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                     .addGroup(pan12Layout.createSequentialGroup()
                         .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pan12Layout.createSequentialGroup()
@@ -1524,17 +1572,17 @@ public class Order extends javax.swing.JFrame {
             .addGroup(pan13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+                    .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)))
+                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan13Layout.setVerticalGroup(
@@ -1601,13 +1649,13 @@ public class Order extends javax.swing.JFrame {
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)))
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan15Layout.setVerticalGroup(
@@ -1865,9 +1913,9 @@ public class Order extends javax.swing.JFrame {
                             .addComponent(lab37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                            .addComponent(txt21, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
                             .addComponent(txt25, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(txt34, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
+                            .addComponent(txt34, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1943,49 +1991,6 @@ public class Order extends javax.swing.JFrame {
         pan3.add(pan5, java.awt.BorderLayout.CENTER);
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\nИзделия\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", pan3);
-
-        pan10.setLayout(new java.awt.BorderLayout());
-
-        scr5.setBorder(null);
-        scr5.setPreferredSize(new java.awt.Dimension(450, 300));
-
-        tab5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Параметр", "Значение по умолчанию", "ID"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tab5.setFillsViewportHeight(true);
-        tab5.setName("tab4"); // NOI18N
-        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab5MousePressed(evt);
-            }
-        });
-        scr5.setViewportView(tab5);
-        if (tab5.getColumnModel().getColumnCount() > 0) {
-            tab5.getColumnModel().getColumn(0).setPreferredWidth(400);
-            tab5.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab5.getColumnModel().getColumn(2).setMaxWidth(40);
-        }
-
-        pan10.add(scr5, java.awt.BorderLayout.CENTER);
-
-        tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp;\nПараметры\n&nbsp;&nbsp;&nbsp", pan10);
 
         pan6.setLayout(new java.awt.BorderLayout());
 

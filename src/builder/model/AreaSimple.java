@@ -104,7 +104,7 @@ public class AreaSimple extends Com5t {
                 if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
                     jsonArr.forEach(it -> {
                         Record paramRec = eParams.find(it.getAsInt());
-                        iwin().mapParamDef.put(paramRec.getInt(eParams.params_id), paramRec);
+                        iwin().mapPardef.put(paramRec.getInt(eParams.params_id), paramRec);
                     });
                 }
             }
@@ -133,27 +133,6 @@ public class AreaSimple extends Com5t {
             }
         }
         com5t.listChild.forEach(comp -> listElem(comp, list, type));
-    }
-
-    public DefMutableTreeNode treeWin(Wincalc iwin) {
-        DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
-
-        LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP, TypeElem.GLASS);
-        for (ElemSimple elem5e : listElem) {
-            if (elem5e.owner().type() != TypeElem.STVORKA) {
-                root.add(new DefMutableTreeNode(elem5e));
-            }
-        }
-        LinkedList<AreaSimple> listStv = iwin.rootArea.listElem(TypeElem.STVORKA);
-        for (AreaSimple areaStv : listStv) {
-            root.add(new DefMutableTreeNode(areaStv));
-            for (ElemSimple elemStv : iwin.listElem) {
-                if (elemStv.owner() == areaStv) {
-                    ((DefMutableTreeNode) root.getLastChild()).add(new DefMutableTreeNode(elemStv));
-                }
-            }
-        }
-        return root;
     }
 
     public void joinFrame() {

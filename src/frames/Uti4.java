@@ -1,6 +1,9 @@
 package frames;
 
 import builder.Wincalc;
+import builder.model.AreaSimple;
+import builder.model.Com5t;
+import builder.model.ElemSimple;
 import common.eProperty;
 import dataset.Conn;
 import dataset.Field;
@@ -49,9 +52,12 @@ import frames.swing.listener.ListenerSQL;
 import frames.swing.listener.ListenerObject;
 import common.eProfile;
 import domain.ePrjprod;
+import enums.TypeElem;
+import frames.swing.DefMutableTreeNode;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.LinkedList;
 import java.util.Locale;
 import javax.swing.ImageIcon;
 
@@ -143,6 +149,30 @@ public class Uti4 {
 
     public static Font getFont(int size, int bold) {
         return new Font(eProperty.fontname.read(), bold, Integer.valueOf(eProperty.fontsize.read()) + size);
+    }
+
+    public static DefMutableTreeNode iwinTree(Wincalc iwin) {
+        DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
+
+        root.add(new DefMutableTreeNode(new Com5t(TypeElem.PARAM) {
+        }));
+
+        LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP, TypeElem.GLASS);
+        for (ElemSimple elem5e : listElem) {
+            if (elem5e.owner().type() != TypeElem.STVORKA) {
+                root.add(new DefMutableTreeNode(elem5e));
+            }
+        }
+        LinkedList<AreaSimple> listStv = iwin.rootArea.listElem(TypeElem.STVORKA);
+        for (AreaSimple areaStv : listStv) {
+            root.add(new DefMutableTreeNode(areaStv));
+            for (ElemSimple elemStv : iwin.listElem) {
+                if (elemStv.owner() == areaStv) {
+                    ((DefMutableTreeNode) root.getLastChild()).add(new DefMutableTreeNode(elemStv));
+                }
+            }
+        }
+        return root;
     }
 
     public static void expandTree(JTree tree, TreePath path, boolean expand) {

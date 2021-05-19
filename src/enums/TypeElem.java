@@ -10,6 +10,7 @@ public enum TypeElem implements Enam {
     GLASS(5, "Стеклопакет"),
     //STOIKA(6, 5, "Стойка"),
     SHTULP(10, 9, "Штульп"),
+    PARAM(11, 9, "Параметры конструкции"),
     /*RASKLADKA(14, 7, "Раскладка"),
     MOSKITKA(13, "Москитка"),
     MOSKITKA_SET(-13, "Москитка"), //непонятно

@@ -66,7 +66,7 @@ public class Wincalc {
     public AreaSimple rootArea = null; //главное окно кострукции
     public GsonRoot rootGson = null; //главное окно кострукции в формате gson
 
-    public HashMap<Integer, Record> mapParamDef = new HashMap(); //пар. по умолчанию
+    public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specific> listSpec = new ArrayList(); //спецификация
@@ -76,7 +76,7 @@ public class Wincalc {
 
         genId = 100;
         listSpec.clear();
-        mapParamDef.clear();
+        mapPardef.clear();
         mapJoin.clear();
 
         //Парсинг входного скрипта
@@ -114,7 +114,7 @@ public class Wincalc {
             this.colorID3 = rootGson.color3;
             this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
             this.syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
-            eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
+            eSyspar1.find(nuni).stream().forEach(rec -> mapPardef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
 
             //Главное окно
             if (TypeElem.RECTANGL == rootGson.type()) {

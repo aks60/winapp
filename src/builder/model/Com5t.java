@@ -29,6 +29,10 @@ public abstract class Com5t {
     public float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     
     public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
 
+    public Com5t(TypeElem type) {
+       this.type = type; 
+    }
+    
     public Com5t(float id, Wincalc iwin, AreaSimple owner) {
         this.id = id;
         this.owner = owner;

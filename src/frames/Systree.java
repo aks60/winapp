@@ -306,7 +306,7 @@ public class Systree extends javax.swing.JFrame {
     private void loadingWin() {
         try {
             int row[] = windowsTree.getSelectionRows();
-            DefMutableTreeNode root = iwin.rootArea.treeWin(iwin);
+            DefMutableTreeNode root = Uti4.iwinTree(iwin);
             windowsTree.setModel(new DefaultTreeModel(root));
             windowsTree.setSelectionRows(row);
 
@@ -527,7 +527,7 @@ public class Systree extends javax.swing.JFrame {
         windowsNode = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
         if (windowsNode != null) {
 
-            //Основные
+            //Конструкции
             if (windowsNode.com5t().type() == TypeElem.RECTANGL || windowsNode.com5t().type() == TypeElem.ARCH) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card12");
                 ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type().name);
