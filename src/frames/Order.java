@@ -59,6 +59,7 @@ import frames.dialog.DicEnums;
 import frames.dialog.DicHandl;
 import frames.dialog.DicSyspod;
 import frames.dialog.DicSysprof;
+import frames.dialog.ParDefault;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import java.awt.CardLayout;
@@ -68,7 +69,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 import static java.util.stream.Collectors.toList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -133,7 +133,22 @@ public class Order extends javax.swing.JFrame {
         };
         new DefTableModel(tab2, qPrjprod, ePrjprod.name, ePrjprod.id);
         new DefTableModel(tab4, qPrjprod, ePrjprod.name, ePrjprod.id);
-
+        new DefTableModel(tab5, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
+            public Object getValueAt(int col, int row, Object val) {
+                Field field = columns[col];
+                if (val != null && field == eSyspar1.params_id) {
+                    if (Main.dev == true) {
+                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                    } else {
+                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                    }
+                }
+                return val;
+            }
+        };
+        
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
         DefaultTableCellRenderer defaultTableCellRenderer = new DefaultTableCellRenderer() {
@@ -159,21 +174,6 @@ public class Order extends javax.swing.JFrame {
         };
         tab2.setDefaultRenderer(Object.class, defaultTableCellRenderer);
         tab4.setDefaultRenderer(Object.class, defaultTableCellRenderer);
-        new DefTableModel(tab5, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
-            public Object getValueAt(int col, int row, Object val) {
-                Field field = columns[col];
-                if (val != null && field == eSyspar1.params_id) {
-                    if (Main.dev == true) {
-                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
-                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
-                    } else {
-                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
-                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
-                    }
-                }
-                return val;
-            }
-        };        
 
         rsvPrj = new DefFieldEditor(tab1) {
 
@@ -241,26 +241,25 @@ public class Order extends javax.swing.JFrame {
             });
         });
 
-        Uti4.buttonCellEditor(tab5, 1);
-        //.addActionListener(event -> {
-//            System.out.println("frames.Order.listenerAdd()");
-//            Object grup = tab5.getValueAt(tab5.getSelectedRow(), 2);
-//
-//            ParDefault frame = new ParDefault(this, recocord -> {
-//                Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
-//                int index = Uti4.getIndexRec(tab2);
-//                if (index != -1) {
-//                    Record prjprodRec = qPrjprod.get(index);
-//                    String script = prjprodRec.getStr(ePrjprod.script);
-//                    GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
-//                    gsonRoot.paramDef.put(recocord.getInt(eSyspar1.id), recocord.getStr(eSyspar1.text));
-//                    String script2 = gson.toJson(gsonRoot);
-//                    prjprodRec.set(ePrjprod.script, script2);
-//                    qPrjprod.execsql();
-//                    Uti4.setSelectedRow(tab5, index);
-//                }
-//            }, (int) grup);
-//        });
+        Uti4.buttonCellEditor(tab5, 1).addActionListener(event -> {            
+            Object grup = tab5.getValueAt(tab5.getSelectedRow(), 2);
+
+            ParDefault frame = new ParDefault(this, recocord -> {
+                System.out.println(recocord);
+                Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+                int index = Uti4.getIndexRec(tab2);
+                if (index != -1) {
+                    Record prjprodRec = qPrjprod.get(index);
+                    String script = prjprodRec.getStr(ePrjprod.script);
+                    GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
+                    gsonRoot.paramDef.put(recocord.getInt(eParams.params_id), recocord.getStr(eParams.text));
+                    String script2 = gson.toJson(gsonRoot);
+                    prjprodRec.set(ePrjprod.script, script2);
+                    qPrjprod.execsql();
+                    Uti4.setSelectedRow(tab5, index);
+                }
+            }, (int) grup);
+        });
     }
 
     private void loadingTab1() {
@@ -288,7 +287,7 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingTab24() {
-        Uti4.stopCellEditing(tab1, tab2, tab3, tab4);
+        Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
         if (tab1.getSelectedRow() != -1) {
 
@@ -398,13 +397,12 @@ public class Order extends javax.swing.JFrame {
                 //Параметры
             } else if (windowsNode.com5t().type() == TypeElem.PARAM) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card14");
-                //DefaultTableModel dtm = (DefaultTableModel) tab5.getModel();
-                //dtm.getDataVector().clear();
+                qSyspar1.clear();
                 Map<Integer, String> map = new HashMap();
                 iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
                 iwin.rootGson.paramDef.forEach((pk, txt) -> map.put(pk, txt));
-                //qSyspar1.
-                //map.forEach((pk, txt) -> dtm.addRow(new Vector(Arrays.asList(mapParams.get(pk), txt, pk))));
+                map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, pk, null, null)));
+                ((DefTableModel) tab5.getModel()).fireTableDataChanged();
 
                 //Рама, импост...
             } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE
@@ -1086,7 +1084,6 @@ public class Order extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
                 {null, null},
                 {null, null}
             },
@@ -1997,8 +1994,6 @@ public class Order extends javax.swing.JFrame {
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
@@ -2131,14 +2126,14 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFilter
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Uti4.stopCellEditing(tab1, tab2, tab3, tab4);
+        Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         eProperty.save(); //запишем текущий ordersId в файл
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4));
+        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn() == -1 || tab1.getSelectedColumn() == 0) ? 0 : tab1.getSelectedColumn()));
             txtFilter.setName(tab1.getName());
@@ -2146,13 +2141,13 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_tabMousePressed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
-        Uti4.stopCellEditing(tab1, tab2, tab3, tab4);
+        Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         if (tabb1.getSelectedIndex() == 0) {
-            Uti4.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab4));
+            Uti4.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 1) {
-            Uti4.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4));
+            Uti4.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 2) {
-            Uti4.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab4));
+            Uti4.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         }
     }//GEN-LAST:event_stateChanged
 
@@ -2164,7 +2159,7 @@ public class Order extends javax.swing.JFrame {
                 record2.set(eProject.currenc_id, record.get(eCurrenc.id));
                 rsvPrj.load();
             }
-            Uti4.stopCellEditing(tab1, tab2, tab3, tab4);
+            Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         });
     }//GEN-LAST:event_btn1ActionPerformed
 
@@ -2698,7 +2693,7 @@ public class Order extends javax.swing.JFrame {
 
     private void tab5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab5MousePressed
 //        JTable table = (JTable) evt.getSource();
-//        Uti4.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
+//        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
 //        if (systemTree.isEditing()) {
 //            systemTree.getCellEditor().stopCellEditing();
 //        }
