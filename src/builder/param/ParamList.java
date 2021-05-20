@@ -1,4 +1,4 @@
-package enums;
+package builder.param;
 
 import dataset.Query;
 import domain.eArtikl;
@@ -10,6 +10,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 import domain.eSetting;
+import enums.Enam;
 import java.util.ArrayList;
 
 public class ParamList {

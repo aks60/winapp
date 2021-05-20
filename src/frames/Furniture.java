@@ -27,7 +27,7 @@ import frames.dialog.ParGrup2b;
 import frames.dialog.ParGrup2a;
 import domain.eParams;
 import enums.Enam;
-import enums.ParamList;
+import builder.param.ParamList;
 import enums.LayoutFurn1;
 import enums.UseFurn3;
 import enums.LayoutFurn3;

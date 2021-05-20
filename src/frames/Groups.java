@@ -4,7 +4,7 @@ import dataset.Query;
 import domain.eGlaspar1;
 import domain.eGroups;
 import enums.Enam;
-import enums.ParamList;
+import builder.param.ParamList;
 import enums.TypeGroups;
 import static frames.Uti4.getIndexRec;
 import frames.swing.DefCellEditor;

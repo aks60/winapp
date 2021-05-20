@@ -7,7 +7,7 @@ import common.*;
 import dataset.*;
 import domain.eArtdet;
 import com.google.gson.GsonBuilder;
-import enums.ParamList;
+import builder.param.ParamList;
 import frames.DBCompare;
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -19,7 +19,7 @@ import domain.eParams;
 import domain.eSysprod;
 import domain.eSystree;
 import enums.Enam;
-import enums.ParamList;
+import builder.param.ParamList;
 import enums.UseColor;
 import java.awt.Component;
 import java.awt.Container;

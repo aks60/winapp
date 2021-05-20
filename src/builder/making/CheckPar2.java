@@ -1,7 +1,7 @@
 package builder.making;
 
 import domain.eArtikl;
-import enums.ParamList;
+import builder.param.ParamList;
 import enums.UseUnit;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;

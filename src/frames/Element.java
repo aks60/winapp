@@ -22,7 +22,7 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eGroups;
 import domain.eJoindet;
-import enums.ParamList;
+import builder.param.ParamList;
 import enums.TypeGroups;
 import enums.TypeSet;
 import enums.UseColor;

@@ -7,7 +7,7 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eParams;
-import enums.ParamList;
+import builder.param.ParamList;
 import java.awt.CardLayout;
 import java.awt.Frame;
 import java.util.List;

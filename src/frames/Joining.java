@@ -17,7 +17,7 @@ import domain.eJoinpar1;
 import domain.eJoinpar2;
 import domain.eParams;
 import enums.Enam;
-import enums.ParamList;
+import builder.param.ParamList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JTable;

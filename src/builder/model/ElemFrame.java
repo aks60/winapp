@@ -12,7 +12,7 @@ import builder.making.Specific;
 import builder.making.CheckPar2;
 import domain.eGlasgrp;
 import enums.PKjson;
-import enums.ParamList;
+import builder.param.ParamList;
 
 public class ElemFrame extends ElemSimple {
 

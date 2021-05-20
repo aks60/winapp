@@ -28,7 +28,7 @@ import domain.eElempar1;
 import domain.eGroups;
 import domain.eParams;
 import enums.Enam;
-import enums.ParamList;
+import builder.param.ParamList;
 import enums.TypeGroups;
 import enums.UseColor;
 import frames.dialog.DicName;
