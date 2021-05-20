@@ -161,7 +161,7 @@ public final class Bimax {
         
         } else if (prj == 700027) {  //punic = 427872 штульповое
             rootGson = new GsonRoot(prj, 1, 198, "Montblanc / Eco / 1 ОКНА (штульп)",
-                    LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1009, 1009, 1009); //, "{'ioknaParam':[-8252]}");
+                    LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1009, 1009, 1009, "{'ioknaParam':[-8252]}");
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
@@ -171,7 +171,7 @@ public final class Bimax {
                     .addElem(new GsonElem(TypeElem.GLASS));
             rootGson.addElem(new GsonElem(TypeElem.SHTULP));
             rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 850))
-                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2, 'sysfurnID':2913}"))
+                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':2913}"))
                     .addElem(new GsonElem(TypeElem.GLASS));
             
 
