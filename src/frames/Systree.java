@@ -1080,7 +1080,7 @@ public class Systree extends javax.swing.JFrame {
         if (tab7.getColumnModel().getColumnCount() > 0) {
             tab7.getColumnModel().getColumn(0).setPreferredWidth(300);
             tab7.getColumnModel().getColumn(1).setPreferredWidth(140);
-            tab7.getColumnModel().getColumn(2).setMaxWidth(40);
+            tab7.getColumnModel().getColumn(2).setMaxWidth(50);
         }
 
         pan11.add(scr7, java.awt.BorderLayout.CENTER);
