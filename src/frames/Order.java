@@ -873,7 +873,7 @@ public class Order extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Параметр", "Значение по умолчанию", "ID"
+                "Параметры конструкции", "Значение по умолчанию", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
