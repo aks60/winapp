@@ -12,15 +12,10 @@ public class GsonRoot extends GsonElem {
     public int prj = 1; //PNUMB - номер тестируемого проекта, поле пока нужно только для тестов 
     public int ord = 1; //ONUMB - номер тестируемого заказа, поле пока нужно только для тестов 
     private Integer nuni = -3;  //nuni профиля (PRO4_SYSPROF.NUNI)
-    public Map<Integer, String> paramDef = null; //пар. по умолчанию
     private Float heightAdd = null;  //дополнительная высота, мм. Для прямоугольного изделия = height.
     public Integer color1 = -3;  //основная текстура
     public Integer color2 = -3;  //внутренняя текстура
     public Integer color3 = -3;  //внешняя текстура    
-  
-    public GsonRoot() {
-      paramDef = new HashMap();  
-    }
     
     public GsonRoot(int prj, int ord, int nuni, String name, LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3) {
         this(++genId, prj, ord, nuni, name, layoutArea, type, width, height, 0, color1, color2, color3, null);

@@ -48,7 +48,9 @@ import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
+import builder.script.GsonRoot;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import common.Util;
 import domain.eArtdet;
@@ -81,8 +83,11 @@ import startup.App;
 import frames.swing.listener.ListenerRecord;
 import frames.swing.listener.ListenerFrame;
 import common.eProfile;
+import domain.ePrjprod;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import static java.util.stream.Collectors.toList;
 
 public class Systree extends javax.swing.JFrame {
@@ -100,6 +105,7 @@ public class Systree extends javax.swing.JFrame {
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
+    private Query qSyspar2 = new Query(eSyspar1.values());
 
     private Canvas paintPanel = new Canvas(iwin);
     private DefMutableTreeNode rootTree = null;
@@ -238,6 +244,22 @@ public class Systree extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab5, qSysprod, eSysprod.name, eSysprod.id);
+        new DefTableModel(tab7, qSyspar2, eSyspar1.params_id, eSyspar1.text) {
+            public Object getValueAt(int col, int row, Object val) {
+                Field field = columns[col];
+                if (val != null && field == eSyspar1.params_id) {
+                    if (Main.dev == true) {
+                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                    } else {
+                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                    }
+                }
+                return val;
+            }
+        };
+
         tab4.getColumnModel().getColumn(2).setCellRenderer(new DefCellBoolRenderer());
         tab5.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
@@ -390,6 +412,45 @@ public class Systree extends javax.swing.JFrame {
             Integer grup = qSyspar1.getAs(Uti4.getIndexRec(tab4), eSyspar1.params_id);
             ParDefault frame = new ParDefault(this, listenerParam2, grup);
         });
+
+        Uti4.buttonCellEditor(tab7, 1).addActionListener(event -> {
+            Object grup = tab7.getValueAt(tab7.getSelectedRow(), 2);
+
+            ParDefault frame = new ParDefault(this, recocord -> {
+
+                Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
+                int index = Uti4.getIndexRec(tab5);
+                if (index != -1) {
+                    Record sysprodRec = qSysprod.get(index);
+                    String script = sysprodRec.getStr(eSysprod.script);
+                    GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
+                    JsonObject jsonObj = gson.fromJson(gsonRoot.param(), JsonObject.class);
+                    JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
+                    if (jsonArr == null) {
+                        jsonArr.add(recocord.getInt(eParams.id));
+                        
+                    } 
+//                    else {
+//                        System.out.println(jsonArr);
+//                        int indexRemov = -1;
+//                        int id1 = qParams.stream().filter(rec -> (rec.get(eParams.id).equals(recocord.getInt(eParams.id)))).findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
+//                        for (int i = 0; i < jsonArr.size(); i++) {
+//                            int it = jsonArr.get(i).getAsInt();
+//                            int id2 = qParams.stream().filter(rec -> (rec.getInt(eParams.id) == it)).findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
+//                            if (id1 == id2) {
+//                                indexRemov = i;
+//                            }
+//                        }
+//                    }
+                    //jsonArr.remove(indexRemov);
+                    jsonArr.add(recocord.getInt(eParams.id));
+//                    String script2 = gson.toJson(gsonRoot);
+//                    sysprodRec.set(eSysprod.script, script2);
+//                    qSysprod.execsql();
+                    Uti4.setSelectedRow(tab7, index);
+                }
+            }, (int) grup);
+        });
     }
 
     private void listenerSet() {
@@ -539,9 +600,18 @@ public class Systree extends javax.swing.JFrame {
                 txt23.setText(String.valueOf(iwin.rootGson.heightAdd()));
                 txt23.setEditable(windowsNode.com5t().type() == TypeElem.ARCH);
 
+                //Параметры
+            } else if (windowsNode.com5t().type() == TypeElem.PARAM) {
+                ((CardLayout) pan7.getLayout()).show(pan7, "card11");
+                qSyspar2.clear();
+                Map<Integer, String> map = new HashMap();
+                iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
+                map.forEach((pk, txt) -> qSyspar2.add(new Record(Query.SEL, pk, txt, pk, null, null)));
+                ((DefTableModel) tab7.getModel()).fireTableDataChanged();
+
                 //Рама, импост...
             } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE
-                    || windowsNode.com5t().type() == TypeElem.STVORKA_SIDE 
+                    || windowsNode.com5t().type() == TypeElem.STVORKA_SIDE
                     || windowsNode.com5t().type() == TypeElem.IMPOST
                     || windowsNode.com5t().type() == TypeElem.SHTULP) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card13");
@@ -689,6 +759,8 @@ public class Systree extends javax.swing.JFrame {
         panDesign = new javax.swing.JPanel();
         pan7 = new javax.swing.JPanel();
         pan11 = new javax.swing.JPanel();
+        scr7 = new javax.swing.JScrollPane();
+        tab7 = new javax.swing.JTable();
         pan12 = new javax.swing.JPanel();
         pan21 = new javax.swing.JPanel();
         lab27 = new javax.swing.JLabel();
@@ -991,16 +1063,44 @@ public class Systree extends javax.swing.JFrame {
         pan7.setPreferredSize(new java.awt.Dimension(300, 200));
         pan7.setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout pan11Layout = new javax.swing.GroupLayout(pan11);
-        pan11.setLayout(pan11Layout);
-        pan11Layout.setHorizontalGroup(
-            pan11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 331, Short.MAX_VALUE)
-        );
-        pan11Layout.setVerticalGroup(
-            pan11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 248, Short.MAX_VALUE)
-        );
+        pan11.setLayout(new java.awt.BorderLayout());
+
+        scr7.setBorder(null);
+        scr7.setPreferredSize(new java.awt.Dimension(450, 300));
+
+        tab7.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Параметр", "Значение по умолчанию", "ID"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab7.setFillsViewportHeight(true);
+        tab7.setName("tab5"); // NOI18N
+        tab7.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tab7MousePressed(evt);
+            }
+        });
+        scr7.setViewportView(tab7);
+        if (tab7.getColumnModel().getColumnCount() > 0) {
+            tab7.getColumnModel().getColumn(0).setPreferredWidth(400);
+            tab7.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab7.getColumnModel().getColumn(2).setMaxWidth(40);
+        }
+
+        pan11.add(scr7, java.awt.BorderLayout.CENTER);
 
         pan7.add(pan11, "card11");
 
@@ -2648,7 +2748,7 @@ public class Systree extends javax.swing.JFrame {
                             updateScript(selectID);
                         }
                     }
-                } else if (windowsNode.com5t().type() == TypeElem.IMPOST 
+                } else if (windowsNode.com5t().type() == TypeElem.IMPOST
                         || windowsNode.com5t().type() == TypeElem.SHTULP) {
                     for (GsonElem elem : parentArea.elements()) {
                         if (elem.id() == ((DefMutableTreeNode) windowsNode).com5t().id()) {
@@ -3024,6 +3124,19 @@ public class Systree extends javax.swing.JFrame {
         System.out.println(iwin.rootArea.mapFrame);
     }//GEN-LAST:event_btnTest
 
+    private void tab7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab7MousePressed
+        //        JTable table = (JTable) evt.getSource();
+        //        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        //        if (systemTree.isEditing()) {
+        //            systemTree.getCellEditor().stopCellEditing();
+        //        }
+        //        systemTree.setBorder(null);
+        //        if (txtFilter.getText().length() == 0) {
+        //            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+        //            txtFilter.setName(table.getName());
+        //        }
+    }//GEN-LAST:event_tab7MousePressed
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn10;
@@ -3114,12 +3227,14 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
     private javax.swing.JScrollPane scr6;
+    private javax.swing.JScrollPane scr7;
     private javax.swing.JPanel south;
     private javax.swing.JTree systemTree;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
+    private javax.swing.JTable tab7;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JPanel tool;
     private javax.swing.JTextField txt1;

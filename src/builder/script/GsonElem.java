@@ -12,7 +12,7 @@ public class GsonElem {
     protected static transient float genId = -1;  //идентификатор
     public transient GsonElem parent = null;  //владелец 
     protected LinkedList<GsonElem> childs = null;  //список детей
-    protected LayoutArea layout = null; //сторона располодения эл. рамы
+    protected LayoutArea layout = null; //сторона расположения эл. рамы
     protected TypeElem type = null; //тип элемента
     protected String param = null; //параметры элемента
     protected Float width = null; //ширина area, мм

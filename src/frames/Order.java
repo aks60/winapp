@@ -252,7 +252,7 @@ public class Order extends javax.swing.JFrame {
                     Record prjprodRec = qPrjprod.get(index);
                     String script = prjprodRec.getStr(ePrjprod.script);
                     GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
-                    gsonRoot.paramDef.put(recocord.getInt(eParams.params_id), recocord.getStr(eParams.text));
+                    //gsonRoot.paramDef.put(recocord.getInt(eParams.params_id), recocord.getStr(eParams.text));
                     String script2 = gson.toJson(gsonRoot);
                     prjprodRec.set(ePrjprod.script, script2);
                     qPrjprod.execsql();
@@ -400,7 +400,7 @@ public class Order extends javax.swing.JFrame {
                 qSyspar1.clear();
                 Map<Integer, String> map = new HashMap();
                 iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
-                iwin.rootGson.paramDef.forEach((pk, txt) -> map.put(pk, txt));
+                //iwin.rootGson.paramDef.forEach((pk, txt) -> map.put(pk, txt));
                 map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, pk, null, null)));
                 ((DefTableModel) tab5.getModel()).fireTableDataChanged();
 

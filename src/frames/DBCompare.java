@@ -203,7 +203,14 @@ public class DBCompare extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- SAOkna  за.выч.Профстрой ---")));
             setSpc1x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
             ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- ПрофСтрой  за.выч.SAOkna ---")));
-            setSpc2x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
+            setSpc2x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));            
+            ((DefaultTableModel) tab2.getModel()).addRow(new Object[] {""});
+            ((DefaultTableModel) tab2.getModel()).addRow(new Object[] {"Установленая фурнитура"});
+            rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord + " and a.funic = b.funic");
+            while (rs.next()) {
+                ((DefaultTableModel) tab2.getModel()).addRow(new Object[] {rs.getString("FNAME")});
+            }
+            rs.close();            
 
             //=== Таблица 3 ===
             ((DefaultTableModel) tab3.getModel()).getDataVector().clear();
@@ -214,11 +221,6 @@ public class DBCompare extends javax.swing.JFrame {
             }
 
             //=== Таблица 4 ===
-            rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord + " and a.funic = b.funic");
-            while (rs.next()) {
-                ((DefaultTableModel) tab2.getModel()).addRow(new Object[] {rs.getString("FNAME")});
-            }
-            rs.close();
             npp = 0;
             txt20.setText(String.valueOf(iwin.rootGson.prj));
             txt20.setText(String.valueOf(iwin.rootGson.ord));
