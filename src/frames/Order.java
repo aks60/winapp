@@ -131,7 +131,7 @@ public class Order extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab2, qPrjprod, ePrjprod.name, ePrjprod.id);
-        new DefTableModel(tab4, qPrjprod, ePrjprod.name, ePrjprod.id);
+        new DefTableModel(tab2, qPrjprod, ePrjprod.name, ePrjprod.id);
         new DefTableModel(tab5, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -172,7 +172,7 @@ public class Order extends javax.swing.JFrame {
             }
         };
         tab2.setDefaultRenderer(Object.class, defaultTableCellRenderer);
-        tab4.setDefaultRenderer(Object.class, defaultTableCellRenderer);
+        tab2.setDefaultRenderer(Object.class, defaultTableCellRenderer);
 
         rsvPrj = new DefFieldEditor(tab1) {
 
@@ -252,7 +252,7 @@ public class Order extends javax.swing.JFrame {
                     sysprodRec.set(ePrjprod.script, script2);
                     qPrjprod.execsql();
                     iwin.build(script2);
-                    Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+                    Uti4.stopCellEditing(tab1, tab2, tab3, tab2, tab5);
                     selectionWin();
                     Uti4.setSelectedRow(tab5, index2);
                 }
@@ -285,7 +285,7 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void loadingTab24() {
-        Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Uti4.stopCellEditing(tab1, tab2, tab3, tab2, tab5);
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
         if (tab1.getSelectedRow() != -1) {
 
@@ -305,7 +305,7 @@ public class Order extends javax.swing.JFrame {
                 }
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         }
     }
 
@@ -340,10 +340,10 @@ public class Order extends javax.swing.JFrame {
         }
         if (index != -1) {
             Uti4.setSelectedRow(tab2, index);
-            Uti4.setSelectedRow(tab4, index);
+            Uti4.setSelectedRow(tab2, index);
         } else {
             Uti4.setSelectedRow(tab2);
-            Uti4.setSelectedRow(tab4);
+            Uti4.setSelectedRow(tab2);
         }
     }
 
@@ -474,9 +474,6 @@ public class Order extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup = new javax.swing.ButtonGroup();
-        pan4 = new javax.swing.JPanel();
-        scr2 = new javax.swing.JScrollPane();
-        tab2 = new javax.swing.JTable();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -590,46 +587,14 @@ public class Order extends javax.swing.JFrame {
         txt8 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         pan7 = new javax.swing.JPanel();
-        scr4 = new javax.swing.JScrollPane();
-        tab4 = new javax.swing.JTable();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
             public JTable table = null;
         };
         checkFilter = new javax.swing.JCheckBox();
-
-        pan4.setPreferredSize(new java.awt.Dimension(400, 404));
-        pan4.setLayout(new java.awt.BorderLayout());
-
-        tab2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Наименование", "Рисунок"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tab2.setFillsViewportHeight(true);
-        tab2.setRowHeight(68);
-        scr2.setViewportView(tab2);
-        if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(1).setMinWidth(68);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(68);
-            tab2.getColumnModel().getColumn(1).setMaxWidth(68);
-        }
-
-        pan4.add(scr2, java.awt.BorderLayout.CENTER);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заказы");
@@ -1970,9 +1935,9 @@ public class Order extends javax.swing.JFrame {
         pan7.setPreferredSize(new java.awt.Dimension(304, 350));
         pan7.setLayout(new java.awt.BorderLayout());
 
-        scr4.setPreferredSize(new java.awt.Dimension(204, 404));
+        scr2.setPreferredSize(new java.awt.Dimension(204, 404));
 
-        tab4.setModel(new javax.swing.table.DefaultTableModel(
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null}
@@ -1989,22 +1954,22 @@ public class Order extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tab4.setFillsViewportHeight(true);
-        tab4.setRowHeight(68);
-        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+        tab2.setFillsViewportHeight(true);
+        tab2.setRowHeight(68);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
             }
         });
-        scr4.setViewportView(tab4);
-        if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab4.getColumnModel().getColumn(1).setMinWidth(68);
-            tab4.getColumnModel().getColumn(1).setPreferredWidth(68);
-            tab4.getColumnModel().getColumn(1).setMaxWidth(68);
+        scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(1).setMinWidth(68);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(68);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(68);
         }
 
-        pan7.add(scr4, java.awt.BorderLayout.CENTER);
+        pan7.add(scr2, java.awt.BorderLayout.CENTER);
 
         pan11.add(pan7, java.awt.BorderLayout.CENTER);
 
@@ -2063,16 +2028,16 @@ public class Order extends javax.swing.JFrame {
             }
         } else if (tab2.getBorder() != null) {
             if (Uti4.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
-                int row = tab4.getSelectedRow();
+                int row = tab2.getSelectedRow();
                 Uti4.deleteRecord(tab2);
-                ((DefTableModel) tab4.getModel()).fireTableRowsDeleted(row, row);
+                ((DefTableModel) tab2.getModel()).fireTableRowsDeleted(row, row);
             } else {
                 JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
             }
-        } else if (tab4.getBorder() != null) {
-            if (Uti4.isDeleteRecord(this) == 0 && tab4.getSelectedRow() != -1) {
+        } else if (tab2.getBorder() != null) {
+            if (Uti4.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
                 int row = tab2.getSelectedRow();
-                Uti4.deleteRecord(tab4);
+                Uti4.deleteRecord(tab2);
                 ((DefTableModel) tab2.getModel()).fireTableRowsDeleted(row, row);
             } else {
                 JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
@@ -2088,7 +2053,7 @@ public class Order extends javax.swing.JFrame {
                 projectRec.set(eProject.date4, Uti4.getDateCur());
             });
 
-        } else if (tab2.getBorder() != null || tab4.getBorder() != null) {
+        } else if (tab2.getBorder() != null || tab2.getBorder() != null) {
             new DicSyspod(this, (record) -> {
                 Record record2 = ePrjprod.up.newRecord();
                 record2.set(ePrjprod.id, Conn.instanc().genId(ePrjprod.up));
@@ -2099,13 +2064,13 @@ public class Order extends javax.swing.JFrame {
                 qPrjprod.insert(record2);
                 loadingTab24();
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 for (int index = 0; index < qPrjprod.size(); ++index) {
                     if (qPrjprod.get(index, eSysprod.id) == record2.get(eSysprod.id)) {
                         Uti4.setSelectedRow(tab2, index);
                         Uti4.scrollRectToRow(index, tab2);
-                        Uti4.setSelectedRow(tab4, index);
-                        Uti4.scrollRectToRow(index, tab4);
+                        Uti4.setSelectedRow(tab2, index);
+                        Uti4.scrollRectToRow(index, tab2);
                         windowsTree.setSelectionRow(0);
                     }
                 }
@@ -2126,14 +2091,14 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFilter
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Uti4.stopCellEditing(tab1, tab2, tab3, tab2, tab5);
         eProperty.save(); //запишем текущий ordersId в файл
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab2, tab5));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn() == -1 || tab1.getSelectedColumn() == 0) ? 0 : tab1.getSelectedColumn()));
             txtFilter.setName(tab1.getName());
@@ -2141,13 +2106,13 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_tabMousePressed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
-        Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Uti4.stopCellEditing(tab1, tab2, tab3, tab2, tab5);
         if (tabb1.getSelectedIndex() == 0) {
-            Uti4.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Uti4.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab2, tab5));
         } else if (tabb1.getSelectedIndex() == 1) {
-            Uti4.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Uti4.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab2, tab5));
         } else if (tabb1.getSelectedIndex() == 2) {
-            Uti4.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+            Uti4.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab2, tab5));
         }
     }//GEN-LAST:event_stateChanged
 
@@ -2159,7 +2124,7 @@ public class Order extends javax.swing.JFrame {
                 record2.set(eProject.currenc_id, record.get(eCurrenc.id));
                 rsvPrj.load();
             }
-            Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Uti4.stopCellEditing(tab1, tab2, tab3, tab2, tab5);
         });
     }//GEN-LAST:event_btn1ActionPerformed
 
@@ -2787,7 +2752,6 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JPanel pan20;
     private javax.swing.JPanel pan21;
     private javax.swing.JPanel pan3;
-    private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
@@ -2796,14 +2760,12 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
-    private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
     private javax.swing.JScrollPane scr6;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
-    private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JTextField txt13;
@@ -2857,15 +2819,15 @@ public class Order extends javax.swing.JFrame {
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false && tab2.getSelectedRow() != -1) {
-                    tab4.setRowSelectionInterval(tab2.getSelectedRow(), tab2.getSelectedRow());
+                    tab2.setRowSelectionInterval(tab2.getSelectedRow(), tab2.getSelectedRow());
                     selectionTab24();
                 }
             }
         });
-        tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false && tab4.getSelectedRow() != -1) {
-                    tab2.setRowSelectionInterval(tab4.getSelectedRow(), tab4.getSelectedRow());
+                if (event.getValueIsAdjusting() == false && tab2.getSelectedRow() != -1) {
+                    tab2.setRowSelectionInterval(tab2.getSelectedRow(), tab2.getSelectedRow());
                     selectionTab24();
                 }
             }
