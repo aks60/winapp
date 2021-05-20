@@ -30,7 +30,6 @@ public class ElemLink extends ElemSimple {
         colorID1 = iwin().colorID1;
         colorID2 = iwin().colorID2;
         colorID3 = iwin().colorID3;
-        //this.type = TypeElem.IMPOST;
         this.type = type;
 
         initСonstructiv(param);
@@ -174,10 +173,10 @@ public class ElemLink extends ElemSimple {
         }
     }
 
-    @Override
-    public UseArtiklTo useArtiklTo() {
-        return UseArtiklTo.IMPOST;
-    }
+//    @Override
+//    public UseArtiklTo useArtiklTo() {
+//        return UseArtiklTo.IMPOST;
+//    }
 
     @Override
     public String toString() {

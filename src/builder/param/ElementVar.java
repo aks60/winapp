@@ -75,21 +75,11 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31004: //Если прилегающий артикул 
-                    {
-                        HashMap<String, ElemJoining> mapJoin = elem5e.iwin().mapJoin;
-                        pass = 0;
-                        for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
-                            ElemJoining el = entry.getValue();
-                            if (TypeJoin.VAR10 == el.typeJoin
-                                    && el.joinElement1.artiklRec.getStr(eArtikl.code).equalsIgnoreCase(elem5e.artiklRec.getStr(eArtikl.code))
-                                    && el.joinElement2.artiklRec.getStr(eArtikl.code).equalsIgnoreCase(rec.getStr(TEXT))) {
-                                pass = 1;
+                        if (elem5e.join(elem5e.layout()) != null) {
+                            if (rec.getStr(TEXT).equals(elem5e.join(elem5e.layout()).artiklRec.getStr(eArtikl.code)) == false) {
+                                return false;
                             }
                         }
-                        if (pass == 0) {
-                            return false;
-                        }
-                    }
                     break;
                     case 31005:  //Коды основной текстуры контейнера 
                     case 37005:  //Коды основной текстуры контейнера 

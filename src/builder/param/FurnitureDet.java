@@ -19,7 +19,6 @@ import common.Util;
 public class FurnitureDet extends Par5s {
 
     //private int[] par = {24001, 24002, 25002, 24004, 24006, 24010, 25010, 24012, 24030, 25030, 24033, 24038, 24063, 24067, 25067, 24068, 24069, 24070, 24072, 24073, 24074, 24075, 24095, 24099, 25013, 25035, 25040, 25060, 25067};
-
     public FurnitureDet(Wincalc iwin) {
         super(iwin);
     }
@@ -106,18 +105,16 @@ public class FurnitureDet extends Par5s {
                     case 24033:   //Фурнитура штульповая 
                     case 25033: {
                         if (areaStv.typeOpen.name.equalsIgnoreCase("Левое")) {
-                            ElemFrame el = areaStv.mapFrame.get(LayoutArea.LEFT);
-                            if (rec.getStr(TEXT).equalsIgnoreCase("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
+                            if (rec.getStr(TEXT).equalsIgnoreCase("Да") && areaStv.join(LayoutArea.RIGHT).type() != TypeElem.SHTULP) {
                                 return false;
-                            } else if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && el.useArtiklTo() == UseArtiklTo.SHTULP) {
-                                return false;
-                            }
-                        } else if (areaStv.typeOpen.name.equalsIgnoreCase("Правое")) {
-                            ElemFrame el = areaStv.mapFrame.get(LayoutArea.RIGHT);
-                            if (rec.getStr(TEXT).equalsIgnoreCase("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
+                            } else if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && areaStv.join(LayoutArea.RIGHT).type() == TypeElem.SHTULP) {
                                 return false;
                             }
-                            if (el.useArtiklTo() == UseArtiklTo.SHTULP && rec.getStr(TEXT).equalsIgnoreCase("Нет")) {
+                        } else if (areaStv.typeOpen.name.equalsIgnoreCase("Правое")) { 
+                            if (rec.getStr(TEXT).equalsIgnoreCase("Да") && areaStv.join(LayoutArea.LEFT).type() != TypeElem.SHTULP) {
+                                return false;
+                            }
+                            if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && areaStv.join(LayoutArea.LEFT).type() == TypeElem.SHTULP) {
                                 return false;
                             }
                         }
