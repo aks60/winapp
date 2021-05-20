@@ -1,9 +1,9 @@
 package builder.script;
 
-import builder.script.script.Vidnal;
-import builder.script.script.Sial3;
-import builder.script.script.Krauss;
-import builder.script.script.Bimax;
+import builder.script.model.Vidnal;
+import builder.script.model.Sial3;
+import builder.script.model.Krauss;
+import builder.script.model.Bimax;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import common.eProperty;

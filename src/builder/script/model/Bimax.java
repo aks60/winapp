@@ -1,4 +1,4 @@
-package builder.script.script;
+package builder.script.model;
 
 import builder.script.GsonElem;
 import builder.script.GsonRoot;
