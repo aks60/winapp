@@ -4,6 +4,11 @@ import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
+import builder.script.GsonRoot;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import common.eProperty;
 import dataset.Conn;
 import dataset.Field;
@@ -52,6 +57,7 @@ import frames.swing.listener.ListenerSQL;
 import frames.swing.listener.ListenerObject;
 import common.eProfile;
 import domain.ePrjprod;
+import enums.PKjson;
 import enums.TypeElem;
 import frames.swing.DefMutableTreeNode;
 import java.awt.image.BufferedImage;
@@ -193,6 +199,30 @@ public class Uti4 {
         } else {
             tree.collapsePath(path);
         }
+    }
+
+    public static String paramdefAdd(String script, int paramDef, Query qParams) {
+        Gson gson = new GsonBuilder().create();
+        GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
+        JsonObject jsonObj = gson.fromJson(gsonRoot.param(), JsonObject.class);
+        JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
+        jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
+        int indexRemov = -1;
+        int id1 = qParams.stream().filter(rec -> (rec.get(eParams.id).equals(paramDef))).findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
+        for (int i = 0; i < jsonArr.size(); i++) {
+            int it = jsonArr.get(i).getAsInt();
+            int id2 = qParams.stream().filter(rec -> (rec.getInt(eParams.id) == it)).findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
+            if (id1 == id2) {
+                indexRemov = i;
+            }
+        }
+        if (indexRemov != -1) {
+            jsonArr.remove(indexRemov);
+        }
+        jsonArr.add(paramDef);
+        jsonObj.add(PKjson.ioknaParam, jsonArr);
+        gsonRoot.param(gson.toJson(jsonObj));
+        return gson.toJson(gsonRoot);
     }
 
     public static String designTitle() {

@@ -96,7 +96,7 @@ public class Systree extends javax.swing.JFrame {
     public static javax.swing.JFrame frame = null;
     private int systreeID = -1; //выбранная система
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
-            listenerParam1, listenerParam2, listenerArt211, listenerArt212;
+            listenerParam1, listenerParam2, listenerParam3, listenerArt211, listenerArt212;
 
     private Query qParams = new Query(eParams.values());
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
@@ -415,41 +415,7 @@ public class Systree extends javax.swing.JFrame {
 
         Uti4.buttonCellEditor(tab7, 1).addActionListener(event -> {
             Object grup = tab7.getValueAt(tab7.getSelectedRow(), 2);
-
-            ParDefault frame = new ParDefault(this, recocord -> {
-
-                Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
-                int index = Uti4.getIndexRec(tab5);
-                if (index != -1) {
-                    Record sysprodRec = qSysprod.get(index);
-                    String script = sysprodRec.getStr(eSysprod.script);
-                    GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
-                    JsonObject jsonObj = gson.fromJson(gsonRoot.param(), JsonObject.class);
-                    JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
-                    if (jsonArr == null) {
-                        jsonArr.add(recocord.getInt(eParams.id));
-                        
-                    } 
-//                    else {
-//                        System.out.println(jsonArr);
-//                        int indexRemov = -1;
-//                        int id1 = qParams.stream().filter(rec -> (rec.get(eParams.id).equals(recocord.getInt(eParams.id)))).findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
-//                        for (int i = 0; i < jsonArr.size(); i++) {
-//                            int it = jsonArr.get(i).getAsInt();
-//                            int id2 = qParams.stream().filter(rec -> (rec.getInt(eParams.id) == it)).findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
-//                            if (id1 == id2) {
-//                                indexRemov = i;
-//                            }
-//                        }
-//                    }
-                    //jsonArr.remove(indexRemov);
-                    jsonArr.add(recocord.getInt(eParams.id));
-//                    String script2 = gson.toJson(gsonRoot);
-//                    sysprodRec.set(eSysprod.script, script2);
-//                    qSysprod.execsql();
-                    Uti4.setSelectedRow(tab7, index);
-                }
-            }, (int) grup);
+            ParDefault frame = new ParDefault(this, listenerParam3, (int) grup);
         });
     }
 
@@ -464,6 +430,7 @@ public class Systree extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Uti4.setSelectedRow(tab2, index);
         };
+
         listenerModel = (record) -> {
             Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
 
@@ -533,6 +500,22 @@ public class Systree extends javax.swing.JFrame {
             qSyspar1.set(record.getStr(eParams.text), Uti4.getIndexRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Uti4.setSelectedRow(tab4, index);
+        };
+
+        listenerParam3 = (record) -> {
+            int index = Uti4.getIndexRec(tab5);
+            int index2 = Uti4.getIndexRec(tab7);
+            if (index != -1) {
+                Record sysprodRec = qSysprod.get(index);
+                String script = sysprodRec.getStr(eSysprod.script);
+                String script2 = Uti4.paramdefAdd(script, record.getInt(eParams.id), qParams);
+                sysprodRec.set(eSysprod.script, script2);
+                qSysprod.execsql();
+                iwin.build(script2);
+                Uti4.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
+                selectionWin();
+                Uti4.setSelectedRow(tab7, index2);
+            }
         };
     }
 
@@ -1095,8 +1078,8 @@ public class Systree extends javax.swing.JFrame {
         });
         scr7.setViewportView(tab7);
         if (tab7.getColumnModel().getColumnCount() > 0) {
-            tab7.getColumnModel().getColumn(0).setPreferredWidth(400);
-            tab7.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab7.getColumnModel().getColumn(0).setPreferredWidth(300);
+            tab7.getColumnModel().getColumn(1).setPreferredWidth(140);
             tab7.getColumnModel().getColumn(2).setMaxWidth(40);
         }
 

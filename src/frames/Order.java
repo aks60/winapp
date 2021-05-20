@@ -97,7 +97,6 @@ public class Order extends javax.swing.JFrame {
     private Wincalc iwin = new Wincalc();
     private DefMutableTreeNode windowsNode = null;
     private Canvas paintPanel = new Canvas(iwin);
-    private ListenerObject listenerDate;
     private DefFieldEditor rsvPrj;
     private Gson gson = new GsonBuilder().create();
 
@@ -148,7 +147,7 @@ public class Order extends javax.swing.JFrame {
                 return val;
             }
         };
-        
+
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
         DefaultTableCellRenderer defaultTableCellRenderer = new DefaultTableCellRenderer() {
@@ -241,22 +240,21 @@ public class Order extends javax.swing.JFrame {
             });
         });
 
-        Uti4.buttonCellEditor(tab5, 1).addActionListener(event -> {            
+        Uti4.buttonCellEditor(tab5, 1).addActionListener(event -> {
             Object grup = tab5.getValueAt(tab5.getSelectedRow(), 2);
-
-            ParDefault frame = new ParDefault(this, recocord -> {
-                System.out.println(recocord);
-                Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            ParDefault frame = new ParDefault(this, record -> {
                 int index = Uti4.getIndexRec(tab2);
+                int index2 = Uti4.getIndexRec(tab5);
                 if (index != -1) {
-                    Record prjprodRec = qPrjprod.get(index);
-                    String script = prjprodRec.getStr(ePrjprod.script);
-                    GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
-                    //gsonRoot.paramDef.put(recocord.getInt(eParams.params_id), recocord.getStr(eParams.text));
-                    String script2 = gson.toJson(gsonRoot);
-                    prjprodRec.set(ePrjprod.script, script2);
+                    Record sysprodRec = qPrjprod.get(index);
+                    String script = sysprodRec.getStr(ePrjprod.script);
+                    String script2 = Uti4.paramdefAdd(script, record.getInt(eParams.id), qParams);
+                    sysprodRec.set(ePrjprod.script, script2);
                     qPrjprod.execsql();
-                    Uti4.setSelectedRow(tab5, index);
+                    iwin.build(script2);
+                    Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+                    selectionWin();
+                    Uti4.setSelectedRow(tab5, index2);
                 }
             }, (int) grup);
         });
@@ -400,7 +398,6 @@ public class Order extends javax.swing.JFrame {
                 qSyspar1.clear();
                 Map<Integer, String> map = new HashMap();
                 iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
-                //iwin.rootGson.paramDef.forEach((pk, txt) -> map.put(pk, txt));
                 map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, pk, null, null)));
                 ((DefTableModel) tab5.getModel()).fireTableDataChanged();
 
