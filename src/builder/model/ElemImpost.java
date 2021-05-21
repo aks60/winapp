@@ -19,11 +19,11 @@ import common.Util;
 import enums.PKjson;
 import java.util.List;
 
-public class ElemLink extends ElemSimple {
+public class ElemImpost extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
     
-    public ElemLink(AreaSimple owner, TypeElem type, float id, String param) {
+    public ElemImpost(AreaSimple owner, TypeElem type, float id, String param) {
 
         super(id, owner.iwin(), owner);
         this.layout = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
@@ -145,21 +145,6 @@ public class ElemLink extends ElemSimple {
 
         spcRec.spcList.add(spcAdd);
     }
-
-//    //Вычисление захода импоста через параметр
-//    private float offset(ElemSimple joinElem1, ElemSimple joinElem2) {
-//        Record joiningRec = eJoining.find(joinElem1.artiklRec, joinElem2.artiklRec);
-//        List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
-//        Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR40.id).findFirst().orElse(null);
-//        if (joinvarRec != null) {
-//            List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-//            Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.params_id) == 4040).findFirst().orElse(null);
-//            if (joinpar1Rec != null) {
-//                return Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
-//            }
-//        }
-//        return 0;
-//    }
 
     @Override
     public void paint() {

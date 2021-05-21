@@ -8,7 +8,7 @@ import builder.model.ElemJoining;
 import builder.model.AreaSimple;
 import builder.model.AreaRectangl;
 import builder.model.AreaTrapeze;
-import builder.model.ElemLink;
+import builder.model.ElemImpost;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dataset.Record;
@@ -33,10 +33,10 @@ import builder.making.Elements;
 import builder.making.Filling;
 import builder.making.Furniture;
 import builder.model.ElemFrame;
+import builder.model.ElemShtulp;
 import builder.model.ElemSimple;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
-import com.google.gson.JsonParser;
 import frames.swing.Draw;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -159,9 +159,12 @@ public class Wincalc {
                     hm.put(area5e, el);
 
                     //Добавим Element
-                } else if (TypeElem.IMPOST == el.type() 
-                        || TypeElem.SHTULP == el.type()) {
-                    owner.listChild.add(new ElemLink(owner, el.type(), el.id(), el.param()));
+                } else if (TypeElem.IMPOST == el.type()) {
+                    owner.listChild.add(new ElemImpost(owner, el.type(), el.id(), el.param()));
+                    
+                } else if (TypeElem.SHTULP == el.type()) {
+                    owner.listChild.add(new ElemShtulp(owner, el.type(), el.id(), el.param()));
+                    
                 } else if (TypeElem.GLASS == el.type()) {
                     owner.listChild.add(new ElemGlass(owner, el.id(), el.param()));
                 }
