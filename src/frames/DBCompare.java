@@ -444,7 +444,7 @@ public class DBCompare extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
             rs.next();
             int punic = rs.getInt("PUNIC");
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + " order by a.anumb");
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + iwin.rootGson.ord + "order by a.anumb");
             while (rs.next()) {
                 float leng = rs.getFloat("ALENG"); //длина
                 float count = rs.getFloat("AQTYP"); //колич
@@ -461,7 +461,8 @@ public class DBCompare extends javax.swing.JFrame {
 
             for (Specific spc : iwin.listSpec) {
                 String key = spc.artikl;
-                Float val = (hmDB2.get(key) == null) ? 0.f : hmDB2.get(key);
+                //Float val = (hmDB2.get(key) == null) ? 0.f : hmDB2.get(key);
+                Float val = hmDB2.getOrDefault(key, 0.f);
                 hmDB2.put(key, val + spc.cost1);
             }
 

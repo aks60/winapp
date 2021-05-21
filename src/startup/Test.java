@@ -1,23 +1,17 @@
 package startup;
 
+import builder.making.Specific;
 import frames.FrameToFile;
 import builder.script.GsonRoot;
 import builder.script.Winscript;
 import common.*;
 import dataset.*;
-import domain.eArtdet;
 import com.google.gson.GsonBuilder;
 import builder.param.ParamList;
 import frames.DBCompare;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.Connection;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import javax.swing.UIManager;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 public class Test {
@@ -88,7 +82,7 @@ public class Test {
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(700027, false));
             iwin.constructiv(true);
-            //Specification.write_txt1(iwin.listSpec);
+            //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
             DBCompare.iwinRec(iwin, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.spcRec.artikl + ":" + it.getValue().joinElement2.spcRec.artikl + ") -" + it.getValue().layoutJoin.name));           

@@ -168,11 +168,11 @@ public final class Bimax {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 450))
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':2915}"))
-                    .addElem(new GsonElem(TypeElem.GLASS));
+                    .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':3293}"));
             rootGson.addElem(new GsonElem(TypeElem.SHTULP));
             rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 850))
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':2913}"))
-                    .addElem(new GsonElem(TypeElem.GLASS));
+                    .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':4267}"));
             
 
         } else if (prj == 604004) {
