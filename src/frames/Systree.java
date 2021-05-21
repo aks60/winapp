@@ -47,8 +47,8 @@ import frames.swing.DefTableModel;
 import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
-import builder.gson.GsonElem;
-import builder.gson.GsonRoot;
+import builder.script.GsonElem;
+import builder.script.GsonRoot;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -2804,7 +2804,7 @@ public class Systree extends javax.swing.JFrame {
 
             ListenerRecord listenerColor = (colorRec) -> {
 
-                builder.gson.GsonElem rootArea = iwin.rootGson.find(selectID);
+                builder.script.GsonElem rootArea = iwin.rootGson.find(selectID);
                 if (rootArea != null) {
                     if (evt.getSource() == btn9) {
                         iwin.rootGson.color1 = colorRec.getInt(eColor.id);

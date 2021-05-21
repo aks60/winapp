@@ -2,9 +2,9 @@ package frames;
 
 import builder.Wincalc;
 import builder.model.AreaStvorka;
-import builder.gson.GsonElem;
+import builder.script.GsonElem;
 import builder.making.Specific;
-import builder.gson.GsonRoot;
+import builder.script.GsonRoot;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;

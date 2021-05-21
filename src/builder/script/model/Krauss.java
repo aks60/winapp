@@ -1,8 +1,8 @@
-package builder.gson.model;
+package builder.script.model;
 
-import builder.gson.GsonElem;
-import builder.gson.GsonRoot;
-import static builder.gson.Winscript.rootGson;
+import builder.script.GsonElem;
+import builder.script.GsonRoot;
+import static builder.script.Winscript.rootGson;
 import com.google.gson.GsonBuilder;
 import enums.LayoutArea;
 import enums.TypeElem;

@@ -1,4 +1,4 @@
-package builder.gson;
+package builder.script;
 
 import enums.LayoutArea;
 import enums.TypeElem;
