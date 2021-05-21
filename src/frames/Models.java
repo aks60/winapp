@@ -15,7 +15,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
-import builder.script.GsonRoot;
+import builder.gson.GsonRoot;
 import com.google.gson.Gson;
 import frames.swing.DefMutableTreeNode;
 import frames.swing.Canvas;
@@ -938,7 +938,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
         if (prj != null) {
-            String json = builder.script.Winscript.test(Integer.valueOf(prj.toString()), true);
+            String json = builder.gson.Winscript.test(Integer.valueOf(prj.toString()), true);
             GsonRoot gson = new Gson().fromJson(json, GsonRoot.class);
             Record record = eSysmodel.up.newRecord(Query.INS);
             record.set(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));

@@ -2,8 +2,8 @@ package startup;
 
 import builder.making.Specific;
 import frames.FrameToFile;
-import builder.script.GsonRoot;
-import builder.script.Winscript;
+import builder.gson.GsonRoot;
+import builder.gson.Winscript;
 import common.*;
 import dataset.*;
 import com.google.gson.GsonBuilder;
@@ -80,7 +80,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(700027, false));
+            iwin.build(builder.gson.Winscript.test(700027, false));
             iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
@@ -90,7 +90,7 @@ public class Test {
         } else if (_case.equals("min")) {
             List<Integer> prjList = Winscript.models();
             for (int prj : prjList) {
-                String script = builder.script.Winscript.test(prj, false);
+                String script = builder.gson.Winscript.test(prj, false);
                 if (script != null) {
                     iwin.build(script);
                     iwin.constructiv(true);
@@ -102,7 +102,7 @@ public class Test {
         } else if (_case.equals("max")) {
             List<Integer> prjList = Winscript.models();
             for (int prj : prjList) {
-                String script = builder.script.Winscript.test(prj, false);
+                String script = builder.gson.Winscript.test(prj, false);
                 if (script != null) {
                     iwin.build(script);
                     iwin.constructiv(true);

@@ -1,4 +1,4 @@
-package builder.script.model;
+package builder.gson.model;
 
 public class Sial {
     

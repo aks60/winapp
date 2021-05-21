@@ -1,6 +1,6 @@
 package convert;
 
-import builder.script.GsonRoot;
+import builder.gson.GsonRoot;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -59,7 +59,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import builder.script.Winscript;
+import builder.gson.Winscript;
 import domain.eProject;
 import domain.eSysmodel;
 import java.awt.Color;

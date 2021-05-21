@@ -1,4 +1,4 @@
-package builder.script;
+package builder.gson;
 
 import builder.model.AreaSimple;
 import enums.LayoutArea;
