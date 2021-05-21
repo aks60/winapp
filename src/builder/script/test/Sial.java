@@ -1,4 +1,4 @@
-package builder.script.model;
+package builder.script.test;
 
 public class Sial {
     
