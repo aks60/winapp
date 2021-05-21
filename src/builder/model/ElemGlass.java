@@ -215,11 +215,6 @@ public class ElemGlass extends ElemSimple {
         }
     }
 
-//    @Override
-//    public UseArtiklTo useArtiklTo() {
-//        return UseArtiklTo.ANY;
-//    }
-
     @Override
     public String toString() {
         return super.toString() + ", radiusGlass=" + radiusGlass;

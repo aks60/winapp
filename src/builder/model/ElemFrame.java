@@ -196,11 +196,6 @@ public class ElemFrame extends ElemSimple {
         }
     }
 
-//    @Override
-//    public UseArtiklTo useArtiklTo() {
-//        return (TypeElem.STVORKA == owner().type) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
-//    }
-
     @Override
     public String toString() {
         return super.toString() + ", anglCut=" + anglCut1 + ", anglCut=" + anglCut1;

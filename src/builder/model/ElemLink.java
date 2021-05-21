@@ -173,11 +173,6 @@ public class ElemLink extends ElemSimple {
         }
     }
 
-//    @Override
-//    public UseArtiklTo useArtiklTo() {
-//        return UseArtiklTo.IMPOST;
-//    }
-
     @Override
     public String toString() {
         return super.toString() + ", anglCut=" + anglCut1 + ", anglCut=" + anglCut1;
