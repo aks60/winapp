@@ -93,18 +93,12 @@ public class ElemShtulp extends ElemSimple {
 
         //На эскизе заход импоста не показываю, сразу пишу в спецификацию
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
-            float zax = iwin().syssizeRec.getFloat(eSyssize.zax);
+            float falz = iwin().syssizeRec.getFloat(eSyssize.falz);
 
-            if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
                 ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
-                spcRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
+                spcRec.width = insideBott.y1 - insideTop.y2; // - insideBott.artiklRec.getFloat(eArtikl.size_falz) - insideTop.artiklRec.getFloat(eArtikl.size_falz);
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-            } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
-                ElemSimple insideLeft = join(LayoutArea.LEFT), insideRight = join(LayoutArea.RIGHT);
-                spcRec.width = insideRight.x1 - insideLeft.x2 + zax * 2 + insideLeft.artiklRec.getFloat(eArtikl.size_falz) + insideRight.artiklRec.getFloat(eArtikl.size_falz);
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
-            }
         } else {
             if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
                 spcRec.width = y2 - y1;
