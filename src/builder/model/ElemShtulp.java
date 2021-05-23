@@ -22,7 +22,7 @@ import java.util.List;
 public class ElemShtulp extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
-    
+
     public ElemShtulp(AreaSimple owner, TypeElem type, float id, String param) {
 
         super(id, owner.iwin(), owner);
@@ -91,17 +91,21 @@ public class ElemShtulp extends ElemSimple {
         spcRec.anglCut1 = 90;
         spcRec.anglHoriz = anglHoriz;
 
-        //На эскизе заход импоста не показываю, сразу пишу в спецификацию
-        if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
-            float falz = iwin().syssizeRec.getFloat(eSyssize.falz);
-
-                //ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
-                ElemSimple insideLeft = join(LayoutArea.LEFT), insideRight = join(LayoutArea.RIGHT);
-                //spcRec.width = insideBott.y1 - insideTop.y2; // - 4 * insideBott.artiklRec.getFloat(eArtikl.size_falz);
-                spcRec.width = insideLeft.length();
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
-
-        } else {
+//        if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
+//            //Примерный расчёт
+//            if (LayoutArea.HORIZ == owner().layout()) { //слева направо 
+//                ElemSimple insideTop = join(LayoutArea.TOP), insideLeft = join(LayoutArea.LEFT);
+//                spcRec.width = insideLeft.height() - 2 * insideLeft.artiklRec.getFloat(eArtikl.size_furn)
+//                        - 2 * insideTop.artiklRec.getFloat(eArtikl.size_falz);
+//                spcRec.height = artiklRec.getFloat(eArtikl.height);              
+//            } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
+//                ElemSimple insideTop = join(LayoutArea.TOP), insideLeft = join(LayoutArea.LEFT);
+//                spcRec.width = insideTop.height() - 2 * insideTop.artiklRec.getFloat(eArtikl.size_furn)
+//                        - 2 * insideLeft.artiklRec.getFloat(eArtikl.size_falz);
+//                spcRec.height = artiklRec.getFloat(eArtikl.height);                  
+//            }
+//
+//        } else {
             if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
                 spcRec.width = y2 - y1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
@@ -110,7 +114,7 @@ public class ElemShtulp extends ElemSimple {
                 spcRec.width = x2 - x1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
-        }   
+//        }
     }
 
     //@Override //Вложеная спецификация 
@@ -133,7 +137,7 @@ public class ElemShtulp extends ElemSimple {
         if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
                 || spcAdd.artiklRec.getInt(eArtikl.level1) == 3
                 || spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
-            
+
             spcAdd.width += spcRec.width;
             spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
             spcAdd.width = spcAdd.width * spc7d.calcCoeff(spcRec, spcAdd);//"[ * коэф-т ]"            

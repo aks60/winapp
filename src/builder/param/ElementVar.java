@@ -17,6 +17,7 @@ import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import builder.model.Uti2;
 import common.Util;
+import enums.TypeArtikl;
 
 //Составы
 public class ElementVar extends Par5s {
@@ -75,12 +76,25 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31004: //Если прилегающий артикул 
-                        if (elem5e.join(elem5e.layout()) != null) {
+                        if (LayoutArea.HORIZ == elem5e.layout()) {
+                            boolean b1 = (elem5e.join(LayoutArea.BOTTOM) != null) ? rec.getStr(TEXT).equals(elem5e.join(LayoutArea.BOTTOM).artiklRec.getStr(eArtikl.code)) : false;
+                            boolean b2 = (elem5e.join(LayoutArea.TOP) != null) ? rec.getStr(TEXT).equals(elem5e.join(LayoutArea.TOP).artiklRec.getStr(eArtikl.code)) : false;
+                            if (b1 == false && b2 == false) {
+                                return false;
+                            }
+                        } else if (LayoutArea.VERT == elem5e.layout()) {
+                            boolean b1 = (elem5e.join(LayoutArea.LEFT) != null) ? rec.getStr(TEXT).equals(elem5e.join(LayoutArea.LEFT).artiklRec.getStr(eArtikl.code)) : false;
+                            boolean b2 = (elem5e.join(LayoutArea.RIGHT) != null) ? rec.getStr(TEXT).equals(elem5e.join(LayoutArea.RIGHT).artiklRec.getStr(eArtikl.code)) : false;
+                            if (b1 == false && b2 == false) {
+                                return false;
+                            }
+                        } else if (elem5e.join(elem5e.layout()) != null) {
                             if (rec.getStr(TEXT).equals(elem5e.join(elem5e.layout()).artiklRec.getStr(eArtikl.code)) == false) {
                                 return false;
                             }
                         }
-                    break;
+                        break;
+
                     case 31005:  //Коды основной текстуры контейнера 
                     case 37005:  //Коды основной текстуры контейнера 
                         if (Util.containsNumb(rec.getStr(TEXT), elem5e.colorID1) == false) {

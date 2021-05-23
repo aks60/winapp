@@ -149,6 +149,7 @@ public class JoiningVar extends Par5s {
                         break;
                     case 1040:  //Размер, мм (Смещение осей рамы и створки. Наследие ps3)
                         //Параметр вычисляктся на раннем этапе см. конструктор AreaStvorka()
+                        //Применяется если сист. константы отсутствуют
                         break;
                     case 1043:  //Ограничение габарита контура, мм 
                         message(rec.getInt(GRUP));
@@ -350,7 +351,7 @@ public class JoiningVar extends Par5s {
                             return false;
                         }
                         break;
-                    case 4040: //Размер от оси профиля, мм. или заход импоста 
+                    case 4040: //Размер от оси профиля, мм. или заход импоста
                         elemJoin.joinElement1.spcRec.width += -rec.getFloat(TEXT);
                         break;
                     case 4044:  //Размер от края пакета, мм 

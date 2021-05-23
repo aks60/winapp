@@ -105,17 +105,9 @@ public abstract class Com5t {
         return ((x2 < x1 || x2 >= x) && (y2 < y1 || y2 >= y));
     }
 
+    //Прилегающие соединения. 
     public ElemSimple join(LayoutArea layoutArea) {
-        LinkedList<ElemSimple> listElem = null;
-        if (this.type == TypeElem.SHTULP) {
-            listElem = root().listElem(TypeElem.STVORKA_SIDE, TypeElem.FRAME_SIDE);
-
-        } else if (owner.type == TypeElem.STVORKA) {
-            listElem = root().listElem(TypeElem.STVORKA_SIDE);
-
-        } else {
-            listElem = root().listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список элементов
-        }
+        LinkedList<ElemSimple> listElem = root().listElem(TypeElem.STVORKA_SIDE, TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список элементов
         if (LayoutArea.BOTTOM == layoutArea) {
             return listElem.stream().filter(el -> el != this && el.inside(x1 + width() / 2, y2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
         } else if (LayoutArea.LEFT == layoutArea) {

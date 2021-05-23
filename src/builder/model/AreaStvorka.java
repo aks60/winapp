@@ -68,25 +68,25 @@ public class AreaStvorka extends AreaSimple {
     //Коррекция координат створки с учётом нахлёста
     private void setLocation(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
 
-        ElemSimple adjacentLef = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
-                adjacentBot = join(LayoutArea.BOTTOM), adjacentRig = join(LayoutArea.RIGHT);
+        ElemSimple joinLef = join(LayoutArea.LEFT), joinTop = join(LayoutArea.TOP),
+                joinBot = join(LayoutArea.BOTTOM), joinRig = join(LayoutArea.RIGHT);
 
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
-            x1 = adjacentLef.x2 - adjacentLef.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
-            y1 = adjacentTop.y2 - adjacentTop.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
-            x2 = adjacentRig.x1 + adjacentRig.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
-            y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
+            x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
+            y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
+            x2 = joinRig.x1 + joinRig.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
+            y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
 
         } else {
-            float X1 = (adjacentLef.type() == TypeElem.IMPOST || adjacentLef.type() == TypeElem.SHTULP) ? adjacentLef.x1 + adjacentLef.width() / 2 : adjacentLef.x1;
-            float Y2 = (adjacentBot.type() == TypeElem.IMPOST || adjacentBot.type() == TypeElem.SHTULP) ? adjacentBot.y2 - adjacentBot.height() / 2 : adjacentBot.y2;
-            float X2 = (adjacentRig.type() == TypeElem.IMPOST || adjacentRig.type() == TypeElem.SHTULP) ? adjacentRig.x2 - adjacentRig.width() / 2 : adjacentRig.x2;
-            float Y1 = (adjacentTop.type() == TypeElem.IMPOST || adjacentTop.type() == TypeElem.SHTULP) ? adjacentTop.y1 + adjacentTop.height() / 2 : adjacentTop.y1;
-            x1 = X1 + offset(stvLef, adjacentLef);
-            y2 = Y2 - offset(stvBot, adjacentBot);
-            x2 = X2 - offset(stvRig, adjacentRig);
-            y1 = Y1 + offset(stvTop, adjacentTop);
-        }
+            float X1 = (joinLef.type() == TypeElem.IMPOST || joinLef.type() == TypeElem.SHTULP) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
+            float Y2 = (joinBot.type() == TypeElem.IMPOST || joinBot.type() == TypeElem.SHTULP) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
+            float X2 = (joinRig.type() == TypeElem.IMPOST || joinRig.type() == TypeElem.SHTULP) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
+            float Y1 = (joinTop.type() == TypeElem.IMPOST || joinTop.type() == TypeElem.SHTULP) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
+            x1 = X1 + offset(stvLef, joinLef);
+            y2 = Y2 - offset(stvBot, joinBot);
+            x2 = X2 - offset(stvRig, joinRig);
+            y1 = Y1 + offset(stvTop, joinTop);
+        }        
     }
 
 
