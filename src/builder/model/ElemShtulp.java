@@ -96,7 +96,7 @@ public class ElemShtulp extends ElemSimple {
             float falz = iwin().syssizeRec.getFloat(eSyssize.falz);
 
                 ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
-                spcRec.width = insideBott.y1 - insideTop.y2; // - insideBott.artiklRec.getFloat(eArtikl.size_falz) - insideTop.artiklRec.getFloat(eArtikl.size_falz);
+                spcRec.width = insideBott.y1 - insideTop.y2; // - 4 * insideBott.artiklRec.getFloat(eArtikl.size_falz);
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else {
