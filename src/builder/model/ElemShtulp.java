@@ -95,8 +95,10 @@ public class ElemShtulp extends ElemSimple {
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
             float falz = iwin().syssizeRec.getFloat(eSyssize.falz);
 
-                ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
-                spcRec.width = insideBott.y1 - insideTop.y2; // - 4 * insideBott.artiklRec.getFloat(eArtikl.size_falz);
+                //ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
+                ElemSimple insideLeft = join(LayoutArea.LEFT), insideRight = join(LayoutArea.RIGHT);
+                //spcRec.width = insideBott.y1 - insideTop.y2; // - 4 * insideBott.artiklRec.getFloat(eArtikl.size_falz);
+                spcRec.width = insideLeft.length();
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else {

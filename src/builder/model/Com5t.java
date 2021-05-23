@@ -30,9 +30,9 @@ public abstract class Com5t {
     public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
 
     public Com5t(TypeElem type) {
-       this.type = type; 
+        this.type = type;
     }
-    
+
     public Com5t(float id, Wincalc iwin, AreaSimple owner) {
         this.id = id;
         this.owner = owner;
@@ -61,7 +61,7 @@ public abstract class Com5t {
         this.x2 = x2;
         this.y2 = y2;
     }
-    
+
     public int param(String param, String key) {
 
         if (param != null && param.isEmpty() == false) {
@@ -70,11 +70,11 @@ public abstract class Com5t {
         }
         return -1;
     }
-    
+
     public float length() {
         if (TypeElem.FRAME_SIDE == type() || TypeElem.STVORKA_SIDE == type()) {
             return (LayoutArea.TOP == layout() || LayoutArea.BOTTOM == layout()) ? x2 - x1 : y2 - y1;
-        } 
+        }
         return (LayoutArea.HORIZ == layout()) ? x2 - x1 : y2 - y1;
     }
 
@@ -104,19 +104,26 @@ public abstract class Com5t {
         }
         return ((x2 < x1 || x2 >= x) && (y2 < y1 || y2 >= y));
     }
-   
-    
+
     public ElemSimple join(LayoutArea layoutArea) {
-        LinkedList<ElemSimple> listElem = (owner.type == TypeElem.STVORKA) ? root().listElem(TypeElem.STVORKA_SIDE) 
-                : root().listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список элементов
+        LinkedList<ElemSimple> listElem = null;
+        if (this.type == TypeElem.SHTULP) {
+            listElem = root().listElem(TypeElem.STVORKA_SIDE, TypeElem.FRAME_SIDE);
+
+        } else if (owner.type == TypeElem.STVORKA) {
+            listElem = root().listElem(TypeElem.STVORKA_SIDE);
+
+        } else {
+            listElem = root().listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список элементов
+        }
         if (LayoutArea.BOTTOM == layoutArea) {
-            return listElem.stream().filter(el -> el.inside(x1 + width() / 2, y2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
+            return listElem.stream().filter(el -> el != this && el.inside(x1 + width() / 2, y2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
         } else if (LayoutArea.LEFT == layoutArea) {
-            return listElem.stream().filter(el -> el.inside(x1, y1 + height() / 2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
+            return listElem.stream().filter(el -> el != this && el.inside(x1, y1 + height() / 2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
         } else if (LayoutArea.TOP == layoutArea) {
-            return listElem.stream().filter(el -> el.inside(x1 + width() / 2, y1) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
+            return listElem.stream().filter(el -> el != this && el.inside(x1 + width() / 2, y1) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
         } else if (LayoutArea.RIGHT == layoutArea) {
-            return listElem.stream().filter(el -> el.inside(x2, y1 + height() / 2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
+            return listElem.stream().filter(el -> el != this && el.inside(x2, y1 + height() / 2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
         }
         return null;
     }
@@ -131,7 +138,7 @@ public abstract class Com5t {
     public String toString() {
         float ownerID = (owner == null) ? -1 : owner.id();
         return "ELEM " + type.name() + ", layout=" + layout() + ", owner=" + ownerID + ", id=" + id
-                + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + ", width=" + width()+ ", height=" + height();
+                + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + ", width=" + width() + ", height=" + height();
     }
 
     public boolean equals(Object obj) {
