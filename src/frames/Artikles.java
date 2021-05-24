@@ -24,22 +24,22 @@ import frames.dialog.DicArtikl;
 import frames.dialog.DicEnums;
 import frames.dialog.DicGroups;
 import frames.swing.DefCellBoolRenderer;
+import frames.swing.TableFilter;
 import java.awt.CardLayout;
 import java.awt.Window;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import frames.swing.listener.ListenerRecord;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 
 /**
@@ -55,6 +55,9 @@ public class Artikles extends javax.swing.JFrame {
     private Query qArtdet = new Query(eArtdet.values());
 
     private DefFieldEditor rsvArtikl;
+    private JLabel labFilter = null;
+    private JTextField txtFilter = null;
+    private TableFilter tabFilter = new TableFilter();
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
     private Window owner = null;
@@ -400,8 +403,8 @@ public class Artikles extends javax.swing.JFrame {
                 qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
             DefaultMutableTreeNode node2 = (DefaultMutableTreeNode) node.getParent();
-            lab1.setText((node2 != null && node.getParent() != null) ? "Тип = " + ((TypeArtikl) node2.getUserObject()).id1
-                    + ",  подтип = " + ((TypeArtikl) node.getUserObject()).id2 + ", " : "");
+            lab1.setText((node2 != null && node.getParent() != null) ? "Тип: " + ((TypeArtikl) node2.getUserObject()).id1
+                    + "  подтип: " + ((TypeArtikl) node.getUserObject()).id2 : "");
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         }
         Uti4.setSelectedRow(tab1);
@@ -420,7 +423,7 @@ public class Artikles extends javax.swing.JFrame {
             ((CardLayout) pan6.getLayout()).show(pan6, name);
 
             int id = record.getInt(eArtikl.id);
-            lab2.setText("id = " + id);
+            lab2.setText("id: " + id);
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
             rsvArtikl.load();
             checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
@@ -672,12 +675,6 @@ public class Artikles extends javax.swing.JFrame {
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
-        labFilter = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField(){
-            public JTable table = null;
-        };
-        checkFilter = new javax.swing.JCheckBox();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
         lab1 = new javax.swing.JLabel();
         lab2 = new javax.swing.JLabel();
 
@@ -2181,36 +2178,11 @@ public class Artikles extends javax.swing.JFrame {
         south.setPreferredSize(new java.awt.Dimension(900, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
-        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        labFilter.setText("Поле");
-        labFilter.setMaximumSize(new java.awt.Dimension(140, 14));
-        labFilter.setMinimumSize(new java.awt.Dimension(140, 14));
-        labFilter.setPreferredSize(new java.awt.Dimension(140, 14));
-        south.add(labFilter);
-
-        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
-        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtFilterCaretUpdate(evt);
-            }
-        });
-        south.add(txtFilter);
-
-        checkFilter.setText("в конце строки");
-        south.add(checkFilter);
-
-        filler1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        south.add(filler1);
-
         lab1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lab1.setText("___");
         lab1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        lab1.setMaximumSize(new java.awt.Dimension(120, 14));
-        lab1.setPreferredSize(new java.awt.Dimension(120, 14));
+        lab1.setMaximumSize(new java.awt.Dimension(100, 14));
+        lab1.setPreferredSize(new java.awt.Dimension(100, 14));
         lab1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         south.add(lab1);
 
@@ -2293,31 +2265,12 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn7
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        JTable table = (JTable) evt.getSource();
-        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
-        if (txtFilter.getText().length() == 0) {
-            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-            txtFilter.setName(table.getName());
-        }
+        tabFilter.tabMousePressed((JTable) evt.getSource(), tab1, tab2);
     }//GEN-LAST:event_tabMousePressed
 
     private void btn11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11
         DicArtikl artikl = new DicArtikl(this, listenerAnalog, 1);
     }//GEN-LAST:event_btn11
-
-    private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
-
-        JTable table = Stream.of(tab1, tab2).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
-        btnIns.setEnabled(txtFilter.getText().length() == 0);
-        if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
-        }
-        Uti4.setSelectedRow(table);
-    }//GEN-LAST:event_txtFilterCaretUpdate
 
     private void btn8(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8
         int index = Uti4.getIndexRec(tab1);
@@ -2488,8 +2441,6 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JButton btnTest;
     private javax.swing.JPanel center;
     private javax.swing.JCheckBox checkBox1;
-    private javax.swing.JCheckBox checkFilter;
-    private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
     private javax.swing.Box.Filler filler12;
@@ -2576,7 +2527,6 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JLabel lab54;
     private javax.swing.JLabel lab55;
     private javax.swing.JLabel lab56;
-    private javax.swing.JLabel labFilter;
     private javax.swing.JLabel labl17;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan100;
@@ -2668,13 +2618,16 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JTextField txt7;
     private javax.swing.JTextField txt8;
     private javax.swing.JTextField txt9;
-    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+
+        labFilter = tabFilter.getLabFilter();
+        txtFilter = tabFilter.getTextField();
+        south.add(tabFilter, 0);
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2)));

@@ -1,38 +1,39 @@
 package frames.swing;
 
 import frames.Uti4;
+import java.util.Arrays;
+import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 public class TableFilter extends javax.swing.JPanel {
 
+    private JTable table = null;
+    private int indexColumn = 0;
 
     public TableFilter() {
         initComponents();
     }
 
-    private void txtFilterCaretUpdate(JTable table) {
+    public void tabMousePressed(JTable table, JTable... tab) {
+        this.table = table;
+        Uti4.updateBorderAndSql(table, Arrays.asList(tab));
         if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
+            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txtFilter.setName(table.getName());
         }
-        Uti4.setSelectedRow(table);        
     }
-    
-    private void filterUpdate(JTable table) {                              
-        if (txtFilter.getText().length() == 0) {
-            ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }     
+
+    public JLabel getLabFilter() {
+        return labFilter;
+    }
+
+    public JTextField getTextField() {
+        return txtFilter;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -44,7 +45,9 @@ public class TableFilter extends javax.swing.JPanel {
         };
         checkFilter = new javax.swing.JCheckBox();
 
-        setPreferredSize(new java.awt.Dimension(445, 20));
+        setMaximumSize(new java.awt.Dimension(380, 20));
+        setMinimumSize(new java.awt.Dimension(380, 20));
+        setPreferredSize(new java.awt.Dimension(380, 20));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
@@ -55,10 +58,15 @@ public class TableFilter extends javax.swing.JPanel {
         add(labFilter);
 
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(180, 18));
-        txtFilter.setMinimumSize(new java.awt.Dimension(180, 18));
+        txtFilter.setMaximumSize(new java.awt.Dimension(120, 18));
+        txtFilter.setMinimumSize(new java.awt.Dimension(120, 18));
         txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(180, 18));
+        txtFilter.setPreferredSize(new java.awt.Dimension(120, 18));
+        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtFilterCaretUpdate(evt);
+            }
+        });
         add(txtFilter);
 
         checkFilter.setText("в конце строки");
@@ -67,6 +75,17 @@ public class TableFilter extends javax.swing.JPanel {
         checkFilter.setPreferredSize(new java.awt.Dimension(103, 18));
         add(checkFilter);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
+        if (txtFilter.getText().length() == 0) {
+            ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(null);
+        } else {
+            indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
+        }
+        Uti4.setSelectedRow(table);
+    }//GEN-LAST:event_txtFilterCaretUpdate
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
