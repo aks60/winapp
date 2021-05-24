@@ -326,7 +326,6 @@ public final class Bimax {
         return new GsonBuilder().create().toJson(rootGson);
     }
 }
-
 /*
 Prj=601001 Ord=1
 Prj=601001        PS=10894,13       SA=10893,66       dx=0,47     
