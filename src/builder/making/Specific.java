@@ -30,7 +30,7 @@ public class Specific {
 
     public ArrayList<Specific> spcList = new ArrayList();  //список составов, фарнитур и т.д.
     public HashMap<Integer, String> mapParam = null;  //параметры спецификации
-    public ElemSimple elem5e = null;  //элемент пораждающий спецификацию
+    public ElemSimple elem5e = null;  //элемент пораждающий спецификацию (владелец)
     public Record artiklRec = null;  //профиль в спецификации
     public Record detailRec = null;  //профиль в спецификации
 
