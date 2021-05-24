@@ -555,7 +555,7 @@ public class Profstroy {
             executeSql("update prjpart set org_leve2 = trim(org_leve2)");
 
             if (Main.dev == true) {
-                executeSql("4", "update artikl set " + eArtikl.size_falz + " = 20 where code = '336200'"); //поправка штульпа в bimax 
+                executeSql("4", "update artikl set " + eArtikl.size_falz.name() + " = 20 where code = '336200'"); //поправка штульпа в bimax 
             }
         } catch (Exception e) {
             println(Color.RED, "Ошибка: updatePart().  " + e);
