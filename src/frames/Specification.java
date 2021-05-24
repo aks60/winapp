@@ -365,18 +365,18 @@ public class Specification extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {"", "", null, "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {"", "", null, "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "  1", "  2", "гориз.", "<html>Кол.<br/>единиц", "<html>Единица<br/>измерения", "<html>Процент<br/> отхода", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "за ед. изм.", "с отх.", "без ск.", "со ск."
+                "Nпп", "<HTML>ID</HTML>", "FK", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "  1", "  2", "гориз.", "<html>Кол.<br/>единиц", "<html>Единица<br/>измерения", "<html>Процент<br/> отхода", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "за ед. изм.", "с отх.", "без ск.", "со ск."
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, false, true
+                true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -400,27 +400,29 @@ public class Specification extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(24);
             tab1.getColumnModel().getColumn(0).setMaxWidth(40);
             tab1.getColumnModel().getColumn(1).setMinWidth(0);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(1).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(2).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tab1.getColumnModel().getColumn(4).setPreferredWidth(240);
-            tab1.getColumnModel().getColumn(8).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(34);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(28);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(3).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tab1.getColumnModel().getColumn(5).setPreferredWidth(240);
             tab1.getColumnModel().getColumn(9).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(10).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(11).setPreferredWidth(28);
+            tab1.getColumnModel().getColumn(11).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(12).setPreferredWidth(28);
-            tab1.getColumnModel().getColumn(13).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(14).setPreferredWidth(30);
-            tab1.getColumnModel().getColumn(15).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(13).setPreferredWidth(28);
+            tab1.getColumnModel().getColumn(14).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(15).setPreferredWidth(30);
             tab1.getColumnModel().getColumn(16).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(17).setPreferredWidth(48);
-            tab1.getColumnModel().getColumn(18).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(19).setPreferredWidth(44);
+            tab1.getColumnModel().getColumn(17).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(18).setPreferredWidth(48);
+            tab1.getColumnModel().getColumn(19).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(20).setPreferredWidth(44);
-            tab1.getColumnModel().getColumn(21).setPreferredWidth(52);
+            tab1.getColumnModel().getColumn(21).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(22).setPreferredWidth(52);
+            tab1.getColumnModel().getColumn(23).setPreferredWidth(52);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);
@@ -505,7 +507,7 @@ public class Specification extends javax.swing.JFrame {
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         float id = Util.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
-        String str = tab1.getValueAt(tab1.getSelectedRow(), 2).toString().substring(0, 3);
+        String str = tab1.getValueAt(tab1.getSelectedRow(), 3).toString().substring(0, 3);
         Specific recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         Record recordDet = recordSpc.detailRec;
         if (recordDet != null) {
@@ -686,33 +688,33 @@ public class Specification extends javax.swing.JFrame {
                 return label;
             }
         };
-        tab1.getColumnModel().getColumn(5).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(6).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(7).setCellRenderer(cellRenderer0);
-        tab1.getColumnModel().getColumn(8).setCellRenderer(cellRenderer2);
+        tab1.getColumnModel().getColumn(8).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(9).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(10).setCellRenderer(cellRenderer3);
-        tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer2);
+        tab1.getColumnModel().getColumn(10).setCellRenderer(cellRenderer2);
+        tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(12).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(13).setCellRenderer(cellRenderer1);
-        tab1.getColumnModel().getColumn(16).setCellRenderer(cellRenderer3);
+        tab1.getColumnModel().getColumn(13).setCellRenderer(cellRenderer2);
+        tab1.getColumnModel().getColumn(14).setCellRenderer(cellRenderer1);
         tab1.getColumnModel().getColumn(17).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(18).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(19).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(20).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer3);
+        tab1.getColumnModel().getColumn(23).setCellRenderer(cellRenderer3);
         TableColumnModel cm = tab1.getColumnModel();
         ColumnGroup angl = new ColumnGroup("Угол");
-        angl.add(cm.getColumn(11));
         angl.add(cm.getColumn(12));
         angl.add(cm.getColumn(13));
+        angl.add(cm.getColumn(14));
         ColumnGroup sebe = new ColumnGroup("Себестоимость");
-        sebe.add(cm.getColumn(19));
         sebe.add(cm.getColumn(20));
+        sebe.add(cm.getColumn(21));
         ColumnGroup cost = new ColumnGroup("Стоимость");
-        cost.add(cm.getColumn(21));
         cost.add(cm.getColumn(22));
+        cost.add(cm.getColumn(23));
         GroupableTableHeader header = (GroupableTableHeader) tab1.getTableHeader();
         header.addColumnGroup(sebe);
         header.addColumnGroup(angl);

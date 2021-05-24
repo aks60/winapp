@@ -386,7 +386,7 @@
             <Component class="javax.swing.JTable" name="tab1">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="23" rowCount="2">
+                  <Table columnCount="24" rowCount="2">
                     <Column editable="true" title="N&#x43f;&#x43f;" type="java.lang.Object">
                       <Data value=""/>
                       <Data value=""/>
@@ -395,6 +395,7 @@
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
+                    <Column editable="true" title="FK" type="java.lang.Object"/>
                     <Column editable="true" title="&#x420;&#x430;&#x441;&#x43f;&#x43e;&#x43b;&#x43e;&#x436;&#x435;&#x43d;&#x43d;&#x438;&#x435;" type="java.lang.Object">
                       <Data value=""/>
                       <Data value=""/>
@@ -444,7 +445,12 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="60" minWidth="0" prefWidth="40" resizable="true">
+                    <Column maxWidth="40" minWidth="0" prefWidth="34" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="40" minWidth="-1" prefWidth="28" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
