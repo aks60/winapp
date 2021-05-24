@@ -48,7 +48,7 @@ public class Specific {
     public float anglCut2 = 45;  //Угол2
     public float anglHoriz = 0; // Угол к горизонту    
     public int count = 1;  //Кол. единиц
-    
+
     public int unit = 0;  //Ед.изм   
     public float wastePrc = 0;  //Процент отхода    
     public float quant1 = 0;  //Количество без отхода
@@ -57,7 +57,6 @@ public class Specific {
     public float price2 = 0;  //Себест. за ед. с отходом
     public float cost1 = 0;  //Стоимость без скидки
     public float cost2 = 0;  //Стоимость со скидкой
-
 
     public Specific(float id, ElemSimple elem5e) {
         this.id = id;
@@ -107,11 +106,9 @@ public class Specific {
     }
 
     public Vector getVector(int npp) {
-        List list = Arrays.asList(npp, id, place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
+        return new Vector(Arrays.asList(npp, id, elem5e.id(), place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
                 eColor.find(colorID3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2, anglHoriz,
-                count, UseUnit.getName(unit), wastePrc, quant1, quant2, price1, price2, cost1, cost2
-        );
-        return new Vector(list);
+                count, UseUnit.getName(unit), wastePrc, quant1, quant2, price1, price2, cost1, cost2));
     }
 
     public void setArtiklRec(Record artiklRec) {
