@@ -874,6 +874,7 @@ private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
     FrameProgress.create(Tex.this, new ListenerFrame() {
         public void actionRequest(Object obj) {
             App.Specification.createFrame(Tex.this);
+            btn1.setSelected(true);
         }
     });
 }//GEN-LAST:event_mn41
