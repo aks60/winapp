@@ -552,8 +552,11 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
             updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");
             updateSql(eProject.up, eProject.prjpart_id, "kname", ePrjpart.up, "partner");
-
             executeSql("update prjpart set org_leve2 = trim(org_leve2)");
+
+            if (Main.dev == true) {
+                executeSql("4", "update artikl set " + eArtikl.size_falz + " = 20 where code = '336200'"); //поправка штульпа в bimax 
+            }
         } catch (Exception e) {
             println(Color.RED, "Ошибка: updatePart().  " + e);
         }
@@ -626,7 +629,7 @@ public class Profstroy {
         try {
             println(Color.BLACK, "loadModels()");
             List<Integer> prjList = Winscript.models();
-            
+
             cn2.commit();
             int index = 0;
             for (int prj : prjList) {
