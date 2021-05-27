@@ -9,8 +9,8 @@ import domain.eSystree;
 import enums.LayoutArea;
 import enums.TypeArtikl;
 import enums.TypeElem;
-import enums.UseArtiklTo;
 import builder.making.Specific;
+import common.Util;
 import enums.PKjson;
 import java.util.HashMap;
 
@@ -117,7 +117,7 @@ public class ElemGlass extends ElemSimple {
 
     @Override //Вложеная спецификация 
     public void addSpecific(Specific spcAdd) {
-  
+
         spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
         spcAdd.quant1 += spc7d.calcKitCountStep(this, spcAdd); //кол. с шагом
@@ -195,6 +195,8 @@ public class ElemGlass extends ElemSimple {
                 spcRec.spcList.add(new Specific(spcAdd));
             }
         }
+        //spcAdd.width = spcAdd.width * Util.getFloat(spcAdd.getParam(1, 12030, 15030, 25035, 34030, 39030)); //коэф-т увеличения длины
+        //spcAdd.width = (spcAdd.width == 0) ? 0 : spcAdd.width / Util.getFloat(spcAdd.getParam(1, 12040, 15031, 25036, 34040, 39040)); //коэф-т уменьшения длины
     }
 
     @Override
