@@ -11,7 +11,7 @@ public class GsonElem {
     protected float id = -1;  //идентификатор
     protected static transient float genId = -1;  //идентификатор
     public transient GsonElem parent = null;  //владелец 
-    protected LinkedList<GsonElem> childs = null;  //список детей
+    protected LinkedList<GsonElem> childs = new LinkedList();  //список детей
     protected LayoutArea layout = null; //сторона расположения эл. рамы
     protected TypeElem type = null; //тип элемента
     protected String param = null; //параметры элемента

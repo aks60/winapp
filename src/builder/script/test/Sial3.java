@@ -39,10 +39,10 @@ public final class Sial3 {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1200 / 2))
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':3, 'sysfurnID':143}"))
-                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':143}"));
+                    .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':285}")); 
             rootGson.addElem(new GsonElem(TypeElem.IMPOST, "{'sysprofID':357}"));
             rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1200 / 2))
-                    .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':285}"))
+                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':143}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':285}"));
 
         } else if (prj == 601004) {
@@ -53,14 +53,14 @@ public final class Sial3 {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 670))
-                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':143}"))
+                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':13}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':283}"));
             rootGson.addElem(new GsonElem(TypeElem.IMPOST));
             rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 670))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':283}"));
             rootGson.addElem(new GsonElem(TypeElem.IMPOST));
             rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 670))
-                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2, 'sysfurnID':143}"))
+                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2, 'sysfurnID':13}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':283}"));
 
         } else if (prj == 601005) {

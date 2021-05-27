@@ -638,7 +638,7 @@ public class Systree extends javax.swing.JFrame {
                 txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
             }
             Arrays.asList(txt9, txt13, txt14, txt27, txt28,
-                    txt29, txt19, txt20, txt30).forEach(it -> it.setCaretPosition(0));
+                    txt29, txt19, txt20, txt30, txt34).forEach(it -> it.setCaretPosition(0));
             Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
     }

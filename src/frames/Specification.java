@@ -99,6 +99,14 @@ public class Specification extends javax.swing.JFrame {
     }
 
     private void loadingTab1(List<Specific> listSpec) {
+        tab1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+                lab.setBackground(new java.awt.Color(212, 208, 200));
+                return lab;
+            }
+        });
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
         dtm.getDataVector().clear();
         dtm.fireTableDataChanged();
