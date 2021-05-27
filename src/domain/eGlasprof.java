@@ -4,6 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eArtikl.up;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,12 +60,12 @@ public enum eGlasprof implements Field {
         return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
 
-    public static List<Record> find2(int artiklId) {
+    public static Record find2(int artiklId) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(artikl_id) == artiklId).collect(Collectors.toList());
+            return query().stream().filter(rec -> rec.getInt(artikl_id) == artiklId).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", artikl_id, "=", artiklId);
-        return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
     public String toString() {

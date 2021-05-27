@@ -56,12 +56,6 @@ public class Filling extends Cal5e {
                         ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //стекло может быть в створке или коробке
                 Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth); //толщина стекда
 
-                Set<Integer> setArt = new HashSet();
-                if (TypeElem.ARCH != elemGlass.owner().type()) {
-                    setArt.addAll(Arrays.asList(elemGlass.join(LayoutArea.LEFT).artiklRecAn.getInt(eArtikl.id), elemGlass.join(LayoutArea.TOP).artiklRecAn.getInt(eArtikl.id),
-                            elemGlass.join(LayoutArea.BOTTOM).artiklRecAn.getInt(eArtikl.id), elemGlass.join(LayoutArea.RIGHT).artiklRecAn.getInt(eArtikl.id)));
-                }
-
                 Record artprofRec = null;
                 //Цикл по системе конструкций, ищем артикул системы профилей
                 for (Record sysprofRec : sysprofList) {
@@ -82,16 +76,6 @@ public class Filling extends Cal5e {
                                 if (Arrays.asList(1,2,3,4).contains(glasprofRec.getInt(eGlasprof.inside))) {
                                     elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
 
-                                    //Данные для старого алгоритма расчёта 
-                                    if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-                                        for (Integer id : setArt) {
-                                            for (Record record : glasprofList) {
-                                                if (id == record.getInt(eGlasprof.artikl_id)) {
-                                                    elemGlass.hmGsize.put(id, record.getFloat(eGlasprof.gsize));
-                                                }
-                                            }
-                                        }
-                                    }
                                     detail(elemGlass, glasgrpRec);
                                 }
                             }
