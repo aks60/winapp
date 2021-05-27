@@ -1367,11 +1367,11 @@ public class Furniture extends javax.swing.JFrame {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        if (table == tab5 || table == tab6) {
-            Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab3, tab4, tab5, tab6));
-        } else {
+//        if (table == tab5 || table == tab6) {
+//            Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab3, tab4, tab5, tab6));
+//        } else {
             Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
-        }
+//        }
         if (table == tab2a) {
             selectionTab2a(null);
         } else if (table == tab2b) {

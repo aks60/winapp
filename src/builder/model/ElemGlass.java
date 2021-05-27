@@ -18,7 +18,6 @@ import java.util.HashMap;
 public class ElemGlass extends ElemSimple {
 
     public float radiusGlass = 0; //радиус арки
-    public HashMap<Integer, Float> hmGsize = new HashMap();
     public float gzazo = 0; //зазор между фальцем и стеклопакетом  
 
     public ElemGlass(AreaSimple owner, float id, String param) {
@@ -196,8 +195,8 @@ public class ElemGlass extends ElemSimple {
                 spcRec.spcList.add(new Specific(spcAdd));
             }
         }
-        //spcAdd.width = spcAdd.width * Util.getFloat(spcAdd.getParam(1, 12030, 15030, 25035, 34030, 39030)); //коэф-т увеличения длины
-        //spcAdd.width = (spcAdd.width == 0) ? 0 : spcAdd.width / Util.getFloat(spcAdd.getParam(1, 12040, 15031, 25036, 34040, 39040)); //коэф-т уменьшения длины
+        spcAdd.width = spcAdd.width * Util.getFloat(spcAdd.getParam(1, 12030, 15030, 25035, 34030, 39030)); //коэф-т увеличения длины
+        spcAdd.width = (spcAdd.width == 0) ? 0 : spcAdd.width / Util.getFloat(spcAdd.getParam(1, 12040, 15031, 25036, 34040, 39040)); //коэф-т уменьшения длины
     }
 
     @Override
