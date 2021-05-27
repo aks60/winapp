@@ -391,7 +391,7 @@
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
-                    <Column editable="true" title="&lt;HTML&gt;ID&lt;/HTML&gt;" type="java.lang.Object">
+                    <Column editable="true" title="PK" type="java.lang.Object">
                       <Data value=""/>
                       <Data value=""/>
                     </Column>

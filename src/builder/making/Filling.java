@@ -79,7 +79,7 @@ public class Filling extends Cal5e {
                         //Цикл по профилям в группах заполнений
                         for (Record glasprofRec : glasprofList) {
                             if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
-                                if (glasprofRec.getInt(eGlasprof.inside) == 1) {
+                                if (Arrays.asList(1,2,3,4).contains(glasprofRec.getInt(eGlasprof.inside))) {
                                     elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
 
                                     //Данные для старого алгоритма расчёта 
