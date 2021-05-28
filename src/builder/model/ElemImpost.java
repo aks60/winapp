@@ -123,7 +123,6 @@ public class ElemImpost extends ElemSimple {
 
         spcAdd.count = checkPar.p_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += checkPar.p_11050_14050_24050_33050_38050(this, spcAdd); //кол. ед. с шагом
-        //spcAdd.quant1 += checkPar.p_11050_14050_24050_33050_38050b(this, spcAdd); //кол. с шагом
         spcAdd.width = checkPar.p_12050_15050_34050_34051_39020(spcRec, spcAdd); //поправка мм 
         checkPar.p_34077_34078(spcAdd); //задать Угол_реза_1/Угол_реза_2
 
