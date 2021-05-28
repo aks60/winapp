@@ -142,6 +142,9 @@ public class ElementDet extends Par5s {
                             }
                         }
                         break;
+                    case 33073:  //Отправочная марка фасада 
+                        message(grup);
+                        break;                        
                     case 33074:  //На прилегающей створке 
                         message(grup);
                         break;
@@ -149,9 +152,14 @@ public class ElementDet extends Par5s {
                         message(grup);
                         break;
                     case 33081:  //Для внешнего/внутреннего угла плоскости, ° 
+                    case 34081:  //Для внешнего/внутреннего угла плоскости, °                        
                         message(grup);
                         break;
-                    case 33073:  //Отправочная марка фасада 
+                    case 33083:  //Точный внутр. угол плоскости, ° 
+                        message(grup);
+                        break;
+                    case 33088:  //Точный внешний угол плоскости, °
+                    case 34088:  //Точный внешний угол плоскости, °
                         message(grup);
                         break;
                     case 33095:  //Если признак системы конструкции 
@@ -307,9 +315,6 @@ public class ElementDet extends Par5s {
                         message(grup);
                         break;
                     case 34080:  //Длина округляется с шагом, мм 
-                        message(grup);
-                        break;
-                    case 34081:  //Для внешнего/внутреннего угла плоскости, ° 
                         message(grup);
                         break;
                     case 34097:  //Трудозатраты по длине 

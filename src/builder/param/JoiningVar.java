@@ -138,7 +138,16 @@ public class JoiningVar extends Par5s {
                         }
                     }
                     break;
-                    case 1020:  //Ограничение угла к горизонту, °
+                    case 1020:  //Ограничение угла к горизонту, ° или Угол к горизонту минимальный
+                        message(rec.getInt(GRUP));
+                        break;
+                    case 1030:  //Угол к горизонту максимальный
+                        message(rec.getInt(GRUP));
+                        break;
+                    case 1031:  //Точный угол к горизонту
+                        message(rec.getInt(GRUP));
+                        break;
+                    case 1032:  //Исключить угол к горизонту, °
                         message(rec.getInt(GRUP));
                         break;
                     case 1035:  //Уровень створки 
@@ -182,12 +191,16 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 2010:  //Угол минимальный, °
+                    case 3010:  //Угол минимальный, °
+                    case 4020:  //Ограничение угла, ° или Угол минимальный, ° для ps3 
                         if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) < elemJoin.anglProf) {
                                 return false;
                             }
+                        } else if (Util.compareBetween(rec.getStr(TEXT), elemJoin.anglProf) == false) {
+                            return false;
                         }
-                        break;
+                        break;                        
                     case 2012: //Для Артикулов указан состав
                     case 3012: //Для Артикулов указан состав 
                     {
@@ -241,9 +254,9 @@ public class JoiningVar extends Par5s {
                             }
                         }
                      break;                        
-                    case 2020:  //Ограничение угла, ° 
-                    case 3020:  //Ограничение угла, ° 
-                    case 4020:  //Ограничение угла, ° или Угол минимальный, ° для ps3 
+                    case 2020:  //Ограничение угла, °  или Угол максимальный, ° для ps3 
+                    case 3020:  //Ограничение угла, °  или Угол максимальный, ° для ps3 
+                    case 4030: // Угол максимальный, °                      
                         if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) < elemJoin.anglProf) {
                                 return false;
@@ -251,8 +264,7 @@ public class JoiningVar extends Par5s {
                         } else if (Util.compareBetween(rec.getStr(TEXT), elemJoin.anglProf) == false) {
                             return false;
                         }
-                        break;
-
+                        break;                        
                     case 2021: //Точный угол, °
                     case 3021:
                     case 4031:
@@ -345,11 +357,6 @@ public class JoiningVar extends Par5s {
                         break;
                     case 4018:  //От ручки не менее, мм 
                         message(rec.getInt(GRUP));
-                        break;
-                    case 4030: // Угол максимальный, °
-                        if (rec.getFloat(TEXT) > elemJoin.anglProf) {
-                            return false;
-                        }
                         break;
                     case 4040: //Размер от оси профиля, мм. или заход импоста
                         elemJoin.joinElement1.spcRec.width += -rec.getFloat(TEXT);

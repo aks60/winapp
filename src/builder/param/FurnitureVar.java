@@ -10,6 +10,7 @@ import enums.TypeElem;
 import java.util.List;
 import builder.Wincalc;
 import builder.model.ElemSimple;
+import common.Util;
 
 //Фурнитура
 public class FurnitureVar extends Par5s {
@@ -89,10 +90,30 @@ public class FurnitureVar extends Par5s {
                     case 21037:  //Диапазон высоты вариационной ручки, мм 
                         message(rec.getInt(GRUP));
                         break;
-                    case 21040:  //Ограничение угла, ° 
+                    case 21039:  //Минимальный угол, °
+//                        if ("ps3".equals(eSetting.find(2))) {
+//                            if (rec.getFloat(TEXT) > elem5e.anglProf) {
+//                                return false;
+//                            }
+//                        } else if (Util.compareBetween(rec.getStr(TEXT), elem5e.anglProf) == false) {
+//                            return false;
+//                        }                        
                         message(rec.getInt(GRUP));
                         break;
-                    case 2145: //Исключить угол, °
+                    case 21040:  //Ограничение угла, ° или Угол максимальный, ° для ps3 
+//                        if ("ps3".equals(eSetting.find(2))) {
+//                            if (rec.getFloat(TEXT) > elem5e.anglProf) {
+//                                return false;
+//                            }
+//                        } else if (Util.compareBetween(rec.getStr(TEXT), elem5e.anglProf) == false) {
+//                            return false;
+//                        }
+                        message(rec.getInt(GRUP));
+                        break;
+                    case 21044:  //Точный угол 
+                        message(rec.getInt(GRUP));
+                        break;                        
+                    case 21045: //Исключить угол, °
                         if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) == elem5e.anglHoriz) {
                                 return false;

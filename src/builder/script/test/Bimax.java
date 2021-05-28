@@ -296,6 +296,23 @@ public final class Bimax {
             area2.addElem(new GsonElem(TypeElem.IMPOST));
             area2.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 843))
                     .addElem(new GsonElem(TypeElem.GLASS));
+            
+        } else if (prj == 508983) { //427779
+            rootGson = new GsonRoot(prj, 1, 17, "KBE / KBE 58 / 3 НЕПРЯМОУГОЛЬНЫЕ ОКНА/ДВЕРИ / АРКИ",
+                    LayoutArea.VERT, TypeElem.ARCH, 1300, 1000, 1300, 1010, 10000, 10000);
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.LEFT));
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.ARCH));
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            rootGson.addElem(new GsonElem(TypeElem.IMPOST));
+            rootGson.addElem(new GsonElem(TypeElem.GLASS));
+            GsonElem area = rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1000));
+            area.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 650))
+                    .addElem(new GsonElem(TypeElem.GLASS));
+            area.addElem(new GsonElem(TypeElem.IMPOST));
+            area.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 650))
+                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':316}"))
+                    .addElem(new GsonElem(TypeElem.GLASS));
 
         } else if (prj == 605001) {
             rootGson = new GsonRoot(prj, 1, 8, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
@@ -316,7 +333,7 @@ public final class Bimax {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.ARCH));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
-                
+            
         } else {
             return null;
         }

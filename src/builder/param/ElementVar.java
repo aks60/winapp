@@ -148,7 +148,7 @@ public class ElementVar extends Par5s {
                     case 31019:  //Правило подбора текстур 
                         message(grup);
                         break;
-                    case 31020:  //Ограничение угла к горизонту, ° (Угол к горизонту минимальный, ° для ps3)
+                    case 31020:  //Ограничение угла к горизонту, ° или Угол к горизонту минимальный, °
                         if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) > ((ElemSimple) elem5e).anglHoriz) {
                                 return false;
@@ -172,6 +172,9 @@ public class ElementVar extends Par5s {
                             }
                         }
                         break;
+                    case 31031:  //Точный угол к горизонту
+                        message(rec.getInt(GRUP));
+                        break;                        
                     case 31034:  //Если следующий артикул 
                         if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {
                             return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Uti2.joinPoint(elem5e, 1)).joinElement2.artiklRecAn) == true) ? true : false;

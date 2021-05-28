@@ -90,7 +90,8 @@ public class FillingDet extends Par5s {
                     case 14060:  //Количество на шаг 
                         mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
-                    case 14065:  //Ограничение угла, ° 
+                    case 14065:  //Ограничение угла, ° или Точный угол 
+                    case 15055:  //Ограничение угла, ° или Точный угол  
                         message(rec.getInt(GRUP));
                         break;
                     case 14066: //Исключить угол, °
@@ -181,9 +182,6 @@ public class FillingDet extends Par5s {
                         if (elem5e.spcRec.getParam("0", 31052).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                             mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         }
-                        break;
-                    case 15055:  //Ограничение угла, ° 
-                        message(rec.getInt(GRUP));
                         break;
                     case 15081:  //Если артикул профиля контура 
                         message(rec.getInt(GRUP));
