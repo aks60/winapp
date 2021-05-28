@@ -117,10 +117,15 @@ public class CheckPar {
 
     //Коэффициент
     public float p_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
-        String coef = spcAdd.getParam("0", 12030, 15030, 25035, 34030, 39030); //"[ * коэф-т ]" 
-        return ("0".equals(coef)) ? 1 : Float.parseFloat(coef.replace(",", "."));
+        //return Util.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040)); //"[ * коэф-т ]" 
+       return 1;
     }
-
+    
+    public float p_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
+        //return Util.getFloat(spcAdd.getParam("0", 12030, 15030, 25035, 34030, 39030)); //"[ / коэф-т ]"    
+        return 1;
+}
+    
     //Othe
     public float p_11030_12060_14030_15040_24030_25060_33030_34060_38030_39060(Specific spcRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam(spcAdd.quant1,

@@ -107,14 +107,14 @@ public class ElemShtulp extends ElemSimple {
 //            }
 //
 //        } else {
-            if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
-                spcRec.width = y2 - y1;
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
+        if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
+            spcRec.width = y2 - y1;
+            spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-            } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
-                spcRec.width = x2 - x1;
-                spcRec.height = artiklRec.getFloat(eArtikl.height);
-            }
+        } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
+            spcRec.width = x2 - x1;
+            spcRec.height = artiklRec.getFloat(eArtikl.height);
+        }
 //        }
     }
 
@@ -127,7 +127,7 @@ public class ElemShtulp extends ElemSimple {
         checkPar.p_34077_34078(spcAdd); //задать Угол_реза_1/Угол_реза_2
 
         //Армирование
-        if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
+        if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X107)) {
             spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
             spcAdd.anglCut1 = 90;
             spcAdd.anglCut2 = 90;
@@ -135,9 +135,10 @@ public class ElemShtulp extends ElemSimple {
 
         if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
             spcAdd.width += spcRec.width;
-            spcAdd.width = checkPar.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
-            spcAdd.width = spcAdd.width * checkPar.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"            
         }
+        spcAdd.width = checkPar.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+        spcAdd.width = spcAdd.width * checkPar.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+        spcAdd.width = spcAdd.width / checkPar.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
 
         spcRec.spcList.add(spcAdd);
     }

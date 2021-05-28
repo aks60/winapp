@@ -127,7 +127,7 @@ public class ElemGlass extends ElemSimple {
             return;
 
             //Штапик
-        } else if (TypeArtikl.X108.isType(spcAdd.artiklRec)) {
+        } else if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108)) {
 
             if (TypeElem.ARCH == owner().type()) {
                 ((AreaArch) root()).shtapik(this, spcAdd);
@@ -157,8 +157,7 @@ public class ElemGlass extends ElemSimple {
             }
 
             //Концнвой профиль, уплотнение притвора, уплотнитель заполнения
-        } else if (TypeArtikl.X135.isType(spcAdd.artiklRec)
-                || TypeArtikl.X301.isType(spcAdd.artiklRec)) {
+        } else if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X135, TypeArtikl.X301)) {
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
                 ((AreaArch) root()).padding(this, spcAdd);
 
@@ -177,9 +176,15 @@ public class ElemGlass extends ElemSimple {
                 spcRec.spcList.add(spcAdd);
 
             }
+            spcAdd.width = checkPar.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+            spcAdd.width = spcAdd.width * checkPar.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+            spcAdd.width = spcAdd.width / checkPar.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+
             //Всё остальное
         } else {
             spcAdd.width = checkPar.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+            spcAdd.width = spcAdd.width * checkPar.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+            spcAdd.width = spcAdd.width / checkPar.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
 
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {
@@ -193,8 +198,6 @@ public class ElemGlass extends ElemSimple {
                 spcRec.spcList.add(new Specific(spcAdd));
             }
         }
-        spcAdd.width = spcAdd.width * Util.getFloat(spcAdd.getParam(1, 12030, 15030, 25035, 34030, 39030)); //коэф-т увеличения длины
-        spcAdd.width = (spcAdd.width == 0) ? 0 : spcAdd.width / Util.getFloat(spcAdd.getParam(1, 12040, 15031, 25036, 34040, 39040)); //коэф-т уменьшения длины
     }
 
     @Override
