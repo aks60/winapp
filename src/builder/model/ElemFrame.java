@@ -13,6 +13,7 @@ import builder.making.CheckPar2;
 import domain.eGlasgrp;
 import enums.PKjson;
 import builder.param.ParamList;
+import java.util.Arrays;
 
 public class ElemFrame extends ElemSimple {
 
@@ -78,21 +79,21 @@ public class ElemFrame extends ElemSimple {
         spcRec.anglCut2 = anglCut2;
         spcRec.anglCut1 = anglCut1;
         spcRec.anglHoriz = anglHoriz;
-        double katet =  iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
-        
+        double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
+
         if (LayoutArea.ARCH == layout()) {
-            ((AreaArch) root()).frame(this, katet); 
+            ((AreaArch) root()).frame(this, katet);
 
         } else if (LayoutArea.TOP == layout) {
             spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(anglCut1)) + katet / Math.sin(Math.toRadians(anglCut2)));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.BOTTOM == layout) {
-            spcRec.width = x2 - x1 + + (float) (katet / Math.sin(Math.toRadians(anglCut1)) + katet / Math.sin(Math.toRadians(anglCut2)));
+            spcRec.width = x2 - x1 + +(float) (katet / Math.sin(Math.toRadians(anglCut1)) + katet / Math.sin(Math.toRadians(anglCut2)));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.LEFT == layout) {
-            spcRec.width = y2 - y1 + (float) (katet /  Math.sin(Math.toRadians(anglCut1)) + katet /  Math.sin(Math.toRadians(anglCut2)));
+            spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut1)) + katet / Math.sin(Math.toRadians(anglCut2)));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.RIGHT == layout) {
@@ -129,20 +130,22 @@ public class ElemFrame extends ElemSimple {
                 spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
             }
 
+            //Фурнитура
         } else if (TypeArtikl.X109.isType(spcAdd.artiklRec)) {
             if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
                 if ("no".equals(spcAdd.getParam("no", 25013)) == false //"Укорочение от"
                         && spcAdd.getParam(0, 25030).equals(0) == false) { //"Укорочение, мм"  
-
                     spcAdd.width = spc7d.heightHand(spcRec, spcAdd); //Укорочение от высоты ручки
                 }
             } else {
                 spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
             }
+            //Фурнитура штучная
+        } else if (TypeArtikl.X210.isType(spcAdd.artiklRec)) {
+                //spcAdd.width = spcAdd.width + height();
+                
         } else {
-            if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
-                    || spcAdd.artiklRec.getInt(eArtikl.level1) == 3
-                    || spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
+            if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
                 spcAdd.width += spcRec.width;
             }
         }

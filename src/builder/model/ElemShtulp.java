@@ -17,6 +17,7 @@ import domain.eSyssize;
 import enums.TypeJoin;
 import common.Util;
 import enums.PKjson;
+import java.util.Arrays;
 import java.util.List;
 
 public class ElemShtulp extends ElemSimple {
@@ -134,10 +135,7 @@ public class ElemShtulp extends ElemSimple {
             spcAdd.anglCut2 = 90;
         }
 
-        if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
-                || spcAdd.artiklRec.getInt(eArtikl.level1) == 3
-                || spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
-
+        if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
             spcAdd.width += spcRec.width;
             spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
             spcAdd.width = spcAdd.width * spc7d.calcCoeff(spcRec, spcAdd);//"[ * коэф-т ]"            

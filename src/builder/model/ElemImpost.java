@@ -17,12 +17,13 @@ import domain.eSyssize;
 import enums.TypeJoin;
 import common.Util;
 import enums.PKjson;
+import java.util.Arrays;
 import java.util.List;
 
 public class ElemImpost extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
-    
+
     public ElemImpost(AreaSimple owner, TypeElem type, float id, String param) {
 
         super(id, owner.iwin(), owner);
@@ -114,7 +115,7 @@ public class ElemImpost extends ElemSimple {
                 spcRec.width = x2 - x1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
-        }   
+        }
     }
 
     //@Override //Вложеная спецификация 
@@ -134,10 +135,7 @@ public class ElemImpost extends ElemSimple {
             spcAdd.anglCut2 = 90;
         }
 
-        if (spcAdd.artiklRec.getInt(eArtikl.level1) == 1
-                || spcAdd.artiklRec.getInt(eArtikl.level1) == 3
-                || spcAdd.artiklRec.getInt(eArtikl.level1) == 5) {
-            
+        if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
             spcAdd.width += spcRec.width;
             spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
             spcAdd.width = spcAdd.width * spc7d.calcCoeff(spcRec, spcAdd);//"[ * коэф-т ]"            
