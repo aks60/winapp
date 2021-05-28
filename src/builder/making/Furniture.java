@@ -17,6 +17,7 @@ import builder.param.FurnitureDet;
 import builder.param.FurnitureVar;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
+import common.Util;
 import dataset.Query;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -205,7 +206,7 @@ public class Furniture extends Cal5e {
                             areaStv.handleRec = artiklRec;
                             areaStv.handleColor = spcAdd.colorID1;
                         }
-                        spcAdd.count = Integer.valueOf(spcAdd.getParam(spcAdd.count, 24030));
+                        spcAdd.count = Util.getFloat(spcAdd.getParam(spcAdd.count, 24030));
                         spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
                         spcAdd.place = "ФУРН";
                         sideStv.addSpecific(spcAdd); //добавим спецификацию в элемент

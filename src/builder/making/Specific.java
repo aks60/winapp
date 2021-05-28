@@ -47,7 +47,7 @@ public class Specific {
     public float anglCut1 = 45;  //Угол1
     public float anglCut2 = 45;  //Угол2
     public float anglHoriz = 0; // Угол к горизонту    
-    public int count = 1;  //Кол. единиц
+    public float count = 1;  //Кол. единиц
 
     public int unit = 0;  //Ед.изм   
     public float wastePrc = 0;  //Процент отхода    

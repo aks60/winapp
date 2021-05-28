@@ -9,7 +9,7 @@ import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.making.Specific;
-import builder.making.CheckPar2;
+import builder.making.CheckPar;
 import domain.eGlasgrp;
 import enums.PKjson;
 import builder.param.ParamList;
@@ -105,12 +105,11 @@ public class ElemFrame extends ElemSimple {
     @Override //Вложеная спецификация
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
 
-        spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
-        spcAdd.quant1 += spc7d.calcKitCountStep(this, spcAdd); //кол. с шагом
-        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //поправка мм
-        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра  
-        spc7d.setAngl(spcAdd); //задать Угол_реза_1/Угол_реза_2
+        spcAdd.count = checkPar.p_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+        spcAdd.count += checkPar.p_11050_14050_24050_33050_38050(this, spcAdd); //кол. ед. с шагом
+        //spcAdd.count += checkPar.p_11050_14050_24050_33050_38050b(this, spcAdd); //кол. комп. с шагом
+        spcAdd.width = checkPar.p_12050_15050_34050_34051_39020(spcRec, spcAdd); //поправка мм
+        checkPar.p_34077_34078(spcAdd); //задать Угол_реза_1/Угол_реза_2
 
         //Армирование
         if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
@@ -135,7 +134,7 @@ public class ElemFrame extends ElemSimple {
             if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
                 if ("no".equals(spcAdd.getParam("no", 25013)) == false //"Укорочение от"
                         && spcAdd.getParam(0, 25030).equals(0) == false) { //"Укорочение, мм"  
-                    spcAdd.width = spc7d.heightHand(spcRec, spcAdd); //Укорочение от высоты ручки
+                    spcAdd.width = checkPar.p25013(spcRec, spcAdd); //Укорочение от высоты ручки
                 }
             } else {
                 spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
@@ -149,8 +148,8 @@ public class ElemFrame extends ElemSimple {
                 spcAdd.width += spcRec.width;
             }
         }
-        spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
-        spcAdd.width = spcAdd.width * spc7d.calcCoeff(spcRec, spcAdd);//"[ * коэф-т ]"
+        spcAdd.width = checkPar.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+        spcAdd.width = spcAdd.width * checkPar.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
 
         spcRec.spcList.add(spcAdd);
     }

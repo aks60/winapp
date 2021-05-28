@@ -121,12 +121,11 @@ public class ElemImpost extends ElemSimple {
     //@Override //Вложеная спецификация 
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
 
-        spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
-        spcAdd.quant1 += spc7d.calcKitCountStep(this, spcAdd); //кол. с шагом
-        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //поправка мм
-        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра 
-        spc7d.setAngl(spcAdd); //задать Угол_реза_1/Угол_реза_2
+        spcAdd.count = checkPar.p_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+        spcAdd.count += checkPar.p_11050_14050_24050_33050_38050(this, spcAdd); //кол. ед. с шагом
+        //spcAdd.quant1 += checkPar.p_11050_14050_24050_33050_38050b(this, spcAdd); //кол. с шагом
+        spcAdd.width = checkPar.p_12050_15050_34050_34051_39020(spcRec, spcAdd); //поправка мм 
+        checkPar.p_34077_34078(spcAdd); //задать Угол_реза_1/Угол_реза_2
 
         //Армирование
         if (TypeArtikl.X107.isType(spcAdd.artiklRec)) {
@@ -137,8 +136,8 @@ public class ElemImpost extends ElemSimple {
 
         if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
             spcAdd.width += spcRec.width;
-            spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
-            spcAdd.width = spcAdd.width * spc7d.calcCoeff(spcRec, spcAdd);//"[ * коэф-т ]"            
+            spcAdd.width = checkPar.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+            spcAdd.width = spcAdd.width * checkPar.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"            
         }
 
         spcRec.spcList.add(spcAdd);

@@ -113,14 +113,13 @@ public class Specification extends javax.swing.JFrame {
 
         if (listSpec != null && listSpec.isEmpty() == false) {
             int indexLast = listSpec.get(0).getVector(0).size();
-            float sum1 = 0, sum2 = 0, sum13 = 0;
-            int sum9 = 0;
+            float sum1 = 0, sum2 = 0, sum9 = 0, sum13 = 0;
             for (int i = 0; i < listSpec.size(); i++) { //заполним спецификацию
                 Vector v = listSpec.get(i).getVector(i);
                 dtm.addRow(v);
                 sum1 = sum1 + (Float) v.get(indexLast - 1);
                 sum2 = sum2 + (Float) v.get(indexLast - 2);
-                sum9 = sum9 + (int) v.get(indexLast - 9);
+                sum9 = sum9 + (Float) v.get(indexLast - 9);
                 sum13 = sum13 + (Float) v.get(indexLast - 13);
             }
             Vector vectorLast = new Vector();
@@ -704,7 +703,8 @@ public class Specification extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(12).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(13).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(14).setCellRenderer(cellRenderer1);
+        tab1.getColumnModel().getColumn(14).setCellRenderer(cellRenderer1);        
+        tab1.getColumnModel().getColumn(15).setCellRenderer(cellRenderer1);       
         tab1.getColumnModel().getColumn(17).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(18).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(19).setCellRenderer(cellRenderer3);

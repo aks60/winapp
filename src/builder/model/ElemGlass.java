@@ -118,11 +118,10 @@ public class ElemGlass extends ElemSimple {
     @Override //Вложеная спецификация 
     public void addSpecific(Specific spcAdd) {
 
-        spcAdd.count = spc7d.calcCount(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count += spc7d.calcCountStep(this, spcAdd); //кол. ед. с шагом
-        spcAdd.quant1 += spc7d.calcKitCountStep(this, spcAdd); //кол. с шагом
-        spcAdd.width = spc7d.calcAmountMetr(spcRec, spcAdd); //поправка мм
-        spcAdd.quant1 = spc7d.calcAmount(spcRec, spcAdd); //количество от параметра 
+        spcAdd.count = checkPar.p_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+        spcAdd.count += checkPar.p_11050_14050_24050_33050_38050(this, spcAdd); //кол. ед. с шагом
+        //spcAdd.quant1 += checkPar.p_11050_14050_24050_33050_38050b(this, spcAdd); //кол. с шагом
+        spcAdd.width = checkPar.p_12050_15050_34050_34051_39020(spcRec, spcAdd); //поправка мм
 
         //Стеклопакет
         if (TypeArtikl.X502.isType(spcAdd.artiklRec)) {
@@ -181,7 +180,7 @@ public class ElemGlass extends ElemSimple {
             }
             //Всё остальное
         } else {
-            spcAdd.width = spc7d.calcAmountLenght(spcRec, spcAdd); //длина мм
+            spcAdd.width = checkPar.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
 
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {
