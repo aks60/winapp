@@ -75,11 +75,23 @@ public class FillingVar extends Par5s {
                             return false;
                         }
                     case 13082:  //Макс. внутр. угол плоскости, °
-                        break;
+                        if ("ps3".equals(eSetting.find(2))) {
+                            if (elem5e.anglPlane[1] > rec.getFloat(TEXT)) {
+                                return false;
+                            }
+                        }
                     case 13086:  //Мин. внешний угол плоскости, °
-                        break;
+                        if ("ps3".equals(eSetting.find(2))) {
+                            if (elem5e.anglPlane[2] > rec.getFloat(TEXT)) {
+                                return false;
+                            }
+                        }
                     case 13087:  //Макс. внешний угол плоскости, °
-                        break;
+                        if ("ps3".equals(eSetting.find(2))) {
+                            if (elem5e.anglPlane[3] > rec.getFloat(TEXT)) {
+                                return false;
+                            }
+                        }
                     case 13095:  //Если признак системы конструкции 
                         message(rec.getInt(GRUP));
                         break;
