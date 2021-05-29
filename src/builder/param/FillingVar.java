@@ -7,8 +7,8 @@ import domain.eSystree;
 import enums.TypeElem;
 import java.util.List;
 import builder.Wincalc;
+import builder.making.CheckPar;
 import builder.model.ElemGlass;
-import common.Util;
 import domain.eSetting;
 
 //Заполнения
@@ -68,10 +68,10 @@ public class FillingVar extends Par5s {
                         break;
                     case 13081:  //Для внешнего/внутреннего угла плоскости, ° или Мин. внутр. угол плоскости, ° 
                         if ("ps3".equals(eSetting.find(2))) {
-                            if (rec.getFloat(TEXT) != elem5e.anglHoriz) {
+                            if (elem5e.anglPlane[0] > rec.getFloat(TEXT)) {
                                 return false;
                             }
-                        } else if (Util.compareBetween(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
+                        } else if (CheckPar1.p_13081_13082_13086_13087(elem5e, rec.getStr(TEXT))) {
                             return false;
                         }
                     case 13082:  //Макс. внутр. угол плоскости, °

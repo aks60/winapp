@@ -93,4 +93,8 @@ public class CheckPar1 {
         return true;
     }
     
+    static boolean p_13081_13082_13086_13087(ElemSimple elem5e, String txt) {
+        return true;
+    }    
+    
 }

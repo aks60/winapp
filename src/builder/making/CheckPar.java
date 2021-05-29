@@ -45,24 +45,24 @@ public class CheckPar {
     public float p_11050_14050_24050_33050_38050(ElemSimple elem5e, Specific spcAdd) {
 
         //if (UseUnit.PIE.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
-            int step = Integer.valueOf(spcAdd.getParam(-1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
-            if (step != -1) {
-                float width_begin = Util.getFloat(spcAdd.getParam(0, 11040, 14040, 24040, 33040, 38040)); //Порог расчета, мм
-                int count_step = Integer.valueOf(spcAdd.getParam(1, 11060, 14060, 24060, 33060, 38060)); //"Количество на шаг"
-                float width_next = elem5e.length() - width_begin;
+        int step = Integer.valueOf(spcAdd.getParam(-1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
+        if (step != -1) {
+            float width_begin = Util.getFloat(spcAdd.getParam(0, 11040, 14040, 24040, 33040, 38040)); //Порог расчета, мм
+            int count_step = Integer.valueOf(spcAdd.getParam(1, 11060, 14060, 24060, 33060, 38060)); //"Количество на шаг"
+            float width_next = elem5e.length() - width_begin;
 
-                int count = (int) width_next / step;
-                if (count_step == 1) {
-                    if(count < 1) {
-                        return 1;
-                    }                    
-                    return (width_next % step > 0) ? ++count : count;
-                } else {
-                    int count2 = (int) width_next / step;
-                    int count3 = (int) (width_next % step) / (step / count_step);
-                    return ((width_next % step) % (step / count_step) > 0) ? count2 * count_step + count3 + 1 : count2 * count_step + count3;
+            int count = (int) width_next / step;
+            if (count_step == 1) {
+                if (count < 1) {
+                    return 1;
                 }
+                return (width_next % step > 0) ? ++count : count;
+            } else {
+                int count2 = (int) width_next / step;
+                int count3 = (int) (width_next % step) / (step / count_step);
+                return ((width_next % step) % (step / count_step) > 0) ? count2 * count_step + count3 + 1 : count2 * count_step + count3;
             }
+        }
         //}
         return 0;
     }
@@ -93,11 +93,11 @@ public class CheckPar {
     public float p_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040)); //"[ * коэф-т ]" 
     }
-    
+
     public float p_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030)); //"[ / коэф-т ]"    
-}
-    
+    }
+
     //Othe
     public float p_11030_12060_14030_15040_24030_25060_33030_34060_38030_39060(Specific spcRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam(spcAdd.quant1,
@@ -184,4 +184,4 @@ P13081(13081, "Для внешнего/внутреннего угла плос�
 P31081(31081, "Для внешнего/внутреннего угла плоскости, °", check_FLOAT_LIST2),
 P33081(33081, "Для внешнего/внутреннего угла плоскости, °", check_FLOAT_LIST2),
 P34081(34081, "Для внешнего/внутреннего угла плоскости, °", check_FLOAT_LIST2),
-*/
+ */

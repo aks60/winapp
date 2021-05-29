@@ -17,7 +17,9 @@ public abstract class ElemSimple extends Com5t {
 
     public float anglCut1 = 45; //Угол реза рамы
     public float anglCut2 = 45; //Угол реза рамы
+    public float anglPlane[] = {0,0,0,0}; //Мин/мах внутренний и мин/мах внешний угол к плоскости
     public float anglHoriz = -1; //угол к горизонту
+    
     public Specific spcRec = null; //спецификация элемента
     protected CheckPar checkPar = null;
     public Color borderColor = Color.BLACK;
