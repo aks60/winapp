@@ -17,7 +17,6 @@ import java.util.Dictionary;
 //Соединения
 public class JoiningVar extends Par5s {
 
-    //private int[] parConv = {1005, 1008, 1010, 1011, 1012, 1013, 1020, 1040, 1085, 1099, 2005, 2012, 2013, 2020, 2030, 2061, 2099, 3002, 3003, 3005, 3015, 3020, 3031, 3050, 3099, 4002, 4005, 4011, 4012, 4013, 4015, 4018, 4020, 4040, 4044, 4085, 4095, 4099};
     //Соединения
     public JoiningVar(Wincalc iwin) {
         super(iwin);
@@ -217,7 +216,7 @@ public class JoiningVar extends Par5s {
                         } else if (Util.compareBetween(rec.getStr(TEXT), elemJoin.anglProf) == false) {
                             return false;
                         }
-                        break;                        
+                        break;
                     case 2012: //Для Артикулов указан состав
                     case 3012: //Для Артикулов указан состав 
                     {
@@ -244,8 +243,8 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                     case 2015:  //Ориентация Артикула1/Артикула2, ° или Ориентация Артикула 1 
-                    case 3015:  
-                    case 4015:  
+                    case 3015:
+                    case 4015:
                         if ("ps3".equals(eSetting.find(2))) {
                             List<String> list = ParamList.find(grup).dict();
                             if ("горизонтально".equals(rec.getStr(TEXT)) && (elemJoin.joinElement1.anglHoriz == 0 || elemJoin.joinElement1.anglHoriz == 180) == false) { //горизонтально
@@ -254,14 +253,14 @@ public class JoiningVar extends Par5s {
                                 return false;
                             }
                         } else {
-                            if(Util.containsNumb(rec.getStr(TEXT), elemJoin.joinElement1.anglHoriz, elemJoin.joinElement2.anglHoriz) == false) {
+                            if (Util.containsNumb(rec.getStr(TEXT), elemJoin.joinElement1.anglHoriz, elemJoin.joinElement2.anglHoriz) == false) {
                                 return false;
                             }
                         }
                         break;
                     case 2016:  //Ориентация Артикула 2 
-                    case 3016:  
-                    case 4016:  
+                    case 3016:
+                    case 4016:
                         if ("ps3".equals(eSetting.find(2))) {
                             List<String> list = ParamList.find(grup).dict();
                             if ("горизонтально".equals(rec.getStr(TEXT)) && (elemJoin.joinElement2.anglHoriz == 0 || elemJoin.joinElement2.anglHoriz == 180) == false) { //горизонтально
@@ -270,7 +269,7 @@ public class JoiningVar extends Par5s {
                                 return false;
                             }
                         }
-                     break;                        
+                        break;
                     case 2020:  //Ограничение угла, °  или Угол максимальный, ° для ps3 
                     case 3020:  //Ограничение угла, °  или Угол максимальный, ° для ps3 
                     case 4030: // Угол максимальный, °                      
@@ -281,7 +280,7 @@ public class JoiningVar extends Par5s {
                         } else if (Util.compareBetween(rec.getStr(TEXT), elemJoin.anglProf) == false) {
                             return false;
                         }
-                        break;                        
+                        break;
                     case 2021: //Точный угол, °
                     case 3021:
                     case 4031:
@@ -431,3 +430,5 @@ public class JoiningVar extends Par5s {
         return true;
     }
 }
+//private int[] parConv = {1005, 1008, 1010, 1011, 1012, 1013, 1020, 1040, 1085, 1099, 2005, 2012, 2013, 2020, 2030, 2061, 2099, 3002, 3003, 3005, 3015, 3020, 3031, 3050, 3099, 4002, 4005, 4011, 4012, 4013, 4015, 4018, 4020, 4040, 4044, 4085, 4095, 4099};
+

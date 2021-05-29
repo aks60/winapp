@@ -71,7 +71,6 @@ public class ElementDet extends Par5s {
                         break;
                     case 33011:
                     case 34011: //Толщина внешнего/внутреннего заполнения, мм ("Толщина заполнения, мм") 
-                    {
                         if ("ps3".equals(eSetting.find(2))) {
 //                            LinkedList<ElemSimple> e = elem5e.owner().listElem(TypeElem.GLASS);
 //                            float depth = e.getFirst().artiklRec.getFloat(eArtikl.depth);
@@ -82,8 +81,7 @@ public class ElementDet extends Par5s {
                         } else {
                             message(grup);
                         }
-                    }
-                    break;
+                        break;
                     case 33017:  //Код системы содержит строку 
                         message(grup);
                         break;
@@ -144,7 +142,7 @@ public class ElementDet extends Par5s {
                         break;
                     case 33073:  //Отправочная марка фасада 
                         message(grup);
-                        break;                        
+                        break;
                     case 33074:  //На прилегающей створке 
                         message(grup);
                         break;
@@ -166,7 +164,7 @@ public class ElementDet extends Par5s {
                     case 34095:  //Если признак системы конструкции
                     case 38095:  //Если признак системы конструкции
                     case 39095:  //Если признак системы конструкции
-                    case 40095: //Если признак системы конструкции 
+                    case 40095:  //Если признак системы конструкции 
                         if (!Uti5.check_STRING_33095_34095_38095_39095_40095(rec.getStr(TEXT), elem5e, iwin.nuni)) {
                             return false;
                         }

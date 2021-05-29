@@ -17,8 +17,6 @@ import enums.TypeElem;
 //Заполнения
 public class FillingDet extends Par5s {
 
-    //private int[] par = {14000, 14030, 14040, 14050, 14060, 14065, 14068, 15000, 15005, 15011, 15013, 15027, 15030, 15040, 15045, 15050, 15055, 15068, 15069};
-
     public FillingDet(Wincalc iwin) {
         super(iwin);
     }
@@ -61,8 +59,8 @@ public class FillingDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 14005:  //Тип проема 
-                    case 15005: 
-                        if(!Uti5.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                    case 15005:
+                        if (!Uti5.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                             return false;
                         }
                         break;
@@ -70,8 +68,8 @@ public class FillingDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 14009:  //Арочное заполнение 
-                    case 15009:  
-                        if(elem5e.owner().type() != TypeElem.ARCH){
+                    case 15009:
+                        if (elem5e.owner().type() != TypeElem.ARCH) {
                             return false;
                         }
                         break;
@@ -204,3 +202,5 @@ public class FillingDet extends Par5s {
         return true;
     }
 }
+//private int[] par = {14000, 14030, 14040, 14050, 14060, 14065, 14068, 15000, 15005, 15011, 15013, 15027, 15030, 15040, 15045, 15050, 15055, 15068, 15069};
+
