@@ -118,9 +118,9 @@ public class ElemGlass extends ElemSimple {
     @Override //Вложеная спецификация 
     public void addSpecific(Specific spcAdd) {
 
-        spcAdd.count = checkPar.p_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count += checkPar.p_11050_14050_24050_33050_38050(this, spcAdd); //кол. ед. с шагом
-        spcAdd.width = checkPar.p_12050_15050_34050_34051_39020(spcRec, spcAdd); //поправка мм
+        spcAdd.count = uti3.p_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+        spcAdd.count += uti3.p_11050_14050_24050_33050_38050(this, spcAdd); //кол. ед. с шагом
+        spcAdd.width = uti3.p_12050_15050_34050_34051_39020(spcRec, spcAdd); //поправка мм
 
         //Стеклопакет
         if (TypeArtikl.X502.isType(spcAdd.artiklRec)) {
@@ -176,15 +176,15 @@ public class ElemGlass extends ElemSimple {
                 spcRec.spcList.add(spcAdd);
 
             }
-            spcAdd.width = checkPar.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
-            spcAdd.width = spcAdd.width * checkPar.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
-            spcAdd.width = spcAdd.width / checkPar.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+            spcAdd.width = uti3.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+            spcAdd.width = spcAdd.width * uti3.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+            spcAdd.width = spcAdd.width / uti3.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
 
             //Всё остальное
         } else {
-            spcAdd.width = checkPar.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
-            spcAdd.width = spcAdd.width * checkPar.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
-            spcAdd.width = spcAdd.width / checkPar.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+            spcAdd.width = uti3.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+            spcAdd.width = spcAdd.width * uti3.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+            spcAdd.width = spcAdd.width / uti3.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
 
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {

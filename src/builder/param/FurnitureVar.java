@@ -13,9 +13,7 @@ import builder.model.ElemSimple;
 import common.Util;
 
 //Фурнитура
-public class FurnitureVar extends Par5s {
-
-    private int[] par = {2101, 2104, 2140, 2185};
+public class FurnitureVar extends Par5s {    
 
     public FurnitureVar(Wincalc iwin) {
         super(iwin);
@@ -105,7 +103,6 @@ public class FurnitureVar extends Par5s {
                         } else if (Util.compareBetween(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
                             return false;
                         }
-                        message(rec.getInt(GRUP));
                         break;
                     case 21044:  //Точный угол 
                         if ("ps3".equals(eSetting.find(2))) {
@@ -142,3 +139,4 @@ public class FurnitureVar extends Par5s {
         return true;
     }
 }
+//private int[] par = {2101, 2104, 2140, 2185};

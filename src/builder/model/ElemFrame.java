@@ -105,10 +105,10 @@ public class ElemFrame extends ElemSimple {
     @Override //Вложеная спецификация
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
 
-        spcAdd.count = checkPar.p_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count += checkPar.p_11050_14050_24050_33050_38050(this, spcAdd); //кол. ед. с шагом
-        spcAdd.width = checkPar.p_12050_15050_34050_34051_39020(spcRec, spcAdd); //поправка мм
-        checkPar.p_34077_34078(spcAdd); //задать Угол_реза_1/Угол_реза_2
+        spcAdd.count = uti3.p_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+        spcAdd.count += uti3.p_11050_14050_24050_33050_38050(this, spcAdd); //кол. ед. с шагом
+        spcAdd.width = uti3.p_12050_15050_34050_34051_39020(spcRec, spcAdd); //поправка мм
+        uti3.p_34077_34078(spcAdd); //задать Угол_реза_1/Угол_реза_2
 
         //Армирование
         if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X107)) {
@@ -133,7 +133,7 @@ public class ElemFrame extends ElemSimple {
             if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
                 if ("no".equals(spcAdd.getParam("no", 25013)) == false //"Укорочение от"
                         && spcAdd.getParam(0, 25030).equals(0) == false) { //"Укорочение, мм"  
-                    spcAdd.width = checkPar.p_25013(spcRec, spcAdd); //Укорочение от высоты ручки
+                    spcAdd.width = uti3.p_25013(spcRec, spcAdd); //Укорочение от высоты ручки
                 }
             } else {
                 spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
@@ -147,9 +147,9 @@ public class ElemFrame extends ElemSimple {
                 spcAdd.width += spcRec.width;
             }
         }
-        spcAdd.width = checkPar.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
-        spcAdd.width = spcAdd.width * checkPar.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
-        spcAdd.width = spcAdd.width / checkPar.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+        spcAdd.width = uti3.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+        spcAdd.width = spcAdd.width * uti3.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+        spcAdd.width = spcAdd.width / uti3.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
 
         spcRec.spcList.add(spcAdd);
     }

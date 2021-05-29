@@ -21,14 +21,14 @@ public abstract class ElemSimple extends Com5t {
     public float anglHoriz = -1; //угол к горизонту
     
     public Specific spcRec = null; //спецификация элемента
-    protected Uti3 checkPar = null;
+    protected Uti3 uti3 = null;
     public Color borderColor = Color.BLACK;
     public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);        
         spcRec = new Specific(id, this);
-        checkPar = new Uti3(this);
+        uti3 = new Uti3(this);
     }
 
     //Клик мышки попадает в контур элемента
