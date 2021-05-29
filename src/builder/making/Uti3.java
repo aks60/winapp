@@ -9,16 +9,16 @@ import common.Util;
 import domain.eSetting;
 import java.util.List;
 
-public class CheckPar {
+public class Uti3 {
 
     protected ElemSimple elem5e = null;
 
-    public CheckPar(ElemSimple elem5e) {
+    public Uti3(ElemSimple elem5e) {
         this.elem5e = elem5e;
     }
 
     //Укорочение мм от высоты ручки
-    public float p25013(Specific spcRec, Specific spcAdd) {
+    public float p_25013(Specific spcRec, Specific spcAdd) {
 
         String ps = spcAdd.getParam("null", 25013); //Укорочение от
         List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             

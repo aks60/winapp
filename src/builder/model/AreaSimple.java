@@ -23,10 +23,9 @@ import java.util.Collections;
 import java.util.List;
 import startup.Main;
 import builder.Wincalc;
-import builder.param.Par5s;
+import common.Util;
 import enums.PKjson;
 import frames.Uti4;
-import frames.swing.DefMutableTreeNode;
 import java.awt.BasicStroke;
 
 public class AreaSimple extends Com5t {
@@ -159,16 +158,16 @@ public class AreaSimple extends Com5t {
                         elemImp.anglHoriz = 90;
 
                         if (elem5e.inside(elemImp.x1, elemImp.y1) == true
-                                && iwin().mapJoin.get(Uti2.joinPoint(elemImp, 1)) == null) { //T - соединение верхнее                       
+                                && iwin().mapJoin.get(Util.joinPoint(elemImp, 1)) == null) { //T - соединение верхнее                       
                             el.id = id() + 1f / 100;
                             el.init(TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e);
-                            iwin().mapJoin.put(Uti2.joinPoint(elemImp, 1), el);
+                            iwin().mapJoin.put(Util.joinPoint(elemImp, 1), el);
 
                         } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
-                                && iwin().mapJoin.get(Uti2.joinPoint(elemImp, 0)) == null) { //T - соединение нижнее                        
+                                && iwin().mapJoin.get(Util.joinPoint(elemImp, 0)) == null) { //T - соединение нижнее                        
                             el.id = id() + 2f / 100;
                             el.init(TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e);
-                            iwin().mapJoin.put(Uti2.joinPoint(elemImp, 0), el);
+                            iwin().mapJoin.put(Util.joinPoint(elemImp, 0), el);
                         }
 
                         //Элементы расположены по вертикали
@@ -176,16 +175,16 @@ public class AreaSimple extends Com5t {
                         elemImp.anglHoriz = 0;
 
                         if (elem5e.inside(elemImp.x1, elemImp.y1) == true
-                                && iwin().mapJoin.get(Uti2.joinPoint(elemImp, 0)) == null) { //T - соединение левое                        
+                                && iwin().mapJoin.get(Util.joinPoint(elemImp, 0)) == null) { //T - соединение левое                        
                             el.id = id() + 3f / 100;
                             el.init(TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e);
-                            iwin().mapJoin.put(Uti2.joinPoint(elemImp, 0), el);
+                            iwin().mapJoin.put(Util.joinPoint(elemImp, 0), el);
 
                         } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
-                                && iwin().mapJoin.get(Uti2.joinPoint(elemImp, 1)) == null) { //T - соединение правое                        
+                                && iwin().mapJoin.get(Util.joinPoint(elemImp, 1)) == null) { //T - соединение правое                        
                             el.id = id() + 4f / 100;
                             el.init(TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e);
-                            iwin().mapJoin.put(Uti2.joinPoint(elemImp, 1), el);
+                            iwin().mapJoin.put(Util.joinPoint(elemImp, 1), el);
                         }
                     }
                 }

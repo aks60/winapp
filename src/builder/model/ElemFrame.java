@@ -9,7 +9,7 @@ import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.making.Specific;
-import builder.making.CheckPar;
+import builder.making.Uti3;
 import domain.eGlasgrp;
 import enums.PKjson;
 import builder.param.ParamList;
@@ -133,7 +133,7 @@ public class ElemFrame extends ElemSimple {
             if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
                 if ("no".equals(spcAdd.getParam("no", 25013)) == false //"Укорочение от"
                         && spcAdd.getParam(0, 25030).equals(0) == false) { //"Укорочение, мм"  
-                    spcAdd.width = checkPar.p25013(spcRec, spcAdd); //Укорочение от высоты ручки
+                    spcAdd.width = checkPar.p_25013(spcRec, spcAdd); //Укорочение от высоты ручки
                 }
             } else {
                 spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;

@@ -32,7 +32,7 @@ public class ElementDet extends Par5s {
 
                     case 33000: //Для технологического кода контейнера 
                     case 34000: //Для технологического кода контейнера 
-                        if (!CheckPar1.check_STRING_33000_34000(rec.getStr(TEXT), elem5e)) {
+                        if (!Uti.check_STRING_33000_34000(rec.getStr(TEXT), elem5e)) {
                             return false;
                         }
                         break;
@@ -167,7 +167,7 @@ public class ElementDet extends Par5s {
                     case 38095:  //Если признак системы конструкции
                     case 39095:  //Если признак системы конструкции
                     case 40095: //Если признак системы конструкции 
-                        if (!CheckPar1.check_STRING_33095_34095_38095_39095_40095(rec.getStr(TEXT), elem5e, iwin.nuni)) {
+                        if (!Uti.check_STRING_33095_34095_38095_39095_40095(rec.getStr(TEXT), elem5e, iwin.nuni)) {
                             return false;
                         }
                         break;
@@ -249,7 +249,7 @@ public class ElementDet extends Par5s {
                         break;
                     case 34066:  //Если номер стороны в контуре 
                     case 33066:  //Если номер стороны в контуре
-                        if (!CheckPar1.check_INT_33066_34066(rec.getStr(TEXT), elem5e)) {
+                        if (!Uti.check_INT_33066_34066(rec.getStr(TEXT), elem5e)) {
                             return false;
                         }
                         break;

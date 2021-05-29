@@ -7,11 +7,10 @@ import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutArea;
 import enums.TypeElem;
-import static java.awt.SystemColor.TEXT;
 import java.util.Arrays;
 import java.util.List;
 
-public class CheckPar1 {
+public class Uti {
 
     //Тип заполнения 
     static boolean dic_37009(String txt, ElemSimple elem5e) {

@@ -15,7 +15,6 @@ import java.util.Map;
 import builder.Wincalc;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
-import builder.model.Uti2;
 import common.Util;
 import enums.TypeArtikl;
 
@@ -161,9 +160,9 @@ public class ElementVar extends Par5s {
                         break;
                     case 31033: //Если предыдущий артикул 
                         if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {
-                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Uti2.joinPoint(elem5e, 0)).joinElement2.artiklRecAn) == true) ? true : false;
+                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Util.joinPoint(elem5e, 0)).joinElement2.artiklRecAn) == true) ? true : false;
                         } else {
-                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Uti2.joinPoint(elem5e, 0)).joinElement1.artiklRecAn) == true) ? true : false;
+                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Util.joinPoint(elem5e, 0)).joinElement1.artiklRecAn) == true) ? true : false;
                         }
                     case 31030:  //Угол к горизонту максимальный, °
                         if ("ps3".equals(eSetting.find(2))) {
@@ -181,9 +180,9 @@ public class ElementVar extends Par5s {
                         break;                        
                     case 31034:  //Если следующий артикул 
                         if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {
-                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Uti2.joinPoint(elem5e, 1)).joinElement2.artiklRecAn) == true) ? true : false;
+                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Util.joinPoint(elem5e, 1)).joinElement2.artiklRecAn) == true) ? true : false;
                         } else {
-                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Uti2.joinPoint(elem5e, 1)).joinElement2.artiklRecAn) == true) ? true : false;
+                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Util.joinPoint(elem5e, 1)).joinElement2.artiklRecAn) == true) ? true : false;
                         }
                     case 31035:  //Уровень створки 
                         message(grup);
@@ -295,12 +294,12 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 37008:  //Тип проема 
-                        if (!CheckPar1.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                        if (!Uti.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                             return false;
                         }
                         break;
                     case 37009:  //Тип заполнения 
-                        if (!CheckPar1.dic_37009(rec.getStr(TEXT), elem5e)) {
+                        if (!Uti.dic_37009(rec.getStr(TEXT), elem5e)) {
                             return false;
                         }
                         break;

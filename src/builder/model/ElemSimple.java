@@ -11,7 +11,7 @@ import enums.UseArtiklTo;
 import java.awt.Color;
 import java.util.HashMap;
 import builder.Wincalc;
-import builder.making.CheckPar;
+import builder.making.Uti3;
 
 public abstract class ElemSimple extends Com5t {
 
@@ -21,14 +21,14 @@ public abstract class ElemSimple extends Com5t {
     public float anglHoriz = -1; //угол к горизонту
     
     public Specific spcRec = null; //спецификация элемента
-    protected CheckPar checkPar = null;
+    protected Uti3 checkPar = null;
     public Color borderColor = Color.BLACK;
     public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);        
         spcRec = new Specific(id, this);
-        checkPar = new CheckPar(this);
+        checkPar = new Uti3(this);
     }
 
     //Клик мышки попадает в контур элемента
