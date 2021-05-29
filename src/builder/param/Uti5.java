@@ -10,7 +10,7 @@ import enums.TypeElem;
 import java.util.Arrays;
 import java.util.List;
 
-public class Uti {
+public class Uti5 {
 
     //Тип заполнения 
     static boolean dic_37009(String txt, ElemSimple elem5e) {

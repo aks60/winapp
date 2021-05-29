@@ -294,12 +294,12 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 37008:  //Тип проема 
-                        if (!Uti.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                        if (!Uti5.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                             return false;
                         }
                         break;
                     case 37009:  //Тип заполнения 
-                        if (!Uti.dic_37009(rec.getStr(TEXT), elem5e)) {
+                        if (!Uti5.dic_37009(rec.getStr(TEXT), elem5e)) {
                             return false;
                         }
                         break;

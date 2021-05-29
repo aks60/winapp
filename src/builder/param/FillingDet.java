@@ -62,7 +62,7 @@ public class FillingDet extends Par5s {
                         break;
                     case 14005:  //Тип проема 
                     case 15005: 
-                        if(!Uti.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                        if(!Uti5.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                             return false;
                         }
                         break;
