@@ -150,11 +150,11 @@ public class ElementVar extends Par5s {
                         break;
                     case 31020:  //Ограничение угла к горизонту, ° или Угол к горизонту минимальный, °
                         if ("ps3".equals(eSetting.find(2))) {
-                            if (rec.getFloat(TEXT) > ((ElemSimple) elem5e).anglHoriz) {
+                            if (elem5e.anglHoriz < rec.getFloat(TEXT)) {
                                 return false;
                             }
                         } else {
-                            if (Util.containsNumb(rec.getStr(TEXT), ((ElemSimple) elem5e).anglHoriz) == false) {
+                            if (Util.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
                                 return false;
                             }
                         }
@@ -167,13 +167,17 @@ public class ElementVar extends Par5s {
                         }
                     case 31030:  //Угол к горизонту максимальный, °
                         if ("ps3".equals(eSetting.find(2))) {
-                            if (rec.getFloat(TEXT) < ((ElemSimple) elem5e).anglHoriz) {
+                            if (rec.getFloat(TEXT) < elem5e.anglHoriz) {
                                 return false;
                             }
                         }
                         break;
                     case 31031:  //Точный угол к горизонту
-                        message(rec.getInt(GRUP));
+                        if ("ps3".equals(eSetting.find(2))) {
+                            if (rec.getFloat(TEXT) != elem5e.anglHoriz) {
+                                return false;
+                            }
+                        }
                         break;                        
                     case 31034:  //Если следующий артикул 
                         if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {

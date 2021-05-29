@@ -115,7 +115,6 @@ public class JoiningVar extends Par5s {
                     case 3013:  //Для Артикулов не указан состав
                     case 4013: //Для Артикулов не указан состав  
                     {
-
                         List<Record> elementList1 = eElement.find3(elemJoin.joinElement1.artiklRec.getInt(eArtikl.code), elemJoin.joinElement1.artiklRec.getInt(eArtikl.series_id));
                         boolean substr1 = false;
                         ElementVar elementVar = new ElementVar(iwin);
@@ -139,16 +138,34 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                     case 1020:  //Ограничение угла к горизонту, ° или Угол к горизонту минимальный
-                        message(rec.getInt(GRUP));
+                        if ("ps3".equals(eSetting.find(2))) {
+                            if (elemJoin.joinElement1.anglHoriz < rec.getFloat(TEXT)) {
+                                return false;
+                            }
+                        } else if (Util.compareBetween(rec.getStr(TEXT), elemJoin.joinElement1.anglHoriz) == false) {
+                            return false;
+                        }
                         break;
                     case 1030:  //Угол к горизонту максимальный
-                        message(rec.getInt(GRUP));
+                        if ("ps3".equals(eSetting.find(2))) {
+                            if (elemJoin.joinElement1.anglHoriz > rec.getFloat(TEXT)) {
+                                return false;
+                            }
+                        }
                         break;
                     case 1031:  //Точный угол к горизонту
-                        message(rec.getInt(GRUP));
+                        if ("ps3".equals(eSetting.find(2))) {
+                            if (elemJoin.joinElement1.anglHoriz == rec.getFloat(TEXT)) {
+                                return false;
+                            }
+                        }
                         break;
                     case 1032:  //Исключить угол к горизонту, °
-                        message(rec.getInt(GRUP));
+                        if ("ps3".equals(eSetting.find(2))) {
+                            if (elemJoin.joinElement1.anglHoriz == rec.getFloat(TEXT)) {
+                                return false;
+                            }
+                        }
                         break;
                     case 1035:  //Уровень створки 
                         message(rec.getInt(GRUP));
@@ -258,7 +275,7 @@ public class JoiningVar extends Par5s {
                     case 3020:  //Ограничение угла, °  или Угол максимальный, ° для ps3 
                     case 4030: // Угол максимальный, °                      
                         if ("ps3".equals(eSetting.find(2))) {
-                            if (rec.getFloat(TEXT) < elemJoin.anglProf) {
+                            if (elemJoin.anglProf > rec.getFloat(TEXT)) {
                                 return false;
                             }
                         } else if (Util.compareBetween(rec.getStr(TEXT), elemJoin.anglProf) == false) {
