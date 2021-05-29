@@ -643,7 +643,6 @@ public class Uti4 {
             record2.set(text, ParamList.find(record.getInt(0)).def());
 
         } else if (record.size() == 1) {
-            System.out.println("УРА!!! Я НАШОЛ ТЕБЯ.");
             record2.set(text, record.getStr(0));
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
