@@ -150,8 +150,8 @@ public class AreaSimple extends Com5t {
                     
                     ElemJoining el = new ElemJoining(iwin());
                     el.anglProf = 90;
-                    elemImp.anglCut1 = 90;
-                    elemImp.anglCut2 = 90;
+                    elemImp.anglCut[0] = 90;
+                    elemImp.anglCut[1] = 90;
 
                     //Элементы расположены по горизонтали
                     if (elemImp.owner().layout() == LayoutArea.HORIZ) {

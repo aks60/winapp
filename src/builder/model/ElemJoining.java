@@ -37,6 +37,6 @@ public class ElemJoining {
 
     public String toString() {
         return "ELEM: name=" + layoutJoin.name + ", joinElement1=" + joinElement1.id() + ", joinElement2=" + joinElement2.id()
-                + ", cutAngl1=" + joinElement1.anglCut1 + ", cutAngl2=" + joinElement2.anglCut2 + ", typeJoin=" + layoutJoin + ", varJoin=" + typeJoin + ", anglProf=" + anglProf;
+                + ", cutAngl1=" + joinElement1.anglCut[0] + ", cutAngl2=" + joinElement2.anglCut[1] + ", typeJoin=" + layoutJoin + ", varJoin=" + typeJoin + ", anglProf=" + anglProf;
     }
 }

@@ -37,8 +37,8 @@ public class AreaArch extends AreaSimple {
         double ang4 = 90 - (Math.toDegrees(rad1) - (90 - ang3)); //угол реза арки
         radiusArch = r;
         elem1.anglProf = (float) ang4;
-        elem1.joinElement1.anglCut2 = (float) ang4;  //угол реза арки
-        elem1.joinElement2.anglCut1 = (float) ang3;  //угол реза рамы
+        elem1.joinElement1.anglCut[1] = (float) ang4;  //угол реза арки
+        elem1.joinElement2.anglCut[0] = (float) ang3;  //угол реза рамы
         iwin().mapJoin.put(x1 + ":" + y1, elem1);
 
         //Угловое соединение правое верхнее
@@ -46,8 +46,8 @@ public class AreaArch extends AreaSimple {
         elem2.id = id() + .2f;
         elem2.init(TypeJoin.VAR20, LayoutJoin.RBOT, mapFrame.get(LayoutArea.RIGHT), mapFrame.get(LayoutArea.ARCH));
         elem2.anglProf = (float) ang4;
-        elem2.joinElement2.anglCut1 = (float) ang4;  //угол реза арки
-        elem2.joinElement1.anglCut2 = (float) ang3;  //угол реза рамы                             
+        elem2.joinElement2.anglCut[0] = (float) ang4;  //угол реза арки
+        elem2.joinElement1.anglCut[1] = (float) ang3;  //угол реза рамы                             
         iwin().mapJoin.put(x2 + ":" + y1, elem2);
 
         //Угловое соединение левое нижнее
@@ -69,7 +69,7 @@ public class AreaArch extends AreaSimple {
         AreaArch areaArch = (AreaArch) root();
         double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
         elemFrame.length = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
-        elemFrame.spcRec.width = elemFrame.length + (float) (katet / Math.sin(Math.toRadians(elemFrame.anglCut1)) + katet / Math.sin(Math.toRadians(elemFrame.anglCut2)));
+        elemFrame.spcRec.width = elemFrame.length + (float) (katet / Math.sin(Math.toRadians(elemFrame.anglCut[0])) + katet / Math.sin(Math.toRadians(elemFrame.anglCut[1])));
         elemFrame.spcRec.height = artiklRec.getFloat(eArtikl.height);
     }
 

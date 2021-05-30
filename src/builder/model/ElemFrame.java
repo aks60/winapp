@@ -76,8 +76,8 @@ public class ElemFrame extends ElemSimple {
         spcRec.colorID1 = colorID1;
         spcRec.colorID2 = colorID2;
         spcRec.colorID3 = colorID3;
-        spcRec.anglCut2 = anglCut2;
-        spcRec.anglCut1 = anglCut1;
+        spcRec.anglCut2 = anglCut[1];
+        spcRec.anglCut1 = anglCut[0];
         spcRec.anglHoriz = anglHoriz;
         double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
 
@@ -85,19 +85,19 @@ public class ElemFrame extends ElemSimple {
             ((AreaArch) root()).frame(this, katet);
 
         } else if (LayoutArea.TOP == layout) {
-            spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(anglCut1)) + katet / Math.sin(Math.toRadians(anglCut2)));
+            spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.BOTTOM == layout) {
-            spcRec.width = x2 - x1 + +(float) (katet / Math.sin(Math.toRadians(anglCut1)) + katet / Math.sin(Math.toRadians(anglCut2)));
+            spcRec.width = x2 - x1 + +(float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.LEFT == layout) {
-            spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut1)) + katet / Math.sin(Math.toRadians(anglCut2)));
+            spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.RIGHT == layout) {
-            spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut1)) + katet / Math.sin(Math.toRadians(anglCut2)));
+            spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
         }
     }
@@ -123,8 +123,8 @@ public class ElemFrame extends ElemSimple {
                 spcAdd.width += y2 - y1;
             }
             if ("от внутреннего угла".equals(spcAdd.getParam(null, 34010))) {
-                Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
-                Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
+                Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
+                Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));
                 spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
             }
 
@@ -200,6 +200,6 @@ public class ElemFrame extends ElemSimple {
 
     @Override
     public String toString() {
-        return super.toString() + ", anglCut=" + anglCut1 + ", anglCut=" + anglCut1;
+        return super.toString() + ", anglCut1=" + anglCut[0] + ", anglCut2=" + anglCut[1];
     }
 }

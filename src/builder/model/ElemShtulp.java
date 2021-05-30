@@ -157,6 +157,6 @@ public class ElemShtulp extends ElemSimple {
 
     @Override
     public String toString() {
-        return super.toString() + ", anglCut=" + anglCut1 + ", anglCut=" + anglCut1;
+        return super.toString() + ", anglCut1=" + anglCut[0] + ", anglCut2=" + anglCut[1];
     }
 }

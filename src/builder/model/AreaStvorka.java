@@ -152,8 +152,8 @@ public class AreaStvorka extends AreaSimple {
             mapFrame.get(LayoutArea.TOP).anglHoriz = 180;
             mapFrame.get(LayoutArea.LEFT).anglHoriz = 270;
             mapFrame.entrySet().forEach(elem -> {
-                elem.getValue().anglCut1 = 45;
-                elem.getValue().anglCut2 = 45;
+                elem.getValue().anglCut[0] = 45;
+                elem.getValue().anglCut[1] = 45;
             });
             el.anglProf = 90;
             if (index == 0) { //Угловое соединение левое верхнее
