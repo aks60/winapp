@@ -5,6 +5,7 @@ import enums.TypeElem;
 import enums.LayoutJoin;
 import enums.TypeJoin;
 import builder.Wincalc;
+import common.Util;
 import enums.PKjson;
 
 public class AreaRectangl extends AreaSimple {

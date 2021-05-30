@@ -853,6 +853,7 @@ public class Tex extends javax.swing.JFrame {
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Systree.createFrame(Tex.this);
+                btn1.setSelected(true);
             }
         });
 }//GEN-LAST:event_mn42

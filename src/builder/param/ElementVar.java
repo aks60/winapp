@@ -8,15 +8,12 @@ import domain.eSetting;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeElem;
-import enums.TypeJoin;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import builder.Wincalc;
+import builder.model.ElemGlass;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import common.Util;
-import enums.TypeArtikl;
 
 //Составы
 public class ElementVar extends Par5s {
@@ -60,9 +57,20 @@ public class ElementVar extends Par5s {
                         }
                     }
                     break;
-                    case 31001:  //Максимальное заполнение изделия, мм 
-                        message(grup);
-                        break;
+                    case 31001: //Максимальное заполнение изделия, мм 
+                    {
+                        List<ElemGlass> glassList = elem5e.iwin().rootArea.listElem(TypeElem.GLASS);
+                        float depth = 0;
+                        for (ElemGlass glass : glassList) {
+                            if (glass.artiklRecAn.getFloat(eArtikl.depth) > depth) {
+                                depth = (glass.artiklRecAn.getFloat(eArtikl.depth));
+                            }
+                        }
+                        if (Util.compareBetween(rec.getStr(TEXT), depth) == false) {
+                            return false;
+                        }
+                    }
+                    break;
                     case 31002:  //Если профиль 
                         if ("арочный".equalsIgnoreCase(rec.getStr(TEXT)) == false && LayoutArea.ARCH == elem5e.layout() == true) {
                             return false;
@@ -72,6 +80,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31003:  //Если соединенный артикул  T-обр.
                         message(grup);
+                        //elem5e.inside()
                         break;
                     case 31004: //Если прилегающий артикул 
                         if (LayoutArea.HORIZ == elem5e.layout()) {

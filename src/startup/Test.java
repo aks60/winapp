@@ -1,6 +1,9 @@
 package startup;
 
 import builder.making.Specific;
+import builder.model.ElemImpost;
+import builder.model.ElemSimple;
+import builder.param.ElementVar;
 import frames.FrameToFile;
 import builder.script.GsonRoot;
 import builder.script.Winscript;
@@ -8,9 +11,11 @@ import common.*;
 import dataset.*;
 import com.google.gson.GsonBuilder;
 import builder.param.ParamList;
-import enums.Enam;
+import domain.eElemdet;
+import enums.TypeElem;
 import frames.DBCompare;
 import java.sql.Connection;
+import java.util.HashMap;
 import javax.swing.UIManager;
 import java.util.List;
 import java.util.UUID;
@@ -63,13 +68,13 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            //wincalc();
+            wincalc();
             //query();
             //frame();
             //json();
             //parse();
             //uid();
-            assert param() != 777 : param();
+            //param();
             
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -83,12 +88,12 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(508983, false));
+            iwin.build(builder.script.Winscript.test(601003, false));
             iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            DBCompare.iwinRec(iwin, true);
-            //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.spcRec.artikl + ":" + it.getValue().joinElement2.spcRec.artikl + ") -" + it.getValue().layoutJoin.name));           
+            //DBCompare.iwinRec(iwin, true);
+            iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.spcRec.artikl + ":" + it.getValue().joinElement2.spcRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else if (_case.equals("min")) {
             List<Integer> prjList = Winscript.models();
@@ -116,10 +121,38 @@ public class Test {
         }
     }
 
-    private static int param() {
-        return 777;
+    private static void param() {
+
+        /*Query.connection = Test.connect2();
+        Set set = new HashSet();
+        Map<String, Set> map = new HashMap();
+        for (Enam en : ParamList.values()) {
+            Set set2 = map.getOrDefault(en.text(), new HashSet());
+            set2.add(en.numb());
+            map.put(en.text(), set2);
+        }
+        for (Map.Entry<String, Set> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Set value = entry.getValue();
+            System.out.println(key + " " + value);
+        }*/
+        Query.connection = Test.connect2();
+        builder.Wincalc iwin = new builder.Wincalc();
+        iwin.build(builder.script.Winscript.test(508983, false));
+        iwin.constructiv(true);
+        HashMap<Integer, String> hmParam = new HashMap();
+        ElemSimple elem5e = new ElemImpost(iwin.rootArea, TypeElem.IMPOST, 777, "");
+        Record elemdetRec = eElemdet.up.newRecord();
+
+        ElementVar elementVar = new ElementVar(iwin);
+        //ElementDet elementDet = new ElementDet(iwin);        
+        System.out.println(elementVar.check(elem5e, elemdetRec));
+
+//        JoiningVar joiningVar = new JoiningVar(iwin);        
+//        JoiningDet joiningDet = new JoiningDet(iwin);        
+//        joiningDet.check(hmParam, elem5e, elemdetRec);
     }
-    
+
     private static void frame() throws Exception {
 
         Query.connection = Test.connect2();

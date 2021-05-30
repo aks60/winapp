@@ -89,13 +89,14 @@ public class Uti3 {
         return spcAdd.width;
     }
 
-    //Коэффициент
+    //Коэффициент, [ * коэф-т ]
     public float p_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
-        return Util.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040)); //"[ * коэф-т ]" 
+        return Util.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));  
     }
 
+    //Коэффициент, [ / коэф-т ]
     public float p_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
-        return Util.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030)); //"[ / коэф-т ]"    
+        return Util.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));    
     }
 
     //Othe

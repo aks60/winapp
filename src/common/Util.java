@@ -9,19 +9,28 @@ import java.util.List;
 public class Util {
 
     public static Float getFloat(String str) {
+
         if (str != null && str.isEmpty() == false) {
             str = str.replace(",", ".");
-            return Float.valueOf(str);
+            try {
+                return Float.valueOf(str);
+            } catch (java.lang.NumberFormatException e) {
+                System.err.println("Ошибка:Util.getFloat() " + e);
+            }
         }
-        return 0f;
+        return -1f;
     }
 
     public static Double getDbl(String str) {
         if (str != null && str.isEmpty() == false) {
             str = str.replace(",", ".");
-            return Double.valueOf(str);
+            try {
+                return Double.valueOf(str);
+            } catch (java.lang.NumberFormatException e) {
+                System.err.println("Ошибка:Util.getFloat() " + e);
+            }
         }
-        return .0;
+        return -1.0;
     }
 
     //1;79-10;0-10=>[1,1,79,10,0,10]
@@ -87,7 +96,7 @@ public class Util {
         }
         return arrList.stream().toArray(Float[]::new);
     }
- 
+
     //"180",  "30-179",  "0-89,99;90,01-150;180,01-269,99;270,01-359,99"
     public static boolean containsNumb(String txt, Number value) {
         if (txt == null || txt.isEmpty() || txt.equals("*")) {
@@ -127,7 +136,7 @@ public class Util {
         }
         return false;
     }
-    
+
     //"288-488/1028,01-1128", "2000,2-3000/0-1250@", "55;/*"
     //TODO необходимо учесть такой вариант -27,5/-27,5 см. 34049
     public static boolean containsNumb(String txt, Number val1, Number val2) {
@@ -190,7 +199,7 @@ public class Util {
 
             String[] p = str.split("-");
             if (p.length == 1) {
-                Float valueOne = Float.valueOf(p[0]);
+                Float valueOne = Util.getFloat(p[0]);
                 if (value <= valueOne) {
                     return true;
                 }
@@ -206,7 +215,7 @@ public class Util {
         return false;
     }
 
-    //Точка соединения профилей
+    //Точка соединения профилей (side 0-пред.артикл, 1-след.артикл)
     public static String joinPoint(ElemSimple elem5e, int side) {
         if (elem5e.layout() == LayoutArea.BOTTOM) {
             return (side == 0) ? elem5e.x1 + ":" + elem5e.y2 : elem5e.x2 + ":" + elem5e.y2;
@@ -222,5 +231,5 @@ public class Util {
             return (side == 0) ? elem5e.x1 + ":" + (elem5e.y1 + (elem5e.y2 - elem5e.y1) / 2) : elem5e.x2 + ":" + (elem5e.y1 + (elem5e.y2 - elem5e.y1) / 2);
         }
         return null;
-    }    
+    }
 }

@@ -15,18 +15,19 @@ import builder.making.Uti3;
 
 public abstract class ElemSimple extends Com5t {
 
-    public float anglCut1 = 45; //Угол реза рамы
-    public float anglCut2 = 45; //Угол реза рамы
-    public float anglPlane[] = {0,0,0,0}; //Мин/мах внутренний и мин/мах внешний угол к плоскости
+    public float anglCut1 = 45; //угол реза рамы
+    public float anglCut2 = 45; //угол реза рамы
+    public float anglPlane[] = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
     public float anglHoriz = -1; //угол к горизонту
-    
+    public ElemJoining joinElem[] = {null, null, null, null}; //соединения 
+
     public Specific spcRec = null; //спецификация элемента
     protected Uti3 uti3 = null;
     public Color borderColor = Color.BLACK;
-    public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
+    //public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
-        super(id, iwin, owner);        
+        super(id, iwin, owner);
         spcRec = new Specific(id, this);
         uti3 = new Uti3(this);
     }
