@@ -419,8 +419,7 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     default:
-                        message(rec.getInt(GRUP));
-                        break;
+                        assert !(grup > 0 && grup < 50000) : "Код " + grup + "  не обработан!!!";
                 }
             } catch (Exception e) {
                 System.err.println("Ошибка:JoiningVar.check()  parametr=" + grup + "    " + e);

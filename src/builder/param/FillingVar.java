@@ -105,8 +105,7 @@ public class FillingVar extends Par5s {
                         elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                         break;
                     default:
-                        message(rec.getInt(GRUP));
-                        break;
+                        assert !(grup > 0 && grup < 50000) : "Код " + grup + "  не обработан!!!";
                 }
             } catch (Exception e) {
                 System.err.println("Ошибка:param.FillingVar.check()  parametr=" + grup + "    " + e);

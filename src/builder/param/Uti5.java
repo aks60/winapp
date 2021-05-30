@@ -10,7 +10,7 @@ import enums.TypeElem;
 import java.util.Arrays;
 import java.util.List;
 
-public class Uti5 {
+class Uti5 {
 
     //Тип заполнения 
     static boolean dic_37009(String txt, ElemSimple elem5e) {
@@ -34,10 +34,10 @@ public class Uti5 {
     }
 
     static boolean check_dic_1005_2005_3005_4005_11005_12005_31050_33071_34071() {
-      
+
         return true;
     }
-    
+
     //Для технологического кода контейнера 
     static boolean check_STRING_33000_34000(String txt, ElemSimple elem5e) {
         Record sysprofRec = elem5e.sysprofRec;
@@ -91,9 +91,9 @@ public class Uti5 {
         }
         return true;
     }
-    
+
     static boolean p_13081_13082_13086_13087(ElemSimple elem5e, String txt) {
         return true;
-    }    
-    
+    }
+
 }

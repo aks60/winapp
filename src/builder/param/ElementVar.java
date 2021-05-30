@@ -372,10 +372,7 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     default:
-                        if (grup > 0) {
-                            message(grup);
-                        }
-                        break;
+                        assert !(grup > 0 && grup < 50000) : "Код " + grup + "  не обработан!!!";
                 }
             } catch (Exception e) {
                 System.err.println("Ошибка:param.ElementVar.check()  parametr=" + grup + "    " + e);

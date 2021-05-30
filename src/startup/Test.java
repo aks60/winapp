@@ -8,6 +8,7 @@ import common.*;
 import dataset.*;
 import com.google.gson.GsonBuilder;
 import builder.param.ParamList;
+import enums.Enam;
 import frames.DBCompare;
 import java.sql.Connection;
 import javax.swing.UIManager;
@@ -62,12 +63,14 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            wincalc();
+            //wincalc();
             //query();
             //frame();
             //json();
             //parse();
             //uid();
+            assert param() != 777 : param();
+            
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -113,6 +116,10 @@ public class Test {
         }
     }
 
+    private static int param() {
+        return 777;
+    }
+    
     private static void frame() throws Exception {
 
         Query.connection = Test.connect2();

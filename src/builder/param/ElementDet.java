@@ -430,6 +430,8 @@ public class ElementDet extends Par5s {
                     case 40113:  //Установить текстуру по 
                         message(grup);
                         break;
+                    default:
+                        assert !(grup > 0 && grup < 50000) : "Код " + grup + "  не обработан!!!";
                 }
             } catch (Exception e) {
                 System.err.println("Ошибка:param.ElementDet.check()  parametr=" + grup + "    " + e);
