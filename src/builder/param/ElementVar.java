@@ -102,7 +102,6 @@ public class ElementVar extends Par5s {
                             }
                         }
                         break;
-
                     case 31005:  //Коды основной текстуры контейнера 
                     case 37005:  //Коды основной текстуры контейнера 
                         if (Util.containsNumb(rec.getStr(TEXT), elem5e.colorID1) == false) {
