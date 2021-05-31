@@ -83,8 +83,13 @@ public class ElementVar extends Par5s {
                         //elem5e.inside()
                         break;
                     case 31004: //Если прилегающий артикул 
-                        if (LayoutArea.HORIZ == elem5e.layout()) {
-                            //boolean b1 = (elem5e.getJoin(2).joinElem2 != null) ? rec.getStr(TEXT).equals(elem5e.joinFlat(LayoutArea.BOTT).artiklRec.getStr(eArtikl.code)) : false;
+                        if (elem5e.joinElem(2) == null) {
+                            return false;
+                        }
+                        if (rec.getStr(TEXT).equals(elem5e.joinElem(2).artiklRec.getStr(eArtikl.code)) == false) {
+                            return false;
+                        }
+                        /*if (LayoutArea.HORIZ == elem5e.layout()) {
                             boolean b1 = (elem5e.joinFlat(LayoutArea.BOTT) != null) ? rec.getStr(TEXT).equals(elem5e.joinFlat(LayoutArea.BOTT).artiklRec.getStr(eArtikl.code)) : false;
                             boolean b2 = (elem5e.joinFlat(LayoutArea.TOP) != null) ? rec.getStr(TEXT).equals(elem5e.joinFlat(LayoutArea.TOP).artiklRec.getStr(eArtikl.code)) : false;
                             if (b1 == false && b2 == false) {
@@ -100,7 +105,7 @@ public class ElementVar extends Par5s {
                             if (rec.getStr(TEXT).equals(elem5e.joinFlat(elem5e.layout()).artiklRec.getStr(eArtikl.code)) == false) {
                                 return false;
                             }
-                        }
+                        }*/
                         break;
                     case 31005:  //Коды основной текстуры контейнера 
                     case 37005:  //Коды основной текстуры контейнера 

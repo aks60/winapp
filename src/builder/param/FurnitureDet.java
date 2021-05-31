@@ -14,6 +14,7 @@ import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
 import common.Util;
+import java.util.Map;
 
 //Фурнитура
 public class FurnitureDet extends Par5s {
@@ -101,9 +102,32 @@ public class FurnitureDet extends Par5s {
                     case 24032:  //Правильная полуарка 
                         message(rec.getInt(GRUP));
                         break;
-                    case 24033:   //Фурнитура штульповая 
-                    case 25033: {
-                        if (areaStv.typeOpen.name.equalsIgnoreCase("Левое")) {
+                    case 24033: //Фурнитура штульповая 
+                    case 25033: //Фурнитура штульповая 
+                    {
+                        if (rec.getStr(TEXT).equalsIgnoreCase("Да")) {
+                            boolean ret = false;
+                            for (Map.Entry<LayoutArea, ElemFrame> entry : areaStv.mapFrame.entrySet()) {
+                                if (entry.getValue().joinElem(2).type() == TypeElem.SHTULP) {
+                                    ret = true;
+                                }
+                            }
+                            if (ret == false) {
+                                return false;
+                            }
+                        }
+                        if (rec.getStr(TEXT).equalsIgnoreCase("Нет")) {
+                            boolean ret = false;
+                            for (Map.Entry<LayoutArea, ElemFrame> entry : areaStv.mapFrame.entrySet()) {
+                                if (entry.getValue().joinElem(2).type() == TypeElem.SHTULP) {
+                                    ret = true;
+                                }
+                            }
+                            if (ret == true) {
+                                return false;
+                            }
+                        }
+                        /*if (areaStv.typeOpen.name.equalsIgnoreCase("Левое")) {
                             if (rec.getStr(TEXT).equalsIgnoreCase("Да") && areaStv.joinFlat(LayoutArea.RIGHT).type() != TypeElem.SHTULP) {
                                 return false;
                             } else if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && areaStv.joinFlat(LayoutArea.RIGHT).type() == TypeElem.SHTULP) {
@@ -116,7 +140,7 @@ public class FurnitureDet extends Par5s {
                             if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && areaStv.joinFlat(LayoutArea.LEFT).type() == TypeElem.SHTULP) {
                                 return false;
                             }
-                        }
+                        }*/
                     }
                     break;
                     case 24036:  //Номер Стороны_X/Стороны_Y набора 
