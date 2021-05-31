@@ -84,7 +84,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31004: //Если прилегающий артикул 
                         if (LayoutArea.HORIZ == elem5e.layout()) {
-                            //boolean b1 = (elem5e.getJoin(3).joinElem2 != null) ? rec.getStr(TEXT).equals(elem5e.joinFlat(LayoutArea.BOTT).artiklRec.getStr(eArtikl.code)) : false;
+                            //boolean b1 = (elem5e.getJoin(2).joinElem2 != null) ? rec.getStr(TEXT).equals(elem5e.joinFlat(LayoutArea.BOTT).artiklRec.getStr(eArtikl.code)) : false;
                             boolean b1 = (elem5e.joinFlat(LayoutArea.BOTT) != null) ? rec.getStr(TEXT).equals(elem5e.joinFlat(LayoutArea.BOTT).artiklRec.getStr(eArtikl.code)) : false;
                             boolean b2 = (elem5e.joinFlat(LayoutArea.TOP) != null) ? rec.getStr(TEXT).equals(elem5e.joinFlat(LayoutArea.TOP).artiklRec.getStr(eArtikl.code)) : false;
                             if (b1 == false && b2 == false) {
