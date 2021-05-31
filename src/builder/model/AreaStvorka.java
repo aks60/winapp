@@ -187,7 +187,7 @@ public class AreaStvorka extends AreaSimple {
                 el.joinElement1 = elemBott;
                 el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put((x1 + width() / 2) + ":" + y2, el);
-                iwin().mapJoin.put(elemBott.joinPoint(1), el);
+                //iwin().mapJoin.put(elemBott.joinPoint(1), el);
                 
             } else if (index == 1) { //Прилигающее верхнее 
                 el.layoutJoin = LayoutJoin.CTOP;
@@ -209,7 +209,7 @@ public class AreaStvorka extends AreaSimple {
             }
         }
     }
-
+    
     //Вычисление смещения створки через параметр
     private float offset(ElemSimple profStv, ElemSimple profFrm) {
         Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
