@@ -18,11 +18,13 @@ public class AreaArch extends AreaSimple {
 
     @Override
     public void joinFrame() {
-
+        ElemSimple elemBott = mapFrame.get(LayoutArea.BOTT), elemRight = mapFrame.get(LayoutArea.RIGHT),
+                elemArch = mapFrame.get(LayoutArea.ARCH), elemLeft = mapFrame.get(LayoutArea.LEFT);
+        
         //Угловое соединение левое верхнее
         ElemJoining elem1 = new ElemJoining(iwin());
         elem1.id = id() + .1f;
-        elem1.init(TypeJoin.VAR20, LayoutJoin.LTOP, mapFrame.get(LayoutArea.ARCH), mapFrame.get(LayoutArea.LEFT));
+        elem1.init(TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft);
 
         double dh = elem1.joinElement1.artiklRec.getFloat(eArtikl.height);
         double dw = elem1.joinElement2.artiklRec.getFloat(eArtikl.height);
@@ -39,30 +41,31 @@ public class AreaArch extends AreaSimple {
         elem1.anglProf = (float) ang4;
         elem1.joinElement1.anglCut[1] = (float) ang4;  //угол реза арки
         elem1.joinElement2.anglCut[0] = (float) ang3;  //угол реза рамы
-        iwin().mapJoin.put(x1 + ":" + y1, elem1);
+        iwin().mapJoin.put(joinPoint(elemArch, 0), elem1);
 
         //Угловое соединение правое верхнее
         ElemJoining elem2 = new ElemJoining(iwin());
         elem2.id = id() + .2f;
-        elem2.init(TypeJoin.VAR20, LayoutJoin.RBOT, mapFrame.get(LayoutArea.RIGHT), mapFrame.get(LayoutArea.ARCH));
+        elem2.init(TypeJoin.VAR20, LayoutJoin.RBOT, elemRight, elemArch);
         elem2.anglProf = (float) ang4;
         elem2.joinElement2.anglCut[0] = (float) ang4;  //угол реза арки
         elem2.joinElement1.anglCut[1] = (float) ang3;  //угол реза рамы                             
-        iwin().mapJoin.put(x2 + ":" + y1, elem2);
-
+        iwin().mapJoin.put(joinPoint(elemArch, 0), elem2);
+        
         //Угловое соединение левое нижнее
         ElemJoining elem3 = new ElemJoining(iwin());
         elem3.id = id() + .3f;
-        elem3.init(TypeJoin.VAR20, LayoutJoin.LBOT, mapFrame.get(LayoutArea.LEFT), mapFrame.get(LayoutArea.BOTTOM));
+        elem3.init(TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott);
         elem3.anglProf = 90;
-        iwin().mapJoin.put(x1 + ":" + y2, elem3);
-
+        iwin().mapJoin.put(joinPoint(elemLeft, 1), elem3);
+        
         //Угловое соединение правое нижнее
         ElemJoining elem4 = new ElemJoining(iwin());
         elem4.id = id() + .4f;
-        elem4.init(TypeJoin.VAR20, LayoutJoin.LBOT, mapFrame.get(LayoutArea.BOTTOM), mapFrame.get(LayoutArea.RIGHT));
+        elem4.init(TypeJoin.VAR20, LayoutJoin.LBOT, elemBott, elemRight);
         elem4.anglProf = 90;
         iwin().mapJoin.put(x2 + ":" + y2, elem4);
+        iwin().mapJoin.put(joinPoint(elemRight, 0), elem4);
     }
 
     protected void frame(ElemFrame elemFrame, double katet) {
@@ -75,7 +78,7 @@ public class AreaArch extends AreaSimple {
 
     protected void shtapik(ElemGlass elemGlass, Specific spcAdd) {
         Float dw = spcAdd.width;
-        ElemSimple imp = elemGlass.join(LayoutArea.BOTTOM);
+        ElemSimple imp = elemGlass.join(LayoutArea.BOTT);
         ElemSimple arch = mapFrame.get(LayoutArea.ARCH);
         ElemSimple rama = mapFrame.get(LayoutArea.LEFT);
 

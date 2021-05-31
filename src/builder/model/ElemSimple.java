@@ -16,9 +16,10 @@ import builder.making.Uti3;
 public abstract class ElemSimple extends Com5t {
 
     public float anglCut[] = {45, 45}; //угол реза рамы
-    public float anglPlane[] = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
+    public float[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
     public float anglHoriz = -1; //угол к горизонту
-    public ElemJoining joinElem[] = {null, null, null, null}; //соединения 
+    public ElemJoining joinElem[] = {null, null}; //соединения угловое 
+    public ElemJoining joinFlat[] = {null, null}; //соединения прилегающее 
 
     public Specific spcRec = null; //спецификация элемента
     protected Uti3 uti3 = null;

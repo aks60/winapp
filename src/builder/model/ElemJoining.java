@@ -12,16 +12,24 @@ public class ElemJoining {
     public float id = -1; //идентификатор соединения
     private Wincalc iwin;
     public LayoutJoin layoutJoin = LayoutJoin.NONE; //расположение соединения 
-    public TypeJoin typeJoin = TypeJoin.EMPTY;  //тип соединения (то что пишет )
+    public TypeJoin typeJoin = TypeJoin.EMPTY;      //тип соединения (то что пишет )
 
     public ElemSimple joinElement1 = null;  //элемент соединения 1
     public ElemSimple joinElement2 = null;  //элемент соединения 2
 
     public float anglProf = 90;    //угол между профилями
-    public String costsJoin = "";     //трудозатраты, ч/ч. 
+    public String costsJoin = "";  //трудозатраты, ч/ч. 
 
     public ElemJoining(Wincalc iwin) {
         this.iwin = iwin;
+    }
+    
+    public ElemJoining(float id, TypeJoin typeJoin, LayoutJoin layoutJoin, ElemSimple joinElement, float anglProf) {
+        this.id = id;
+        this.typeJoin = typeJoin;
+        this.layoutJoin = layoutJoin;
+        this.joinElement1 = joinElement;   
+        this.anglProf = anglProf;
     }
 
     public void init(TypeJoin typeJoin, LayoutJoin layoutJoin, ElemSimple joinElement1, ElemSimple joinElement2) {

@@ -84,7 +84,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31004: //Если прилегающий артикул 
                         if (LayoutArea.HORIZ == elem5e.layout()) {
-                            boolean b1 = (elem5e.join(LayoutArea.BOTTOM) != null) ? rec.getStr(TEXT).equals(elem5e.join(LayoutArea.BOTTOM).artiklRec.getStr(eArtikl.code)) : false;
+                            boolean b1 = (elem5e.join(LayoutArea.BOTT) != null) ? rec.getStr(TEXT).equals(elem5e.join(LayoutArea.BOTT).artiklRec.getStr(eArtikl.code)) : false;
                             boolean b2 = (elem5e.join(LayoutArea.TOP) != null) ? rec.getStr(TEXT).equals(elem5e.join(LayoutArea.TOP).artiklRec.getStr(eArtikl.code)) : false;
                             if (b1 == false && b2 == false) {
                                 return false;
@@ -168,9 +168,9 @@ public class ElementVar extends Par5s {
                         break;
                     case 31033: //Если предыдущий артикул 
                         if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {
-                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Util.joinPoint(elem5e, 0)).joinElement2.artiklRecAn) == true) ? true : false;
+                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(elem5e, 0)).joinElement2.artiklRecAn) == true) ? true : false;
                         } else {
-                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Util.joinPoint(elem5e, 0)).joinElement1.artiklRecAn) == true) ? true : false;
+                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(elem5e, 0)).joinElement1.artiklRecAn) == true) ? true : false;
                         }
                     case 31030:  //Угол к горизонту максимальный, °
                         if ("ps3".equals(eSetting.find(2))) {
@@ -188,9 +188,9 @@ public class ElementVar extends Par5s {
                         break;
                     case 31034:  //Если следующий артикул 
                         if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {
-                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Util.joinPoint(elem5e, 1)).joinElement2.artiklRecAn) == true) ? true : false;
+                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(elem5e, 1)).joinElement2.artiklRecAn) == true) ? true : false;
                         } else {
-                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(Util.joinPoint(elem5e, 1)).joinElement2.artiklRecAn) == true) ? true : false;
+                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(elem5e, 1)).joinElement2.artiklRecAn) == true) ? true : false;
                         }
                     case 31035:  //Уровень створки 
                         message(grup);

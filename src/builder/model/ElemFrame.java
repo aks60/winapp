@@ -46,21 +46,21 @@ public class ElemFrame extends ElemSimple {
     //Установка координат
     public void setLocation() {
 
-        if (LayoutArea.LEFT == layout) {
-            setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
-            anglHoriz = 270;
-
+        if (LayoutArea.BOTT == layout) {
+            setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
+            anglHoriz = 0;
+            
         } else if (LayoutArea.RIGHT == layout) {
             setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
-            anglHoriz = 90;
+            anglHoriz = 90;  
 
         } else if (LayoutArea.TOP == layout) {
             setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
             anglHoriz = 180;
-
-        } else if (LayoutArea.BOTTOM == layout) {
-            setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
-            anglHoriz = 0;
+            
+        } else if (LayoutArea.LEFT == layout) {
+            setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
+            anglHoriz = 270;
 
         } else if (LayoutArea.ARCH == layout) {
             setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
@@ -88,7 +88,7 @@ public class ElemFrame extends ElemSimple {
             spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-        } else if (LayoutArea.BOTTOM == layout) {
+        } else if (LayoutArea.BOTT == layout) {
             spcRec.width = x2 - x1 + +(float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
@@ -116,7 +116,7 @@ public class ElemFrame extends ElemSimple {
             spcAdd.anglCut1 = 90;
             spcAdd.anglCut2 = 90;
 
-            if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
+            if (LayoutArea.TOP == layout || LayoutArea.BOTT == layout) {
                 spcAdd.width += x2 - x1;
 
             } else if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
@@ -174,7 +174,7 @@ public class ElemFrame extends ElemSimple {
         } else if (LayoutArea.TOP == layout) {
             iwin().draw.strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, borderColor);
 
-        } else if (LayoutArea.BOTTOM == layout) {
+        } else if (LayoutArea.BOTT == layout) {
             iwin().draw.strokePolygon(x1 + d1z, x2 - d1z, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
         } else if (LayoutArea.LEFT == layout) {

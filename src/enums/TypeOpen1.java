@@ -55,7 +55,7 @@ public enum TypeOpen1 implements Enam {
         } else if (this == RIGHT || this == RIGHTUP || this == RIGHTSHIFT) {
             return LayoutArea.RIGHT;
         } else if (this == UPPER) {
-            return LayoutArea.BOTTOM;
+            return LayoutArea.BOTT;
         } else {
             return LayoutArea.LEFT;  //по умолчанию
         }

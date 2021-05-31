@@ -41,7 +41,7 @@ public class AreaStvorka extends AreaSimple {
         JsonObject paramObj = new GsonBuilder().create().fromJson(param, JsonObject.class);
 
         //Добавим рамы створки    Ujson.getAsJsonObject(paramObj, stvKey)  
-        ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM, gson.toJson(Ujson.getAsJsonObject(paramObj, PKjson.stvorkaBottom)));
+        ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTT, gson.toJson(Ujson.getAsJsonObject(paramObj, PKjson.stvorkaBottom)));
         mapFrame.put(stvBot.layout(), stvBot);
         ElemFrame stvRigh = new ElemFrame(this, id + .2f, LayoutArea.RIGHT, gson.toJson(Ujson.getAsJsonObject(paramObj, PKjson.stvorkaRight)));
         mapFrame.put(stvRigh.layout(), stvRigh);
@@ -69,7 +69,7 @@ public class AreaStvorka extends AreaSimple {
     private void setLocation(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
 
         ElemSimple joinLef = join(LayoutArea.LEFT), joinTop = join(LayoutArea.TOP),
-                joinBot = join(LayoutArea.BOTTOM), joinRig = join(LayoutArea.RIGHT);
+                joinBot = join(LayoutArea.BOTT), joinRig = join(LayoutArea.RIGHT);
 
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
             x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
@@ -86,14 +86,13 @@ public class AreaStvorka extends AreaSimple {
             y2 = Y2 - offset(stvBot, joinBot);
             x2 = X2 - offset(stvRig, joinRig);
             y1 = Y1 + offset(stvTop, joinTop);
-        }        
+        }
     }
-
 
     public void initFurniture(String param) {
 
         ElemFrame stvLeft = mapFrame.get(LayoutArea.LEFT);
-        
+
         //Фурнитура створки, ручка, подвес
         if (param(param, PKjson.sysfurnID) != -1) {
             sysfurnRec = eSysfurn.find2(param(param, PKjson.sysfurnID));
@@ -124,7 +123,7 @@ public class AreaStvorka extends AreaSimple {
                 handleHeight = param(param, PKjson.heightHandl);
             } else {
                 handleLayout = (position == LayoutHandle.MIDL.id) ? LayoutHandle.MIDL : LayoutHandle.CONST;
-                handleHeight = stvLeft.height()/ 2;
+                handleHeight = stvLeft.height() / 2;
             }
         } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDL.id) {
             handleLayout = LayoutHandle.MIDL;
@@ -140,37 +139,40 @@ public class AreaStvorka extends AreaSimple {
             handleHeight = stvLeft.height() / 2;
         }
     }
-    
+
     @Override
     public void joinFrame() {
+        ElemSimple elemBott = mapFrame.get(LayoutArea.BOTT), elemRight = mapFrame.get(LayoutArea.RIGHT),
+                elemTop = mapFrame.get(LayoutArea.TOP), elemLeft = mapFrame.get(LayoutArea.LEFT);
         //Цикл по сторонам створки
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
             el.id = id() + (float) (index + 1) / 100;
-            mapFrame.get(LayoutArea.BOTTOM).anglHoriz = 0;
-            mapFrame.get(LayoutArea.RIGHT).anglHoriz = 90;
-            mapFrame.get(LayoutArea.TOP).anglHoriz = 180;
-            mapFrame.get(LayoutArea.LEFT).anglHoriz = 270;
+            elemBott.anglHoriz = 0;
+            elemRight.anglHoriz = 90;
+            elemTop.anglHoriz = 180;
+            elemLeft.anglHoriz = 270;
             mapFrame.entrySet().forEach(elem -> {
                 elem.getValue().anglCut[0] = 45;
                 elem.getValue().anglCut[1] = 45;
             });
             el.anglProf = 90;
-            if (index == 0) { //Угловое соединение левое верхнее
-                el.init(TypeJoin.VAR20, LayoutJoin.LTOP, mapFrame.get(LayoutArea.TOP), mapFrame.get(LayoutArea.LEFT));
-                iwin().mapJoin.put(x1 + ":" + y1, el);
 
-            } else if (index == 1) { //Угловое соединение левое нижнее
-                el.init(TypeJoin.VAR20, LayoutJoin.LBOT, mapFrame.get(LayoutArea.LEFT), mapFrame.get(LayoutArea.BOTTOM));
-                iwin().mapJoin.put(x1 + ":" + y2, el);
+            if (index == 0) { //Угловое соединение правое нижнее
+                el.init(TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight);
+                iwin().mapJoin.put(joinPoint(elemBott, 1), el);
 
-            } else if (index == 2) { //Угловое соединение правое нижнее
-                el.init(TypeJoin.VAR20, LayoutJoin.RBOT, mapFrame.get(LayoutArea.BOTTOM), mapFrame.get(LayoutArea.RIGHT));
-                iwin().mapJoin.put(x2 + ":" + y2, el);
+            } else if (index == 1) { //Угловое соединение правое верхнее
+                el.init(TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop);
+                iwin().mapJoin.put(joinPoint(elemRight, 1), el);
 
-            } else if (index == 3) { //Угловое соединение правое верхнее
-                el.init(TypeJoin.VAR20, LayoutJoin.RTOP, mapFrame.get(LayoutArea.RIGHT), mapFrame.get(LayoutArea.TOP));
-                iwin().mapJoin.put(x2 + ":" + y1, el);
+            } else if (index == 2) { //Угловое соединение левое верхнее
+                el.init(TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft);
+                iwin().mapJoin.put(joinPoint(elemTop, 1), el);
+
+            } else if (index == 3) { //Угловое соединение левое нижнее
+                el.init(TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott);
+                iwin().mapJoin.put(joinPoint(elemLeft, 1), el);
             }
         }
 
@@ -182,25 +184,25 @@ public class AreaStvorka extends AreaSimple {
             el.anglProf = 0;
             if (index == 0) { //Прилигающее верхнее 
                 el.layoutJoin = LayoutJoin.CTOP;
-                el.joinElement1 = mapFrame.get(LayoutArea.TOP);
+                el.joinElement1 = elemTop;
                 el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null);
                 iwin().mapJoin.put((x1 + width() / 2) + ":" + y1, el);
 
             } else if (index == 1) { //Прилигающее нижнее
                 el.layoutJoin = LayoutJoin.CBOT;
-                el.joinElement1 = mapFrame.get(LayoutArea.BOTTOM);
+                el.joinElement1 = elemBott;
                 el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put((x1 + width() / 2) + ":" + y2, el);
 
             } else if (index == 2) { //Прилигающее левое
                 el.layoutJoin = LayoutJoin.CLEFT;
-                el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
+                el.joinElement1 = elemLeft;
                 el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1, y1 + height() / 2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(x1 + ":" + (y1 + height() / 2), el);
 
             } else if (index == 3) { //Прилигающее правое
                 el.layoutJoin = LayoutJoin.CRIGH;
-                el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
+                el.joinElement1 = elemRight;
                 el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x2, y1 + height() / 2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(x2 + ":" + (y1 + height() / 2), el);
             }
@@ -226,7 +228,7 @@ public class AreaStvorka extends AreaSimple {
     public void paint() {
 
         mapFrame.get(LayoutArea.TOP).paint();
-        mapFrame.get(LayoutArea.BOTTOM).paint();
+        mapFrame.get(LayoutArea.BOTT).paint();
         mapFrame.get(LayoutArea.LEFT).paint();
         mapFrame.get(LayoutArea.RIGHT).paint();
 
@@ -235,7 +237,7 @@ public class AreaStvorka extends AreaSimple {
             ElemSimple elemL = mapFrame.get(LayoutArea.LEFT);
             ElemSimple elemR = mapFrame.get(LayoutArea.RIGHT);
             ElemSimple elemT = mapFrame.get(LayoutArea.TOP);
-            ElemSimple elemB = mapFrame.get(LayoutArea.BOTTOM);
+            ElemSimple elemB = mapFrame.get(LayoutArea.BOTT);
 
             if (typeOpen.id == 1 || typeOpen.id == 3) {
                 X1 = elemR.x1 + (elemR.x2 - elemR.x1) / 2;

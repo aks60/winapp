@@ -2243,7 +2243,7 @@ public class Order extends javax.swing.JFrame {
                         String paramStr = stvArea.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         String stvKey = null;
-                        if (windowsNode.com5t().layout() == LayoutArea.BOTTOM) {
+                        if (windowsNode.com5t().layout() == LayoutArea.BOTT) {
                             stvKey = PKjson.stvorkaBottom;
                         } else if (windowsNode.com5t().layout() == LayoutArea.RIGHT) {
                             stvKey = PKjson.stvorkaRight;
@@ -2303,7 +2303,7 @@ public class Order extends javax.swing.JFrame {
                     String paramStr = jsonArea.param();
                     JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                     String stvKey = null;
-                    if (windowsNode.com5t().layout() == LayoutArea.BOTTOM) {
+                    if (windowsNode.com5t().layout() == LayoutArea.BOTT) {
                         stvKey = PKjson.stvorkaBottom;
                     } else if (windowsNode.com5t().layout() == LayoutArea.RIGHT) {
                         stvKey = PKjson.stvorkaRight;

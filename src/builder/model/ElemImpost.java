@@ -97,7 +97,7 @@ public class ElemImpost extends ElemSimple {
             float zax = iwin().syssizeRec.getFloat(eSyssize.zax);
 
             if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
-                ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
+                ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTT);
                 spcRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
 

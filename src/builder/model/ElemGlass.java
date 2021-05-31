@@ -66,7 +66,7 @@ public class ElemGlass extends ElemSimple {
         if (owner() instanceof AreaArch) { //если арка
 
             ElemFrame elemArch = root().mapFrame.get(LayoutArea.ARCH);
-            ElemSimple elemImpost = join(LayoutArea.BOTTOM);
+            ElemSimple elemImpost = join(LayoutArea.BOTT);
             /*for (Com5t elemBase : root().listChild) { //первый импост в стеклопакете снизу;
                 if (TypeElem.IMPOST == elemBase.type) {
                     elemImpost = (ElemImpost) elemBase;
@@ -83,7 +83,7 @@ public class ElemGlass extends ElemSimple {
 
         } else if (TypeElem.STVORKA == owner().type()) {
             AreaStvorka stv = (AreaStvorka) owner();
-            ElemSimple insideLeft = stv.mapFrame.get(LayoutArea.LEFT), insideTop = stv.mapFrame.get(LayoutArea.TOP), insideBott = stv.mapFrame.get(LayoutArea.BOTTOM), insideRight = stv.mapFrame.get(LayoutArea.RIGHT);
+            ElemSimple insideLeft = stv.mapFrame.get(LayoutArea.LEFT), insideTop = stv.mapFrame.get(LayoutArea.TOP), insideBott = stv.mapFrame.get(LayoutArea.BOTT), insideRight = stv.mapFrame.get(LayoutArea.RIGHT);
 
             if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
                 x1 = insideLeft.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
@@ -97,7 +97,7 @@ public class ElemGlass extends ElemSimple {
                 y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
         } else {
-            ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
+            ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTT), insideRight = join(LayoutArea.RIGHT);
 
             if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
                 x1 = owner.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);

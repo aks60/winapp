@@ -68,7 +68,7 @@ public class FillingVar extends Par5s {
                         break;
                     case 13081:  //Для внешнего/внутреннего угла плоскости, ° или Мин. внутр. угол плоскости, ° 
                         if ("ps3".equals(eSetting.find(2))) {
-                            if (elem5e.anglPlane[0] > rec.getFloat(TEXT)) {
+                            if (elem5e.anglFlat[0] > rec.getFloat(TEXT)) {
                                 return false;
                             }
                         } else if (Uti5.p_13081_13082_13086_13087(elem5e, rec.getStr(TEXT))) {
@@ -76,19 +76,19 @@ public class FillingVar extends Par5s {
                         }
                     case 13082:  //Макс. внутр. угол плоскости, °
                         if ("ps3".equals(eSetting.find(2))) {
-                            if (elem5e.anglPlane[1] > rec.getFloat(TEXT)) {
+                            if (elem5e.anglFlat[1] > rec.getFloat(TEXT)) {
                                 return false;
                             }
                         }
                     case 13086:  //Мин. внешний угол плоскости, °
                         if ("ps3".equals(eSetting.find(2))) {
-                            if (elem5e.anglPlane[2] > rec.getFloat(TEXT)) {
+                            if (elem5e.anglFlat[2] > rec.getFloat(TEXT)) {
                                 return false;
                             }
                         }
                     case 13087:  //Макс. внешний угол плоскости, °
                         if ("ps3".equals(eSetting.find(2))) {
-                            if (elem5e.anglPlane[3] > rec.getFloat(TEXT)) {
+                            if (elem5e.anglFlat[3] > rec.getFloat(TEXT)) {
                                 return false;
                             }
                         }

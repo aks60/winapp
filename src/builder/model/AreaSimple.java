@@ -158,16 +158,18 @@ public class AreaSimple extends Com5t {
                         elemImp.anglHoriz = 90;
 
                         if (elem5e.inside(elemImp.x1, elemImp.y1) == true
-                                && iwin().mapJoin.get(Util.joinPoint(elemImp, 1)) == null) { //T - соединение верхнее                       
+                                && iwin().mapJoin.get(joinPoint(elemImp, 1)) == null) { //T - соединение верхнее                            
+                            elemImp.joinElem[0] = new ElemJoining(id() + 1f / 100, TypeJoin.VAR40, LayoutJoin.TTOP, elem5e, 90);                           
                             el.id = id() + 1f / 100;
                             el.init(TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e);
-                            iwin().mapJoin.put(Util.joinPoint(elemImp, 1), el);
+                            iwin().mapJoin.put(joinPoint(elemImp, 1), el);
 
                         } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
-                                && iwin().mapJoin.get(Util.joinPoint(elemImp, 0)) == null) { //T - соединение нижнее                        
+                                && iwin().mapJoin.get(joinPoint(elemImp, 0)) == null) { //T - соединение нижнее                              
+                            elemImp.joinElem[1] = new ElemJoining(id() + 2f / 100, TypeJoin.VAR40, LayoutJoin.TBOT, elem5e, 90);                           
                             el.id = id() + 2f / 100;
                             el.init(TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e);
-                            iwin().mapJoin.put(Util.joinPoint(elemImp, 0), el);
+                            iwin().mapJoin.put(joinPoint(elemImp, 0), el);
                         }
 
                         //Элементы расположены по вертикали
@@ -175,16 +177,18 @@ public class AreaSimple extends Com5t {
                         elemImp.anglHoriz = 0;
 
                         if (elem5e.inside(elemImp.x1, elemImp.y1) == true
-                                && iwin().mapJoin.get(Util.joinPoint(elemImp, 0)) == null) { //T - соединение левое                        
+                                && iwin().mapJoin.get(joinPoint(elemImp, 0)) == null) { //T - соединение левое                             
+                            elemImp.joinElem[0] = new ElemJoining(id() + 3f / 100, TypeJoin.VAR40, LayoutJoin.TLEFT, elem5e, 90);                           
                             el.id = id() + 3f / 100;
                             el.init(TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e);
-                            iwin().mapJoin.put(Util.joinPoint(elemImp, 0), el);
+                            iwin().mapJoin.put(joinPoint(elemImp, 0), el);
 
                         } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
-                                && iwin().mapJoin.get(Util.joinPoint(elemImp, 1)) == null) { //T - соединение правое                        
+                                && iwin().mapJoin.get(joinPoint(elemImp, 1)) == null) { //T - соединение правое                              
+                            elemImp.joinElem[1] = new ElemJoining(id() + 4f / 100, TypeJoin.VAR40, LayoutJoin.TRIGH, elem5e, 90);                            
                             el.id = id() + 4f / 100;
                             el.init(TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e);
-                            iwin().mapJoin.put(Util.joinPoint(elemImp, 1), el);
+                            iwin().mapJoin.put(joinPoint(elemImp, 1), el);
                         }
                     }
                 }
@@ -215,7 +219,7 @@ public class AreaSimple extends Com5t {
             } else {
                 mapFrame.get(LayoutArea.TOP).paint();
             }
-            mapFrame.get(LayoutArea.BOTTOM).paint();
+            mapFrame.get(LayoutArea.BOTT).paint();
             mapFrame.get(LayoutArea.LEFT).paint();
             mapFrame.get(LayoutArea.RIGHT).paint();
 

@@ -80,7 +80,7 @@ class Uti5 {
 
     //Если номер стороны в контуре
     static boolean check_INT_33066_34066(String txt, ElemSimple elem5e) {
-        if ("1".equals(txt) == true && LayoutArea.BOTTOM != elem5e.layout()) {
+        if ("1".equals(txt) == true && LayoutArea.BOTT != elem5e.layout()) {
             return false;
         } else if ("2".equals(txt) == true && LayoutArea.RIGHT != elem5e.layout()) {
             return false;

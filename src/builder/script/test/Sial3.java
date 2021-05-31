@@ -17,7 +17,7 @@ public final class Sial3 {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTT));
             rootGson.addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':285}"));
 
         } else if (prj == 601002) {
@@ -26,7 +26,7 @@ public final class Sial3 {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTT));
             rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':285}"));
 
@@ -36,7 +36,7 @@ public final class Sial3 {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTT));
             rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1200 / 2))
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':3, 'sysfurnID':143}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':285}")); 
@@ -51,7 +51,7 @@ public final class Sial3 {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTT));
             rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 670))
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':13}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':283}"));
@@ -69,7 +69,7 @@ public final class Sial3 {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTT));
             GsonElem area2 = rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 900))
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':147}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':286}"));
@@ -88,7 +88,7 @@ public final class Sial3 {
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTT));
 
             rootGson.addArea(new GsonElem(LayoutArea.VERT, TypeElem.AREA, 633.33f))
                     .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':147}"))

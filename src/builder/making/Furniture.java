@@ -170,7 +170,7 @@ public class Furniture extends Cal5e {
                     }
                 }
                 if (side == 1) {
-                    el = areaStv.mapFrame.get(LayoutArea.BOTTOM);
+                    el = areaStv.mapFrame.get(LayoutArea.BOTT);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
                     width = el.spcRec.width - 2 * size_falz;
                 } else if (side == 2) {
@@ -234,7 +234,7 @@ public class Furniture extends Cal5e {
 
         //Через параметр
         if ("1".equals(mapParam.get(25010))) {
-            return area5e.mapFrame.get(LayoutArea.BOTTOM);
+            return area5e.mapFrame.get(LayoutArea.BOTT);
         } else if ("2".equals(mapParam.get(25010))) {
             return area5e.mapFrame.get(LayoutArea.RIGHT);
         } else if ("3".equals(mapParam.get(25010))) {
@@ -268,7 +268,7 @@ public class Furniture extends Cal5e {
             } else if (Arrays.asList(2, 4, 12).contains(id)) {
                 return area5e.mapFrame.get(LayoutArea.RIGHT);
             } else {
-                return area5e.mapFrame.get(LayoutArea.BOTTOM);
+                return area5e.mapFrame.get(LayoutArea.BOTT);
             }
         }
         return area5e.mapFrame.values().stream().findFirst().get();  //первая попавшаяся        

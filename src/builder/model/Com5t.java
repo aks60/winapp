@@ -73,7 +73,7 @@ public abstract class Com5t {
 
     public float length() {
         if (TypeElem.FRAME_SIDE == type() || TypeElem.STVORKA_SIDE == type()) {
-            return (LayoutArea.TOP == layout() || LayoutArea.BOTTOM == layout()) ? x2 - x1 : y2 - y1;
+            return (LayoutArea.TOP == layout() || LayoutArea.BOTT == layout()) ? x2 - x1 : y2 - y1;
         }
         return (LayoutArea.HORIZ == layout()) ? x2 - x1 : y2 - y1;
     }
@@ -105,10 +105,29 @@ public abstract class Com5t {
         return ((x2 < x1 || x2 >= x) && (y2 < y1 || y2 >= y));
     }
 
+    //Точки соединения профилей (side 0-пред.артикл, 1-след.артикл или 0-внутреннее, 1-внешнее)
+    public static String joinPoint(ElemSimple elem5e, int side) {
+        if (elem5e.layout() == LayoutArea.BOTT) {
+            return (side == 0) ? elem5e.x1 + ":" + elem5e.y2 : elem5e.x2 + ":" + elem5e.y2; //точки левого и правого нижнего углового
+        } else if (elem5e.layout() == LayoutArea.RIGHT) {
+            return (side == 0) ? elem5e.x2 + ":" + elem5e.y2 : elem5e.x2 + ":" + elem5e.y1; //точки нижнего и верхнего правого углового
+        } else if (elem5e.layout() == LayoutArea.TOP) {
+            return (side == 0) ? elem5e.x2 + ":" + elem5e.y1 : elem5e.x1 + ":" + elem5e.y1; //точки правого и левого верхнего углового
+        } else if (elem5e.layout() == LayoutArea.LEFT) {
+            return (side == 0) ? elem5e.x1 + ":" + elem5e.y1 : elem5e.x1 + ":" + elem5e.y2; //точки верхнего и нижнего левого углового
+
+        } else if (elem5e.layout() == LayoutArea.VERT) { //вектор всегда слева на право
+            return (side == 0) ? (elem5e.x1 + (elem5e.x2 - elem5e.x1) / 2) + ":" + elem5e.y2 : (elem5e.x1 + (elem5e.x2 - elem5e.x1) / 2) + ":" + elem5e.y1; //точки левого и правого вертикального прилегающего
+        } else if (elem5e.layout() == LayoutArea.HORIZ) { //вектор всегда снизу вверх
+            return (side == 0) ? elem5e.x1 + ":" + (elem5e.y1 + (elem5e.y2 - elem5e.y1) / 2) : elem5e.x2 + ":" + (elem5e.y1 + (elem5e.y2 - elem5e.y1) / 2); //точки верхнего и нижнего горизонтального прилегающего
+        }
+        return null;
+    }
+
     //Прилегающие соединения. 
     public ElemSimple join(LayoutArea layoutArea) {
         LinkedList<ElemSimple> listElem = root().listElem(TypeElem.STVORKA_SIDE, TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список элементов
-        if (LayoutArea.BOTTOM == layoutArea) {
+        if (LayoutArea.BOTT == layoutArea) {
             return listElem.stream().filter(el -> el != this && el.inside(x1 + width() / 2, y2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
         } else if (LayoutArea.LEFT == layoutArea) {
             return listElem.stream().filter(el -> el != this && el.inside(x1, y1 + height() / 2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);

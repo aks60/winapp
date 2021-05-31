@@ -58,7 +58,7 @@ public class FurnitureVar extends Par5s {
                         float length = 0;
                         if (LayoutArea.LEFT == elem5e.layout() || LayoutArea.RIGHT == elem5e.layout()) {
                             length = elem5e.height();
-                        } else if (LayoutArea.TOP == elem5e.layout() || LayoutArea.BOTTOM == elem5e.layout()) {
+                        } else if (LayoutArea.TOP == elem5e.layout() || LayoutArea.BOTT == elem5e.layout()) {
                             length = elem5e.width();
                         }
                         if ("ps3".equals(eSetting.find(2))) { //Минимальная длина, мм
