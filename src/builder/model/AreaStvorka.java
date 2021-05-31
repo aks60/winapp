@@ -68,8 +68,8 @@ public class AreaStvorka extends AreaSimple {
     //Коррекция координат створки с учётом нахлёста
     private void setLocation(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
 
-        ElemSimple joinLef = joinFlat(LayoutArea.LEFT), joinTop = joinFlat(LayoutArea.TOP),
-                joinBot = joinFlat(LayoutArea.BOTT), joinRig = joinFlat(LayoutArea.RIGHT);
+        ElemSimple joinLef = stvLef.joinFlat(LayoutArea.LEFT), joinTop = stvTop.joinFlat(LayoutArea.TOP),
+                joinBot = stvBot.joinFlat(LayoutArea.BOTT), joinRig = stvRig.joinFlat(LayoutArea.RIGHT);
         
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
             x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
@@ -176,19 +176,19 @@ public class AreaStvorka extends AreaSimple {
         LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP);
         for (int index = 0; index < 4; index++) {
              if (index == 0) { //Прилигающее нижнее
-                ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CBOT, elemBott, joinFlat(LayoutArea.BOTT), 0);                               
+                ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CBOT, elemBott, elemBott.joinFlat(LayoutArea.BOTT), 0);                               
                 iwin().mapJoin.put(elemBott.joinPoint(2), el);
                 
             } else if (index == 1) { //Прилигающее верхнее 
-                ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CTOP, elemTop, joinFlat(LayoutArea.TOP), 0);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CTOP, elemTop, elemTop.joinFlat(LayoutArea.TOP), 0);
                 iwin().mapJoin.put(elemTop.joinPoint(2), el);
 
             } else if (index == 2) { //Прилигающее левое
-                ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CLEFT, elemLeft, joinFlat(LayoutArea.LEFT), 0);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CLEFT, elemLeft, elemLeft.joinFlat(LayoutArea.LEFT), 0);
                 iwin().mapJoin.put(elemLeft.joinPoint(2), el);
 
             } else if (index == 3) { //Прилигающее правое
-                ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CRIGH, elemRight, joinFlat(LayoutArea.RIGHT), 0);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CRIGH, elemRight, elemRight.joinFlat(LayoutArea.RIGHT), 0);
                 iwin().mapJoin.put(elemRight.joinPoint(2), el);
             }
         }

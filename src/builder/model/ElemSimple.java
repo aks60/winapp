@@ -65,6 +65,21 @@ public abstract class ElemSimple extends Com5t {
         return null;
     }
 
+    //Прилегающие соединения. Используется при построении конструкции, когда соединения ещё не определены  
+    public ElemSimple joinFlat(LayoutArea layoutArea) {
+        LinkedList<ElemSimple> listElem = root().listElem(TypeElem.STVORKA_SIDE, TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список элементов
+        if (LayoutArea.BOTT == layoutArea) {
+            return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, y2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
+        } else if (LayoutArea.LEFT == layoutArea) {
+            return listElem.stream().filter(el -> el != this && el.inside(x1, y1 + (y2 - y1) / 2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
+        } else if (LayoutArea.TOP == layoutArea) {
+            return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, y1) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
+        } else if (LayoutArea.RIGHT == layoutArea) {
+            return listElem.stream().filter(el -> el != this && el.inside(x2, y1 + (y2 - y1) / 2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
+        }
+        return null;
+    }
+
     //Элемент соединения 0-нач. вектора, 1-конец вектора, 2-середина вектора
     public ElemSimple joinElem(int side) {
         ElemJoining el = iwin().mapJoin.get(joinPoint(side));
