@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.util.HashMap;
 import builder.Wincalc;
 import builder.making.Uti3;
+import enums.LayoutArea;
 
 public abstract class ElemSimple extends Com5t {
 
@@ -44,6 +45,25 @@ public abstract class ElemSimple extends Com5t {
 
     //Вложеная спецификация
     public abstract void addSpecific(Specific specification);
+
+    //Точки соединения профилей (side 0-пред.артикл, 1-след.артикл или 0-левый, 1-правый)
+    public String joinPoint(int side) {
+        if (layout() == LayoutArea.BOTT) {
+            return (side == 0) ? x1 + ":" + y2 : x2 + ":" + y2; //точки левого и правого нижнего углового
+        } else if (layout() == LayoutArea.RIGHT) {
+            return (side == 0) ? x2 + ":" + y2 : x2 + ":" + y1; //точки нижнего и верхнего правого углового
+        } else if (layout() == LayoutArea.TOP) {
+            return (side == 0) ? x2 + ":" + y1 : x1 + ":" + y1; //точки правого и левого верхнего углового
+        } else if (layout() == LayoutArea.LEFT) {
+            return (side == 0) ? x1 + ":" + y1 : x1 + ":" + y2; //точки верхнего и нижнего левого углового
+            //импостЮ штульп...    
+        } else if (layout() == LayoutArea.VERT) { //вектор всегда снизу вверх
+            return (side == 0) ? (x1 + (x2 - x1) / 2) + ":" + y2 : (x1 + (x2 - x1) / 2) + ":" + y1; //точки нижнего и верхнего Т-обр.
+        } else if (layout() == LayoutArea.HORIZ) { //вектор всегда слева на право
+            return (side == 0) ? x1 + ":" + (y1 + (y2 - y1) / 2) : x2 + ":" + (y1 + (y2 - y1) / 2); //точки левого и правого Т-обр.
+        }
+        return null;
+    }
 
     @Override
     public String toString() {

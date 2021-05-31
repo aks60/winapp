@@ -41,7 +41,7 @@ public class AreaArch extends AreaSimple {
         elem1.anglProf = (float) ang4;
         elem1.joinElement1.anglCut[1] = (float) ang4;  //угол реза арки
         elem1.joinElement2.anglCut[0] = (float) ang3;  //угол реза рамы
-        iwin().mapJoin.put(joinPoint(elemArch, 0), elem1);
+        iwin().mapJoin.put(elemArch.joinPoint(0), elem1);
 
         //Угловое соединение правое верхнее
         ElemJoining elem2 = new ElemJoining(iwin());
@@ -50,14 +50,14 @@ public class AreaArch extends AreaSimple {
         elem2.anglProf = (float) ang4;
         elem2.joinElement2.anglCut[0] = (float) ang4;  //угол реза арки
         elem2.joinElement1.anglCut[1] = (float) ang3;  //угол реза рамы                             
-        iwin().mapJoin.put(joinPoint(elemArch, 0), elem2);
+        iwin().mapJoin.put(elemArch.joinPoint(0), elem2);
         
         //Угловое соединение левое нижнее
         ElemJoining elem3 = new ElemJoining(iwin());
         elem3.id = id() + .3f;
         elem3.init(TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott);
         elem3.anglProf = 90;
-        iwin().mapJoin.put(joinPoint(elemLeft, 1), elem3);
+        iwin().mapJoin.put(elemLeft.joinPoint(1), elem3);
         
         //Угловое соединение правое нижнее
         ElemJoining elem4 = new ElemJoining(iwin());
@@ -65,7 +65,7 @@ public class AreaArch extends AreaSimple {
         elem4.init(TypeJoin.VAR20, LayoutJoin.LBOT, elemBott, elemRight);
         elem4.anglProf = 90;
         iwin().mapJoin.put(x2 + ":" + y2, elem4);
-        iwin().mapJoin.put(joinPoint(elemRight, 0), elem4);
+        iwin().mapJoin.put(elemRight.joinPoint(0), elem4);
     }
 
     protected void frame(ElemFrame elemFrame, double katet) {

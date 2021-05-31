@@ -160,19 +160,19 @@ public class AreaStvorka extends AreaSimple {
 
             if (index == 0) { //Угловое соединение правое нижнее
                 el.init(TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight);
-                iwin().mapJoin.put(joinPoint(elemBott, 1), el);
+                iwin().mapJoin.put(elemBott.joinPoint(1), el);
 
             } else if (index == 1) { //Угловое соединение правое верхнее
                 el.init(TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop);
-                iwin().mapJoin.put(joinPoint(elemRight, 1), el);
+                iwin().mapJoin.put(elemRight.joinPoint(1), el);
 
             } else if (index == 2) { //Угловое соединение левое верхнее
                 el.init(TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft);
-                iwin().mapJoin.put(joinPoint(elemTop, 1), el);
+                iwin().mapJoin.put(elemTop.joinPoint(1), el);
 
             } else if (index == 3) { //Угловое соединение левое нижнее
                 el.init(TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott);
-                iwin().mapJoin.put(joinPoint(elemLeft, 1), el);
+                iwin().mapJoin.put(elemLeft.joinPoint(1), el);
             }
         }
 
@@ -182,17 +182,18 @@ public class AreaStvorka extends AreaSimple {
             el.id = id() + (float) (index + 5) / 100;
             el.typeJoin = TypeJoin.VAR10;
             el.anglProf = 0;
-            if (index == 0) { //Прилигающее верхнее 
-                el.layoutJoin = LayoutJoin.CTOP;
-                el.joinElement1 = elemTop;
-                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null);
-                iwin().mapJoin.put((x1 + width() / 2) + ":" + y1, el);
-
-            } else if (index == 1) { //Прилигающее нижнее
+             if (index == 0) { //Прилигающее нижнее
                 el.layoutJoin = LayoutJoin.CBOT;
                 el.joinElement1 = elemBott;
                 el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put((x1 + width() / 2) + ":" + y2, el);
+                iwin().mapJoin.put(elemBott.joinPoint(1), el);
+                
+            } else if (index == 1) { //Прилигающее верхнее 
+                el.layoutJoin = LayoutJoin.CTOP;
+                el.joinElement1 = elemTop;
+                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null);
+                iwin().mapJoin.put(elemTop.joinPoint(0), el);
 
             } else if (index == 2) { //Прилигающее левое
                 el.layoutJoin = LayoutJoin.CLEFT;
