@@ -24,24 +24,21 @@ public class AreaRectangl extends AreaSimple {
                 elemTop = mapFrame.get(LayoutArea.TOP), elemLeft = mapFrame.get(LayoutArea.LEFT);
         //Цикл по сторонам рамы
         for (int index = 0; index < 4; index++) {
-            ElemJoining el = new ElemJoining(iwin());
-            el.id = id() + (float) (index + 1) / 100;
-            el.anglProf = 90;
 
             if (index == 0) { //Угловое соединение правое нижнее
-                el.init(TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 1) / 100, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
                 iwin().mapJoin.put(elemBott.joinPoint(1), el);
 
             } else if (index == 1) { //Угловое соединение правое верхнее
-                el.init(TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 1) / 100, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
                 iwin().mapJoin.put(elemRight.joinPoint(1), el);
 
             } else if (index == 2) { //Угловое соединение левое верхнее    
-                el.init(TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 1) / 100, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
                 iwin().mapJoin.put(elemTop.joinPoint(1), el);
 
             } else if (index == 3) { //Угловое соединение левое нижнее
-                el.init(TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 1) / 100, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90);
                 iwin().mapJoin.put(elemLeft.joinPoint(1), el);
             }
         }

@@ -40,8 +40,8 @@ public class Joining extends Cal5e {
             //Цикл по списку соединений
             for (Map.Entry<String, ElemJoining> hmElemJoin : iwin().mapJoin.entrySet()) {
                 ElemJoining elemJoin = hmElemJoin.getValue();
-                ElemSimple joinElem1 = elemJoin.joinElement1;
-                ElemSimple joinElem2 = elemJoin.joinElement2;
+                ElemSimple joinElem1 = elemJoin.joinElem1;
+                ElemSimple joinElem2 = elemJoin.joinElem2;
                 Record joinartRec1 = joinElem1.artiklRecAn; //берём аналог профиля
                 Record joinartRec2 = joinElem2.artiklRecAn; //т.к. если его нет там будет оригинал              
                 int id1 = (joinartRec1.get(eArtikl.analog_id) == null) ? joinartRec1.getInt(eArtikl.id) : joinartRec1.getInt(eArtikl.analog_id);

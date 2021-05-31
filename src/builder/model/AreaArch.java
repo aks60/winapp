@@ -26,8 +26,8 @@ public class AreaArch extends AreaSimple {
         elem1.id = id() + .1f;
         elem1.init(TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft);
 
-        double dh = elem1.joinElement1.artiklRec.getFloat(eArtikl.height);
-        double dw = elem1.joinElement2.artiklRec.getFloat(eArtikl.height);
+        double dh = elem1.joinElem1.artiklRec.getFloat(eArtikl.height);
+        double dw = elem1.joinElem2.artiklRec.getFloat(eArtikl.height);
         double h = iwin().heightAdd - height();
         double w = width();
         double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки        
@@ -39,8 +39,8 @@ public class AreaArch extends AreaSimple {
         double ang4 = 90 - (Math.toDegrees(rad1) - (90 - ang3)); //угол реза арки
         radiusArch = r;
         elem1.anglProf = (float) ang4;
-        elem1.joinElement1.anglCut[1] = (float) ang4;  //угол реза арки
-        elem1.joinElement2.anglCut[0] = (float) ang3;  //угол реза рамы
+        elem1.joinElem1.anglCut[1] = (float) ang4;  //угол реза арки
+        elem1.joinElem2.anglCut[0] = (float) ang3;  //угол реза рамы
         iwin().mapJoin.put(elemArch.joinPoint(0), elem1);
 
         //Угловое соединение правое верхнее
@@ -48,8 +48,8 @@ public class AreaArch extends AreaSimple {
         elem2.id = id() + .2f;
         elem2.init(TypeJoin.VAR20, LayoutJoin.RBOT, elemRight, elemArch);
         elem2.anglProf = (float) ang4;
-        elem2.joinElement2.anglCut[0] = (float) ang4;  //угол реза арки
-        elem2.joinElement1.anglCut[1] = (float) ang3;  //угол реза рамы                             
+        elem2.joinElem2.anglCut[0] = (float) ang4;  //угол реза арки
+        elem2.joinElem1.anglCut[1] = (float) ang3;  //угол реза рамы                             
         iwin().mapJoin.put(elemArch.joinPoint(0), elem2);
         
         //Угловое соединение левое нижнее
@@ -78,7 +78,7 @@ public class AreaArch extends AreaSimple {
 
     protected void shtapik(ElemGlass elemGlass, Specific spcAdd) {
         Float dw = spcAdd.width;
-        ElemSimple imp = elemGlass.join(LayoutArea.BOTT);
+        ElemSimple imp = elemGlass.joinFlat(LayoutArea.BOTT);
         ElemSimple arch = mapFrame.get(LayoutArea.ARCH);
         ElemSimple rama = mapFrame.get(LayoutArea.LEFT);
 

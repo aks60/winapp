@@ -104,16 +104,16 @@ public class FurnitureDet extends Par5s {
                     case 24033:   //Фурнитура штульповая 
                     case 25033: {
                         if (areaStv.typeOpen.name.equalsIgnoreCase("Левое")) {
-                            if (rec.getStr(TEXT).equalsIgnoreCase("Да") && areaStv.join(LayoutArea.RIGHT).type() != TypeElem.SHTULP) {
+                            if (rec.getStr(TEXT).equalsIgnoreCase("Да") && areaStv.joinFlat(LayoutArea.RIGHT).type() != TypeElem.SHTULP) {
                                 return false;
-                            } else if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && areaStv.join(LayoutArea.RIGHT).type() == TypeElem.SHTULP) {
+                            } else if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && areaStv.joinFlat(LayoutArea.RIGHT).type() == TypeElem.SHTULP) {
                                 return false;
                             }
                         } else if (areaStv.typeOpen.name.equalsIgnoreCase("Правое")) {
-                            if (rec.getStr(TEXT).equalsIgnoreCase("Да") && areaStv.join(LayoutArea.LEFT).type() != TypeElem.SHTULP) {
+                            if (rec.getStr(TEXT).equalsIgnoreCase("Да") && areaStv.joinFlat(LayoutArea.LEFT).type() != TypeElem.SHTULP) {
                                 return false;
                             }
-                            if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && areaStv.join(LayoutArea.LEFT).type() == TypeElem.SHTULP) {
+                            if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && areaStv.joinFlat(LayoutArea.LEFT).type() == TypeElem.SHTULP) {
                                 return false;
                             }
                         }

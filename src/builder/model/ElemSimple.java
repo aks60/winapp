@@ -19,11 +19,11 @@ public abstract class ElemSimple extends Com5t {
     public float anglCut[] = {45, 45}; //угол реза рамы
     public float[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
     public float anglHoriz = -1; //угол к горизонту
+    public ElemJoining joinElem[] = {null, null, null}; //соединения угловое, прилегающее     
 
     public Specific spcRec = null; //спецификация элемента
     protected Uti3 uti3 = null;
     public Color borderColor = Color.BLACK;
-    //public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);
@@ -61,6 +61,11 @@ public abstract class ElemSimple extends Com5t {
             return (side == 0) ? x1 + ":" + y1 : x2 + ":" + y2; //точки левого и правого Т-обр.
         }
         return null;
+    }
+
+    //Элемент соединения 0-нач. вектора, 1-конец вектора, 2-середина вектора
+    public ElemJoining getJoin(int side) {
+        return iwin().mapJoin.get(joinPoint(side));
     }
 
     @Override

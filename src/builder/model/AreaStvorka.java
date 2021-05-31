@@ -68,9 +68,9 @@ public class AreaStvorka extends AreaSimple {
     //Коррекция координат створки с учётом нахлёста
     private void setLocation(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
 
-        ElemSimple joinLef = join(LayoutArea.LEFT), joinTop = join(LayoutArea.TOP),
-                joinBot = join(LayoutArea.BOTT), joinRig = join(LayoutArea.RIGHT);
-
+        ElemSimple joinLef = joinFlat(LayoutArea.LEFT), joinTop = joinFlat(LayoutArea.TOP),
+                joinBot = joinFlat(LayoutArea.BOTT), joinRig = joinFlat(LayoutArea.RIGHT);
+        
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
             x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
             y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
@@ -143,11 +143,9 @@ public class AreaStvorka extends AreaSimple {
     @Override
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(LayoutArea.BOTT), elemRight = mapFrame.get(LayoutArea.RIGHT),
-                elemTop = mapFrame.get(LayoutArea.TOP), elemLeft = mapFrame.get(LayoutArea.LEFT);
+                elemTop = mapFrame.get(LayoutArea.TOP), elemLeft = mapFrame.get(LayoutArea.LEFT);        
         //Цикл по сторонам створки
         for (int index = 0; index < 4; index++) {
-            ElemJoining el = new ElemJoining(iwin());
-            el.id = id() + (float) (index + 1) / 100;
             elemBott.anglHoriz = 0;
             elemRight.anglHoriz = 90;
             elemTop.anglHoriz = 180;
@@ -156,54 +154,41 @@ public class AreaStvorka extends AreaSimple {
                 elem.getValue().anglCut[0] = 45;
                 elem.getValue().anglCut[1] = 45;
             });
-            el.anglProf = 90;
 
             if (index == 0) { //Угловое соединение правое нижнее
-                el.init(TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 1) / 100, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
                 iwin().mapJoin.put(elemBott.joinPoint(1), el);
 
             } else if (index == 1) { //Угловое соединение правое верхнее
-                el.init(TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 1) / 100, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
                 iwin().mapJoin.put(elemRight.joinPoint(1), el);
 
             } else if (index == 2) { //Угловое соединение левое верхнее
-                el.init(TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 1) / 100, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
                 iwin().mapJoin.put(elemTop.joinPoint(1), el);
 
             } else if (index == 3) { //Угловое соединение левое нижнее
-                el.init(TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 1) / 100, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
                 iwin().mapJoin.put(elemLeft.joinPoint(1), el);
             }
         }
 
         LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP);
         for (int index = 0; index < 4; index++) {
-            ElemJoining el = new ElemJoining(iwin());
-            el.id = id() + (float) (index + 5) / 100;
-            el.typeJoin = TypeJoin.VAR10;
-            el.anglProf = 0;
              if (index == 0) { //Прилигающее нижнее
-                el.layoutJoin = LayoutJoin.CBOT;
-                el.joinElement1 = elemBott;
-                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CBOT, elemBott, joinFlat(LayoutArea.BOTT), 0);                               
                 iwin().mapJoin.put(elemBott.joinPoint(2), el);
                 
             } else if (index == 1) { //Прилигающее верхнее 
-                el.layoutJoin = LayoutJoin.CTOP;
-                el.joinElement1 = elemTop;
-                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CTOP, elemTop, joinFlat(LayoutArea.TOP), 0);
                 iwin().mapJoin.put(elemTop.joinPoint(2), el);
 
             } else if (index == 2) { //Прилигающее левое
-                el.layoutJoin = LayoutJoin.CLEFT;
-                el.joinElement1 = elemLeft;
-                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1, y1 + height() / 2) == true).findFirst().orElse(null);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CLEFT, elemLeft, joinFlat(LayoutArea.LEFT), 0);
                 iwin().mapJoin.put(elemLeft.joinPoint(2), el);
 
             } else if (index == 3) { //Прилигающее правое
-                el.layoutJoin = LayoutJoin.CRIGH;
-                el.joinElement1 = elemRight;
-                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x2, y1 + height() / 2) == true).findFirst().orElse(null);
+                ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CRIGH, elemRight, joinFlat(LayoutArea.RIGHT), 0);
                 iwin().mapJoin.put(elemRight.joinPoint(2), el);
             }
         }

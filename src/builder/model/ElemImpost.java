@@ -97,12 +97,12 @@ public class ElemImpost extends ElemSimple {
             float zax = iwin().syssizeRec.getFloat(eSyssize.zax);
 
             if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
-                ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTT);
+                ElemSimple insideTop = joinFlat(LayoutArea.TOP), insideBott = joinFlat(LayoutArea.BOTT);
                 spcRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-            } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
-                ElemSimple insideLeft = join(LayoutArea.LEFT), insideRight = join(LayoutArea.RIGHT);
+            } else if (LayoutArea.VERT == owner().layout()) { //снизу вверх
+                ElemSimple insideLeft = joinFlat(LayoutArea.LEFT), insideRight = joinFlat(LayoutArea.RIGHT);
                 spcRec.width = insideRight.x1 - insideLeft.x2 + zax * 2 + insideLeft.artiklRec.getFloat(eArtikl.size_falz) + insideRight.artiklRec.getFloat(eArtikl.size_falz);
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
@@ -111,7 +111,7 @@ public class ElemImpost extends ElemSimple {
                 spcRec.width = y2 - y1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-            } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
+            } else if (LayoutArea.VERT == owner().layout()) { //снизу вверх
                 spcRec.width = x2 - x1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }

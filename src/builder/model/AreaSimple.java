@@ -133,7 +133,7 @@ public class AreaSimple extends Com5t {
         }
         com5t.listChild.forEach(comp -> listElem(comp, list, type));
     }
-
+    
     public void joinFrame() {
     }
 
@@ -148,8 +148,6 @@ public class AreaSimple extends Com5t {
             for (ElemSimple elem5e : elemList) {
                 if (elem5e.layout != LayoutArea.ARCH) { //для арки inside() не работает
 
-                    ElemJoining el = new ElemJoining(iwin());
-                    el.anglProf = 90;
                     elemImp.anglCut[0] = 90;
                     elemImp.anglCut[1] = 90;
 
@@ -158,14 +156,12 @@ public class AreaSimple extends Com5t {
                         elemImp.anglHoriz = 90;
                         if (elem5e.inside(elemImp.x2, elemImp.y2) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение нижнее                              
-                            el.id = id() + 1f / 100;
-                            el.init(TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e);
+                            ElemJoining el = new ElemJoining(id() + 1f / 100, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
                             iwin().mapJoin.put(elemImp.joinPoint(0), el);
 
                         } else if (elem5e.inside(elemImp.x1, elemImp.y1) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение верхнее                            
-                            el.id = id() + 2f / 100;
-                            el.init(TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e);
+                            ElemJoining el = new ElemJoining(id() + 2f / 100, TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
                             iwin().mapJoin.put(elemImp.joinPoint(1), el);
                         }
 
@@ -174,14 +170,12 @@ public class AreaSimple extends Com5t {
                         elemImp.anglHoriz = 0;
                         if (elem5e.inside(elemImp.x1, elemImp.y1) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение левое                             
-                            el.id = id() + 3f / 100;
-                            el.init(TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e);
+                            ElemJoining el = new ElemJoining(id() + 3f / 100, TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
                             iwin().mapJoin.put(elemImp.joinPoint(0), el);
 
                         } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение правое                              
-                            el.id = id() + 4f / 100;
-                            el.init(TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e);
+                            ElemJoining el = new ElemJoining(id() + 4f / 100, TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
                             iwin().mapJoin.put(elemImp.joinPoint(1), el);
                         }
                     }
