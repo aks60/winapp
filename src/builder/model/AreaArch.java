@@ -20,14 +20,9 @@ public class AreaArch extends AreaSimple {
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(LayoutArea.BOTT), elemRight = mapFrame.get(LayoutArea.RIGHT),
                 elemArch = mapFrame.get(LayoutArea.ARCH), elemLeft = mapFrame.get(LayoutArea.LEFT);
-        
-        //Угловое соединение левое верхнее
-        ElemJoining elem1 = new ElemJoining(iwin());
-        elem1.id = id() + .1f;
-        elem1.init(TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft);
 
-        double dh = elem1.joinElem1.artiklRec.getFloat(eArtikl.height);
-        double dw = elem1.joinElem2.artiklRec.getFloat(eArtikl.height);
+        double dh = elemArch.artiklRec.getFloat(eArtikl.height);
+        double dw = elemLeft.artiklRec.getFloat(eArtikl.height);
         double h = iwin().heightAdd - height();
         double w = width();
         double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки        
@@ -38,34 +33,24 @@ public class AreaArch extends AreaSimple {
         double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dh)); //угол реза рамы
         double ang4 = 90 - (Math.toDegrees(rad1) - (90 - ang3)); //угол реза арки
         radiusArch = r;
-        elem1.anglProf = (float) ang4;
+        ElemJoining elem1 = new ElemJoining(id() + .1f, TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft, (float) ang4);
         elem1.joinElem1.anglCut[1] = (float) ang4;  //угол реза арки
         elem1.joinElem2.anglCut[0] = (float) ang3;  //угол реза рамы
         iwin().mapJoin.put(elemArch.joinPoint(0), elem1);
 
         //Угловое соединение правое верхнее
-        ElemJoining elem2 = new ElemJoining(iwin());
-        elem2.id = id() + .2f;
-        elem2.init(TypeJoin.VAR20, LayoutJoin.RBOT, elemRight, elemArch);
-        elem2.anglProf = (float) ang4;
+        ElemJoining elem2 = new ElemJoining(id() + .2f, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch, (float) ang4);
         elem2.joinElem2.anglCut[0] = (float) ang4;  //угол реза арки
         elem2.joinElem1.anglCut[1] = (float) ang3;  //угол реза рамы                             
         iwin().mapJoin.put(elemArch.joinPoint(0), elem2);
         
         //Угловое соединение левое нижнее
-        ElemJoining elem3 = new ElemJoining(iwin());
-        elem3.id = id() + .3f;
-        elem3.init(TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott);
-        elem3.anglProf = 90;
+        ElemJoining elem3 = new ElemJoining(id() + .3f, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
         iwin().mapJoin.put(elemLeft.joinPoint(1), elem3);
         
         //Угловое соединение правое нижнее
-        ElemJoining elem4 = new ElemJoining(iwin());
-        elem4.id = id() + .4f;
-        elem4.init(TypeJoin.VAR20, LayoutJoin.LBOT, elemBott, elemRight);
-        elem4.anglProf = 90;
-        iwin().mapJoin.put(x2 + ":" + y2, elem4);
-        iwin().mapJoin.put(elemRight.joinPoint(0), elem4);
+        ElemJoining elem4 = new ElemJoining(id() + .4f, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
+        iwin().mapJoin.put(elemRight.joinPoint(1), elem4);
     }
 
     protected void frame(ElemFrame elemFrame, double katet) {

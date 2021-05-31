@@ -41,7 +41,7 @@ public abstract class ElemSimple extends Com5t {
     //Главная спецификация
     public abstract void setSpecific();
 
-    //Вложеная спецификация
+    //Вложенная спецификация
     public abstract void addSpecific(Specific specification);
 
     //Точки соединения профилей (side 0-пред.артикл, 1-след.артикл или 0-левый, 1-правый)
