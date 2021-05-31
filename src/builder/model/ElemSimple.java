@@ -19,8 +19,6 @@ public abstract class ElemSimple extends Com5t {
     public float anglCut[] = {45, 45}; //угол реза рамы
     public float[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
     public float anglHoriz = -1; //угол к горизонту
-    public ElemJoining joinElem[] = {null, null}; //соединения угловое 
-    public ElemJoining joinFlat[] = {null, null}; //соединения прилегающее 
 
     public Specific spcRec = null; //спецификация элемента
     protected Uti3 uti3 = null;
@@ -49,18 +47,18 @@ public abstract class ElemSimple extends Com5t {
     //Точки соединения профилей (side 0-пред.артикл, 1-след.артикл или 0-левый, 1-правый)
     public String joinPoint(int side) {
         if (layout() == LayoutArea.BOTT) {
-            return (side == 0) ? x1 + ":" + y2 : x2 + ":" + y2; //точки левого и правого нижнего углового
+            return (side == 0) ? x1 + ":" + y2 : (side == 2) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y1; //точки левого, прав. нижнего углового и прилегающего соед.
         } else if (layout() == LayoutArea.RIGHT) {
-            return (side == 0) ? x2 + ":" + y2 : x2 + ":" + y1; //точки нижнего и верхнего правого углового
+            return (side == 0) ? x2 + ":" + y2 : (side == 2) ? x2 + ":" + y1 : x1 + ":" + y1 + (y2 - y1) / 2; //точки нижнего и верхнего правого углового и прилегающего соед.
         } else if (layout() == LayoutArea.TOP) {
-            return (side == 0) ? x2 + ":" + y1 : x1 + ":" + y1; //точки правого и левого верхнего углового
+            return (side == 0) ? x2 + ":" + y1 : (side == 2) ? x1 + ":" + y1 : x1 + (x2 - x1) / 2 + ":" + y2; //точки правого и левого верхнего углового и прилегающего соед.
         } else if (layout() == LayoutArea.LEFT) {
-            return (side == 0) ? x1 + ":" + y1 : x1 + ":" + y2; //точки верхнего и нижнего левого углового
-            //импостЮ штульп...    
+            return (side == 0) ? x1 + ":" + y1 : (side == 2) ? x1 + ":" + y2 : x2 + ":" + y1 + (y2 - y1) / 2; //точки верхнего и нижнего левого углового и прилегающего соед.
+            //импост, штульп...    
         } else if (layout() == LayoutArea.VERT) { //вектор всегда снизу вверх
-            return (side == 0) ? (x1 + (x2 - x1) / 2) + ":" + y2 : (x1 + (x2 - x1) / 2) + ":" + y1; //точки нижнего и верхнего Т-обр.
+            return (side == 0) ? x2 + ":" + y2 : x1 + ":" + y1; //точки нижнего и верхнего Т-обр.
         } else if (layout() == LayoutArea.HORIZ) { //вектор всегда слева на право
-            return (side == 0) ? x1 + ":" + (y1 + (y2 - y1) / 2) : x2 + ":" + (y1 + (y2 - y1) / 2); //точки левого и правого Т-обр.
+            return (side == 0) ? x1 + ":" + y1 : x2 + ":" + y2; //точки левого и правого Т-обр.
         }
         return null;
     }

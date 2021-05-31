@@ -186,26 +186,25 @@ public class AreaStvorka extends AreaSimple {
                 el.layoutJoin = LayoutJoin.CBOT;
                 el.joinElement1 = elemBott;
                 el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null);
-                iwin().mapJoin.put((x1 + width() / 2) + ":" + y2, el);
-                //iwin().mapJoin.put(elemBott.joinPoint(1), el);
+                iwin().mapJoin.put(elemBott.joinPoint(2), el);
                 
             } else if (index == 1) { //Прилигающее верхнее 
                 el.layoutJoin = LayoutJoin.CTOP;
                 el.joinElement1 = elemTop;
                 el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null);
-                iwin().mapJoin.put(elemTop.joinPoint(0), el);
+                iwin().mapJoin.put(elemTop.joinPoint(2), el);
 
             } else if (index == 2) { //Прилигающее левое
                 el.layoutJoin = LayoutJoin.CLEFT;
                 el.joinElement1 = elemLeft;
                 el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1, y1 + height() / 2) == true).findFirst().orElse(null);
-                iwin().mapJoin.put(x1 + ":" + (y1 + height() / 2), el);
+                iwin().mapJoin.put(elemLeft.joinPoint(2), el);
 
             } else if (index == 3) { //Прилигающее правое
                 el.layoutJoin = LayoutJoin.CRIGH;
                 el.joinElement1 = elemRight;
                 el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x2, y1 + height() / 2) == true).findFirst().orElse(null);
-                iwin().mapJoin.put(x2 + ":" + (y1 + height() / 2), el);
+                iwin().mapJoin.put(elemRight.joinPoint(2), el);
             }
         }
     }
