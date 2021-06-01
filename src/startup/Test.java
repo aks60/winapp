@@ -1,8 +1,7 @@
 package startup;
 
-import builder.making.Specific;
-import builder.model.ElemImpost;
 import builder.model.ElemSimple;
+import builder.param.ElementDet;
 import builder.param.ElementVar;
 import frames.FrameToFile;
 import builder.script.GsonRoot;
@@ -11,7 +10,6 @@ import common.*;
 import dataset.*;
 import com.google.gson.GsonBuilder;
 import builder.param.ParamList;
-import domain.eElemdet;
 import enums.TypeElem;
 import frames.DBCompare;
 import java.sql.Connection;
@@ -75,7 +73,7 @@ public class Test {
             //parse();
             //uid();
             //param();
-            
+
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -85,7 +83,7 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(601001, false));
@@ -137,20 +135,21 @@ public class Test {
             System.out.println(key + " " + value);
         }*/
         Query.connection = Test.connect2();
-        builder.Wincalc iwin = new builder.Wincalc();
-        iwin.build(builder.script.Winscript.test(508983, false));
-        iwin.constructiv(true);
         HashMap<Integer, String> hmParam = new HashMap();
-        ElemSimple elem5e = new ElemImpost(iwin.rootArea, TypeElem.IMPOST, 777, "");
-        Record elemdetRec = eElemdet.up.newRecord();
+        builder.Wincalc iwin = new builder.Wincalc();
+        iwin.build(builder.script.Winscript.test(601002, false));
+        iwin.constructiv(true);
+        ElemSimple elemImpost = iwin.listElem.stream().filter(el -> el.type() == TypeElem.IMPOST).findFirst().orElse(null);
+        System.out.println(elemImpost);   
 
         ElementVar elementVar = new ElementVar(iwin);
-        //ElementDet elementDet = new ElementDet(iwin);        
-        System.out.println(elementVar.check(elem5e, elemdetRec));
+        ElementDet elementDet = new ElementDet(iwin);        
+        System.out.println(elementVar.filter2(elemImpost, new Record()));
 
 //        JoiningVar joiningVar = new JoiningVar(iwin);        
 //        JoiningDet joiningDet = new JoiningDet(iwin);        
 //        joiningDet.check(hmParam, elem5e, elemdetRec);
+// */
     }
 
     private static void frame() throws Exception {
