@@ -171,12 +171,6 @@ public class ElementVar extends Par5s {
                             }
                         }
                         break;
-                    case 31033: //Если предыдущий артикул 
-                        if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {
-                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(0)).joinElem2.artiklRecAn) == true) ? true : false;
-                        } else {
-                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(0)).joinElem1.artiklRecAn) == true) ? true : false;
-                        }
                     case 31030:  //Угол к горизонту максимальный, °
                         if ("ps3".equals(eSetting.find(2))) {
                             if (rec.getFloat(TEXT) < elem5e.anglHoriz) {
@@ -191,6 +185,12 @@ public class ElementVar extends Par5s {
                             }
                         }
                         break;
+                    case 31033: //Если предыдущий артикул 
+                        if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {
+                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(0)).joinElem2.artiklRecAn) == true) ? true : false;
+                        } else {
+                            return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(0)).joinElem1.artiklRecAn) == true) ? true : false;
+                        }
                     case 31034:  //Если следующий артикул 
                         if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {
                             return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(1)).joinElem2.artiklRecAn) == true) ? true : false;
