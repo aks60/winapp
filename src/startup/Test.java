@@ -62,13 +62,13 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            wincalc();
+            //wincalc();
             //query();
             //frame();
             //json();
             //parse();
             //uid();
-            //param();
+            param();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -118,7 +118,7 @@ public class Test {
     private static void param() {
 
         Query.connection = Test.connect2();
-        ParamTest.param(601003, false);
+        ParamTest.param();
 
         /*Query.connection = Test.connect2();
         Set set = new HashSet();
