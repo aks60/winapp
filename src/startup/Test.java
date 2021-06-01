@@ -144,7 +144,7 @@ public class Test {
 
         ElementVar elementVar = new ElementVar(iwin);
         ElementDet elementDet = new ElementDet(iwin);        
-        System.out.println(elementVar.filter2(elemImpost, new Record()));
+        System.out.println(elementVar.check(elemImpost, new Record()));
 
 //        JoiningVar joiningVar = new JoiningVar(iwin);        
 //        JoiningDet joiningDet = new JoiningDet(iwin);        

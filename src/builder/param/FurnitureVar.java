@@ -19,7 +19,7 @@ public class FurnitureVar extends Par5s {
         super(iwin);
     }
 
-    public boolean check(ElemSimple elem5e, Record furnside1Rec) {
+    public boolean filter(ElemSimple elem5e, Record furnside1Rec) {
 
         List<Record> paramList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
         if (filterParamDef(paramList) == false) {
@@ -27,14 +27,14 @@ public class FurnitureVar extends Par5s {
         }
         //Цикл по параметрам фурнитуры
         for (Record rec : paramList) {
-            if(filter2(elem5e, rec) == false) {
+            if(check(elem5e, rec) == false) {
                return false; 
             }
         }
         return true;
     }
 
-    public boolean filter2(ElemSimple elem5e, Record rec) {
+    public boolean check(ElemSimple elem5e, Record rec) {
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {

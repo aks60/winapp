@@ -69,7 +69,7 @@ public class Elements extends Cal5e {
                 listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
 
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
-                if (elementVar.check(elem5e, elementRec) == true) {
+                if (elementVar.filter(elem5e, elementRec) == true) {
 
                     //Цикл по детализации
                     List<Record> elemdetList = eElemdet.find(element_id);
@@ -78,7 +78,7 @@ public class Elements extends Cal5e {
                         int elemdet_id = elemdetRec.getInt(eElemdet.id);
 
                         //ФИЛЬТР детализации, параметры накапливаются в mapParam
-                        if (elementDet.check(mapParam, elem5e, elemdetRec) == true) {
+                        if (elementDet.filter(mapParam, elem5e, elemdetRec) == true) {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specific spcAdd = new Specific(elemdetRec, artiklRec, elem5e, mapParam);

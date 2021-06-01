@@ -20,7 +20,7 @@ public class FillingVar extends Par5s {
         super(iwin);
     }
 
-    public boolean check(ElemGlass elem5e, Record glasgrpRec) {
+    public boolean filter(ElemGlass elem5e, Record glasgrpRec) {
 
         List<Record> paramList = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
         if (filterParamDef(paramList) == false) {

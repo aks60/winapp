@@ -93,7 +93,7 @@ public class Filling extends Cal5e {
     protected void detail(ElemGlass elemGlass, Record glasgrpRec) {
         try {
             //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
-            if (fillingVar.check(elemGlass, glasgrpRec) == true) {
+            if (fillingVar.filter(elemGlass, glasgrpRec) == true) {
 
                 elemGlass.setSpecific(); //заполним спецификацию элемента
 
@@ -104,7 +104,7 @@ public class Filling extends Cal5e {
                     HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
 
                     //ФИЛЬТР детализации, параметры накапливаются в mapParam
-                    if (fillingDet.check(mapParam, elemGlass, glasdetRec) == true) {
+                    if (fillingDet.filter(mapParam, elemGlass, glasdetRec) == true) {
                         Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
                         Specific spcAdd = new Specific(glasdetRec, artiklRec, elemGlass, mapParam);
                         if (Color.colorFromProduct(spcAdd, 1)

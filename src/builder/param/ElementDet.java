@@ -17,7 +17,7 @@ public class ElementDet extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> hmParam, ElemSimple elem5e, Record elemdetRec) {
+    public boolean filter(HashMap<Integer, String> hmParam, ElemSimple elem5e, Record elemdetRec) {
 
         List<Record> paramList = eElempar2.find3(elemdetRec.getInt(eElemdet.id)); //список параметров детализации 
         if (filterParamDef(paramList) == false) {

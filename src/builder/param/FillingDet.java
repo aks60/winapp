@@ -21,7 +21,7 @@ public class FillingDet extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record glasdetRec) {
+    public boolean filter(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record glasdetRec) {
 
         List<Record> paramList = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации  
         if (filterParamDef(paramList) == false) {

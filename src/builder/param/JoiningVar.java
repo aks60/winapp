@@ -23,7 +23,7 @@ public class JoiningVar extends Par5s {
     }
 
     //1000 - прилегающее соединение, 2000 - угловое на ус, 3000 - угловое (левое, правое), 4000 - Т образное соединение
-    public boolean check(ElemJoining elemJoin, Record joinvarRec) {
+    public boolean filter(ElemJoining elemJoin, Record joinvarRec) {
 
         List<Record> paramList = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
         if (filterParamDef(paramList) == false) {
@@ -84,7 +84,7 @@ public class JoiningVar extends Par5s {
                         List<Record> elementList = eElement.find3(elemJoin.joinElem1.artiklRec.getInt(eArtikl.code), elemJoin.joinElem1.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                substr = (new ElementVar(iwin)).check(elemJoin.joinElem1, elementRec);
+                                substr = (new ElementVar(iwin)).filter(elemJoin.joinElem1, elementRec);
                                 break;
                             }
                         }
@@ -100,7 +100,7 @@ public class JoiningVar extends Par5s {
                         List<Record> elementList = eElement.find3(elemJoin.joinElem2.artiklRec.getInt(eArtikl.code), elemJoin.joinElem2.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                substr = (new ElementVar(iwin)).check(elemJoin.joinElem2, elementRec);
+                                substr = (new ElementVar(iwin)).filter(elemJoin.joinElem2, elementRec);
                                 break;
                             }
                         }
@@ -119,7 +119,7 @@ public class JoiningVar extends Par5s {
                         ElementVar elementVar = new ElementVar(iwin);
                         for (Record elementRec : elementList1) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                substr1 = elementVar.check(elemJoin.joinElem1, elementRec);
+                                substr1 = elementVar.filter(elemJoin.joinElem1, elementRec);
                                 break;
                             }
                         }
@@ -127,7 +127,7 @@ public class JoiningVar extends Par5s {
                         List<Record> elementList2 = eElement.find3(elemJoin.joinElem2.artiklRec.getInt(eArtikl.code), elemJoin.joinElem2.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList2) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                substr1 = elementVar.check(elemJoin.joinElem1, elementRec);
+                                substr1 = elementVar.filter(elemJoin.joinElem1, elementRec);
                                 break;
                             }
                         }
@@ -225,7 +225,7 @@ public class JoiningVar extends Par5s {
                         ElementVar elementVar = new ElementVar(iwin);
                         for (Record elementRec : elementList1) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                substr1 = elementVar.check(elemJoin.joinElem1, elementRec);
+                                substr1 = elementVar.filter(elemJoin.joinElem1, elementRec);
                                 break;
                             }
                         }
@@ -233,7 +233,7 @@ public class JoiningVar extends Par5s {
                         List<Record> elementList2 = eElement.find3(elemJoin.joinElem2.artiklRec.getInt(eArtikl.code), elemJoin.joinElem2.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList2) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                substr1 = elementVar.check(elemJoin.joinElem1, elementRec);
+                                substr1 = elementVar.filter(elemJoin.joinElem1, elementRec);
                                 break;
                             }
                         }

@@ -22,7 +22,7 @@ public class ElementVar extends Par5s {
         super(iwin);
     }
 
-    public boolean check(ElemSimple elem5e, Record elementRec) {
+    public boolean filter(ElemSimple elem5e, Record elementRec) {
 
         List<Record> paramList = eElempar1.find3(elementRec.getInt(eElement.id)); //список параметров вариантов использования
         if (filterParamDef(paramList) == false) {
@@ -30,14 +30,14 @@ public class ElementVar extends Par5s {
         }
         //Цикл по параметрам состава
         for (Record rec : paramList) {
-            if(filter2(elem5e, rec) == false) {
+            if(check(elem5e, rec) == false) {
                return false; 
             }
         }
         return true;
     }
 
-    public boolean filter2(ElemSimple elem5e, Record rec) {
+    public boolean check(ElemSimple elem5e, Record rec) {
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
