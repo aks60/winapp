@@ -193,25 +193,15 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31033: //Если предыдущий артикул 
-//                    if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) == false) {
-//                        return false;
-//                    }
-//                    break;
-                    if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {
-                        return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(0)).joinElem2.artiklRecAn) == true) ? true : false;
-                    } else {
-                        return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(0)).joinElem1.artiklRecAn) == true) ? true : false;
+                    if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) == false) {
+                        return false;
                     }
+                    break;
                 case 31034:  //Если следующий артикул 
-//                    if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code)) == false) {
-//                        return false;
-//                    }
-//                    break;
-                    if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {
-                        return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(1)).joinElem2.artiklRecAn) == true) ? true : false;
-                    } else {
-                        return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(1)).joinElem2.artiklRecAn) == true) ? true : false;
+                    if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code)) == false) {
+                        return false;
                     }
+                    break;
                 case 31035:  //Уровень створки 
                     message(grup);
                     break;
