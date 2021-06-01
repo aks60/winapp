@@ -638,7 +638,7 @@ public class Systree extends javax.swing.JFrame {
                 txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
             }
             Arrays.asList(txt9, txt13, txt14, txt27, txt28,
-                    txt29, txt19, txt20, txt30, txt34).forEach(it -> it.setCaretPosition(0));
+                    txt29, txt19, txt20, txt30).forEach(it -> it.setCaretPosition(0));
             Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
     }
@@ -1057,7 +1057,7 @@ public class Systree extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Параметры конструкции", "Значение по умолчанию", "ID"
+                "Параметр", "Значение по умолчанию", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1080,7 +1080,7 @@ public class Systree extends javax.swing.JFrame {
         if (tab7.getColumnModel().getColumnCount() > 0) {
             tab7.getColumnModel().getColumn(0).setPreferredWidth(300);
             tab7.getColumnModel().getColumn(1).setPreferredWidth(140);
-            tab7.getColumnModel().getColumn(2).setMaxWidth(50);
+            tab7.getColumnModel().getColumn(2).setMaxWidth(40);
         }
 
         pan11.add(scr7, java.awt.BorderLayout.CENTER);
