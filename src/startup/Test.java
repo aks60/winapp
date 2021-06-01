@@ -1,8 +1,5 @@
 package startup;
 
-import builder.model.ElemSimple;
-import builder.param.ElementDet;
-import builder.param.ElementVar;
 import frames.FrameToFile;
 import builder.script.GsonRoot;
 import builder.script.Winscript;
@@ -10,10 +7,9 @@ import common.*;
 import dataset.*;
 import com.google.gson.GsonBuilder;
 import builder.param.ParamList;
-import enums.TypeElem;
+import builder.param.ParamTest;
 import frames.DBCompare;
 import java.sql.Connection;
-import java.util.HashMap;
 import javax.swing.UIManager;
 import java.util.List;
 import java.util.UUID;
@@ -121,6 +117,9 @@ public class Test {
 
     private static void param() {
 
+        Query.connection = Test.connect2();
+        ParamTest.param(601003, false);
+
         /*Query.connection = Test.connect2();
         Set set = new HashSet();
         Map<String, Set> map = new HashMap();
@@ -134,22 +133,6 @@ public class Test {
             Set value = entry.getValue();
             System.out.println(key + " " + value);
         }*/
-        Query.connection = Test.connect2();
-        HashMap<Integer, String> hmParam = new HashMap();
-        builder.Wincalc iwin = new builder.Wincalc();
-        iwin.build(builder.script.Winscript.test(601002, false));
-        iwin.constructiv(true);
-        ElemSimple elemImpost = iwin.listElem.stream().filter(el -> el.type() == TypeElem.IMPOST).findFirst().orElse(null);
-        System.out.println(elemImpost);   
-
-        ElementVar elementVar = new ElementVar(iwin);
-        ElementDet elementDet = new ElementDet(iwin);        
-        System.out.println(elementVar.check(elemImpost, new Record()));
-
-//        JoiningVar joiningVar = new JoiningVar(iwin);        
-//        JoiningDet joiningDet = new JoiningDet(iwin);        
-//        joiningDet.check(hmParam, elem5e, elemdetRec);
-// */
     }
 
     private static void frame() throws Exception {
