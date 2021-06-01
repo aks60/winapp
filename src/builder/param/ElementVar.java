@@ -30,8 +30,8 @@ public class ElementVar extends Par5s {
         }
         //Цикл по параметрам состава
         for (Record rec : paramList) {
-            if(check(elem5e, rec) == false) {
-               return false; 
+            if (check(elem5e, rec) == false) {
+                return false;
             }
         }
         return true;
@@ -193,25 +193,40 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31033: //Если предыдущий артикул 
-                    if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) == false) {
-                        return false;
+//                    if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) == false) {
+//                        return false;
+//                    }
+//                    break;
+                    if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {
+                        return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(0)).joinElem2.artiklRecAn) == true) ? true : false;
+                    } else {
+                        return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(0)).joinElem1.artiklRecAn) == true) ? true : false;
                     }
-                    break;
                 case 31034:  //Если следующий артикул 
-                    if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code)) == false) {
-                        return false;
+//                    if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code)) == false) {
+//                        return false;
+//                    }
+//                    break;
+                    if (elem5e.layout() == LayoutArea.VERT || elem5e.layout() == LayoutArea.HORIZ) {
+                        return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(1)).joinElem2.artiklRecAn) == true) ? true : false;
+                    } else {
+                        return (elem5e.artiklRecAn.equals(iwin.mapJoin.get(elem5e.joinPoint(1)).joinElem2.artiklRecAn) == true) ? true : false;
                     }
-                    break;
                 case 31035:  //Уровень створки 
                     message(grup);
                     break;
                 case 31037:  //Название фурнитуры содержит 
+//                    if (TypeElem.STVORKA == elem5e.owner().type()) {
+//                        if (elem5e.artiklRec.getStr(eArtikl.name).contains(rec.getStr(TEXT)) == false) {
+//                            return false;
+//                        }
+//                    }
+//                    break;
                     if (TypeElem.STVORKA == elem5e.owner().type()) {
-                        if (elem5e.artiklRec.getStr(eArtikl.name).contains(rec.getStr(TEXT)) == false) {
-                            return false;
-                        }
+                        return rec.getStr(TEXT).contains(elem5e.artiklRec.getStr(eArtikl.name));
                     }
-                    break;
+                    return false;
+                    //break;
                 case 31040:  //Поправка габарита накладки, мм 
                     message(grup);
                     break;
