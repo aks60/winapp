@@ -49,14 +49,12 @@ public class ElementVar extends Par5s {
                     if (artiklVRec.get(eArtikl.tech_code) == null) {
                         return false;
                     }
+                    String str = artiklVRec.getStr(eArtikl.tech_code);
                     String[] strList = rec.getStr(TEXT).split(";");
-                    String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
                     boolean ret2 = false;
-                    for (String str : strList) {
-                        for (String str2 : strList2) {
-                            if (str.equalsIgnoreCase(str2)) {
-                                ret2 = true;
-                            }
+                    for (String str2 : strList) {
+                        if (str.contains(str2) == true) {
+                            ret2 = true;
                         }
                     }
                     if (ret2 == false) {
@@ -216,7 +214,7 @@ public class ElementVar extends Par5s {
                         return rec.getStr(TEXT).contains(elem5e.artiklRec.getStr(eArtikl.name));
                     }
                     return false;
-                    //break;
+                //break;
                 case 31040:  //Поправка габарита накладки, мм 
                     message(grup);
                     break;

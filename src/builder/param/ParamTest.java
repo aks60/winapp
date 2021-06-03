@@ -11,21 +11,19 @@ public class ParamTest {
     public static void param() {
 
         Record record = null;
+        ElemSimple elem = null;
         HashMap<Integer, String> hmParam = new HashMap();
-        builder.Wincalc iwin = new builder.Wincalc();
-        iwin.build(builder.script.Winscript.test(601003, false));
-        iwin.constructiv(true);
-        //ElemSimple elem = iwin.listElem.stream().filter(el -> el.type() == TypeElem.IMPOST).findFirst().orElse(null);
-        ElemSimple elem = iwin.rootArea.mapFrame.get(LayoutArea.LEFT);
-        ElementVar elementVar = new ElementVar(iwin);
-        ElementDet elementDet = new ElementDet(iwin);
+        builder.Wincalc iwin_601004 = new builder.Wincalc();
+        iwin_601004.build(builder.script.Winscript.test(601004, false));
+        iwin_601004.constructiv(true);
+        elem = iwin_601004.rootArea.mapFrame.get(LayoutArea.LEFT);
+        ElementVar elemVar_601004 = new ElementVar(iwin_601004);
+     
+        assert true == elemVar_601004.check(elem, newRecord("KBE 58;XXX 58;", 31000));
+        assert false == elemVar_601004.check(elem, newRecord("KBE58;", 31000));
         
-        System.out.println(elem.artiklRecAn);
+        //System.out.println(elem.artiklRecAn);
         
-        boolean bool = elementVar.check(elem, newRecord("KBE 58;", 31000));
-        
-        
-        System.out.println(bool);
 //        JoiningVar joiningVar = new JoiningVar(iwin);        
 //        JoiningDet joiningDet = new JoiningDet(iwin);        
 //        joiningDet.check(hmParam, elem5e, elemdetRec);

@@ -63,12 +63,12 @@ public class Test {
         try {
             //convert.Profstroy.exec();
             //wincalc();
+            param();
             //query();
             //frame();
             //json();
             //parse();
-            //uid();
-            param();
+            //uid();            
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
