@@ -87,15 +87,16 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31003:  //Если соединенный артикул  T-обр.
-                    if (rec.getStr(TEXT).equals(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code))) {
-                        if (elem5e.joinElem[0].typeJoin == TypeJoin.VAR40 || elem5e.joinElem[0].typeJoin == TypeJoin.VAR41) {
+                    if (rec.getStr(TEXT).equals(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) == true) {
+                        if (iwin.mapJoin.get(elem5e.joinPoint(0)).typeJoin != TypeJoin.VAR40 && iwin.mapJoin.get(elem5e.joinPoint(0)).typeJoin != TypeJoin.VAR41) {
                             return false;
                         }
-                    }
-                    if (rec.getStr(TEXT).equals(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code))) {
-                        if (elem5e.joinElem[1].typeJoin == TypeJoin.VAR40 || elem5e.joinElem[1].typeJoin == TypeJoin.VAR41) {
+                    } else if (rec.getStr(TEXT).equals(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code))) {
+                        if (iwin.mapJoin.get(elem5e.joinPoint(1)).typeJoin != TypeJoin.VAR40 && iwin.mapJoin.get(elem5e.joinPoint(1)).typeJoin != TypeJoin.VAR41) {
                             return false;
                         }
+                    } else {
+                        return false;
                     }
                     break;
                 case 31004: //Если прилегающий артикул 

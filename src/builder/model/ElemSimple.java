@@ -49,7 +49,7 @@ public abstract class ElemSimple extends Com5t {
     //Точки соединения профилей (side 0-пред.артикл, 1-след.артикл или 0-левый, 1-правый)
     public String joinPoint(int side) {
         if (layout() == LayoutArea.BOTT) {
-            return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y1; //точки левого, прав. нижнего углового и прилегающего соед.
+            return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y1; //точки левого и правого нижнего углового и прилегающего соед.
         } else if (layout() == LayoutArea.RIGHT) {
             return (side == 0) ? x2 + ":" + y2 : (side == 1) ? x2 + ":" + y1 : x1 + ":" + y1 + (y2 - y1) / 2; //точки нижнего и верхнего правого углового и прилегающего соед.
         } else if (layout() == LayoutArea.TOP) {

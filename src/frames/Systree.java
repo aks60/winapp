@@ -533,6 +533,7 @@ public class Systree extends javax.swing.JFrame {
                     eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", systreeNode.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
             qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", systreeNode.rec().getInt(eSystree.id));
             lab1.setText("ID = " + systreeID);
+            lab2.setText("ID = -1");
 
             loadingTab5();
 
@@ -637,6 +638,7 @@ public class Systree extends javax.swing.JFrame {
                 txt26.setText(Uti4.df.format(iwin.rootGson.find(stv.id()).height()));
                 txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
             }
+            lab2.setText("ID = " + windowsNode.com5t().id());
             Arrays.asList(txt9, txt13, txt14, txt27, txt28,
                     txt29, txt19, txt20, txt30, txt34).forEach(it -> it.setCaretPosition(0));
             Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
@@ -861,6 +863,8 @@ public class Systree extends javax.swing.JFrame {
         checkFilter = new javax.swing.JCheckBox();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
         lab1 = new javax.swing.JLabel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
+        lab2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Системы профилей");
@@ -2392,6 +2396,12 @@ public class Systree extends javax.swing.JFrame {
         lab1.setText("___");
         south.add(lab1);
 
+        filler2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.add(filler2);
+
+        lab2.setText("___");
+        south.add(lab2);
+
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -3154,6 +3164,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab13;
     private javax.swing.JLabel lab14;
@@ -3162,6 +3173,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JLabel lab17;
     private javax.swing.JLabel lab18;
     private javax.swing.JLabel lab19;
+    private javax.swing.JLabel lab2;
     private javax.swing.JLabel lab20;
     private javax.swing.JLabel lab23;
     private javax.swing.JLabel lab24;
