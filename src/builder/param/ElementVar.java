@@ -14,6 +14,7 @@ import builder.model.ElemGlass;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import common.Util;
+import enums.TypeJoin;
 
 //Составы
 public class ElementVar extends Par5s {
@@ -49,12 +50,14 @@ public class ElementVar extends Par5s {
                     if (artiklVRec.get(eArtikl.tech_code) == null) {
                         return false;
                     }
-                    String str = artiklVRec.getStr(eArtikl.tech_code);
                     String[] strList = rec.getStr(TEXT).split(";");
+                    String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
                     boolean ret2 = false;
-                    for (String str2 : strList) {
-                        if (str.contains(str2) == true) {
-                            ret2 = true;
+                    for (String str : strList) {
+                        for (String str2 : strList2) {
+                            if (str.equalsIgnoreCase(str2)) {
+                                ret2 = true;
+                            }
                         }
                     }
                     if (ret2 == false) {
@@ -84,8 +87,16 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31003:  //Если соединенный артикул  T-обр.
-                    message(grup);
-                    //elem5e.inside()
+                    if (rec.getStr(TEXT).equals(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code))) {
+                        if (elem5e.joinElem[0].typeJoin == TypeJoin.VAR40 || elem5e.joinElem[0].typeJoin == TypeJoin.VAR41) {
+                            return false;
+                        }
+                    }
+                    if (rec.getStr(TEXT).equals(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code))) {
+                        if (elem5e.joinElem[1].typeJoin == TypeJoin.VAR40 || elem5e.joinElem[1].typeJoin == TypeJoin.VAR41) {
+                            return false;
+                        }
+                    }
                     break;
                 case 31004: //Если прилегающий артикул 
                     if (elem5e.joinElem(2) == null) {

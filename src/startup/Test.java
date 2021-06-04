@@ -7,7 +7,7 @@ import common.*;
 import dataset.*;
 import com.google.gson.GsonBuilder;
 import builder.param.ParamList;
-import builder.param.ParamTest;
+import builder.param.test.ElementTest;
 import frames.DBCompare;
 import java.sql.Connection;
 import javax.swing.UIManager;
@@ -118,7 +118,7 @@ public class Test {
     private static void param() {
 
         Query.connection = Test.connect2();
-        ParamTest.param();
+        new ElementTest();
 
         /*Query.connection = Test.connect2();
         Set set = new HashSet();
