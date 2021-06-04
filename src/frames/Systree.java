@@ -865,6 +865,7 @@ public class Systree extends javax.swing.JFrame {
         lab1 = new javax.swing.JLabel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
         lab2 = new javax.swing.JLabel();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Системы профилей");
@@ -2402,6 +2403,9 @@ public class Systree extends javax.swing.JFrame {
         lab2.setText("___");
         south.add(lab2);
 
+        filler3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.add(filler3);
+
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -3165,6 +3169,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab13;
     private javax.swing.JLabel lab14;

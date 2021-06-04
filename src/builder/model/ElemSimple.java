@@ -82,13 +82,13 @@ public abstract class ElemSimple extends Com5t {
 
     //Элемент соединения 0-нач. вектора, 1-конец вектора, 2-середина вектора
     public ElemSimple joinElem(int side) {
-        ElemJoining el = iwin().mapJoin.get(joinPoint(side));
-        if (el != null && side == 0) {
-            return el.joinElem1;
-        } else if (el != null && side == 1) {
-            return el.joinElem2;
-        } else if (el != null && side == 2) {
-            return el.joinElem2;
+        ElemJoining ej = iwin().mapJoin.get(joinPoint(side));
+        if (ej != null && side == 0) {
+            return (this.type == TypeElem.IMPOST || this.type == TypeElem.SHTULP) ? ej.joinElem2 : ej.joinElem1;
+        } else if (ej != null && side == 1) {
+            return ej.joinElem2;
+        } else if (ej != null && side == 2) {
+            return ej.joinElem2;
         }
         return null;
     }

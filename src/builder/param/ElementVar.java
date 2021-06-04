@@ -103,7 +103,7 @@ public class ElementVar extends Par5s {
                     if (elem5e.joinElem(2) == null) {
                         return false;
                     }
-                    if (rec.getStr(TEXT).equals(elem5e.joinElem(2).artiklRec.getStr(eArtikl.code)) == false) {
+                    if (rec.getStr(TEXT).equals(elem5e.joinElem(2).artiklRecAn.getStr(eArtikl.code)) == false) {
                         return false;
                     }
                     /*if (LayoutArea.HORIZ == elem5e.layout()) {
@@ -231,7 +231,6 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 31041:  //Ограничение длины профиля, мм 
-                    Object obj = elem5e.length();
                     if (Util.containsNumb(rec.getStr(TEXT), elem5e.length()) == false) {
                         return false;
                     }

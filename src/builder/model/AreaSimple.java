@@ -27,6 +27,7 @@ import common.Util;
 import enums.PKjson;
 import frames.Uti4;
 import java.awt.BasicStroke;
+import java.util.Map;
 
 public class AreaSimple extends Com5t {
 
@@ -133,7 +134,7 @@ public class AreaSimple extends Com5t {
         }
         com5t.listChild.forEach(comp -> listElem(comp, list, type));
     }
-    
+
     public void joinFrame() {
     }
 
