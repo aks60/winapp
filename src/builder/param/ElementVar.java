@@ -125,17 +125,31 @@ public class ElementVar extends Par5s {
                         return false;
                     }
                     break;
-                case 31008:  //Эффективное заполнение изделия, мм 
-                    message(grup);
-                    break;
+                case 31008: //Эффективное заполнение изделия, мм 
+                {
+                    float depth = 0;
+                    for (ElemSimple elem : iwin.listElem) {
+                        if (elem.type() == TypeElem.GLASS) {
+                            depth = (elem.artiklRecAn.getFloat(eArtikl.depth) > depth) ? elem.artiklRecAn.getFloat(eArtikl.depth) : depth;
+                        }
+                    }
+                    if (rec.getFloat(TEXT) != depth) {
+                        return false;
+                    }
+                }
+                break;
                 case 31011:  //Толщина внешнего/внутреннего заполнения, мм 
                     if ("ps3".equals(eSetting.find(2))) {
 
                     } else {
                         if (elem5e.layout() == LayoutArea.HORIZ) {
-                            ElemJoining el = iwin.mapJoin.get((elem5e.x1 + elem5e.width() / 2) + ":" + elem5e.y1);
+                            //ElemJoining el = iwin.mapJoin.get((elem5e.x1 + elem5e.width() / 2) + ":" + elem5e.y1);
+                            //Object el = elem5e.inside(ID, ID).get((elem5e.x1 + elem5e.width() / 2) + ":" + elem5e.y1);
+                            ElemJoining e1 = iwin.mapJoin.get(elem5e.joinPoint(0));
+                            ElemJoining e2 = iwin.mapJoin.get(elem5e.joinPoint(2));
                             //System.out.println(el);
-                            if (el != null) {
+                            if (e1.joinElem1 != null && e1.joinElem2 != null) {
+                                
                             }
                         } else {
                             ElemJoining el = iwin.mapJoin.get((elem5e.x1 + elem5e.width() / 2) + ":" + elem5e.y1);
