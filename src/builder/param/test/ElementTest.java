@@ -31,5 +31,10 @@ public class ElementTest extends ParamTest {
         grup = 31004;
         assert true == elementVar2.check(stv_side_right_2, param("937", grup)) : grup;
         assert false == elementVar2.check(stv_side_right_2, param("XXX", grup)) : grup;
+        
+        grup = 31005;
+        assert true == elementVar2.check(frame_side_left_2, param("0-800;990;1009;1600-2000;", grup)) : grup;
+        assert true == elementVar2.check(stv_side_right_2, param("0-1008;1009", grup)) : grup;
+        assert false == elementVar2.check(stv_side_right_2, param("0-1008;1010", grup)) : grup;
     }
 }
