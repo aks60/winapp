@@ -14,6 +14,8 @@ import builder.model.ElemGlass;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import common.Util;
+import domain.eGroups;
+import domain.eSyssize;
 import enums.TypeJoin;
 
 //Составы
@@ -194,18 +196,22 @@ public class ElementVar extends Par5s {
                 }
                 break;
                 case 31015:  //Разбиение профиля по уровням 
-                    if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.spcRec.getParam("empty", 13015)) == false) {
-                        return false;
-                    }
+                    message(grup);
                     break;
                 case 31016:  //Зазор_на_метр,_мм/Размер_,мм терморазрыва 
                     message(grup);
                     break;
                 case 31017:  //Код системы содержит строку 
-                    message(grup);
-                    break;
-                case 31019:  //Правило подбора текстур 
-                    message(grup);
+                case 37017:  //Код системы содержит строку 
+                {
+                    Record record = eSyssize.find(elem5e.artiklRec.getInt(eArtikl.syssize_id));
+                    if (rec.getStr(TEXT).equals(record.getStr(eSyssize.name)) == false) {
+                        return false;
+                    }
+                }
+                break;
+                case 31019:  //Правило подбора текстур
+                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 31020:  //Ограничение угла к горизонту, ° или Угол к горизонту минимальный, °
                     if ("ps3".equals(eSetting.find(2))) {
@@ -371,9 +377,6 @@ public class ElementVar extends Par5s {
                     if (Util.containsNumb(rec.getStr(TEXT), elem5e.width(), elem5e.height()) == false) {
                         return false;
                     }
-                    break;
-                case 37017:  //Код системы содержит строку 
-                    message(grup);
                     break;
                 case 37030:  //Минимальная площадь или Ограничение площади, кв.м. для Ps4                        
                     if ("ps4".equals(versionDb)) {

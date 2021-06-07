@@ -21,6 +21,9 @@ public class Color {
 
     public static boolean colorFromProduct(Specific spc, int side) {  //см. http://help.profsegment.ru/?id=1107        
 
+        if("-1".equals(spc.getParam(-1, 31019)) == false) {
+            //"внутренняя по основной", "внешняя по основной", "внутрення по внешней", "внешняя по внутренней", "2 стороны по основной"
+        }
         int colorFk = spc.detailRec.getInt(COLOR_FK);
         int types = spc.detailRec.getInt(TYPES);
 

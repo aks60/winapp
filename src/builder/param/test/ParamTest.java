@@ -16,8 +16,8 @@ public class ParamTest {
     protected HashMap<Integer, String> hmParam = new HashMap();
     protected int grup = -1;
     protected Record record = null;
-    protected ElemSimple frame_side_left_2 = null;
-    protected ElemSimple stv_side_right_2 = null;
+    protected ElemSimple frame_left_2 = null;
+    protected ElemSimple stv_right_2 = null;
     protected ElemSimple imp_horiz_2 = null;
     protected ElemSimple imp_vert_2 = null;
     protected ElemSimple glass_top_2 = null;
@@ -34,8 +34,8 @@ public class ParamTest {
         iwin_2.constructiv(true);
         elementVar2 = new ElementVar(iwin_2);
         elementDet2 = new ElementDet(iwin_2);
-        frame_side_left_2 = getElem(iwin_2.rootArea, 1.0f);
-        stv_side_right_2 = getElem(iwin_2.rootArea, 10.2f);
+        frame_left_2 = getElem(iwin_2.rootArea, 1.0f);
+        stv_right_2 = getElem(iwin_2.rootArea, 10.2f);
         imp_vert_2 = getElem(iwin_2.rootArea, 12.0f);
         imp_horiz_2 = getElem(iwin_2.rootArea, 7.0f);
         glass_top_2 = getElem(iwin_2.rootArea, 6.0f);
