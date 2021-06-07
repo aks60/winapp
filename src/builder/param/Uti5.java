@@ -1,5 +1,6 @@
 package builder.param;
 
+import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import dataset.Record;
 import domain.eArtikl;
@@ -94,6 +95,31 @@ class Uti5 {
 
     static boolean p_13081_13082_13086_13087(ElemSimple elem5e, String txt) {
         return true;
+    }
+
+    static List<ElemGlass> getGlassDepth(ElemSimple elem5e) {
+        ElemSimple glass1 = null, glass2 = null;
+        for (ElemSimple el : elem5e.iwin().listElem) {
+            if (el.type() == TypeElem.GLASS) {
+                if (elem5e.layout() == LayoutArea.VERT) {
+                    if (el.inside(elem5e.x1 - 200, elem5e.y1 + elem5e.height() / 2)) {
+                        glass1 = el;
+                    }
+                    if (el.inside(elem5e.x2 + 200, elem5e.y1 + elem5e.height() / 2)) {
+                        glass2 = el;
+                    }
+                }
+                if (elem5e.layout() == LayoutArea.HORIZ) {
+                    if (el.inside(elem5e.y1 - 200, elem5e.x1 + elem5e.width() / 2)) {
+                        glass1 = el;
+                    }
+                    if (el.inside(elem5e.y2 + 200, elem5e.x1 + elem5e.width() / 2)) {
+                        glass2 = el;
+                    }
+                }
+            }
+        }
+        return Arrays.asList((ElemGlass) glass1, (ElemGlass) glass2);
     }
 
 }

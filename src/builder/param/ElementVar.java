@@ -138,37 +138,70 @@ public class ElementVar extends Par5s {
                     }
                 }
                 break;
-                case 31011:  //Толщина внешнего/внутреннего заполнения, мм
-                    if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
-
-                    } else {
-                        if (elem5e.layout() == LayoutArea.HORIZ) {
-                            //ElemJoining el = iwin.mapJoin.get((elem5e.x1 + elem5e.width() / 2) + ":" + elem5e.y1);
-                            //Object el = elem5e.inside(ID, ID).get((elem5e.x1 + elem5e.width() / 2) + ":" + elem5e.y1);
-                            ElemJoining e1 = iwin.mapJoin.get(elem5e.joinPoint(0));
-                            ElemJoining e2 = iwin.mapJoin.get(elem5e.joinPoint(2));
-                            //System.out.println(el);
-                            if (e1.joinElem1 != null && e1.joinElem2 != null) {
-                                
+                case 31011: //Толщина внешнего/внутреннего заполнения, мм
+                {
+                    List<ElemGlass> glassList = Uti5.getGlassDepth(elem5e);
+                    if (glassList.get(0) instanceof ElemGlass && glassList.get(1) instanceof ElemGlass) {
+                        if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
+                            if (Util.containsNumbAny(rec.getStr(TEXT),
+                                    glassList.get(0).artiklRec.getFloat(eArtikl.depth),
+                                    glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
+                                return false;
                             }
-                        } else {
-                            ElemJoining el = iwin.mapJoin.get((elem5e.x1 + elem5e.width() / 2) + ":" + elem5e.y1);
+                        } else if (Util.containsNumb(rec.getStr(TEXT),
+                                glassList.get(0).artiklRec.getFloat(eArtikl.depth),
+                                glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
+                            return false;
                         }
                     }
-                    message(grup);
-                    break;
-                case 31017:  //Код системы содержит строку 
-                    message(grup);
-                    break;
-                case 31014:  //Заполнения одинаковой толщины 
-                    message(grup);
-                    break;
+                }
+                break;
+
+                case 31012: //Для внешнего заполнения, мм", только для PS3
+                {
+                    List<ElemGlass> glassList = Uti5.getGlassDepth(elem5e);
+                    if (glassList.get(1) instanceof ElemGlass) {
+                        if (Util.containsNumb(rec.getStr(TEXT),
+                                glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
+                            return false;
+                        }
+                    }
+                }
+                break;
+                case 31013: //Для внутреннего заполнения, мм", только для PS3
+                {
+                    List<ElemGlass> glassList = Uti5.getGlassDepth(elem5e);
+                    if (glassList.get(0) instanceof ElemGlass) {
+                        if (Util.containsNumb(rec.getStr(TEXT),
+                                glassList.get(0).artiklRec.getFloat(eArtikl.depth)) == false) {
+                            return false;
+                        }
+                    }
+                }
+                break;
+                case 31014: //Заполнения одинаковой толщины 
+                {
+                    List<ElemGlass> glassList = Uti5.getGlassDepth(elem5e);
+                    if ("Да".equalsIgnoreCase(rec.getStr(TEXT)) == true) {
+                        if (glassList.get(0).artiklRecAn.getFloat(eArtikl.depth) != glassList.get(1).artiklRecAn.getFloat(eArtikl.depth)) {
+                            return false;
+                        }
+                    } else {
+                        if (glassList.get(0).artiklRecAn.getFloat(eArtikl.depth) == glassList.get(1).artiklRecAn.getFloat(eArtikl.depth)) {
+                            return false;
+                        }
+                    }
+                }
+                break;
                 case 31015:  //Разбиение профиля по уровням 
                     if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.spcRec.getParam("empty", 13015)) == false) {
                         return false;
                     }
                     break;
                 case 31016:  //Зазор_на_метр,_мм/Размер_,мм терморазрыва 
+                    message(grup);
+                    break;
+                case 31017:  //Код системы содержит строку 
                     message(grup);
                     break;
                 case 31019:  //Правило подбора текстур 
@@ -410,6 +443,7 @@ public class ElementVar extends Par5s {
             System.err.println("Ошибка:param.ElementVar.check()  parametr=" + grup + "    " + e);
             return false;
         }
+
         return true;
     }
 }

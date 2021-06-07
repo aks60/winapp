@@ -164,6 +164,18 @@ public class Util {
         }
     }
 
+    //"288-488/1028,01-1128", "2000,2-3000/0-1250"
+    public static boolean containsNumbAny(String txt, Number val1, Number val2) {
+        if (txt == null || txt.isEmpty()) {
+            return true;
+        }
+        String[] arr = txt.split("/");
+        if (containsNumb(arr[0], val1) == true || containsNumb(arr[1], val2) == true) {
+            return true;
+        }
+        return false;
+    }
+
     //"Стойка 172;Стойка 240;
     public static boolean containsStr(String str, String val) {
         String[] arr = str.split(";");

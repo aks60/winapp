@@ -53,6 +53,11 @@ public class ElementTest extends ParamTest {
         
         grup = 31011;
         assert true == elementVar2.check(imp_vert_2, param("30/30", grup)) : grup;
-        //assert false == elementVar2.check(imp_vert_2, param("*/4-50", grup)) : grup;
+        assert true == elementVar2.check(imp_vert_2, param("*/4-32", grup)) : grup;
+        assert false == elementVar2.check(imp_vert_2, param("3;31;12/4-32", grup)) : grup;
+        
+        grup = 31014;
+        assert true == elementVar2.check(imp_vert_2, param("Да", grup)) : grup;
+        assert false == elementVar2.check(imp_vert_2, param("Нет", grup)) : grup;
     }
 }
