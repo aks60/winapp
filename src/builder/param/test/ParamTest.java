@@ -20,6 +20,9 @@ public class ParamTest {
     protected ElemSimple stv_side_right_2 = null;
     protected ElemSimple imp_horiz_2 = null;
     protected ElemSimple imp_vert_2 = null;
+    protected ElemSimple glass_top_2 = null;
+    protected ElemSimple glass_left_2 = null;
+    protected ElemSimple glass_right_2 = null;
 
     builder.Wincalc iwin_2 = new builder.Wincalc(); //601004
     protected ElementVar elementVar2 = null;
@@ -35,6 +38,9 @@ public class ParamTest {
         stv_side_right_2 = getElem(iwin_2.rootArea, 10.2f);
         imp_vert_2 = getElem(iwin_2.rootArea, 12.0f);
         imp_horiz_2 = getElem(iwin_2.rootArea, 7.0f);
+        glass_top_2 = getElem(iwin_2.rootArea, 6.0f);
+        glass_left_2 = getElem(iwin_2.rootArea, 11.0f);
+        glass_right_2 = getElem(iwin_2.rootArea, 15.0f);
     }
 
     //Получить элемент по ключу

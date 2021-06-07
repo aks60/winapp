@@ -95,14 +95,14 @@ public abstract class Com5t {
     }
 
     //Точка попадает в контур элемента
-    public boolean inside(float x, float y) {
+    public boolean inside(float X, float Y) {
         if (((int) x2 | (int) y2) < 0) {
             return false;
         }
-        if (x < x1 || y < y1) {
+        if (X < x1 || Y < y1) {
             return false;
         }
-        return ((x2 < x1 || x2 >= x) && (y2 < y1 || y2 >= y));
+        return ((x2 < x1 || x2 >= X) && (y2 < y1 || y2 >= Y));
     }
 
     public void paint() {

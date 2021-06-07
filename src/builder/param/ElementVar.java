@@ -138,8 +138,8 @@ public class ElementVar extends Par5s {
                     }
                 }
                 break;
-                case 31011:  //Толщина внешнего/внутреннего заполнения, мм 
-                    if ("ps3".equals(eSetting.find(2))) {
+                case 31011:  //Толщина внешнего/внутреннего заполнения, мм
+                    if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
 
                     } else {
                         if (elem5e.layout() == LayoutArea.HORIZ) {

@@ -46,7 +46,7 @@ public abstract class ElemSimple extends Com5t {
     //Вложенная спецификация
     public abstract void addSpecific(Specific specification);
 
-    //Точки соединения профилей (side 0-пред.артикл, 1-след.артикл или 0-левый, 1-правый)
+    //Точки соединения профилей (side 0-пред.артикл, 1-след.артикл или 2-левый, 3-правый)
     public String joinPoint(int side) {
         if (layout() == LayoutArea.BOTT) {
             return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y1; //точки левого и правого нижнего углового и прилегающего соед.
@@ -56,11 +56,20 @@ public abstract class ElemSimple extends Com5t {
             return (side == 0) ? x2 + ":" + y1 : (side == 1) ? x1 + ":" + y1 : x1 + (x2 - x1) / 2 + ":" + y2; //точки правого и левого верхнего углового и прилегающего соед.
         } else if (layout() == LayoutArea.LEFT) {
             return (side == 0) ? x1 + ":" + y1 : (side == 1) ? x1 + ":" + y2 : x2 + ":" + y1 + (y2 - y1) / 2; //точки верхнего и нижнего левого углового и прилегающего соед.
+
             //импост, штульп...    
         } else if (layout() == LayoutArea.VERT) { //вектор всегда снизу вверх
-            return (side == 0) ? x2 + ":" + y2 : x1 + ":" + y1; //точки нижнего и верхнего Т-обр.
-        } else if (layout() == LayoutArea.HORIZ) { //вектор всегда слева на право
-            return (side == 0) ? x1 + ":" + y1 : x2 + ":" + y2; //точки левого и правого Т-обр.
+            if (side < 2) {
+                return (side == 0) ? x2 + ":" + y2 : x1 + ":" + y1; //точки нижнего и верхнего Т-обр.
+            } else {
+                return (side == 2) ? y1 + (y2 - y1) / 2 + ":" + x1 : y1 + (y2 - y1) / 2 + ":" + x2; //слева и справа средняя
+            }
+        } else if (layout() == LayoutArea.HORIZ) { //вектор всегда справа на лево
+            if (side < 2) {
+                return (side == 0) ? x1 + ":" + y1 : x2 + ":" + y2; //точки левого и правого Т-обр 
+            } else {
+                return (side == 2) ? x1 + (x2 - x1) / 2 + ":" + y1 : x1 + (x2 - x1) / 2 + ":" + y1; //слева и справа средняя
+            }
         }
         return null;
     }
