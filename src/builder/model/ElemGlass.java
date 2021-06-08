@@ -123,11 +123,11 @@ public class ElemGlass extends ElemSimple {
         spcAdd.width = uti3.p_12050_15050_34050_34051_39020(spcRec, spcAdd); //поправка мм
 
         //Стеклопакет
-        if (TypeArtikl.X502.isType(spcAdd.artiklRec)) {
+        if (TypeArtikl.X502.isType(spcAdd.artiklDet)) {
             return;
 
             //Штапик
-        } else if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108)) {
+        } else if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {
 
             if (TypeElem.ARCH == owner().type()) {
                 ((AreaArch) root()).shtapik(this, spcAdd);
@@ -136,7 +136,7 @@ public class ElemGlass extends ElemSimple {
                 //По горизонтали
                 float widthFromParam = spcAdd.width;
                 spcAdd.width += width() + 2 * gzazo;
-                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
                 Specific specificationHor1 = new Specific(spcAdd);
                 Specific specificationHor2 = new Specific(spcAdd);
                 spcRec.spcList.add(specificationHor1);
@@ -144,7 +144,7 @@ public class ElemGlass extends ElemSimple {
                 //По вертикали
                 spcAdd.width = widthFromParam;
                 spcAdd.width += height() + 2 * gzazo;
-                spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
                 Specific specificationVer1 = new Specific(spcAdd);
                 Specific specificationVer2 = new Specific(spcAdd);
                 spcRec.spcList.add(specificationVer1);
@@ -157,7 +157,7 @@ public class ElemGlass extends ElemSimple {
             }
 
             //Концнвой профиль, уплотнение притвора, уплотнитель заполнения
-        } else if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X135, TypeArtikl.X301)) {
+        } else if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X135, TypeArtikl.X301)) {
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
                 ((AreaArch) root()).padding(this, spcAdd);
 
@@ -166,7 +166,7 @@ public class ElemGlass extends ElemSimple {
                 spcAdd.count = 1;
                 spcRec.spcList.add(spcAdd);
             }
-        } else if (TypeArtikl.X302.isType(spcAdd.artiklRec)) {
+        } else if (TypeArtikl.X302.isType(spcAdd.artiklDet)) {
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
                 ((AreaArch) root()).padding(this, spcAdd);
 

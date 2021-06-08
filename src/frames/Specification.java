@@ -507,7 +507,7 @@ public class Specification extends javax.swing.JFrame {
         Specific recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.Artikles.createFrame(Specification.this, recordSpc.artiklRec);
+                App.Artikles.createFrame(Specification.this, recordSpc.artiklDet);
             }
         });
     }//GEN-LAST:event_btnArtikles
@@ -538,7 +538,7 @@ public class Specification extends javax.swing.JFrame {
             FrameProgress.create(Specification.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
-                        App.Systree.createFrame(Specification.this, recordSpc.artiklRec.getInt(eArtikl.id));
+                        App.Systree.createFrame(Specification.this, recordSpc.artiklDet.getInt(eArtikl.id));
 
                     } else if (str.equals("ЗАП")) {
                         App.Systree.createFrame(Specification.this);

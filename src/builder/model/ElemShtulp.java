@@ -127,13 +127,13 @@ public class ElemShtulp extends ElemSimple {
         uti3.p_34077_34078(spcAdd); //задать Угол_реза_1/Угол_реза_2
 
         //Армирование
-        if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X107)) {
+        if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X107)) {
             spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
             spcAdd.anglCut1 = 90;
             spcAdd.anglCut2 = 90;
         }
 
-        if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
+        if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklDet.getInt(eArtikl.level1))) {
             spcAdd.width += spcRec.width;
         }
         spcAdd.width = uti3.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм

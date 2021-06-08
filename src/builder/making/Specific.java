@@ -31,8 +31,9 @@ public class Specific {
     public ArrayList<Specific> spcList = new ArrayList();  //список составов, фарнитур и т.д.
     public HashMap<Integer, String> mapParam = null;  //параметры спецификации
     public ElemSimple elem5e = null;  //элемент пораждающий спецификацию (владелец)
-    public Record artiklRec = null;  //артикул в детализации
+    public Record variantRec = null;  //запись в вариантах
     public Record detailRec = null;  //запись в детализации
+    public Record artiklDet = null;  //артикул в детализации
 
     public float id = -1; //ID
     public String place = "---";  //Место расмешения
@@ -76,6 +77,15 @@ public class Specific {
         setArtiklRec(artiklRec);
     }
 
+    public Specific(Record variantRec, Record deteilRec, Record artiklDet, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
+        this.id = ++elem5e.iwin().genId;
+        this.elem5e = elem5e;
+        this.mapParam = mapParam;
+        this.variantRec = variantRec;
+        this.detailRec = deteilRec;
+        setArtiklRec(artiklDet);
+    }
+
     public Specific(Specific spec) {
         this.id = spec.id; //++spec.elem5e.iwin().genId;
         this.place = spec.place;
@@ -102,7 +112,7 @@ public class Specific {
         this.anglHoriz = spec.anglHoriz;
         this.mapParam = spec.mapParam;
         this.elem5e = spec.elem5e;
-        this.artiklRec = spec.artiklRec;
+        this.artiklDet = spec.artiklDet;
     }
 
     public Vector getVector(int npp) {
@@ -116,7 +126,7 @@ public class Specific {
         this.name = artiklRec.getStr(eArtikl.name);
         this.wastePrc = artiklRec.getFloat(eArtikl.otx_norm);
         this.unit = artiklRec.getInt(eArtikl.unit); //atypi;
-        this.artiklRec = artiklRec;
+        this.artiklDet = artiklRec;
         setAnglCut();
         //this.height = artiklRec.aheig; //TODO парадокс добавления ширины, надо разобраться
     }
@@ -133,14 +143,14 @@ public class Specific {
 
     protected void setAnglCut() {
         //TODO Тут логическая ошибка
-        if (TypeArtikl.X109.isType(artiklRec)
-                || TypeArtikl.X135.isType(artiklRec)
-                || TypeArtikl.X117.isType(artiklRec)
-                || TypeArtikl.X136.isType(artiklRec)) {
+        if (TypeArtikl.X109.isType(artiklDet)
+                || TypeArtikl.X135.isType(artiklDet)
+                || TypeArtikl.X117.isType(artiklDet)
+                || TypeArtikl.X136.isType(artiklDet)) {
             anglCut2 = 90;
             anglCut1 = 90;
 
-        } else if (TypeArtikl.X109.isType(artiklRec)) {
+        } else if (TypeArtikl.X109.isType(artiklDet)) {
             anglCut2 = 0;
             anglCut1 = 0;
         }
@@ -241,7 +251,7 @@ public class Specific {
             float total = 0;
             for (Specific s : specList) {
                 Object str2[] = {String.valueOf(++npp), s.place, s.name, s.artikl,
-                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.spcRec.artiklRec.get(eArtikl.code), s.price1};
+                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.spcRec.artiklDet.get(eArtikl.code), s.price1};
                 total = total + s.weight;
                 System.out.printf(format, str2);
                 System.out.println();
