@@ -30,6 +30,10 @@ public class ParamTest {
     protected ElemSimple frame_right_3 = null;
     protected ElemSimple stv_right_3 = null;
 
+    protected ElemSimple frame_left_4 = null;
+    protected ElemSimple frame_right_4 = null;
+    protected ElemSimple stv_right_4 = null;
+
     builder.Wincalc iwin_2 = new builder.Wincalc(); //601004
     protected ElementVar elementVar2 = null;
     protected ElementDet elementDet2 = null;
@@ -37,6 +41,10 @@ public class ParamTest {
     builder.Wincalc iwin_3 = new builder.Wincalc(); //604005
     protected ElementVar elementVar3 = null;
     protected ElementDet elementDet3 = null;
+
+    builder.Wincalc iwin_4 = new builder.Wincalc(); //700027
+    protected ElementVar elementVar4 = null;
+    protected ElementDet elementDet4 = null;
 
     public ParamTest() {
 
@@ -60,6 +68,14 @@ public class ParamTest {
         frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
         stv_right_3 = getElem(iwin_3.rootArea, 9.2f);        
+        
+        iwin_4.build(builder.script.Winscript.test(700027, false));
+        iwin_4.constructiv(true);
+        elementVar4 = new ElementVar(iwin_4);
+        elementDet4 = new ElementDet(iwin_4);        
+        frame_left_4 = getElem(iwin_4.rootArea, 1.0f);
+        frame_right_4 = getElem(iwin_4.rootArea, 2.0f);
+        stv_right_4 = getElem(iwin_4.rootArea, 6.2f);        
     }
 
     //Получить элемент по ключу

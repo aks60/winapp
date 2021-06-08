@@ -10,11 +10,12 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import java.util.List;
 import builder.Wincalc;
+import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
-import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import common.Util;
-import domain.eGroups;
+import domain.eFurniture;
+import domain.eSysfurn;
 import domain.eSyssize;
 import enums.TypeJoin;
 
@@ -202,7 +203,7 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 31017:  //Код системы содержит строку 
-                case 37017:  //Код системы содержит строку 
+                case 37017: //Код системы содержит строку 
                 {
                     Record record = eSyssize.find(elem5e.artiklRec.getInt(eArtikl.syssize_id));
                     if (rec.getStr(TEXT).equals(record.getStr(eSyssize.name)) == false) {
@@ -260,10 +261,13 @@ public class ElementVar extends Par5s {
                     break;
                 case 31037:  //Название фурнитуры содержит 
                     if (TypeElem.STVORKA == elem5e.owner().type()) {
-                        return elem5e.artiklRec.getStr(eArtikl.name).contains(rec.getStr(TEXT));
+                        AreaStvorka stv = (AreaStvorka) elem5e.owner();
+                        String name = eFurniture.find(stv.sysfurnRec.getInt(eSysfurn.furniture_id)).getStr(eFurniture.name);
+                        if ((name.contains(rec.getStr(TEXT))) == false) {
+                            return false;
+                        }
                     }
-                    return false;
-                //break;
+                    break;
                 case 31040:  //Поправка габарита накладки, мм 
                     message(grup);
                     break;
@@ -272,21 +276,17 @@ public class ElementVar extends Par5s {
                         return false;
                     }
                     break;
-                case 31050:  //Контейнер имеет тип 
-                    if ("ps3".equals(eSetting.find(2))) {
-                        String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
-                        int[] index = {1, 2, 3, 5, 19};
-                        for (int i = 0; i < arr.length; i++) {
-                            if (arr.equals(rec.getStr(TEXT)) && Util.containsNumb(String.valueOf(index[i]), elem5e.type().id) == false) {
-                                return false;
-                            }
-                        }
-                    } else {
-                        if (Util.containsNumb(rec.getStr(TEXT), elem5e.type().id) == false) {
+                case 31050: //Контейнер имеет тип 
+                {
+                    String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
+                    int[] index = {1, 2, 3, 5, 19};
+                    for (int i = 0; i < arr.length; i++) {
+                        if (arr[i].equals(rec.getStr(TEXT)) && Util.containsNumb(String.valueOf(index[i]), elem5e.sysprofRec.getInt(eSysprof.use_type)) == false) {
                             return false;
                         }
                     }
-                    break;
+                }
+                break;
                 case 31051:  //Если створка фурнитуры 
                     message(grup);
                     break;
