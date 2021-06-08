@@ -154,7 +154,7 @@ public class AreaSimple extends Com5t {
 
                     //Импосты(штульпы...)  расположены по горизонтали слева на право
                     if (elemImp.owner().layout() == LayoutArea.HORIZ) {
-                        elemImp.anglHoriz = 90;
+                        //elemImp.anglHoriz = 90;
                         if (elem5e.inside(elemImp.x2, elemImp.y2) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение нижнее                              
                             ElemJoining el = new ElemJoining(id() + 1f / 100, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
@@ -166,9 +166,9 @@ public class AreaSimple extends Com5t {
                             iwin().mapJoin.put(elemImp.joinPoint(1), el);
                         }
 
-                        //Импосты(штульпы...) расположены по вертикали снизу вверх и слева направо
+                        //Импосты(штульпы...) расположены по вертикали снизу вверх и справо на лево
                     } else {
-                        elemImp.anglHoriz = 0;
+                        //elemImp.anglHoriz = 270;
                         if (elem5e.inside(elemImp.x1, elemImp.y1) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение левое                             
                             ElemJoining el = new ElemJoining(id() + 3f / 100, TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);

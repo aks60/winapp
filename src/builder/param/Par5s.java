@@ -51,7 +51,7 @@ public class Par5s {
     protected void message(int code) {
         if (code >= 0) {
             if (ParamList.find(code).pass() != 0) {
-                System.err.println("ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
+                System.err.println("ВНИМАНИЕ! ПАРААМЕТР " + code + " В РАЗРАБОТКЕ.");
             }
         }
     }
@@ -60,7 +60,7 @@ public class Par5s {
     protected void message(HashMap<Integer, String> mapParam, int code) {
         if (code >= 0) {
             if (ParamList.find(code).pass() != 0) {
-                System.err.println("ОШИБКА! КОД " + code + " VALUE " + mapParam.get(code) + " НЕ ОБРАБОТАНЫ.");
+                System.err.println("ВНИМАНИЕ! ПАРААМЕТР " + code + " VALUE " + mapParam.get(code) + " В РАЗРАБОТКЕ.");
             }
         }
     }
@@ -69,7 +69,7 @@ public class Par5s {
     protected void message(Specific spc, int code) {
         if (code >= 0) {
             if (ParamList.find(code).pass() != 0) {
-                System.err.println("ОШИБКА! ID " + spc.id + " КОД " + code + " VALUE " + spc.getParam(code) + " НЕ ОБРАБОТАНЫ.");
+                System.err.println("ВНИМАНИЕ! ID " + spc.id + " ПАРААМЕТР " + code + " VALUE " + spc.getParam(code) + " В РАЗРАБОТКЕ.");
             }
         }
     }

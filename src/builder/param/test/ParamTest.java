@@ -16,7 +16,9 @@ public class ParamTest {
     protected HashMap<Integer, String> hmParam = new HashMap();
     protected int grup = -1;
     protected Record record = null;
+
     protected ElemSimple frame_left_2 = null;
+    protected ElemSimple frame_right_2 = null;
     protected ElemSimple stv_right_2 = null;
     protected ElemSimple imp_horiz_2 = null;
     protected ElemSimple imp_vert_2 = null;
@@ -24,9 +26,17 @@ public class ParamTest {
     protected ElemSimple glass_left_2 = null;
     protected ElemSimple glass_right_2 = null;
 
+    protected ElemSimple frame_left_3 = null;
+    protected ElemSimple frame_right_3 = null;
+    protected ElemSimple stv_right_3 = null;
+
     builder.Wincalc iwin_2 = new builder.Wincalc(); //601004
     protected ElementVar elementVar2 = null;
     protected ElementDet elementDet2 = null;
+
+    builder.Wincalc iwin_3 = new builder.Wincalc(); //604005
+    protected ElementVar elementVar3 = null;
+    protected ElementDet elementDet3 = null;
 
     public ParamTest() {
 
@@ -35,12 +45,21 @@ public class ParamTest {
         elementVar2 = new ElementVar(iwin_2);
         elementDet2 = new ElementDet(iwin_2);
         frame_left_2 = getElem(iwin_2.rootArea, 1.0f);
+        frame_right_2 = getElem(iwin_2.rootArea, 1.0f);
         stv_right_2 = getElem(iwin_2.rootArea, 10.2f);
         imp_vert_2 = getElem(iwin_2.rootArea, 12.0f);
         imp_horiz_2 = getElem(iwin_2.rootArea, 7.0f);
         glass_top_2 = getElem(iwin_2.rootArea, 6.0f);
         glass_left_2 = getElem(iwin_2.rootArea, 11.0f);
         glass_right_2 = getElem(iwin_2.rootArea, 15.0f);
+        
+        iwin_3.build(builder.script.Winscript.test(604005, false));
+        iwin_3.constructiv(true);
+        elementVar3 = new ElementVar(iwin_3);
+        elementDet3 = new ElementDet(iwin_3);        
+        frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
+        frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
+        stv_right_3 = getElem(iwin_3.rootArea, 9.2f);        
     }
 
     //Получить элемент по ключу

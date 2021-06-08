@@ -36,8 +36,8 @@ public class Elements extends Cal5e {
     //Но при проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
     public void calc() {
         super.calc();
-        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE
-                , TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список сторон рам, створок и импостов
+        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE,
+                 TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список сторон рам, створок и импостов
         try {
             //Цикл по списку элементов конструкции
             for (ElemSimple elem5e : listElem) {
@@ -48,7 +48,7 @@ public class Elements extends Cal5e {
                 int artikl_id = elem5e.artiklRecAn.getInt(eArtikl.id);
                 List<Record> elementList3 = eElement.find2(artikl_id);
                 detail(elementList3, elem5e);
-                
+
                 //Варианты состава для серии профилей
                 int series_id = elem5e.artiklRecAn.getInt(eArtikl.series_id);
                 List<Record> elementList2 = eElement.find(series_id);
@@ -70,6 +70,7 @@ public class Elements extends Cal5e {
 
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                 if (elementVar.filter(elem5e, elementRec) == true) {
+                    Color.colorFromParam(elem5e); //правило подбора текстур по параметру
 
                     //Цикл по детализации
                     List<Record> elemdetList = eElemdet.find(element_id);

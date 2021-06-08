@@ -1,16 +1,14 @@
 package builder.making;
 
+import builder.model.ElemSimple;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eColmap;
-import domain.eParams;
 import domain.eSetting;
 import enums.UseColor;
-import java.util.Comparator;
 import java.util.List;
-import static java.util.stream.Collectors.toList;
 import javax.swing.JOptionPane;
 
 public class Color {
@@ -19,11 +17,27 @@ public class Color {
     private static final int COLOR_FK = 3;
     private static final int ARTIKL_ID = 4;
 
+    public static void colorFromParam(ElemSimple slem5e) {  //см. http://help.profsegment.ru/?id=1107        
+
+        String ruleOfColor = slem5e.spcRec.getParam(-1, 31019);
+        if ("-1".equals(ruleOfColor) == false) {
+            if ("внутренняя по основной".equalsIgnoreCase(ruleOfColor)) {
+                slem5e.spcRec.colorID2 = slem5e.spcRec.colorID1;
+            } else if ("внешняя по основной".equalsIgnoreCase(ruleOfColor)) {
+                slem5e.spcRec.colorID3 = slem5e.spcRec.colorID1;
+            } else if ("внутрення по внешней".equalsIgnoreCase(ruleOfColor)) {
+                slem5e.spcRec.colorID2 = slem5e.spcRec.colorID3;
+            } else if ("внешняя по внутренней".equalsIgnoreCase(ruleOfColor)) {
+                slem5e.spcRec.colorID3 = slem5e.spcRec.colorID2;
+            } else if ("2 стороны по основной".equalsIgnoreCase(ruleOfColor)) {
+                slem5e.spcRec.colorID2 = slem5e.spcRec.colorID1;
+                slem5e.spcRec.colorID3 = slem5e.spcRec.colorID1;
+            }
+        }
+    }
+
     public static boolean colorFromProduct(Specific spc, int side) {  //см. http://help.profsegment.ru/?id=1107        
 
-        if("-1".equals(spc.getParam(-1, 31019)) == false) {
-            //"внутренняя по основной", "внешняя по основной", "внутрення по внешней", "внешняя по внутренней", "2 стороны по основной"
-        }
         int colorFk = spc.detailRec.getInt(COLOR_FK);
         int types = spc.detailRec.getInt(TYPES);
 

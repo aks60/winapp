@@ -498,9 +498,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setResizable(false);
             tab1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab1.getColumnModel().getColumn(1).setResizable(false);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab1.getColumnModel().getColumn(2).setResizable(false);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(68);
         }
 
@@ -552,11 +550,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setResizable(false);
             tab2.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab2.getColumnModel().getColumn(1).setResizable(false);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(2).setResizable(false);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(68);
         }
 
@@ -589,7 +584,15 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             new String [] {
                 "Ном.п/п", "Наименование конструкции", "Рисунок конструкции"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab3.setFillsViewportHeight(true);
         tab3.setRowHeight(80);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -600,11 +603,10 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(0).setResizable(false);
             tab3.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab3.getColumnModel().getColumn(0).setMaxWidth(20);
-            tab3.getColumnModel().getColumn(2).setMinWidth(68);
+            tab3.getColumnModel().getColumn(2).setResizable(false);
             tab3.getColumnModel().getColumn(2).setPreferredWidth(68);
-            tab3.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
         pan26.add(scr3, java.awt.BorderLayout.CENTER);

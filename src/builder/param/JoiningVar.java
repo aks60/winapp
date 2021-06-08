@@ -14,6 +14,7 @@ import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import common.Util;
 import java.util.Dictionary;
+import java.util.HashMap;
 
 //Соединения
 public class JoiningVar extends Par5s {

@@ -69,7 +69,7 @@ public class ElemImpost extends ElemSimple {
 
                 if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
                     setDimension(prevArea.x1, prevArea.y2 - db, prevArea.x2, prevArea.y2 + db);
-                    anglHoriz = 0;
+                    anglHoriz = 270;
 
                 } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
                     setDimension(prevArea.x2 - db, prevArea.y1, prevArea.x2 + db, prevArea.y2);

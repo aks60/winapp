@@ -1,10 +1,7 @@
 package builder.param.test;
 
-import builder.model.ElemSimple;
-import builder.param.ElementVar;
-import enums.LayoutArea;
+import builder.making.Color;
 import static builder.param.test.ParamTest.param;
-import domain.eArtikl;
 
 public class ElementTest extends ParamTest {
 
@@ -55,13 +52,27 @@ public class ElementTest extends ParamTest {
         assert true == elementVar2.check(imp_vert_2, param("30/30", grup)) : grup;
         assert true == elementVar2.check(imp_vert_2, param("*/4-32", grup)) : grup;
         assert false == elementVar2.check(imp_vert_2, param("3;31;12/4-32", grup)) : grup;
-        
-        grup = 31014;
-        assert true == elementVar2.check(imp_vert_2, param("Да", grup)) : grup;
-        assert false == elementVar2.check(imp_vert_2, param("Нет", grup)) : grup;
-        
+
         grup = 31017; //37017
         assert true == elementVar2.check(frame_left_2, param("КВЕ 58", grup)) : grup;
         assert false == elementVar2.check(frame_left_2, param("КП-40", grup)) : grup;
+        
+        grup = 31019;
+        elementVar3.check(stv_right_3, param("внутренняя по основной", grup));
+        Color.colorFromParam(stv_right_3);
+        assert stv_right_3.spcRec.colorID2 == stv_right_3.spcRec.colorID1 : grup;
+
+        grup = 31020;
+        assert true == elementVar2.check(frame_left_2, param("90;270", grup)) : grup;
+        assert false == elementVar2.check(frame_right_2, param("91;180", grup)) : grup;        
+        assert false == elementVar2.check(imp_horiz_2, param("0-89;270,9-359,9", grup)) : grup;        
+
+        grup = 31033;
+        assert true == elementVar2.check(imp_vert_2, param("807", grup)) : grup;        
+
+        grup = 31034;
+        assert true == elementVar2.check(imp_vert_2, param("937", grup)) : grup;  
+        
+        
     }
 }

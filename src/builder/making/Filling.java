@@ -73,7 +73,7 @@ public class Filling extends Cal5e {
                         //Цикл по профилям в группах заполнений
                         for (Record glasprofRec : glasprofList) {
                             if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
-                                if (Arrays.asList(1,2,3,4).contains(glasprofRec.getInt(eGlasprof.inside))) {
+                                if (Arrays.asList(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {
                                     elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
 
                                     detail(elemGlass, glasgrpRec);
@@ -109,7 +109,7 @@ public class Filling extends Cal5e {
                         Specific spcAdd = new Specific(glasdetRec, artiklRec, elemGlass, mapParam);
                         if (Color.colorFromProduct(spcAdd, 1)
                                 && Color.colorFromProduct(spcAdd, 2)
-                                && Color.colorFromProduct(spcAdd, 3)) {
+                                && Color.colorFromProduct(spcAdd, 3)) {                            
 
                             spcAdd.place = "ЗАП";
                             elemGlass.addSpecific(spcAdd);

@@ -238,6 +238,13 @@ public class ElementVar extends Par5s {
                         }
                     }
                     break;
+                case 31032:  //Исключить угол к горизонту, °
+                    if ("ps3".equals(eSetting.find(2))) {
+                        if (rec.getFloat(TEXT) == elem5e.anglHoriz) {
+                            return false;
+                        }
+                    }
+                    break;
                 case 31033: //Если предыдущий артикул 
                     if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) == false) {
                         return false;
@@ -252,14 +259,8 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 31037:  //Название фурнитуры содержит 
-//                    if (TypeElem.STVORKA == elem5e.owner().type()) {
-//                        if (elem5e.artiklRec.getStr(eArtikl.name).contains(rec.getStr(TEXT)) == false) {
-//                            return false;
-//                        }
-//                    }
-//                    break;
                     if (TypeElem.STVORKA == elem5e.owner().type()) {
-                        return rec.getStr(TEXT).contains(elem5e.artiklRec.getStr(eArtikl.name));
+                        return elem5e.artiklRec.getStr(eArtikl.name).contains(rec.getStr(TEXT));
                     }
                     return false;
                 //break;
