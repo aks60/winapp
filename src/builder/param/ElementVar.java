@@ -58,7 +58,7 @@ public class ElementVar extends Par5s {
                     boolean ret2 = false;
                     for (String str : strList) {
                         for (String str2 : strList2) {
-                            if (str.equalsIgnoreCase(str2)) {
+                            if (str.equals(str2)) {
                                 ret2 = true;
                             }
                         }
@@ -83,9 +83,9 @@ public class ElementVar extends Par5s {
                 }
                 break;
                 case 31002:  //Если профиль 
-                    if ("арочный".equalsIgnoreCase(rec.getStr(TEXT)) == false && LayoutArea.ARCH == elem5e.layout() == true) {
+                    if ("арочный".equals(rec.getStr(TEXT)) == false && LayoutArea.ARCH == elem5e.layout() == true) {
                         return false;
-                    } else if ("прямой".equalsIgnoreCase(rec.getStr(TEXT)) == false && LayoutArea.ARCH != elem5e.layout() == true) {
+                    } else if ("прямой".equals(rec.getStr(TEXT)) == false && LayoutArea.ARCH != elem5e.layout() == true) {
                         return false;
                     }
                     break;
@@ -185,7 +185,7 @@ public class ElementVar extends Par5s {
                 case 31014: //Заполнения одинаковой толщины 
                 {
                     List<ElemGlass> glassList = Uti5.getGlassDepth(elem5e);
-                    if ("Да".equalsIgnoreCase(rec.getStr(TEXT)) == true) {
+                    if ("Да".equals(rec.getStr(TEXT)) == true) {
                         if (glassList.get(0).artiklRecAn.getFloat(eArtikl.depth) != glassList.get(1).artiklRecAn.getFloat(eArtikl.depth)) {
                             return false;
                         }
@@ -247,12 +247,12 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31033: //Если предыдущий артикул 
-                    if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) == false) {
+                    if (rec.getStr(TEXT).equals(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) == false) {
                         return false;
                     }
                     break;
                 case 31034:  //Если следующий артикул 
-                    if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code)) == false) {
+                    if (rec.getStr(TEXT).equals(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code)) == false) {
                         return false;
                     }
                     break;
@@ -263,9 +263,11 @@ public class ElementVar extends Par5s {
                     if (TypeElem.STVORKA == elem5e.owner().type()) {
                         AreaStvorka stv = (AreaStvorka) elem5e.owner();
                         String name = eFurniture.find(stv.sysfurnRec.getInt(eSysfurn.furniture_id)).getStr(eFurniture.name);
-                        if ((name.contains(rec.getStr(TEXT))) == false) {
+                        if ((name.equals(rec.getStr(TEXT))) == false) {
                             return false;
                         }
+                    } else {
+                        return false; //если это не створка, то и название нет  
                     }
                     break;
                 case 31040:  //Поправка габарита накладки, мм 
@@ -289,20 +291,22 @@ public class ElementVar extends Par5s {
                 break;
                 case 31051:  //Если створка фурнитуры 
                     if (elem5e.owner().type() == TypeElem.STVORKA) {
-                        if ("ведущая".equalsIgnoreCase(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) == -3) {
+                        if ("ведущая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) == -3) {
                             return false;
-                        } else if ("ведомая".equalsIgnoreCase(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) != -3) {
+                        } else if ("ведомая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) != -3) {
                             return false;
                         }
                     }
                     break;
                 case 31052:  //Поправка в спецификацию, мм 
-                    if (elem5e.layout() == LayoutArea.ARCH) {
-                        elem5e.spcRec.width = elem5e.spcRec.width + rec.getFloat(TEXT);
-                    }
+                    //if (elem5e.layout() == LayoutArea.ARCH) {
+                    elem5e.spcRec.width = elem5e.spcRec.width + rec.getFloat(TEXT);
+                    //}
                     break;
                 case 31054:  //Коды основной текстуры изделия 
-                    message(grup);
+                    if (Util.containsNumb(rec.getStr(TEXT), iwin.colorID1) == false) {
+                        return false;
+                    }
                     break;
                 case 31055:  //Коды внутр. и внешн. текстуры изд.
                 case 37055:  //Коды внутр. и внешн. текстуры изд. 
@@ -319,19 +323,15 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31057:  //Внутренняя текстура равна внешней 
-                    message(grup);
+                    if (elem5e.colorID2 == elem5e.colorID3) {
+                        return false;
+                    }
                     break;
                 case 31060:  //Допустимый угол между плоскостями, ° 
-                    message(grup);
-                    break;
-                case 31073:  //Отправочная марка фасада 
-                    message(grup);
-                    break;
-                case 31074:  //На прилегающей створке 
-                    message(grup);
-                    break;
-                case 31080:  //Сообщение-предупреждение 
-                    message(grup);
+                    if ((Util.compareBetween(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(0)).anglProf) == true ||
+                            Util.compareBetween(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(1)).anglProf) == true) == false) {
+                        return false;
+                    }
                     break;
                 case 31081:  //Для внешнего/внутреннего угла плоскости, ° 
                     message(grup);
@@ -411,9 +411,6 @@ public class ElementVar extends Par5s {
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37054:  //Коды основной текстуры изделия 
-                    message(grup);
-                    break;
-                case 37080:  //Сообщение-предупреждение 
                     message(grup);
                     break;
                 case 37095:  //Если признак системы конструкции 
