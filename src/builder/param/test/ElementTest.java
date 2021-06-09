@@ -97,5 +97,13 @@ public class ElementTest extends ParamTest {
         grup = 31050;
         assert true == elementVar2.check(stv_right_2, param("створка", grup)) : grup;
         assert false == elementVar2.check(stv_right_2, param("коробка", grup)) : grup;
+        
+        grup = 31051;
+        assert true == elementVar4.check(stv_right_4, param("ведомая", grup)) : grup;
+        assert false == elementVar2.check(stv_right_4, param("ведущая", grup)) : grup;
+        
+        grup = 31052;
+        assert true == elementVar4.check(stv_right_4, param("ведомая", grup)) : grup;
+        assert false == elementVar2.check(stv_right_4, param("ведущая", grup)) : grup;        
     }
 }

@@ -32,6 +32,7 @@ public class ParamTest {
 
     protected ElemSimple frame_left_4 = null;
     protected ElemSimple frame_right_4 = null;
+    protected ElemSimple stv_left_4 = null;
     protected ElemSimple stv_right_4 = null;
 
     builder.Wincalc iwin_2 = new builder.Wincalc(); //601004
@@ -74,7 +75,8 @@ public class ParamTest {
         elementVar4 = new ElementVar(iwin_4);
         elementDet4 = new ElementDet(iwin_4);        
         frame_left_4 = getElem(iwin_4.rootArea, 1.0f);
-        frame_right_4 = getElem(iwin_4.rootArea, 2.0f);
+        frame_right_4 = getElem(iwin_4.rootArea, 2.0f);       
+        stv_left_4 = getElem(iwin_4.rootArea, 6.4f);        
         stv_right_4 = getElem(iwin_4.rootArea, 6.2f);        
     }
 

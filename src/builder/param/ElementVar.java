@@ -288,7 +288,13 @@ public class ElementVar extends Par5s {
                 }
                 break;
                 case 31051:  //Если створка фурнитуры 
-                    message(grup);
+                    if (elem5e.owner().type() == TypeElem.STVORKA) {
+                        if ("ведущая".equalsIgnoreCase(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) == -3) {
+                            return false;
+                        } else if ("ведомая".equalsIgnoreCase(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) != -3) {
+                            return false;
+                        }
+                    }
                     break;
                 case 31052:  //Поправка в спецификацию, мм 
                     if (elem5e.layout() == LayoutArea.ARCH) {
