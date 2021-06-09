@@ -17,6 +17,7 @@ import common.Util;
 import domain.eFurniture;
 import domain.eSysfurn;
 import domain.eSyssize;
+import domain.eSystree;
 import enums.TypeJoin;
 
 //Составы
@@ -159,7 +160,6 @@ public class ElementVar extends Par5s {
                     }
                 }
                 break;
-
                 case 31012: //Для внешнего заполнения, мм", только для PS3
                 {
                     List<ElemGlass> glassList = Uti5.getGlassDepth(elem5e);
@@ -328,8 +328,8 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31060:  //Допустимый угол между плоскостями, ° 
-                    if ((Util.compareBetween(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(0)).anglProf) == true ||
-                            Util.compareBetween(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(1)).anglProf) == true) == false) {
+                    if ((Util.compareBetween(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(0)).anglProf) == true
+                            || Util.compareBetween(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(1)).anglProf) == true) == false) {
                         return false;
                     }
                     break;
@@ -341,13 +341,13 @@ public class ElementVar extends Par5s {
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 31090:  //Изменение сторон покраски 
-                    if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.spcRec.getParam("empty", 31090)) == false) {
-                        return false;
-                    }
+                    //message(grup);
                     break;
                 case 31095:  //Если признак системы конструкции 
-                    message(grup);
-                    //1095, 2095, 3095, 4095, 11095, 12095, 13095, 14095, 15095, 24095, 25095, 31095, 33095, 34095, 37095, 38095, 39095, 40095
+                case 37095:  //Если признак системы конструкции                    
+                    if (Util.containsNumb(rec.getStr(TEXT), eSystree.find(iwin.nuni).getInt(eSystree.types)) == false) {
+                        return false;
+                    }
                     break;
                 case 31098:  //Бригада, участок) 
                     message(grup);
@@ -359,9 +359,9 @@ public class ElementVar extends Par5s {
                 case 31097:  //Трудозатраты по длине 
                     message(grup);
                     break;
-                case 31800:  //Код обработки 
-                    message(grup);
-                    break;
+//                case 31800:  //Код обработки 
+//                    message(grup);
+//                    break;
                 case 31801:  //Доп.обработки
                     message(grup);
                     break;
@@ -369,7 +369,9 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 37002:  //Если артикул профиля контура 
-                    message(grup);
+                    if(iwin.rootArea.mapFrame.get(LayoutArea.BOTT).artiklRecAn.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
+                        return false;
+                    }
                     break;
                 case 37008:  //Тип проема 
                     if (!Uti5.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
@@ -412,9 +414,6 @@ public class ElementVar extends Par5s {
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37054:  //Коды основной текстуры изделия 
-                    message(grup);
-                    break;
-                case 37095:  //Если признак системы конструкции 
                     message(grup);
                     break;
                 case 37098:  //Бригада участок

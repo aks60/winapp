@@ -127,12 +127,18 @@ public class ElementTest extends ParamTest {
         assert true == elementVar4.check(null, param("", grup)) : grup;     
         
         grup = 31085;
-        assert true == elementVar4.check(null, param("", grup)) : grup;  
-        
-        grup = 37085;
-        assert true == elementVar4.check(null, param("", grup)) : grup;      
+        assert true == elementVar4.check(stv_right_4, param("", grup)) : grup;            
         
         grup = 31090;
-        assert true == elementVar4.check(null, param("", grup)) : grup;      
+        System.err.println("ВНИМАНИЕ! ПАРААМЕТР " + grup + " В РАЗРАБОТКЕ.");           
+                
+        grup = 31095;
+        assert true == elementVar4.check(stv_right_4, param("1;2;", grup)) : grup;      
+        assert false == elementVar4.check(stv_right_4, param("2;9", grup)) : grup; 
+        
+        grup = 37002;
+        assert true == elementVar2.check(frame_left_2, param("807", grup)) : grup;         
+        assert false == elementVar2.check(frame_left_2, param("800", grup)) : grup;         
+        
     }
 }

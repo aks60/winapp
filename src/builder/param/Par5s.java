@@ -22,7 +22,7 @@ public class Par5s {
     protected final int TEXT = 2;   //Текст 
     protected Wincalc iwin = null;
     protected String versionDb = eSetting.find(2);
-    protected int pass = 1; //проверка на попадание либо pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
+    //protected int pass = 1; //проверка на попадание, либо pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
     public HashMap<Integer, String> mapParamTmp = new HashMap();
     public Record detailRec = null; //для тестирования
 
@@ -50,9 +50,9 @@ public class Par5s {
     //Необработанные параметры
     protected void message(int code) {
         if (code >= 0) {
-            if (ParamList.find(code).pass() != 0) {
+            //if (ParamList.find(code).pass() != 0) {
                 System.err.println("ВНИМАНИЕ! ПАРААМЕТР " + code + " В РАЗРАБОТКЕ.");
-            }
+            //}
         }
     }
 

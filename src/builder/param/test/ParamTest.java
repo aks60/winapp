@@ -49,6 +49,7 @@ public class ParamTest {
 
     public ParamTest() {
 
+        
         iwin_2.build(builder.script.Winscript.test(601004, false));
         iwin_2.constructiv(true);
         elementVar2 = new ElementVar(iwin_2);
@@ -77,7 +78,7 @@ public class ParamTest {
         frame_left_4 = getElem(iwin_4.rootArea, 1.0f);
         frame_right_4 = getElem(iwin_4.rootArea, 2.0f);       
         stv_left_4 = getElem(iwin_4.rootArea, 6.4f);        
-        stv_right_4 = getElem(iwin_4.rootArea, 6.2f);        
+        stv_right_4 = getElem(iwin_4.rootArea, 6.2f); 
     }
 
     //Получить элемент по ключу

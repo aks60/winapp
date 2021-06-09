@@ -165,6 +165,7 @@ public class Order extends javax.swing.JFrame {
                         }
                     }
                 } else {
+                    label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
                     label.setIcon(null);
                 }
                 return label;
