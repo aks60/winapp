@@ -347,6 +347,15 @@ public class ElementVar extends Par5s {
                     break;
                 case 31095:  //Если признак системы конструкции 
                     message(grup);
+                    //1095, 2095, 3095, 4095, 11095, 12095, 13095, 14095, 15095, 24095, 25095, 31095, 33095, 34095, 37095, 38095, 39095, 40095
+select params_id, text from elempar1 where params_id in (1095, 2095, 3095, 4095, 11095, 12095, 13095, 14095, 15095, 24095, 25095, 31095, 33095, 34095, 37095, 38095, 39095, 40095) union
+select params_id, text from elempar2 where params_id in (1095, 2095, 3095, 4095, 11095, 12095, 13095, 14095, 15095, 24095, 25095, 31095, 33095, 34095, 37095, 38095, 39095, 40095) union
+select params_id, text from furnpar1 where params_id in (1095, 2095, 3095, 4095, 11095, 12095, 13095, 14095, 15095, 24095, 25095, 31095, 33095, 34095, 37095, 38095, 39095, 40095)  union
+select params_id, text from furnpar2 where params_id in (1095, 2095, 3095, 4095, 11095, 12095, 13095, 14095, 15095, 24095, 25095, 31095, 33095, 34095, 37095, 38095, 39095, 40095) union
+select params_id, text from glaspar1 where params_id in (1095, 2095, 3095, 4095, 11095, 12095, 13095, 14095, 15095, 24095, 25095, 31095, 33095, 34095, 37095, 38095, 39095, 40095) union
+select params_id, text from glaspar2 where params_id in (1095, 2095, 3095, 4095, 11095, 12095, 13095, 14095, 15095, 24095, 25095, 31095, 33095, 34095, 37095, 38095, 39095, 40095) union
+select params_id, text from joinpar1 where params_id in (1095, 2095, 3095, 4095, 11095, 12095, 13095, 14095, 15095, 24095, 25095, 31095, 33095, 34095, 37095, 38095, 39095, 40095) union
+select params_id, text from joinpar2 where params_id in (1095, 2095, 3095, 4095, 11095, 12095, 13095, 14095, 15095, 24095, 25095, 31095, 33095, 34095, 37095, 38095, 39095, 40095) order by 1                    
                     break;
                 case 31098:  //Бригада, участок) 
                     message(grup);
