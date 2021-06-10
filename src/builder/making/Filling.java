@@ -71,8 +71,8 @@ public class Filling extends Cal5e {
                         List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
 
                         //Цикл по профилям в группах заполнений
-                        for (Record glasprofRec : glasprofList) {
-                            if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
+                        for (Record glasprofRec : glasprofList) {                            
+                            if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
                                 if (Arrays.asList(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {
                                     elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
 

@@ -397,19 +397,19 @@ public class ElementVar extends Par5s {
                         return false;
                     }
                     break;
-                case 37030:  //Минимальная площадь или Ограничение площади, кв.м. для Ps4                        
+                case 37030:  //Минимальная площадь                      
                     if ("ps4".equals(versionDb)) {
                         if (Util.containsNumb(rec.getStr(TEXT), elem5e.width() / 1000 * elem5e.height() / 1000) == false) {
                             return false;
                         }
-                    } else if ("ps3".equals(versionDb)) {
+                        //Минимальная площадь, кв.м.
+                    } else if ("ps3".equals(versionDb)) { 
                         if (elem5e.width() / 1000 * elem5e.height() / 1000 < rec.getFloat(TEXT)) {
                             return false;
                         }
                     }
                     break;
                 case 37031:  //Максимальная площадь 
-                    message(grup);
                     if ("ps3".equals(versionDb)) {
                         if (elem5e.width() / 1000 * elem5e.height() / 1000 > rec.getFloat(TEXT)) {
                             return false;

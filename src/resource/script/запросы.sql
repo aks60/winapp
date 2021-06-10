@@ -29,6 +29,10 @@ select params_id, text from joinpar2 where params_id in (4801,15010) order by 1
 select b.id, a.* from element a,  elemdet b
 where  a.id = b.element_id and b.artikl_id = 2233
 
+Вставки по первому параметру
+select a.text, b.id, b.name, c.code, c.name from elempar1 a, element b, artikl c
+where a.element_id = b.id and b.artikl_id = c.id and a.params_id = 37010
+
 Фурнитура по артикулу элемента спецификации
 select b.id, a.* from furniture a,  furndet b
 where  a.id = b.furniture_id1 and b.artikl_id = 4620
@@ -41,11 +45,11 @@ select * from CONNSPC where anumb = 'Самор.3,9х25 с/св'
 select * from GLASART where anumb = 'Самор.3,9х25 с/св'
 select * from FURNSPC where anumb = 'Самор.3,9х25 с/св'
 
+Подбор текстуры кажется
 select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from elemdet  union
 select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from glasdet  union
 select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from joindet  union
 select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from furndet
-
 
 SELECT u.RDB$USER, u.RDB$RELATION_NAME
 FROM RDB$USER_PRIVILEGES u
