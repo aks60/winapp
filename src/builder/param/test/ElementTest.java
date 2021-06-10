@@ -140,5 +140,17 @@ public class ElementTest extends ParamTest {
         assert true == elementVar2.check(frame_left_2, param("807", grup)) : grup;         
         assert false == elementVar2.check(frame_left_2, param("800", grup)) : grup;         
         
+        grup = 37008;
+        assert false == elementVar2.check(stv_right_2, param("глухой", grup)) : grup;         
+        assert true == elementVar2.check(stv_right_2, param("не глухой", grup)) : grup;         
+        
+        grup = 37008;
+        assert false == elementVar2.check(stv_right_2, param("глухой", grup)) : grup;         
+        assert true == elementVar2.check(stv_right_2, param("не глухой", grup)) : grup;         
+        
+        grup = 37009;
+        assert true == elementVar2.check(stv_right_2, param("Прямоугольное", grup)) : grup;         
+        assert false == elementVar2.check(stv_right_2, param("Арочное", grup)) : grup;         
+        
     }
 }

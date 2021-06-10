@@ -37,8 +37,6 @@ public class FurnitureDet extends Par5s {
         return true;
     }    
 
-    
-
     public boolean check(HashMap<Integer, String> mapParam, AreaStvorka areaStv, Record rec) {
 
         int grup = rec.getInt(GRUP);

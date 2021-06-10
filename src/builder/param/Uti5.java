@@ -15,7 +15,8 @@ class Uti5 {
 
     //Тип заполнения 
     static boolean dic_37009(String txt, ElemSimple elem5e) {
-        //Все, Произвольное, Прямоугольное, Арочное                                            
+        Object obj = elem5e.owner().listChild;
+        //Произвольное, Прямоугольное, Арочное                                            
         if ("Прямоугольное".equalsIgnoreCase(txt) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) || TypeElem.AREA.equals(elem5e.owner().type()) == false)) {
             return false;
         } else if ("Арочное".equalsIgnoreCase(txt) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
