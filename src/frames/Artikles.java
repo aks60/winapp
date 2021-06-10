@@ -57,7 +57,7 @@ public class Artikles extends javax.swing.JFrame {
     private DefFieldEditor rsvArtikl;
     private JLabel labFilter = null;
     private JTextField txtFilter = null;
-    private TableFilter tabFilter = new TableFilter();
+    private TableFilter tableFilter = new TableFilter();
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
     private Window owner = null;
@@ -2265,7 +2265,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn7
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        tabFilter.tabMousePressed((JTable) evt.getSource(), tab1, tab2);
+        tableFilter.tabMousePressed((JTable) evt.getSource(), tab1, tab2);
     }//GEN-LAST:event_tabMousePressed
 
     private void btn11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11
@@ -2625,11 +2625,14 @@ public class Artikles extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
 
-        labFilter = tabFilter.getLabFilter();
-        txtFilter = tabFilter.getTextField();
-        south.add(tabFilter, 0);
+        south.add(tableFilter, 0);
+        labFilter = tableFilter.getLabFilter();
+        txtFilter = tableFilter.getTextField();
+
+        tableFilter.tabMousePressed(tab1);
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
+        
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
