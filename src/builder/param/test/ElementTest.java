@@ -148,9 +148,9 @@ public class ElementTest extends ParamTest {
         assert false == elementVar2.check(stv_right_2, param("глухой", grup)) : grup;         
         assert true == elementVar2.check(stv_right_2, param("не глухой", grup)) : grup;         
         
-        grup = 37009;
-        assert true == elementVar2.check(stv_right_2, param("Прямоугольное", grup)) : grup;         
-        assert false == elementVar2.check(stv_right_2, param("Арочное", grup)) : grup;         
+//        grup = 37009;
+//        assert true == elementVar2.check(stv_right_2, param("Прямоугольное", grup)) : grup;         
+//        assert false == elementVar2.check(stv_right_2, param("Арочное", grup)) : grup;         
         
     }
 }

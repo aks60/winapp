@@ -31,7 +31,8 @@ import java.util.Map;
 
 public class AreaSimple extends Com5t {
 
-    public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне  
+    public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне 
+    public LinkedList<Com5t> listChild = new LinkedList(); //дети
 
     public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(id, iwin, owner);
@@ -132,7 +133,9 @@ public class AreaSimple extends Com5t {
                 }
             }
         }
-        com5t.listChild.forEach(comp -> listElem(comp, list, type));
+        if (com5t instanceof AreaSimple) {
+            ((AreaSimple) com5t).listChild.forEach(comp -> listElem(comp, list, type));
+        }
     }
 
     public void joinFrame() {

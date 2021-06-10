@@ -23,7 +23,6 @@ public abstract class Com5t {
 
     private float id = -1; //идентификатор    
     protected AreaSimple owner = null; //владелец
-    public LinkedList<Com5t> listChild = new LinkedList(); //дети
     private Wincalc iwin = null; //главный класс калькуляции
 
     public float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     

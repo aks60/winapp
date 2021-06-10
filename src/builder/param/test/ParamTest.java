@@ -49,7 +49,6 @@ public class ParamTest {
 
     public ParamTest() {
 
-        
         iwin_2.build(builder.script.Winscript.test(601004, false));
         iwin_2.constructiv(true);
         elementVar2 = new ElementVar(iwin_2);
@@ -62,23 +61,23 @@ public class ParamTest {
         glass_top_2 = getElem(iwin_2.rootArea, 6.0f);
         glass_left_2 = getElem(iwin_2.rootArea, 11.0f);
         glass_right_2 = getElem(iwin_2.rootArea, 15.0f);
-        
+
         iwin_3.build(builder.script.Winscript.test(604005, false));
         iwin_3.constructiv(true);
         elementVar3 = new ElementVar(iwin_3);
-        elementDet3 = new ElementDet(iwin_3);        
+        elementDet3 = new ElementDet(iwin_3);
         frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
-        stv_right_3 = getElem(iwin_3.rootArea, 9.2f);        
-        
+        stv_right_3 = getElem(iwin_3.rootArea, 9.2f);
+
         iwin_4.build(builder.script.Winscript.test(700027, false));
         iwin_4.constructiv(true);
         elementVar4 = new ElementVar(iwin_4);
-        elementDet4 = new ElementDet(iwin_4);        
+        elementDet4 = new ElementDet(iwin_4);
         frame_left_4 = getElem(iwin_4.rootArea, 1.0f);
-        frame_right_4 = getElem(iwin_4.rootArea, 2.0f);       
-        stv_left_4 = getElem(iwin_4.rootArea, 6.4f);        
-        stv_right_4 = getElem(iwin_4.rootArea, 6.2f); 
+        frame_right_4 = getElem(iwin_4.rootArea, 2.0f);
+        stv_left_4 = getElem(iwin_4.rootArea, 6.4f);
+        stv_right_4 = getElem(iwin_4.rootArea, 6.2f);
     }
 
     //Получить элемент по ключу
@@ -99,36 +98,42 @@ public class ParamTest {
                     }
                 }
             }
-            for (Com5t it2 : it1.listChild) {
-                if (it2.id() == id) {
-                    return (ElemSimple) it2;
-                }
-                if (it2 instanceof AreaSimple) {
-                    for (ElemFrame frm : ((AreaSimple) it2).mapFrame.values()) {
-                        if (frm.id() == id) {
-                            return frm;
-                        }
+            if (it1 instanceof AreaSimple) {
+                for (Com5t it2 : ((AreaSimple) it1).listChild) {
+                    if (it2.id() == id) {
+                        return (ElemSimple) it2;
                     }
-                }
-                for (Com5t it3 : it2.listChild) {
-                    if (it3.id() == id) {
-                        return (ElemSimple) it3;
-                    }
-                    if (it3 instanceof AreaSimple) {
-                        for (ElemFrame frm : ((AreaSimple) it3).mapFrame.values()) {
+                    if (it2 instanceof AreaSimple) {
+                        for (ElemFrame frm : ((AreaSimple) it2).mapFrame.values()) {
                             if (frm.id() == id) {
                                 return frm;
                             }
                         }
                     }
-                    for (Com5t it4 : it3.listChild) {
-                        if (it4.id() == id) {
-                            return (ElemSimple) it4;
-                        }
-                        if (it4 instanceof AreaSimple) {
-                            for (ElemFrame frm : ((AreaSimple) it4).mapFrame.values()) {
-                                if (frm.id() == id) {
-                                    return frm;
+                    if (it2 instanceof AreaSimple) {
+                        for (Com5t it3 : ((AreaSimple) it2).listChild) {
+                            if (it3.id() == id) {
+                                return (ElemSimple) it3;
+                            }
+                            if (it3 instanceof AreaSimple) {
+                                for (ElemFrame frm : ((AreaSimple) it3).mapFrame.values()) {
+                                    if (frm.id() == id) {
+                                        return frm;
+                                    }
+                                }
+                            }
+                            if (it3 instanceof AreaSimple) {
+                                for (Com5t it4 : ((AreaSimple) it3).listChild) {
+                                    if (it4.id() == id) {
+                                        return (ElemSimple) it4;
+                                    }
+                                    if (it4 instanceof AreaSimple) {
+                                        for (ElemFrame frm : ((AreaSimple) it4).mapFrame.values()) {
+                                            if (frm.id() == id) {
+                                                return frm;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
