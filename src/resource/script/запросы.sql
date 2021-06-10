@@ -4,6 +4,7 @@ ALTER TABLE artikls DROP CONSTRAINT IARTIKLS;
 ALTER TABLE artikls ALTER COLUMN aname TYPE VARCHAR(120);
 update artikls set aname = cast(atypm as varchar(2)) || '.' || cast(atypp as varchar(2)) || '-' || aname
 
+Ветки системы
 select c.name, j.name || ' / ' || k.name || ' / ' || e.name || ' / ' || d.name, b.code,  b.name
 from sysprof a
 left join artikl b on a.artikl_id = b.id
@@ -14,25 +15,27 @@ left join systree k on e.parent_id = k.id
 left join systree j on k.parent_id = j.id
 order by c.id, k.name, e.name, d.name, b.code
 
-select params_id, text from elempar1 where params_id = 1010 union
-select params_id, text from elempar2 where params_id = 1010 union
-select params_id, text from furnpar1 where params_id = 1010 union
-select params_id, text from furnpar2 where params_id = 1010 union
-select params_id, text from glaspar1 where params_id = 1010 union
-select params_id, text from glaspar2 where params_id = 1010 union
-select params_id, text from joinpar1 where params_id = 1010 union
-select params_id, text from joinpar2 where params_id = 1010 order by 1
+Используемые параметры
+select params_id, text from elempar1 where params_id in (4801,15010) union
+select params_id, text from elempar2 where params_id in (4801,15010) union
+select params_id, text from furnpar1 where params_id in (4801,15010) union
+select params_id, text from furnpar2 where params_id in (4801,15010) union
+select params_id, text from glaspar1 where params_id in (4801,15010) union
+select params_id, text from glaspar2 where params_id in (4801,15010) union
+select params_id, text from joinpar1 where params_id in (4801,15010) union
+select params_id, text from joinpar2 where params_id in (4801,15010) order by 1
 
-select params_id, text from elempar1 where params_id in (4801,15010,21088,24039,24800,24801,24802,24803,25800,25801,25802,25803,31073,31074,31801,33002,33032,33074,33073,34002,34016,34049,34064,34073,34074,38108,38109,38113,39108,39109,39113,40108,40109,40113) union
-select params_id, text from elempar2 where params_id in (4801,15010,21088,24039,24800,24801,24802,24803,25800,25801,25802,25803,31073,31074,31801,33002,33032,33074,33073,34002,34016,34049,34064,34073,34074,38108,38109,38113,39108,39109,39113,40108,40109,40113) union
-select params_id, text from furnpar1 where params_id in (4801,15010,21088,24039,24800,24801,24802,24803,25800,25801,25802,25803,31073,31074,31801,33002,33032,33074,33073,34002,34016,34049,34064,34073,34074,38108,38109,38113,39108,39109,39113,40108,40109,40113) union
-select params_id, text from furnpar2 where params_id in (4801,15010,21088,24039,24800,24801,24802,24803,25800,25801,25802,25803,31073,31074,31801,33002,33032,33074,33073,34002,34016,34049,34064,34073,34074,38108,38109,38113,39108,39109,39113,40108,40109,40113) union
-select params_id, text from glaspar1 where params_id in (4801,15010,21088,24039,24800,24801,24802,24803,25800,25801,25802,25803,31073,31074,31801,33002,33032,33074,33073,34002,34016,34049,34064,34073,34074,38108,38109,38113,39108,39109,39113,40108,40109,40113) union
-select params_id, text from glaspar2 where params_id in (4801,15010,21088,24039,24800,24801,24802,24803,25800,25801,25802,25803,31073,31074,31801,33002,33032,33074,33073,34002,34016,34049,34064,34073,34074,38108,38109,38113,39108,39109,39113,40108,40109,40113) union
-select params_id, text from joinpar1 where params_id in (4801,15010,21088,24039,24800,24801,24802,24803,25800,25801,25802,25803,31073,31074,31801,33002,33032,33074,33073,34002,34016,34049,34064,34073,34074,38108,38109,38113,39108,39109,39113,40108,40109,40113) union
-select params_id, text from joinpar2 where params_id in (4801,15010,21088,24039,24800,24801,24802,24803,25800,25801,25802,25803,31073,31074,31801,33002,33032,33074,33073,34002,34016,34049,34064,34073,34074,38108,38109,38113,39108,39109,39113,40108,40109,40113) order by 1
+Вставки по артикулу элемента спецификации
+select b.id, a.* from element a,  elemdet b
+where  a.id = b.element_id and b.artikl_id = 2233
 
-//Поиск артикула в конструктиве
+Фурнитура по артикулу элемента спецификации
+select b.id, a.* from furniture a,  furndet b
+where  a.id = b.furniture_id1 and b.artikl_id = 4620
+select b.id, c.id,  a.* from furniture a,  furndet b, furndet c
+where  a.id = b.furniture_id1 and b.id = c.furndet_id and c.artikl_id = 4620
+
+Поиск артикула в конструктиве (PS4)
 select * from VSTASPC where anumb = 'Самор.3,9х25 с/св'
 select * from CONNSPC where anumb = 'Самор.3,9х25 с/св'
 select * from GLASART where anumb = 'Самор.3,9х25 с/св'

@@ -369,7 +369,7 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 37002:  //Если артикул профиля контура 
-                    if(iwin.rootArea.mapFrame.get(LayoutArea.BOTT).artiklRecAn.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
+                    if (iwin.rootArea.mapFrame.get(LayoutArea.BOTT).artiklRecAn.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
@@ -378,11 +378,20 @@ public class ElementVar extends Par5s {
                         return false;
                     }
                     break;
-                case 37009:  //Тип заполнения 
-                    if (!Uti5.dic_37009(rec.getStr(TEXT), elem5e)) {
+                case 37009: //Тип заполнения 
+                {
+                    ElemGlass glass = (ElemGlass) elem5e.owner().listChild.stream().filter(it -> it.type() == TypeElem.GLASS).findFirst().orElse(null);
+                    if ("Прямоугольное".equalsIgnoreCase(rec.getStr(TEXT)) && (glass.x3 != 0 || glass.y3 != 0)) {
+                        return false;
+
+                    } else if ("Арочное".equalsIgnoreCase(rec.getStr(TEXT)) && glass.radiusGlass == 0) {
+                        return false;
+
+                    } else if ("Произвольное".equalsIgnoreCase(rec.getStr(TEXT)) && glass.x3 == 0 && glass.y3 == 0) {
                         return false;
                     }
-                    break;
+                }
+                break;
                 case 37010:  //Ограничение ширины/высоты листа, мм 
                     if (Util.containsNumb(rec.getStr(TEXT), elem5e.width(), elem5e.height()) == false) {
                         return false;

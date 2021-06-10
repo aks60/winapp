@@ -1,5 +1,6 @@
 package builder.param;
 
+import builder.model.Com5t;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import dataset.Record;
@@ -12,18 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 class Uti5 {
-
-    //Тип заполнения 
-    static boolean dic_37009(String txt, ElemSimple elem5e) {
-        Object obj = elem5e.owner().listChild;
-        //Произвольное, Прямоугольное, Арочное                                            
-        if ("Прямоугольное".equalsIgnoreCase(txt) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) || TypeElem.AREA.equals(elem5e.owner().type()) == false)) {
-            return false;
-        } else if ("Арочное".equalsIgnoreCase(txt) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
-            return false;
-        }
-        return true;
-    }
 
     //Тип проема 
     static boolean dic_13003_14005_15005_37008(String txt, ElemSimple elem5e) {
