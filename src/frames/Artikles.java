@@ -55,8 +55,6 @@ public class Artikles extends javax.swing.JFrame {
     private Query qArtdet = new Query(eArtdet.values());
 
     private DefFieldEditor rsvArtikl;
-    private JLabel labFilter = null;
-    private JTextField txtFilter = null;
     private TableFilter tableFilter = new TableFilter();
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
@@ -244,16 +242,16 @@ public class Artikles extends javax.swing.JFrame {
 
         listenerSeriesFilter = (record) -> {
             tab1.setColumnSelectionInterval(4, 4);
-            labFilter.setText("Серия профилей");
-            txtFilter.setName("tab1");
-            txtFilter.setText(record.getStr(eGroups.name));
+            tableFilter.getLab().setText("Серия профилей");
+            tableFilter.getText().setName("tab1");
+            tableFilter.getText().setText(record.getStr(eGroups.name));
         };
 
         listenerCategFilter = (record) -> {
             tab1.setColumnSelectionInterval(5, 5);
-            labFilter.setText("Категоря профилей");
-            txtFilter.setName("tab1");
-            txtFilter.setText(record.getStr(eGroups.name));
+            tableFilter.getLab().setText("Категоря профилей");
+            tableFilter.getText().setName("tab1");
+            tableFilter.getText().setText(record.getStr(eGroups.name));
         };
 
         listenerAnalog = (record) -> {
@@ -2265,7 +2263,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn7
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        tableFilter.tabMousePressed((JTable) evt.getSource(), tab1, tab2);
+        tableFilter.mousePressed((JTable) evt.getSource(), tab1, tab2);
     }//GEN-LAST:event_tabMousePressed
 
     private void btn11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11
@@ -2626,12 +2624,9 @@ public class Artikles extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
 
         south.add(tableFilter, 0);
-        labFilter = tableFilter.getLabFilter();
-        txtFilter = tableFilter.getTextField();
-
-        tableFilter.tabMousePressed(tab1);
-        labFilter.setText(tab1.getColumnName(0));
-        txtFilter.setName(tab1.getName());
+        tableFilter.mousePressed(tab1);
+        tableFilter.getLab().setText(tab1.getColumnName(0));
+        tableFilter.getText().setName(tab1.getName());
         
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();

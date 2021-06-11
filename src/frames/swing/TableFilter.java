@@ -18,7 +18,7 @@ public class TableFilter extends javax.swing.JPanel {
         initComponents();
     }
 
-    public void tabMousePressed(JTable table, JTable... tab) {
+    public void mousePressed(JTable table, JTable... tab) {
         this.table = table;
         Uti4.updateBorderAndSql(table, Arrays.asList(tab));
         if (txtFilter.getText().length() == 0) {
@@ -27,11 +27,11 @@ public class TableFilter extends javax.swing.JPanel {
         }
     }
 
-    public JLabel getLabFilter() {
+    public JLabel getLab() {
         return labFilter;
     }
 
-    public JTextField getTextField() {
+    public JTextField getText() {
         return txtFilter;
     }
 
@@ -64,7 +64,7 @@ public class TableFilter extends javax.swing.JPanel {
         txtFilter.setPreferredSize(new java.awt.Dimension(120, 18));
         txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtFilterCaretUpdate(evt);
+                txtCaretUpdate(evt);
             }
         });
         add(txtFilter);
@@ -76,7 +76,7 @@ public class TableFilter extends javax.swing.JPanel {
         add(checkFilter);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
+    private void txtCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtCaretUpdate
         if (txtFilter.getText().length() == 0) {
             ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(null);
         } else {
@@ -85,7 +85,7 @@ public class TableFilter extends javax.swing.JPanel {
             ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
         }
         Uti4.setSelectedRow(table);
-    }//GEN-LAST:event_txtFilterCaretUpdate
+    }//GEN-LAST:event_txtCaretUpdate
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
