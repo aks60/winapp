@@ -199,31 +199,4 @@ public class Util {
         }
         return false;
     }
-
-    public static boolean compareBetween(String txt, float value) {
-        if (txt == null) {
-            return true;
-        }
-        txt = txt.replace(",", "."); //парсинг параметра
-        txt = (txt.charAt(txt.length() - 1) == '@') ? txt.substring(0, txt.length() - 1) : txt;
-        String[] arr = txt.split(";");
-        for (String str : Arrays.asList(arr)) {
-
-            String[] p = str.split("-");
-            if (p.length == 1) {
-                Float valueOne = Util.getFloat(p[0]);
-                if (value <= valueOne) {
-                    return true;
-                }
-
-            } else if (p.length == 2) {
-                Float valueMin = Float.valueOf(p[0]);
-                Float valueMax = Float.valueOf(p[1]);
-                if (valueMin <= value && valueMax >= value) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 }

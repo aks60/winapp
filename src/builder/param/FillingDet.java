@@ -102,7 +102,7 @@ public class FillingDet extends Par5s {
                         if (rec.getFloat(TEXT) != elem5e.anglHoriz) {
                             return false;
                         }
-                    } else if (Util.compareBetween(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
+                    } else if (Util.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
                         return false;
                     }
                     break;

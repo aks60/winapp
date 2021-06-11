@@ -78,7 +78,7 @@ public class ElementVar extends Par5s {
                             depth = (glass.artiklRecAn.getFloat(eArtikl.depth));
                         }
                     }
-                    if (Util.compareBetween(rec.getStr(TEXT), depth) == false) {
+                    if (Util.containsNumb(rec.getStr(TEXT), depth) == false) {
                         return false;
                     }
                 }
@@ -328,8 +328,8 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31060:  //Допустимый угол между плоскостями, ° 
-                    if ((Util.compareBetween(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(0)).anglProf) == true
-                            || Util.compareBetween(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(1)).anglProf) == true) == false) {
+                    if ((Util.containsNumb(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(0)).anglProf) == true
+                            || Util.containsNumb(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(1)).anglProf) == true) == false) {
                         return false;
                     }
                     break;

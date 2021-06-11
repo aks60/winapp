@@ -151,7 +151,7 @@ public class JoiningVar extends Par5s {
                         if (elemJoin.joinElem1.anglHoriz < rec.getFloat(TEXT)) {
                             return false;
                         }
-                    } else if (Util.compareBetween(rec.getStr(TEXT), elemJoin.joinElem1.anglHoriz) == false) {
+                    } else if (Util.containsNumb(rec.getStr(TEXT), elemJoin.joinElem1.anglHoriz) == false) {
                         return false;
                     }
                     break;
@@ -223,7 +223,7 @@ public class JoiningVar extends Par5s {
                         if (rec.getFloat(TEXT) < elemJoin.anglProf) {
                             return false;
                         }
-                    } else if (Util.compareBetween(rec.getStr(TEXT), elemJoin.anglProf) == false) {
+                    } else if (Util.containsNumb(rec.getStr(TEXT), elemJoin.anglProf) == false) {
                         return false;
                     }
                     break;
@@ -287,7 +287,7 @@ public class JoiningVar extends Par5s {
                         if (elemJoin.anglProf > rec.getFloat(TEXT)) {
                             return false;
                         }
-                    } else if (Util.compareBetween(rec.getStr(TEXT), elemJoin.anglProf) == false) {
+                    } else if (Util.containsNumb(rec.getStr(TEXT), elemJoin.anglProf) == false) {
                         return false;
                     }
                     break;
