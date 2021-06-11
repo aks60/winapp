@@ -13,6 +13,7 @@ public class TableFilter extends javax.swing.JPanel {
 
     private JTable table = null;
     private int indexColumn = 0;
+    private boolean search = true;
 
     public TableFilter() {
         initComponents();
@@ -39,6 +40,7 @@ public class TableFilter extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btn1 = new javax.swing.JButton();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
             public JTable table = null;
@@ -46,11 +48,22 @@ public class TableFilter extends javax.swing.JPanel {
         checkFilter = new javax.swing.JCheckBox();
 
         setMaximumSize(new java.awt.Dimension(380, 20));
-        setMinimumSize(new java.awt.Dimension(380, 20));
-        setPreferredSize(new java.awt.Dimension(380, 20));
+        setMinimumSize(new java.awt.Dimension(360, 20));
+        setPreferredSize(new java.awt.Dimension(360, 20));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
-        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c019.gif"))); // NOI18N
+        btn1.setBorder(null);
+        btn1.setMaximumSize(new java.awt.Dimension(60, 25));
+        btn1.setMinimumSize(new java.awt.Dimension(32, 20));
+        btn1.setPreferredSize(new java.awt.Dimension(36, 23));
+        btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn1ActiPerf(evt);
+            }
+        });
+        add(btn1);
+
         labFilter.setText("Поле");
         labFilter.setMaximumSize(new java.awt.Dimension(140, 18));
         labFilter.setMinimumSize(new java.awt.Dimension(140, 18));
@@ -87,8 +100,18 @@ public class TableFilter extends javax.swing.JPanel {
         Uti4.setSelectedRow(table);
     }//GEN-LAST:event_txtCaretUpdate
 
+    private void btn1ActiPerf(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActiPerf
+        if (search == true) {
+            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif")));
+        } else {
+            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c019.gif")));
+        }
+        search = !search;
+    }//GEN-LAST:event_btn1ActiPerf
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn1;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel labFilter;
     private javax.swing.JTextField txtFilter;

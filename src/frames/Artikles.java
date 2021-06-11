@@ -2627,7 +2627,8 @@ public class Artikles extends javax.swing.JFrame {
         tableFilter.mousePressed(tab1);
         tableFilter.getLab().setText(tab1.getColumnName(0));
         tableFilter.getText().setName(tab1.getName());
-        
+        tableFilter.getText().grabFocus();
+                
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
