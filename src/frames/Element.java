@@ -124,7 +124,7 @@ public class Element extends javax.swing.JFrame {
 
         tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qGrCateg, eGroups.name);
-        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eElement.series_id, eElement.todef, eElement.toset, eElement.markup) {
+        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eElement.signset, eElement.series_id, eElement.todef, eElement.toset, eElement.markup) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -202,7 +202,7 @@ public class Element extends javax.swing.JFrame {
         };
 
         DefCellBoolRenderer br = new DefCellBoolRenderer();
-        Arrays.asList(5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
+        Arrays.asList(6, 7).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
 
         Uti4.setSelectedRow(tab1);
     }
@@ -222,7 +222,7 @@ public class Element extends javax.swing.JFrame {
             DicTypset frame = new DicTypset(this, listenerTypset);
         });
 
-        Uti4.buttonCellEditor(tab2, 4).addActionListener(event -> {
+        Uti4.buttonCellEditor(tab2, 5).addActionListener(event -> {
             int index = Uti4.getIndexRec(tab2);
             if (index != -1) {
                 int id = qElement.getAs(index, eElement.series_id);
@@ -706,18 +706,18 @@ public class Element extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"aaaa", null, "vvvvvvvvvvvvvvv", "ddd", null, null, null,  new Double(0.0), null},
-                {"aaaa", null, "hhhhhhhhhhhhhh", "fff", null, null, null,  new Double(0.0), null}
+                {"aaaa", null, "vvvvvvvvvvvvvvv", "111", null, null, null, null,  new Double(0.0), null},
+                {"aaaa", null, "hhhhhhhhhhhhhh", "222", null, null, null, null,  new Double(0.0), null}
             },
             new String [] {
-                "Артикул", "Название", "Наименование", "Тип состава", "Для серии", "Умолчание", "Обязательно", "Наценка", "ID"
+                "Артикул", "Название", "Наименование", "Тип состава", "Признак состава", "Для серии", "Умолчание", "Обязательно", "Наценка", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, true, true, false
+                true, true, true, true, true, true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -742,14 +742,14 @@ public class Element extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(1).setPreferredWidth(200);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(200);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(60);
-            tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(32);
-            tab2.getColumnModel().getColumn(5).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(32);
             tab2.getColumnModel().getColumn(6).setMaxWidth(60);
             tab2.getColumnModel().getColumn(7).setPreferredWidth(32);
             tab2.getColumnModel().getColumn(7).setMaxWidth(60);
-            tab2.getColumnModel().getColumn(8).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(8).setPreferredWidth(32);
+            tab2.getColumnModel().getColumn(8).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(9).setMaxWidth(40);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
