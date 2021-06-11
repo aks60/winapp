@@ -110,7 +110,7 @@ public class ElementTest extends ParamTest {
         assert true == elementVar4.check(stv_right_4, param("1000-1010;", grup)) : grup;
         assert false == elementVar2.check(stv_right_4, param("900-990;", grup)) : grup;
 
-        grup = 31055; //37055
+        grup = 31055;
         assert true == elementVar4.check(stv_right_4, param("1000-10010;", grup)) : grup;
         assert false == elementVar3.check(stv_right_3, param("1000-1010;", grup)) : grup;
 
@@ -163,6 +163,19 @@ public class ElementTest extends ParamTest {
         
         grup = 37042;
         assert true == elementVar2.check(glass_top_2, param("5-10", grup)) : grup;         
-        assert false == elementVar2.check(glass_left_2, param("5-100", grup)) : grup;          
+        assert false == elementVar2.check(glass_left_2, param("1-10", grup)) : grup;          
+        
+        grup = 37054;
+        assert false == elementVar2.check(stv_right_2, param("10000-10999;17000-21999;23000-28999", grup)) : grup;         
+        assert true == elementVar2.check(stv_right_2, param("1;3;35-37;55;70;1009", grup)) : grup;
+        
+        grup = 37055; 
+        assert true == elementVar3.check(stv_right_3, param("1000-10010;", grup)) : grup;
+        assert false == elementVar3.check(stv_right_3, param("1000-1010;", grup)) : grup; 
+        
+        grup = 37056;
+        assert true == elementVar4.check(stv_right_4, param("1000-10010;", grup)) : grup;
+        assert true == elementVar3.check(stv_right_3, param("1000-1010;", grup)) : grup;
+       
     }
 }

@@ -303,7 +303,8 @@ public class ElementVar extends Par5s {
                     elem5e.spcRec.width = elem5e.spcRec.width + rec.getFloat(TEXT);
                     //}
                     break;
-                case 31054:  //Коды основной текстуры изделия 
+                case 31054:  //Коды основной текстуры изделия
+                case 37054:  //Коды основной текстуры изделия    
                     if (Util.containsNumb(rec.getStr(TEXT), iwin.colorID1) == false) {
                         return false;
                     }
@@ -416,52 +417,55 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 37042:  //Допустимое соотношение габаритов б/м
-//                    if ("ps3".equals(versionDb)) { //Мин. соотношение габаритов (б/м)
-//                        float max = (elem5e.width() > elem5e.height()) ? elem5e.width() :elem5e.height();
-//                        float min = (elem5e.width() > elem5e.height()) ? elem5e.height() :elem5e.width();
-//                        if(rec.getFloat(TEXT) > max/min) {
-//                            return false;
-//                        }
-//                    } else {
-//                        float max = (elem5e.width() > elem5e.height()) ? elem5e.width() :elem5e.height();
-//                        float min = (elem5e.width() > elem5e.height()) ? elem5e.height() :elem5e.width();
-//                        if(Util.containsNumb(rec.getStr(TEXT), max/min)) {
-//                            return false;
-//                        }                        
-//                    }
+                    if ("ps3".equals(versionDb)) { //Мин. соотношение габаритов (б/м)
+                        float max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
+                        float min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
+                        if (rec.getFloat(TEXT) > max / min) {
+                            return false;
+                        }
+                    } else {
+                        float max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
+                        float min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
+                        if (Util.containsNumb(rec.getStr(TEXT), max / min)) {
+                            return false;
+                        }
+                    }
                     break;
-                case 37043:  //Макс. соотношение габаритов (б/м)
+                case 37043: //Макс. соотношение габаритов (б/м)
+                {
+                    float max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
+                    float min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
+                    if (rec.getFloat(TEXT) < max / min) {
+                        return false;
+                    }
+                }
+                break;
+                case 37098:  //Бригада участок
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
-                case 37054:  //Коды основной текстуры изделия 
-                    message(grup);
-                    break;
-                case 37098:  //Бригада участок
-                    message(grup);
-                    break;
                 case 37097:  //Трудозатраты по 
-                    message(grup);
+                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37108:  //Коэффициенты АКЦИИ 
-                    message(grup);
+                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37310:  //Сопротивление теплопередаче, м2*°С/Вт 
-                    message(grup);
+                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37320:  //Воздухопроницаемость, м3/ ч*м2
-                    message(grup);
+                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37330:  //Звукоизоляция, дБА 
-                    message(grup);
+                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37340:  //Коэффициент пропускания света 
-                    message(grup);
+                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));;
                     break;
                 case 37350:  //Сопротивление ветровым нагрузкам, Па 
-                    message(grup);
+                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37351:  //Номер поверхности 
-                    message(grup);
+                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 default:
                     assert !(grup > 0 && grup < 50000) : "Код " + grup + "  не обработан!!!";
