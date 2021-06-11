@@ -159,6 +159,10 @@ public class ElementTest extends ParamTest {
         
         grup = 37030;
         assert true == elementVar2.check(glass_top_2, param("0-6,5", grup)) : grup;         
-        assert false == elementVar2.check(glass_left_2, param("0-0,4", grup)) : grup;          
+        assert false == elementVar2.check(glass_left_2, param("0-0,4", grup)) : grup;
+        
+        grup = 37042;
+        assert true == elementVar2.check(glass_top_2, param("5-10", grup)) : grup;         
+        assert false == elementVar2.check(glass_left_2, param("5-100", grup)) : grup;          
     }
 }

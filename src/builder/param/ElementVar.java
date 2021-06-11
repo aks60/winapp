@@ -397,27 +397,38 @@ public class ElementVar extends Par5s {
                         return false;
                     }
                     break;
-                case 37030:  //Минимальная площадь                      
-                    if ("ps4".equals(versionDb)) {
-                        if (Util.containsNumb(rec.getStr(TEXT), elem5e.width() / 1000 * elem5e.height() / 1000) == false) {
+                case 37030:  //Ограничение площади, кв.м.                                      
+                    if ("ps3".equals(versionDb)) { //Минимальная площадь, кв.м.
+                        if (rec.getFloat(TEXT) > elem5e.width() / 1000 * elem5e.height() / 1000) {
                             return false;
                         }
-                        //Минимальная площадь, кв.м.
-                    } else if ("ps3".equals(versionDb)) { 
-                        if (elem5e.width() / 1000 * elem5e.height() / 1000 < rec.getFloat(TEXT)) {
+                    } else {
+                        if (Util.containsNumb(rec.getStr(TEXT), elem5e.width() / 1000 * elem5e.height() / 1000) == false) {
                             return false;
                         }
                     }
                     break;
                 case 37031:  //Максимальная площадь 
                     if ("ps3".equals(versionDb)) {
-                        if (elem5e.width() / 1000 * elem5e.height() / 1000 > rec.getFloat(TEXT)) {
+                        if (rec.getFloat(TEXT) < elem5e.width() / 1000 * elem5e.height() / 1000) {
                             return false;
                         }
                     }
                     break;
-                case 37042:  //Мин. соотношение габаритов (б/м) или Допустимое соотношение габаритов б/м для Ps4
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                case 37042:  //Допустимое соотношение габаритов б/м
+//                    if ("ps3".equals(versionDb)) { //Мин. соотношение габаритов (б/м)
+//                        float max = (elem5e.width() > elem5e.height()) ? elem5e.width() :elem5e.height();
+//                        float min = (elem5e.width() > elem5e.height()) ? elem5e.height() :elem5e.width();
+//                        if(rec.getFloat(TEXT) > max/min) {
+//                            return false;
+//                        }
+//                    } else {
+//                        float max = (elem5e.width() > elem5e.height()) ? elem5e.width() :elem5e.height();
+//                        float min = (elem5e.width() > elem5e.height()) ? elem5e.height() :elem5e.width();
+//                        if(Util.containsNumb(rec.getStr(TEXT), max/min)) {
+//                            return false;
+//                        }                        
+//                    }
                     break;
                 case 37043:  //Макс. соотношение габаритов (б/м)
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
