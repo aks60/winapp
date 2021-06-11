@@ -30,7 +30,7 @@
     <Component class="javax.swing.JButton" name="btn1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/resource/img24/c019.gif"/>
+          <Image iconType="3" name="/resource/img24/c054.gif"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>

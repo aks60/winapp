@@ -2248,8 +2248,9 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        Uti4.stopCellEditing(tab1, tab2);
-        Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
+        if("123".startsWith("2")) {
+            System.out.println("frames.Artikles.btnReport()");
+        }
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
