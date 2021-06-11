@@ -7,11 +7,15 @@ import common.*;
 import dataset.*;
 import com.google.gson.GsonBuilder;
 import builder.param.ParamList;
-import builder.param.test.ElementTest;
+import enums.Enam;
 import frames.DBCompare;
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.HashSet;
 import javax.swing.UIManager;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public class Test {
@@ -117,10 +121,12 @@ public class Test {
 
     private static void param() {
 
+//        Query.connection = Test.connect2();
+//        ElementTest et = new ElementTest();
+//        et.elementVar();
+//        et.elementDet();
+        
         Query.connection = Test.connect2();
-        new ElementTest();
-
-        /*Query.connection = Test.connect2();
         Set set = new HashSet();
         Map<String, Set> map = new HashMap();
         for (Enam en : ParamList.values()) {
@@ -132,7 +138,7 @@ public class Test {
             String key = entry.getKey();
             Set value = entry.getValue();
             System.out.println(key + " " + value);
-        }*/
+        }
     }
 
     private static void frame() throws Exception {

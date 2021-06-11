@@ -10,7 +10,7 @@ import builder.Wincalc;
 import builder.model.ElemSimple;
 import common.Util;
 
-//Составы
+//Составы 33000, 34000, 38000, 39000, 40000
 public class ElementDet extends Par5s {
 
     public ElementDet(Wincalc iwin) {
@@ -39,11 +39,12 @@ public class ElementDet extends Par5s {
 
                 case 33000: //Для технологического кода контейнера 
                 case 34000: //Для технологического кода контейнера 
-                    if (!Uti5.check_STRING_33000_34000(rec.getStr(TEXT), elem5e)) {
+                    if (!Uti5.check_STRING_XX000(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                     break;
                 case 33001:  //Если признак состава 
+                case 34001:  //Если признак состава 
                     message(grup);
                     break;
                 case 33002:  //Расчет пролетов соединений 
@@ -181,9 +182,6 @@ public class ElementDet extends Par5s {
                 case 38099:  //Трудозатраты, ч/ч. 
                 case 39099:  //Трудозатраты, ч/ч. 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 34001:  //Если признак состава 
-                    message(grup);
                     break;
                 case 34002:  //Расчет пролетов соединений 
                     message(grup);

@@ -30,7 +30,7 @@ class Uti5 {
     }
 
     //Для технологического кода контейнера 
-    static boolean check_STRING_33000_34000(String txt, ElemSimple elem5e) {
+    static boolean check_STRING_XX000(String txt, ElemSimple elem5e) {
         Record sysprofRec = elem5e.sysprofRec;
         Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklVRec.get(eArtikl.tech_code) == null) {

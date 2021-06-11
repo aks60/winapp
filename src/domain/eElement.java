@@ -12,6 +12,7 @@ public enum eElement implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "64", "1", "Наименование", "VNAME"),
     typset("4", "10", "1", "Тип состава", "typset"),
+    signset("12", "32", "1", "Признак состава", "VSIGN"),
     markup("8", "15", "1", "Наценка %", "VPERC"),
     todef("16", "5", "1", "Ставить по умолчанию", "todef"),
     toset("16", "5", "1", "Установка обязательности", "toset"),
@@ -25,8 +26,7 @@ public enum eElement implements Field {
     //atypm("5", "5", "1", "тип артикула  1 - профили  5 - заполнение", "ATYPM"),    
     //vnumb("4", "10", "0", "ID", "VNUMB"),
     //vpict("12", "64", "1", "чертеж состава", "VPICT"),
-    //vgrup("12", "32", "1", "группа", "VGRUP")
-    //vsign("12", "32", "1", "null", "VSIGN"),
+    //vgrup("12", "32", "1", "группа", "VGRUP")    
     //xdepa("5", "5", "1", "null", "XDEPA"),
     //vdiff("8", "15", "1", "null", "VDIFF"),
     //pnump("5", "5", "1", "null", "PNUMP"),

@@ -5,7 +5,7 @@ import static builder.param.test.ParamTest.param;
 
 public class ElementTest extends ParamTest {
 
-    public ElementTest() {
+    public void elementVar() {
 
         grup = 31000;
         assert true == elementVar2.check(frame_left_2, param("KBE 58;XXX 58;", grup)) : grup;
@@ -177,5 +177,12 @@ public class ElementTest extends ParamTest {
         assert true == elementVar4.check(stv_right_4, param("1000-10010;", grup)) : grup;
         assert true == elementVar3.check(stv_right_3, param("1000-1010;", grup)) : grup;
        
+    }
+    
+    public void elementDet() {
+        
+        grup = 33000; //34000
+        assert true == elementVar2.check(frame_left_2, param("KBE 58;XXX 58;", grup)) : grup;
+        assert false == elementVar2.check(frame_left_2, param("KBE58;", grup)) : grup;        
     }
 }

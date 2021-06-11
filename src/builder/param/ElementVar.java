@@ -20,7 +20,7 @@ import domain.eSyssize;
 import domain.eSystree;
 import enums.TypeJoin;
 
-//Составы
+//Составы 31000, 37000
 public class ElementVar extends Par5s {
 
     public ElementVar(Wincalc iwin) {
@@ -48,27 +48,10 @@ public class ElementVar extends Par5s {
             switch (grup) {
 
                 case 31000: //Для технологического кода контейнера 
-                {
-                    Record sysprofRec2 = elem5e.sysprofRec;
-                    Record artiklVRec = eArtikl.find(sysprofRec2.getInt(eSysprof.artikl_id), false);
-                    if (artiklVRec.get(eArtikl.tech_code) == null) {
+                    if (!Uti5.check_STRING_XX000(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
-                    String[] strList = rec.getStr(TEXT).split(";");
-                    String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
-                    boolean ret2 = false;
-                    for (String str : strList) {
-                        for (String str2 : strList2) {
-                            if (str.equals(str2)) {
-                                ret2 = true;
-                            }
-                        }
-                    }
-                    if (ret2 == false) {
-                        return false;
-                    }
-                }
-                break;
+                    break;
                 case 31001: //Максимальное заполнение изделия, мм 
                 {
                     List<ElemGlass> glassList = elem5e.iwin().rootArea.listElem(TypeElem.GLASS);
@@ -459,7 +442,8 @@ public class ElementVar extends Par5s {
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 37340:  //Коэффициент пропускания света 
-                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));;
+                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    ;
                     break;
                 case 37350:  //Сопротивление ветровым нагрузкам, Па 
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
