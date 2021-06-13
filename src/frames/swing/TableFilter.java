@@ -2,8 +2,14 @@ package frames.swing;
 
 import dataset.Field;
 import dataset.Query;
-import dataset.Record;
 import frames.Uti4;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 import java.util.Arrays;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -48,11 +54,12 @@ public class TableFilter extends javax.swing.JPanel {
         txtFilter = new javax.swing.JTextField(){
             public JTable table = null;
         };
+        btn2 = new javax.swing.JButton();
         checkFilter = new javax.swing.JCheckBox();
 
         setMaximumSize(new java.awt.Dimension(380, 20));
         setMinimumSize(new java.awt.Dimension(360, 20));
-        setPreferredSize(new java.awt.Dimension(360, 20));
+        setPreferredSize(new java.awt.Dimension(362, 20));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
@@ -85,6 +92,18 @@ public class TableFilter extends javax.swing.JPanel {
         });
         add(txtFilter);
 
+        btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c050.gif"))); // NOI18N
+        btn2.setBorder(null);
+        btn2.setMaximumSize(new java.awt.Dimension(60, 25));
+        btn2.setMinimumSize(new java.awt.Dimension(32, 20));
+        btn2.setPreferredSize(new java.awt.Dimension(36, 23));
+        btn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn2ActiPerf(evt);
+            }
+        });
+        add(btn2);
+
         checkFilter.setText("в конце строки");
         checkFilter.setMaximumSize(new java.awt.Dimension(103, 18));
         checkFilter.setMinimumSize(new java.awt.Dimension(103, 18));
@@ -99,7 +118,7 @@ public class TableFilter extends javax.swing.JPanel {
         } else if (search == true) {
             indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
             Query query = ((DefTableModel) table.getModel()).getQuery();
-            Field field = ((DefTableModel) table.getModel()).columns[indexColumn];           
+            Field field = ((DefTableModel) table.getModel()).columns[indexColumn];
             for (int index = 0; index < query.size(); ++index) {
 
                 if (query.get(index).getStr(field).startsWith(txtFilter.getText())) {
@@ -117,7 +136,7 @@ public class TableFilter extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCaretUpdate
 
     private void btn1ActiPerf(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActiPerf
-       if (search == true) {
+        if (search == true) {
             btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif")));
             search = !search;
             txtCaretUpdate(null);
@@ -128,12 +147,30 @@ public class TableFilter extends javax.swing.JPanel {
             txtFilter.setText("");
             txtCaretUpdate(null);
             txtFilter.setText(txt);
-        }        
+        }
     }//GEN-LAST:event_btn1ActiPerf
+
+    private void btn2ActiPerf(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActiPerf
+        if (txtFilter.getText().isEmpty()) {
+            try {
+                Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
+                Transferable t = cb.getContents(null);
+                if (t.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+                    txtFilter.setText(t.getTransferData(DataFlavor.stringFlavor).toString());
+                }
+            } catch (UnsupportedFlavorException | IOException ex) {
+                System.out.println("frames.swing.TableFilter.btn2ActiPerf()");
+            }
+        } else {
+            //StringSelection data = new StringSelection("This is copied to the clipboard");
+            txtFilter.setText("");
+        }
+    }//GEN-LAST:event_btn2ActiPerf
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
+    private javax.swing.JButton btn2;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel labFilter;
     private javax.swing.JTextField txtFilter;
