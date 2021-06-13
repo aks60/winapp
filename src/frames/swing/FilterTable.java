@@ -9,11 +9,12 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -42,9 +43,9 @@ public class FilterTable extends javax.swing.JPanel {
         return txtFilter;
     }
 
-    public void mousePressed(JTable table) {      
+    public void mousePressed(JTable table) {
         if (txtFilter.getText().length() == 0) {
-            this.table = table; 
+            this.table = table;
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
         }
@@ -97,7 +98,7 @@ public class FilterTable extends javax.swing.JPanel {
         });
         add(txtFilter);
 
-        btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c050.gif"))); // NOI18N
+        btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif"))); // NOI18N
         btn2.setBorder(null);
         btn2.setMaximumSize(new java.awt.Dimension(26, 23));
         btn2.setMinimumSize(new java.awt.Dimension(26, 23));
@@ -117,29 +118,40 @@ public class FilterTable extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtCaretUpdate
+        btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
         if (txtFilter.getText().length() == 0) {
             ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(null);
+            btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")));
 
-        } else {
-            if (search == true) {
-                indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+        } else if (search == true) {
+            indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            if (table.getModel() instanceof DefTableModel) {
                 Query query = ((DefTableModel) table.getModel()).getQuery();
                 Field field = ((DefTableModel) table.getModel()).columns[indexColumn];
                 for (int index = 0; index < query.size(); ++index) {
 
-                    if (query.get(index).getStr(field).startsWith(txtFilter.getText())) {
+                    if (query.table(field).get(index).getStr(field).startsWith(txtFilter.getText())) {
                         Uti4.setSelectedRow(table, index);
                         Uti4.scrollRectToIndex(index, table);
                         return;
                     }
                 }
-            } else if (search == false) {
-                indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-                System.out.println(indexColumn);
-                String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-                ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
-                Uti4.setSelectedRow(table);
+            } else {
+                DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+                for (int index = 0; index < dtm.getDataVector().size(); ++index) {
+                    Vector vector = dtm.getDataVector().get(index);
+                    if (String.valueOf(vector.get(indexColumn)).startsWith(txtFilter.getText())) {
+                        Uti4.setSelectedRow(table, index);
+                        Uti4.scrollRectToIndex(index, table);
+                        return;
+                    }
+                }
             }
+        } else if (search == false) {
+            indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
+            Uti4.setSelectedRow(table);
         }
     }//GEN-LAST:event_txtCaretUpdate
 
@@ -160,6 +172,7 @@ public class FilterTable extends javax.swing.JPanel {
 
     private void btn2ActiPerf(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActiPerf
         if (txtFilter.getText().isEmpty()) {
+            btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
             try {
                 Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
                 Transferable t = cb.getContents(null);
@@ -170,7 +183,7 @@ public class FilterTable extends javax.swing.JPanel {
                 System.out.println("frames.swing.TableFilter.btn2ActiPerf()");
             }
         } else {
-            //StringSelection data = new StringSelection("This is copied to the clipboard");
+            btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")));
             txtFilter.setText("");
         }
     }//GEN-LAST:event_btn2ActiPerf

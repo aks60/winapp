@@ -91,7 +91,7 @@
     <Component class="javax.swing.JButton" name="btn2">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/resource/img24/c050.gif"/>
+          <Image iconType="3" name="/resource/img16/b041.gif"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
