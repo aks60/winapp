@@ -33,6 +33,7 @@ public class Partner extends javax.swing.JFrame {
         initElements();
         loadingData();
         loadingModel();
+        filterTable.setColumn(tab1, 0);
     }
 
     public Partner(Frame owner, ListenerRecord listener) {
@@ -44,6 +45,7 @@ public class Partner extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         setVisible(true);
+        filterTable.setColumn(tab1, 0);
     }
 
     private void loadingData() {
@@ -865,8 +867,7 @@ public class Partner extends javax.swing.JFrame {
     private void initElements() {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
-        south.add(filterTable, 0);
-        filterTable.setColumn(tab1, 0);
+        south.add(filterTable, 0);        
         filterTable.getTxt().grabFocus();   
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {

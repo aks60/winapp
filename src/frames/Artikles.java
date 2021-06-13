@@ -69,6 +69,7 @@ public class Artikles extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         loadingTree();
+        filterTable.setColumn(tab1, 0);
     }
 
     public Artikles(java.awt.Window owner, Record artiklRec) {
@@ -79,6 +80,7 @@ public class Artikles extends javax.swing.JFrame {
         loadingModel();
         loadingTree();
         setSelectionPath(artiklRec);
+        filterTable.setColumn(tab1, 0);
     }
 
     private void loadingData() {
@@ -2634,8 +2636,7 @@ public class Artikles extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        south.add(filterTable, 0);
-        filterTable.setColumn(tab1, 0);
+        south.add(filterTable, 0);        
         filterTable.getTxt().grabFocus();   
         
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2)));

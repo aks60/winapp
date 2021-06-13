@@ -70,6 +70,7 @@ public class Element extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerAdd();
+        filterTable.setColumn(tab2, 0);
     }
 
     public Element(Set<Object> keys) {
@@ -82,6 +83,7 @@ public class Element extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerAdd();
+        filterTable.setColumn(tab2, 0);
     }
 
     public Element(Set<Object> keys, int deteilID) {
@@ -95,6 +97,7 @@ public class Element extends javax.swing.JFrame {
         loadingModel();
         listenerAdd();
         deteilFind(deteilID);
+        filterTable.setColumn(tab2, 0);
     }
 
     private void loadingData() {
@@ -205,7 +208,7 @@ public class Element extends javax.swing.JFrame {
 
         DefCellBoolRenderer br = new DefCellBoolRenderer();
         Arrays.asList(6, 7).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
-
+        
         Uti4.setSelectedRow(tab1);
     }
 
@@ -1070,8 +1073,7 @@ public class Element extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        south.add(filterTable, 0);
-        filterTable.setColumn(tab1, 0);
+        south.add(filterTable, 0);        
         filterTable.getTxt().grabFocus(); 
         
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));

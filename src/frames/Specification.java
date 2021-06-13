@@ -57,7 +57,8 @@ public class Specification extends javax.swing.JFrame {
         initComponents();
         initElements();
         createIwin();
-        loadingTab1(groups(1));
+        loadingTab1(groups(1)); 
+        filterTable.setColumn(tab1, 4);
         Uti4.setSelectedRow(tab1);
     }
 
@@ -450,12 +451,10 @@ public class Specification extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        tab1.setColumnSelectionInterval(5, 5);
     }//GEN-LAST:event_btnReport
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-        JTable table = (JTable) evt.getSource();
-        //Uti4.updateBorderAndSql(table, Arrays.asList(tab1));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
@@ -593,8 +592,7 @@ public class Specification extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        south.add(filterTable, 0);
-        filterTable.setColumn(tab1, 4);        
+        south.add(filterTable, 0);        
         filterTable.getTxt().grabFocus();  
         
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());

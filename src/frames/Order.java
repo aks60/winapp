@@ -109,6 +109,7 @@ public class Order extends javax.swing.JFrame {
         loadingModel();
         listenerAdd();
         loadingTab1();
+        filterTable.setColumn(tab1, 0);
     }
 
     private void loadingData() {
@@ -2758,8 +2759,7 @@ public class Order extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
         Uti4.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
-        south.add(filterTable, 0);
-        filterTable.setColumn(tab1, 0);
+        south.add(filterTable, 0);       
         filterTable.getTxt().grabFocus();  
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1)));
         windowsTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());

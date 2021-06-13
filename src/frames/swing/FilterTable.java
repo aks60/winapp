@@ -31,6 +31,7 @@ public class FilterTable extends javax.swing.JPanel {
         mousePressed(table);
         labFilter.setText(table.getColumnName(index));
         txtFilter.setName(table.getName());
+        table.setColumnSelectionInterval(index, index);
     }
 
     public JLabel getLab() {
@@ -134,6 +135,7 @@ public class FilterTable extends javax.swing.JPanel {
                 }
             } else if (search == false) {
                 indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+                System.out.println(indexColumn);
                 String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
                 ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
                 Uti4.setSelectedRow(table);
