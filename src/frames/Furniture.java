@@ -37,6 +37,7 @@ import enums.UseColor;
 import enums.UseFurn1;
 import enums.UseFurn2;
 import frames.swing.DefCellBoolRenderer;
+import frames.swing.FilterTable;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,6 +66,7 @@ public class Furniture extends javax.swing.JFrame {
     private Query qFurnside2 = new Query(eFurnside2.values());
     private Query qFurnpar1 = new Query(eFurnpar1.values());
     private Query qFurnpar2 = new Query(eFurnpar2.values());
+    private FilterTable filterTable = new FilterTable();
     private ListenerRecord listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
     private String subsql = "(-1)";
@@ -672,11 +674,6 @@ public class Furniture extends javax.swing.JFrame {
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
-        labFilter = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField(){
-            public JTable table = null;
-        };
-        checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Фурнитура");
@@ -1203,29 +1200,6 @@ public class Furniture extends javax.swing.JFrame {
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(900, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
-
-        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        labFilter.setText("Поле");
-        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
-        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
-        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        south.add(labFilter);
-
-        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
-        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtFilter(evt);
-            }
-        });
-        south.add(txtFilter);
-
-        checkFilter.setText("в конце строки");
-        south.add(checkFilter);
-
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -1367,11 +1341,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-//        if (table == tab5 || table == tab6) {
-//            Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab3, tab4, tab5, tab6));
-//        } else {
-            Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
-//        }
+        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
         if (table == tab2a) {
             selectionTab2a(null);
         } else if (table == tab2b) {
@@ -1379,23 +1349,8 @@ public class Furniture extends javax.swing.JFrame {
         } else if (table == tab2c) {
             selectionTab2c(null);
         }
-        if (txtFilter.getText().length() == 0) {
-            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-            txtFilter.setName(table.getName());
-        }
+        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
-
-    private void txtFilter(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilter
-        JTable table = Stream.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
-        btnIns.setEnabled(txtFilter.getText().length() == 0);
-        if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }//GEN-LAST:event_txtFilter
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         JTable table = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
@@ -1473,9 +1428,7 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JButton btnSet;
     private javax.swing.JButton btnTest;
     private javax.swing.JPanel center;
-    private javax.swing.JCheckBox checkFilter;
     private javax.swing.ButtonGroup group1;
-    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
@@ -1508,14 +1461,14 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JToggleButton tbtn1;
     private javax.swing.JToggleButton tbtn2;
     private javax.swing.JToggleButton tbtn3;
-    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        labFilter.setText(tab1.getColumnName(0));
-        txtFilter.setName(tab1.getName());
+        south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus();
+        
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
