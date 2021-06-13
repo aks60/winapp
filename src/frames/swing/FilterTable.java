@@ -18,13 +18,13 @@ import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-public class TableFilter extends javax.swing.JPanel {
+public class FilterTable extends javax.swing.JPanel {
 
     private JTable table = null;
     private int indexColumn = 0;
     private boolean search = false;
 
-    public TableFilter() {
+    public FilterTable() {
         initComponents();
     }
 

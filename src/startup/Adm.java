@@ -12,7 +12,7 @@ import static dataset.Query.connection;
 import dataset.eExcep;
 import frames.PathToDb;
 import frames.Uti4;
-import frames.swing.FilesFilter;
+import frames.swing.FilterFile;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -1239,7 +1239,7 @@ public class Adm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCard
 
     private void btn10btnAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10btnAction
-        FilesFilter filter = new FilesFilter();
+        FilterFile filter = new FilterFile();
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File("."));
         chooser.setFileFilter(filter);
