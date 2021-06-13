@@ -1071,6 +1071,7 @@ public class Element extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
         south.add(filterTable, 0);
+        filterTable.setColumn(tab1, 0);
         filterTable.getTxt().grabFocus(); 
         
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
