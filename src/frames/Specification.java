@@ -51,7 +51,7 @@ public class Specification extends javax.swing.JFrame {
     private DecimalFormat df2 = new DecimalFormat("#0.00");
     private DecimalFormat df3 = new DecimalFormat("#0.000");
     private builder.Wincalc iwin = new Wincalc();
-    private FilterTable filterTable = null;
+    private FilterTable filterTable = new FilterTable();
 
     public Specification() {
         initComponents();
@@ -59,7 +59,6 @@ public class Specification extends javax.swing.JFrame {
         createIwin();
         loadingTab1(groups(1));
         Uti4.setSelectedRow(tab1);
-        tab1.setColumnSelectionInterval(3, 3);
     }
 
     private void createIwin() {
@@ -187,6 +186,7 @@ public class Specification extends javax.swing.JFrame {
             }
         };
         south = new javax.swing.JPanel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
         labSum = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -254,11 +254,6 @@ public class Specification extends javax.swing.JFrame {
         btnConstructiv.setPreferredSize(new java.awt.Dimension(25, 25));
         btnConstructiv.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnConstructiv.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnConstructiv.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                btnConstructivFocusLost(evt);
-            }
-        });
         btnConstructiv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConstructiv(evt);
@@ -436,6 +431,9 @@ public class Specification extends javax.swing.JFrame {
         south.setPreferredSize(new java.awt.Dimension(900, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
+        filler1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.add(filler1);
+
         labSum.setText("sum:0");
         labSum.setMaximumSize(new java.awt.Dimension(200, 14));
         labSum.setMinimumSize(new java.awt.Dimension(200, 14));
@@ -457,8 +455,8 @@ public class Specification extends javax.swing.JFrame {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        Uti4.updateBorderAndSql(table, Arrays.asList(tab1));
-        filterTable.mousePressed((JTable) evt.getSource(), tab1);
+        //Uti4.updateBorderAndSql(table, Arrays.asList(tab1));
+        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
@@ -557,10 +555,6 @@ public class Specification extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_cbxCalcType
 
-    private void btnConstructivFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnConstructivFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConstructivFocusLost
-
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
         FrameProgress.create(Specification.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
@@ -588,6 +582,7 @@ public class Specification extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbx1;
     private javax.swing.JComboBox<String> cbx2;
     private javax.swing.JPanel centr;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel labSum;
     private javax.swing.JPanel north;
     private javax.swing.JScrollPane scr1;
@@ -598,10 +593,10 @@ public class Specification extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(tab1, 4);
         south.add(filterTable, 0);
-        filterTable.mousePressed(tab1);
-        filterTable.getTxt().grabFocus();        
+        filterTable.setColumn(tab1, 4);        
+        filterTable.getTxt().grabFocus();  
+        
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));

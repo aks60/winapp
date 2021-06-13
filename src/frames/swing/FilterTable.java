@@ -26,22 +26,13 @@ public class FilterTable extends javax.swing.JPanel {
     public FilterTable() {
         initComponents();
     }
-
-    public FilterTable(JTable table, int index) {
-        initComponents();
+    
+    public void setColumn(JTable tale, int index) {
+        mousePressed(tale);
         labFilter.setText(table.getColumnName(index));
-        txtFilter.setName(table.getName());
+        txtFilter.setName(table.getName());        
     }
-
-    public void mousePressed(JTable table, JTable... tab) {
-        this.table = table;
-        Uti4.updateBorderAndSql(table, Arrays.asList(tab));
-        if (txtFilter.getText().length() == 0) {
-            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-            txtFilter.setName(table.getName());
-        }
-    }
-
+    
     public JLabel getLab() {
         return labFilter;
     }
@@ -50,6 +41,14 @@ public class FilterTable extends javax.swing.JPanel {
         return txtFilter;
     }
 
+    public void mousePressed(JTable table) {
+        this.table = table;
+        if (txtFilter.getText().length() == 0) {
+            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txtFilter.setName(table.getName());
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -62,9 +61,9 @@ public class FilterTable extends javax.swing.JPanel {
         btn2 = new javax.swing.JButton();
         checkFilter = new javax.swing.JCheckBox();
 
-        setMaximumSize(new java.awt.Dimension(380, 20));
+        setMaximumSize(new java.awt.Dimension(420, 20));
         setMinimumSize(new java.awt.Dimension(360, 20));
-        setPreferredSize(new java.awt.Dimension(362, 20));
+        setPreferredSize(new java.awt.Dimension(420, 20));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
@@ -79,7 +78,7 @@ public class FilterTable extends javax.swing.JPanel {
         });
         add(btn1);
 
-        labFilter.setText("Поле");
+        labFilter.setText("Поле не выбрано");
         labFilter.setMaximumSize(new java.awt.Dimension(140, 18));
         labFilter.setMinimumSize(new java.awt.Dimension(140, 18));
         labFilter.setPreferredSize(new java.awt.Dimension(140, 18));
@@ -99,9 +98,9 @@ public class FilterTable extends javax.swing.JPanel {
 
         btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c050.gif"))); // NOI18N
         btn2.setBorder(null);
-        btn2.setMaximumSize(new java.awt.Dimension(60, 25));
-        btn2.setMinimumSize(new java.awt.Dimension(32, 20));
-        btn2.setPreferredSize(new java.awt.Dimension(36, 23));
+        btn2.setMaximumSize(new java.awt.Dimension(26, 23));
+        btn2.setMinimumSize(new java.awt.Dimension(26, 23));
+        btn2.setPreferredSize(new java.awt.Dimension(26, 23));
         btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn2ActiPerf(evt);

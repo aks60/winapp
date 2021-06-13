@@ -12,6 +12,7 @@ import frames.dialog.DicArtikl2;
 import frames.dialog.DicEnums;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
+import frames.swing.FilterTable;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JTable;
@@ -23,6 +24,7 @@ public class Rulecalc extends javax.swing.JFrame {
 
     private Query qRulecalc = new Query(eRulecalc.values(), eArtikl.values());
     private ListenerRecord listenerArtikl, listenerForm;
+    private FilterTable filterTable = new FilterTable();
 
     public Rulecalc() {
         initComponents();
@@ -119,11 +121,6 @@ public class Rulecalc extends javax.swing.JFrame {
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
         south = new javax.swing.JPanel();
-        labFilter = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField(){
-            public JTable table = null;
-        };
-        checkFilter = new javax.swing.JCheckBox();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
@@ -257,29 +254,6 @@ public class Rulecalc extends javax.swing.JFrame {
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(900, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
-
-        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        labFilter.setText("Поле");
-        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
-        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
-        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        south.add(labFilter);
-
-        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
-        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                filterCaretUpdate(evt);
-            }
-        });
-        south.add(txtFilter);
-
-        checkFilter.setText("в конце строки");
-        south.add(checkFilter);
-
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         centr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -381,27 +355,11 @@ public class Rulecalc extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReport
 
-    private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
-
-        JTable table = Stream.of(tab2).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab2);
-        btnIns.setEnabled(txtFilter.getText().length() == 0);
-        if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }//GEN-LAST:event_filterCaretUpdate
-
     private void tab2tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2tabMousePressed
 
         JTable table = (JTable) evt.getSource();
         Uti4.updateBorderAndSql(table, Arrays.asList(tab2));
-        if (txtFilter.getText().length() == 0) {
-            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-            txtFilter.setName(table.getName());
-        }
+        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tab2tabMousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
@@ -417,22 +375,20 @@ public class Rulecalc extends javax.swing.JFrame {
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;
-    private javax.swing.JCheckBox checkFilter;
-    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab2;
-    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        labFilter.setText(tab2.getColumnName(0));
-        txtFilter.setName(tab2.getName());
+        south.add(filterTable, 0);
+        filterTable.setColumn(tab2, 2);
+        filterTable.getTxt().grabFocus();  
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab2)));
     }
 }

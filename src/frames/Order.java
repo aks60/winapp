@@ -62,6 +62,7 @@ import frames.dialog.DicSysprof;
 import frames.dialog.ParDefault;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
+import frames.swing.FilterTable;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Graphics2D;
@@ -99,6 +100,7 @@ public class Order extends javax.swing.JFrame {
     private Canvas paintPanel = new Canvas(iwin);
     private DefFieldEditor rsvPrj;
     private Gson gson = new GsonBuilder().create();
+    private FilterTable filterTable = new FilterTable();
 
     public Order() {
         initComponents();
@@ -588,11 +590,6 @@ public class Order extends javax.swing.JFrame {
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
-        labFilter = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField(){
-            public JTable table = null;
-        };
-        checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заказы");
@@ -1988,29 +1985,6 @@ public class Order extends javax.swing.JFrame {
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(900, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
-
-        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        labFilter.setText("Поле");
-        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
-        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
-        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        south.add(labFilter);
-
-        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
-        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtFilter(evt);
-            }
-        });
-        south.add(txtFilter);
-
-        checkFilter.setText("в конце строки");
-        south.add(checkFilter);
-
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -2074,18 +2048,6 @@ public class Order extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnInsert
 
-    private void txtFilter(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilter
-        JTable table = Stream.of(tab1).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
-        btnIns.setEnabled(txtFilter.getText().length() == 0);
-        if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }//GEN-LAST:event_txtFilter
-
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Uti4.stopCellEditing(tab1, tab2, tab3, tab5);
         eProperty.save(); //запишем текущий ordersId в файл
@@ -2095,10 +2057,7 @@ public class Order extends javax.swing.JFrame {
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
         Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab5));
-        if (txtFilter.getText().length() == 0) {
-            labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn() == -1 || tab1.getSelectedColumn() == 0) ? 0 : tab1.getSelectedColumn()));
-            txtFilter.setName(tab1.getName());
-        }
+        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
@@ -2705,7 +2664,6 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JButton btnTest;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPanel centr;
-    private javax.swing.JCheckBox checkFilter;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
@@ -2736,7 +2694,6 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JLabel lab6;
     private javax.swing.JLabel lab7;
     private javax.swing.JLabel lab8;
-    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan11;
@@ -2793,7 +2750,6 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JTextField txt7;
     private javax.swing.JTextField txt8;
     private javax.swing.JTextField txt9;
-    private javax.swing.JTextField txtFilter;
     private javax.swing.JTree windowsTree;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
@@ -2802,8 +2758,9 @@ public class Order extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
         Uti4.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
-        labFilter.setText(tab1.getColumnName(0));
-        txtFilter.setName(tab1.getName());
+        south.add(filterTable, 0);
+        filterTable.setColumn(tab1, 0);
+        filterTable.getTxt().grabFocus();  
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1)));
         windowsTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

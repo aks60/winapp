@@ -2386,9 +2386,9 @@ public class Systree extends javax.swing.JFrame {
         if (systemTree.isEditing()) {
             systemTree.getCellEditor().stopCellEditing();
         }
-        systemTree.setBorder(null);
-        
-        filterTable.mousePressed((JTable) evt.getSource(), tab2, tab3, tab4, tab5);
+        systemTree.setBorder(null);  
+        Uti4.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
+        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed

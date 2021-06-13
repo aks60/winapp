@@ -6,6 +6,7 @@ import domain.ePrjpart;
 import frames.swing.DefFieldEditor;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
+import frames.swing.FilterTable;
 import java.awt.Frame;
 import java.awt.Window;
 import java.util.Arrays;
@@ -22,6 +23,7 @@ public class Partner extends javax.swing.JFrame {
 
     private Window owner = null;
     private ListenerRecord listener = null;
+    private FilterTable filterTable = new FilterTable();
     private Query qPrjcontr = new Query(ePrjpart.values());
     private DefFieldEditor rsv = null;
     private String arrCateg[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
@@ -147,11 +149,6 @@ public class Partner extends javax.swing.JFrame {
         lab52 = new javax.swing.JLabel();
         txt17 = new javax.swing.JTextField();
         south = new javax.swing.JPanel();
-        labFilter = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField(){
-            public JTable table = null;
-        };
-        checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Контрагенты");
@@ -731,29 +728,6 @@ public class Partner extends javax.swing.JFrame {
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(800, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
-
-        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        labFilter.setText("Поле");
-        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
-        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
-        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        south.add(labFilter);
-
-        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
-        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtFilter(evt);
-            }
-        });
-        south.add(txtFilter);
-
-        checkFilter.setText("в конце строки");
-        south.add(checkFilter);
-
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -794,24 +768,9 @@ public class Partner extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnInsert
 
-    private void txtFilter(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilter
-        JTable table = Stream.of(tab1).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
-        btnIns.setEnabled(txtFilter.getText().length() == 0);
-        if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }//GEN-LAST:event_txtFilter
-
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         Uti4.updateBorderAndSql(tab1, Arrays.asList(tab1));
-        if (txtFilter.getText().length() == 0) {
-            labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn() == -1 || tab1.getSelectedColumn() == 0) ? 0 : tab1.getSelectedColumn()));
-            txtFilter.setName(tab1.getName());
-        }
+        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
@@ -858,7 +817,6 @@ public class Partner extends javax.swing.JFrame {
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnRemove;
     private javax.swing.JPanel center;
-    private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel lab36;
     private javax.swing.JLabel lab37;
     private javax.swing.JLabel lab38;
@@ -876,7 +834,6 @@ public class Partner extends javax.swing.JFrame {
     private javax.swing.JLabel lab50;
     private javax.swing.JLabel lab51;
     private javax.swing.JLabel lab52;
-    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan3;
@@ -902,16 +859,15 @@ public class Partner extends javax.swing.JFrame {
     private javax.swing.JTextField txt7;
     private javax.swing.JTextField txt8;
     private javax.swing.JTextField txt9;
-    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
    // </editor-fold> 
 
     private void initElements() {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
-        Uti4.updateBorderAndSql(tab1, null);
-        labFilter.setText(tab1.getColumnName(0));
-        txtFilter.setName(tab1.getName());
+        south.add(filterTable, 0);
+        filterTable.setColumn(tab1, 0);
+        filterTable.getTxt().grabFocus();   
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

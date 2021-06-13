@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
+import frames.swing.FilterTable;
 import java.util.stream.Stream;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -26,8 +27,9 @@ public class Param extends javax.swing.JFrame {
 
     private Query qParams = new Query(eParams.values());
     private Query qPardet = new Query(eParams.values());
-    DefaultCellEditor editorStr = new DefaultCellEditor(new JTextField());
-    DefCellEditor editorBtn = new DefCellEditor(new JButton("..."));
+    private DefaultCellEditor editorStr = new DefaultCellEditor(new JTextField());
+    private DefCellEditor editorBtn = new DefCellEditor(new JButton("..."));
+    private FilterTable filterTable = new FilterTable();
     private ListenerRecord listenerColor;
 
     public Param() {
@@ -120,11 +122,6 @@ public class Param extends javax.swing.JFrame {
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
-        labFilter = new javax.swing.JLabel();
-        checkFilter = new javax.swing.JCheckBox();
-        txtFilter = new javax.swing.JTextField(){
-            public JTable table = null;
-        };
 
         jSplitPane1.setBorder(null);
         jSplitPane1.setDividerLocation(400);
@@ -342,29 +339,6 @@ public class Param extends javax.swing.JFrame {
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(900, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
-
-        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        labFilter.setText("Поле");
-        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
-        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
-        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        south.add(labFilter);
-
-        checkFilter.setText("в конце строки");
-        south.add(checkFilter);
-
-        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
-        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                filterCaretUpdate(evt);
-            }
-        });
-        south.add(txtFilter);
-
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -422,24 +396,8 @@ public class Param extends javax.swing.JFrame {
             selectionTab2(null);
         }
         Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
-        if (txtFilter.getText().length() == 0) {
-            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-            txtFilter.setName(table.getName());
-        }
+        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
-
-    private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
-
-        JTable table = Stream.of(tab1, tab2).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
-        btnIns.setEnabled(txtFilter.getText().length() == 0);
-        if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }//GEN-LAST:event_filterCaretUpdate
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -447,9 +405,7 @@ public class Param extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JPanel centr;
-    private javax.swing.JCheckBox checkFilter;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
@@ -458,12 +414,14 @@ public class Param extends javax.swing.JFrame {
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
-    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        south.add(filterTable, 0);
+        filterTable.setColumn(tab1, 0);
+        filterTable.getTxt().grabFocus();
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));

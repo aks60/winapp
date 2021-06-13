@@ -55,7 +55,7 @@ public class Artikles extends javax.swing.JFrame {
     private Query qArtdet = new Query(eArtdet.values());
 
     private DefFieldEditor rsvArtikl;
-    private FilterTable filterTable = null;
+    private FilterTable filterTable = new FilterTable();
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
     private Window owner = null;
@@ -673,7 +673,9 @@ public class Artikles extends javax.swing.JFrame {
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
         lab1 = new javax.swing.JLabel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
         lab2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -2176,6 +2178,9 @@ public class Artikles extends javax.swing.JFrame {
         south.setPreferredSize(new java.awt.Dimension(900, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
+        filler1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.add(filler1);
+
         lab1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lab1.setText("___");
         lab1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -2183,6 +2188,9 @@ public class Artikles extends javax.swing.JFrame {
         lab1.setPreferredSize(new java.awt.Dimension(100, 14));
         lab1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         south.add(lab1);
+
+        filler2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.add(filler2);
 
         lab2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lab2.setText("___");
@@ -2264,7 +2272,8 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn7
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        filterTable.mousePressed((JTable) evt.getSource(), tab1, tab2);
+        Uti4.updateBorderAndSql((JTable) evt.getSource(), Arrays.asList(tab1, tab2));
+        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 
     private void btn11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11
@@ -2440,6 +2449,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JButton btnTest;
     private javax.swing.JPanel center;
     private javax.swing.JCheckBox checkBox1;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
     private javax.swing.Box.Filler filler12;
@@ -2450,6 +2460,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler17;
     private javax.swing.Box.Filler filler18;
     private javax.swing.Box.Filler filler19;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler20;
     private javax.swing.Box.Filler filler21;
     private javax.swing.Box.Filler filler22;
@@ -2623,12 +2634,10 @@ public class Artikles extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-
-        filterTable = new FilterTable(tab1, 0);
         south.add(filterTable, 0);
-        filterTable.mousePressed(tab1);
-        filterTable.getTxt().grabFocus();
-                
+        filterTable.setColumn(tab1, 0);
+        filterTable.getTxt().grabFocus();   
+        
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));

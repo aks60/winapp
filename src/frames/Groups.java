@@ -9,6 +9,7 @@ import enums.TypeGroups;
 import static frames.Uti4.getIndexRec;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
+import frames.swing.FilterTable;
 import java.awt.Component;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -27,6 +28,7 @@ public class Groups extends javax.swing.JFrame {
     private Query qCategProf = new Query(eGroups.values());
     private Query qColgrp = new Query(eGroups.values());
     private Query qCategVst = new Query(eGroups.values());
+    private FilterTable filterTable = new FilterTable();
 
     public Groups(Object... page) {
         initComponents();
@@ -160,11 +162,6 @@ public class Groups extends javax.swing.JFrame {
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
         south = new javax.swing.JPanel();
-        labFilter = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField(){
-            public JTable table = null;
-        };
-        checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Группы");
@@ -214,6 +211,11 @@ public class Groups extends javax.swing.JFrame {
             }
         });
         tab7.setFillsViewportHeight(true);
+        tab7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr7.setViewportView(tab7);
         if (tab7.getColumnModel().getColumnCount() > 0) {
             tab7.getColumnModel().getColumn(1).setPreferredWidth(60);
@@ -616,29 +618,6 @@ public class Groups extends javax.swing.JFrame {
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(10, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
-
-        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        labFilter.setText("Поле");
-        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
-        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
-        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        south.add(labFilter);
-
-        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
-        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtFilterfilterCaretUpdate(evt);
-            }
-        });
-        south.add(txtFilter);
-
-        checkFilter.setText("в конце строки");
-        south.add(checkFilter);
-
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -711,26 +690,10 @@ public class Groups extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReport
 
-    private void txtFilterfilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterfilterCaretUpdate
-
-        JTable table = Stream.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
-        btnIns.setEnabled(txtFilter.getText().length() == 0);
-        if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }//GEN-LAST:event_txtFilterfilterCaretUpdate
-
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
         Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
-        if (txtFilter.getText().length() == 0) {
-            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-            txtFilter.setName(table.getName());
-        }
+        filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -766,8 +729,6 @@ public class Groups extends javax.swing.JFrame {
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;
-    private javax.swing.JCheckBox checkFilter;
-    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
@@ -792,7 +753,6 @@ public class Groups extends javax.swing.JFrame {
     private javax.swing.JTable tab6;
     private javax.swing.JTable tab7;
     private javax.swing.JTabbedPane tabb;
-    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
@@ -800,6 +760,7 @@ public class Groups extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
+        south.add(filterTable, 0);
         Arrays.asList(btnIns, btnDel, btnRef).forEach(btn -> btn.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6, tab7)));
     }
 }
