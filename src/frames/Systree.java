@@ -48,9 +48,7 @@ import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
-import builder.script.GsonRoot;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import common.Util;
 import domain.eArtdet;
@@ -83,10 +81,9 @@ import startup.App;
 import frames.swing.listener.ListenerRecord;
 import frames.swing.listener.ListenerFrame;
 import common.eProfile;
-import domain.ePrjprod;
+import frames.swing.FilterTable;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
 
@@ -107,6 +104,7 @@ public class Systree extends javax.swing.JFrame {
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Query qSyspar2 = new Query(eSyspar1.values());
 
+    private FilterTable filterTable = new FilterTable();
     private Canvas paintPanel = new Canvas(iwin);
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
@@ -856,11 +854,6 @@ public class Systree extends javax.swing.JFrame {
         scr6 = new javax.swing.JScrollPane();
         windowsTree = new javax.swing.JTree();
         south = new javax.swing.JPanel();
-        labFilter = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField(){
-            public JTable table = null;
-        };
-        checkFilter = new javax.swing.JCheckBox();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
         lab1 = new javax.swing.JLabel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
@@ -1074,11 +1067,11 @@ public class Systree extends javax.swing.JFrame {
             }
         });
         tab7.setFillsViewportHeight(true);
-        tab7.setName("tab5"); // NOI18N
+        tab7.setName("tab7"); // NOI18N
         tab7.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab7MousePressed(evt);
+                tabMousePressed(evt);
             }
         });
         scr7.setViewportView(tab7);
@@ -2367,30 +2360,6 @@ public class Systree extends javax.swing.JFrame {
         south.setPreferredSize(new java.awt.Dimension(800, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
-        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        labFilter.setText("Поле");
-        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
-        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
-        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        south.add(labFilter);
-
-        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
-        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                filterCaretUpdate(evt);
-            }
-        });
-        south.add(txtFilter);
-
-        checkFilter.setText("в конце строки");
-        checkFilter.setMaximumSize(new java.awt.Dimension(120, 23));
-        checkFilter.setPreferredSize(new java.awt.Dimension(120, 23));
-        south.add(checkFilter);
-
         filler1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.add(filler1);
 
@@ -2418,10 +2387,8 @@ public class Systree extends javax.swing.JFrame {
             systemTree.getCellEditor().stopCellEditing();
         }
         systemTree.setBorder(null);
-        if (txtFilter.getText().length() == 0) {
-            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-            txtFilter.setName(table.getName());
-        }
+        
+        filterTable.mousePressed((JTable) evt.getSource(), tab2, tab3, tab4, tab5);
     }//GEN-LAST:event_tabMousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
@@ -3108,32 +3075,6 @@ public class Systree extends javax.swing.JFrame {
         System.out.println(iwin.rootArea.mapFrame);
     }//GEN-LAST:event_btnTest
 
-    private void tab7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab7MousePressed
-        //        JTable table = (JTable) evt.getSource();
-        //        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
-        //        if (systemTree.isEditing()) {
-        //            systemTree.getCellEditor().stopCellEditing();
-        //        }
-        //        systemTree.setBorder(null);
-        //        if (txtFilter.getText().length() == 0) {
-        //            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-        //            txtFilter.setName(table.getName());
-        //        }
-    }//GEN-LAST:event_tab7MousePressed
-
-    private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
-
-        JTable table = Stream.of(tab2, tab3, tab4, tab5).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab2);
-        btnIns.setEnabled(txtFilter.getText().length() == 0);
-        if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }//GEN-LAST:event_filterCaretUpdate
-
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn10;
@@ -3166,7 +3107,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JButton btnReport1;
     private javax.swing.JButton btnTest;
     private javax.swing.JPanel centr;
-    private javax.swing.JCheckBox checkFilter;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
@@ -3204,7 +3144,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JLabel lab46;
     private javax.swing.JLabel lab47;
     private javax.swing.JLabel lab48;
-    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan11;
@@ -3270,14 +3209,14 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JTextField txt7;
     private javax.swing.JTextField txt8;
     private javax.swing.JTextField txt9;
-    private javax.swing.JTextField txtFilter;
     private javax.swing.JTree windowsTree;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
     private void initElements() {
 
-        new FrameToFile(this, btnClose);
+        new FrameToFile(this, btnClose);        
+        south.add(filterTable, 0);
         Uti4.documentFilter(1, txt2, txt15);
         Uti4.documentFilter(2, txt3, txt4, txt5);
         Uti4.documentFilter(3, txt17, txt22, txt23, txt24, txt26, txt35);

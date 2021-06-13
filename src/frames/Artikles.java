@@ -55,7 +55,7 @@ public class Artikles extends javax.swing.JFrame {
     private Query qArtdet = new Query(eArtdet.values());
 
     private DefFieldEditor rsvArtikl;
-    private FilterTable filterTable = null; //new FilterTable();
+    private FilterTable filterTable = null;
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
     private Window owner = null;
@@ -243,15 +243,15 @@ public class Artikles extends javax.swing.JFrame {
         listenerSeriesFilter = (record) -> {
             tab1.setColumnSelectionInterval(4, 4);
             filterTable.getLab().setText("Серия профилей");
-            filterTable.getText().setName("tab1");
-            filterTable.getText().setText(record.getStr(eGroups.name));
+            filterTable.getTxt().setName("tab1");
+            filterTable.getTxt().setText(record.getStr(eGroups.name));
         };
 
         listenerCategFilter = (record) -> {
             tab1.setColumnSelectionInterval(5, 5);
             filterTable.getLab().setText("Категоря профилей");
-            filterTable.getText().setName("tab1");
-            filterTable.getText().setText(record.getStr(eGroups.name));
+            filterTable.getTxt().setName("tab1");
+            filterTable.getTxt().setText(record.getStr(eGroups.name));
         };
 
         listenerAnalog = (record) -> {
@@ -2624,12 +2624,10 @@ public class Artikles extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
 
-        filterTable = new FilterTable(tab1, eArtikl.code);
+        filterTable = new FilterTable(tab1, 0);
         south.add(filterTable, 0);
         filterTable.mousePressed(tab1);
-        //filterTable.getLab().setText(tab1.getColumnName(0));
-        //filterTable.getText().setName(tab1.getName());
-        filterTable.getText().grabFocus();
+        filterTable.getTxt().grabFocus();
                 
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();

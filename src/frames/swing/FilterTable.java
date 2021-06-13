@@ -27,15 +27,10 @@ public class FilterTable extends javax.swing.JPanel {
         initComponents();
     }
 
-    public FilterTable(JTable table, Field field) {
+    public FilterTable(JTable table, int index) {
         initComponents();
-        DefTableModel dtm = ((DefTableModel) table.getModel());
-        for (int index = 0; index < dtm.columns.length; ++index) {
-            if (dtm.columns[index] == field) {
-                labFilter.setText(table.getColumnName(index));
-                txtFilter.setName(table.getName());
-            }
-        }
+        labFilter.setText(table.getColumnName(index));
+        txtFilter.setName(table.getName());
     }
 
     public void mousePressed(JTable table, JTable... tab) {
@@ -51,7 +46,7 @@ public class FilterTable extends javax.swing.JPanel {
         return labFilter;
     }
 
-    public JTextField getText() {
+    public JTextField getTxt() {
         return txtFilter;
     }
 

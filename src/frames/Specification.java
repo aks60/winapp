@@ -38,6 +38,7 @@ import startup.App;
 import frames.swing.listener.ListenerFrame;
 import common.eProfile;
 import domain.ePrjprod;
+import frames.swing.FilterTable;
 import frames.swing.colgroup.ColumnGroup;
 import frames.swing.colgroup.GroupableTableHeader;
 import javax.swing.table.JTableHeader;
@@ -50,6 +51,7 @@ public class Specification extends javax.swing.JFrame {
     private DecimalFormat df2 = new DecimalFormat("#0.00");
     private DecimalFormat df3 = new DecimalFormat("#0.000");
     private builder.Wincalc iwin = new Wincalc();
+    private FilterTable filterTable = null;
 
     public Specification() {
         initComponents();
@@ -58,8 +60,6 @@ public class Specification extends javax.swing.JFrame {
         loadingTab1(groups(1));
         Uti4.setSelectedRow(tab1);
         tab1.setColumnSelectionInterval(3, 3);
-        labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn())));
-        txtFilter.setName(tab1.getName());
     }
 
     private void createIwin() {
@@ -187,11 +187,6 @@ public class Specification extends javax.swing.JFrame {
             }
         };
         south = new javax.swing.JPanel();
-        labFilter = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField(){
-            public JTable table = null;
-        };
-        checkFilter = new javax.swing.JCheckBox();
         labSum = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -441,28 +436,6 @@ public class Specification extends javax.swing.JFrame {
         south.setPreferredSize(new java.awt.Dimension(900, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
-        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        labFilter.setText("Поле");
-        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
-        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
-        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        south.add(labFilter);
-
-        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
-        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                filterUpdate(evt);
-            }
-        });
-        south.add(txtFilter);
-
-        checkFilter.setText("в конце строки   ");
-        south.add(checkFilter);
-
         labSum.setText("sum:0");
         labSum.setMaximumSize(new java.awt.Dimension(200, 14));
         labSum.setMinimumSize(new java.awt.Dimension(200, 14));
@@ -482,24 +455,10 @@ public class Specification extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReport
 
-    private void filterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterUpdate
-        JTable table = tab1;
-        if (txtFilter.getText().length() == 0) {
-            ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }//GEN-LAST:event_filterUpdate
-
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         Uti4.updateBorderAndSql(table, Arrays.asList(tab1));
-        if (txtFilter.getText().length() == 0) {
-            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-            txtFilter.setName(table.getName());
-        }
+        filterTable.mousePressed((JTable) evt.getSource(), tab1);
     }//GEN-LAST:event_mousePressed
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
@@ -550,7 +509,7 @@ public class Specification extends javax.swing.JFrame {
 
     private void cbxGroupBy(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupBy
 
-        txtFilter.setText(null);
+        filterTable.getTxt().setText(null);
         float id = (Uti4.getIndexRec(tab1) == -1) ? -1 : Util.getFloat(tab1.getValueAt(Uti4.getIndexRec(tab1), 1).toString());
 
         if (cbx1.getSelectedIndex() == 0) {
@@ -629,19 +588,20 @@ public class Specification extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbx1;
     private javax.swing.JComboBox<String> cbx2;
     private javax.swing.JPanel centr;
-    private javax.swing.JCheckBox checkFilter;
-    private javax.swing.JLabel labFilter;
     private javax.swing.JLabel labSum;
     private javax.swing.JPanel north;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
-    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        filterTable = new FilterTable(tab1, 4);
+        south.add(filterTable, 0);
+        filterTable.mousePressed(tab1);
+        filterTable.getTxt().grabFocus();        
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));

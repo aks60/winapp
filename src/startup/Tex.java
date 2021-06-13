@@ -95,6 +95,10 @@ public class Tex extends javax.swing.JFrame {
         btn12 = new javax.swing.JButton();
         btn13 = new javax.swing.JButton();
         btn11 = new javax.swing.JButton();
+        td5 = new javax.swing.JToolBar();
+        btn52 = new javax.swing.JButton();
+        btn51 = new javax.swing.JButton();
+        btn53 = new javax.swing.JButton();
         tb2 = new javax.swing.JToolBar();
         btn1 = new javax.swing.JToggleButton();
         btn23 = new javax.swing.JButton();
@@ -103,10 +107,6 @@ public class Tex extends javax.swing.JFrame {
         btn26 = new javax.swing.JButton();
         btn27 = new javax.swing.JButton();
         btn21 = new javax.swing.JButton();
-        td5 = new javax.swing.JToolBar();
-        btn52 = new javax.swing.JButton();
-        btn51 = new javax.swing.JButton();
-        btn53 = new javax.swing.JButton();
         tb6 = new javax.swing.JToolBar();
         btnT7 = new javax.swing.JToggleButton();
         btnT8 = new javax.swing.JToggleButton();
@@ -126,6 +126,11 @@ public class Tex extends javax.swing.JFrame {
         mn21 = new javax.swing.JMenuItem();
         mn24 = new javax.swing.JMenuItem();
         mn23 = new javax.swing.JMenuItem();
+        mn09 = new javax.swing.JMenu();
+        mn91 = new javax.swing.JMenuItem();
+        mn25 = new javax.swing.JMenuItem();
+        mn93 = new javax.swing.JPopupMenu.Separator();
+        mn92 = new javax.swing.JMenuItem();
         mn03 = new javax.swing.JMenu();
         mn31 = new javax.swing.JMenuItem();
         mn32 = new javax.swing.JMenuItem();
@@ -134,11 +139,6 @@ public class Tex extends javax.swing.JFrame {
         mn36 = new javax.swing.JMenuItem();
         mn38 = new javax.swing.JPopupMenu.Separator();
         mn37 = new javax.swing.JMenuItem();
-        mn09 = new javax.swing.JMenu();
-        mn91 = new javax.swing.JMenuItem();
-        mn25 = new javax.swing.JMenuItem();
-        mn93 = new javax.swing.JPopupMenu.Separator();
-        mn92 = new javax.swing.JMenuItem();
         mn06 = new javax.swing.JMenu();
         mn63 = new javax.swing.JMenu();
         mn631 = new javax.swing.JCheckBoxMenuItem();
@@ -296,6 +296,61 @@ public class Tex extends javax.swing.JFrame {
 
         getContentPane().add(tb1);
 
+        td5.setRollover(true);
+        td5.setMaximumSize(new java.awt.Dimension(96, 28));
+        td5.setMinimumSize(new java.awt.Dimension(96, 28));
+        td5.setPreferredSize(new java.awt.Dimension(96, 28));
+
+        btn52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c012.gif"))); // NOI18N
+        btn52.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn52.setFocusable(false);
+        btn52.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn52.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn52.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn52.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn52.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn52.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn52.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBoxTypical(evt);
+            }
+        });
+        td5.add(btn52);
+
+        btn51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
+        btn51.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn51.setFocusable(false);
+        btn51.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn51.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn51.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn51.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn51.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn51.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn51.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mn25(evt);
+            }
+        });
+        td5.add(btn51);
+
+        btn53.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c028.gif"))); // NOI18N
+        btn53.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn53.setFocusable(false);
+        btn53.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn53.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn53.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn53.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn53.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn53.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn53.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mn42(evt);
+            }
+        });
+        td5.add(btn53);
+
+        getContentPane().add(td5);
+
         tb2.setRollover(true);
         tb2.setMaximumSize(new java.awt.Dimension(176, 28));
         tb2.setMinimumSize(new java.awt.Dimension(176, 28));
@@ -405,61 +460,6 @@ public class Tex extends javax.swing.JFrame {
         tb2.add(btn21);
 
         getContentPane().add(tb2);
-
-        td5.setRollover(true);
-        td5.setMaximumSize(new java.awt.Dimension(96, 28));
-        td5.setMinimumSize(new java.awt.Dimension(96, 28));
-        td5.setPreferredSize(new java.awt.Dimension(96, 28));
-
-        btn52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c012.gif"))); // NOI18N
-        btn52.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-        btn52.setFocusable(false);
-        btn52.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn52.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn52.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn52.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn52.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn52.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn52.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnBoxTypical(evt);
-            }
-        });
-        td5.add(btn52);
-
-        btn51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
-        btn51.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-        btn51.setFocusable(false);
-        btn51.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn51.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn51.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn51.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn51.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn51.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn51.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn25(evt);
-            }
-        });
-        td5.add(btn51);
-
-        btn53.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c028.gif"))); // NOI18N
-        btn53.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-        btn53.setFocusable(false);
-        btn53.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn53.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn53.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn53.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn53.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn53.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn53.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn42(evt);
-            }
-        });
-        td5.add(btn53);
-
-        getContentPane().add(td5);
 
         tb6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
         tb6.setRollover(true);
@@ -644,6 +644,42 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn02);
 
+        mn09.setFont(frames.Uti4.getFont(1,1));
+        mn09.setLabel("  Системы  ");
+
+        mn91.setFont(frames.Uti4.getFont(1,1));
+        mn91.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b054.gif"))); // NOI18N
+        mn91.setText("Модели");
+        mn91.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBoxTypical(evt);
+            }
+        });
+        mn09.add(mn91);
+
+        mn25.setFont(frames.Uti4.getFont(1,1));
+        mn25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b054.gif"))); // NOI18N
+        mn25.setText("Артикулы");
+        mn25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mn25(evt);
+            }
+        });
+        mn09.add(mn25);
+        mn09.add(mn93);
+
+        mn92.setFont(frames.Uti4.getFont(1,1));
+        mn92.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b054.gif"))); // NOI18N
+        mn92.setText("Системы");
+        mn92.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mn42(evt);
+            }
+        });
+        mn09.add(mn92);
+
+        mn0.add(mn09);
+
         mn03.setFont(frames.Uti4.getFont(1,1));
         mn03.setLabel("  Составы  ");
 
@@ -709,42 +745,6 @@ public class Tex extends javax.swing.JFrame {
         mn03.add(mn37);
 
         mn0.add(mn03);
-
-        mn09.setFont(frames.Uti4.getFont(1,1));
-        mn09.setLabel("  Системы  ");
-
-        mn91.setFont(frames.Uti4.getFont(1,1));
-        mn91.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b054.gif"))); // NOI18N
-        mn91.setText("Модели");
-        mn91.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnBoxTypical(evt);
-            }
-        });
-        mn09.add(mn91);
-
-        mn25.setFont(frames.Uti4.getFont(1,1));
-        mn25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b054.gif"))); // NOI18N
-        mn25.setText("Артикулы");
-        mn25.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn25(evt);
-            }
-        });
-        mn09.add(mn25);
-        mn09.add(mn93);
-
-        mn92.setFont(frames.Uti4.getFont(1,1));
-        mn92.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b054.gif"))); // NOI18N
-        mn92.setText("Системы");
-        mn92.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn42(evt);
-            }
-        });
-        mn09.add(mn92);
-
-        mn0.add(mn09);
 
         mn06.setFont(frames.Uti4.getFont(1,1));
         mn06.setLabel("  Сервис  ");
