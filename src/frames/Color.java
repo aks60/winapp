@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
+import frames.swing.FilterTable;
 import java.awt.Component;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JColorChooser;
@@ -36,6 +37,7 @@ public class Color extends javax.swing.JFrame {
     private Query qColall = new Query(eColor.values());
     private Query qColor = new Query(eColor.values());
     private Query qColmap = new Query(eColmap.values());
+    private FilterTable filterTable = new FilterTable();
     private ListenerRecord listenerColor1, listenerColor2;
     private ListenerSQL preset = (record) -> {
     };
@@ -215,11 +217,6 @@ public class Color extends javax.swing.JFrame {
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
-        labFilter = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField(){
-            public JTable table = null;
-        };
-        checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Текстура");
@@ -397,7 +394,7 @@ public class Color extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Color.this.mousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -445,7 +442,7 @@ public class Color extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Color.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -478,7 +475,7 @@ public class Color extends javax.swing.JFrame {
         tab3.setFillsViewportHeight(true);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Color.this.mousePressed(evt);
             }
         });
         scr3.setViewportView(tab3);
@@ -513,7 +510,7 @@ public class Color extends javax.swing.JFrame {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Color.this.mousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
@@ -537,29 +534,6 @@ public class Color extends javax.swing.JFrame {
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(800, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
-
-        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        labFilter.setText("Поле");
-        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
-        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
-        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        south.add(labFilter);
-
-        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
-        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                filterCaretUpdate(evt);
-            }
-        });
-        south.add(txtFilter);
-
-        checkFilter.setText("в конце строки");
-        south.add(checkFilter);
-
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -640,27 +614,11 @@ public class Color extends javax.swing.JFrame {
         Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
     }//GEN-LAST:event_windowClosed
 
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4));
-        if (txtFilter.getText().length() == 0) {
-            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-            txtFilter.setName(table.getName());
-        }
-    }//GEN-LAST:event_tabMousePressed
-
-    private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
-
-        JTable table = Stream.of(tab1, tab2, tab3, tab4).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
-        btnIns.setEnabled(txtFilter.getText().length() == 0);
-        if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }//GEN-LAST:event_filterCaretUpdate
+        filterTable.mousePressed((JTable) evt.getSource());
+    }//GEN-LAST:event_mousePressed
 
     private void btnRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepActionPerformed
 
@@ -678,9 +636,7 @@ public class Color extends javax.swing.JFrame {
     private javax.swing.JButton btnRep;
     private javax.swing.JButton btnTest;
     private javax.swing.JPanel centr;
-    private javax.swing.JCheckBox checkFilter;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
@@ -693,13 +649,15 @@ public class Color extends javax.swing.JFrame {
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
-    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus(); 
+        
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

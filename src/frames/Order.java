@@ -845,7 +845,7 @@ public class Order extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Order.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -1962,7 +1962,7 @@ public class Order extends javax.swing.JFrame {
         tab2.setRowHeight(68);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Order.this.mousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -2054,11 +2054,11 @@ public class Order extends javax.swing.JFrame {
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab5));
         filterTable.mousePressed((JTable) evt.getSource());
-    }//GEN-LAST:event_tabMousePressed
+    }//GEN-LAST:event_mousePressed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
         Uti4.stopCellEditing(tab1, tab2, tab3, tab5);

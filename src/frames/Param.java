@@ -272,7 +272,7 @@ public class Param extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Param.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -319,7 +319,7 @@ public class Param extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Param.this.mousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -390,14 +390,14 @@ public class Param extends javax.swing.JFrame {
         Arrays.asList(qParams, qPardet).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         if (table == tab2) {
             selectionTab2(null);
         }
         Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
         filterTable.mousePressed((JTable) evt.getSource());
-    }//GEN-LAST:event_tabMousePressed
+    }//GEN-LAST:event_mousePressed
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;

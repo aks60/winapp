@@ -894,7 +894,7 @@ public class Artikles extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Artikles.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -2144,7 +2144,7 @@ public class Artikles extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Artikles.this.mousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -2271,10 +2271,10 @@ public class Artikles extends javax.swing.JFrame {
         Currenc frame = new Currenc(this, listener);
     }//GEN-LAST:event_btn7
 
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         Uti4.updateBorderAndSql((JTable) evt.getSource(), Arrays.asList(tab1, tab2));
         filterTable.mousePressed((JTable) evt.getSource());
-    }//GEN-LAST:event_tabMousePressed
+    }//GEN-LAST:event_mousePressed
 
     private void btn11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11
         DicArtikl artikl = new DicArtikl(this, listenerAnalog, 1);

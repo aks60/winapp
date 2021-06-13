@@ -336,7 +336,7 @@ public class Partner extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Partner.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -768,10 +768,10 @@ public class Partner extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnInsert
 
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         Uti4.updateBorderAndSql(tab1, Arrays.asList(tab1));
         filterTable.mousePressed((JTable) evt.getSource());
-    }//GEN-LAST:event_tabMousePressed
+    }//GEN-LAST:event_mousePressed
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         int index = Uti4.getIndexRec(tab1);

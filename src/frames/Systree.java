@@ -1071,7 +1071,7 @@ public class Systree extends javax.swing.JFrame {
         tab7.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Systree.this.mousePressed(evt);
             }
         });
         scr7.setViewportView(tab7);
@@ -2195,7 +2195,7 @@ public class Systree extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Systree.this.mousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -2241,7 +2241,7 @@ public class Systree extends javax.swing.JFrame {
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Systree.this.mousePressed(evt);
             }
         });
         scr3.setViewportView(tab3);
@@ -2287,7 +2287,7 @@ public class Systree extends javax.swing.JFrame {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Systree.this.mousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
@@ -2327,7 +2327,7 @@ public class Systree extends javax.swing.JFrame {
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Systree.this.mousePressed(evt);
             }
         });
         scr5.setViewportView(tab5);
@@ -2380,7 +2380,7 @@ public class Systree extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         Uti4.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
         if (systemTree.isEditing()) {
@@ -2389,7 +2389,7 @@ public class Systree extends javax.swing.JFrame {
         systemTree.setBorder(null);  
         Uti4.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
         filterTable.mousePressed((JTable) evt.getSource());
-    }//GEN-LAST:event_tabMousePressed
+    }//GEN-LAST:event_mousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Uti4.stopCellEditing(systemTree, tab2, tab3, tab4, tab5);

@@ -276,7 +276,7 @@ public class Syssize extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Syssize.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -338,10 +338,10 @@ public class Syssize extends javax.swing.JFrame {
         listener.action(eSyssize.up.newRecord());
     }//GEN-LAST:event_btnRemoveert
 
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         Uti4.updateBorderAndSql(table, Arrays.asList(tab1));
-    }//GEN-LAST:event_tabMousePressed
+    }//GEN-LAST:event_mousePressed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

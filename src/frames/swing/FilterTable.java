@@ -27,8 +27,8 @@ public class FilterTable extends javax.swing.JPanel {
         initComponents();
     }
 
-    public void setColumn(JTable tale, int index) {
-        mousePressed(tale);
+    public void setColumn(JTable table, int index) {
+        mousePressed(table);
         labFilter.setText(table.getColumnName(index));
         txtFilter.setName(table.getName());
     }
@@ -41,9 +41,9 @@ public class FilterTable extends javax.swing.JPanel {
         return txtFilter;
     }
 
-    public void mousePressed(JTable table) {
-        this.table = table;
+    public void mousePressed(JTable table) {      
         if (txtFilter.getText().length() == 0) {
+            this.table = table; 
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
         }
@@ -116,38 +116,29 @@ public class FilterTable extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtCaretUpdate
-        
         if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
-        }
+            ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(null);
 
-//        if (txtFilter.getText().length() == 0) {
-//            ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(null);
-//
-//        } else {
-//            if (search == true) {
-//                indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-//                Query query = ((DefTableModel) table.getModel()).getQuery();
-//                Field field = ((DefTableModel) table.getModel()).columns[indexColumn];
-//                for (int index = 0; index < query.size(); ++index) {
-//
-//                    if (query.get(index).getStr(field).startsWith(txtFilter.getText())) {
-//                        Uti4.setSelectedRow(table, index);
-//                        Uti4.scrollRectToIndex(index, table);
-//                        return;
-//                    }
-//                }
-//            } else if (search == false) {
-//                indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-//                String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-//                ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
-//                Uti4.setSelectedRow(table);
-//            }
-//        }
+        } else {
+            if (search == true) {
+                indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+                Query query = ((DefTableModel) table.getModel()).getQuery();
+                Field field = ((DefTableModel) table.getModel()).columns[indexColumn];
+                for (int index = 0; index < query.size(); ++index) {
+
+                    if (query.get(index).getStr(field).startsWith(txtFilter.getText())) {
+                        Uti4.setSelectedRow(table, index);
+                        Uti4.scrollRectToIndex(index, table);
+                        return;
+                    }
+                }
+            } else if (search == false) {
+                indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+                String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+                ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
+                Uti4.setSelectedRow(table);
+            }
+        }
     }//GEN-LAST:event_txtCaretUpdate
 
     private void btn1ActiPerf(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActiPerf

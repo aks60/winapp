@@ -213,7 +213,7 @@ public class Groups extends javax.swing.JFrame {
         tab7.setFillsViewportHeight(true);
         tab7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Groups.this.mousePressed(evt);
             }
         });
         scr7.setViewportView(tab7);
@@ -260,7 +260,7 @@ public class Groups extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Groups.this.mousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -307,7 +307,7 @@ public class Groups extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Groups.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -353,7 +353,7 @@ public class Groups extends javax.swing.JFrame {
         tab5.setName("tab5"); // NOI18N
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Groups.this.mousePressed(evt);
             }
         });
         scr5.setViewportView(tab5);
@@ -397,7 +397,7 @@ public class Groups extends javax.swing.JFrame {
         tab3.setName("tab3"); // NOI18N
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Groups.this.mousePressed(evt);
             }
         });
         scr3.setViewportView(tab3);
@@ -442,7 +442,7 @@ public class Groups extends javax.swing.JFrame {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Groups.this.mousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
@@ -690,11 +690,11 @@ public class Groups extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReport
 
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         filterTable.mousePressed((JTable) evt.getSource());
-    }//GEN-LAST:event_tabMousePressed
+    }//GEN-LAST:event_mousePressed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6, tab7);

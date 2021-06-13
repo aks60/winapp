@@ -294,7 +294,7 @@ public class Rulecalc extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab2tabMousePressed(evt);
+                Rulecalc.this.mousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -355,12 +355,12 @@ public class Rulecalc extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReport
 
-    private void tab2tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2tabMousePressed
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
 
         JTable table = (JTable) evt.getSource();
         Uti4.updateBorderAndSql(table, Arrays.asList(tab2));
         filterTable.mousePressed((JTable) evt.getSource());
-    }//GEN-LAST:event_tab2tabMousePressed
+    }//GEN-LAST:event_mousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Uti4.stopCellEditing(tab2);

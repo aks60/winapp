@@ -924,7 +924,7 @@ public class Furniture extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Furniture.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -962,7 +962,7 @@ public class Furniture extends javax.swing.JFrame {
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Furniture.this.mousePressed(evt);
             }
         });
         scr3.setViewportView(tab3);
@@ -999,7 +999,7 @@ public class Furniture extends javax.swing.JFrame {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Furniture.this.mousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
@@ -1051,7 +1051,7 @@ public class Furniture extends javax.swing.JFrame {
         tab2a.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2a.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Furniture.this.mousePressed(evt);
             }
         });
         scr2a.setViewportView(tab2a);
@@ -1079,7 +1079,7 @@ public class Furniture extends javax.swing.JFrame {
         tab2c.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2c.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Furniture.this.mousePressed(evt);
             }
         });
         scr2c.setViewportView(tab2c);
@@ -1110,7 +1110,7 @@ public class Furniture extends javax.swing.JFrame {
         tab2b.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2b.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Furniture.this.mousePressed(evt);
             }
         });
         scr2b.setViewportView(tab2b);
@@ -1151,7 +1151,7 @@ public class Furniture extends javax.swing.JFrame {
         tab6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Furniture.this.mousePressed(evt);
             }
         });
         scr6.setViewportView(tab6);
@@ -1178,7 +1178,7 @@ public class Furniture extends javax.swing.JFrame {
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tabMousePressed(evt);
+                Furniture.this.mousePressed(evt);
             }
         });
         scr5.setViewportView(tab5);
@@ -1339,7 +1339,7 @@ public class Furniture extends javax.swing.JFrame {
         btnSet.setVisible(!btnSet.isVisible());
     }//GEN-LAST:event_btnReport
 
-    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
         if (table == tab2a) {
@@ -1350,7 +1350,7 @@ public class Furniture extends javax.swing.JFrame {
             selectionTab2c(null);
         }
         filterTable.mousePressed((JTable) evt.getSource());
-    }//GEN-LAST:event_tabMousePressed
+    }//GEN-LAST:event_mousePressed
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         JTable table = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
