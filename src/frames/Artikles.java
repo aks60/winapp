@@ -55,7 +55,7 @@ public class Artikles extends javax.swing.JFrame {
     private Query qArtdet = new Query(eArtdet.values());
 
     private DefFieldEditor rsvArtikl;
-    private FilterTable filterTable = new FilterTable();
+    private FilterTable filterTable = null; //new FilterTable();
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
     private Window owner = null;
@@ -2624,10 +2624,11 @@ public class Artikles extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
 
+        filterTable = new FilterTable(tab1, eArtikl.code);
         south.add(filterTable, 0);
         filterTable.mousePressed(tab1);
-        filterTable.getLab().setText(tab1.getColumnName(0));
-        filterTable.getText().setName(tab1.getName());
+        //filterTable.getLab().setText(tab1.getColumnName(0));
+        //filterTable.getText().setName(tab1.getName());
         filterTable.getText().grabFocus();
                 
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2)));

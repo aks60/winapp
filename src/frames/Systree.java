@@ -2424,19 +2424,6 @@ public class Systree extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabMousePressed
 
-    private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
-
-        JTable table = Stream.of(tab2, tab3, tab4, tab5).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab2);
-        btnIns.setEnabled(txtFilter.getText().length() == 0);
-        if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }//GEN-LAST:event_filterCaretUpdate
-
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Uti4.stopCellEditing(systemTree, tab2, tab3, tab4, tab5);
         qSystree.execsql();
@@ -3133,6 +3120,19 @@ public class Systree extends javax.swing.JFrame {
         //            txtFilter.setName(table.getName());
         //        }
     }//GEN-LAST:event_tab7MousePressed
+
+    private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
+
+        JTable table = Stream.of(tab2, tab3, tab4, tab5).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab2);
+        btnIns.setEnabled(txtFilter.getText().length() == 0);
+        if (txtFilter.getText().length() == 0) {
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
+        } else {
+            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
+        }
+    }//GEN-LAST:event_filterCaretUpdate
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

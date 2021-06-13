@@ -6,7 +6,6 @@ import frames.Uti4;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
@@ -26,6 +25,17 @@ public class FilterTable extends javax.swing.JPanel {
 
     public FilterTable() {
         initComponents();
+    }
+
+    public FilterTable(JTable table, Field field) {
+        initComponents();
+        DefTableModel dtm = ((DefTableModel) table.getModel());
+        for (int index = 0; index < dtm.columns.length; ++index) {
+            if (dtm.columns[index] == field) {
+                labFilter.setText(table.getColumnName(index));
+                txtFilter.setName(table.getName());
+            }
+        }
     }
 
     public void mousePressed(JTable table, JTable... tab) {
