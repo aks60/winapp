@@ -26,13 +26,13 @@ public class FilterTable extends javax.swing.JPanel {
     public FilterTable() {
         initComponents();
     }
-    
+
     public void setColumn(JTable tale, int index) {
         mousePressed(tale);
         labFilter.setText(table.getColumnName(index));
-        txtFilter.setName(table.getName());        
+        txtFilter.setName(table.getName());
     }
-    
+
     public JLabel getLab() {
         return labFilter;
     }
@@ -48,7 +48,7 @@ public class FilterTable extends javax.swing.JPanel {
             txtFilter.setName(table.getName());
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -116,27 +116,38 @@ public class FilterTable extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtCaretUpdate
+        
         if (txtFilter.getText().length() == 0) {
-            ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(null);
-
-        } else if (search == true) {
-            indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            Query query = ((DefTableModel) table.getModel()).getQuery();
-            Field field = ((DefTableModel) table.getModel()).columns[indexColumn];
-            for (int index = 0; index < query.size(); ++index) {
-
-                if (query.get(index).getStr(field).startsWith(txtFilter.getText())) {
-                    Uti4.setSelectedRow(table, index);
-                    Uti4.scrollRectToIndex(index, table);
-                    return;
-                }
-            }
-        } else if (search == false) {
-            indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
+        } else {
+            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
             String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
-            Uti4.setSelectedRow(table);
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
         }
+
+//        if (txtFilter.getText().length() == 0) {
+//            ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(null);
+//
+//        } else {
+//            if (search == true) {
+//                indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+//                Query query = ((DefTableModel) table.getModel()).getQuery();
+//                Field field = ((DefTableModel) table.getModel()).columns[indexColumn];
+//                for (int index = 0; index < query.size(); ++index) {
+//
+//                    if (query.get(index).getStr(field).startsWith(txtFilter.getText())) {
+//                        Uti4.setSelectedRow(table, index);
+//                        Uti4.scrollRectToIndex(index, table);
+//                        return;
+//                    }
+//                }
+//            } else if (search == false) {
+//                indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+//                String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+//                ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
+//                Uti4.setSelectedRow(table);
+//            }
+//        }
     }//GEN-LAST:event_txtCaretUpdate
 
     private void btn1ActiPerf(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActiPerf
