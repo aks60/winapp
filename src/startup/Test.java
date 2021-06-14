@@ -7,15 +7,11 @@ import common.*;
 import dataset.*;
 import com.google.gson.GsonBuilder;
 import builder.param.ParamList;
-import enums.Enam;
+import builder.param.test.ElementTest;
 import frames.DBCompare;
 import java.sql.Connection;
-import java.util.HashMap;
-import java.util.HashSet;
 import javax.swing.UIManager;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 public class Test {
@@ -66,8 +62,8 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            //wincalc();
-            param();
+            wincalc();
+            //param();
             //query();
             //frame();
             //json();
@@ -121,24 +117,24 @@ public class Test {
 
     private static void param() {
 
-//        Query.connection = Test.connect2();
-//        ElementTest et = new ElementTest();
-//        et.elementVar();
-//        et.elementDet();
-        
         Query.connection = Test.connect2();
-        Set set = new HashSet();
-        Map<String, Set> map = new HashMap();
-        for (Enam en : ParamList.values()) {
-            Set set2 = map.getOrDefault(en.text(), new HashSet());
-            set2.add(en.numb());
-            map.put(en.text(), set2);
-        }
-        for (Map.Entry<String, Set> entry : map.entrySet()) {
-            String key = entry.getKey();
-            Set value = entry.getValue();
-            System.out.println(key + " " + value);
-        }
+        ElementTest et = new ElementTest();
+        //et.elementVar();
+        et.elementDet();
+        
+//        Query.connection = Test.connect2();
+//        Set set = new HashSet();
+//        Map<String, Set> map = new HashMap();
+//        for (Enam en : ParamList.values()) {
+//            Set set2 = map.getOrDefault(en.text(), new HashSet());
+//            set2.add(en.numb());
+//            map.put(en.text(), set2);
+//        }
+//        for (Map.Entry<String, Set> entry : map.entrySet()) {
+//            String key = entry.getKey();
+//            Set value = entry.getValue();
+//            System.out.println(key + " " + value);
+//        }
     }
 
     private static void frame() throws Exception {

@@ -2,6 +2,9 @@ package builder.param.test;
 
 import builder.making.Color;
 import static builder.param.test.ParamTest.param;
+import dataset.Record;
+import domain.eElement;
+import java.util.HashMap;
 
 public class ElementTest extends ParamTest {
 
@@ -118,71 +121,99 @@ public class ElementTest extends ParamTest {
         assert true == elementVar4.check(stv_right_4, param("1000-10010;", grup)) : grup;
         assert true == elementVar3.check(stv_right_3, param("1000-1010;", grup)) : grup;
         assert false == elementVar3.check(stv_right_3, param("100-310;", grup)) : grup;
-        
+
         grup = 31060;
         assert true == elementVar4.check(stv_right_4, param("90", grup)) : grup;
-        assert false == elementVar4.check(stv_right_4, param("30;", grup)) : grup;        
-        
+        assert false == elementVar4.check(stv_right_4, param("30;", grup)) : grup;
+
         grup = 31081;
-        assert true == elementVar4.check(null, param("", grup)) : grup;     
-        
+        assert true == elementVar4.check(null, param("", grup)) : grup;
+
         grup = 31085;
-        assert true == elementVar4.check(stv_right_4, param("", grup)) : grup;            
-        
+        assert true == elementVar4.check(stv_right_4, param("", grup)) : grup;
+
         grup = 31090;
-        System.err.println("ВНИМАНИЕ! ПАРААМЕТР " + grup + " В РАЗРАБОТКЕ.");           
-                
+        System.err.println("ВНИМАНИЕ! ПАРААМЕТР " + grup + " В РАЗРАБОТКЕ.");
+
         grup = 31095;
-        assert true == elementVar4.check(stv_right_4, param("1;2;", grup)) : grup;      
-        assert false == elementVar4.check(stv_right_4, param("2;9", grup)) : grup; 
-        
+        assert true == elementVar4.check(stv_right_4, param("1;2;", grup)) : grup;
+        assert false == elementVar4.check(stv_right_4, param("2;9", grup)) : grup;
+
         grup = 37002;
-        assert true == elementVar2.check(frame_left_2, param("807", grup)) : grup;         
-        assert false == elementVar2.check(frame_left_2, param("800", grup)) : grup;         
-        
+        assert true == elementVar2.check(frame_left_2, param("807", grup)) : grup;
+        assert false == elementVar2.check(frame_left_2, param("800", grup)) : grup;
+
         grup = 37008;
-        assert false == elementVar2.check(stv_right_2, param("глухой", grup)) : grup;         
-        assert true == elementVar2.check(stv_right_2, param("не глухой", grup)) : grup;         
-        
+        assert false == elementVar2.check(stv_right_2, param("глухой", grup)) : grup;
+        assert true == elementVar2.check(stv_right_2, param("не глухой", grup)) : grup;
+
         grup = 37008;
-        assert false == elementVar2.check(stv_right_2, param("глухой", grup)) : grup;         
-        assert true == elementVar2.check(stv_right_2, param("не глухой", grup)) : grup;         
-        
+        assert false == elementVar2.check(stv_right_2, param("глухой", grup)) : grup;
+        assert true == elementVar2.check(stv_right_2, param("не глухой", grup)) : grup;
+
         grup = 37009;
-        assert true == elementVar2.check(stv_right_2, param("Прямоугольное", grup)) : grup;         
-        assert false == elementVar2.check(stv_right_2, param("Арочное", grup)) : grup;         
-        assert false == elementVar2.check(stv_right_2, param("Произвольное", grup)) : grup;         
-      
+        assert true == elementVar2.check(stv_right_2, param("Прямоугольное", grup)) : grup;
+        assert false == elementVar2.check(stv_right_2, param("Арочное", grup)) : grup;
+        assert false == elementVar2.check(stv_right_2, param("Произвольное", grup)) : grup;
+
         grup = 37010;
-        assert true == elementVar2.check(glass_top_2, param("0-3000/0-334", grup)) : grup;         
-        assert false == elementVar2.check(glass_left_2, param("0-3000/0-334", grup)) : grup; 
-        
+        assert true == elementVar2.check(glass_top_2, param("0-3000/0-334", grup)) : grup;
+        assert false == elementVar2.check(glass_left_2, param("0-3000/0-334", grup)) : grup;
+
         grup = 37030;
-        assert true == elementVar2.check(glass_top_2, param("0-6,5", grup)) : grup;         
+        assert true == elementVar2.check(glass_top_2, param("0-6,5", grup)) : grup;
         assert false == elementVar2.check(glass_left_2, param("0-0,4", grup)) : grup;
-        
+
         grup = 37042;
-        assert true == elementVar2.check(glass_top_2, param("5-10", grup)) : grup;         
-        assert false == elementVar2.check(glass_left_2, param("1-10", grup)) : grup;          
-        
+        assert true == elementVar2.check(glass_top_2, param("5-10", grup)) : grup;
+        assert false == elementVar2.check(glass_left_2, param("1-10", grup)) : grup;
+
         grup = 37054;
-        assert false == elementVar2.check(stv_right_2, param("10000-10999;17000-21999;23000-28999", grup)) : grup;         
+        assert false == elementVar2.check(stv_right_2, param("10000-10999;17000-21999;23000-28999", grup)) : grup;
         assert true == elementVar2.check(stv_right_2, param("1;3;35-37;55;70;1009", grup)) : grup;
-        
-        grup = 37055; 
+
+        grup = 37055;
         assert true == elementVar3.check(stv_right_3, param("1000-10010;", grup)) : grup;
-        assert false == elementVar3.check(stv_right_3, param("1000-1010;", grup)) : grup; 
-        
+        assert false == elementVar3.check(stv_right_3, param("1000-1010;", grup)) : grup;
+
         grup = 37056;
         assert true == elementVar4.check(stv_right_4, param("1000-10010;", grup)) : grup;
         assert true == elementVar3.check(stv_right_3, param("1000-1010;", grup)) : grup;
-       
+
     }
-    
+
     public void elementDet() {
-        
+        HashMap<Integer, String> mapParam = new HashMap();
+
         grup = 33000; //34000
-        assert true == elementVar2.check(frame_left_2, param("KBE 58;XXX 58;", grup)) : grup;
-        assert false == elementVar2.check(frame_left_2, param("KBE58;", grup)) : grup;        
+        assert true == elementDet2.check(mapParam, frame_left_2, param("KBE 58;XXX 58;", grup), null) : grup;
+        assert false == elementDet2.check(mapParam, frame_left_2, param("KBE58;", grup), null) : grup;
+
+        grup = 33001; //34001
+        {
+            Record rec = eElement.up.newRecord();
+            rec.set(eElement.signset, "KBE");
+            assert true == elementDet2.check(mapParam, frame_left_2, param("KBE", grup), rec) : grup;
+            assert false == elementDet2.check(mapParam, frame_left_2, param("XXX", grup), rec) : grup;
+        }
+        
+        grup = 33002; 
+        assert true == elementDet2.check(mapParam, frame_left_2, param("", grup), null) : grup;        
+        
+        grup = 33003; 
+        assert true == elementDet2.check(mapParam, frame_left_2, param("", grup), null) : grup;        
+        
+        grup = 33004; 
+        assert true == elementDet2.check(mapParam, frame_left_2, param("", grup), null) : grup; 
+        
+        grup = 33005; //31005, 33005, 37005
+        assert true == elementDet2.check(mapParam, frame_left_2, param("0-800;990;1009;1600-2000;", grup), null) : grup;
+        assert true == elementDet2.check(mapParam, stv_right_2, param("0-1008;1009", grup), null) : grup;
+        assert false == elementDet2.check(mapParam, stv_right_2, param("0-1008;1010", grup), null) : grup;
+        
+//        grup = 31006; //33006, 34006, 37006
+//        assert true == elementVar2.check(frame_left_2, param("0-800;990;1009;1600-2000;", grup)) : grup;
+//        assert true == elementVar2.check(stv_right_2, param("0-1008;1009", grup)) : grup;
+//        assert false == elementVar2.check(stv_right_2, param("0-1008;1010", grup)) : grup;        
     }
 }

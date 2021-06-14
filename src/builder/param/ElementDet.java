@@ -9,6 +9,7 @@ import java.util.List;
 import builder.Wincalc;
 import builder.model.ElemSimple;
 import common.Util;
+import domain.eElement;
 
 //Составы 33000, 34000, 38000, 39000, 40000
 public class ElementDet extends Par5s {
@@ -17,7 +18,7 @@ public class ElementDet extends Par5s {
         super(iwin);
     }
 
-    public boolean filter(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record elementRec, Record elemdetRec) {
+    public boolean filter(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record elemdetRec, Record elementRec) {
 
         List<Record> paramList = eElempar2.find3(elemdetRec.getInt(eElemdet.id)); //список параметров детализации 
         if (filterParamDef(paramList) == false) {
@@ -25,14 +26,14 @@ public class ElementDet extends Par5s {
         }
         //Цикл по параметрам составов
         for (Record rec : paramList) {
-            if (check(mapParam, elem5e, rec) == false) {
+            if (check(mapParam, elem5e, rec, elementRec) == false) {
                 return false;
             }
         }
         return true;
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record rec) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record rec, Record rec2) {
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
@@ -45,7 +46,9 @@ public class ElementDet extends Par5s {
                     break;
                 case 33001:  //Если признак состава 
                 case 34001:  //Если признак состава 
-                    message(grup);
+                    if(rec.getStr(TEXT).equals(rec2.getStr(eElement.signset)) == false) {
+                        return false;
+                    }
                     break;
                 case 33002:  //Расчет пролетов соединений 
                     message(grup);
@@ -54,6 +57,7 @@ public class ElementDet extends Par5s {
                     message(grup);
                     break;
                 case 33004:  //Расчет от длины профиля стойки 
+                case 34004:  //Расчет от длины профиля стойки                   
                     message(grup);
                     break;
                 case 33005:  //Коды основной текстуры контейнера 
@@ -187,9 +191,6 @@ public class ElementDet extends Par5s {
                     message(grup);
                     break;
                 case 34003:  //Расчет пролетов заполнений, мм 
-                    message(grup);
-                    break;
-                case 34004:  //Расчет от длины профиля стойки 
                     message(grup);
                     break;
                 case 34010:  //Расчет армирования 
