@@ -7,9 +7,13 @@ import domain.eSetting;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
+import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import common.Util;
+import domain.eArtikl;
 import domain.eElement;
+import domain.eSyssize;
+import enums.TypeElem;
 
 //Составы 33000, 34000, 38000, 39000, 40000
 public class ElementDet extends Par5s {
@@ -26,7 +30,7 @@ public class ElementDet extends Par5s {
         }
         //Цикл по параметрам составов
         for (Record rec : paramList) {
-            if (check(mapParam, elem5e, rec, elementRec) == false) {
+            if (ElementDet.this.check(mapParam, elem5e, rec, elementRec) == false) {
                 return false;
             }
         }
@@ -46,7 +50,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 33001:  //Если признак состава 
                 case 34001:  //Если признак состава 
-                    if(rec.getStr(TEXT).equals(rec2.getStr(eElement.signset)) == false) {
+                    if (rec.getStr(TEXT).equals(rec2.getStr(eElement.signset)) == false) {
                         return false;
                     }
                     break;
@@ -78,30 +82,51 @@ public class ElementDet extends Par5s {
                         return false;
                     }
                     break;
-                case 33008:  //Эффективное заполнение изд., мм 
-                    message(grup);
-                    break;
-                case 33011:
-                case 34011: //Толщина внешнего/внутреннего заполнения, мм ("Толщина заполнения, мм") 
-                    if ("ps3".equals(eSetting.find(2))) {
-//                            LinkedList<ElemSimple> e = elem5e.owner().listElem(TypeElem.GLASS);
-//                            float depth = e.getFirst().artiklRec.getFloat(eArtikl.depth);
-//                            if (Util.compareFloat(rec.getStr(TEXT), depth) == false) {
-//                                return false;
-//                            }
-                        message(grup);
-                    } else {
-                        message(grup);
+                case 33008: //Эффективное заполнение изд., мм 
+                {
+                    float depth = 0;
+                    for (ElemSimple elem : iwin.listElem) {
+                        if (elem.type() == TypeElem.GLASS) {
+                            depth = (elem.artiklRecAn.getFloat(eArtikl.depth) > depth) ? elem.artiklRecAn.getFloat(eArtikl.depth) : depth;
+                        }
+                    }
+                    if (rec.getFloat(TEXT) != depth) {
+                        return false;
+                    }
+                }
+                break;
+                case 33011: //Толщина внешнего/внутреннего заполнения, мм
+                case 34011: //Толщина внешнего/внутреннего заполнения, мм
+                    List<ElemGlass> glassList = Uti5.getGlassDepth(elem5e);
+                    if (glassList.get(0) instanceof ElemGlass && glassList.get(1) instanceof ElemGlass) {
+                        if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
+                            if (Util.containsNumbAny(rec.getStr(TEXT),
+                                    glassList.get(0).artiklRec.getFloat(eArtikl.depth),
+                                    glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
+                                return false;
+                            }
+                        } else if (Util.containsNumb(rec.getStr(TEXT),
+                                glassList.get(0).artiklRec.getFloat(eArtikl.depth),
+                                glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
+                            return false;
+                        }
                     }
                     break;
-                case 33017:  //Код системы содержит строку 
-                    message(grup);
-                    break;
+                case 33017: //Код системы содержит строку 
+                case 34017: //Код системы содержит строку 
+                {
+                    Record record = eSyssize.find(elem5e.artiklRec.getInt(eArtikl.syssize_id));
+                    if (rec.getStr(TEXT).equals(record.getStr(eSyssize.name)) == false) {
+                        return false;
+                    }
+                }
+                break;
                 case 33030:  //Количество 
                 case 38030:  //Количество   
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 33031:  //Расчет количества 
+                case 34061:  //Расчет количества                 
                     message(grup);
                     break;
                 case 33032:  //Периметр покраски по периметру 
@@ -114,9 +139,6 @@ public class ElementDet extends Par5s {
                     message(grup);
                     break;
                 case 33035:  //Расход по поверхности на кв.м. 
-                    message(grup);
-                    break;
-                case 33036:  //Коэффициент_расхода 
                     message(grup);
                     break;
                 case 33040:  //Порог расчета, мм 
@@ -214,9 +236,6 @@ public class ElementDet extends Par5s {
                 case 34016:  //Прилегание контура створки 
                     message(grup);
                     break;
-                case 34017:  //Код системы содержит строку 
-                    message(grup);
-                    break;
                 case 34030:  //[ * коэф-т ] 
                 case 39030:  //[ * коэф-т ]     
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
@@ -238,9 +257,6 @@ public class ElementDet extends Par5s {
                 case 34060:  //Количество
                 case 39060:  //Количество
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 34061:  //Расчет количества 
-                    message(grup);
                     break;
                 case 34062:  //Если стойка удлинена 
                     message(grup);
@@ -444,5 +460,10 @@ public class ElementDet extends Par5s {
             return false;
         }
         return true;
+    }
+
+    public boolean check(ElemSimple elem5e, Record rec) {
+        HashMap<Integer, String> mapParam = new HashMap();
+        return ElementDet.this.check(mapParam, elem5e, rec, null);
     }
 }
