@@ -51,14 +51,13 @@ public class Specification extends javax.swing.JFrame {
     private DecimalFormat df2 = new DecimalFormat("#0.00");
     private DecimalFormat df3 = new DecimalFormat("#0.000");
     private builder.Wincalc iwin = new Wincalc();
-    private FilterTable filterTable = new FilterTable();
+    private FilterTable filterTable = null;
 
     public Specification() {
         initComponents();
         initElements();
         createIwin();
-        loadingTab1(groups(1)); 
-        filterTable.setColumn(tab1, 4);
+        loadingTab1(groups(1));
         Uti4.setSelectedRow(tab1);
     }
 
@@ -592,9 +591,10 @@ public class Specification extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        south.add(filterTable, 0);        
-        filterTable.getTxt().grabFocus();  
-        
+        filterTable = new FilterTable(tab1, 4);
+        south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus();
+
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
@@ -656,8 +656,8 @@ public class Specification extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(12).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(13).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(14).setCellRenderer(cellRenderer1);        
-        tab1.getColumnModel().getColumn(15).setCellRenderer(cellRenderer1);       
+        tab1.getColumnModel().getColumn(14).setCellRenderer(cellRenderer1);
+        tab1.getColumnModel().getColumn(15).setCellRenderer(cellRenderer1);
         tab1.getColumnModel().getColumn(17).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(18).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(19).setCellRenderer(cellRenderer3);

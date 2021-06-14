@@ -58,7 +58,7 @@ public class Element extends javax.swing.JFrame {
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
-    private FilterTable filterTable = new FilterTable();
+    private FilterTable filterTable = null;
     private ListenerRecord listenerArtikl, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
     private String subsql = "(-1)";
 
@@ -70,7 +70,6 @@ public class Element extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerAdd();
-        filterTable.setColumn(tab2, 0);
     }
 
     public Element(Set<Object> keys) {
@@ -83,7 +82,6 @@ public class Element extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerAdd();
-        filterTable.setColumn(tab2, 0);
     }
 
     public Element(Set<Object> keys, int deteilID) {
@@ -97,7 +95,6 @@ public class Element extends javax.swing.JFrame {
         loadingModel();
         listenerAdd();
         deteilFind(deteilID);
-        filterTable.setColumn(tab2, 0);
     }
 
     private void loadingData() {
@@ -1073,7 +1070,8 @@ public class Element extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        south.add(filterTable, 0);        
+        filterTable = new FilterTable(tab2, 0);
+        south.add(filterTable, 0); 
         filterTable.getTxt().grabFocus(); 
         
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));

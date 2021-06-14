@@ -29,7 +29,7 @@ public class Param extends javax.swing.JFrame {
     private Query qPardet = new Query(eParams.values());
     private DefaultCellEditor editorStr = new DefaultCellEditor(new JTextField());
     private DefCellEditor editorBtn = new DefCellEditor(new JButton("..."));
-    private FilterTable filterTable = new FilterTable();
+    private FilterTable filterTable = null;
     private ListenerRecord listenerColor;
 
     public Param() {
@@ -38,7 +38,6 @@ public class Param extends javax.swing.JFrame {
         loadData();
         loadingModel();
         listenerAdd();
-        filterTable.setColumn(tab1, 0);
     }
 
     private void loadData() {
@@ -420,7 +419,8 @@ public class Param extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        south.add(filterTable, 0);        
+        filterTable = new FilterTable(tab1, 0);
+        south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

@@ -427,7 +427,11 @@ public class Uti4 {
     //Выделить запись
     public static void setSelectedRow(JTable table) {
         if (table.getRowCount() > 0) {
+            int index = table.getSelectedColumn();
             table.setRowSelectionInterval(0, 0);
+            if (index != -1) {
+                table.setColumnSelectionInterval(index, index);
+            }
         }
     }
 

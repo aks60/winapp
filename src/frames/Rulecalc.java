@@ -24,7 +24,7 @@ public class Rulecalc extends javax.swing.JFrame {
 
     private Query qRulecalc = new Query(eRulecalc.values(), eArtikl.values());
     private ListenerRecord listenerArtikl, listenerForm;
-    private FilterTable filterTable = new FilterTable();
+    private FilterTable filterTable = null;
 
     public Rulecalc() {
         initComponents();
@@ -32,7 +32,6 @@ public class Rulecalc extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerSet();
-        filterTable.setColumn(tab2, 2);
     }
 
     private void loadingData() {
@@ -387,8 +386,9 @@ public class Rulecalc extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        south.add(filterTable, 0);        
-        filterTable.getTxt().grabFocus();  
+        filterTable = new FilterTable(tab2, 2);
+        south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus();
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab2)));
     }
 }

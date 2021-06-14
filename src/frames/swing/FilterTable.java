@@ -27,12 +27,13 @@ public class FilterTable extends javax.swing.JPanel {
     public FilterTable() {
         initComponents();
     }
-
-    public void setColumn(JTable table, int index) {
+    
+    public FilterTable(JTable table, int index) {
+        initComponents();
         mousePressed(table);
         labFilter.setText(table.getColumnName(index));
         txtFilter.setName(table.getName());
-        table.setColumnSelectionInterval(index, index);
+        table.setColumnSelectionInterval(index, index);        
     }
 
     public JLabel getLab() {
@@ -118,40 +119,43 @@ public class FilterTable extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtCaretUpdate
-        btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
-        if (txtFilter.getText().length() == 0) {
-            ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(null);
-            btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")));
+        if (table != null) {
+            if (txtFilter.getText().length() == 0) {
+                btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")));
+                ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(null);
 
-        } else if (search == true) {
-            indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            if (table.getModel() instanceof DefTableModel) {
-                Query query = ((DefTableModel) table.getModel()).getQuery();
-                Field field = ((DefTableModel) table.getModel()).columns[indexColumn];
-                for (int index = 0; index < query.size(); ++index) {
+            } else if (search == true) {
+                btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
+                indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+                if (table.getModel() instanceof DefTableModel) {
+                    Query query = ((DefTableModel) table.getModel()).getQuery();
+                    Field field = ((DefTableModel) table.getModel()).columns[indexColumn];
+                    for (int index = 0; index < query.size(); ++index) {
 
-                    if (query.table(field).get(index).getStr(field).startsWith(txtFilter.getText())) {
-                        Uti4.setSelectedRow(table, index);
-                        Uti4.scrollRectToIndex(index, table);
-                        return;
+                        if (query.table(field).get(index).getStr(field).startsWith(txtFilter.getText())) {
+                            Uti4.setSelectedRow(table, index);
+                            Uti4.scrollRectToIndex(index, table);
+                            return;
+                        }
+                    }
+                } else {
+                    DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+                    for (int index = 0; index < dtm.getDataVector().size(); ++index) {
+                        Vector vector = dtm.getDataVector().get(index);
+                        if (String.valueOf(vector.get(indexColumn)).startsWith(txtFilter.getText())) {
+                            Uti4.setSelectedRow(table, index);
+                            Uti4.scrollRectToIndex(index, table);
+                            return;
+                        }
                     }
                 }
-            } else {
-                DefaultTableModel dtm = (DefaultTableModel) table.getModel();
-                for (int index = 0; index < dtm.getDataVector().size(); ++index) {
-                    Vector vector = dtm.getDataVector().get(index);
-                    if (String.valueOf(vector.get(indexColumn)).startsWith(txtFilter.getText())) {
-                        Uti4.setSelectedRow(table, index);
-                        Uti4.scrollRectToIndex(index, table);
-                        return;
-                    }
-                }
+            } else if (search == false) {
+                btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
+                indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+                String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+                ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
+                Uti4.setSelectedRow(table);
             }
-        } else if (search == false) {
-            indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
-            Uti4.setSelectedRow(table);
         }
     }//GEN-LAST:event_txtCaretUpdate
 

@@ -23,7 +23,7 @@ public class Partner extends javax.swing.JFrame {
 
     private Window owner = null;
     private ListenerRecord listener = null;
-    private FilterTable filterTable = new FilterTable();
+    private FilterTable filterTable = null;
     private Query qPrjcontr = new Query(ePrjpart.values());
     private DefFieldEditor rsv = null;
     private String arrCateg[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
@@ -33,7 +33,6 @@ public class Partner extends javax.swing.JFrame {
         initElements();
         loadingData();
         loadingModel();
-        filterTable.setColumn(tab1, 0);
     }
 
     public Partner(Frame owner, ListenerRecord listener) {
@@ -45,7 +44,6 @@ public class Partner extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         setVisible(true);
-        filterTable.setColumn(tab1, 0);
     }
 
     private void loadingData() {
@@ -867,6 +865,7 @@ public class Partner extends javax.swing.JFrame {
     private void initElements() {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
+        filterTable = new FilterTable(tab1, 0);
         south.add(filterTable, 0);        
         filterTable.getTxt().grabFocus();   
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

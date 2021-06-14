@@ -55,7 +55,7 @@ public class Artikles extends javax.swing.JFrame {
     private Query qArtdet = new Query(eArtdet.values());
 
     private DefFieldEditor rsvArtikl;
-    private FilterTable filterTable = new FilterTable();
+    private FilterTable filterTable = null;
     private HashSet<JTextField> jtf = new HashSet();
     private DefaultMutableTreeNode nodeRoot = null;
     private Window owner = null;
@@ -69,7 +69,6 @@ public class Artikles extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         loadingTree();
-        filterTable.setColumn(tab1, 0);
     }
 
     public Artikles(java.awt.Window owner, Record artiklRec) {
@@ -80,7 +79,6 @@ public class Artikles extends javax.swing.JFrame {
         loadingModel();
         loadingTree();
         setSelectionPath(artiklRec);
-        filterTable.setColumn(tab1, 0);
     }
 
     private void loadingData() {
@@ -2636,6 +2634,7 @@ public class Artikles extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        filterTable = new FilterTable(tab1, 0);
         south.add(filterTable, 0);        
         filterTable.getTxt().grabFocus();   
         

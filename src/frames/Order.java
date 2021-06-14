@@ -100,7 +100,7 @@ public class Order extends javax.swing.JFrame {
     private Canvas paintPanel = new Canvas(iwin);
     private DefFieldEditor rsvPrj;
     private Gson gson = new GsonBuilder().create();
-    private FilterTable filterTable = new FilterTable();
+    private FilterTable filterTable = null;
 
     public Order() {
         initComponents();
@@ -108,8 +108,7 @@ public class Order extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerAdd();
-        loadingTab1();
-        filterTable.setColumn(tab1, 0);
+        loadingTab1();        
     }
 
     private void loadingData() {
@@ -2759,6 +2758,7 @@ public class Order extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
         Uti4.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
+        filterTable = new FilterTable(tab1, 0);
         south.add(filterTable, 0);       
         filterTable.getTxt().grabFocus();  
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1)));
