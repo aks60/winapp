@@ -153,9 +153,11 @@ public class ElementDet extends Par5s {
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 33062:  //Если стойка удлинена 
+                case 34062:  //Если стойка удлинена 
                     message(grup);
                     break;
                 case 33063:  //Диапазон веса створки, кг 
+                case 34063:  //Диапазон веса створки, кг 
                     message(grup);
                     break;
                 case 33071:  //Контейнер типа 
@@ -257,12 +259,6 @@ public class ElementDet extends Par5s {
                 case 34060:  //Количество
                 case 39060:  //Количество
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 34062:  //Если стойка удлинена 
-                    message(grup);
-                    break;
-                case 34063:  //Диапазон веса створки, кг 
-                    message(grup);
                     break;
                 case 34064:  //Учёт поправок соединений для составов 
                     message(grup);

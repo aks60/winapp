@@ -499,7 +499,7 @@ public class ParamList {
         //P37095(37095, "Технологическая операция"),
         // </editor-fold>  
         private int grup = 0;
-        private int pass = 1;
+        private int pass = 1;  //0-игнорировать, 1-в список, 3-в разработке см. ParamTest
         private String text = "";
 
         public Defparam defparam = def_Default;
@@ -1030,7 +1030,7 @@ public class ParamList {
         // </editor-fold> 
         private int grup = 0;
         private String text = "";
-        private int pass = 1;
+        private int pass = 1;  //0-игнорировать, 1-в продакшен, 3-в разработке см. ParamTest
 
         public Defparam defparam = def_Default;
         public Dictionary dictionary = dic_DEFAULT;
