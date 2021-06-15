@@ -175,19 +175,19 @@ public class AreaStvorka extends AreaSimple {
 
         LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP);
         for (int index = 0; index < 4; index++) {
-             if (index == 0) { //Прилигающее нижнее
+             if (index == 0) { //Прилегающее нижнее
                 ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CBOT, elemBott, elemBott.joinFlat(LayoutArea.BOTT), 0);                               
                 iwin().mapJoin.put(elemBott.joinPoint(2), el);
                 
-            } else if (index == 1) { //Прилигающее верхнее 
+            } else if (index == 1) { //Прилегающее верхнее 
                 ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CTOP, elemTop, elemTop.joinFlat(LayoutArea.TOP), 0);
                 iwin().mapJoin.put(elemTop.joinPoint(2), el);
 
-            } else if (index == 2) { //Прилигающее левое
+            } else if (index == 2) { //Прилегающее левое
                 ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CLEFT, elemLeft, elemLeft.joinFlat(LayoutArea.LEFT), 0);
                 iwin().mapJoin.put(elemLeft.joinPoint(2), el);
 
-            } else if (index == 3) { //Прилигающее правое
+            } else if (index == 3) { //Прилегающее правое
                 ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CRIGH, elemRight, elemRight.joinFlat(LayoutArea.RIGHT), 0);
                 iwin().mapJoin.put(elemRight.joinPoint(2), el);
             }
