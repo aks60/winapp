@@ -46,7 +46,7 @@ public abstract class ElemSimple extends Com5t {
     //Вложенная спецификация
     public abstract void addSpecific(Specific specification);
 
-    //Точки соединения профилей (side 0-пред.артикл, 1-след.артикл или 2-левый, 3-правый)
+    //Точки соединения профилей (side 0-нач. вектора, 1-конец вектора или 2-левый, 3-правый)
     public String joinPoint(int side) {
         if (layout() == LayoutArea.BOTT) {
             return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y1; //точки левого и правого нижнего углового и прилегающего соед.
@@ -64,11 +64,11 @@ public abstract class ElemSimple extends Com5t {
             } else {
                 return (side == 2) ? y1 + (y2 - y1) / 2 + ":" + x1 : y1 + (y2 - y1) / 2 + ":" + x2; //слева и справа средняя
             }
-        } else if (layout() == LayoutArea.HORIZ) { //вектор всегда справа на лево
+        } else if (layout() == LayoutArea.HORIZ) { //вектор всегда слева на право
             if (side < 2) {
                 return (side == 0) ? x1 + ":" + y1 : x2 + ":" + y2; //точки левого и правого Т-обр 
             } else {
-                return (side == 2) ? x1 + (x2 - x1) / 2 + ":" + y1 : x1 + (x2 - x1) / 2 + ":" + y1; //слева и справа средняя
+                return (side == 2) ? x1 + (x2 - x1) / 2 + ":" + y1 : x1 + (x2 - x1) / 2 + ":" + y2; //слева и справа средняя
             }
         }
         return null;
@@ -89,7 +89,7 @@ public abstract class ElemSimple extends Com5t {
         return null;
     }
 
-    //Элемент соединения 0-нач. вектора, 1-конец вектора, 2-середина вектора
+    //Элемент соединения 0-пред.артикл, 1-след.артикл, 2-прилег. артикл
     public ElemSimple joinElem(int side) {
         ElemJoining ej = iwin().mapJoin.get(joinPoint(side));
         if (ej != null && side == 0) {
