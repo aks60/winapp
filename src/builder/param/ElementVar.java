@@ -262,15 +262,20 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31050: //Контейнер имеет тип 
-                {
-                    String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
-                    int[] index = {1, 2, 3, 5, 19};
-                    for (int i = 0; i < arr.length; i++) {
-                        if (arr[i].equals(rec.getStr(TEXT)) && Util.containsNumb(String.valueOf(index[i]), elem5e.sysprofRec.getInt(eSysprof.use_type)) == false) {
+                    if ("ps3".equals(eSetting.find(2))) {
+                        //1-"коробка", 2-"створка", 3-"импост", 4-"ригель/импост", 5-"стойка", 6-"стойка/коробка, 7-"эркер", 8-"грань
+                        String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
+                        int[] index = {1, 2, 3, 5, 19};
+                        for (int i = 0; i < arr.length; i++) {
+                            if (arr.equals(rec.getStr(TEXT)) && Util.containsNumb(String.valueOf(index[i]), elem5e.type().id) == false) {
+                                return false;
+                            }
+                        }
+                    } else {
+                        if (Util.containsNumb(rec.getStr(TEXT), elem5e.type().id) == false) {
                             return false;
                         }
                     }
-                }
                 break;
                 case 31051:  //Если створка фурнитуры 
                     if (elem5e.owner().type() == TypeElem.STVORKA) {

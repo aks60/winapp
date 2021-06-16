@@ -98,8 +98,8 @@ public class ElementTest extends ParamTest {
         assert false == elementVar2.check(stv_right_2, param("400,1-800", grup)) : grup;
 
         grup = 31050;
-        assert true == elementVar2.check(stv_right_2, param("створка", grup)) : grup;
-        assert false == elementVar2.check(stv_right_2, param("коробка", grup)) : grup;
+        assert true == elementVar2.check(stv_right_2, param("2", grup)) : grup;
+        assert false == elementVar2.check(stv_right_2, param("1", grup)) : grup;
 
         grup = 31051;
         assert true == elementVar4.check(stv_right_4, param("ведомая", grup)) : grup;
@@ -259,5 +259,9 @@ public class ElementTest extends ParamTest {
         assert true == elementDet2.check(stv_right_2, param("3-40", grup)) : grup;
         assert true == elementDet2.check(stv_right_2, param("40", grup)) : grup;
         assert false == elementDet2.check(stv_right_2, param("1-12", grup)) : grup;
+        
+        grup = 33071;  //34071
+        assert true == elementDet2.check(stv_right_2, param("2", grup)) : grup;
+        assert false == elementDet2.check(stv_right_2, param("1", grup)) : grup;        
     }
 }

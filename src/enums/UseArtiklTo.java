@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-/**
- * Тип профиля в системе конструкций
- */
+//Тип профиля в системе конструкций
 public enum UseArtiklTo implements Enam {
     ANY(0, "Любой тип"),
     FRAME(1, "Коробка"),//профиль первого контура Изделия
