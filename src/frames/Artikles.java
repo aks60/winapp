@@ -218,6 +218,7 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.len_unit, txt41);
         rsvArtikl.add(eArtikl.height, txt45);
         rsvArtikl.add(eArtikl.depth, txt46);
+        rsvArtikl.add(eArtikl.len_unit, txt48);
 
         Uti4.buttonCellEditor(tab2, 0).addActionListener(event -> {
             DicColor frame = new DicColor(this, listenerColor);
@@ -587,6 +588,16 @@ public class Artikles extends javax.swing.JFrame {
         lab38 = new javax.swing.JLabel();
         txt27 = new javax.swing.JTextField();
         btn24 = new javax.swing.JButton();
+        pan18 = new javax.swing.JPanel();
+        filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab18 = new javax.swing.JLabel();
+        txt6 = new javax.swing.JTextField();
+        filler38 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(12, 32767));
+        lab42 = new javax.swing.JLabel();
+        txt31 = new javax.swing.JTextField();
+        btn6 = new javax.swing.JButton();
+        pan109 = new javax.swing.JPanel();
+        filler28 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         pan13 = new javax.swing.JPanel();
         filler29 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab40 = new javax.swing.JLabel();
@@ -599,13 +610,6 @@ public class Artikles extends javax.swing.JFrame {
         txt30 = new javax.swing.JTextField();
         btn12 = new javax.swing.JButton();
         btn10 = new javax.swing.JButton();
-        pan18 = new javax.swing.JPanel();
-        filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab18 = new javax.swing.JLabel();
-        txt6 = new javax.swing.JTextField();
-        lab42 = new javax.swing.JLabel();
-        txt31 = new javax.swing.JTextField();
-        btn6 = new javax.swing.JButton();
         pan19 = new javax.swing.JPanel();
         filler32 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab39 = new javax.swing.JLabel();
@@ -617,16 +621,17 @@ public class Artikles extends javax.swing.JFrame {
         filler35 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab54 = new javax.swing.JLabel();
         txt48 = new javax.swing.JTextField();
-        filler44 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(6, 0), new java.awt.Dimension(12, 32767));
+        filler44 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(28, 0), new java.awt.Dimension(12, 32767));
         lab55 = new javax.swing.JLabel();
         txt45 = new javax.swing.JTextField();
         filler45 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(6, 0), new java.awt.Dimension(12, 32767));
-        lab56 = new javax.swing.JLabel();
-        txt46 = new javax.swing.JTextField();
         pan28 = new javax.swing.JPanel();
         filler43 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab35 = new javax.swing.JLabel();
-        txt23 = new javax.swing.JTextField();
+        lab56 = new javax.swing.JLabel();
+        txt46 = new javax.swing.JTextField();
+        filler49 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(28, 0), new java.awt.Dimension(12, 32767));
+        lab49 = new javax.swing.JLabel();
+        txt39 = new javax.swing.JTextField();
         pan21 = new javax.swing.JPanel();
         filler36 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab43 = new javax.swing.JLabel();
@@ -644,6 +649,15 @@ public class Artikles extends javax.swing.JFrame {
         lab45 = new javax.swing.JLabel();
         txt35 = new javax.swing.JTextField();
         btn28 = new javax.swing.JButton();
+        pan26 = new javax.swing.JPanel();
+        filler41 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
+        lab50 = new javax.swing.JLabel();
+        txt40 = new javax.swing.JTextField();
+        btn33 = new javax.swing.JButton();
+        filler48 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(6, 0), new java.awt.Dimension(12, 32767));
+        lab35 = new javax.swing.JLabel();
+        txt23 = new javax.swing.JTextField();
+        pqn109 = new javax.swing.JPanel();
         pan24 = new javax.swing.JPanel();
         filler39 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab47 = new javax.swing.JLabel();
@@ -656,14 +670,6 @@ public class Artikles extends javax.swing.JFrame {
         txt38 = new javax.swing.JTextField();
         btn31 = new javax.swing.JButton();
         btn32 = new javax.swing.JButton();
-        pan26 = new javax.swing.JPanel();
-        filler41 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
-        lab49 = new javax.swing.JLabel();
-        txt39 = new javax.swing.JTextField();
-        filler48 = new javax.swing.Box.Filler(new java.awt.Dimension(6, 0), new java.awt.Dimension(6, 0), new java.awt.Dimension(12, 32767));
-        lab50 = new javax.swing.JLabel();
-        txt40 = new javax.swing.JTextField();
-        btn33 = new javax.swing.JButton();
         pan27 = new javax.swing.JPanel();
         filler42 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(12, 32767));
         lab51 = new javax.swing.JLabel();
@@ -1592,6 +1598,57 @@ public class Artikles extends javax.swing.JFrame {
 
         pan7.add(pan12);
 
+        pan18.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan18.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan18.add(filler31);
+
+        lab18.setFont(frames.Uti4.getFont(0,0));
+        lab18.setText("Уд.вес кг/ед");
+        lab18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab18.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab18.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab18.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan18.add(lab18);
+
+        txt6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt6.setPreferredSize(new java.awt.Dimension(44, 18));
+        pan18.add(txt6);
+        pan18.add(filler38);
+
+        lab42.setFont(frames.Uti4.getFont(0,0));
+        lab42.setText("Ед.изм.");
+        lab42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab42.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab42.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab42.setPreferredSize(new java.awt.Dimension(68, 18));
+        pan18.add(lab42);
+
+        txt31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt31.setFocusable(false);
+        txt31.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt31.setRequestFocusEnabled(false);
+        pan18.add(txt31);
+
+        btn6.setText("...");
+        btn6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn6.setMaximumSize(new java.awt.Dimension(18, 18));
+        btn6.setMinimumSize(new java.awt.Dimension(18, 18));
+        btn6.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn5(evt);
+            }
+        });
+        pan18.add(btn6);
+
+        pan7.add(pan18);
+
+        pan109.setPreferredSize(new java.awt.Dimension(360, 12));
+        pan109.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan109.add(filler28);
+
+        pan7.add(pan109);
+
         pan13.setPreferredSize(new java.awt.Dimension(360, 24));
         pan13.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan13.add(filler29);
@@ -1680,50 +1737,6 @@ public class Artikles extends javax.swing.JFrame {
 
         pan7.add(pan17);
 
-        pan18.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan18.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan18.add(filler31);
-
-        lab18.setFont(frames.Uti4.getFont(0,0));
-        lab18.setText("Уд.вес кг/ед");
-        lab18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab18.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab18.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab18.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan18.add(lab18);
-
-        txt6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt6.setPreferredSize(new java.awt.Dimension(50, 18));
-        pan18.add(txt6);
-
-        lab42.setFont(frames.Uti4.getFont(0,0));
-        lab42.setText("Ед.измерения");
-        lab42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab42.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab42.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab42.setPreferredSize(new java.awt.Dimension(94, 18));
-        pan18.add(lab42);
-
-        txt31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt31.setFocusable(false);
-        txt31.setPreferredSize(new java.awt.Dimension(50, 18));
-        txt31.setRequestFocusEnabled(false);
-        pan18.add(txt31);
-
-        btn6.setText("...");
-        btn6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn6.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn6.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn6.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn5(evt);
-            }
-        });
-        pan18.add(btn6);
-
-        pan7.add(pan18);
-
         pan19.setPreferredSize(new java.awt.Dimension(360, 24));
         pan19.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan19.add(filler32);
@@ -1781,7 +1794,7 @@ public class Artikles extends javax.swing.JFrame {
         lab54.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab54.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab54.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab54.setPreferredSize(new java.awt.Dimension(48, 18));
+        lab54.setPreferredSize(new java.awt.Dimension(98, 18));
         pan20.add(lab54);
 
         txt48.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1794,7 +1807,7 @@ public class Artikles extends javax.swing.JFrame {
         lab55.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab55.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab55.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab55.setPreferredSize(new java.awt.Dimension(48, 18));
+        lab55.setPreferredSize(new java.awt.Dimension(74, 18));
         pan20.add(lab55);
 
         txt45.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1802,35 +1815,36 @@ public class Artikles extends javax.swing.JFrame {
         pan20.add(txt45);
         pan20.add(filler45);
 
-        lab56.setFont(frames.Uti4.getFont(0,0));
-        lab56.setText("Толщина");
-        lab56.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab56.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab56.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab56.setPreferredSize(new java.awt.Dimension(54, 18));
-        pan20.add(lab56);
-
-        txt46.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt46.setPreferredSize(new java.awt.Dimension(44, 18));
-        pan20.add(txt46);
-
         pan8.add(pan20);
 
         pan28.setPreferredSize(new java.awt.Dimension(360, 24));
         pan28.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan28.add(filler43);
 
-        lab35.setFont(frames.Uti4.getFont(0,0));
-        lab35.setText("Толщина фрезы");
-        lab35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab35.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab35.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab35.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan28.add(lab35);
+        lab56.setFont(frames.Uti4.getFont(0,0));
+        lab56.setText("Толщина");
+        lab56.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab56.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab56.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab56.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan28.add(lab56);
 
-        txt23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt23.setPreferredSize(new java.awt.Dimension(40, 18));
-        pan28.add(txt23);
+        txt46.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt46.setPreferredSize(new java.awt.Dimension(44, 18));
+        pan28.add(txt46);
+        pan28.add(filler49);
+
+        lab49.setFont(frames.Uti4.getFont(0,0));
+        lab49.setText("Уд.вес кг/ед");
+        lab49.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab49.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab49.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab49.setPreferredSize(new java.awt.Dimension(74, 18));
+        pan28.add(lab49);
+
+        txt39.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt39.setPreferredSize(new java.awt.Dimension(44, 18));
+        pan28.add(txt39);
 
         pan8.add(pan28);
 
@@ -1870,7 +1884,7 @@ public class Artikles extends javax.swing.JFrame {
         txt33.setFont(frames.Uti4.getFont(0,0));
         txt33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt33.setFocusable(false);
-        txt33.setPreferredSize(new java.awt.Dimension(40, 18));
+        txt33.setPreferredSize(new java.awt.Dimension(50, 18));
         pan21.add(txt33);
 
         btn16.setText("...");
@@ -1945,6 +1959,66 @@ public class Artikles extends javax.swing.JFrame {
         pan22.add(btn28);
 
         pan8.add(pan22);
+
+        pan26.setPreferredSize(new java.awt.Dimension(360, 24));
+        pan26.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        pan26.add(filler41);
+
+        lab50.setFont(frames.Uti4.getFont(0,0));
+        lab50.setText("Ед.измерения");
+        lab50.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab50.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab50.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab50.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan26.add(lab50);
+
+        txt40.setFont(frames.Uti4.getFont(0,0));
+        txt40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt40.setFocusable(false);
+        txt40.setPreferredSize(new java.awt.Dimension(44, 18));
+        pan26.add(txt40);
+
+        btn33.setText("...");
+        btn33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn33.setMaximumSize(new java.awt.Dimension(18, 18));
+        btn33.setMinimumSize(new java.awt.Dimension(18, 18));
+        btn33.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn5(evt);
+            }
+        });
+        pan26.add(btn33);
+        pan26.add(filler48);
+
+        lab35.setFont(frames.Uti4.getFont(0,0));
+        lab35.setText("Толщина фрезы");
+        lab35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab35.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab35.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab35.setPreferredSize(new java.awt.Dimension(98, 18));
+        pan26.add(lab35);
+
+        txt23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt23.setPreferredSize(new java.awt.Dimension(40, 18));
+        pan26.add(txt23);
+
+        pan8.add(pan26);
+
+        pqn109.setPreferredSize(new java.awt.Dimension(360, 12));
+
+        javax.swing.GroupLayout pqn109Layout = new javax.swing.GroupLayout(pqn109);
+        pqn109.setLayout(pqn109Layout);
+        pqn109Layout.setHorizontalGroup(
+            pqn109Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 360, Short.MAX_VALUE)
+        );
+        pqn109Layout.setVerticalGroup(
+            pqn109Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 12, Short.MAX_VALUE)
+        );
+
+        pan8.add(pqn109);
 
         pan24.setPreferredSize(new java.awt.Dimension(360, 24));
         pan24.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
@@ -2033,51 +2107,6 @@ public class Artikles extends javax.swing.JFrame {
         pan25.add(btn32);
 
         pan8.add(pan25);
-
-        pan26.setPreferredSize(new java.awt.Dimension(360, 24));
-        pan26.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
-        pan26.add(filler41);
-
-        lab49.setFont(frames.Uti4.getFont(0,0));
-        lab49.setText("Уд.вес кг/ед");
-        lab49.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab49.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab49.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab49.setPreferredSize(new java.awt.Dimension(98, 18));
-        pan26.add(lab49);
-
-        txt39.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt39.setPreferredSize(new java.awt.Dimension(44, 18));
-        pan26.add(txt39);
-        pan26.add(filler48);
-
-        lab50.setFont(frames.Uti4.getFont(0,0));
-        lab50.setText("Ед.измерения");
-        lab50.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab50.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        lab50.setMinimumSize(new java.awt.Dimension(34, 14));
-        lab50.setPreferredSize(new java.awt.Dimension(94, 18));
-        pan26.add(lab50);
-
-        txt40.setFont(frames.Uti4.getFont(0,0));
-        txt40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt40.setFocusable(false);
-        txt40.setPreferredSize(new java.awt.Dimension(44, 18));
-        pan26.add(txt40);
-
-        btn33.setText("...");
-        btn33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn33.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn33.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn33.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn5(evt);
-            }
-        });
-        pan26.add(btn33);
-
-        pan8.add(pan26);
 
         pan27.setPreferredSize(new java.awt.Dimension(360, 24));
         pan27.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
@@ -2469,6 +2498,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler25;
     private javax.swing.Box.Filler filler26;
     private javax.swing.Box.Filler filler27;
+    private javax.swing.Box.Filler filler28;
     private javax.swing.Box.Filler filler29;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler30;
@@ -2479,6 +2509,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler35;
     private javax.swing.Box.Filler filler36;
     private javax.swing.Box.Filler filler37;
+    private javax.swing.Box.Filler filler38;
     private javax.swing.Box.Filler filler39;
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler40;
@@ -2490,6 +2521,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler46;
     private javax.swing.Box.Filler filler47;
     private javax.swing.Box.Filler filler48;
+    private javax.swing.Box.Filler filler49;
     private javax.swing.Box.Filler filler5;
     private javax.swing.Box.Filler filler6;
     private javax.swing.Box.Filler filler7;
@@ -2548,6 +2580,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JPanel pan106;
     private javax.swing.JPanel pan107;
     private javax.swing.JPanel pan108;
+    private javax.swing.JPanel pan109;
     private javax.swing.JPanel pan11;
     private javax.swing.JPanel pan12;
     private javax.swing.JPanel pan13;
@@ -2578,6 +2611,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JPanel pan97;
     private javax.swing.JPanel pan98;
     private javax.swing.JPanel pan99;
+    private javax.swing.JPanel pqn109;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scrTree;

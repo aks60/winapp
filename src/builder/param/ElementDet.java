@@ -7,6 +7,7 @@ import domain.eSetting;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
+import builder.model.Com5t;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import common.Util;
@@ -156,10 +157,18 @@ public class ElementDet extends Par5s {
                 case 34062:  //Если стойка удлинена 
                     message(grup);
                     break;
-                case 33063:  //Диапазон веса створки, кг 
-                case 34063:  //Диапазон веса створки, кг 
-                    message(grup);
-                    break;
+                case 33063: //Диапазон веса створки, кг 
+                case 34063: //Диапазон веса створки, кг 
+                {
+                    Com5t glass = elem5e.owner().listChild.stream().filter(el -> el.type() == TypeElem.GLASS).findFirst().orElse(null);
+                    if (glass != null) {
+                        float weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn.getFloat(eArtikl.density);
+                        if (Util.containsNumb(rec.getStr(TEXT), weight) == false) {
+                            return false;
+                        }
+                    }
+                }
+                break;
                 case 33071:  //Контейнер типа 
                 case 34071:
                     if ("ps3".equals(eSetting.find(2))) {

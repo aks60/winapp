@@ -108,7 +108,7 @@ public class Util {
         if (arr.length == 1) {
             arr = arr[0].split("-");
             if (arr.length == 1) {
-                arrList.add(Float.valueOf(arr[0]));
+                arrList.add(0f);
                 arrList.add(Float.valueOf(arr[0]));
             } else {
                 arrList.add(Float.valueOf(arr[0]));
