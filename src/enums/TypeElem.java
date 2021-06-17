@@ -5,18 +5,20 @@ public enum TypeElem implements Enam {
 //1-"коробка", 2-"створка", 3-"импост", 4-"ригель/импост", 5-"стойка", 6-"стойка/коробка, 7-"эркер", 8-"грань
     
     //TypeElem
-    FRAME_SIDE(2, 1, "Рама коробки"),
+    FRAME_SIDE(1, 1, "Коробка сторона"),
+    STVORKA_SIDE(2, 2, "Створка сторона"),
     IMPOST(3, 3, "Импост"),
-    STVORKA_SIDE(4, 2, "Рама створки"), //элемент STVORKA
-    GLASS(5, "Стеклопакет"),
-    //STOIKA(6, 5, "Стойка"),
-    SHTULP(10, 9, "Штульп"),
+    RIGEL_IMPOST(4, "Ригель/импост"),
+    STOIKA(5, 5, "Стойка"),
+    STOIKA_FRAME(6, "Стойка/коробка"),
+    SHTULP(7, 9, "Штульп"),
+    ERKER(8, 10, "Эркер"),
+    GLASS(9, "Заполнение (Стеклопакет, стекло"),    
     PARAM(11, 9, "Параметры конструкции"),
-    /*RASKLADKA(14, 7, "Раскладка"),
     MOSKITKA(13, "Москитка"),
-    MOSKITKA_SET(-13, "Москитка"), //непонятно
-    SAND(100, "Сэндвич"),
-    JALOUSIE(101, "Жалюзи"),*/
+    RASKLADKA(14, 7, "Раскладка"),
+    SAND(15, "Сэндвич"),
+    JALOUSIE(15, "Жалюзи"),
     //TypeArea
     AREA(1000, "Контейнер"),
     RECTANGL(1001, "Окно четырёхугольное"),
@@ -28,7 +30,7 @@ public enum TypeElem implements Enam {
     NONE(0, 0, "Не определено");
 
     public int id;
-    public int id2; //это UseArtiklTo
+    public int id2 = 0; //это UseArtiklTo
     public String name;
 
     TypeElem(int id, String name) {
