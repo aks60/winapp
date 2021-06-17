@@ -120,7 +120,7 @@ public class Test {
         Query.connection = Test.connect2();
         ElementTest et = new ElementTest();
         et.elementVar();
-        //et.elementDet();
+        et.elementDet();
         
 //        Query.connection = Test.connect2();
 //        Set set = new HashSet();

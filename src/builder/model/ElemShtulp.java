@@ -124,7 +124,7 @@ public class ElemShtulp extends ElemSimple {
         spcAdd.count = uti3.p_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += uti3.p_11050_14050_24050_33050_38050(this, spcAdd); //кол. ед. с шагом
         spcAdd.width = uti3.p_12050_15050_34050_34051_39020(spcRec, spcAdd); //поправка мм
-        uti3.p_34077_34078(spcAdd); //задать Угол_реза_1/Угол_реза_2
+        uti3.p_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2
 
         //Армирование
         if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X107)) {

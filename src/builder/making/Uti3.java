@@ -91,12 +91,12 @@ public class Uti3 {
 
     //Коэффициент, [ * коэф-т ]
     public float p_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
-        return Util.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));  
+        return Util.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));
     }
 
     //Коэффициент, [ / коэф-т ]
     public float p_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
-        return Util.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));    
+        return Util.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));
     }
 
     //Othe
@@ -106,7 +106,7 @@ public class Uti3 {
     }
 
     //Задать Угол_реза_1/Угол_реза_2, °
-    public void p_34077_34078(Specific spcAdd) {
+    public void p_34077_39077(Specific spcAdd) {
         if ("ps3".equals(eSetting.find(2))) {
             if (spcAdd.getParam("-1", 34077).equals("-1") == false) {
                 spcAdd.anglCut1 = Util.getFloat(spcAdd.getParam("-1", 34077));
@@ -115,8 +115,8 @@ public class Uti3 {
                 spcAdd.anglCut2 = Util.getFloat(spcAdd.getParam("-1", 34078));
             }
         } else {
-            if (spcAdd.getParam("-1", 34077).equals("-1") == false) {
-                String[] arr = spcAdd.getParam("-1", 34077).split("/");
+            if (spcAdd.getParam("-1", 34077, 39077).equals("-1") == false) {
+                String[] arr = spcAdd.getParam("-1", 34077, 39077).split("/");
                 if (arr[0].equals("*") == false) {
                     spcAdd.anglCut1 = Util.getFloat(arr[0]);
                 }
@@ -124,6 +124,15 @@ public class Uti3 {
                     spcAdd.anglCut2 = Util.getFloat(arr[1]);
                 }
             }
+        }
+    }
+
+    //Ставить однократно
+    public float p_11070_12070_33078_34078(Specific spcAdd) {
+        if ("Да".equals(spcAdd.getParam("Нет", 11070, 12070, 33078, 34078))) {
+            return 1;
+        } else {
+            return spcAdd.count;
         }
     }
 }

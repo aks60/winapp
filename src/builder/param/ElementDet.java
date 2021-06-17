@@ -170,26 +170,10 @@ public class ElementDet extends Par5s {
                 }
                 break;
                 case 33071:  //Контейнер типа 
-                case 34071:
-                    if ("ps3".equals(eSetting.find(2))) {
-                        String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
-                        int[] index = {1, 2, 3, 5, 19};
-                        for (int i = 0; i < arr.length; i++) {
-                            if (arr.equals(rec.getStr(TEXT)) && Util.containsNumb(String.valueOf(index[i]), elem5e.type().id) == false) {
-                                return false;
-                            }
-                        }
-                    } else {
-                        if (Util.containsNumb(rec.getStr(TEXT), elem5e.type().id) == false) {
-                            return false;
-                        }
+                case 34071:  //Контейнер типа
+                    if (Uti5.dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
+                        return false;
                     }
-                    break;
-                case 33073:  //Отправочная марка фасада 
-                    message(grup);
-                    break;
-                case 33074:  //На прилегающей створке 
-                    message(grup);
                     break;
                 case 33078:  //Ставить однократно 
                     message(grup);
@@ -318,9 +302,6 @@ public class ElementDet extends Par5s {
                     message(grup);
                     break;
                 case 34073:  //Отправочная марка фасада 
-                    message(grup);
-                    break;
-                case 34074:  //На прилегающей створке 
                     message(grup);
                     break;
                 case 34075:  //Углы реза 

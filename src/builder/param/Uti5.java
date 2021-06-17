@@ -3,8 +3,10 @@ package builder.param;
 import builder.model.Com5t;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
+import common.Util;
 import dataset.Record;
 import domain.eArtikl;
+import domain.eSetting;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutArea;
@@ -20,6 +22,23 @@ class Uti5 {
             return false;
         } else if ("не глухой".equals(txt) == true && elem5e.owner().type() == TypeElem.STVORKA == false) {
             return false;
+        }
+        return true;
+    }
+
+    static boolean dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(String txt, ElemSimple elem5e) {
+        if ("ps3".equals(eSetting.find(2))) {
+            String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
+            int[] index = {1, 2, 3, 5, 19};
+            for (int i = 0; i < arr.length; i++) {
+                if (arr.equals(txt) && Util.containsNumb(String.valueOf(index[i]), elem5e.type().id) == false) {
+                    return false;
+                }
+            }
+        } else {
+            if (Util.containsNumb(txt, elem5e.type().id) == false) {
+                return false;
+            }
         }
         return true;
     }

@@ -262,19 +262,8 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31050: //Контейнер имеет тип 
-                    if ("ps3".equals(eSetting.find(2))) {
-                        //1-"коробка", 2-"створка", 3-"импост", 4-"ригель/импост", 5-"стойка", 6-"стойка/коробка, 7-"эркер", 8-"грань
-                        String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
-                        int[] index = {1, 2, 3, 5, 19};
-                        for (int i = 0; i < arr.length; i++) {
-                            if (arr.equals(rec.getStr(TEXT)) && Util.containsNumb(String.valueOf(index[i]), elem5e.type().id) == false) {
-                                return false;
-                            }
-                        }
-                    } else {
-                        if (Util.containsNumb(rec.getStr(TEXT), elem5e.type().id) == false) {
-                            return false;
-                        }
+                    if (Uti5.dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
+                        return false;
                     }
                 break;
                 case 31051:  //Если створка фурнитуры 
