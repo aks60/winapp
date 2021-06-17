@@ -139,6 +139,7 @@ public class ElemImpost extends ElemSimple {
         spcAdd.width = uti3.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
         spcAdd.width = spcAdd.width * uti3.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
         spcAdd.width = spcAdd.width / uti3.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+        spcAdd.count = uti3.p_11070_12070_33078_34078(spcAdd); //ставить однократно
 
         spcRec.spcList.add(spcAdd);
     }

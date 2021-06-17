@@ -92,21 +92,6 @@ public class ElemShtulp extends ElemSimple {
         spcRec.anglCut1 = 90;
         spcRec.anglHoriz = anglHoriz;
 
-//        if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
-//            //Примерный расчёт
-//            if (LayoutArea.HORIZ == owner().layout()) { //слева направо 
-//                ElemSimple insideTop = join(LayoutArea.TOP), insideLeft = join(LayoutArea.LEFT);
-//                spcRec.width = insideLeft.height() - 2 * insideLeft.artiklRec.getFloat(eArtikl.size_furn)
-//                        - 2 * insideTop.artiklRec.getFloat(eArtikl.size_falz);
-//                spcRec.height = artiklRec.getFloat(eArtikl.height);              
-//            } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
-//                ElemSimple insideTop = join(LayoutArea.TOP), insideLeft = join(LayoutArea.LEFT);
-//                spcRec.width = insideTop.height() - 2 * insideTop.artiklRec.getFloat(eArtikl.size_furn)
-//                        - 2 * insideLeft.artiklRec.getFloat(eArtikl.size_falz);
-//                spcRec.height = artiklRec.getFloat(eArtikl.height);                  
-//            }
-//
-//        } else {
         if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
             spcRec.width = y2 - y1;
             spcRec.height = artiklRec.getFloat(eArtikl.height);
@@ -115,7 +100,6 @@ public class ElemShtulp extends ElemSimple {
             spcRec.width = x2 - x1;
             spcRec.height = artiklRec.getFloat(eArtikl.height);
         }
-//        }
     }
 
     //@Override //Вложеная спецификация 
@@ -139,6 +123,7 @@ public class ElemShtulp extends ElemSimple {
         spcAdd.width = uti3.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
         spcAdd.width = spcAdd.width * uti3.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
         spcAdd.width = spcAdd.width / uti3.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+        spcAdd.count = uti3.p_11070_12070_33078_34078(spcAdd); //ставить однократно
 
         spcRec.spcList.add(spcAdd);
     }
