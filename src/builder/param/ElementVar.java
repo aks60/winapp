@@ -311,6 +311,15 @@ public class ElementVar extends Par5s {
                         return false;
                     }
                     break;
+                case 31073:  //Отправочная марка фасада
+                    message(grup);
+                    break;
+                case 31074:  //На прилегающей створке
+                    message(grup);
+                    break;
+                case 31080:  //Сообщение-предупреждение
+                    message(grup);
+                    break;
                 case 31081:  //Для внешнего/внутреннего угла плоскости, ° 
                     message(grup);
                     break;
@@ -337,9 +346,9 @@ public class ElementVar extends Par5s {
                 case 31097:  //Трудозатраты по длине 
                     message(grup);
                     break;
-//                case 31800:  //Код обработки 
-//                    message(grup);
-//                    break;
+                case 31800:  //Код обработки 
+                    message(grup);
+                    break;
                 case 31801:  //Доп.обработки
                     message(grup);
                     break;

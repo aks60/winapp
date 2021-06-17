@@ -56,12 +56,6 @@ public class ElementTest extends ParamTest {
         assert true == elementVar2.check(imp_vert_2, param("*/4-32", grup)) : grup;
         assert false == elementVar2.check(imp_vert_2, param("3;31;12/4-32", grup)) : grup;
 
-        grup = 31015;
-        assert true == elementVar2.check(null, param("", grup)) : grup;
-
-        grup = 31016;
-        assert true == elementVar2.check(null, param("", grup)) : grup;
-
         grup = 31017; //37017
         assert true == elementVar2.check(frame_left_2, param("КВЕ 58", grup)) : grup;
         assert false == elementVar2.check(frame_left_2, param("КП-40", grup)) : grup;
@@ -82,16 +76,10 @@ public class ElementTest extends ParamTest {
         grup = 31034;
         assert true == elementVar2.check(imp_vert_2, param("937", grup)) : grup;
 
-        grup = 31035;
-        assert true == elementVar2.check(null, param("", grup)) : grup;
-
         grup = 31037;
         assert true == elementVar2.check(stv_right_2, param("ROTO NT Повортные окна/двери", grup)) : grup;
         assert false == elementVar2.check(stv_right_2, param("ROTO NT Повортные", grup)) : grup;
         assert false == elementVar2.check(stv_right_2, param("ACCADO NT Повортные", grup)) : grup;
-
-        grup = 31040;
-        assert true == elementVar2.check(null, param("", grup)) : grup;
 
         grup = 31041;
         assert true == elementVar2.check(stv_right_2, param("400,1-10000", grup)) : grup;
@@ -126,19 +114,10 @@ public class ElementTest extends ParamTest {
         assert true == elementVar4.check(stv_right_4, param("90", grup)) : grup;
         assert false == elementVar4.check(stv_right_4, param("30;", grup)) : grup;
 
-        grup = 31081;
-        assert true == elementVar4.check(null, param("", grup)) : grup;
-
-        grup = 31085;
-        assert true == elementVar4.check(stv_right_4, param("", grup)) : grup;
-
-        grup = 31090;
-        System.err.println("ВНИМАНИЕ! ПАРААМЕТР " + grup + " В РАЗРАБОТКЕ.");
-
         grup = 31095;
         assert true == elementVar4.check(stv_right_4, param("1;2;", grup)) : grup;
         assert false == elementVar4.check(stv_right_4, param("2;9", grup)) : grup;
-
+        
         grup = 37002;
         assert true == elementVar2.check(frame_left_2, param("807", grup)) : grup;
         assert false == elementVar2.check(frame_left_2, param("800", grup)) : grup;
@@ -190,20 +169,12 @@ public class ElementTest extends ParamTest {
         assert false == elementDet2.check(frame_left_2, param("KBE58;", grup)) : grup;
 
         grup = 33001; //34001 
-        {   
+        {
             Record rec = eElement.up.newRecord();
             rec.set(eElement.signset, "KBE");
             assert true == elementDet2.check(mapParam, frame_left_2, param("KBE", grup), rec) : grup;
             assert false == elementDet2.check(mapParam, frame_left_2, param("XXX", grup), rec) : grup;
         }
-        grup = 33002;
-        assert true == elementDet2.check(frame_left_2, param("", grup)) : grup;
-
-        grup = 33003;
-        assert true == elementDet2.check(frame_left_2, param("", grup)) : grup;
-
-        grup = 33004;
-        assert true == elementDet2.check(frame_left_2, param("", grup)) : grup;
 
         grup = 33005; //31005, 33005, 37005
         assert true == elementDet2.check(frame_left_2, param("0-800;990;1009;1600-2000;", grup)) : grup;
@@ -237,35 +208,18 @@ public class ElementTest extends ParamTest {
         assert true == elementDet2.check(frame_left_2, param("КВЕ 58", grup)) : grup;
         assert false == elementDet2.check(frame_left_2, param("КП-40", grup)) : grup;
 
-        grup = 33031; //34061
-        assert true == elementDet2.check(null, param("", grup)) : grup;
-
-        grup = 33032;
-        assert true == elementDet2.check(null, param("", grup)) : grup;
-
-        grup = 33033;
-        assert true == elementDet2.check(null, param("", grup)) : grup;
-
-        grup = 33034;
-        assert true == elementDet2.check(null, param("", grup)) : grup;
-
-        grup = 33035;
-        assert true == elementDet2.check(null, param("", grup)) : grup;
-
-        grup = 33062; //34062
-        assert true == elementDet2.check(null, param("", grup)) : grup;
-
         grup = 33063; //34064
         assert true == elementDet2.check(stv_right_2, param("3-40", grup)) : grup;
         assert true == elementDet2.check(stv_right_2, param("40", grup)) : grup;
         assert false == elementDet2.check(stv_right_2, param("1-12", grup)) : grup;
-        
+
         grup = 33071;  //34071
         assert true == elementDet2.check(stv_right_2, param("1;2;3", grup)) : grup;
         assert true == elementDet2.check(stv_right_2, param("1-3", grup)) : grup;
-        assert false == elementDet2.check(stv_right_2, param("1", grup)) : grup;  
-        
-        grup = 33078;
-        assert true == elementDet2.check(null, param("", grup)) : grup;        
+        assert false == elementDet2.check(stv_right_2, param("1", grup)) : grup;
+
+        grup = 33095; //34095, 38095, 39095, 40095
+        assert true == elementDet2.check(stv_right_2, param("1;5;4;", grup)) : grup;
+        assert false == elementDet2.check(stv_right_2, param("5;4;", grup)) : grup;
     }
 }

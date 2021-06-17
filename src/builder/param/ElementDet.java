@@ -56,9 +56,11 @@ public class ElementDet extends Par5s {
                     }
                     break;
                 case 33002:  //Расчет пролетов соединений 
+                case 34002:  //Расчет пролетов соединений 
                     message(grup);
                     break;
                 case 33003:  //Расчет пролетов заполнений, мм 
+                case 34003:  //Расчет пролетов заполнений, мм 
                     message(grup);
                     break;
                 case 33004:  //Расчет от длины профиля стойки 
@@ -175,19 +177,26 @@ public class ElementDet extends Par5s {
                         return false;
                     }
                     break;
-                case 33078:  //Ставить однократно 
+                case 33073:  //Код обработки (;)
                     message(grup);
+                    break;
+                case 33074:  //На прилегающей створке
+                    message(grup);
+                    break;
+                case 33078:  //Ставить однократно 
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 33081:  //Для внешнего/внутреннего угла плоскости, ° 
                 case 34081:  //Для внешнего/внутреннего угла плоскости, °                        
                     message(grup);
                     break;
                 case 33083:  //Точный внутр. угол плоскости, ° 
-                    //нет такого парам. в ps3,4
+                case 34083:  //Точный внутр. угол плоскости, ° 
+                    message(grup);
                     break;
                 case 33088:  //Точный внешний угол плоскости, °
                 case 34088:  //Точный внешний угол плоскости, °
-                    //нет такого парам. в ps3,4
+                    message(grup);
                     break;
                 case 33095:  //Если признак системы конструкции 
                 case 34095:  //Если признак системы конструкции
@@ -203,12 +212,6 @@ public class ElementDet extends Par5s {
                 case 38099:  //Трудозатраты, ч/ч. 
                 case 39099:  //Трудозатраты, ч/ч. 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 34002:  //Расчет пролетов соединений 
-                    message(grup);
-                    break;
-                case 34003:  //Расчет пролетов заполнений, мм 
-                    message(grup);
                     break;
                 case 34010:  //Расчет армирования 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
@@ -299,9 +302,6 @@ public class ElementDet extends Par5s {
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 34072:  //Смещение от уровня деления, мм 
-                    message(grup);
-                    break;
-                case 34073:  //Отправочная марка фасада 
                     message(grup);
                     break;
                 case 34075:  //Углы реза 
