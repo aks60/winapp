@@ -1,6 +1,6 @@
 package builder.param;
 
-import builder.model.Com5t;
+import builder.Wincalc;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import common.Util;
@@ -131,4 +131,16 @@ class Uti5 {
         return Arrays.asList((ElemGlass) glass1, (ElemGlass) glass2);
     }
 
+    static boolean p_31008_34008(Float txt, Wincalc iwin) {
+        float depth = 0;
+        for (ElemSimple elem : iwin.listElem) {
+            if (elem.type() == TypeElem.GLASS) {
+                depth = (elem.artiklRecAn.getFloat(eArtikl.depth) > depth) ? elem.artiklRecAn.getFloat(eArtikl.depth) : depth;
+            }
+        }
+        if (txt != depth) {
+            return false;
+        }
+        return true;
+    }
 }

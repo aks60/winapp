@@ -7,6 +7,7 @@ import domain.eSetting;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
+import builder.making.Uti3;
 import builder.model.Com5t;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
@@ -213,8 +214,10 @@ public class ElementDet extends Par5s {
                 case 39099:  //Трудозатраты, ч/ч. 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
-                case 34008:  //Эффективное заполнение изделия, мм 
-                    message(grup);
+                case 34008: //Эффективное заполнение изделия, мм 
+                    if (Uti5.p_31008_34008(rec.getFloat(TEXT), iwin) == false) {
+                        return false;
+                    }
                     break;
                 case 34009:  //Если два присоединенных артикула 
                     message(grup);
@@ -224,7 +227,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 34012:  //Для варианта соединения Т (*)
                     message(grup);
-                    break;                    
+                    break;
                 case 34013:  //Подбор дистанционных вставок по пролетам 
                     message(grup);
                     break;

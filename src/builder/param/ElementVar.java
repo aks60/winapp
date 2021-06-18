@@ -113,18 +113,10 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31008: //Эффективное заполнение изделия, мм 
-                {
-                    float depth = 0;
-                    for (ElemSimple elem : iwin.listElem) {
-                        if (elem.type() == TypeElem.GLASS) {
-                            depth = (elem.artiklRecAn.getFloat(eArtikl.depth) > depth) ? elem.artiklRecAn.getFloat(eArtikl.depth) : depth;
-                        }
-                    }
-                    if (rec.getFloat(TEXT) != depth) {
+                    if (Uti5.p_31008_34008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
-                }
-                break;
+                    break;
                 case 31011: //Толщина внешнего/внутреннего заполнения, мм
                 {
                     List<ElemGlass> glassList = Uti5.getGlassDepth(elem5e);
@@ -265,7 +257,7 @@ public class ElementVar extends Par5s {
                     if (Uti5.dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
                         return false;
                     }
-                break;
+                    break;
                 case 31051:  //Если створка фурнитуры 
                     if (elem5e.owner().type() == TypeElem.STVORKA) {
                         if ("ведущая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) == -3) {

@@ -222,8 +222,8 @@ public class ElementTest extends ParamTest {
         assert true == elementDet2.check(stv_right_2, param("1;5;4;", grup)) : grup;
         assert false == elementDet2.check(stv_right_2, param("5;4;", grup)) : grup;
 
-//        grup = 34008; 
-//        assert true == elementDet2.check(stv_right_2, param("1;5;", grup)) : grup;
-//        assert false == elementDet2.check(stv_right_2, param("5;4;", grup)) : grup;
+        grup = 34008; 
+        assert true == elementDet2.check(null, param("30", grup)) : grup;
+        assert false == elementDet2.check(null, param("32", grup)) : grup;
     }
 }
