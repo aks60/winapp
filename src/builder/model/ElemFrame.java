@@ -13,6 +13,7 @@ import builder.making.Uti3;
 import domain.eGlasgrp;
 import enums.PKjson;
 import builder.param.ParamList;
+import domain.eSetting;
 import java.util.Arrays;
 
 public class ElemFrame extends ElemSimple {
@@ -49,15 +50,15 @@ public class ElemFrame extends ElemSimple {
         if (LayoutArea.BOTT == layout) {
             setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
             anglHoriz = 0;
-            
+
         } else if (LayoutArea.RIGHT == layout) {
             setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
-            anglHoriz = 90;  
+            anglHoriz = 90;
 
         } else if (LayoutArea.TOP == layout) {
             setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
             anglHoriz = 180;
-            
+
         } else if (LayoutArea.LEFT == layout) {
             setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
             anglHoriz = 270;
@@ -122,12 +123,24 @@ public class ElemFrame extends ElemSimple {
             } else if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
                 spcAdd.width += y2 - y1;
             }
-            if ("от внутреннего угла".equals(spcAdd.getParam(null, 34010))) {
-                Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
-                Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));
-                spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
-            }
+            if ("ps3".equals(eSetting.find(2))) {
+                if ("Да".equals(spcAdd.getParam(null, 34010))) {
+                    Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
+                    Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));
+                    spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
+                }
+            } else {
+                if ("от внутреннего угла".equals(spcAdd.getParam(null, 34010))) {
+                    Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
+                    Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));
+                    spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
 
+                } else if ("от внутреннего фальца".equals(spcAdd.getParam(null, 34010))) {
+                    Double dw1 = (artiklRec.getDbl(eArtikl.height) - artiklRec.getDbl(eArtikl.size_falz)) / Math.tan(Math.toRadians(anglCut[0]));
+                    Double dw2 = (artiklRec.getDbl(eArtikl.height) - artiklRec.getDbl(eArtikl.size_falz)) / Math.tan(Math.toRadians(anglCut[1]));
+                    spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
+                }
+            }
             //Фурнитура
         } else if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X109)) {
             if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
@@ -152,7 +165,7 @@ public class ElemFrame extends ElemSimple {
         spcAdd.width = spcAdd.width / uti3.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
         spcAdd.count = uti3.p_11070_12070_33078_34078(spcAdd); //ставить однократно
 
-        spcRec.spcList.add(spcAdd); 
+        spcRec.spcList.add(spcAdd);
     }
 
     @Override

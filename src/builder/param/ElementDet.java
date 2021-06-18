@@ -213,18 +213,18 @@ public class ElementDet extends Par5s {
                 case 39099:  //Трудозатраты, ч/ч. 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
-                case 34010:  //Расчет армирования 
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 34012:  //Для варианта соединения Т*
+                case 34008:  //Эффективное заполнение изделия, мм 
                     message(grup);
                     break;
                 case 34009:  //Если два присоединенных артикула 
                     message(grup);
                     break;
-                case 34008:  //Эффективное заполнение изделия, мм 
-                    message(grup);
+                case 34010:  //Расчет армирования 
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
+                case 34012:  //Для варианта соединения Т (*)
+                    message(grup);
+                    break;                    
                 case 34013:  //Подбор дистанционных вставок по пролетам 
                     message(grup);
                     break;
