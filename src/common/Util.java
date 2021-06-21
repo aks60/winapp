@@ -108,6 +108,46 @@ public class Util {
         if (arr.length == 1) {
             arr = arr[0].split("-");
             if (arr.length == 1) {
+                arrList.add(Float.valueOf(arr[0]));
+                arrList.add(Float.valueOf(arr[0]));
+            } else {
+                arrList.add(Float.valueOf(arr[0]));
+                arrList.add(Float.valueOf(arr[1]));
+            }
+        } else {
+            for (int index = 0; index < arr.length; index++) {
+                String[] arr2 = arr[index].split("-");
+                if (arr2.length == 1) {
+                    arrList.add(Float.valueOf(arr2[0]));
+                    arrList.add(Float.valueOf(arr2[0]));
+                } else {
+                    arrList.add(Float.valueOf(arr2[0]));
+                    arrList.add(Float.valueOf(arr2[1]));
+                }
+            }
+        }
+        for (int index = 0; index < arrList.size(); ++index) {
+            float v1 = arrList.get(index);
+            float v2 = arrList.get(++index);
+            float v3 = Float.valueOf(value.toString());
+            if (v1 <= v3 && v3 <= v2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //"180",  "30-179",  "0-89,99;90, 01-150;180, 01-269, 99;270, 01-359, 99"
+    public static boolean containsNumb2(String txt, Number value) {
+        if (txt == null || txt.isEmpty() || txt.equals("*")) {
+            return true;
+        }
+        ArrayList<Float> arrList = new ArrayList();
+        txt = txt.replace(",", ".");
+        String[] arr = txt.split(";");
+        if (arr.length == 1) {
+            arr = arr[0].split("-");
+            if (arr.length == 1) {
                 arrList.add(0f);
                 arrList.add(Float.valueOf(arr[0]));
             } else {

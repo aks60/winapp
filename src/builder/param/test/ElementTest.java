@@ -2,6 +2,7 @@ package builder.param.test;
 
 import builder.making.Color;
 import static builder.param.test.ParamTest.param;
+import common.Util;
 import dataset.Record;
 import domain.eElement;
 import java.util.HashMap;
@@ -117,7 +118,7 @@ public class ElementTest extends ParamTest {
         grup = 31095;
         assert true == elementVar4.check(stv_right_4, param("1;2;", grup)) : grup;
         assert false == elementVar4.check(stv_right_4, param("2;9", grup)) : grup;
-        
+
         grup = 37002;
         assert true == elementVar2.check(frame_left_2, param("807", grup)) : grup;
         assert false == elementVar2.check(frame_left_2, param("800", grup)) : grup;
@@ -208,10 +209,22 @@ public class ElementTest extends ParamTest {
         assert true == elementDet2.check(frame_left_2, param("КВЕ 58", grup)) : grup;
         assert false == elementDet2.check(frame_left_2, param("КП-40", grup)) : grup;
 
-        grup = 33063; //34064
+        grup = 33063; //34063
         assert true == elementDet2.check(stv_right_2, param("3-40", grup)) : grup;
         assert true == elementDet2.check(stv_right_2, param("40", grup)) : grup;
         assert false == elementDet2.check(stv_right_2, param("1-12", grup)) : grup;
+
+        grup = 33067; //34067, 38067, 39067, 40067
+        assert true == elementDet2.check(stv_right_2, param("1009", grup)) : grup;
+        assert false == elementDet2.check(stv_right_2, param("109", grup)) : grup;
+
+        grup = 33068; //34068, 38068, 39068, 40068
+        assert true == elementDet2.check(stv_right_2, param("1009", grup)) : grup;
+        assert false == elementDet2.check(stv_right_2, param("109", grup)) : grup;
+
+        grup = 33069; //34069, 38069, 39069, 40069
+        assert true == elementDet2.check(stv_right_2, param("1009", grup)) : grup;
+        assert false == elementDet2.check(stv_right_2, param("109", grup)) : grup;
 
         grup = 33071;  //34071
         assert true == elementDet2.check(stv_right_2, param("1;2;3", grup)) : grup;
@@ -222,15 +235,19 @@ public class ElementTest extends ParamTest {
         assert true == elementDet2.check(stv_right_2, param("1;5;4;", grup)) : grup;
         assert false == elementDet2.check(stv_right_2, param("5;4;", grup)) : grup;
 
-        grup = 34008; 
+        grup = 34008;
         assert true == elementDet2.check(null, param("30", grup)) : grup;
         assert false == elementDet2.check(null, param("32", grup)) : grup;
-        
-        grup = 34009; 
+
+        grup = 34009;
         assert true == elementDet3.check(frame_left_3, param("21315-04000;21316-01000", grup)) : grup;
         assert true == elementDet3.check(imp_vert_3, param("21315-04000;21315-04000", grup)) : grup;
         assert true == elementDet3.check(imp_vert_3, param("21316-01000;21315-04000;", grup)) : grup;
         assert true == elementDet3.check(stv_right_3, param("21316-05000;21315-04000;", grup)) : grup;
         assert false == elementDet3.check(stv_right_3, param("21316-X05000;21315-04000;", grup)) : grup;
+
+        grup = 33066; //34066
+        assert true == elementDet3.check(frame_left_3, param("4", grup)) : grup;
+        assert false == elementDet3.check(frame_left_3, param("1", grup)) : grup;
     }
 }

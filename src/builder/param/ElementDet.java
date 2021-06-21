@@ -166,7 +166,7 @@ public class ElementDet extends Par5s {
                     Com5t glass = elem5e.owner().listChild.stream().filter(el -> el.type() == TypeElem.GLASS).findFirst().orElse(null);
                     if (glass != null) {
                         float weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn.getFloat(eArtikl.density);
-                        if (Util.containsNumb(rec.getStr(TEXT), weight) == false) {
+                        if (Util.containsNumb2(rec.getStr(TEXT), weight) == false) {
                             return false;
                         }
                     }
@@ -274,8 +274,8 @@ public class ElementDet extends Par5s {
                 case 34064:  //Учёт поправок соединений для составов 
                     message(grup);
                     break;
-                case 34066:  //Если номер стороны в контуре 
                 case 33066:  //Если номер стороны в контуре
+                case 34066:  //Если номер стороны в контуре    
                     if (!Uti5.check_INT_33066_34066(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
@@ -319,10 +319,12 @@ public class ElementDet extends Par5s {
                 case 34072:  //Смещение от уровня деления, мм 
                     message(grup);
                     break;
-                case 34075:  //Углы реза 
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                case 34075:  //Углы реза
+                case 39075:  //Углы реза 
+                    message(grup);
                     break;
                 case 34077:  //Задать Угол_реза_1/Угол_реза_2, ° 
+                case 39077:  //Задать Угол_реза_1/Угол_реза_2, ° 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 34078:  //Ставить однократно 
@@ -390,12 +392,6 @@ public class ElementDet extends Par5s {
                     message(grup);
                     break;
                 case 39063:  //Округлять количество до ближайшего 
-                    message(grup);
-                    break;
-                case 39075:  //Углы реза 
-                    message(grup);
-                    break;
-                case 39077:  //Задать Угол_реза_1/Угол_реза_2, ° 
                     message(grup);
                     break;
                 case 39080:  //Шаг вагонки ламели, мм 
