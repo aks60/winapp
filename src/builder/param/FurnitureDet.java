@@ -60,7 +60,7 @@ public class FurnitureDet extends Par5s {
                 }
                 case 24002:  //Если артикул створки 
                 case 25002:  //Если артикул створки 
-                    if (areaStv.mapFrame.entrySet().stream().filter(el -> el.getValue().artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))).findFirst().isEmpty()) {
+                    if (areaStv.mapFrame.entrySet().stream().filter(el -> el.getValue().artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))).findFirst().orElse(null) == null) {
                         return false;
                     }
                     break;

@@ -647,7 +647,17 @@ public class Uti4 {
             record2.set(text, ParamList.find(record.getInt(0)).def());
 
         } else if (record.size() == 1) {
-            record2.set(text, record.getStr(0));
+            String val = record2.getStr(text);
+            
+            if(record.get(0) == null) {
+               record2.set(text, null);
+               
+            } else if (val != null && val.isEmpty() == false) {
+                record2.set(text, val + ";" + record.getStr(0));
+                
+            } else {
+                record2.set(text, record.getStr(0));
+            }
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Uti4.setSelectedRow(table, index);
