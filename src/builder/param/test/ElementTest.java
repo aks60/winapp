@@ -225,5 +225,12 @@ public class ElementTest extends ParamTest {
         grup = 34008; 
         assert true == elementDet2.check(null, param("30", grup)) : grup;
         assert false == elementDet2.check(null, param("32", grup)) : grup;
+        
+        grup = 34009; 
+        assert true == elementDet3.check(frame_left_3, param("21315-04000;21316-01000", grup)) : grup;
+        assert true == elementDet3.check(imp_vert_3, param("21315-04000;21315-04000", grup)) : grup;
+        assert true == elementDet3.check(imp_vert_3, param("21316-01000;21315-04000;", grup)) : grup;
+        assert true == elementDet3.check(stv_right_3, param("21316-05000;21315-04000;", grup)) : grup;
+        assert false == elementDet3.check(stv_right_3, param("21316-X05000;21315-04000;", grup)) : grup;
     }
 }

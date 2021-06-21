@@ -29,6 +29,7 @@ public class ParamTest {
     protected ElemSimple frame_left_3 = null;
     protected ElemSimple frame_right_3 = null;
     protected ElemSimple stv_right_3 = null;
+    protected ElemSimple imp_vert_3 = null;
 
     protected ElemSimple frame_left_4 = null;
     protected ElemSimple frame_right_4 = null;
@@ -69,6 +70,7 @@ public class ParamTest {
         frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
         stv_right_3 = getElem(iwin_3.rootArea, 9.2f);
+        imp_vert_3 = getElem(iwin_3.rootArea, 11.0f);       
 
         iwin_4.build(builder.script.Winscript.test(700027, false));
         iwin_4.constructiv(true);
