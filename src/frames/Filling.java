@@ -53,8 +53,8 @@ public class Filling extends javax.swing.JFrame {
     private Query qGlasgrp = new Query(eGlasgrp.values());
     private Query qGlasdet = new Query(eGlasdet.values(), eArtikl.values());
     private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values());
-    private Query qGlaspar1 = new Query(eGlaspar1.values(), eParams.values());
-    private Query qGlaspar2 = new Query(eGlaspar2.values(), eParams.values());
+    private Query qGlaspar1 = new Query(eGlaspar1.values());
+    private Query qGlaspar2 = new Query(eGlaspar2.values());
     private FilterTable filterTable = new FilterTable();
     private ListenerRecord listenerArtikl, listenerPar1, listenerPar2, listenerColor,
             listenerColvar1, listenerColvar2, listenerColvar3, listenerTypset, listenerThicknes;

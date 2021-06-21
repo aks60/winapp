@@ -491,7 +491,6 @@ public class Uti4 {
             int index = getIndexRec(table);
             Record record = query.get(index);
             record.set(0, Query.DEL);
-
             query.delete(record);
             query.removeRec(index);
             ((DefTableModel) table.getModel()).fireTableRowsDeleted(row, row);

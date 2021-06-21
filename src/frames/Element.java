@@ -56,8 +56,8 @@ public class Element extends javax.swing.JFrame {
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
-    private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
-    private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
+    private Query qElempar1 = new Query(eElempar1.values());
+    private Query qElempar2 = new Query(eElempar2.values());
     private FilterTable filterTable = null;
     private ListenerRecord listenerArtikl, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
     private String subsql = "(-1)";
