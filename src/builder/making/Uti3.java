@@ -75,7 +75,7 @@ public class Uti3 {
     }
 
     //Пог. метры
-    public float p_12050_15050_34050_34051_39020(Specific spcRec, Specific spcAdd) {
+    public float p_12050_15050_34051_39020(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) { //пог.м.
             return Util.getFloat(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
         }
@@ -134,6 +134,28 @@ public class Uti3 {
             return 1;
         } else {
             return spcAdd.count;
+        }
+    }
+
+    //Углы реза
+    public void p_12075_34075_39075(ElemSimple elem5e, Specific spcAdd) {
+        String txt = spcAdd.getParam("null", 12075, 34075, 39075);
+
+        if ("по контейнерам".equals(txt)) {
+            spcAdd.anglCut1 = elem5e.anglCut[0];
+            spcAdd.anglCut2 = elem5e.anglCut[1];
+
+        } else if ("установить (90° x 90°)".equals(txt)) {
+            spcAdd.anglCut1 = 90;
+            spcAdd.anglCut2 = 90;
+
+        } else if ("установить (90° x 45°)".equals(txt)) {
+            spcAdd.anglCut1 = 90;
+            spcAdd.anglCut2 = 45;
+
+        } else if ("установить (45° x 45°)".equals(txt)) {
+            spcAdd.anglCut1 = 45;
+            spcAdd.anglCut2 = 45;
         }
     }
 }

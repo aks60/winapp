@@ -120,7 +120,7 @@ public class ElemGlass extends ElemSimple {
 
         spcAdd.count = uti3.p_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += uti3.p_11050_14050_24050_33050_38050(this, spcAdd); //кол. ед. с шагом
-        spcAdd.width = uti3.p_12050_15050_34050_34051_39020(spcRec, spcAdd); //поправка мм
+        spcAdd.width = uti3.p_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
 
         //Стеклопакет
         if (TypeArtikl.X502.isType(spcAdd.artiklDet)) {

@@ -33,7 +33,7 @@ public class Util {
         return -1.0;
     }
 
-    //1;79-10;0-10=>[1,1,79,10,0,10]
+    //1;79-10;0-10 => [1,1,79,10,0,10]
     public static Integer[] parserInt(String txt) {
         if (txt.isEmpty()) {
             return new Integer[]{};
@@ -65,7 +65,7 @@ public class Util {
         return arrList.stream().toArray(Integer[]::new);
     }
 
-    //0.55;79,01-10;0-10=>[0.55,0.55,79.01,10.0,0.0,10.0]
+    //0.55;79,01-10;0-10 => [0.55,0.55,79.01,10.0,0.0,10.0]
     public static Float[] parserFloat(String str) {
         if (str.isEmpty()) {
             return new Float[]{};

@@ -118,6 +118,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 33017: //Код системы содержит строку 
                 case 34017: //Код системы содержит строку 
+                case 38017: //Код системы содержит строку                    
                 {
                     Record record = eSyssize.find(elem5e.artiklRec.getInt(eArtikl.syssize_id));
                     if (rec.getStr(TEXT).equals(record.getStr(eSyssize.name)) == false) {
@@ -147,14 +148,14 @@ public class ElementDet extends Par5s {
                     break;
                 case 33040:  //Порог расчета, мм 
                 case 38040:  //Порог расчета, мм     
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 33050:  //Шаг, мм 
                 case 38050:  //Шаг, мм     
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 33060:  //Количество на шаг 
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 33062:  //Если стойка удлинена 
                 case 34062:  //Если стойка удлинена 
@@ -172,108 +173,6 @@ public class ElementDet extends Par5s {
                     }
                 }
                 break;
-                case 33071:  //Контейнер типа 
-                case 34071:  //Контейнер типа
-                    if (Uti5.dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
-                        return false;
-                    }
-                    break;
-                case 33073:  //Код обработки (;)
-                    message(grup);
-                    break;
-                case 33074:  //На прилегающей створке
-                    message(grup);
-                    break;
-                case 33078:  //Ставить однократно 
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 33081:  //Для внешнего/внутреннего угла плоскости, ° 
-                case 34081:  //Для внешнего/внутреннего угла плоскости, °                        
-                    message(grup);
-                    break;
-                case 33083:  //Точный внутр. угол плоскости, ° 
-                case 34083:  //Точный внутр. угол плоскости, ° 
-                    message(grup);
-                    break;
-                case 33088:  //Точный внешний угол плоскости, °
-                case 34088:  //Точный внешний угол плоскости, °
-                    message(grup);
-                    break;
-                case 33095:  //Если признак системы конструкции 
-                case 34095:  //Если признак системы конструкции
-                case 38095:  //Если признак системы конструкции
-                case 39095:  //Если признак системы конструкции
-                case 40095:  //Если признак системы конструкции 
-                    if (!Uti5.check_STRING_33095_34095_38095_39095_40095(rec.getStr(TEXT), elem5e, iwin.nuni)) {
-                        return false;
-                    }
-                    break;
-                case 33099:  //Трудозатраты, ч/ч. 
-                case 34099:  //Трудозатраты, ч/ч.
-                case 38099:  //Трудозатраты, ч/ч. 
-                case 39099:  //Трудозатраты, ч/ч. 
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 34008: //Эффективное заполнение изделия, мм 
-                    if (Uti5.p_31008_34008(rec.getFloat(TEXT), iwin) == false) {
-                        return false;
-                    }
-                    break;
-                case 34009: //Если два присоединенных артикула 
-                {
-                    String[] arr = rec.getStr(TEXT).split(";");
-                    String code = elem5e.artiklRecAn.getStr(eArtikl.code);
-                    boolean eqv[] = {false, false, false};
-                    eqv[0] = (arr[0].equals(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) && arr[1].equals(code));//пред.артикл
-                    eqv[1] = (arr[1].equals(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code)) && arr[0].equals(code));//след.артикл
-                    if (elem5e.type() == TypeElem.STVORKA_SIDE && elem5e.joinElem(2) != null) {
-                        eqv[2] = arr[0].equals(code) && arr[1].equals(elem5e.joinElem(2).artiklRecAn.getStr(eArtikl.code));
-                    }
-                    if ((eqv[0] == true || eqv[1] == true || eqv[2] == true) == false) {
-                        return false;
-                    }
-                }
-                break;
-                case 34010:  //Расчет армирования 
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 34012:  //Для варианта соединения Т (*)
-                    message(grup);
-                    break;
-                case 34013:  //Подбор дистанционных вставок по пролетам 
-                    message(grup);
-                    break;
-                case 34015:  //Расчет длины по 
-                    message(grup);
-                    break;
-                case 34016:  //Прилегание контура створки 
-                    message(grup);
-                    break;
-                case 34030:  //[ * коэф-т ] 
-                case 39030:  //[ * коэф-т ]     
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 34049:  //Поправка по нормали от начала/конца, мм 
-                    message(grup);
-                    break;
-                case 34050:  //Поправка, мм 
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 34051:  //Поправка, мм 
-                    if (elem5e.spcRec.getParam("0", 31052).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
-                        mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    }
-                    break;
-                case 34052:  //Поправка не прямого угла импоста, мм 
-                    message(grup);
-                    break;
-                case 34060:  //Количество
-                case 39060:  //Количество
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 34064:  //Учёт поправок соединений для составов 
-                    message(grup);
-                    break;
                 case 33066:  //Если номер стороны в контуре
                 case 34066:  //Если номер стороны в контуре    
                     if (!Uti5.check_INT_33066_34066(rec.getStr(TEXT), elem5e)) {
@@ -304,7 +203,7 @@ public class ElementDet extends Par5s {
                 case 34069:  //Коды внешн. текстуры изделия 
                 case 38069:  //Коды внешн. текстуры изделия 
                 case 39069:  //Коды внешн. текстуры изделия 
-                case 40069: //Коды внешн. текстуры изделия  
+                case 40069:  //Коды внешн. текстуры изделия  
                 {
                     int c3 = elem5e.iwin().colorID3;
                     if (Util.containsNumb(rec.getStr(TEXT), c3) == false) {
@@ -312,27 +211,122 @@ public class ElementDet extends Par5s {
                     }
                 }
                 break;
+                case 33071:  //Контейнер типа 
+                case 34071:  //Контейнер типа
+                    if (Uti5.dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
+                        return false;
+                    }
+                    break;
+                case 33073:  //Код обработки (;)
+                    message(grup);
+                    break;
+                case 33074:  //На прилегающей створке
+                    message(grup);
+                    break;
+                case 33078:  //Ставить однократно 
+                case 34078:  //Ставить однократно 
+                    mapParam.put(grup, rec.getStr(TEXT));
+                    break;
+                case 33081:  //Для внешнего/внутреннего угла плоскости, ° 
+                case 34081:  //Для внешнего/внутреннего угла плоскости, °                        
+                    message(grup);
+                    break;
+                case 33083:  //Точный внутр. угол плоскости, ° 
+                case 34083:  //Точный внутр. угол плоскости, ° 
+                    message(grup);
+                    break;
+                case 33088:  //Точный внешний угол плоскости, °
+                case 34088:  //Точный внешний угол плоскости, °
+                    message(grup);
+                    break;
+                case 33095:  //Если признак системы конструкции 
+                case 34095:  //Если признак системы конструкции
+                case 38095:  //Если признак системы конструкции
+                case 39095:  //Если признак системы конструкции
+                case 40095:  //Если признак системы конструкции 
+                    if (!Uti5.check_STRING_33095_34095_38095_39095_40095(rec.getStr(TEXT), elem5e, iwin.nuni)) {
+                        return false;
+                    }
+                    break;
+                case 33099:  //Трудозатраты, ч/ч. 
+                case 34099:  //Трудозатраты, ч/ч.
+                case 38099:  //Трудозатраты, ч/ч. 
+                case 39099:  //Трудозатраты, ч/ч. 
+                    mapParam.put(grup, rec.getStr(TEXT));
+                    break;
+                case 34008: //Эффективное заполнение изделия, мм 
+                    if (Uti5.p_31008_34008(rec.getFloat(TEXT), iwin) == false) {
+                        return false;
+                    }
+                    break;
+                case 34009: //Если два присоединенных артикула 
+                {
+                    String[] arr = rec.getStr(TEXT).split(";");
+                    String code = elem5e.artiklRecAn.getStr(eArtikl.code);
+                    boolean eqv[] = {false, false, false};
+                    eqv[0] = (arr[0].equals(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) && arr[1].equals(code));//пред.артикл
+                    eqv[1] = (arr[1].equals(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code)) && arr[0].equals(code));//след.артикл
+                    if (elem5e.type() == TypeElem.STVORKA_SIDE && elem5e.joinElem(2) != null) {
+                        eqv[2] = arr[0].equals(code) && arr[1].equals(elem5e.joinElem(2).artiklRecAn.getStr(eArtikl.code));
+                    }
+                    if ((eqv[0] == true || eqv[1] == true || eqv[2] == true) == false) {
+                        return false;
+                    }
+                }
+                break;
+                case 34010:  //Расчет армирования 
+                    mapParam.put(grup, rec.getStr(TEXT));
+                    break;
+                case 34012:  //Для варианта соединения Т (*)
+                    message(grup);
+                    break;
+                case 34013:  //Подбор дистанционных вставок по пролетам 
+                    message(grup);
+                    break;
+                case 34015:  //Расчет длины по 
+                    message(grup);
+                    break;
+                case 34016:  //Прилегание контура створки 
+                    message(grup);
+                    break;
+                case 34030:  //[ * коэф-т ] 
+                case 39030:  //[ * коэф-т ]     
+                    mapParam.put(grup, rec.getStr(TEXT));
+                    break;
+                case 34049:  //Поправка по нормали от начала/конца, мм 
+                    message(grup);
+                    break;
+                case 34051:  //Поправка, мм 
+                case 39020:  //Поправка, мм 
+                    mapParam.put(grup, rec.getStr(TEXT));
+                    break;                    
+                case 34052:  //Поправка не прямого угла импоста, мм 
+                    message(grup);
+                    if (elem5e.spcRec.getParam("0", 31052).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                        mapParam.put(grup, rec.getStr(TEXT));
+                    }
+                    break;
+                case 34060:  //Количество
+                case 39060:  //Количество
+                    mapParam.put(grup, rec.getStr(TEXT));
+                    break;
+                case 34064:  //Учёт поправок соединений для составов 
+                    message(grup);
+                    break;
                 case 34070:  //Длина, мм 
                 case 39070:  //Длина, мм
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 34072:  //Смещение от уровня деления, мм 
                     message(grup);
                     break;
                 case 34075:  //Углы реза
                 case 39075:  //Углы реза 
-                    message(grup);
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 34077:  //Задать Угол_реза_1/Угол_реза_2, ° 
                 case 39077:  //Задать Угол_реза_1/Угол_реза_2, ° 
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 34078:  //Ставить однократно 
-                    if ("ps3".equals(eSetting.find(2))) {
-                        mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    } else {
-                        message(grup);
-                    }
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 34079:  //Длина подбирается из списка, мм 
                     message(grup);
@@ -347,9 +341,6 @@ public class ElementDet extends Par5s {
                     message(grup);
                     break;
                 case 38010:  //Номер стороны 
-                    message(grup);
-                    break;
-                case 38017:  //Код системы содержит строку 
                     message(grup);
                     break;
                 case 38037:  //Название фурнитуры содержит 
@@ -382,9 +373,6 @@ public class ElementDet extends Par5s {
                 case 39017:  //Код системы содержит строку 
                     message(grup);
                     break;
-                case 39020:  //Поправка, мм 
-                    mapParam.put(grup, rec.getStr(TEXT));
-                    break;
                 case 39037:  //Название фурнитуры содержит 
                     message(grup);
                     break;
@@ -401,7 +389,7 @@ public class ElementDet extends Par5s {
                     message(grup);
                     break;
                 case 39093:  //Поперечину ставить :
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(grup, rec.getStr(TEXT));
                     message(grup);
                     break;
                 case 39097:  //Трудозатраты по периметру 
