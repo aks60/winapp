@@ -180,4 +180,13 @@ class Uti3 {
             spcAdd.anglCut2 = 45;
         }
     }
+
+//    //Изменение сторон покраски
+//    void p_31090(Specific spcAdd) {
+//        if ("Да".equals(spcAdd.getParam("null", 31090))) {
+//            int color = spcAdd.colorID2;
+//            spcAdd.colorID2 = spcAdd.colorID3;
+//            spcAdd.colorID2 = color;
+//        }
+//    }
 }

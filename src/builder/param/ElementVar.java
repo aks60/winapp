@@ -314,7 +314,12 @@ public class ElementVar extends Par5s {
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 31090:  //Изменение сторон покраски 
-                    message(grup);
+                    //elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    if ("Да".equals(rec.getStr(TEXT))) {
+                        int color = elem5e.spcRec.colorID2;
+                        elem5e.spcRec.colorID2 = elem5e.spcRec.colorID3;
+                        elem5e.spcRec.colorID2 = color;
+                    }
                     break;
                 case 31095:  //Если признак системы конструкции 
                 case 37095:  //Если признак системы конструкции                    
