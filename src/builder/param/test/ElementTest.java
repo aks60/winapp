@@ -77,7 +77,7 @@ public class ElementTest extends ParamTest {
         grup = 31034;
         assert true == elementVar2.check(imp_vert_2, param("937", grup)) : grup;
 
-        grup = 31037;
+        grup = 31037; //38037, 39037, 40037
         assert true == elementVar2.check(stv_right_2, param("ROTO NT Повортные окна/двери", grup)) : grup;
         assert false == elementVar2.check(stv_right_2, param("ROTO NT Повортные", grup)) : grup;
         assert false == elementVar2.check(stv_right_2, param("ACCADO NT Повортные", grup)) : grup;

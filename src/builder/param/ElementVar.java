@@ -235,14 +235,8 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 31037:  //Название фурнитуры содержит 
-                    if (TypeElem.STVORKA == elem5e.owner().type()) {
-                        AreaStvorka stv = (AreaStvorka) elem5e.owner();
-                        String name = eFurniture.find(stv.sysfurnRec.getInt(eSysfurn.furniture_id)).getStr(eFurniture.name);
-                        if ((name.equals(rec.getStr(TEXT))) == false) {
-                            return false;
-                        }
-                    } else {
-                        return false; //если это не створка, то и название нет  
+                    if (Uti5.p_31037_38037_39037_40037(elem5e, rec.getStr(TEXT)) == false) {
+                        return false;
                     }
                     break;
                 case 31040:  //Поправка габарита накладки, мм 

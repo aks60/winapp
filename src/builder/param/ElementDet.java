@@ -203,7 +203,7 @@ public class ElementDet extends Par5s {
                 case 34069:  //Коды внешн. текстуры изделия 
                 case 38069:  //Коды внешн. текстуры изделия 
                 case 39069:  //Коды внешн. текстуры изделия 
-                case 40069:  //Коды внешн. текстуры изделия  
+                case 40069: //Коды внешн. текстуры изделия  
                 {
                     int c3 = elem5e.iwin().colorID3;
                     if (Util.containsNumb(rec.getStr(TEXT), c3) == false) {
@@ -299,7 +299,7 @@ public class ElementDet extends Par5s {
                 case 34051:  //Поправка, мм 
                 case 39020:  //Поправка, мм 
                     mapParam.put(grup, rec.getStr(TEXT));
-                    break;                    
+                    break;
                 case 34052:  //Поправка не прямого угла импоста, мм 
                     message(grup);
                     if (elem5e.spcRec.getParam("0", 31052).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
@@ -338,13 +338,19 @@ public class ElementDet extends Par5s {
                     message(grup);
                     break;
                 case 38004:  //Расчет 
-                    message(grup);
+                case 39005:  //Расчет 
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 38010:  //Номер стороны 
+                case 39002:  //Номер стороны 
                     message(grup);
                     break;
                 case 38037:  //Название фурнитуры содержит 
-                    message(grup);
+                case 39037:  //Название фурнитуры содержит 
+                case 40037:  //Название фурнитуры содержит 
+                    if (Uti5.p_31037_38037_39037_40037(elem5e, rec.getStr(TEXT)) == false) {
+                        return false;
+                    }
                     break;
                 case 38039:  //Для типа открывания 
                     message(grup);
@@ -364,16 +370,7 @@ public class ElementDet extends Par5s {
                 case 38113:  //Установить текстуру по 
                     message(grup);
                     break;
-                case 39002:  //Номер стороны 
-                    message(grup);
-                    break;
-                case 39005:  //Расчет 
-                    message(grup);
-                    break;
                 case 39017:  //Код системы содержит строку 
-                    message(grup);
-                    break;
-                case 39037:  //Название фурнитуры содержит 
                     message(grup);
                     break;
                 case 39039:  //Для типа открывания 
@@ -423,9 +420,6 @@ public class ElementDet extends Par5s {
                     message(grup);
                     break;
                 case 40017:  //Код системы содержит строку 
-                    message(grup);
-                    break;
-                case 40037:  //Название фурнитуры содержит 
                     message(grup);
                     break;
                 case 40108:  //Применять коэффициенты АКЦИИ для МЦ 

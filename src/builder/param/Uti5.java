@@ -1,12 +1,15 @@
 package builder.param;
 
 import builder.Wincalc;
+import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import common.Util;
 import dataset.Record;
 import domain.eArtikl;
+import domain.eFurniture;
 import domain.eSetting;
+import domain.eSysfurn;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutArea;
@@ -143,4 +146,18 @@ class Uti5 {
         }
         return true;
     }
+
+    static boolean p_31037_38037_39037_40037(ElemSimple elem5e, String txt) {
+        if (TypeElem.STVORKA == elem5e.owner().type()) {
+            AreaStvorka stv = (AreaStvorka) elem5e.owner();
+            String name = eFurniture.find(stv.sysfurnRec.getInt(eSysfurn.furniture_id)).getStr(eFurniture.name);
+            if ((name.equals(txt)) == false) {
+                return false;
+            }
+        } else {
+            return false; //если это не створка, то и название нет  
+        }
+        return true;
+    }
+
 }

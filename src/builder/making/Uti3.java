@@ -7,6 +7,7 @@ import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
 import common.Util;
 import domain.eSetting;
+import enums.LayoutArea;
 import enums.TypeElem;
 import java.util.List;
 
@@ -45,13 +46,34 @@ public class Uti3 {
     //Расчёт количества ед. с шагом
     public float p_11050_14050_24050_33050_38050(ElemSimple elem5e, Specific spcAdd) {
 
-        //if (UseUnit.PIE.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
         int step = Integer.valueOf(spcAdd.getParam(-1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
         if (step != -1) {
             float width_begin = Util.getFloat(spcAdd.getParam(0, 11040, 14040, 24040, 33040, 38040)); //Порог расчета, мм
             int count_step = Integer.valueOf(spcAdd.getParam(1, 11060, 14060, 24060, 33060, 38060)); //"Количество на шаг"
-            float width_next = elem5e.length() - width_begin;
+            float width_next = 0;
+            if ("null".equals(spcAdd.getParam("null", 38004, 39005))) {
+                width_next = elem5e.width() - width_begin;
 
+            } else if ("по периметру".equals(spcAdd.getParam("null", 38004, 39005))) {
+                width_next = (elem5e.width() * 2 + elem5e.height() * 2) - width_begin;
+
+            } else if ("по площади".equals(spcAdd.getParam("null", 38004, 39005))) {
+                width_next = elem5e.width() * elem5e.height() - width_begin;
+
+            } else if ("длина по коробке".equals(spcAdd.getParam("null", 38004, 39005))
+                    && "null".equals(spcAdd.getParam("null", 38010, 39002))) {
+                float length = 0;
+                if("1".equals(spcAdd.getParam("null", 38010, 39002))) {
+                    length = elem5e.iwin().rootArea.mapFrame.get(LayoutArea.BOTT).length();
+                } else if("2".equals(spcAdd.getParam("null", 38010, 39002))) {
+                    length = elem5e.iwin().rootArea.mapFrame.get(LayoutArea.RIGHT).length();
+                } else if("3".equals(spcAdd.getParam("null", 38010, 39002))) {
+                    length = elem5e.iwin().rootArea.mapFrame.get(LayoutArea.TOP).length();
+                } else if("4".equals(spcAdd.getParam("null", 38010, 39002))) {
+                    length = elem5e.iwin().rootArea.mapFrame.get(LayoutArea.LEFT).length();
+                }
+                width_next = length - width_begin;
+            }
             int count = (int) width_next / step;
             if (count_step == 1) {
                 if (count < 1) {
@@ -64,7 +86,6 @@ public class Uti3 {
                 return ((width_next % step) % (step / count_step) > 0) ? count2 * count_step + count3 + 1 : count2 * count_step + count3;
             }
         }
-        //}
         return 0;
     }
 
