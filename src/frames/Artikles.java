@@ -153,7 +153,7 @@ public class Artikles extends javax.swing.JFrame {
             @Override
             public void load(Integer index) {
                 super.load(index);
-                Record artiklRec = qArtikl.get(Uti.getIndexRec(tab1));
+                Record artiklRec = qArtikl.get(Uti5.getIndexRec(tab1));
                 Record seriesRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == artiklRec.getInt(eArtikl.series_id)).findFirst().orElse(eGroups.up.newRecord());
                 Record currenc1Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc1_id))).findFirst().orElse(eCurrenc.up.newRecord());
                 Record currenc2Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc2_id))).findFirst().orElse(eCurrenc.up.newRecord());
@@ -220,11 +220,11 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.depth, txt46);
         rsvArtikl.add(eArtikl.len_unit, txt48);
 
-        Uti.buttonCellEditor(tab2, 0).addActionListener(event -> {
+        Uti5.buttonCellEditor(tab2, 0).addActionListener(event -> {
             DicColor frame = new DicColor(this, listenerColor);
         });
 
-        Uti.buttonCellEditor(tab2, 1).addActionListener(event -> {
+        Uti5.buttonCellEditor(tab2, 1).addActionListener(event -> {
             DicColor frame = new DicColor(this, listenerColor);
         });
     }
@@ -232,13 +232,13 @@ public class Artikles extends javax.swing.JFrame {
     public void listenerSet() {
 
         listenerSeries = (record) -> {
-            int rowQuery = Uti.getIndexRec(tab1);
+            int rowQuery = Uti5.getIndexRec(tab1);
             if (rowQuery != -1) {
                 Record artiklRec = qArtikl.get(rowQuery);
                 artiklRec.set(eArtikl.series_id, record.get(eGroups.id));
                 rsvArtikl.load();
             }
-            Uti.stopCellEditing(tab1, tab2);
+            Uti5.stopCellEditing(tab1, tab2);
         };
 
         listenerSeriesFilter = (record) -> {
@@ -256,54 +256,54 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerAnalog = (record) -> {
-            int index = Uti.getIndexRec(tab1);
+            int index = Uti5.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.analog_id, record.get(eArtikl.id));
                 rsvArtikl.load();
-                Uti.stopCellEditing(tab1, tab2);
+                Uti5.stopCellEditing(tab1, tab2);
             }
         };
 
         listenerColor = (record) -> {
             if (tab2.getBorder() != null) {
                 if (eGroups.values().length == record.size()) {
-                    qArtdet.set(-1 * record.getInt(eGroups.id), Uti.getIndexRec(tab2), eArtdet.color_fk);
+                    qArtdet.set(-1 * record.getInt(eGroups.id), Uti5.getIndexRec(tab2), eArtdet.color_fk);
 
                 } else if (eColor.values().length == record.size()) {
-                    qArtdet.set(record.getInt(eColor.id), Uti.getIndexRec(tab2), eArtdet.color_fk);
+                    qArtdet.set(record.getInt(eColor.id), Uti5.getIndexRec(tab2), eArtdet.color_fk);
                 }
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Uti.stopCellEditing(tab1, tab2);
+                Uti5.stopCellEditing(tab1, tab2);
             }
         };
 
         listenerUnit = (record) -> {
-            Uti.listenerEnums(record, tab1, eArtikl.unit, tab1, tab2);
+            Uti5.listenerEnums(record, tab1, eArtikl.unit, tab1, tab2);
         };
 
         listenerCurrenc1 = (record) -> {
-            int index = Uti.getIndexRec(tab1);
+            int index = Uti5.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.currenc1_id, record.get(eCurrenc.id));
                 rsvArtikl.load();
             }
-            Uti.stopCellEditing(tab1, tab2);
+            Uti5.stopCellEditing(tab1, tab2);
         };
 
         listenerCurrenc2 = (record) -> {
-            int index = Uti.getIndexRec(tab1);
+            int index = Uti5.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.currenc2_id, record.get(eCurrenc.id));
                 rsvArtikl.load();
             }
-            Uti.stopCellEditing(tab1, tab2);
+            Uti5.stopCellEditing(tab1, tab2);
         };
 
         listenerSyssize = (record) -> {
-            int index = Uti.getIndexRec(tab1);
+            int index = Uti5.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.syssize_id, record.get(eSyssize.id));
@@ -311,37 +311,37 @@ public class Artikles extends javax.swing.JFrame {
                     artiklRec.set(eArtikl.size_falz, record.get(eSyssize.falz));
                 }
                 rsvArtikl.load();
-                Uti.stopCellEditing(tab1, tab2);
+                Uti5.stopCellEditing(tab1, tab2);
             }
         };
 
         listenerArtincr = (record) -> {
-            int index = Uti.getIndexRec(tab1);
+            int index = Uti5.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.artgrp1_id, record.get(eGroups.id));
                 rsvArtikl.load();
-                Uti.stopCellEditing(tab1, tab2);
+                Uti5.stopCellEditing(tab1, tab2);
             }
         };
 
         listenerArtdecr = (record) -> {
-            int index = Uti.getIndexRec(tab1);
+            int index = Uti5.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.artgrp2_id, record.get(eGroups.id));
                 rsvArtikl.load();
-                Uti.stopCellEditing(tab1, tab2);
+                Uti5.stopCellEditing(tab1, tab2);
             }
         };
 
         listenerCateg = (record) -> {
-            int index = Uti.getIndexRec(tab1);
+            int index = Uti5.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 artiklRec.set(eArtikl.artgrp3_id, record.get(eGroups.id));
                 rsvArtikl.load();
-                Uti.stopCellEditing(tab1, tab2);
+                Uti5.stopCellEditing(tab1, tab2);
             }
         };
     }
@@ -383,11 +383,11 @@ public class Artikles extends javax.swing.JFrame {
 
     private void selectionTree() {
 
-        Uti.stopCellEditing(tab1, tab2);
+        Uti5.stopCellEditing(tab1, tab2);
         Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
         rsvArtikl.clear();
-        Uti.clearTable(tab1, tab2);
-        Uti.stopCellEditing(tab1, tab2);
+        Uti5.clearTable(tab1, tab2);
+        Uti5.stopCellEditing(tab1, tab2);
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (node != null) {
             TypeArtikl e = (TypeArtikl) node.getUserObject();
@@ -406,15 +406,15 @@ public class Artikles extends javax.swing.JFrame {
                     + "  подтип: " + ((TypeArtikl) node.getUserObject()).id2 : "");
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         }
-        Uti.setSelectedRow(tab1);
+        Uti5.setSelectedRow(tab1);
 
     }
 
     private void selectionTab1(ListSelectionEvent event) {
 
-        Uti.stopCellEditing(tab2);
+        Uti5.stopCellEditing(tab2);
         Arrays.asList(qArtdet).forEach(q -> q.execsql());
-        int index = Uti.getIndexRec(tab1);
+        int index = Uti5.getIndexRec(tab1);
         if (index != -1) {
             Record record = qArtikl.get(index);
 
@@ -427,7 +427,7 @@ public class Artikles extends javax.swing.JFrame {
             rsvArtikl.load();
             checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Uti.setSelectedRow(tab2);
+            Uti5.setSelectedRow(tab2);
         }
     }
 
@@ -448,8 +448,8 @@ public class Artikles extends javax.swing.JFrame {
         for (int index = 0; index < qArtikl.size(); ++index) {
             int id = qArtikl.getAs(index, eArtikl.id);
             if (id == artiklRec.getInt(eArtikl.id)) {
-                Uti.setSelectedRow(tab1, index);
-                Uti.scrollRectToRow(index, tab1);
+                Uti5.setSelectedRow(tab1, index);
+                Uti5.scrollRectToRow(index, tab1);
             }
         }
     }
@@ -855,7 +855,7 @@ public class Artikles extends javax.swing.JFrame {
 
         scrTree.setBorder(null);
 
-        tree.setFont(frames.Uti.getFont(0,0));
+        tree.setFont(frames.Uti5.getFont(0,0));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Мат. ценности");
         javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Профили");
@@ -876,7 +876,7 @@ public class Artikles extends javax.swing.JFrame {
         pan5.setPreferredSize(new java.awt.Dimension(280, 500));
         pan5.setLayout(new java.awt.BorderLayout());
 
-        tab1.setFont(frames.Uti.getFont(0,0));
+        tab1.setFont(frames.Uti5.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "111", null, null, null, null, null},
@@ -943,7 +943,7 @@ public class Artikles extends javax.swing.JFrame {
         pan91.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan91.add(filler4);
 
-        lab13.setFont(frames.Uti.getFont(0,0));
+        lab13.setFont(frames.Uti5.getFont(0,0));
         lab13.setText("Длина");
         lab13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab13.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -956,7 +956,7 @@ public class Artikles extends javax.swing.JFrame {
         pan91.add(txt1);
         pan91.add(filler3);
 
-        lab14.setFont(frames.Uti.getFont(0,0));
+        lab14.setFont(frames.Uti5.getFont(0,0));
         lab14.setText("Ширина");
         lab14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab14.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -969,7 +969,7 @@ public class Artikles extends javax.swing.JFrame {
         pan91.add(txt2);
         pan91.add(filler5);
 
-        lab15.setFont(frames.Uti.getFont(0,0));
+        lab15.setFont(frames.Uti5.getFont(0,0));
         lab15.setText("Толщина");
         lab15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab15.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -987,7 +987,7 @@ public class Artikles extends javax.swing.JFrame {
         pan98.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan98.add(filler13);
 
-        lab30.setFont(frames.Uti.getFont(0,0));
+        lab30.setFont(frames.Uti5.getFont(0,0));
         lab30.setText("Система констант");
         lab30.setToolTipText("");
         lab30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1019,7 +1019,7 @@ public class Artikles extends javax.swing.JFrame {
         pan99.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan99.add(filler14);
 
-        lab28.setFont(frames.Uti.getFont(0,0));
+        lab28.setFont(frames.Uti5.getFont(0,0));
         lab28.setText("Наплав, полка(N)");
         lab28.setToolTipText("");
         lab28.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1033,7 +1033,7 @@ public class Artikles extends javax.swing.JFrame {
         pan99.add(txt15);
         pan99.add(filler16);
 
-        lab21.setFont(frames.Uti.getFont(0,0));
+        lab21.setFont(frames.Uti5.getFont(0,0));
         lab21.setText("Фурн. паз (F)");
         lab21.setToolTipText("");
         lab21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1052,7 +1052,7 @@ public class Artikles extends javax.swing.JFrame {
         pan100.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan100.add(filler15);
 
-        lab29.setFont(frames.Uti.getFont(0,0));
+        lab29.setFont(frames.Uti5.getFont(0,0));
         lab29.setText("Толщ. наплава(T) ");
         lab29.setToolTipText("");
         lab29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1066,7 +1066,7 @@ public class Artikles extends javax.swing.JFrame {
         pan100.add(txt16);
         pan100.add(filler23);
 
-        lab33.setFont(frames.Uti.getFont(0,0));
+        lab33.setFont(frames.Uti5.getFont(0,0));
         lab33.setText("От края до оси (B)");
         lab33.setToolTipText("");
         lab33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1084,7 +1084,7 @@ public class Artikles extends javax.swing.JFrame {
         pan102.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan102.add(filler17);
 
-        lab16.setFont(frames.Uti.getFont(0,0));
+        lab16.setFont(frames.Uti5.getFont(0,0));
         lab16.setText("Уд.вес кг/ед");
         lab16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab16.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1097,7 +1097,7 @@ public class Artikles extends javax.swing.JFrame {
         pan102.add(txt4);
         pan102.add(filler24);
 
-        labl17.setFont(frames.Uti.getFont(0,0));
+        labl17.setFont(frames.Uti5.getFont(0,0));
         labl17.setText("Ед.измерения");
         labl17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         labl17.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1105,7 +1105,7 @@ public class Artikles extends javax.swing.JFrame {
         labl17.setPreferredSize(new java.awt.Dimension(98, 18));
         pan102.add(labl17);
 
-        txt5.setFont(frames.Uti.getFont(0,0));
+        txt5.setFont(frames.Uti5.getFont(0,0));
         txt5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt5.setFocusable(false);
         txt5.setPreferredSize(new java.awt.Dimension(44, 18));
@@ -1129,7 +1129,7 @@ public class Artikles extends javax.swing.JFrame {
         pan103.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan103.add(filler18);
 
-        lab27.setFont(frames.Uti.getFont(0,0));
+        lab27.setFont(frames.Uti5.getFont(0,0));
         lab27.setText("С уплотнением");
         lab27.setToolTipText("");
         lab27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1150,7 +1150,7 @@ public class Artikles extends javax.swing.JFrame {
         pan103.add(checkBox1);
         pan103.add(filler25);
 
-        lab20.setFont(frames.Uti.getFont(0,0));
+        lab20.setFont(frames.Uti5.getFont(0,0));
         lab20.setText("Толщина фрезы");
         lab20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab20.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1168,7 +1168,7 @@ public class Artikles extends javax.swing.JFrame {
         pan101.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan101.add(filler22);
 
-        lab24.setFont(frames.Uti.getFont(0,0));
+        lab24.setFont(frames.Uti5.getFont(0,0));
         lab24.setText("Мин. радиус гиба");
         lab24.setToolTipText("");
         lab24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1187,7 +1187,7 @@ public class Artikles extends javax.swing.JFrame {
         pan92.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan92.add(filler6);
 
-        lab19.setFont(frames.Uti.getFont(0,0));
+        lab19.setFont(frames.Uti5.getFont(0,0));
         lab19.setText("Валюта");
         lab19.setToolTipText("");
         lab19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1196,7 +1196,7 @@ public class Artikles extends javax.swing.JFrame {
         lab19.setPreferredSize(new java.awt.Dimension(98, 18));
         pan92.add(lab19);
 
-        txt7.setFont(frames.Uti.getFont(0,0));
+        txt7.setFont(frames.Uti5.getFont(0,0));
         txt7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt7.setFocusable(false);
         txt7.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1216,7 +1216,7 @@ public class Artikles extends javax.swing.JFrame {
         pan92.add(btn7);
         pan92.add(filler21);
 
-        txt17.setFont(frames.Uti.getFont(0,0));
+        txt17.setFont(frames.Uti5.getFont(0,0));
         txt17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt17.setFocusable(false);
         txt17.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1241,7 +1241,7 @@ public class Artikles extends javax.swing.JFrame {
         pan93.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan93.add(filler7);
 
-        lab31.setFont(frames.Uti.getFont(0,0));
+        lab31.setFont(frames.Uti5.getFont(0,0));
         lab31.setText("Наценки (коэф)");
         lab31.setToolTipText("");
         lab31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1267,7 +1267,7 @@ public class Artikles extends javax.swing.JFrame {
         pan93.add(btn19);
         pan93.add(filler8);
 
-        lab32.setFont(frames.Uti.getFont(0,0));
+        lab32.setFont(frames.Uti5.getFont(0,0));
         lab32.setText("Скидка (%)");
         lab32.setToolTipText("");
         lab32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1304,7 +1304,7 @@ public class Artikles extends javax.swing.JFrame {
         pan94.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan94.add(filler9);
 
-        lab34.setFont(frames.Uti.getFont(0,0));
+        lab34.setFont(frames.Uti5.getFont(0,0));
         lab34.setText("Категория");
         lab34.setToolTipText("");
         lab34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1348,7 +1348,7 @@ public class Artikles extends javax.swing.JFrame {
         pan95.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan95.add(filler10);
 
-        lab22.setFont(frames.Uti.getFont(0,0));
+        lab22.setFont(frames.Uti5.getFont(0,0));
         lab22.setText("Серия профилей");
         lab22.setToolTipText("");
         lab22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1392,7 +1392,7 @@ public class Artikles extends javax.swing.JFrame {
         pan96.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan96.add(filler11);
 
-        lab23.setFont(frames.Uti.getFont(0,0));
+        lab23.setFont(frames.Uti5.getFont(0,0));
         lab23.setText("Аналог профиля");
         lab23.setToolTipText("");
         lab23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1424,7 +1424,7 @@ public class Artikles extends javax.swing.JFrame {
         pan97.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan97.add(filler12);
 
-        lab26.setFont(frames.Uti.getFont(0,0));
+        lab26.setFont(frames.Uti5.getFont(0,0));
         lab26.setText("Технолог- ий код");
         lab26.setToolTipText("");
         lab26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1443,7 +1443,7 @@ public class Artikles extends javax.swing.JFrame {
         pan104.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan104.add(filler19);
 
-        lab52.setFont(frames.Uti.getFont(0,0));
+        lab52.setFont(frames.Uti5.getFont(0,0));
         lab52.setText("Подставщик");
         lab52.setToolTipText("");
         lab52.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1491,7 +1491,7 @@ public class Artikles extends javax.swing.JFrame {
         pan11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan11.add(filler26);
 
-        lab36.setFont(frames.Uti.getFont(0,0));
+        lab36.setFont(frames.Uti5.getFont(0,0));
         lab36.setText("Валюта");
         lab36.setToolTipText("");
         lab36.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1500,7 +1500,7 @@ public class Artikles extends javax.swing.JFrame {
         lab36.setPreferredSize(new java.awt.Dimension(98, 18));
         pan11.add(lab36);
 
-        txt25.setFont(frames.Uti.getFont(0,0));
+        txt25.setFont(frames.Uti5.getFont(0,0));
         txt25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt25.setFocusable(false);
         txt25.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1520,7 +1520,7 @@ public class Artikles extends javax.swing.JFrame {
         pan11.add(btn9);
         pan11.add(filler34);
 
-        txt24.setFont(frames.Uti.getFont(0,0));
+        txt24.setFont(frames.Uti5.getFont(0,0));
         txt24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt24.setFocusable(false);
         txt24.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1545,7 +1545,7 @@ public class Artikles extends javax.swing.JFrame {
         pan12.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan12.add(filler27);
 
-        lab37.setFont(frames.Uti.getFont(0,0));
+        lab37.setFont(frames.Uti5.getFont(0,0));
         lab37.setText("Наценки (коэф)");
         lab37.setToolTipText("");
         lab37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1571,7 +1571,7 @@ public class Artikles extends javax.swing.JFrame {
         pan12.add(btn23);
         pan12.add(filler33);
 
-        lab38.setFont(frames.Uti.getFont(0,0));
+        lab38.setFont(frames.Uti5.getFont(0,0));
         lab38.setText("Скидка (%)");
         lab38.setToolTipText("");
         lab38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1602,7 +1602,7 @@ public class Artikles extends javax.swing.JFrame {
         pan18.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan18.add(filler31);
 
-        lab18.setFont(frames.Uti.getFont(0,0));
+        lab18.setFont(frames.Uti5.getFont(0,0));
         lab18.setText("Уд.вес кг/ед");
         lab18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab18.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1615,7 +1615,7 @@ public class Artikles extends javax.swing.JFrame {
         pan18.add(txt6);
         pan18.add(filler38);
 
-        lab42.setFont(frames.Uti.getFont(0,0));
+        lab42.setFont(frames.Uti5.getFont(0,0));
         lab42.setText("Ед.изм.");
         lab42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab42.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1653,7 +1653,7 @@ public class Artikles extends javax.swing.JFrame {
         pan13.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan13.add(filler29);
 
-        lab40.setFont(frames.Uti.getFont(0,0));
+        lab40.setFont(frames.Uti5.getFont(0,0));
         lab40.setText("Категория");
         lab40.setToolTipText("");
         lab40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1697,7 +1697,7 @@ public class Artikles extends javax.swing.JFrame {
         pan17.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan17.add(filler30);
 
-        lab41.setFont(frames.Uti.getFont(0,0));
+        lab41.setFont(frames.Uti5.getFont(0,0));
         lab41.setText("Серия профилей");
         lab41.setToolTipText("");
         lab41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1741,7 +1741,7 @@ public class Artikles extends javax.swing.JFrame {
         pan19.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan19.add(filler32);
 
-        lab39.setFont(frames.Uti.getFont(0,0));
+        lab39.setFont(frames.Uti5.getFont(0,0));
         lab39.setText("Поставщик");
         lab39.setToolTipText("");
         lab39.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1789,7 +1789,7 @@ public class Artikles extends javax.swing.JFrame {
         pan20.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan20.add(filler35);
 
-        lab54.setFont(frames.Uti.getFont(0,0));
+        lab54.setFont(frames.Uti5.getFont(0,0));
         lab54.setText("Длина");
         lab54.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab54.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1802,7 +1802,7 @@ public class Artikles extends javax.swing.JFrame {
         pan20.add(txt48);
         pan20.add(filler44);
 
-        lab55.setFont(frames.Uti.getFont(0,0));
+        lab55.setFont(frames.Uti5.getFont(0,0));
         lab55.setText("Ширина");
         lab55.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab55.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1821,7 +1821,7 @@ public class Artikles extends javax.swing.JFrame {
         pan28.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan28.add(filler43);
 
-        lab56.setFont(frames.Uti.getFont(0,0));
+        lab56.setFont(frames.Uti5.getFont(0,0));
         lab56.setText("Толщина");
         lab56.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab56.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1834,7 +1834,7 @@ public class Artikles extends javax.swing.JFrame {
         pan28.add(txt46);
         pan28.add(filler49);
 
-        lab49.setFont(frames.Uti.getFont(0,0));
+        lab49.setFont(frames.Uti5.getFont(0,0));
         lab49.setText("Уд.вес кг/ед");
         lab49.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab49.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1852,7 +1852,7 @@ public class Artikles extends javax.swing.JFrame {
         pan21.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan21.add(filler36);
 
-        lab43.setFont(frames.Uti.getFont(0,0));
+        lab43.setFont(frames.Uti5.getFont(0,0));
         lab43.setText("Валюта");
         lab43.setToolTipText("");
         lab43.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1861,7 +1861,7 @@ public class Artikles extends javax.swing.JFrame {
         lab43.setPreferredSize(new java.awt.Dimension(98, 18));
         pan21.add(lab43);
 
-        txt32.setFont(frames.Uti.getFont(0,0));
+        txt32.setFont(frames.Uti5.getFont(0,0));
         txt32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt32.setFocusable(false);
         txt32.setPreferredSize(new java.awt.Dimension(44, 18));
@@ -1881,7 +1881,7 @@ public class Artikles extends javax.swing.JFrame {
         pan21.add(btn26);
         pan21.add(filler46);
 
-        txt33.setFont(frames.Uti.getFont(0,0));
+        txt33.setFont(frames.Uti5.getFont(0,0));
         txt33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt33.setFocusable(false);
         txt33.setPreferredSize(new java.awt.Dimension(50, 18));
@@ -1906,7 +1906,7 @@ public class Artikles extends javax.swing.JFrame {
         pan22.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan22.add(filler37);
 
-        lab44.setFont(frames.Uti.getFont(0,0));
+        lab44.setFont(frames.Uti5.getFont(0,0));
         lab44.setText("Наценки (коэф)");
         lab44.setToolTipText("");
         lab44.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1933,7 +1933,7 @@ public class Artikles extends javax.swing.JFrame {
         pan22.add(btn27);
         pan22.add(filler47);
 
-        lab45.setFont(frames.Uti.getFont(0,0));
+        lab45.setFont(frames.Uti5.getFont(0,0));
         lab45.setText("Скидка (%)");
         lab45.setToolTipText("");
         lab45.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1964,7 +1964,7 @@ public class Artikles extends javax.swing.JFrame {
         pan26.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan26.add(filler41);
 
-        lab50.setFont(frames.Uti.getFont(0,0));
+        lab50.setFont(frames.Uti5.getFont(0,0));
         lab50.setText("Ед.измерения");
         lab50.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab50.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1972,7 +1972,7 @@ public class Artikles extends javax.swing.JFrame {
         lab50.setPreferredSize(new java.awt.Dimension(98, 18));
         pan26.add(lab50);
 
-        txt40.setFont(frames.Uti.getFont(0,0));
+        txt40.setFont(frames.Uti5.getFont(0,0));
         txt40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt40.setFocusable(false);
         txt40.setPreferredSize(new java.awt.Dimension(44, 18));
@@ -1991,7 +1991,7 @@ public class Artikles extends javax.swing.JFrame {
         pan26.add(btn33);
         pan26.add(filler48);
 
-        lab35.setFont(frames.Uti.getFont(0,0));
+        lab35.setFont(frames.Uti5.getFont(0,0));
         lab35.setText("Толщина фрезы");
         lab35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab35.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -2024,7 +2024,7 @@ public class Artikles extends javax.swing.JFrame {
         pan24.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan24.add(filler39);
 
-        lab47.setFont(frames.Uti.getFont(0,0));
+        lab47.setFont(frames.Uti5.getFont(0,0));
         lab47.setText("Категория");
         lab47.setToolTipText("");
         lab47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -2068,7 +2068,7 @@ public class Artikles extends javax.swing.JFrame {
         pan25.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan25.add(filler40);
 
-        lab48.setFont(frames.Uti.getFont(0,0));
+        lab48.setFont(frames.Uti5.getFont(0,0));
         lab48.setText("Серия профилей");
         lab48.setToolTipText("");
         lab48.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -2112,7 +2112,7 @@ public class Artikles extends javax.swing.JFrame {
         pan27.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         pan27.add(filler42);
 
-        lab51.setFont(frames.Uti.getFont(0,0));
+        lab51.setFont(frames.Uti5.getFont(0,0));
         lab51.setText("Поставщик");
         lab51.setToolTipText("");
         lab51.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -2150,7 +2150,7 @@ public class Artikles extends javax.swing.JFrame {
 
         scr2.setBorder(null);
 
-        tab2.setFont(frames.Uti.getFont(0,0));
+        tab2.setFont(frames.Uti5.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null},
@@ -2235,7 +2235,7 @@ public class Artikles extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Uti.stopCellEditing(tab1, tab2);
+        Uti5.stopCellEditing(tab1, tab2);
         Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
@@ -2244,7 +2244,7 @@ public class Artikles extends javax.swing.JFrame {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
             if (node != null && node.isLeaf()) {
                 TypeArtikl typeArtikl = (TypeArtikl) node.getUserObject();
-                Uti.insertRecord(tab1, eArtikl.up, (record) -> {
+                Uti5.insertRecord(tab1, eArtikl.up, (record) -> {
                     record.setNo(eArtikl.level1, typeArtikl.id1);
                     record.setNo(eArtikl.level2, typeArtikl.id2);
                 });
@@ -2253,7 +2253,7 @@ public class Artikles extends javax.swing.JFrame {
 
         } else if (tab2.getBorder() != null) {
 
-            int index = Uti.getIndexRec(tab1);
+            int index = Uti5.getIndexRec(tab1);
             if (index != -1) {
                 Record artiklRec = qArtikl.get(index);
                 Record artdetRec = eArtdet.up.newRecord(Query.INS);
@@ -2261,7 +2261,7 @@ public class Artikles extends javax.swing.JFrame {
                 artdetRec.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
                 qArtdet.add(artdetRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Uti.scrollRectToRow(tab2.getSelectedRow() - 1, tab2);
+                Uti5.scrollRectToRow(tab2.getSelectedRow() - 1, tab2);
             }
         }
     }//GEN-LAST:event_btnInsert
@@ -2269,12 +2269,12 @@ public class Artikles extends javax.swing.JFrame {
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
         if (tab1.getBorder() != null) {
-            if (Uti.isDeleteRecord(this, tab2) == 0) {
-                Uti.deleteRecord(tab1);
+            if (Uti5.isDeleteRecord(this, tab2) == 0) {
+                Uti5.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (Uti.isDeleteRecord(this) == 0) {
-                Uti.deleteRecord(tab2);
+            if (Uti5.isDeleteRecord(this) == 0) {
+                Uti5.deleteRecord(tab2);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -2301,7 +2301,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn7
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-        Uti.updateBorderAndSql((JTable) evt.getSource(), Arrays.asList(tab1, tab2));
+        Uti5.updateBorderAndSql((JTable) evt.getSource(), Arrays.asList(tab1, tab2));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
@@ -2310,7 +2310,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn11
 
     private void btn8(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8
-        int index = Uti.getIndexRec(tab1);
+        int index = Uti5.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.series_id);
             new DicGroups(this, listenerSeriesFilter, TypeGroups.SERI_PROF, id);
@@ -2318,14 +2318,14 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn8
 
     private void checkBox1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox1Action
-        int index = Uti.getIndexRec(tab1);
+        int index = Uti5.getIndexRec(tab1);
         Record artiklRec = qArtikl.get(index);
         int with_seal = (checkBox1.isSelected()) ? 1 : 0;
         artiklRec.set(eArtikl.with_seal, with_seal);
     }//GEN-LAST:event_checkBox1Action
 
     private void btn5(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5
-        int index = Uti.getIndexRec(tab1);
+        int index = Uti5.getIndexRec(tab1);
         Record artiklRec = qArtikl.get(index);
         if (artiklRec.getInt(eArtikl.level1) == 1) {
             new DicEnums(this, listenerUnit, UseUnit.METR);
@@ -2351,7 +2351,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn5
 
     private void btn18(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn18
-        int index = Uti.getIndexRec(tab1);
+        int index = Uti5.getIndexRec(tab1);
         if (index != -1) {
             Record artiklRec = qArtikl.get(index);
             new Syssize(this, listenerSyssize, artiklRec.getInt(eArtikl.syssize_id));
@@ -2361,7 +2361,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn18
 
     private void btn19(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn19
-        int index = Uti.getIndexRec(tab1);
+        int index = Uti5.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.artgrp1_id);
             new DicGroups(this, listenerArtincr, TypeGroups.PRICE_INC, id);
@@ -2369,7 +2369,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn19
 
     private void btn20(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn20
-        int index = Uti.getIndexRec(tab1);
+        int index = Uti5.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.artgrp1_id);
             new DicGroups(this, listenerArtdecr, TypeGroups.PRICE_DEC, id);
@@ -2377,7 +2377,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn20
 
     private void btn13(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn13
-        int index = Uti.getIndexRec(tab1);
+        int index = Uti5.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.series_id);
             new DicGroups(this, listenerCategFilter, TypeGroups.CATEG_PRF, id);
@@ -2385,7 +2385,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn13
 
     private void btn22(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn22
-        int index = Uti.getIndexRec(tab1);
+        int index = Uti5.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.artgrp3_id);
             new DicGroups(this, listenerCateg, TypeGroups.CATEG_PRF, id);
@@ -2393,7 +2393,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn22
 
     private void btnMove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMove
-        int index = Uti.getIndexRec(tab1);
+        int index = Uti5.getIndexRec(tab1);
         if (index != -1) {
             Record artiklRec = qArtikl.get(index);
             List list = new LinkedList();
@@ -2412,7 +2412,7 @@ public class Artikles extends javax.swing.JFrame {
                         artiklRec.setNo(eArtikl.level2, enam.id2);
                         ((DefTableModel) tab1.getModel()).getQuery().update(artiklRec);
                         selectionTree();
-                        Uti.setSelectedRow(tab1, index);
+                        Uti5.setSelectedRow(tab1, index);
                     }
                 }
             }
@@ -2424,7 +2424,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn34
 
     private void btn37(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn37
-        int index = Uti.getIndexRec(tab1);
+        int index = Uti5.getIndexRec(tab1);
         if (index != -1) {
             int id = qArtikl.getAs(index, eArtikl.series_id);
             new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF, id);
@@ -2672,17 +2672,17 @@ public class Artikles extends javax.swing.JFrame {
         south.add(filterTable, 0);        
         filterTable.getTxt().grabFocus();   
         
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti.stopCellEditing(tab1, tab2)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti5.stopCellEditing(tab1, tab2)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
         scrTree.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti.getFont(0, 0)));
+                "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Свойства артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti.getFont(0, 0)));
+                "Свойства артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Текстура артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti.getFont(0, 0)));
+                "Текстура артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
         tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {

@@ -12,11 +12,11 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import java.util.List;
 
-class Uti {
+class Uti3 {
 
     protected ElemSimple elem5e = null;
 
-    Uti(ElemSimple elem5e) {
+    Uti3(ElemSimple elem5e) {
         this.elem5e = elem5e;
     }
 

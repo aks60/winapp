@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Uti;
+import frames.Uti5;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtdet;
@@ -62,8 +62,8 @@ public class ParColor2 extends javax.swing.JDialog {
         tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.id, eGroups.name));
 
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Uti.setSelectedRow(tab1);
-        Uti.setSelectedRow(tab2);
+        Uti5.setSelectedRow(tab1);
+        Uti5.setSelectedRow(tab2);
     }
 
     @SuppressWarnings("unchecked")
@@ -310,11 +310,11 @@ public class ParColor2 extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         if (btnCard1.isSelected() == true) {
             Record record = new Record(2);
-            record.add(tab1.getModel().getValueAt(Uti.getIndexRec(tab1), 0));
-            record.add(tab1.getModel().getValueAt(Uti.getIndexRec(tab1), 1));
+            record.add(tab1.getModel().getValueAt(Uti5.getIndexRec(tab1), 0));
+            record.add(tab1.getModel().getValueAt(Uti5.getIndexRec(tab1), 1));
             listener.action(record);
         } else {
-            Record record = qGroups.get(Uti.getIndexRec(tab2));
+            Record record = qGroups.get(Uti5.getIndexRec(tab2));
             listener.action(record);
         }
         this.dispose();

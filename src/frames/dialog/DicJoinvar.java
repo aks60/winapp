@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Uti;
+import frames.Uti5;
 import dataset.Record;
 import enums.TypeJoin;
 import java.awt.Component;
@@ -47,7 +47,7 @@ public class DicJoinvar extends javax.swing.JDialog {
                 return label;
             }
         });
-        Uti.setSelectedRow(tab1);
+        Uti5.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")

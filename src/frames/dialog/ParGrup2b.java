@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Uti;
+import frames.Uti5;
 import dataset.Record;
 import java.util.List;
 import java.util.Vector;
@@ -191,7 +191,7 @@ public class ParGrup2b extends javax.swing.JDialog {
 
     private void btnChouce(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChouce
         Record record = new Record(1);
-        record.add(tab1.getModel().getValueAt(Uti.getIndexRec(tab1), 0));
+        record.add(tab1.getModel().getValueAt(Uti5.getIndexRec(tab1), 0));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChouce
