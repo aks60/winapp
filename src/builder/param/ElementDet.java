@@ -7,7 +7,7 @@ import domain.eSetting;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.making.Uti3;
+import builder.model.Uti3;
 import builder.model.Com5t;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
@@ -353,6 +353,7 @@ public class ElementDet extends Par5s {
                     }
                     break;
                 case 38039:  //Для типа открывания 
+                case 39039:  //Для типа открывания 
                     message(grup);
                     break;
                 case 38060:  //Количество на шаг 
@@ -371,9 +372,6 @@ public class ElementDet extends Par5s {
                     message(grup);
                     break;
                 case 39017:  //Код системы содержит строку 
-                    message(grup);
-                    break;
-                case 39039:  //Для типа открывания 
                     message(grup);
                     break;
                 case 39063:  //Округлять количество до ближайшего 

@@ -1,5 +1,6 @@
-package builder.making;
+package builder.model;
 
+import builder.making.Specific;
 import domain.eArtikl;
 import builder.param.ParamList;
 import enums.UseUnit;

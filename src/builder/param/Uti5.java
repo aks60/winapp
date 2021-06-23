@@ -105,10 +105,12 @@ class Uti5 {
         return true;
     }
 
+    //Перспектива
     static boolean p_13081_13082_13086_13087(ElemSimple elem5e, String txt) {
         return true;
     }
 
+    //Толщина внешнего/внутреннего заполнения, мм
     static List<ElemGlass> getGlassDepth(ElemSimple elem5e) {
         ElemSimple glass1 = null, glass2 = null;
         for (ElemSimple el : elem5e.iwin().listElem) {
@@ -134,6 +136,7 @@ class Uti5 {
         return Arrays.asList((ElemGlass) glass1, (ElemGlass) glass2);
     }
 
+    //Эффективное заполнение изделия, мм 
     static boolean p_31008_34008(Float txt, Wincalc iwin) {
         float depth = 0;
         for (ElemSimple elem : iwin.listElem) {
@@ -147,6 +150,7 @@ class Uti5 {
         return true;
     }
 
+    //Название фурнитуры содержит 
     static boolean p_31037_38037_39037_40037(ElemSimple elem5e, String txt) {
         if (TypeElem.STVORKA == elem5e.owner().type()) {
             AreaStvorka stv = (AreaStvorka) elem5e.owner();
@@ -157,6 +161,12 @@ class Uti5 {
         } else {
             return false; //если это не створка, то и название нет  
         }
+        return true;
+    }
+
+    //Для типа открывания
+    static boolean p_1039_38039_39039_(ElemSimple elem5e, String txt) {
+            //"фрамуга", "поворотное", "поворотно-откидное", "раздвижное"
         return true;
     }
 

@@ -7,7 +7,7 @@ import domain.eSystree;
 import enums.TypeElem;
 import java.util.List;
 import builder.Wincalc;
-import builder.making.Uti3;
+import builder.model.Uti3;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import domain.eSetting;
