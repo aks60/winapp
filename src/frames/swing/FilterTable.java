@@ -2,7 +2,7 @@ package frames.swing;
 
 import dataset.Field;
 import dataset.Query;
-import frames.Uti4;
+import frames.Uti;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -133,8 +133,8 @@ public class FilterTable extends javax.swing.JPanel {
                     for (int index = 0; index < query.size(); ++index) {
 
                         if (query.table(field).get(index).getStr(field).startsWith(txtFilter.getText())) {
-                            Uti4.setSelectedRow(table, index);
-                            Uti4.scrollRectToIndex(index, table);
+                            Uti.setSelectedRow(table, index);
+                            Uti.scrollRectToIndex(index, table);
                             return;
                         }
                     }
@@ -143,8 +143,8 @@ public class FilterTable extends javax.swing.JPanel {
                     for (int index = 0; index < dtm.getDataVector().size(); ++index) {
                         Vector vector = dtm.getDataVector().get(index);
                         if (String.valueOf(vector.get(indexColumn)).startsWith(txtFilter.getText())) {
-                            Uti4.setSelectedRow(table, index);
-                            Uti4.scrollRectToIndex(index, table);
+                            Uti.setSelectedRow(table, index);
+                            Uti.scrollRectToIndex(index, table);
                             return;
                         }
                     }
@@ -154,7 +154,7 @@ public class FilterTable extends javax.swing.JPanel {
                 indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
                 String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
                 ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
-                Uti4.setSelectedRow(table);
+                Uti.setSelectedRow(table);
             }
         }
     }//GEN-LAST:event_txtCaretUpdate

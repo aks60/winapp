@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Uti4;
+import frames.Uti;
 import enums.Enam;
 import dataset.Field;
 import dataset.Query;
@@ -72,9 +72,9 @@ public class ParGrup2 extends javax.swing.JDialog {
         }
         tab2.setModel(new DefTableModel(tab2, qParams, eParams.id, eParams.id, eParams.text));
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        Uti4.setSelectedRow(tab1);
-        Uti4.setSelectedRow(tab2);
-        Uti4.setSelectedRow(tab3);
+        Uti.setSelectedRow(tab1);
+        Uti.setSelectedRow(tab2);
+        Uti.setSelectedRow(tab3);
     }
 
     @SuppressWarnings("unchecked")
@@ -375,11 +375,11 @@ public class ParGrup2 extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         if (btnCard1.isSelected() == true) {
             Record record = new Record(2);
-            record.add(tab1.getModel().getValueAt(Uti4.getIndexRec(tab1), 0));
-            record.add(tab1.getModel().getValueAt(Uti4.getIndexRec(tab1), 1));
+            record.add(tab1.getModel().getValueAt(Uti.getIndexRec(tab1), 0));
+            record.add(tab1.getModel().getValueAt(Uti.getIndexRec(tab1), 1));
             listener.action(record);
         } else {
-            listener.action(qParams.get(Uti4.getIndexRec(tab2)));
+            listener.action(qParams.get(Uti.getIndexRec(tab2)));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
@@ -450,11 +450,11 @@ public class ParGrup2 extends javax.swing.JDialog {
     private void initElements() {
 
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры системы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
+                "Параметры системы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры пользователя", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
+                "Параметры пользователя", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры системы (перспектива)", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
+                "Параметры системы (перспектива)", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti.getFont(0, 0)));
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

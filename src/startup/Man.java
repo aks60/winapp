@@ -3,7 +3,7 @@ package startup;
 import builder.Wincalc;
 import frames.FrameProgress;
 import frames.FrameToFile;
-import frames.Uti4;
+import frames.Uti;
 import java.awt.Frame;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -81,14 +81,14 @@ public class Man extends javax.swing.JFrame {
         pan1 = new javax.swing.JPanel();
         btn2 = new javax.swing.JButton();
 
-        ppmMain.setFont(frames.Uti4.getFont(1,1));
+        ppmMain.setFont(frames.Uti.getFont(1,1));
 
         mn10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn10.setText("Установки");
         mn10.setToolTipText("");
-        mn10.setFont(frames.Uti4.getFont(1,1));
+        mn10.setFont(frames.Uti.getFont(1,1));
 
-        mn11.setFont(frames.Uti4.getFont(1,1));
+        mn11.setFont(frames.Uti.getFont(1,1));
         mn11.setText("Текст ячейки");
         mn11.setName("1"); // NOI18N
         mn11.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +98,7 @@ public class Man extends javax.swing.JFrame {
         });
         mn10.add(mn11);
 
-        mn12.setFont(frames.Uti4.getFont(1,1));
+        mn12.setFont(frames.Uti.getFont(1,1));
         mn12.setText("Целое число");
         mn12.setName("2"); // NOI18N
         mn12.addActionListener(new java.awt.event.ActionListener() {
@@ -112,10 +112,10 @@ public class Man extends javax.swing.JFrame {
 
         mn60.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         mn60.setText("База данных");
-        mn60.setFont(frames.Uti4.getFont(1,1));
+        mn60.setFont(frames.Uti.getFont(1,1));
 
         buttonBaseGroup.add(mn61);
-        mn61.setFont(frames.Uti4.getFont(1,1));
+        mn61.setFont(frames.Uti.getFont(1,1));
         mn61.setSelected(true);
         mn61.setText("База 1");
         mn61.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +126,7 @@ public class Man extends javax.swing.JFrame {
         mn60.add(mn61);
 
         buttonBaseGroup.add(mn62);
-        mn62.setFont(frames.Uti4.getFont(1,1));
+        mn62.setFont(frames.Uti.getFont(1,1));
         mn62.setText("База 2");
         mn62.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,7 +136,7 @@ public class Man extends javax.swing.JFrame {
         mn60.add(mn62);
 
         buttonBaseGroup.add(mn63);
-        mn63.setFont(frames.Uti4.getFont(1,1));
+        mn63.setFont(frames.Uti.getFont(1,1));
         mn63.setText("База 3");
         mn63.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,11 +149,11 @@ public class Man extends javax.swing.JFrame {
 
         mn20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b061.gif"))); // NOI18N
         mn20.setText("Вид интерфейса");
-        mn20.setFont(frames.Uti4.getFont(1,1));
+        mn20.setFont(frames.Uti.getFont(1,1));
         ppmMain.add(mn20);
         ppmMain.add(sep1);
 
-        mn30.setFont(frames.Uti4.getFont(1,1));
+        mn30.setFont(frames.Uti.getFont(1,1));
         mn30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b009.gif"))); // NOI18N
         mn30.setText("Выход");
         mn30.addActionListener(new java.awt.event.ActionListener() {
@@ -195,7 +195,7 @@ public class Man extends javax.swing.JFrame {
 
         pan8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
 
-        btn5.setFont(frames.Uti4.getFont(0,1));
+        btn5.setFont(frames.Uti.getFont(0,1));
         btn5.setText("Контрагенты");
         btn5.setActionCommand("");
         btn5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -210,7 +210,7 @@ public class Man extends javax.swing.JFrame {
         pan8.add(btn5);
         btn5.getAccessibleContext().setAccessibleName("");
 
-        btn6.setFont(frames.Uti4.getFont(0,1));
+        btn6.setFont(frames.Uti.getFont(0,1));
         btn6.setText("Заказы");
         btn6.setActionCommand("");
         btn6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -225,7 +225,7 @@ public class Man extends javax.swing.JFrame {
         pan8.add(btn6);
         btn6.getAccessibleContext().setAccessibleName("");
 
-        btn7.setFont(frames.Uti4.getFont(0,1));
+        btn7.setFont(frames.Uti.getFont(0,1));
         btn7.setText("Спецификация");
         btn7.setActionCommand("");
         btn7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -245,7 +245,7 @@ public class Man extends javax.swing.JFrame {
         pan2.setPreferredSize(new java.awt.Dimension(100, 30));
         pan2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
 
-        btn13.setFont(frames.Uti4.getFont(0,1));
+        btn13.setFont(frames.Uti.getFont(0,1));
         btn13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b009.gif"))); // NOI18N
         btn13.setText("Выход");
         btn13.setActionCommand("");
@@ -270,7 +270,7 @@ public class Man extends javax.swing.JFrame {
 
         pan7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
 
-        btn3.setFont(frames.Uti4.getFont(0,1));
+        btn3.setFont(frames.Uti.getFont(0,1));
         btn3.setText("Статусы");
         btn3.setActionCommand("");
         btn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -286,7 +286,7 @@ public class Man extends javax.swing.JFrame {
         btn3.getAccessibleContext().setAccessibleName("");
         btn3.getAccessibleContext().setAccessibleDescription("");
 
-        btn4.setFont(frames.Uti4.getFont(0,1));
+        btn4.setFont(frames.Uti.getFont(0,1));
         btn4.setText("Категории");
         btn4.setActionCommand("");
         btn4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -301,7 +301,7 @@ public class Man extends javax.swing.JFrame {
         pan7.add(btn4);
         btn4.getAccessibleContext().setAccessibleName("");
 
-        btn11.setFont(frames.Uti4.getFont(0,1));
+        btn11.setFont(frames.Uti.getFont(0,1));
         btn11.setText("Xxxxx");
         btn11.setActionCommand("");
         btn11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -321,7 +321,7 @@ public class Man extends javax.swing.JFrame {
         pan10.setPreferredSize(new java.awt.Dimension(100, 30));
         pan10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
 
-        btn12.setFont(frames.Uti4.getFont(0,1));
+        btn12.setFont(frames.Uti.getFont(0,1));
         btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b009.gif"))); // NOI18N
         btn12.setText("Выход");
         btn12.setActionCommand("");
@@ -346,7 +346,7 @@ public class Man extends javax.swing.JFrame {
 
         pan9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
 
-        btn8.setFont(frames.Uti4.getFont(0,1));
+        btn8.setFont(frames.Uti.getFont(0,1));
         btn8.setText("Спецификация");
         btn8.setActionCommand("");
         btn8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -361,7 +361,7 @@ public class Man extends javax.swing.JFrame {
         pan9.add(btn8);
         btn8.getAccessibleContext().setAccessibleName("");
 
-        btn9.setFont(frames.Uti4.getFont(0,1));
+        btn9.setFont(frames.Uti.getFont(0,1));
         btn9.setText("Смета");
         btn9.setActionCommand("");
         btn9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -376,7 +376,7 @@ public class Man extends javax.swing.JFrame {
         pan9.add(btn9);
         btn9.getAccessibleContext().setAccessibleName("");
 
-        btn10.setFont(frames.Uti4.getFont(0,1));
+        btn10.setFont(frames.Uti.getFont(0,1));
         btn10.setText("Счёт-фактура");
         btn10.setActionCommand("");
         btn10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -396,7 +396,7 @@ public class Man extends javax.swing.JFrame {
         pan11.setPreferredSize(new java.awt.Dimension(100, 30));
         pan11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 2));
 
-        btn14.setFont(frames.Uti4.getFont(0,1));
+        btn14.setFont(frames.Uti.getFont(0,1));
         btn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b009.gif"))); // NOI18N
         btn14.setText("Выход");
         btn14.setActionCommand("");
@@ -429,7 +429,7 @@ public class Man extends javax.swing.JFrame {
         pan1.setPreferredSize(new java.awt.Dimension(106, 10));
         pan1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 2));
 
-        btn2.setFont(frames.Uti4.getFont(0,1));
+        btn2.setFont(frames.Uti.getFont(0,1));
         btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b008.gif"))); // NOI18N
         btn2.setText("Календарь");
         btn2.setActionCommand("");
@@ -596,14 +596,14 @@ public class Man extends javax.swing.JFrame {
 // </editor-fold>
     
     private void initElements() {
-        setTitle(eProfile.profile.title + Uti4.designTitle());
+        setTitle(eProfile.profile.title + Uti.designTitle());
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             JCheckBoxMenuItem mnIt = new javax.swing.JCheckBoxMenuItem();
             buttonLookAndFiilGroup.add(mnIt);
             hmLookAndFill.put(laf.getName(), mnIt);
             mn20.add(mnIt);
-            mnIt.setFont(frames.Uti4.getFont(1, 1));
+            mnIt.setFont(frames.Uti.getFont(1, 1));
             mnIt.setText(laf.getName());
             mnIt.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {

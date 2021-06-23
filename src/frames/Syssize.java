@@ -43,7 +43,7 @@ public class Syssize extends javax.swing.JFrame {
         this.listener = listener;
         for (int i = 0; i < qSyssize.size(); i++) {
             if (qSyssize.get(i).getInt(eSyssize.id) == id) {
-                Uti4.setSelectedRow(tab1, i);
+                Uti.setSelectedRow(tab1, i);
             }
         }
         btnChoice.setVisible(true);
@@ -60,7 +60,7 @@ public class Syssize extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(2).setCellEditor(new DefCellEditor(3));
         tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditor(3));
         tab1.getColumnModel().getColumn(4).setCellEditor(new DefCellEditor(3));
-        Uti4.setSelectedRow(tab1);
+        Uti.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")
@@ -301,26 +301,26 @@ public class Syssize extends javax.swing.JFrame {
         qSyssize.execsql();
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Uti4.setSelectedRow(tab1);
+        Uti.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
-            if (Uti4.isDeleteRecord(this) == 0) {
-                Uti4.deleteRecord(tab1);
+            if (Uti.isDeleteRecord(this) == 0) {
+                Uti.deleteRecord(tab1);
             }
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            Uti4.insertRecord(tab1, eSyssize.up, (record) -> {
+            Uti.insertRecord(tab1, eSyssize.up, (record) -> {
             });
         }
     }//GEN-LAST:event_btnInsert
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int index = Uti4.getIndexRec(tab1);
+        int index = Uti.getIndexRec(tab1);
         if (index != -1) {
             listener.action(qSyssize.get(index));
         }
@@ -328,7 +328,7 @@ public class Syssize extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChoice
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Uti4.stopCellEditing(tab1);
+        Uti.stopCellEditing(tab1);
         qSyssize.execsql();
         if (owner != null)
             owner.setEnabled(true);
@@ -340,7 +340,7 @@ public class Syssize extends javax.swing.JFrame {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        Uti4.updateBorderAndSql(table, Arrays.asList(tab1));
+        Uti.updateBorderAndSql(table, Arrays.asList(tab1));
     }//GEN-LAST:event_mousePressed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -363,8 +363,8 @@ public class Syssize extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti.stopCellEditing(tab1)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Системные константы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
+                "Системные константы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti.getFont(0, 0)));
     }
 }

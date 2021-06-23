@@ -206,99 +206,99 @@ public class Element extends javax.swing.JFrame {
         DefCellBoolRenderer br = new DefCellBoolRenderer();
         Arrays.asList(6, 7).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
         
-        Uti4.setSelectedRow(tab1);
+        Uti.setSelectedRow(tab1);
     }
 
     private void listenerAdd() {
-        Uti4.buttonCellEditor(tab2, 0).addActionListener(event -> {
-            int level = qGrCateg.getAs(Uti4.getIndexRec(tab1), eGroups.npp);
+        Uti.buttonCellEditor(tab2, 0).addActionListener(event -> {
+            int level = qGrCateg.getAs(Uti.getIndexRec(tab1), eGroups.npp);
             DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
         });
 
-        Uti4.buttonCellEditor(tab2, 1).addActionListener(event -> {
-            int level = qGrCateg.getAs(Uti4.getIndexRec(tab1), eGroups.npp);
+        Uti.buttonCellEditor(tab2, 1).addActionListener(event -> {
+            int level = qGrCateg.getAs(Uti.getIndexRec(tab1), eGroups.npp);
             DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
         });
 
-        Uti4.buttonCellEditor(tab2, 3).addActionListener(event -> {
+        Uti.buttonCellEditor(tab2, 3).addActionListener(event -> {
             DicTypset frame = new DicTypset(this, listenerTypset);
         });
 
-        Uti4.buttonCellEditor(tab2, 5).addActionListener(event -> {
-            int index = Uti4.getIndexRec(tab2);
+        Uti.buttonCellEditor(tab2, 5).addActionListener(event -> {
+            int index = Uti.getIndexRec(tab2);
             if (index != -1) {
                 int id = qElement.getAs(index, eElement.series_id);
                 new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF, id);
             }
         });
 
-        Uti4.buttonCellEditor(tab3, 0).addActionListener(event -> {
+        Uti.buttonCellEditor(tab3, 0).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
-        Uti4.buttonCellEditor(tab3, 1).addActionListener(event -> {
+        Uti.buttonCellEditor(tab3, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
-        Uti4.buttonCellEditor(tab3, 2).addActionListener(event -> {
-            Record record = qElemdet.get(Uti4.getIndexRec(tab3));
+        Uti.buttonCellEditor(tab3, 2).addActionListener(event -> {
+            Record record = qElemdet.get(Uti.getIndexRec(tab3));
             int artikl_id = record.getInt(eElemdet.artikl_id);
             ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
         });
 
-        Uti4.buttonCellEditor(tab3, 3).addActionListener(event -> {
-            Record record = qElemdet.get(Uti4.getIndexRec(tab3));
+        Uti.buttonCellEditor(tab3, 3).addActionListener(event -> {
+            Record record = qElemdet.get(Uti.getIndexRec(tab3));
             int colorFk = record.getInt(eElemdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar1, colorFk);
         });
 
-        Uti4.buttonCellEditor(tab3, 4).addActionListener(event -> {
-            Record record = qElemdet.get(Uti4.getIndexRec(tab3));
+        Uti.buttonCellEditor(tab3, 4).addActionListener(event -> {
+            Record record = qElemdet.get(Uti.getIndexRec(tab3));
             int colorFk = record.getInt(eElemdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar2, colorFk);
         });
 
-        Uti4.buttonCellEditor(tab3, 5).addActionListener(event -> {
-            Record record = qElemdet.get(Uti4.getIndexRec(tab3));
+        Uti.buttonCellEditor(tab3, 5).addActionListener(event -> {
+            Record record = qElemdet.get(Uti.getIndexRec(tab3));
             int colorFk = record.getInt(eElemdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar3, colorFk);
         });
 
-        Uti4.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            int index = Uti4.getIndexRec(tab1);
+        Uti.buttonCellEditor(tab4, 0).addActionListener(event -> {
+            int index = Uti.getIndexRec(tab1);
             if (index != -1) {
                 Record record = qGrCateg.get(index);
                 int paramPart = record.getInt(eGroups.npp);
                 paramPart = (paramPart == 1) ? 31000 : 37000;
                 ParGrup2 frame = new ParGrup2(this, (rec) -> {
 
-                    Uti4.listenerParam(rec, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+                    Uti.listenerParam(rec, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, eParams.elem, paramPart);
             }
         });
 
-        Uti4.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return Uti4.listenerCell(tab4, component, eElempar1.params_id);
+        Uti.buttonCellEditor(tab4, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return Uti.listenerCell(tab4, component, eElempar1.params_id);
 
         }).addActionListener(event -> {
-            Record record = qElempar1.get(Uti4.getIndexRec(tab4));
+            Record record = qElempar1.get(Uti.getIndexRec(tab4));
             int grup = record.getInt(eElempar1.params_id);
             if (grup < 0) {
                 new ParGrup2a(this, (rec) -> {
-                    Uti4.listenerParam(rec, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+                    Uti.listenerParam(rec, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParGrup2b(this, (rec) -> {
-                    Uti4.listenerParam(rec, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+                    Uti.listenerParam(rec, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, list);
             }
         });
 
-        Uti4.buttonCellEditor(tab5, 0).addActionListener(event -> {
-            int index = Uti4.getIndexRec(tab3);
+        Uti.buttonCellEditor(tab5, 0).addActionListener(event -> {
+            int index = Uti.getIndexRec(tab3);
             if (index != -1) {
-                int levelGrp = qGrCateg.getAs(Uti4.getIndexRec(tab1), eGroups.npp);
+                int levelGrp = qGrCateg.getAs(Uti.getIndexRec(tab1), eGroups.npp);
                 Record recordDet = qElemdet.get(index);
                 int artikl_id = recordDet.getInt(eJoindet.artikl_id);
                 Record recordArt = eArtikl.find(artikl_id, false);
@@ -307,25 +307,25 @@ public class Element extends javax.swing.JFrame {
                 Integer[] part2 = {0, 39000, 38000, 39000, 38000, 40000, 0};
                 int grup = (levelGrp == 1) ? part1[level] : part2[level];
                 ParGrup2 frame = new ParGrup2(this, (rec) -> {
-                    Uti4.listenerParam(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
+                    Uti.listenerParam(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, eParams.elem, grup);
             }
         });
 
-        Uti4.buttonCellEditor(tab5, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return Uti4.listenerCell(tab5, component, eElempar2.params_id);
+        Uti.buttonCellEditor(tab5, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return Uti.listenerCell(tab5, component, eElempar2.params_id);
 
         }).addActionListener(event -> {
-            Record record = qElempar2.get(Uti4.getIndexRec(tab5));
+            Record record = qElempar2.get(Uti.getIndexRec(tab5));
             int grup = record.getInt(eElempar2.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, (rec) -> {
-                    Uti4.listenerParam(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
+                    Uti.listenerParam(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 ParGrup2b frame = new ParGrup2b(this, (rec) -> {
-                    Uti4.listenerParam(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
+                    Uti.listenerParam(rec, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, list);
             }
         });
@@ -334,87 +334,87 @@ public class Element extends javax.swing.JFrame {
     private void listenerSet() {
 
         listenerTypset = (record) -> {
-            Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Uti.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int index = Uti4.getIndexRec(tab2);
-                qElement.set(record.getInt(0), Uti4.getIndexRec(tab2), eElement.typset);
+                int index = Uti.getIndexRec(tab2);
+                qElement.set(record.getInt(0), Uti.getIndexRec(tab2), eElement.typset);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Uti4.setSelectedRow(tab2, index);
+                Uti.setSelectedRow(tab2, index);
             }
         };
 
         listenerArtikl = (record) -> {
-            Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Uti.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int index = Uti4.getIndexRec(tab2);
-                qElement.set(record.getInt(eArtikl.id), Uti4.getIndexRec(tab2), eElement.artikl_id);
-                qElement.table(eArtikl.up).set(record.get(eArtikl.name), Uti4.getIndexRec(tab2), eArtikl.name);
-                qElement.table(eArtikl.up).set(record.get(eArtikl.code), Uti4.getIndexRec(tab2), eArtikl.code);
+                int index = Uti.getIndexRec(tab2);
+                qElement.set(record.getInt(eArtikl.id), Uti.getIndexRec(tab2), eElement.artikl_id);
+                qElement.table(eArtikl.up).set(record.get(eArtikl.name), Uti.getIndexRec(tab2), eArtikl.name);
+                qElement.table(eArtikl.up).set(record.get(eArtikl.code), Uti.getIndexRec(tab2), eArtikl.code);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Uti4.setSelectedRow(tab2, index);
+                Uti.setSelectedRow(tab2, index);
 
             } else if (tab3.getBorder() != null) {
-                int index = Uti4.getIndexRec(tab3);
-                qElemdet.set(record.getInt(eArtikl.id), Uti4.getIndexRec(tab3), eElemdet.artikl_id);
-                qElemdet.table(eArtikl.up).set(record.get(eArtikl.name), Uti4.getIndexRec(tab3), eArtikl.name);
-                qElemdet.table(eArtikl.up).set(record.get(eArtikl.code), Uti4.getIndexRec(tab3), eArtikl.code);
+                int index = Uti.getIndexRec(tab3);
+                qElemdet.set(record.getInt(eArtikl.id), Uti.getIndexRec(tab3), eElemdet.artikl_id);
+                qElemdet.table(eArtikl.up).set(record.get(eArtikl.name), Uti.getIndexRec(tab3), eArtikl.name);
+                qElemdet.table(eArtikl.up).set(record.get(eArtikl.code), Uti.getIndexRec(tab3), eArtikl.code);
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Uti4.setSelectedRow(tab3, index);
+                Uti.setSelectedRow(tab3, index);
             }
         };
 
         listenerSeries = (record) -> {
-            Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Uti.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int index = Uti4.getIndexRec(tab2);
+                int index = Uti.getIndexRec(tab2);
                 int series_id = record.getInt(eGroups.id);
-                qElement.set(series_id, Uti4.getIndexRec(tab2), eElement.series_id);
+                qElement.set(series_id, Uti.getIndexRec(tab2), eElement.series_id);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Uti4.setSelectedRow(tab2, index);
+                Uti.setSelectedRow(tab2, index);
             }
         };
 
         listenerColor = (record) -> {
-            Uti4.listenerColor(record, tab3, eElemdet.color_fk, eElemdet.types, tab1, tab2, tab3, tab4, tab5);
+            Uti.listenerColor(record, tab3, eElemdet.color_fk, eElemdet.types, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColvar1 = (record) -> {
-            Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int index = Uti4.getIndexRec(tab3);
-            Record elemdetRec = qElemdet.get(Uti4.getIndexRec(tab3));
+            Uti.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int index = Uti.getIndexRec(tab3);
+            Record elemdetRec = qElemdet.get(Uti.getIndexRec(tab3));
             int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
             types = (types & 0xfffffff0) + record.getInt(0);
             elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab3, index);
+            Uti.setSelectedRow(tab3, index);
         };
 
         listenerColvar2 = (record) -> {
-            Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int index = Uti4.getIndexRec(tab3);
-            Record elemdetRec = qElemdet.get(Uti4.getIndexRec(tab3));
+            Uti.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int index = Uti.getIndexRec(tab3);
+            Record elemdetRec = qElemdet.get(Uti.getIndexRec(tab3));
             int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab3, index);
+            Uti.setSelectedRow(tab3, index);
         };
 
         listenerColvar3 = (record) -> {
-            Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int index = Uti4.getIndexRec(tab3);
-            Record elemdetRec = qElemdet.get(Uti4.getIndexRec(tab3));
+            Uti.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int index = Uti.getIndexRec(tab3);
+            Record elemdetRec = qElemdet.get(Uti.getIndexRec(tab3));
             int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
             elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab3, index);
+            Uti.setSelectedRow(tab3, index);
         };
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        Uti4.clearTable(tab2, tab3, tab4, tab5);
-        int index = Uti4.getIndexRec(tab1);
+        Uti.clearTable(tab2, tab3, tab4, tab5);
+        int index = Uti.getIndexRec(tab1);
         if (index != -1) {
             Record record = qGrCateg.get(index);
             Integer id = record.getInt(eGroups.id);
@@ -436,13 +436,13 @@ public class Element extends javax.swing.JFrame {
                 }
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab2);
+            Uti.setSelectedRow(tab2);
         }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        Uti4.clearTable(tab3, tab4, tab5);
-        int index = Uti4.getIndexRec(tab2);
+        Uti.clearTable(tab3, tab4, tab5);
+        int index = Uti.getIndexRec(tab2);
         if (index != -1) {
             Record record = qElement.table(eElement.up).get(index);
             Integer p1 = record.getInt(eElement.id);
@@ -450,13 +450,13 @@ public class Element extends javax.swing.JFrame {
             qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.params_id, "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab3);
-            Uti4.setSelectedRow(tab4);
+            Uti.setSelectedRow(tab3);
+            Uti.setSelectedRow(tab4);
         }
     }
 
     private void selectionTab3(ListSelectionEvent event) {
-        int index = Uti4.getIndexRec(tab3);
+        int index = Uti.getIndexRec(tab3);
         if (index != -1) {
             //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Arrays.asList(qElempar2).forEach(q -> q.execsql());
@@ -464,7 +464,7 @@ public class Element extends javax.swing.JFrame {
             Integer p1 = record.getInt(eElemdet.id);
             qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.id, "=", eElempar2.params_id, "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab5);
+            Uti.setSelectedRow(tab5);
         }
     }
 
@@ -475,10 +475,10 @@ public class Element extends javax.swing.JFrame {
             qDet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", element_id);
             for (int index2 = 0; index2 < qDet.size(); index2++) {
                 if (qDet.get(index2).getInt(eElemdet.id) == deteilID) {
-                    Uti4.setSelectedRow(tab2, index);
-                    Uti4.scrollRectToRow(index, tab2);
-                    Uti4.setSelectedRow(tab3, index2);
-                    Uti4.scrollRectToRow(index2, tab3);
+                    Uti.setSelectedRow(tab2, index);
+                    Uti.scrollRectToRow(index, tab2);
+                    Uti.setSelectedRow(tab3, index2);
+                    Uti.scrollRectToRow(index2, tab3);
                 }
             }
         }
@@ -914,29 +914,29 @@ public class Element extends javax.swing.JFrame {
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Uti4.setSelectedRow(tab1);
+        Uti.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
-            if (Uti4.isDeleteRecord(this, tab2) == 0) {
-                Uti4.deleteRecord(tab1);
+            if (Uti.isDeleteRecord(this, tab2) == 0) {
+                Uti.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (Uti4.isDeleteRecord(this, tab3, tab4) == 0) {
-                Uti4.deleteRecord(tab2);
+            if (Uti.isDeleteRecord(this, tab3, tab4) == 0) {
+                Uti.deleteRecord(tab2);
             }
         } else if (tab3.getBorder() != null) {
-            if (Uti4.isDeleteRecord(this, tab5) == 0) {
-                Uti4.deleteRecord(tab3);
+            if (Uti.isDeleteRecord(this, tab5) == 0) {
+                Uti.deleteRecord(tab3);
             }
         } else if (tab4.getBorder() != null) {
-            if (Uti4.isDeleteRecord(this) == 0) {
-                Uti4.deleteRecord(tab4);
+            if (Uti.isDeleteRecord(this) == 0) {
+                Uti.deleteRecord(tab4);
             }
         } else if (tab5.getBorder() != null) {
-            if (Uti4.isDeleteRecord(this) == 0) {
-                Uti4.deleteRecord(tab5);
+            if (Uti.isDeleteRecord(this) == 0) {
+                Uti.deleteRecord(tab5);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -947,37 +947,37 @@ public class Element extends javax.swing.JFrame {
             ppmCateg.show(north, btnIns.getX(), btnIns.getY() + 18);
 
         } else if (tab2.getBorder() != null) {
-            Uti4.insertRecord(tab2, eElement.up, (record) -> {
-                Record groupsRec = qGrCateg.get(Uti4.getIndexRec(tab1));
+            Uti.insertRecord(tab2, eElement.up, (record) -> {
+                Record groupsRec = qGrCateg.get(Uti.getIndexRec(tab1));
                 int id = groupsRec.getInt(eGroups.id);
                 record.set(eElement.elemgrp_id, id);
                 Record record2 = eArtikl.up.newRecord();
                 qElement.table(eArtikl.up).add(record2);
             });
         } else if (tab3.getBorder() != null) {
-            if (Uti4.getIndexRec(tab2) != -1) {
-                Uti4.insertRecord(tab3, eElemdet.up, (record) -> {
-                    record.set(eElemdet.element_id, qElement.get(Uti4.getIndexRec(tab2), eElement.id));
+            if (Uti.getIndexRec(tab2) != -1) {
+                Uti.insertRecord(tab3, eElemdet.up, (record) -> {
+                    record.set(eElemdet.element_id, qElement.get(Uti.getIndexRec(tab2), eElement.id));
                     Record record2 = eArtikl.up.newRecord();
                     qElemdet.table(eArtikl.up).add(record2);
                 });
             }
         } else if (tab4.getBorder() != null) {
-            Uti4.insertRecord(tab4, eElempar1.up, (record) -> {
-                int id = qElement.getAs(Uti4.getIndexRec(tab2), eElement.id);
+            Uti.insertRecord(tab4, eElempar1.up, (record) -> {
+                int id = qElement.getAs(Uti.getIndexRec(tab2), eElement.id);
                 record.set(eElempar1.element_id, id);
             });
 
         } else if (tab5.getBorder() != null) {
-            Uti4.insertRecord(tab5, eElempar2.up, (record) -> {
-                int id = qElemdet.getAs(Uti4.getIndexRec(tab3), eElemdet.id);
+            Uti.insertRecord(tab5, eElempar2.up, (record) -> {
+                int id = qElemdet.getAs(Uti.getIndexRec(tab3), eElemdet.id);
                 record.set(eElempar2.elemdet_id, id);
             });
         }
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Uti.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
     }//GEN-LAST:event_windowClosed
 
@@ -997,9 +997,9 @@ public class Element extends javax.swing.JFrame {
             loadingData();
             for (int i = 0; i < qGrCateg.size(); ++i) {
                 if (qGrCateg.get(i).getInt(eGroups.id) == id) {
-                    Uti4.setSelectedRow(tab1, i - 1);
+                    Uti.setSelectedRow(tab1, i - 1);
                     ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(i - 1, i - 1);
-                    Uti4.scrollRectToRow(i, tab1);
+                    Uti.scrollRectToRow(i, tab1);
                     break;
                 }
             }
@@ -1010,20 +1010,20 @@ public class Element extends javax.swing.JFrame {
 
         //int index = Util.get;
         int row = tab2.getRowCount() - 1;
-        Uti4.scrollRectToRow(row, tab2);
-        Uti4.setSelectedRow(tab1, row);
+        Uti.scrollRectToRow(row, tab2);
+        Uti.setSelectedRow(tab1, row);
 
     }//GEN-LAST:event_btnReport
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
 
         JTable table = (JTable) evt.getSource();
-        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        Uti.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        Record record = ((DefTableModel) tab3.getModel()).getQuery().get(Uti4.getIndexRec(tab3));
+        Record record = ((DefTableModel) tab3.getModel()).getQuery().get(Uti.getIndexRec(tab3));
         Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
 
         FrameProgress.create(this, new ListenerFrame() {
@@ -1034,7 +1034,7 @@ public class Element extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        int leve = qGrCateg.getAs(Uti4.getIndexRec(tab1), eGroups.npp);
+        int leve = qGrCateg.getAs(Uti.getIndexRec(tab1), eGroups.npp);
         System.out.println(leve);
     }//GEN-LAST:event_btnTest
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -1074,17 +1074,17 @@ public class Element extends javax.swing.JFrame {
         south.add(filterTable, 0); 
         filterTable.getTxt().grabFocus(); 
         
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Категории вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
+                "Категории вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Списки вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
+                "Списки вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Детализация вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
+                "Детализация вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti.getFont(0, 0)));
         scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
+                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti.getFont(0, 0)));
         scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti4.getFont(0, 0)));
+                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

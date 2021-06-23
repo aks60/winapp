@@ -1,6 +1,6 @@
 package frames.swing;
 
-import frames.Uti4;
+import frames.Uti;
 import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -11,7 +11,7 @@ public class DefCellRenderer extends DefaultTableCellRenderer {
             boolean isSelected, boolean hasFocus, int row, int column) {
 
         if (value instanceof java.util.Date) {
-            return super.getTableCellRendererComponent(table, Uti4.simpleFormat.format(value), isSelected, hasFocus, row, column);
+            return super.getTableCellRendererComponent(table, Uti.simpleFormat.format(value), isSelected, hasFocus, row, column);
         }
         return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
     }

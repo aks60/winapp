@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Uti4;
+import frames.Uti;
 import dataset.Record;
 import enums.Enam;
 import enums.LayoutFurn1;
@@ -32,7 +32,7 @@ public class DicEnums extends javax.swing.JDialog {
         for (int i = 0; i < enam.length; i++) {
             tab1.setValueAt(enam[i].text(), i, 0);
         }
-        Uti4.setSelectedRow(tab1);
+        Uti.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")
@@ -185,8 +185,8 @@ public class DicEnums extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record();
-        record.add(enam[Uti4.getIndexRec(tab1)].numb());
-        record.add(enam[Uti4.getIndexRec(tab1)].text());
+        record.add(enam[Uti.getIndexRec(tab1)].numb());
+        record.add(enam[Uti.getIndexRec(tab1)].text());
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice

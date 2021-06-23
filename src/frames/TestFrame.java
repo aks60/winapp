@@ -53,7 +53,7 @@ public class TestFrame extends javax.swing.JFrame {
             }
             tab1.setModel(new DefaultTableModel(data, column));
 
-            Uti4.setSelectedRow(tab1);
+            Uti.setSelectedRow(tab1);
             ((DefaultTableModel) tab2.getModel()).setRowCount(0);
             ((DefaultTableModel) tab3.getModel()).setRowCount(0);
 
@@ -85,7 +85,7 @@ public class TestFrame extends javax.swing.JFrame {
                 }
                 tab2.setModel(new DefaultTableModel(data, column));
                 ((DefaultTableModel) tab3.getModel()). setRowCount(0);
-                Uti4.setSelectedRow(tab2);
+                Uti.setSelectedRow(tab2);
             } else {
                 sql2.setText("");
                 ((DefaultTableModel) tab2.getModel()).getDataVector().clear();

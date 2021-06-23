@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Uti4;
+import frames.Uti;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -40,16 +40,16 @@ public class ParGrup2v extends javax.swing.JDialog {
     private void loadingModel() {
         tab1.setModel(new DefTableModel(tab1, qParams, eParams.id, eParams.text));
         tab2.setModel(new DefTableModel(tab2, qPardet, eParams.id, eParams.text));
-        Uti4.setSelectedRow(tab1);
+        Uti.setSelectedRow(tab1);
     }
 
     private void selectionTab1() {
-        int index = Uti4.getIndexRec(tab1);
+        int index = Uti.getIndexRec(tab1);
         if (index != -1) {
             int id = qParams.getAs(index, eParams.id);
             qPardet.select(eParams.up, "where", eParams.params_id, "=", id, "order by", eParams.text);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab2);
+            Uti.setSelectedRow(tab2);
         }
     }
 
@@ -232,7 +232,7 @@ public class ParGrup2v extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        listener.action(qPardet.get(Uti4.getIndexRec(tab2)));
+        listener.action(qPardet.get(Uti.getIndexRec(tab2)));
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
@@ -246,7 +246,7 @@ public class ParGrup2v extends javax.swing.JDialog {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
+        Uti.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
     }//GEN-LAST:event_tabMousePressed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked

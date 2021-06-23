@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Uti4;
+import frames.Uti;
 import dataset.Query;
 import dataset.Record;
 import domain.eColor;
@@ -82,11 +82,11 @@ public class DicColor extends javax.swing.JDialog {
                 return lab;
             }
         });
-        Uti4.setSelectedRow(tab1);
+        Uti.setSelectedRow(tab1);
     }
 
     private void selectionTab1() {
-        int index = Uti4.getIndexRec(tab1);
+        int index = Uti.getIndexRec(tab1);
         if (index != -1) {
             Record record = qColgrp.get(index);
             int colgrpId = record.getInt(eGroups.id);
@@ -314,13 +314,13 @@ public class DicColor extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
         if (tab1.getBorder() != null && master == true) {
-            int index = Uti4.getIndexRec(tab1);
+            int index = Uti.getIndexRec(tab1);
             if (index != -1) {
                 listener.action(qColgrp.get(index));
                 this.dispose();
             }
         } else if (tab2.getBorder() != null) {
-            int index = Uti4.getIndexRec(tab2);
+            int index = Uti.getIndexRec(tab2);
             if (index != -1) {
                 listener.action(qColor.get(index));
                 this.dispose();
@@ -357,7 +357,7 @@ public class DicColor extends javax.swing.JDialog {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
+        Uti.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());

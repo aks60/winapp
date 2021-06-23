@@ -326,7 +326,7 @@ public class Systree extends javax.swing.JFrame {
     private void loadingWin() {
         try {
             int row[] = windowsTree.getSelectionRows();
-            DefMutableTreeNode root = Uti4.iwinTree(iwin);
+            DefMutableTreeNode root = Uti.iwinTree(iwin);
             windowsTree.setModel(new DefaultTreeModel(root));
             windowsTree.setSelectionRows(row);
 
@@ -345,7 +345,7 @@ public class Systree extends javax.swing.JFrame {
         for (Record record : qSysprod.table(eSysprod.up)) {
             try {
                 Object script = record.get(eSysprod.script);
-                ImageIcon image = Uti4.createImageIcon(iwin, script, length);
+                ImageIcon image = Uti.createImageIcon(iwin, script, length);
                 record.add(image);
 
             } catch (Exception e) {
@@ -356,62 +356,62 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void listenerAdd() {
-        Uti4.buttonCellEditor(tab2, 0).addActionListener(event -> {
+        Uti.buttonCellEditor(tab2, 0).addActionListener(event -> {
             new DicEnums(this, (record) -> {
-                Uti4.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
+                Uti.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
             }, UseArtiklTo.values());
         });
 
-        Uti4.buttonCellEditor(tab2, 1).addActionListener(event -> {
+        Uti.buttonCellEditor(tab2, 1).addActionListener(event -> {
             new DicEnums(this, (record) -> {
-                Uti4.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
+                Uti.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
             }, UseSide.values());
         });
 
-        Uti4.buttonCellEditor(tab2, 2).addActionListener(event -> {
+        Uti.buttonCellEditor(tab2, 2).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
-        Uti4.buttonCellEditor(tab2, 3).addActionListener(event -> {
+        Uti.buttonCellEditor(tab2, 3).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
-        Uti4.buttonCellEditor(tab3, 1).addActionListener(event -> {
+        Uti.buttonCellEditor(tab3, 1).addActionListener(event -> {
             DicName frame = new DicName(this, listenerFurn, new Query(eFurniture.values()).select(eFurniture.up, "order by", eFurniture.name), eFurniture.name);
         });
 
-        Uti4.buttonCellEditor(tab3, 2).addActionListener(event -> {
+        Uti.buttonCellEditor(tab3, 2).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, (record) -> {
-                Uti4.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4, tab5);
+                Uti.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4, tab5);
             }, TypeOpen2.values());
         });
 
-        Uti4.buttonCellEditor(tab3, 4).addActionListener(event -> {
+        Uti.buttonCellEditor(tab3, 4).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, (record) -> {
-                Uti4.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4, tab5);
+                Uti.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4, tab5);
             }, LayoutHandle.values());
         });
 
-        Uti4.buttonCellEditor(tab3, 5).addActionListener(event -> {
-            int furnityreId = qSysfurn.getAs(Uti4.getIndexRec(tab3), eSysfurn.furniture_id);
+        Uti.buttonCellEditor(tab3, 5).addActionListener(event -> {
+            int furnityreId = qSysfurn.getAs(Uti.getIndexRec(tab3), eSysfurn.furniture_id);
             DicArtikl artikl = new DicArtikl(this, listenerArt211, furnityreId, TypeArtikl.X211.id1, TypeArtikl.X211.id2);
         });
 
-        Uti4.buttonCellEditor(tab3, 6).addActionListener(event -> {
-            int furnityreId = qSysfurn.getAs(Uti4.getIndexRec(tab3), eSysfurn.furniture_id);
+        Uti.buttonCellEditor(tab3, 6).addActionListener(event -> {
+            int furnityreId = qSysfurn.getAs(Uti.getIndexRec(tab3), eSysfurn.furniture_id);
             DicArtikl artikl = new DicArtikl(this, listenerArt212, furnityreId, TypeArtikl.X212.id1, TypeArtikl.X212.id2);
         });
 
-        Uti4.buttonCellEditor(tab4, 0).addActionListener(event -> {
+        Uti.buttonCellEditor(tab4, 0).addActionListener(event -> {
             ParDefault frame = new ParDefault(this, listenerParam1);
         });
 
-        Uti4.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            Integer grup = qSyspar1.getAs(Uti4.getIndexRec(tab4), eSyspar1.params_id);
+        Uti.buttonCellEditor(tab4, 1).addActionListener(event -> {
+            Integer grup = qSyspar1.getAs(Uti.getIndexRec(tab4), eSyspar1.params_id);
             ParDefault frame = new ParDefault(this, listenerParam2, grup);
         });
 
-        Uti4.buttonCellEditor(tab7, 1).addActionListener(event -> {
+        Uti.buttonCellEditor(tab7, 1).addActionListener(event -> {
             Object grup = tab7.getValueAt(tab7.getSelectedRow(), 2);
             ParDefault frame = new ParDefault(this, listenerParam3, (int) grup);
         });
@@ -420,17 +420,17 @@ public class Systree extends javax.swing.JFrame {
     private void listenerSet() {
 
         listenerArtikl = (record) -> {
-            Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = Uti4.getIndexRec(tab2);
-            qSysprof.set(record.getInt(eArtikl.id), Uti4.getIndexRec(tab2), eSysprof.artikl_id);
-            qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), Uti4.getIndexRec(tab2), eArtikl.name);
-            qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), Uti4.getIndexRec(tab2), eArtikl.code);
+            Uti.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = Uti.getIndexRec(tab2);
+            qSysprof.set(record.getInt(eArtikl.id), Uti.getIndexRec(tab2), eSysprof.artikl_id);
+            qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), Uti.getIndexRec(tab2), eArtikl.name);
+            qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), Uti.getIndexRec(tab2), eArtikl.code);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab2, index);
+            Uti.setSelectedRow(tab2, index);
         };
 
         listenerModel = (record) -> {
-            Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
+            Uti.stopCellEditing(tab2, tab3, tab4, tab5);
 
             //Запишем в скрипт ветку из которого будет создаваться окно  
             String script = record.get(2).toString();
@@ -451,74 +451,74 @@ public class Systree extends javax.swing.JFrame {
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             for (int index = 0; index < qSysprod.size(); ++index) {
                 if (qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)) {
-                    Uti4.setSelectedRow(tab5, index); //выделение рабочей записи
-                    Uti4.scrollRectToRow(index, tab5);
+                    Uti.setSelectedRow(tab5, index); //выделение рабочей записи
+                    Uti.scrollRectToRow(index, tab5);
                     windowsTree.setSelectionRow(0);
                 }
             }
         };
 
         listenerFurn = (record) -> {
-            Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = Uti4.getIndexRec(tab3);
-            qSysfurn.set(record.getInt(eFurniture.id), Uti4.getIndexRec(tab3), eSysfurn.furniture_id);
-            qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), Uti4.getIndexRec(tab3), eFurniture.name);
+            Uti.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = Uti.getIndexRec(tab3);
+            qSysfurn.set(record.getInt(eFurniture.id), Uti.getIndexRec(tab3), eSysfurn.furniture_id);
+            qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), Uti.getIndexRec(tab3), eFurniture.name);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab3, index);
+            Uti.setSelectedRow(tab3, index);
         };
 
         listenerArt211 = (record) -> {
-            Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = Uti4.getIndexRec(tab3);
-            qSysfurn.set(record.getInt(eArtikl.id), Uti4.getIndexRec(tab3), eSysfurn.artikl_id1);
+            Uti.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = Uti.getIndexRec(tab3);
+            qSysfurn.set(record.getInt(eArtikl.id), Uti.getIndexRec(tab3), eSysfurn.artikl_id1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab3, index);
+            Uti.setSelectedRow(tab3, index);
         };
 
         listenerArt212 = (record) -> {
-            Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = Uti4.getIndexRec(tab3);
-            qSysfurn.set(record.getInt(eArtikl.id), Uti4.getIndexRec(tab3), eSysfurn.artikl_id2);
+            Uti.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = Uti.getIndexRec(tab3);
+            qSysfurn.set(record.getInt(eArtikl.id), Uti.getIndexRec(tab3), eSysfurn.artikl_id2);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab3, index);
+            Uti.setSelectedRow(tab3, index);
         };
 
         listenerParam1 = (record) -> {
-            Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = Uti4.getIndexRec(tab4);
-            qSyspar1.set(record.getInt(eParams.id), Uti4.getIndexRec(tab4), eSyspar1.params_id);
-            qSyspar1.set(null, Uti4.getIndexRec(tab4), eSyspar1.text);
+            Uti.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = Uti.getIndexRec(tab4);
+            qSyspar1.set(record.getInt(eParams.id), Uti.getIndexRec(tab4), eSyspar1.params_id);
+            qSyspar1.set(null, Uti.getIndexRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab4, index);
+            Uti.setSelectedRow(tab4, index);
         };
 
         listenerParam2 = (record) -> {
-            Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = Uti4.getIndexRec(tab4);
-            qSyspar1.set(record.getStr(eParams.text), Uti4.getIndexRec(tab4), eSyspar1.text);
+            Uti.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = Uti.getIndexRec(tab4);
+            qSyspar1.set(record.getStr(eParams.text), Uti.getIndexRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab4, index);
+            Uti.setSelectedRow(tab4, index);
         };
 
         listenerParam3 = (record) -> {
-            int index = Uti4.getIndexRec(tab5);
-            int index2 = Uti4.getIndexRec(tab7);
+            int index = Uti.getIndexRec(tab5);
+            int index2 = Uti.getIndexRec(tab7);
             if (index != -1) {
                 Record sysprodRec = qSysprod.get(index);
                 String script = sysprodRec.getStr(eSysprod.script);
-                String script2 = Uti4.paramdefAdd(script, record.getInt(eParams.id), qParams);
+                String script2 = Uti.paramdefAdd(script, record.getInt(eParams.id), qParams);
                 sysprodRec.set(eSysprod.script, script2);
                 qSysprod.execsql();
                 iwin.build(script2);
-                Uti4.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
+                Uti.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
                 selectionWin();
-                Uti4.setSelectedRow(tab7, index2);
+                Uti.setSelectedRow(tab7, index2);
             }
         };
     }
 
     private void selectionSys() {
-        Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
+        Uti.stopCellEditing(tab2, tab3, tab4, tab5);
         Arrays.asList(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
 
         systreeNode = (DefMutableTreeNode) systemTree.getLastSelectedPathComponent();
@@ -539,9 +539,9 @@ public class Systree extends javax.swing.JFrame {
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Uti4.setSelectedRow(tab2);
-            Uti4.setSelectedRow(tab3);
-            Uti4.setSelectedRow(tab4);
+            Uti.setSelectedRow(tab2);
+            Uti.setSelectedRow(tab3);
+            Uti.setSelectedRow(tab4);
             if (qSysprod.isEmpty() == false) {
 
                 int index = -1;
@@ -553,9 +553,9 @@ public class Systree extends javax.swing.JFrame {
                     }
                 }
                 if (index != -1) {
-                    Uti4.setSelectedRow(tab5, index);
+                    Uti.setSelectedRow(tab5, index);
                 } else {
-                    Uti4.setSelectedRow(tab5);
+                    Uti.setSelectedRow(tab5);
                 }
             } else {
                 AreaSimple ra = iwin.rootArea;
@@ -632,8 +632,8 @@ public class Systree extends javax.swing.JFrame {
                 //}
                 txt21.setText(stv.handleRec.getStr(eArtikl.code));
                 txt34.setText(stv.handleRec.getStr(eArtikl.name));
-                txt24.setText(Uti4.df.format(iwin.rootGson.find(stv.id()).width()));
-                txt26.setText(Uti4.df.format(iwin.rootGson.find(stv.id()).height()));
+                txt24.setText(Uti.df.format(iwin.rootGson.find(stv.id()).width()));
+                txt26.setText(Uti.df.format(iwin.rootGson.find(stv.id()).height()));
                 txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
             }
             lab2.setText("ID = " + windowsNode.com5t().id());
@@ -646,18 +646,18 @@ public class Systree extends javax.swing.JFrame {
     private void selectionTab2(int artiklID) {
         for (int i = 0; i < qSysprof.size(); i++) {
             if (qSysprof.get(i).getInt(eSysprof.artikl_id) == artiklID) {
-                Uti4.setSelectedRow(tab2, i);
+                Uti.setSelectedRow(tab2, i);
             }
         }
     }
 
     private void selectionTab5() {
-        int index = Uti4.getIndexRec(tab5);
+        int index = Uti.getIndexRec(tab5);
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
             String script = sysprodRec.getStr(eSysprod.script);
             eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
-            App.Top.frame.setTitle(eProfile.profile.title + Uti4.designTitle());
+            App.Top.frame.setTitle(eProfile.profile.title + Uti.designTitle());
 
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
@@ -698,7 +698,7 @@ public class Systree extends javax.swing.JFrame {
         try {
             //Сохраним скрипт в базе
             String script = gson.toJson(iwin.rootGson);
-            Record sysprodRec = qSysprod.get(Uti4.getIndexRec(tab5));
+            Record sysprodRec = qSysprod.get(Uti.getIndexRec(tab5));
             sysprodRec.set(eSysprod.script, script);
             qSysprod.update(sysprodRec);
 
@@ -1085,24 +1085,24 @@ public class Systree extends javax.swing.JFrame {
 
         pan7.add(pan11, "card11");
 
-        pan12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Основные", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti4.getFont(0, 1)));
+        pan12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Основные", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti.getFont(0, 1)));
         pan12.setToolTipText("");
         pan12.setPreferredSize(new java.awt.Dimension(300, 200));
 
-        pan21.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Текстура изделия", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti4.getFont(0, 0)));
+        pan21.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Текстура изделия", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti.getFont(0, 0)));
         pan21.setPreferredSize(new java.awt.Dimension(308, 104));
 
-        lab27.setFont(frames.Uti4.getFont(0,0));
+        lab27.setFont(frames.Uti.getFont(0,0));
         lab27.setText("Основная");
         lab27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab27.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab31.setFont(frames.Uti4.getFont(0,0));
+        lab31.setFont(frames.Uti.getFont(0,0));
         lab31.setText("Внутренняя");
         lab31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab31.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab32.setFont(frames.Uti4.getFont(0,0));
+        lab32.setFont(frames.Uti.getFont(0,0));
         lab32.setText("Внешняя");
         lab32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab32.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1205,17 +1205,17 @@ public class Systree extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lab35.setFont(frames.Uti4.getFont(0,0));
+        lab35.setFont(frames.Uti.getFont(0,0));
         lab35.setText("Ширина");
         lab35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab35.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab38.setFont(frames.Uti4.getFont(0,0));
+        lab38.setFont(frames.Uti.getFont(0,0));
         lab38.setText("Высота1");
         lab38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab38.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab40.setFont(frames.Uti4.getFont(0,0));
+        lab40.setFont(frames.Uti.getFont(0,0));
         lab40.setText("Высота2");
         lab40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab40.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1335,23 +1335,23 @@ public class Systree extends javax.swing.JFrame {
 
         pan7.add(pan12, "card12");
 
-        pan13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Рама, импост..", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti4.getFont(0, 1)));
+        pan13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Рама, импост..", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti.getFont(0, 1)));
         pan13.setPreferredSize(new java.awt.Dimension(300, 200));
 
-        pan20.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Текстура профиля", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti4.getFont(0, 0)));
+        pan20.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Текстура профиля", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti.getFont(0, 0)));
         pan20.setPreferredSize(new java.awt.Dimension(308, 104));
 
-        lab28.setFont(frames.Uti4.getFont(0,0));
+        lab28.setFont(frames.Uti.getFont(0,0));
         lab28.setText("Основная");
         lab28.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab28.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab43.setFont(frames.Uti4.getFont(0,0));
+        lab43.setFont(frames.Uti.getFont(0,0));
         lab43.setText("Внутренняя");
         lab43.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab43.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab44.setFont(frames.Uti4.getFont(0,0));
+        lab44.setFont(frames.Uti.getFont(0,0));
         lab44.setText("Внешняя");
         lab44.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab44.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1454,12 +1454,12 @@ public class Systree extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lab33.setFont(frames.Uti4.getFont(0,0));
+        lab33.setFont(frames.Uti.getFont(0,0));
         lab33.setText("  Артикул");
         lab33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab33.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab34.setFont(frames.Uti4.getFont(0,0));
+        lab34.setFont(frames.Uti.getFont(0,0));
         lab34.setText("  Название");
         lab34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab34.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1525,15 +1525,15 @@ public class Systree extends javax.swing.JFrame {
 
         pan7.add(pan13, "card13");
 
-        pan15.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Стеклопакет", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti4.getFont(0, 1)));
+        pan15.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Стеклопакет", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti.getFont(0, 1)));
         pan15.setPreferredSize(new java.awt.Dimension(300, 200));
 
-        lab29.setFont(frames.Uti4.getFont(0,0));
+        lab29.setFont(frames.Uti.getFont(0,0));
         lab29.setText("Артикул");
         lab29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab29.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab36.setFont(frames.Uti4.getFont(0,0));
+        lab36.setFont(frames.Uti.getFont(0,0));
         lab36.setText("Название");
         lab36.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab36.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1596,30 +1596,30 @@ public class Systree extends javax.swing.JFrame {
 
         pan7.add(pan15, "card15");
 
-        pan16.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Створка", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti4.getFont(0, 1)));
+        pan16.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Створка", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti.getFont(0, 1)));
         pan16.setPreferredSize(new java.awt.Dimension(3100, 200));
 
-        lab30.setFont(frames.Uti4.getFont(0,0));
+        lab30.setFont(frames.Uti.getFont(0,0));
         lab30.setText("Фурнитура");
         lab30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab30.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab37.setFont(frames.Uti4.getFont(0,0));
+        lab37.setFont(frames.Uti.getFont(0,0));
         lab37.setText("Арт. ручки");
         lab37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab37.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab39.setFont(frames.Uti4.getFont(0,0));
+        lab39.setFont(frames.Uti.getFont(0,0));
         lab39.setText("Текстура");
         lab39.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab39.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab46.setFont(frames.Uti4.getFont(0,0));
+        lab46.setFont(frames.Uti.getFont(0,0));
         lab46.setText("Высота ручки");
         lab46.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab46.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab45.setFont(frames.Uti4.getFont(0,0));
+        lab45.setFont(frames.Uti.getFont(0,0));
         lab45.setText("Напр. откр.");
         lab45.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab45.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1712,7 +1712,7 @@ public class Systree extends javax.swing.JFrame {
         txt16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt16.setPreferredSize(new java.awt.Dimension(180, 18));
 
-        lab41.setFont(frames.Uti4.getFont(0,0));
+        lab41.setFont(frames.Uti.getFont(0,0));
         lab41.setText("Ширина");
         lab41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab41.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1726,7 +1726,7 @@ public class Systree extends javax.swing.JFrame {
             }
         });
 
-        lab42.setFont(frames.Uti4.getFont(0,0));
+        lab42.setFont(frames.Uti.getFont(0,0));
         lab42.setText("Высота");
         lab42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab42.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1764,7 +1764,7 @@ public class Systree extends javax.swing.JFrame {
             }
         });
 
-        lab48.setFont(frames.Uti4.getFont(0,0));
+        lab48.setFont(frames.Uti.getFont(0,0));
         lab48.setText("Наимен.ручки");
         lab48.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab48.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1905,54 +1905,54 @@ public class Systree extends javax.swing.JFrame {
             }
         });
 
-        lab13.setFont(frames.Uti4.getFont(0,0));
+        lab13.setFont(frames.Uti.getFont(0,0));
         lab13.setText("Заполн. по умолчанию");
         lab13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab13.setPreferredSize(new java.awt.Dimension(112, 18));
 
-        lab14.setFont(frames.Uti4.getFont(0,0));
+        lab14.setFont(frames.Uti.getFont(0,0));
         lab14.setText("Доступные толщины");
         lab14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab14.setPreferredSize(new java.awt.Dimension(120, 18));
 
-        lab15.setFont(frames.Uti4.getFont(0,0));
+        lab15.setFont(frames.Uti.getFont(0,0));
         lab15.setText("Основная текстура");
         lab15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab15.setPreferredSize(new java.awt.Dimension(112, 18));
 
-        lab16.setFont(frames.Uti4.getFont(0,0));
+        lab16.setFont(frames.Uti.getFont(0,0));
         lab16.setText("Внутр. текстура");
         lab16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab16.setPreferredSize(new java.awt.Dimension(112, 18));
 
-        lab17.setFont(frames.Uti4.getFont(0,0));
+        lab17.setFont(frames.Uti.getFont(0,0));
         lab17.setText("Внешняя текстура");
         lab17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab17.setPreferredSize(new java.awt.Dimension(112, 18));
 
-        lab19.setFont(frames.Uti4.getFont(0,0));
+        lab19.setFont(frames.Uti.getFont(0,0));
         lab19.setText("Признак системы");
         lab19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab19.setMaximumSize(new java.awt.Dimension(112, 18));
         lab19.setMinimumSize(new java.awt.Dimension(112, 18));
         lab19.setPreferredSize(new java.awt.Dimension(112, 18));
 
-        lab20.setFont(frames.Uti4.getFont(0,0));
+        lab20.setFont(frames.Uti.getFont(0,0));
         lab20.setText("Система");
         lab20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab20.setPreferredSize(new java.awt.Dimension(112, 18));
 
-        lab24.setFont(frames.Uti4.getFont(0,0));
+        lab24.setFont(frames.Uti.getFont(0,0));
         lab24.setText("Вид изделия по умолчанию");
         lab24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab24.setPreferredSize(new java.awt.Dimension(120, 18));
 
-        lab18.setFont(frames.Uti4.getFont(0,0));
+        lab18.setFont(frames.Uti.getFont(0,0));
         lab18.setText("Доступн.гр.текстур");
         lab18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab18.setPreferredSize(new java.awt.Dimension(112, 18));
 
-        lab23.setFont(frames.Uti4.getFont(0,0));
+        lab23.setFont(frames.Uti.getFont(0,0));
         lab23.setText("Префикс (замена/код)");
         lab23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab23.setPreferredSize(new java.awt.Dimension(120, 18));
@@ -2034,7 +2034,7 @@ public class Systree extends javax.swing.JFrame {
             }
         });
 
-        lab47.setFont(frames.Uti4.getFont(0,0));
+        lab47.setFont(frames.Uti.getFont(0,0));
         lab47.setText("Коэф. рентабельности");
         lab47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
@@ -2382,17 +2382,17 @@ public class Systree extends javax.swing.JFrame {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        Uti4.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
+        Uti.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
         if (systemTree.isEditing()) {
             systemTree.getCellEditor().stopCellEditing();
         }
         systemTree.setBorder(null);  
-        Uti4.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
+        Uti.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Uti4.stopCellEditing(systemTree, tab2, tab3, tab4, tab5);
+        Uti.stopCellEditing(systemTree, tab2, tab3, tab4, tab5);
         qSystree.execsql();
         Arrays.asList(tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (models != null)
@@ -2401,29 +2401,29 @@ public class Systree extends javax.swing.JFrame {
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
 
-        Uti4.stopCellEditing(systemTree);
+        Uti.stopCellEditing(systemTree);
         systemTree.setBorder(null);
         if (tabb1.getSelectedIndex() == 1) {
-            Uti4.updateBorderAndSql(tab2, Arrays.asList(tab2, tab3, tab4, tab5));
+            Uti.updateBorderAndSql(tab2, Arrays.asList(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 2) {
-            Uti4.updateBorderAndSql(tab3, Arrays.asList(tab2, tab3, tab4, tab5));
+            Uti.updateBorderAndSql(tab3, Arrays.asList(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 3) {
-            Uti4.updateBorderAndSql(tab4, Arrays.asList(tab2, tab3, tab4, tab5));
+            Uti.updateBorderAndSql(tab4, Arrays.asList(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 4) {
-            Uti4.updateBorderAndSql(tab5, Arrays.asList(tab2, tab3, tab4, tab5));
+            Uti.updateBorderAndSql(tab5, Arrays.asList(tab2, tab3, tab4, tab5));
         }
     }//GEN-LAST:event_stateChanged
 
     private void systemTreeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_systemTreeMousePressed
         Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
         systemTree.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
+        Uti.stopCellEditing(tab2, tab3, tab4, tab5);
     }//GEN-LAST:event_systemTreeMousePressed
 
     private void glasdefToSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_glasdefToSystree
 
         new DicArtikl(this, (record) -> {
-            Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
+            Uti.stopCellEditing(tab2, tab3, tab4, tab5);
             systreeNode.rec().set(eSystree.glas, record.getStr(eArtikl.code));
             rsvSystree.load();
         }, 5);
@@ -2432,7 +2432,7 @@ public class Systree extends javax.swing.JFrame {
     private void imageviewToSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageviewToSystree
 
         new DicEnums(this, (record) -> {
-            Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
+            Uti.stopCellEditing(tab2, tab3, tab4, tab5);
             systreeNode.rec().set(eSystree.imgview, record.getInt(0));
             rsvSystree.load();
 
@@ -2442,7 +2442,7 @@ public class Systree extends javax.swing.JFrame {
     private void typeToSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeToSystree
 
         new DicEnums(this, (record) -> {
-            Uti4.stopCellEditing(tab2, tab3, tab4, tab5);
+            Uti.stopCellEditing(tab2, tab3, tab4, tab5);
             systreeNode.rec().set(eSystree.types, record.getInt(0));
             rsvSystree.load();
         }, TypeUse.values());
@@ -2471,14 +2471,14 @@ public class Systree extends javax.swing.JFrame {
                 }
 
             } else if (tab2.getBorder() != null) {
-                Uti4.insertRecord(tab2, eSysprof.up, (record) -> {
+                Uti.insertRecord(tab2, eSysprof.up, (record) -> {
                     record.set(eSysprof.systree_id, systreeID);
                     Record record2 = eArtikl.up.newRecord();
                     qSysprof.table(eArtikl.up).add(record2);;
                 });
 
             } else if (tab3.getBorder() != null) {
-                Uti4.insertRecord(tab3, eSysfurn.up, (record) -> {
+                Uti.insertRecord(tab3, eSysfurn.up, (record) -> {
                     record.set(eSysfurn.systree_id, systreeID);
                     record.setNo(eSysfurn.npp, 0);
                     record.setNo(eSysfurn.replac, 0);
@@ -2486,7 +2486,7 @@ public class Systree extends javax.swing.JFrame {
                     qSysfurn.table(eFurniture.up).add(record2);;
                 });
             } else if (tab4.getBorder() != null) {
-                Uti4.insertRecord(tab4, eSyspar1.up, (record) -> {
+                Uti.insertRecord(tab4, eSyspar1.up, (record) -> {
                     record.set(eSyspar1.systree_id, systreeID);
                 });
 
@@ -2514,7 +2514,7 @@ public class Systree extends javax.swing.JFrame {
                 DefMutableTreeNode parentNode = (DefMutableTreeNode) systreeNode.getParent();
                 if (JOptionPane.showConfirmDialog(this, "Хотите удалить " + systreeNode + "?", "Подтвердите удаление",
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null) == 0) {
-                    Uti4.stopCellEditing(systemTree);
+                    Uti.stopCellEditing(systemTree);
                     if (qSystree.delete(systreeNode.rec())) {
 
                         qSystree.remove(systreeNode.rec());
@@ -2528,22 +2528,22 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         } else if (tab2.getBorder() != null) {
-            if (Uti4.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
-                Uti4.deleteRecord(tab2);
+            if (Uti.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
+                Uti.deleteRecord(tab2);
             }
         } else if (tab3.getBorder() != null) {
-            if (Uti4.isDeleteRecord(this) == 0 && tab3.getSelectedRow() != -1) {
-                Uti4.deleteRecord(tab3);
+            if (Uti.isDeleteRecord(this) == 0 && tab3.getSelectedRow() != -1) {
+                Uti.deleteRecord(tab3);
             }
         } else if (tab4.getBorder() != null && tab4.getSelectedRow() != -1) {
-            if (Uti4.isDeleteRecord(this) == 0) {
-                Uti4.deleteRecord(tab4);
+            if (Uti.isDeleteRecord(this) == 0) {
+                Uti.deleteRecord(tab4);
             }
         } else if (tab5.getBorder() != null) {
-            if (Uti4.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
+            if (Uti.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
                 iwin.rootArea = null;
                 paintPanel.paint(paintPanel.getGraphics());
-                Uti4.deleteRecord(tab5);
+                Uti.deleteRecord(tab5);
             }
 //          else {    JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);     }
         }
@@ -2558,7 +2558,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void findFromArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findFromArtikl
-        Record record = qSysprof.get(Uti4.getIndexRec(tab2));
+        Record record = qSysprof.get(Uti.getIndexRec(tab2));
         Record record2 = eArtikl.find(record.getInt(eSysprof.artikl_id), false);
         FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
@@ -3217,10 +3217,10 @@ public class Systree extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);        
         south.add(filterTable, 0);
-        Uti4.documentFilter(1, txt2, txt15);
-        Uti4.documentFilter(2, txt3, txt4, txt5);
-        Uti4.documentFilter(3, txt17, txt22, txt23, txt24, txt26, txt35);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti4.stopCellEditing(tab2, tab3, tab4, tab5)));
+        Uti.documentFilter(1, txt2, txt15);
+        Uti.documentFilter(2, txt3, txt4, txt5);
+        Uti.documentFilter(3, txt17, txt22, txt23, txt24, txt26, txt35);
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti.stopCellEditing(tab2, tab3, tab4, tab5)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) systemTree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
