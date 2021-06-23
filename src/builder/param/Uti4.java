@@ -14,101 +14,11 @@ import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutArea;
 import enums.TypeElem;
+import enums.TypeOpen1;
 import java.util.Arrays;
 import java.util.List;
 
 class Uti4 {
-
-    //Тип проема 
-    static boolean dic_13003_14005_15005_37008(String txt, ElemSimple elem5e) {
-        if ("глухой".equals(txt) == true && elem5e.owner().type() == TypeElem.STVORKA == true) {
-            return false;
-        } else if ("не глухой".equals(txt) == true && elem5e.owner().type() == TypeElem.STVORKA == false) {
-            return false;
-        }
-        return true;
-    }
-
-    static boolean dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(String txt, ElemSimple elem5e) {
-        if ("ps3".equals(eSetting.find(2))) {
-            String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
-            int[] index = {1, 2, 3, 5, 19};
-            for (int i = 0; i < arr.length; i++) {
-                if (arr.equals(txt) && Util.containsNumb(String.valueOf(index[i]), elem5e.type().id) == false) {
-                    return false;
-                }
-            }
-        } else {
-            if (Util.containsNumb(txt, elem5e.type().id) == false) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    static boolean check_dic_1005_2005_3005_4005_11005_12005_31050_33071_34071() {
-
-        return true;
-    }
-
-    //Для технологического кода контейнера 
-    static boolean check_STRING_XX000(String txt, ElemSimple elem5e) {
-        Record sysprofRec = elem5e.sysprofRec;
-        Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        if (artiklVRec.get(eArtikl.tech_code) == null) {
-            return false;
-        }
-        String[] strList = txt.split(";");
-        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
-        boolean ret2 = false;
-        for (String str : strList) {
-            for (String str2 : strList2) {
-                if (str.equalsIgnoreCase(str2)) {
-                    ret2 = true;
-                }
-            }
-        }
-        if (ret2 == false) {
-            return false;
-        }
-        return true;
-    }
-
-    //Если признак системы конструкции
-    static boolean check_STRING_33095_34095_38095_39095_40095(String txt, ElemSimple elem5e, int nuni) {
-        Record systreefRec = eSystree.find(nuni);
-        String[] arr = txt.split(";");
-        List<String> arrList = Arrays.asList(arr);
-        boolean ret = false;
-        for (String str : arrList) {
-            if (systreefRec.getInt(eSystree.types) == Integer.valueOf(str) == true) {
-                ret = true;
-            }
-        }
-        if (ret == false) {
-            return false;
-        }
-        return true;
-    }
-
-    //Если номер стороны в контуре
-    static boolean check_INT_33066_34066(String txt, ElemSimple elem5e) {
-        if ("1".equals(txt) == true && LayoutArea.BOTT != elem5e.layout()) {
-            return false;
-        } else if ("2".equals(txt) == true && LayoutArea.RIGHT != elem5e.layout()) {
-            return false;
-        } else if ("3".equals(txt) == true && LayoutArea.TOP != elem5e.layout()) {
-            return false;
-        } else if ("4".equals(txt) == true && LayoutArea.LEFT != elem5e.layout()) {
-            return false;
-        }
-        return true;
-    }
-
-    //Перспектива
-    static boolean p_13081_13082_13086_13087(ElemSimple elem5e, String txt) {
-        return true;
-    }
 
     //Толщина внешнего/внутреннего заполнения, мм
     static List<ElemGlass> getGlassDepth(ElemSimple elem5e) {
@@ -134,6 +44,93 @@ class Uti4 {
             }
         }
         return Arrays.asList((ElemGlass) glass1, (ElemGlass) glass2);
+    }
+
+    //Тип проема 
+    static boolean p_13003_14005_15005_37008(String txt, ElemSimple elem5e) {
+        if ("глухой".equals(txt) == true && elem5e.owner().type() == TypeElem.STVORKA == true) {
+            return false;
+        } else if ("не глухой".equals(txt) == true && elem5e.owner().type() == TypeElem.STVORKA == false) {
+            return false;
+        }
+        return true;
+    }
+
+    //Контейнер типа
+    static boolean p_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(String txt, ElemSimple elem5e) {
+        if ("ps3".equals(eSetting.find(2))) {
+            String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
+            int[] index = {1, 2, 3, 5, 19};
+            for (int i = 0; i < arr.length; i++) {
+                if (arr.equals(txt) && Util.containsNumb(String.valueOf(index[i]), elem5e.type().id) == false) {
+                    return false;
+                }
+            }
+        } else {
+            if (Util.containsNumb(txt, elem5e.type().id) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //Для технологического кода контейнера 
+    static boolean p_STRING_XX000(String txt, ElemSimple elem5e) {
+        Record sysprofRec = elem5e.sysprofRec;
+        Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        if (artiklVRec.get(eArtikl.tech_code) == null) {
+            return false;
+        }
+        String[] strList = txt.split(";");
+        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
+        boolean ret2 = false;
+        for (String str : strList) {
+            for (String str2 : strList2) {
+                if (str.equalsIgnoreCase(str2)) {
+                    ret2 = true;
+                }
+            }
+        }
+        if (ret2 == false) {
+            return false;
+        }
+        return true;
+    }
+
+    //Если признак системы конструкции
+    static boolean p_STRING_33095_34095_38095_39095_40095(String txt, ElemSimple elem5e, int nuni) {
+        Record systreefRec = eSystree.find(nuni);
+        String[] arr = txt.split(";");
+        List<String> arrList = Arrays.asList(arr);
+        boolean ret = false;
+        for (String str : arrList) {
+            if (systreefRec.getInt(eSystree.types) == Integer.valueOf(str) == true) {
+                ret = true;
+            }
+        }
+        if (ret == false) {
+            return false;
+        }
+        return true;
+    }
+
+    //Если номер стороны в контуре
+    static boolean p_INT_33066_34066(String txt, ElemSimple elem5e) {
+        if ("1".equals(txt) == true && LayoutArea.BOTT != elem5e.layout()) {
+            return false;
+        } else if ("2".equals(txt) == true && LayoutArea.RIGHT != elem5e.layout()) {
+            return false;
+        } else if ("3".equals(txt) == true && LayoutArea.TOP != elem5e.layout()) {
+            return false;
+        } else if ("4".equals(txt) == true && LayoutArea.LEFT != elem5e.layout()) {
+            return false;
+        }
+        return true;
+    }
+
+    //Перспектива
+    static boolean p_13081_13082_13086_13087(ElemSimple elem5e, String txt) {
+        return true;
     }
 
     //Эффективное заполнение изделия, мм 
@@ -165,9 +162,19 @@ class Uti4 {
     }
 
     //Для типа открывания
-    static boolean p_1039_38039_39039_(ElemSimple elem5e, String txt) {
-            //"фрамуга", "поворотное", "поворотно-откидное", "раздвижное"
+    static boolean p_1039_38039_39039(ElemSimple elem5e, String txt) {
+        if (elem5e.owner().type() == TypeElem.STVORKA) {
+            AreaStvorka stv = (AreaStvorka) elem5e.owner();
+            if (!"фрамуга".equals(txt) && stv.typeOpen == TypeOpen1.UPPER) { //фрамуга
+                return false;
+            } else if (!"поворотное".equals(txt) && (stv.typeOpen == TypeOpen1.LEFT || stv.typeOpen == TypeOpen1.RIGHT)) { //поворотное
+                return false;
+            } else if (!"поворотно-откидное".equals(txt) && (stv.typeOpen == TypeOpen1.LEFTUP || stv.typeOpen == TypeOpen1.RIGHTUP)) { //поворотно-откидное
+                return false;
+            } else if (!"раздвижное".equals(txt) && (stv.typeOpen == TypeOpen1.LEFTMOV || stv.typeOpen == TypeOpen1.RIGHTMOV)) { //раздвижное
+                return false;
+            }
+        }
         return true;
     }
-
 }

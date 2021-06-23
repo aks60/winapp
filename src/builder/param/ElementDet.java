@@ -45,7 +45,7 @@ public class ElementDet extends Par5s {
 
                 case 33000: //Для технологического кода контейнера 
                 case 34000: //Для технологического кода контейнера 
-                    if (!Uti4.check_STRING_XX000(rec.getStr(TEXT), elem5e)) {
+                    if (!Uti4.p_STRING_XX000(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                     break;
@@ -154,6 +154,7 @@ public class ElementDet extends Par5s {
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 33060:  //Количество на шаг 
+                case 38060:  //Количество на шаг                    
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 33062:  //Если стойка удлинена 
@@ -174,7 +175,7 @@ public class ElementDet extends Par5s {
                 break;
                 case 33066:  //Если номер стороны в контуре
                 case 34066:  //Если номер стороны в контуре    
-                    if (!Uti4.check_INT_33066_34066(rec.getStr(TEXT), elem5e)) {
+                    if (!Uti4.p_INT_33066_34066(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                     break;
@@ -212,7 +213,7 @@ public class ElementDet extends Par5s {
                 break;
                 case 33071:  //Контейнер типа 
                 case 34071:  //Контейнер типа
-                    if (Uti4.dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
+                    if (Uti4.p_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
                         return false;
                     }
                     break;
@@ -243,7 +244,7 @@ public class ElementDet extends Par5s {
                 case 38095:  //Если признак системы конструкции
                 case 39095:  //Если признак системы конструкции
                 case 40095:  //Если признак системы конструкции 
-                    if (!Uti4.check_STRING_33095_34095_38095_39095_40095(rec.getStr(TEXT), elem5e, iwin.nuni)) {
+                    if (!Uti4.p_STRING_33095_34095_38095_39095_40095(rec.getStr(TEXT), elem5e, iwin.nuni)) {
                         return false;
                     }
                     break;
@@ -353,24 +354,33 @@ public class ElementDet extends Par5s {
                     break;
                 case 38039:  //Для типа открывания 
                 case 39039:  //Для типа открывания 
-                    message(grup);
-                    break;
-                case 38060:  //Количество на шаг 
-                    message(grup);
+                    if (Uti4.p_1039_38039_39039(elem5e, rec.getStr(TEXT)) == false) {
+                        return false;
+                    }
                     break;
                 case 38081:  //Если артикул профиля контура 
-                    message(grup);
+                case 39081:  //Если артикул профиля контура 
+                    if (elem5e.artiklRecAn.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
+                        return false;
+                    }
                     break;
                 case 38108:  //Применять коэффициенты АКЦИИ для МЦ 
+                case 39108:  //Применять коэффициенты АКЦИИ для МЦ 
+                case 40108:  //Применять коэффициенты АКЦИИ для МЦ 
                     message(grup);
                     break;
                 case 38109:  //Возможное управление жалюзи 
+                case 39109:  //Возможное управление жалюзи 
+                case 40109:  //Возможное управление жалюзи 
                     message(grup);
                     break;
                 case 38113:  //Установить текстуру по 
-                    message(grup);
+                case 39113:  //Установить текстуру по 
+                case 40113:  //Установить текстуру по 
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 39017:  //Код системы содержит строку 
+                case 40017:  //Код системы содержит строку 
                     message(grup);
                     break;
                 case 39063:  //Округлять количество до ближайшего 
@@ -379,23 +389,11 @@ public class ElementDet extends Par5s {
                 case 39080:  //Шаг вагонки ламели, мм 
                     message(grup);
                     break;
-                case 39081:  //Если артикул профиля контура 
-                    message(grup);
-                    break;
                 case 39093:  //Поперечину ставить :
                     mapParam.put(grup, rec.getStr(TEXT));
                     message(grup);
                     break;
                 case 39097:  //Трудозатраты по периметру 
-                    message(grup);
-                    break;
-                case 39108:  //Применять коэффициенты АКЦИИ для МЦ 
-                    message(grup);
-                    break;
-                case 39109:  //Возможное управление жалюзи 
-                    message(grup);
-                    break;
-                case 39113:  //Установить текстуру по 
                     message(grup);
                     break;
                 case 40004:  //Ширина заполнения, мм 
@@ -414,18 +412,6 @@ public class ElementDet extends Par5s {
                     message(grup);
                     break;
                 case 40010:  //Поправка на стороны четные/нечетные, мм 
-                    message(grup);
-                    break;
-                case 40017:  //Код системы содержит строку 
-                    message(grup);
-                    break;
-                case 40108:  //Применять коэффициенты АКЦИИ для МЦ 
-                    message(grup);
-                    break;
-                case 40109:  //Возможное управление жалюзи 
-                    message(grup);
-                    break;
-                case 40113:  //Установить текстуру по 
                     message(grup);
                     break;
                 default:

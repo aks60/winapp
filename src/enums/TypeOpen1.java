@@ -14,8 +14,8 @@ public enum TypeOpen1 implements Enam {
     LEFTUP(3, "Левое", "Левая поворотно-откидная"),
     RIGHTUP(4, "Правое", "Правая поворотно-откидная"),
     UPPER(5, "Откидная", "Откидная (открывается сверху)"),
-    LEFTSHIFT(11, "Левое", "Раздвижная влево (открывается справа-налево, защелка справа"),
-    RIGHTSHIFT(12, "Правое", "Раздвижная вправо (открывается слева-направо, защелка слева"),
+    LEFTMOV(11, "Левое", "Раздвижная влево (открывается справа-налево, защелка справа"),
+    RIGHTMOV(12, "Правое", "Раздвижная вправо (открывается слева-направо, защелка слева"),
     INVALID(16, "empty", "Не определено");
 
     public int id;
@@ -50,9 +50,9 @@ public enum TypeOpen1 implements Enam {
     }
 
     public LayoutArea axisStv() {
-        if (this == LEFT || this == LEFTUP || this == LEFTSHIFT) {
+        if (this == LEFT || this == LEFTUP || this == LEFTMOV) {
             return LayoutArea.LEFT;
-        } else if (this == RIGHT || this == RIGHTUP || this == RIGHTSHIFT) {
+        } else if (this == RIGHT || this == RIGHTUP || this == RIGHTMOV) {
             return LayoutArea.RIGHT;
         } else if (this == UPPER) {
             return LayoutArea.BOTT;

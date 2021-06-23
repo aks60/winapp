@@ -46,7 +46,7 @@ public class Elements extends Cal5e {
 
                 //Варианты состава для артикула профиля
                 int artikl_id = elem5e.artiklRecAn.getInt(eArtikl.id);
-                //Найдем список элементов по актикулу элемента конструкции
+                //Найдем список элементов по артикулу элемента конструкции
                 List<Record> elementList3 = eElement.find2(artikl_id);
                 detail(elementList3, elem5e);
 

@@ -246,6 +246,8 @@ public class ElementTest extends ParamTest {
         assert true == elementDet3.check(stv_right_3, param("21316-05000;21315-04000;", grup)) : grup;
         assert false == elementDet3.check(stv_right_3, param("21316-X05000;21315-04000;", grup)) : grup;
 
-        
+        grup = 38039; //39039
+        assert true == elementDet4.check(stv_right_4, param("поворотное", grup)) : grup;
+        assert false == elementDet4.check(stv_right_4, param("поворотно-откидное", grup)) : grup;        
     }
 }

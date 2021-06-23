@@ -48,7 +48,7 @@ public class ElementVar extends Par5s {
             switch (grup) {
 
                 case 31000: //Для технологического кода контейнера 
-                    if (!Uti4.check_STRING_XX000(rec.getStr(TEXT), elem5e)) {
+                    if (!Uti4.p_STRING_XX000(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                     break;
@@ -178,7 +178,7 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 31017:  //Код системы содержит строку 
-                case 37017: //Код системы содержит строку 
+                case 37017:  //Код системы содержит строку 
                 {
                     Record record = eSyssize.find(elem5e.artiklRec.getInt(eArtikl.syssize_id));
                     if (rec.getStr(TEXT).equals(record.getStr(eSyssize.name)) == false) {
@@ -248,7 +248,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31050: //Контейнер имеет тип 
-                    if (Uti4.dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
+                    if (Uti4.p_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
                         return false;
                     }
                     break;
@@ -314,7 +314,7 @@ public class ElementVar extends Par5s {
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 31090:  //Изменение сторон покраски 
-                    //message(grup);
+                    message(grup);
                     break;
                 case 31095:  //Если признак системы конструкции 
                 case 37095:  //Если признак системы конструкции                    
@@ -342,12 +342,12 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 37002:  //Если артикул профиля контура 
-                    if (iwin.rootArea.mapFrame.get(LayoutArea.BOTT).artiklRecAn.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
+                    if (elem5e.artiklRecAn.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
                 case 37008:  //Тип проема 
-                    if (!Uti4.dic_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                    if (!Uti4.p_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                     break;
