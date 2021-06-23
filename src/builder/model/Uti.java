@@ -12,16 +12,16 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import java.util.List;
 
-public class Uti3 {
+class Uti {
 
     protected ElemSimple elem5e = null;
 
-    public Uti3(ElemSimple elem5e) {
+    Uti(ElemSimple elem5e) {
         this.elem5e = elem5e;
     }
 
     //Укорочение мм от высоты ручки
-    public float p_25013(Specific spcRec, Specific spcAdd) {
+    float p_25013(Specific spcRec, Specific spcAdd) {
 
         String ps = spcAdd.getParam("null", 25013); //Укорочение от
         List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
@@ -45,7 +45,7 @@ public class Uti3 {
     }
 
     //Расчёт количества ед. с шагом
-    public float p_11050_14050_24050_33050_38050(ElemSimple elem5e, Specific spcAdd) {
+    float p_11050_14050_24050_33050_38050(Specific spcAdd) {
 
         int step = Integer.valueOf(spcAdd.getParam(-1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
         if (step != -1) {
@@ -64,13 +64,13 @@ public class Uti3 {
             } else if ("длина по коробке".equals(spcAdd.getParam("null", 38004, 39005))
                     && "null".equals(spcAdd.getParam("null", 38010, 39002))) {
                 float length = 0;
-                if("1".equals(spcAdd.getParam("null", 38010, 39002))) {
+                if ("1".equals(spcAdd.getParam("null", 38010, 39002))) {
                     length = elem5e.iwin().rootArea.mapFrame.get(LayoutArea.BOTT).length();
-                } else if("2".equals(spcAdd.getParam("null", 38010, 39002))) {
+                } else if ("2".equals(spcAdd.getParam("null", 38010, 39002))) {
                     length = elem5e.iwin().rootArea.mapFrame.get(LayoutArea.RIGHT).length();
-                } else if("3".equals(spcAdd.getParam("null", 38010, 39002))) {
+                } else if ("3".equals(spcAdd.getParam("null", 38010, 39002))) {
                     length = elem5e.iwin().rootArea.mapFrame.get(LayoutArea.TOP).length();
-                } else if("4".equals(spcAdd.getParam("null", 38010, 39002))) {
+                } else if ("4".equals(spcAdd.getParam("null", 38010, 39002))) {
                     length = elem5e.iwin().rootArea.mapFrame.get(LayoutArea.LEFT).length();
                 }
                 width_next = length - width_begin;
@@ -91,13 +91,13 @@ public class Uti3 {
     }
 
     //Количество ед.
-    public float p_11030_12060_14030_15040_25060_33030_34060_38030_39060(Specific spсRec, Specific spcAdd) {
+    float p_11030_12060_14030_15040_25060_33030_34060_38030_39060(Specific spсRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam(spcAdd.count,
                 11030, 12060, 14030, 15040, 25060, 33030, 34060, 38030, 39060));
     }
 
     //Пог. метры
-    public float p_12050_15050_34051_39020(Specific spcRec, Specific spcAdd) {
+    float p_12050_15050_34051_39020(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) { //пог.м.
             return Util.getFloat(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
         }
@@ -105,7 +105,7 @@ public class Uti3 {
     }
 
     //Пог. метры длина
-    public float p_12065_15045_25040_34070_39070(Specific spcRec, Specific spcAdd) {
+    float p_12065_15045_25040_34070_39070(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) { //пог.м.
             return Util.getFloat(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
         }
@@ -113,23 +113,23 @@ public class Uti3 {
     }
 
     //Коэффициент, [ * коэф-т ]
-    public float p_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
+    float p_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));
     }
 
     //Коэффициент, [ / коэф-т ]
-    public float p_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
+    float p_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));
     }
 
     //Othe
-    public float p_11030_12060_14030_15040_24030_25060_33030_34060_38030_39060(Specific spcRec, Specific spcAdd) {
+    float p_11030_12060_14030_15040_24030_25060_33030_34060_38030_39060(Specific spcRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam(spcAdd.quant1,
                 11030, 12060, 14030, 15040, 24030, 25060, 33030, 34060, 38030, 39060));
     }
 
     //Задать Угол_реза_1/Угол_реза_2, °
-    public void p_34077_39077(Specific spcAdd) {
+    void p_34077_39077(Specific spcAdd) {
         if ("ps3".equals(eSetting.find(2))) {
             if (spcAdd.getParam("-1", 34077).equals("-1") == false) {
                 spcAdd.anglCut1 = Util.getFloat(spcAdd.getParam("-1", 34077));
@@ -151,7 +151,7 @@ public class Uti3 {
     }
 
     //Ставить однократно
-    public float p_11070_12070_33078_34078(Specific spcAdd) {
+    float p_11070_12070_33078_34078(Specific spcAdd) {
         if ("Да".equals(spcAdd.getParam("Нет", 11070, 12070, 33078, 34078))) {
             return 1;
         } else {
@@ -160,7 +160,7 @@ public class Uti3 {
     }
 
     //Углы реза
-    public void p_12075_34075_39075(ElemSimple elem5e, Specific spcAdd) {
+    void p_12075_34075_39075(ElemSimple elem5e, Specific spcAdd) {
         String txt = spcAdd.getParam("null", 12075, 34075, 39075);
 
         if ("по контейнерам".equals(txt)) {

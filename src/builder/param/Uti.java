@@ -17,7 +17,7 @@ import enums.TypeElem;
 import java.util.Arrays;
 import java.util.List;
 
-class Uti5 {
+class Uti {
 
     //Тип проема 
     static boolean dic_13003_14005_15005_37008(String txt, ElemSimple elem5e) {
