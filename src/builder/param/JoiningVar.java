@@ -48,7 +48,7 @@ public class JoiningVar extends Par5s {
                 case 1005:  //Контейнер имеет тип Артикула1/Артикула2
                 case 2005:  //Контейнер имеет тип Артикула1/Артикула2
                 case 3005:  //Контейнер имеет тип Артикула1/Артикула2
-                case 4005:  //Контейнер имеет тип Артикула1/Артикула2
+                case 4005: //Контейнер имеет тип Артикула1/Артикула2
                 {
                     if ("ps3".equals(eSetting.find(2))) { //Контейнер Артикула 1 имеет тип
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
@@ -85,7 +85,14 @@ public class JoiningVar extends Par5s {
                     break;
                 case 1010:  //Внешнее соединение 
                 case 4010:  //Внешнее соединение                     
-                    //message(rec.getInt(GRUP)); //У SA всегда внутреннее
+                    if ("Да".equals(rec.getStr(TEXT))) {
+                        if (iwin.mapJoin.get(iwin.rootArea.x2 + ":" + iwin.rootArea.y1) != elemJoin
+                                && iwin.mapJoin.get(iwin.rootArea.x2 + ":" + iwin.rootArea.y2) != elemJoin
+                                && iwin.mapJoin.get(iwin.rootArea.x2 + ":" + iwin.rootArea.y1) != elemJoin
+                                && iwin.mapJoin.get(iwin.rootArea.x1 + ":" + iwin.rootArea.y1) != elemJoin) {
+                            return false;
+                        }
+                    }
                     break;
                 case 1011: //Для Артикула 1 указан состав 
                 case 4011: //Для Артикула 1 указан состав     
@@ -122,7 +129,7 @@ public class JoiningVar extends Par5s {
                 case 1013:  //Для Артикулов не указан состав
                 case 2013:  //Для Артикулов не указан состав 
                 case 3013:  //Для Артикулов не указан состав
-                case 4013:  //Для Артикулов не указан состав  
+                case 4013: //Для Артикулов не указан состав  
                 {
                     List<Record> elementList1 = eElement.find3(elemJoin.elem1.artiklRec.getInt(eArtikl.code), elemJoin.elem1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1 = false;
