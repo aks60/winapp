@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
+import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import common.Util;
 
@@ -21,7 +22,7 @@ public class JoiningDet extends Par5s {
         super(iwin);
     }
 
-    public boolean filter(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record joindetRec) {
+    public boolean filter(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record joindetRec) {
 
         List<Record> paramList = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
         if (filterParamDef(paramList) == false) {
@@ -29,14 +30,14 @@ public class JoiningDet extends Par5s {
         }
         //Цикл по параметрам соединения
         for (Record rec : paramList) {
-            if (check(mapParam, elem5e, rec) == false) {
+            if (check(mapParam, elemJoin, rec) == false) {
                 return false;
             }
         }
         return true;
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record rec) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record rec) {
 
         int grup = rec.getInt(GRUP);
         try {
@@ -45,7 +46,7 @@ public class JoiningDet extends Par5s {
                 case 11000: //Для технологического кода контейнера 1/2
                 case 12000: //Для технологического кода контейнера 1/2 
                 {
-                    Record sysprofRec = elem5e.sysprofRec;
+                    Record sysprofRec = elemJoin.elem1.sysprofRec;
                     Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
                     if (artiklVRec.get(eArtikl.tech_code) == null) {
                         return false;
@@ -110,20 +111,20 @@ public class JoiningDet extends Par5s {
                     break;
                 case 11067:  //Коды основной текстуры изделия 
                 case 12067:  //Коды основной текстуры изделия
-                    int c1 = elem5e.iwin().colorID1;
+                    int c1 = iwin.colorID1;
                     if (Util.containsNumb(rec.getStr(TEXT), c1) == false) {
                         return false;
                     }
                     break;
                 case 11068:  //Коды внутр. текстуры изделия 
                 case 12068:  //Коды внутр. текстуры изделия 
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
+                    if (Util.containsNumb(rec.getStr(TEXT), iwin.colorID2) == false) {
                         return false;
                     }
                     break;
                 case 11069:  //Коды внешн. текстуры изделия
                 case 12069:  //Коды внешн. текстуры изделия     
-                    int c3 = elem5e.iwin().colorID3;
+                    int c3 = iwin.colorID3;
                     if (Util.containsNumb(rec.getStr(TEXT), c3) == false) {
                         return false;
                     }
@@ -168,7 +169,7 @@ public class JoiningDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 12027:  //Рассчитывать для профиля 
-                    if ("с уплотнителем".equalsIgnoreCase(rec.getStr(TEXT)) == true && elem5e.artiklRec.getInt(eArtikl.with_seal) == 0) {
+                    if ("с уплотнителем".equalsIgnoreCase(rec.getStr(TEXT)) == true && elemJoin.elem1.artiklRec.getInt(eArtikl.with_seal) == 0) {
                         return false;
                     }
                     break;

@@ -33,16 +33,16 @@ public class AreaArch extends AreaSimple {
         double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dh)); //угол реза рамы
         double ang4 = 90 - (Math.toDegrees(rad1) - (90 - ang3)); //угол реза арки
         radiusArch = r;
-        ElemJoining elem1 = new ElemJoining(id() + .1f, TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft, (float) ang4);
-        elem1.joinElem1.anglCut[1] = (float) ang4;  //угол реза арки
-        elem1.joinElem2.anglCut[0] = (float) ang3;  //угол реза рамы
-        iwin().mapJoin.put(elemArch.joinPoint(0), elem1);
+        ElemJoining elemJoin1 = new ElemJoining(id() + .1f, TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft, (float) ang4);
+        elemJoin1.elem1.anglCut[1] = (float) ang4;  //угол реза арки
+        elemJoin1.elem2.anglCut[0] = (float) ang3;  //угол реза рамы
+        iwin().mapJoin.put(elemArch.joinPoint(0), elemJoin1);
 
         //Угловое соединение правое верхнее
-        ElemJoining elem2 = new ElemJoining(id() + .2f, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch, (float) ang4);
-        elem2.joinElem2.anglCut[0] = (float) ang4;  //угол реза арки
-        elem2.joinElem1.anglCut[1] = (float) ang3;  //угол реза рамы                             
-        iwin().mapJoin.put(elemArch.joinPoint(0), elem2);
+        ElemJoining elemJoin2 = new ElemJoining(id() + .2f, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch, (float) ang4);
+        elemJoin2.elem2.anglCut[0] = (float) ang4;  //угол реза арки
+        elemJoin2.elem1.anglCut[1] = (float) ang3;  //угол реза рамы                             
+        iwin().mapJoin.put(elemArch.joinPoint(0), elemJoin2);
         
         //Угловое соединение левое нижнее
         ElemJoining elem3 = new ElemJoining(id() + .3f, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);

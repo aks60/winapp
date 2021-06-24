@@ -86,11 +86,11 @@ public abstract class ElemSimple extends Com5t {
     public ElemSimple joinElem(int side) {
         ElemJoining ej = iwin().mapJoin.get(joinPoint(side));
         if (ej != null && side == 0) {
-            return (this.type == TypeElem.IMPOST || this.type == TypeElem.SHTULP) ? ej.joinElem2 : ej.joinElem1;
+            return (this.type == TypeElem.IMPOST || this.type == TypeElem.SHTULP) ? ej.elem2 : ej.elem1;
         } else if (ej != null && side == 1) {
-            return ej.joinElem2;
+            return ej.elem2;
         } else if (ej != null && side == 2) {
-            return ej.joinElem2;
+            return ej.elem2;
         }
         return null;
     }

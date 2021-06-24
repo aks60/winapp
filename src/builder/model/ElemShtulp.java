@@ -105,9 +105,9 @@ public class ElemShtulp extends ElemSimple {
     //@Override //Вложеная спецификация 
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
 
-        spcAdd.count = uti3.p_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count += uti3.p_11050_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
-        spcAdd.width = uti3.p_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
+        spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+        spcAdd.count += uti3.get_11050_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
+        spcAdd.width = uti3.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
 
         //Армирование
         if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X107)) {
@@ -119,16 +119,16 @@ public class ElemShtulp extends ElemSimple {
         if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklDet.getInt(eArtikl.level1))) {
             spcAdd.width += spcRec.width;
         }
-        uti3.p_12075_34075_39075(this, spcAdd); //углы реза
-        uti3.p_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2 
+        uti3.get_12075_34075_39075(this, spcAdd); //углы реза
+        uti3.get_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2 
         spcAdd.height = Util.getFloat(spcAdd.getParam(spcAdd.height, 40006)); ////высота заполнения, мм
-        spcAdd.width = uti3.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+        spcAdd.width = uti3.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
         spcAdd.width = Util.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм 
-        spcAdd.width = spcAdd.width * uti3.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
-        spcAdd.width = spcAdd.width / uti3.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
-        uti3.p_40007(spcAdd); //высоту сделать длиной
-        spcAdd.count = uti3.p_11070_12070_33078_34078(spcAdd); //ставить однократно
-        spcAdd.count = uti3.p_39063(spcAdd); //округлять количество до ближайшего
+        spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+        spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+        uti3.get_40007(spcAdd); //высоту сделать длиной
+        spcAdd.count = uti3.get_11070_12070_33078_34078(spcAdd); //ставить однократно
+        spcAdd.count = uti3.get_39063(spcAdd); //округлять количество до ближайшего
 
         spcRec.spcList.add(spcAdd);
     }

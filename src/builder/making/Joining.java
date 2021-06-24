@@ -40,8 +40,8 @@ public class Joining extends Cal5e {
             //Цикл по списку соединений
             for (Map.Entry<String, ElemJoining> hmElemJoin : iwin().mapJoin.entrySet()) {
                 ElemJoining elemJoin = hmElemJoin.getValue();
-                ElemSimple joinElem1 = elemJoin.joinElem1;
-                ElemSimple joinElem2 = elemJoin.joinElem2;
+                ElemSimple joinElem1 = elemJoin.elem1;
+                ElemSimple joinElem2 = elemJoin.elem2;
                 Record joinartRec1 = joinElem1.artiklRecAn; //берём аналог профиля
                 Record joinartRec2 = joinElem2.artiklRecAn; //т.к. если его нет там будет оригинал              
                 int id1 = (joinartRec1.get(eArtikl.analog_id) == null) ? joinartRec1.getInt(eArtikl.id) : joinartRec1.getInt(eArtikl.analog_id);
@@ -72,7 +72,7 @@ public class Joining extends Cal5e {
                                 HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры
 
                                 //ФИЛЬТР детализации 
-                                if (joiningDet.filter(mapParam, joinElem1, joindetRec) == true) {
+                                if (joiningDet.filter(mapParam, elemJoin, joindetRec) == true) {
                                     Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
                                     Specific spcAdd = new Specific(joindetRec, artiklRec, joinElem1, mapParam);
                                     if (Color.colorFromProduct(spcAdd, 1)
@@ -80,7 +80,6 @@ public class Joining extends Cal5e {
                                             && Color.colorFromProduct(spcAdd, 3)) {
 
                                         spcAdd.place = "СОЕД";
-                                        //joinElem1.addSpecific(spcAdd);
                                         elemJoin.addSpecific(spcAdd);
                                     }
                                 }

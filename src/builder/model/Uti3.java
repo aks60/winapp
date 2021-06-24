@@ -21,7 +21,7 @@ class Uti3 {
     }
 
     //Укорочение мм от высоты ручки
-    float p_25013(Specific spcRec, Specific spcAdd) {
+    float get_25013(Specific spcRec, Specific spcAdd) {
 
         String ps = spcAdd.getParam("null", 25013); //Укорочение от
         List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
@@ -45,7 +45,7 @@ class Uti3 {
     }
 
     //Расчёт количества ед. с шагом
-    float p_11050_14050_24050_33050_38050(Specific spcAdd) {
+    float get_11050_14050_24050_33050_38050(Specific spcAdd) {
 
         int step = Integer.valueOf(spcAdd.getParam(-1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
         if (step != -1) {
@@ -91,13 +91,13 @@ class Uti3 {
     }
 
     //Количество ед.
-    float p_11030_12060_14030_15040_25060_33030_34060_38030_39060(Specific spсRec, Specific spcAdd) {
+    float get_11030_12060_14030_15040_25060_33030_34060_38030_39060(Specific spсRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam(spcAdd.count,
                 11030, 12060, 14030, 15040, 25060, 33030, 34060, 38030, 39060));
     }
 
     //Пог. метры
-    float p_12050_15050_34051_39020(Specific spcRec, Specific spcAdd) {
+    float get_12050_15050_34051_39020(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) { //пог.м.
             return Util.getFloat(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
         }
@@ -105,7 +105,7 @@ class Uti3 {
     }
 
     //Пог. метры длина
-    float p_12065_15045_25040_34070_39070(Specific spcRec, Specific spcAdd) {
+    float get_12065_15045_25040_34070_39070(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) { //пог.м.
             return Util.getFloat(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
         }
@@ -113,23 +113,23 @@ class Uti3 {
     }
 
     //Коэффициент, [ * коэф-т ]
-    float p_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
+    float get_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));
     }
 
     //Коэффициент, [ / коэф-т ]
-    float p_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
+    float get_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));
     }
 
     //Othe
-    float p_11030_12060_14030_15040_24030_25060_33030_34060_38030_39060(Specific spcRec, Specific spcAdd) {
+    float get_11030_12060_14030_15040_24030_25060_33030_34060_38030_39060(Specific spcRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam(spcAdd.quant1,
                 11030, 12060, 14030, 15040, 24030, 25060, 33030, 34060, 38030, 39060));
     }
 
     //Задать Угол_реза_1/Угол_реза_2, °
-    void p_34077_39077(Specific spcAdd) {
+    void get_34077_39077(Specific spcAdd) {
         if ("ps3".equals(eSetting.find(2))) {
             if (spcAdd.getParam("-1", 34077).equals("-1") == false) {
                 spcAdd.anglCut1 = Util.getFloat(spcAdd.getParam("-1", 34077));
@@ -151,7 +151,7 @@ class Uti3 {
     }
 
     //Ставить однократно
-    float p_11070_12070_33078_34078(Specific spcAdd) {
+    float get_11070_12070_33078_34078(Specific spcAdd) {
         if ("Да".equals(spcAdd.getParam("Нет", 11070, 12070, 33078, 34078))) {
             return 1;
         } else {
@@ -160,7 +160,7 @@ class Uti3 {
     }
 
     //Углы реза
-    void p_12075_34075_39075(ElemSimple elem5e, Specific spcAdd) {
+    void get_12075_34075_39075(ElemSimple elem5e, Specific spcAdd) {
         String txt = spcAdd.getParam("null", 12075, 34075, 39075);
 
         if ("по контейнерам".equals(txt)) {
@@ -182,7 +182,7 @@ class Uti3 {
     }
 
     //Высоту сделать длиной 
-    void p_40007(Specific spcAdd) {
+    void get_40007(Specific spcAdd) {
         if ("Да".equals(spcAdd.getParam("null", 40007))) {
             float height = spcAdd.height;
             spcAdd.height = spcAdd.width;
@@ -191,7 +191,7 @@ class Uti3 {
     }
     
 //    //Изменение сторон покраски
-//    void p_31090(Specific spcAdd) {
+//    void get_31090(Specific spcAdd) {
 //        if ("Да".equals(spcAdd.getParam("null", 31090))) {
 //            int color = spcAdd.colorID2;
 //            spcAdd.colorID2 = spcAdd.colorID3;
@@ -200,7 +200,7 @@ class Uti3 {
 //    }
 //    
     //Округлять количество до ближайшего
-    float p_39063(Specific spcAdd) {
+    float get_39063(Specific spcAdd) {
         String txt = spcAdd.getParam("null", 39063);
         
         if ("меньшего целого числа".equals(txt)) {
