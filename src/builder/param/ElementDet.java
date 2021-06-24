@@ -381,7 +381,9 @@ public class ElementDet extends Par5s {
                     break;
                 case 39017:  //Код системы содержит строку 
                 case 40017:  //Код системы содержит строку 
-                    message(grup);
+                    if (rec.getStr(TEXT).equals(eSyssize.find(elem5e.artiklRec.getInt(eArtikl.syssize_id)).getStr(eSyssize.name)) == false) {
+                        return false;
+                    }
                     break;
                 case 39063:  //Округлять количество до ближайшего 
                     message(grup);
