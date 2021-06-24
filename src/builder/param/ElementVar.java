@@ -48,7 +48,7 @@ public class ElementVar extends Par5s {
             switch (grup) {
 
                 case 31000: //Для технологического кода контейнера 
-                    if (!Uti4.p_STRING_XX000(rec.getStr(TEXT), elem5e)) {
+                    if (!Uti4.is_STRING_XX000(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                     break;
@@ -113,7 +113,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31008: //Эффективное заполнение изделия, мм 
-                    if (Uti4.p_31008_34008(rec.getFloat(TEXT), iwin) == false) {
+                    if (Uti4.is_1008_31008_34008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
                     break;
@@ -235,7 +235,7 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 31037:  //Название фурнитуры содержит 
-                    if (Uti4.p_31037_38037_39037_40037(elem5e, rec.getStr(TEXT)) == false) {
+                    if (Uti4.is_31037_38037_39037_40037(elem5e, rec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
@@ -248,7 +248,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31050: //Контейнер имеет тип 
-                    if (Uti4.p_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
+                    if (Uti4.is_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elem5e) == false) {
                         return false;
                     }
                     break;
@@ -352,7 +352,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 37008:  //Тип проема 
-                    if (!Uti4.p_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                    if (!Uti4.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                     break;

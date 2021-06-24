@@ -6,9 +6,9 @@ import builder.model.ElemFrame;
 import builder.model.ElemSimple;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
+import builder.param.JoiningDet;
+import builder.param.JoiningVar;
 import dataset.Record;
-import enums.LayoutArea;
-import enums.TypeElem;
 import java.util.HashMap;
 
 public class ParamTest {
@@ -39,14 +39,20 @@ public class ParamTest {
     builder.Wincalc iwin_2 = new builder.Wincalc(); //601004
     protected ElementVar elementVar2 = null;
     protected ElementDet elementDet2 = null;
+    protected JoiningVar joiningVar2 = null;
+    protected JoiningDet joiningDet2 = null;
 
     builder.Wincalc iwin_3 = new builder.Wincalc(); //604005
     protected ElementVar elementVar3 = null;
     protected ElementDet elementDet3 = null;
+    protected JoiningVar joiningVar3 = null;
+    protected JoiningDet joiningDet3 = null;    
 
     builder.Wincalc iwin_4 = new builder.Wincalc(); //700027
     protected ElementVar elementVar4 = null;
     protected ElementDet elementDet4 = null;
+    protected JoiningVar joiningVar4 = null;
+    protected JoiningDet joiningDet4 = null;    
 
     public ParamTest() {
 
@@ -54,6 +60,8 @@ public class ParamTest {
         iwin_2.constructiv(true);
         elementVar2 = new ElementVar(iwin_2);
         elementDet2 = new ElementDet(iwin_2);
+        joiningVar2 = new JoiningVar(iwin_2);
+        joiningDet2 = new JoiningDet(iwin_2);       
         frame_left_2 = getElem(iwin_2.rootArea, 1.0f);
         frame_right_2 = getElem(iwin_2.rootArea, 1.0f);
         stv_right_2 = getElem(iwin_2.rootArea, 10.2f);
@@ -67,6 +75,8 @@ public class ParamTest {
         iwin_3.constructiv(true);
         elementVar3 = new ElementVar(iwin_3);
         elementDet3 = new ElementDet(iwin_3);
+        joiningVar3 = new JoiningVar(iwin_3);
+        joiningDet3 = new JoiningDet(iwin_3);        
         frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
         stv_right_3 = getElem(iwin_3.rootArea, 9.2f);
@@ -76,6 +86,8 @@ public class ParamTest {
         iwin_4.constructiv(true);
         elementVar4 = new ElementVar(iwin_4);
         elementDet4 = new ElementDet(iwin_4);
+        joiningVar4 = new JoiningVar(iwin_4);
+        joiningDet4 = new JoiningDet(iwin_4);        
         frame_left_4 = getElem(iwin_4.rootArea, 1.0f);
         frame_right_4 = getElem(iwin_4.rootArea, 2.0f);
         stv_left_4 = getElem(iwin_4.rootArea, 6.4f);

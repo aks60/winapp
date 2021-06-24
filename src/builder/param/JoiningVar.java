@@ -79,13 +79,15 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                 case 1008:  //Эффективное заполнение изд., мм
-                    message(rec.getInt(GRUP));
+                    if (Uti4.is_1008_31008_34008(rec.getFloat(TEXT), iwin) == false) {
+                        return false;
+                    }
                     break;
                 case 1010:  //Внешнее соединение 
                 case 4010:  //Внешнее соединение                     
                     //message(rec.getInt(GRUP)); //У SA всегда внутреннее
                     break;
-                case 1011:  //Для Артикула 1 указан состав 
+                case 1011: //Для Артикула 1 указан состав 
                 case 4011: //Для Артикула 1 указан состав     
                 {
                     boolean substr = false;
@@ -120,7 +122,7 @@ public class JoiningVar extends Par5s {
                 case 1013:  //Для Артикулов не указан состав
                 case 2013:  //Для Артикулов не указан состав 
                 case 3013:  //Для Артикулов не указан состав
-                case 4013: //Для Артикулов не указан состав  
+                case 4013:  //Для Артикулов не указан состав  
                 {
                     List<Record> elementList1 = eElement.find3(elemJoin.joinElem1.artiklRec.getInt(eArtikl.code), elemJoin.joinElem1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1 = false;
@@ -144,8 +146,8 @@ public class JoiningVar extends Par5s {
                     }
                 }
                 break;
-                case 1020:  //Ограничение угла к горизонту, ° или Угол к горизонту минимальный
-                    if ("ps3".equals(eSetting.find(2))) {
+                case 1020:  //Ограничение угла к горизонту, °
+                    if ("ps3".equals(eSetting.find(2))) { //Угол к горизонту минимальный
                         if (elemJoin.joinElem1.anglHoriz < rec.getFloat(TEXT)) {
                             return false;
                         }
@@ -250,10 +252,10 @@ public class JoiningVar extends Par5s {
                     }
                 }
                 break;
-                case 2015:  //Ориентация Артикула1/Артикула2, ° или Ориентация Артикула 1 
-                case 3015:
-                case 4015:
-                    if ("ps3".equals(eSetting.find(2))) {
+                case 2015:  //Ориентация Артикула1/Артикула2, ° 
+                case 3015:  //Ориентация Артикула1/Артикула2, °
+                case 4015:  //Ориентация Артикула1/Артикула2, °
+                    if ("ps3".equals(eSetting.find(2))) { //Ориентация Артикула 1
                         List<String> list = ParamList.find(grup).dict();
                         if ("горизонтально".equals(rec.getStr(TEXT)) && (elemJoin.joinElem1.anglHoriz == 0 || elemJoin.joinElem1.anglHoriz == 180) == false) { //горизонтально
                             return false;

@@ -47,7 +47,7 @@ class Uti4 {
     }
 
     //Тип проема 
-    static boolean p_13003_14005_15005_37008(String txt, ElemSimple elem5e) {
+    static boolean is_13003_14005_15005_37008(String txt, ElemSimple elem5e) {
         if ("глухой".equals(txt) == true && elem5e.owner().type() == TypeElem.STVORKA == true) {
             return false;
         } else if ("не глухой".equals(txt) == true && elem5e.owner().type() == TypeElem.STVORKA == false) {
@@ -57,7 +57,7 @@ class Uti4 {
     }
 
     //Контейнер типа
-    static boolean p_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(String txt, ElemSimple elem5e) {
+    static boolean is_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(String txt, ElemSimple elem5e) {
         if ("ps3".equals(eSetting.find(2))) {
             String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
             int[] index = {1, 2, 3, 5, 19};
@@ -75,7 +75,7 @@ class Uti4 {
     }
 
     //Для технологического кода контейнера 
-    static boolean p_STRING_XX000(String txt, ElemSimple elem5e) {
+    static boolean is_STRING_XX000(String txt, ElemSimple elem5e) {
         Record sysprofRec = elem5e.sysprofRec;
         Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklVRec.get(eArtikl.tech_code) == null) {
@@ -98,7 +98,7 @@ class Uti4 {
     }
 
     //Если признак системы конструкции
-    static boolean p_STRING_33095_34095_38095_39095_40095(String txt, ElemSimple elem5e, int nuni) {
+    static boolean is_STRING_33095_34095_38095_39095_40095(String txt, ElemSimple elem5e, int nuni) {
         Record systreefRec = eSystree.find(nuni);
         String[] arr = txt.split(";");
         List<String> arrList = Arrays.asList(arr);
@@ -115,7 +115,7 @@ class Uti4 {
     }
 
     //Если номер стороны в контуре
-    static boolean p_INT_33066_34066(String txt, ElemSimple elem5e) {
+    static boolean is_INT_33066_34066(String txt, ElemSimple elem5e) {
         if ("1".equals(txt) == true && LayoutArea.BOTT != elem5e.layout()) {
             return false;
         } else if ("2".equals(txt) == true && LayoutArea.RIGHT != elem5e.layout()) {
@@ -129,12 +129,12 @@ class Uti4 {
     }
 
     //Перспектива
-    static boolean p_13081_13082_13086_13087(ElemSimple elem5e, String txt) {
+    static boolean is_13081_13082_13086_13087(ElemSimple elem5e, String txt) {
         return true;
     }
 
     //Эффективное заполнение изделия, мм 
-    static boolean p_31008_34008(Float txt, Wincalc iwin) {
+    static boolean is_1008_31008_34008(Float txt, Wincalc iwin) {
         float depth = 0;
         for (ElemSimple elem : iwin.listElem) {
             if (elem.type() == TypeElem.GLASS) {
@@ -148,7 +148,7 @@ class Uti4 {
     }
 
     //Название фурнитуры содержит 
-    static boolean p_31037_38037_39037_40037(ElemSimple elem5e, String txt) {
+    static boolean is_31037_38037_39037_40037(ElemSimple elem5e, String txt) {
         if (TypeElem.STVORKA == elem5e.owner().type()) {
             AreaStvorka stv = (AreaStvorka) elem5e.owner();
             String name = eFurniture.find(stv.sysfurnRec.getInt(eSysfurn.furniture_id)).getStr(eFurniture.name);
@@ -162,7 +162,7 @@ class Uti4 {
     }
 
     //Для типа открывания
-    static boolean p_1039_38039_39039(ElemSimple elem5e, String txt) {
+    static boolean is_1039_38039_39039(ElemSimple elem5e, String txt) {
         if (elem5e.owner().type() == TypeElem.STVORKA) {
             AreaStvorka stv = (AreaStvorka) elem5e.owner();
             if (!"фрамуга".equals(txt) && stv.typeOpen == TypeOpen1.UPPER) { //фрамуга
@@ -175,6 +175,12 @@ class Uti4 {
                 return false;
             }
         }
+        return true;
+    }
+    
+    //Внешнее соединение
+    static boolean is_31010_4010_11009_12009(String txt) {
+        
         return true;
     }
 }

@@ -44,7 +44,7 @@ public class FillingVar extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 13003:  //Тип проема 
-                    if (!Uti4.p_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                    if (!Uti4.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                     break;
@@ -79,7 +79,7 @@ public class FillingVar extends Par5s {
                         if (elem5e.anglFlat[0] > rec.getFloat(TEXT)) {
                             return false;
                         }
-                    } else if (Uti4.p_13081_13082_13086_13087(elem5e, rec.getStr(TEXT))) {
+                    } else if (Uti4.is_13081_13082_13086_13087(elem5e, rec.getStr(TEXT))) {
                         return false;
                     }
                 case 13082:  //Макс. внутр. угол плоскости, °

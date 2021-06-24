@@ -6,9 +6,13 @@ public class JoiningTest extends ParamTest {
 
     public void joiningVar() {
 
-        grup = 31000;
-        assert true == elementVar2.check(frame_left_2, param("KBE 58;XXX 58;", grup)) : grup;
-        assert false == elementVar2.check(frame_left_2, param("KBE58;", grup)) : grup;
+        grup = 1005;
+        assert true == joiningVar2.check(frame_left_2.iwin().mapJoin.get(frame_left_2.joinPoint(0)), param("1/1", grup)) : grup;
+        assert true == joiningVar2.check(imp_horiz_2.iwin().mapJoin.get(imp_horiz_2.joinPoint(0)), param("3/1", grup)) : grup;
+        
+        grup = 1008;
+        assert true == joiningVar2.check(null, param("30", grup)) : grup;
+        assert false == joiningVar2.check(null, param("32", grup)) : grup;        
     }
 
     public void joiningDet() {
