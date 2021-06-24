@@ -8,6 +8,7 @@ import dataset.*;
 import com.google.gson.GsonBuilder;
 import builder.param.ParamList;
 import builder.param.test.ElementTest;
+import builder.param.test.JoiningTest;
 import frames.DBCompare;
 import java.sql.Connection;
 import javax.swing.UIManager;
@@ -62,8 +63,8 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            wincalc();
-            //param();
+            //wincalc();
+            param();
             //query();
             //frame();
             //json();
@@ -119,8 +120,11 @@ public class Test {
 
         Query.connection = Test.connect2();
         ElementTest et = new ElementTest();
+        JoiningTest jt = new JoiningTest();
         et.elementVar();
         et.elementDet();
+        jt.joiningVar();
+        jt.joiningDet();
         
 //        Query.connection = Test.connect2();
 //        Set set = new HashSet();

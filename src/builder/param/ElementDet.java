@@ -254,7 +254,8 @@ public class ElementDet extends Par5s {
                 case 39099:  //Трудозатраты, ч/ч. 
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
-                case 34008: //Эффективное заполнение изделия, мм 
+                case 34008:  //Эффективное заполнение изделия, мм 
+                case 40008:  //Эффективное заполнение изд., мм                    
                     if (Uti4.p_31008_34008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
@@ -386,7 +387,7 @@ public class ElementDet extends Par5s {
                     }
                     break;
                 case 39063:  //Округлять количество до ближайшего 
-                    message(grup);
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 39080:  //Шаг вагонки ламели, мм 
                     message(grup);
@@ -399,19 +400,16 @@ public class ElementDet extends Par5s {
                     message(grup);
                     break;
                 case 40004:  //Ширина заполнения, мм 
-                    message(grup);
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 40005:  //Поправка ширины/высоты, мм 
                     message(grup);
                     break;
                 case 40006:  //Высота заполнения, мм 
-                    message(grup);
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 40007:  //Высоту сделать длиной 
-                    message(grup);
-                    break;
-                case 40008:  //Эффективное заполнение изд., мм 
-                    message(grup);
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 40010:  //Поправка на стороны четные/нечетные, мм 
                     message(grup);

@@ -12,4 +12,12 @@ public class JoiningTest extends ParamTest {
         assert false == elementVar2.check(frame_left_2, param("KBE58;", grup)) : grup;
 
     }
+    
+    public void joiningVar() {
+        
+    } 
+    
+    public void joiningDet() {
+        
+    } 
 }

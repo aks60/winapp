@@ -181,6 +181,15 @@ class Uti3 {
         }
     }
 
+    //Высоту сделать длиной 
+    void p_40007(Specific spcAdd) {
+        if ("Да".equals(spcAdd.getParam("null", 40007))) {
+            float height = spcAdd.height;
+            spcAdd.height = spcAdd.width;
+            spcAdd.width = height;
+        }
+    }
+    
 //    //Изменение сторон покраски
 //    void p_31090(Specific spcAdd) {
 //        if ("Да".equals(spcAdd.getParam("null", 31090))) {
@@ -189,4 +198,23 @@ class Uti3 {
 //            spcAdd.colorID2 = color;
 //        }
 //    }
+//    
+    //Округлять количество до ближайшего
+    float p_39063(Specific spcAdd) {
+        String txt = spcAdd.getParam("null", 39063);
+        
+        if ("меньшего целого числа".equals(txt)) {
+            return (float) Math.floor(spcAdd.count);
+            
+        } else if ("большего целого числа".equals(txt)) {
+            return (float) Math.ceil(spcAdd.count);
+  
+        } else if ("большего чётного числа".equals(txt)) {
+            return (float) Math.round(spcAdd.count);
+  
+        } else if ("большего нечётного числа".equals(txt)) {
+            return (float) Math.round(spcAdd.count) + 1;
+        }
+        return spcAdd.count;
+    }
 }

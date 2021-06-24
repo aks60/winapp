@@ -120,11 +120,15 @@ public class ElemShtulp extends ElemSimple {
             spcAdd.width += spcRec.width;
         }
         uti3.p_12075_34075_39075(this, spcAdd); //углы реза
-        uti3.p_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2        
+        uti3.p_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2 
+        spcAdd.height = Util.getFloat(spcAdd.getParam(spcAdd.height, 40006)); ////высота заполнения, мм
         spcAdd.width = uti3.p_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+        spcAdd.width = Util.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм 
         spcAdd.width = spcAdd.width * uti3.p_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
         spcAdd.width = spcAdd.width / uti3.p_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+        uti3.p_40007(spcAdd); //высоту сделать длиной
         spcAdd.count = uti3.p_11070_12070_33078_34078(spcAdd); //ставить однократно
+        spcAdd.count = uti3.p_39063(spcAdd); //округлять количество до ближайшего
 
         spcRec.spcList.add(spcAdd);
     }
