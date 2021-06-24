@@ -45,14 +45,12 @@ public class JoiningVar extends Par5s {
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
-                case 0:  //Зрачение по умолчанию 
-                    message(rec.getInt(GRUP));
-                    break;
                 case 1005:  //Контейнер имеет тип Артикула1/Артикула2
-                case 2005:  //Контейнер Артикула 1 имеет тип (ps3) 
-                case 3005:
-                case 4005: {
-                    if ("ps3".equals(eSetting.find(2))) {
+                case 2005:  //Контейнер имеет тип Артикула1/Артикула2
+                case 3005:  //Контейнер имеет тип Артикула1/Артикула2
+                case 4005:  //Контейнер имеет тип Артикула1/Артикула2
+                {
+                    if ("ps3".equals(eSetting.find(2))) { //Контейнер Артикула 1 имеет тип
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
                         int[] index = {1, 2, 3, 5, 19};
                         for (int i = 0; i < arr.length; i++) {
