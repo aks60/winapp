@@ -80,7 +80,8 @@ public class Joining extends Cal5e {
                                             && Color.colorFromProduct(spcAdd, 3)) {
 
                                         spcAdd.place = "СОЕД";
-                                        joinElem1.addSpecific(spcAdd);
+                                        //joinElem1.addSpecific(spcAdd);
+                                        elemJoin.addSpecific(spcAdd);
                                     }
                                 }
                             }
