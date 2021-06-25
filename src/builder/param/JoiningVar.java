@@ -95,7 +95,7 @@ public class JoiningVar extends Par5s {
                     break;
                 case 1011: //Для Артикула 1 указан состав 
                 case 4011: //Для Артикула 1 указан состав     
-                    if ("ps3".equals(eSetting.find(2))) {
+                    {
                         boolean substr = false;
                         List<Record> elementList = eElement.find3(elemJoin.elem1.artiklRec.getInt(eArtikl.code), elemJoin.elem1.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList) {
@@ -111,7 +111,7 @@ public class JoiningVar extends Par5s {
                     break;
                 case 1012: //Для Артикула 2 указан состав                  
                 case 4012: //Для Артикула 2 указан состав     
-                    if ("ps3".equals(eSetting.find(2))) {
+                    {
                         boolean substr = false;
                         List<Record> elementList = eElement.find3(elemJoin.elem2.artiklRec.getInt(eArtikl.code), elemJoin.elem2.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList) {
@@ -128,7 +128,7 @@ public class JoiningVar extends Par5s {
                 case 1013:  //Для Артикулов не указан состав
                 case 2013:  //Для Артикулов не указан состав 
                 case 3013:  //Для Артикулов не указан состав
-                case 4013: //Для Артикулов не указан состав  
+                case 4013:  //Для Артикулов не указан состав  
                 {
                     List<Record> elementList1 = eElement.find3(elemJoin.elem1.artiklRec.getInt(eArtikl.code), elemJoin.elem1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1 = false;
@@ -292,7 +292,7 @@ public class JoiningVar extends Par5s {
                             break;
                         }
                     }
-                    if (substr1 == true || substr2 == true) {
+                    if (substr1 == true && substr2 == true) {
                         return false;
                     }
                 }
