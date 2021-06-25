@@ -63,8 +63,8 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            wincalc();
-            //param();
+            //wincalc();
+            param();
             //query();
             //frame();
             //json();
@@ -121,8 +121,8 @@ public class Test {
         Query.connection = Test.connect2();
         ElementTest et = new ElementTest();
         JoiningTest jt = new JoiningTest();
-        //et.elementVar();
-        //et.elementDet();
+        et.elementVar();
+        et.elementDet();
         jt.joiningVar();
         jt.joiningDet();
         

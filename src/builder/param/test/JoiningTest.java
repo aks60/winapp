@@ -42,8 +42,9 @@ public class JoiningTest extends ParamTest {
         assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("правый", grup)) : grup;  
         
         grup = 4020;
-        assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("30-89,98;90,11-179,9;180,1-269,9;270,1-359,9;", grup)) : grup;
-        assert false == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("90", grup)) : grup;        
+        assert false == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("30-89,98;90,11-179,9;180,1-269,9;270,1-359,9;", grup)) : grup;
+        assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("89,98-90,1", grup)) : grup;        
+        assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("90", grup)) : grup;        
     }
 
     public void joiningDet() {

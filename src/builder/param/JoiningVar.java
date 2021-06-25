@@ -208,7 +208,7 @@ public class JoiningVar extends Par5s {
                 case 1095:  //Если признак системы конструкции 
                 case 2095:  //Если признак системы конструкции 
                 case 3095:  //Если признак системы конструкции 
-                case 4095: //Если признак системы конструкции 
+                case 4095:  //Если признак системы конструкции 
                 {
                     Record systreefRec = eSystree.find(iwin.nuni);
                     String[] arr = rec.getStr(TEXT).split(";");
@@ -268,14 +268,13 @@ public class JoiningVar extends Par5s {
                         if (rec.getFloat(TEXT) < elemJoin.anglProf) {
                             return false;
                         }
-                    } else if (Util.containsNumb2(rec.getStr(TEXT), elemJoin.anglProf) == true) { //Ограничение угла, °
+                    } else if (Util.containsNumb(rec.getStr(TEXT), elemJoin.anglProf) == false) { //Ограничение угла, °
                         return false;
                     }
                     break;
                 case 2012: //Для Артикулов указан состав
                 case 3012: //Для Артикулов указан состав 
                 {
-                    System.out.println("+++++++++++++++++++++++++++++++++++++++");
                     List<Record> elementList1 = eElement.find3(elemJoin.elem1.artiklRec.getInt(eArtikl.code), elemJoin.elem1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1 = false;
                     ElementVar elementVar = new ElementVar(iwin);
