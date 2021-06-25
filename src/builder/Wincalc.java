@@ -61,7 +61,6 @@ public class Wincalc {
     public BufferedImage bufferImg = null;  //образ рисунка
     public Graphics2D gc2d = null; //графический котекст рисунка  
     public double scale = 1; //коэффициент сжатия
-    public String labelSketch = "empty"; //надпись на эскизе
 
     public AreaSimple rootArea = null; //главное окно кострукции
     public GsonRoot rootGson = null; //главное окно кострукции в формате gson
