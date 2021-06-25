@@ -275,6 +275,7 @@ public class JoiningVar extends Par5s {
                 case 2012: //Для Артикулов указан состав
                 case 3012: //Для Артикулов указан состав 
                 {
+                    System.out.println("+++++++++++++++++++++++++++++++++++++++");
                     List<Record> elementList1 = eElement.find3(elemJoin.elem1.artiklRec.getInt(eArtikl.code), elemJoin.elem1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1 = false;
                     ElementVar elementVar = new ElementVar(iwin);
