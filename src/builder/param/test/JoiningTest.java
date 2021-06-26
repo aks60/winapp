@@ -47,8 +47,16 @@ public class JoiningTest extends ParamTest {
         assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("90", grup)) : grup; 
         
         grup = 2012; //3012;
-        //assert true == joiningVar4.check(iwin_4.mapJoin.get(frame_right_4.joinPoint(1)), param("Армирование", grup)) : grup;
-        //assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("правый", grup)) : grup;        
+        assert true == joiningVar4.check(iwin_4.mapJoin.get(frame_right_4.joinPoint(1)), param("Армирование", grup)) : grup;
+        assert false == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("_Армирование", grup)) : grup;        
+        
+        grup = 2015; //3015, 4015
+        assert false == joiningVar4.check(iwin_4.mapJoin.get(frame_right_4.joinPoint(1)), param("0;180/*", grup)) : grup;
+        assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("90/*", grup)) : grup;  
+        
+        grup = 2020; //3020, 4030
+        assert false == joiningVar4.check(iwin_4.mapJoin.get(frame_right_4.joinPoint(1)), param("29-89,99;90,01-360", grup)) : grup;
+        assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("90", grup)) : grup;          
     }
 
     public void joiningDet() {

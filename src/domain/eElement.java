@@ -63,25 +63,25 @@ public enum eElement implements Field {
 
     public static List<Record> find2(int artikl2_id) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> artikl2_id == rec.getInt(artikl_id) && rec.getInt(todef) > 0).collect(Collectors.toList());
+            return query().stream().filter(rec -> artikl2_id == rec.getInt(artikl_id)).collect(Collectors.toList());
         }
-        return new Query(values()).select(up, "where", artikl_id, "=", artikl2_id, "and", todef, "> 0");
+        return new Query(values()).select(up, "where", artikl_id, "=", artikl2_id);
     }
 
     public static List<Record> find3(int artikl2_id, int series2_id) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> artikl2_id == rec.getInt(artikl_id)
-                    && series2_id == rec.getInt(series_id) && rec.getInt(todef) > 0).collect(Collectors.toList());
+            return query().stream().filter(rec -> (artikl2_id == rec.getInt(artikl_id)
+                    || series2_id == rec.getInt(series_id)) && rec.getInt(todef) > 0).collect(Collectors.toList());
         }
-        return new Query(values()).select(up, "where", artikl_id, "=", artikl2_id, "and '", series_id, "'='", series2_id, "' and", todef, "> 0");
+        return new Query(values()).select(up, "where (", artikl_id, "=", artikl2_id, "or", series_id, "=", series2_id, ") and", todef, "> 0");
     }
 
-    public static List<Record> find4(int artikl2_id) {
-        if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> artikl2_id == rec.getInt(artikl_id) && rec.getInt(toset) > 0).collect(Collectors.toList());
-        }
-        return new Query(values()).select(up, "where", artikl_id, "=", artikl2_id, "and", toset, "> 0");
-    }
+//    public static List<Record> find4(int artikl2_id) {
+//        if (Query.conf.equals("calc")) {
+//            return query().stream().filter(rec -> artikl2_id == rec.getInt(artikl_id) && rec.getInt(toset) > 0).collect(Collectors.toList());
+//        }
+//        return new Query(values()).select(up, "where", artikl_id, "=", artikl2_id, "and", toset, "> 0");
+//    }
     
     public String toString() {
         return meta.descr();

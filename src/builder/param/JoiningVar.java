@@ -95,40 +95,40 @@ public class JoiningVar extends Par5s {
                     break;
                 case 1011: //Для Артикула 1 указан состав 
                 case 4011: //Для Артикула 1 указан состав     
-                    {
-                        boolean substr = false;
-                        List<Record> elementList = eElement.find3(elemJoin.elem1.artiklRec.getInt(eArtikl.code), elemJoin.elem1.artiklRec.getInt(eArtikl.series_id));
-                        for (Record elementRec : elementList) {
-                            if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                substr = (new ElementVar(iwin)).filter(elemJoin.elem1, elementRec);
-                                break;
-                            }
-                        }
-                        if (substr == false) {
-                            return false;
+                {
+                    boolean substr = false;
+                    List<Record> elementList = eElement.find3(elemJoin.elem1.artiklRec.getInt(eArtikl.code), elemJoin.elem1.artiklRec.getInt(eArtikl.series_id));
+                    for (Record elementRec : elementList) {
+                        if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
+                            substr = (new ElementVar(iwin)).filter(elemJoin.elem1, elementRec);
+                            break;
                         }
                     }
-                    break;
+                    if (substr == false) {
+                        return false;
+                    }
+                }
+                break;
                 case 1012: //Для Артикула 2 указан состав                  
                 case 4012: //Для Артикула 2 указан состав     
-                    {
-                        boolean substr = false;
-                        List<Record> elementList = eElement.find3(elemJoin.elem2.artiklRec.getInt(eArtikl.code), elemJoin.elem2.artiklRec.getInt(eArtikl.series_id));
-                        for (Record elementRec : elementList) {
-                            if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                substr = (new ElementVar(iwin)).filter(elemJoin.elem2, elementRec);
-                                break;
-                            }
-                        }
-                        if (substr == false) {
-                            return false;
+                {
+                    boolean substr = false;
+                    List<Record> elementList = eElement.find3(elemJoin.elem2.artiklRec.getInt(eArtikl.code), elemJoin.elem2.artiklRec.getInt(eArtikl.series_id));
+                    for (Record elementRec : elementList) {
+                        if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
+                            substr = (new ElementVar(iwin)).filter(elemJoin.elem2, elementRec);
+                            break;
                         }
                     }
-                    break;
+                    if (substr == false) {
+                        return false;
+                    }
+                }
+                break;
                 case 1013:  //Для Артикулов не указан состав
                 case 2013:  //Для Артикулов не указан состав 
                 case 3013:  //Для Артикулов не указан состав
-                case 4013:  //Для Артикулов не указан состав  
+                case 4013: //Для Артикулов не указан состав  
                 {
                     List<Record> elementList1 = eElement.find3(elemJoin.elem1.artiklRec.getInt(eArtikl.code), elemJoin.elem1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1 = false;
@@ -208,7 +208,7 @@ public class JoiningVar extends Par5s {
                 case 1095:  //Если признак системы конструкции 
                 case 2095:  //Если признак системы конструкции 
                 case 3095:  //Если признак системы конструкции 
-                case 4095:  //Если признак системы конструкции 
+                case 4095: //Если признак системы конструкции 
                 {
                     Record systreefRec = eSystree.find(iwin.nuni);
                     String[] arr = rec.getStr(TEXT).split(";");
@@ -248,13 +248,13 @@ public class JoiningVar extends Par5s {
                 case 2003:  //Угол варианта 
                 case 3003:  //Угол варианта 
                     if ("левый".equals(rec.getStr(TEXT))) {
-                        if (elemJoin.layoutJoin != LayoutJoin.LBOT 
+                        if (elemJoin.layoutJoin != LayoutJoin.LBOT
                                 && elemJoin.layoutJoin != LayoutJoin.LTOP
                                 && elemJoin.layoutJoin != LayoutJoin.TLEFT) {
                             return false;
                         }
                     } else { //правый
-                        if (elemJoin.layoutJoin != LayoutJoin.RBOT 
+                        if (elemJoin.layoutJoin != LayoutJoin.RBOT
                                 && elemJoin.layoutJoin != LayoutJoin.RTOP
                                 && elemJoin.layoutJoin != LayoutJoin.TRIGH) {
                             return false;
@@ -274,8 +274,8 @@ public class JoiningVar extends Par5s {
                     break;
                 case 2012: //Для Артикулов указан состав
                 case 3012: //Для Артикулов указан состав 
-                {
-                    List<Record> elementList1 = eElement.find3(elemJoin.elem1.artiklRec.getInt(eArtikl.code), elemJoin.elem1.artiklRec.getInt(eArtikl.series_id));
+               /* {
+                    List<Record> elementList1 = eElement.find2(elemJoin.elem1.artiklRec.getInt(eArtikl.id));
                     boolean substr1 = false;
                     ElementVar elementVar = new ElementVar(iwin);
                     for (Record elementRec : elementList1) {
@@ -285,17 +285,17 @@ public class JoiningVar extends Par5s {
                         }
                     }
                     boolean substr2 = false;
-                    List<Record> elementList2 = eElement.find3(elemJoin.elem2.artiklRec.getInt(eArtikl.code), elemJoin.elem2.artiklRec.getInt(eArtikl.series_id));
+                    List<Record> elementList2 = eElement.find2(elemJoin.elem2.artiklRec.getInt(eArtikl.id));
                     for (Record elementRec : elementList2) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
                             substr1 = elementVar.filter(elemJoin.elem1, elementRec);
                             break;
                         }
                     }
-                    if (substr1 == true && substr2 == true) {
+                    if (!(substr1 == true || substr2 == true)) {
                         return false;
                     }
-                }
+                }*/
                 break;
                 case 2015:  //Ориентация Артикула1/Артикула2, ° 
                 case 3015:  //Ориентация Артикула1/Артикула2, °
@@ -328,13 +328,13 @@ public class JoiningVar extends Par5s {
                 case 2020:  //Ограничение угла, °
                 case 3020:  //Ограничение угла, °
                 case 4030:  //Угол максимальный, °                      
-                    if ("ps3".equals(eSetting.find(2))) { //Угол максимальный, °
+                   /* if ("ps3".equals(eSetting.find(2))) { //Угол максимальный, °
                         if (elemJoin.anglProf > rec.getFloat(TEXT)) {
                             return false;
                         }
                     } else if (Util.containsNumb(rec.getStr(TEXT), elemJoin.anglProf) == false) { //Ограничение угла, °
                         return false;
-                    }
+                    }*/
                     break;
                 case 2021: //Точный угол, °
                 case 3021:
@@ -354,18 +354,27 @@ public class JoiningVar extends Par5s {
                         }
                     }
                     break;
-                case 2030: //Припуск Артикула1/Артикула2 , мм 
-                {
-                    String strTxt = rec.getStr(TEXT);
-                    char symmetry = strTxt.charAt(strTxt.length() - 1);
-                    if (symmetry == '@') {
-                        strTxt = strTxt.substring(0, strTxt.length() - 1);
+                case 2030:  //Припуск Артикула1/Артикула2, мм 
+                case 3050:  //Припуск Артикула1/Артикула2, мм  
+                case 4050:  
+                    /*if ("ps3".equals(eSetting.find(2))) { //Припуск Артикула 1, мм
+                        elemJoin.elem1.spcRec.mapParam.put(2030, rec.getStr(TEXT));
+                    } else {
+                        String strTxt = rec.getStr(TEXT);
+                        char normal = strTxt.charAt(strTxt.length() - 1);
+                        if (normal == '@') {
+                            strTxt = strTxt.substring(0, strTxt.length() - 1);
+                        }
+                        String arr2[] = strTxt.split("/");
+                        elemJoin.elem1.spcRec.mapParam.put(2030, arr2[0]);
+                        elemJoin.elem2.spcRec.mapParam.put(2030, arr2[1]);
+                    }*/
+                    break;
+                case 2040:  
+                    if ("ps3".equals(eSetting.find(2))) { //Припуск Артикула 2, мм
+                        elemJoin.elem2.spcRec.mapParam.put(2030, rec.getStr(TEXT));
                     }
-                    String arr2[] = strTxt.split("/");
-                    elemJoin.elem1.spcRec.mapParam.put(2030, arr2[0]);
-                    elemJoin.elem2.spcRec.mapParam.put(2030, arr2[1]);
-                }
-                break;
+                    break;
                 case 2055:  //Продолжение общей арки 
                     message(rec.getInt(GRUP));
                     break;
@@ -396,9 +405,6 @@ public class JoiningVar extends Par5s {
                 case 3045:  //Расстояние от уровня деления, мм 
                     message(rec.getInt(GRUP));
                     break;
-                case 3050:  //Припуск Артикула1/Артикула2, мм 
-                    message(rec.getInt(GRUP));
-                    break;
                 case 3064:  //Поправка для состава Арт.1/Арт.2 , мм 
                     message(rec.getInt(GRUP));
                     break;
@@ -424,9 +430,6 @@ public class JoiningVar extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 4046:  //Длина Артикула 1, мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 4050:  //Припуск Артикула 1, мм. 
                     message(rec.getInt(GRUP));
                     break;
                 case 4061:  //Максимальный размер шва, мм 
