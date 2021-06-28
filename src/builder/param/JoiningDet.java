@@ -58,15 +58,14 @@ public class JoiningDet extends Par5s {
                 break;
                 case 11001:  //Если признак состава Арт.1 
                 case 12001:  //Если признак состава Арт.1 
-                     if (rec.getStr(TEXT).equals(rec2.getStr(eElement.signset)) == false) {
-                        return false;
-                    }
+                     message(rec.getInt(GRUP));
                     break;
                 case 11002:  //Если признак состава Арт.2 
                 case 12002:  //Если признак состава Арт.2 
                     message(rec.getInt(GRUP));
                     break;
                 case 11005:  //Контейнер типа 
+                case 12005:  //Контейнер типа 
                     message(rec.getInt(GRUP));
                     break;
                 case 11008:  //Эффективное заполнение изд., мм 
@@ -150,9 +149,6 @@ public class JoiningDet extends Par5s {
                     }
                 }
                 break;
-                case 12005:  //Контейнер типа 
-                    message(rec.getInt(GRUP));
-                    break;
                 case 12008:  //Эффективное заполнение изд., мм 
                     message(rec.getInt(GRUP));
                     break;
