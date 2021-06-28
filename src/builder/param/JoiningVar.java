@@ -234,7 +234,7 @@ public class JoiningVar extends Par5s {
                 case 2099:  //Трудозатраты, ч/ч. 
                 case 3099:  //Трудозатраты, ч/ч.
                 case 4099:  //Трудозатраты, ч/ч. 
-                    elemJoin.costsJoin = rec.getStr(TEXT);
+                    elemJoin.costs = rec.getStr(TEXT);
                     break;
                 case 1097:  //Трудозатраты по длине 
                     message(rec.getInt(GRUP));
@@ -248,15 +248,15 @@ public class JoiningVar extends Par5s {
                 case 2003:  //Угол варианта 
                 case 3003:  //Угол варианта 
                     if ("левый".equals(rec.getStr(TEXT))) {
-                        if (elemJoin.layoutJoin != LayoutJoin.LBOT
-                                && elemJoin.layoutJoin != LayoutJoin.LTOP
-                                && elemJoin.layoutJoin != LayoutJoin.TLEFT) {
+                        if (elemJoin.layout != LayoutJoin.LBOT
+                                && elemJoin.layout != LayoutJoin.LTOP
+                                && elemJoin.layout != LayoutJoin.TLEFT) {
                             return false;
                         }
                     } else { //правый
-                        if (elemJoin.layoutJoin != LayoutJoin.RBOT
-                                && elemJoin.layoutJoin != LayoutJoin.RTOP
-                                && elemJoin.layoutJoin != LayoutJoin.TRIGH) {
+                        if (elemJoin.layout != LayoutJoin.RBOT
+                                && elemJoin.layout != LayoutJoin.RTOP
+                                && elemJoin.layout != LayoutJoin.TRIGH) {
                             return false;
                         }
                     }
@@ -265,10 +265,10 @@ public class JoiningVar extends Par5s {
                 case 3010:  //Угол минимальный, °
                 case 4020:  //Ограничение угла, °
                     if ("ps3".equals(eSetting.find(2))) { //Угол минимальный, °
-                        if (rec.getFloat(TEXT) < elemJoin.anglProf) {
+                        if (rec.getFloat(TEXT) < elemJoin.angl) {
                             return false;
                         }
-                    } else if (Util.containsNumb(rec.getStr(TEXT), elemJoin.anglProf) == false) { //Ограничение угла, °
+                    } else if (Util.containsNumb(rec.getStr(TEXT), elemJoin.angl) == false) { //Ограничение угла, °
                         return false;
                     }
                     break;
@@ -329,10 +329,10 @@ public class JoiningVar extends Par5s {
                 case 3020:  //Ограничение угла, °
                 case 4030:  //Угол максимальный, °                      
                     if ("ps3".equals(eSetting.find(2))) { //Угол максимальный, °
-                        if (elemJoin.anglProf > rec.getFloat(TEXT)) {
+                        if (elemJoin.angl > rec.getFloat(TEXT)) {
                             return false;
                         }
-                    } else if (Util.containsNumb(rec.getStr(TEXT), elemJoin.anglProf) == false) { //Ограничение угла, °
+                    } else if (Util.containsNumb(rec.getStr(TEXT), elemJoin.angl) == false) { //Ограничение угла, °
                         return false;
                     }
                     break;
@@ -340,7 +340,7 @@ public class JoiningVar extends Par5s {
                 case 3021:
                 case 4031:
                     if ("ps3".equals(eSetting.find(2))) {
-                        if (rec.getFloat(TEXT) != elemJoin.anglProf) {
+                        if (rec.getFloat(TEXT) != elemJoin.angl) {
                             return false;
                         }
                     }
@@ -349,7 +349,7 @@ public class JoiningVar extends Par5s {
                 case 3022:
                 case 4032:
                     if ("ps3".equals(eSetting.find(2))) {
-                        if (rec.getFloat(TEXT) == elemJoin.anglProf) {
+                        if (rec.getFloat(TEXT) == elemJoin.angl) {
                             return false;
                         }
                     }
@@ -385,9 +385,7 @@ public class JoiningVar extends Par5s {
                 case 2064: //Поправка для состава Арт.1/Арт.2, мм 
                 case 3064: //Поправка для состава Арт.1/Арт.2 , мм 
                 {
-                    String txt = rec.getStr(TEXT);
-                    txt = txt.replace(",", ".");
-                    String[] arr = txt.split("/");
+                    String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
                     elemJoin.elem1.spcRec.width += Util.getFloat(arr[0]);
                     elemJoin.elem2.spcRec.width += Util.getFloat(arr[1]);
                 }
@@ -399,58 +397,65 @@ public class JoiningVar extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 3002:  //Вид L-образного варианта 
-                    if (elemJoin.typeJoin == TypeJoin.VAR40 && "Простое Т-обр.".equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                    if (elemJoin.vid == 0 && "Простое L-обр".equals(rec.getStr(TEXT)) == false) {
                         return false;
-                    } 
+                    } else if (elemJoin.vid == 1 && "Крестовое †-обр".equals(rec.getStr(TEXT)) == false) {
+                        return false;
+                    }
                     break;
-                case 4002:  //Вид Т-образного варианта (простое Т-обр. крестовое Т-обр. сложное Y-обр.)     
-                    if (elemJoin.typeJoin == TypeJoin.VAR40 && "Простое Т-обр.".equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                case 4002:  //Вид Т-образного варианта    
+                    if (elemJoin.vid == 0 && "Простое Т-обр.".equals(rec.getStr(TEXT)) == false) {
+                        return false;
+                    } else if (elemJoin.vid == 1 && "Крестовое †-обр".equals(rec.getStr(TEXT)) == false) {
+                        return false;
+                    } else if (elemJoin.vid == 2 && "Сложное Y-обр".equals(rec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
                 case 3030:  //Усечение Артикула1/Артикула2, мм 
-                    message(rec.getInt(GRUP));
-                    break;
                 case 3031:  //Усечение Артикула1/Артикула2, мм 
-                    message(rec.getInt(GRUP));
+                    if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 1, мм
+                        elemJoin.elem1.spcRec.width += 2 * rec.getFloat(TEXT);
+                    } else {
+                        String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
+                        elemJoin.elem1.spcRec.width += 2 * Util.getFloat(arr[0]);
+                        elemJoin.elem2.spcRec.width += 2 * Util.getFloat(arr[1]);
+                    }
+                    break;
+                case 3040:
+                    if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 2, мм
+                        elemJoin.elem2.spcRec.width += 2 * rec.getFloat(TEXT);
+                    }
                     break;
                 case 3045:  //Расстояние от уровня деления, мм 
+                case 4045:  //Расстояние от уровня деления, мм 
                     message(rec.getInt(GRUP));
                     break;
                 case 3083:  //Проходит уровень деления 
+                case 4083:  //Проходит уровень деления 
                     message(rec.getInt(GRUP));
                     break;
                 case 3088:  //Вариант соединения для стойки 
                     message(rec.getInt(GRUP));
                     break;
                 case 3097:  //Трудозатраты по длине 
+                case 4097:  //Трудозатраты по длине 
                     message(rec.getInt(GRUP));
                     break;
                 case 4018:  //От ручки не менее, мм 
                     message(rec.getInt(GRUP));
                     break;
-                case 4040: //Размер от оси профиля, мм. или заход импоста
+                case 4040:  //Размер от оси профиля, мм.
+                case 4044:  //Размер от края пакета, мм     
                     elemJoin.elem1.spcRec.width += -rec.getFloat(TEXT);
                     break;
-                case 4044:  //Размер от края пакета, мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 4045:  //Расстояние от уровня деления, мм 
-                    message(rec.getInt(GRUP));
-                    break;
                 case 4046:  //Длина Артикула 1, мм 
-                    message(rec.getInt(GRUP));
+                    elemJoin.elem1.spcRec.width += rec.getFloat(TEXT);
                     break;
                 case 4061:  //Максимальный размер шва, мм 
                     message(rec.getInt(GRUP));
                     break;
                 case 4064:  //Поправка для состава, мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 4083:  //Проходит уровень деления 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 4097:  //Трудозатраты по длине 
                     message(rec.getInt(GRUP));
                     break;
                 case 4800:  //Код обработки 

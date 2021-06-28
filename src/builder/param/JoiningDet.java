@@ -14,6 +14,7 @@ import builder.model.AreaStvorka;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import common.Util;
+import domain.eElement;
 
 //Cоединения
 public class JoiningDet extends Par5s {
@@ -22,7 +23,7 @@ public class JoiningDet extends Par5s {
         super(iwin);
     }
 
-    public boolean filter(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record joindetRec) {
+    public boolean filter(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record joindetRec, Record elementRec) {
 
         List<Record> paramList = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
         if (filterParamDef(paramList) == false) {
@@ -30,14 +31,14 @@ public class JoiningDet extends Par5s {
         }
         //Цикл по параметрам соединения
         for (Record rec : paramList) {
-            if (check(mapParam, elemJoin, rec) == false) {
+            if (check(mapParam, elemJoin, rec, elementRec) == false) {
                 return false;
             }
         }
         return true;
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record rec) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record rec, Record rec2) {
 
         int grup = rec.getInt(GRUP);
         try {
@@ -64,9 +65,13 @@ public class JoiningDet extends Par5s {
                 }
                 break;
                 case 11001:  //Если признак состава Арт.1 
-                    message(rec.getInt(GRUP));
+                case 12001:  //Если признак состава Арт.1 
+                     if (rec.getStr(TEXT).equals(rec2.getStr(eElement.signset)) == false) {
+                        return false;
+                    }
                     break;
                 case 11002:  //Если признак состава Арт.2 
+                case 12002:  //Если признак состава Арт.2 
                     message(rec.getInt(GRUP));
                     break;
                 case 11005:  //Контейнер типа 
@@ -153,12 +158,6 @@ public class JoiningDet extends Par5s {
                     }
                 }
                 break;
-                case 12001:  //Если признак состава Арт.1 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 12002:  //Если признак состава Арт.2 
-                    message(rec.getInt(GRUP));
-                    break;
                 case 12005:  //Контейнер типа 
                     message(rec.getInt(GRUP));
                     break;

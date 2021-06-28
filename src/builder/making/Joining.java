@@ -61,7 +61,7 @@ public class Joining extends Cal5e {
                 //Цикл по вариантам соединения
                 for (Record joinvarRec : joinvarList) {
                     //Если варианты соединения совпали
-                    if (joinvarRec.getInt(eJoinvar.types) == elemJoin.typeJoin.id) {
+                    if (joinvarRec.getInt(eJoinvar.types) == elemJoin.type.id) {
 
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
@@ -72,7 +72,7 @@ public class Joining extends Cal5e {
                                 HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры
 
                                 //ФИЛЬТР детализации 
-                                if (joiningDet.filter(mapParam, elemJoin, joindetRec) == true) {
+                                if (joiningDet.filter(mapParam, elemJoin, joindetRec, joinvarRec) == true) {
                                     Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
                                     Specific spcAdd = new Specific(joindetRec, artiklRec, joinElem1, mapParam);
                                     if (Color.colorFromProduct(spcAdd, 1)
