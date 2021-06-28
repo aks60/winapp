@@ -77,16 +77,18 @@ class Uti4 {
     //Для технологического кода контейнера 
     static boolean is_STRING_XX000(String txt, ElemSimple elem5e) {
         Record sysprofRec = elem5e.sysprofRec;
-        Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        if (artiklVRec.get(eArtikl.tech_code) == null) {
+        Record artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        if (artiklRecAn.get(eArtikl.tech_code) == null) {
             return false;
         }
         String[] strList = txt.split(";");
-        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
+        String[] strList2 = artiklRecAn.getStr(eArtikl.tech_code).split(";");
         boolean ret2 = false;
         for (String str : strList) {
             for (String str2 : strList2) {
-                if (str.equalsIgnoreCase(str2)) {
+                if (str.equals("*")) {
+                    ret2 = true;
+                } else if (str.equals(str2)) {
                     ret2 = true;
                 }
             }

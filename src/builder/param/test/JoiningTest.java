@@ -3,6 +3,7 @@ package builder.param.test;
 import static builder.param.test.ParamTest.param;
 import dataset.Record;
 import domain.eElement;
+import java.util.HashMap;
 
 public class JoiningTest extends ParamTest {
 
@@ -66,17 +67,27 @@ public class JoiningTest extends ParamTest {
     }
 
     public void joiningDet() {
+        HashMap<Integer, String> mapParam = new HashMap();
 
         grup = 11000; //12000 //Для технологического кода контейнера
-        assert true == elementVar2.check(frame_left_2, param("KBE 58;XXX 58;", grup)) : grup;
-        assert false == elementVar2.check(frame_left_2, param("KBE58;", grup)) : grup;
+        assert true == joiningDet2.check(iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 58;", grup)) : grup;
+        assert true == joiningDet2.check(iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 58", grup)) : grup;
+        assert false == joiningDet2.check(iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 5", grup)) : grup;
 
-        grup = 33001; //34001 //Если признак состава 
+        grup = 11001; //12001 //Если признак состава Арт.1 
         {
             Record rec = eElement.up.newRecord();
             rec.set(eElement.signset, "KBE");
-            //assert true == elementDet2.check(mapParam, frame_left_2, param("KBE", grup), rec) : grup;
-            //assert false == elementDet2.check(mapParam, frame_left_2, param("XXX", grup), rec) : grup;
+            assert true == joiningDet2.check(mapParam, iwin_4.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE", grup), rec) : grup;
+            assert false == joiningDet2.check(mapParam, iwin_4.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup), rec) : grup;
+        }
+        
+        grup = 11002; //12002 //Если признак состава Арт.2 
+        {
+            Record rec = eElement.up.newRecord();
+            rec.set(eElement.signset, "KBE");
+            assert true == joiningDet2.check(mapParam, iwin_4.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE", grup), rec) : grup;
+            assert false == joiningDet2.check(mapParam, iwin_4.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup), rec) : grup;
         }
     }
 }

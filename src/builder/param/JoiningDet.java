@@ -47,21 +47,13 @@ public class JoiningDet extends Par5s {
                 case 11000: //Для технологического кода контейнера 1/2
                 case 12000: //Для технологического кода контейнера 1/2 
                 {
-                    Record sysprofRec = elemJoin.elem1.sysprofRec;
-                    Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-                    if (artiklVRec.get(eArtikl.tech_code) == null) {
+                    String[] arr = rec.getStr(TEXT).split("/");
+                    if (Uti4.is_STRING_XX000(arr[0], elemJoin.elem1) == false) {
                         return false;
                     }
-                    String[] strList = artiklVRec.getStr(eArtikl.tech_code).split(";");
-                    boolean ret2 = false;
-                    for (String str : strList) {
-                        if (Util.containsStr(rec.getStr(TEXT), str) == true) {
-                            ret2 = true;
-                        }
-                    }
-                    if (ret2 == false) {
+                    if (arr.length > 1 && Uti4.is_STRING_XX000(arr[1], elemJoin.elem2) == false) {
                         return false;
-                    }
+                    }  
                 }
                 break;
                 case 11001:  //Если признак состава Арт.1 
@@ -202,4 +194,9 @@ public class JoiningDet extends Par5s {
         }
         return true;
     }
+    
+    public boolean check(ElemJoining elemJoin, Record rec) {
+        HashMap<Integer, String> mapParam = new HashMap();
+        return JoiningDet.this.check(mapParam, elemJoin, rec, null);
+    }    
 }
