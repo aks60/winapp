@@ -63,9 +63,9 @@ public class Test {
 
         Main.dev = true;
         try {
-            //convert.Profstroy.exec();
+            convert.Profstroy.exec();
             //wincalc();
-            param();
+            //param();
             //query();
             //frame();
             //json();
