@@ -20,6 +20,7 @@ public class ElemJoining {
     private Wincalc iwin;
     public LayoutJoin layoutJoin = LayoutJoin.NONE; //расположение соединения 
     public TypeJoin typeJoin = TypeJoin.EMPTY;      //тип соединения (то что пишет )
+    public int vidJoin = 0; //вид соединения (Простое L-обр", "Крестовое †-обр) или (Простое T-обр", "Крестовое †-обр", "Сложное Y-обр)
 
     public ElemSimple elem1 = null;  //элемент соединения 1
     public ElemSimple elem2 = null;  //элемент соединения 2

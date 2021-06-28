@@ -101,7 +101,8 @@ public class ElemFrame extends ElemSimple {
             spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
         }
-        spcRec.width = spcRec.width + Util.getFloat(spcRec.getParam(0, 2030));
+        spcRec.width = spcRec.width + Util.getFloat(spcRec.getParam(0, 2030, 3050, 4050));
+        spcRec.width = spcRec.width + Util.getFloat(spcRec.getParam(0, 2040, 3060));
     }
 
     @Override //Вложеная спецификация

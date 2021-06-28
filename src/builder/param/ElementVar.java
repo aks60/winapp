@@ -189,8 +189,8 @@ public class ElementVar extends Par5s {
                 case 31019:  //Правило подбора текстур
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
-                case 31020:  //Ограничение угла к горизонту, ° или Угол к горизонту минимальный, °
-                    if ("ps3".equals(eSetting.find(2))) {
+                case 31020:  //Ограничение угла к горизонту, °
+                    if ("ps3".equals(eSetting.find(2))) { //Угол к горизонту минимальный, °
                         if (elem5e.anglHoriz < rec.getFloat(TEXT)) {
                             return false;
                         }

@@ -313,10 +313,10 @@ public class JoiningVar extends Par5s {
                         }
                     }
                     break;
-                case 2016:  //Ориентация Артикула 2 
+                case 2016:
                 case 3016:
                 case 4016:
-                    if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.find(2))) { //Ориентация Артикула 2 
                         List<String> list = ParamList.find(grup).dict();
                         if ("горизонтально".equals(rec.getStr(TEXT)) && (elemJoin.elem2.anglHoriz == 0 || elemJoin.elem2.anglHoriz == 180) == false) { //горизонтально
                             return false;
@@ -356,9 +356,9 @@ public class JoiningVar extends Par5s {
                     break;
                 case 2030:  //Припуск Артикула1/Артикула2, мм 
                 case 3050:  //Припуск Артикула1/Артикула2, мм  
-                case 4050:  
+                case 4050:
                     if ("ps3".equals(eSetting.find(2))) { //Припуск Артикула 1, мм
-                        elemJoin.elem1.spcRec.mapParam.put(2030, rec.getStr(TEXT));
+                        elemJoin.elem1.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     } else {
                         String strTxt = rec.getStr(TEXT);
                         char normal = strTxt.charAt(strTxt.length() - 1);
@@ -366,13 +366,14 @@ public class JoiningVar extends Par5s {
                             strTxt = strTxt.substring(0, strTxt.length() - 1);
                         }
                         String arr2[] = strTxt.split("/");
-                        elemJoin.elem1.spcRec.mapParam.put(2030, arr2[0]);
-                        elemJoin.elem2.spcRec.mapParam.put(2030, arr2[1]);
+                        elemJoin.elem1.spcRec.mapParam.put(grup, arr2[0]);
+                        elemJoin.elem2.spcRec.mapParam.put(grup, arr2[1]);
                     }
                     break;
-                case 2040:  
+                case 2040:
+                case 3060:
                     if ("ps3".equals(eSetting.find(2))) { //Припуск Артикула 2, мм
-                        elemJoin.elem2.spcRec.mapParam.put(2030, rec.getStr(TEXT));
+                        elemJoin.elem2.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     }
                     break;
                 case 2055:  //Продолжение общей арки 
@@ -381,16 +382,27 @@ public class JoiningVar extends Par5s {
                 case 2061:  //Отступ для Артикула1/Артикула2, мм 
                     message(rec.getInt(GRUP));
                     break;
+                case 2064: //Поправка для состава Арт.1/Арт.2, мм 
+                case 3064: //Поправка для состава Арт.1/Арт.2 , мм 
+                {
+                    String txt = rec.getStr(TEXT);
+                    txt = txt.replace(",", ".");
+                    String[] arr = txt.split("/");
+                    elemJoin.elem1.spcRec.width += Util.getFloat(arr[0]);
+                    elemJoin.elem2.spcRec.width += Util.getFloat(arr[1]);
+                }
+                break;
                 case 2066:  //Расчет углов реза профилей 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 2064:  //Поправка для состава Арт.1/Арт.2, мм 
                     message(rec.getInt(GRUP));
                     break;
                 case 2097:  //Трудозатраты по длине 
                     message(rec.getInt(GRUP));
                     break;
-                case 3002:  //Вид Т-образного варианта (простое Т-обр. крестовое Т-обр. сложное Y-обр.) 
+                case 3002:  //Вид L-образного варианта 
+                    if (elemJoin.typeJoin == TypeJoin.VAR40 && "Простое Т-обр.".equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                        return false;
+                    } 
+                    break;
                 case 4002:  //Вид Т-образного варианта (простое Т-обр. крестовое Т-обр. сложное Y-обр.)     
                     if (elemJoin.typeJoin == TypeJoin.VAR40 && "Простое Т-обр.".equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                         return false;
@@ -403,9 +415,6 @@ public class JoiningVar extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 3045:  //Расстояние от уровня деления, мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 3064:  //Поправка для состава Арт.1/Арт.2 , мм 
                     message(rec.getInt(GRUP));
                     break;
                 case 3083:  //Проходит уровень деления 
