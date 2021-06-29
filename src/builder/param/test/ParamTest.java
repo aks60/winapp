@@ -63,7 +63,7 @@ public class ParamTest {
         joiningVar2 = new JoiningVar(iwin_2);
         joiningDet2 = new JoiningDet(iwin_2);       
         frame_left_2 = getElem(iwin_2.rootArea, 1.0f);
-        frame_right_2 = getElem(iwin_2.rootArea, 1.0f);
+        frame_right_2 = getElem(iwin_2.rootArea, 2.0f);
         stv_right_2 = getElem(iwin_2.rootArea, 10.2f);
         imp_vert_2 = getElem(iwin_2.rootArea, 12.0f);
         imp_horiz_2 = getElem(iwin_2.rootArea, 7.0f);

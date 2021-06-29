@@ -23,7 +23,7 @@ public class JoiningDet extends Par5s {
         super(iwin);
     }
 
-    public boolean filter(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record joindetRec, Record elementRec) {
+    public boolean filter(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record joindetRec) {
 
         List<Record> paramList = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
         if (filterParamDef(paramList) == false) {
@@ -31,14 +31,14 @@ public class JoiningDet extends Par5s {
         }
         //Цикл по параметрам соединения
         for (Record rec : paramList) {
-            if (check(mapParam, elemJoin, rec, elementRec) == false) {
+            if (check(mapParam, elemJoin, rec) == false) {
                 return false;
             }
         }
         return true;
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record rec, Record rec2) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record rec) {
 
         int grup = rec.getInt(GRUP);
         try {
@@ -53,20 +53,32 @@ public class JoiningDet extends Par5s {
                     }
                     if (arr.length > 1 && Uti4.is_STRING_XX000(arr[1], elemJoin.elem2) == false) {
                         return false;
-                    }  
+                    }
                 }
                 break;
-                case 11001:  //Если признак состава Арт.1 
-                case 12001:  //Если признак состава Арт.1 
-                     message(rec.getInt(GRUP));
-                    break;
+                case 11001: //Если признак состава Арт.1 
+                case 12001: //Если признак состава Арт.1 
+                {
+                    if (eElement.query().stream().filter(elemRec
+                            -> elemJoin.elem1.artiklRecAn.getInt(eArtikl.id) == elemRec.getInt(eElement.artikl_id)
+                            && rec.getStr(TEXT).equals(elemRec.get(eElement.signset))).findFirst().isEmpty()) {
+                        return false;
+                    }
+                }
+                break;
                 case 11002:  //Если признак состава Арт.2 
                 case 12002:  //Если признак состава Арт.2 
-                    message(rec.getInt(GRUP));
+                    if (eElement.query().stream().filter(elemRec
+                            -> elemJoin.elem2.artiklRecAn.getInt(eArtikl.id) == elemRec.getInt(eElement.artikl_id)
+                            && rec.getStr(TEXT).equals(elemRec.get(eElement.signset))).findFirst().isEmpty()) {
+                        return false;
+                    }
                     break;
                 case 11005:  //Контейнер типа 
                 case 12005:  //Контейнер типа 
-                    message(rec.getInt(GRUP));
+                    if (Uti4.is_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071(rec.getStr(TEXT), elemJoin.elem1) == false) {
+                        return false;
+                    }
                     break;
                 case 11008:  //Эффективное заполнение изд., мм 
                     message(rec.getInt(GRUP));
@@ -190,9 +202,4 @@ public class JoiningDet extends Par5s {
         }
         return true;
     }
-    
-    public boolean check(ElemJoining elemJoin, Record rec) {
-        HashMap<Integer, String> mapParam = new HashMap();
-        return JoiningDet.this.check(mapParam, elemJoin, rec, null);
-    }    
 }

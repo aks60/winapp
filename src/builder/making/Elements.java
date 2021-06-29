@@ -81,7 +81,7 @@ public class Elements extends Cal5e {
                         int elemdet_id = elemdetRec.getInt(eElemdet.id);
 
                         //ФИЛЬТР детализации, параметры накапливаются в mapParam
-                        if (elementDet.filter(mapParam, elem5e, elemdetRec, elementRec) == true) {
+                        if (elementDet.filter(mapParam, elem5e, elemdetRec) == true) {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specific spcAdd = new Specific(elemdetRec, artiklRec, elem5e, mapParam);

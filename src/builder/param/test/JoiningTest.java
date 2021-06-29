@@ -70,24 +70,24 @@ public class JoiningTest extends ParamTest {
         HashMap<Integer, String> mapParam = new HashMap();
 
         grup = 11000; //12000 //Для технологического кода контейнера
-        assert true == joiningDet2.check(iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 58;", grup)) : grup;
-        assert true == joiningDet2.check(iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 58", grup)) : grup;
-        assert false == joiningDet2.check(iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 5", grup)) : grup;
+        Object o22 = iwin_2.mapJoin.get(frame_right_2.joinPoint(1));
+        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 58;", grup)) : grup;
+        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 58", grup)) : grup;
+        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 5", grup)) : grup;
 
-//        grup = 11001; //12001 //Если признак состава Арт.1 
-//        {
-//            Record rec = eElement.up.newRecord();
-//            rec.set(eElement.signset, "KBE");
-//            assert true == joiningDet2.check(mapParam, iwin_4.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE", grup), rec) : grup;
-//            assert false == joiningDet2.check(mapParam, iwin_4.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup), rec) : grup;
-//        }
-//        
-//        grup = 11002; //12002 //Если признак состава Арт.2 
-//        {
-//            Record rec = eElement.up.newRecord();
-//            rec.set(eElement.signset, "KBE");
-//            assert true == joiningDet2.check(mapParam, iwin_4.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE", grup), rec) : grup;
-//            assert false == joiningDet2.check(mapParam, iwin_4.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup), rec) : grup;
-//        }
+        grup = 11001; //12001 //Если признак состава Арт.1 
+        //assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
+        //assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
+
+        grup = 11002; //12002 //Если признак состава Арт.2 
+        //assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
+        //assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
+        
+        grup = 11005;  //12005 //Контейнер типа
+        Object oo = frame_right_3.joinPoint(1);
+        Object obj = iwin_3.mapJoin.get(frame_right_3.joinPoint(1));
+        assert true == joiningDet3.check(mapParam, iwin_3.mapJoin.get(frame_right_3.joinPoint(1)), param("1;2;3", grup)) : grup;
+//        //assert true == joiningDet3.check(mapParam, iwin_3.mapJoin.get(frame_right_3.joinPoint(1)), param("1-3", grup)) : grup;
+//        //assert false == joiningDet3.check(mapParam, iwin_3.mapJoin.get(frame_right_3.joinPoint(1)), param("4", grup)) : grup;        
     }
 }

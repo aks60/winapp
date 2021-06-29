@@ -23,7 +23,7 @@ public class ElementDet extends Par5s {
         super(iwin);
     }
 
-    public boolean filter(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record elemdetRec, Record elementRec) {
+    public boolean filter(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record elemdetRec) {
 
         List<Record> paramList = eElempar2.find3(elemdetRec.getInt(eElemdet.id)); //список параметров детализации 
         if (filterParamDef(paramList) == false) {
@@ -31,14 +31,14 @@ public class ElementDet extends Par5s {
         }
         //Цикл по параметрам составов
         for (Record rec : paramList) {
-            if (ElementDet.this.check(mapParam, elem5e, rec, elementRec) == false) {
+            if (ElementDet.this.check(mapParam, elem5e, rec) == false) {
                 return false;
             }
         }
         return true;
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record rec, Record rec2) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record rec) {
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
@@ -51,7 +51,9 @@ public class ElementDet extends Par5s {
                     break;
                 case 33001:  //Если признак состава 
                 case 34001:  //Если признак состава 
-                    if (rec.getStr(TEXT).equals(rec2.getStr(eElement.signset)) == false) {
+                    if (eElement.query().stream().filter(elemRec
+                            -> elem5e.artiklRecAn.getInt(eArtikl.id) == elemRec.getInt(eElement.artikl_id)
+                            && rec.getStr(TEXT).equals(elemRec.get(eElement.signset))).findFirst().isEmpty()) {
                         return false;
                     }
                     break;
@@ -422,10 +424,5 @@ public class ElementDet extends Par5s {
             return false;
         }
         return true;
-    }
-
-    public boolean check(ElemSimple elem5e, Record rec) {
-        HashMap<Integer, String> mapParam = new HashMap();
-        return ElementDet.this.check(mapParam, elem5e, rec, null);
     }
 }
