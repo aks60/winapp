@@ -84,12 +84,12 @@ public class Test {
         String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(601001, false));
+            iwin.build(builder.script.Winscript.test(604004, false));
             iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
             DBCompare.iwinRec(iwin, true);
-            //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.spcRec.artikl + ":" + it.getValue().joinElement2.spcRec.artikl + ") -" + it.getValue().layoutJoin.name));           
+            //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().type + "  POINT:" + it.getKey() + " (" + it.getValue().elem1.spcRec.artikl + ":" + it.getValue().elem2.spcRec.artikl + ") -" + it.getValue().layout.name));           
 
         } else if (_case.equals("min")) {
             List<Integer> prjList = Winscript.models();

@@ -262,7 +262,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31052:  //Поправка в спецификацию, мм 
-                    //if (elem5e.layout() == LayoutArea.ARCH) {
+                    //if (elem5e.artiklRec.getInt(eArttikl.id) == LayoutArea.ARCH) {
                     elem5e.spcRec.width = elem5e.spcRec.width + rec.getFloat(TEXT);
                     //}
                     break;

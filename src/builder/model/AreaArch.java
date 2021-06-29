@@ -33,46 +33,11 @@ public class AreaArch extends AreaSimple {
         double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dh)); //угол реза рамы
         double ang4 = 90 - (Math.toDegrees(rad1) - (90 - ang3)); //угол реза арки
         radiusArch = r;
-        ElemJoining elemJoin1 = new ElemJoining(id() + .1f, TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft, (float) ang4);
-        elemJoin1.elem1.anglCut[1] = (float) ang4;  //угол реза арки
-        elemJoin1.elem2.anglCut[0] = (float) ang3;  //угол реза рамы
-        iwin().mapJoin.put(elemArch.joinPoint(0), elemJoin1);
-
-        //Угловое соединение правое верхнее
-        ElemJoining elemJoin2 = new ElemJoining(id() + .2f, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch, (float) ang4);
-        elemJoin2.elem2.anglCut[0] = (float) ang4;  //угол реза арки
-        elemJoin2.elem1.anglCut[1] = (float) ang3;  //угол реза рамы                             
-        iwin().mapJoin.put(elemArch.joinPoint(0), elemJoin2);
-        
-        //Угловое соединение левое нижнее
-        ElemJoining elem3 = new ElemJoining(id() + .3f, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
-        iwin().mapJoin.put(elemLeft.joinPoint(1), elem3);
-        
-        //Угловое соединение правое нижнее
-        ElemJoining elem4 = new ElemJoining(id() + .4f, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
-        iwin().mapJoin.put(elemRight.joinPoint(1), elem4);
-    }    
-    public void joinFrame2() {
-        ElemSimple elemBott = mapFrame.get(LayoutArea.BOTT), elemRight = mapFrame.get(LayoutArea.RIGHT),
-                elemArch = mapFrame.get(LayoutArea.ARCH), elemLeft = mapFrame.get(LayoutArea.LEFT);
-
-        double dh = elemArch.artiklRec.getFloat(eArtikl.height);
-        double dw = elemLeft.artiklRec.getFloat(eArtikl.height);
-        double h = iwin().heightAdd - height();
-        double w = width();
-        double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки        
-        double rad1 = Math.acos((w / 2) / r); // Math.toDegrees() — преобразование радианов в градусы ... Math.asin() — арксинус
-        double rad2 = Math.acos((w - 2 * dh) / ((r - dh) * 2));
-        double a1 = r * Math.sin(rad1);
-        double a2 = (r - dh) * Math.sin(rad2);
-        double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dh)); //угол реза рамы
-        double ang4 = 90 - (Math.toDegrees(rad1) - (90 - ang3)); //угол реза арки
-        radiusArch = r;
         //Угловое соединение левое верхнее
         ElemJoining elemJoin1 = new ElemJoining(id() + .1f, TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft, (float) ang4);
         elemJoin1.elem1.anglCut[1] = (float) ang4;  //угол реза арки
         elemJoin1.elem2.anglCut[0] = (float) ang3;  //угол реза рамы
-        iwin().mapJoin.put(elemArch.joinPoint(1), elemJoin1);
+        iwin().mapJoin.put(elemArch.joinPoint(1), elemJoin1);       
 
         //Угловое соединение правое верхнее
         ElemJoining elemJoin2 = new ElemJoining(id() + .2f, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch, (float) ang4);

@@ -40,8 +40,6 @@ public class ElemFrame extends ElemSimple {
         sysprofRec = (param(param, PKjson.sysprofID) != -1) ? eSysprof.find3(param(param, PKjson.sysprofID)) : owner().sysprofRec;
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-
-        //Record rec = eGlasgrp.find(colorID1)
     }
 
     //Установка координат
@@ -64,7 +62,7 @@ public class ElemFrame extends ElemSimple {
             anglHoriz = 270;
 
         } else if (LayoutArea.ARCH == layout) {
-            setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
+            setDimension(owner().x1, owner().y1, owner().x2, owner().y1); // + artiklRec.getFloat(eArtikl.height));
             anglHoriz = 180;
         }
     }
