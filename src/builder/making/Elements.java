@@ -52,7 +52,7 @@ public class Elements extends Cal5e {
 
                 //Варианты состава для серии профилей
                 int series_id = elem5e.artiklRecAn.getInt(eArtikl.series_id);
-                //Найдем список элементов по актикулу элемента конструкции
+                //Найдем список элементов по артикулу элемента конструкции
                 List<Record> elementList2 = eElement.find(series_id);
                 detail(elementList2, elem5e);
             }
