@@ -47,7 +47,7 @@ public abstract class ElemSimple extends Com5t {
 
     //Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка прилегающего)
     //В этих точках лежат мапы соединений см. Wincalc.mapJoin
-    public String joinPoint(int side) {
+    public String joinPoint2(int side) {
         if (layout() == LayoutArea.BOTT) {
             return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y2; //точки левого и правого нижнего углового и прилегающего соед.
         } else if (layout() == LayoutArea.RIGHT) {
@@ -66,7 +66,25 @@ public abstract class ElemSimple extends Com5t {
         }
         return null;
     }
+    public String joinPoint(int side) {
+        if (layout() == LayoutArea.BOTT) {
+            return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y2; //точки левого и правого нижнего углового и прилегающего соед.
+        } else if (layout() == LayoutArea.RIGHT) {
+            return (side == 0) ? x2 + ":" + y2 : (side == 1) ? x2 + ":" + y1 : x2 + ":" + y1 + (y2 - y1) / 2; //точки нижнего и верхнего правого углового и прилегающего соед.
+        } else if (layout() == LayoutArea.TOP) {
+            return (side == 0) ? x2 + ":" + y1 : (side == 1) ? x1 + ":" + y1 : x1 + (x2 - x1) / 2 + ":" + y2; //точки правого и левого верхнего углового и прилегающего соед.
+        } else if (layout() == LayoutArea.LEFT) {
+            return (side == 0) ? x1 + ":" + y1 : (side == 1) ? x1 + ":" + y2 : x1 + ":" + y1 + (y2 - y1) / 2; //точки верхнего и нижнего левого углового и прилегающего соед.
 
+            //импост, штульп...    
+        } else if (layout() == LayoutArea.VERT) { //вектор всегда снизу вверх
+            return (side == 0) ? x2 + ":" + y2 : x1 + ":" + y1; //точки нижнего и верхнего Т-обр.
+            
+        } else if (layout() == LayoutArea.HORIZ) { //вектор всегда слева на право
+            return (side == 0) ? x1 + ":" + y1 : x2 + ":" + y2; //точки левого и правого Т-обр 
+        }
+        return null;
+    }
     //Прилегающие соединения. Используется при построении конструкции, когда соединения ещё не определены  
     public ElemSimple joinFlat(LayoutArea layoutArea) {
         LinkedList<ElemSimple> listElem = root().listElem(TypeElem.STVORKA_SIDE, TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список элементов
