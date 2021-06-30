@@ -547,9 +547,9 @@ public class Filling extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(125, 125, 125)
+                .addGap(18, 18, 18)
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 474, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 581, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -860,14 +860,15 @@ public class Filling extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        Record record = ((DefTableModel) tab2.getModel()).getQuery().get(Uti5.getIndexRec(tab2));
-        Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
-
-        FrameProgress.create(this, new ListenerFrame() {
-            public void actionRequest(Object obj) {
-                App.Artikles.createFrame(Filling.this, record2);
-            }
-        });
+        if (tab2.getBorder() != null) {
+            Record record = ((DefTableModel) tab2.getModel()).getQuery().get(Uti5.getIndexRec(tab2));
+            Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
+            FrameProgress.create(this, new ListenerFrame() {
+                public void actionRequest(Object obj) {
+                    App.Artikles.createFrame(Filling.this, record2);
+                }
+            });
+        }
     }//GEN-LAST:event_btnConstructiv
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
@@ -900,7 +901,7 @@ public class Filling extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabb1;
     // End of variables declaration//GEN-END:variables
     // </editor-fold>
-    
+
     private void initElements() {
         new FrameToFile(this, btnClose);
         south.add(filterTable, 0);

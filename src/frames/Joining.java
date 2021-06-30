@@ -254,7 +254,7 @@ public class Joining extends javax.swing.JFrame {
                 Record record = qJoinvar.get(index);
                 int joinVar = record.getInt(eJoinvar.types);
                 new ParGrup2(this, (rec) -> {
-                    
+
                     Uti5.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, eParams.joint, joinVar * 100);
             }
@@ -978,13 +978,15 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        Record record = ((DefTableModel) tab4.getModel()).getQuery().get(Uti5.getIndexRec(tab4));
-        Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eJoindet.artikl_id)).findFirst().orElse(eJoindet.up.newRecord());
-        FrameProgress.create(this, new ListenerFrame() {
-            public void actionRequest(Object obj) {
-                App.Artikles.createFrame(Joining.this, record2);
-            }
-        });
+        if (tab4.getBorder() != null) {
+            Record record = ((DefTableModel) tab4.getModel()).getQuery().get(Uti5.getIndexRec(tab4));
+            Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eJoindet.artikl_id)).findFirst().orElse(eJoindet.up.newRecord());
+            FrameProgress.create(this, new ListenerFrame() {
+                public void actionRequest(Object obj) {
+                    App.Artikles.createFrame(Joining.this, record2);
+                }
+            });
+        }
     }//GEN-LAST:event_btnConstructiv
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest

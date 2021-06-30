@@ -41,6 +41,7 @@ public class Elements extends Cal5e {
         try {
             //Цикл по списку элементов конструкции
             for (ElemSimple elem5e : listElem) {
+                System.out.println(elem5e.artiklRecAn);
 
                 elem5e.setSpecific(); //коррекция спецификации              
 

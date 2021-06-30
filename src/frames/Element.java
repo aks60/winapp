@@ -205,7 +205,7 @@ public class Element extends javax.swing.JFrame {
 
         DefCellBoolRenderer br = new DefCellBoolRenderer();
         Arrays.asList(6, 7).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
-        
+
         Uti5.setSelectedRow(tab1);
     }
 
@@ -1023,14 +1023,27 @@ public class Element extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        Record record = ((DefTableModel) tab3.getModel()).getQuery().get(Uti5.getIndexRec(tab3));
-        Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
-
-        FrameProgress.create(this, new ListenerFrame() {
-            public void actionRequest(Object obj) {
-                App.Artikles.createFrame(Element.this, record2);
+        if (tab2.getBorder() != null) {
+            Record record = ((DefTableModel) tab2.getModel()).getQuery().get(Uti5.getIndexRec(tab2));
+            if (record != null) {
+                Record record2 = eArtikl.find(record.getInt(eElement.artikl_id), false);
+                FrameProgress.create(this, new ListenerFrame() {
+                    public void actionRequest(Object obj) {
+                        App.Artikles.createFrame(Element.this, record2);
+                    }
+                });
             }
-        });
+        } else if (tab3.getBorder() != null) {
+            Record record = ((DefTableModel) tab3.getModel()).getQuery().get(Uti5.getIndexRec(tab3));
+            if (record != null) {
+                Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
+                FrameProgress.create(this, new ListenerFrame() {
+                    public void actionRequest(Object obj) {
+                        App.Artikles.createFrame(Element.this, record2);
+                    }
+                });
+            }
+        }
     }//GEN-LAST:event_btnConstructiv
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
@@ -1071,9 +1084,9 @@ public class Element extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
         filterTable = new FilterTable(tab2, 0);
-        south.add(filterTable, 0); 
-        filterTable.getTxt().grabFocus(); 
-        
+        south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus();
+
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti5.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Категории вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
