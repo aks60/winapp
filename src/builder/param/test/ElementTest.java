@@ -236,13 +236,6 @@ public class ElementTest extends ParamTest {
         assert true == elementDet2.check(mapParam, null, param("30", grup)) : grup;
         assert false == elementDet2.check(mapParam, null, param("32", grup)) : grup;
 
-        grup = 34009; //Если два присоединенных артикула
-        assert true == elementDet3.check(mapParam, frame_left_3, param("21315-04000;21316-01000", grup)) : grup;
-        assert true == elementDet3.check(mapParam, imp_vert_3, param("21315-04000;21315-04000", grup)) : grup;
-        assert true == elementDet3.check(mapParam, imp_vert_3, param("21316-01000;21315-04000;", grup)) : grup;
-        assert true == elementDet3.check(mapParam, stv_right_3, param("21316-05000;21315-04000;", grup)) : grup;
-        assert false == elementDet3.check(mapParam, stv_right_3, param("21316-X05000;21315-04000;", grup)) : grup;
-
         grup = 38039; //39039 //Для типа открывания 
         assert true == elementDet4.check(mapParam, stv_right_4, param("поворотное", grup)) : grup;
         assert false == elementDet4.check(mapParam, stv_right_4, param("поворотно-откидное", grup)) : grup;

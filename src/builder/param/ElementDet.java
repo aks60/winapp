@@ -263,20 +263,8 @@ public class ElementDet extends Par5s {
                     }
                     break;
                 case 34009: //Если два присоединенных артикула 
-                {
-                    String[] arr = rec.getStr(TEXT).split(";");
-                    String code = elem5e.artiklRecAn.getStr(eArtikl.code);
-                    boolean eqv[] = {false, false, false};
-                    eqv[0] = (arr[0].equals(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) && arr[1].equals(code));//пред.артикл
-                    eqv[1] = (arr[1].equals(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code)) && arr[0].equals(code));//след.артикл
-                    if (elem5e.type() == TypeElem.STVORKA_SIDE && elem5e.joinElem(2) != null) {
-                        eqv[2] = arr[0].equals(code) && arr[1].equals(elem5e.joinElem(2).artiklRecAn.getStr(eArtikl.code));
-                    }
-                    if ((eqv[0] == true || eqv[1] == true || eqv[2] == true) == false) {
-                        return false;
-                    }
-                }
-                break;
+                    message(grup);
+                    break;
                 case 34010:  //Расчет армирования 
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
