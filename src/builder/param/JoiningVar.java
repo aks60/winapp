@@ -47,7 +47,7 @@ public class JoiningVar extends Par5s {
                 case 1005:  //Контейнер имеет тип Артикула1/Артикула2
                 case 2005:  //Контейнер имеет тип Артикула1/Артикула2
                 case 3005:  //Контейнер имеет тип Артикула1/Артикула2
-                case 4005: //Контейнер имеет тип Артикула1/Артикула2
+                case 4005:  //Контейнер имеет тип Артикула1/Артикула2
                 {
                     if ("ps3".equals(eSetting.find(2))) { //Контейнер Артикула 1 имеет тип
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
@@ -100,7 +100,7 @@ public class JoiningVar extends Par5s {
                     List<Record> elementList = eElement.find3(elemJoin.elem1.artiklRec.getInt(eArtikl.code), elemJoin.elem1.artiklRec.getInt(eArtikl.series_id));
                     for (Record elementRec : elementList) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                            substr = (new ElementVar(iwin)).filter(elemJoin.elem1, elementRec);
+                            substr = true;
                             break;
                         }
                     }
@@ -116,7 +116,7 @@ public class JoiningVar extends Par5s {
                     List<Record> elementList = eElement.find3(elemJoin.elem2.artiklRec.getInt(eArtikl.code), elemJoin.elem2.artiklRec.getInt(eArtikl.series_id));
                     for (Record elementRec : elementList) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                            substr = (new ElementVar(iwin)).filter(elemJoin.elem2, elementRec);
+                            substr = true;
                             break;
                         }
                     }
@@ -128,14 +128,13 @@ public class JoiningVar extends Par5s {
                 case 1013:  //Для Артикулов не указан состав
                 case 2013:  //Для Артикулов не указан состав 
                 case 3013:  //Для Артикулов не указан состав
-                case 4013: //Для Артикулов не указан состав  
+                case 4013:  //Для Артикулов не указан состав  
                 {
                     List<Record> elementList1 = eElement.find3(elemJoin.elem1.artiklRec.getInt(eArtikl.code), elemJoin.elem1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1 = false;
-                    ElementVar elementVar = new ElementVar(iwin);
                     for (Record elementRec : elementList1) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                            substr1 = elementVar.filter(elemJoin.elem1, elementRec);
+                            substr1 = true;
                             break;
                         }
                     }
@@ -143,7 +142,7 @@ public class JoiningVar extends Par5s {
                     List<Record> elementList2 = eElement.find3(elemJoin.elem2.artiklRec.getInt(eArtikl.code), elemJoin.elem2.artiklRec.getInt(eArtikl.series_id));
                     for (Record elementRec : elementList2) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                            substr1 = elementVar.filter(elemJoin.elem1, elementRec);
+                            substr2 = true;
                             break;
                         }
                     }
@@ -277,10 +276,9 @@ public class JoiningVar extends Par5s {
                 {
                     List<Record> elementList1 = eElement.find2(elemJoin.elem1.artiklRec.getInt(eArtikl.id));
                     boolean substr1 = false;
-                    ElementVar elementVar = new ElementVar(iwin);
                     for (Record elementRec : elementList1) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                            substr1 = elementVar.filter(elemJoin.elem1, elementRec);
+                            substr1 = true;
                             break;
                         }
                     }
@@ -288,7 +286,7 @@ public class JoiningVar extends Par5s {
                     List<Record> elementList2 = eElement.find2(elemJoin.elem2.artiklRec.getInt(eArtikl.id));
                     for (Record elementRec : elementList2) {
                         if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                            substr1 = elementVar.filter(elemJoin.elem1, elementRec);
+                            substr1 = true;
                             break;
                         }
                     }

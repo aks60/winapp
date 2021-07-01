@@ -81,14 +81,14 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(604004, false));
             iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            //DBCompare.iwinRec(iwin, true);
+            DBCompare.iwinRec(iwin, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().type + "  POINT:" + it.getKey() + " (" + it.getValue().elem1.spcRec.artikl + ":" + it.getValue().elem2.spcRec.artikl + ") -" + it.getValue().layout.name));           
 
         } else if (_case.equals("min")) {

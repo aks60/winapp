@@ -41,8 +41,7 @@ public class Elements extends Cal5e {
         try {
             //Цикл по списку элементов конструкции
             for (ElemSimple elem5e : listElem) {
-                //System.out.println(elem5e.artiklRecAn);
-
+                
                 elem5e.setSpecific(); //коррекция спецификации              
 
                 //Варианты состава для артикула профиля
@@ -68,7 +67,6 @@ public class Elements extends Cal5e {
         try {
             //Цикл по вариантам
             for (Record elementRec : elementList) {
-                //System.out.println(elementRec.getStr(eElement.id) + " - " + elementRec.getStr(eElement.name));
                 
                 int element_id = elementRec.getInt(eElement.id);
                 listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
