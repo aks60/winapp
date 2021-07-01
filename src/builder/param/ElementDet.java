@@ -258,7 +258,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 34008:  //Эффективное заполнение изделия, мм 
                 case 40008:  //Эффективное заполнение изд., мм                    
-                    if (Uti4.is_1008_31008_34008(rec.getFloat(TEXT), iwin) == false) {
+                    if (Uti4.is_1008_11008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
                     break;

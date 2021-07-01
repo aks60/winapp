@@ -81,18 +81,21 @@ public class JoiningDet extends Par5s {
                     }
                     break;
                 case 11008:  //Эффективное заполнение изд., мм 
-                    message(rec.getInt(GRUP));
+                    if (Uti4.is_1008_11008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
+                        return false;
+                    }
                     break;
                 case 11009:  //Внешнее соединение 
                 case 12009:  //Внешнее соединение                      
-                    //message(rec.getInt(GRUP)); //У SA всегда внутреннее
+                    message(rec.getInt(GRUP)); //У SA всегда внутреннее
                     break;
                 case 11010:  //Рассчитывать с Артикулом 1 
                 case 12010:  //Рассчитывать с Артикулом 1                    
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11020:  //Рассчитывать с Артикулом 2 
-                    message(rec.getInt(GRUP));
+                case 12020:  //Рассчитывать с Артикулом 2 
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11028:  //Диапозон веса заполнения, кг 
                     message(rec.getInt(GRUP));
@@ -162,9 +165,6 @@ public class JoiningDet extends Par5s {
                 }
                 break;
                 case 12008:  //Эффективное заполнение изд., мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 12020:  //Рассчитывать с Артикулом 2 
                     message(rec.getInt(GRUP));
                     break;
                 case 12027:  //Рассчитывать для профиля 

@@ -66,6 +66,12 @@ public class JoiningTest extends ParamTest {
         assert false == joiningVar4.check(iwin_4.mapJoin.get(frame_right_4.joinPoint(1)), param("xxx", grup)) : grup;
     }
 
+    /*
+    select d.id,  c.name, b.id, a.text from joinpar2 a
+    left join joindet b on b.id = a.joindet_id
+    left join joinvar c on c.id = b.joinvar_id
+    left join joining d on d.id = c.joining_id where a.params_id = 11009   
+     */
     public void joiningDet() {
         HashMap<Integer, String> mapParam = new HashMap();
 
@@ -76,18 +82,19 @@ public class JoiningTest extends ParamTest {
         assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 5", grup)) : grup;
 
         grup = 11001; //12001 //Если признак состава Арт.1 
-        //assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
-        //assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
+        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
+        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
 
         grup = 11002; //12002 //Если признак состава Арт.2 
-        //assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
-        //assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
-        
+        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
+        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
+
         grup = 11005;  //12005 //Контейнер типа
-//        Object oo = frame_right_3.joinPoint(1);
-//        Object obj = iwin_3.mapJoin.get(frame_right_3.joinPoint(1));
-//        assert true == joiningDet3.check(mapParam, iwin_3.mapJoin.get(frame_right_3.joinPoint(1)), param("1;2;3", grup)) : grup;
-//        //assert true == joiningDet3.check(mapParam, iwin_3.mapJoin.get(frame_right_3.joinPoint(1)), param("1-3", grup)) : grup;
-//        //assert false == joiningDet3.check(mapParam, iwin_3.mapJoin.get(frame_right_3.joinPoint(1)), param("4", grup)) : grup;        
+        assert true == joiningDet3.check(mapParam, iwin_3.mapJoin.get(frame_right_3.joinPoint(1)), param("1-3", grup)) : grup;
+        assert false == joiningDet3.check(mapParam, iwin_3.mapJoin.get(frame_right_3.joinPoint(1)), param("4", grup)) : grup;
+
+        grup = 11008; //Эффективное заполнение изделия, мм
+        assert true == joiningDet3.check(mapParam, null, param("32", grup)) : grup;
+        assert false == joiningDet3.check(mapParam, null, param("30", grup)) : grup;
     }
 }

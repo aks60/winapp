@@ -122,8 +122,8 @@ public class Test {
         Query.connection = Test.connect2();
         ElementTest et = new ElementTest();
         JoiningTest jt = new JoiningTest();
-        et.elementVar();
-        et.elementDet();
+        //et.elementVar();
+        //et.elementDet();
         jt.joiningVar();
         jt.joiningDet();
         

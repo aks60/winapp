@@ -136,7 +136,7 @@ class Uti4 {
     }
 
     //Эффективное заполнение изделия, мм 
-    static boolean is_1008_31008_34008(Float txt, Wincalc iwin) {
+    static boolean is_1008_11008_31008_34008_40008(Float txt, Wincalc iwin) {
         float depth = 0;
         for (ElemSimple elem : iwin.listElem) {
             if (elem.type() == TypeElem.GLASS) {
