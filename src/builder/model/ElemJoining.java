@@ -53,7 +53,7 @@ public class ElemJoining {
         Specific spcRec = elem1.spcRec;
 
         spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count += uti3.get_11050_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
+        spcAdd.count += uti3.get_11050(spcAdd, this); //кол. ед. с шагом
         spcAdd.width = uti3.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
         if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklDet.getInt(eArtikl.level1))) {
             spcAdd.width += spcRec.width;

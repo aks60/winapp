@@ -81,13 +81,13 @@ public class JoiningTest extends ParamTest {
         assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 58", grup)) : grup;
         assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 5", grup)) : grup;
 
-        grup = 11001; //12001 //Если признак состава Арт.1 
-        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
-        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
-
-        grup = 11002; //12002 //Если признак состава Арт.2 
-        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
-        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
+//        grup = 11001; //12001 //Если признак состава Арт.1 
+//        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
+//        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
+//
+//        grup = 11002; //12002 //Если признак состава Арт.2 
+//        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
+//        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
 
         grup = 11005;  //12005 //Контейнер типа
         assert true == joiningDet3.check(mapParam, iwin_3.mapJoin.get(frame_right_3.joinPoint(1)), param("1-3", grup)) : grup;
@@ -96,5 +96,18 @@ public class JoiningTest extends ParamTest {
         grup = 11008; //Эффективное заполнение изделия, мм
         assert true == joiningDet3.check(mapParam, null, param("32", grup)) : grup;
         assert false == joiningDet3.check(mapParam, null, param("30", grup)) : grup;
+
+        grup = 11028; //12028 //Диапазон веса заполнения, кг
+        assert true == joiningDet3.check(mapParam, null, param("30-140;", grup)) : grup;
+        assert true == joiningDet3.check(mapParam, null, param("140;", grup)) : grup;
+        assert false == joiningDet3.check(mapParam, null, param("30;", grup)) : grup;
+        
+        grup = 11066; //Если текстура профиля Арт.1 
+        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("1009-1010", grup)) : grup;        
+        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("1006", grup)) : grup;        
+    
+        grup = 11095; //12095 //Если признак системы конструкции
+        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("1;5;4;", grup)) : grup;
+        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("5;4;", grup)) : grup;    
     }
 }

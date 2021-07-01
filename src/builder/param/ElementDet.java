@@ -88,18 +88,10 @@ public class ElementDet extends Par5s {
                     }
                     break;
                 case 33008: //Эффективное заполнение изд., мм 
-                {
-                    float depth = 0;
-                    for (ElemSimple elem : iwin.listElem) {
-                        if (elem.type() == TypeElem.GLASS) {
-                            depth = (elem.artiklRecAn.getFloat(eArtikl.depth) > depth) ? elem.artiklRecAn.getFloat(eArtikl.depth) : depth;
-                        }
-                    }
-                    if (rec.getFloat(TEXT) != depth) {
+                    if (Uti4.is_1008_11008_12008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
-                }
-                break;
+                    break;
                 case 33011: //Толщина внешнего/внутреннего заполнения, мм
                 case 34011: //Толщина внешнего/внутреннего заполнения, мм
                     List<ElemGlass> glassList = Uti4.getGlassDepth(elem5e);
@@ -246,7 +238,7 @@ public class ElementDet extends Par5s {
                 case 38095:  //Если признак системы конструкции
                 case 39095:  //Если признак системы конструкции
                 case 40095:  //Если признак системы конструкции 
-                    if (!Uti4.is_STRING_33095_34095_38095_39095_40095(rec.getStr(TEXT), elem5e, iwin.nuni)) {
+                    if (!Uti4.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), iwin.nuni)) {
                         return false;
                     }
                     break;
@@ -258,7 +250,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 34008:  //Эффективное заполнение изделия, мм 
                 case 40008:  //Эффективное заполнение изд., мм                    
-                    if (Uti4.is_1008_11008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
+                    if (Uti4.is_1008_11008_12008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
                     break;

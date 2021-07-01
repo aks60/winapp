@@ -45,12 +45,12 @@ class Uti3 {
     }
 
     //Расчёт количества ед. с шагом
-    float get_11050_14050_24050_33050_38050(Specific spcAdd) {
+    float get_14050_24050_33050_38050(Specific spcAdd) {
 
-        int step = Integer.valueOf(spcAdd.getParam(-1, 11050, 14050, 24050, 33050, 38050)); //Шаг, мм
+        int step = Integer.valueOf(spcAdd.getParam(-1, 14050, 24050, 33050, 38050)); //Шаг, мм
         if (step != -1) {
-            float width_begin = Util.getFloat(spcAdd.getParam(0, 11040, 14040, 24040, 33040, 38040)); //Порог расчета, мм
-            int count_step = Integer.valueOf(spcAdd.getParam(1, 11060, 14060, 24060, 33060, 38060)); //"Количество на шаг"
+            float width_begin = Util.getFloat(spcAdd.getParam(0, 14040, 24040, 33040, 38040)); //Порог расчета, мм
+            int count_step = Integer.valueOf(spcAdd.getParam(1, 14060, 24060, 33060, 38060)); //"Количество на шаг"
             float width_next = 0;
             if ("null".equals(spcAdd.getParam("null", 38004, 39005))) {
                 width_next = elem5e.width() - width_begin;
@@ -90,13 +90,59 @@ class Uti3 {
         return 0;
     }
 
+    //Расчёт количества ед. с шагом
+    float get_11050(Specific spcAdd, ElemJoining elemJoin) {
+
+        int step = Integer.valueOf(spcAdd.getParam(-1, 11050)); //Шаг, мм
+        if (step != -1) {
+            float width_begin = Util.getFloat(spcAdd.getParam(0, 11040)); //Порог расчета, мм
+            int count_step = Integer.valueOf(spcAdd.getParam(1, 11060)); //"Количество на шаг"
+            ElemSimple elem5e = null;
+            float width_next = 0;
+            
+            if ("Да".equals(spcAdd.getParam("Нет", 11010, 12010))) {
+                elem5e = elemJoin.elem1;
+
+            } else if ("Да".equals(spcAdd.getParam("Нет", 11020, 12020))) {
+                elem5e = elemJoin.elem2;
+            }
+            if ("большей".equals(spcAdd.getParam("", 11072, 12072))) {
+                float length = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
+                width_next = length - width_begin;
+                
+            } else if ("меньшей".equals(spcAdd.getParam("", 11072, 12072))) {
+                float length = (elem5e.width() < elem5e.height()) ? elem5e.width() : elem5e.height();
+                width_next = length - width_begin;
+                
+            } else  if ("общей".equals(spcAdd.getParam("", 11072, 12072))) {
+                float length = elemJoin.elem2.width();
+                width_next = length - width_begin;
+                
+            } else {
+                width_next = elem5e.width() - width_begin;
+            }
+            int count = (int) width_next / step;
+            if (count_step == 1) {
+                if (count < 1) {
+                    return 1;
+                }
+                return (width_next % step > 0) ? ++count : count;
+            } else {
+                int count2 = (int) width_next / step;
+                int count3 = (int) (width_next % step) / (step / count_step);
+                return ((width_next % step) % (step / count_step) > 0) ? count2 * count_step + count3 + 1 : count2 * count_step + count3;
+            }
+        }
+        return 0;
+    }
+
     //Количество ед.
     float get_11030_12060_14030_15040_25060_33030_34060_38030_39060(Specific spсRec, Specific spcAdd) {
         return Util.getFloat(spcAdd.getParam(spcAdd.count,
                 11030, 12060, 14030, 15040, 25060, 33030, 34060, 38030, 39060));
     }
 
-    //Пог. метры
+    //Поправка, мм
     float get_12050_15050_34051_39020(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) { //пог.м.
             return Util.getFloat(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
@@ -104,7 +150,7 @@ class Uti3 {
         return spcAdd.width;
     }
 
-    //Пог. метры длина
+    //Длина, мм
     float get_12065_15045_25040_34070_39070(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) { //пог.м.
             return Util.getFloat(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
@@ -189,7 +235,7 @@ class Uti3 {
             spcAdd.width = height;
         }
     }
-    
+
 //    //Изменение сторон покраски
 //    void get_31090(Specific spcAdd) {
 //        if ("Да".equals(spcAdd.getParam("null", 31090))) {
@@ -202,20 +248,20 @@ class Uti3 {
     //Округлять количество до ближайшего
     float get_39063(Specific spcAdd) {
         String txt = spcAdd.getParam("null", 39063);
-        
+
         if ("меньшего целого числа".equals(txt)) {
             return (float) Math.floor(spcAdd.count);
-            
+
         } else if ("большего целого числа".equals(txt)) {
             return (float) Math.ceil(spcAdd.count);
-  
+
         } else if ("большего чётного числа".equals(txt)) {
             return (float) Math.round(spcAdd.count);
-  
+
         } else if ("большего нечётного числа".equals(txt)) {
             return (float) Math.round(spcAdd.count) + 1;
         }
         return spcAdd.count;
     }
-    
+
 }

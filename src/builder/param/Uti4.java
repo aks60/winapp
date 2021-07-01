@@ -100,7 +100,7 @@ class Uti4 {
     }
 
     //Если признак системы конструкции
-    static boolean is_STRING_33095_34095_38095_39095_40095(String txt, ElemSimple elem5e, int nuni) {
+    static boolean is_11095_12095_31095_33095_34095_37095_38095_39095_40095(String txt, int nuni) {
         Record systreefRec = eSystree.find(nuni);
         String[] arr = txt.split(";");
         List<String> arrList = Arrays.asList(arr);
@@ -136,7 +136,7 @@ class Uti4 {
     }
 
     //Эффективное заполнение изделия, мм 
-    static boolean is_1008_11008_31008_34008_40008(Float txt, Wincalc iwin) {
+    static boolean is_1008_11008_12008_31008_34008_40008(Float txt, Wincalc iwin) {
         float depth = 0;
         for (ElemSimple elem : iwin.listElem) {
             if (elem.type() == TypeElem.GLASS) {

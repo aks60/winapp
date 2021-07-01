@@ -4,17 +4,17 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eJoindet;
 import domain.eJoinpar2;
-import domain.eSysprof;
 import domain.eSystree;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.model.AreaStvorka;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import common.Util;
 import domain.eElement;
+import enums.TypeElem;
+import java.util.LinkedList;
 
 //Cоединения
 public class JoiningDet extends Par5s {
@@ -81,7 +81,8 @@ public class JoiningDet extends Par5s {
                     }
                     break;
                 case 11008:  //Эффективное заполнение изд., мм 
-                    if (Uti4.is_1008_11008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
+                case 12008:  //Эффективное заполнение изд., мм 
+                    if (Uti4.is_1008_11008_12008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
                     break;
@@ -97,33 +98,48 @@ public class JoiningDet extends Par5s {
                 case 12020:  //Рассчитывать с Артикулом 2 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
-                case 11028:  //Диапозон веса заполнения, кг 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 11028: //Диапазон веса заполнения, кг 
+                case 12028: //Диапазон веса заполнения, кг 
+                {
+                    float weight = 0;
+                    LinkedList<ElemSimple> glassList = iwin.rootArea.listElem(TypeElem.GLASS);
+                    for (ElemSimple glass : glassList) {
+                        if (glass.artiklRecAn.getFloat(eArtikl.density) > 0) {
+                            weight += glass.width() * glass.height() * glass.artiklRecAn.getFloat(eArtikl.density) / 1000000;
+                        }
+                    }
+                    if (Util.containsNumb2(rec.getStr(TEXT), weight) == false) {
+                        return false;
+                    }
+                }
+                break;
                 case 11029:  //Расстояние узла от ручки, мм 
                     message(rec.getInt(GRUP));
                     break;
                 case 11030:  //Количество 
+                case 12060:  //Количество 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11040:  //Порог расчета, мм 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11050:  //Шаг, мм 
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    break;
                 case 12050:  //Поправка, мм    
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
-                case 11060:  //Количество на шаг 
-                case 12060:  //Количество    
+                case 11060:  //Количество на шаг   
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11066:  //Если текстура профиля Арт.1 
-                    message(rec.getInt(GRUP));
+                    if (Util.containsNumb(rec.getStr(TEXT), elemJoin.elem1.colorID1) == false) {
+                        return false;
+                    }
                     break;
                 case 11067:  //Коды основной текстуры изделия 
                 case 12067:  //Коды основной текстуры изделия
-                    int c1 = iwin.colorID1;
-                    if (Util.containsNumb(rec.getStr(TEXT), c1) == false) {
+                    if (Util.containsNumb(rec.getStr(TEXT), iwin.colorID1) == false) {
                         return false;
                     }
                     break;
@@ -135,8 +151,7 @@ public class JoiningDet extends Par5s {
                     break;
                 case 11069:  //Коды внешн. текстуры изделия
                 case 12069:  //Коды внешн. текстуры изделия     
-                    int c3 = iwin.colorID3;
-                    if (Util.containsNumb(rec.getStr(TEXT), c3) == false) {
+                    if (Util.containsNumb(rec.getStr(TEXT), iwin.colorID3) == false) {
                         return false;
                     }
                     break;
@@ -145,35 +160,19 @@ public class JoiningDet extends Par5s {
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11072:  //Расчет по стороне 
+                case 12072:  //Расчет по стороне 
                     message(rec.getInt(GRUP));
                     break;
                 case 11095: //Если признак системы конструкции 
                 case 12095: //Если признак системы конструкции 
-                {
-                    Record systreefRec = eSystree.find(iwin.nuni);
-                    String[] arr = rec.getStr(TEXT).split(";");
-                    List<String> arrList = Arrays.asList(arr);
-                    boolean ret = false;
-                    for (String str : arrList) {
-                        if (systreefRec.getInt(eSystree.types) == Integer.valueOf(str) == true) {
-                            ret = true;
-                        }
-                    }
-                    if (ret == false) {
+                    if (!Uti4.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), iwin.nuni)) {
                         return false;
                     }
-                }
-                break;
-                case 12008:  //Эффективное заполнение изд., мм 
-                    message(rec.getInt(GRUP));
                     break;
                 case 12027:  //Рассчитывать для профиля 
                     if ("с уплотнителем".equalsIgnoreCase(rec.getStr(TEXT)) == true && elemJoin.elem1.artiklRec.getInt(eArtikl.with_seal) == 0) {
                         return false;
                     }
-                    break;
-                case 12028:  //Диапозон веса заполнения, кг 
-                    message(rec.getInt(GRUP));
                     break;
                 case 12030:  //[ * коэф-т ] 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
@@ -185,9 +184,6 @@ public class JoiningDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 12065:  //Длина, мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 12072:  //Расчет по стороне 
                     message(rec.getInt(GRUP));
                     break;
                 case 12075:  //Углы реза 
