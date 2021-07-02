@@ -120,28 +120,24 @@ public class ElementTest extends ParamTest {
         assert true == elementVar4.check(stv_right_4, param("1;2;", grup)) : grup;
         assert false == elementVar4.check(stv_right_4, param("2;9", grup)) : grup;
 
-        grup = 37002;
+        grup = 37002; //Если артикул профиля контура
         assert true == elementVar2.check(frame_left_2, param("807", grup)) : grup;
         assert false == elementVar2.check(frame_left_2, param("800", grup)) : grup;
 
-        grup = 37008;
+        grup = 37008; //Тип проема
         assert false == elementVar2.check(stv_right_2, param("глухой", grup)) : grup;
         assert true == elementVar2.check(stv_right_2, param("не глухой", grup)) : grup;
 
-        grup = 37008;
-        assert false == elementVar2.check(stv_right_2, param("глухой", grup)) : grup;
-        assert true == elementVar2.check(stv_right_2, param("не глухой", grup)) : grup;
-
-        grup = 37009;
+        grup = 37009; //Тип заполнения
         assert true == elementVar2.check(stv_right_2, param("Прямоугольное", grup)) : grup;
         assert false == elementVar2.check(stv_right_2, param("Арочное", grup)) : grup;
         assert false == elementVar2.check(stv_right_2, param("Произвольное", grup)) : grup;
 
-        grup = 37010;
+        grup = 37010; //Ограничение ширины/высоты листа, мм
         assert true == elementVar2.check(glass_top_2, param("0-3000/0-334", grup)) : grup;
         assert false == elementVar2.check(glass_left_2, param("0-3000/0-334", grup)) : grup;
 
-        grup = 37030;
+        grup = 37030; //Ограничение площади, кв.м.
         assert true == elementVar2.check(glass_top_2, param("0-6,5", grup)) : grup;
         assert false == elementVar2.check(glass_left_2, param("0-0,4", grup)) : grup;
 

@@ -58,19 +58,13 @@ public class JoiningDet extends Par5s {
                 break;
                 case 11001: //Если признак состава Арт.1 
                 case 12001: //Если признак состава Арт.1 
-                {
-                    if (eElement.query().stream().filter(elemRec
-                            -> elemJoin.elem1.artiklRecAn.getInt(eArtikl.id) == elemRec.getInt(eElement.artikl_id)
-                            && rec.getStr(TEXT).equals(elemRec.get(eElement.signset))).findFirst().isEmpty()) {
+                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001_(rec.getStr(TEXT), elemJoin.elem1) == false) {
                         return false;
                     }
-                }
-                break;
+                    break;
                 case 11002:  //Если признак состава Арт.2 
                 case 12002:  //Если признак состава Арт.2 
-                    if (eElement.query().stream().filter(elemRec
-                            -> elemJoin.elem2.artiklRecAn.getInt(eArtikl.id) == elemRec.getInt(eElement.artikl_id)
-                            && rec.getStr(TEXT).equals(elemRec.get(eElement.signset))).findFirst().isEmpty()) {
+                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001_(rec.getStr(TEXT), elemJoin.elem2) == false) {
                         return false;
                     }
                     break;
@@ -170,7 +164,7 @@ public class JoiningDet extends Par5s {
                     }
                     break;
                 case 12027:  //Рассчитывать для профиля 
-                    if ("с уплотнителем".equalsIgnoreCase(rec.getStr(TEXT)) == true && elemJoin.elem1.artiklRec.getInt(eArtikl.with_seal) == 0) {
+                    if ("с уплотнителем".equals(rec.getStr(TEXT)) == true && elemJoin.elem1.artiklRec.getInt(eArtikl.with_seal) == 0) {
                         return false;
                     }
                     break;
@@ -184,10 +178,10 @@ public class JoiningDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 12065:  //Длина, мм 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 12075:  //Углы реза 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 default:
                     assert !(grup > 0 && grup < 50000) : "Код " + grup + "  не обработан!!!";

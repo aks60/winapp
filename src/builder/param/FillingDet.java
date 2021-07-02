@@ -64,8 +64,10 @@ public class FillingDet extends Par5s {
                 }
                 break;
                 case 14001:  //Если признак состава 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 15001:  //Если признак состава                    
+                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001_(rec.getStr(TEXT), elem5e) == false) {
+                        return false;
+                    }
                 case 14005:  //Тип проема 
                 case 15005:
                     if (!Uti4.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
@@ -155,9 +157,6 @@ public class FillingDet extends Par5s {
                     }
                 }
                 break;
-                case 15001:  //Если признак состава 
-                    message(rec.getInt(GRUP));
-                    break;
                 case 15008:  //Эффективное заполнение изд., мм 
                     message(rec.getInt(GRUP));
                     break;

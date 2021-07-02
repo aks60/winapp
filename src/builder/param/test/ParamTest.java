@@ -6,6 +6,8 @@ import builder.model.ElemFrame;
 import builder.model.ElemSimple;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
+import builder.param.FillingDet;
+import builder.param.FillingVar;
 import builder.param.JoiningDet;
 import builder.param.JoiningVar;
 import dataset.Record;
@@ -41,18 +43,24 @@ public class ParamTest {
     protected ElementDet elementDet2 = null;
     protected JoiningVar joiningVar2 = null;
     protected JoiningDet joiningDet2 = null;
+    protected FillingVar fillingVar2 = null;
+    protected FillingDet fillingDet2 = null;
 
     builder.Wincalc iwin_3 = new builder.Wincalc(); //604005
     protected ElementVar elementVar3 = null;
     protected ElementDet elementDet3 = null;
     protected JoiningVar joiningVar3 = null;
-    protected JoiningDet joiningDet3 = null;    
+    protected JoiningDet joiningDet3 = null;
+    protected FillingVar fillingVar3 = null;
+    protected FillingDet fillingDet3 = null;
 
     builder.Wincalc iwin_4 = new builder.Wincalc(); //700027
     protected ElementVar elementVar4 = null;
     protected ElementDet elementDet4 = null;
     protected JoiningVar joiningVar4 = null;
-    protected JoiningDet joiningDet4 = null;    
+    protected JoiningDet joiningDet4 = null;
+    protected FillingVar fillingVar4 = null;
+    protected FillingDet fillingDet4 = null;
 
     public ParamTest() {
 
@@ -61,7 +69,8 @@ public class ParamTest {
         elementVar2 = new ElementVar(iwin_2);
         elementDet2 = new ElementDet(iwin_2);
         joiningVar2 = new JoiningVar(iwin_2);
-        joiningDet2 = new JoiningDet(iwin_2);       
+        fillingVar2 = new FillingVar(iwin_2);
+        fillingDet2 = new FillingDet(iwin_2);
         frame_left_2 = getElem(iwin_2.rootArea, 1.0f);
         frame_right_2 = getElem(iwin_2.rootArea, 2.0f);
         stv_right_2 = getElem(iwin_2.rootArea, 10.2f);
@@ -76,18 +85,21 @@ public class ParamTest {
         elementVar3 = new ElementVar(iwin_3);
         elementDet3 = new ElementDet(iwin_3);
         joiningVar3 = new JoiningVar(iwin_3);
-        joiningDet3 = new JoiningDet(iwin_3);        
+        joiningDet3 = new JoiningDet(iwin_3);
         frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
         stv_right_3 = getElem(iwin_3.rootArea, 9.2f);
-        imp_vert_3 = getElem(iwin_3.rootArea, 11.0f);       
-
+        imp_vert_3 = getElem(iwin_3.rootArea, 11.0f);
+        fillingVar3 = new FillingVar(iwin_3);
+        fillingDet3 = new FillingDet(iwin_3);
         iwin_4.build(builder.script.Winscript.test(700027, false));
         iwin_4.constructiv(true);
         elementVar4 = new ElementVar(iwin_4);
         elementDet4 = new ElementDet(iwin_4);
         joiningVar4 = new JoiningVar(iwin_4);
-        joiningDet4 = new JoiningDet(iwin_4);        
+        joiningDet4 = new JoiningDet(iwin_4);
+        fillingVar4 = new FillingVar(iwin_4);
+        fillingDet4 = new FillingDet(iwin_4);        
         frame_left_4 = getElem(iwin_4.rootArea, 1.0f);
         frame_right_4 = getElem(iwin_4.rootArea, 2.0f);
         stv_left_4 = getElem(iwin_4.rootArea, 6.4f);

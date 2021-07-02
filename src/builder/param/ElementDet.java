@@ -51,9 +51,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 33001:  //Если признак состава 
                 case 34001:  //Если признак состава 
-                    if (eElement.query().stream().filter(elemRec
-                            -> elem5e.artiklRecAn.getInt(eArtikl.id) == elemRec.getInt(eElement.artikl_id)
-                            && rec.getStr(TEXT).equals(elemRec.get(eElement.signset))).findFirst().isEmpty()) {
+                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001_(rec.getStr(TEXT), elem5e) == false) {
                         return false;
                     }
                     break;

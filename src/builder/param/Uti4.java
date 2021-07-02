@@ -7,6 +7,7 @@ import builder.model.ElemSimple;
 import common.Util;
 import dataset.Record;
 import domain.eArtikl;
+import domain.eElement;
 import domain.eFurniture;
 import domain.eSetting;
 import domain.eSysfurn;
@@ -179,10 +180,20 @@ class Uti4 {
         }
         return true;
     }
-    
+
     //Внешнее соединение
     static boolean is_31010_4010_11009_12009(String txt) {
-        
+
         return true;
     }
+
+    static boolean is_11001_11002_12001_12002_13001_14001_15001_33001_34001_(String txt, ElemSimple elem5e) {
+        if (eElement.query().stream().filter(elemRec
+                -> elem5e.artiklRecAn.getInt(eArtikl.id) == elemRec.getInt(eElement.artikl_id)
+                && txt.equals(elemRec.get(eElement.signset))).findFirst().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
 }

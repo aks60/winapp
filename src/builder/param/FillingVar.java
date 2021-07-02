@@ -9,6 +9,8 @@ import java.util.List;
 import builder.Wincalc;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
+import domain.eArtikl;
+import domain.eElement;
 import domain.eSetting;
 
 //Заполнения
@@ -41,7 +43,9 @@ public class FillingVar extends Par5s {
         try {
             switch (grup) {
                 case 13001:  //Если признак состава 
-                    message(rec.getInt(GRUP));
+                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001_(rec.getStr(TEXT), elem5e) == false) {
+                        return false;
+                    }
                     break;
                 case 13003:  //Тип проема 
                     if (!Uti4.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {

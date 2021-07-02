@@ -6,8 +6,8 @@ import builder.script.Winscript;
 import common.*;
 import dataset.*;
 import com.google.gson.GsonBuilder;
-import builder.param.ParamList;
 import builder.param.test.ElementTest;
+import builder.param.test.FillingTest;
 import builder.param.test.JoiningTest;
 import domain.eElement;
 import frames.DBCompare;
@@ -122,10 +122,12 @@ public class Test {
         Query.connection = Test.connect2();
         ElementTest et = new ElementTest();
         JoiningTest jt = new JoiningTest();
+        FillingTest ft = new FillingTest();
         //et.elementVar();
         //et.elementDet();
-        jt.joiningVar();
-        jt.joiningDet();
+        //jt.joiningVar();
+        //jt.joiningDet();
+        ft.fillingVar();
         
 //        Query.connection = Test.connect2();
 //        Set set = new HashSet();
