@@ -65,7 +65,7 @@ public class FillingDet extends Par5s {
                 break;
                 case 14001:  //Если признак состава 
                 case 15001:  //Если признак состава                    
-                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001_(rec.getStr(TEXT), elem5e) == false) {
+                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem5e) == false) {
                         return false;
                     }
                 case 14005:  //Тип проема 

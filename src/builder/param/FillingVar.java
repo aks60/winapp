@@ -15,15 +15,15 @@ import domain.eSetting;
 
 //Заполнения
 public class FillingVar extends Par5s {
-
+    
     private int[] parGrup = {13015, 13017, 13081, 13099};
-
+    
     public FillingVar(Wincalc iwin) {
         super(iwin);
     }
-
+    
     public boolean filter(ElemGlass elem5e, Record glasgrpRec) {
-
+        
         List<Record> paramList = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
         if (filterParamDef(paramList) == false) {
             return false;
@@ -36,14 +36,14 @@ public class FillingVar extends Par5s {
         }
         return true;
     }
-
+    
     public boolean check(ElemSimple elem5e, Record rec) {
-
+        
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
                 case 13001:  //Если признак состава 
-                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001_(rec.getStr(TEXT), elem5e) == false) {
+                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem5e) == false) {
                         return false;
                     }
                     break;
@@ -53,7 +53,10 @@ public class FillingVar extends Par5s {
                     }
                     break;
                 case 13005:  //Заполнение типа 
-                    message(rec.getInt(GRUP));
+                    //"Стекло", "Стеклопакет", "Сендвич", "Вагонка", "Алюминевый лист", "Специальное стекло", "Конструктив", "Панель откоса
+                    if ("Стекло".equals(rec.getStr(TEXT)) && elem5e.artiklRecAn.getInt(eArtikl.level2) == 5) {
+                        return false;
+                    }
                     break;
                 case 13014:  //Угол ориентации стороны, ° 
                     message(rec.getInt(GRUP));

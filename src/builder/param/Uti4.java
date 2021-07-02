@@ -187,12 +187,16 @@ class Uti4 {
         return true;
     }
 
-    static boolean is_11001_11002_12001_12002_13001_14001_15001_33001_34001_(String txt, ElemSimple elem5e) {
+    static boolean is_11001_11002_12001_12002_13001_14001_15001_33001_34001(String txt, ElemSimple elem5e) {
         if (eElement.query().stream().filter(elemRec
                 -> elem5e.artiklRecAn.getInt(eArtikl.id) == elemRec.getInt(eElement.artikl_id)
                 && txt.equals(elemRec.get(eElement.signset))).findFirst().isEmpty()) {
             return false;
         }
+        return true;
+    }
+
+    static boolean is_XXX(String txt, ElemSimple elem5e) {
         return true;
     }
 

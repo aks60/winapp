@@ -58,13 +58,13 @@ public class JoiningDet extends Par5s {
                 break;
                 case 11001: //Если признак состава Арт.1 
                 case 12001: //Если признак состава Арт.1 
-                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001_(rec.getStr(TEXT), elemJoin.elem1) == false) {
+                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elemJoin.elem1) == false) {
                         return false;
                     }
                     break;
                 case 11002:  //Если признак состава Арт.2 
                 case 12002:  //Если признак состава Арт.2 
-                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001_(rec.getStr(TEXT), elemJoin.elem2) == false) {
+                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elemJoin.elem2) == false) {
                         return false;
                     }
                     break;
