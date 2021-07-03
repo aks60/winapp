@@ -72,19 +72,19 @@ public class FillingVar extends Par5s {
                     }
                     break;
                 case 13014:  //Углы ориентации стороны, ° 
-                    message(rec.getInt(GRUP));
+                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 13015:  //Форма заполнения 
                     //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
-                    if ("Прямоугольное".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(elem5e.owner().type()) == false
+                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(elem5e.owner().type()) == false
                             && TypeElem.AREA.equals(elem5e.owner().type()) == false && TypeElem.STVORKA.equals(elem5e.owner().type()) == false) {
                         return false;
-                    } else if ("Не прямоугольное".equalsIgnoreCase(rec.getStr(TEXT)) && (TypeElem.TRAPEZE.equals(elem5e.owner().type()) == false
+                    } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.TRAPEZE.equals(elem5e.owner().type()) == false
                             && TypeElem.TRIANGL.equals(elem5e.owner().type()) == false)) {
                         return false;
-                    } else if ("Арочное".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
+                    } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
                         return false;
-                    } else if ("Не арочное".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == true) {
+                    } else if ("Не арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == true) {
                         return false;
                     }
                     break;

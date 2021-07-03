@@ -4,8 +4,10 @@ package builder.param.test;
 public class FillingTest extends ParamTest {
   
     /*
-    select b.id, b.name, a.text from glaspar1 a
-    left join glasgrp b on b.id = a.glasgrp_id where a.params_id = 13014    
+    select distinct e.id, e.name, b.id, b.name, a.text from glaspar1 a
+    left join glasgrp b on b.id = a.glasgrp_id left join glasprof c on c.glasgrp_id = b.id
+    left join sysprof d on d.artikl_id = c.artikl_id  left join systree e on e.id = d.systree_id
+    where a.params_id = 13014   
     */
     public void fillingVar() {
         
