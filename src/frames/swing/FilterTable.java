@@ -3,6 +3,7 @@ package frames.swing;
 import dataset.Field;
 import dataset.Query;
 import frames.Uti5;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -27,13 +28,13 @@ public class FilterTable extends javax.swing.JPanel {
     public FilterTable() {
         initComponents();
     }
-    
+
     public FilterTable(JTable table, int index) {
         initComponents();
         mousePressed(table);
         labFilter.setText(table.getColumnName(index));
         txtFilter.setName(table.getName());
-        table.setColumnSelectionInterval(index, index);        
+        table.setColumnSelectionInterval(index, index);
     }
 
     public JLabel getLab() {
@@ -165,13 +166,14 @@ public class FilterTable extends javax.swing.JPanel {
             search = !search;
             txtCaretUpdate(null);
         } else {
-            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c019.gif")));
+            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c043.gif")));
             search = !search;
             String txt = txtFilter.getText();
             txtFilter.setText("");
             txtCaretUpdate(null);
             txtFilter.setText(txt);
         }
+        Uti5.scrollRectToRow(table.getSelectedRow() - 1, table);
     }//GEN-LAST:event_btn1ActiPerf
 
     private void btn2ActiPerf(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActiPerf
