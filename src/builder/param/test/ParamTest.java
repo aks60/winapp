@@ -32,6 +32,8 @@ public class ParamTest {
     protected ElemSimple frame_right_3 = null;
     protected ElemSimple stv_right_3 = null;
     protected ElemSimple imp_vert_3 = null;
+    protected ElemSimple glass_top_3 = null;    
+    protected ElemSimple glass_left_3 = null;    
 
     protected ElemSimple frame_left_4 = null;
     protected ElemSimple frame_right_4 = null;
@@ -79,19 +81,22 @@ public class ParamTest {
         glass_top_2 = getElem(iwin_2.rootArea, 6.0f);
         glass_left_2 = getElem(iwin_2.rootArea, 11.0f);
         glass_right_2 = getElem(iwin_2.rootArea, 15.0f);
-
+        
         iwin_3.build(builder.script.Winscript.test(604005, false));
         iwin_3.constructiv(true);
         elementVar3 = new ElementVar(iwin_3);
         elementDet3 = new ElementDet(iwin_3);
         joiningVar3 = new JoiningVar(iwin_3);
         joiningDet3 = new JoiningDet(iwin_3);
+        fillingVar3 = new FillingVar(iwin_3);
+        fillingDet3 = new FillingDet(iwin_3);        
         frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
         stv_right_3 = getElem(iwin_3.rootArea, 9.2f);
         imp_vert_3 = getElem(iwin_3.rootArea, 11.0f);
-        fillingVar3 = new FillingVar(iwin_3);
-        fillingDet3 = new FillingDet(iwin_3);
+        glass_top_3 = getElem(iwin_3.rootArea, 6.0f);
+        glass_left_3 = getElem(iwin_3.rootArea, 10.0f);
+        
         iwin_4.build(builder.script.Winscript.test(700027, false));
         iwin_4.constructiv(true);
         elementVar4 = new ElementVar(iwin_4);

@@ -3,6 +3,10 @@ package builder.param.test;
 
 public class FillingTest extends ParamTest {
   
+    /*
+    select b.id, b.name, a.text from glaspar1 a
+    left join glasgrp b on b.id = a.glasgrp_id where a.params_id = 13014    
+    */
     public void fillingVar() {
         
         grup = 13001; //Если признак состава 
@@ -12,6 +16,10 @@ public class FillingTest extends ParamTest {
         grup = 13003; //Тип проема
         assert false == fillingVar2.check(stv_right_2, param("глухой", grup)) : grup;
         assert true == fillingVar2.check(stv_right_2, param("не глухой", grup)) : grup;        
+
+        grup = 13005; //Заполнение типа
+        assert true == fillingVar3.check(glass_top_3, param("Стеклопакет", grup)) : grup;
+        assert false == fillingVar3.check(glass_left_3, param("Стекло", grup)) : grup;        
     }
   
     public void fillingDet() {

@@ -15,15 +15,15 @@ import domain.eSetting;
 
 //Заполнения
 public class FillingVar extends Par5s {
-    
+
     private int[] parGrup = {13015, 13017, 13081, 13099};
-    
+
     public FillingVar(Wincalc iwin) {
         super(iwin);
     }
-    
+
     public boolean filter(ElemGlass elem5e, Record glasgrpRec) {
-        
+
         List<Record> paramList = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
         if (filterParamDef(paramList) == false) {
             return false;
@@ -36,9 +36,9 @@ public class FillingVar extends Par5s {
         }
         return true;
     }
-    
+
     public boolean check(ElemSimple elem5e, Record rec) {
-        
+
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
@@ -52,13 +52,26 @@ public class FillingVar extends Par5s {
                         return false;
                     }
                     break;
-                case 13005:  //Заполнение типа 
-                    //"Стекло", "Стеклопакет", "Сендвич", "Вагонка", "Алюминевый лист", "Специальное стекло", "Конструктив", "Панель откоса
-                    if ("Стекло".equals(rec.getStr(TEXT)) && elem5e.artiklRecAn.getInt(eArtikl.level2) == 5) {
+                case 13005: //Заполнение типа 
+                    if ("Стекло".equals(rec.getStr(TEXT)) && elem5e.artiklRecAn.getInt(eArtikl.level2) != 1) {
+                        return false;
+                    } else if ("Стеклопакет".equals(rec.getStr(TEXT)) && elem5e.artiklRecAn.getInt(eArtikl.level2) != 2) {
+                        return false;
+                    } else if ("Сендвич".equals(rec.getStr(TEXT)) && elem5e.artiklRecAn.getInt(eArtikl.level2) != 3) {
+                        return false;
+                    } else if ("Вагонка".equals(rec.getStr(TEXT)) && elem5e.artiklRecAn.getInt(eArtikl.level2) != 4) {
+                        return false;
+                    } else if ("Алюминевый лист".equals(rec.getStr(TEXT)) && elem5e.artiklRecAn.getInt(eArtikl.level2) != 5) {
+                        return false;
+                    } else if ("Специальное стекло".equals(rec.getStr(TEXT)) && elem5e.artiklRecAn.getInt(eArtikl.level2) != 6) {
+                        return false;
+                    } else if ("Конструктив".equals(rec.getStr(TEXT)) && elem5e.artiklRecAn.getInt(eArtikl.level2) != 9) {
+                        return false;
+                    } else if ("Панель откоса".equals(rec.getStr(TEXT)) && elem5e.artiklRecAn.getInt(eArtikl.level2) != 15) {
                         return false;
                     }
                     break;
-                case 13014:  //Угол ориентации стороны, ° 
+                case 13014:  //Углы ориентации стороны, ° 
                     message(rec.getInt(GRUP));
                     break;
                 case 13015:  //Форма заполнения 
