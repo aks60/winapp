@@ -200,6 +200,24 @@ public class ElemGlass extends ElemSimple {
         }
     }
 
+    public void addSpecific2(Specific spcAdd) {
+        spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+        spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
+        spcAdd.width = uti3.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм 
+        //Стеклопакет
+        if (TypeArtikl.X502.isType(spcAdd.artiklDet)) {
+            return;
+        }
+        if (TypeElem.ARCH == owner().type()) {
+            if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {
+                ((AreaArch) root()).shtapik(this, spcAdd);
+            } else {
+                ((AreaArch) root()).padding(this, spcAdd);
+            }
+        }
+        if()
+    }
+
     @Override
     public void paint() { //рисуём стёкла
         iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
