@@ -14,7 +14,9 @@ import common.Util;
 import domain.eGlasprof;
 import enums.PKjson;
 import enums.UseUnit;
+import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ElemGlass extends ElemSimple {
 
@@ -116,8 +118,8 @@ public class ElemGlass extends ElemSimple {
         spcRec.height = height();
     }
 
-    @Override //Вложеная спецификация 
-    public void addSpecific(Specific spcAdd) {
+    //@Override //Вложенная спецификация 
+    public void addSpecific2(Specific spcAdd) {
         spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
         spcAdd.width = uti3.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм         
@@ -157,19 +159,26 @@ public class ElemGlass extends ElemSimple {
             } else if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
                 spcAdd.width = spcAdd.width * 4 + width() * 2 + height() * 2 + gzazo * 4; //поправка * 4 плюс периметр плюс 4 * зазор * 4
                 spcRec.spcList.add(spcAdd);
-                
+
             } else if (UseUnit.PIE.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
-                for (int index = 0; index < 4; index++) {
-                    spcRec.spcList.add(new Specific(spcAdd));
+                EnumMap<LayoutArea, ElemFrame> mapFrame = this.owner.mapFrame;
+                for (Map.Entry<LayoutArea, ElemFrame> it : mapFrame.entrySet()) {
+//                    if (spcAdd.mapParam.get(15010) != null) {
+//                        if (Util.containsNumb(spcAdd.mapParam.get(15010), it.getValue().anglHoriz) == true) {
+//                            spcRec.spcList.add(new Specific(spcAdd));
+//                        }
+//                    } else {
+                        spcRec.spcList.add(new Specific(spcAdd));
+//                    }
                 }
             }
+            spcAdd.width = uti3.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+            spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+            spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]" 
         }
-        spcAdd.width = uti3.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
-        spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
-        spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]" 
     }
 
-    public void addSpecific2(Specific spcAdd) {
+    public void addSpecific(Specific spcAdd) {
 
         spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
@@ -252,7 +261,7 @@ public class ElemGlass extends ElemSimple {
             }
         }
     }
-    
+
     @Override
     public void paint() { //рисуём стёкла
         iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
