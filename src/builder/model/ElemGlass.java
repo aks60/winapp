@@ -118,66 +118,93 @@ public class ElemGlass extends ElemSimple {
         spcRec.height = height();
     }
 
-    //@Override //Вложенная спецификация 
-    public void addSpecific2(Specific spcAdd) {
+    @Override //Вложенная спецификация 
+    public void addSpecific(Specific spcAdd) {
         spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
         spcAdd.width = uti3.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм         
         if (TypeArtikl.X502.isType(spcAdd.artiklDet)) {
-            return;  //Если стеклопакет сразу выход
+            return;  //если стеклопакет сразу выход
         }
-        if (TypeElem.ARCH == owner().type()) {
-            //Штапик арки
-            if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {
-                ((AreaArch) root()).shtapik(this, spcAdd);
-            } else {
-                ((AreaArch) root()).padding(this, spcAdd);
-            }
-        } else {
-            //Штапик
-            if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {
-                //По горизонтали
-                float widthFromParam = spcAdd.width;
-                spcAdd.width += width() + 2 * gzazo;
-                spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
-                Specific specificationHor1 = new Specific(spcAdd);
-                Specific specificationHor2 = new Specific(spcAdd);
-                spcRec.spcList.add(specificationHor1);
-                spcRec.spcList.add(specificationHor2);
-                //По вертикали
-                spcAdd.width = widthFromParam;
-                spcAdd.width += height() + 2 * gzazo;
-                spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
-                Specific specificationVer1 = new Specific(spcAdd);
-                Specific specificationVer2 = new Specific(spcAdd);
-                spcRec.spcList.add(specificationVer1);
-                spcRec.spcList.add(specificationVer2);
-                if ("Нет".equals(spcAdd.mapParam.get(15010))) {
-                    specificationVer1.width = specificationVer1.width - 2 * specificationHor1.height;
-                    specificationVer2.width = specificationVer2.width - 2 * specificationHor2.height;
-                }
-            } else if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
-                spcAdd.width = spcAdd.width * 4 + width() * 2 + height() * 2 + gzazo * 4; //поправка * 4 плюс периметр плюс 4 * зазор * 4
-                spcRec.spcList.add(spcAdd);
 
-            } else if (UseUnit.PIE.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
-                EnumMap<LayoutArea, ElemFrame> mapFrame = this.owner.mapFrame;
-                for (Map.Entry<LayoutArea, ElemFrame> it : mapFrame.entrySet()) {
+        if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
+            if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {  //штапик
+                if (TypeElem.ARCH == owner().type()) { //штапик в арке
+                    ((AreaArch) root()).shtapik(this, spcAdd);
+                } else { //штапик в прямоугольнике
+                    //По горизонтали
+                    float widthFromParam = spcAdd.width;
+                    spcAdd.width += width() + 2 * gzazo;
+                    spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
+                    Specific specificationHor1 = new Specific(spcAdd);
+                    Specific specificationHor2 = new Specific(spcAdd);
+                    spcRec.spcList.add(specificationHor1);
+                    spcRec.spcList.add(specificationHor2);
+                    //По вертикали
+                    spcAdd.width = widthFromParam;
+                    spcAdd.width += height() + 2 * gzazo;
+                    spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
+                    Specific specificationVer1 = new Specific(spcAdd);
+                    Specific specificationVer2 = new Specific(spcAdd);
+                    spcRec.spcList.add(specificationVer1);
+                    spcRec.spcList.add(specificationVer2);
+                    if ("Нет".equals(spcAdd.mapParam.get(15010))) {
+                        specificationVer1.width = specificationVer1.width - 2 * specificationHor1.height;
+                        specificationVer2.width = specificationVer2.width - 2 * specificationHor2.height;
+                    }
+                }
+            } else { //всё остальное
+                if (TypeElem.ARCH == owner().type()) { //в арке
+                    ((AreaArch) root()).padding(this, spcAdd);
+                } else {
+                    spcAdd.width = spcAdd.width * 4 + width() * 2 + height() * 2 + gzazo * 4; //поправка * 4 плюс периметр плюс 4 * зазор * 4
+                    spcRec.spcList.add(spcAdd);
+                }
+            }
+            spcAdd.width = uti3.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+            spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+            spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"              
+
+        } else if (UseUnit.PIE.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
+            for (Map.Entry<LayoutArea, ElemFrame> it : this.owner.mapFrame.entrySet()) {
 //                    if (spcAdd.mapParam.get(15010) != null) {
 //                        if (Util.containsNumb(spcAdd.mapParam.get(15010), it.getValue().anglHoriz) == true) {
 //                            spcRec.spcList.add(new Specific(spcAdd));
 //                        }
 //                    } else {
-                        spcRec.spcList.add(new Specific(spcAdd));
+                spcRec.spcList.add(new Specific(spcAdd));
 //                    }
-                }
             }
-            spcAdd.width = uti3.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
-            spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
-            spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]" 
+        } else {
+            System.out.println("Элемент не обработан");
         }
     }
 
+    @Override
+    public void paint() { //рисуём стёкла
+        iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
+
+        if (owner().type == TypeElem.ARCH) {
+            ElemFrame ef = root().mapFrame.get(LayoutArea.ARCH);
+            float dz = ef.artiklRec.getFloat(eArtikl.height);
+            double r = ((AreaArch) root()).radiusArch;
+            double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
+            double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
+            iwin().gc2d.fillArc((int) ((int) root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
+
+        } else {
+            iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                    new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", radiusGlass=" + radiusGlass;
+    }
+}
+
+/*
     public void addSpecific(Specific spcAdd) {
 
         spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
@@ -187,9 +214,9 @@ public class ElemGlass extends ElemSimple {
         //Стеклопакет
         if (TypeArtikl.X502.isType(spcAdd.artiklDet)) {
             return;
-
+        }
             //Штапик
-        } else if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {
+        if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {
 
             if (TypeElem.ARCH == owner().type()) {
                 ((AreaArch) root()).shtapik(this, spcAdd);
@@ -262,26 +289,62 @@ public class ElemGlass extends ElemSimple {
         }
     }
 
-    @Override
-    public void paint() { //рисуём стёкла
-        iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
-
-        if (owner().type == TypeElem.ARCH) {
-            ElemFrame ef = root().mapFrame.get(LayoutArea.ARCH);
-            float dz = ef.artiklRec.getFloat(eArtikl.height);
-            double r = ((AreaArch) root()).radiusArch;
-            double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
-            iwin().gc2d.fillArc((int) ((int) root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
-
+    public void addSpecific2(Specific spcAdd) {
+        spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+        spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
+        spcAdd.width = uti3.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм         
+        if (TypeArtikl.X502.isType(spcAdd.artiklDet)) {
+            return;  //Если стеклопакет сразу выход
+        }
+        if (TypeElem.ARCH == owner().type()) {
+            //Штапик арки
+            if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {
+                ((AreaArch) root()).shtapik(this, spcAdd);
+            } else {
+                ((AreaArch) root()).padding(this, spcAdd);
+            }
         } else {
-            iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                    new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
+            //Штапик
+            if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {
+                //По горизонтали
+                float widthFromParam = spcAdd.width;
+                spcAdd.width += width() + 2 * gzazo;
+                spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
+                Specific specificationHor1 = new Specific(spcAdd);
+                Specific specificationHor2 = new Specific(spcAdd);
+                spcRec.spcList.add(specificationHor1);
+                spcRec.spcList.add(specificationHor2);
+                //По вертикали
+                spcAdd.width = widthFromParam;
+                spcAdd.width += height() + 2 * gzazo;
+                spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
+                Specific specificationVer1 = new Specific(spcAdd);
+                Specific specificationVer2 = new Specific(spcAdd);
+                spcRec.spcList.add(specificationVer1);
+                spcRec.spcList.add(specificationVer2);
+                if ("Нет".equals(spcAdd.mapParam.get(15010))) {
+                    specificationVer1.width = specificationVer1.width - 2 * specificationHor1.height;
+                    specificationVer2.width = specificationVer2.width - 2 * specificationHor2.height;
+                }
+            } else if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
+                spcAdd.width = spcAdd.width * 4 + width() * 2 + height() * 2 + gzazo * 4; //поправка * 4 плюс периметр плюс 4 * зазор * 4
+                spcRec.spcList.add(spcAdd);
+
+            } else if (UseUnit.PIE.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
+                EnumMap<LayoutArea, ElemFrame> mapFrame = this.owner.mapFrame;
+                for (Map.Entry<LayoutArea, ElemFrame> it : mapFrame.entrySet()) {
+//                    if (spcAdd.mapParam.get(15010) != null) {
+//                        if (Util.containsNumb(spcAdd.mapParam.get(15010), it.getValue().anglHoriz) == true) {
+//                            spcRec.spcList.add(new Specific(spcAdd));
+//                        }
+//                    } else {
+                        spcRec.spcList.add(new Specific(spcAdd));
+//                    }
+                }
+            }
+            spcAdd.width = uti3.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+            spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+            spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]" 
         }
     }
-
-    @Override
-    public String toString() {
-        return super.toString() + ", radiusGlass=" + radiusGlass;
-    }
-}
+ */

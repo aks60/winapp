@@ -21,7 +21,9 @@ public class FillingTest extends ParamTest {
 
         grup = 13005; //Заполнение типа
         assert true == fillingVar3.check(glass_top_3, param("Стеклопакет", grup)) : grup;
-        assert false == fillingVar3.check(glass_left_3, param("Стекло", grup)) : grup;        
+        assert false == fillingVar3.check(glass_left_3, param("Стекло", grup)) : grup;
+
+        //13014:  //Углы ориентации стороны, ° 
     }
   
     public void fillingDet() {
