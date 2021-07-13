@@ -174,11 +174,11 @@ public class ElementVar extends Par5s {
                 case 31016:  //Зазор_на_метр,_мм/Размер_,мм терморазрыва 
                     message(grup);
                     break;
-                case 31017:  //Код системы содержит строку 
+                case 31017: //Код системы содержит строку 
                 case 37017: //Код системы содержит строку 
                 {
-                    Record record = eSyssize.find(elem5e.artiklRec.getInt(eArtikl.syssize_id));
-                    if (rec.getStr(TEXT).equals(record.getStr(eSyssize.name)) == false) {
+                    Record systreeRec = eSystree.find(iwin.nuni);
+                    if (systreeRec.getStr(eSystree.pref).contains(rec.getStr(TEXT)) == false) {
                         return false;
                     }
                 }

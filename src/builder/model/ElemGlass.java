@@ -167,13 +167,13 @@ public class ElemGlass extends ElemSimple {
 
         } else if (UseUnit.PIE.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
             for (Map.Entry<LayoutArea, ElemFrame> it : this.owner.mapFrame.entrySet()) {
-//                    if (spcAdd.mapParam.get(15010) != null) {
-//                        if (Util.containsNumb(spcAdd.mapParam.get(15010), it.getValue().anglHoriz) == true) {
-//                            spcRec.spcList.add(new Specific(spcAdd));
-//                        }
-//                    } else {
-                spcRec.spcList.add(new Specific(spcAdd));
-//                    }
+                if (spcAdd.mapParam.get(13014) != null) {
+                    if (Util.containsNumb(spcAdd.mapParam.get(13014), it.getValue().anglHoriz) == true) {
+                        spcRec.spcList.add(new Specific(spcAdd));
+                    }
+                } else {
+                    spcRec.spcList.add(new Specific(spcAdd));
+                }
             }
         } else {
             System.out.println("Элемент не обработан");

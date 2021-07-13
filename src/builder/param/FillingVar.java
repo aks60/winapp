@@ -12,6 +12,7 @@ import builder.model.ElemSimple;
 import domain.eArtikl;
 import domain.eElement;
 import domain.eSetting;
+import domain.eSyssize;
 
 //Заполнения
 public class FillingVar extends Par5s {
@@ -88,12 +89,14 @@ public class FillingVar extends Par5s {
                         return false;
                     }
                     break;
-                case 13017:  //Код системы содержит строку 
-                    Record sysprofRec = eSystree.find(iwin.nuni);
-                    if (sysprofRec.getStr(eSystree.pref).contains(rec.getStr(TEXT)) == false) {
+                case 13017: //Код системы содержит строку 
+                {
+                    Record systreeRec = eSystree.find(iwin.nuni);
+                    if (systreeRec.getStr(eSystree.pref).contains(rec.getStr(TEXT)) == false) {
                         return false;
                     }
-                    break;
+                }
+                break;
                 case 13081:  //Для внешнего/внутреннего угла плоскости, ° или Мин. внутр. угол плоскости, ° 
                     if ("ps3".equals(eSetting.find(2))) {
                         if (elem5e.anglFlat[0] > rec.getFloat(TEXT)) {
