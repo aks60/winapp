@@ -32,15 +32,15 @@ public class ParamTest {
     protected ElemSimple frame_right_3 = null;
     protected ElemSimple stv_right_3 = null;
     protected ElemSimple imp_vert_3 = null;
-    protected ElemSimple glass_top_3 = null;    
-    protected ElemSimple glass_left_3 = null;    
+    protected ElemSimple glass_top_3 = null;
+    protected ElemSimple glass_left_3 = null;
 
     protected ElemSimple frame_left_4 = null;
     protected ElemSimple frame_right_4 = null;
     protected ElemSimple stv_left_4 = null;
     protected ElemSimple stv_right_4 = null;
 
-    builder.Wincalc iwin_2 = new builder.Wincalc(); //601004
+    builder.Wincalc iwin_2 = null;
     protected ElementVar elementVar2 = null;
     protected ElementDet elementDet2 = null;
     protected JoiningVar joiningVar2 = null;
@@ -48,7 +48,7 @@ public class ParamTest {
     protected FillingVar fillingVar2 = null;
     protected FillingDet fillingDet2 = null;
 
-    builder.Wincalc iwin_3 = new builder.Wincalc(); //604005
+    builder.Wincalc iwin_3 = null; //604005
     protected ElementVar elementVar3 = null;
     protected ElementDet elementDet3 = null;
     protected JoiningVar joiningVar3 = null;
@@ -56,7 +56,7 @@ public class ParamTest {
     protected FillingVar fillingVar3 = null;
     protected FillingDet fillingDet3 = null;
 
-    builder.Wincalc iwin_4 = new builder.Wincalc(); //700027
+    builder.Wincalc iwin_4 = null; //700027
     protected ElementVar elementVar4 = null;
     protected ElementDet elementDet4 = null;
     protected JoiningVar joiningVar4 = null;
@@ -65,7 +65,13 @@ public class ParamTest {
     protected FillingDet fillingDet4 = null;
 
     public ParamTest() {
+        iwin2();
+        iwin3();
+        iwin4();
+    }
 
+    private void iwin2() {
+        iwin_2 = new builder.Wincalc(); //601004
         iwin_2.build(builder.script.Winscript.test(601004, false));
         iwin_2.constructiv(true);
         elementVar2 = new ElementVar(iwin_2);
@@ -81,7 +87,10 @@ public class ParamTest {
         glass_top_2 = getElem(iwin_2.rootArea, 6.0f);
         glass_left_2 = getElem(iwin_2.rootArea, 11.0f);
         glass_right_2 = getElem(iwin_2.rootArea, 15.0f);
-        
+    }
+
+    private void iwin3() {
+        iwin_3 = new builder.Wincalc(); //604005
         iwin_3.build(builder.script.Winscript.test(604005, false));
         iwin_3.constructiv(true);
         elementVar3 = new ElementVar(iwin_3);
@@ -89,14 +98,17 @@ public class ParamTest {
         joiningVar3 = new JoiningVar(iwin_3);
         joiningDet3 = new JoiningDet(iwin_3);
         fillingVar3 = new FillingVar(iwin_3);
-        fillingDet3 = new FillingDet(iwin_3);        
+        fillingDet3 = new FillingDet(iwin_3);
         frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
         stv_right_3 = getElem(iwin_3.rootArea, 9.2f);
         imp_vert_3 = getElem(iwin_3.rootArea, 11.0f);
         glass_top_3 = getElem(iwin_3.rootArea, 6.0f);
         glass_left_3 = getElem(iwin_3.rootArea, 10.0f);
-        
+    }
+
+    private void iwin4() {
+        iwin_4 = new builder.Wincalc(); //700027
         iwin_4.build(builder.script.Winscript.test(700027, false));
         iwin_4.constructiv(true);
         elementVar4 = new ElementVar(iwin_4);
@@ -104,7 +116,7 @@ public class ParamTest {
         joiningVar4 = new JoiningVar(iwin_4);
         joiningDet4 = new JoiningDet(iwin_4);
         fillingVar4 = new FillingVar(iwin_4);
-        fillingDet4 = new FillingDet(iwin_4);        
+        fillingDet4 = new FillingDet(iwin_4);
         frame_left_4 = getElem(iwin_4.rootArea, 1.0f);
         frame_right_4 = getElem(iwin_4.rootArea, 2.0f);
         stv_left_4 = getElem(iwin_4.rootArea, 6.4f);
@@ -183,5 +195,15 @@ public class ParamTest {
         record.add(grup);
         record.add(-3);
         return record;
+    }
+
+    public void fillingVar(int num) {
+        if (num == 2 && iwin_2 == null) {
+            iwin2();
+        } else if (num == 3 && iwin_3 == null) {
+            iwin3();
+        } else if (num == 4 && iwin_4 == null) {
+            iwin4();
+        }
     }
 }
