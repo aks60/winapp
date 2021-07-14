@@ -39,6 +39,7 @@ public class ElementVar extends Par5s {
         return true;
     }
 
+    @Override
     public boolean check(ElemSimple elem5e, Record rec) {
         int grup = rec.getInt(GRUP);
         try {

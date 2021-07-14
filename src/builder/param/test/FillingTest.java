@@ -44,8 +44,8 @@ public class FillingTest extends ParamTest {
         assert false == fillingVar3.check(glass_left_3, param("Не прямоугольное", grup)) : grup;  
         
         grup = 13017; //Код системы содержит строку
-        assert true == elementVar3.check(glass_left_3, param("КВЕ 58", grup)) : grup;
-        assert false == elementVar3.check(glass_left_3, param("КП-40", grup)) : grup;        
+        assert true == fillingVar4.check(glass_left_4, param("me-1", grup)) : grup;
+        assert false == fillingVar4.check(glass_left_3, param("КП-40", grup)) : grup;        
     }
 
     public void fillingDet() {

@@ -56,8 +56,8 @@ public class ElementTest extends ParamTest {
         assert false == elementVar2.check(stv_right_2, param("0-1008;1010", grup)) : grup;
 
         grup = 31008; //Эффективное заполнение изделия, мм
-        assert true == elementVar2.check(null, param("30", grup)) : grup;
-        assert false == elementVar2.check(null, param("32", grup)) : grup;
+        assert true == elementVar2.check(frame_left_2, param("30", grup)) : grup;
+        assert false == elementVar2.check(frame_left_2, param("32", grup)) : grup;
 
         grup = 31011; //Толщина внешнего/внутреннего заполнения, мм
         assert true == elementVar2.check(imp_vert_2, param("30/30", grup)) : grup;
@@ -65,7 +65,7 @@ public class ElementTest extends ParamTest {
         assert false == elementVar2.check(imp_vert_2, param("3;31;12/4-32", grup)) : grup;
 
         grup = 31017; //37017 //Код системы содержит строку
-        assert true == elementVar2.check(frame_left_2, param("КВЕ 58", grup)) : grup;
+        assert true == elementVar2.check(frame_left_2, param("et-1", grup)) : grup;
         assert false == elementVar2.check(frame_left_2, param("КП-40", grup)) : grup;
 
         grup = 31019; //Правило подбора текстур
@@ -199,8 +199,8 @@ public class ElementTest extends ParamTest {
         assert false == elementDet2.check(mapParam, stv_right_2, param("0-1008;1010", grup)) : grup;
 
         grup = 33008; //Эффективное заполнение изд., мм
-        assert true == elementDet2.check(mapParam, null, param("30", grup)) : grup;
-        assert false == elementDet2.check(mapParam, null, param("32", grup)) : grup;
+        assert true == elementDet2.check(mapParam, frame_left_2, param("30", grup)) : grup;
+        assert false == elementDet2.check(mapParam, frame_left_2, param("32", grup)) : grup;
 
         grup = 33011; //Толщина внешнего/внутреннего заполнения, мм
         assert true == elementDet2.check(mapParam, imp_vert_2, param("30/30", grup)) : grup;
@@ -242,8 +242,8 @@ public class ElementTest extends ParamTest {
         assert false == elementDet2.check(mapParam, stv_right_2, param("5;4;", grup)) : grup;
 
         grup = 34008; //Эффективное заполнение изделия, мм
-        assert true == elementDet2.check(mapParam, null, param("30", grup)) : grup;
-        assert false == elementDet2.check(mapParam, null, param("32", grup)) : grup;
+        assert true == elementDet2.check(mapParam, frame_left_2, param("30", grup)) : grup;
+        assert false == elementDet2.check(mapParam, frame_left_2, param("32", grup)) : grup;
 
         grup = 38039; //39039 //Для типа открывания 
         assert true == elementDet4.check(mapParam, stv_right_4, param("поворотное", grup)) : grup;

@@ -122,12 +122,12 @@ public class Test {
         Query.connection = Test.connect2();
         ElementTest et = new ElementTest();
         JoiningTest jt = new JoiningTest();
-        FillingTest ft = new FillingTest();
+        FillingTest gt = new FillingTest();
         //et.elementVar();
         //et.elementDet();
         //jt.joiningVar();
         //jt.joiningDet();
-        ft.fillingVar();
+        gt.fillingVar();
         
 //        Query.connection = Test.connect2();
 //        Set set = new HashSet();

@@ -38,6 +38,7 @@ public class FillingVar extends Par5s {
         return true;
     }
 
+    @Override
     public boolean check(ElemSimple elem5e, Record rec) {
 
         int grup = rec.getInt(GRUP);
@@ -92,7 +93,9 @@ public class FillingVar extends Par5s {
                 case 13017: //Код системы содержит строку 
                 {
                     Record systreeRec = eSystree.find(iwin.nuni);
-                    if (systreeRec.getStr(eSystree.pref).contains(rec.getStr(TEXT)) == false) {
+                    String[] s = rec.getStr(TEXT).split("/");
+                    String s2 = (s.length == 1) ?s[0] :s[1];
+                    if (systreeRec.getStr(eSystree.pref).contains(s2) == false) {
                         return false;
                     }
                 }

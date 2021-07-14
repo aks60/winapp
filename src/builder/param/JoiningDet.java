@@ -38,6 +38,7 @@ public class JoiningDet extends Par5s {
         return true;
     }
 
+    @Override
     public boolean check(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record rec) {
 
         int grup = rec.getInt(GRUP);

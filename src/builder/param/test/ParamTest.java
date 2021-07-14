@@ -10,6 +10,7 @@ import builder.param.FillingDet;
 import builder.param.FillingVar;
 import builder.param.JoiningDet;
 import builder.param.JoiningVar;
+import builder.param.Par5s;
 import dataset.Record;
 import java.util.HashMap;
 
@@ -39,8 +40,10 @@ public class ParamTest {
     protected ElemSimple frame_right_4 = null;
     protected ElemSimple stv_left_4 = null;
     protected ElemSimple stv_right_4 = null;
+    protected ElemSimple glass_right_4 = null;
+    protected ElemSimple glass_left_4 = null;    
 
-    builder.Wincalc iwin_2 = null;
+    builder.Wincalc iwin_2 = null; //601004
     protected ElementVar elementVar2 = null;
     protected ElementDet elementDet2 = null;
     protected JoiningVar joiningVar2 = null;
@@ -70,6 +73,7 @@ public class ParamTest {
         iwin4();
     }
 
+    //601004
     private void iwin2() {
         iwin_2 = new builder.Wincalc(); //601004
         iwin_2.build(builder.script.Winscript.test(601004, false));
@@ -89,6 +93,7 @@ public class ParamTest {
         glass_right_2 = getElem(iwin_2.rootArea, 15.0f);
     }
 
+    //604005
     private void iwin3() {
         iwin_3 = new builder.Wincalc(); //604005
         iwin_3.build(builder.script.Winscript.test(604005, false));
@@ -107,6 +112,7 @@ public class ParamTest {
         glass_left_3 = getElem(iwin_3.rootArea, 10.0f);
     }
 
+    //700027
     private void iwin4() {
         iwin_4 = new builder.Wincalc(); //700027
         iwin_4.build(builder.script.Winscript.test(700027, false));
@@ -121,6 +127,8 @@ public class ParamTest {
         frame_right_4 = getElem(iwin_4.rootArea, 2.0f);
         stv_left_4 = getElem(iwin_4.rootArea, 6.4f);
         stv_right_4 = getElem(iwin_4.rootArea, 6.2f);
+        glass_right_4 = getElem(iwin_4.rootArea, 11.0f);
+        glass_left_4 = getElem(iwin_4.rootArea, 7.0f);        
     }
 
     //Получить элемент по ключу
@@ -195,15 +203,5 @@ public class ParamTest {
         record.add(grup);
         record.add(-3);
         return record;
-    }
-
-    public void fillingVar(int num) {
-        if (num == 2 && iwin_2 == null) {
-            iwin2();
-        } else if (num == 3 && iwin_3 == null) {
-            iwin3();
-        } else if (num == 4 && iwin_4 == null) {
-            iwin4();
-        }
     }
 }

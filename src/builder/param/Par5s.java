@@ -2,18 +2,13 @@ package builder.param;
 
 import dataset.Record;
 import domain.eSetting;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import startup.Main;
 import builder.Wincalc;
 import builder.making.Specific;
-import builder.model.Com5t;
+import builder.model.AreaStvorka;
+import builder.model.ElemJoining;
 import builder.model.ElemSimple;
-import enums.LayoutArea;
 
 public class Par5s {
 
@@ -30,6 +25,27 @@ public class Par5s {
         this.iwin = iwin;
     }
 
+    public boolean check(ElemSimple elem5e, Record rec) {
+        return true;
+    }
+
+    public boolean check(ElemJoining elemJoin, Record rec) {
+        return true;
+    }
+    
+    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record rec) {
+        return true;
+    }
+
+    public boolean check(HashMap<Integer, String> mapParam, AreaStvorka areaStv, Record rec) { 
+        return true;
+    }
+    
+    public boolean check(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record rec) {
+        return true;
+    }
+    
+    
     //Фильтр параметров по умолчанию + выбранных клиентом
     protected boolean filterParamDef(List<Record> paramList) {
 
@@ -51,7 +67,7 @@ public class Par5s {
     protected void message(int code) {
         if (code >= 0) {
             //if (ParamList.find(code).pass() != 0) {
-                System.err.println("ВНИМАНИЕ! ПАРААМЕТР " + code + " В РАЗРАБОТКЕ.");
+            System.err.println("ВНИМАНИЕ! ПАРААМЕТР " + code + " В РАЗРАБОТКЕ.");
             //}
         }
     }
