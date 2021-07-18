@@ -4,9 +4,14 @@ import builder.making.Specific;
 import builder.model.ElemFrame;
 import common.Util;
 import enums.LayoutArea;
+import java.util.HashMap;
 import java.util.Map;
 
 public class FillingTest extends ParamTest {
+
+    public FillingTest() {
+        super();
+    }
 
     /*
     select distinct e.id, e.name, b.id, b.name, a.text from glaspar1 a
@@ -37,25 +42,47 @@ public class FillingTest extends ParamTest {
         for (Map.Entry<LayoutArea, ElemFrame> it : glass_left_3.owner().mapFrame.entrySet()) {
             assert false == Util.containsNumb(glass_left_3.spcRec.mapParam.get(13014), it.getValue().anglHoriz);
         }
-        
+
         grup = 13015;  //Форма заполнения
         assert true == fillingVar3.check(glass_left_3, param("Прямоугольное", grup)) : grup;
         assert true == fillingVar3.check(glass_top_3, param("Арочное", grup)) : grup;
-        assert false == fillingVar3.check(glass_left_3, param("Не прямоугольное", grup)) : grup;  
-        
+        assert false == fillingVar3.check(glass_left_3, param("Не прямоугольное", grup)) : grup;
+
         grup = 13017; //Код системы содержит строку
         assert true == fillingVar4.check(glass_left_4, param("me-1", grup)) : grup;
-        assert false == fillingVar4.check(glass_left_3, param("КП-40", grup)) : grup;    
-        
+        assert false == fillingVar4.check(glass_left_3, param("КП-40", grup)) : grup;
+
         grup = 13095; //Если признак системы конструкции
         assert true == fillingVar4.check(stv_right_4, param("1;2;", grup)) : grup;
-        assert false == fillingVar4.check(stv_right_4, param("2;9", grup)) : grup;        
+        assert false == fillingVar4.check(stv_right_4, param("2;9", grup)) : grup;
     }
 
     public void fillingDet() {
-        
+        HashMap<Integer, String> mapParam = new HashMap();
+
         grup = 14000; //15000 //Для технологического кода контейнера
-        //assert true == fillingDet2.check(stv_right_2, param("KBE 58;XXX 58;", grup)) : grup;
-        //assert false == fillingDet2.check(stv_right_2, param("KBE58;", grup)) : grup;
+        assert true == fillingDet2.check(mapParam, glass_left_2, param("KBE 58", grup)) : grup;
+        assert false == fillingDet2.check(mapParam, glass_left_2, param("KBE;58;", grup)) : grup;
+        
+        grup = 14001; //15001 //Если признак состава
+        //assert true == fillingDet2.check(mapParam, glass_left_2, param("KBE 58", grup)) : grup;
+        //assert false == fillingDet2.check(mapParam, glass_left_2, param("XXX", grup)) : grup;
+        
+        grup = 14005;  //Тип проема
+        assert false == fillingDet2.check(mapParam, glass_left_2, param("глухой", grup)) : grup;
+        assert true == fillingDet2.check(mapParam, glass_left_2, param("не глухой", grup)) : grup; 
+        
+        grup = 14008; //15008 //Эффективное заполнение изд., мм
+        assert true == fillingDet2.check(mapParam, glass_left_2, param("30", grup)) : grup;
+        assert false == fillingDet2.check(mapParam, glass_left_2, param("32", grup)) : grup; 
+        
+        grup = 14009;  //Арочное заполнение
+        assert true == fillingDet2.check(mapParam, glass_left_2, param("Нет", grup)) : grup;
+        assert false == fillingDet2.check(mapParam, glass_left_2, param("Да", grup)) : grup; 
+            
+        grup = 14017; //15017 //Код системы содержит строку 
+        assert true == fillingDet2.check(mapParam, glass_left_2, param("et-1", grup)) : grup;
+        assert false == fillingDet2.check(mapParam, glass_left_2, param("КП-40", grup)) : grup;
+        
     }
 }

@@ -10,8 +10,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
+import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import common.Util;
+import domain.eSyssize;
+import enums.LayoutArea;
 import enums.TypeElem;
 
 //Заполнения
@@ -44,33 +47,51 @@ public class FillingDet extends Par5s {
             switch (grup) {
                 case 14000: //Для технологического кода контейнера
                 case 15000: //Для технологического кода контейнера 
-                    if (!Uti4.is_STRING_XX000(rec.getStr(TEXT), elem5e)) {
+                {
+                    ElemSimple elem = elem5e.owner().mapFrame.get(LayoutArea.BOTT);
+                    if (!Uti4.is_STRING_XX000(rec.getStr(TEXT), elem)) {
+                        return false;
+                    }
+                }
+                break;
+                case 14001: //Если признак состава 
+                case 15001: //Если признак состава    
+                {
+                    ElemSimple elem = elem5e.owner().mapFrame.get(LayoutArea.BOTT);
+                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem) == false) {
+                        return false;
+                    }
+                }
+                break;
+                case 14005: //Тип проема 
+                case 15005: //Тип проема
+                {
+                    ElemSimple elem = elem5e.owner().mapFrame.get(LayoutArea.BOTT);
+                    if (!Uti4.is_13003_14005_15005_37008(rec.getStr(TEXT), elem)) {
+                        return false;
+                    }
+                }
+                break;
+                case 14008: //Эффективное заполнение изд., мм 
+                case 15008: //Эффективное заполнение изд., мм                    
+                    if (Uti4.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
                     break;
-                case 14001:  //Если признак состава 
-                case 15001:  //Если признак состава                    
-                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem5e) == false) {
+                case 14009: //Арочное заполнение 
+                case 15009: //Арочное заполнение  
+                    if ("Да".equals(rec.getStr(TEXT)) && elem5e.owner().type() != TypeElem.ARCH) {
                         return false;
-                    }
-                case 14005:  //Тип проема 
-                case 15005:
-                    if (!Uti4.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                    } else if ("Нет".equals(rec.getStr(TEXT)) && elem5e.owner().type() == TypeElem.ARCH) {
                         return false;
                     }
                     break;
-                case 14008:  //Эффективное заполнение изд., мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 14009:  //Арочное заполнение 
-                case 15009:
-                    if (elem5e.owner().type() != TypeElem.ARCH) {
-                        return false;
-                    }
-                    break;
-                case 14017:  //Код системы содержит строку 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 14017: //Код системы содержит строку 
+                case 15017: //Код системы содержит строку                    
+                if(Uti4.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
+                    return false;
+                }
+                break;
                 case 14030:  //Количество 
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
@@ -142,17 +163,11 @@ public class FillingDet extends Par5s {
                     }
                 }
                 break;
-                case 15008:  //Эффективное заполнение изд., мм 
-                    message(rec.getInt(GRUP));
-                    break;
                 case 15010:  //Расчет реза штапика 
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 15011:  //Расчет реза штапика 
                     mapParam.put(grup, rec.getStr(TEXT));
-                    break;
-                case 15017:  //Код системы содержит строку 
-                    message(rec.getInt(GRUP));
                     break;
                 case 15013:  //Подбор дистанционных вставок пролета 
                     message(rec.getInt(GRUP));

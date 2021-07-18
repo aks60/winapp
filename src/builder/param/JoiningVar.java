@@ -79,7 +79,7 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                 case 1008:  //Эффективное заполнение изд., мм
-                    if (Uti4.is_1008_11008_12008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
+                    if (Uti4.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
                     break;
@@ -336,8 +336,8 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                 case 2021: //Точный угол, °
-                case 3021:
-                case 4031:
+                case 3021: //Точный угол, °
+                case 4031: //Точный угол, °
                     if ("ps3".equals(eSetting.find(2))) {
                         if (rec.getFloat(TEXT) != elemJoin.angl) {
                             return false;
@@ -345,8 +345,8 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                 case 2022: //Исключить угол, °
-                case 3022:
-                case 4032:
+                case 3022: //Исключить угол, °
+                case 4032: //Исключить угол, °
                     if ("ps3".equals(eSetting.find(2))) {
                         if (rec.getFloat(TEXT) == elemJoin.angl) {
                             return false;

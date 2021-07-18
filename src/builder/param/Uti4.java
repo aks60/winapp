@@ -79,9 +79,9 @@ class Uti4 {
     //Для технологического кода контейнера 
     static boolean is_STRING_XX000(String txt, ElemSimple elem5e) {
         Record sysprofRec = elem5e.sysprofRec;
-        if(elem5e instanceof ElemGlass) {
+        if (elem5e instanceof ElemGlass) {
             sysprofRec = elem5e.owner().mapFrame.get(LayoutArea.BOTT).sysprofRec;
-        }            
+        }
         Record artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklRecAn.get(eArtikl.tech_code) == null) {
             return false;
@@ -128,7 +128,6 @@ class Uti4 {
 //        }
 //        return true;
 //    }
-    
     //Если признак системы конструкции
     static boolean is_11095_12095_31095_33095_34095_37095_38095_39095_40095(String txt, int nuni) {
         Record systreefRec = eSystree.find(nuni);
@@ -166,7 +165,7 @@ class Uti4 {
     }
 
     //Эффективное заполнение изделия, мм 
-    static boolean is_1008_11008_12008_31008_34008_40008(Float txt, Wincalc iwin) {
+    static boolean is_1008_11008_12008_14008_15008_31008_34008_40008(Float txt, Wincalc iwin) {
         float depth = 0;
         for (ElemSimple elem : iwin.listElem) {
             if (elem.type() == TypeElem.GLASS) {
@@ -225,7 +224,13 @@ class Uti4 {
         return true;
     }
 
-    static boolean is_XXX(String txt, ElemSimple elem5e) {
+    static boolean is_13017_14017_24017_25017_31017_33017_34017_37017_38017(String txt, Wincalc iwin) {
+        Record systreeRec = eSystree.find(iwin.nuni);
+        String[] s = txt.split("/");
+        String s2 = (s.length == 1) ? s[0] : s[1];
+        if (systreeRec.getStr(eSystree.pref).contains(s2) == false) {
+            return false;
+        }
         return true;
     }
 

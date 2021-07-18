@@ -13,6 +13,7 @@ import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
 import common.Util;
+import domain.eSystree;
 import java.util.Map;
 
 //Фурнитура
@@ -32,10 +33,10 @@ public class FurnitureDet extends Par5s {
         for (Record rec : tableList) {
             if (check(mapParam, areaStv, rec) == false) {
                 return false;
-            }            
+            }
         }
         return true;
-    }    
+    }
 
     //@Override
     public boolean check(HashMap<Integer, String> mapParam, AreaStvorka areaStv, Record rec) {
@@ -101,7 +102,10 @@ public class FurnitureDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 24017:  //Код системы содержит строку 
-                    message(rec.getInt(GRUP));
+                case 25017:  //Код системы содержит строку                    
+                    if (Uti4.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
+                        return false;
+                    }
                     break;
                 case 24030:  //Количество 
                 case 25060:  //Количество     
@@ -272,9 +276,6 @@ public class FurnitureDet extends Par5s {
                 case 25013:  //Укорочение от 
                 case 25030:  //Укорочение, мм 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 25017:  //Код системы содержит строку 
-                    message(rec.getInt(GRUP));
                     break;
                 case 25032:  //Правильная полуарка 
                     message(rec.getInt(GRUP));

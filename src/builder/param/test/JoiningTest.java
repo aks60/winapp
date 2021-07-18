@@ -7,6 +7,10 @@ import java.util.HashMap;
 
 public class JoiningTest extends ParamTest {
 
+   public JoiningTest() {
+        super();
+    }
+
     public void joiningVar() {
 
         grup = 1005; //2005, 3005, 4005 //Контейнер имеет тип Артикула1/Артикула2
@@ -76,7 +80,7 @@ public class JoiningTest extends ParamTest {
         HashMap<Integer, String> mapParam = new HashMap();
 
         grup = 11000; //12000 //Для технологического кода контейнера
-        Object o22 = iwin_2.mapJoin.get(frame_right_2.joinPoint(1));
+        //Object o22 = iwin_2.mapJoin.get(frame_right_2.joinPoint(1));
         assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 58;", grup)) : grup;
         assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 58", grup)) : grup;
         assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58;/KBE 5", grup)) : grup;

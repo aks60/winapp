@@ -111,7 +111,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31008: //Эффективное заполнение изделия, мм 
-                    if (Uti4.is_1008_11008_12008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
+                    if (Uti4.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
                     break;
@@ -177,11 +177,8 @@ public class ElementVar extends Par5s {
                     break;
                 case 31017: //Код системы содержит строку 
                 case 37017: //Код системы содержит строку 
-                {
-                    Record systreeRec = eSystree.find(iwin.nuni);
-                    if (systreeRec.getStr(eSystree.pref).contains(rec.getStr(TEXT)) == false) {
-                        return false;
-                    }
+                if(Uti4.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
+                    return false;
                 }
                 break;
                 case 31019:  //Правило подбора текстур

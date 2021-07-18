@@ -126,9 +126,9 @@ public class Test {
 //        et.elementVar();
 //        et.elementDet();
 //        jt.joiningVar();
-        jt.joiningDet();
+//        jt.joiningDet();
 //        gt.fillingVar();
-//        gt.fillingDet();
+        gt.fillingDet();
         
 //        Query.connection = Test.connect2();
 //        Set set = new HashSet();

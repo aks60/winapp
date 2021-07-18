@@ -14,6 +14,7 @@ import common.Util;
 import domain.eArtikl;
 import domain.eElement;
 import domain.eSyssize;
+import domain.eSystree;
 import enums.TypeElem;
 
 //Составы 33000, 34000, 38000, 39000, 40000
@@ -87,7 +88,7 @@ public class ElementDet extends Par5s {
                     }
                     break;
                 case 33008: //Эффективное заполнение изд., мм 
-                    if (Uti4.is_1008_11008_12008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
+                    if (Uti4.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
                     break;
@@ -110,12 +111,11 @@ public class ElementDet extends Par5s {
                     break;
                 case 33017: //Код системы содержит строку 
                 case 34017: //Код системы содержит строку 
-                case 38017: //Код системы содержит строку                    
-                {
-                    Record record = eSyssize.find(elem5e.artiklRec.getInt(eArtikl.syssize_id));
-                    if (rec.getStr(TEXT).equals(record.getStr(eSyssize.name)) == false) {
-                        return false;
-                    }
+                case 38017: //Код системы содержит строку     
+                case 39017: //Код системы содержит строку 
+                case 40017: //Код системы содержит строку                 
+                if(Uti4.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
+                    return false;
                 }
                 break;
                 case 33030:  //Количество 
@@ -249,7 +249,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 34008:  //Эффективное заполнение изделия, мм 
                 case 40008:  //Эффективное заполнение изд., мм                    
-                    if (Uti4.is_1008_11008_12008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
+                    if (Uti4.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
                     break;
@@ -360,12 +360,6 @@ public class ElementDet extends Par5s {
                 case 39113:  //Установить текстуру по 
                 case 40113:  //Установить текстуру по 
                     mapParam.put(grup, rec.getStr(TEXT));
-                    break;
-                case 39017:  //Код системы содержит строку 
-                case 40017:  //Код системы содержит строку 
-                    if (rec.getStr(TEXT).equals(eSyssize.find(elem5e.artiklRec.getInt(eArtikl.syssize_id)).getStr(eSyssize.name)) == false) {
-                        return false;
-                    }
                     break;
                 case 39063:  //Округлять количество до ближайшего 
                     mapParam.put(grup, rec.getStr(TEXT));

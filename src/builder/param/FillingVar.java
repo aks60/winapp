@@ -91,15 +91,10 @@ public class FillingVar extends Par5s {
                     }
                     break;
                 case 13017: //Код системы содержит строку 
-                {
-                    Record systreeRec = eSystree.find(iwin.nuni);
-                    String[] s = rec.getStr(TEXT).split("/");
-                    String s2 = (s.length == 1) ?s[0] :s[1];
-                    if (systreeRec.getStr(eSystree.pref).contains(s2) == false) {
+                    if (Uti4.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
                         return false;
                     }
-                }
-                break;
+                    break;
                 case 13081:  //Для внешнего/внутреннего угла плоскости, ° или Мин. внутр. угол плоскости, ° 
                     if ("ps3".equals(eSetting.find(2))) {
                         if (elem5e.anglFlat[0] > rec.getFloat(TEXT)) {
@@ -129,14 +124,14 @@ public class FillingVar extends Par5s {
                 case 13095:  //Если признак системы конструкции 
                     if (!Uti4.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), iwin.nuni)) {
                         return false;
-                    }                    
+                    }
                     break;
                 case 13097:  //Трудозатраты по длине 
                     message(rec.getInt(GRUP));
                     break;
                 case 13098:  //Бригада, участок) 
                     message(rec.getInt(GRUP));
-                    break;                    
+                    break;
                 case 13099:  //Трудозатраты, ч/ч. 
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;

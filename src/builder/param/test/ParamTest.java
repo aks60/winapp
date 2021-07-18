@@ -83,6 +83,8 @@ public class ParamTest {
         joiningVar2 = new JoiningVar(iwin_2);
         fillingVar2 = new FillingVar(iwin_2);
         fillingDet2 = new FillingDet(iwin_2);
+        joiningVar2 = new JoiningVar(iwin_2);
+        joiningDet2 = new JoiningDet(iwin_2);
         frame_left_2 = getElem(iwin_2.rootArea, 1.0f);
         frame_right_2 = getElem(iwin_2.rootArea, 2.0f);
         stv_right_2 = getElem(iwin_2.rootArea, 10.2f);
@@ -104,6 +106,8 @@ public class ParamTest {
         joiningDet3 = new JoiningDet(iwin_3);
         fillingVar3 = new FillingVar(iwin_3);
         fillingDet3 = new FillingDet(iwin_3);
+        joiningVar3 = new JoiningVar(iwin_3);
+        joiningDet3 = new JoiningDet(iwin_3);        
         frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
         stv_right_3 = getElem(iwin_3.rootArea, 9.2f);
@@ -123,6 +127,8 @@ public class ParamTest {
         joiningDet4 = new JoiningDet(iwin_4);
         fillingVar4 = new FillingVar(iwin_4);
         fillingDet4 = new FillingDet(iwin_4);
+        joiningVar4 = new JoiningVar(iwin_4);
+        joiningDet4 = new JoiningDet(iwin_4);        
         frame_left_4 = getElem(iwin_4.rootArea, 1.0f);
         frame_right_4 = getElem(iwin_4.rootArea, 2.0f);
         stv_left_4 = getElem(iwin_4.rootArea, 6.4f);

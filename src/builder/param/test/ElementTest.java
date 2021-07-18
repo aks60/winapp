@@ -10,6 +10,10 @@ import java.util.HashMap;
 
 public class ElementTest extends ParamTest {
 
+    public ElementTest() {
+        super();
+    }
+
     /*
     select c.name, d.name, a.text from elempar1 a
     left join element c on c.id = a.element_id
@@ -171,7 +175,7 @@ public class ElementTest extends ParamTest {
     left join element c on c.id = b.element_id
     left join artikl d on c.artikl_id = d.id
     where a.params_id in (31017, 37017)
-    */
+     */
     public void elementDet() {
         HashMap<Integer, String> mapParam = new HashMap();
 
@@ -208,7 +212,7 @@ public class ElementTest extends ParamTest {
         assert false == elementDet2.check(mapParam, imp_vert_2, param("3;31;12/4-32", grup)) : grup;
 
         grup = 33017; //34017 //Код системы содержит строку 
-        assert true == elementDet2.check(mapParam, frame_left_2, param("КВЕ 58", grup)) : grup;
+        assert true == elementDet2.check(mapParam, frame_left_2, param("et-1", grup)) : grup;
         assert false == elementDet2.check(mapParam, frame_left_2, param("КП-40", grup)) : grup;
 
         grup = 33063; //34063 //Диапазон веса створки, кг
