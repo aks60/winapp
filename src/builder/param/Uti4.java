@@ -1,6 +1,7 @@
 package builder.param;
 
 import builder.Wincalc;
+import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
@@ -78,6 +79,9 @@ class Uti4 {
     //Для технологического кода контейнера 
     static boolean is_STRING_XX000(String txt, ElemSimple elem5e) {
         Record sysprofRec = elem5e.sysprofRec;
+        if(elem5e instanceof ElemGlass) {
+            sysprofRec = elem5e.owner().mapFrame.get(LayoutArea.BOTT).sysprofRec;
+        }            
         Record artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklRecAn.get(eArtikl.tech_code) == null) {
             return false;
@@ -100,6 +104,31 @@ class Uti4 {
         return true;
     }
 
+//    //Для технологического кода контейнера 
+//    static boolean is_STRING_XX000(String txt, AreaSimple area5e) {
+//        Record sysprofRec = area5e.sysprofRec;
+//        Record artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+//        if (artiklRecAn.get(eArtikl.tech_code) == null) {
+//            return false;
+//        }
+//        String[] strList = txt.split(";");
+//        String[] strList2 = artiklRecAn.getStr(eArtikl.tech_code).split(";");
+//        boolean ret2 = false;
+//        for (String str : strList) {
+//            for (String str2 : strList2) {
+//                if (str.equals("*")) {
+//                    ret2 = true;
+//                } else if (str.equals(str2)) {
+//                    ret2 = true;
+//                }
+//            }
+//        }
+//        if (ret2 == false) {
+//            return false;
+//        }
+//        return true;
+//    }
+    
     //Если признак системы конструкции
     static boolean is_11095_12095_31095_33095_34095_37095_38095_39095_40095(String txt, int nuni) {
         Record systreefRec = eSystree.find(nuni);

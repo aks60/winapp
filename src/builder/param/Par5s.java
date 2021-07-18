@@ -24,7 +24,7 @@ public class Par5s {
     public Par5s(Wincalc iwin) {
         this.iwin = iwin;
     }
-
+/*
     public boolean check(ElemSimple elem5e, Record rec) {
         return true;
     }
@@ -44,7 +44,7 @@ public class Par5s {
     public boolean check(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record rec) {
         return true;
     }
-    
+*/    
     
     //Фильтр параметров по умолчанию + выбранных клиентом
     protected boolean filterParamDef(List<Record> paramList) {

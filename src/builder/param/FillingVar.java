@@ -38,7 +38,7 @@ public class FillingVar extends Par5s {
         return true;
     }
 
-    @Override
+    //@Override
     public boolean check(ElemSimple elem5e, Record rec) {
 
         int grup = rec.getInt(GRUP);
@@ -131,12 +131,12 @@ public class FillingVar extends Par5s {
                         return false;
                     }                    
                     break;
-                case 13098:  //Бригада, участок) 
-                    message(rec.getInt(GRUP));
-                    break;
                 case 13097:  //Трудозатраты по длине 
                     message(rec.getInt(GRUP));
                     break;
+                case 13098:  //Бригада, участок) 
+                    message(rec.getInt(GRUP));
+                    break;                    
                 case 13099:  //Трудозатраты, ч/ч. 
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;

@@ -36,34 +36,18 @@ public class FillingDet extends Par5s {
         return true;
     }
 
-    @Override
+    //@Override
     public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record rec) {
 
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
-                case 14000: //Для технологического кода контейнераi
+                case 14000: //Для технологического кода контейнера
                 case 15000: //Для технологического кода контейнера 
-                {
-                    Record artiklRec = iwin.artiklRec;
-                    if (artiklRec.get(eArtikl.tech_code) == null) {
+                    if (!Uti4.is_STRING_XX000(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
-                    String[] strList = rec.getStr(TEXT).split(";");
-                    String[] strList2 = artiklRec.getStr(eArtikl.tech_code).split(";");
-                    boolean ret2 = false;
-                    for (String str : strList) {
-                        for (String str2 : strList2) {
-                            if (str.equalsIgnoreCase(str2)) {
-                                ret2 = true;
-                            }
-                        }
-                    }
-                    if (ret2 == false) {
-                        return false;
-                    }
-                }
-                break;
+                    break;
                 case 14001:  //Если признак состава 
                 case 15001:  //Если признак состава                    
                     if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem5e) == false) {

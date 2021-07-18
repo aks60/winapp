@@ -39,7 +39,7 @@ public class ElementVar extends Par5s {
         return true;
     }
 
-    @Override
+    //@Override
     public boolean check(ElemSimple elem5e, Record rec) {
         int grup = rec.getInt(GRUP);
         try {
@@ -435,7 +435,6 @@ public class ElementVar extends Par5s {
                     break;
                 case 37340:  //Коэффициент пропускания света 
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
-                    ;
                     break;
                 case 37350:  //Сопротивление ветровым нагрузкам, Па 
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));

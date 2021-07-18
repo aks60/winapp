@@ -53,6 +53,9 @@ public class FillingTest extends ParamTest {
     }
 
     public void fillingDet() {
-
+        
+        grup = 14000; //15000 //Для технологического кода контейнера
+        //assert true == fillingDet2.check(stv_right_2, param("KBE 58;XXX 58;", grup)) : grup;
+        //assert false == fillingDet2.check(stv_right_2, param("KBE58;", grup)) : grup;
     }
 }

@@ -123,11 +123,12 @@ public class Test {
         ElementTest et = new ElementTest();
         JoiningTest jt = new JoiningTest();
         FillingTest gt = new FillingTest();
-        //et.elementVar();
-        //et.elementDet();
-        //jt.joiningVar();
-        //jt.joiningDet();
-        gt.fillingVar();
+//        et.elementVar();
+//        et.elementDet();
+//        jt.joiningVar();
+        jt.joiningDet();
+//        gt.fillingVar();
+//        gt.fillingDet();
         
 //        Query.connection = Test.connect2();
 //        Set set = new HashSet();

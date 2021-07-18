@@ -38,7 +38,7 @@ public class ElementDet extends Par5s {
         return true;
     }
 
-    @Override
+    //@Override
     public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record rec) {
         int grup = rec.getInt(GRUP);
         try {
