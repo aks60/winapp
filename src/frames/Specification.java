@@ -366,7 +366,7 @@ public class Specification extends javax.swing.JFrame {
                 {"", "", null, "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nпп", "PK", "FK", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "  1", "  2", "гориз.", "<html>Кол.<br/>единиц", "<html>Единица<br/>измерения", "<html>Процент<br/> отхода", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "за ед. изм.", "с отх.", "без ск.", "со ск."
+                "Nпп", "PK", "FK", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "реза1", "реза2", "гориз.", "<html>Кол.<br/>единиц", "<html>Единица<br/>измерения", "<html>Процент<br/> отхода", "<html>Кол.без<br/>отхода", "<html>Кол. с <br/>отходом", "за ед. изм.", "с отх.", "без ск.", "со ск."
             }
         ) {
             Class[] types = new Class [] {
@@ -408,9 +408,9 @@ public class Specification extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(9).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(10).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(11).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(12).setPreferredWidth(28);
-            tab1.getColumnModel().getColumn(13).setPreferredWidth(28);
-            tab1.getColumnModel().getColumn(14).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(12).setPreferredWidth(36);
+            tab1.getColumnModel().getColumn(13).setPreferredWidth(36);
+            tab1.getColumnModel().getColumn(14).setPreferredWidth(38);
             tab1.getColumnModel().getColumn(15).setPreferredWidth(30);
             tab1.getColumnModel().getColumn(16).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(17).setPreferredWidth(40);
