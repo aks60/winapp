@@ -71,7 +71,7 @@ public class Filling extends Cal5e {
                         List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
 
                         //Цикл по профилям в группах заполнений
-                        for (Record glasprofRec : glasprofList) {                            
+                        for (Record glasprofRec : glasprofList) {
                             if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
                                 if (Arrays.asList(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {
                                     elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
@@ -101,6 +101,44 @@ public class Filling extends Cal5e {
 
                 //Цикл по списку детализации
                 for (Record glasdetRec : glasdetList) {
+                    
+                    //Цикл по сторонам стеклопакета
+                    for (int side = 0; side < 4; ++side) {
+                        elemGlass.anglHoriz = elemGlass.sideHoriz[side];
+                        HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific                        
+                        
+                        //ФИЛЬТР детализации, параметры накапливаются в mapParam
+                        if (fillingDet.filter(mapParam, elemGlass, glasdetRec) == true) {
+                            Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
+                            Specific spcAdd = new Specific(glasdetRec, artiklRec, elemGlass, mapParam);
+                            
+                            if (Color.colorFromProduct(spcAdd, 1)
+                                    && Color.colorFromProduct(spcAdd, 2)
+                                    && Color.colorFromProduct(spcAdd, 3)) {
+
+                                spcAdd.place = "ЗАП";
+                                elemGlass.addSpecific(spcAdd);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Filling.detail() " + e);
+        }
+    }
+
+    protected void detail2(ElemGlass elemGlass, Record glasgrpRec) {
+        try {
+            //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
+            if (fillingVar.filter(elemGlass, glasgrpRec) == true) {
+
+                elemGlass.setSpecific(); //заполним спецификацию элемента
+
+                List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
+
+                //Цикл по списку детализации
+                for (Record glasdetRec : glasdetList) {
                     HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
 
                     //ФИЛЬТР детализации, параметры накапливаются в mapParam
@@ -109,7 +147,7 @@ public class Filling extends Cal5e {
                         Specific spcAdd = new Specific(glasdetRec, artiklRec, elemGlass, mapParam);
                         if (Color.colorFromProduct(spcAdd, 1)
                                 && Color.colorFromProduct(spcAdd, 2)
-                                && Color.colorFromProduct(spcAdd, 3)) {                            
+                                && Color.colorFromProduct(spcAdd, 3)) {
 
                             spcAdd.place = "ЗАП";
                             elemGlass.addSpecific(spcAdd);

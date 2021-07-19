@@ -3,6 +3,7 @@ package builder.param.test;
 import builder.model.AreaSimple;
 import builder.model.Com5t;
 import builder.model.ElemFrame;
+import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
@@ -10,7 +11,6 @@ import builder.param.FillingDet;
 import builder.param.FillingVar;
 import builder.param.JoiningDet;
 import builder.param.JoiningVar;
-import builder.param.Par5s;
 import dataset.Record;
 import java.util.HashMap;
 
@@ -25,23 +25,23 @@ public class ParamTest {
     protected ElemSimple stv_right_2 = null;
     protected ElemSimple imp_horiz_2 = null;
     protected ElemSimple imp_vert_2 = null;
-    protected ElemSimple glass_top_2 = null;
-    protected ElemSimple glass_left_2 = null;
-    protected ElemSimple glass_right_2 = null;
+    protected ElemGlass glass_top_2 = null;
+    protected ElemGlass glass_left_2 = null;
+    protected ElemGlass glass_right_2 = null;
 
     protected ElemSimple frame_left_3 = null;
     protected ElemSimple frame_right_3 = null;
     protected ElemSimple stv_right_3 = null;
     protected ElemSimple imp_vert_3 = null;
-    protected ElemSimple glass_top_3 = null;
-    protected ElemSimple glass_left_3 = null;
+    protected ElemGlass glass_top_3 = null;
+    protected ElemGlass glass_left_3 = null;
 
     protected ElemSimple frame_left_4 = null;
     protected ElemSimple frame_right_4 = null;
     protected ElemSimple stv_left_4 = null;
     protected ElemSimple stv_right_4 = null;
-    protected ElemSimple glass_right_4 = null;
-    protected ElemSimple glass_left_4 = null;    
+    protected ElemGlass glass_right_4 = null;
+    protected ElemGlass glass_left_4 = null;
 
     builder.Wincalc iwin_2 = null; //601004
     protected ElementVar elementVar2 = null;
@@ -90,9 +90,9 @@ public class ParamTest {
         stv_right_2 = getElem(iwin_2.rootArea, 10.2f);
         imp_vert_2 = getElem(iwin_2.rootArea, 12.0f);
         imp_horiz_2 = getElem(iwin_2.rootArea, 7.0f);
-        glass_top_2 = getElem(iwin_2.rootArea, 6.0f);
-        glass_left_2 = getElem(iwin_2.rootArea, 11.0f);
-        glass_right_2 = getElem(iwin_2.rootArea, 15.0f);
+        glass_top_2 = (ElemGlass) getElem(iwin_2.rootArea, 6.0f);
+        glass_left_2 = (ElemGlass) getElem(iwin_2.rootArea, 11.0f);
+        glass_right_2 = (ElemGlass) getElem(iwin_2.rootArea, 15.0f);
     }
 
     //604005
@@ -107,13 +107,13 @@ public class ParamTest {
         fillingVar3 = new FillingVar(iwin_3);
         fillingDet3 = new FillingDet(iwin_3);
         joiningVar3 = new JoiningVar(iwin_3);
-        joiningDet3 = new JoiningDet(iwin_3);        
+        joiningDet3 = new JoiningDet(iwin_3);
         frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
         stv_right_3 = getElem(iwin_3.rootArea, 9.2f);
         imp_vert_3 = getElem(iwin_3.rootArea, 11.0f);
-        glass_top_3 = getElem(iwin_3.rootArea, 6.0f);
-        glass_left_3 = getElem(iwin_3.rootArea, 10.0f);
+        glass_top_3 = (ElemGlass) getElem(iwin_3.rootArea, 6.0f);
+        glass_left_3 = (ElemGlass) getElem(iwin_3.rootArea, 10.0f);
     }
 
     //700027
@@ -128,13 +128,13 @@ public class ParamTest {
         fillingVar4 = new FillingVar(iwin_4);
         fillingDet4 = new FillingDet(iwin_4);
         joiningVar4 = new JoiningVar(iwin_4);
-        joiningDet4 = new JoiningDet(iwin_4);        
+        joiningDet4 = new JoiningDet(iwin_4);
         frame_left_4 = getElem(iwin_4.rootArea, 1.0f);
         frame_right_4 = getElem(iwin_4.rootArea, 2.0f);
         stv_left_4 = getElem(iwin_4.rootArea, 6.4f);
         stv_right_4 = getElem(iwin_4.rootArea, 6.2f);
-        glass_right_4 = getElem(iwin_4.rootArea, 11.0f);
-        glass_left_4 = getElem(iwin_4.rootArea, 7.0f);        
+        glass_right_4 = (ElemGlass) getElem(iwin_4.rootArea, 11.0f);
+        glass_left_4 = (ElemGlass) getElem(iwin_4.rootArea, 7.0f);
     }
 
     //Получить элемент по ключу

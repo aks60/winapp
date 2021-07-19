@@ -131,6 +131,64 @@ public class ElemGlass extends ElemSimple {
         if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
             if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {  //штапик
                 if (TypeElem.ARCH == owner().type()) { //штапик в арке
+                    //((AreaArch) root()).shtapik(this, spcAdd);
+                } else { //штапик в прямоугольнике
+
+                    if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
+                        spcAdd.width += width() + 2 * gzazo;
+                        spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
+
+                    } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
+                        spcAdd.width += height() + 2 * gzazo;
+                        spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
+                    }
+                    if (anglHoriz == sideHoriz[0]) {
+                        if ("Нет".equals(spcAdd.mapParam.get(15010))) { //Усекать нижний штапик
+                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                        }
+                    }
+                }
+            } else { //всё остальное
+                if (TypeElem.ARCH == owner().type()) { //в арке
+                    //((AreaArch) root()).padding(this, spcAdd);
+                } else {
+                    if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
+                        spcAdd.width = spcAdd.width + width() + gzazo * 2;
+
+                    } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
+                        spcAdd.width = spcAdd.width + height() + gzazo * 2;
+                    }
+                }
+            }
+            spcAdd.width = uti3.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+            spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd); //"[ * коэф-т ]"
+            spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd); //"[ / коэф-т ]" 
+            spcRec.spcList.add(spcAdd);
+
+        } else if (UseUnit.PIE.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
+            if (spcAdd.mapParam.get(13014) != null) {
+                if (Util.containsNumb(spcAdd.mapParam.get(13014), anglHoriz) == true) { //Углы ориентации стороны
+                    spcRec.spcList.add(spcAdd);
+                }
+            } else {
+                spcRec.spcList.add(spcAdd);
+            }
+        } else {
+            System.out.println("Элемент не обработан");
+        }
+    }
+
+    public void addSpecific2(Specific spcAdd) {
+        spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+        spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
+        spcAdd.width = uti3.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм         
+        if (TypeArtikl.X502.isType(spcAdd.artiklDet)) {
+            return;  //если стеклопакет сразу выход
+        }
+
+        if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
+            if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {  //штапик
+                if (TypeElem.ARCH == owner().type()) { //штапик в арке
                     ((AreaArch) root()).shtapik(this, spcAdd);
                 } else { //штапик в прямоугольнике
                     //По горизонтали

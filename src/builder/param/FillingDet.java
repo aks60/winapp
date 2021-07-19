@@ -25,7 +25,7 @@ public class FillingDet extends Par5s {
         super(iwin);
     }
 
-    public boolean filter(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record glasdetRec) {
+    public boolean filter(HashMap<Integer, String> mapParam, ElemGlass elem5e, Record glasdetRec) {
 
         List<Record> paramList = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации  
         if (filterParamDef(paramList) == false) {
@@ -40,8 +40,7 @@ public class FillingDet extends Par5s {
         return true;
     }
 
-    //@Override
-    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record rec) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemGlass elem5e, Record rec) {
 
         int grup = rec.getInt(GRUP);
         try {
@@ -49,7 +48,7 @@ public class FillingDet extends Par5s {
                 case 14000: //Для технологического кода контейнера
                 case 15000: //Для технологического кода контейнера 
                 {
-                    ElemSimple elem = iwin.rootArea.mapFrame.get(LayoutArea.BOTT); 
+                    ElemSimple elem = iwin.rootArea.mapFrame.get(LayoutArea.BOTT);
                     if (!Uti4.is_STRING_XX000(rec.getStr(TEXT), elem)) {
                         return false;
                     }
@@ -58,7 +57,7 @@ public class FillingDet extends Par5s {
                 case 14001: //Если признак состава 
                 case 15001: //Если признак состава    
                 {
-                    ElemSimple elem = iwin.rootArea.mapFrame.get(LayoutArea.BOTT); 
+                    ElemSimple elem = iwin.rootArea.mapFrame.get(LayoutArea.BOTT);
                     if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem) == false) {
                         return false;
                     }
@@ -88,10 +87,10 @@ public class FillingDet extends Par5s {
                     break;
                 case 14017: //Код системы содержит строку 
                 case 15017: //Код системы содержит строку                    
-                if(Uti4.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
-                    return false;
-                }
-                break;
+                    if (Uti4.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
+                        return false;
+                    }
+                    break;
                 case 14030:  //Количество 
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
@@ -106,14 +105,13 @@ public class FillingDet extends Par5s {
                     break;
                 case 14065:  //Ограничение угла, ° или Точный угол 
                 case 15055:  //Ограничение угла, ° или Точный угол  
-                    /*if ("ps3".equals(eSetting.find(2))) {
+                    if ("ps3".equals(eSetting.find(2))) {
                         if (rec.getFloat(TEXT) != elem5e.anglHoriz) {
                             return false;
                         }
                     } else if (Util.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
                         return false;
-                    }*/
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    }
                     break;
                 case 14066: //Исключить угол, °
                 case 15056:

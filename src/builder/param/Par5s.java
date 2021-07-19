@@ -17,34 +17,12 @@ public class Par5s {
     protected final int TEXT = 2;   //Текст 
     protected Wincalc iwin = null;
     protected String versionDb = eSetting.find(2);
-    //protected int pass = 1; //проверка на попадание, либо pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
     public HashMap<Integer, String> mapParamTmp = new HashMap();
     public Record detailRec = null; //для тестирования
 
     public Par5s(Wincalc iwin) {
         this.iwin = iwin;
     }
-/*
-    public boolean check(ElemSimple elem5e, Record rec) {
-        return true;
-    }
-
-    public boolean check(ElemJoining elemJoin, Record rec) {
-        return true;
-    }
-    
-    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record rec) {
-        return true;
-    }
-
-    public boolean check(HashMap<Integer, String> mapParam, AreaStvorka areaStv, Record rec) { 
-        return true;
-    }
-    
-    public boolean check(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record rec) {
-        return true;
-    }
-*/    
     
     //Фильтр параметров по умолчанию + выбранных клиентом
     protected boolean filterParamDef(List<Record> paramList) {
