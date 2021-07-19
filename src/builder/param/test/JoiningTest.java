@@ -70,7 +70,7 @@ public class JoiningTest extends ParamTest {
         assert false == joiningVar4.check(iwin_4.mapJoin.get(frame_right_4.joinPoint(1)), param("xxx", grup)) : grup;
     }
 
-    /*
+    /**
     select d.id,  c.name, b.id, a.text from joinpar2 a
     left join joindet b on b.id = a.joindet_id
     left join joinvar c on c.id = b.joinvar_id

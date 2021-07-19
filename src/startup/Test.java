@@ -64,8 +64,8 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            //wincalc();
-            param();
+            wincalc();
+            //param();
             //query();
             //frame();
             //json();
@@ -84,7 +84,7 @@ public class Test {
         String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(700027, false));
+            iwin.build(builder.script.Winscript.test(601008, false));
             iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);

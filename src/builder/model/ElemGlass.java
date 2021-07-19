@@ -21,7 +21,8 @@ import java.util.Map;
 public class ElemGlass extends ElemSimple {
 
     public float radiusGlass = 0; //радиус арки
-    public float gzazo = 0; //зазор между фальцем и стеклопакетом  
+    public float gzazo = 0; //зазор между фальцем и стеклопакетом 
+    public float sideHoriz[] = {0, 90, 180, 270}; //угол боковой стороны к горизонту
 
     public ElemGlass(AreaSimple owner, float id, String param) {
 

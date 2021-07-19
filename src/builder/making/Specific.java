@@ -28,7 +28,7 @@ import jxl.Workbook;
  */
 public class Specific {
 
-    public ArrayList<Specific> spcList = new ArrayList();  //список составов, фарнитур и т.д.
+    public ArrayList<Specific> spcList = new ArrayList();  //список составов, фурнитур и т.д.
     public HashMap<Integer, String> mapParam = null;  //параметры спецификации
     public ElemSimple elem5e = null;  //элемент пораждающий спецификацию (владелец)
     public Record variantRec = null;  //запись в вариантах

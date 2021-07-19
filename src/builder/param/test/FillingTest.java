@@ -13,7 +13,7 @@ public class FillingTest extends ParamTest {
         super();
     }
 
-    /*
+    /**
     select distinct e.id, e.name, b.id, b.name, a.text from glaspar1 a
     left join glasgrp b on b.id = a.glasgrp_id left join glasprof c on c.glasgrp_id = b.id
     left join sysprof d on d.artikl_id = c.artikl_id  left join systree e on e.id = d.systree_id
@@ -57,7 +57,7 @@ public class FillingTest extends ParamTest {
         assert false == fillingVar4.check(stv_right_4, param("2;9", grup)) : grup;
     }
 
-    /*
+    /**
     select c.name, d.name, a.text from glaspar2 a
     left join glasdet b on b.id = a.glasdet_id
     left join glasgrp c on c.id = b.glasgrp_id

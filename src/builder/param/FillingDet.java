@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
+import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import common.Util;
@@ -48,7 +49,7 @@ public class FillingDet extends Par5s {
                 case 14000: //Для технологического кода контейнера
                 case 15000: //Для технологического кода контейнера 
                 {
-                    ElemSimple elem = elem5e.owner().mapFrame.get(LayoutArea.BOTT);
+                    ElemSimple elem = iwin.rootArea.mapFrame.get(LayoutArea.BOTT); 
                     if (!Uti4.is_STRING_XX000(rec.getStr(TEXT), elem)) {
                         return false;
                     }
@@ -57,7 +58,7 @@ public class FillingDet extends Par5s {
                 case 14001: //Если признак состава 
                 case 15001: //Если признак состава    
                 {
-                    ElemSimple elem = elem5e.owner().mapFrame.get(LayoutArea.BOTT);
+                    ElemSimple elem = iwin.rootArea.mapFrame.get(LayoutArea.BOTT); 
                     if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem) == false) {
                         return false;
                     }
@@ -66,8 +67,7 @@ public class FillingDet extends Par5s {
                 case 14005: //Тип проема 
                 case 15005: //Тип проема
                 {
-                    ElemSimple elem = elem5e.owner().mapFrame.get(LayoutArea.BOTT);
-                    if (!Uti4.is_13003_14005_15005_37008(rec.getStr(TEXT), elem)) {
+                    if (!Uti4.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                 }
