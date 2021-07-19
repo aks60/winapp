@@ -591,7 +591,7 @@ public class Specification extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(tab1, 4);
+        filterTable = new FilterTable(4, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 

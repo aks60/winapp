@@ -865,7 +865,7 @@ public class Partner extends javax.swing.JFrame {
     private void initElements() {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
-        filterTable = new FilterTable(tab1, 0);
+        filterTable = new FilterTable(0, tab1);
         south.add(filterTable, 0);        
         filterTable.getTxt().grabFocus();   
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

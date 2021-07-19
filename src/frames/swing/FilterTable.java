@@ -22,6 +22,7 @@ import javax.swing.table.TableRowSorter;
 public class FilterTable extends javax.swing.JPanel {
 
     private JTable table = null;
+    private JTable[] tableList = null;
     private int indexColumn = 0;
     private boolean search = false;
 
@@ -29,12 +30,13 @@ public class FilterTable extends javax.swing.JPanel {
         initComponents();
     }
 
-    public FilterTable(JTable table, int index) {
+    public FilterTable(int index, JTable... table) {
         initComponents();
-        mousePressed(table);
-        labFilter.setText(table.getColumnName(index));
-        txtFilter.setName(table.getName());
-        table.setColumnSelectionInterval(index, index);
+        tableList = table;
+        mousePressed(table[0]);
+        labFilter.setText(table[0].getColumnName(index));
+        txtFilter.setName(table[0].getName());
+        table[0].setColumnSelectionInterval(index, index);
     }
 
     public JLabel getLab() {

@@ -2758,7 +2758,7 @@ public class Order extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
         Uti5.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
-        filterTable = new FilterTable(tab1, 0);
+        filterTable = new FilterTable(0, tab1);
         south.add(filterTable, 0);       
         filterTable.getTxt().grabFocus();  
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti5.stopCellEditing(tab1)));

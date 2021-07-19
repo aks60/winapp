@@ -419,7 +419,7 @@ public class Param extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(tab1, 0);
+        filterTable = new FilterTable(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti5.stopCellEditing(tab1, tab2)));

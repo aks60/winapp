@@ -48,7 +48,7 @@ public enum UseColor implements Enam {
     }
 
     public static String[] precision = {"100000", "Точный подбор"};
-    public static String[] automatic = {"0", "Автоатический подбор"};
+    public static String[] automatic = {"0", "Автоматический подбор"};
 }
 
 /*/////////////    АЛГОРИТМ   //////////////////

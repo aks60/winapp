@@ -57,6 +57,13 @@ public class FillingTest extends ParamTest {
         assert false == fillingVar4.check(stv_right_4, param("2;9", grup)) : grup;
     }
 
+    /*
+    select c.name, d.name, a.text from glaspar2 a
+    left join glasdet b on b.id = a.glasdet_id
+    left join glasgrp c on c.id = b.glasgrp_id
+    left join artikl d on b.artikl_id = d.id
+    where a.params_id in (14065, 15055)    
+    */
     public void fillingDet() {
         HashMap<Integer, String> mapParam = new HashMap();
 
@@ -84,5 +91,6 @@ public class FillingTest extends ParamTest {
         assert true == fillingDet2.check(mapParam, glass_left_2, param("et-1", grup)) : grup;
         assert false == fillingDet2.check(mapParam, glass_left_2, param("КП-40", grup)) : grup;
         
+        grup = 14065; //15055 //Ограничение угла, ° или Точный угол
     }
 }

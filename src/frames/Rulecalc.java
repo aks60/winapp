@@ -386,7 +386,7 @@ public class Rulecalc extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(tab2, 2);
+        filterTable = new FilterTable(2, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti5.stopCellEditing(tab2)));

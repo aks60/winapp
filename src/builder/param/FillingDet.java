@@ -106,13 +106,14 @@ public class FillingDet extends Par5s {
                     break;
                 case 14065:  //Ограничение угла, ° или Точный угол 
                 case 15055:  //Ограничение угла, ° или Точный угол  
-                    if ("ps3".equals(eSetting.find(2))) {
+                    /*if ("ps3".equals(eSetting.find(2))) {
                         if (rec.getFloat(TEXT) != elem5e.anglHoriz) {
                             return false;
                         }
                     } else if (Util.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
                         return false;
-                    }
+                    }*/
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 14066: //Исключить угол, °
                 case 15056:

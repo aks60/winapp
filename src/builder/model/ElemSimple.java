@@ -20,7 +20,7 @@ public abstract class ElemSimple extends Com5t {
     public float anglCut[] = {45, 45}; //угол реза рамы
     public float[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
     public float anglHoriz = -1; //угол к горизонту
-    public ElemJoining joinElem[] = {null, null, null}; //соединения угловое и прилегающее     
+    public ElemJoining joinElem[] = {null, null, null}; //соединения 0-левое, 1-правое, 2-прилегающее     
 
     public Specific spcRec = null; //спецификация элемента
     protected Uti3 uti3 = null;

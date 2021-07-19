@@ -48,7 +48,7 @@ public class JoiningVar extends Par5s {
                 case 1005:  //Контейнер имеет тип Артикула1/Артикула2
                 case 2005:  //Контейнер имеет тип Артикула1/Артикула2
                 case 3005:  //Контейнер имеет тип Артикула1/Артикула2
-                case 4005:  //Контейнер имеет тип Артикула1/Артикула2
+                case 4005: //Контейнер имеет тип Артикула1/Артикула2
                 {
                     if ("ps3".equals(eSetting.find(2))) { //Контейнер Артикула 1 имеет тип
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
@@ -129,7 +129,7 @@ public class JoiningVar extends Par5s {
                 case 1013:  //Для Артикулов не указан состав
                 case 2013:  //Для Артикулов не указан состав 
                 case 3013:  //Для Артикулов не указан состав
-                case 4013:  //Для Артикулов не указан состав  
+                case 4013: //Для Артикулов не указан состав  
                 {
                     List<Record> elementList1 = eElement.find3(elemJoin.elem1.artiklRec.getInt(eArtikl.code), elemJoin.elem1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1 = false;
@@ -326,12 +326,7 @@ public class JoiningVar extends Par5s {
                     break;
                 case 2020:  //Ограничение угла, °
                 case 3020:  //Ограничение угла, °
-                case 4030:  //Угол максимальный, °                      
-                    if ("ps3".equals(eSetting.find(2))) { //Угол максимальный, °
-                        if (elemJoin.angl > rec.getFloat(TEXT)) {
-                            return false;
-                        }
-                    } else if (Util.containsNumb(rec.getStr(TEXT), elemJoin.angl) == false) { //Ограничение угла, °
+                    if (Util.containsNumb(rec.getStr(TEXT), elemJoin.angl) == false) { //Ограничение угла, °
                         return false;
                     }
                     break;
@@ -443,6 +438,13 @@ public class JoiningVar extends Par5s {
                     break;
                 case 4018:  //От ручки не менее, мм 
                     message(rec.getInt(GRUP));
+                    break;
+                case 4030:  //Угол максимальный, °                      
+                    if ("ps3".equals(eSetting.find(2))) {
+                        if (elemJoin.angl > rec.getFloat(TEXT)) {
+                            return false;
+                        }
+                    }
                     break;
                 case 4040:  //Размер от оси профиля, мм.
                 case 4044:  //Размер от края пакета, мм     

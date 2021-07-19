@@ -1083,7 +1083,7 @@ public class Element extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        filterTable = new FilterTable(tab2, 0);
+        filterTable = new FilterTable(0, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 
