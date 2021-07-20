@@ -131,11 +131,7 @@ public class ElemGlass extends ElemSimple {
         if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
             if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {  //штапик
                 if (TypeElem.ARCH == owner().type()) { //штапик в арке
-                    if (anglHoriz == sideHoriz[0]) {
-                        ((AreaArch) root()).shtapik(this, spcAdd);
-                    } else {
-                        return;
-                    }
+                    ((AreaArch) root()).shtapik(this, spcAdd);                   
                 } else { //штапик в прямоугольнике
 
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
@@ -151,14 +147,11 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.width = spcAdd.width - 2 * spcAdd.height;
                         }
                     }
+                    spcRec.spcList.add(spcAdd);
                 }
             } else { //всё остальное
                 if (TypeElem.ARCH == owner().type()) { //в арке
-                    if (anglHoriz == sideHoriz[0]) {
-                        ((AreaArch) root()).padding(this, spcAdd);
-                    } else {
-                        return;
-                    }
+                    ((AreaArch) root()).padding(this, spcAdd);
                 } else {
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width = spcAdd.width + width() + gzazo;
@@ -166,12 +159,12 @@ public class ElemGlass extends ElemSimple {
                     } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
                         spcAdd.width = spcAdd.width + height() + gzazo;
                     }
+                    spcRec.spcList.add(spcAdd);
                 }
             }
             spcAdd.width = uti3.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
             spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd); //"[ * коэф-т ]"
             spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd); //"[ / коэф-т ]" 
-            spcRec.spcList.add(spcAdd);
 
         } else if (UseUnit.PIE.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
             if (spcAdd.mapParam.get(13014) != null) {
