@@ -131,7 +131,11 @@ public class ElemGlass extends ElemSimple {
         if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
             if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {  //штапик
                 if (TypeElem.ARCH == owner().type()) { //штапик в арке
-                    ((AreaArch) root()).shtapik(this, spcAdd);
+                    if (anglHoriz == sideHoriz[0]) {
+                        ((AreaArch) root()).shtapik(this, spcAdd);
+                    } else {
+                        return;
+                    }
                 } else { //штапик в прямоугольнике
 
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
@@ -150,10 +154,14 @@ public class ElemGlass extends ElemSimple {
                 }
             } else { //всё остальное
                 if (TypeElem.ARCH == owner().type()) { //в арке
-                    ((AreaArch) root()).padding(this, spcAdd);
+                    if (anglHoriz == sideHoriz[0]) {
+                        ((AreaArch) root()).padding(this, spcAdd);
+                    } else {
+                        return;
+                    }
                 } else {
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
-                        spcAdd.width = spcAdd.width  + width() + gzazo;
+                        spcAdd.width = spcAdd.width + width() + gzazo;
 
                     } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
                         spcAdd.width = spcAdd.width + height() + gzazo;
