@@ -152,7 +152,6 @@ public class ElemGlass extends ElemSimple {
                 if (TypeElem.ARCH == owner().type()) { //в арке
                     ((AreaArch) root()).padding(this, spcAdd);
                 } else {
-                    //float width777 = spcAdd.width * 4 + width() * 2 + height() * 2 + gzazo * 4; //поправка * 4 плюс периметр плюс 4 * зазор * 4
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width = spcAdd.width  + width() + gzazo;
 
