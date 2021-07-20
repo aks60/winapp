@@ -80,7 +80,7 @@ public class AreaArch extends AreaSimple {
             spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
             spcAdd.anglCut2 = (float) ang1;
             spcAdd.anglCut1 = (float) ang1;
-            elemGlass.spcRec.spcList.add(new Specific(spcAdd)); //добавим спецификацию
+            elemGlass.spcRec.spcList.add(spcAdd); //добавим спецификацию
 
         } else if (elemGlass.anglHoriz == elemGlass.sideHoriz[2]) { //по дуге арки   
             double r1 = radiusArch - arch.artiklRec.getFloat(eArtikl.height) + arch.artiklRec.getDbl(eArtikl.size_falz); //внешний радиус
@@ -97,7 +97,7 @@ public class AreaArch extends AreaSimple {
             spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
             spcAdd.anglCut2 = (float) ang3;
             spcAdd.anglCut1 = (float) ang3;
-            elemGlass.spcRec.spcList.add(new Specific(spcAdd)); //добавим спецификацию
+            elemGlass.spcRec.spcList.add(spcAdd); //добавим спецификацию
         }
     }
 
