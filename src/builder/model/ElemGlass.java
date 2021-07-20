@@ -131,7 +131,7 @@ public class ElemGlass extends ElemSimple {
         if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
             if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {  //штапик
                 if (TypeElem.ARCH == owner().type()) { //штапик в арке
-                    //((AreaArch) root()).shtapik(this, spcAdd);
+                    ((AreaArch) root()).shtapik(this, spcAdd);
                 } else { //штапик в прямоугольнике
 
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
