@@ -92,5 +92,23 @@ public class FillingTest extends ParamTest {
         assert false == fillingDet2.check(mapParam, glass_left_2, param("КП-40", grup)) : grup;
         
         grup = 14065; //15055 //Ограничение угла, ° или Точный угол
+        assert true == fillingDet2.check(mapParam, glass_left_2, param("270", grup)) : grup;
+        assert false == fillingDet2.check(mapParam, glass_left_2, param("270,1", grup)) : grup;    
+        
+        grup = 14067; //15067 //Коды основной текстуры изделия 
+        assert true == fillingDet2.check(mapParam, glass_right_2, param("1009", grup)) : grup;
+        assert false == fillingDet2.check(mapParam, glass_right_2, param("109", grup)) : grup; 
+        
+        grup = 14068; //15068 //Коды внутр. текстуры изделия
+        assert true == fillingDet2.check(mapParam, glass_right_2, param("1009", grup)) : grup;
+        assert false == fillingDet2.check(mapParam, glass_right_2, param("109", grup)) : grup;
+
+        grup = 14069; //15069 //Коды внешн. текстуры изделия
+        assert true == fillingDet2.check(mapParam, glass_right_2, param("1009", grup)) : grup;
+        assert false == fillingDet2.check(mapParam, glass_right_2, param("109", grup)) : grup;   
+        
+        grup = 14081; //15081 //Если артикул профиля контура
+        assert true == fillingDet3.check(mapParam, glass_left_3, param("21316-05000", grup)) : grup;
+        assert false == fillingDet3.check(mapParam, glass_left_3, param("21316=05000", grup)) : grup;        
     }
 }

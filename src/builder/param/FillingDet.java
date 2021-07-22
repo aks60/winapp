@@ -123,29 +123,32 @@ public class FillingDet extends Par5s {
                     break;
                 case 14067:  //Коды основной текстуры изделия 
                 case 15067:  //Коды основной текстуры изделия    
-                    int c1 = elem5e.iwin().colorID1;
-                    if (Util.containsNumb(rec.getStr(TEXT), c1) == false) {
+                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
                         return false;
                     }
                     break;
                 case 14068:  //Коды внутр. текстуры изделия 
                 case 15068:  //Коды внутр. текстуры изделия     
-                    int c2 = elem5e.iwin().colorID2;
-                    if (Util.containsNumb(rec.getStr(TEXT), c2) == false) {
+                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
                         return false;
                     }
                     break;
                 case 14069:  //Коды внешн. текстуры изделия 
                 case 15069:  //Коды внешн. текстуры изделия     
-                    int c3 = elem5e.iwin().colorID3;
-                    if (Util.containsNumb(rec.getStr(TEXT), c3) == false) {
+                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID3) == false) {
                         return false;
                     }
                     break;
-                case 14081:  //Если артикул профиля контура 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 14095:  //Если признак системы конструкции 
+                case 14081: //Если артикул профиля контура 
+                case 15081: //Если артикул профиля контура 
+                {
+                   ElemSimple elem = (elem5e.owner().mapFrame.isEmpty() == false) ?elem5e.owner().mapFrame.get(LayoutArea.BOTT) :elem5e.root().mapFrame.get(LayoutArea.BOTT);
+                   if(rec.getStr(TEXT).equals(elem.artiklRecAn.getStr(eArtikl.code)) == false) {
+                       return false;
+                   }
+                }
+                break;
+                case 14095: //Если признак системы конструкции 
                 case 15095: //Если признак системы конструкции  
                 {
                     Record systreeRec = eSystree.find(iwin.nuni);
@@ -161,10 +164,7 @@ public class FillingDet extends Par5s {
                         return false;
                     }
                 }
-                break;
-                case 15010:  //Расчет реза штапика 
-                    mapParam.put(grup, rec.getStr(TEXT));
-                    break;
+                break; 
                 case 15011:  //Расчет реза штапика 
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
@@ -192,9 +192,6 @@ public class FillingDet extends Par5s {
                     if (elem5e.spcRec.getParam("0", 31052).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                         mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     }
-                    break;
-                case 15081:  //Если артикул профиля контура 
-                    message(rec.getInt(GRUP));
                     break;
                 default:
                     assert !(grup > 0 && grup < 50000) : "Код " + grup + "  не обработан!!!";

@@ -177,8 +177,7 @@ public class ElementDet extends Par5s {
                 case 38067:  //Коды основной текстуры изделия    
                 case 39067:  //Коды основной текстуры изделия
                 case 40067:  //Коды основной текстуры изделия                     
-                    int c1 = elem5e.iwin().colorID1;
-                    if (Util.containsNumb(rec.getStr(TEXT), c1) == false) {
+                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
                         return false;
                     }
                     break;
@@ -187,8 +186,7 @@ public class ElementDet extends Par5s {
                 case 38068:  //Коды внутр. текстуры изделия 
                 case 39068:  //Коды внутр. текстуры изделия
                 case 40068:  //Коды внутр. текстуры изделия    
-                    int c2 = elem5e.iwin().colorID2;
-                    if (Util.containsNumb(rec.getStr(TEXT), c2) == false) {
+                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
                         return false;
                     }
                     break;
@@ -198,8 +196,7 @@ public class ElementDet extends Par5s {
                 case 39069:  //Коды внешн. текстуры изделия 
                 case 40069: //Коды внешн. текстуры изделия  
                 {
-                    int c3 = elem5e.iwin().colorID3;
-                    if (Util.containsNumb(rec.getStr(TEXT), c3) == false) {
+                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID3) == false) {
                         return false;
                     }
                 }

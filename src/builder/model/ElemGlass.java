@@ -142,11 +142,22 @@ public class ElemGlass extends ElemSimple {
                         spcAdd.width += height() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
                     }
-                    if (anglHoriz == sideHoriz[0]) {
+                    if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2] ) {
                         if ("Нет".equals(spcAdd.mapParam.get(15010))) { //Усекать нижний штапик
+                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                        } 
+//                        if ("усекать нижний".equals(spcAdd.mapParam.get(15011)) == false) { //Расчет реза штапика
+//                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+//                            
+//                        } else  if ("усекать боковой".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
+//                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+//                        }
+                    } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3] ) {
+                        if("Да".equals(spcAdd.mapParam.get(15010))) {
                             spcAdd.width = spcAdd.width - 2 * spcAdd.height;
                         }
                     }
+                    
                     spcRec.spcList.add(spcAdd);
                 }
             } else { //всё остальное
