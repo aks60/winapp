@@ -165,6 +165,7 @@ public class FillingDet extends Par5s {
                     }
                 }
                 break; 
+                case 15010:  //Усекать нижний штапик 
                 case 15011:  //Расчет реза штапика 
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;

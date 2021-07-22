@@ -12,6 +12,7 @@ import enums.TypeElem;
 import builder.making.Specific;
 import common.Util;
 import domain.eGlasprof;
+import domain.eSetting;
 import enums.PKjson;
 import enums.UseUnit;
 import java.util.EnumMap;
@@ -131,33 +132,41 @@ public class ElemGlass extends ElemSimple {
         if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
             if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {  //штапик
                 if (TypeElem.ARCH == owner().type()) { //штапик в арке
-                    ((AreaArch) root()).shtapik(this, spcAdd);                   
+                    ((AreaArch) root()).shtapik(this, spcAdd);
                 } else { //штапик в прямоугольнике
 
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
+                        if (spcAdd.mapParam.get(15010) != null) {
+                            if ("Нет".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
+                                spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                            }
+                        }
+                        if (spcAdd.mapParam.get(15011) != null) {
+                            if ("усекать боковой".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
+                                spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                            }
+                        }
 
                     } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
                         spcAdd.width += height() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
-                    }
-                    if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2] ) {
-                        if ("Нет".equals(spcAdd.mapParam.get(15010))) { //Усекать нижний штапик
-                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
-                        } 
-//                        if ("усекать нижний".equals(spcAdd.mapParam.get(15011)) == false) { //Расчет реза штапика
-//                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
-//                            
-//                        } else  if ("усекать боковой".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
-//                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
-//                        }
-                    } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3] ) {
-                        if("Да".equals(spcAdd.mapParam.get(15010))) {
-                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                        if (spcAdd.mapParam.get(15010) != null) {
+                            if ("Да".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
+                                spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                            }
                         }
+                        if (spcAdd.mapParam.get(15011) != null) {
+                            if ("усекать нижний".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
+                                spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                            }
+                        }                        
                     }
-                    
+                    if("по биссектрисе".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
+                        //
+                    }
+
                     spcRec.spcList.add(spcAdd);
                 }
             } else { //всё остальное
@@ -170,6 +179,7 @@ public class ElemGlass extends ElemSimple {
                     } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
                         spcAdd.width = spcAdd.width + height() + gzazo;
                     }
+
                     spcRec.spcList.add(spcAdd);
                 }
             }
