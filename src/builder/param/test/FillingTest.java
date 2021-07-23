@@ -109,6 +109,10 @@ public class FillingTest extends ParamTest {
         
         grup = 14081; //15081 //Если артикул профиля контура
         assert true == fillingDet3.check(mapParam, glass_left_3, param("21316-05000", grup)) : grup;
-        assert false == fillingDet3.check(mapParam, glass_left_3, param("21316=05000", grup)) : grup;        
+        assert false == fillingDet3.check(mapParam, glass_left_3, param("21316=05000", grup)) : grup; 
+        
+        grup = 15027; //12027  //Рассчитывать для профиля ++++
+        assert true == fillingDet4.check(mapParam, glass_left_4, param("без уплотнителя", grup)) : grup;
+        assert false == fillingDet4.check(mapParam, glass_left_4, param("с уплотнителем", grup)) : grup; 
     }
 }

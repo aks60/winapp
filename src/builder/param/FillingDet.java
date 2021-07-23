@@ -181,10 +181,10 @@ public class FillingDet extends Par5s {
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 15040:  //Количество 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 15045:  //Длина, мм 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 15050:  //Поправка, мм 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));

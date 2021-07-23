@@ -8,6 +8,7 @@ import dataset.*;
 import com.google.gson.GsonBuilder;
 import builder.param.test.ElementTest;
 import builder.param.test.FillingTest;
+import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
 import domain.eElement;
 import frames.DBCompare;
@@ -123,12 +124,14 @@ public class Test {
         ElementTest et = new ElementTest();
         JoiningTest jt = new JoiningTest();
         FillingTest gt = new FillingTest();
+        FurnitureTest ft = new FurnitureTest();
 //        et.elementVar();
 //        et.elementDet();
 //        jt.joiningVar();
 //        jt.joiningDet();
 //        gt.fillingVar();
-        gt.fillingDet();
+//        gt.fillingDet();
+          ft.furnitureVar();
         
 //        Query.connection = Test.connect2();
 //        Set set = new HashSet();
