@@ -85,10 +85,10 @@ public class Furniture extends Cal5e {
 
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnside1List) {
-                ElemFrame sideFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
+                ElemFrame elemFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
 
                 //ФИЛЬТР вариантов с учётом стороны
-                if (furnitureVar.filter(sideFrame, furnside1Rec) == false) {
+                if (furnitureVar.filter(elemFrame, furnside1Rec) == false) {
                     return;
                 }
             }

@@ -54,7 +54,7 @@ public class FurnitureVar extends Par5s {
                     }
                     break;
                 case 21004:  //Артикул створки 
-                    if (elem5e.artiklRec.getStr(eArtikl.code).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                    if (elem5e.artiklRecAn.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;

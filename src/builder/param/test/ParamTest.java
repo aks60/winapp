@@ -9,6 +9,8 @@ import builder.param.ElementDet;
 import builder.param.ElementVar;
 import builder.param.FillingDet;
 import builder.param.FillingVar;
+import builder.param.FurnitureDet;
+import builder.param.FurnitureVar;
 import builder.param.JoiningDet;
 import builder.param.JoiningVar;
 import dataset.Record;
@@ -50,6 +52,8 @@ public class ParamTest {
     protected JoiningDet joiningDet2 = null;
     protected FillingVar fillingVar2 = null;
     protected FillingDet fillingDet2 = null;
+    protected FurnitureVar furnitureVar2 = null;
+    protected FurnitureDet furnitureDet2 = null;
 
     builder.Wincalc iwin_3 = null; //604005
     protected ElementVar elementVar3 = null;
@@ -58,6 +62,8 @@ public class ParamTest {
     protected JoiningDet joiningDet3 = null;
     protected FillingVar fillingVar3 = null;
     protected FillingDet fillingDet3 = null;
+    protected FurnitureVar furnitureVar3 = null;
+    protected FurnitureDet furnitureDet3 = null;    
 
     builder.Wincalc iwin_4 = null; //700027
     protected ElementVar elementVar4 = null;
@@ -66,6 +72,8 @@ public class ParamTest {
     protected JoiningDet joiningDet4 = null;
     protected FillingVar fillingVar4 = null;
     protected FillingDet fillingDet4 = null;
+    protected FurnitureVar furnitureVar4 = null;
+    protected FurnitureDet furnitureDet4 = null;    
 
     public ParamTest() {
         iwin2();
@@ -85,6 +93,8 @@ public class ParamTest {
         fillingDet2 = new FillingDet(iwin_2);
         joiningVar2 = new JoiningVar(iwin_2);
         joiningDet2 = new JoiningDet(iwin_2);
+        furnitureVar2 = new FurnitureVar(iwin_2);
+        furnitureDet2 = new FurnitureDet(iwin_2);
         frame_left_2 = getElem(iwin_2.rootArea, 1.0f);
         frame_right_2 = getElem(iwin_2.rootArea, 2.0f);
         stv_right_2 = getElem(iwin_2.rootArea, 10.2f);
@@ -108,6 +118,8 @@ public class ParamTest {
         fillingDet3 = new FillingDet(iwin_3);
         joiningVar3 = new JoiningVar(iwin_3);
         joiningDet3 = new JoiningDet(iwin_3);
+        furnitureVar3 = new FurnitureVar(iwin_3);
+        furnitureDet3 = new FurnitureDet(iwin_3);        
         frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
         stv_right_3 = getElem(iwin_3.rootArea, 9.2f);
@@ -129,6 +141,8 @@ public class ParamTest {
         fillingDet4 = new FillingDet(iwin_4);
         joiningVar4 = new JoiningVar(iwin_4);
         joiningDet4 = new JoiningDet(iwin_4);
+        furnitureVar4 = new FurnitureVar(iwin_4);
+        furnitureDet4 = new FurnitureDet(iwin_4);        
         frame_left_4 = getElem(iwin_4.rootArea, 1.0f);
         frame_right_4 = getElem(iwin_4.rootArea, 2.0f);
         stv_left_4 = getElem(iwin_4.rootArea, 6.4f);
