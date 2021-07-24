@@ -1957,9 +1957,10 @@ public class Systree extends javax.swing.JFrame {
         lab23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab23.setPreferredSize(new java.awt.Dimension(120, 18));
 
+        txt1.setEditable(false);
+        txt1.setBackground(new java.awt.Color(255, 255, 255));
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt1.setFocusable(false);
         txt1.setPreferredSize(new java.awt.Dimension(70, 18));
 
         txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1978,23 +1979,26 @@ public class Systree extends javax.swing.JFrame {
         txt5.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt5.setPreferredSize(new java.awt.Dimension(72, 18));
 
+        txt7.setEditable(false);
+        txt7.setBackground(new java.awt.Color(255, 255, 255));
         txt7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt7.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt7.setFocusable(false);
         txt7.setPreferredSize(new java.awt.Dimension(70, 18));
 
+        txt8.setEditable(false);
+        txt8.setBackground(new java.awt.Color(255, 255, 255));
         txt8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt8.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt8.setFocusable(false);
         txt8.setPreferredSize(new java.awt.Dimension(450, 18));
 
         txt10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt10.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt10.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt11.setEditable(false);
+        txt11.setBackground(new java.awt.Color(255, 255, 255));
         txt11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt11.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txt11.setFocusable(false);
         txt11.setPreferredSize(new java.awt.Dimension(70, 18));
 
         txt15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));

@@ -9,8 +9,12 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import java.util.List;
 import builder.Wincalc;
+import builder.model.AreaStvorka;
+import builder.model.Com5t;
 import builder.model.ElemSimple;
 import common.Util;
+import domain.eSystree;
+import java.util.LinkedList;
 
 //Фурнитура
 public class FurnitureVar extends Par5s {
@@ -27,8 +31,8 @@ public class FurnitureVar extends Par5s {
         }
         //Цикл по параметрам фурнитуры
         for (Record rec : paramList) {
-            if(check(elem5e, rec) == false) {
-               return false; 
+            if (check(elem5e, rec) == false) {
+                return false;
             }
         }
         return true;
@@ -58,9 +62,14 @@ public class FurnitureVar extends Par5s {
                         return false;
                     }
                     break;
-                case 21005:  //Артикул заполнения по умолчанию 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 21005: //Артикул заполнения по умолчанию 
+                {
+                    Record sysreeRec = eSystree.find(iwin.nuni); //по умолчанию стеклопакет
+                    if (rec.getStr(TEXT).equals(sysreeRec.getStr(eSystree.glas)) == false) {
+                        return false;
+                    }
+                }
+                break;
                 case 21010: //Ограничение длины стороны, мм 
                 {
                     float length = 0;
