@@ -160,7 +160,9 @@ public class FurnitureVar extends Par5s {
                     }
                     break;
                 case 21050:  //Ориентация стороны, ° 
-                    message(rec.getInt(GRUP));
+                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
+                        return false;
+                    }
                     break;
                 case 21085:  //Надпись на эскизе 
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));

@@ -132,6 +132,7 @@ public class Test {
 //        gt.fillingVar();
 //        gt.fillingDet();
           ft.furnitureVar();
+          ft.furnitureDet();
         
 //        Query.connection = Test.connect2();
 //        Set set = new HashSet();

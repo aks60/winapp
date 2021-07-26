@@ -45,8 +45,9 @@ public class FurnitureDet extends Par5s {
         try {
             switch (grup) {
 
-                case 24001:  //Форма контура 
-                case 25001: {
+                case 24001: //Форма контура 
+                case 25001: //Форма контура 
+                {
                     //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
                     if ("прямоугольная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(areaStv.type()) == false
                             && TypeElem.AREA.equals(areaStv.type()) == false && TypeElem.STVORKA.equals(areaStv.type()) == false) {

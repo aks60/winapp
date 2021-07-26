@@ -1,7 +1,9 @@
 
 package builder.param.test;
 
+import builder.model.AreaStvorka;
 import enums.LayoutArea;
+import java.util.HashMap;
 
 public class FurnitureTest extends ParamTest {
 
@@ -41,11 +43,16 @@ public class FurnitureTest extends ParamTest {
         grup = 21040;  //Ограничение угла
         assert true == furnitureVar2.check(stv_right_2, param("74-360", grup)) : grup;
         assert false == furnitureVar2.check(stv_right_2, param("12-55", grup)) : grup;         
-                
-        //grup = 21050;  //Ориентация стороны 
     }
     
     public void furnitureDet() {
+        HashMap<Integer, String> mapParam = new HashMap();
+        AreaStvorka area_stv_3 = (AreaStvorka) stv_right_3.owner();
         
+        grup = 24001; //25001 //Форма контура
+        assert true == furnitureDet2.check(mapParam, area_stv_3, param("прямоугольная", grup)) : grup;
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("прямоугольная", grup)) : grup;        
+//        assert true == furnitureDet3.check(mapParam, area_stv_3, param("арочная", grup)) : grup;        
+//        assert false == furnitureDet3.check(mapParam, area_stv_3, param("не арочная", grup)) : grup;        
     }
 }
