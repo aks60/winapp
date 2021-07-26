@@ -8,6 +8,22 @@ import java.util.List;
 
 public class Util {
 
+    public static Integer getInt(String str) {
+        try {
+            if (str == null || str.isEmpty()) {
+                return 0;
+            }
+            if (str.charAt(str.length() - 1) == ';') {
+                str = str.substring(0, str.length() - 1);
+            }
+            return Integer.valueOf(str);
+            
+        } catch (Exception e) {
+            System.out.println("Ошибка:common.Util.getInt()");
+            return 0;
+        }
+    }
+
     public static Float getFloat(String str) {
 
         if (str != null && str.isEmpty() == false) {

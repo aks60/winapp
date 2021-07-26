@@ -32,7 +32,7 @@ public class AreaStvorka extends AreaSimple {
     public Record handleRec = eArtikl.virtualRec(); //ручка
     public int handleColor = -3; //цвет ручки
     public float handleHeight = 0; //высота ручки
-    public LayoutHandle handleLayout = LayoutHandle.SET; //положение ручки на створке       
+    public LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке       
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
@@ -118,8 +118,8 @@ public class AreaStvorka extends AreaSimple {
         //Положение или высота ручки на створке
         if (param(param, PKjson.positionHandl) != -1) {
             int position = param(param, PKjson.positionHandl);
-            if (position == LayoutHandle.SET.id) {
-                handleLayout = LayoutHandle.SET;
+            if (position == LayoutHandle.VARIAT.id) {
+                handleLayout = LayoutHandle.VARIAT;
                 handleHeight = param(param, PKjson.heightHandl);
             } else {
                 handleLayout = (position == LayoutHandle.MIDL.id) ? LayoutHandle.MIDL : LayoutHandle.CONST;
@@ -131,8 +131,8 @@ public class AreaStvorka extends AreaSimple {
         } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.CONST.id) {
             handleLayout = LayoutHandle.CONST;
             handleHeight = stvLeft.height() / 2;
-        } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.SET.id) {
-            handleLayout = LayoutHandle.SET;
+        } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.VARIAT.id) {
+            handleLayout = LayoutHandle.VARIAT;
             handleHeight = stvLeft.height() / 2;
         } else {
             handleLayout = LayoutHandle.MIDL; //по умолчанию

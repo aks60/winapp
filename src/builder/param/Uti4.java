@@ -103,31 +103,7 @@ class Uti4 {
         }
         return true;
     }
-
-//    //Для технологического кода контейнера 
-//    static boolean is_STRING_XX000(String txt, AreaSimple area5e) {
-//        Record sysprofRec = area5e.sysprofRec;
-//        Record artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-//        if (artiklRecAn.get(eArtikl.tech_code) == null) {
-//            return false;
-//        }
-//        String[] strList = txt.split(";");
-//        String[] strList2 = artiklRecAn.getStr(eArtikl.tech_code).split(";");
-//        boolean ret2 = false;
-//        for (String str : strList) {
-//            for (String str2 : strList2) {
-//                if (str.equals("*")) {
-//                    ret2 = true;
-//                } else if (str.equals(str2)) {
-//                    ret2 = true;
-//                }
-//            }
-//        }
-//        if (ret2 == false) {
-//            return false;
-//        }
-//        return true;
-//    }
+    
     //Если признак системы конструкции
     static boolean is_11095_12095_31095_33095_34095_37095_38095_39095_40095(String txt, int nuni) {
         Record systreefRec = eSystree.find(nuni);
@@ -135,7 +111,7 @@ class Uti4 {
         List<String> arrList = Arrays.asList(arr);
         boolean ret = false;
         for (String str : arrList) {
-            if (systreefRec.getInt(eSystree.types) == Integer.valueOf(str) == true) {
+            if (systreefRec.getInt(eSystree.types) == Util.getInt(str) == true) {
                 ret = true;
             }
         }
@@ -234,4 +210,17 @@ class Uti4 {
         return true;
     }
 
+    static boolean is_21010_21011_21012_21013(String txt, ElemSimple elem5e) {
+        String[] arr = txt.split("-");
+        if (arr.length == 1) { //Минимальная длина, мм
+            if (Util.getInt(txt) < elem5e.length()) {
+                return false;
+            }
+        } else {
+            if (Util.getInt(arr[0]) > elem5e.length() || Util.getInt(arr[1]) < elem5e.length()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

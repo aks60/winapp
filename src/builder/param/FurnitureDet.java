@@ -208,7 +208,7 @@ public class FurnitureDet extends Par5s {
                         return false;
                     } else if (LayoutHandle.MIDL != areaStv.handleLayout && rec.getStr(TEXT).equalsIgnoreCase("по середине")) {
                         return false;
-                    } else if (LayoutHandle.SET != areaStv.handleLayout && rec.getStr(TEXT).equalsIgnoreCase("установлена")) {
+                    } else if (LayoutHandle.VARIAT != areaStv.handleLayout && rec.getStr(TEXT).equalsIgnoreCase("установлена")) {
                         return false;
                     }
                     break;

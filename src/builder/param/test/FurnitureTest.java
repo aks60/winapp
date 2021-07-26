@@ -1,6 +1,8 @@
 
 package builder.param.test;
 
+import enums.LayoutArea;
+
 public class FurnitureTest extends ParamTest {
 
     public FurnitureTest() {
@@ -22,7 +24,22 @@ public class FurnitureTest extends ParamTest {
 
         grup = 21005;  //Артикул заполнения по умолчанию  
         assert true == furnitureVar3.check(stv_right_3, param("4x10x4x10x4", grup)) : grup;                
-        assert false == furnitureVar3.check(stv_right_3, param("xxx", grup)) : grup;                
+        assert false == furnitureVar3.check(stv_right_3, param("xxx", grup)) : grup;   
+        
+        grup = 21010; //Ограничение длины стороны, мм 
+        assert true == furnitureVar3.check(stv_right_3, param("0-6000", grup)) : grup;                
+        assert false == furnitureVar3.check(stv_right_3, param("5000-6000", grup)) : grup;   
+        
+        grup = 21013; //Ограничение длины ручка по середине, мм
+        assert true == furnitureVar3.check(stv_right_3, param("940-1200", grup)) : grup;                
+        assert false == furnitureVar3.check(stv_right_3, param("500", grup)) : grup;           
+        
+        grup = 21016; //Допустимое соотношение габаритов (б/м)
+        assert true == furnitureVar2.check(stv_right_2, param("1,1-2,0", grup)) : grup;
+        assert false == furnitureVar2.check(stv_right_2, param("1-1,09", grup)) : grup; 
+        
+        grup = 21050;  //Ориентация стороны
+        
     }
     
     public void furnitureDet() {

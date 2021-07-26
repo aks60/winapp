@@ -398,7 +398,7 @@ public class ElementVar extends Par5s {
                     } else {
                         float max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
                         float min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
-                        if (Util.containsNumb(rec.getStr(TEXT), max / min)) {
+                        if (Util.containsNumb(rec.getStr(TEXT), max / min) == false) {
                             return false;
                         }
                     }

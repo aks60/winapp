@@ -5,16 +5,14 @@ import domain.eArtikl;
 import domain.eFurnpar1;
 import domain.eFurnside1;
 import domain.eSetting;
-import enums.LayoutArea;
 import enums.TypeElem;
 import java.util.List;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
-import builder.model.Com5t;
 import builder.model.ElemSimple;
 import common.Util;
 import domain.eSystree;
-import java.util.LinkedList;
+import enums.LayoutHandle;
 
 //Фурнитура
 public class FurnitureVar extends Par5s {
@@ -71,40 +69,66 @@ public class FurnitureVar extends Par5s {
                 }
                 break;
                 case 21010: //Ограничение длины стороны, мм 
-                {
-                    float length = 0;
-                    if (LayoutArea.LEFT == elem5e.layout() || LayoutArea.RIGHT == elem5e.layout()) {
-                        length = elem5e.height();
-                    } else if (LayoutArea.TOP == elem5e.layout() || LayoutArea.BOTT == elem5e.layout()) {
-                        length = elem5e.width();
+                    if (Uti4.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
+                        return false;
                     }
-                    if ("ps3".equals(eSetting.find(2))) { //Минимальная длина, мм
-                        if (rec.getInt(TEXT) > length) {
-                            return false;
-                        }
-                    } else {
-                        String[] arr = rec.getStr(TEXT).split("/");
-                        if (Integer.valueOf(arr[0]) > length || Integer.valueOf(arr[1]) < length) {
+                    break;
+                case 21011: //Ограничение длины ручка константа, мм 
+                {
+                    AreaStvorka stv = (AreaStvorka) elem5e.owner();
+                    if (stv.handleLayout == LayoutHandle.CONST) {
+                        if (Uti4.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
                             return false;
                         }
                     }
                 }
                 break;
-                case 21011:  //Ограничение длины ручка константа, мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 21012:  //Ограничение длины ручка вариацион, мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 21013:  //Ограничение длины ручка по середине, мм 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 21012: //Ограничение длины ручка вариацион, мм 
+                {
+                    AreaStvorka stv = (AreaStvorka) elem5e.owner();
+                    if (stv.handleLayout == LayoutHandle.VARIAT) {
+                        if (Uti4.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
+                            return false;
+                        }
+                    }
+                }
+                break;
+                case 21013: //Ограничение длины ручка по середине, мм 
+                {
+                    AreaStvorka stv = (AreaStvorka) elem5e.owner();
+                    if (stv.handleLayout == LayoutHandle.MIDL) {
+                        if (Uti4.is_21010_21011_21012_21013(rec.getStr(TEXT), elem5e) == false) {
+                            return false;
+                        }
+                    }
+                }
+                break;
                 case 21016:  //Допустимое соотношение габаритов б/м) 
-                    message(rec.getInt(GRUP));
+                    if ("ps3".equals(versionDb)) { //Мин. соотношение габаритов (б/м)
+                        float max = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().width() : elem5e.owner().height();
+                        float min = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().height() : elem5e.owner().width();
+                        if (rec.getFloat(TEXT) > max / min) {
+                            return false;
+                        }
+                    } else {
+                        float max = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().width() : elem5e.owner().height();
+                        float min = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().height() : elem5e.owner().width();
+                        if (Util.containsNumb(rec.getStr(TEXT), max / min) == false) {
+                            return false;
+                        }
+                    }
                     break;
-                case 21037:  //Диапазон высоты вариационной ручки, мм 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 21037: //Диапазон высоты вариационной ручки, мм 
+                {
+                    AreaStvorka stv = (AreaStvorka) elem5e.owner();
+                    if (stv.handleLayout == LayoutHandle.VARIAT) {
+                        String[] arr = rec.getStr(TEXT).split("-");
+                        if (Util.getInt(arr[0]) > stv.handleHeight || Util.getInt(arr[1]) < stv.handleHeight) {
+                            return false;
+                        }
+                    }
+                }
+                break;
                 case 21039:  //Минимальный угол, °
                     if ("ps3".equals(eSetting.find(2))) {
                         if (elem5e.anglHoriz < rec.getFloat(TEXT)) {

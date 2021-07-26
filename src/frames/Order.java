@@ -428,7 +428,7 @@ public class Order extends javax.swing.JFrame {
                 txt20.setText(eFurniture.find(id).getStr(eFurniture.name));
                 txt30.setText(stv.typeOpen.name2);
                 txt16.setText(stv.handleLayout.name);
-                if (stv.handleLayout == LayoutHandle.SET) {
+                if (stv.handleLayout == LayoutHandle.VARIAT) {
                     txt31.setEditable(true);
                     txt31.setText(String.valueOf(stv.handleHeight));
                 } else {
@@ -2449,7 +2449,7 @@ public class Order extends javax.swing.JFrame {
         int indexLayoutHandl = 0;
         if (LayoutHandle.CONST.name.equals(txt16.getText())) {
             indexLayoutHandl = 1;
-        } else if (LayoutHandle.SET.name.equals(txt16.getText())) {
+        } else if (LayoutHandle.VARIAT.name.equals(txt16.getText())) {
             indexLayoutHandl = 2;
         }
         new DicHandl(this, (record) -> {
@@ -2468,7 +2468,7 @@ public class Order extends javax.swing.JFrame {
                     txt31.setEditable(false);
 
                 } else if (record.getInt(0) == 2) {
-                    paramObj.addProperty(PKjson.positionHandl, LayoutHandle.SET.id);
+                    paramObj.addProperty(PKjson.positionHandl, LayoutHandle.VARIAT.id);
                     paramObj.addProperty(PKjson.heightHandl, record.getInt(1));
                     txt31.setEditable(true);
                 }
