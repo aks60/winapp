@@ -38,8 +38,11 @@ public class FurnitureTest extends ParamTest {
         assert true == furnitureVar2.check(stv_right_2, param("1,1-2,0", grup)) : grup;
         assert false == furnitureVar2.check(stv_right_2, param("1-1,09", grup)) : grup; 
         
-        grup = 21050;  //Ориентация стороны
-        
+        grup = 21040;  //Ограничение угла
+        assert true == furnitureVar2.check(stv_right_2, param("74-360", grup)) : grup;
+        assert false == furnitureVar2.check(stv_right_2, param("12-55", grup)) : grup;         
+                
+        //grup = 21050;  //Ориентация стороны 
     }
     
     public void furnitureDet() {
