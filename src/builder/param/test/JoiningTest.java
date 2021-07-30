@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class JoiningTest extends ParamTest {
 
-   public JoiningTest() {
+    public JoiningTest() {
         super();
     }
 
@@ -71,10 +71,9 @@ public class JoiningTest extends ParamTest {
     }
 
     /**
-    select d.id,  c.name, b.id, a.text from joinpar2 a
-    left join joindet b on b.id = a.joindet_id
-    left join joinvar c on c.id = b.joinvar_id
-    left join joining d on d.id = c.joining_id where a.params_id = 11009   
+     * select d.id, c.name, b.id, a.text from joinpar2 a left join joindet b on
+     * b.id = a.joindet_id left join joinvar c on c.id = b.joinvar_id left join
+     * joining d on d.id = c.joining_id where a.params_id = 11009
      */
     public void joiningDet() {
         HashMap<Integer, String> mapParam = new HashMap();
@@ -92,7 +91,6 @@ public class JoiningTest extends ParamTest {
 //        grup = 11002; //12002 //Если признак состава Арт.2 
 //        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
 //        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
-
         grup = 11005;  //12005 //Контейнер типа
         assert true == joiningDet3.check(mapParam, iwin_3.mapJoin.get(frame_right_3.joinPoint(1)), param("1-3", grup)) : grup;
         assert false == joiningDet3.check(mapParam, iwin_3.mapJoin.get(frame_right_3.joinPoint(1)), param("4", grup)) : grup;
@@ -105,13 +103,13 @@ public class JoiningTest extends ParamTest {
         assert true == joiningDet3.check(mapParam, iwin_2.mapJoin.get(frame_right_3.joinPoint(1)), param("30-140;", grup)) : grup;
         assert true == joiningDet3.check(mapParam, iwin_2.mapJoin.get(frame_right_3.joinPoint(1)), param("140;", grup)) : grup;
         assert false == joiningDet3.check(mapParam, iwin_2.mapJoin.get(frame_right_3.joinPoint(1)), param("30;", grup)) : grup;
-        
+
         grup = 11066; //Если текстура профиля Арт.1 
-        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("1009-1010", grup)) : grup;        
-        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("1006", grup)) : grup;        
-    
+        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("1009-1010", grup)) : grup;
+        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("1006", grup)) : grup;
+
         grup = 11095; //12095 //Если признак системы конструкции
         assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("1;5;4;", grup)) : grup;
-        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("5;4;", grup)) : grup;    
+        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("5;4;", grup)) : grup;
     }
 }

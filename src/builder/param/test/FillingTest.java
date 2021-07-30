@@ -14,10 +14,10 @@ public class FillingTest extends ParamTest {
     }
 
     /**
-    select distinct e.id, e.name, b.id, b.name, a.text from glaspar1 a
-    left join glasgrp b on b.id = a.glasgrp_id left join glasprof c on c.glasgrp_id = b.id
-    left join sysprof d on d.artikl_id = c.artikl_id  left join systree e on e.id = d.systree_id
-    where a.params_id = 13014   
+     * select distinct e.id, e.name, b.id, b.name, a.text from glaspar1 a left
+     * join glasgrp b on b.id = a.glasgrp_id left join glasprof c on
+     * c.glasgrp_id = b.id left join sysprof d on d.artikl_id = c.artikl_id left
+     * join systree e on e.id = d.systree_id where a.params_id = 13014
      */
     public void fillingVar() {
 
@@ -58,61 +58,59 @@ public class FillingTest extends ParamTest {
     }
 
     /**
-    select c.name, d.name, a.text from glaspar2 a
-    left join glasdet b on b.id = a.glasdet_id
-    left join glasgrp c on c.id = b.glasgrp_id
-    left join artikl d on b.artikl_id = d.id
-    where a.params_id in (14065, 15055)    
-    */
+     * select c.name, d.name, a.text from glaspar2 a left join glasdet b on b.id
+     * = a.glasdet_id left join glasgrp c on c.id = b.glasgrp_id left join
+     * artikl d on b.artikl_id = d.id where a.params_id in (14065, 15055)
+     */
     public void fillingDet() {
         HashMap<Integer, String> mapParam = new HashMap();
 
         grup = 14000; //15000 //Для технологического кода контейнера
         assert true == fillingDet2.check(mapParam, glass_left_2, param("KBE 58", grup)) : grup;
         assert false == fillingDet2.check(mapParam, glass_left_2, param("KBE;58;", grup)) : grup;
-        
+
         grup = 14001; //15001 //Если признак состава
         //assert true == fillingDet2.check(mapParam, glass_left_2, param("KBE 58", grup)) : grup;
         //assert false == fillingDet2.check(mapParam, glass_left_2, param("XXX", grup)) : grup;
-        
+
         grup = 14005;  //Тип проема
         assert false == fillingDet2.check(mapParam, glass_left_2, param("глухой", grup)) : grup;
-        assert true == fillingDet2.check(mapParam, glass_left_2, param("не глухой", grup)) : grup; 
-        
+        assert true == fillingDet2.check(mapParam, glass_left_2, param("не глухой", grup)) : grup;
+
         grup = 14008; //15008 //Эффективное заполнение изд., мм
         assert true == fillingDet2.check(mapParam, glass_left_2, param("30", grup)) : grup;
-        assert false == fillingDet2.check(mapParam, glass_left_2, param("32", grup)) : grup; 
-        
+        assert false == fillingDet2.check(mapParam, glass_left_2, param("32", grup)) : grup;
+
         grup = 14009;  //Арочное заполнение
         assert true == fillingDet2.check(mapParam, glass_left_2, param("Нет", grup)) : grup;
-        assert false == fillingDet2.check(mapParam, glass_left_2, param("Да", grup)) : grup; 
-            
+        assert false == fillingDet2.check(mapParam, glass_left_2, param("Да", grup)) : grup;
+
         grup = 14017; //15017 //Код системы содержит строку 
         assert true == fillingDet2.check(mapParam, glass_left_2, param("et-1", grup)) : grup;
         assert false == fillingDet2.check(mapParam, glass_left_2, param("КП-40", grup)) : grup;
-        
+
         grup = 14065; //15055 //Ограничение угла, ° или Точный угол
         assert true == fillingDet2.check(mapParam, glass_left_2, param("270", grup)) : grup;
-        assert false == fillingDet2.check(mapParam, glass_left_2, param("270,1", grup)) : grup;    
-        
+        assert false == fillingDet2.check(mapParam, glass_left_2, param("270,1", grup)) : grup;
+
         grup = 14067; //15067 //Коды основной текстуры изделия 
         assert true == fillingDet2.check(mapParam, glass_right_2, param("1009", grup)) : grup;
-        assert false == fillingDet2.check(mapParam, glass_right_2, param("109", grup)) : grup; 
-        
+        assert false == fillingDet2.check(mapParam, glass_right_2, param("109", grup)) : grup;
+
         grup = 14068; //15068 //Коды внутр. текстуры изделия
         assert true == fillingDet2.check(mapParam, glass_right_2, param("1009", grup)) : grup;
         assert false == fillingDet2.check(mapParam, glass_right_2, param("109", grup)) : grup;
 
         grup = 14069; //15069 //Коды внешн. текстуры изделия
         assert true == fillingDet2.check(mapParam, glass_right_2, param("1009", grup)) : grup;
-        assert false == fillingDet2.check(mapParam, glass_right_2, param("109", grup)) : grup;   
-        
+        assert false == fillingDet2.check(mapParam, glass_right_2, param("109", grup)) : grup;
+
         grup = 14081; //15081 //Если артикул профиля контура
         assert true == fillingDet3.check(mapParam, glass_left_3, param("21316-05000", grup)) : grup;
-        assert false == fillingDet3.check(mapParam, glass_left_3, param("21316=05000", grup)) : grup; 
-        
+        assert false == fillingDet3.check(mapParam, glass_left_3, param("21316=05000", grup)) : grup;
+
         grup = 15027; //12027  //Рассчитывать для профиля ++++
         assert true == fillingDet4.check(mapParam, glass_left_4, param("без уплотнителя", grup)) : grup;
-        assert false == fillingDet4.check(mapParam, glass_left_4, param("с уплотнителем", grup)) : grup; 
+        assert false == fillingDet4.check(mapParam, glass_left_4, param("с уплотнителем", grup)) : grup;
     }
 }

@@ -121,18 +121,19 @@ public class Test {
     private static void param() {
 
         Query.connection = Test.connect2();
-        ElementTest et = new ElementTest();
-        JoiningTest jt = new JoiningTest();
-        FillingTest gt = new FillingTest();
-        FurnitureTest ft = new FurnitureTest();
+
+//        ElementTest et = new ElementTest();
 //        et.elementVar();
 //        et.elementDet();
+//        JoiningTest jt = new JoiningTest();
 //        jt.joiningVar();
 //        jt.joiningDet();
+//        FillingTest gt = new FillingTest();
 //        gt.fillingVar();
 //        gt.fillingDet();
-          ft.furnitureVar();
-          ft.furnitureDet();
+        FurnitureTest ft = new FurnitureTest();
+        ft.furnitureVar();
+        ft.furnitureDet();
         
 //        Query.connection = Test.connect2();
 //        Set set = new HashSet();
