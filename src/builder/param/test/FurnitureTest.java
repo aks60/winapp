@@ -2,6 +2,7 @@
 package builder.param.test;
 
 import builder.model.AreaStvorka;
+import domain.eArtikl;
 import enums.LayoutArea;
 import java.util.HashMap;
 
@@ -48,11 +49,20 @@ public class FurnitureTest extends ParamTest {
     public void furnitureDet() {
         HashMap<Integer, String> mapParam = new HashMap();
         AreaStvorka area_stv_3 = (AreaStvorka) stv_right_3.owner();
+        AreaStvorka area_stv_2 = (AreaStvorka) stv_right_2.owner();
         
         grup = 24001; //25001 //Форма контура
-        assert true == furnitureDet2.check(mapParam, area_stv_3, param("прямоугольная", grup)) : grup;
-        assert false == furnitureDet3.check(mapParam, area_stv_3, param("прямоугольная", grup)) : grup;        
-//        assert true == furnitureDet3.check(mapParam, area_stv_3, param("арочная", grup)) : grup;        
-//        assert false == furnitureDet3.check(mapParam, area_stv_3, param("не арочная", grup)) : grup;        
+        assert true == furnitureDet3.check(mapParam, area_stv_3, param("арочная", grup)) : grup;
+        assert true == furnitureDet2.check(mapParam, area_stv_2, param("прямоугольная", grup)) : grup;        
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("не арочная", grup)) : grup;  
+        
+        grup =24002;  //Если артикул створки
+        assert true == furnitureDet2.check(mapParam, area_stv_2, param("917.07", grup)) : grup;
+        assert false == furnitureDet2.check(mapParam, area_stv_2, param("91X.07", grup)) : grup;
+        
+        grup = 24004; //Если створка прилегает к артикулу
+        assert true == furnitureDet3.check(mapParam, area_stv_3, param("21315-01000", grup)) : grup;
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("xxxxxxxxxxx", grup)) : grup;
+        
     }
 }

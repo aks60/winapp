@@ -49,14 +49,13 @@ public class FurnitureDet extends Par5s {
                 case 25001: //Форма контура 
                 {
                     //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
-                    if ("прямоугольная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(areaStv.type()) == false
-                            && TypeElem.AREA.equals(areaStv.type()) == false && TypeElem.STVORKA.equals(areaStv.type()) == false) {
+                    if ("прямоугольная".equalsIgnoreCase(rec.getStr(TEXT)) && iwin.rootArea.type() == TypeElem.RECTANGL == false) {
                         return false;
-                    } else if ("трапециевидная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.TRAPEZE.equals(areaStv.type()) == false) {
+                    } else if ("трапециевидная".equalsIgnoreCase(rec.getStr(TEXT)) && iwin.rootArea.type() == TypeElem.TRAPEZE == false) {
                         return false;
-                    } else if ("арочная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(areaStv.type()) == false) {
+                    } else if ("арочная".equalsIgnoreCase(rec.getStr(TEXT)) && iwin.rootArea.type() == TypeElem.ARCH == false) {
                         return false;
-                    } else if ("не арочная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(areaStv.type()) == true) {
+                    } else if ("не арочная".equalsIgnoreCase(rec.getStr(TEXT)) && iwin.rootArea.type() != TypeElem.ARCH == false) {
                         return false;
                     }
                     break;
@@ -68,13 +67,19 @@ public class FurnitureDet extends Par5s {
                     }
                     break;
                 case 24003:  //Если артикул цоколя 
+                case 25003:  //Если артикул цоколя 
                     message(rec.getInt(GRUP));
                     break;
-                case 24004:  //Если створка прилегает к артикулу 
-                    message(rec.getInt(GRUP));
+                case 24004: //Если створка прилегает к артикулу 
+                    if (areaStv.mapFrame.entrySet().stream().filter(el -> el.getValue().joinElem(2).artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))).findFirst().orElse(null) == null) {
+                        return false;
+                    }
                     break;
                 case 24005:  //Коды текстуры створки 
-                    message(rec.getInt(GRUP));
+                case 25005:  //Коды текстуры створки 
+                    if (areaStv.mapFrame.entrySet().stream().filter(el -> Util.containsNumb(rec.getStr(TEXT), el.getValue().colorID1) == false).findFirst().orElse(null) == null) {
+                        return false;
+                    }
                     break;
                 case 24006:  //Установить текстуру 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
@@ -251,12 +256,6 @@ public class FurnitureDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 24803:  //Доп.симметр. обработка
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25003:  //Если артикул цоколя 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25005:  //Коды текстуры створки 
                     message(rec.getInt(GRUP));
                     break;
                 case 25007:  //Коды текстуры ручки 
