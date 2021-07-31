@@ -140,22 +140,28 @@ public class ElemFrame extends ElemSimple {
                     spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
                 }
             }
-            //Фурнитура
-        } else if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X109)) {
-            if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
-                if ("no".equals(spcAdd.getParam("no", 25013)) == false //"Укорочение от"
-                        && spcAdd.getParam(0, 25030).equals(0) == false) { //"Укорочение, мм"  
-                    spcAdd.width = uti3.get_25013(spcRec, spcAdd); //Укорочение от высоты ручки
-                }
-            } else {
-                spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
-            }
-            //Фурнитура штучная
-        } else if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X210)) {
-            //spcAdd.width = spcAdd.width + height();
 
         } else {
-            if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklDet.getInt(eArtikl.level1))) {
+            
+            if(spcAdd.getParam("null", 24006).equals("null")) {  //Установить текстуру
+            
+            }
+            //Фурнитура
+            if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X109)) {
+                if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
+                    if ("no".equals(spcAdd.getParam("no", 25013)) == false //"Укорочение от"
+                            && spcAdd.getParam(0, 25030).equals(0) == false) { //"Укорочение, мм"  
+                        spcAdd.width = uti3.get_25013(spcRec, spcAdd); //Укорочение от высоты ручки
+                    }
+                } else {
+                    spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
+                }
+                
+                //Фурнитура штучная  
+            } else if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X210)) {
+                //spcAdd.width = spcAdd.width + height();
+
+            } else if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklDet.getInt(eArtikl.level1))) {
                 spcAdd.width += spcRec.width;
             }
         }

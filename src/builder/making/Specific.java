@@ -156,16 +156,16 @@ public class Specific {
         }
     }
 
-    public float getParam(int key) {
-
-        if (mapParam != null) {
-            String str = mapParam.get(Integer.valueOf(key));
-            if (str != null || str.isEmpty() == false) {
-                return Float.parseFloat(str.replace(",", "."));
-            }
-        }
-        return 0;
-    }
+//    public float getParam(int key) {
+//
+//        if (mapParam != null) {
+//            String str = mapParam.get(Integer.valueOf(key));
+//            if (str != null || str.isEmpty() == false) {
+//                return Float.parseFloat(str.replace(",", "."));
+//            }
+//        }
+//        return 0;
+//    }
 
     public String getParam(Object def, int... p) {
 

@@ -63,7 +63,7 @@ public class Par5s {
     protected void message(Specific spc, int code) {
         if (code >= 0) {
             if (ParamList.find(code).pass() != 0) {
-                System.err.println("ВНИМАНИЕ! ID " + spc.id + " ПАРААМЕТР " + code + " VALUE " + spc.getParam(code) + " В РАЗРАБОТКЕ.");
+                System.err.println("ВНИМАНИЕ! ID " + spc.id + " ПАРААМЕТР " + code + " VALUE " + spc.getParam("-1", code) + " В РАЗРАБОТКЕ.");
             }
         }
     }
