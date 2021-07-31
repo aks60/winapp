@@ -471,7 +471,7 @@ public class Specification extends javax.swing.JFrame {
         float id = Util.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         String str = tab1.getValueAt(tab1.getSelectedRow(), 3).toString().substring(0, 3);
         Specific recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
-        Record recordDet = recordSpc.detailRec;
+        Record recordDet = recordSpc.artiklDet;
         if (recordDet != null) {
             FrameProgress.create(Specification.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {

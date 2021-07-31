@@ -69,27 +69,19 @@ public class Specific {
         this(null, artiklRec, elem5e, mapParam);
     }
 
-    public Specific(Record deteilRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
+    public Specific(Record artiklDet, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
         this.id = ++elem5e.iwin().genId;
         this.elem5e = elem5e;
         this.mapParam = mapParam;
-        this.artiklDet = deteilRec;
+        this.artiklDet = artiklDet;
         setArtiklRec(artiklRec);
-    }
-
-    public Specific(Record variantRec, Record deteilRec, Record artiklDet, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
-        this.id = ++elem5e.iwin().genId;
-        this.elem5e = elem5e;
-        this.mapParam = mapParam;
-        this.variantRec = variantRec;
-        this.artiklDet = deteilRec;
-        setArtiklRec(artiklDet);
     }
 
     public Specific(Specific spec) {
         this.id = spec.id; //++spec.elem5e.iwin().genId;
         this.place = spec.place;
         this.artikl = spec.artikl;
+        this.artiklRec = spec.artiklRec;        
         this.artiklDet = spec.artiklDet;
         this.name = spec.name;
         this.colorID1 = spec.colorID1;
@@ -112,7 +104,6 @@ public class Specific {
         this.anglHoriz = spec.anglHoriz;
         this.mapParam = spec.mapParam;
         this.elem5e = spec.elem5e;
-        this.artiklRec = spec.artiklRec;
     }
 
     public Vector getVector(int npp) {
