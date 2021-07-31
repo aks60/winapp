@@ -110,7 +110,7 @@ public class ElemFrame extends ElemSimple {
         spcAdd.width = uti3.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
 
         //Армирование
-        if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X107)) {
+        if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X107)) {
             spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
             spcAdd.anglCut1 = 90;
             spcAdd.anglCut2 = 90;
@@ -146,7 +146,7 @@ public class ElemFrame extends ElemSimple {
                 int colorID = -1;
                 AreaStvorka elemStv = ((AreaStvorka) owner);
                 if ("по текстуре ручки".equals(spcAdd.getParam("null", 24006))) {
-                    colorID = Paint.colorFromArtikl(spcAdd.artiklDet.getInt(eArtikl.id), 1, elemStv.handleColor);
+                    colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor);
 
                 } else if ("по текстуре подвеса".equals(spcAdd.getParam("null", 24006))) {
                     for (Map.Entry<LayoutArea, ElemFrame> elem : elemStv.mapFrame.entrySet()) {
@@ -156,10 +156,10 @@ public class ElemFrame extends ElemSimple {
                         }
                         
                     }
-                    colorID = Paint.colorFromArtikl(spcAdd.artiklDet.getInt(eArtikl.id), 1, elemStv.handleColor);
+                    colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor);
 
                 } else if ("по текстуре замка".equals(spcAdd.getParam("null", 24006))) {
-                    colorID = Paint.colorFromArtikl(spcAdd.artiklDet.getInt(eArtikl.id), 1, elemStv.handleColor);
+                    colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor);
                 }
                 if (colorID != -1) {
                     spcAdd.colorID1 = colorID;
@@ -168,7 +168,7 @@ public class ElemFrame extends ElemSimple {
                 }
             }
             //Фурнитура
-            if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X109)) {
+            if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X109)) {
                 if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
                     if ("null".equals(spcAdd.getParam("null", 25013)) == false //"Укорочение от"
                             && spcAdd.getParam(0, 25030).equals(0) == false) { //"Укорочение, мм"  
@@ -177,7 +177,7 @@ public class ElemFrame extends ElemSimple {
                 } else {
                     spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
                 }
-            } else if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklDet.getInt(eArtikl.level1))) {
+            } else if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
                 spcAdd.width += spcRec.width;
             }
         }

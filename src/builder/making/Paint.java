@@ -49,7 +49,7 @@ public class Paint {
             //Указана вручную
             if (colorFk > 0 && colorFk != 100000) {
                 if (colorType == UseColor.MANUAL.id) {
-                    artdetColorFK = colorFromArtikl(spc.artiklDet.getInt(eArtikl.id), side, colorFk);
+                    artdetColorFK = colorFromArtikl(spc.artiklRec.getInt(eArtikl.id), side, colorFk);
                     if (artdetColorFK != -1) {
                         spc.setColor(side, artdetColorFK);
 
@@ -57,18 +57,18 @@ public class Paint {
                         if ("ps3".equals(eSetting.find(2))) {
                             return false;
                         }
-                        if (spc.artiklDet.getInt(eArtikl.level1) == 2 && (spc.artiklDet.getInt(eArtikl.level2) == 11 || spc.artiklDet.getInt(eArtikl.level2) == 13)) {
+                        if (spc.artiklRec.getInt(eArtikl.level1) == 2 && (spc.artiklRec.getInt(eArtikl.level2) == 11 || spc.artiklRec.getInt(eArtikl.level2) == 13)) {
                             return false;
                         }
                         spc.setColor(side, colorFromFirst(spc)); //первая в списке
                     }
                 } else if (colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id || colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id) {
-                    artdetColorFK = colorFromArtikl(spc.artiklDet.getInt(eArtikl.id), side, elemColorID);
+                    artdetColorFK = colorFromArtikl(spc.artiklRec.getInt(eArtikl.id), side, elemColorID);
                     if (artdetColorFK != -1) {
                         spc.setColor(side, artdetColorFK);
 
                     } else {
-                        artdetColorFK = colorFromArtikl(spc.artiklDet.getInt(eArtikl.id), side, colorFk);
+                        artdetColorFK = colorFromArtikl(spc.artiklRec.getInt(eArtikl.id), side, colorFk);
                         if (artdetColorFK != -1) {
                             spc.setColor(side, artdetColorFK);
                         } else {
@@ -76,12 +76,12 @@ public class Paint {
                         }
                     }
                 } else if (colorType == UseColor.C1SER.id || colorType == UseColor.C2SER.id || colorType == UseColor.C3SER.id) {
-                    artdetColorFK = colorFromSeries(spc.artiklDet.getInt(eArtikl.id), side, elemColorID);
+                    artdetColorFK = colorFromSeries(spc.artiklRec.getInt(eArtikl.id), side, elemColorID);
                     if (artdetColorFK != -1) {
                         spc.setColor(side, artdetColorFK);
 
                     } else {
-                        artdetColorFK = colorFromArtikl(spc.artiklDet.getInt(eArtikl.id), side, colorFk);
+                        artdetColorFK = colorFromArtikl(spc.artiklRec.getInt(eArtikl.id), side, colorFk);
                         if (artdetColorFK != -1) {
                             spc.setColor(side, artdetColorFK);
                         } else {
@@ -94,7 +94,7 @@ public class Paint {
             } else if (colorFk == 0) {
                 if (colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id
                         || colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id) {
-                    artdetColorFK = colorFromArtikl(spc.artiklDet.getInt(eArtikl.id), side, elemColorID);
+                    artdetColorFK = colorFromArtikl(spc.artiklRec.getInt(eArtikl.id), side, elemColorID);
                     if (artdetColorFK != -1) {
                         spc.setColor(side, artdetColorFK);
 
@@ -102,7 +102,7 @@ public class Paint {
                         spc.setColor(side, colorFromFirst(spc));
                     }
                 } else if (colorType == UseColor.C1SER.id || colorType == UseColor.C2SER.id || colorType == UseColor.C3SER.id) {
-                    artdetColorFK = colorFromSeries(spc.artiklDet.getInt(eArtikl.series_id), side, elemColorID);
+                    artdetColorFK = colorFromSeries(spc.artiklRec.getInt(eArtikl.series_id), side, elemColorID);
                     if (artdetColorFK != -1) {
                         spc.setColor(side, artdetColorFK);
 
@@ -115,7 +115,7 @@ public class Paint {
             } else if (colorFk == 100000) {
                 if (colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id
                         || colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id) {
-                    artdetColorFK = colorFromArtikl(spc.artiklDet.getInt(eArtikl.id), side, elemColorID);
+                    artdetColorFK = colorFromArtikl(spc.artiklRec.getInt(eArtikl.id), side, elemColorID);
                     if (artdetColorFK != -1) {
                         spc.setColor(side, artdetColorFK);
 
@@ -123,7 +123,7 @@ public class Paint {
                         return false;
                     }
                 } else if (colorType == UseColor.C1SER.id || colorType == UseColor.C2SER.id || colorType == UseColor.C3SER.id) {
-                    artdetColorFK = colorFromSeries(spc.artiklDet.getInt(eArtikl.series_id), side, elemColorID);
+                    artdetColorFK = colorFromSeries(spc.artiklRec.getInt(eArtikl.series_id), side, elemColorID);
                     if (artdetColorFK != -1) {
                         spc.setColor(side, artdetColorFK);
 
@@ -140,7 +140,7 @@ public class Paint {
                 if (colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id
                         || colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id) {
 
-                    artdetColorFK = colorFromArtiklParam(spc.artiklDet.getInt(eArtikl.id), side, elemColorID, colorFk);
+                    artdetColorFK = colorFromArtiklParam(spc.artiklRec.getInt(eArtikl.id), side, elemColorID, colorFk);
                     if (artdetColorFK != -1) {
 
                         spc.setColor(side, artdetColorFK);
@@ -148,7 +148,7 @@ public class Paint {
                         return false;
                     }
                 } else if (colorType == UseColor.C1SER.id || colorType == UseColor.C2SER.id || colorType == UseColor.C3SER.id) {
-                    artdetColorFK = colorFromSeriesParam(spc.artiklDet.getInt(eArtikl.series_id), side, elemColorID, colorFk);
+                    artdetColorFK = colorFromSeriesParam(spc.artiklRec.getInt(eArtikl.series_id), side, elemColorID, colorFk);
                     if (artdetColorFK != -1) {
 
                         spc.setColor(side, artdetColorFK);
@@ -156,7 +156,7 @@ public class Paint {
                         return false;
                     }
                 } else {
-                    artdetColorFK = colorFromArtiklParam(spc.artiklDet.getInt(eArtikl.series_id), side, elemColorID, colorFk);
+                    artdetColorFK = colorFromArtiklParam(spc.artiklRec.getInt(eArtikl.series_id), side, elemColorID, colorFk);
                     if (artdetColorFK != -1) {
 
                         spc.setColor(side, artdetColorFK);
@@ -192,7 +192,7 @@ public class Paint {
 
     //Первая в списке запись цвета (Не в группе)
     private static int colorFromFirst2(Specific spc) {
-        List<Record> artdetList = eArtdet.find(spc.artiklDet.getInt(ARTIKL_ID));
+        List<Record> artdetList = eArtdet.find(spc.artiklRec.getInt(ARTIKL_ID));
         for (Record record : artdetList) {
             if (record.getInt(eArtdet.color_fk) >= 0) {
                 return record.getInt(eArtdet.color_fk);

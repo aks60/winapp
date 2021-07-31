@@ -125,19 +125,19 @@ public class ElemGlass extends ElemSimple {
         spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
         spcAdd.width = uti3.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм         
-        if (TypeArtikl.X502.isType(spcAdd.artiklDet)) {
+        if (TypeArtikl.X502.isType(spcAdd.artiklRec)) {
             return;  //если стеклопакет сразу выход
         }
 
-        if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
-            if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X108)) {  //штапик
+        if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
+            if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108)) {  //штапик
                 if (TypeElem.ARCH == owner().type()) { //штапик в арке
                     ((AreaArch) root()).shtapik(this, spcAdd);
                 } else { //штапик в прямоугольнике
 
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
-                        spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
+                        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                         if (spcAdd.mapParam.get(15010) != null) {
                             if ("Нет".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
                                 spcAdd.width = spcAdd.width - 2 * spcAdd.height;
@@ -151,7 +151,7 @@ public class ElemGlass extends ElemSimple {
 
                     } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
                         spcAdd.width += height() + 2 * gzazo;
-                        spcAdd.height = spcAdd.artiklDet.getFloat(eArtikl.height);
+                        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                         if (spcAdd.mapParam.get(15010) != null) {
                             if ("Да".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
                                 spcAdd.width = spcAdd.width - 2 * spcAdd.height;
@@ -187,7 +187,7 @@ public class ElemGlass extends ElemSimple {
             spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd); //"[ * коэф-т ]"
             spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd); //"[ / коэф-т ]" 
 
-        } else if (UseUnit.PIE.id == spcAdd.artiklDet.getInt(eArtikl.unit)) {
+        } else if (UseUnit.PIE.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
             if (spcAdd.mapParam.get(13014) != null) {
                 if (Util.containsNumb(spcAdd.mapParam.get(13014), anglHoriz) == true) { //Углы ориентации стороны
                     spcRec.spcList.add(spcAdd);

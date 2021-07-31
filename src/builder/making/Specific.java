@@ -33,7 +33,7 @@ public class Specific {
     public ElemSimple elem5e = null;  //элемент пораждающий спецификацию (владелец)
     public Record variantRec = null;  //запись в вариантах
     public Record detailRec = null;  //запись в детализации
-    public Record artiklDet = null;  //артикул в детализации
+    public Record artiklRec = null;  //артикул в детализации
 
     public float id = -1; //ID
     public String place = "---";  //Место расмешения
@@ -112,7 +112,7 @@ public class Specific {
         this.anglHoriz = spec.anglHoriz;
         this.mapParam = spec.mapParam;
         this.elem5e = spec.elem5e;
-        this.artiklDet = spec.artiklDet;
+        this.artiklRec = spec.artiklRec;
     }
 
     public Vector getVector(int npp) {
@@ -126,7 +126,7 @@ public class Specific {
         this.name = artiklRec.getStr(eArtikl.name);
         this.wastePrc = artiklRec.getFloat(eArtikl.otx_norm);
         this.unit = artiklRec.getInt(eArtikl.unit); //atypi;
-        this.artiklDet = artiklRec;
+        this.artiklRec = artiklRec;
         setAnglCut();
         //this.height = artiklRec.aheig; //TODO парадокс добавления ширины, надо разобраться
     }
@@ -143,14 +143,14 @@ public class Specific {
 
     protected void setAnglCut() {
         //TODO Тут логическая ошибка
-        if (TypeArtikl.X109.isType(artiklDet)
-                || TypeArtikl.X135.isType(artiklDet)
-                || TypeArtikl.X117.isType(artiklDet)
-                || TypeArtikl.X136.isType(artiklDet)) {
+        if (TypeArtikl.X109.isType(artiklRec)
+                || TypeArtikl.X135.isType(artiklRec)
+                || TypeArtikl.X117.isType(artiklRec)
+                || TypeArtikl.X136.isType(artiklRec)) {
             anglCut2 = 90;
             anglCut1 = 90;
 
-        } else if (TypeArtikl.X109.isType(artiklDet)) {
+        } else if (TypeArtikl.X109.isType(artiklRec)) {
             anglCut2 = 0;
             anglCut1 = 0;
         }
@@ -251,7 +251,7 @@ public class Specific {
             float total = 0;
             for (Specific s : specList) {
                 Object str2[] = {String.valueOf(++npp), s.place, s.name, s.artikl,
-                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.spcRec.artiklDet.get(eArtikl.code), s.price1};
+                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.spcRec.artiklRec.get(eArtikl.code), s.price1};
                 total = total + s.weight;
                 System.out.printf(format, str2);
                 System.out.println();

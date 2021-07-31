@@ -144,7 +144,7 @@ class Uti3 {
 
     //Поправка, мм
     float get_12050_15050_34051_39020(Specific spcRec, Specific spcAdd) {
-        if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) { //пог.м.
+        if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
             return Util.getFloat(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
         }
         return spcAdd.width;
@@ -152,7 +152,7 @@ class Uti3 {
 
     //Длина, мм
     float get_12065_15045_25040_34070_39070(Specific spcRec, Specific spcAdd) {
-        if (UseUnit.METR.id == spcAdd.artiklDet.getInt(eArtikl.unit)) { //пог.м.
+        if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
             return Util.getFloat(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
         }
         return spcAdd.width;
