@@ -7,11 +7,8 @@ import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeArtikl;
 import enums.TypeElem;
-import enums.UseArtiklTo;
 import builder.making.Specific;
-import domain.eGlasgrp;
 import enums.PKjson;
-import builder.param.ParamList;
 import common.Util;
 import domain.eSetting;
 import java.util.Arrays;
@@ -140,95 +137,24 @@ public class ElemFrame extends ElemSimple {
                     spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
                 }
             }
-            //Фурнитура
-        } else if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X109)) {
-            if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
-                if ("no".equals(spcAdd.getParam("no", 25013)) == false //"Укорочение от"
-                        && spcAdd.getParam(0, 25030).equals(0) == false) { //"Укорочение, мм"  
-                    spcAdd.width = uti3.get_25013(spcRec, spcAdd); //Укорочение от высоты ручки
-                }
-            } else {
-                spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
-            }
-            //Фурнитура штучная
-        } else if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X210)) {
-            //spcAdd.width = spcAdd.width + height();
-
-        } else {
-            if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklDet.getInt(eArtikl.level1))) {
-                spcAdd.width += spcRec.width;
-            }
-        }
-        uti3.get_12075_34075_39075(this, spcAdd); //углы реза
-        uti3.get_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2
-        spcAdd.height = Util.getFloat(spcAdd.getParam(spcAdd.height, 40006)); ////высота заполнения, мм 
-        spcAdd.width = uti3.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
-        spcAdd.width = Util.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм        
-        spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
-        spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
-        uti3.get_40007(spcAdd); //высоту сделать длиной
-        spcAdd.count = uti3.get_11070_12070_33078_34078(spcAdd); //ставить однократно
-        spcAdd.count = uti3.get_39063(spcAdd); //округлять количество до ближайшего
-
-        spcRec.spcList.add(spcAdd);
-    }    
-    /*public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
-
-        spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
-        spcAdd.width = uti3.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
-
-        //Армирование
-        if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X107)) {
-            spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
-            spcAdd.anglCut1 = 90;
-            spcAdd.anglCut2 = 90;
-
-            if (LayoutArea.TOP == layout || LayoutArea.BOTT == layout) {
-                spcAdd.width += x2 - x1;
-
-            } else if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
-                spcAdd.width += y2 - y1;
-            }
-            if ("ps3".equals(eSetting.find(2))) {
-                if ("Да".equals(spcAdd.getParam(null, 34010))) {
-                    Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
-                    Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));
-                    spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
-                }
-            } else {
-                if ("от внутреннего угла".equals(spcAdd.getParam(null, 34010))) {
-                    Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[0]));
-                    Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut[1]));
-                    spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
-
-                } else if ("от внутреннего фальца".equals(spcAdd.getParam(null, 34010))) {
-                    Double dw1 = (artiklRec.getDbl(eArtikl.height) - artiklRec.getDbl(eArtikl.size_falz)) / Math.tan(Math.toRadians(anglCut[0]));
-                    Double dw2 = (artiklRec.getDbl(eArtikl.height) - artiklRec.getDbl(eArtikl.size_falz)) / Math.tan(Math.toRadians(anglCut[1]));
-                    spcAdd.width = spcAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
-                }
-            }
 
         } else {
             
-            if(spcAdd.getParam("null", 24006).equals("null")) {  //Установить текстуру
-            
+            if(spcAdd.getParam("null", 24006).equals("null") == false) {  //Установить текстуру
+               if ("по текстуре ручки".equals(spcAdd.getParam("null", 24006))) {
+                    //int c = making.Color.colorFromArtikl(spcAdd.artiklDet, 1, ((AreaStvorka) owner).handleColor);
+               }
             }
             //Фурнитура
             if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X109)) {
                 if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
-                    if ("no".equals(spcAdd.getParam("no", 25013)) == false //"Укорочение от"
+                    if ("null".equals(spcAdd.getParam("null", 25013)) == false //"Укорочение от"
                             && spcAdd.getParam(0, 25030).equals(0) == false) { //"Укорочение, мм"  
                         spcAdd.width = uti3.get_25013(spcRec, spcAdd); //Укорочение от высоты ручки
                     }
                 } else {
                     spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
                 }
-                
-                //Фурнитура штучная  
-            } else if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X210)) {
-                //spcAdd.width = spcAdd.width + height();
-
             } else if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklDet.getInt(eArtikl.level1))) {
                 spcAdd.width += spcRec.width;
             }
@@ -245,7 +171,7 @@ public class ElemFrame extends ElemSimple {
         spcAdd.count = uti3.get_39063(spcAdd); //округлять количество до ближайшего
 
         spcRec.spcList.add(spcAdd);
-    }*/
+    }
 
     @Override
     public void paint() {

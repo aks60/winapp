@@ -38,28 +38,29 @@ public class FurnitureDet extends Par5s {
         return true;
     }
 
-    //@Override
+    //@Override   
     public boolean check(HashMap<Integer, String> mapParam, AreaStvorka areaStv, Record rec) {
 
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
-
+                
                 case 24001: //Форма контура 
                 case 25001: //Форма контура 
                 {
                     //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
-                    if ("прямоугольная".equalsIgnoreCase(rec.getStr(TEXT)) && iwin.rootArea.type() == TypeElem.RECTANGL == false) {
+                    if ("прямоугольная".equals(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(areaStv.type()) == false
+                            && TypeElem.AREA.equals(areaStv.type()) == false && TypeElem.STVORKA.equals(areaStv.type()) == false) {
                         return false;
-                    } else if ("трапециевидная".equalsIgnoreCase(rec.getStr(TEXT)) && iwin.rootArea.type() == TypeElem.TRAPEZE == false) {
+                    } else if ("трапециевидная".equals(rec.getStr(TEXT)) && TypeElem.TRAPEZE.equals(areaStv.type()) == false) {
                         return false;
-                    } else if ("арочная".equalsIgnoreCase(rec.getStr(TEXT)) && iwin.rootArea.type() == TypeElem.ARCH == false) {
+                    } else if ("арочная".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(areaStv.type()) == false) {
                         return false;
-                    } else if ("не арочная".equalsIgnoreCase(rec.getStr(TEXT)) && iwin.rootArea.type() != TypeElem.ARCH == false) {
+                    } else if ("не арочная".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(areaStv.type()) == true) {
                         return false;
                     }
                     break;
-                }
+                }                
                 case 24002:  //Если артикул створки 
                 case 25002:  //Если артикул створки 
                     if (areaStv.mapFrame.entrySet().stream().filter(el -> el.getValue().artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))).findFirst().orElse(null) == null) {
@@ -82,7 +83,6 @@ public class FurnitureDet extends Par5s {
                     }
                     break;
                 case 24006:  //Установить текстуру
-
                     //if ("по текстуре ручки".equalsIgnoreCase(rec.getStr(TEXT))) {
                     //for (Map.Entry<LayoutArea, ElemFrame> entry : areaStv.mapFrame.entrySet()) {
                     //    ElemFrame elemFrame = entry.getValue();
