@@ -30,10 +30,10 @@ public class Specific {
 
     public ArrayList<Specific> spcList = new ArrayList();  //список составов, фурнитур и т.д.
     public HashMap<Integer, String> mapParam = null;  //параметры спецификации
-    public ElemSimple elem5e = null;  //элемент пораждающий спецификацию (владелец)
-    public Record variantRec = null;  //запись в вариантах
-    public Record artiklDet = null;  //запись в детализации
-    public Record artiklRec = null;  //артикул в детализации
+    public ElemSimple elem5e = null;  //элемент пораждающий спецификацию (контейнер)
+    public Record variantRec = null;  //вариант в конструктиве
+    public Record detailRec = null;  //детализация в конструктиве
+    public Record artiklRec = null;  //артикул в детализации конструктива
 
     public float id = -1; //ID
     public String place = "---";  //Место расмешения
@@ -69,11 +69,11 @@ public class Specific {
         this(null, artiklRec, elem5e, mapParam);
     }
 
-    public Specific(Record artiklDet, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
+    public Specific(Record detailRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
         this.id = ++elem5e.iwin().genId;
         this.elem5e = elem5e;
         this.mapParam = mapParam;
-        this.artiklDet = artiklDet;
+        this.detailRec = detailRec;
         setArtiklRec(artiklRec);
     }
 
@@ -82,7 +82,7 @@ public class Specific {
         this.place = spec.place;
         this.artikl = spec.artikl;
         this.artiklRec = spec.artiklRec;        
-        this.artiklDet = spec.artiklDet;
+        this.detailRec = spec.detailRec;
         this.name = spec.name;
         this.colorID1 = spec.colorID1;
         this.colorID2 = spec.colorID2;

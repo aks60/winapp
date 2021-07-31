@@ -38,8 +38,8 @@ public class Color {
 
     public static boolean colorFromProduct(Specific spc, int side) {  //см. http://help.profsegment.ru/?id=1107        
 
-        int colorFk = spc.artiklDet.getInt(COLOR_FK);
-        int types = spc.artiklDet.getInt(TYPES);
+        int colorFk = spc.detailRec.getInt(COLOR_FK);
+        int types = spc.detailRec.getInt(TYPES);
 
         try {
             int artdetColorFK = -1;
@@ -173,7 +173,7 @@ public class Color {
 
     //Первая в списке запись цвета
     private static int colorFromFirst(Specific spc) {
-        Record artdetRec = eArtdet.find2(spc.artiklDet.getInt(ARTIKL_ID));
+        Record artdetRec = eArtdet.find2(spc.detailRec.getInt(ARTIKL_ID));
         if (artdetRec != null) {
             int colorFK2 = artdetRec.getInt(eArtdet.color_fk);
             if (colorFK2 > 0) { //если это не группа цветов                               
@@ -324,7 +324,7 @@ public class Color {
         try {
             switch (colorType) {
                 case 0:
-                    return spc.artiklDet.getInt(COLOR_FK);  //указана вручную
+                    return spc.detailRec.getInt(COLOR_FK);  //указана вручную
                 case 11: //Профиль
                     if ("ps3".equals(eSetting.find(2))) {
                         return spc.elem5e.colorID1; //по основе текстуры профиля

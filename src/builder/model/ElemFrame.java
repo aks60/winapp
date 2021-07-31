@@ -11,6 +11,7 @@ import enums.TypeElem;
 import builder.making.Specific;
 import enums.PKjson;
 import common.Util;
+import domain.eArtdet;
 import domain.eSetting;
 import java.util.Arrays;
 import java.util.Map;
@@ -151,15 +152,20 @@ public class ElemFrame extends ElemSimple {
                 } else if ("по текстуре подвеса".equals(spcAdd.getParam("null", 24006))) {
                     for (Map.Entry<LayoutArea, ElemFrame> elem : elemStv.mapFrame.entrySet()) {
                         for (Specific spc : elem.getValue().spcRec.spcList) {
-                            //if(spc.)
-                            
+                            if(spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 12) {
+                               colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1); 
+                            }  
                         }
-                        
                     }
-                    colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor);
 
                 } else if ("по текстуре замка".equals(spcAdd.getParam("null", 24006))) {
-                    colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor);
+                    for (Map.Entry<LayoutArea, ElemFrame> elem : elemStv.mapFrame.entrySet()) {
+                        for (Specific spc : elem.getValue().spcRec.spcList) {
+                            if(spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 9) {
+                               colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1); 
+                            }  
+                        }
+                    }
                 }
                 if (colorID != -1) {
                     spcAdd.colorID1 = colorID;
