@@ -32,7 +32,7 @@ public class Specific {
     public HashMap<Integer, String> mapParam = null;  //параметры спецификации
     public ElemSimple elem5e = null;  //элемент пораждающий спецификацию (владелец)
     public Record variantRec = null;  //запись в вариантах
-    public Record detailRec = null;  //запись в детализации
+    public Record artiklDet = null;  //запись в детализации
     public Record artiklRec = null;  //артикул в детализации
 
     public float id = -1; //ID
@@ -73,7 +73,7 @@ public class Specific {
         this.id = ++elem5e.iwin().genId;
         this.elem5e = elem5e;
         this.mapParam = mapParam;
-        this.detailRec = deteilRec;
+        this.artiklDet = deteilRec;
         setArtiklRec(artiklRec);
     }
 
@@ -82,7 +82,7 @@ public class Specific {
         this.elem5e = elem5e;
         this.mapParam = mapParam;
         this.variantRec = variantRec;
-        this.detailRec = deteilRec;
+        this.artiklDet = deteilRec;
         setArtiklRec(artiklDet);
     }
 
@@ -90,7 +90,7 @@ public class Specific {
         this.id = spec.id; //++spec.elem5e.iwin().genId;
         this.place = spec.place;
         this.artikl = spec.artikl;
-        this.detailRec = spec.detailRec;
+        this.artiklDet = spec.artiklDet;
         this.name = spec.name;
         this.colorID1 = spec.colorID1;
         this.colorID2 = spec.colorID2;
