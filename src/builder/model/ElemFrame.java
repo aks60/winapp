@@ -1,5 +1,6 @@
 package builder.model;
 
+import builder.making.Paint;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eSyssize;
@@ -12,6 +13,7 @@ import enums.PKjson;
 import common.Util;
 import domain.eSetting;
 import java.util.Arrays;
+import java.util.Map;
 
 public class ElemFrame extends ElemSimple {
 
@@ -139,11 +141,31 @@ public class ElemFrame extends ElemSimple {
             }
 
         } else {
-            
-            if(spcAdd.getParam("null", 24006).equals("null") == false) {  //Установить текстуру
-               if ("по текстуре ручки".equals(spcAdd.getParam("null", 24006))) {
-                    //int c = making.Color.colorFromArtikl(spcAdd.artiklDet, 1, ((AreaStvorka) owner).handleColor);
-               }
+            //Установить текстуру
+            if (spcAdd.getParam("null", 24006).equals("null") == false) {
+                int colorID = -1;
+                AreaStvorka elemStv = ((AreaStvorka) owner);
+                if ("по текстуре ручки".equals(spcAdd.getParam("null", 24006))) {
+                    colorID = Paint.colorFromArtikl(spcAdd.artiklDet.getInt(eArtikl.id), 1, elemStv.handleColor);
+
+                } else if ("по текстуре подвеса".equals(spcAdd.getParam("null", 24006))) {
+                    for (Map.Entry<LayoutArea, ElemFrame> elem : elemStv.mapFrame.entrySet()) {
+                        for (Specific spc : elem.getValue().spcRec.spcList) {
+                            //if(spc.)
+                            
+                        }
+                        
+                    }
+                    colorID = Paint.colorFromArtikl(spcAdd.artiklDet.getInt(eArtikl.id), 1, elemStv.handleColor);
+
+                } else if ("по текстуре замка".equals(spcAdd.getParam("null", 24006))) {
+                    colorID = Paint.colorFromArtikl(spcAdd.artiklDet.getInt(eArtikl.id), 1, elemStv.handleColor);
+                }
+                if (colorID != -1) {
+                    spcAdd.colorID1 = colorID;
+                    spcAdd.colorID2 = colorID;
+                    spcAdd.colorID3 = colorID;
+                }
             }
             //Фурнитура
             if (TypeArtikl.isType(spcAdd.artiklDet, TypeArtikl.X109)) {

@@ -1213,8 +1213,8 @@ public class ParamList {
     };
 
     public static Dictionary dic_24006_38113_39113_40113 = () -> {
-        //return Arrays.asList("по текстуре ручки", "по текстуре подвеса", "по текстуре замка");
-        return Arrays.asList("по текстуре ручки");
+        return Arrays.asList("по текстуре ручки", "по текстуре подвеса", "по текстуре замка");
+        //return Arrays.asList("по текстуре ручки");
     };
 
     public static Dictionary dic_39063 = () -> {
