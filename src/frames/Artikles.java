@@ -996,8 +996,9 @@ public class Artikles extends javax.swing.JFrame {
         lab30.setPreferredSize(new java.awt.Dimension(98, 18));
         pan98.add(lab30);
 
+        txt18.setEditable(false);
+        txt18.setBackground(new java.awt.Color(255, 255, 255));
         txt18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt18.setFocusable(false);
         txt18.setPreferredSize(new java.awt.Dimension(204, 18));
         pan98.add(txt18);
 
@@ -1105,9 +1106,10 @@ public class Artikles extends javax.swing.JFrame {
         labl17.setPreferredSize(new java.awt.Dimension(98, 18));
         pan102.add(labl17);
 
+        txt5.setEditable(false);
+        txt5.setBackground(new java.awt.Color(255, 255, 255));
         txt5.setFont(frames.Uti5.getFont(0,0));
         txt5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt5.setFocusable(false);
         txt5.setPreferredSize(new java.awt.Dimension(44, 18));
         pan102.add(txt5);
 
@@ -1196,9 +1198,10 @@ public class Artikles extends javax.swing.JFrame {
         lab19.setPreferredSize(new java.awt.Dimension(98, 18));
         pan92.add(lab19);
 
+        txt7.setEditable(false);
+        txt7.setBackground(new java.awt.Color(255, 255, 255));
         txt7.setFont(frames.Uti5.getFont(0,0));
         txt7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt7.setFocusable(false);
         txt7.setPreferredSize(new java.awt.Dimension(80, 18));
         pan92.add(txt7);
 
@@ -1216,9 +1219,10 @@ public class Artikles extends javax.swing.JFrame {
         pan92.add(btn7);
         pan92.add(filler21);
 
+        txt17.setEditable(false);
+        txt17.setBackground(new java.awt.Color(255, 255, 255));
         txt17.setFont(frames.Uti5.getFont(0,0));
         txt17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt17.setFocusable(false);
         txt17.setPreferredSize(new java.awt.Dimension(80, 18));
         pan92.add(txt17);
 
@@ -1249,8 +1253,9 @@ public class Artikles extends javax.swing.JFrame {
         lab31.setPreferredSize(new java.awt.Dimension(98, 18));
         pan93.add(lab31);
 
+        txt19.setEditable(false);
+        txt19.setBackground(new java.awt.Color(255, 255, 255));
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt19.setFocusable(false);
         txt19.setPreferredSize(new java.awt.Dimension(44, 18));
         pan93.add(txt19);
 
@@ -1275,8 +1280,9 @@ public class Artikles extends javax.swing.JFrame {
         lab32.setPreferredSize(new java.awt.Dimension(72, 18));
         pan93.add(lab32);
 
+        txt20.setEditable(false);
+        txt20.setBackground(new java.awt.Color(255, 255, 255));
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt20.setFocusable(false);
         txt20.setPreferredSize(new java.awt.Dimension(40, 18));
         pan93.add(txt20);
 
@@ -1313,8 +1319,9 @@ public class Artikles extends javax.swing.JFrame {
         lab34.setPreferredSize(new java.awt.Dimension(98, 18));
         pan94.add(lab34);
 
+        txt22.setEditable(false);
+        txt22.setBackground(new java.awt.Color(255, 255, 255));
         txt22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt22.setFocusable(false);
         txt22.setPreferredSize(new java.awt.Dimension(180, 18));
         pan94.add(txt22);
 
@@ -1357,8 +1364,9 @@ public class Artikles extends javax.swing.JFrame {
         lab22.setPreferredSize(new java.awt.Dimension(98, 18));
         pan95.add(lab22);
 
+        txt10.setEditable(false);
+        txt10.setBackground(new java.awt.Color(255, 255, 255));
         txt10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt10.setFocusable(false);
         txt10.setPreferredSize(new java.awt.Dimension(180, 18));
         pan95.add(txt10);
 
@@ -1500,9 +1508,10 @@ public class Artikles extends javax.swing.JFrame {
         lab36.setPreferredSize(new java.awt.Dimension(98, 18));
         pan11.add(lab36);
 
+        txt25.setEditable(false);
+        txt25.setBackground(new java.awt.Color(255, 255, 255));
         txt25.setFont(frames.Uti5.getFont(0,0));
         txt25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt25.setFocusable(false);
         txt25.setPreferredSize(new java.awt.Dimension(80, 18));
         pan11.add(txt25);
 
@@ -1520,9 +1529,10 @@ public class Artikles extends javax.swing.JFrame {
         pan11.add(btn9);
         pan11.add(filler34);
 
+        txt24.setEditable(false);
+        txt24.setBackground(new java.awt.Color(255, 255, 255));
         txt24.setFont(frames.Uti5.getFont(0,0));
         txt24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt24.setFocusable(false);
         txt24.setPreferredSize(new java.awt.Dimension(80, 18));
         pan11.add(txt24);
 
@@ -1553,8 +1563,9 @@ public class Artikles extends javax.swing.JFrame {
         lab37.setPreferredSize(new java.awt.Dimension(98, 18));
         pan12.add(lab37);
 
+        txt26.setEditable(false);
+        txt26.setBackground(new java.awt.Color(255, 255, 255));
         txt26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt26.setFocusable(false);
         txt26.setPreferredSize(new java.awt.Dimension(44, 18));
         pan12.add(txt26);
 
@@ -1579,8 +1590,9 @@ public class Artikles extends javax.swing.JFrame {
         lab38.setPreferredSize(new java.awt.Dimension(68, 18));
         pan12.add(lab38);
 
+        txt27.setEditable(false);
+        txt27.setBackground(new java.awt.Color(255, 255, 255));
         txt27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt27.setFocusable(false);
         txt27.setPreferredSize(new java.awt.Dimension(44, 18));
         pan12.add(txt27);
 
@@ -1623,8 +1635,9 @@ public class Artikles extends javax.swing.JFrame {
         lab42.setPreferredSize(new java.awt.Dimension(68, 18));
         pan18.add(lab42);
 
+        txt31.setEditable(false);
+        txt31.setBackground(new java.awt.Color(255, 255, 255));
         txt31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt31.setFocusable(false);
         txt31.setPreferredSize(new java.awt.Dimension(44, 18));
         txt31.setRequestFocusEnabled(false);
         pan18.add(txt31);
@@ -1662,8 +1675,9 @@ public class Artikles extends javax.swing.JFrame {
         lab40.setPreferredSize(new java.awt.Dimension(98, 18));
         pan13.add(lab40);
 
+        txt29.setEditable(false);
+        txt29.setBackground(new java.awt.Color(255, 255, 255));
         txt29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt29.setFocusable(false);
         txt29.setPreferredSize(new java.awt.Dimension(180, 18));
         pan13.add(txt29);
 
@@ -1706,8 +1720,9 @@ public class Artikles extends javax.swing.JFrame {
         lab41.setPreferredSize(new java.awt.Dimension(98, 18));
         pan17.add(lab41);
 
+        txt30.setEditable(false);
+        txt30.setBackground(new java.awt.Color(255, 255, 255));
         txt30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt30.setFocusable(false);
         txt30.setPreferredSize(new java.awt.Dimension(180, 18));
         pan17.add(txt30);
 
@@ -1861,9 +1876,10 @@ public class Artikles extends javax.swing.JFrame {
         lab43.setPreferredSize(new java.awt.Dimension(98, 18));
         pan21.add(lab43);
 
+        txt32.setEditable(false);
+        txt32.setBackground(new java.awt.Color(255, 255, 255));
         txt32.setFont(frames.Uti5.getFont(0,0));
         txt32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt32.setFocusable(false);
         txt32.setPreferredSize(new java.awt.Dimension(44, 18));
         pan21.add(txt32);
 
@@ -1881,9 +1897,10 @@ public class Artikles extends javax.swing.JFrame {
         pan21.add(btn26);
         pan21.add(filler46);
 
+        txt33.setEditable(false);
+        txt33.setBackground(new java.awt.Color(255, 255, 255));
         txt33.setFont(frames.Uti5.getFont(0,0));
         txt33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt33.setFocusable(false);
         txt33.setPreferredSize(new java.awt.Dimension(50, 18));
         pan21.add(txt33);
 
@@ -1915,8 +1932,9 @@ public class Artikles extends javax.swing.JFrame {
         lab44.setPreferredSize(new java.awt.Dimension(98, 18));
         pan22.add(lab44);
 
+        txt34.setEditable(false);
+        txt34.setBackground(new java.awt.Color(255, 255, 255));
         txt34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt34.setFocusable(false);
         txt34.setPreferredSize(new java.awt.Dimension(44, 18));
         pan22.add(txt34);
 
@@ -1941,8 +1959,9 @@ public class Artikles extends javax.swing.JFrame {
         lab45.setPreferredSize(new java.awt.Dimension(74, 18));
         pan22.add(lab45);
 
+        txt35.setEditable(false);
+        txt35.setBackground(new java.awt.Color(255, 255, 255));
         txt35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt35.setFocusable(false);
         txt35.setPreferredSize(new java.awt.Dimension(40, 18));
         pan22.add(txt35);
 
@@ -1972,9 +1991,10 @@ public class Artikles extends javax.swing.JFrame {
         lab50.setPreferredSize(new java.awt.Dimension(98, 18));
         pan26.add(lab50);
 
+        txt40.setEditable(false);
+        txt40.setBackground(new java.awt.Color(255, 255, 255));
         txt40.setFont(frames.Uti5.getFont(0,0));
         txt40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt40.setFocusable(false);
         txt40.setPreferredSize(new java.awt.Dimension(44, 18));
         pan26.add(txt40);
 
@@ -2033,8 +2053,9 @@ public class Artikles extends javax.swing.JFrame {
         lab47.setPreferredSize(new java.awt.Dimension(98, 18));
         pan24.add(lab47);
 
+        txt37.setEditable(false);
+        txt37.setBackground(new java.awt.Color(255, 255, 255));
         txt37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt37.setFocusable(false);
         txt37.setPreferredSize(new java.awt.Dimension(180, 18));
         pan24.add(txt37);
 
@@ -2077,8 +2098,9 @@ public class Artikles extends javax.swing.JFrame {
         lab48.setPreferredSize(new java.awt.Dimension(98, 18));
         pan25.add(lab48);
 
+        txt38.setEditable(false);
+        txt38.setBackground(new java.awt.Color(255, 255, 255));
         txt38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt38.setFocusable(false);
         txt38.setPreferredSize(new java.awt.Dimension(180, 18));
         pan25.add(txt38);
 

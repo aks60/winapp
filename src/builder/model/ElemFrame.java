@@ -173,6 +173,10 @@ public class ElemFrame extends ElemSimple {
                     spcAdd.colorID3 = colorID;
                 }
             }
+//            //Коды текстуры ручки
+//            if (spcAdd.getParam("null", 24007).equals("null") == false) {
+//                
+//            }
             //Фурнитура
             if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X109)) {
                 if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   

@@ -37,13 +37,14 @@ public class Elements extends Cal5e {
     public void calc() {
         super.calc();
         LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE,
-                 TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список сторон рам, створок и импостов
+                TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP, TypeElem.GLASS); //список сторон рам, створок и импостов
         try {
             //Цикл по списку элементов конструкции
             for (ElemSimple elem5e : listElem) {
-                
-                elem5e.setSpecific(); //коррекция спецификации              
 
+                if (elem5e.type() != TypeElem.GLASS) {
+                    elem5e.setSpecific(); //коррекция спецификации              
+                }
                 //Варианты состава для артикула профиля
                 int artikl_id = elem5e.artiklRecAn.getInt(eArtikl.id);
                 //Найдем список элементов по артикулу элемента конструкции
@@ -67,7 +68,7 @@ public class Elements extends Cal5e {
         try {
             //Цикл по вариантам
             for (Record elementRec : elementList) {
-                
+
                 int element_id = elementRec.getInt(eElement.id);
                 listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
 

@@ -2,6 +2,7 @@ package builder.param;
 
 import dataset.Query;
 import domain.eArtikl;
+import domain.eColor;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +12,6 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 import domain.eSetting;
 import enums.Enam;
-import enums.TypeUse;
 import java.util.ArrayList;
 
 public class ParamList {
@@ -139,7 +139,7 @@ public class ParamList {
         P11040(11040, "Порог расчета, мм", check_FLOAT),
         P11050(11050, "Шаг, мм", check_FLOAT),
         P11060(11060, "Количество на шаг", check_FLOAT),
-        P11066(11066, "Если текстура профиля Арт.1", dic_COLOR),
+        P11066(11066, "Если текстура профиля Арт.1", dic_COLOR_NAME),
         P11067(11067, "Коды основной текстуры изделия", check_FLOAT_LIST),
         P11068(11068, "Коды внутр. текстуры изделия", check_FLOAT_LIST),
         P11069(11069, "Коды внешн. текстуры изделия", check_FLOAT_LIST),
@@ -232,10 +232,10 @@ public class ParamList {
         P24002(24002, "Если артикул створки", dic_ARTIKL_CODE),
         P24003(24003, 0, "Если артикул цоколя", dic_ARTIKL_CODE),
         P24004(24004, "Если створка прилегает к артикулу", dic_ARTIKL_CODE),
-        P24005(24005, "Если цвет створки", dic_COLOR),
-        P24006(24006, "Если цвет створки не", dic_COLOR),
-        P24007(24007, "Если цвет ручки", dic_COLOR),
-        P24009(24009, "Если цвет подвеса", dic_COLOR),
+        P24005(24005, "Если цвет створки", dic_COLOR_NAME),
+        P24006(24006, "Если цвет створки не", dic_COLOR_NAME),
+        P24007(24007, "Если цвет ручки", dic_COLOR_NAME),
+        P24009(24009, "Если цвет подвеса", dic_COLOR_NAME),
         P24008(24008, "Если серия створки", dic_SERIES),
         P24010(24010, "Номер стороны", check_INT),
         P24011(24011, "Расчет по общей арке", dic_OK_NO),
@@ -265,10 +265,10 @@ public class ParamList {
         P25001(25001, "Форма контура", dic_21001_24001_25001),
         P25002(25002, "Если артикул створки", dic_ARTIKL_CODE),
         P25003(25003, 0, "Если артикул цоколя", dic_ARTIKL_CODE),
-        P25005(25005, "Если цвет створки", dic_COLOR),
-        P25006(25006, "Если цвет створки не", dic_COLOR),
-        P25007(25007, "Если цвет ручки", dic_COLOR),
-        P25009(25009, "Если цвет подвеса", dic_COLOR),
+        P25005(25005, "Если цвет створки", dic_COLOR_NAME),
+        P25006(25006, "Если цвет створки не", dic_COLOR_NAME),
+        P25007(25007, "Если цвет ручки", dic_COLOR_NAME),
+        P25009(25009, "Если цвет подвеса", dic_COLOR_NAME),
         P25008(25008, "Если серия створки", dic_SERIES),
         P25010(25010, "Номер стороны", check_INT),
         P25011(25011, "Расчет по общей арке", dic_OK_NO),
@@ -648,7 +648,7 @@ public class ParamList {
         P11040(11040, "Порог расчета, мм", check_FLOAT),
         P11050(11050, "Шаг, мм", check_FLOAT),
         P11060(11060, "Количество на шаг", check_FLOAT),
-        P11066(11066, "Если текстура профиля Арт.1", dic_COLOR),
+        P11066(11066, "Если текстура профиля Арт.1", dic_COLOR_NAME),
         P11067(11067, "Коды основной текстуры изделия", check_FLOAT_LIST),
         P11068(11068, "Коды внутр. текстуры изделия", check_FLOAT_LIST),
         P11069(11069, "Коды внешн. текстуры изделия", check_FLOAT_LIST),
@@ -744,7 +744,7 @@ public class ParamList {
         P24004(24004, "Если створка прилегает к артикулу", dic_ARTIKL_CODE),
         P24005(24005, "Коды текстуры створки", check_FLOAT_LIST),
         P24006(24006, "Установить текстуру", dic_24006_38113_39113_40113),
-        P24007(24007, "Коды текстуры ручки", dic_COLOR),
+        P24007(24007, "Коды текстуры ручки", dic_COLOR_NAME),
         P24008(24008, "Если серия створки", dic_SERIES),
         P24009(24009, "Коды текстуры подвеса", check_FLOAT_LIST),
         P24010(24010, "Номер стороны", check_INT),
@@ -1180,8 +1180,11 @@ public class ParamList {
         return Arrays.asList("Внутренний", "Раскладка", "Вагонка", "Жалюзи на профили", "Жалюзи на заполнение");
     };
 
-    public static Dictionary dic_COLOR = () -> {
-        return Arrays.asList("1цвет", "2цвет", "3цвет", "4цвет");
+    public static Dictionary dic_COLOR_NAME = () -> {
+        //return Arrays.asList("1цвет", "2цвет", "3цвет", "4цвет");
+        List list = new ArrayList();
+        new Query(eColor.name).select(eColor.up, "order by", eColor.name).forEach(rec -> list.add(rec.getStr(eColor.name)));
+        return list;        
     };
 
     public static Dictionary dic_COLOR2 = () -> {

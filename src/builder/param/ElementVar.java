@@ -177,10 +177,10 @@ public class ElementVar extends Par5s {
                     break;
                 case 31017: //Код системы содержит строку 
                 case 37017: //Код системы содержит строку 
-                if(Uti4.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
-                    return false;
-                }
-                break;
+                    if (Uti4.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
+                        return false;
+                    }
+                    break;
                 case 31019:  //Правило подбора текстур
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
@@ -412,6 +412,9 @@ public class ElementVar extends Par5s {
                     }
                 }
                 break;
+                case 37080: //Сообщение-предупреждение
+                    elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
+                    break;
                 case 37098:  //Бригада участок
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;

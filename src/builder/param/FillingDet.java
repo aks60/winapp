@@ -65,12 +65,10 @@ public class FillingDet extends Par5s {
                 break;
                 case 14005: //Тип проема 
                 case 15005: //Тип проема
-                {
                     if (!Uti4.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
-                }
-                break;
+                    break;
                 case 14008: //Эффективное заполнение изд., мм 
                 case 15008: //Эффективное заполнение изд., мм                    
                     if (Uti4.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
@@ -142,10 +140,10 @@ public class FillingDet extends Par5s {
                 case 14081: //Если артикул профиля контура 
                 case 15081: //Если артикул профиля контура 
                 {
-                   ElemSimple elem = (elem5e.owner().mapFrame.isEmpty() == false) ?elem5e.owner().mapFrame.get(LayoutArea.BOTT) :elem5e.root().mapFrame.get(LayoutArea.BOTT);
-                   if(rec.getStr(TEXT).equals(elem.artiklRecAn.getStr(eArtikl.code)) == false) {
-                       return false;
-                   }
+                    ElemSimple elem = (elem5e.owner().mapFrame.isEmpty() == false) ? elem5e.owner().mapFrame.get(LayoutArea.BOTT) : elem5e.root().mapFrame.get(LayoutArea.BOTT);
+                    if (rec.getStr(TEXT).equals(elem.artiklRecAn.getStr(eArtikl.code)) == false) {
+                        return false;
+                    }
                 }
                 break;
                 case 14095: //Если признак системы конструкции 
@@ -164,7 +162,7 @@ public class FillingDet extends Par5s {
                         return false;
                     }
                 }
-                break; 
+                break;
                 case 15010:  //Усекать нижний штапик 
                 case 15011:  //Расчет реза штапика 
                     mapParam.put(grup, rec.getStr(TEXT));

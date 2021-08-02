@@ -57,9 +57,9 @@ public class FurnitureTest extends ParamTest {
         AreaStvorka area_stv_2 = (AreaStvorka) stv_right_2.owner();
 
         grup = 24001; //25001 //Форма контура
-        assert true == furnitureDet3.check(mapParam, area_stv_3, param("арочная", grup)) : grup;
+        //assert true == furnitureDet3.check(mapParam, area_stv_3, param("арочная", grup)) : grup;
         assert true == furnitureDet2.check(mapParam, area_stv_2, param("прямоугольная", grup)) : grup;
-        assert false == furnitureDet3.check(mapParam, area_stv_3, param("не арочная", grup)) : grup;
+        //assert false == furnitureDet3.check(mapParam, area_stv_3, param("не арочная", grup)) : grup;
 
         grup = 24002;  //Если артикул створки
         assert true == furnitureDet2.check(mapParam, area_stv_2, param("917.07", grup)) : grup;
@@ -73,5 +73,18 @@ public class FurnitureTest extends ParamTest {
         assert true == furnitureDet3.check(mapParam, area_stv_3, param("1009;10000-10999;17000-29999;", grup)) : grup;
         assert true == furnitureDet3.check(mapParam, area_stv_3, param("0-1008;1009", grup)) : grup;
         assert false == furnitureDet3.check(mapParam, area_stv_3, param("0-1008;1010", grup)) : grup;        
+
+        grup = 24007; //25007  //Коды текстуры ручки 
+        assert true == furnitureDet2.check(mapParam, area_stv_2, param("Белый", grup)) : grup;
+        assert false == furnitureDet2.check(mapParam, area_stv_2, param("ххххх", grup)) : grup;
+       
+        grup = 24008; //25008  //Если серия створки
+        assert true == furnitureDet2.check(mapParam, area_stv_2, param("Общий створка", grup)) : grup;
+        assert false == furnitureDet2.check(mapParam, area_stv_2, param("ххххх", grup)) : grup; 
+        
+        //grup = 24009; //25009  //Коды текстуры подвеса  
+        //assert true == furnitureDet2.check(mapParam, area_stv_2, param("Без цвета", grup)) : grup;
+        //assert false == furnitureDet2.check(mapParam, area_stv_2, param("ххххх", grup)) : grup;  
+               
     }
 }

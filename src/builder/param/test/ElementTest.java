@@ -151,8 +151,8 @@ public class ElementTest extends ParamTest {
         assert false == elementVar2.check(glass_left_2, param("0-0,4", grup)) : grup;
 
         grup = 37042; //Допустимое соотношение габаритов (б/м)
-        assert true == elementVar2.check(glass_top_2, param("5-10", grup)) : grup;
-        assert false == elementVar2.check(glass_left_2, param("1-10", grup)) : grup;
+        assert true == elementVar2.check(glass_top_2, param("4-10", grup)) : grup;
+        assert false == elementVar2.check(glass_left_2, param("1-2", grup)) : grup;
 
         grup = 37054; //Коды основной текстуры изделия
         assert false == elementVar2.check(stv_right_2, param("10000-10999;17000-21999;23000-28999", grup)) : grup;

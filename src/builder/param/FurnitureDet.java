@@ -10,10 +10,12 @@ import enums.TypeElem;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
+import builder.making.Specific;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
 import common.Util;
-import domain.eSystree;
+import domain.eColor;
+import domain.eGroups;
 import java.util.Map;
 
 //Фурнитура
@@ -44,7 +46,7 @@ public class FurnitureDet extends Par5s {
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
-                
+
                 case 24001: //Форма контура 
                 case 25001: //Форма контура 
                 {
@@ -60,7 +62,7 @@ public class FurnitureDet extends Par5s {
                         return false;
                     }
                     break;
-                }                
+                }
                 case 24002:  //Если артикул створки 
                 case 25002:  //Если артикул створки 
                     if (areaStv.mapFrame.entrySet().stream().filter(el -> el.getValue().artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))).findFirst().orElse(null) == null) {
@@ -86,16 +88,40 @@ public class FurnitureDet extends Par5s {
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 24007:  //Коды текстуры ручки 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 24009:  //Коды текстуры подвеса 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 25007: //Коды текстуры ручки                  
+                {
+                    String name = eColor.find(areaStv.colorID1).getStr(eColor.name);
+                    if (name.equals(rec.getStr(TEXT)) == false) {
+                        return false;
+                    }
+                }
+                break;
                 case 24008:  //Если серия створки 
-                    message(rec.getInt(GRUP));
+                case 25008: //Если серия створки   
+                {
+                    int series_id = areaStv.mapFrame.get(LayoutArea.BOTT).artiklRec.getInt(eArtikl.series_id);
+                    String name = eGroups.find(series_id).getStr(eGroups.name);
+                    if (name.equals(rec.getStr(TEXT)) == false) {
+                        return false;
+                    }
+                }
+                break;                
+                case 24009:  //Коды текстуры подвеса 
+                case 25009:  //Коды текстуры подвеса                   
+                    for (Map.Entry<LayoutArea, ElemFrame> elem : areaStv.mapFrame.entrySet()) {
+                        for (Specific spc : elem.getValue().spcRec.spcList) {
+                            if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 12) {
+                                String name = eColor.find(spc.colorID1).getStr(eColor.name);
+                                if (name.equals(rec.getStr(TEXT)) == false) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
                     break;
                 case 24010:  //Номер стороны 
-                    message(rec.getInt(GRUP));
+                case 25010:  //Номер стороны                   
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24011:  //Расчет по общей арке 
                     message(rec.getInt(GRUP));
@@ -258,18 +284,6 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24803:  //Доп.симметр. обработка
                     message(rec.getInt(GRUP));
-                    break;
-                case 25007:  //Коды текстуры ручки 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25009:  //Коды текстуры подвеса 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25008:  //Если серия створки 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25010:  //Номер стороны 
-                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 25011:  //Расчет по общей арке 
                     message(rec.getInt(GRUP));

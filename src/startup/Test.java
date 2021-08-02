@@ -65,8 +65,8 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            wincalc();
-            //param();
+            //wincalc();
+            param();
             //query();
             //frame();
             //json();
@@ -132,7 +132,7 @@ public class Test {
 //        gt.fillingVar();
 //        gt.fillingDet();
         FurnitureTest ft = new FurnitureTest();
-        ft.furnitureVar();
+//        ft.furnitureVar();
         ft.furnitureDet();
         
 //        Query.connection = Test.connect2();
