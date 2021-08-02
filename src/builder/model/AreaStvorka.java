@@ -94,7 +94,7 @@ public class AreaStvorka extends AreaSimple {
         ElemFrame stvLeft = mapFrame.get(LayoutArea.LEFT);
 
         //Фурнитура створки, ручка, подвес
-        if (param(param, PKjson.sysfurnID) != -1) {
+        if (param(param, PKjson.sysfurnID) != -3) {
             sysfurnRec = eSysfurn.find2(param(param, PKjson.sysfurnID));
         } else {
             sysfurnRec = eSysfurn.find3(iwin().nuni);

@@ -331,11 +331,11 @@ public class DicColor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
-        listener.action(eGroups.up.newRecord());
-        if (tab2.getBorder() != null) {
-            listener.action(eColor.virtualRec());
-            this.dispose();
-        }
+        //listener.action(eGroups.up.newRecord());
+        //if (tab2.getBorder() != null) {
+        listener.action(eColor.virtualRec());
+        this.dispose();
+        //}
     }//GEN-LAST:event_btnRemov
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked

@@ -144,7 +144,120 @@ public class Furniture extends Cal5e {
                     return false;
                 }
             }
-            
+
+            HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
+
+            //ФИЛЬТР детализации            
+            furnitureDet.detailRec = furndetRec; //для тестирования
+            if (furnitureDet.filter(mapParam, areaStv, furndetRec) == false) {
+                return false; //параметры детализации
+            }
+            List<Record> furnside2List = eFurnside2.find(furndetRec.getInt(eFurndet.id));
+
+            //Цикл по ограничению сторон фурнитуры
+            for (Record furnside2Rec : furnside2List) {
+                ElemFrame el = null;
+                float width = 0;
+                int side = furnside2Rec.getInt(eFurnside2.side_num);
+
+                if (side < 0) {
+                    String txt = (furnitureDet.mapParamTmp.get(24038) == null) ? furnitureDet.mapParamTmp.get(25038) : furnitureDet.mapParamTmp.get(24038);
+                    String[] par = txt.split("/");
+                    if (side == -1) {
+                        side = (par[0].equals("*") == true) ? 99 : Integer.valueOf(par[0]);
+                    } else if (side == -2) {
+                        side = (par[1].equals("*") == true) ? 99 : Integer.valueOf(par[1]);
+                    }
+                }
+                if (side == 1) {
+                    el = areaStv.mapFrame.get(LayoutArea.BOTT);
+                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
+                    width = el.spcRec.width - 2 * size_falz;
+                } else if (side == 2) {
+                    el = areaStv.mapFrame.get(LayoutArea.RIGHT);
+                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
+                    width = el.spcRec.width - 2 * size_falz;
+                } else if (side == 3) {
+                    el = areaStv.mapFrame.get(LayoutArea.TOP);
+                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
+                    width = el.spcRec.width - 2 * size_falz;
+                } else if (side == 4) {
+                    el = areaStv.mapFrame.get(LayoutArea.LEFT);
+                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
+                    width = el.spcRec.width - 2 * size_falz;
+                }
+                if (furnside2Rec.getFloat(eFurnside2.len_max) < width || (furnside2Rec.getFloat(eFurnside2.len_min) > width)) {
+                    return false;
+                }
+            }
+
+            //Если это элемент из мат. ценности (не набор)
+            if (furndetRec.get(eFurndet.furniture_id2) == null) {
+                if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
+
+                    ElemFrame sideStv = determOfSide(mapParam, areaStv);
+                    Specific spcAdd = new Specific(furndetRec, artiklRec, sideStv, mapParam);
+
+                    //Пишем ручку в створку
+                    if (artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
+                        if (areaStv.handleRec.getInt(eArtikl.id) == -3) {          
+                            areaStv.handleRec = artiklRec;
+                        } else {                          
+                            spcAdd.setArtiklRec(areaStv.artiklRecAn);
+                        }
+                        if (areaStv.handleColor == -3) {
+                            Color.colorFromProduct(spcAdd, 1);
+                            areaStv.handleColor = spcAdd.colorID1;
+                        } else {
+                            spcAdd.setColor(1, areaStv.handleColor);
+                        }
+                    } else {
+                        Color.colorFromProduct(spcAdd, 1); //попадает или нет в спецификацию по цвету
+                    }
+                    spcAdd.count = Util.getFloat(spcAdd.getParam(spcAdd.count, 24030));
+                    spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
+                    spcAdd.place = "ФУРН";
+                    sideStv.addSpecific(spcAdd); //добавим спецификацию в элемент
+                }
+
+                //Если это нобор   
+            } else {
+                int countKi2 = (mapParam.get(24030) == null) ? 1 : Integer.valueOf((mapParam.get(24030)));
+                Record furnitureRec2 = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id2));
+                try {
+                    middle(areaStv, furnitureRec2, countKi2); //рекурсия обработки наборов
+                } catch (Exception e) {
+                    System.err.println("Ошибка:Furniture.middle() " + e);
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            System.err.println("estimate.constr.Furniture.detail() " + e);
+            return false;
+        }
+    }
+
+    protected boolean detail2(AreaStvorka areaStv, Record furndetRec, int countKit) {
+        try {
+            Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
+
+            //Сделано для убыстрения поиска ручки при конструировании окна. Если ручки нет (eArtikl.level1) != 2) то сразу выход.
+            if (takeHandle == true) {
+                if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)
+                        && furndetRec.get(eFurndet.furniture_id2) == null) {
+                    if (artiklRec.getInt(eArtikl.level1) != 2) { //т.к. ручки на уровне 2
+                        return false;
+                    }
+                }
+            }
+
+            //Если ручка выбрана вручную
+            if (artiklRec.getInt(eArtikl.level1) == 2 && artiklRec.getInt(eArtikl.level2) == 11) {
+                if (areaStv.handleRec.getInt(eArtikl.id) != -3) {
+                    return false;
+                }
+            }
+
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
 
             //ФИЛЬТР детализации            

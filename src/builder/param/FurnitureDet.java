@@ -83,10 +83,6 @@ public class FurnitureDet extends Par5s {
                     }
                     break;
                 case 24006:  //Установить текстуру
-                    //if ("по текстуре ручки".equalsIgnoreCase(rec.getStr(TEXT))) {
-                    //for (Map.Entry<LayoutArea, ElemFrame> entry : areaStv.mapFrame.entrySet()) {
-                    //    ElemFrame elemFrame = entry.getValue();
-                    //}
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 24007:  //Коды текстуры ручки 

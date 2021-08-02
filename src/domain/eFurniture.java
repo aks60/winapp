@@ -60,26 +60,14 @@ public enum eFurniture implements Field {
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
-
-//    public static Record find2(int _id) {
-//        if (Query.conf.equals("calc")) {
-//            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
-//        }
-//        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
-//        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
-//    }
-//    public static List<Record> find2(int _id) {
-//        if (Query.conf.equals("calc")) {
-//            List<Integer> furndetKeys = eFurndet.query().stream()
-//                    .filter(rec -> rec.getInt(eFurndet.furniture_id1) == _id && rec.get(eFurndet.furniture_id2) != null)
-//                    .map(rec -> rec.getInt(eFurndet.furniture_id2)).collect(Collectors.toList());
-//            return query().stream().filter(rec -> furndetKeys.contains(rec.getInt(eFurniture.id))).collect(Collectors.toList());
-//        }
-//        Query furndetList = new Query(eFurndet.furniture_id2).select(eFurndet.up, "where", eFurndet.furniture_id1, "=", _id, "and", eFurndet.furniture_id2, "is not null");
-//        String sql = furndetList.stream().map(rec -> rec.getStr(eFurndet.furniture_id2)).collect(Collectors.joining(",", "(", ")"));
-//        List<Record> furnitureList = new Query(values()).select(up, "where", id, "in", sql);
-//        return (furnitureList.isEmpty() == true) ? new ArrayList() : furnitureList;
-//    }
+    
+    public static Record virtualRec() {
+        Record record = up.newRecord();
+        record.setNo(id, -3);
+        record.setNo(name, "virtual");
+        return record;
+    }
+    
     public String toString() {
         return meta.descr();
     }

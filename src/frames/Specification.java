@@ -565,6 +565,7 @@ public class Specification extends javax.swing.JFrame {
         int index = Uti5.getIndexRec(tab1);
         createIwin();
         loadingTab1(groups(cbx1.getSelectedIndex()));
+        cbxGroupBy(null);
         Uti5.setSelectedRow(tab1, index);
     }//GEN-LAST:event_btnRefresh
 

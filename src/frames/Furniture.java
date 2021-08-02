@@ -70,6 +70,7 @@ public class Furniture extends javax.swing.JFrame {
     private ListenerRecord listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
     private String subsql = "(-1)";
+    private JTable tab2 = null; //активная таблица спецификации
 
     public Furniture() {
         this.subsql = null;
@@ -107,6 +108,7 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     private void loadingData() {
+        tab2 = tab2a;
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         qFurnall.select(eFurniture.up, "order by", eFurniture.name);
@@ -1319,11 +1321,12 @@ public class Furniture extends javax.swing.JFrame {
                 });
             }
         } else if (tab6.getBorder() != null) {
-            JTable table = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
-            Query query = ((DefTableModel) table.getModel()).getQuery();
-            if (Uti5.getIndexRec(table) != -1) {
+            //JTable tab2 = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
+            Object name = tab2.getName();
+            Query query = ((DefTableModel) tab2.getModel()).getQuery();
+            if (Uti5.getIndexRec(tab2) != -1) {
                 Uti5.insertRecord(tab6, eFurnpar2.up, (record) -> {
-                    int id = query.getAs(Uti5.getIndexRec(table), eFurndet.id);
+                    int id = query.getAs(Uti5.getIndexRec(tab2), eFurndet.id);
                     record.set(eFurnpar2.furndet_id, id);
                 });
             }
@@ -1343,10 +1346,13 @@ public class Furniture extends javax.swing.JFrame {
         JTable table = (JTable) evt.getSource();
         Uti5.updateBorderAndSql(table, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
         if (table == tab2a) {
+            tab2 =tab2a;
             selectionTab2a(null);
         } else if (table == tab2b) {
+            tab2 = tab2b;
             selectionTab2b(null);
         } else if (table == tab2c) {
+            tab2 = tab2c;
             selectionTab2c(null);
         }
         filterTable.mousePressed((JTable) evt.getSource());
