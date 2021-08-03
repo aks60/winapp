@@ -54,7 +54,7 @@ import common.Util;
 import domain.eArtdet;
 import domain.eColor;
 import domain.eFurndet;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.PKjson;
 import enums.TypeElem;
 import enums.TypeOpen1;
@@ -2617,13 +2617,13 @@ public class Systree extends javax.swing.JFrame {
                         String paramStr = stvArea.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         String stvKey = null;
-                        if (windowsNode.com5t().layout() == LayoutArea.BOTT) {
+                        if (windowsNode.com5t().layout() == Layout.BOTT) {
                             stvKey = PKjson.stvorkaBottom;
-                        } else if (windowsNode.com5t().layout() == LayoutArea.RIGHT) {
+                        } else if (windowsNode.com5t().layout() == Layout.RIGHT) {
                             stvKey = PKjson.stvorkaRight;
-                        } else if (windowsNode.com5t().layout() == LayoutArea.TOP) {
+                        } else if (windowsNode.com5t().layout() == Layout.TOP) {
                             stvKey = PKjson.stvorkaTop;
-                        } else if (windowsNode.com5t().layout() == LayoutArea.LEFT) {
+                        } else if (windowsNode.com5t().layout() == Layout.LEFT) {
                             stvKey = PKjson.stvorkaLeft;
                         }
                         JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
@@ -2677,13 +2677,13 @@ public class Systree extends javax.swing.JFrame {
                     String paramStr = parentArea.param();
                     JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                     String stvKey = null;
-                    if (windowsNode.com5t().layout() == LayoutArea.BOTT) {
+                    if (windowsNode.com5t().layout() == Layout.BOTT) {
                         stvKey = PKjson.stvorkaBottom;
-                    } else if (windowsNode.com5t().layout() == LayoutArea.RIGHT) {
+                    } else if (windowsNode.com5t().layout() == Layout.RIGHT) {
                         stvKey = PKjson.stvorkaRight;
-                    } else if (windowsNode.com5t().layout() == LayoutArea.TOP) {
+                    } else if (windowsNode.com5t().layout() == Layout.TOP) {
                         stvKey = PKjson.stvorkaTop;
-                    } else if (windowsNode.com5t().layout() == LayoutArea.LEFT) {
+                    } else if (windowsNode.com5t().layout() == Layout.LEFT) {
                         stvKey = PKjson.stvorkaLeft;
                     }
                     JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);

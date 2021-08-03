@@ -3,7 +3,7 @@ package builder.param.test;
 import builder.making.Specific;
 import builder.model.ElemFrame;
 import common.Util;
-import enums.LayoutArea;
+import enums.Layout;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,11 +35,11 @@ public class FillingTest extends ParamTest {
 
         grup = 13014; //Углы ориентации стороны, ° 
         fillingVar3.check(glass_left_3, param("0;90;180;270", grup));
-        for (Map.Entry<LayoutArea, ElemFrame> it : glass_left_3.owner().mapFrame.entrySet()) {
+        for (Map.Entry<Layout, ElemFrame> it : glass_left_3.owner().mapFrame.entrySet()) {
             assert true == Util.containsNumb(glass_left_3.spcRec.mapParam.get(13014), it.getValue().anglHoriz);
         }
         fillingVar3.check(glass_left_3, param("10;20;30", grup));
-        for (Map.Entry<LayoutArea, ElemFrame> it : glass_left_3.owner().mapFrame.entrySet()) {
+        for (Map.Entry<Layout, ElemFrame> it : glass_left_3.owner().mapFrame.entrySet()) {
             assert false == Util.containsNumb(glass_left_3.spcRec.mapParam.get(13014), it.getValue().anglHoriz);
         }
 

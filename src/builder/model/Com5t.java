@@ -3,7 +3,7 @@ package builder.model;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import dataset.Record;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 import java.util.LinkedList;
 import builder.Wincalc;
@@ -15,7 +15,7 @@ public abstract class Com5t {
     public static final int SPACE_DY = 240;   //пространство для линий              
 
     protected TypeElem type = TypeElem.NONE; //Тип элемента   
-    protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов ...
+    protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) расположения компонентов ...
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства
     public Record artiklRecAn = null;  //аналог мат. средства    
@@ -71,9 +71,9 @@ public abstract class Com5t {
 
     public float length() {
         if (TypeElem.FRAME_SIDE == type() || TypeElem.STVORKA_SIDE == type()) {
-            return (LayoutArea.TOP == layout() || LayoutArea.BOTT == layout()) ? x2 - x1 : y2 - y1;
+            return (Layout.TOP == layout() || Layout.BOTT == layout()) ? x2 - x1 : y2 - y1;
         }
-        return (LayoutArea.HORIZ == layout()) ? x2 - x1 : y2 - y1;
+        return (Layout.HORIZ == layout()) ? x2 - x1 : y2 - y1;
     }
 
     public float width() {
@@ -88,7 +88,7 @@ public abstract class Com5t {
         return type;
     }
 
-    public LayoutArea layout() {
+    public Layout layout() {
         return layout;
     }
 

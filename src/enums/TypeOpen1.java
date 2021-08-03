@@ -49,15 +49,15 @@ public enum TypeOpen1 implements Enam {
         return null;
     }
 
-    public LayoutArea axisStv() {
+    public Layout axisStv() {
         if (this == LEFT || this == LEFTUP || this == LEFTMOV) {
-            return LayoutArea.LEFT;
+            return Layout.LEFT;
         } else if (this == RIGHT || this == RIGHTUP || this == RIGHTMOV) {
-            return LayoutArea.RIGHT;
+            return Layout.RIGHT;
         } else if (this == UPPER) {
-            return LayoutArea.BOTT;
+            return Layout.BOTT;
         } else {
-            return LayoutArea.LEFT;  //по умолчанию
+            return Layout.LEFT;  //по умолчанию
         }
     }
 }

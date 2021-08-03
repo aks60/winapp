@@ -1,6 +1,6 @@
 package builder.script;
 
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,19 +17,19 @@ public class GsonRoot extends GsonElem {
     public Integer color2 = -3;  //внутренняя текстура
     public Integer color3 = -3;  //внешняя текстура    
     
-    public GsonRoot(int prj, int ord, int nuni, String name, LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3) {
+    public GsonRoot(int prj, int ord, int nuni, String name, Layout layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3) {
         this(prj, ord, nuni, name, layoutArea, type, width, height, 0, color1, color2, color3, null);
     }
     
-    public GsonRoot(int prj, int ord, int nuni, String name, LayoutArea layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3, String paramJson) {
+    public GsonRoot(int prj, int ord, int nuni, String name, Layout layoutArea, TypeElem type, float width, float height, int color1, int color2, int color3, String paramJson) {
         this(prj, ord, nuni, name,  layoutArea, type, width, height, 0, color1, color2, color3, paramJson);
     }
     
-    public GsonRoot(int prj, int ord, int nuni, String name, LayoutArea layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3) {
+    public GsonRoot(int prj, int ord, int nuni, String name, Layout layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3) {
         this(prj, ord, nuni, name,  layoutArea, type, width, height, heightAdd, color1, color2, color3, null);
     }
 
-    public GsonRoot(int prj, int ord, int nuni, String name, LayoutArea layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {
+    public GsonRoot(int prj, int ord, int nuni, String name, Layout layoutArea, TypeElem type, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {
         super.genId = 0;
         super.id = 0;
         this.prj = prj;

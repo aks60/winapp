@@ -6,7 +6,7 @@ import domain.eArtikl;
 import domain.eColor;
 import domain.eSyssize;
 import domain.eSystree;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import builder.making.Specific;
@@ -28,7 +28,7 @@ public class ElemGlass extends ElemSimple {
     public ElemGlass(AreaSimple owner, float id, String param) {
 
         super(id, owner.iwin(), owner);
-        this.layout = LayoutArea.FULL;
+        this.layout = Layout.FULL;
         this.type = TypeElem.GLASS;
 
         initСonstructiv(param);
@@ -70,8 +70,8 @@ public class ElemGlass extends ElemSimple {
 
         if (owner() instanceof AreaArch) { //если арка
 
-            ElemFrame elemArch = root().mapFrame.get(LayoutArea.ARCH);
-            ElemSimple elemImpost = joinFlat(LayoutArea.BOTT);
+            ElemFrame elemArch = root().mapFrame.get(Layout.ARCH);
+            ElemSimple elemImpost = joinFlat(Layout.BOTT);
             /*for (Com5t elemBase : root().listChild) { //первый импост в стеклопакете снизу;
                 if (TypeElem.IMPOST == elemBase.type) {
                     elemImpost = (ElemImpost) elemBase;
@@ -88,7 +88,7 @@ public class ElemGlass extends ElemSimple {
 
         } else if (TypeElem.STVORKA == owner().type()) {
             AreaStvorka stv = (AreaStvorka) owner();
-            ElemSimple insideLeft = stv.mapFrame.get(LayoutArea.LEFT), insideTop = stv.mapFrame.get(LayoutArea.TOP), insideBott = stv.mapFrame.get(LayoutArea.BOTT), insideRight = stv.mapFrame.get(LayoutArea.RIGHT);
+            ElemSimple insideLeft = stv.mapFrame.get(Layout.LEFT), insideTop = stv.mapFrame.get(Layout.TOP), insideBott = stv.mapFrame.get(Layout.BOTT), insideRight = stv.mapFrame.get(Layout.RIGHT);
 
             if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
                 x1 = insideLeft.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
@@ -102,7 +102,7 @@ public class ElemGlass extends ElemSimple {
                 y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
         } else {
-            ElemSimple insideLeft = joinFlat(LayoutArea.LEFT), insideTop = joinFlat(LayoutArea.TOP), insideBott = joinFlat(LayoutArea.BOTT), insideRight = joinFlat(LayoutArea.RIGHT);
+            ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
 
             if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
                 x1 = owner.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
@@ -205,7 +205,7 @@ public class ElemGlass extends ElemSimple {
         iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
 
         if (owner().type == TypeElem.ARCH) {
-            ElemFrame ef = root().mapFrame.get(LayoutArea.ARCH);
+            ElemFrame ef = root().mapFrame.get(Layout.ARCH);
             float dz = ef.artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));

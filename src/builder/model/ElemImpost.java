@@ -7,7 +7,7 @@ import domain.eJoining;
 import domain.eJoinpar1;
 import domain.eJoinvar;
 import domain.eSysprof;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.UseSide;
 import enums.TypeArtikl;
 import enums.TypeElem;
@@ -27,7 +27,7 @@ public class ElemImpost extends ElemSimple {
     public ElemImpost(AreaSimple owner, TypeElem type, float id, String param) {
 
         super(id, owner.iwin(), owner);
-        this.layout = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
+        this.layout = (owner.layout() == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
         colorID1 = iwin().colorID1;
         colorID2 = iwin().colorID2;
         colorID3 = iwin().colorID3;
@@ -38,7 +38,7 @@ public class ElemImpost extends ElemSimple {
         //Коррекция положения импоста арки (подкдадка ареа над импостом)
         if ((TypeElem.ARCH == owner.type || TypeElem.TRAPEZE == owner.type) && owner.listChild.isEmpty()) {
             float dh = artiklRec.getFloat(eArtikl.height) / 2;
-            owner.listChild.add(new AreaSimple(iwin(), owner, owner.id() + .1f, TypeElem.AREA, LayoutArea.HORIZ, owner.width(), dh, -1, -1, -1, null));
+            owner.listChild.add(new AreaSimple(iwin(), owner, owner.id() + .1f, TypeElem.AREA, Layout.HORIZ, owner.width(), dh, -1, -1, -1, null));
         }
         setLocation();
     }
@@ -48,14 +48,14 @@ public class ElemImpost extends ElemSimple {
         if (param(param, PKjson.sysprofID) != -1) {
             sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
         } else {
-            if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
+            if (Layout.VERT.equals(owner().layout())) { //сверху вниз
                 sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.HORIZ, UseSide.ANY);
 
-            } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
+            } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
                 sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.VERT, UseSide.ANY);
             }
         }
-        spcRec.place = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
+        spcRec.place = (Layout.HORIZ == owner().layout()) ? Layout.VERT.name : Layout.HORIZ.name;
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
@@ -67,11 +67,11 @@ public class ElemImpost extends ElemSimple {
                 Com5t prevArea = owner().listChild.get(index); //index указывает на предыдущий элемент
                 float db = artiklRecAn.getFloat(eArtikl.size_centr);
 
-                if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
+                if (Layout.VERT.equals(owner().layout())) { //сверху вниз
                     setDimension(prevArea.x1, prevArea.y2 - db, prevArea.x2, prevArea.y2 + db);
                     anglHoriz = 270;
 
-                } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
+                } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
                     setDimension(prevArea.x2 - db, prevArea.y1, prevArea.x2 + db, prevArea.y2);
                     anglHoriz = 90;
                 }
@@ -83,7 +83,7 @@ public class ElemImpost extends ElemSimple {
     @Override //Главная спецификация
     public void setSpecific() {
 
-        spcRec.place = (LayoutArea.HORIZ == owner().layout()) ? "ВСТ.В" : "ВСТ.Г";
+        spcRec.place = (Layout.HORIZ == owner().layout()) ? "ВСТ.В" : "ВСТ.Г";
         spcRec.setArtiklRec(artiklRec);
         spcRec.colorID1 = colorID1;
         spcRec.colorID2 = colorID2;
@@ -96,22 +96,22 @@ public class ElemImpost extends ElemSimple {
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
             float zax = iwin().syssizeRec.getFloat(eSyssize.zax);
 
-            if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
-                ElemSimple insideTop = joinFlat(LayoutArea.TOP), insideBott = joinFlat(LayoutArea.BOTT);
+            if (Layout.HORIZ == owner().layout()) { //слева направо  
+                ElemSimple insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
                 spcRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-            } else if (LayoutArea.VERT == owner().layout()) { //снизу вверх
-                ElemSimple insideLeft = joinFlat(LayoutArea.LEFT), insideRight = joinFlat(LayoutArea.RIGHT);
+            } else if (Layout.VERT == owner().layout()) { //снизу вверх
+                ElemSimple insideLeft = joinFlat(Layout.LEFT), insideRight = joinFlat(Layout.RIGHT);
                 spcRec.width = insideRight.x1 - insideLeft.x2 + zax * 2 + insideLeft.artiklRec.getFloat(eArtikl.size_falz) + insideRight.artiklRec.getFloat(eArtikl.size_falz);
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
         } else {
-            if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
+            if (Layout.HORIZ == owner().layout()) { //слева направо  
                 spcRec.width = y2 - y1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-            } else if (LayoutArea.VERT == owner().layout()) { //снизу вверх
+            } else if (Layout.VERT == owner().layout()) { //снизу вверх
                 spcRec.width = x2 - x1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
@@ -152,10 +152,10 @@ public class ElemImpost extends ElemSimple {
     public void paint() {
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
-        if (LayoutArea.VERT == owner().layout()) {
+        if (Layout.VERT == owner().layout()) {
             iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
-        } else if (LayoutArea.HORIZ == owner().layout()) {
+        } else if (Layout.HORIZ == owner().layout()) {
             iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
         }
     }

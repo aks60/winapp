@@ -7,7 +7,7 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eParams;
 import domain.eSysprof;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 import enums.LayoutJoin;
 import enums.TypeJoin;
@@ -31,10 +31,10 @@ import java.util.Map;
 
 public class AreaSimple extends Com5t {
 
-    public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне 
+    public EnumMap<Layout, ElemFrame> mapFrame = new EnumMap<>(Layout.class); //список рам в окне 
     public LinkedList<Com5t> listChild = new LinkedList(); //дети
 
-    public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
+    public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
         super(id, iwin, owner);
         this.type = typeElem;
         this.layout = layout;
@@ -71,9 +71,9 @@ public class AreaSimple extends Com5t {
         } else {
             //Первая area добавляемая в area владельца
             if (owner().listChild.isEmpty() == true) {
-                if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
+                if (Layout.VERT.equals(owner().layout())) { //сверху вниз
                     setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + height);
-                } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
+                } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
                     setDimension(owner().x1, owner().y1, owner().x1 + width, owner().y2);
                 }
 
@@ -82,11 +82,11 @@ public class AreaSimple extends Com5t {
                     if (owner().listChild.get(index).type == TypeElem.AREA) {
                         AreaSimple prevArea = (AreaSimple) owner().listChild.get(index);
                         //Если последняя доб. area выходит за коорд. root area. Происходит при подкдадке ареа над импостом 
-                        if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз                            
+                        if (Layout.VERT.equals(owner().layout())) { //сверху вниз                            
                             float Y2 = (prevArea.y2 + height > root().y2) ? root().y2 : prevArea.y2 + height;
                             setDimension(owner().x1, prevArea.y2, owner().x2, Y2);
 
-                        } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
+                        } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
                             float X2 = (prevArea.x2 + width > root().x2) ? root().x2 : prevArea.x2 + width;
                             setDimension(prevArea.x2, owner().y1, X2, owner().y2);
                         }
@@ -150,13 +150,13 @@ public class AreaSimple extends Com5t {
         for (ElemSimple elemImp : impList) {
             //Цикл по сторонам рамы и импостам (т.к. в створке Т-обр. соединений нет)
             for (ElemSimple elem5e : elemList) {
-                if (elem5e.layout != LayoutArea.ARCH) { //для арки inside() не работает
+                if (elem5e.layout != Layout.ARCH) { //для арки inside() не работает
 
                     elemImp.anglCut[0] = 90;
                     elemImp.anglCut[1] = 90;
 
                     //Импосты(штульпы...)  расположены по горизонтали слева на право
-                    if (elemImp.owner().layout() == LayoutArea.HORIZ) {
+                    if (elemImp.owner().layout() == Layout.HORIZ) {
                         //elemImp.anglHoriz = 90;
                         if (elem5e.inside(elemImp.x2, elemImp.y2) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение нижнее                              
@@ -207,13 +207,13 @@ public class AreaSimple extends Com5t {
 
             //Прорисовка рам
             if (TypeElem.ARCH == type) {
-                mapFrame.get(LayoutArea.ARCH).paint();
+                mapFrame.get(Layout.ARCH).paint();
             } else {
-                mapFrame.get(LayoutArea.TOP).paint();
+                mapFrame.get(Layout.TOP).paint();
             }
-            mapFrame.get(LayoutArea.BOTT).paint();
-            mapFrame.get(LayoutArea.LEFT).paint();
-            mapFrame.get(LayoutArea.RIGHT).paint();
+            mapFrame.get(Layout.BOTT).paint();
+            mapFrame.get(Layout.LEFT).paint();
+            mapFrame.get(Layout.RIGHT).paint();
 
             //Прорисовка створок
             LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.STVORKA);
@@ -224,7 +224,7 @@ public class AreaSimple extends Com5t {
                 LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
                 LinkedList<ElemImpost> impostList = root().listElem(TypeElem.IMPOST, TypeElem.SHTULP);
                 for (ElemSimple impostElem : impostList) { //по импостам определим точки разрыва линии
-                    if (LayoutArea.VERT == impostElem.owner().layout) {
+                    if (Layout.VERT == impostElem.owner().layout) {
                         ls2.add(impostElem.y1 + (impostElem.y2 - impostElem.y1) / 2);
                     } else {
                         ls1.add(impostElem.x1 + (impostElem.x2 - impostElem.x1) / 2);

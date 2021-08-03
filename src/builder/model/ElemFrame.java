@@ -5,7 +5,7 @@ import domain.eArtikl;
 import domain.eColor;
 import domain.eSyssize;
 import domain.eSysprof;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import builder.making.Specific;
@@ -20,7 +20,7 @@ public class ElemFrame extends ElemSimple {
 
     protected float length = 0; //длина арки 
 
-    public ElemFrame(AreaSimple owner, float id, LayoutArea layout, String param) {
+    public ElemFrame(AreaSimple owner, float id, Layout layout, String param) {
         super(id, owner.iwin(), owner);
         this.layout = layout;
         colorID1 = iwin().colorID1;
@@ -45,23 +45,23 @@ public class ElemFrame extends ElemSimple {
     //Установка координат
     public void setLocation() {
 
-        if (LayoutArea.BOTT == layout) {
+        if (Layout.BOTT == layout) {
             setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
             anglHoriz = 0;
 
-        } else if (LayoutArea.RIGHT == layout) {
+        } else if (Layout.RIGHT == layout) {
             setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
             anglHoriz = 90;
 
-        } else if (LayoutArea.TOP == layout) {
+        } else if (Layout.TOP == layout) {
             setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
             anglHoriz = 180;
 
-        } else if (LayoutArea.LEFT == layout) {
+        } else if (Layout.LEFT == layout) {
             setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
             anglHoriz = 270;
 
-        } else if (LayoutArea.ARCH == layout) {
+        } else if (Layout.ARCH == layout) {
             setDimension(owner().x1, owner().y1, owner().x2, owner().y1); // + artiklRec.getFloat(eArtikl.height));
             anglHoriz = 180;
         }
@@ -80,22 +80,22 @@ public class ElemFrame extends ElemSimple {
         spcRec.anglHoriz = anglHoriz;
         double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
 
-        if (LayoutArea.ARCH == layout()) {
+        if (Layout.ARCH == layout()) {
             ((AreaArch) root()).frame(this, katet);
 
-        } else if (LayoutArea.TOP == layout) {
+        } else if (Layout.TOP == layout) {
             spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-        } else if (LayoutArea.BOTT == layout) {
+        } else if (Layout.BOTT == layout) {
             spcRec.width = x2 - x1 + +(float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-        } else if (LayoutArea.LEFT == layout) {
+        } else if (Layout.LEFT == layout) {
             spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-        } else if (LayoutArea.RIGHT == layout) {
+        } else if (Layout.RIGHT == layout) {
             spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
         }
@@ -116,10 +116,10 @@ public class ElemFrame extends ElemSimple {
             spcAdd.anglCut1 = 90;
             spcAdd.anglCut2 = 90;
 
-            if (LayoutArea.TOP == layout || LayoutArea.BOTT == layout) {
+            if (Layout.TOP == layout || Layout.BOTT == layout) {
                 spcAdd.width += x2 - x1;
 
-            } else if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
+            } else if (Layout.LEFT == layout || Layout.RIGHT == layout) {
                 spcAdd.width += y2 - y1;
             }
             if ("ps3".equals(eSetting.find(2))) {
@@ -150,7 +150,7 @@ public class ElemFrame extends ElemSimple {
                     colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor);
 
                 } else if ("по текстуре подвеса".equals(spcAdd.getParam("null", 24006))) {
-                    for (Map.Entry<LayoutArea, ElemFrame> elem : elemStv.mapFrame.entrySet()) {
+                    for (Map.Entry<Layout, ElemFrame> elem : elemStv.mapFrame.entrySet()) {
                         for (Specific spc : elem.getValue().spcRec.spcList) {
                             if(spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 12) {
                                colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1); 
@@ -159,7 +159,7 @@ public class ElemFrame extends ElemSimple {
                     }
 
                 } else if ("по текстуре замка".equals(spcAdd.getParam("null", 24006))) {
-                    for (Map.Entry<LayoutArea, ElemFrame> elem : elemStv.mapFrame.entrySet()) {
+                    for (Map.Entry<Layout, ElemFrame> elem : elemStv.mapFrame.entrySet()) {
                         for (Specific spc : elem.getValue().spcRec.spcList) {
                             if(spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 9) {
                                colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1); 
@@ -211,7 +211,7 @@ public class ElemFrame extends ElemSimple {
         float w = root().width();
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
-        if (LayoutArea.ARCH == layout) { //прорисовка арки
+        if (Layout.ARCH == layout) { //прорисовка арки
             //TODO для прорисовки арки добавил один градус, а это не айс!
             float d2z = artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
@@ -222,13 +222,13 @@ public class ElemFrame extends ElemSimple {
             iwin().draw.strokeArc(owner().width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, 0, 4);
             iwin().draw.strokeArc(owner().width() / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4);
 
-        } else if (LayoutArea.TOP == layout) {
+        } else if (Layout.TOP == layout) {
             iwin().draw.strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, borderColor);
 
-        } else if (LayoutArea.BOTT == layout) {
+        } else if (Layout.BOTT == layout) {
             iwin().draw.strokePolygon(x1 + d1z, x2 - d1z, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
-        } else if (LayoutArea.LEFT == layout) {
+        } else if (Layout.LEFT == layout) {
             if (TypeElem.ARCH == owner().type) {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
@@ -237,7 +237,7 @@ public class ElemFrame extends ElemSimple {
             } else {
                 iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + d1z, y2 - d1z, y2, rgb, borderColor);
             }
-        } else if (LayoutArea.RIGHT == layout) {
+        } else if (Layout.RIGHT == layout) {
             if (TypeElem.ARCH == owner().type) {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));

@@ -4,7 +4,7 @@ import static enums.TypeOpen1.values;
 import java.util.Arrays;
 
 //Расположение area  и profile объединены в один список Enum
-public enum LayoutArea implements Enam {
+public enum Layout implements Enam {
     ANY(-1, "Любая"),
     HORIZ(-2, "Горизонт."),
     VERT(-3, "Вертикальн."),
@@ -20,7 +20,7 @@ public enum LayoutArea implements Enam {
     public int id;
     public String name;
 
-    LayoutArea(int id, String name) {
+    Layout(int id, String name) {
         this.id = id;
         this.name = name;
     }

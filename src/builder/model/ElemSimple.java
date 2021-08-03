@@ -11,7 +11,7 @@ import enums.UseArtiklTo;
 import java.awt.Color;
 import java.util.HashMap;
 import builder.Wincalc;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 import java.util.LinkedList;
 
@@ -48,38 +48,38 @@ public abstract class ElemSimple extends Com5t {
     //Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка прилегающего)
     //В этих точках лежат мапы соединений см. Wincalc.mapJoin
     public String joinPoint(int side) {
-        if (layout() == LayoutArea.BOTT) {
+        if (layout() == Layout.BOTT) {
             return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y2; //точки левого и правого нижнего углового и прилегающего соед.
-        } else if (layout() == LayoutArea.RIGHT) {
+        } else if (layout() == Layout.RIGHT) {
             return (side == 0) ? x2 + ":" + y2 : (side == 1) ? x2 + ":" + y1 : x2 + ":" + y1 + (y2 - y1) / 2; //точки нижнего и верхнего правого углового и прилегающего соед.
-        } else if (layout() == LayoutArea.TOP) {
+        } else if (layout() == Layout.TOP) {
             return (side == 0) ? x2 + ":" + y1 : (side == 1) ? x1 + ":" + y1 : x1 + (x2 - x1) / 2 + ":" + y2; //точки правого и левого верхнего углового и прилегающего соед.
-        } else if (layout() == LayoutArea.LEFT) {
+        } else if (layout() == Layout.LEFT) {
             return (side == 0) ? x1 + ":" + y1 : (side == 1) ? x1 + ":" + y2 : x1 + ":" + y1 + (y2 - y1) / 2; //точки верхнего и нижнего левого углового и прилегающего соед.
-        } else if (layout() == LayoutArea.ARCH) {
+        } else if (layout() == Layout.ARCH) {
             return (side == 0) ? x2 + ":" + y1 : x1 + ":" + y1; //точки правого и левого верхнего углового.
 
             //импост, штульп...    
-        } else if (layout() == LayoutArea.VERT) { //вектор всегда снизу вверх
+        } else if (layout() == Layout.VERT) { //вектор всегда снизу вверх
             return (side == 0) ? x1 + (x2 - x1) / 2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y1; //точки нижнего и верхнего Т-обр.
             
-        } else if (layout() == LayoutArea.HORIZ) { //вектор всегда слева на право
+        } else if (layout() == Layout.HORIZ) { //вектор всегда слева на право
             return (side == 0) ? x1 + ":" + y1 + (y2 - y1) / 2 : x2 + ":" + y1 + (y2 - y1) / 2; //точки левого и правого Т-обр 
         }
         return null;
     }
 
     //Прилегающие соединения. Используется при построении конструкции, когда соединения ещё не определены  
-    public ElemSimple joinFlat(LayoutArea layoutArea) {
+    public ElemSimple joinFlat(Layout layoutArea) {
         LinkedList<ElemSimple> listElem = root().listElem(TypeElem.STVORKA_SIDE, TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список элементов
-        if (LayoutArea.BOTT == layoutArea) {
-            return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, y2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
-        } else if (LayoutArea.LEFT == layoutArea) {
-            return listElem.stream().filter(el -> el != this && el.inside(x1, y1 + (y2 - y1) / 2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
-        } else if (LayoutArea.TOP == layoutArea) {
-            return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, y1) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
-        } else if (LayoutArea.RIGHT == layoutArea) {
-            return listElem.stream().filter(el -> el != this && el.inside(x2, y1 + (y2 - y1) / 2) == true && el.layout() != LayoutArea.ARCH).findFirst().orElse(null);
+        if (Layout.BOTT == layoutArea) {
+            return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, y2) == true && el.layout() != Layout.ARCH).findFirst().orElse(null);
+        } else if (Layout.LEFT == layoutArea) {
+            return listElem.stream().filter(el -> el != this && el.inside(x1, y1 + (y2 - y1) / 2) == true && el.layout() != Layout.ARCH).findFirst().orElse(null);
+        } else if (Layout.TOP == layoutArea) {
+            return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, y1) == true && el.layout() != Layout.ARCH).findFirst().orElse(null);
+        } else if (Layout.RIGHT == layoutArea) {
+            return listElem.stream().filter(el -> el != this && el.inside(x2, y1 + (y2 - y1) / 2) == true && el.layout() != Layout.ARCH).findFirst().orElse(null);
         }
         return null;
     }

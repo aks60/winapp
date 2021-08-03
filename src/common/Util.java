@@ -1,7 +1,7 @@
 package common;
 
 import builder.model.ElemSimple;
-import enums.LayoutArea;
+import enums.Layout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

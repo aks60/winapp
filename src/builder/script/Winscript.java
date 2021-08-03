@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import common.eProperty;
 import domain.eSetting;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 import java.util.Arrays;
 import java.util.List;

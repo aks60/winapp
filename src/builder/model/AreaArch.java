@@ -3,7 +3,7 @@ package builder.model;
 import domain.eArtikl;
 import enums.LayoutJoin;
 import enums.TypeJoin;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 import builder.Wincalc;
 import builder.making.Specific;
@@ -12,14 +12,14 @@ public class AreaArch extends AreaSimple {
 
     public double radiusArch = 0; //радиус арки
 
-    public AreaArch(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
+    public AreaArch(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
         super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3, param);
     }
 
     @Override
     public void joinFrame() {
-        ElemSimple elemBott = mapFrame.get(LayoutArea.BOTT), elemRight = mapFrame.get(LayoutArea.RIGHT),
-                elemArch = mapFrame.get(LayoutArea.ARCH), elemLeft = mapFrame.get(LayoutArea.LEFT);
+        ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
+                elemArch = mapFrame.get(Layout.ARCH), elemLeft = mapFrame.get(Layout.LEFT);
 
         double dh = elemArch.artiklRec.getFloat(eArtikl.height);
         double dw = elemLeft.artiklRec.getFloat(eArtikl.height);
@@ -64,9 +64,9 @@ public class AreaArch extends AreaSimple {
 
     protected void shtapik(ElemGlass elemGlass, Specific spcAdd) {
         Float dw = spcAdd.width;
-        ElemSimple imp = elemGlass.joinFlat(LayoutArea.BOTT);
-        ElemSimple arch = mapFrame.get(LayoutArea.ARCH);
-        ElemSimple rama = mapFrame.get(LayoutArea.LEFT);
+        ElemSimple imp = elemGlass.joinFlat(Layout.BOTT);
+        ElemSimple arch = mapFrame.get(Layout.ARCH);
+        ElemSimple rama = mapFrame.get(Layout.LEFT);
 
         if (elemGlass.anglHoriz == elemGlass.sideHoriz[0]) { //по основанию арки
             double r1 = radiusArch - arch.artiklRec.getFloat(eArtikl.height) + arch.artiklRec.getDbl(eArtikl.size_falz); //внешний радиус

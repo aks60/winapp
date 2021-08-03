@@ -7,7 +7,7 @@ import domain.eGlasgrp;
 import domain.eGlasprof;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import java.util.HashMap;

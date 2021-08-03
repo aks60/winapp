@@ -2,7 +2,7 @@ package builder.param.test;
 
 import builder.model.AreaStvorka;
 import domain.eArtikl;
-import enums.LayoutArea;
+import enums.Layout;
 import java.util.HashMap;
 
 public class FurnitureTest extends ParamTest {
@@ -84,7 +84,10 @@ public class FurnitureTest extends ParamTest {
         
         //grup = 24009; //25009  //Коды текстуры подвеса  
         //assert true == furnitureDet2.check(mapParam, area_stv_2, param("Без цвета", grup)) : grup;
-        //assert false == furnitureDet2.check(mapParam, area_stv_2, param("ххххх", grup)) : grup;  
-               
+        //assert false == furnitureDet2.check(mapParam, area_stv_2, param("ххххх", grup)) : grup; 
+        
+        grup = 24012;  //Направление открывания
+        assert true == furnitureDet3.check(mapParam, area_stv_3, param("левое", grup)) : grup;
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("правое", grup)) : grup;                
     }
 }

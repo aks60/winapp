@@ -10,7 +10,7 @@ import common.Util;
 import domain.eArtikl;
 import domain.eSetting;
 import domain.eSyssize;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeArtikl;
 import java.util.Arrays;
 

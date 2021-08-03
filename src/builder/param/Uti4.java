@@ -14,7 +14,7 @@ import domain.eSetting;
 import domain.eSysfurn;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 import enums.TypeOpen1;
 import java.util.Arrays;
@@ -27,7 +27,7 @@ class Uti4 {
         ElemSimple glass1 = null, glass2 = null;
         for (ElemSimple el : elem5e.iwin().listElem) {
             if (el.type() == TypeElem.GLASS) {
-                if (elem5e.layout() == LayoutArea.VERT) {
+                if (elem5e.layout() == Layout.VERT) {
                     if (el.inside(elem5e.x1 - 200, elem5e.y1 + elem5e.height() / 2)) {
                         glass1 = el;
                     }
@@ -35,7 +35,7 @@ class Uti4 {
                         glass2 = el;
                     }
                 }
-                if (elem5e.layout() == LayoutArea.HORIZ) {
+                if (elem5e.layout() == Layout.HORIZ) {
                     if (el.inside(elem5e.y1 - 200, elem5e.x1 + elem5e.width() / 2)) {
                         glass1 = el;
                     }
@@ -80,7 +80,7 @@ class Uti4 {
     static boolean is_STRING_XX000(String txt, ElemSimple elem5e) {
         Record sysprofRec = elem5e.sysprofRec;
         if (elem5e instanceof ElemGlass) {
-            sysprofRec = elem5e.owner().mapFrame.get(LayoutArea.BOTT).sysprofRec;
+            sysprofRec = elem5e.owner().mapFrame.get(Layout.BOTT).sysprofRec;
         }
         Record artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklRecAn.get(eArtikl.tech_code) == null) {
@@ -123,13 +123,13 @@ class Uti4 {
 
     //Если номер стороны в контуре
     static boolean is_INT_33066_34066(String txt, ElemSimple elem5e) {
-        if ("1".equals(txt) == true && LayoutArea.BOTT != elem5e.layout()) {
+        if ("1".equals(txt) == true && Layout.BOTT != elem5e.layout()) {
             return false;
-        } else if ("2".equals(txt) == true && LayoutArea.RIGHT != elem5e.layout()) {
+        } else if ("2".equals(txt) == true && Layout.RIGHT != elem5e.layout()) {
             return false;
-        } else if ("3".equals(txt) == true && LayoutArea.TOP != elem5e.layout()) {
+        } else if ("3".equals(txt) == true && Layout.TOP != elem5e.layout()) {
             return false;
-        } else if ("4".equals(txt) == true && LayoutArea.LEFT != elem5e.layout()) {
+        } else if ("4".equals(txt) == true && Layout.LEFT != elem5e.layout()) {
             return false;
         }
         return true;

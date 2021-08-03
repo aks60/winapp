@@ -4,16 +4,18 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eFurndet;
 import domain.eFurnpar2;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.LayoutHandle;
 import enums.TypeElem;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
+import builder.making.Paint;
 import builder.making.Specific;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
 import common.Util;
+import domain.eArtdet;
 import domain.eColor;
 import domain.eGroups;
 import java.util.Map;
@@ -87,7 +89,7 @@ public class FurnitureDet extends Par5s {
                 case 24006:  //Установить текстуру
                     mapParam.put(grup, rec.getStr(TEXT));
                     break;
-                case 24007:  //Коды текстуры ручки 
+                case 24007: //Коды текстуры ручки 
                 case 25007: //Коды текстуры ручки                  
                 {
                     String name = eColor.find(areaStv.colorID1).getStr(eColor.name);
@@ -96,19 +98,19 @@ public class FurnitureDet extends Par5s {
                     }
                 }
                 break;
-                case 24008:  //Если серия створки 
+                case 24008: //Если серия створки 
                 case 25008: //Если серия створки   
                 {
-                    int series_id = areaStv.mapFrame.get(LayoutArea.BOTT).artiklRec.getInt(eArtikl.series_id);
+                    int series_id = areaStv.mapFrame.get(Layout.BOTT).artiklRec.getInt(eArtikl.series_id);
                     String name = eGroups.find(series_id).getStr(eGroups.name);
                     if (name.equals(rec.getStr(TEXT)) == false) {
                         return false;
                     }
                 }
-                break;                
+                break;
                 case 24009:  //Коды текстуры подвеса 
                 case 25009:  //Коды текстуры подвеса                   
-                    for (Map.Entry<LayoutArea, ElemFrame> elem : areaStv.mapFrame.entrySet()) {
+                    for (Map.Entry<Layout, ElemFrame> elem : areaStv.mapFrame.entrySet()) {
                         for (Specific spc : elem.getValue().spcRec.spcList) {
                             if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 12) {
                                 String name = eColor.find(spc.colorID1).getStr(eColor.name);
@@ -124,6 +126,7 @@ public class FurnitureDet extends Par5s {
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24011:  //Расчет по общей арке 
+                case 25011:  //Расчет по общей арке 
                     message(rec.getInt(GRUP));
                     break;
                 case 24012:  //Направление открывания
@@ -131,8 +134,16 @@ public class FurnitureDet extends Par5s {
                         return false;
                     }
                     break;
-                case 24013:  //Выбран авто расчет подвеса 
-                    message(rec.getInt(GRUP));
+                case 24013: //Выбран авто расчет подвеса 
+                    if (rec.getStr(TEXT).equals("Да")) {
+                        int color = iwin.colorID1;
+                        for (Record artiklRec : eArtikl.query()) {
+                            if (artiklRec.getInt(eArtikl.level1) == 2 && artiklRec.getInt(eArtikl.level2) == 12) {
+                                List<Record> artdetList = eArtdet.find(artiklRec.getInt(eArtikl.id));
+                                //Paint
+                            }
+                        }
+                    }
                     break;
                 case 24017:  //Код системы содержит строку 
                 case 25017:  //Код системы содержит строку                    
@@ -150,9 +161,9 @@ public class FurnitureDet extends Par5s {
                 case 24033: //Фурнитура штульповая 
                 case 25033: //Фурнитура штульповая 
                 {
-                    if (rec.getStr(TEXT).equalsIgnoreCase("Да")) {
+                    if (rec.getStr(TEXT).equals("Да")) {
                         boolean ret = false;
-                        for (Map.Entry<LayoutArea, ElemFrame> entry : areaStv.mapFrame.entrySet()) {
+                        for (Map.Entry<Layout, ElemFrame> entry : areaStv.mapFrame.entrySet()) {
                             if (entry.getValue().joinElem(2).type() == TypeElem.SHTULP) {
                                 ret = true;
                             }
@@ -161,9 +172,9 @@ public class FurnitureDet extends Par5s {
                             return false;
                         }
                     }
-                    if (rec.getStr(TEXT).equalsIgnoreCase("Нет")) {
+                    if (rec.getStr(TEXT).equals("Нет")) {
                         boolean ret = false;
-                        for (Map.Entry<LayoutArea, ElemFrame> entry : areaStv.mapFrame.entrySet()) {
+                        for (Map.Entry<Layout, ElemFrame> entry : areaStv.mapFrame.entrySet()) {
                             if (entry.getValue().joinElem(2).type() == TypeElem.SHTULP) {
                                 ret = true;
                             }
@@ -172,20 +183,6 @@ public class FurnitureDet extends Par5s {
                             return false;
                         }
                     }
-                    /*if (areaStv.typeOpen.name.equalsIgnoreCase("Левое")) {
-                            if (rec.getStr(TEXT).equalsIgnoreCase("Да") && areaStv.joinFlat(LayoutArea.RIGHT).type() != TypeElem.SHTULP) {
-                                return false;
-                            } else if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && areaStv.joinFlat(LayoutArea.RIGHT).type() == TypeElem.SHTULP) {
-                                return false;
-                            }
-                        } else if (areaStv.typeOpen.name.equalsIgnoreCase("Правое")) {
-                            if (rec.getStr(TEXT).equalsIgnoreCase("Да") && areaStv.joinFlat(LayoutArea.LEFT).type() != TypeElem.SHTULP) {
-                                return false;
-                            }
-                            if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && areaStv.joinFlat(LayoutArea.LEFT).type() == TypeElem.SHTULP) {
-                                return false;
-                            }
-                        }*/
                 }
                 break;
                 case 24036:  //Номер Стороны_X/Стороны_Y набора 
@@ -235,13 +232,13 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24070:  //Если высота ручки "по середине", "константная", "не константная", "установлена"
                 case 25070: {
-                    if (LayoutHandle.CONST != areaStv.handleLayout && rec.getStr(TEXT).equalsIgnoreCase("константная")) {
+                    if (LayoutHandle.CONST != areaStv.handleLayout && rec.getStr(TEXT).equals("константная")) {
                         return false;
-                    } else if (LayoutHandle.CONST == areaStv.handleLayout && rec.getStr(TEXT).equalsIgnoreCase("не константная")) {
+                    } else if (LayoutHandle.CONST == areaStv.handleLayout && rec.getStr(TEXT).equals("не константная")) {
                         return false;
-                    } else if (LayoutHandle.MIDL != areaStv.handleLayout && rec.getStr(TEXT).equalsIgnoreCase("по середине")) {
+                    } else if (LayoutHandle.MIDL != areaStv.handleLayout && rec.getStr(TEXT).equals("по середине")) {
                         return false;
-                    } else if (LayoutHandle.VARIAT != areaStv.handleLayout && rec.getStr(TEXT).equalsIgnoreCase("установлена")) {
+                    } else if (LayoutHandle.VARIAT != areaStv.handleLayout && rec.getStr(TEXT).equals("установлена")) {
                         return false;
                     }
                     break;
@@ -283,9 +280,6 @@ public class FurnitureDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 24803:  //Доп.симметр. обработка
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25011:  //Расчет по общей арке 
                     message(rec.getInt(GRUP));
                     break;
                 case 25013:  //Укорочение от 

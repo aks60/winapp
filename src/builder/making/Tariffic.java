@@ -8,7 +8,7 @@ import domain.eCurrenc;
 import domain.eGroups;
 import domain.eRulecalc;
 import domain.eSystree;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 import enums.TypeForm;
 import enums.UseUnit;
@@ -77,7 +77,7 @@ public class Tariffic extends Cal5e {
                         } else if (form == TypeForm.P12.id && TypeElem.ARCH == elem5e.owner().type()) {//не прямоугольное заполнение с арками
                             rulePrise(rulecalcRec, elem5e.spcRec);
                         }
-                    } else if (form == TypeForm.P04.id && TypeElem.FRAME_SIDE == elem5e.owner().type() && LayoutArea.ARCH == elem5e.layout()) { //фильтр для арки профиля AYPC.W62.0101
+                    } else if (form == TypeForm.P04.id && TypeElem.FRAME_SIDE == elem5e.owner().type() && Layout.ARCH == elem5e.layout()) { //фильтр для арки профиля AYPC.W62.0101
                         rulePrise(rulecalcRec, elem5e.spcRec); //профиль с радиусом
 
                     } else {

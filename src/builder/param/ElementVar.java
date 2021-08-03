@@ -5,7 +5,7 @@ import domain.eArtikl;
 import domain.eElement;
 import domain.eElempar1;
 import domain.eSetting;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 import java.util.List;
 import builder.Wincalc;
@@ -65,9 +65,9 @@ public class ElementVar extends Par5s {
                 }
                 break;
                 case 31002:  //Если профиль 
-                    if ("арочный".equals(rec.getStr(TEXT)) == false && LayoutArea.ARCH == elem5e.layout() == true) {
+                    if ("арочный".equals(rec.getStr(TEXT)) == false && Layout.ARCH == elem5e.layout() == true) {
                         return false;
-                    } else if ("прямой".equals(rec.getStr(TEXT)) == false && LayoutArea.ARCH != elem5e.layout() == true) {
+                    } else if ("прямой".equals(rec.getStr(TEXT)) == false && Layout.ARCH != elem5e.layout() == true) {
                         return false;
                     }
                     break;

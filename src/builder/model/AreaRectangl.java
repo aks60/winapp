@@ -1,6 +1,6 @@
 package builder.model;
 
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 import enums.LayoutJoin;
 import enums.TypeJoin;
@@ -10,7 +10,7 @@ import enums.PKjson;
 
 public class AreaRectangl extends AreaSimple {
 
-    public AreaRectangl(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
+    public AreaRectangl(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
         super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3, param);
 
         if (param(param, PKjson.colorID1) != -1) {
@@ -20,8 +20,8 @@ public class AreaRectangl extends AreaSimple {
 
     //@Override
     public void joinFrame() {
-        ElemSimple elemBott = mapFrame.get(LayoutArea.BOTT), elemRight = mapFrame.get(LayoutArea.RIGHT),
-                elemTop = mapFrame.get(LayoutArea.TOP), elemLeft = mapFrame.get(LayoutArea.LEFT);
+        ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
+                elemTop = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
         //Цикл по сторонам рамы
         for (int index = 0; index < 4; index++) {
 

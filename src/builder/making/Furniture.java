@@ -7,7 +7,7 @@ import domain.eFurniture;
 import domain.eFurnside1;
 import domain.eFurnside2;
 import domain.eSysfurn;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 import java.util.LinkedList;
 import java.util.List;
@@ -85,7 +85,7 @@ public class Furniture extends Cal5e {
 
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnside1List) {
-                ElemFrame elemFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
+                ElemFrame elemFrame = areaStv.mapFrame.get((Layout) Layout.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
 
                 //ФИЛЬТР вариантов с учётом стороны
                 if (furnitureVar.filter(elemFrame, furnside1Rec) == false) {
@@ -144,7 +144,6 @@ public class Furniture extends Cal5e {
                     return false;
                 }
             }
-
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
 
             //ФИЛЬТР детализации            
@@ -170,19 +169,19 @@ public class Furniture extends Cal5e {
                     }
                 }
                 if (side == 1) {
-                    el = areaStv.mapFrame.get(LayoutArea.BOTT);
+                    el = areaStv.mapFrame.get(Layout.BOTT);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
                     width = el.spcRec.width - 2 * size_falz;
                 } else if (side == 2) {
-                    el = areaStv.mapFrame.get(LayoutArea.RIGHT);
+                    el = areaStv.mapFrame.get(Layout.RIGHT);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
                     width = el.spcRec.width - 2 * size_falz;
                 } else if (side == 3) {
-                    el = areaStv.mapFrame.get(LayoutArea.TOP);
+                    el = areaStv.mapFrame.get(Layout.TOP);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
                     width = el.spcRec.width - 2 * size_falz;
                 } else if (side == 4) {
-                    el = areaStv.mapFrame.get(LayoutArea.LEFT);
+                    el = areaStv.mapFrame.get(Layout.LEFT);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
                     width = el.spcRec.width - 2 * size_falz;
                 }
@@ -241,13 +240,13 @@ public class Furniture extends Cal5e {
 
         //Через параметр
         if ("1".equals(mapParam.get(25010))) {
-            return area5e.mapFrame.get(LayoutArea.BOTT);
+            return area5e.mapFrame.get(Layout.BOTT);
         } else if ("2".equals(mapParam.get(25010))) {
-            return area5e.mapFrame.get(LayoutArea.RIGHT);
+            return area5e.mapFrame.get(Layout.RIGHT);
         } else if ("3".equals(mapParam.get(25010))) {
-            return area5e.mapFrame.get(LayoutArea.TOP);
+            return area5e.mapFrame.get(Layout.TOP);
         } else if ("4".equals(mapParam.get(25010))) {
-            return area5e.mapFrame.get(LayoutArea.LEFT);
+            return area5e.mapFrame.get(Layout.LEFT);
         } else {
             //Там где крепится ручка
             return determOfSide(area5e);
@@ -259,11 +258,11 @@ public class Furniture extends Cal5e {
         if (area5e instanceof AreaStvorka) {
             int id = ((AreaStvorka) area5e).typeOpen.id;
             if (Arrays.asList(1, 3, 11).contains(id)) {
-                return area5e.mapFrame.get(LayoutArea.LEFT);
+                return area5e.mapFrame.get(Layout.LEFT);
             } else if (Arrays.asList(2, 4, 12).contains(id)) {
-                return area5e.mapFrame.get(LayoutArea.RIGHT);
+                return area5e.mapFrame.get(Layout.RIGHT);
             } else {
-                return area5e.mapFrame.get(LayoutArea.BOTT);
+                return area5e.mapFrame.get(Layout.BOTT);
             }
         }
         return area5e.mapFrame.values().stream().findFirst().get();  //первая попавшаяся        

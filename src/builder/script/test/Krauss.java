@@ -4,7 +4,7 @@ import builder.script.GsonElem;
 import builder.script.GsonRoot;
 import static builder.script.Winscript.rootGson;
 import com.google.gson.GsonBuilder;
-import enums.LayoutArea;
+import enums.Layout;
 import enums.TypeElem;
 
 public class Krauss {
@@ -13,16 +13,16 @@ public class Krauss {
         if (prj == 4) {
 
             rootGson = new GsonRoot(prj, 1, 0, "VIDNAL V60/V60 окна-витражи",
-                    LayoutArea.VERT, TypeElem.RECTANGL, 1090, 2470, 1000, 1000, 1000);
-            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.LEFT));
-            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
-            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, LayoutArea.BOTT));
-            rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1430))
-                    .addArea(new GsonElem(LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':3, 'sysfurnID':180}"))
+                    Layout.VERT, TypeElem.RECTANGL, 1090, 2470, 1000, 1000, 1000);
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, Layout.LEFT));
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, Layout.RIGHT));
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, Layout.TOP));
+            rootGson.addElem(new GsonElem(TypeElem.FRAME_SIDE, Layout.BOTT));
+            rootGson.addArea(new GsonElem(Layout.HORIZ, TypeElem.AREA, 1430))
+                    .addArea(new GsonElem(Layout.VERT, TypeElem.STVORKA, "{'typeOpen':3, 'sysfurnID':180}"))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':150}"));
             rootGson.addElem(new GsonElem(TypeElem.IMPOST));
-            rootGson.addArea(new GsonElem(LayoutArea.HORIZ, TypeElem.AREA, 1040))
+            rootGson.addArea(new GsonElem(Layout.HORIZ, TypeElem.AREA, 1040))
                     .addElem(new GsonElem(TypeElem.GLASS, "{'artglasID':150}"));
 
         } else {
