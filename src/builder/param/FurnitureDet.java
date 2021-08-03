@@ -209,15 +209,19 @@ public class FurnitureDet extends Par5s {
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24063:  //Диапазон веса, кг 
+                case 25063:  //Диапазон веса, кг 
                     message(rec.getInt(GRUP));
                     break;
                 case 24064:  //Ограничение высоты ручки, мм 
+                case 25064:  //Ограничение высоты ручки, мм 
                     message(rec.getInt(GRUP));
                     break;
                 case 24067:  //Коды основной текстуры изделия 
+                case 25067:  //Коды основной текстуры изделия 
                     message(rec.getInt(GRUP));
                     break;
                 case 24068:  //Коды внутр. текстуры изделия 
+                case 25068:  //Коды внутр. текстуры изделия 
                     int c2 = areaStv.iwin().colorID2;
                     if (Util.containsNumb(rec.getStr(TEXT), c2) == false) {
                         return false;
@@ -230,8 +234,8 @@ public class FurnitureDet extends Par5s {
                         return false;
                     }
                     break;
-                case 24070:  //Если высота ручки "по середине", "константная", "не константная", "установлена"
-                case 25070: {
+                case 24070: //Если высота ручки "по середине", "константная", "не константная", "установлена"
+                case 25070: //Если высота ручки
                     if (LayoutHandle.CONST != areaStv.handleLayout && rec.getStr(TEXT).equals("константная")) {
                         return false;
                     } else if (LayoutHandle.CONST == areaStv.handleLayout && rec.getStr(TEXT).equals("не константная")) {
@@ -242,7 +246,6 @@ public class FurnitureDet extends Par5s {
                         return false;
                     }
                     break;
-                }
                 case 24072:  //Ручка от низа створки, мм 
                 case 25072:  //Ручка от низа створки, мм     
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
@@ -263,9 +266,11 @@ public class FurnitureDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 24095:  //Если признак системы конструкции 
+                case 25095:  //Если признак системы конструкции 
                     message(rec.getInt(GRUP));
                     break;
                 case 24098:  //Бригада, участок) 
+                case 25098:  //Бригада, участок) 
                     message(rec.getInt(GRUP));
                     break;
                 case 24099:  //Трудозатраты, ч/ч. 
@@ -273,13 +278,19 @@ public class FurnitureDet extends Par5s {
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24800:  //Код основной обработки) 
+                case 25800:  //Код основной обработки
+                    message(rec.getInt(GRUP));
+                    break;                    
                 case 24801:  //Доп.основная обработка
+                case 25801:  //Доп.основная обработка
                     message(rec.getInt(GRUP));
                     break;
                 case 24802:  //Код симметр. обработки 
+                case 25802:  //Код симметр. обработки 
                     message(rec.getInt(GRUP));
                     break;
                 case 24803:  //Доп.симметр. обработка
+                case 25803:  //Доп.симметр. обработка
                     message(rec.getInt(GRUP));
                     break;
                 case 25013:  //Укорочение от 
@@ -291,36 +302,6 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 25040:  //Длина, мм 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;
-                case 25063:  //Диапазон веса, кг 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25064:  //Ограничение высоты ручки, мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25067:  //Коды основной текстуры изделия 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25068:  //Коды внутр. текстуры изделия 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25095:  //Если признак системы конструкции 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25098:  //Бригада, участок) 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25800:  //Код основной обработки
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25801:  //Доп.основная обработка
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25802:  //Код симметр. обработки 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25803:  //Доп.симметр. обработка
-                    message(rec.getInt(GRUP));
                     break;
                 default:
                     assert !(grup > 0 && grup < 50000) : "Код " + grup + "  не обработан!!!";
