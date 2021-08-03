@@ -87,14 +87,14 @@ public class Tex extends javax.swing.JFrame {
         buttonBaseGroup2 = new javax.swing.ButtonGroup();
         buttonMenuGroup = new javax.swing.ButtonGroup();
         tb7 = new javax.swing.JToolBar();
-        btn2 = new javax.swing.JButton();
         btn15 = new javax.swing.JButton();
+        btn2 = new javax.swing.JButton();
         tb1 = new javax.swing.JToolBar();
-        btn16 = new javax.swing.JButton();
         btn14 = new javax.swing.JButton();
         btn12 = new javax.swing.JButton();
         btn13 = new javax.swing.JButton();
         btn11 = new javax.swing.JButton();
+        btn16 = new javax.swing.JButton();
         td5 = new javax.swing.JToolBar();
         btn52 = new javax.swing.JButton();
         btn51 = new javax.swing.JButton();
@@ -116,19 +116,20 @@ public class Tex extends javax.swing.JFrame {
         btn42 = new javax.swing.JButton();
         mn0 = new javax.swing.JMenuBar();
         mn01 = new javax.swing.JMenu();
-        mn11 = new javax.swing.JMenuItem();
         mn15 = new javax.swing.JMenuItem();
+        mn11 = new javax.swing.JMenuItem();
         mn13 = new javax.swing.JSeparator();
         mn14 = new javax.swing.JMenuItem();
         mn02 = new javax.swing.JMenu();
-        mn22 = new javax.swing.JMenuItem();
         mn26 = new javax.swing.JMenuItem();
         mn21 = new javax.swing.JMenuItem();
         mn24 = new javax.swing.JMenuItem();
         mn23 = new javax.swing.JMenuItem();
+        mn25 = new javax.swing.JPopupMenu.Separator();
+        mn22 = new javax.swing.JMenuItem();
         mn09 = new javax.swing.JMenu();
         mn91 = new javax.swing.JMenuItem();
-        mn25 = new javax.swing.JMenuItem();
+        mn94 = new javax.swing.JMenuItem();
         mn93 = new javax.swing.JPopupMenu.Separator();
         mn92 = new javax.swing.JMenuItem();
         mn03 = new javax.swing.JMenu();
@@ -178,22 +179,6 @@ public class Tex extends javax.swing.JFrame {
         tb7.setRollover(true);
         tb7.setPreferredSize(new java.awt.Dimension(72, 28));
 
-        btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c017.gif"))); // NOI18N
-        btn2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btn2.setFocusable(false);
-        btn2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn2.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn2.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn2.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnGroup1(evt);
-            }
-        });
-        tb7.add(btn2);
-
         btn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c018.gif"))); // NOI18N
         btn15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn15.setFocusable(false);
@@ -210,28 +195,28 @@ public class Tex extends javax.swing.JFrame {
         });
         tb7.add(btn15);
 
+        btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c060.gif"))); // NOI18N
+        btn2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn2.setFocusable(false);
+        btn2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn2.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn2.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn2.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnGroup1(evt);
+            }
+        });
+        tb7.add(btn2);
+
         getContentPane().add(tb7);
 
         tb1.setRollover(true);
         tb1.setMaximumSize(new java.awt.Dimension(150, 28));
         tb1.setMinimumSize(new java.awt.Dimension(150, 28));
         tb1.setPreferredSize(new java.awt.Dimension(148, 28));
-
-        btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c017.gif"))); // NOI18N
-        btn16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
-        btn16.setFocusable(false);
-        btn16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn16.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn16.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn16.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn16.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnGroup2(evt);
-            }
-        });
-        tb1.add(btn16);
 
         btn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c008.gif"))); // NOI18N
         btn14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
@@ -294,6 +279,22 @@ public class Tex extends javax.swing.JFrame {
         });
         tb1.add(btn11);
 
+        btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c017.gif"))); // NOI18N
+        btn16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
+        btn16.setFocusable(false);
+        btn16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn16.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn16.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn16.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn16.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnGroup2(evt);
+            }
+        });
+        tb1.add(btn16);
+
         getContentPane().add(tb1);
 
         td5.setRollover(true);
@@ -328,7 +329,7 @@ public class Tex extends javax.swing.JFrame {
         btn51.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn51.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn25(evt);
+                mn94(evt);
             }
         });
         td5.add(btn51);
@@ -556,16 +557,6 @@ public class Tex extends javax.swing.JFrame {
         mn01.setFont(frames.Uti5.getFont(1,1));
         mn01.setLabel("  Настройки  ");
 
-        mn11.setFont(frames.Uti5.getFont(1,1));
-        mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
-        mn11.setText("Группы");
-        mn11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnGroup1(evt);
-            }
-        });
-        mn01.add(mn11);
-
         mn15.setFont(frames.Uti5.getFont(1,1));
         mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
         mn15.setText("Правила");
@@ -575,6 +566,16 @@ public class Tex extends javax.swing.JFrame {
             }
         });
         mn01.add(mn15);
+
+        mn11.setFont(frames.Uti5.getFont(1,1));
+        mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
+        mn11.setText("Настройки");
+        mn11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnGroup1(evt);
+            }
+        });
+        mn01.add(mn11);
         mn01.add(mn13);
 
         mn14.setFont(frames.Uti5.getFont(1,1));
@@ -591,16 +592,6 @@ public class Tex extends javax.swing.JFrame {
 
         mn02.setFont(frames.Uti5.getFont(1,1));
         mn02.setLabel("  Справочники  ");
-
-        mn22.setFont(frames.Uti5.getFont(1,1));
-        mn22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
-        mn22.setText("Группы");
-        mn22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnGroup2(evt);
-            }
-        });
-        mn02.add(mn22);
 
         mn26.setFont(frames.Uti5.getFont(1,1));
         mn26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
@@ -641,6 +632,17 @@ public class Tex extends javax.swing.JFrame {
             }
         });
         mn02.add(mn23);
+        mn02.add(mn25);
+
+        mn22.setFont(frames.Uti5.getFont(1,1));
+        mn22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
+        mn22.setText("Справочники");
+        mn22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnGroup2(evt);
+            }
+        });
+        mn02.add(mn22);
 
         mn0.add(mn02);
 
@@ -657,15 +659,15 @@ public class Tex extends javax.swing.JFrame {
         });
         mn09.add(mn91);
 
-        mn25.setFont(frames.Uti5.getFont(1,1));
-        mn25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b054.gif"))); // NOI18N
-        mn25.setText("Артикулы");
-        mn25.addActionListener(new java.awt.event.ActionListener() {
+        mn94.setFont(frames.Uti5.getFont(1,1));
+        mn94.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b054.gif"))); // NOI18N
+        mn94.setText("Артикулы");
+        mn94.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn25(evt);
+                mn94(evt);
             }
         });
-        mn09.add(mn25);
+        mn09.add(mn94);
         mn09.add(mn93);
 
         mn92.setFont(frames.Uti5.getFont(1,1));
@@ -880,14 +882,14 @@ private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
     });
 }//GEN-LAST:event_mn41
 
-private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
+private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
 
     FrameProgress.create(Tex.this, new ListenerFrame() {
         public void actionRequest(Object obj) {
             App.Artikles.createFrame(Tex.this);
         }
     });
-}//GEN-LAST:event_mn25
+}//GEN-LAST:event_mn94
 
     private void mHowTo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHowTo
 
@@ -1112,7 +1114,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn22;
     private javax.swing.JMenuItem mn23;
     private javax.swing.JMenuItem mn24;
-    private javax.swing.JMenuItem mn25;
+    private javax.swing.JPopupMenu.Separator mn25;
     private javax.swing.JMenuItem mn26;
     private javax.swing.JMenuItem mn31;
     private javax.swing.JMenuItem mn32;
@@ -1132,6 +1134,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn91;
     private javax.swing.JMenuItem mn92;
     private javax.swing.JPopupMenu.Separator mn93;
+    private javax.swing.JMenuItem mn94;
     private javax.swing.JMenu mn99;
     private javax.swing.JToolBar tb1;
     private javax.swing.JToolBar tb2;

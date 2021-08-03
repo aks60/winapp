@@ -39,7 +39,7 @@ public class Groups extends javax.swing.JFrame {
             int p = (int) page[i - 1];
             tabb.remove(p);
         }
-        String title = (page[0].equals(0)) ? "Группы справочников" : "Группы ценовые";
+        String title = (page[0].equals(0)) ? "Справочники" : "Настройки";
         setTitle(title);
     }
 
