@@ -112,9 +112,9 @@ public class Filling extends Cal5e {
                             Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
                             Specific spcAdd = new Specific(glasdetRec, artiklRec, elemGlass, mapParam);
                             
-                            if (Color.colorFromProduct(spcAdd, 1)
-                                    && Color.colorFromProduct(spcAdd, 2)
-                                    && Color.colorFromProduct(spcAdd, 3)) {
+                            if (UColor.colorFromProduct(spcAdd, 1)
+                                    && UColor.colorFromProduct(spcAdd, 2)
+                                    && UColor.colorFromProduct(spcAdd, 3)) {
 
                                 spcAdd.place = "ЗАП";
                                 elemGlass.addSpecific(spcAdd);

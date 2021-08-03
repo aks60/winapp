@@ -58,6 +58,7 @@ public class Specific {
     }
 
     public Specific(Record detailRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
+        //this.place = "ФУРН";
         this.id = ++elem5e.iwin().genId;
         this.elem5e = elem5e;
         this.mapParam = mapParam;

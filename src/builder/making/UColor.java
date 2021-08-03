@@ -11,7 +11,7 @@ import enums.UseColor;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class Color {
+public class UColor {
 
     private static final int TYPES = 2;
     private static final int COLOR_FK = 3;

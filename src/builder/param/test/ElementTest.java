@@ -1,6 +1,6 @@
 package builder.param.test;
 
-import builder.making.Color;
+import builder.making.UColor;
 import static builder.param.test.ParamTest.param;
 import common.Util;
 import dataset.Record;
@@ -73,7 +73,7 @@ public class ElementTest extends ParamTest {
 
         grup = 31019; //Правило подбора текстур
         elementVar3.check(stv_right_3, param("внутренняя по основной", grup));
-        Color.colorFromParam(stv_right_3);
+        UColor.colorFromParam(stv_right_3);
         assert stv_right_3.spcRec.colorID2 == stv_right_3.spcRec.colorID1 : grup;
 
         grup = 31020; //Ограничение угла к горизонту, °

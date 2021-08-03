@@ -74,7 +74,7 @@ public class Elements extends Cal5e {
 
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                 if (elementVar.filter(elem5e, elementRec) == true) {
-                    Color.colorFromParam(elem5e); //правило подбора текстур по параметру
+                    UColor.colorFromParam(elem5e); //правило подбора текстур по параметру
 
                     //Цикл по детализации
                     List<Record> elemdetList = eElemdet.find(element_id);
@@ -87,9 +87,9 @@ public class Elements extends Cal5e {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specific spcAdd = new Specific(elemdetRec, artiklRec, elem5e, mapParam);
-                            if (Color.colorFromProduct(spcAdd, 1)
-                                    && Color.colorFromProduct(spcAdd, 2)
-                                    && Color.colorFromProduct(spcAdd, 3)) {
+                            if (UColor.colorFromProduct(spcAdd, 1)
+                                    && UColor.colorFromProduct(spcAdd, 2)
+                                    && UColor.colorFromProduct(spcAdd, 3)) {
 
                                 spcAdd.place = "ВСТ";
 

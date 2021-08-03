@@ -205,13 +205,13 @@ public class Furniture extends Cal5e {
                             spcAdd.setArtiklRec(areaStv.artiklRecAn);
                         }
                         if (areaStv.handleColor == -3) {
-                            Color.colorFromProduct(spcAdd, 1);
+                            UColor.colorFromProduct(spcAdd, 1);
                             areaStv.handleColor = spcAdd.colorID1;
                         } else {
                             spcAdd.setColor(1, areaStv.handleColor);
                         }
                     } else {
-                        Color.colorFromProduct(spcAdd, 1); //попадает или нет в спецификацию по цвету
+                        UColor.colorFromProduct(spcAdd, 1); //попадает или нет в спецификацию по цвету
                     }
                     spcAdd.count = Util.getFloat(spcAdd.getParam(spcAdd.count, 24030));
                     spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
