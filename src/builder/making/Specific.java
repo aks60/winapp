@@ -1,7 +1,6 @@
 package builder.making;
 
 import dataset.Record;
-import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
 import enums.UseUnit;
@@ -13,15 +12,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Vector;
-import builder.model.Com5t;
 import builder.model.ElemSimple;
-import domain.eSetting;
-import java.util.LinkedHashMap;
-import jxl.Sheet;
-import jxl.Workbook;
 
 /**
  * Спецификация элемента окна
@@ -65,10 +57,6 @@ public class Specific {
         this.mapParam = new HashMap();
     }
 
-//    public Specific(Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
-//        this(null, artiklRec, elem5e, mapParam);
-//    }
-
     public Specific(Record detailRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
         this.id = ++elem5e.iwin().genId;
         this.elem5e = elem5e;
@@ -81,7 +69,7 @@ public class Specific {
         this.id = spec.id; //++spec.elem5e.iwin().genId;
         this.place = spec.place;
         this.artikl = spec.artikl;
-        this.artiklRec = spec.artiklRec;        
+        this.artiklRec = spec.artiklRec;
         this.detailRec = spec.detailRec;
         this.name = spec.name;
         this.colorID1 = spec.colorID1;
@@ -146,17 +134,6 @@ public class Specific {
             anglCut1 = 0;
         }
     }
-
-//    public float getParam(int key) {
-//
-//        if (mapParam != null) {
-//            String str = mapParam.get(Integer.valueOf(key));
-//            if (str != null || str.isEmpty() == false) {
-//                return Float.parseFloat(str.replace(",", "."));
-//            }
-//        }
-//        return 0;
-//    }
 
     public String getParam(Object def, int... p) {
 
