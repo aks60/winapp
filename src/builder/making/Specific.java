@@ -65,9 +65,9 @@ public class Specific {
         this.mapParam = new HashMap();
     }
 
-    public Specific(Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
-        this(null, artiklRec, elem5e, mapParam);
-    }
+//    public Specific(Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
+//        this(null, artiklRec, elem5e, mapParam);
+//    }
 
     public Specific(Record detailRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
         this.id = ++elem5e.iwin().genId;
