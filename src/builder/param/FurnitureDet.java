@@ -5,20 +5,18 @@ import domain.eArtikl;
 import domain.eFurndet;
 import domain.eFurnpar2;
 import enums.Layout;
-import enums.LayoutHandle;
 import enums.TypeElem;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.making.Paint;
 import builder.making.Specific;
-import builder.making.UColor;
+import builder.model.AreaArch;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
 import common.Util;
-import domain.eArtdet;
 import domain.eColor;
 import domain.eGroups;
+import enums.LayoutHandle;
 import java.util.Map;
 
 //Фурнитура
@@ -149,7 +147,13 @@ public class FurnitureDet extends Par5s {
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24032:  //Правильная полуарка 
-                    message(rec.getInt(GRUP));
+                case 25032:  //Правильная полуарка 
+                    if (iwin.rootArea.type() == TypeElem.ARCH) {
+                        int k = (int) (iwin.rootArea.width() / ((AreaArch) iwin.rootArea).radiusArch);
+                        if (k != 2) {
+                            return false;
+                        }
+                    }
                     break;
                 case 24033: //Фурнитура штульповая 
                 case 25033: //Фурнитура штульповая 
@@ -157,6 +161,7 @@ public class FurnitureDet extends Par5s {
                     if (rec.getStr(TEXT).equals("Да")) {
                         boolean ret = false;
                         for (Map.Entry<Layout, ElemFrame> entry : areaStv.mapFrame.entrySet()) {
+                            Object obj = entry.getValue().joinElem(2);
                             if (entry.getValue().joinElem(2).type() == TypeElem.SHTULP) {
                                 ret = true;
                             }
@@ -164,8 +169,7 @@ public class FurnitureDet extends Par5s {
                         if (ret == false) {
                             return false;
                         }
-                    }
-                    if (rec.getStr(TEXT).equals("Нет")) {
+                    } else if (rec.getStr(TEXT).equals("Нет")) {
                         boolean ret = false;
                         for (Map.Entry<Layout, ElemFrame> entry : areaStv.mapFrame.entrySet()) {
                             if (entry.getValue().joinElem(2).type() == TypeElem.SHTULP) {
@@ -179,15 +183,18 @@ public class FurnitureDet extends Par5s {
                 }
                 break;
                 case 24036:  //Номер Стороны_X/Стороны_Y набора 
+                case 25036:  //Номер Стороны_X/Стороны_Y набора 
                     message(rec.getInt(GRUP));
                     break;
                 case 24037:  //Номер стороны по параметру набора 
+                case 25037:  //Номер стороны по параметру набора 
                     message(rec.getInt(GRUP));
                     break;
                 case 24038:  //Проверять Cторону_(L))/Cторону_(W) 
                 case 25038:  //Проверять Cторону_(L)/Cторону_(W)     
                     //Тут полные непонятки. Возможно сторона проверки назначается для всего набора
                     mapParamTmp.put(grup, rec.getStr(TEXT));
+                    //message(rec.getInt(GRUP));
                     break;
                 case 24039:  //Створка заднего плана 
                     message(rec.getInt(GRUP));
@@ -279,16 +286,7 @@ public class FurnitureDet extends Par5s {
                 case 25030:  //Укорочение, мм 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
-                case 25032:  //Правильная полуарка 
-                    message(rec.getInt(GRUP));
-                    break;
                 case 25035:  //[ * коэф-т ] 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25036:  //Номер Стороны_ X/Стороны_ Y набора 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 25037:  //Номер стороны по параметру набора 
                     message(rec.getInt(GRUP));
                     break;
                 case 25040:  //Длина, мм 

@@ -144,6 +144,7 @@ public class ElemFrame extends ElemSimple {
                 }
             }
 
+            
         } else {
             //Выбран авто расчет подвеса
             if (spcAdd.getParam("null", 24013).equals("null") == false) {

@@ -10,9 +10,11 @@ import domain.eFurndet;
 import enums.TypeArtikl;
 import java.util.Arrays;
 import frames.swing.DefTableModel;
+import frames.swing.FilterTable;
 import java.util.List;
 import java.util.stream.Collectors;
 import frames.swing.listener.ListenerRecord;
+import javax.swing.JTable;
 
 //Справочник артикулов
 public class DicArtikl extends javax.swing.JDialog {
@@ -21,6 +23,7 @@ public class DicArtikl extends javax.swing.JDialog {
     private ListenerRecord listener = null;
     private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
     private List<Record> list = null;
+    private FilterTable filterTable = new FilterTable();
 
     public DicArtikl(java.awt.Frame parent, ListenerRecord listener, List<Record> list) {
         super(parent, true);
@@ -81,10 +84,10 @@ public class DicArtikl extends javax.swing.JDialog {
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        south = new javax.swing.JPanel();
         centr = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Справочник артикулов");
@@ -167,23 +170,6 @@ public class DicArtikl extends javax.swing.JDialog {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(460, 20));
-
-        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
-        south.setLayout(southLayout);
-        southLayout.setHorizontalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 443, Short.MAX_VALUE)
-        );
-        southLayout.setVerticalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
-
         centr.setPreferredSize(new java.awt.Dimension(460, 500));
         centr.setLayout(new java.awt.BorderLayout());
 
@@ -212,6 +198,9 @@ public class DicArtikl extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 DicArtikl.this.mouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                DicArtikl.this.mousePressed(evt);
+            }
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
@@ -223,6 +212,12 @@ public class DicArtikl extends javax.swing.JDialog {
         centr.add(scr2, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
+
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(460, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -251,6 +246,10 @@ public class DicArtikl extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_mouseClicked
 
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
+        filterTable.mousePressed((JTable) evt.getSource());
+    }//GEN-LAST:event_mousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
@@ -267,5 +266,7 @@ public class DicArtikl extends javax.swing.JDialog {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
+        south.add(filterTable, 0);        
+        filterTable.getTxt().grabFocus();
     }
 }

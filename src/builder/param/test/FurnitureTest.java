@@ -55,6 +55,7 @@ public class FurnitureTest extends ParamTest {
         HashMap<Integer, String> mapParam = new HashMap();
         AreaStvorka area_stv_3 = (AreaStvorka) stv_right_3.owner();
         AreaStvorka area_stv_2 = (AreaStvorka) stv_right_2.owner();
+        AreaStvorka area_stv_4 = (AreaStvorka) stv_right_4.owner();
 
         grup = 24001; //25001 //Форма контура
         //assert true == furnitureDet3.check(mapParam, area_stv_3, param("арочная", grup)) : grup;
@@ -88,6 +89,17 @@ public class FurnitureTest extends ParamTest {
         
         grup = 24012;  //Направление открывания
         assert true == furnitureDet3.check(mapParam, area_stv_3, param("левое", grup)) : grup;
-        assert false == furnitureDet3.check(mapParam, area_stv_3, param("правое", grup)) : grup;                
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("правое", grup)) : grup; 
+        
+        grup = 24017; //25017 //Код системы содержит строку
+        assert true == furnitureDet2.check(mapParam, area_stv_2, param("et-1", grup)) : grup;
+        assert false == furnitureDet2.check(mapParam, area_stv_2, param("КП-40", grup)) : grup;        
+        
+        grup = 24032; //25032 //Правильная полуарка
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("Да", grup)) : grup;        
+        
+        grup = 24033; //24033 //Фурнитура штульповая 
+        assert true == furnitureDet4.check(mapParam, area_stv_4, param("Да", grup)) : grup;        
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("Да", grup)) : grup;        
     }
 }
