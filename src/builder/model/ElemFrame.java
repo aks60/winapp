@@ -9,11 +9,14 @@ import enums.Layout;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import builder.making.Specific;
+import builder.making.UColor;
 import enums.PKjson;
 import common.Util;
+import dataset.Record;
 import domain.eArtdet;
 import domain.eSetting;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class ElemFrame extends ElemSimple {
@@ -142,6 +145,15 @@ public class ElemFrame extends ElemSimple {
             }
 
         } else {
+            //Выбран авто расчет подвеса
+            if (spcAdd.getParam("null", 24013).equals("null") == false) {
+                if (spcAdd.getParam("null", 24013).equals("Да")) {
+                    int color = iwin().colorID1;
+                    if(iwin().colorID1 != spcAdd.colorID1) {
+                        return;
+                    }
+                }
+            }            
             //Установить текстуру
             if (spcAdd.getParam("null", 24006).equals("null") == false) {
                 int colorID = -1;
@@ -152,18 +164,18 @@ public class ElemFrame extends ElemSimple {
                 } else if ("по текстуре подвеса".equals(spcAdd.getParam("null", 24006))) {
                     for (Map.Entry<Layout, ElemFrame> elem : elemStv.mapFrame.entrySet()) {
                         for (Specific spc : elem.getValue().spcRec.spcList) {
-                            if(spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 12) {
-                               colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1); 
-                            }  
+                            if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 12) {
+                                colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);
+                            }
                         }
                     }
 
                 } else if ("по текстуре замка".equals(spcAdd.getParam("null", 24006))) {
                     for (Map.Entry<Layout, ElemFrame> elem : elemStv.mapFrame.entrySet()) {
                         for (Specific spc : elem.getValue().spcRec.spcList) {
-                            if(spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 9) {
-                               colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1); 
-                            }  
+                            if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 9) {
+                                colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);
+                            }
                         }
                     }
                 }
@@ -173,10 +185,6 @@ public class ElemFrame extends ElemSimple {
                     spcAdd.colorID3 = colorID;
                 }
             }
-//            //Коды текстуры ручки
-//            if (spcAdd.getParam("null", 24007).equals("null") == false) {
-//                
-//            }
             //Фурнитура
             if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X109)) {
                 if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   

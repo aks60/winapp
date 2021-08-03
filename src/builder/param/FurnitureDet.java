@@ -136,19 +136,6 @@ public class FurnitureDet extends Par5s {
                     }
                     break;
                 case 24013: //Выбран авто расчет подвеса 
-//                    if (rec.getStr(TEXT).equals("Да")) {
-//                        int color = iwin.colorID1;
-//                        for (Record artiklRec : eArtikl.query()) {
-//                            if (artiklRec.getInt(eArtikl.level1) == 2 && artiklRec.getInt(eArtikl.level2) == 12) {
-//                                List<Record> artdetList = eArtdet.find(artiklRec.getInt(eArtikl.id));
-//                                for (Record artdetRec : artdetList) {
-//                                   if(color == UColor.colorFromArtikl(artdetRec.getInt(eArtdet.artikl_id))) {
-//                                       
-//                                   }
-//                                }
-//                            }
-//                        }
-//                    }
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24017:  //Код системы содержит строку 
