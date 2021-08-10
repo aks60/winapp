@@ -254,7 +254,7 @@ public class Furniture extends Cal5e {
     }
 
     //Там где крепится ручка
-    public ElemFrame determOfSide(AreaSimple area5e) {
+    public static ElemFrame determOfSide(AreaSimple area5e) {
         if (area5e instanceof AreaStvorka) {
             int id = ((AreaStvorka) area5e).typeOpen.id;
             if (Arrays.asList(1, 3, 11).contains(id)) {

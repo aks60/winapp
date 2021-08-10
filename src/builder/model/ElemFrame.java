@@ -14,6 +14,7 @@ import domain.eSetting;
 import enums.Type;
 import java.util.Arrays;
 import java.util.Map;
+import builder.making.Furniture;
 
 public class ElemFrame extends ElemSimple {
 
@@ -182,12 +183,19 @@ public class ElemFrame extends ElemSimple {
                     spcAdd.colorID3 = colorID;
                 }
             }
+            //Ручка от низа створки, мм 
+            if (spcAdd.getParam("null", 24072, 25072).equals("null") == false) {
+                if(Furniture.determOfSide(owner) == this) {
+                    AreaStvorka stv = (AreaStvorka) owner;
+                    stv.handleHeight = Util.getFloat(spcAdd.getParam(stv.handleHeight, 24072, 25072));
+                }
+            }
             //Фурнитура
             if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X109)) {
-                if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"Номер стороны"   
-                    if ("null".equals(spcAdd.getParam("null", 25013)) == false //"Укорочение от"
-                            && spcAdd.getParam(0, 25030).equals(0) == false) { //"Укорочение, мм"  
-                        spcAdd.width = uti3.get_25013(spcRec, spcAdd); //Укорочение от высоты ручки
+                if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"номер стороны"   
+                    if ("null".equals(spcAdd.getParam("null", 25013)) == false //"укорочение от"
+                            && spcAdd.getParam(0, 25030).equals(0) == false) { //"укорочение, мм"  
+                        spcAdd.width = uti3.get_25013(spcRec, spcAdd); //укорочение от высоты ручки
                     }
                 } else {
                     spcAdd.width += width() + iwin().syssizeRec.getFloat(eSyssize.prip) * 2;
