@@ -105,6 +105,18 @@ public class FurnitureTest extends ParamTest {
         grup = 24063; //25063 //Диапазон веса, кг
         assert true == furnitureDet2.check(mapParam, area_stv_2, param("3-40", grup)) : grup;
         assert true == furnitureDet2.check(mapParam, area_stv_2, param("40", grup)) : grup;
-        assert false == furnitureDet2.check(mapParam, area_stv_2, param("1-12", grup)) : grup;        
+        assert false == furnitureDet2.check(mapParam, area_stv_2, param("1-12", grup)) : grup;  
+        
+        grup = 24064; //25064 //Ограничение высоты ручки, мм
+        assert true == furnitureDet4.check(mapParam, area_stv_4, param("644-770", grup)) : grup;        
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("1-4", grup)) : grup;
+
+        grup = 24067; //25067 //Коды основной текстуры изделия
+        assert true == furnitureDet4.check(mapParam, area_stv_4, param("1000-1010;", grup)) : grup;
+        assert false == furnitureDet4.check(mapParam, area_stv_4, param("900-990;", grup)) : grup;        
+
+        grup = 24070; //25070 //Если высота ручки
+        assert true == furnitureDet4.check(mapParam, area_stv_4, param("по середине", grup)) : grup;
+        assert false == furnitureDet4.check(mapParam, area_stv_4, param("константная", grup)) : grup;        
     }
 }

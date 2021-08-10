@@ -209,7 +209,7 @@ public class FurnitureDet extends Par5s {
                 case 24060:  //Количество на шаг 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
-                case 24063:  //Диапазон веса, кг 
+                case 24063: //Диапазон веса, кг 
                 case 25063: //Диапазон веса, кг 
                 {
                     Com5t glass = areaStv.listChild.stream().filter(el -> el.type() == Type.GLASS).findFirst().orElse(null);
@@ -221,25 +221,48 @@ public class FurnitureDet extends Par5s {
                     }
                 }
                 break;
-                case 24064:  //Ограничение высоты ручки, мм 
-                case 25064:  //Ограничение высоты ручки, мм 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 24064: //Ограничение высоты ручки, мм 
+                case 25064: //Ограничение высоты ручки, мм 
+                {
+                    String handl[] = rec.getStr(TEXT).split("-");
+                    if (handl.length > 1) {
+                        float handl_min = Util.getFloat(handl[0]);
+                        float handl_max = Util.getFloat(handl[1]);
+                        if (handl_min > areaStv.handleHeight || areaStv.handleHeight > handl_max) {
+                            return false;
+                        }
+                    }
+                    if ("ps3".equals(versionDb)) { //Минимальная высота ручки, мм
+                        float handl_min = Util.getFloat(rec.getStr(TEXT));
+                        if (handl_min > areaStv.handleHeight) {
+                            return false;
+                        }
+                    }
+                }
+                break;
+                case 24065: //Максимальная высота ручки, мм 
+                {
+                    float handl_max = Util.getFloat(rec.getStr(TEXT));
+                    if (handl_max < areaStv.handleHeight) {
+                        return false;
+                    }
+                }
+                break;
                 case 24067:  //Коды основной текстуры изделия 
                 case 25067:  //Коды основной текстуры изделия 
-                    message(rec.getInt(GRUP));
+                    if (Util.containsNumb(rec.getStr(TEXT), iwin.colorID1) == false) {
+                        return false;
+                    }
                     break;
                 case 24068:  //Коды внутр. текстуры изделия 
                 case 25068:  //Коды внутр. текстуры изделия 
-                    int c2 = areaStv.iwin().colorID2;
-                    if (Util.containsNumb(rec.getStr(TEXT), c2) == false) {
+                    if (Util.containsNumb(rec.getStr(TEXT), iwin.colorID2) == false) {
                         return false;
                     }
                     break;
                 case 24069:  //Коды внешн. текстуры изделия 
                 case 25069:  //Коды внешн. текстуры изделия     
-                    int c3 = areaStv.iwin().colorID3;
-                    if (Util.containsNumb(rec.getStr(TEXT), c3) == false) {
+                    if (Util.containsNumb(rec.getStr(TEXT), iwin.colorID3) == false) {
                         return false;
                     }
                     break;
@@ -256,7 +279,7 @@ public class FurnitureDet extends Par5s {
                     }
                     break;
                 case 24072:  //Ручка от низа створки, мм 
-                case 25072:  //Ручка от низа створки, мм     
+                case 25072:  //Ручка от низа створки, мм  
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24073:  //Петля от низа створки, мм 
