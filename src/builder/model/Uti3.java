@@ -9,7 +9,6 @@ import builder.model.ElemSimple;
 import common.Util;
 import domain.eSetting;
 import enums.Layout;
-import enums.TypeElem;
 import java.util.List;
 
 class Uti3 {

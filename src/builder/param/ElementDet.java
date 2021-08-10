@@ -12,10 +12,7 @@ import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import common.Util;
 import domain.eArtikl;
-import domain.eElement;
-import domain.eSyssize;
-import domain.eSystree;
-import enums.TypeElem;
+import enums.Type;
 
 //Составы 33000, 34000, 38000, 39000, 40000
 public class ElementDet extends Par5s {
@@ -157,7 +154,7 @@ public class ElementDet extends Par5s {
                 case 33063: //Диапазон веса створки, кг 
                 case 34063: //Диапазон веса створки, кг 
                 {
-                    Com5t glass = elem5e.owner().listChild.stream().filter(el -> el.type() == TypeElem.GLASS).findFirst().orElse(null);
+                    Com5t glass = elem5e.owner().listChild.stream().filter(el -> el.type() == Type.GLASS).findFirst().orElse(null);
                     if (glass != null) {
                         float weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn.getFloat(eArtikl.density);
                         if (Util.containsNumb2(rec.getStr(TEXT), weight) == false) {

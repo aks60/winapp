@@ -8,7 +8,6 @@ import domain.eArtikl;
 import domain.eParams;
 import domain.eSysprof;
 import enums.Layout;
-import enums.TypeElem;
 import enums.LayoutJoin;
 import enums.TypeJoin;
 import enums.UseArtiklTo;
@@ -23,20 +22,19 @@ import java.util.Collections;
 import java.util.List;
 import startup.Main;
 import builder.Wincalc;
-import common.Util;
 import enums.PKjson;
+import enums.Type;
 import frames.Uti5;
 import java.awt.BasicStroke;
-import java.util.Map;
 
 public class AreaSimple extends Com5t {
 
     public EnumMap<Layout, ElemFrame> mapFrame = new EnumMap<>(Layout.class); //список рам в окне 
     public LinkedList<Com5t> listChild = new LinkedList(); //дети
 
-    public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
+    public AreaSimple(Wincalc iwin, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
         super(id, iwin, owner);
-        this.type = typeElem;
+        this.type = type;
         this.layout = layout;
         this.colorID1 = color1;
         this.colorID2 = color2;
@@ -47,7 +45,7 @@ public class AreaSimple extends Com5t {
     }
 
     public void initСonstructiv(String param) {
-        if (TypeElem.AREA != type) {
+        if (Type.AREA != type) {
             //Профили коробки или створки
             if (param(param, PKjson.sysprofID) != -1) {
                 sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
@@ -79,7 +77,7 @@ public class AreaSimple extends Com5t {
 
             } else { //Aреа перед текущей, т.к. this area ёщё не создана начнём с конца
                 for (int index = owner().listChild.size() - 1; index >= 0; --index) {
-                    if (owner().listChild.get(index).type == TypeElem.AREA) {
+                    if (owner().listChild.get(index).type == Type.AREA) {
                         AreaSimple prevArea = (AreaSimple) owner().listChild.get(index);
                         //Если последняя доб. area выходит за коорд. root area. Происходит при подкдадке ареа над импостом 
                         if (Layout.VERT.equals(owner().layout())) { //сверху вниз                            
@@ -115,13 +113,13 @@ public class AreaSimple extends Com5t {
     }
 
     //Список элементов окна
-    public <E> LinkedList<E> listElem(TypeElem... type) {
+    public <E> LinkedList<E> listElem(Type... type) {
         LinkedList<E> list = new LinkedList();
         listElem(this, list, Arrays.asList(type));
         return list;
     }
 
-    private <E> void listElem(Com5t com5t, LinkedList<E> list, List<TypeElem> type) {
+    private <E> void listElem(Com5t com5t, LinkedList<E> list, List<Type> type) {
 
         if (type.contains(com5t.type)) {
             list.add((E) com5t);
@@ -143,8 +141,8 @@ public class AreaSimple extends Com5t {
 
     public void joinElem() {
 
-        List<ElemSimple> impList = listElem(TypeElem.IMPOST, TypeElem.SHTULP);
-        List<ElemSimple> elemList = listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP);
+        List<ElemSimple> impList = listElem(Type.IMPOST, Type.SHTULP);
+        List<ElemSimple> elemList = listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP);
 
         //Цикл по импостам
         for (ElemSimple elemImp : impList) {
@@ -194,19 +192,19 @@ public class AreaSimple extends Com5t {
             //iwin().gc2d.fillRect(0, 0, width, height);
 
             //Прорисовка стеклопакетов
-            LinkedList<ElemGlass> elemGlassList = root().listElem(TypeElem.GLASS);
+            LinkedList<ElemGlass> elemGlassList = root().listElem(Type.GLASS);
             elemGlassList.stream().forEach(el -> el.paint());
 
             //Прорисовка импостов
-            LinkedList<ElemImpost> elemImpostList = root().listElem(TypeElem.IMPOST);
+            LinkedList<ElemImpost> elemImpostList = root().listElem(Type.IMPOST);
             elemImpostList.stream().forEach(el -> el.paint());
 
             //Прорисовка штульпов
-            LinkedList<ElemShtulp> elemShtulpList = root().listElem(TypeElem.SHTULP);
+            LinkedList<ElemShtulp> elemShtulpList = root().listElem(Type.SHTULP);
             elemShtulpList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам
-            if (TypeElem.ARCH == type) {
+            if (Type.ARCH == type) {
                 mapFrame.get(Layout.ARCH).paint();
             } else {
                 mapFrame.get(Layout.TOP).paint();
@@ -216,13 +214,13 @@ public class AreaSimple extends Com5t {
             mapFrame.get(Layout.RIGHT).paint();
 
             //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.STVORKA);
+            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(Type.STVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Прорисовка размера  
             if (iwin().scale > 0.1) {
                 LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
-                LinkedList<ElemImpost> impostList = root().listElem(TypeElem.IMPOST, TypeElem.SHTULP);
+                LinkedList<ElemImpost> impostList = root().listElem(Type.IMPOST, Type.SHTULP);
                 for (ElemSimple impostElem : impostList) { //по импостам определим точки разрыва линии
                     if (Layout.VERT == impostElem.owner().layout) {
                         ls2.add(impostElem.y1 + (impostElem.y2 - impostElem.y1) / 2);

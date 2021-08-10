@@ -4,10 +4,7 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eElemdet;
 import domain.eElement;
-import domain.eElempar1;
-import domain.eElempar2;
 import enums.TypeArtikl;
-import enums.TypeElem;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +13,7 @@ import builder.param.ElementDet;
 import builder.param.ElementVar;
 import builder.model.ElemSimple;
 import dataset.Query;
-import java.util.Map;
+import enums.Type;
 
 /**
  * Составы.
@@ -36,13 +33,13 @@ public class Elements extends Cal5e {
     //Но при проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
     public void calc() {
         super.calc();
-        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE,
-                TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP, TypeElem.GLASS); //список сторон рам, створок и импостов
+        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(Type.FRAME_SIDE,
+                Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.GLASS); //список сторон рам, створок и импостов
         try {
             //Цикл по списку элементов конструкции
             for (ElemSimple elem5e : listElem) {
 
-                if (elem5e.type() != TypeElem.GLASS) {
+                if (elem5e.type() != Type.GLASS) {
                     elem5e.setSpecific(); //коррекция спецификации              
                 }
                 //Варианты состава для артикула профиля

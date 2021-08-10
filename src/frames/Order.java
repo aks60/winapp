@@ -1,5 +1,6 @@
 package frames;
 
+import enums.Type;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
@@ -50,7 +51,6 @@ import domain.eSystree;
 import enums.Layout;
 import enums.LayoutHandle;
 import enums.PKjson;
-import enums.TypeElem;
 import enums.TypeOpen1;
 import enums.UseSide;
 import frames.dialog.DicArtikl;
@@ -379,7 +379,7 @@ public class Order extends javax.swing.JFrame {
         if (windowsNode != null) {
 
             //Конструкции
-            if (windowsNode.com5t().type() == TypeElem.RECTANGL || windowsNode.com5t().type() == TypeElem.ARCH) {
+            if (windowsNode.com5t().type() == enums.Type.RECTANGL || windowsNode.com5t().type() == enums.Type.ARCH) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card12");
                 ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type().name);
                 pan12.repaint();
@@ -389,10 +389,10 @@ public class Order extends javax.swing.JFrame {
                 txt17.setText(String.valueOf(iwin.rootGson.width()));
                 txt22.setText(String.valueOf(iwin.rootGson.height()));
                 txt23.setText(String.valueOf(iwin.rootGson.heightAdd()));
-                txt23.setEditable(windowsNode.com5t().type() == TypeElem.ARCH);
+                txt23.setEditable(windowsNode.com5t().type() == enums.Type.ARCH);
 
                 //Параметры
-            } else if (windowsNode.com5t().type() == TypeElem.PARAM) {
+            } else if (windowsNode.com5t().type() == enums.Type.PARAM) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card14");
                 qSyspar1.clear();
                 Map<Integer, String> map = new HashMap();
@@ -401,10 +401,10 @@ public class Order extends javax.swing.JFrame {
                 ((DefTableModel) tab5.getModel()).fireTableDataChanged();
 
                 //Рама, импост...
-            } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE
-                    || windowsNode.com5t().type() == TypeElem.STVORKA_SIDE
-                    || windowsNode.com5t().type() == TypeElem.IMPOST
-                    || windowsNode.com5t().type() == TypeElem.SHTULP) {
+            } else if (windowsNode.com5t().type() == enums.Type.FRAME_SIDE
+                    || windowsNode.com5t().type() == enums.Type.STVORKA_SIDE
+                    || windowsNode.com5t().type() == enums.Type.IMPOST
+                    || windowsNode.com5t().type() == enums.Type.SHTULP) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(windowsNode.toString());
                 txt32.setText(windowsNode.com5t().artiklRec.getStr(eArtikl.code));
@@ -414,14 +414,14 @@ public class Order extends javax.swing.JFrame {
                 txt29.setText(eColor.find(windowsNode.com5t().colorID3).getStr(eColor.name));
 
                 //Стеклопакет
-            } else if (windowsNode.com5t().type() == TypeElem.GLASS) {
+            } else if (windowsNode.com5t().type() == enums.Type.GLASS) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card15");
                 Record artiklRec = eArtikl.find(windowsNode.com5t().artiklRec.getInt(eArtikl.id), false);
                 txt19.setText(artiklRec.getStr(eArtikl.code));
                 txt18.setText(artiklRec.getStr(eArtikl.name));
 
                 //Створка
-            } else if (windowsNode.com5t().type() == TypeElem.STVORKA) {
+            } else if (windowsNode.com5t().type() == enums.Type.STVORKA) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card16");
                 AreaStvorka stv = (AreaStvorka) windowsNode.com5t();
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);
@@ -2187,7 +2187,7 @@ public class Order extends javax.swing.JFrame {
                 }
                 new DicSysprof(this, (sysprofRec) -> {
 
-                    if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) { //рама окна
+                    if (windowsNode.com5t().type() == enums.Type.FRAME_SIDE) { //рама окна
                         float gsonId = windowsNode.com5t().id();
                         GsonElem gsonRama = iwin.rootGson.find(gsonId);
                         String paramStr = gsonRama.param();
@@ -2197,7 +2197,7 @@ public class Order extends javax.swing.JFrame {
                         gsonRama.param(paramStr);
                         updateScript(selectID);
 
-                    } else if (windowsNode.com5t().type() == TypeElem.STVORKA_SIDE) { //рама створки
+                    } else if (windowsNode.com5t().type() == enums.Type.STVORKA_SIDE) { //рама створки
                         float stvId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
                         GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
                         String paramStr = stvArea.param();
@@ -2259,7 +2259,7 @@ public class Order extends javax.swing.JFrame {
                 float parentId = ((DefMutableTreeNode) windowsNode.getParent()).com5t().id();
                 GsonElem jsonArea = (GsonElem) iwin.rootGson.find(parentId);
 
-                if (windowsNode.com5t().type() == TypeElem.STVORKA_SIDE) {
+                if (windowsNode.com5t().type() == enums.Type.STVORKA_SIDE) {
                     String paramStr = jsonArea.param();
                     JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                     String stvKey = null;
@@ -2278,7 +2278,7 @@ public class Order extends javax.swing.JFrame {
                     jsonArea.param(paramStr);
                     updateScript(selectID);
 
-                } else if (windowsNode.com5t().type() == TypeElem.FRAME_SIDE) {
+                } else if (windowsNode.com5t().type() == enums.Type.FRAME_SIDE) {
                     for (GsonElem elem : jsonArea.elements()) {
                         if (elem.id() == ((DefMutableTreeNode) windowsNode).com5t().id()) {
                             String paramStr = elem.param();

@@ -7,7 +7,6 @@ import domain.eJoinpar1;
 import domain.eJoinvar;
 import domain.eSyssize;
 import enums.Layout;
-import enums.TypeElem;
 import enums.LayoutJoin;
 import enums.TypeOpen1;
 import enums.TypeJoin;
@@ -21,6 +20,7 @@ import common.Util;
 import domain.eSysfurn;
 import enums.LayoutHandle;
 import enums.PKjson;
+import enums.Type;
 import enums.TypeOpen2;
 import frames.Ujson;
 import java.util.List;
@@ -35,7 +35,7 @@ public class AreaStvorka extends AreaSimple {
     public LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке       
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
-        super(iwin, owner, id, TypeElem.STVORKA, Layout.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
+        super(iwin, owner, id, Type.STVORKA, Layout.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
 
         Gson gson = new GsonBuilder().create();
         JsonObject paramObj = new GsonBuilder().create().fromJson(param, JsonObject.class);
@@ -78,10 +78,10 @@ public class AreaStvorka extends AreaSimple {
             y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
 
         } else {
-            float X1 = (joinLef.type() == TypeElem.IMPOST || joinLef.type() == TypeElem.SHTULP) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
-            float Y2 = (joinBot.type() == TypeElem.IMPOST || joinBot.type() == TypeElem.SHTULP) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
-            float X2 = (joinRig.type() == TypeElem.IMPOST || joinRig.type() == TypeElem.SHTULP) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
-            float Y1 = (joinTop.type() == TypeElem.IMPOST || joinTop.type() == TypeElem.SHTULP) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
+            float X1 = (joinLef.type() == Type.IMPOST || joinLef.type() == Type.SHTULP) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
+            float Y2 = (joinBot.type() == Type.IMPOST || joinBot.type() == Type.SHTULP) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
+            float X2 = (joinRig.type() == Type.IMPOST || joinRig.type() == Type.SHTULP) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
+            float Y1 = (joinTop.type() == Type.IMPOST || joinTop.type() == Type.SHTULP) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
             x1 = X1 + offset(stvLef, joinLef);
             y2 = Y2 - offset(stvBot, joinBot);
             x2 = X2 - offset(stvRig, joinRig);
@@ -173,7 +173,7 @@ public class AreaStvorka extends AreaSimple {
             }
         }
 
-        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP);
+        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP);
         for (int index = 0; index < 4; index++) {
              if (index == 0) { //Прилегающее нижнее
                 ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CBOT, elemBott, elemBott.joinFlat(Layout.BOTT), 0);                               

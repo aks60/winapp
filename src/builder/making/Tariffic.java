@@ -9,15 +9,14 @@ import domain.eGroups;
 import domain.eRulecalc;
 import domain.eSystree;
 import enums.Layout;
-import enums.TypeElem;
 import enums.TypeForm;
 import enums.UseUnit;
 import java.util.LinkedList;
 import builder.Wincalc;
 import builder.model.ElemSimple;
-import builder.param.Par5s;
 import common.Util;
 import dataset.Query;
+import enums.Type;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -66,18 +65,18 @@ public class Tariffic extends Cal5e {
 
                     //Фильтр по полю форма профиля, заполнения. В БиМакс используюеся только 1, 4, 10, 12 параметры
                     int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
-                    if (TypeElem.GLASS == elem5e.type()) {//фильтр для стеклопакета
+                    if (Type.GLASS == elem5e.type()) {//фильтр для стеклопакета
 
                         if (form == TypeForm.P00.id) {//не проверять форму
                             rulePrise(rulecalcRec, elem5e.spcRec);
 
-                        } else if (form == TypeForm.P10.id && TypeElem.TRAPEZE == elem5e.owner().type()) { //не прямоугольное, не арочное заполнение
+                        } else if (form == TypeForm.P10.id && Type.TRAPEZE == elem5e.owner().type()) { //не прямоугольное, не арочное заполнение
                             rulePrise(rulecalcRec, elem5e.spcRec);
 
-                        } else if (form == TypeForm.P12.id && TypeElem.ARCH == elem5e.owner().type()) {//не прямоугольное заполнение с арками
+                        } else if (form == TypeForm.P12.id && Type.ARCH == elem5e.owner().type()) {//не прямоугольное заполнение с арками
                             rulePrise(rulecalcRec, elem5e.spcRec);
                         }
-                    } else if (form == TypeForm.P04.id && TypeElem.FRAME_SIDE == elem5e.owner().type() && Layout.ARCH == elem5e.layout()) { //фильтр для арки профиля AYPC.W62.0101
+                    } else if (form == TypeForm.P04.id && Type.FRAME_SIDE == elem5e.owner().type() && Layout.ARCH == elem5e.layout()) { //фильтр для арки профиля AYPC.W62.0101
                         rulePrise(rulecalcRec, elem5e.spcRec); //профиль с радиусом
 
                     } else {
@@ -322,7 +321,7 @@ public class Tariffic extends Cal5e {
 
     //Процентная надбавка на изделия сложной формы
     private float percentMarkup() {
-        if (TypeElem.ARCH == iwin.rootArea.type()) {
+        if (Type.ARCH == iwin.rootArea.type()) {
             return eGroups.find(2101).getFloat(eGroups.val);
         }
         return 0;

@@ -4,9 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import dataset.Record;
 import enums.Layout;
-import enums.TypeElem;
-import java.util.LinkedList;
 import builder.Wincalc;
+import enums.Type;
 
 public abstract class Com5t {
 
@@ -14,7 +13,7 @@ public abstract class Com5t {
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий              
 
-    protected TypeElem type = TypeElem.NONE; //Тип элемента   
+    protected Type type = Type.NONE; //Тип элемента   
     protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) расположения компонентов ...
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства
@@ -27,7 +26,7 @@ public abstract class Com5t {
     public float x1 = 0, y1 = 0, x2 = 0, y2 = 0, x3 = 0, y3 = 0;//координаты area     
     public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
 
-    public Com5t(TypeElem type) {
+    public Com5t(Type type) {
         this.type = type;
     }
 
@@ -70,7 +69,7 @@ public abstract class Com5t {
     }
 
     public float length() {
-        if (TypeElem.FRAME_SIDE == type() || TypeElem.STVORKA_SIDE == type()) {
+        if (Type.FRAME_SIDE == type() || Type.STVORKA_SIDE == type()) {
             return (Layout.TOP == layout() || Layout.BOTT == layout()) ? x2 - x1 : y2 - y1;
         }
         return (Layout.HORIZ == layout()) ? x2 - x1 : y2 - y1;
@@ -84,7 +83,7 @@ public abstract class Com5t {
         return y2 - y1;
     }
 
-    public TypeElem type() {
+    public Type type() {
         return type;
     }
 

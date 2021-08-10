@@ -4,16 +4,13 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eJoindet;
 import domain.eJoinpar2;
-import domain.eSystree;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import common.Util;
-import domain.eElement;
-import enums.TypeElem;
+import enums.Type;
 import java.util.LinkedList;
 
 //Cоединения
@@ -97,7 +94,7 @@ public class JoiningDet extends Par5s {
                 case 12028: //Диапазон веса заполнения, кг 
                 {
                     float weight = 0;
-                    LinkedList<ElemSimple> glassList = iwin.rootArea.listElem(TypeElem.GLASS);
+                    LinkedList<ElemSimple> glassList = iwin.rootArea.listElem(Type.GLASS);
                     for (ElemSimple glass : glassList) {
                         if (glass.artiklRecAn.getFloat(eArtikl.density) > 0) {
                             weight += glass.width() * glass.height() * glass.artiklRecAn.getFloat(eArtikl.density) / 1000000;

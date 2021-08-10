@@ -1,18 +1,10 @@
 package builder.model;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import dataset.Record;
-import domain.eArtikl;
-import domain.eSysprof;
-import enums.UseUnit;
 import builder.making.Specific;
-import enums.UseArtiklTo;
 import java.awt.Color;
-import java.util.HashMap;
 import builder.Wincalc;
 import enums.Layout;
-import enums.TypeElem;
+import enums.Type;
 import java.util.LinkedList;
 
 public abstract class ElemSimple extends Com5t {
@@ -71,7 +63,7 @@ public abstract class ElemSimple extends Com5t {
 
     //Прилегающие соединения. Используется при построении конструкции, когда соединения ещё не определены  
     public ElemSimple joinFlat(Layout layoutArea) {
-        LinkedList<ElemSimple> listElem = root().listElem(TypeElem.STVORKA_SIDE, TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP); //список элементов
+        LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP); //список элементов
         if (Layout.BOTT == layoutArea) {
             return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, y2) == true && el.layout() != Layout.ARCH).findFirst().orElse(null);
         } else if (Layout.LEFT == layoutArea) {
@@ -88,7 +80,7 @@ public abstract class ElemSimple extends Com5t {
     public ElemSimple joinElem(int side) {
         ElemJoining ej = iwin().mapJoin.get(joinPoint(side));
         if (ej != null && side == 0) {
-            return (this.type == TypeElem.IMPOST || this.type == TypeElem.SHTULP) ? ej.elem2 : ej.elem1;
+            return (this.type == Type.IMPOST || this.type == Type.SHTULP) ? ej.elem2 : ej.elem1;
         } else if (ej != null && side == 1) {
             return ej.elem2;
         } else if (ej != null && side == 2) {

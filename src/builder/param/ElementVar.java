@@ -6,15 +6,13 @@ import domain.eElement;
 import domain.eElempar1;
 import domain.eSetting;
 import enums.Layout;
-import enums.TypeElem;
 import java.util.List;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import common.Util;
-import domain.eSyssize;
-import domain.eSystree;
+import enums.Type;
 import enums.TypeJoin;
 
 //Составы 31000, 37000
@@ -52,7 +50,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 31001: //Максимальное заполнение изделия, мм 
                 {
-                    List<ElemGlass> glassList = elem5e.iwin().rootArea.listElem(TypeElem.GLASS);
+                    List<ElemGlass> glassList = elem5e.iwin().rootArea.listElem(Type.GLASS);
                     float depth = 0;
                     for (ElemGlass glass : glassList) {
                         if (glass.artiklRecAn.getFloat(eArtikl.depth) > depth) {
@@ -248,7 +246,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31051:  //Если створка фурнитуры 
-                    if (elem5e.owner().type() == TypeElem.STVORKA) {
+                    if (elem5e.owner().type() == Type.STVORKA) {
                         if ("ведущая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) == -3) {
                             return false;
                         } else if ("ведомая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) != -3) {
@@ -353,7 +351,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 37009: //Тип заполнения 
                 {
-                    ElemGlass glass = (ElemGlass) elem5e.owner().listChild.stream().filter(it -> it.type() == TypeElem.GLASS).findFirst().orElse(null);
+                    ElemGlass glass = (ElemGlass) elem5e.owner().listChild.stream().filter(it -> it.type() == Type.GLASS).findFirst().orElse(null);
                     if ("Прямоугольное".equalsIgnoreCase(rec.getStr(TEXT)) && (glass.x3 != 0 || glass.y3 != 0)) {
                         return false;
 

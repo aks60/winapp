@@ -58,7 +58,7 @@ import frames.swing.listener.ListenerObject;
 import common.eProfile;
 import domain.ePrjprod;
 import enums.PKjson;
-import enums.TypeElem;
+import enums.Type;
 import frames.swing.DefMutableTreeNode;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
@@ -160,16 +160,16 @@ public class Uti5 {
     public static DefMutableTreeNode iwinTree(Wincalc iwin) {
         DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
 
-        root.add(new DefMutableTreeNode(new Com5t(TypeElem.PARAM) {
+        root.add(new DefMutableTreeNode(new Com5t(Type.PARAM) {
         }));
 
-        LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST, TypeElem.SHTULP, TypeElem.GLASS);
+        LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.GLASS);
         for (ElemSimple elem5e : listElem) {
-            if (elem5e.owner().type() != TypeElem.STVORKA) {
+            if (elem5e.owner().type() != Type.STVORKA) {
                 root.add(new DefMutableTreeNode(elem5e));
             }
         }
-        LinkedList<AreaSimple> listStv = iwin.rootArea.listElem(TypeElem.STVORKA);
+        LinkedList<AreaSimple> listStv = iwin.rootArea.listElem(Type.STVORKA);
         for (AreaSimple areaStv : listStv) {
             root.add(new DefMutableTreeNode(areaStv));
             for (ElemSimple elemStv : iwin.listElem) {

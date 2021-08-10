@@ -5,18 +5,19 @@ import domain.eArtikl;
 import domain.eFurndet;
 import domain.eFurnpar2;
 import enums.Layout;
-import enums.TypeElem;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
 import builder.making.Specific;
 import builder.model.AreaArch;
 import builder.model.AreaStvorka;
+import builder.model.Com5t;
 import builder.model.ElemFrame;
 import common.Util;
 import domain.eColor;
 import domain.eGroups;
 import enums.LayoutHandle;
+import enums.Type;
 import java.util.Map;
 
 //Фурнитура
@@ -52,14 +53,14 @@ public class FurnitureDet extends Par5s {
                 case 25001: //Форма контура 
                 {
                     //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
-                    if ("прямоугольная".equals(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(areaStv.type()) == false
-                            && TypeElem.AREA.equals(areaStv.type()) == false && TypeElem.STVORKA.equals(areaStv.type()) == false) {
+                    if ("прямоугольная".equals(rec.getStr(TEXT)) && Type.RECTANGL.equals(areaStv.type()) == false
+                            && Type.AREA.equals(areaStv.type()) == false && Type.STVORKA.equals(areaStv.type()) == false) {
                         return false;
-                    } else if ("трапециевидная".equals(rec.getStr(TEXT)) && TypeElem.TRAPEZE.equals(areaStv.type()) == false) {
+                    } else if ("трапециевидная".equals(rec.getStr(TEXT)) && Type.TRAPEZE.equals(areaStv.type()) == false) {
                         return false;
-                    } else if ("арочная".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(areaStv.type()) == false) {
+                    } else if ("арочная".equals(rec.getStr(TEXT)) && Type.ARCH.equals(areaStv.type()) == false) {
                         return false;
-                    } else if ("не арочная".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(areaStv.type()) == true) {
+                    } else if ("не арочная".equals(rec.getStr(TEXT)) && Type.ARCH.equals(areaStv.type()) == true) {
                         return false;
                     }
                     break;
@@ -148,7 +149,7 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24032:  //Правильная полуарка 
                 case 25032:  //Правильная полуарка 
-                    if (iwin.rootArea.type() == TypeElem.ARCH) {
+                    if (iwin.rootArea.type() == Type.ARCH) {
                         int k = (int) (iwin.rootArea.width() / ((AreaArch) iwin.rootArea).radiusArch);
                         if (k != 2) {
                             return false;
@@ -162,7 +163,7 @@ public class FurnitureDet extends Par5s {
                         boolean ret = false;
                         for (Map.Entry<Layout, ElemFrame> entry : areaStv.mapFrame.entrySet()) {
                             Object obj = entry.getValue().joinElem(2);
-                            if (entry.getValue().joinElem(2).type() == TypeElem.SHTULP) {
+                            if (entry.getValue().joinElem(2).type() == Type.SHTULP) {
                                 ret = true;
                             }
                         }
@@ -172,7 +173,7 @@ public class FurnitureDet extends Par5s {
                     } else if (rec.getStr(TEXT).equals("Нет")) {
                         boolean ret = false;
                         for (Map.Entry<Layout, ElemFrame> entry : areaStv.mapFrame.entrySet()) {
-                            if (entry.getValue().joinElem(2).type() == TypeElem.SHTULP) {
+                            if (entry.getValue().joinElem(2).type() == Type.SHTULP) {
                                 ret = true;
                             }
                         }
@@ -209,9 +210,17 @@ public class FurnitureDet extends Par5s {
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24063:  //Диапазон веса, кг 
-                case 25063:  //Диапазон веса, кг 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 25063: //Диапазон веса, кг 
+                {
+                    Com5t glass = areaStv.listChild.stream().filter(el -> el.type() == Type.GLASS).findFirst().orElse(null);
+                    if (glass != null) {
+                        float weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn.getFloat(eArtikl.density);
+                        if (Util.containsNumb2(rec.getStr(TEXT), weight) == false) {
+                            return false;
+                        }
+                    }
+                }
+                break;
                 case 24064:  //Ограничение высоты ручки, мм 
                 case 25064:  //Ограничение высоты ручки, мм 
                     message(rec.getInt(GRUP));
@@ -280,7 +289,7 @@ public class FurnitureDet extends Par5s {
                 case 24800:  //Код основной обработки) 
                 case 25800:  //Код основной обработки
                     message(rec.getInt(GRUP));
-                    break;                    
+                    break;
                 case 24801:  //Доп.основная обработка
                 case 25801:  //Доп.основная обработка
                     message(rec.getInt(GRUP));

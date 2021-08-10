@@ -1,7 +1,6 @@
 package builder.param;
 
 import builder.Wincalc;
-import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
@@ -15,7 +14,7 @@ import domain.eSysfurn;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.Layout;
-import enums.TypeElem;
+import enums.Type;
 import enums.TypeOpen1;
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +25,7 @@ class Uti4 {
     static List<ElemGlass> getGlassDepth(ElemSimple elem5e) {
         ElemSimple glass1 = null, glass2 = null;
         for (ElemSimple el : elem5e.iwin().listElem) {
-            if (el.type() == TypeElem.GLASS) {
+            if (el.type() == Type.GLASS) {
                 if (elem5e.layout() == Layout.VERT) {
                     if (el.inside(elem5e.x1 - 200, elem5e.y1 + elem5e.height() / 2)) {
                         glass1 = el;
@@ -50,9 +49,9 @@ class Uti4 {
 
     //Тип проема 
     static boolean is_13003_14005_15005_37008(String txt, ElemSimple elem5e) {
-        if ("глухой".equals(txt) == true && elem5e.owner().type() == TypeElem.STVORKA == true) {
+        if ("глухой".equals(txt) == true && elem5e.owner().type() == Type.STVORKA == true) {
             return false;
-        } else if ("не глухой".equals(txt) == true && elem5e.owner().type() == TypeElem.STVORKA == false) {
+        } else if ("не глухой".equals(txt) == true && elem5e.owner().type() == Type.STVORKA == false) {
             return false;
         }
         return true;
@@ -144,7 +143,7 @@ class Uti4 {
     static boolean is_1008_11008_12008_14008_15008_31008_34008_40008(Float txt, Wincalc iwin) {
         float depth = 0;
         for (ElemSimple elem : iwin.listElem) {
-            if (elem.type() == TypeElem.GLASS) {
+            if (elem.type() == Type.GLASS) {
                 depth = (elem.artiklRecAn.getFloat(eArtikl.depth) > depth) ? elem.artiklRecAn.getFloat(eArtikl.depth) : depth;
             }
         }
@@ -156,7 +155,7 @@ class Uti4 {
 
     //Название фурнитуры содержит 
     static boolean is_31037_38037_39037_40037(ElemSimple elem5e, String txt) {
-        if (TypeElem.STVORKA == elem5e.owner().type()) {
+        if (Type.STVORKA == elem5e.owner().type()) {
             AreaStvorka stv = (AreaStvorka) elem5e.owner();
             String name = eFurniture.find(stv.sysfurnRec.getInt(eSysfurn.furniture_id)).getStr(eFurniture.name);
             if ((name.equals(txt)) == false) {
@@ -170,7 +169,7 @@ class Uti4 {
 
     //Для типа открывания
     static boolean is_1039_38039_39039(ElemSimple elem5e, String txt) {
-        if (elem5e.owner().type() == TypeElem.STVORKA) {
+        if (elem5e.owner().type() == Type.STVORKA) {
             AreaStvorka stv = (AreaStvorka) elem5e.owner();
             if (!"фрамуга".equals(txt) && stv.typeOpen == TypeOpen1.UPPER) { //фрамуга
                 return false;

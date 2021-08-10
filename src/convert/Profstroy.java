@@ -45,7 +45,6 @@ import domain.eSysfurn;
 import domain.eSyspar1;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.TypeElem;
 import enums.TypeGroups;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;

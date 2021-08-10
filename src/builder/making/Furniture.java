@@ -8,7 +8,6 @@ import domain.eFurnside1;
 import domain.eFurnside2;
 import domain.eSysfurn;
 import enums.Layout;
-import enums.TypeElem;
 import java.util.LinkedList;
 import java.util.List;
 import builder.Wincalc;
@@ -19,6 +18,7 @@ import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
 import common.Util;
 import dataset.Query;
+import enums.Type;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,7 +46,7 @@ public class Furniture extends Cal5e {
 
     public void calc() {
         super.calc();
-        LinkedList<AreaStvorka> stvorkaList = root().listElem(TypeElem.STVORKA);
+        LinkedList<AreaStvorka> stvorkaList = root().listElem(Type.STVORKA);
         try {
             //Цикл по створкам      
             for (AreaStvorka areaStv : stvorkaList) {

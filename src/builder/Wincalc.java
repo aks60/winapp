@@ -16,7 +16,6 @@ import domain.eArtikl;
 import domain.eSyssize;
 import domain.eSyspar1;
 import domain.eSysprof;
-import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.making.Cal5e;
 import java.awt.Graphics2D;
@@ -37,6 +36,7 @@ import builder.model.ElemShtulp;
 import builder.model.ElemSimple;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
+import enums.Type;
 import frames.swing.Draw;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -84,11 +84,11 @@ public class Wincalc {
         //Соединения 
         rootArea.joinFrame(); //соединения рамы
         rootArea.joinElem(); //T-соединения рамы 
-        LinkedList<AreaStvorka> listAreaStv = rootArea.listElem(TypeElem.STVORKA); //список створок
+        LinkedList<AreaStvorka> listAreaStv = rootArea.listElem(Type.STVORKA); //список створок
         listAreaStv.stream().forEach(area5e -> area5e.joinFrame());  //соединения створок
 
         //Список элементов, (важно! получаем после построения створки)
-        listElem = rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.SHTULP, TypeElem.GLASS);
+        listElem = rootArea.listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.GLASS);
         //Важно! Не нарушаем последовательность построения окна
         Collections.sort(listElem, (a, b) -> Float.compare(a.id(), b.id()));  
         return rootArea;
@@ -116,19 +116,19 @@ public class Wincalc {
             eSyspar1.find(nuni).stream().forEach(rec -> mapPardef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
 
             //Главное окно
-            if (TypeElem.RECTANGL == rootGson.type()) {
-                rootArea = new AreaRectangl(this, null, rootGson.id(), TypeElem.RECTANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //простое
-            } else if (TypeElem.TRAPEZE == rootGson.type()) {
-                rootArea = new AreaTrapeze(this, null, rootGson.id(), TypeElem.TRAPEZE, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //трапеция
-            } else if (TypeElem.TRIANGL == rootGson.type()) {
-                rootArea = new AreaTriangl(this, null, rootGson.id(), TypeElem.TRIANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //треугольник
-            } else if (TypeElem.ARCH == rootGson.type()) {
-                rootArea = new AreaArch(this, null, rootGson.id(), TypeElem.ARCH, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //арка
+            if (Type.RECTANGL == rootGson.type()) {
+                rootArea = new AreaRectangl(this, null, rootGson.id(), Type.RECTANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //простое
+            } else if (Type.TRAPEZE == rootGson.type()) {
+                rootArea = new AreaTrapeze(this, null, rootGson.id(), Type.TRAPEZE, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //трапеция
+            } else if (Type.TRIANGL == rootGson.type()) {
+                rootArea = new AreaTriangl(this, null, rootGson.id(), Type.TRIANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //треугольник
+            } else if (Type.ARCH == rootGson.type()) {
+                rootArea = new AreaArch(this, null, rootGson.id(), Type.ARCH, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //арка
             }
 
             //Добавим рамы
             for (GsonElem gsonElem : rootGson.childs()) {
-                if (TypeElem.FRAME_SIDE == gsonElem.type()) {
+                if (Type.FRAME_SIDE == gsonElem.type()) {
                     rootArea.mapFrame.put(gsonElem.layout(), new ElemFrame(rootArea, gsonElem.id(), gsonElem.layout(), gsonElem.param()));
                 }
             }
@@ -148,23 +148,23 @@ public class Wincalc {
             for (GsonElem el : gsonElem.childs()) {
 
                 //Добавим Area
-                if (TypeElem.STVORKA == el.type()) {
+                if (Type.STVORKA == el.type()) {
                     AreaSimple area5e = new AreaStvorka(Wincalc.this, owner, el.id(), el.param());
                     owner.listChild.add(area5e);
                     hm.put(area5e, el);
-                } else if (TypeElem.AREA == el.type()) {
+                } else if (Type.AREA == el.type()) {
                     AreaSimple area5e = new AreaSimple(Wincalc.this, owner, el.id(), el.type(), el.layout(), el.width(), el.height(), -1, -1, -1, null);
                     owner.listChild.add(area5e);
                     hm.put(area5e, el);
 
                     //Добавим Element
-                } else if (TypeElem.IMPOST == el.type()) {
+                } else if (Type.IMPOST == el.type()) {
                     owner.listChild.add(new ElemImpost(owner, el.type(), el.id(), el.param()));
                     
-                } else if (TypeElem.SHTULP == el.type()) {
+                } else if (Type.SHTULP == el.type()) {
                     owner.listChild.add(new ElemShtulp(owner, el.type(), el.id(), el.param()));
                     
-                } else if (TypeElem.GLASS == el.type()) {
+                } else if (Type.GLASS == el.type()) {
                     owner.listChild.add(new ElemGlass(owner, el.id(), el.param()));
                 }
             }

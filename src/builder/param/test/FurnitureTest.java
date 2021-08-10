@@ -100,6 +100,11 @@ public class FurnitureTest extends ParamTest {
         
         grup = 24033; //24033 //Фурнитура штульповая 
         assert true == furnitureDet4.check(mapParam, area_stv_4, param("Да", grup)) : grup;        
-        assert false == furnitureDet3.check(mapParam, area_stv_3, param("Да", grup)) : grup;        
+        assert false == furnitureDet3.check(mapParam, area_stv_3, param("Да", grup)) : grup;      
+        
+        grup = 24063; //25063 //Диапазон веса, кг
+        assert true == furnitureDet2.check(mapParam, area_stv_2, param("3-40", grup)) : grup;
+        assert true == furnitureDet2.check(mapParam, area_stv_2, param("40", grup)) : grup;
+        assert false == furnitureDet2.check(mapParam, area_stv_2, param("1-12", grup)) : grup;        
     }
 }

@@ -8,16 +8,12 @@ import domain.eSyssize;
 import domain.eSystree;
 import enums.Layout;
 import enums.TypeArtikl;
-import enums.TypeElem;
 import builder.making.Specific;
 import common.Util;
 import domain.eGlasprof;
-import domain.eSetting;
 import enums.PKjson;
+import enums.Type;
 import enums.UseUnit;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ElemGlass extends ElemSimple {
 
@@ -29,11 +25,11 @@ public class ElemGlass extends ElemSimple {
 
         super(id, owner.iwin(), owner);
         this.layout = Layout.FULL;
-        this.type = TypeElem.GLASS;
+        this.type = Type.GLASS;
 
         initСonstructiv(param);
 
-        if (TypeElem.ARCH == owner.type) {
+        if (Type.ARCH == owner.type) {
             setDimension(0, 0, owner.x2, iwin().heightAdd - iwin().height);
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
@@ -73,7 +69,7 @@ public class ElemGlass extends ElemSimple {
             ElemFrame elemArch = root().mapFrame.get(Layout.ARCH);
             ElemSimple elemImpost = joinFlat(Layout.BOTT);
             /*for (Com5t elemBase : root().listChild) { //первый импост в стеклопакете снизу;
-                if (TypeElem.IMPOST == elemBase.type) {
+                if (Type.IMPOST == elemBase.type) {
                     elemImpost = (ElemImpost) elemBase;
                     break;
                 }
@@ -86,7 +82,7 @@ public class ElemGlass extends ElemSimple {
             x2 = owner().width() - x1;
             radiusGlass = (float) r;
 
-        } else if (TypeElem.STVORKA == owner().type()) {
+        } else if (Type.STVORKA == owner().type()) {
             AreaStvorka stv = (AreaStvorka) owner();
             ElemSimple insideLeft = stv.mapFrame.get(Layout.LEFT), insideTop = stv.mapFrame.get(Layout.TOP), insideBott = stv.mapFrame.get(Layout.BOTT), insideRight = stv.mapFrame.get(Layout.RIGHT);
 
@@ -131,7 +127,7 @@ public class ElemGlass extends ElemSimple {
 
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
             if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108)) {  //штапик
-                if (TypeElem.ARCH == owner().type()) { //штапик в арке
+                if (Type.ARCH == owner().type()) { //штапик в арке
                     ((AreaArch) root()).shtapik(this, spcAdd);
                 } else { //штапик в прямоугольнике
 
@@ -170,7 +166,7 @@ public class ElemGlass extends ElemSimple {
                     spcRec.spcList.add(spcAdd);
                 }
             } else { //всё остальное
-                if (TypeElem.ARCH == owner().type()) { //в арке
+                if (Type.ARCH == owner().type()) { //в арке
                     ((AreaArch) root()).padding(this, spcAdd);
                 } else {
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
@@ -204,7 +200,7 @@ public class ElemGlass extends ElemSimple {
     public void paint() { //рисуём стёкла
         iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
 
-        if (owner().type == TypeElem.ARCH) {
+        if (owner().type == Type.ARCH) {
             ElemFrame ef = root().mapFrame.get(Layout.ARCH);
             float dz = ef.artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;

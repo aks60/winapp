@@ -10,13 +10,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import common.Util;
-import domain.eSyssize;
 import enums.Layout;
-import enums.TypeElem;
+import enums.Type;
 
 //Заполнения
 public class FillingDet extends Par5s {
@@ -77,9 +75,9 @@ public class FillingDet extends Par5s {
                     break;
                 case 14009: //Арочное заполнение 
                 case 15009: //Арочное заполнение  
-                    if ("Да".equals(rec.getStr(TEXT)) && elem5e.owner().type() != TypeElem.ARCH) {
+                    if ("Да".equals(rec.getStr(TEXT)) && elem5e.owner().type() != Type.ARCH) {
                         return false;
-                    } else if ("Нет".equals(rec.getStr(TEXT)) && elem5e.owner().type() == TypeElem.ARCH) {
+                    } else if ("Нет".equals(rec.getStr(TEXT)) && elem5e.owner().type() == Type.ARCH) {
                         return false;
                     }
                     break;

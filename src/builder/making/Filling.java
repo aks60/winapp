@@ -7,8 +7,6 @@ import domain.eGlasgrp;
 import domain.eGlasprof;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.Layout;
-import enums.TypeElem;
 import enums.UseArtiklTo;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -20,10 +18,8 @@ import builder.param.FillingVar;
 import builder.model.ElemGlass;
 import common.Util;
 import dataset.Query;
-import domain.eSyssize;
+import enums.Type;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Заполнения
@@ -48,11 +44,11 @@ public class Filling extends Cal5e {
             Record systreeRec = eSystree.find(iwin().nuni);
             String depthSet = systreeRec.getStr(eSystree.depth);
             List<Record> sysprofList = eSysprof.find(iwin().nuni);
-            LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS);
+            LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(Type.GLASS);
 
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
-                UseArtiklTo typeProf = (elemGlass.owner().type() == TypeElem.STVORKA)
+                UseArtiklTo typeProf = (elemGlass.owner().type() == Type.STVORKA)
                         ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //стекло может быть в створке или коробке
                 Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth); //толщина стекда
 

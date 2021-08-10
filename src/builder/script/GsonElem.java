@@ -1,10 +1,8 @@
 package builder.script;
 
-import builder.model.AreaSimple;
 import enums.Layout;
-import enums.TypeElem;
+import enums.Type;
 import java.util.LinkedList;
-import java.util.stream.Collectors;
 
 public class GsonElem {
 
@@ -13,7 +11,7 @@ public class GsonElem {
     public transient GsonElem parent = null;  //владелец 
     protected LinkedList<GsonElem> childs = new LinkedList();  //список детей
     protected Layout layout = null; //сторона расположения эл. рамы
-    protected TypeElem type = null; //тип элемента
+    protected Type type = null; //тип элемента
     protected String param = null; //параметры элемента
     protected Float width = null; //ширина area, мм
     protected Float height = null; //высота area, мм
@@ -23,42 +21,42 @@ public class GsonElem {
     }
 
     //Конструктор Elem
-    public GsonElem(TypeElem elemType) {
+    public GsonElem(Type type) {
         this.id = ++genId;
-        this.type = elemType;
+        this.type = type;
     }
 
     //Конструктор Elem
-    public GsonElem(TypeElem elemType, String paramJson) {
+    public GsonElem(Type type, String paramJson) {
         this.id = ++genId;
-        this.type = elemType;
+        this.type = type;
         this.param = paramJson;
     }
 
     //Конструктор Elem
-    public GsonElem(TypeElem elemType, Layout layoutRama) {
+    public GsonElem(Type type, Layout layoutRama) {
         this.id = ++genId;
-        this.type = elemType;
+        this.type = type;
         this.layout = layoutRama;
     }
 
     //Конструктор Area
-    public GsonElem(Layout layout, TypeElem elemType, float lengthSide) {
+    public GsonElem(Layout layout, Type type, float lengthSide) {
         this.id = ++genId;
         this.layout = layout;
-        this.type = elemType;
+        this.type = type;
         this.lengthSide = lengthSide; //длина стороны, сторона зависит от направлени расположения area
     }
 
     //Конструктор створки
-    public GsonElem(Layout layout, TypeElem type) {
+    public GsonElem(Layout layout, Type type) {
         this.id = ++genId;
         this.layout = layout;
         this.type = type;
     }
     
     //Конструктор створки
-    public GsonElem(Layout layout, TypeElem type, String paramJson) {
+    public GsonElem(Layout layout, Type type, String paramJson) {
         this.id = ++genId;
         this.layout = layout;
         this.type = type;
@@ -68,7 +66,7 @@ public class GsonElem {
     public GsonElem addArea(GsonElem area) {
         childs = (childs == null) ? new LinkedList() : childs;
 
-        if (TypeElem.STVORKA == area.type) {
+        if (Type.STVORKA == area.type) {
             area.width = this.width;
             area.height = this.height;
 
@@ -96,7 +94,7 @@ public class GsonElem {
         return id;
     }
 
-    public TypeElem type() {
+    public Type type() {
         return type;
     }
 
@@ -193,7 +191,7 @@ public class GsonElem {
     public LinkedList<GsonElem> areas() {
         LinkedList<GsonElem> list = new LinkedList();
         childs.forEach(el -> {
-            if (el.type() == TypeElem.STVORKA || el.type() == TypeElem.AREA) {
+            if (el.type() == Type.STVORKA || el.type() == Type.AREA) {
                 list.add(el);
             }
         });
@@ -203,7 +201,7 @@ public class GsonElem {
     public LinkedList<GsonElem> elements() {
         LinkedList<GsonElem> list = new LinkedList();
         childs.forEach(el -> {
-            if (el.type() != TypeElem.STVORKA || el.type() != TypeElem.AREA) {
+            if (el.type() != Type.STVORKA || el.type() != Type.AREA) {
                 list.add(el);
             }
         });

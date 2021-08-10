@@ -1,30 +1,23 @@
 package builder.model;
 
-import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
-import domain.eJoining;
-import domain.eJoinpar1;
-import domain.eJoinvar;
 import domain.eSysprof;
 import enums.Layout;
 import enums.UseSide;
 import enums.TypeArtikl;
-import enums.TypeElem;
-import enums.UseArtiklTo;
 import builder.making.Specific;
 import domain.eSyssize;
-import enums.TypeJoin;
 import common.Util;
 import enums.PKjson;
+import enums.Type;
 import java.util.Arrays;
-import java.util.List;
 
 public class ElemImpost extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
 
-    public ElemImpost(AreaSimple owner, TypeElem type, float id, String param) {
+    public ElemImpost(AreaSimple owner, Type type, float id, String param) {
 
         super(id, owner.iwin(), owner);
         this.layout = (owner.layout() == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
@@ -36,9 +29,9 @@ public class ElemImpost extends ElemSimple {
         initСonstructiv(param);
 
         //Коррекция положения импоста арки (подкдадка ареа над импостом)
-        if ((TypeElem.ARCH == owner.type || TypeElem.TRAPEZE == owner.type) && owner.listChild.isEmpty()) {
+        if ((Type.ARCH == owner.type || Type.TRAPEZE == owner.type) && owner.listChild.isEmpty()) {
             float dh = artiklRec.getFloat(eArtikl.height) / 2;
-            owner.listChild.add(new AreaSimple(iwin(), owner, owner.id() + .1f, TypeElem.AREA, Layout.HORIZ, owner.width(), dh, -1, -1, -1, null));
+            owner.listChild.add(new AreaSimple(iwin(), owner, owner.id() + .1f, Type.AREA, Layout.HORIZ, owner.width(), dh, -1, -1, -1, null));
         }
         setLocation();
     }
@@ -63,7 +56,7 @@ public class ElemImpost extends ElemSimple {
     //Установка координат
     public void setLocation() {
         for (int index = owner().listChild.size() - 1; index >= 0; --index) {
-            if (owner().listChild.get(index).type == TypeElem.AREA) {
+            if (owner().listChild.get(index).type == Type.AREA) {
                 Com5t prevArea = owner().listChild.get(index); //index указывает на предыдущий элемент
                 float db = artiklRecAn.getFloat(eArtikl.size_centr);
 

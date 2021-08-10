@@ -1,9 +1,9 @@
 package frames;
 
+import enums.Type;
 import dataset.Query;
 import dataset.Record;
 import domain.eSysmodel;
-import enums.TypeElem;
 import java.awt.Component;
 import java.awt.Window;
 import javax.swing.Icon;
@@ -168,23 +168,23 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         
         DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
-            if (selectedNode.com5t().type() == TypeElem.RECTANGL || selectedNode.com5t().type() == TypeElem.ARCH) {
+            if (selectedNode.com5t().type() == enums.Type.RECTANGL || selectedNode.com5t().type() == enums.Type.ARCH) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan19");
                 
-            } else if (selectedNode.com5t().type() == TypeElem.AREA) {
+            } else if (selectedNode.com5t().type() == enums.Type.AREA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan20");
                 
-            } else if (selectedNode.com5t().type() == TypeElem.FRAME_SIDE) {
+            } else if (selectedNode.com5t().type() == enums.Type.FRAME_SIDE) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan21");
                 
-            } else if (selectedNode.com5t().type() == TypeElem.STVORKA) {
+            } else if (selectedNode.com5t().type() == enums.Type.STVORKA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan22");
                 
-            } else if (selectedNode.com5t().type() == TypeElem.IMPOST 
-                    || selectedNode.com5t().type() == TypeElem.SHTULP) {
+            } else if (selectedNode.com5t().type() == enums.Type.IMPOST 
+                    || selectedNode.com5t().type() == enums.Type.SHTULP) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan23");
                 
-            } else if (selectedNode.com5t().type() == TypeElem.GLASS) {
+            } else if (selectedNode.com5t().type() == enums.Type.GLASS) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan24");
             }
         }

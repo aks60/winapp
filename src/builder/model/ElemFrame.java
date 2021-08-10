@@ -7,16 +7,12 @@ import domain.eSyssize;
 import domain.eSysprof;
 import enums.Layout;
 import enums.TypeArtikl;
-import enums.TypeElem;
 import builder.making.Specific;
-import builder.making.UColor;
 import enums.PKjson;
 import common.Util;
-import dataset.Record;
-import domain.eArtdet;
 import domain.eSetting;
+import enums.Type;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 public class ElemFrame extends ElemSimple {
@@ -29,7 +25,7 @@ public class ElemFrame extends ElemSimple {
         colorID1 = iwin().colorID1;
         colorID2 = iwin().colorID2;
         colorID3 = iwin().colorID3;
-        this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.STVORKA_SIDE : TypeElem.FRAME_SIDE;
+        this.type = (Type.STVORKA == owner.type) ? Type.STVORKA_SIDE : Type.FRAME_SIDE;
         initСonstructiv(param);
         setLocation();
     }
@@ -238,7 +234,7 @@ public class ElemFrame extends ElemSimple {
             iwin().draw.strokePolygon(x1 + d1z, x2 - d1z, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
         } else if (Layout.LEFT == layout) {
-            if (TypeElem.ARCH == owner().type) {
+            if (Type.ARCH == owner().type) {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
                 double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
@@ -247,7 +243,7 @@ public class ElemFrame extends ElemSimple {
                 iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + d1z, y2 - d1z, y2, rgb, borderColor);
             }
         } else if (Layout.RIGHT == layout) {
-            if (TypeElem.ARCH == owner().type) {
+            if (Type.ARCH == owner().type) {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
                 double a = (r - d1z) * Math.sin(Math.toRadians(ang2));

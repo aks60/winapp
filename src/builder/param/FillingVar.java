@@ -3,16 +3,13 @@ package builder.param;
 import dataset.Record;
 import domain.eGlasgrp;
 import domain.eGlaspar1;
-import domain.eSystree;
-import enums.TypeElem;
 import java.util.List;
 import builder.Wincalc;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import domain.eArtikl;
-import domain.eElement;
 import domain.eSetting;
-import domain.eSyssize;
+import enums.Type;
 
 //Заполнения
 public class FillingVar extends Par5s {
@@ -78,15 +75,15 @@ public class FillingVar extends Par5s {
                     break;
                 case 13015:  //Форма заполнения 
                     //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
-                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(elem5e.owner().type()) == false
-                            && TypeElem.AREA.equals(elem5e.owner().type()) == false && TypeElem.STVORKA.equals(elem5e.owner().type()) == false) {
+                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && Type.RECTANGL.equals(elem5e.owner().type()) == false
+                            && Type.AREA.equals(elem5e.owner().type()) == false && Type.STVORKA.equals(elem5e.owner().type()) == false) {
                         return false;
-                    } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.TRAPEZE.equals(elem5e.owner().type()) == false
-                            && TypeElem.TRIANGL.equals(elem5e.owner().type()) == false)) {
+                    } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && (Type.TRAPEZE.equals(elem5e.owner().type()) == false
+                            && Type.TRIANGL.equals(elem5e.owner().type()) == false)) {
                         return false;
-                    } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
+                    } else if ("Арочное".equals(rec.getStr(TEXT)) && Type.ARCH.equals(elem5e.owner().type()) == false) {
                         return false;
-                    } else if ("Не арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == true) {
+                    } else if ("Не арочное".equals(rec.getStr(TEXT)) && Type.ARCH.equals(elem5e.owner().type()) == true) {
                         return false;
                     }
                     break;

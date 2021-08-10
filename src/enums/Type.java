@@ -1,10 +1,10 @@
 package enums;
 
 //Типы элементов
-public enum TypeElem implements Enam {
+public enum Type implements Enam {
 
     NONE(0, 0, "Не определено"),
-    //== TypeElem ==
+    //== Type ==
     FRAME_SIDE(1, 1, "Сторона коробки"),
     STVORKA_SIDE(2, 2, "Сторона створки"),
     IMPOST(3, 3, "Импост"),
@@ -33,12 +33,12 @@ public enum TypeElem implements Enam {
     public int id2 = 0; //это UseArtiklTo
     public String name;
 
-    TypeElem(int id, String name) {
+    Type(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    TypeElem(int id, int id2, String name) {
+    Type(int id, int id2, String name) {
         this.id = id;
         this.id2 = id2;
         this.name = name;
