@@ -129,8 +129,8 @@ public class ElemGlass extends ElemSimple {
             if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108)) {  //штапик
                 if (Type.ARCH == owner().type()) { //штапик в арке
                     ((AreaArch) root()).shtapik(this, spcAdd);
+                    
                 } else { //штапик в прямоугольнике
-
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
