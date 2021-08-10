@@ -141,17 +141,16 @@ public class ElemFrame extends ElemSimple {
                 }
             }
 
-            
         } else {
             //Выбран авто расчет подвеса
             if (spcAdd.getParam("null", 24013).equals("null") == false) {
                 if (spcAdd.getParam("null", 24013).equals("Да")) {
                     int color = iwin().colorID1;
-                    if(iwin().colorID1 != spcAdd.colorID1) {
+                    if (iwin().colorID1 != spcAdd.colorID1) {
                         return;
                     }
                 }
-            }            
+            }
             //Установить текстуру
             if (spcAdd.getParam("null", 24006).equals("null") == false) {
                 int colorID = -1;
@@ -185,9 +184,26 @@ public class ElemFrame extends ElemSimple {
             }
             //Ручка от низа створки, мм 
             if (spcAdd.getParam("null", 24072, 25072).equals("null") == false) {
-                if(Furniture.determOfSide(owner) == this) {
+                if (Furniture.determOfSide(owner) == this) {
                     AreaStvorka stv = (AreaStvorka) owner;
                     stv.handleHeight = Util.getFloat(spcAdd.getParam(stv.handleHeight, 24072, 25072));
+                }
+            }
+            //Укорочение от
+            if (spcAdd.getParam("null", 25013).equals("null") == false) {
+                if ("длины стороны".equals(spcAdd.getParam("null", 25013))) {
+                    spcAdd.width = length() - Util.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм
+
+                } else if ("высоты ручки".equals(spcAdd.getParam("null", 25013))) {
+                    AreaStvorka stv = (AreaStvorka) owner;
+                    spcAdd.width = stv.handleHeight - Util.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм
+
+                } else if ("сторона - выс. ручки".equals(spcAdd.getParam("null", 25013))) {
+                    AreaStvorka stv = (AreaStvorka) owner;
+                    spcAdd.width = length - stv.handleHeight - Util.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм                        
+
+                } else if ("половины стороны".equals(spcAdd.getParam("null", 25013))) {
+                    spcAdd.width = (length / 2) - Util.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм 
                 }
             }
             //Фурнитура

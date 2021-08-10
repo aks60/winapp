@@ -326,6 +326,8 @@ public class FurnitureDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 25013:  //Укорочение от 
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    break;                    
                 case 25030:  //Укорочение, мм 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
