@@ -162,7 +162,8 @@ public class ElemGlass extends ElemSimple {
                     if("по биссектрисе".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
                         //
                     }
-
+                    spcAdd.anglCut1 = 45;
+                    spcAdd.anglCut2 = 45;
                     spcRec.spcList.add(spcAdd);
                 }
             } else { //всё остальное

@@ -80,8 +80,8 @@ public class ElemShtulp extends ElemSimple {
         spcRec.colorID1 = colorID1;
         spcRec.colorID2 = colorID2;
         spcRec.colorID3 = colorID3;
-        spcRec.anglCut2 = 90;
         spcRec.anglCut1 = 90;
+        spcRec.anglCut2 = 90;
         spcRec.anglHoriz = anglHoriz;
 
         if (Layout.HORIZ == owner().layout()) { //слева направо  

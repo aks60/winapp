@@ -79,8 +79,8 @@ public class Specific {
         this.width = spec.width;
         this.height = spec.height;
         this.weight = spec.weight;
-        this.anglCut2 = spec.anglCut2;
         this.anglCut1 = spec.anglCut1;
+        this.anglCut2 = spec.anglCut2;
         this.count = spec.count;
         this.unit = spec.unit;
         this.quant1 = spec.quant1;

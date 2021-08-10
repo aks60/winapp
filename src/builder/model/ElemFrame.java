@@ -75,8 +75,8 @@ public class ElemFrame extends ElemSimple {
         spcRec.colorID1 = colorID1;
         spcRec.colorID2 = colorID2;
         spcRec.colorID3 = colorID3;
-        spcRec.anglCut2 = anglCut[1];
         spcRec.anglCut1 = anglCut[0];
+        spcRec.anglCut2 = anglCut[1];
         spcRec.anglHoriz = anglHoriz;
         double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
 
