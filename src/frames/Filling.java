@@ -868,6 +868,14 @@ public class Filling extends javax.swing.JFrame {
                     App.Artikles.createFrame(Filling.this, record2);
                 }
             });
+        } else if (tab5.getBorder() != null) {
+            Record record = ((DefTableModel) tab5.getModel()).getQuery().get(Uti5.getIndexRec(tab5));
+            Record record2 = eArtikl.find(record.getInt(eGlasprof.artikl_id), false);
+            FrameProgress.create(this, new ListenerFrame() {
+                public void actionRequest(Object obj) {
+                    App.Artikles.createFrame(Filling.this, record2);
+                }
+            });
         }
     }//GEN-LAST:event_btnConstructiv
 
