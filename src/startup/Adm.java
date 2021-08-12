@@ -1,5 +1,6 @@
 package startup;
 
+import builder.script.Winscript;
 import frames.FrameToFile;
 import frames.swing.listener.ListenerFrame;
 import common.eProfile;
@@ -80,20 +81,19 @@ public class Adm extends javax.swing.JFrame {
     private void loadingPath() {
         
         if (eProperty.base_num.read().equals("1")) {
-            edPath.setText("D:\\Okna\\Database\\ps4\\ITEST.FDB");
             labPath2.setText(eProperty.server1.read() + "/" + eProperty.port1.read() + "\\" + eProperty.base1.read());
             
         } else if (eProperty.base_num.read().equals("2")) {
-            edPath.setText("D:\\Okna\\Database\\ps3\\sial3.fdb");
+            //edPath.setText("D:\\Okna\\Database\\ps3\\sial3.fdb");
             labPath2.setText(eProperty.server2.read() + "/" + eProperty.port2.read() + "\\" + eProperty.base2.read());
             
         } else if (eProperty.base_num.read().equals("3")) {
             //edPath.setText("D:\\Okna\\Database\\ps4\\krauss.fdb");
-            edPath.setText("D:\\Okna\\Database\\ps4\\vidnal.fdb");
+            //edPath.setText("D:\\Okna\\Database\\ps4\\vidnal.fdb");
             labPath2.setText(eProperty.server3.read() + "/" + eProperty.port3.read() + "\\" + eProperty.base3.read());
             
         }
-
+        edPath.setText(Winscript.path());
         edPort.setText((eProperty.base_num.read().equals("2")) ? "3055" : "3050");
         edServer.setText("localhost");
         edUser.setText("sysdba");

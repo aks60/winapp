@@ -4,11 +4,8 @@ import builder.script.test.Vidnal;
 import builder.script.test.Sial3;
 import builder.script.test.Krauss;
 import builder.script.test.Bimax;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import builder.script.test.Sokol;
 import common.eProperty;
-import domain.eSetting;
-import enums.Layout;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,6 +28,9 @@ public class Winscript {
             
         } else if (base_name.toLowerCase().contains("krauss.fdb")) {
             return Krauss.script(prj, model);
+
+        } else if (base_name.toLowerCase().contains("sokol.fdb")) {
+            return Sokol.script(prj, model);
         }
         return null;
     }
@@ -50,6 +50,31 @@ public class Winscript {
 
         } else if (base_name.toLowerCase().contains("krauss.fdb")) {
             return null;
+
+        } else if (base_name.toLowerCase().contains("sokol.fdb")) {
+            return Arrays.asList(1);
+        }
+        return null;
+    }
+    
+    public static String path() {
+        String base_name = (eProperty.base_num.read().equals("1")) ? eProperty.base1.read()
+                : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
+        
+        if (base_name.toLowerCase().contains("sial3.fdb")) {
+            return "D:\\Okna\\Database\\ps3\\sial3.fdb";
+            
+        } else if (base_name.toLowerCase().contains("bimax.fdb")) {
+            return "D:\\Okna\\Database\\ps4\\ITEST.FDB";
+            
+        } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
+            return "D:\\Okna\\Database\\ps4\\vidnal.fdb";
+
+        } else if (base_name.toLowerCase().contains("krauss.fdb")) {
+            return "D:\\Okna\\Database\\ps4\\krauss.fdb";
+
+        } else if (base_name.toLowerCase().contains("sokol.fdb")) {
+            return "D:\\Okna\\Database\\ps4\\sokol.fdb";
         }
         return null;
     }
