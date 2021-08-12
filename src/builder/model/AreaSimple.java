@@ -45,19 +45,8 @@ public class AreaSimple extends Com5t {
     }
 
     public void initСonstructiv(String param) {
-        if (Type.AREA != type) {
-            //Профили коробки или створки
-            if (param(param, PKjson.sysprofID) != -1) {
-                sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
-            } else {
-                if (this instanceof AreaStvorka) {
-                    sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.STVORKA, UseSide.ANY);
-                } else {
-                    sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.FRAME, UseSide.ANY);
-                }
-            }
-            artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-            artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        if (param(param, PKjson.sysprofID) != -1) { //профили через параметр
+            sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
         }
     }
 

@@ -59,10 +59,10 @@ public abstract class Com5t {
         this.y2 = y2;
     }
 
-    public int param(String param, String key) {
+    public int param(String par, String key) {
 
-        if (param != null && param.isEmpty() == false) {
-            JsonObject jsonObj = new Gson().fromJson(param, JsonObject.class);
+        if (par != null && par.isEmpty() == false) {
+            JsonObject jsonObj = new Gson().fromJson(par, JsonObject.class);
             return (jsonObj.get(key) == null) ? -1 : jsonObj.get(key).getAsInt();
         }
         return -1;

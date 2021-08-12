@@ -15,6 +15,8 @@ import enums.Type;
 import java.util.Arrays;
 import java.util.Map;
 import builder.making.Furniture;
+import enums.UseArtiklTo;
+import enums.UseSide;
 
 public class ElemFrame extends ElemSimple {
 
@@ -31,13 +33,30 @@ public class ElemFrame extends ElemSimple {
         setLocation();
     }
 
-    public void initСonstructiv(String param) {
+    public void initСonstructiv(String par) {
 
-        colorID1 = (param(param, PKjson.colorID1) != -1) ? param(param, PKjson.colorID1) : colorID1;
-        colorID2 = (param(param, PKjson.colorID2) != -1) ? param(param, PKjson.colorID2) : colorID2;
-        colorID3 = (param(param, PKjson.colorID3) != -1) ? param(param, PKjson.colorID3) : colorID3;
-
-        sysprofRec = (param(param, PKjson.sysprofID) != -1) ? eSysprof.find3(param(param, PKjson.sysprofID)) : owner().sysprofRec;
+        colorID1 = (param(par, PKjson.colorID1) != -1) ? param(par, PKjson.colorID1) : colorID1;
+        colorID2 = (param(par, PKjson.colorID2) != -1) ? param(par, PKjson.colorID2) : colorID2;
+        colorID3 = (param(par, PKjson.colorID3) != -1) ? param(par, PKjson.colorID3) : colorID3;
+        
+        if (param(par, PKjson.sysprofID) != -1) { //профили через параметр
+            sysprofRec = eSysprof.find3(param(par, PKjson.sysprofID));
+            
+        } else if(owner.sysprofRec != null) { //профили через параметр рамы, створки
+            sysprofRec = owner.sysprofRec;
+        } else {
+            if (Layout.BOTT.equals(layout())) {
+                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.BOT, UseSide.HORIZ, UseSide.ANY);
+            } else if (Layout.RIGHT.equals(layout())) {
+                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.RIGHT, UseSide.VERT, UseSide.ANY);
+            } else if (Layout.TOP.equals(layout())) {
+                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.TOP, UseSide.HORIZ, UseSide.ANY);
+            } else if (Layout.LEFT.equals(layout())) {
+                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.LEFT, UseSide.VERT, UseSide.ANY);
+            } else if (Layout.ARCH.equals(layout())) {
+                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.TOP, UseSide.HORIZ, UseSide.ANY);
+            }
+        }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }

@@ -1148,7 +1148,7 @@ public class ParamList {
     };
 
     public static Dictionary dic_OK_NO = () -> {
-        return Arrays.asList("Да", "Нет");
+        return Arrays.asList("Авто", "Да", "Нет");
     };
 
     public static Dictionary dic_15027_12027 = () -> {

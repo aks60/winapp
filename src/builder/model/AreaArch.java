@@ -59,7 +59,7 @@ public class AreaArch extends AreaSimple {
         double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
         elemFrame.length = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
         elemFrame.spcRec.width = elemFrame.length + (float) (katet / Math.sin(Math.toRadians(elemFrame.anglCut[0])) + katet / Math.sin(Math.toRadians(elemFrame.anglCut[1])));
-        elemFrame.spcRec.height = artiklRec.getFloat(eArtikl.height);
+        elemFrame.spcRec.height = mapFrame.get(Layout.ARCH).artiklRec.getFloat(eArtikl.height);
     }
 
     protected void shtapik(ElemGlass elemGlass, Specific spcAdd) {

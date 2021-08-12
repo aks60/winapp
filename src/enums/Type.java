@@ -23,11 +23,11 @@ public enum Type implements Enam {
     PARAM(99, "Параметры конструкции"),
     //== TypeArea ==
     AREA(1000, "Контейнер"),
-    RECTANGL(1001, "Окно четырёхугольное"),
-    TRAPEZE(1002, "Окно трапеция"),
-    TRIANGL(1003, "Треугольное окно"),
-    ARCH(1004, "Арочное окно"),
-    STVORKA(1005, "Створка");
+    RECTANGL(1001, 1, "Окно четырёхугольное"),
+    TRAPEZE(1002, 1, "Окно трапеция"),
+    TRIANGL(1003, 1, "Треугольное окно"),
+    ARCH(1004, 1, "Арочное окно"),
+    STVORKA(1005, 2, "Створка");
 
     public int id;
     public int id2 = 0; //это UseArtiklTo

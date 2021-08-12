@@ -111,7 +111,6 @@ public class Wincalc {
             this.colorID1 = rootGson.color1;
             this.colorID2 = rootGson.color2;
             this.colorID3 = rootGson.color3;
-            //Object obj = eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id);
             this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
             this.syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
             eSyspar1.find(nuni).stream().forEach(rec -> mapPardef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
