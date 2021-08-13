@@ -65,7 +65,7 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            wincalc();
+            //wincalc();
            // param();
             //query();
             //frame();
