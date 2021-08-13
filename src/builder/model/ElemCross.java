@@ -13,11 +13,11 @@ import enums.PKjson;
 import enums.Type;
 import java.util.Arrays;
 
-public class ElemImpost extends ElemSimple {
+public class ElemCross extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
 
-    public ElemImpost(AreaSimple owner, Type type, float id, String param) {
+    public ElemCross(AreaSimple owner, Type type, float id, String param) {
 
         super(id, owner.iwin(), owner);
         this.layout = (owner.layout() == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
