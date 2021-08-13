@@ -189,7 +189,7 @@ public class AreaSimple extends Com5t {
             elemImpostList.stream().forEach(el -> el.paint());
 
             //Прорисовка штульпов
-            LinkedList<ElemShtulp> elemShtulpList = root().listElem(Type.SHTULP);
+            LinkedList<ElemImpost> elemShtulpList = root().listElem(Type.SHTULP);
             elemShtulpList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам

@@ -107,7 +107,7 @@ public class Wincalc {
             this.nuni = rootGson.nuni();
             this.width = rootGson.width();
             this.height = rootGson.height();
-            this.heightAdd = (rootGson.heightAdd() == null) ? this.height : rootGson.heightAdd();
+            this.heightAdd = (rootGson.heightAdd() == 0) ? this.height : rootGson.heightAdd();
             this.colorID1 = rootGson.color1;
             this.colorID2 = rootGson.color2;
             this.colorID3 = rootGson.color3;
@@ -158,11 +158,11 @@ public class Wincalc {
                     hm.put(area5e, el);
 
                     //Добавим Element
-                } else if (Type.IMPOST == el.type()) {
+                } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type()) {
                     owner.listChild.add(new ElemImpost(owner, el.type(), el.id(), el.param()));
                     
-                } else if (Type.SHTULP == el.type()) {
-                    owner.listChild.add(new ElemShtulp(owner, el.type(), el.id(), el.param()));
+                //} else if (Type.SHTULP == el.type()) {
+                //    owner.listChild.add(new ElemShtulp(owner, el.type(), el.id(), el.param()));
                     
                 } else if (Type.GLASS == el.type()) {
                     owner.listChild.add(new ElemGlass(owner, el.id(), el.param()));
