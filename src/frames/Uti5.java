@@ -163,7 +163,7 @@ public class Uti5 {
         root.add(new DefMutableTreeNode(new Com5t(Type.PARAM) {
         }));
 
-        LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.GLASS);
+        LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS);
         for (ElemSimple elem5e : listElem) {
             if (elem5e.owner().type() != Type.STVORKA) {
                 root.add(new DefMutableTreeNode(elem5e));

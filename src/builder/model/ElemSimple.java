@@ -63,7 +63,7 @@ public abstract class ElemSimple extends Com5t {
 
     //Прилегающие соединения. Используется при построении конструкции, когда соединения ещё не определены  
     public ElemSimple joinFlat(Layout layoutArea) {
-        LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP); //список элементов
+        LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
         if (Layout.BOTT == layoutArea) {
             return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, y2) == true && el.layout() != Layout.ARCH).findFirst().orElse(null);
         } else if (Layout.LEFT == layoutArea) {
@@ -80,7 +80,7 @@ public abstract class ElemSimple extends Com5t {
     public ElemSimple joinElem(int side) {
         ElemJoining ej = iwin().mapJoin.get(joinPoint(side));
         if (ej != null && side == 0) {
-            return (this.type == Type.IMPOST || this.type == Type.SHTULP) ? ej.elem2 : ej.elem1;
+            return (this.type == Type.IMPOST || this.type == Type.SHTULP || this.type == Type.STOIKA) ? ej.elem2 : ej.elem1;
         } else if (ej != null && side == 1) {
             return ej.elem2;
         } else if (ej != null && side == 2) {

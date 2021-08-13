@@ -181,6 +181,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan22");
                 
             } else if (selectedNode.com5t().type() == enums.Type.IMPOST 
+                    || selectedNode.com5t().type() == enums.Type.STOIKA
                     || selectedNode.com5t().type() == enums.Type.SHTULP) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan23");
                 

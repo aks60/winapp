@@ -593,6 +593,7 @@ public class Systree extends javax.swing.JFrame {
             } else if (windowsNode.com5t().type() == enums.Type.FRAME_SIDE
                     || windowsNode.com5t().type() == enums.Type.STVORKA_SIDE
                     || windowsNode.com5t().type() == enums.Type.IMPOST
+                    || windowsNode.com5t().type() == enums.Type.STOIKA
                     || windowsNode.com5t().type() == enums.Type.SHTULP) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(windowsNode.toString());
@@ -2702,6 +2703,7 @@ public class Systree extends javax.swing.JFrame {
                         }
                     }
                 } else if (windowsNode.com5t().type() == enums.Type.IMPOST
+                        || windowsNode.com5t().type() == enums.Type.STOIKA
                         || windowsNode.com5t().type() == enums.Type.SHTULP) {
                     for (GsonElem elem : parentArea.elements()) {
                         if (elem.id() == ((DefMutableTreeNode) windowsNode).com5t().id()) {

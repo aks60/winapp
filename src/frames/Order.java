@@ -404,6 +404,7 @@ public class Order extends javax.swing.JFrame {
             } else if (windowsNode.com5t().type() == enums.Type.FRAME_SIDE
                     || windowsNode.com5t().type() == enums.Type.STVORKA_SIDE
                     || windowsNode.com5t().type() == enums.Type.IMPOST
+                    || windowsNode.com5t().type() == enums.Type.STOIKA
                     || windowsNode.com5t().type() == enums.Type.SHTULP) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(windowsNode.toString());

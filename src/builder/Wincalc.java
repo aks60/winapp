@@ -32,7 +32,6 @@ import builder.making.Elements;
 import builder.making.Filling;
 import builder.making.Furniture;
 import builder.model.ElemFrame;
-import builder.model.ElemShtulp;
 import builder.model.ElemSimple;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
@@ -88,7 +87,7 @@ public class Wincalc {
         listAreaStv.stream().forEach(area5e -> area5e.joinFrame());  //соединения створок
 
         //Список элементов, (важно! получаем после построения створки)
-        listElem = rootArea.listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.GLASS);
+        listElem = rootArea.listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS);
         //Важно! Не нарушаем последовательность построения окна
         Collections.sort(listElem, (a, b) -> Float.compare(a.id(), b.id()));  
         return rootArea;
@@ -157,13 +156,10 @@ public class Wincalc {
                     owner.listChild.add(area5e);
                     hm.put(area5e, el);
 
-                    //Добавим Element
-                } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type()) {
+                    //Добавим Elements
+                } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {
                     owner.listChild.add(new ElemImpost(owner, el.type(), el.id(), el.param()));
-                    
-                //} else if (Type.SHTULP == el.type()) {
-                //    owner.listChild.add(new ElemShtulp(owner, el.type(), el.id(), el.param()));
-                    
+ 
                 } else if (Type.GLASS == el.type()) {
                     owner.listChild.add(new ElemGlass(owner, el.id(), el.param()));
                 }

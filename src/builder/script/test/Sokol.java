@@ -20,7 +20,7 @@ public class Sokol {
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1000 / 2))
                     .addElem(new GsonElem(Type.GLASS));
-            rootGson.addElem(new GsonElem(Type.IMPOST));
+            rootGson.addElem(new GsonElem(Type.STOIKA));
             rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1000 / 2))
                     .addElem(new GsonElem(Type.GLASS));
         } else {

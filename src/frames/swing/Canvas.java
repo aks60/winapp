@@ -40,7 +40,7 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
                     repaint();
                 }
             });
-            iwin.rootArea.listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP).forEach(el -> {
+            iwin.rootArea.listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA).forEach(el -> {
                 if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
                     ((ElemSimple) el).borderColor = Color.RED;
                     ((ElemSimple) el).paint();

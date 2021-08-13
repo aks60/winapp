@@ -130,8 +130,8 @@ public class AreaSimple extends Com5t {
 
     public void joinElem() {
 
-        List<ElemSimple> impList = listElem(Type.IMPOST, Type.SHTULP);
-        List<ElemSimple> elemList = listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP);
+        List<ElemSimple> impList = listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
+        List<ElemSimple> elemList = listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
 
         //Цикл по импостам
         for (ElemSimple elemImp : impList) {
@@ -192,6 +192,10 @@ public class AreaSimple extends Com5t {
             LinkedList<ElemImpost> elemShtulpList = root().listElem(Type.SHTULP);
             elemShtulpList.stream().forEach(el -> el.paint());
 
+            //Прорисовка стоек
+            LinkedList<ElemImpost> elemStoikaList = root().listElem(Type.STOIKA);
+            elemStoikaList.stream().forEach(el -> el.paint());
+
             //Прорисовка рам
             if (Type.ARCH == type) {
                 mapFrame.get(Layout.ARCH).paint();
@@ -209,7 +213,7 @@ public class AreaSimple extends Com5t {
             //Прорисовка размера  
             if (iwin().scale > 0.1) {
                 LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
-                LinkedList<ElemImpost> impostList = root().listElem(Type.IMPOST, Type.SHTULP);
+                LinkedList<ElemImpost> impostList = root().listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
                 for (ElemSimple impostElem : impostList) { //по импостам определим точки разрыва линии
                     if (Layout.VERT == impostElem.owner().layout) {
                         ls2.add(impostElem.y1 + (impostElem.y2 - impostElem.y1) / 2);

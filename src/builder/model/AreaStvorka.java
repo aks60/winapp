@@ -78,10 +78,10 @@ public class AreaStvorka extends AreaSimple {
             y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
 
         } else {
-            float X1 = (joinLef.type() == Type.IMPOST || joinLef.type() == Type.SHTULP) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
-            float Y2 = (joinBot.type() == Type.IMPOST || joinBot.type() == Type.SHTULP) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
-            float X2 = (joinRig.type() == Type.IMPOST || joinRig.type() == Type.SHTULP) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
-            float Y1 = (joinTop.type() == Type.IMPOST || joinTop.type() == Type.SHTULP) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
+            float X1 = (joinLef.type() == Type.IMPOST || joinLef.type() == Type.SHTULP || joinLef.type() == Type.STOIKA) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
+            float Y2 = (joinBot.type() == Type.IMPOST || joinBot.type() == Type.SHTULP || joinBot.type() == Type.STOIKA) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
+            float X2 = (joinRig.type() == Type.IMPOST || joinRig.type() == Type.SHTULP || joinBot.type() == Type.STOIKA) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
+            float Y1 = (joinTop.type() == Type.IMPOST || joinTop.type() == Type.SHTULP || joinBot.type() == Type.STOIKA) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
             x1 = X1 + offset(stvLef, joinLef);
             y2 = Y2 - offset(stvBot, joinBot);
             x2 = X2 - offset(stvRig, joinRig);
@@ -173,7 +173,7 @@ public class AreaStvorka extends AreaSimple {
             }
         }
 
-        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP);
+        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
         for (int index = 0; index < 4; index++) {
              if (index == 0) { //Прилегающее нижнее
                 ElemJoining el = new ElemJoining(id() + (float) (index + 5) / 100, TypeJoin.VAR10, LayoutJoin.CBOT, elemBott, elemBott.joinFlat(Layout.BOTT), 0);                               

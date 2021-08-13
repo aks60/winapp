@@ -119,7 +119,7 @@ public class ElemImpost extends ElemSimple {
                 spcRec.width = x2 - x1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
-        } else if (type == Type.ERKER) {
+        } else if (type == Type.STOIKA) {
             if (Layout.HORIZ == owner().layout()) { //слева направо  
                 spcRec.width = y2 - y1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
