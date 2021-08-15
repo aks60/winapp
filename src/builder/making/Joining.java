@@ -28,10 +28,15 @@ public class Joining extends Cal5e {
     private ElementDet elementDet = null;
 
     public Joining(Wincalc iwin) {
+        this(iwin, false);
+    }
+
+    public Joining(Wincalc iwin, boolean shortPass) {
         super(iwin);
         joiningVar = new JoiningVar(iwin);
         joiningDet = new JoiningDet(iwin);
         elementDet = new ElementDet(iwin);
+        this.shortPass = shortPass;        
     }
 
     public void calc() {
@@ -48,8 +53,8 @@ public class Joining extends Cal5e {
                 int id2 = (joinartRec2.get(eArtikl.analog_id) == null) ? joinartRec2.getInt(eArtikl.id) : joinartRec2.getInt(eArtikl.analog_id);
                 
                 Record joiningRec = eJoining.find(id1, id2);
-                List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
-
+                //Список вариантов соединения для артикула1 и артикула2
+                List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id)); 
                 //Если неудача, ищем в аналоге соединения
                 if (joinvarList.isEmpty() == true && joiningRec.getStr(eJoining.analog).isEmpty() == false) {
                     joiningRec = eJoining.find2(joiningRec.getStr(eJoining.analog));
@@ -60,13 +65,16 @@ public class Joining extends Cal5e {
 
                 //Цикл по вариантам соединения
                 for (Record joinvarRec : joinvarList) {
+                    
                     //Если варианты соединения совпали
-                    if (joinvarRec.getInt(eJoinvar.types) == elemJoin.type.id) {
+                    if(elemJoin.layout.equalType(joinvarRec.getInt(eJoinvar.types))) {
 
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
+                            if(shortPass == true) { //выход при поиске варианта соединения
+                                return;
+                            }
                             List<Record> joindetList = eJoindet.find(joinvarRec.getInt(eJoinvar.id));
-
                             //Цикл по детализации соединений
                             for (Record joindetRec : joindetList) {
                                 HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры

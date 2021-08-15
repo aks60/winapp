@@ -41,8 +41,8 @@ public class ElemJoining {
         this.angl = angl;
     }
 
-    public void init(TypeJoin typeJoin, LayoutJoin layoutJoin, ElemSimple joinElement1, ElemSimple joinElement2) {
-        this.type = typeJoin;
+    public void init(TypeJoin type, LayoutJoin layoutJoin, ElemSimple joinElement1, ElemSimple joinElement2) {
+        this.type = type;
         this.layout = layoutJoin;
         this.elem1 = joinElement1;
         this.elem2 = joinElement2;

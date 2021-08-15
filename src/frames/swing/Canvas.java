@@ -93,4 +93,23 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
         }
     }
+    
+    //Создание изображение конмьрукции
+    public static ImageIcon createImageIcon(Wincalc iwin, Object script, int length) {
+        try {
+            iwin.build(script.toString());
+            BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+            iwin.gc2d = bi.createGraphics();
+            iwin.gc2d.fillRect(0, 0, length, length);
+            iwin.scale = (length / iwin.width > length / iwin.heightAdd) ? length / (iwin.heightAdd + 200) : length / (iwin.width + 200);
+            iwin.gc2d.translate(2, 2);
+            iwin.gc2d.scale(iwin.scale, iwin.scale);
+            iwin.rootArea.draw(length, length); //рисую конструкцию
+            ImageIcon image = new ImageIcon(bi);
+            return image;
+        } catch (Exception e) {
+            System.err.println("Ошибка:Util4.loadingTab() " + e);
+            return new ImageIcon();
+        }
+    }    
 }

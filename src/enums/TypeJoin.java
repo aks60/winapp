@@ -1,6 +1,8 @@
 package enums;
 
 //То что пишет профстрой в базу данных
+import java.util.Arrays;
+
 public enum TypeJoin {
 
     EMPTY(00, "Тип соединеия не установлен"),

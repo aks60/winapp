@@ -1,6 +1,5 @@
 package frames;
 
-import enums.Type;
 import dataset.Query;
 import dataset.Record;
 import domain.eSysmodel;
@@ -113,12 +112,10 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         qModels.select(eSysmodel.up, "where", eSysmodel.form, "=", form);
         DefaultTableModel dm = (DefaultTableModel) tab.getModel();
         dm.getDataVector().removeAllElements();
-        
-        int length = 68;
         for (Record record : qModels.table(eSysmodel.up)) {
             try {
                 Object script = record.get(eSysmodel.script);
-                ImageIcon image = Uti5.createImageIcon(iwin, script, length);
+                ImageIcon image = Canvas.createImageIcon(iwin, script, 68);
                 record.add(image);
                 
             } catch (Exception e) {

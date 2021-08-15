@@ -1,6 +1,5 @@
 package frames;
 
-import enums.Type;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
@@ -25,12 +24,9 @@ import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Stream;
-import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefFieldEditor;
-import frames.swing.listener.ListenerObject;
 import frames.swing.listener.ListenerRecord;
 import common.eProfile;
 import common.eProperty;
@@ -298,7 +294,7 @@ public class Order extends javax.swing.JFrame {
             for (Record record : qPrjprod) {
                 try {
                     Object script = record.get(ePrjprod.script);
-                    ImageIcon image = Uti5.createImageIcon(iwin, script, length);
+                    ImageIcon image = Canvas.createImageIcon(iwin, script, length);
                     record.add(image);
 
                 } catch (Exception e) {

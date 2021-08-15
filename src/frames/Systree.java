@@ -343,7 +343,7 @@ public class Systree extends javax.swing.JFrame {
         for (Record record : qSysprod.table(eSysprod.up)) {
             try {
                 Object script = record.get(eSysprod.script);
-                ImageIcon image = Uti5.createImageIcon(iwin, script, length);
+                ImageIcon image = Canvas.createImageIcon(iwin, script, length);
                 record.add(image);
 
             } catch (Exception e) {

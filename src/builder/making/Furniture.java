@@ -30,18 +30,17 @@ public class Furniture extends Cal5e {
 
     private FurnitureVar furnitureVar = null;
     private FurnitureDet furnitureDet = null;
-    private HashSet<Record> setFurndet = new HashSet();
-    public boolean takeHandle = false;
+    private HashSet<Record> setFurndet = new HashSet();    
 
     public Furniture(Wincalc iwin) {
         this(iwin, false);
     }
 
-    public Furniture(Wincalc iwin, boolean handle) {
+    public Furniture(Wincalc iwin, boolean shortPass) {
         super(iwin);
         furnitureVar = new FurnitureVar(iwin);
         furnitureDet = new FurnitureDet(iwin);
-        this.takeHandle = handle;
+        this.shortPass = shortPass;
     }
 
     public void calc() {
@@ -129,7 +128,7 @@ public class Furniture extends Cal5e {
             Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
 
             //Сделано для убыстрения поиска ручки при конструировании окна. Если ручки нет (eArtikl.level1) != 2) то сразу выход.
-            if (takeHandle == true) {
+            if (shortPass == true) {
                 if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)
                         && furndetRec.get(eFurndet.furniture_id2) == null) {
                     if (artiklRec.getInt(eArtikl.level1) != 2) { //т.к. ручки на уровне 2

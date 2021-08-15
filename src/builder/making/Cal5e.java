@@ -13,6 +13,7 @@ public abstract class Cal5e {
     protected Wincalc iwin = null;
     public Set listVariants = new HashSet();
     protected String conf = Query.conf;
+    protected boolean shortPass = false;
 
     public Cal5e(Wincalc iwin) {
         this.iwin = iwin;

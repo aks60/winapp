@@ -6,31 +6,18 @@ import frames.swing.listener.ListenerRecord;
 import common.eProperty;
 import dataset.Query;
 import dataset.Record;
-import domain.eArtikl;
-import domain.eFurniture;
-import domain.eSysfurn;
-import domain.eSyspar1;
 import domain.eSysprod;
-import domain.eSysprof;
 import domain.eSystree;
 import frames.Uti5;
+import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
-import frames.swing.DefTableModel;
 import java.awt.Component;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.event.CellEditorListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.tree.DefaultTreeCellEditor;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -121,21 +108,11 @@ public class DicSyspod extends javax.swing.JDialog {
         DefaultTableModel dm = (DefaultTableModel) tab2.getModel();
         dm.getDataVector().removeAllElements();
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        int length = 68;
         for (Record record : qSysprod.table(eSysprod.up)) {
             try {
                 Object arrayRec[] = {record.get(eSysprod.name), null};
-                Object script = record.get(eSysprod.script);
-                iwin.build(script.toString());
-                BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-                iwin.gc2d = bi.createGraphics();
-                iwin.gc2d.fillRect(0, 0, length, length);
-                iwin.scale = (length / iwin.width > length / iwin.heightAdd) ? length / (iwin.heightAdd + 200) : length / (iwin.width + 200);
-                iwin.gc2d.translate(2, 2);
-                iwin.gc2d.scale(iwin.scale, iwin.scale);
-                iwin.rootArea.draw(length, length);
-                ImageIcon image = new ImageIcon(bi);
-                arrayRec[1] = image;
+                Object script = record.get(eSysprod.script);                
+                arrayRec[1] = Canvas.createImageIcon(iwin, script, 68); //image;
                 dm.addRow(arrayRec);
 
             } catch (Exception e) {
