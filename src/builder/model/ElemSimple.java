@@ -37,7 +37,7 @@ public abstract class ElemSimple extends Com5t {
     //Вложенная спецификация
     public abstract void addSpecific(Specific specification);
 
-    //Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка прилегающего)
+    //Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка прилегающего вектора)
     //В этих точках лежат мапы соединений см. Wincalc.mapJoin
     public String joinPoint(int side) {
         if (layout() == Layout.BOTT) {
