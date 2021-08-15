@@ -20,4 +20,13 @@ public enum TypeJoin {
         this.id = id;
         this.name = name;
     }
+
+    public static TypeJoin get(int id) {
+        for (TypeJoin v : values()) {
+            if (v.id == id) {
+                return v;
+            }
+        }
+        return EMPTY;
+    }
 }

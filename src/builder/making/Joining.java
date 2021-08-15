@@ -1,12 +1,9 @@
 package builder.making;
 
 import dataset.Record;
-import domain.eArtdet;
 import domain.eArtikl;
 import domain.eJoindet;
 import domain.eJoining;
-import domain.eJoinpar1;
-import domain.eJoinpar2;
 import domain.eJoinvar;
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,6 +16,7 @@ import builder.param.JoiningVar;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import dataset.Query;
+import enums.TypeJoin;
 
 //Соединения
 public class Joining extends Cal5e {
@@ -71,6 +69,10 @@ public class Joining extends Cal5e {
 
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
+                            
+                            //Сохраним подхоящий вариант соединения из таблицы JOINVAR
+                            elemJoin.type = TypeJoin.get(joinvarRec.getInt(eJoinvar.types)); 
+                            
                             if(shortPass == true) { //выход при поиске варианта соединения
                                 return;
                             }
