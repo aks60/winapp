@@ -67,7 +67,7 @@ public enum eElement implements Field {
         }
         return new Query(values()).select(up, "where", artikl_id, "=", artikl2_id, "and", todef, "> 0");        
     }
-
+    
     public static List<Record> find3(int artikl2_id, int series2_id) {
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> (artikl2_id == rec.getInt(artikl_id)

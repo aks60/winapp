@@ -18,6 +18,7 @@ public class ElemJoining {
 
     public float id = -1; //идентификатор соединения
     private Wincalc iwin;
+    public Record joinvarRec = null;
     public LayoutJoin layout = LayoutJoin.NONE; //расположение соединения 
     public TypeJoin type = TypeJoin.EMPTY;      //тип соединения (то что пишет )
     public int vid = 0; //вид соединения ("0-Простое L-обр", "1-Крестовое †-обр") или ("0-Простое T-обр", "1-Крестовое †-обр", "2-Сложное Y-обр)

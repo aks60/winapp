@@ -401,7 +401,7 @@
                           <Data value="aaaa"/>
                         </Column>
                         <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
-                        <Column editable="true" title="&#x41d;&#x430;&#x438;&#x43c;&#x435;&#x43d;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.String">
+                        <Column editable="true" title="&#x41d;&#x430;&#x438;&#x43c;&#x435;&#x43d;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435; &#x432;&#x441;&#x442;&#x430;&#x432;&#x43e;&#x43a;" type="java.lang.String">
                           <Data value="vvvvvvvvvvvvvvv"/>
                           <Data value="hhhhhhhhhhhhhh"/>
                         </Column>

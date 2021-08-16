@@ -42,17 +42,18 @@ public class Joining extends Cal5e {
         try {
             //Цикл по списку соединений
             for (Map.Entry<String, ElemJoining> hmElemJoin : iwin().mapJoin.entrySet()) {
+                
                 ElemJoining elemJoin = hmElemJoin.getValue();
                 ElemSimple joinElem1 = elemJoin.elem1;
                 ElemSimple joinElem2 = elemJoin.elem2;
                 Record joinartRec1 = joinElem1.artiklRecAn; //берём аналог профиля
                 Record joinartRec2 = joinElem2.artiklRecAn; //т.к. если его нет там будет оригинал              
                 int id1 = (joinartRec1.get(eArtikl.analog_id) == null) ? joinartRec1.getInt(eArtikl.id) : joinartRec1.getInt(eArtikl.analog_id);
-                int id2 = (joinartRec2.get(eArtikl.analog_id) == null) ? joinartRec2.getInt(eArtikl.id) : joinartRec2.getInt(eArtikl.analog_id);
-                
+                int id2 = (joinartRec2.get(eArtikl.analog_id) == null) ? joinartRec2.getInt(eArtikl.id) : joinartRec2.getInt(eArtikl.analog_id);                
                 Record joiningRec = eJoining.find(id1, id2);
+                
                 //Список вариантов соединения для артикула1 и артикула2
-                List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id)); 
+                List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));                
                 //Если неудача, ищем в аналоге соединения
                 if (joinvarList.isEmpty() == true && joiningRec.getStr(eJoining.analog).isEmpty() == false) {
                     joiningRec = eJoining.find2(joiningRec.getStr(eJoining.analog));
@@ -72,9 +73,11 @@ public class Joining extends Cal5e {
                             
                             //Сохраним подхоящий вариант соединения из таблицы JOINVAR
                             elemJoin.type = TypeJoin.get(joinvarRec.getInt(eJoinvar.types)); 
+                            elemJoin.joinvarRec = joinvarRec;
+                            //System.out.println(elemJoin.layout.name);
                             
                             if(shortPass == true) { //выход при поиске варианта соединения
-                                return;
+                                continue;
                             }
                             List<Record> joindetList = eJoindet.find(joinvarRec.getInt(eJoinvar.id));
                             //Цикл по детализации соединений

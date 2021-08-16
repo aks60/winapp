@@ -167,9 +167,9 @@ public class Uti5 {
         for (ElemSimple elem5e : listElem) {
             if (elem5e.owner().type() != Type.STVORKA) {
                 frm.add(new DefMutableTreeNode(elem5e));
-                //if (elem5e.owner().type() != Type.GLASS) {
-                //    ((DefMutableTreeNode) root.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {}));
-                //}
+//                if (elem5e.owner().type() != Type.GLASS) {
+//                    ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {}));
+//                }
             }
         }
         LinkedList<AreaSimple> listStv = iwin.rootArea.listElem(Type.STVORKA);
@@ -179,7 +179,7 @@ public class Uti5 {
                 if (elemStv.owner() == areaStv) {
                     DefMutableTreeNode el = new DefMutableTreeNode(elemStv);
                     stv.add(new DefMutableTreeNode(elemStv));
-                    //((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {}));                    
+//                    ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {}));                    
                 }
             }
         }
