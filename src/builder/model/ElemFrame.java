@@ -15,7 +15,6 @@ import enums.Type;
 import java.util.Arrays;
 import java.util.Map;
 import builder.making.Furniture;
-import enums.UseArtiklTo;
 import enums.UseSide;
 
 public class ElemFrame extends ElemSimple {
