@@ -20,7 +20,7 @@ public enum Type implements Enam {
     SAND(15, "Сэндвич"),
     JALOUSIE(15, "Жалюзи"),
     //SUPPORT(XX, "Подкладка"),
-    JOINING(98, "Соединения"),
+    //JOINING(98, "Соединения"),
     PARAM(99, "Параметры конструкции"),
     //== TypeArea ==
     AREA(1000, "Контейнер"),
@@ -28,7 +28,8 @@ public enum Type implements Enam {
     TRAPEZE(1002, 1, "Окно трапеция"),
     TRIANGL(1003, 1, "Треугольное окно"),
     ARCH(1004, 1, "Арочное окно"),
-    STVORKA(1005, 2, "Створка");
+    STVORKA(1005, 2, "Створка"),
+    FRAME(1006, 3, "Коробка");
 
     public int id;
     public int id2 = 0; //это UseArtiklTo

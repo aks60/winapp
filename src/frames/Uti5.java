@@ -157,28 +157,29 @@ public class Uti5 {
         return new Font(eProperty.fontname.read(), bold, Integer.valueOf(eProperty.fontsize.read()) + size);
     }
 
-    public static DefMutableTreeNode winTree(Wincalc iwin) {
+    public static DefMutableTreeNode loadWinTree(Wincalc iwin) {
         DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
-
         root.add(new DefMutableTreeNode(new Com5t(Type.PARAM) {
         }));
 
         LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS);
+        DefMutableTreeNode frm = root.add(new DefMutableTreeNode(new Com5t(Type.FRAME) {}));
         for (ElemSimple elem5e : listElem) {
             if (elem5e.owner().type() != Type.STVORKA) {
-                root.add(new DefMutableTreeNode(elem5e));
-//                if (elem5e.owner().type() != Type.GLASS) {
-//                    ((DefMutableTreeNode) root.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
-//                    }));
-//                }
+                frm.add(new DefMutableTreeNode(elem5e));
+                //if (elem5e.owner().type() != Type.GLASS) {
+                //    ((DefMutableTreeNode) root.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {}));
+                //}
             }
         }
         LinkedList<AreaSimple> listStv = iwin.rootArea.listElem(Type.STVORKA);
         for (AreaSimple areaStv : listStv) {
-            root.add(new DefMutableTreeNode(areaStv));
+            DefMutableTreeNode stv = root.add(new DefMutableTreeNode(areaStv));
             for (ElemSimple elemStv : iwin.listElem) {
                 if (elemStv.owner() == areaStv) {
-                    ((DefMutableTreeNode) root.getLastChild()).add(new DefMutableTreeNode(elemStv));
+                    DefMutableTreeNode el = new DefMutableTreeNode(elemStv);
+                    stv.add(new DefMutableTreeNode(elemStv));
+                    //((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {}));                    
                 }
             }
         }
@@ -726,22 +727,4 @@ public class Uti5 {
             });
         }
     }
-
-//    public static ImageIcon createImageIcon(Wincalc iwin, Object script, int length) {
-//        try {
-//            iwin.build(script.toString());
-//            BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-//            iwin.gc2d = bi.createGraphics();
-//            iwin.gc2d.fillRect(0, 0, length, length);
-//            iwin.scale = (length / iwin.width > length / iwin.heightAdd) ? length / (iwin.heightAdd + 200) : length / (iwin.width + 200);
-//            iwin.gc2d.translate(2, 2);
-//            iwin.gc2d.scale(iwin.scale, iwin.scale);
-//            iwin.rootArea.draw(length, length);
-//            ImageIcon image = new ImageIcon(bi);
-//            return image;
-//        } catch (Exception e) {
-//            System.err.println("Ошибка:Util4.loadingTab() " + e);
-//            return new ImageIcon();
-//        }
-//    }
 }

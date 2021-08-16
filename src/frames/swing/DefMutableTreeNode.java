@@ -6,6 +6,7 @@ import builder.model.ElemSimple;
 import dataset.Record;
 import domain.eSystree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 
 public class DefMutableTreeNode<E> extends DefaultMutableTreeNode {
 
@@ -22,6 +23,11 @@ public class DefMutableTreeNode<E> extends DefaultMutableTreeNode {
 
     public Record rec() {
         return (Record) obj;
+    }
+
+    public DefMutableTreeNode add(DefMutableTreeNode newChild) {
+        super.add(newChild);
+        return newChild;
     }
 
     public String toString() {
