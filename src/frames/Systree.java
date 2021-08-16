@@ -625,8 +625,6 @@ public class Systree extends javax.swing.JFrame {
                     txt31.setEditable(false);
                     txt31.setText("");
                 }
-                iwin.calcFurniture = new builder.making.Furniture(iwin, true); //фурнитура 
-                iwin.calcFurniture.calc();
                 txt21.setText(stv.handleRec.getStr(eArtikl.code));
                 txt34.setText(stv.handleRec.getStr(eArtikl.name));
                 txt24.setText(Uti5.df.format(iwin.rootGson.find(stv.id()).width()));
@@ -661,6 +659,8 @@ public class Systree extends javax.swing.JFrame {
                 JsonElement script2 = gson.fromJson(script, JsonElement.class);
                 script2.getAsJsonObject().addProperty("nuni", systreeID); //запишем nuni в script
                 iwin.build(script2.toString()); //построение изделия
+                iwin.calcFurniture = new builder.making.Furniture(iwin, true); //для инит. ручки
+                iwin.calcFurniture.calc();                
                 paintPanel.repaint(true);
                 loadingWin();
                 winTree.setSelectionInterval(0, 0);

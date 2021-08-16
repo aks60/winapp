@@ -122,7 +122,6 @@ public class Furniture extends Cal5e {
         }
     }
 
-    //countKit - количество комплектов, наборов
     protected boolean detail(AreaStvorka areaStv, Record furndetRec, int countKit) {
         try {
             Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
@@ -137,7 +136,7 @@ public class Furniture extends Cal5e {
                 }
             }
 
-            //Если ручка выбрана вручную
+            //Если ручка выбрана вручную, не ищем её
             if (artiklRec.getInt(eArtikl.level1) == 2 && artiklRec.getInt(eArtikl.level2) == 11) {
                 if (areaStv.handleRec.getInt(eArtikl.id) != -3) {
                     return false;
@@ -197,18 +196,19 @@ public class Furniture extends Cal5e {
                     Specific spcAdd = new Specific(furndetRec, artiklRec, sideStv, mapParam);
 
                     //Пишем ручку в створку
-                    if (artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
+                    if (artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {                                                       
+                        
                         if (areaStv.handleRec.getInt(eArtikl.id) == -3) {          
                             areaStv.handleRec = artiklRec;
                         } else {                          
-                            spcAdd.setArtiklRec(areaStv.artiklRecAn);
+                            spcAdd.setArtiklRec(areaStv.artiklRecAn); //если ручка выбрана через параметр
                         }
                         if (areaStv.handleColor == -3) {
                             UColor.colorFromProduct(spcAdd, 1);
                             areaStv.handleColor = spcAdd.colorID1;
                         } else {
-                            spcAdd.setColor(1, areaStv.handleColor);
-                        }
+                            spcAdd.setColor(1, areaStv.handleColor); //если цвет ручки выбран через параметр
+                        }              
                     } else {
                         UColor.colorFromProduct(spcAdd, 1); //попадает или нет в спецификацию по цвету
                     }
