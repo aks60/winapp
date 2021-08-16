@@ -230,7 +230,7 @@ public class Furniture extends Cal5e {
             }
             return true;
         } catch (Exception e) {
-            System.err.println("estimate.constr.Furniture.detail() " + e);
+            System.err.println("Furniture.detail() " + e);
             return false;
         }
     }

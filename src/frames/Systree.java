@@ -625,10 +625,8 @@ public class Systree extends javax.swing.JFrame {
                     txt31.setEditable(false);
                     txt31.setText("");
                 }
-                //if (stv.handleRec.getInt(eArtikl.id) == -3) {
                 iwin.calcFurniture = new builder.making.Furniture(iwin, true); //фурнитура 
                 iwin.calcFurniture.calc();
-                //}
                 txt21.setText(stv.handleRec.getStr(eArtikl.code));
                 txt34.setText(stv.handleRec.getStr(eArtikl.name));
                 txt24.setText(Uti5.df.format(iwin.rootGson.find(stv.id()).width()));
@@ -3076,7 +3074,8 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_txt23Update
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        System.out.println(iwin.rootArea.mapFrame);
+                 builder.making.Furniture calcFurniture = new builder.making.Furniture(iwin, true); //фурнитура 
+                calcFurniture.calc();
     }//GEN-LAST:event_btnTest
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
