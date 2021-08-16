@@ -307,10 +307,10 @@ public class Order extends javax.swing.JFrame {
 
     private void loadingWin() {
         try {
-            int row[] = windowsTree.getSelectionRows();
-            DefMutableTreeNode root = Uti5.iwinTree(iwin);
-            windowsTree.setModel(new DefaultTreeModel(root));
-            windowsTree.setSelectionRows(row);
+            int row[] = winTree.getSelectionRows();
+            DefMutableTreeNode root = Uti5.winTree(iwin);
+            winTree.setModel(new DefaultTreeModel(root));
+            winTree.setSelectionRows(row);
 
         } catch (Exception e) {
             System.err.println("Ошибка: Systree.loadingWin() " + e);
@@ -360,7 +360,7 @@ public class Order extends javax.swing.JFrame {
                 iwin.build(jsonElem.toString()); //построение изделия
                 paintPanel.repaint(true);
                 loadingWin();
-                windowsTree.setSelectionRow(0);
+                winTree.setSelectionRow(0);
 
             } else {
                 Graphics2D g = (Graphics2D) paintPanel.getGraphics();
@@ -371,7 +371,7 @@ public class Order extends javax.swing.JFrame {
     }
 
     private void selectionWin() {
-        windowsNode = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
+        windowsNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
         if (windowsNode != null) {
 
             //Конструкции
@@ -454,12 +454,12 @@ public class Order extends javax.swing.JFrame {
         prjprodRec.set(ePrjprod.script, script);
         qPrjprod.update(prjprodRec);
         selectionTab2();
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) windowsTree.getModel().getRoot();
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) winTree.getModel().getRoot();
         do {
             if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
                 TreePath path = new TreePath(node.getPath());
-                windowsTree.setSelectionPath(path);
-                windowsTree.scrollPathToVisible(path);
+                winTree.setSelectionPath(path);
+                winTree.scrollPathToVisible(path);
             }
             node = node.getNextNode();
         } while (node != null);
@@ -561,7 +561,7 @@ public class Order extends javax.swing.JFrame {
         txt34 = new javax.swing.JTextField();
         btn24 = new javax.swing.JButton();
         scr6 = new javax.swing.JScrollPane();
-        windowsTree = new javax.swing.JTree();
+        winTree = new javax.swing.JTree();
         panDesign = new javax.swing.JPanel();
         pan6 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
@@ -1723,7 +1723,7 @@ public class Order extends javax.swing.JFrame {
 
         scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr6.setPreferredSize(new java.awt.Dimension(190, 210));
-        scr6.setViewportView(windowsTree);
+        scr6.setViewportView(winTree);
 
         pan5.add(scr6, java.awt.BorderLayout.WEST);
 
@@ -2038,7 +2038,7 @@ public class Order extends javax.swing.JFrame {
                     if (qPrjprod.get(index, eSysprod.id) == record2.get(eSysprod.id)) {
                         Uti5.setSelectedRow(tab2, index);
                         Uti5.scrollRectToRow(index, tab2);
-                        windowsTree.setSelectionRow(0);
+                        winTree.setSelectionRow(0);
                     }
                 }
             });
@@ -2747,7 +2747,7 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JTextField txt7;
     private javax.swing.JTextField txt8;
     private javax.swing.JTextField txt9;
-    private javax.swing.JTree windowsTree;
+    private javax.swing.JTree winTree;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
@@ -2759,7 +2759,7 @@ public class Order extends javax.swing.JFrame {
         south.add(filterTable, 0);       
         filterTable.getTxt().grabFocus();  
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti5.stopCellEditing(tab1)));
-        windowsTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
+        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
@@ -2775,7 +2775,7 @@ public class Order extends javax.swing.JFrame {
                 }
             }
         });
-        DefaultTreeModel model = (DefaultTreeModel) windowsTree.getModel();
+        DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
         model.reload();
         txt3.setEditable(false);

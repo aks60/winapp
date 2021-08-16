@@ -129,7 +129,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     
     private void loadingWin() {
         try {
-            DefMutableTreeNode root = Uti5.iwinTree(iwin);
+            DefMutableTreeNode root = Uti5.winTree(iwin);
             tree.setModel(new DefaultTreeModel(root));
             Uti5.expandTree(tree, new TreePath(root), true);
             tree.setSelectionRow(0);

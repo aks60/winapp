@@ -33,8 +33,11 @@ public class DefMutableTreeNode<E> extends DefaultMutableTreeNode {
 
         } else if (obj instanceof ElemSimple) {
             return ((ElemSimple) obj).type().name + ", " + ((ElemSimple) obj).layout().name.toLowerCase();
-        } else {
+
+        } else if (obj instanceof Com5t) {
             return ((Com5t) obj).type().name;
+        } else {
+            return String.valueOf(obj);
         }
     }
 }

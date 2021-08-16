@@ -157,7 +157,7 @@ public class Uti5 {
         return new Font(eProperty.fontname.read(), bold, Integer.valueOf(eProperty.fontsize.read()) + size);
     }
 
-    public static DefMutableTreeNode iwinTree(Wincalc iwin) {
+    public static DefMutableTreeNode winTree(Wincalc iwin) {
         DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
 
         root.add(new DefMutableTreeNode(new Com5t(Type.PARAM) {
@@ -167,6 +167,10 @@ public class Uti5 {
         for (ElemSimple elem5e : listElem) {
             if (elem5e.owner().type() != Type.STVORKA) {
                 root.add(new DefMutableTreeNode(elem5e));
+//                if (elem5e.owner().type() != Type.GLASS) {
+//                    ((DefMutableTreeNode) root.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+//                    }));
+//                }
             }
         }
         LinkedList<AreaSimple> listStv = iwin.rootArea.listElem(Type.STVORKA);
@@ -647,13 +651,13 @@ public class Uti5 {
 
         } else if (record.size() == 1) {
             String val = record2.getStr(text);
-            
-            if(record.get(0) == null) {
-               record2.set(text, null);
-               
+
+            if (record.get(0) == null) {
+                record2.set(text, null);
+
             } else if (val != null && val.isEmpty() == false) {
                 record2.set(text, val + ";" + record.getStr(0));
-                
+
             } else {
                 record2.set(text, record.getStr(0));
             }

@@ -20,6 +20,7 @@ public enum Type implements Enam {
     SAND(15, "Сэндвич"),
     JALOUSIE(15, "Жалюзи"),
     //SUPPORT(XX, "Подкладка"),
+    JOINING(98, "Соединения"),
     PARAM(99, "Параметры конструкции"),
     //== TypeArea ==
     AREA(1000, "Контейнер"),

@@ -3128,7 +3128,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTree" name="windowsTree">
+                        <Component class="javax.swing.JTree" name="winTree">
                         </Component>
                       </SubComponents>
                     </Container>

@@ -323,10 +323,10 @@ public class Systree extends javax.swing.JFrame {
 
     private void loadingWin() {
         try {
-            int row[] = windowsTree.getSelectionRows();
-            DefMutableTreeNode root = Uti5.iwinTree(iwin);
-            windowsTree.setModel(new DefaultTreeModel(root));
-            windowsTree.setSelectionRows(row);
+            int row[] = winTree.getSelectionRows();
+            DefMutableTreeNode root = Uti5.winTree(iwin);
+            winTree.setModel(new DefaultTreeModel(root));
+            winTree.setSelectionRows(row);
 
         } catch (Exception e) {
             System.err.println("Ошибка: Systree.loadingWin() " + e);
@@ -451,7 +451,7 @@ public class Systree extends javax.swing.JFrame {
                 if (qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)) {
                     Uti5.setSelectedRow(tab5, index); //выделение рабочей записи
                     Uti5.scrollRectToRow(index, tab5);
-                    windowsTree.setSelectionRow(0);
+                    winTree.setSelectionRow(0);
                 }
             }
         };
@@ -565,7 +565,7 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void selectionWin() {
-        windowsNode = (DefMutableTreeNode) windowsTree.getLastSelectedPathComponent();
+        windowsNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
         if (windowsNode != null) {
 
             //Конструкции
@@ -665,7 +665,7 @@ public class Systree extends javax.swing.JFrame {
                 iwin.build(script2.toString()); //построение изделия
                 paintPanel.repaint(true);
                 loadingWin();
-                windowsTree.setSelectionInterval(0, 0);
+                winTree.setSelectionInterval(0, 0);
 
             } else {
                 Graphics2D g = (Graphics2D) paintPanel.getGraphics();
@@ -705,12 +705,12 @@ public class Systree extends javax.swing.JFrame {
             selectionTab5();
 
             //Установим курсор выделения
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) windowsTree.getModel().getRoot();
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) winTree.getModel().getRoot();
             do {
                 if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
                     TreePath path = new TreePath(node.getPath());
-                    windowsTree.setSelectionPath(path);
-                    windowsTree.scrollPathToVisible(path);
+                    winTree.setSelectionPath(path);
+                    winTree.scrollPathToVisible(path);
                     return;
                 }
                 node = node.getNextNode();
@@ -851,7 +851,7 @@ public class Systree extends javax.swing.JFrame {
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
         scr6 = new javax.swing.JScrollPane();
-        windowsTree = new javax.swing.JTree();
+        winTree = new javax.swing.JTree();
         south = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
         lab1 = new javax.swing.JLabel();
@@ -2345,7 +2345,7 @@ public class Systree extends javax.swing.JFrame {
 
         scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr6.setPreferredSize(new java.awt.Dimension(240, 324));
-        scr6.setViewportView(windowsTree);
+        scr6.setViewportView(winTree);
 
         pan10.add(scr6, java.awt.BorderLayout.EAST);
 
@@ -2554,10 +2554,10 @@ public class Systree extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         Query.listOpenTable.forEach(q -> q.clear());
-        int row[] = windowsTree.getSelectionRows();
+        int row[] = winTree.getSelectionRows();
         loadingData();
         selectionSys();
-        windowsTree.setSelectionRows(row);
+        winTree.setSelectionRows(row);
     }//GEN-LAST:event_btnRefresh
 
     private void findFromArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findFromArtikl
@@ -3213,7 +3213,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JTextField txt7;
     private javax.swing.JTextField txt8;
     private javax.swing.JTextField txt9;
-    private javax.swing.JTree windowsTree;
+    private javax.swing.JTree winTree;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
@@ -3230,7 +3230,7 @@ public class Systree extends javax.swing.JFrame {
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
         systemTree.getSelectionModel().addTreeSelectionListener(tse -> selectionSys());
-        windowsTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
+        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
         tab5.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
@@ -3238,7 +3238,7 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         });
-        DefaultTreeModel model = (DefaultTreeModel) windowsTree.getModel();
+        DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
         model.reload();
     }
