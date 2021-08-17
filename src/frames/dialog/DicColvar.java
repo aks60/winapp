@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Uti5;
+import frames.UGui;
 import dataset.Record;
 import enums.UseColor;
 import javax.swing.ImageIcon;
@@ -48,7 +48,7 @@ public class DicColvar extends javax.swing.JDialog {
 
             ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
         }
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")

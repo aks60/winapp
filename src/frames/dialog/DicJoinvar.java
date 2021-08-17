@@ -2,7 +2,7 @@ package frames.dialog;
 
 import dataset.Query;
 import frames.FrameToFile;
-import frames.Uti5;
+import frames.UGui;
 import dataset.Record;
 import domain.eJoinvar;
 import enums.TypeJoin;
@@ -69,7 +69,7 @@ public class DicJoinvar extends javax.swing.JDialog {
                 return label;
             }
         });
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }
 
     private void loadingModel(List<Record> joinvarList) {
@@ -79,7 +79,7 @@ public class DicJoinvar extends javax.swing.JDialog {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                int types = qJoinvar.get(Uti5.getIndexRec(tab1)).getInt(eJoinvar.types);
+                int types = qJoinvar.get(UGui.getIndexRec(tab1)).getInt(eJoinvar.types);
                 for (int i = 0; i < 6; i++) {
                     if (types == indexIcon[i]) {
                         label.setIcon(icon[i]);
@@ -88,7 +88,7 @@ public class DicJoinvar extends javax.swing.JDialog {
                 return label;
             }
         });
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")

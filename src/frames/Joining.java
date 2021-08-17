@@ -219,7 +219,7 @@ public class Joining extends javax.swing.JFrame {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 0) {
-                    int types = qJoinvar.get(Uti5.getIndexRec(tab2)).getInt(eJoinvar.types);
+                    int types = qJoinvar.get(UGui.getIndexRec(tab2)).getInt(eJoinvar.types);
                     JLabel label = (JLabel) comp;
                     for (int i = 0; i < 6; i++) {
                         if (types == indexIcon[i]) {
@@ -232,88 +232,88 @@ public class Joining extends javax.swing.JFrame {
         });
         tab2.getColumnModel().getColumn(2).setCellRenderer(new DefCellBoolRenderer());
 
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }
 
     private void listenerAdd() {
-        Uti5.buttonCellEditor(tab1, 0).addActionListener(event -> {
+        UGui.buttonCellEditor(tab1, 0).addActionListener(event -> {
             new DicArtikl(this, listenerArtikl, 1);
         });
 
-        Uti5.buttonCellEditor(tab1, 1).addActionListener(event -> {
+        UGui.buttonCellEditor(tab1, 1).addActionListener(event -> {
             new DicArtikl(this, listenerArtikl, 1);
         });
 
-        Uti5.buttonCellEditor(tab2, 1).addActionListener(event -> {
+        UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
             new DicJoinvar(this, listenerJoinvar);
         });
 
-        Uti5.buttonCellEditor(tab3, 0).addActionListener(event -> {
-            int index = Uti5.getIndexRec(tab2);
+        UGui.buttonCellEditor(tab3, 0).addActionListener(event -> {
+            int index = UGui.getIndexRec(tab2);
             if (index != -1) {
                 Record record = qJoinvar.get(index);
                 int joinVar = record.getInt(eJoinvar.types);
                 new ParGrup2(this, (rec) -> {
 
-                    Uti5.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, eParams.joint, joinVar * 100);
             }
         });
 
-        Uti5.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return Uti5.listenerCell(tab3, component, eJoinpar1.params_id);
+        UGui.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
+            return UGui.listenerCell(tab3, component, eJoinpar1.params_id);
 
         }).addActionListener(event -> {
-            Record record = qJoinpar1.get(Uti5.getIndexRec(tab3));
+            Record record = qJoinpar1.get(UGui.getIndexRec(tab3));
             int grup = record.getInt(eJoinpar1.params_id);
             if (grup < 0) {
                 new ParGrup2a(this, (rec) -> {
-                    Uti5.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParGrup2b(this, (rec) -> {
-                    Uti5.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.listenerParam(rec, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
                 }, list);
             }
         });
 
-        Uti5.buttonCellEditor(tab4, 0).addActionListener(event -> {
+        UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
             new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
         });
 
-        Uti5.buttonCellEditor(tab4, 1).addActionListener(event -> {
+        UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
             new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
         });
 
-        Uti5.buttonCellEditor(tab4, 2).addActionListener(event -> {
-            Record record = qJoindet.get(Uti5.getIndexRec(tab4));
+        UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
+            Record record = qJoindet.get(UGui.getIndexRec(tab4));
             int artikl_id = record.getInt(eJoindet.artikl_id);
             new ParColor2(this, (rec) -> {
-                Uti5.listenerColor(rec, tab4, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
+                UGui.listenerColor(rec, tab4, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
             }, artikl_id);
         });
 
-        Uti5.buttonCellEditor(tab4, 3).addActionListener(event -> {
-            Record record = qJoindet.get(Uti5.getIndexRec(tab4));
+        UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
+            Record record = qJoindet.get(UGui.getIndexRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
             new DicColvar(this, listenerColvar1, colorFk);
         });
 
-        Uti5.buttonCellEditor(tab4, 4).addActionListener(event -> {
-            Record record = qJoindet.get(Uti5.getIndexRec(tab4));
+        UGui.buttonCellEditor(tab4, 4).addActionListener(event -> {
+            Record record = qJoindet.get(UGui.getIndexRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
             new DicColvar(this, listenerColvar2, colorFk);
         });
 
-        Uti5.buttonCellEditor(tab4, 5).addActionListener(event -> {
-            Record record = qJoindet.get(Uti5.getIndexRec(tab4));
+        UGui.buttonCellEditor(tab4, 5).addActionListener(event -> {
+            Record record = qJoindet.get(UGui.getIndexRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
             new DicColvar(this, listenerColvar3, colorFk);
         });
 
-        Uti5.buttonCellEditor(tab5, 0).addActionListener(event -> {
-            int index = Uti5.getIndexRec(tab4);
+        UGui.buttonCellEditor(tab5, 0).addActionListener(event -> {
+            int index = UGui.getIndexRec(tab4);
             if (index != -1) {
                 Record recordJoin = qJoindet.get(index);
                 int artikl_id = recordJoin.getInt(eJoindet.artikl_id);
@@ -321,25 +321,25 @@ public class Joining extends javax.swing.JFrame {
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 12000, 11000, 12000, 11000, 0};
                 new ParGrup2(this, (record) -> {
-                    Uti5.listenerParam(record, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.listenerParam(record, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, eParams.joint, part[level]);
             }
         });
 
-        Uti5.buttonCellEditor(tab5, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
-            return Uti5.listenerCell(tab5, component, eJoinpar2.params_id);
+        UGui.buttonCellEditor(tab5, 1, (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
+            return UGui.listenerCell(tab5, component, eJoinpar2.params_id);
 
         }).addActionListener(event -> {
-            Record record = qJoinpar2.get(Uti5.getIndexRec(tab5));
+            Record record = qJoinpar2.get(UGui.getIndexRec(tab5));
             int grup = record.getInt(eJoinpar2.params_id);
             if (grup < 0) {
                 new ParGrup2a(this, (rec) -> {
-                    Uti5.listenerParam(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.listenerParam(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 new ParGrup2b(this, (rec) -> {
-                    Uti5.listenerParam(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+                    UGui.listenerParam(rec, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
                 }, list);
             }
         });
@@ -348,10 +348,10 @@ public class Joining extends javax.swing.JFrame {
     private void listenerSet() {
 
         listenerArtikl = (record) -> {
-            Uti5.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
 
             if (tab1.getBorder() != null) {
-                Record joiningRec = qJoining.get(Uti5.getIndexRec(tab1));
+                Record joiningRec = qJoining.get(UGui.getIndexRec(tab1));
                 if (tab1.getSelectedColumn() == 0) {
                     joiningRec.set(eJoining.artikl_id1, record.getInt(eArtikl.id));
                 } else if (tab1.getSelectedColumn() == 1) {
@@ -359,52 +359,52 @@ public class Joining extends javax.swing.JFrame {
                 }
 
             } else if (tab4.getBorder() != null) {
-                int index = Uti5.getIndexRec(tab4);
-                Record joindetRec = qJoindet.get(Uti5.getIndexRec(tab4));
+                int index = UGui.getIndexRec(tab4);
+                Record joindetRec = qJoindet.get(UGui.getIndexRec(tab4));
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                Uti5.setSelectedRow(tab4, index);
+                UGui.setSelectedRow(tab4, index);
             }
         };
 
         listenerColvar1 = (record) -> {
-            Uti5.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int index = Uti5.getIndexRec(tab4);
-            Record joindetRec = qJoindet.get(Uti5.getIndexRec(tab4));
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab4);
+            Record joindetRec = qJoindet.get(UGui.getIndexRec(tab4));
             int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
             types = (types & 0xfffffff0) + record.getInt(0);
             joindetRec.set(eJoindet.types, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Uti5.setSelectedRow(tab4, index);
+            UGui.setSelectedRow(tab4, index);
         };
 
         listenerColvar2 = (record) -> {
-            Uti5.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int index = Uti5.getIndexRec(tab4);
-            Record joindetRec = qJoindet.get(Uti5.getIndexRec(tab4));
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab4);
+            Record joindetRec = qJoindet.get(UGui.getIndexRec(tab4));
             int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             joindetRec.set(eJoindet.types, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Uti5.setSelectedRow(tab4, index);
+            UGui.setSelectedRow(tab4, index);
         };
 
         listenerColvar3 = (record) -> {
-            Uti5.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int index = Uti5.getIndexRec(tab4);
-            Record joindetRec = qJoindet.get(Uti5.getIndexRec(tab4));
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab4);
+            Record joindetRec = qJoindet.get(UGui.getIndexRec(tab4));
             int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
             joindetRec.set(eJoindet.types, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Uti5.setSelectedRow(tab4, index);
+            UGui.setSelectedRow(tab4, index);
         };
 
         listenerJoinvar = (record) -> {
-            Uti5.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int index = Uti5.getIndexRec(tab2);
-            Record joinvarRec = qJoinvar.get(Uti5.getIndexRec(tab2));
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab2);
+            Record joinvarRec = qJoinvar.get(UGui.getIndexRec(tab2));
             joinvarRec.set(eJoinvar.name, record.getStr(0));
             joinvarRec.set(eJoinvar.types, record.getInt(1));
             if (joinvarRec.get(eJoinvar.prio) == null) {
@@ -415,25 +415,25 @@ public class Joining extends javax.swing.JFrame {
                 joinvarRec.set(eJoinvar.prio, ++max);
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Uti5.setSelectedRow(tab2, index);
+            UGui.setSelectedRow(tab2, index);
         };
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        Uti5.clearTable(tab2, tab3, tab4, tab5);
-        int index = Uti5.getIndexRec(tab1);
+        UGui.clearTable(tab2, tab3, tab4, tab5);
+        int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Record record = qJoining.table(eJoining.up).get(index);
             Integer id = record.getInt(eJoining.id);
             qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Uti5.setSelectedRow(tab2);
+            UGui.setSelectedRow(tab2);
         }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        Uti5.clearTable(tab3, tab4, tab5);
-        int index = Uti5.getIndexRec(tab2);
+        UGui.clearTable(tab3, tab4, tab5);
+        int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record record = qJoinvar.table(eJoinvar.up).get(index);
             Integer id = record.getInt(eJoinvar.id);
@@ -441,19 +441,19 @@ public class Joining extends javax.swing.JFrame {
             qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.id);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Uti5.setSelectedRow(tab3);
-            Uti5.setSelectedRow(tab4);
+            UGui.setSelectedRow(tab3);
+            UGui.setSelectedRow(tab4);
         }
     }
 
     private void selectionTab4(ListSelectionEvent event) {
-        int index = Uti5.getIndexRec(tab4);
+        int index = UGui.getIndexRec(tab4);
         if (index != -1) {
             Record record = qJoindet.table(eJoindet.up).get(index);
             Integer id = record.getInt(eJoindet.id);
             qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.id);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Uti5.setSelectedRow(tab5);
+            UGui.setSelectedRow(tab5);
         }
     }
 
@@ -469,12 +469,12 @@ public class Joining extends javax.swing.JFrame {
                 for (int index3 = 0; index3 < qDet.size(); index3++) {
                     if (qDet.get(index3).getInt(eJoindet.id) == deteilID) {
 
-                        Uti5.setSelectedRow(tab1, index);
-                        Uti5.scrollRectToRow(index, tab1);
-                        Uti5.setSelectedRow(tab2, index2);
-                        Uti5.scrollRectToRow(index2, tab2);
-                        Uti5.setSelectedRow(tab4, index3);
-                        Uti5.scrollRectToRow(index3, tab3);
+                        UGui.setSelectedRow(tab1, index);
+                        UGui.scrollRectToRow(index, tab1);
+                        UGui.setSelectedRow(tab2, index2);
+                        UGui.scrollRectToRow(index2, tab2);
+                        UGui.setSelectedRow(tab4, index3);
+                        UGui.scrollRectToRow(index3, tab3);
                         return;
                     }
                 }
@@ -898,30 +898,30 @@ public class Joining extends javax.swing.JFrame {
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
         if (tab1.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this, tab2) == 0) {
-                Uti5.deleteRecord(tab1);
+            if (UGui.isDeleteRecord(this, tab2) == 0) {
+                UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this, tab3, tab4) == 0) {
-                Uti5.deleteRecord(tab2);
+            if (UGui.isDeleteRecord(this, tab3, tab4) == 0) {
+                UGui.deleteRecord(tab2);
             }
         } else if (tab3.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this) == 0) {
-                Uti5.deleteRecord(tab3);
+            if (UGui.isDeleteRecord(this) == 0) {
+                UGui.deleteRecord(tab3);
             }
         } else if (tab4.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this, tab5) == 0) {
-                Uti5.deleteRecord(tab4);
+            if (UGui.isDeleteRecord(this, tab5) == 0) {
+                UGui.deleteRecord(tab4);
             }
         } else if (tab5.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this) == 0) {
-                Uti5.deleteRecord(tab5);
+            if (UGui.isDeleteRecord(this) == 0) {
+                UGui.deleteRecord(tab5);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -929,37 +929,37 @@ public class Joining extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Uti5.insertRecord(tab1, eJoining.up, (record) -> {
+            UGui.insertRecord(tab1, eJoining.up, (record) -> {
             });
 
         } else if (tab2.getBorder() != null) {
-            Uti5.insertRecord(tab2, eJoinvar.up, (record) -> {
-                int id = qJoining.getAs(Uti5.getIndexRec(tab1), eJoining.id);
+            UGui.insertRecord(tab2, eJoinvar.up, (record) -> {
+                int id = qJoining.getAs(UGui.getIndexRec(tab1), eJoining.id);
                 record.set(eJoinvar.joining_id, id);
             });
 
         } else if (tab3.getBorder() != null) {
-            Uti5.insertRecord(tab3, eJoinpar1.up, (record) -> {
-                int id = qJoinvar.getAs(Uti5.getIndexRec(tab2), eJoinvar.id);
+            UGui.insertRecord(tab3, eJoinpar1.up, (record) -> {
+                int id = qJoinvar.getAs(UGui.getIndexRec(tab2), eJoinvar.id);
                 record.set(eJoinpar1.joinvar_id, id);
             });
 
         } else if (tab4.getBorder() != null) {
-            Uti5.insertRecord(tab4, eJoindet.up, (record) -> {
-                int id = qJoinvar.getAs(Uti5.getIndexRec(tab2), eJoinvar.id);
+            UGui.insertRecord(tab4, eJoindet.up, (record) -> {
+                int id = qJoinvar.getAs(UGui.getIndexRec(tab2), eJoinvar.id);
                 record.set(eJoindet.joinvar_id, id);
             });
 
         } else if (tab5.getBorder() != null) {
-            Uti5.insertRecord(tab5, eJoinpar2.up, (record) -> {
-                int id = qJoindet.getAs(Uti5.getIndexRec(tab4), eJoindet.id);
+            UGui.insertRecord(tab5, eJoinpar2.up, (record) -> {
+                int id = qJoindet.getAs(UGui.getIndexRec(tab4), eJoindet.id);
                 record.set(eJoinpar2.joindet_id, id);
             });
         }
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Uti5.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
 //        if (owner != null) {
 //            owner.setEnabled(true);
@@ -973,13 +973,13 @@ public class Joining extends javax.swing.JFrame {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        Uti5.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         if (tab4.getBorder() != null) {
-            Record record = ((DefTableModel) tab4.getModel()).getQuery().get(Uti5.getIndexRec(tab4));
+            Record record = ((DefTableModel) tab4.getModel()).getQuery().get(UGui.getIndexRec(tab4));
             Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eJoindet.artikl_id)).findFirst().orElse(eJoindet.up.newRecord());
             FrameProgress.create(this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
@@ -1026,17 +1026,17 @@ public class Joining extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
         south.add(filterTable, 0);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti5.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Списки соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Списки соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Варианты соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Варианты соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Детализация соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Детализация соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

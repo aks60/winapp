@@ -79,7 +79,7 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                 case 1008:  //Эффективное заполнение изд., мм
-                    if (Uti4.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
+                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
                         return false;
                     }
                     break;
@@ -186,7 +186,7 @@ public class JoiningVar extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 1039:  //Для типа открывания 
-                    if (Uti4.is_1039_38039_39039(elemJoin.elem1, rec.getStr(TEXT)) == false) {
+                    if (UPar.is_1039_38039_39039(elemJoin.elem1, rec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;

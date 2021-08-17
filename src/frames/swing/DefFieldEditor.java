@@ -3,7 +3,7 @@
  */
 package frames.swing;
 
-import frames.Uti5;
+import frames.UGui;
 import enums.Enam;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,7 +60,7 @@ public class DefFieldEditor {
     //Загрузить данные в компоненты
     public void load() {
         if (comp instanceof JTable) {
-            load(Uti5.getIndexRec((JTable) comp));
+            load(UGui.getIndexRec((JTable) comp));
 
         } else if (comp instanceof JTree) {
             DefMutableTreeNode node = (DefMutableTreeNode) ((JTree) comp).getLastSelectedPathComponent();
@@ -105,7 +105,7 @@ public class DefFieldEditor {
                 jtxt.setText("0");
             }
         } else if (field.meta().type().equals(Field.TYPE.DATE)) {
-            jtxt.setText(Uti5.DateToStr(val));
+            jtxt.setText(UGui.DateToStr(val));
 
         } else {
             jtxt.setText(val.toString());
@@ -144,7 +144,7 @@ public class DefFieldEditor {
                 if (update == true) {
 
                     if (comp instanceof JTable) {
-                        int index = Uti5.getIndexRec((JTable) comp);
+                        int index = UGui.getIndexRec((JTable) comp);
                         if (index != -1) {
                             Field field = mapTxt.get(jtxt);
                             String str = jtxt.getText();

@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Uti5;
+import frames.UGui;
 import dataset.Query;
 import dataset.Record;
 import domain.eParams;
@@ -34,7 +34,7 @@ public class ParGrup2a extends javax.swing.JDialog {
     private void loadingModel() {
         tab1.setModel(new DefTableModel(tab1, qParam2, eParams.text));
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")
@@ -191,7 +191,7 @@ public class ParGrup2a extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record(1);
-        record.add(tab1.getModel().getValueAt(Uti5.getIndexRec(tab1), 0));
+        record.add(tab1.getModel().getValueAt(UGui.getIndexRec(tab1), 0));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice

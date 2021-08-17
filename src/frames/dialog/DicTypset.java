@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Uti5;
+import frames.UGui;
 import dataset.Record;
 import enums.TypeSet;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +31,7 @@ public class DicTypset extends javax.swing.JDialog {
         {TypeSet.P4.name, TypeSet.P4.id}, {TypeSet.P5.name, TypeSet.P5.id}, {TypeSet.P6.name, TypeSet.P6.id}, {TypeSet.P6.name, TypeSet.P6.id}};
 
         ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")

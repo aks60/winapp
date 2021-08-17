@@ -123,15 +123,15 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             }
         }
         ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
-        Uti5.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2));
-        Uti5.setSelectedRow(tab);
+        UGui.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2));
+        UGui.setSelectedRow(tab);
     }
     
     private void loadingWin() {
         try {
-            DefMutableTreeNode root = Uti5.loadWinTree(iwin);
+            DefMutableTreeNode root = UGui.loadWinTree(iwin);
             tree.setModel(new DefaultTreeModel(root));
-            Uti5.expandTree(tree, new TreePath(root), true);
+            UGui.expandTree(tree, new TreePath(root), true);
             tree.setSelectionRow(0);
             
         } catch (Exception e) {
@@ -140,7 +140,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }
     
     private void selectionTab1(ListSelectionEvent event) {
-        int index = Uti5.getIndexRec(tab1);
+        int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Object script = qModels.get(index, eSysmodel.script);
             iwin.build(script.toString());
@@ -149,7 +149,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }
     
     private void selectionTab2(ListSelectionEvent event) {
-        int index = Uti5.getIndexRec(tab2);
+        int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Object script = qModels.get(index, eSysmodel.script);
             iwin.build(script.toString());
@@ -923,16 +923,16 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this) == 0 && tab1.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(this) == 0 && tab1.getSelectedRow() != -1) {
                 iwin.rootArea = null;
                 paintPanel.paint(paintPanel.getGraphics());
-                Uti5.deleteRecord(tab1);
+                UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
                 iwin.rootArea = null;
                 paintPanel.paint(paintPanel.getGraphics());
-                Uti5.deleteRecord(tab2);
+                UGui.deleteRecord(tab2);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -956,12 +956,12 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             qModels.insert(record);
             if (tab1.getBorder() != null) {
                 loadingTab(tab1, 1001);
-                Uti5.setSelectedRow(tab1, qModels.size() - 1);
-                Uti5.scrollRectToIndex(qModels.size() - 1, tab1);                 
+                UGui.setSelectedRow(tab1, qModels.size() - 1);
+                UGui.scrollRectToIndex(qModels.size() - 1, tab1);                 
             } else if (tab2.getBorder() != null) {
                 loadingTab(tab2, 1004);  
-                Uti5.setSelectedRow(tab2, qModels.size() - 1);
-                Uti5.scrollRectToIndex(qModels.size() - 1, tab2);                
+                UGui.setSelectedRow(tab2, qModels.size() - 1);
+                UGui.scrollRectToIndex(qModels.size() - 1, tab2);                
             }
         }
     }//GEN-LAST:event_btnInsert
@@ -979,7 +979,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         } else if (btnT2.isSelected()) {
             table = tab3;
         }
-        int index = Uti5.getIndexRec(table);
+        int index = UGui.getIndexRec(table);
         if (index != -1) {
             Record record = new Record();
             record.add(qModels.get(index, eSysmodel.id));
@@ -1003,13 +1003,13 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         if (btnT1.isSelected()) {
             loadingTab(tab1, 1001);
             ((CardLayout) west.getLayout()).show(west, "pan13");
-            Uti5.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2));
-            Uti5.setSelectedRow(tab1);
+            UGui.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2));
+            UGui.setSelectedRow(tab1);
         } else if (btnT2.isSelected()) {
             loadingTab(tab2, 1004);
             ((CardLayout) west.getLayout()).show(west, "pan14");
-            Uti5.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2));
-            Uti5.setSelectedRow(tab2);            
+            UGui.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2));
+            UGui.setSelectedRow(tab2);            
         } else if (btnT3.isSelected()) {
             selectionTab3(null);
             ((CardLayout) west.getLayout()).show(west, "pan15");
@@ -1021,7 +1021,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Uti5.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3));
+        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3));
     }//GEN-LAST:event_tabMousePressed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     

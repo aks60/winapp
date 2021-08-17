@@ -15,13 +15,13 @@ public abstract class ElemSimple extends Com5t {
     public ElemJoining joinElem[] = {null, null, null}; //соединения 0-левое, 1-правое, 2-прилегающее     
 
     public Specific spcRec = null; //спецификация элемента
-    protected Uti3 uti3 = null;
+    protected UMod uti3 = null;
     public Color borderColor = Color.BLACK;
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);
         spcRec = new Specific(id, this);
-        uti3 = new Uti3(this);
+        uti3 = new UMod(this);
     }
 
     //Клик мышки попадает в контур элемента

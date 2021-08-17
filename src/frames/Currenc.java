@@ -49,7 +49,7 @@ public class Currenc extends javax.swing.JFrame {
     private void loadingModel() {
         new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case2, eCurrenc.cross_cour);
         tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditor(3));
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")
@@ -280,34 +280,34 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Uti5.stopCellEditing(tab1);
+        UGui.stopCellEditing(tab1);
         Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (Uti5.isDeleteRecord(this) == 0) {
-            Uti5.deleteRecord(tab1);
+        if (UGui.isDeleteRecord(this) == 0) {
+            UGui.deleteRecord(tab1);
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Uti5.insertRecord(tab1, eCurrenc.up, (record) -> {
+        UGui.insertRecord(tab1, eCurrenc.up, (record) -> {
         });
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
 
-        Uti5.stopCellEditing(tab1);
+        UGui.stopCellEditing(tab1);
         qCurrenc.execsql();
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_windowClosed
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int index = Uti5.getIndexRec(tab1);
+        int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             listener.action(qCurrenc.get(index));
         }
@@ -334,7 +334,7 @@ public class Currenc extends javax.swing.JFrame {
 // </editor-fold>     
     private void initElements() {
 
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti5.stopCellEditing(tab1)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         FocusListener listenerFocus = new FocusListener() {
@@ -350,6 +350,6 @@ public class Currenc extends javax.swing.JFrame {
         };
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Курсы валют", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Курсы валют", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
     }
 }

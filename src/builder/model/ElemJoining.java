@@ -51,7 +51,7 @@ public class ElemJoining {
     }
 
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
-        Uti3 uti3 = elem1.uti3;
+        UMod uti3 = elem1.uti3;
         Specific spcRec = elem1.spcRec;
 
         spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 

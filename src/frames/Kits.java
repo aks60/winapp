@@ -34,28 +34,28 @@ public class Kits extends javax.swing.JFrame {
         new DefTableModel(tab1, qKits, eKits.name, eKits.artikl_id, eKits.color_id, eKits.quant, eKits.hide, eKits.categ);
         new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag);
         new DefTableModel(tab3, qKitpar1, eKitpar1.kitdet_id, eKitpar1.text);
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int index = Uti5.getIndexRec(tab1);
+        int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Record record = qKits.get(index);
             Integer id = record.getInt(eKits.id);
             qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Uti5.setSelectedRow(tab2);
+            UGui.setSelectedRow(tab2);
         }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int index = Uti5.getIndexRec(tab2);
+        int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record record = qKitdet.get(index);
             Integer id = record.getInt(eKitdet.id);
             qKitpar1.select(eKitpar1.up, "where", eKitpar1.kitdet_id, "=", id, "order by", eKitpar1.grup);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Uti5.setSelectedRow(tab3);
+            UGui.setSelectedRow(tab3);
         }
     }
 
@@ -166,7 +166,7 @@ public class Kits extends javax.swing.JFrame {
         });
 
         btnGroup1.add(rbtn1);
-        rbtn1.setFont(Uti5.getFont(0, 0));
+        rbtn1.setFont(UGui.getFont(0, 0));
         rbtn1.setSelected(true);
         rbtn1.setText("Продажа");
         rbtn1.setMaximumSize(new java.awt.Dimension(96, 25));
@@ -174,21 +174,21 @@ public class Kits extends javax.swing.JFrame {
         rbtn1.setPreferredSize(new java.awt.Dimension(96, 25));
 
         btnGroup1.add(rbtn2);
-        rbtn2.setFont(Uti5.getFont(0, 0));
+        rbtn2.setFont(UGui.getFont(0, 0));
         rbtn2.setText("Скатка");
         rbtn2.setMaximumSize(new java.awt.Dimension(96, 25));
         rbtn2.setMinimumSize(new java.awt.Dimension(96, 25));
         rbtn2.setPreferredSize(new java.awt.Dimension(96, 25));
 
         btnGroup1.add(rbn3);
-        rbn3.setFont(Uti5.getFont(0, 0));
+        rbn3.setFont(UGui.getFont(0, 0));
         rbn3.setText("Стеклопакет");
         rbn3.setMaximumSize(new java.awt.Dimension(96, 25));
         rbn3.setMinimumSize(new java.awt.Dimension(96, 25));
         rbn3.setPreferredSize(new java.awt.Dimension(96, 25));
 
         btnGroup1.add(rbtn4);
-        rbtn4.setFont(Uti5.getFont(0, 0));
+        rbtn4.setFont(UGui.getFont(0, 0));
         rbtn4.setText("Ламинация");
         rbtn4.setMaximumSize(new java.awt.Dimension(96, 25));
         rbtn4.setMinimumSize(new java.awt.Dimension(96, 25));
@@ -343,7 +343,7 @@ public class Kits extends javax.swing.JFrame {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         qKits.select(eKits.up, "order by", eKits.name);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -351,28 +351,28 @@ public class Kits extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
             if (tab1.getBorder() != null) {
-                Record kitsRec = qKits.get(Uti5.getIndexRec(tab1));
+                Record kitsRec = qKits.get(UGui.getIndexRec(tab1));
                 kitsRec.set(eKits.up, Query.DEL);
                 qKits.delete(kitsRec);
-                qKits.removeRec(Uti5.getIndexRec(tab1));
+                qKits.removeRec(UGui.getIndexRec(tab1));
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                Uti5.setSelectedRow(tab1);
+                UGui.setSelectedRow(tab1);
 
             } else if (tab2.getBorder() != null) {
-                Record kitdetRc = qKitdet.get(Uti5.getIndexRec(tab2));
+                Record kitdetRc = qKitdet.get(UGui.getIndexRec(tab2));
                 kitdetRc.set(eColor.up, Query.DEL);
                 qKitdet.delete(kitdetRc);
-                qKitdet.removeRec(Uti5.getIndexRec(tab2));
+                qKitdet.removeRec(UGui.getIndexRec(tab2));
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Uti5.setSelectedRow(tab2);
+                UGui.setSelectedRow(tab2);
 
             } else if (tab3.getBorder() != null) {
-                Record kitpar1Rec = qKitpar1.get(Uti5.getIndexRec(tab3));
+                Record kitpar1Rec = qKitpar1.get(UGui.getIndexRec(tab3));
                 kitpar1Rec.set(eColmap.up, Query.DEL);
                 qKitpar1.delete(kitpar1Rec);
-                qKitpar1.removeRec(Uti5.getIndexRec(tab3));
+                qKitpar1.removeRec(UGui.getIndexRec(tab3));
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Uti5.setSelectedRow(tab3);
+                UGui.setSelectedRow(tab3);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -386,29 +386,29 @@ public class Kits extends javax.swing.JFrame {
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 
         } else if (tab2.getBorder() != null) {
-            int index = Uti5.getIndexRec(tab1);
+            int index = UGui.getIndexRec(tab1);
             Record kitsRec = qKits.get(index);
             Record kitdetRec = eKitdet.up.newRecord(Query.INS);
             kitdetRec.setNo(eKitdet.id, Conn.instanc().genId(eKitdet.up));
             kitdetRec.setNo(eKitdet.kits_id, kitsRec.getInt(eKits.id));
             qKitdet.add(kitdetRec);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Uti5.scrollRectToIndex(qKitdet.size() - 1, tab2);
+            UGui.scrollRectToIndex(qKitdet.size() - 1, tab2);
 
         } else if (tab3.getBorder() != null) {
-            int index = Uti5.getIndexRec(tab2);
+            int index = UGui.getIndexRec(tab2);
             Record kitdetRec = qKitdet.get(index);
             Record kitpar1Rec = eKitpar1.up.newRecord(Query.INS);
             kitpar1Rec.setNo(eColmap.id, Conn.instanc().genId(eColmap.up));
             kitpar1Rec.setNo(eKitpar1.kitdet_id, kitdetRec.getInt(eKitdet.id));
             qKitpar1.add(kitpar1Rec);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Uti5.scrollRectToIndex(qKitpar1.size() - 1, tab3);
+            UGui.scrollRectToIndex(qKitpar1.size() - 1, tab3);
         }
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Uti5.stopCellEditing(tab1, tab2, tab3);
+        UGui.stopCellEditing(tab1, tab2, tab3);
         Arrays.asList(qKits, qKitdet, qKitpar1).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
@@ -436,16 +436,16 @@ public class Kits extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
-        btnIns.addActionListener(l -> Uti5.stopCellEditing(tab1, tab2, tab3));
-        btnDel.addActionListener(l -> Uti5.stopCellEditing(tab1, tab2, tab3));
-        btnRef.addActionListener(l -> Uti5.stopCellEditing(tab1, tab2, tab3));
+        btnIns.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
+        btnDel.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
+        btnRef.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
         new FrameToFile(this, btnClose);
         FocusListener listenerFocus = new FocusListener() {
 
             javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
             public void focusGained(FocusEvent e) {
-                Uti5.stopCellEditing(tab1, tab2, tab3);
+                UGui.stopCellEditing(tab1, tab2, tab3);
                 tab1.setBorder(null);
                 tab2.setBorder(null);
                 tab3.setBorder(null);
@@ -458,11 +458,11 @@ public class Kits extends javax.swing.JFrame {
             }
         };
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Списки комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Списки комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Детализация комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Детализация комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

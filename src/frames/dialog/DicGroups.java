@@ -1,7 +1,7 @@
 package frames.dialog;
 
 import frames.FrameToFile;
-import frames.Uti5;
+import frames.UGui;
 import dataset.Query;
 import dataset.Record;
 import domain.eGroups;
@@ -76,14 +76,14 @@ public class DicGroups extends javax.swing.JDialog {
         if (ID > 0) {
             for (int i = 0; i < qGroups.size(); ++i) {
                 if (qGroups.get(i).getInt(eGroups.id) == ID) {
-                    Uti5.setSelectedRow(tab, i);
-                    Uti5.scrollRectToRow(i, tab);
+                    UGui.setSelectedRow(tab, i);
+                    UGui.scrollRectToRow(i, tab);
                 }
             }
         } else {
-            Uti5.setSelectedRow(tab);
+            UGui.setSelectedRow(tab);
         }
-        Uti5.updateBorderAndSql(tab, null);
+        UGui.updateBorderAndSql(tab, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -366,13 +366,13 @@ public class DicGroups extends javax.swing.JDialog {
 
         int index = -1;
         if (tab1.getBorder() != null) {
-            index = Uti5.getIndexRec(tab1);
+            index = UGui.getIndexRec(tab1);
         } else if (tab2.getBorder() != null) {
-            index = Uti5.getIndexRec(tab2);
+            index = UGui.getIndexRec(tab2);
         } else if (tab3.getBorder() != null) {
-            index = Uti5.getIndexRec(tab3);
+            index = UGui.getIndexRec(tab3);
         } else if (tab4.getBorder() != null) {
-            index = Uti5.getIndexRec(tab4);
+            index = UGui.getIndexRec(tab4);
         }
         if (index != -1) {
             listener.action(qGroups.get(index));

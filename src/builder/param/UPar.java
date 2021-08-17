@@ -19,7 +19,7 @@ import enums.TypeOpen1;
 import java.util.Arrays;
 import java.util.List;
 
-class Uti4 {
+class UPar {
 
     //Толщина внешнего/внутреннего заполнения, мм
     static List<ElemGlass> getGlassDepth(ElemSimple elem5e) {

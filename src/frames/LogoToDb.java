@@ -133,14 +133,14 @@ public class LogoToDb extends javax.swing.JDialog {
         pan2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         pan2.setPreferredSize(new java.awt.Dimension(280, 132));
 
-        labPass.setFont(frames.Uti5.getFont(0,0));
+        labPass.setFont(frames.UGui.getFont(0,0));
         labPass.setText("Пароль");
         labPass.setAlignmentX(0.5F);
         labPass.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         labPass.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         labPass.setPreferredSize(new java.awt.Dimension(100, 18));
 
-        edPass.setFont(frames.Uti5.getFont(0,0));
+        edPass.setFont(frames.UGui.getFont(0,0));
         edPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         edPass.setPreferredSize(new java.awt.Dimension(96, 18));
         edPass.addCaretListener(new javax.swing.event.CaretListener() {
@@ -149,14 +149,14 @@ public class LogoToDb extends javax.swing.JDialog {
             }
         });
 
-        labUser.setFont(frames.Uti5.getFont(0,0));
+        labUser.setFont(frames.UGui.getFont(0,0));
         labUser.setText("Пользователь");
         labUser.setAlignmentX(0.5F);
         labUser.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         labUser.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         labUser.setPreferredSize(new java.awt.Dimension(100, 18));
 
-        edUser.setFont(frames.Uti5.getFont(0,0));
+        edUser.setFont(frames.UGui.getFont(0,0));
         edUser.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         edUser.setMinimumSize(new java.awt.Dimension(0, 0));
         edUser.setPreferredSize(new java.awt.Dimension(96, 18));
@@ -172,7 +172,7 @@ public class LogoToDb extends javax.swing.JDialog {
         progressBar.setRequestFocusEnabled(false);
         progressBar.setVerifyInputWhenFocusTarget(false);
 
-        labMes.setFont(frames.Uti5.getFont(0,1));
+        labMes.setFont(frames.UGui.getFont(0,1));
         labMes.setText("<html>Ошибка соединения с базой данных!");
         labMes.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         labMes.setPreferredSize(new java.awt.Dimension(240, 14));
@@ -214,7 +214,7 @@ public class LogoToDb extends javax.swing.JDialog {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        btnOk.setFont(frames.Uti5.getFont(0,0));
+        btnOk.setFont(frames.UGui.getFont(0,0));
         btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         btnOk.setText("ОК");
         btnOk.setToolTipText("");
@@ -230,7 +230,7 @@ public class LogoToDb extends javax.swing.JDialog {
             }
         });
 
-        btnClose.setFont(frames.Uti5.getFont(0,0));
+        btnClose.setFont(frames.UGui.getFont(0,0));
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b029.gif"))); // NOI18N
         btnClose.setText("Отмена");
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));

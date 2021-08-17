@@ -42,12 +42,12 @@ public class FillingVar extends Par5s {
         try {
             switch (grup) {
                 case 13001:  //Если признак состава 
-                    if (Uti4.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem5e) == false) {
+                    if (UPar.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem5e) == false) {
                         return false;
                     }
                     break;
                 case 13003:  //Тип проема 
-                    if (!Uti4.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
+                    if (!UPar.is_13003_14005_15005_37008(rec.getStr(TEXT), elem5e)) {
                         return false;
                     }
                     break;
@@ -88,7 +88,7 @@ public class FillingVar extends Par5s {
                     }
                     break;
                 case 13017: //Код системы содержит строку 
-                    if (Uti4.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
+                    if (UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
                         return false;
                     }
                     break;
@@ -97,7 +97,7 @@ public class FillingVar extends Par5s {
                         if (elem5e.anglFlat[0] > rec.getFloat(TEXT)) {
                             return false;
                         }
-                    } else if (Uti4.is_13081_13082_13086_13087(elem5e, rec.getStr(TEXT))) {
+                    } else if (UPar.is_13081_13082_13086_13087(elem5e, rec.getStr(TEXT))) {
                         return false;
                     }
                 case 13082:  //Макс. внутр. угол плоскости, °
@@ -119,7 +119,7 @@ public class FillingVar extends Par5s {
                         }
                     }
                 case 13095:  //Если признак системы конструкции 
-                    if (!Uti4.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), iwin.nuni)) {
+                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), iwin.nuni)) {
                         return false;
                     }
                     break;

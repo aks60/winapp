@@ -8,7 +8,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eSysprod;
 import domain.eSystree;
-import frames.Uti5;
+import frames.UGui;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import java.awt.Component;
@@ -138,9 +138,9 @@ public class DicSyspod extends javax.swing.JDialog {
                 }
             }
             if (index != -1) {
-                Uti5.setSelectedRow(tab2, index);
+                UGui.setSelectedRow(tab2, index);
             } else {
-                Uti5.setSelectedRow(tab2);
+                UGui.setSelectedRow(tab2);
             }
         } else {
             //createWincalc(-1); //рисуем виртуалку
@@ -347,8 +347,8 @@ public class DicSyspod extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
-        if (Uti5.getIndexRec(tab2) != -1) {
-            Record record = qSysprod.get(Uti5.getIndexRec(tab2));
+        if (UGui.getIndexRec(tab2) != -1) {
+            Record record = qSysprod.get(UGui.getIndexRec(tab2));
             listener.action(record);
             eProperty.sysprodID.write(record.getStr(eSysprod.id));
         }

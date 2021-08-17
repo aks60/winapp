@@ -104,28 +104,28 @@ public class Color extends javax.swing.JFrame {
         DefCellBoolRenderer br = new DefCellBoolRenderer();
         Arrays.asList(4, 5, 6, 7, 8, 9).forEach(index -> tab4.getColumnModel().getColumn(index).setCellRenderer(br));
 
-        Uti5.setSelectedRow(tab1);
-        Uti5.setSelectedRow(tab3);
+        UGui.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab3);
     }
 
     private void listenerAdd() {
 
-        Uti5.buttonCellEditor(tab2, 0).addActionListener(event -> {
-            Uti5.stopCellEditing(tab1, tab2, tab3, tab4);
+        UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             java.awt.Color color = JColorChooser.showDialog(this, "Выбор цвета", java.awt.Color.WHITE);
-            qColor.set(color.getRGB(), Uti5.getIndexRec(tab2), eColor.rgb);
+            qColor.set(color.getRGB(), UGui.getIndexRec(tab2), eColor.rgb);
             qColor.execsql();
         });
-        Uti5.buttonCellEditor(tab4, 0).addActionListener(event -> {
+        UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
             DicColor frame = new DicColor(this, listenerColor1);
         });
-        Uti5.buttonCellEditor(tab4, 1).addActionListener(event -> {
+        UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
             DicColor frame = new DicColor(this, listenerColor1);
         });
-        Uti5.buttonCellEditor(tab4, 2).addActionListener(event -> {
+        UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
             DicColor frame = new DicColor(this, listenerColor2);
         });
-        Uti5.buttonCellEditor(tab4, 3).addActionListener(event -> {
+        UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
             DicColor frame = new DicColor(this, listenerColor2);
         });
     }
@@ -133,16 +133,16 @@ public class Color extends javax.swing.JFrame {
     public void listenerSet() {
 
         listenerColor1 = (record) -> {
-            Uti5.stopCellEditing(tab1, tab2, tab3, tab4);
-            int index = Uti5.getIndexRec(tab4);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+            int index = UGui.getIndexRec(tab4);
             Record record2 = qColmap.get(index);
             record2.set(eColmap.color_id1, record.getInt(eParams.id));
             ((DefaultTableModel) tab4.getModel()).fireTableRowsUpdated(tab4.getSelectedRow(), tab4.getSelectedRow());
         };
 
         listenerColor2 = (record) -> {
-            Uti5.stopCellEditing(tab1, tab2, tab3, tab4);
-            int index = Uti5.getIndexRec(tab4);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+            int index = UGui.getIndexRec(tab4);
             Record record2 = qColmap.get(index);
             record2.set(eColmap.color_id2, record.getInt(eParams.id));
             ((DefaultTableModel) tab4.getModel()).fireTableRowsUpdated(tab4.getSelectedRow(), tab4.getSelectedRow());
@@ -167,29 +167,29 @@ public class Color extends javax.swing.JFrame {
 
     private void selectionTab1(ListSelectionEvent event) {
 
-        Uti5.stopCellEditing(tab1, tab2, tab3, tab4);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qGroup1, qColor, qGroup2, qColmap).forEach(q -> q.execsql());
-        int index = Uti5.getIndexRec(tab1);
+        int index = UGui.getIndexRec(tab1);
         if (index != -1) {
 
             Record record = qGroup1.table(eGroups.up).get(index);
             Integer cgrup = record.getInt(eGroups.id);
             qColor.select(eColor.up, "where", eColor.colgrp_id, "=" + cgrup);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Uti5.setSelectedRow(tab2);
+            UGui.setSelectedRow(tab2);
         }
     }
 
     private void selectionTab3(ListSelectionEvent event) {
-        Uti5.stopCellEditing(tab1, tab2, tab3, tab4);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qGroup2, qColmap).forEach(q -> q.execsql());
-        int index = Uti5.getIndexRec(tab3);
+        int index = UGui.getIndexRec(tab3);
         if (index != -1) {
             Record record = qGroup2.get(index);
             Integer cgrup = record.getInt(eGroups.id);
             qColmap.select(eColmap.up, "where", eColmap.colgrp_id, "=" + cgrup);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Uti5.setSelectedRow(tab4);
+            UGui.setSelectedRow(tab4);
         }
     }
 
@@ -544,31 +544,31 @@ public class Color extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Uti5.stopCellEditing(tab1, tab2, tab3, tab4);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefaultTableModel) tab.getModel()).fireTableDataChanged());
-        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> Uti5.setSelectedRow(tab));
+        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> UGui.setSelectedRow(tab));
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
         if (tab1.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this, tab2) == 0) {
-                Uti5.deleteRecord(tab1);
+            if (UGui.isDeleteRecord(this, tab2) == 0) {
+                UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this) == 0) {
-                Uti5.deleteRecord(tab2);
+            if (UGui.isDeleteRecord(this) == 0) {
+                UGui.deleteRecord(tab2);
             }
 
         } else if (tab3.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this, tab4) == 0) {
-                Uti5.deleteRecord(tab3);
+            if (UGui.isDeleteRecord(this, tab4) == 0) {
+                UGui.deleteRecord(tab3);
             }
         } else if (tab4.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this) == 0) {
-                Uti5.deleteRecord(tab4);
+            if (UGui.isDeleteRecord(this) == 0) {
+                UGui.deleteRecord(tab4);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -576,28 +576,28 @@ public class Color extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Uti5.insertRecord(tab1, eGroups.up, (record) -> {
+            UGui.insertRecord(tab1, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLOR.id);
                 record.set(eGroups.name, "");
                 record.set(eGroups.val, 1);
             });
         } else if (tab2.getBorder() != null) {
 
-            Uti5.insertRecord(tab2, eColor.up, (record) -> {
-                Record groupRec = qGroup1.get(Uti5.getIndexRec(tab1));
+            UGui.insertRecord(tab2, eColor.up, (record) -> {
+                Record groupRec = qGroup1.get(UGui.getIndexRec(tab1));
                 record.setNo(eColor.colgrp_id, groupRec.getInt(eGroups.id));
                 qColall.add(record);
             });
 
         } else if (tab3.getBorder() != null) {
-            Uti5.insertRecord(tab3, eGroups.up, (record) -> {
+            UGui.insertRecord(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLMAP.id);
                 record.set(eGroups.name, "");
             });
 
         } else if (tab4.getBorder() != null) {
-            Uti5.insertRecord(tab4, eColor.up, (record) -> {
-                Record groupRec = qGroup2.get(Uti5.getIndexRec(tab3));
+            UGui.insertRecord(tab4, eColor.up, (record) -> {
+                Record groupRec = qGroup2.get(UGui.getIndexRec(tab3));
                 record.setNo(eColmap.colgrp_id, groupRec.getInt(eGroups.id));
                 record.set(eColmap.joint, 1);
                 record.set(eColmap.elem, 1);
@@ -610,13 +610,13 @@ public class Color extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Uti5.stopCellEditing(tab1, tab2, tab3, tab4);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        Uti5.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4));
+        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
@@ -673,12 +673,12 @@ public class Color extends javax.swing.JFrame {
             }
         });
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Группы текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Группы текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Описание текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Описание текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Текстуры профилей", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Текстуры профилей", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Группы отображения текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Группы отображения текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
     }
 }

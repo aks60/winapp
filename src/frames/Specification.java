@@ -58,7 +58,7 @@ public class Specification extends javax.swing.JFrame {
         initElements();
         createIwin();
         loadingTab1(groups(1));
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }
 
     private void createIwin() {
@@ -506,7 +506,7 @@ public class Specification extends javax.swing.JFrame {
     private void cbxGroupBy(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupBy
 
         filterTable.getTxt().setText(null);
-        float id = (Uti5.getIndexRec(tab1) == -1) ? -1 : Util.getFloat(tab1.getValueAt(Uti5.getIndexRec(tab1), 1).toString());
+        float id = (UGui.getIndexRec(tab1) == -1) ? -1 : Util.getFloat(tab1.getValueAt(UGui.getIndexRec(tab1), 1).toString());
 
         if (cbx1.getSelectedIndex() == 0) {
             loadingTab1(iwin.listSpec);
@@ -536,11 +536,11 @@ public class Specification extends javax.swing.JFrame {
 
         for (int i = 0; i < tab1.getRowCount() - 1; i++) {
             if (tab1.getValueAt(i, 1) != null && Util.getFloat(tab1.getValueAt(i, 1).toString()) == id) {
-                Uti5.setSelectedRow(tab1, i);
+                UGui.setSelectedRow(tab1, i);
                 return;
             }
         }
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }//GEN-LAST:event_cbxGroupBy
 
     private void cbxCalcType(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCalcType
@@ -548,7 +548,7 @@ public class Specification extends javax.swing.JFrame {
             public void actionRequest(Object obj) {
                 createIwin();
                 loadingTab1(iwin.listSpec);
-                Uti5.setSelectedRow(tab1);
+                UGui.setSelectedRow(tab1);
             }
         });
     }//GEN-LAST:event_cbxCalcType
@@ -562,11 +562,11 @@ public class Specification extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTest
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        int index = Uti5.getIndexRec(tab1);
+        int index = UGui.getIndexRec(tab1);
         createIwin();
         loadingTab1(groups(cbx1.getSelectedIndex()));
         cbxGroupBy(null);
-        Uti5.setSelectedRow(tab1, index);
+        UGui.setSelectedRow(tab1, index);
     }//GEN-LAST:event_btnRefresh
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     

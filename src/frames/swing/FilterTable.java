@@ -2,7 +2,7 @@ package frames.swing;
 
 import dataset.Field;
 import dataset.Query;
-import frames.Uti5;
+import frames.UGui;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -136,8 +136,8 @@ public class FilterTable extends javax.swing.JPanel {
                     for (int index = 0; index < query.size(); ++index) {
 
                         if (query.table(field).get(index).getStr(field).startsWith(txtFilter.getText())) {
-                            Uti5.setSelectedRow(table, index);
-                            Uti5.scrollRectToIndex(index, table);
+                            UGui.setSelectedRow(table, index);
+                            UGui.scrollRectToIndex(index, table);
                             return;
                         }
                     }
@@ -146,8 +146,8 @@ public class FilterTable extends javax.swing.JPanel {
                     for (int index = 0; index < dtm.getDataVector().size(); ++index) {
                         Vector vector = dtm.getDataVector().get(index);
                         if (String.valueOf(vector.get(indexColumn)).startsWith(txtFilter.getText())) {
-                            Uti5.setSelectedRow(table, index);
-                            Uti5.scrollRectToIndex(index, table);
+                            UGui.setSelectedRow(table, index);
+                            UGui.scrollRectToIndex(index, table);
                             return;
                         }
                     }
@@ -157,7 +157,7 @@ public class FilterTable extends javax.swing.JPanel {
                 indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
                 String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
                 ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
-                Uti5.setSelectedRow(table);
+                UGui.setSelectedRow(table);
             }
         }
     }//GEN-LAST:event_txtCaretUpdate
@@ -175,7 +175,7 @@ public class FilterTable extends javax.swing.JPanel {
             txtCaretUpdate(null);
             txtFilter.setText(txt);
         }
-        Uti5.scrollRectToRow(table.getSelectedRow() - 1, table);
+        UGui.scrollRectToRow(table.getSelectedRow() - 1, table);
     }//GEN-LAST:event_btn1ActiPerf
 
     private void btn2ActiPerf(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActiPerf

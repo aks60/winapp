@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import common.eProperty;
-import frames.Uti5;
+import frames.UGui;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
@@ -160,7 +160,7 @@ public class Profstroy {
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                     String deltaCol[] = entry.getValue();
-                    executeSql("ALTER TABLE " + fieldUp.tname() + " ADD " + entry.getKey() + " " + Uti5.typeSql(Field.TYPE.type(deltaCol[0]), deltaCol[1]) + ";");
+                    executeSql("ALTER TABLE " + fieldUp.tname() + " ADD " + entry.getKey() + " " + UGui.typeSql(Field.TYPE.type(deltaCol[0]), deltaCol[1]) + ";");
                 }
                 //Конвертирование данных в таблицу
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
@@ -244,7 +244,7 @@ public class Profstroy {
         for (int i = 1; i < f.length; ++i) {
 
             Field f2 = f[i];
-            ddl = ddl + "\n" + f2.name() + "  " + Uti5.typeSql(f2.meta().type(), f2.meta().size());
+            ddl = ddl + "\n" + f2.name() + "  " + UGui.typeSql(f2.meta().type(), f2.meta().size());
             if (f2.meta().isnull() == false) {
                 ddl = ddl + " NOT NULL";
             }
@@ -306,7 +306,7 @@ public class Profstroy {
                         Field field = fields[index];
                         if (hsExistField.contains(field)) { //т.к. ps3 и ps4 разное количество полей
                             Object val = rs1.getObject(field.meta().fname);
-                            nameVal2 = nameVal2 + Uti5.wrapperSql(val, field.meta().type()) + ",";
+                            nameVal2 = nameVal2 + UGui.wrapperSql(val, field.meta().type()) + ",";
                         } else {
                             if (field.meta().isnull() == false) { //если not null то тупо пишу 0
                                 nameVal2 = nameVal2 + "0" + ",";
@@ -318,7 +318,7 @@ public class Profstroy {
                     //Цикл по полям не вошедших в eEnum.values()
                     for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                         Object val = rs1.getObject(entry.getKey());
-                        nameVal2 = nameVal2 + Uti5.wrapperSql(val, Field.TYPE.type(entry.getValue()[0])) + ",";
+                        nameVal2 = nameVal2 + UGui.wrapperSql(val, Field.TYPE.type(entry.getValue()[0])) + ",";
                     }
                     nameVal2 = nameVal2.substring(0, nameVal2.length() - 1);
                     sql = "insert into " + tname2 + "(" + nameCols2 + ") values (" + nameVal2.toString() + ")";
@@ -854,13 +854,13 @@ public class Profstroy {
             if (que != null) {
                 que.add(new Object[]{obj[0], obj[1]});
             } else {
-                System.out.println(Uti5.consoleColor(obj[0]) + obj[1].toString() + "\u001B[0m");
+                System.out.println(UGui.consoleColor(obj[0]) + obj[1].toString() + "\u001B[0m");
             }
         } else {
             if (que != null) {
                 que.add(new Object[]{obj[0], obj[1], obj[2], obj[3]});
             } else {
-                System.out.println(Uti5.consoleColor(obj[0]) + obj[1].toString() + Uti5.consoleColor(obj[2]) + obj[3].toString() + "\u001B[0m");
+                System.out.println(UGui.consoleColor(obj[0]) + obj[1].toString() + UGui.consoleColor(obj[2]) + obj[3].toString() + "\u001B[0m");
             }
         }
     }

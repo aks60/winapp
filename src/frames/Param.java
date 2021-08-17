@@ -67,20 +67,20 @@ public class Param extends javax.swing.JFrame {
         });
 
         listenerColor = (record) -> {
-            Uti5.stopCellEditing(tab1, tab2);
-            int index = Uti5.getIndexRec(tab2);
+            UGui.stopCellEditing(tab1, tab2);
+            int index = UGui.getIndexRec(tab2);
             if (index != -1) {
                 Record pardetRec = qPardet.get(index);
                 pardetRec.set(eParams.text, record.getStr(eColor.name));
                 qPardet.update(pardetRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Uti5.setSelectedRow(tab2, index);
+                UGui.setSelectedRow(tab2, index);
             }
         };
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int index = Uti5.getIndexRec(tab1);
+        int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Record record = qParams.get(index);
             Integer p1 = record.getInt(eParams.id);
@@ -93,7 +93,7 @@ public class Param extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int index = Uti5.getIndexRec(tab1);
+        int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Record record = qParams.get(index);
             if (record.getInt(eParams.color) == 1) {
@@ -349,20 +349,20 @@ public class Param extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Uti5.stopCellEditing(tab1, tab2);
+        UGui.stopCellEditing(tab1, tab2);
         Arrays.asList(tab1, tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadData();
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this, tab2) == 0) {
-                Uti5.deleteRecord(tab1);
+            if (UGui.isDeleteRecord(this, tab2) == 0) {
+                UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this) == 0) {
-                Uti5.deleteRecord(tab2);
+            if (UGui.isDeleteRecord(this) == 0) {
+                UGui.deleteRecord(tab2);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -370,14 +370,14 @@ public class Param extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Uti5.insertRecord(tab1, eParams.up, (record) -> {
+            UGui.insertRecord(tab1, eParams.up, (record) -> {
                 record.setNo(eParams.params_id, record.getInt(eParams.id));
                 Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
             });
         } else if (tab2.getBorder() != null) {
-            Uti5.insertRecord(tab2, eParams.up, (record) -> {
-                Record record2 = qParams.get(Uti5.getIndexRec(tab1));
+            UGui.insertRecord(tab2, eParams.up, (record) -> {
+                Record record2 = qParams.get(UGui.getIndexRec(tab1));
                 record.setNo(eParams.params_id, record2.getInt(eParams.id));
                 Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
@@ -386,7 +386,7 @@ public class Param extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Uti5.stopCellEditing(tab1, tab2);
+        UGui.stopCellEditing(tab1, tab2);
         Arrays.asList(qParams, qPardet).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
@@ -395,7 +395,7 @@ public class Param extends javax.swing.JFrame {
         if (table == tab2) {
             selectionTab2(null);
         }
-        Uti5.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
+        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -422,11 +422,11 @@ public class Param extends javax.swing.JFrame {
         filterTable = new FilterTable(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti5.stopCellEditing(tab1, tab2)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Значение параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Uti5.getFont(0, 0)));
+                "Значение параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
 
         tab1.getSelectionModel().addListSelectionListener(event -> {
             if (event.getValueIsAdjusting() == false) {

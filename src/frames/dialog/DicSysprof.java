@@ -7,7 +7,7 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eSysprof;
 import enums.UseSide;
-import frames.Uti5;
+import frames.UGui;
 import frames.swing.DefTableModel;
 import java.util.List;
 import frames.swing.listener.ListenerRecord;
@@ -34,13 +34,13 @@ public class DicSysprof extends javax.swing.JDialog {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eSysprof.use_side) {
-                    Record sysprofRec = qSysprof.get(Uti5.getIndexRec(tab2));
+                    Record sysprofRec = qSysprof.get(UGui.getIndexRec(tab2));
                     return UseSide.get(sysprofRec.getInt(eSysprof.use_side)).text();
                 } 
                 return val;
             }
         };
-        Uti5.setSelectedRow(tab2);
+        UGui.setSelectedRow(tab2);
     }
 
     @SuppressWarnings("unchecked")
@@ -204,7 +204,7 @@ public class DicSysprof extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int index = Uti5.getIndexRec(tab2);
+        int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record record = qSysprof.get(index);
             listener.action(record);

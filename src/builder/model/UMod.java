@@ -11,11 +11,11 @@ import domain.eSetting;
 import enums.Layout;
 import java.util.List;
 
-class Uti3 {
+class UMod {
 
     protected ElemSimple elem5e = null;
 
-    Uti3(ElemSimple elem5e) {
+    UMod(ElemSimple elem5e) {
         this.elem5e = elem5e;
     }
 

@@ -24,7 +24,7 @@ import startup.Main;
 import builder.Wincalc;
 import enums.PKjson;
 import enums.Type;
-import frames.Uti5;
+import frames.UGui;
 import java.awt.BasicStroke;
 
 public class AreaSimple extends Com5t {
@@ -272,7 +272,7 @@ public class AreaSimple extends Com5t {
             iwin().draw.drawLine(x2, y2, x2 + 12, y2 - 24);
             iwin().draw.drawLine(x2, y2, x2 - 12, y2 - 24);
             iwin().gc2d.rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2);
-            iwin().gc2d.drawString(Uti5.df.format((float) (y2 - y1)), x1 + 60, y1 + (y2 - y1) / 2);
+            iwin().gc2d.drawString(UGui.df.format((float) (y2 - y1)), x1 + 60, y1 + (y2 - y1) / 2);
             iwin().gc2d.rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);
         } else if (y1 == y2 && x2 - x1 != 0) {
             iwin().draw.drawLine(x1, y1 - 24, x1, y1 + 24);
@@ -281,7 +281,7 @@ public class AreaSimple extends Com5t {
             iwin().draw.drawLine(x1, y1, x1 + 24, y1 + 12);
             iwin().draw.drawLine(x2, y2, x2 - 24, y2 - 12);
             iwin().draw.drawLine(x2, y2, x2 - 24, y2 + 12);
-            iwin().gc2d.drawString(Uti5.df.format((float) (x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
+            iwin().gc2d.drawString(UGui.df.format((float) (x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
         }
     }
 }

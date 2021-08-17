@@ -12,7 +12,7 @@ import dataset.Query;
 import static dataset.Query.connection;
 import dataset.eExcep;
 import frames.PathToDb;
-import frames.Uti5;
+import frames.UGui;
 import frames.swing.FilterFile;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -111,7 +111,7 @@ public class Adm extends javax.swing.JFrame {
             dm.getDataVector().add(vec);
         }
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        Uti5.setSelectedRow(tab2);
+        UGui.setSelectedRow(tab2);
     }
 
     private void loadingTab3() {
@@ -162,7 +162,7 @@ public class Adm extends javax.swing.JFrame {
                 dm.getDataVector().add(vec);
             }
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Uti5.setSelectedRow(tab4);
+            UGui.setSelectedRow(tab4);
 
         } catch (Exception e) {
             System.out.println("Ошибка: Adm.loadingTab4() " + e);
@@ -303,9 +303,9 @@ public class Adm extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         south = new javax.swing.JPanel();
 
-        ppmMain.setFont(frames.Uti5.getFont(1,1));
+        ppmMain.setFont(frames.UGui.getFont(1,1));
 
-        mn20.setFont(frames.Uti5.getFont(1,1));
+        mn20.setFont(frames.UGui.getFont(1,1));
         mn20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b059.gif"))); // NOI18N
         mn20.setActionCommand("sa-okna <= ПрофСтрой(3,4)");
         mn20.setLabel("БД <= ПрофСтрой(3,4)");
@@ -316,7 +316,7 @@ public class Adm extends javax.swing.JFrame {
         });
         ppmMain.add(mn20);
 
-        mn10.setFont(frames.Uti5.getFont(1,1));
+        mn10.setFont(frames.UGui.getFont(1,1));
         mn10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b051.gif"))); // NOI18N
         mn10.setText("Правка БД");
         mn10.addActionListener(new java.awt.event.ActionListener() {
@@ -326,7 +326,7 @@ public class Adm extends javax.swing.JFrame {
         });
         ppmMain.add(mn10);
 
-        mn40.setFont(frames.Uti5.getFont(1,1));
+        mn40.setFont(frames.UGui.getFont(1,1));
         mn40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b032.gif"))); // NOI18N
         mn40.setText("Пользователи БД");
         mn40.addActionListener(new java.awt.event.ActionListener() {
@@ -339,10 +339,10 @@ public class Adm extends javax.swing.JFrame {
 
         mn63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         mn63.setText("База данных");
-        mn63.setFont(frames.Uti5.getFont(1,1));
+        mn63.setFont(frames.UGui.getFont(1,1));
 
         buttonBaseGroup1.add(mn631);
-        mn631.setFont(frames.Uti5.getFont(1,1));
+        mn631.setFont(frames.UGui.getFont(1,1));
         mn631.setText("База 1");
         mn631.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -352,7 +352,7 @@ public class Adm extends javax.swing.JFrame {
         mn63.add(mn631);
 
         buttonBaseGroup1.add(mn632);
-        mn632.setFont(frames.Uti5.getFont(1,1));
+        mn632.setFont(frames.UGui.getFont(1,1));
         mn632.setText("База 2");
         mn632.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,7 +362,7 @@ public class Adm extends javax.swing.JFrame {
         mn63.add(mn632);
 
         buttonBaseGroup1.add(mn633);
-        mn633.setFont(frames.Uti5.getFont(1,1));
+        mn633.setFont(frames.UGui.getFont(1,1));
         mn633.setText("База 3");
         mn633.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -375,11 +375,11 @@ public class Adm extends javax.swing.JFrame {
 
         mn62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b061.gif"))); // NOI18N
         mn62.setText("Вид интерфейса");
-        mn62.setFont(frames.Uti5.getFont(1,1));
+        mn62.setFont(frames.UGui.getFont(1,1));
         ppmMain.add(mn62);
         ppmMain.add(sep1);
 
-        mn30.setFont(frames.Uti5.getFont(1,1));
+        mn30.setFont(frames.UGui.getFont(1,1));
         mn30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b009.gif"))); // NOI18N
         mn30.setText("Выход");
         mn30.addActionListener(new java.awt.event.ActionListener() {
@@ -618,7 +618,7 @@ public class Adm extends javax.swing.JFrame {
         pan6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         pan6.setPreferredSize(new java.awt.Dimension(500, 72));
 
-        lab1.setFont(frames.Uti5.getFont(0,0));
+        lab1.setFont(frames.UGui.getFont(0,0));
         lab1.setText("Cервер (host)");
         lab1.setAlignmentX(0.5F);
         lab1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -626,14 +626,14 @@ public class Adm extends javax.swing.JFrame {
         lab1.setMinimumSize(new java.awt.Dimension(0, 18));
         lab1.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab2.setFont(frames.Uti5.getFont(0,0));
+        lab2.setFont(frames.UGui.getFont(0,0));
         lab2.setText("База источник");
         lab2.setAlignmentX(0.5F);
         lab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab2.setMinimumSize(new java.awt.Dimension(100, 18));
         lab2.setPreferredSize(new java.awt.Dimension(84, 18));
 
-        lab3.setFont(frames.Uti5.getFont(0,0));
+        lab3.setFont(frames.UGui.getFont(0,0));
         lab3.setText("Пользователь");
         lab3.setAlignmentX(0.5F);
         lab3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -641,31 +641,31 @@ public class Adm extends javax.swing.JFrame {
         lab3.setMinimumSize(new java.awt.Dimension(0, 18));
         lab3.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab4.setFont(frames.Uti5.getFont(0,0));
+        lab4.setFont(frames.UGui.getFont(0,0));
         lab4.setText("Пароль");
         lab4.setAlignmentX(0.5F);
         lab4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab4.setPreferredSize(new java.awt.Dimension(46, 18));
 
-        edServer.setFont(frames.Uti5.getFont(0,0));
+        edServer.setFont(frames.UGui.getFont(0,0));
         edServer.setText("localhost");
         edServer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         edServer.setMinimumSize(new java.awt.Dimension(0, 0));
         edServer.setPreferredSize(new java.awt.Dimension(72, 18));
 
-        edPath.setFont(frames.Uti5.getFont(0,0));
+        edPath.setFont(frames.UGui.getFont(0,0));
         edPath.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         edPath.setMinimumSize(new java.awt.Dimension(0, 0));
         edPath.setPreferredSize(new java.awt.Dimension(200, 18));
 
-        edUser.setFont(frames.Uti5.getFont(0,0));
+        edUser.setFont(frames.UGui.getFont(0,0));
         edUser.setText("sysdba");
         edUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         edUser.setFocusable(false);
         edUser.setMinimumSize(new java.awt.Dimension(0, 0));
         edUser.setPreferredSize(new java.awt.Dimension(72, 18));
 
-        lab5.setFont(frames.Uti5.getFont(0,0));
+        lab5.setFont(frames.UGui.getFont(0,0));
         lab5.setText("Порт");
         lab5.setAlignmentX(0.5F);
         lab5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -673,27 +673,27 @@ public class Adm extends javax.swing.JFrame {
         lab5.setMinimumSize(new java.awt.Dimension(40, 18));
         lab5.setPreferredSize(new java.awt.Dimension(46, 18));
 
-        edPort.setFont(frames.Uti5.getFont(0,0));
+        edPort.setFont(frames.UGui.getFont(0,0));
         edPort.setText("3050");
         edPort.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         edPort.setMinimumSize(new java.awt.Dimension(0, 0));
         edPort.setPreferredSize(new java.awt.Dimension(72, 18));
 
-        edPass.setFont(frames.Uti5.getFont(0,0));
+        edPass.setFont(frames.UGui.getFont(0,0));
         edPass.setText("masterkey");
         edPass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         edPass.setMinimumSize(new java.awt.Dimension(0, 0));
         edPass.setPreferredSize(new java.awt.Dimension(72, 18));
 
         labPath2.setBackground(new java.awt.Color(255, 255, 255));
-        labPath2.setFont(frames.Uti5.getFont(0,0));
+        labPath2.setFont(frames.UGui.getFont(0,0));
         labPath2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         labPath2.setFocusable(false);
         labPath2.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         labPath2.setOpaque(true);
         labPath2.setPreferredSize(new java.awt.Dimension(200, 18));
 
-        lab6.setFont(frames.Uti5.getFont(0,0));
+        lab6.setFont(frames.UGui.getFont(0,0));
         lab6.setText("База приемник");
         lab6.setAlignmentX(0.5F);
         lab6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -711,7 +711,7 @@ public class Adm extends javax.swing.JFrame {
             }
         });
 
-        btnTest.setFont(frames.Uti5.getFont(0,0));
+        btnTest.setFont(frames.UGui.getFont(0,0));
         btnTest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         btnTest.setText("Тест");
         btnTest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -725,7 +725,7 @@ public class Adm extends javax.swing.JFrame {
             }
         });
 
-        btnStart.setFont(frames.Uti5.getFont(0,0));
+        btnStart.setFont(frames.UGui.getFont(0,0));
         btnStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b059.gif"))); // NOI18N
         btnStart.setText("Конвертировать");
         btnStart.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1464,7 +1464,7 @@ public class Adm extends javax.swing.JFrame {
             buttonLookAndFiilGroup.add(mnIt);
             hmLookAndFill.put(laf.getName(), mnIt);
             mn62.add(mnIt);
-            mnIt.setFont(frames.Uti5.getFont(1, 1));
+            mnIt.setFont(frames.UGui.getFont(1, 1));
             mnIt.setText(laf.getName());
             mnIt.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -2,7 +2,7 @@ package frames.dialog;
 
 import frames.FrameToFile;
 import dataset.Field;
-import frames.Uti5;
+import frames.UGui;
 import dataset.Query;
 import dataset.Record;
 import domain.eFurniture;
@@ -231,13 +231,13 @@ public class DicName extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        Uti5.stopCellEditing(tab1);
+        UGui.stopCellEditing(tab1);
         if (set != null) {
              Record record = new Record();
              record.add(tab1.getValueAt(tab1.getSelectedRow(), 0));
              listener.action(record);
         } else {
-            Record record = query.get(Uti5.getIndexRec(tab1));
+            Record record = query.get(UGui.getIndexRec(tab1));
             listener.action(record);
         }
         this.dispose();

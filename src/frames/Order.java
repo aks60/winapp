@@ -184,7 +184,7 @@ public class Order extends javax.swing.JFrame {
             @Override
             public void load(Integer index) {
                 super.load(index);
-                Record projectRec = qProject.get(Uti5.getIndexRec(tab1));
+                Record projectRec = qProject.get(UGui.getIndexRec(tab1));
                 Record currencRec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(projectRec.get(eProject.currenc_id))).findFirst().orElse(eCurrenc.up.newRecord());
                 setText(txt3, currencRec.getStr(eCurrenc.name));
             }
@@ -207,52 +207,52 @@ public class Order extends javax.swing.JFrame {
 
     private void listenerAdd() {
 
-        Uti5.buttonCellEditor(tab1, 2).addActionListener(event -> {
+        UGui.buttonCellEditor(tab1, 2).addActionListener(event -> {
             new DicDate(this, (obj) -> {
                 GregorianCalendar calendar = (GregorianCalendar) obj;
-                Uti5.stopCellEditing(tab1);
-                Record record2 = qProject.get(Uti5.getIndexRec(tab1));
+                UGui.stopCellEditing(tab1);
+                Record record2 = qProject.get(UGui.getIndexRec(tab1));
                 record2.set(eProject.date4, calendar.getTime());
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
                 return true;
             }, 0);
         });
 
-        Uti5.buttonCellEditor(tab1, 3).addActionListener(event -> {
+        UGui.buttonCellEditor(tab1, 3).addActionListener(event -> {
             new DicDate(this, (obj) -> {
                 GregorianCalendar calendar = (GregorianCalendar) obj;
-                Uti5.stopCellEditing(tab1);
-                Record record2 = qProject.get(Uti5.getIndexRec(tab1));
+                UGui.stopCellEditing(tab1);
+                Record record2 = qProject.get(UGui.getIndexRec(tab1));
                 record2.set(eProject.date6, calendar.getTime());
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
                 return true;
             }, 0);
         });
 
-        Uti5.buttonCellEditor(tab1, 4).addActionListener(event -> {
+        UGui.buttonCellEditor(tab1, 4).addActionListener(event -> {
             new Partner(this, (record) -> {
-                Uti5.stopCellEditing(tab1);
-                Record record2 = qProject.get(Uti5.getIndexRec(tab1));
+                UGui.stopCellEditing(tab1);
+                Record record2 = qProject.get(UGui.getIndexRec(tab1));
                 record2.set(eProject.prjpart_id, record.getInt(ePrjpart.id));
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
         });
 
-        Uti5.buttonCellEditor(tab5, 1).addActionListener(event -> {
+        UGui.buttonCellEditor(tab5, 1).addActionListener(event -> {
             Object grup = tab5.getValueAt(tab5.getSelectedRow(), 2);
             ParDefault frame = new ParDefault(this, record -> {
-                int index = Uti5.getIndexRec(tab2);
-                int index2 = Uti5.getIndexRec(tab5);
+                int index = UGui.getIndexRec(tab2);
+                int index2 = UGui.getIndexRec(tab5);
                 if (index != -1) {
                     Record sysprodRec = qPrjprod.get(index);
                     String script = sysprodRec.getStr(ePrjprod.script);
-                    String script2 = Uti5.paramdefAdd(script, record.getInt(eParams.id), qParams);
+                    String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
                     sysprodRec.set(ePrjprod.script, script2);
                     qPrjprod.execsql();
                     iwin.build(script2);
-                    Uti5.stopCellEditing(tab1, tab2, tab3, tab5);
+                    UGui.stopCellEditing(tab1, tab2, tab3, tab5);
                     selectionWin();
-                    Uti5.setSelectedRow(tab5, index2);
+                    UGui.setSelectedRow(tab5, index2);
                 }
             }, (int) grup);
         });
@@ -275,19 +275,19 @@ public class Order extends javax.swing.JFrame {
             }
         }
         if (index != -1) {
-            Uti5.setSelectedRow(tab1, index);
+            UGui.setSelectedRow(tab1, index);
         } else {
-            Uti5.setSelectedRow(tab1);
+            UGui.setSelectedRow(tab1);
         }
-        Uti5.scrollRectToRow(index, tab1);
+        UGui.scrollRectToRow(index, tab1);
     }
 
     private void loadingTab2() {
-        Uti5.stopCellEditing(tab1, tab2, tab3, tab5);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab5);
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
         if (tab1.getSelectedRow() != -1) {
 
-            Record projectRec = qProject.get(Uti5.getIndexRec(tab1));
+            Record projectRec = qProject.get(UGui.getIndexRec(tab1));
             int id = projectRec.getInt(eProject.id);
             qPrjprod.select(ePrjprod.up, "where", ePrjprod.order_id, "=", id);
 
@@ -309,7 +309,7 @@ public class Order extends javax.swing.JFrame {
     private void loadingWin() {
         try {
             int row[] = winTree.getSelectionRows();
-            DefMutableTreeNode root = Uti5.loadWinTree(iwin);
+            DefMutableTreeNode root = UGui.loadWinTree(iwin);
             winTree.setModel(new DefaultTreeModel(root));
             winTree.setSelectionRows(row);
 
@@ -320,11 +320,11 @@ public class Order extends javax.swing.JFrame {
 
     private void selectionTab1() {
         int index = -1;
-        Uti5.stopCellEditing(tab1);
+        UGui.stopCellEditing(tab1);
         if (tab1.getSelectedRow() != -1) {
 
-            lab2.setText("Заказ № " + qProject.getAs(Uti5.getIndexRec(tab1), eProject.num_ord));
-            int orderID = qProject.getAs(Uti5.getIndexRec(tab1), eProject.id);
+            lab2.setText("Заказ № " + qProject.getAs(UGui.getIndexRec(tab1), eProject.num_ord));
+            int orderID = qProject.getAs(UGui.getIndexRec(tab1), eProject.id);
             eProperty.orderID.write(String.valueOf(orderID));
             rsvPrj.load();
             loadingTab2();
@@ -337,20 +337,20 @@ public class Order extends javax.swing.JFrame {
             }
         }
         if (index != -1) {
-            Uti5.setSelectedRow(tab2, index);
+            UGui.setSelectedRow(tab2, index);
         } else {
-            Uti5.setSelectedRow(tab2);
+            UGui.setSelectedRow(tab2);
         }
     }
 
     private void selectionTab2() {
-        int index = Uti5.getIndexRec(tab2);
+        int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record prjprodRec = qPrjprod.get(index);
             String script = prjprodRec.getStr(ePrjprod.script);
             String systreeId = prjprodRec.getStr(ePrjprod.systree_id);
             eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
-            App.Top.frame.setTitle(eProfile.profile.title + Uti5.designTitle());
+            App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
             //qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", systreeId);            
 
             //Калькуляция и прорисовка окна
@@ -439,8 +439,8 @@ public class Order extends javax.swing.JFrame {
                 //}
                 txt21.setText(stv.handleRec.getStr(eArtikl.code));
                 txt34.setText(stv.handleRec.getStr(eArtikl.name));
-                txt24.setText(Uti5.df.format(iwin.rootGson.find(stv.id()).width()));
-                txt26.setText(Uti5.df.format(iwin.rootGson.find(stv.id()).height()));
+                txt24.setText(UGui.df.format(iwin.rootGson.find(stv.id()).width()));
+                txt26.setText(UGui.df.format(iwin.rootGson.find(stv.id()).height()));
                 txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
             }
             Arrays.asList(txt9, txt13, txt14, txt27, txt28,
@@ -451,7 +451,7 @@ public class Order extends javax.swing.JFrame {
 
     private void updateScript(float selectID) {
         String script = gson.toJson(iwin.rootGson);
-        Record prjprodRec = qPrjprod.get(Uti5.getIndexRec(tab2));
+        Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab2));
         prjprodRec.set(ePrjprod.script, script);
         qPrjprod.update(prjprodRec);
         selectionTab2();
@@ -910,24 +910,24 @@ public class Order extends javax.swing.JFrame {
 
         pan8.add(pan14, "card14");
 
-        pan12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Основные", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti5.getFont(0, 1)));
+        pan12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Основные", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0, 1)));
         pan12.setToolTipText("");
         pan12.setPreferredSize(new java.awt.Dimension(300, 200));
 
-        pan21.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Текстура изделия", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti5.getFont(0, 0)));
+        pan21.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Текстура изделия", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0, 0)));
         pan21.setPreferredSize(new java.awt.Dimension(308, 104));
 
-        lab27.setFont(frames.Uti5.getFont(0,0));
+        lab27.setFont(frames.UGui.getFont(0,0));
         lab27.setText("Основная");
         lab27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab27.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab31.setFont(frames.Uti5.getFont(0,0));
+        lab31.setFont(frames.UGui.getFont(0,0));
         lab31.setText("Внутренняя");
         lab31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab31.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab32.setFont(frames.Uti5.getFont(0,0));
+        lab32.setFont(frames.UGui.getFont(0,0));
         lab32.setText("Внешняя");
         lab32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab32.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1030,7 +1030,7 @@ public class Order extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lab35.setFont(frames.Uti5.getFont(0,0));
+        lab35.setFont(frames.UGui.getFont(0,0));
         lab35.setText("Ширина");
         lab35.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab35.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1056,7 +1056,7 @@ public class Order extends javax.swing.JFrame {
             }
         });
 
-        lab38.setFont(frames.Uti5.getFont(0,0));
+        lab38.setFont(frames.UGui.getFont(0,0));
         lab38.setText("Высота1");
         lab38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab38.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1082,7 +1082,7 @@ public class Order extends javax.swing.JFrame {
             }
         });
 
-        lab40.setFont(frames.Uti5.getFont(0,0));
+        lab40.setFont(frames.UGui.getFont(0,0));
         lab40.setText("Высота2");
         lab40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab40.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1162,23 +1162,23 @@ public class Order extends javax.swing.JFrame {
 
         pan8.add(pan12, "card12");
 
-        pan13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Рама, импост..", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti5.getFont(0, 1)));
+        pan13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Рама, импост..", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0, 1)));
         pan13.setPreferredSize(new java.awt.Dimension(300, 200));
 
-        pan20.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Текстура элемента", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti5.getFont(0, 0)));
+        pan20.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Текстура элемента", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0, 0)));
         pan20.setPreferredSize(new java.awt.Dimension(308, 104));
 
-        lab28.setFont(frames.Uti5.getFont(0,0));
+        lab28.setFont(frames.UGui.getFont(0,0));
         lab28.setText("Основная");
         lab28.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab28.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab43.setFont(frames.Uti5.getFont(0,0));
+        lab43.setFont(frames.UGui.getFont(0,0));
         lab43.setText("Внутренняя");
         lab43.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab43.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab44.setFont(frames.Uti5.getFont(0,0));
+        lab44.setFont(frames.UGui.getFont(0,0));
         lab44.setText("Внешняя");
         lab44.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab44.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1281,12 +1281,12 @@ public class Order extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lab33.setFont(frames.Uti5.getFont(0,0));
+        lab33.setFont(frames.UGui.getFont(0,0));
         lab33.setText("  Артикул");
         lab33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab33.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab34.setFont(frames.Uti5.getFont(0,0));
+        lab34.setFont(frames.UGui.getFont(0,0));
         lab34.setText("  Название");
         lab34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab34.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1352,15 +1352,15 @@ public class Order extends javax.swing.JFrame {
 
         pan8.add(pan13, "card13");
 
-        pan15.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Стеклопакет", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti5.getFont(0, 1)));
+        pan15.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Стеклопакет", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0, 1)));
         pan15.setPreferredSize(new java.awt.Dimension(300, 200));
 
-        lab29.setFont(frames.Uti5.getFont(0,0));
+        lab29.setFont(frames.UGui.getFont(0,0));
         lab29.setText("Артикул");
         lab29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab29.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab36.setFont(frames.Uti5.getFont(0,0));
+        lab36.setFont(frames.UGui.getFont(0,0));
         lab36.setText("Название");
         lab36.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab36.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1423,30 +1423,30 @@ public class Order extends javax.swing.JFrame {
 
         pan8.add(pan15, "card15");
 
-        pan16.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Створка", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.Uti5.getFont(0, 1)));
+        pan16.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Створка", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, frames.UGui.getFont(0, 1)));
         pan16.setPreferredSize(new java.awt.Dimension(3100, 200));
 
-        lab30.setFont(frames.Uti5.getFont(0,0));
+        lab30.setFont(frames.UGui.getFont(0,0));
         lab30.setText("Фурнитура");
         lab30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab30.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab37.setFont(frames.Uti5.getFont(0,0));
+        lab37.setFont(frames.UGui.getFont(0,0));
         lab37.setText("Арт. ручки");
         lab37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab37.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab39.setFont(frames.Uti5.getFont(0,0));
+        lab39.setFont(frames.UGui.getFont(0,0));
         lab39.setText("Текстура");
         lab39.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab39.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab46.setFont(frames.Uti5.getFont(0,0));
+        lab46.setFont(frames.UGui.getFont(0,0));
         lab46.setText("Высота ручки");
         lab46.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab46.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab45.setFont(frames.Uti5.getFont(0,0));
+        lab45.setFont(frames.UGui.getFont(0,0));
         lab45.setText("Напр. откр.");
         lab45.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab45.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1539,7 +1539,7 @@ public class Order extends javax.swing.JFrame {
         txt16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt16.setPreferredSize(new java.awt.Dimension(180, 18));
 
-        lab41.setFont(frames.Uti5.getFont(0,0));
+        lab41.setFont(frames.UGui.getFont(0,0));
         lab41.setText("Ширина");
         lab41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab41.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1565,7 +1565,7 @@ public class Order extends javax.swing.JFrame {
             }
         });
 
-        lab42.setFont(frames.Uti5.getFont(0,0));
+        lab42.setFont(frames.UGui.getFont(0,0));
         lab42.setText("Высота");
         lab42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab42.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1591,7 +1591,7 @@ public class Order extends javax.swing.JFrame {
             }
         });
 
-        lab47.setFont(frames.Uti5.getFont(0,0));
+        lab47.setFont(frames.UGui.getFont(0,0));
         lab47.setText("Наимен.ручки");
         lab47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab47.setPreferredSize(new java.awt.Dimension(80, 18));
@@ -1767,28 +1767,28 @@ public class Order extends javax.swing.JFrame {
 
         pan2.setPreferredSize(new java.awt.Dimension(300, 230));
 
-        lab1.setFont(frames.Uti5.getFont(0,0));
+        lab1.setFont(frames.UGui.getFont(0,0));
         lab1.setText("Тип расчтета");
         lab1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab1.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab1.setMinimumSize(new java.awt.Dimension(34, 14));
         lab1.setPreferredSize(new java.awt.Dimension(140, 18));
 
-        lab3.setFont(frames.Uti5.getFont(0,0));
+        lab3.setFont(frames.UGui.getFont(0,0));
         lab3.setText("Валюта название");
         lab3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab3.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab3.setMinimumSize(new java.awt.Dimension(34, 14));
         lab3.setPreferredSize(new java.awt.Dimension(140, 18));
 
-        lab4.setFont(frames.Uti5.getFont(0,0));
+        lab4.setFont(frames.UGui.getFont(0,0));
         lab4.setText("Cебестоимость");
         lab4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab4.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab4.setMinimumSize(new java.awt.Dimension(34, 14));
         lab4.setPreferredSize(new java.awt.Dimension(140, 18));
 
-        lab5.setFont(frames.Uti5.getFont(0,0));
+        lab5.setFont(frames.UGui.getFont(0,0));
         lab5.setText("Cтоимость без скидки");
         lab5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab5.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1819,7 +1819,7 @@ public class Order extends javax.swing.JFrame {
             }
         });
 
-        lab6.setFont(frames.Uti5.getFont(0,0));
+        lab6.setFont(frames.UGui.getFont(0,0));
         lab6.setText("Cтоимость со скидкой");
         lab6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab6.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1830,7 +1830,7 @@ public class Order extends javax.swing.JFrame {
         txt6.setFocusable(false);
         txt6.setPreferredSize(new java.awt.Dimension(60, 20));
 
-        lab7.setFont(frames.Uti5.getFont(0,0));
+        lab7.setFont(frames.UGui.getFont(0,0));
         lab7.setText("Общий вес");
         lab7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab7.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1841,7 +1841,7 @@ public class Order extends javax.swing.JFrame {
         txt7.setFocusable(false);
         txt7.setPreferredSize(new java.awt.Dimension(60, 20));
 
-        lab8.setFont(frames.Uti5.getFont(0,0));
+        lab8.setFont(frames.UGui.getFont(0,0));
         lab8.setText("Общая площадь");
         lab8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab8.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1996,19 +1996,19 @@ public class Order extends javax.swing.JFrame {
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Uti5.setSelectedRow(tab1);
+        UGui.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
         if (tab1.getBorder() != null) {
-            if (Uti5.isDeleteRecord(tab1, this, tab2) == 0 && tab1.getSelectedRow() != -1) {
-                Uti5.deleteRecord(tab1);
+            if (UGui.isDeleteRecord(tab1, this, tab2) == 0 && tab1.getSelectedRow() != -1) {
+                UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (Uti5.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
                 int row = tab2.getSelectedRow();
-                Uti5.deleteRecord(tab2);
+                UGui.deleteRecord(tab2);
                 ((DefTableModel) tab2.getModel()).fireTableRowsDeleted(row, row);
             } else {
                 JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
@@ -2019,9 +2019,9 @@ public class Order extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Uti5.insertRecord(tab1, eProject.up, (projectRec) -> {
+            UGui.insertRecord(tab1, eProject.up, (projectRec) -> {
                 projectRec.set(eProject.manager, eProfile.user);
-                projectRec.set(eProject.date4, Uti5.getDateCur());
+                projectRec.set(eProject.date4, UGui.getDateCur());
             });
 
         } else if (tab2.getBorder() != null) {
@@ -2031,14 +2031,14 @@ public class Order extends javax.swing.JFrame {
                 record2.set(ePrjprod.name, record.getStr(eSysprod.name));
                 record2.set(ePrjprod.script, record.getStr(eSysprod.script));
                 record2.set(ePrjprod.systree_id, record.getStr(eSysprod.systree_id));
-                record2.set(ePrjprod.order_id, qProject.getAs(Uti5.getIndexRec(tab1), eProject.id));
+                record2.set(ePrjprod.order_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
                 qPrjprod.insert(record2);
                 loadingTab2();
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 for (int index = 0; index < qPrjprod.size(); ++index) {
                     if (qPrjprod.get(index, eSysprod.id) == record2.get(eSysprod.id)) {
-                        Uti5.setSelectedRow(tab2, index);
-                        Uti5.scrollRectToRow(index, tab2);
+                        UGui.setSelectedRow(tab2, index);
+                        UGui.scrollRectToRow(index, tab2);
                         winTree.setSelectionRow(0);
                     }
                 }
@@ -2047,37 +2047,37 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        Uti5.stopCellEditing(tab1, tab2, tab3, tab5);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab5);
         eProperty.save(); //запишем текущий ordersId в файл
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        Uti5.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab5));
+        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab5));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
-        Uti5.stopCellEditing(tab1, tab2, tab3, tab5);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab5);
         if (tabb1.getSelectedIndex() == 0) {
-            Uti5.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab5));
+            UGui.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab5));
         } else if (tabb1.getSelectedIndex() == 1) {
-            Uti5.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab5));
+            UGui.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab5));
         } else if (tabb1.getSelectedIndex() == 2) {
-            Uti5.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab5));
+            UGui.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab5));
         }
     }//GEN-LAST:event_stateChanged
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
         Currenc frame = new Currenc(this, (record) -> {
-            int index = Uti5.getIndexRec(tab1);
+            int index = UGui.getIndexRec(tab1);
             if (index != -1) {
                 Record record2 = qProject.get(index);
                 record2.set(eProject.currenc_id, record.get(eCurrenc.id));
                 rsvPrj.load();
             }
-            Uti5.stopCellEditing(tab1, tab2, tab3, tab5);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab5);
         });
     }//GEN-LAST:event_btn1ActionPerformed
 
@@ -2086,7 +2086,7 @@ public class Order extends javax.swing.JFrame {
             if (windowsNode != null) {
                 float selectID = windowsNode.com5t().id();
                 HashSet<Record> set = new HashSet();
-                int systreeID = qPrjprod.getAs(Uti5.getIndexRec(tab2), ePrjprod.systree_id);
+                int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
                 Record systreeRec = eSystree.find(systreeID);
                 String[] arr1 = (systreeRec.getStr(eSystree.cgrp).isEmpty() == false) ? systreeRec.getStr(eSystree.cgrp).split(";") : null;
                 eSystree col = (evt.getSource() == btn9) ? eSystree.col1 : (evt.getSource() == btn13) ? eSystree.col2 : eSystree.col3;
@@ -2166,7 +2166,7 @@ public class Order extends javax.swing.JFrame {
         try {
             if (windowsNode != null) {
                 float selectID = windowsNode.com5t().id();
-                int systreeID = qPrjprod.getAs(Uti5.getIndexRec(tab2), ePrjprod.systree_id);
+                int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
                 Query qSysprof = new Query(eSysprof.values(), eArtikl.values()).select(eSysprof.up, "left join",
                         eArtikl.up, "on", eArtikl.id, "=", eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeID);
                 Query qSysprof2 = new Query(eSysprof.values(), eArtikl.values());
@@ -2210,7 +2210,7 @@ public class Order extends javax.swing.JFrame {
                         } else if (windowsNode.com5t().layout() == Layout.LEFT) {
                             stvKey = PKjson.stvorkaLeft;
                         }
-                        JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
+                        JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
                         jso.addProperty(PKjson.sysprofID, sysprofRec.getStr(eSysprof.id));
                         paramStr = gson.toJson(paramObj);
                         stvArea.param(paramStr);
@@ -2270,7 +2270,7 @@ public class Order extends javax.swing.JFrame {
                     } else if (windowsNode.com5t().layout() == Layout.LEFT) {
                         stvKey = PKjson.stvorkaLeft;
                     }
-                    JsonObject jso = Ujson.getAsJsonObject(paramObj, stvKey);
+                    JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
                     jso.addProperty(colorID, colorRec.getStr(eColor.id));
                     paramStr = gson.toJson(paramObj);
                     jsonArea.param(paramStr);
@@ -2298,7 +2298,7 @@ public class Order extends javax.swing.JFrame {
     private void sysfurnToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysfurnToStvorka
         try {
             float windowsID = windowsNode.com5t().id();
-            int systreeID = qPrjprod.getAs(Uti5.getIndexRec(tab2), ePrjprod.systree_id);
+            int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
 
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
@@ -2484,7 +2484,7 @@ public class Order extends javax.swing.JFrame {
     private void btnToArtiklGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToArtiklGlass
         try {
             float selectID = windowsNode.com5t().id();
-            int systreeID = qPrjprod.getAs(Uti5.getIndexRec(tab2), ePrjprod.systree_id);
+            int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
             Record systreeRec = eSystree.find(systreeID);
             String depth = systreeRec.getStr(eSystree.depth);
             if (depth != null && depth.isEmpty() == false) {
@@ -2575,8 +2575,8 @@ public class Order extends javax.swing.JFrame {
 
     private void btnCalcresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcresh
         try {
-            if (Uti5.getIndexRec(tab1) != -1) {
-                int projectID = qProject.get(Uti5.getIndexRec(tab1)).getInt(eProject.id);
+            if (UGui.getIndexRec(tab1) != -1) {
+                int projectID = qProject.get(UGui.getIndexRec(tab1)).getInt(eProject.id);
                 float total[] = {0, 0, 0, 0, 0, 0};
                 for (Record prjprodRec : qPrjprod) {
                     if (prjprodRec.getInt(ePrjprod.order_id) == projectID) {
@@ -2595,10 +2595,10 @@ public class Order extends javax.swing.JFrame {
                         }
                     }
                 }
-                txt4.setText(Uti5.df.format(total[1]));
-                txt5.setText(Uti5.df.format(total[2]));
-                txt6.setText(Uti5.df.format(total[3]));
-                txt7.setText(Uti5.df.format(total[0]));
+                txt4.setText(UGui.df.format(total[1]));
+                txt5.setText(UGui.df.format(total[2]));
+                txt6.setText(UGui.df.format(total[3]));
+                txt7.setText(UGui.df.format(total[0]));
             }
 
         } catch (Exception e) {
@@ -2623,7 +2623,7 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_tab5MousePressed
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        int index = Uti5.getIndexRec(tab5);
+        int index = UGui.getIndexRec(tab5);
         Record prjprodRec = qPrjprod.get(index);
         String script = prjprodRec.getStr(ePrjprod.script);
         System.out.println(script);
@@ -2755,11 +2755,11 @@ public class Order extends javax.swing.JFrame {
     private void initElements() {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
-        Uti5.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
+        UGui.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
         filterTable = new FilterTable(0, tab1);
         south.add(filterTable, 0);       
         filterTable.getTxt().grabFocus();  
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Uti5.stopCellEditing(tab1)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
         winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
         DefaultTreeCellRenderer rnd2 = (DefaultTreeCellRenderer) winTree.getCellRenderer();
         rnd2.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));
