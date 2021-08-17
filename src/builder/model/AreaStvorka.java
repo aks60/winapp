@@ -22,7 +22,7 @@ import enums.LayoutHandle;
 import enums.PKjson;
 import enums.Type;
 import enums.TypeOpen2;
-import frames.UJson;
+import frames.UJson2;
 import java.util.List;
 
 public class AreaStvorka extends AreaSimple {
@@ -41,13 +41,13 @@ public class AreaStvorka extends AreaSimple {
         JsonObject paramObj = new GsonBuilder().create().fromJson(param, JsonObject.class);
 
         //Добавим рамы створки    Ujson.getAsJsonObject(paramObj, stvKey)  
-        ElemFrame stvBot = new ElemFrame(this, id + .1f, Layout.BOTT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaBottom)));
+        ElemFrame stvBot = new ElemFrame(this, id + .1f, Layout.BOTT, gson.toJson(UJson2.getAsJsonObject(paramObj, PKjson.stvorkaBottom)));
         mapFrame.put(stvBot.layout(), stvBot);
-        ElemFrame stvRigh = new ElemFrame(this, id + .2f, Layout.RIGHT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaRight)));
+        ElemFrame stvRigh = new ElemFrame(this, id + .2f, Layout.RIGHT, gson.toJson(UJson2.getAsJsonObject(paramObj, PKjson.stvorkaRight)));
         mapFrame.put(stvRigh.layout(), stvRigh);
-        ElemFrame stvTop = new ElemFrame(this, id + .3f, Layout.TOP, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaTop)));
+        ElemFrame stvTop = new ElemFrame(this, id + .3f, Layout.TOP, gson.toJson(UJson2.getAsJsonObject(paramObj, PKjson.stvorkaTop)));
         mapFrame.put(stvTop.layout(), stvTop);
-        ElemFrame stvLeft = new ElemFrame(this, id + .4f, Layout.LEFT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaLeft)));
+        ElemFrame stvLeft = new ElemFrame(this, id + .4f, Layout.LEFT, gson.toJson(UJson2.getAsJsonObject(paramObj, PKjson.stvorkaLeft)));
         mapFrame.put(stvLeft.layout(), stvLeft);
 
         //Положение элементов створки с учётом нахлёста

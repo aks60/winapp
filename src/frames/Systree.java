@@ -2871,7 +2871,7 @@ public class Systree extends javax.swing.JFrame {
                         } else if (winNode.com5t().layout() == Layout.LEFT) {
                             stvKey = PKjson.stvorkaLeft;
                         }
-                        JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
+                        JsonObject jso = UJson2.getAsJsonObject(paramObj, stvKey);
                         jso.addProperty(PKjson.sysprofID, sysprofRec.getStr(eSysprof.id));
                         paramStr = gson.toJson(paramObj);
                         stvArea.param(paramStr);
@@ -2931,7 +2931,7 @@ public class Systree extends javax.swing.JFrame {
                     } else if (winNode.com5t().layout() == Layout.LEFT) {
                         stvKey = PKjson.stvorkaLeft;
                     }
-                    JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
+                    JsonObject jso = UJson2.getAsJsonObject(paramObj, stvKey);
                     jso.addProperty(colorID, colorRec.getStr(eColor.id));
                     paramStr = gson.toJson(paramObj);
                     parentArea.param(paramStr);
