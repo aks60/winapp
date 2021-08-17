@@ -3246,9 +3246,10 @@ public class Systree extends javax.swing.JFrame {
             if (winNode != null) {
                 ElemSimple elem5e = (ElemSimple) winNode.com5t();
                 JButton btn = (JButton) evt.getSource();
-                ElemJoining elemJoin =(btn.getName().equals("btn26")) ?iwin.mapJoin.get(elem5e.joinPoint(0)) :iwin.mapJoin.get(elem5e.joinPoint(1));;
-                //System.err.println(winNode.com5t().toString());
-                //Query qSysprofFilter = new Query(eSysprof.values(), eArtikl.values());
+                ElemJoining elemJoin =(btn.getName().equals("btn26")) ?iwin.mapJoin.get(elem5e.joinPoint(0)) :iwin.mapJoin.get(elem5e.joinPoint(1));
+                System.out.println(elemJoin);
+                Record record = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
+                
     
             }
         } catch (Exception e) {

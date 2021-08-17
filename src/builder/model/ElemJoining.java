@@ -74,7 +74,7 @@ public class ElemJoining {
     }
 
     public String toString() {
-        return "ELEM: name=" + layout.name + ", elem1=" + elem1.id() + ", elem2=" + elem2.id() + ", cutAngl1="
+        return "ELEM: layout=" + layout.name + ", elem1=" + elem1.id() + ", elem2=" + elem2.id() + ", cutAngl1="
                 + elem1.anglCut[0] + ", cutAngl2=" + elem2.anglCut[1] + ", type=" + type + ", angl=" + angl;
     }
 }
