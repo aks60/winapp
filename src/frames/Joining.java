@@ -219,7 +219,7 @@ public class Joining extends javax.swing.JFrame {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 0) {
-                    int types = qJoinvar.get(row).getInt(eJoinvar.types);
+                    int types = qJoinvar.get(Uti5.getIndexRec(tab2)).getInt(eJoinvar.types);
                     JLabel label = (JLabel) comp;
                     for (int i = 0; i < 6; i++) {
                         if (types == indexIcon[i]) {

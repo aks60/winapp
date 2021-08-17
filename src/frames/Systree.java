@@ -638,31 +638,32 @@ public class Systree extends javax.swing.JFrame {
                 txt24.setText(Uti5.df.format(iwin.rootGson.find(stv.id()).width()));
                 txt26.setText(Uti5.df.format(iwin.rootGson.find(stv.id()).height()));
                 txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
-                
+
                 //Соединения
             } else if (winNode.com5t().type() == enums.Type.JOINING) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card17");
-
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
-                ElemSimple  elem5e = (ElemSimple) nodeParent.com5t();                
+                ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
                 ElemJoining ej1 = iwin.mapJoin.get(elem5e.joinPoint(0));
                 ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = iwin.mapJoin.get(elem5e.joinPoint(2));
+                Arrays.asList(txt36, txt37, txt38, txt39, txt40, txt41).forEach(it -> it.setText(""));
                 if (ej1 != null) {
-                    txt36.setText(elem5e.artiklRecAn.getStr(eArtikl.code));
-                    txt38.setText(ej1.joinvarRec.getStr(eJoinvar.name) + " (" + ej1.joiningRec.getStr(eJoining.name) + ")");
+                    txt38.setText(ej1.joinvarRec.getStr(eJoinvar.name));
+                    txt36.setText(ej1.joiningRec.getStr(eJoining.name));
                 }
                 if (ej2 != null) {
-                    txt39.setText(ej2.joinvarRec.getStr(eJoinvar.name) + " (" + ej2.joiningRec.getStr(eJoining.name) + ")");
-                }                
+                    txt39.setText(ej2.joinvarRec.getStr(eJoinvar.name));
+                    txt37.setText(ej2.joiningRec.getStr(eJoining.name));
+                }
                 if (ej3 != null) {
-                    //txt39.setText(ej2.joinvarRec.getStr(eJoinvar.name) + " (" + ej2.joiningRec.getStr(eJoining.name) + ")");
-                }                
-
+                    txt41.setText(ej3.joinvarRec.getStr(eJoinvar.name));
+                    txt40.setText(ej3.joiningRec.getStr(eJoining.name));
+                }
             }
             lab2.setText("ID = " + winNode.com5t().id());
             Arrays.asList(txt9, txt13, txt14, txt21, txt24, txt25, txt26, txt27, txt28,
-                    txt29, txt19, txt20, txt30, txt34, txt38, txt39).forEach(it -> it.setCaretPosition(0));
+                    txt29, txt19, txt20, txt30, txt34, txt36, txt37, txt38, txt39).forEach(it -> it.setCaretPosition(0));
             Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
     }
@@ -1961,12 +1962,12 @@ public class Systree extends javax.swing.JFrame {
         lab49.setFont(frames.Uti5.getFont(0,0));
         lab49.setText("1  соединение");
         lab49.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab49.setPreferredSize(new java.awt.Dimension(92, 18));
+        lab49.setPreferredSize(new java.awt.Dimension(80, 18));
 
         lab50.setFont(frames.Uti5.getFont(0,0));
         lab50.setText("2  соединение");
         lab50.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab50.setPreferredSize(new java.awt.Dimension(92, 18));
+        lab50.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt36.setEditable(false);
         txt36.setBackground(new java.awt.Color(255, 255, 255));
@@ -1979,8 +1980,9 @@ public class Systree extends javax.swing.JFrame {
         txt37.setPreferredSize(new java.awt.Dimension(180, 18));
 
         lab55.setFont(frames.Uti5.getFont(0,0));
+        lab55.setText("Вариант");
         lab55.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab55.setPreferredSize(new java.awt.Dimension(92, 18));
+        lab55.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt38.setEditable(false);
         txt38.setBackground(new java.awt.Color(255, 255, 255));
@@ -2012,8 +2014,9 @@ public class Systree extends javax.swing.JFrame {
         });
 
         lab56.setFont(frames.Uti5.getFont(0,0));
+        lab56.setText("Вариант");
         lab56.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab56.setPreferredSize(new java.awt.Dimension(92, 18));
+        lab56.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt39.setEditable(false);
         txt39.setBackground(new java.awt.Color(255, 255, 255));
@@ -2023,7 +2026,7 @@ public class Systree extends javax.swing.JFrame {
         lab54.setFont(frames.Uti5.getFont(0,0));
         lab54.setText("3  соединение");
         lab54.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab54.setPreferredSize(new java.awt.Dimension(92, 18));
+        lab54.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt40.setEditable(false);
         txt40.setBackground(new java.awt.Color(255, 255, 255));
@@ -2031,8 +2034,9 @@ public class Systree extends javax.swing.JFrame {
         txt40.setPreferredSize(new java.awt.Dimension(180, 18));
 
         lab57.setFont(frames.Uti5.getFont(0,0));
+        lab57.setText("Вариант");
         lab57.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab57.setPreferredSize(new java.awt.Dimension(92, 18));
+        lab57.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt41.setEditable(false);
         txt41.setBackground(new java.awt.Color(255, 255, 255));
@@ -2043,11 +2047,11 @@ public class Systree extends javax.swing.JFrame {
         btn28.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn28.setMaximumSize(new java.awt.Dimension(18, 18));
         btn28.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn28.setName("btn26"); // NOI18N
+        btn28.setName("btn28"); // NOI18N
         btn28.setPreferredSize(new java.awt.Dimension(18, 18));
         btn28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn28joinToFrame(evt);
+                joinToFrame(evt);
             }
         });
 
@@ -2071,11 +2075,11 @@ public class Systree extends javax.swing.JFrame {
                             .addGroup(pan17Layout.createSequentialGroup()
                                 .addComponent(lab49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt36, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
+                                .addComponent(txt36, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
                             .addGroup(pan17Layout.createSequentialGroup()
                                 .addComponent(lab54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt40, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)))
+                                .addComponent(txt40, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3317,9 +3321,12 @@ public class Systree extends javax.swing.JFrame {
     private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame
         try {
             if (winNode != null) {
-                ElemSimple elem5e = (ElemSimple) winNode.com5t();
+                DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
+                ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
                 JButton btn = (JButton) evt.getSource();
-                ElemJoining elemJoin = (btn.getName().equals("btn26")) ? iwin.mapJoin.get(elem5e.joinPoint(0)) : iwin.mapJoin.get(elem5e.joinPoint(1));
+                int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
+                ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
+                Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
                 Joining joining = new Joining(iwin, true);
                 List<Record> list = joining.varList(elemJoin);
                 new DicJoinvar(this, (record) -> {
@@ -3330,10 +3337,6 @@ public class Systree extends javax.swing.JFrame {
             System.err.println("Ошибка: " + e);
         }
     }//GEN-LAST:event_joinToFrame
-
-    private void btn28joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn28joinToFrame
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn28joinToFrame
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

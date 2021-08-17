@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.listener.ListenerRecord;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.DefaultTableColumnModel;
 import startup.Main;
@@ -29,6 +30,7 @@ public class DicJoinvar extends javax.swing.JDialog {
         new ImageIcon(getClass().getResource("/resource/img16/b003.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b004.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
+    private int[] indexIcon = {10, 20, 30, 31, 40, 41};
     private ListenerRecord listener = null;
 
     public DicJoinvar(java.awt.Frame parent, ListenerRecord listenet) {
@@ -39,7 +41,7 @@ public class DicJoinvar extends javax.swing.JDialog {
         loadingModel();
         setVisible(true);
     }
-    
+
     public DicJoinvar(java.awt.Frame parent, ListenerRecord listenet, List<Record> joinvarList) {
         super(parent, true);
         initComponents();
@@ -50,7 +52,7 @@ public class DicJoinvar extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
-        
+
         String[] titl = {"Наименование соединения", "ID"};
         Object[][] rows = {{TypeJoin.VAR10.name, TypeJoin.VAR10.id}, {TypeJoin.VAR20.name, TypeJoin.VAR20.id}, {TypeJoin.VAR30.name, TypeJoin.VAR30.id},
         {TypeJoin.VAR31.name, TypeJoin.VAR31.id}, {TypeJoin.VAR40.name, TypeJoin.VAR40.id}, {TypeJoin.VAR41.name, TypeJoin.VAR41.id}};
@@ -77,7 +79,12 @@ public class DicJoinvar extends javax.swing.JDialog {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                label.setIcon(icon[row]);
+                int types = qJoinvar.get(Uti5.getIndexRec(tab1)).getInt(eJoinvar.types);
+                for (int i = 0; i < 6; i++) {
+                    if (types == indexIcon[i]) {
+                        label.setIcon(icon[i]);
+                    }
+                }
                 return label;
             }
         });

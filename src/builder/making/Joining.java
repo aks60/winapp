@@ -125,10 +125,8 @@ public class Joining extends Cal5e {
 
         //Цикл по вариантам соединения
         for (Record joinvarRec : joinvarList) {
-
             //Если варианты соединения совпали
             if (elemJoin.layout.equalType(joinvarRec.getInt(eJoinvar.types))) {
-
                 //ФИЛЬТР вариантов  
                 if (joiningVar.filter(elemJoin, joinvarRec) == true) {
                     joinvarRec.setNo(eJoinvar.name, joinvarRec.getStr(eJoinvar.name) + " (" + joiningRec.getStr(eJoining.name) + ")");

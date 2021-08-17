@@ -66,7 +66,7 @@ public class DicArtikl extends javax.swing.JDialog {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eArtikl.level2) {
-                    Record record = qArtikl.get(row);
+                    Record record = qArtikl.get(Uti5.getIndexRec(tab2));
                     return TypeArtikl.find(record.getInt(eArtikl.level1), 0) + "."
                             + TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
                 }
