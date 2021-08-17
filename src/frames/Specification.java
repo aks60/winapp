@@ -17,7 +17,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import builder.Wincalc;
 import builder.making.Specific;
-import common.Util;
+import common.UCom;
 import dataset.Query;
 import domain.eSysprod;
 import java.awt.Component;
@@ -458,7 +458,7 @@ public class Specification extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
-        float id = Util.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
+        float id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         Specific recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
@@ -468,7 +468,7 @@ public class Specification extends javax.swing.JFrame {
     }//GEN-LAST:event_btnArtikles
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        float id = Util.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
+        float id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         String str = tab1.getValueAt(tab1.getSelectedRow(), 3).toString().substring(0, 3);
         Specific recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         Record recordDet = recordSpc.detailRec;
@@ -506,7 +506,7 @@ public class Specification extends javax.swing.JFrame {
     private void cbxGroupBy(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxGroupBy
 
         filterTable.getTxt().setText(null);
-        float id = (UGui.getIndexRec(tab1) == -1) ? -1 : Util.getFloat(tab1.getValueAt(UGui.getIndexRec(tab1), 1).toString());
+        float id = (UGui.getIndexRec(tab1) == -1) ? -1 : UCom.getFloat(tab1.getValueAt(UGui.getIndexRec(tab1), 1).toString());
 
         if (cbx1.getSelectedIndex() == 0) {
             loadingTab1(iwin.listSpec);
@@ -535,7 +535,7 @@ public class Specification extends javax.swing.JFrame {
         }
 
         for (int i = 0; i < tab1.getRowCount() - 1; i++) {
-            if (tab1.getValueAt(i, 1) != null && Util.getFloat(tab1.getValueAt(i, 1).toString()) == id) {
+            if (tab1.getValueAt(i, 1) != null && UCom.getFloat(tab1.getValueAt(i, 1).toString()) == id) {
                 UGui.setSelectedRow(tab1, i);
                 return;
             }
@@ -616,7 +616,7 @@ public class Specification extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer1 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
-                    value = (Util.getFloat(value.toString()) > 0) ? df0.format(value) : null;
+                    value = (UCom.getFloat(value.toString()) > 0) ? df0.format(value) : null;
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;
@@ -625,7 +625,7 @@ public class Specification extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer2 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
-                    value = (Util.getFloat(value.toString()) > 0) ? df1.format(value) : null;
+                    value = (UCom.getFloat(value.toString()) > 0) ? df1.format(value) : null;
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;
@@ -634,7 +634,7 @@ public class Specification extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
-                    value = (Util.getFloat(value.toString()) > 0) ? df2.format(value) : null;
+                    value = (UCom.getFloat(value.toString()) > 0) ? df2.format(value) : null;
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;
@@ -643,7 +643,7 @@ public class Specification extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer4 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
-                    value = (Util.getFloat(value.toString()) > 0) ? df3.format(value) : null;
+                    value = (UCom.getFloat(value.toString()) > 0) ? df3.format(value) : null;
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;

@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import common.Util;
+import common.UCom;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -2090,7 +2090,7 @@ public class Order extends javax.swing.JFrame {
                 Record systreeRec = eSystree.find(systreeID);
                 String[] arr1 = (systreeRec.getStr(eSystree.cgrp).isEmpty() == false) ? systreeRec.getStr(eSystree.cgrp).split(";") : null;
                 eSystree col = (evt.getSource() == btn9) ? eSystree.col1 : (evt.getSource() == btn13) ? eSystree.col2 : eSystree.col3;
-                Integer[] arr2 = Util.parserInt(systreeRec.getStr(col));
+                Integer[] arr2 = UCom.parserInt(systreeRec.getStr(col));
                 if (arr1 != null) {
                     for (String s1 : arr1) { //группы
                         HashSet<Record> se2 = new HashSet();
@@ -2533,16 +2533,16 @@ public class Order extends javax.swing.JFrame {
 
     private void txt17Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt17Update
         float windowsID = windowsNode.com5t().id();
-        float dx = Util.getFloat(txt17.getText()) / iwin.rootGson.width();
-        iwin.rootGson.width(Util.getFloat(txt17.getText()));
+        float dx = UCom.getFloat(txt17.getText()) / iwin.rootGson.width();
+        iwin.rootGson.width(UCom.getFloat(txt17.getText()));
         iwin.rootGson.widthDown(iwin.rootGson, dx);
         updateScript(windowsID);
     }//GEN-LAST:event_txt17Update
 
     private void txt22Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt22Update
         float windowsID = windowsNode.com5t().id();
-        float dy = Util.getFloat(txt22.getText()) / iwin.rootGson.height();
-        iwin.rootGson.height(Util.getFloat(txt22.getText()));
+        float dy = UCom.getFloat(txt22.getText()) / iwin.rootGson.height();
+        iwin.rootGson.height(UCom.getFloat(txt22.getText()));
         //        if (iwin.rootGson.heightAdd() != null) {
         //            iwin.rootGson.heightAdd(Util.getFloat(txt22.getText()));
         //        }
@@ -2562,14 +2562,14 @@ public class Order extends javax.swing.JFrame {
     private void txt24Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt24Update
         float windowsID = windowsNode.com5t().id();
         GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
-        jsonStv.widthUp(Util.getFloat(txt24.getText()));
+        jsonStv.widthUp(UCom.getFloat(txt24.getText()));
         updateScript(windowsID);
     }//GEN-LAST:event_txt24Update
 
     private void txt26Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt26Update
         float windowsID = windowsNode.com5t().id();
         GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
-        jsonStv.heightUp(Util.getFloat(txt26.getText()));
+        jsonStv.heightUp(UCom.getFloat(txt26.getText()));
         updateScript(windowsID);
     }//GEN-LAST:event_txt26Update
 

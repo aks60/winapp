@@ -11,7 +11,7 @@ import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
-import common.Util;
+import common.UCom;
 import enums.Type;
 import enums.TypeJoin;
 
@@ -57,7 +57,7 @@ public class ElementVar extends Par5s {
                             depth = (glass.artiklRecAn.getFloat(eArtikl.depth));
                         }
                     }
-                    if (Util.containsNumb(rec.getStr(TEXT), depth) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), depth) == false) {
                         return false;
                     }
                 }
@@ -92,19 +92,19 @@ public class ElementVar extends Par5s {
                     break;
                 case 31005:  //Коды основной текстуры контейнера 
                 case 37005:  //Коды основной текстуры контейнера 
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.colorID1) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.colorID1) == false) {
                         return false;
                     }
                     break;
                 case 31006:  //Коды внутр. текстуры контейнера 
                 case 37006:  //Коды внутр. текстуры контейнера  
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.colorID2) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.colorID2) == false) {
                         return false;
                     }
                     break;
                 case 31007:  //Коды внешн. текстуры контейнера 
                 case 37007:  //Коды внешн. текстуры контейнера  
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.colorID3) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.colorID3) == false) {
                         return false;
                     }
                     break;
@@ -118,12 +118,12 @@ public class ElementVar extends Par5s {
                     List<ElemGlass> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(0) instanceof ElemGlass && glassList.get(1) instanceof ElemGlass) {
                         if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
-                            if (Util.containsNumbAny(rec.getStr(TEXT),
+                            if (UCom.containsNumbAny(rec.getStr(TEXT),
                                     glassList.get(0).artiklRec.getFloat(eArtikl.depth),
                                     glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
                                 return false;
                             }
-                        } else if (Util.containsNumb(rec.getStr(TEXT),
+                        } else if (UCom.containsNumb(rec.getStr(TEXT),
                                 glassList.get(0).artiklRec.getFloat(eArtikl.depth),
                                 glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
                             return false;
@@ -135,7 +135,7 @@ public class ElementVar extends Par5s {
                 {
                     List<ElemGlass> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(1) instanceof ElemGlass) {
-                        if (Util.containsNumb(rec.getStr(TEXT),
+                        if (UCom.containsNumb(rec.getStr(TEXT),
                                 glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
                             return false;
                         }
@@ -146,7 +146,7 @@ public class ElementVar extends Par5s {
                 {
                     List<ElemGlass> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(0) instanceof ElemGlass) {
-                        if (Util.containsNumb(rec.getStr(TEXT),
+                        if (UCom.containsNumb(rec.getStr(TEXT),
                                 glassList.get(0).artiklRec.getFloat(eArtikl.depth)) == false) {
                             return false;
                         }
@@ -188,7 +188,7 @@ public class ElementVar extends Par5s {
                             return false;
                         }
                     } else {
-                        if (Util.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
+                        if (UCom.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
                             return false;
                         }
                     }
@@ -236,7 +236,7 @@ public class ElementVar extends Par5s {
                     message(grup);
                     break;
                 case 31041:  //Ограничение длины профиля, мм 
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.length()) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.length()) == false) {
                         return false;
                     }
                     break;
@@ -261,21 +261,21 @@ public class ElementVar extends Par5s {
                     break;
                 case 31054:  //Коды основной текстуры изделия
                 case 37054:  //Коды основной текстуры изделия    
-                    if (Util.containsNumb(rec.getStr(TEXT), iwin.colorID1) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), iwin.colorID1) == false) {
                         return false;
                     }
                     break;
                 case 31055:  //Коды внутр. и внешн. текстуры изд.
                 case 37055:  //Коды внутр. и внешн. текстуры изд. 
-                    if ((Util.containsNumb(rec.getStr(TEXT), elem5e.colorID2) == true
-                            && Util.containsNumb(rec.getStr(TEXT), elem5e.colorID3) == true) == false) {
+                    if ((UCom.containsNumb(rec.getStr(TEXT), elem5e.colorID2) == true
+                            && UCom.containsNumb(rec.getStr(TEXT), elem5e.colorID3) == true) == false) {
                         return false;
                     }
                     break;
                 case 31056:  //Коды внутр. или внеш. текстуры изд. 
                 case 37056:  //Коды внут. или внеш. текстуры изд. 
-                    if ((Util.containsNumb(rec.getStr(TEXT), elem5e.colorID2) == true
-                            || Util.containsNumb(rec.getStr(TEXT), elem5e.colorID3) == true) == false) {
+                    if ((UCom.containsNumb(rec.getStr(TEXT), elem5e.colorID2) == true
+                            || UCom.containsNumb(rec.getStr(TEXT), elem5e.colorID3) == true) == false) {
                         return false;
                     }
                     break;
@@ -285,8 +285,8 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31060:  //Допустимый угол между плоскостями, ° 
-                    if ((Util.containsNumb(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(0)).angl) == true
-                            || Util.containsNumb(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(1)).angl) == true) == false) {
+                    if ((UCom.containsNumb(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(0)).angl) == true
+                            || UCom.containsNumb(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(1)).angl) == true) == false) {
                         return false;
                     }
                     break;
@@ -364,7 +364,7 @@ public class ElementVar extends Par5s {
                 }
                 break;
                 case 37010:  //Ограничение ширины/высоты листа, мм 
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.width(), elem5e.height()) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.width(), elem5e.height()) == false) {
                         return false;
                     }
                     break;
@@ -374,7 +374,7 @@ public class ElementVar extends Par5s {
                             return false;
                         }
                     } else {
-                        if (Util.containsNumb(rec.getStr(TEXT), elem5e.width() / 1000 * elem5e.height() / 1000) == false) {
+                        if (UCom.containsNumb(rec.getStr(TEXT), elem5e.width() / 1000 * elem5e.height() / 1000) == false) {
                             return false;
                         }
                     }
@@ -396,7 +396,7 @@ public class ElementVar extends Par5s {
                     } else {
                         float max = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
                         float min = (elem5e.width() > elem5e.height()) ? elem5e.height() : elem5e.width();
-                        if (Util.containsNumb(rec.getStr(TEXT), max / min) == false) {
+                        if (UCom.containsNumb(rec.getStr(TEXT), max / min) == false) {
                             return false;
                         }
                     }

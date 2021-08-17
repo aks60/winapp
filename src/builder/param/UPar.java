@@ -4,7 +4,7 @@ import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
-import common.Util;
+import common.UCom;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eElement;
@@ -63,12 +63,12 @@ class UPar {
             String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
             int[] index = {1, 2, 3, 5, 19};
             for (int i = 0; i < arr.length; i++) {
-                if (arr.equals(txt) && Util.containsNumb(String.valueOf(index[i]), elem5e.type().id) == false) {
+                if (arr.equals(txt) && UCom.containsNumb(String.valueOf(index[i]), elem5e.type().id) == false) {
                     return false;
                 }
             }
         } else {
-            if (Util.containsNumb(txt, elem5e.type().id) == false) {
+            if (UCom.containsNumb(txt, elem5e.type().id) == false) {
                 return false;
             }
         }
@@ -110,7 +110,7 @@ class UPar {
         List<String> arrList = Arrays.asList(arr);
         boolean ret = false;
         for (String str : arrList) {
-            if (systreefRec.getInt(eSystree.types) == Util.getInt(str) == true) {
+            if (systreefRec.getInt(eSystree.types) == UCom.getInt(str) == true) {
                 ret = true;
             }
         }
@@ -212,11 +212,11 @@ class UPar {
     static boolean is_21010_21011_21012_21013(String txt, ElemSimple elem5e) {
         String[] arr = txt.split("-");
         if (arr.length == 1) { //Минимальная длина, мм
-            if (Util.getInt(txt) < elem5e.length()) {
+            if (UCom.getInt(txt) < elem5e.length()) {
                 return false;
             }
         } else {
-            if (Util.getInt(arr[0]) > elem5e.length() || Util.getInt(arr[1]) < elem5e.length()) {
+            if (UCom.getInt(arr[0]) > elem5e.length() || UCom.getInt(arr[1]) < elem5e.length()) {
                 return false;
             }
         }

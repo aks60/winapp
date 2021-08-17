@@ -12,7 +12,7 @@ import java.util.List;
 import builder.Wincalc;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
-import common.Util;
+import common.UCom;
 import enums.Layout;
 import enums.Type;
 
@@ -105,7 +105,7 @@ public class FillingDet extends Par5s {
                         if (rec.getFloat(TEXT) != elem5e.anglHoriz) {
                             return false;
                         }
-                    } else if (Util.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
+                    } else if (UCom.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
                         return false;
                     }
                     break;
@@ -119,19 +119,19 @@ public class FillingDet extends Par5s {
                     break;
                 case 14067:  //Коды основной текстуры изделия 
                 case 15067:  //Коды основной текстуры изделия    
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
                         return false;
                     }
                     break;
                 case 14068:  //Коды внутр. текстуры изделия 
                 case 15068:  //Коды внутр. текстуры изделия     
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
                         return false;
                     }
                     break;
                 case 14069:  //Коды внешн. текстуры изделия 
                 case 15069:  //Коды внешн. текстуры изделия     
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID3) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID3) == false) {
                         return false;
                     }
                     break;

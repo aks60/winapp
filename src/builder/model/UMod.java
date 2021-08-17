@@ -6,7 +6,7 @@ import builder.param.ParamList;
 import enums.UseUnit;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
-import common.Util;
+import common.UCom;
 import domain.eSetting;
 import enums.Layout;
 import java.util.List;
@@ -24,7 +24,7 @@ class UMod {
 
         String ps = spcAdd.getParam("null", 25013); //Укорочение от
         List<String> list = ParamList.find(25013).dict();  //[длины стороны, высоты ручки, сторона выс-ручки, половины стороны]             
-        float dx = Util.getFloat(spcAdd.getParam(0, 25030)); //"Укорочение, мм"
+        float dx = UCom.getFloat(spcAdd.getParam(0, 25030)); //"Укорочение, мм"
 
         if (list.get(0).equals(ps)) {
             return spcRec.width - dx;
@@ -48,7 +48,7 @@ class UMod {
 
         int step = Integer.valueOf(spcAdd.getParam(-1, 14050, 24050, 33050, 38050)); //Шаг, мм
         if (step != -1) {
-            float width_begin = Util.getFloat(spcAdd.getParam(0, 14040, 24040, 33040, 38040)); //Порог расчета, мм
+            float width_begin = UCom.getFloat(spcAdd.getParam(0, 14040, 24040, 33040, 38040)); //Порог расчета, мм
             int count_step = Integer.valueOf(spcAdd.getParam(1, 14060, 24060, 33060, 38060)); //"Количество на шаг"
             float width_next = 0;
             if ("null".equals(spcAdd.getParam("null", 38004, 39005))) {
@@ -94,7 +94,7 @@ class UMod {
 
         int step = Integer.valueOf(spcAdd.getParam(-1, 11050)); //Шаг, мм
         if (step != -1) {
-            float width_begin = Util.getFloat(spcAdd.getParam(0, 11040)); //Порог расчета, мм
+            float width_begin = UCom.getFloat(spcAdd.getParam(0, 11040)); //Порог расчета, мм
             int count_step = Integer.valueOf(spcAdd.getParam(1, 11060)); //"Количество на шаг"
             ElemSimple elem5e = null;
             float width_next = 0;
@@ -137,14 +137,14 @@ class UMod {
 
     //Количество ед.
     float get_11030_12060_14030_15040_25060_33030_34060_38030_39060(Specific spсRec, Specific spcAdd) {
-        return Util.getFloat(spcAdd.getParam(spcAdd.count,
+        return UCom.getFloat(spcAdd.getParam(spcAdd.count,
                 11030, 12060, 14030, 15040, 25060, 33030, 34060, 38030, 39060));
     }
 
     //Поправка, мм
     float get_12050_15050_34051_39020(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
-            return Util.getFloat(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
+            return UCom.getFloat(spcAdd.getParam(0, 12050, 15050, 34050, 34051, 39020)); //Поправка, мм
         }
         return spcAdd.width;
     }
@@ -152,24 +152,24 @@ class UMod {
     //Длина, мм
     float get_12065_15045_25040_34070_39070(Specific spcRec, Specific spcAdd) {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
-            return Util.getFloat(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
+            return UCom.getFloat(spcAdd.getParam(spcAdd.width, 12065, 15045, 25040, 34070, 39070)); //Длина, мм 
         }
         return spcAdd.width;
     }
 
     //Коэффициент, [ * коэф-т ]
     float get_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
-        return Util.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));
+        return UCom.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));
     }
 
     //Коэффициент, [ / коэф-т ]
     float get_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
-        return Util.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));
+        return UCom.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));
     }
 
     //Othe
     float get_11030_12060_14030_15040_24030_25060_33030_34060_38030_39060(Specific spcRec, Specific spcAdd) {
-        return Util.getFloat(spcAdd.getParam(spcAdd.quant1,
+        return UCom.getFloat(spcAdd.getParam(spcAdd.quant1,
                 11030, 12060, 14030, 15040, 24030, 25060, 33030, 34060, 38030, 39060));
     }
 
@@ -177,19 +177,19 @@ class UMod {
     void get_34077_39077(Specific spcAdd) {
         if ("ps3".equals(eSetting.find(2))) {
             if (spcAdd.getParam("-1", 34077).equals("-1") == false) {
-                spcAdd.anglCut1 = Util.getFloat(spcAdd.getParam("-1", 34077));
+                spcAdd.anglCut1 = UCom.getFloat(spcAdd.getParam("-1", 34077));
             }
             if (spcAdd.getParam("-1", 34078).equals("-1") == false) {
-                spcAdd.anglCut2 = Util.getFloat(spcAdd.getParam("-1", 34078));
+                spcAdd.anglCut2 = UCom.getFloat(spcAdd.getParam("-1", 34078));
             }
         } else {
             if (spcAdd.getParam("-1", 34077, 39077).equals("-1") == false) {
                 String[] arr = spcAdd.getParam("-1", 34077, 39077).split("/");
                 if (arr[0].equals("*") == false) {
-                    spcAdd.anglCut1 = Util.getFloat(arr[0]);
+                    spcAdd.anglCut1 = UCom.getFloat(arr[0]);
                 }
                 if (arr[1].equals("*") == false) {
-                    spcAdd.anglCut2 = Util.getFloat(arr[1]);
+                    spcAdd.anglCut2 = UCom.getFloat(arr[1]);
                 }
             }
         }

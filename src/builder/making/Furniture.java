@@ -16,7 +16,7 @@ import builder.param.FurnitureDet;
 import builder.param.FurnitureVar;
 import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
-import common.Util;
+import common.UCom;
 import dataset.Query;
 import enums.Type;
 import java.util.Arrays;
@@ -212,7 +212,7 @@ public class Furniture extends Cal5e {
                     } else {
                         UColor.colorFromProduct(spcAdd, 1); //попадает или нет в спецификацию по цвету
                     }
-                    spcAdd.count = Util.getFloat(spcAdd.getParam(spcAdd.count, 24030));
+                    spcAdd.count = UCom.getFloat(spcAdd.getParam(spcAdd.count, 24030));
                     spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
                     spcAdd.place = "ФУРН";
                     sideStv.addSpecific(spcAdd); //добавим спецификацию в элемент

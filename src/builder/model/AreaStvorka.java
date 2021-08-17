@@ -16,7 +16,7 @@ import builder.Wincalc;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import common.Util;
+import common.UCom;
 import domain.eSysfurn;
 import enums.LayoutHandle;
 import enums.PKjson;
@@ -203,7 +203,7 @@ public class AreaStvorka extends AreaSimple {
             List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
             Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.params_id) == 1040).findFirst().orElse(null);
             if (joinpar1Rec != null) {
-                return Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
+                return UCom.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
             }
         }
         return 0;

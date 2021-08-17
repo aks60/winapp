@@ -10,7 +10,7 @@ import builder.Wincalc;
 import builder.model.Com5t;
 import builder.model.ElemGlass;
 import builder.model.ElemSimple;
-import common.Util;
+import common.UCom;
 import domain.eArtikl;
 import enums.Type;
 
@@ -68,19 +68,19 @@ public class ElementDet extends Par5s {
                     break;
                 case 33005:  //Коды основной текстуры контейнера 
                 case 34005:  //Коды основной текстуры контейнера
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
                         return false;
                     }
                     break;
                 case 33006:  //Коды внутр. текстуры контейнера
                 case 34006:  //Коды внутр. текстуры контейнера 
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
                         return false;
                     }
                     break;
                 case 33007:  //Коды внешн. текстуры контейнера 
                 case 34007:  //Коды внешн. текстуры контейнера     
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID3) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID3) == false) {
                         return false;
                     }
                     break;
@@ -94,12 +94,12 @@ public class ElementDet extends Par5s {
                     List<ElemGlass> glassList = UPar.getGlassDepth(elem5e);
                     if (glassList.get(0) instanceof ElemGlass && glassList.get(1) instanceof ElemGlass) {
                         if ("ps3".equals(eSetting.find(2))) { //Толщина заполнения, мм
-                            if (Util.containsNumbAny(rec.getStr(TEXT),
+                            if (UCom.containsNumbAny(rec.getStr(TEXT),
                                     glassList.get(0).artiklRec.getFloat(eArtikl.depth),
                                     glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
                                 return false;
                             }
-                        } else if (Util.containsNumb(rec.getStr(TEXT),
+                        } else if (UCom.containsNumb(rec.getStr(TEXT),
                                 glassList.get(0).artiklRec.getFloat(eArtikl.depth),
                                 glassList.get(1).artiklRec.getFloat(eArtikl.depth)) == false) {
                             return false;
@@ -157,7 +157,7 @@ public class ElementDet extends Par5s {
                     Com5t glass = elem5e.owner().listChild.stream().filter(el -> el.type() == Type.GLASS).findFirst().orElse(null);
                     if (glass != null) {
                         float weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn.getFloat(eArtikl.density);
-                        if (Util.containsNumb2(rec.getStr(TEXT), weight) == false) {
+                        if (UCom.containsNumb2(rec.getStr(TEXT), weight) == false) {
                             return false;
                         }
                     }
@@ -174,7 +174,7 @@ public class ElementDet extends Par5s {
                 case 38067:  //Коды основной текстуры изделия    
                 case 39067:  //Коды основной текстуры изделия
                 case 40067:  //Коды основной текстуры изделия                     
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID1) == false) {
                         return false;
                     }
                     break;
@@ -183,7 +183,7 @@ public class ElementDet extends Par5s {
                 case 38068:  //Коды внутр. текстуры изделия 
                 case 39068:  //Коды внутр. текстуры изделия
                 case 40068:  //Коды внутр. текстуры изделия    
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
                         return false;
                     }
                     break;
@@ -193,7 +193,7 @@ public class ElementDet extends Par5s {
                 case 39069:  //Коды внешн. текстуры изделия 
                 case 40069: //Коды внешн. текстуры изделия  
                 {
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID3) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.iwin().colorID3) == false) {
                         return false;
                     }
                 }

@@ -9,7 +9,7 @@ import domain.eSystree;
 import enums.Layout;
 import enums.TypeArtikl;
 import builder.making.Specific;
-import common.Util;
+import common.UCom;
 import domain.eGlasprof;
 import enums.PKjson;
 import enums.Type;
@@ -186,7 +186,7 @@ public class ElemGlass extends ElemSimple {
 
         } else if (UseUnit.PIE.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
             if (spcAdd.mapParam.get(13014) != null) {
-                if (Util.containsNumb(spcAdd.mapParam.get(13014), anglHoriz) == true) { //Углы ориентации стороны
+                if (UCom.containsNumb(spcAdd.mapParam.get(13014), anglHoriz) == true) { //Углы ориентации стороны
                     spcRec.spcList.add(spcAdd);
                 }
             } else {

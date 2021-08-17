@@ -2,7 +2,7 @@ package builder.param.test;
 
 import builder.making.UColor;
 import static builder.param.test.ParamTest.param;
-import common.Util;
+import common.UCom;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eElement;

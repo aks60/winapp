@@ -9,7 +9,7 @@ import java.util.List;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
-import common.Util;
+import common.UCom;
 import domain.eSystree;
 import enums.LayoutHandle;
 import enums.Type;
@@ -113,7 +113,7 @@ public class FurnitureVar extends Par5s {
                     } else {
                         float max = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().width() : elem5e.owner().height();
                         float min = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().height() : elem5e.owner().width();
-                        if (Util.containsNumb(rec.getStr(TEXT), max / min) == false) {
+                        if (UCom.containsNumb(rec.getStr(TEXT), max / min) == false) {
                             return false;
                         }
                     }
@@ -123,7 +123,7 @@ public class FurnitureVar extends Par5s {
                     AreaStvorka stv = (AreaStvorka) elem5e.owner();
                     if (stv.handleLayout == LayoutHandle.VARIAT) {
                         String[] arr = rec.getStr(TEXT).split("-");
-                        if (Util.getInt(arr[0]) > stv.handleHeight || Util.getInt(arr[1]) < stv.handleHeight) {
+                        if (UCom.getInt(arr[0]) > stv.handleHeight || UCom.getInt(arr[1]) < stv.handleHeight) {
                             return false;
                         }
                     }
@@ -141,7 +141,7 @@ public class FurnitureVar extends Par5s {
                         if (rec.getFloat(TEXT) > elem5e.anglHoriz) {
                             return false;
                         }
-                    } else if (Util.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
+                    } else if (UCom.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
                         return false;
                     }
                     break;
@@ -160,7 +160,7 @@ public class FurnitureVar extends Par5s {
                     }
                     break;
                 case 21050:  //Ориентация стороны, ° 
-                    if (Util.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
                         return false;
                     }
                     break;

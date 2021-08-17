@@ -6,7 +6,7 @@ import enums.TypeJoin;
 import java.util.ArrayList;
 import builder.Wincalc;
 import builder.making.Specific;
-import common.Util;
+import common.UCom;
 import domain.eArtikl;
 import domain.eSetting;
 import domain.eSyssize;

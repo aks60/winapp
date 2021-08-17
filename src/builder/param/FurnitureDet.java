@@ -13,7 +13,7 @@ import builder.model.AreaArch;
 import builder.model.AreaStvorka;
 import builder.model.Com5t;
 import builder.model.ElemFrame;
-import common.Util;
+import common.UCom;
 import domain.eColor;
 import domain.eGroups;
 import enums.LayoutHandle;
@@ -82,7 +82,7 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24005:  //Коды текстуры створки 
                 case 25005:  //Коды текстуры створки 
-                    if (areaStv.mapFrame.entrySet().stream().filter(el -> Util.containsNumb(rec.getStr(TEXT), el.getValue().colorID1) == true).findFirst().orElse(null) == null) {
+                    if (areaStv.mapFrame.entrySet().stream().filter(el -> UCom.containsNumb(rec.getStr(TEXT), el.getValue().colorID1) == true).findFirst().orElse(null) == null) {
                         return false;
                     }
                     break;
@@ -215,7 +215,7 @@ public class FurnitureDet extends Par5s {
                     Com5t glass = areaStv.listChild.stream().filter(el -> el.type() == Type.GLASS).findFirst().orElse(null);
                     if (glass != null) {
                         float weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn.getFloat(eArtikl.density);
-                        if (Util.containsNumb2(rec.getStr(TEXT), weight) == false) {
+                        if (UCom.containsNumb2(rec.getStr(TEXT), weight) == false) {
                             return false;
                         }
                     }
@@ -226,14 +226,14 @@ public class FurnitureDet extends Par5s {
                 {
                     String handl[] = rec.getStr(TEXT).split("-");
                     if (handl.length > 1) {
-                        float handl_min = Util.getFloat(handl[0]);
-                        float handl_max = Util.getFloat(handl[1]);
+                        float handl_min = UCom.getFloat(handl[0]);
+                        float handl_max = UCom.getFloat(handl[1]);
                         if (handl_min > areaStv.handleHeight || areaStv.handleHeight > handl_max) {
                             return false;
                         }
                     }
                     if ("ps3".equals(versionDb)) { //Минимальная высота ручки, мм
-                        float handl_min = Util.getFloat(rec.getStr(TEXT));
+                        float handl_min = UCom.getFloat(rec.getStr(TEXT));
                         if (handl_min > areaStv.handleHeight) {
                             return false;
                         }
@@ -242,7 +242,7 @@ public class FurnitureDet extends Par5s {
                 break;
                 case 24065: //Максимальная высота ручки, мм 
                 {
-                    float handl_max = Util.getFloat(rec.getStr(TEXT));
+                    float handl_max = UCom.getFloat(rec.getStr(TEXT));
                     if (handl_max < areaStv.handleHeight) {
                         return false;
                     }
@@ -250,19 +250,19 @@ public class FurnitureDet extends Par5s {
                 break;
                 case 24067:  //Коды основной текстуры изделия 
                 case 25067:  //Коды основной текстуры изделия 
-                    if (Util.containsNumb(rec.getStr(TEXT), iwin.colorID1) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), iwin.colorID1) == false) {
                         return false;
                     }
                     break;
                 case 24068:  //Коды внутр. текстуры изделия 
                 case 25068:  //Коды внутр. текстуры изделия 
-                    if (Util.containsNumb(rec.getStr(TEXT), iwin.colorID2) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), iwin.colorID2) == false) {
                         return false;
                     }
                     break;
                 case 24069:  //Коды внешн. текстуры изделия 
                 case 25069:  //Коды внешн. текстуры изделия     
-                    if (Util.containsNumb(rec.getStr(TEXT), iwin.colorID3) == false) {
+                    if (UCom.containsNumb(rec.getStr(TEXT), iwin.colorID3) == false) {
                         return false;
                     }
                     break;

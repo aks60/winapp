@@ -9,7 +9,7 @@ import enums.Layout;
 import enums.TypeArtikl;
 import builder.making.Specific;
 import enums.PKjson;
-import common.Util;
+import common.UCom;
 import domain.eSetting;
 import enums.Type;
 import java.util.Arrays;
@@ -117,8 +117,8 @@ public class ElemFrame extends ElemSimple {
             spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
             spcRec.height = artiklRec.getFloat(eArtikl.height);
         }
-        spcRec.width = spcRec.width + Util.getFloat(spcRec.getParam(0, 2030, 3050, 4050));
-        spcRec.width = spcRec.width + Util.getFloat(spcRec.getParam(0, 2040, 3060));
+        spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2030, 3050, 4050));
+        spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2040, 3060));
     }
 
     @Override //Вложеная спецификация
@@ -204,24 +204,24 @@ public class ElemFrame extends ElemSimple {
             if (spcAdd.getParam("null", 24072, 25072).equals("null") == false) {
                 if (Furniture.determOfSide(owner) == this) {
                     AreaStvorka stv = (AreaStvorka) owner;
-                    stv.handleHeight = Util.getFloat(spcAdd.getParam(stv.handleHeight, 24072, 25072));
+                    stv.handleHeight = UCom.getFloat(spcAdd.getParam(stv.handleHeight, 24072, 25072));
                 }
             }
             //Укорочение от
             if (spcAdd.getParam("null", 25013).equals("null") == false) {
                 if ("длины стороны".equals(spcAdd.getParam("null", 25013))) {
-                    spcAdd.width = length() - Util.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм
+                    spcAdd.width = length() - UCom.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм
 
                 } else if ("высоты ручки".equals(spcAdd.getParam("null", 25013))) {
                     AreaStvorka stv = (AreaStvorka) owner;
-                    spcAdd.width = stv.handleHeight - Util.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм
+                    spcAdd.width = stv.handleHeight - UCom.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм
 
                 } else if ("сторона - выс. ручки".equals(spcAdd.getParam("null", 25013))) {
                     AreaStvorka stv = (AreaStvorka) owner;
-                    spcAdd.width = length - stv.handleHeight - Util.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм                        
+                    spcAdd.width = length - stv.handleHeight - UCom.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм                        
 
                 } else if ("половины стороны".equals(spcAdd.getParam("null", 25013))) {
-                    spcAdd.width = (length / 2) - Util.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм 
+                    spcAdd.width = (length / 2) - UCom.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм 
                 }
             }
             //Фурнитура
@@ -240,9 +240,9 @@ public class ElemFrame extends ElemSimple {
         }
         uti3.get_12075_34075_39075(this, spcAdd); //углы реза
         uti3.get_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2
-        spcAdd.height = Util.getFloat(spcAdd.getParam(spcAdd.height, 40006)); ////высота заполнения, мм 
+        spcAdd.height = UCom.getFloat(spcAdd.getParam(spcAdd.height, 40006)); ////высота заполнения, мм 
         spcAdd.width = uti3.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
-        spcAdd.width = Util.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм        
+        spcAdd.width = UCom.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм        
         spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
         spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
         uti3.get_40007(spcAdd); //высоту сделать длиной

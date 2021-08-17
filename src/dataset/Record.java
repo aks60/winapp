@@ -1,6 +1,6 @@
 package dataset;
 
-import common.Util;
+import common.UCom;
 import dataset.Field;
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,7 +75,7 @@ public class Record<E> extends ArrayList<E> {
     public float getFloat(int index) {
         try {
             Object obj = super.get(index);
-            return (obj == null) ? -1 : Util.getFloat(String.valueOf(obj));
+            return (obj == null) ? -1 : UCom.getFloat(String.valueOf(obj));
         } catch (NumberFormatException e) {
             return -1;
         }
@@ -118,7 +118,7 @@ public class Record<E> extends ArrayList<E> {
 
     public float getFloat(Field field, float def) {
         Object obj = super.get(field.ordinal());
-        return (obj == null) ? def : Util.getFloat(String.valueOf(obj));
+        return (obj == null) ? def : UCom.getFloat(String.valueOf(obj));
     }
 
     public double getDbl(Field field) {
