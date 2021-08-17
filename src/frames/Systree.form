@@ -2269,7 +2269,7 @@
                                       <Component id="lab55" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt38" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lab50" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt37" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2280,7 +2280,7 @@
                                       <Component id="lab56" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt39" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lab54" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt40" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2291,7 +2291,7 @@
                                       <Component id="lab57" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt41" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="46" max="32767" attributes="0"/>
+                                  <EmptySpace pref="66" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
