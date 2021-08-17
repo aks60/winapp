@@ -13,11 +13,11 @@ import java.awt.event.ActionEvent;
 import java.util.HashSet;
 import frames.swing.listener.ListenerRecord;
 
-public class UJson2 {
+public class UJson {
   
     private Gson gson = new GsonBuilder().create();
     
-    UJson2() {
+    UJson() {
         
     }
 
