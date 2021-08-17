@@ -1,9 +1,12 @@
 package frames.dialog;
 
+import dataset.Query;
 import frames.FrameToFile;
 import frames.Uti5;
 import dataset.Record;
+import domain.eJoinvar;
 import enums.TypeJoin;
+import frames.swing.DefTableModel;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -11,10 +14,14 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.listener.ListenerRecord;
+import java.util.List;
+import javax.swing.table.DefaultTableColumnModel;
+import startup.Main;
 
 public class DicJoinvar extends javax.swing.JDialog {
 
     private static final int serialVersionUID = 1190782744;
+    private Query qJoinvar = new Query(eJoinvar.name, eJoinvar.id);
     private ImageIcon icon[] = {
         new ImageIcon(getClass().getResource("/resource/img16/b000.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b001.gif")),
@@ -32,13 +39,40 @@ public class DicJoinvar extends javax.swing.JDialog {
         loadingModel();
         setVisible(true);
     }
+    
+    public DicJoinvar(java.awt.Frame parent, ListenerRecord listenet, List<Record> joinvarList) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        this.listener = listenet;
+        loadingModel(joinvarList);
+        setVisible(true);
+    }
 
     private void loadingModel() {
-
+        
         String[] titl = {"Наименование соединения", "ID"};
         Object[][] rows = {{TypeJoin.VAR10.name, TypeJoin.VAR10.id}, {TypeJoin.VAR20.name, TypeJoin.VAR20.id}, {TypeJoin.VAR30.name, TypeJoin.VAR30.id},
-        {TypeJoin.VAR31.name, TypeJoin.VAR31.id}, {TypeJoin.VAR40.name, TypeJoin.VAR40.id}, {TypeJoin.VAR41.name, TypeJoin.VAR41.id}};;
+        {TypeJoin.VAR31.name, TypeJoin.VAR31.id}, {TypeJoin.VAR40.name, TypeJoin.VAR40.id}, {TypeJoin.VAR41.name, TypeJoin.VAR41.id}};
         ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
+        if (Main.dev == false) {
+            ((DefaultTableColumnModel) tab1.getColumnModel()).getColumn(1).setMinWidth(0);
+            ((DefaultTableColumnModel) tab1.getColumnModel()).getColumn(1).setMaxWidth(0);
+        }
+        tab1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                label.setIcon(icon[row]);
+                return label;
+            }
+        });
+        Uti5.setSelectedRow(tab1);
+    }
+
+    private void loadingModel(List<Record> joinvarList) {
+        qJoinvar.addAll(joinvarList);
+        new DefTableModel(tab1, qJoinvar, eJoinvar.name, eJoinvar.id);
         tab1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -65,7 +99,7 @@ public class DicJoinvar extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Спрвочник соединений");
-        setPreferredSize(new java.awt.Dimension(300, 240));
+        setPreferredSize(new java.awt.Dimension(400, 240));
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
@@ -174,7 +208,7 @@ public class DicJoinvar extends javax.swing.JDialog {
                 {"Name 0", null}
             },
             new String [] {
-                "Название соединения", "ID"
+                "Соединение", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -194,9 +228,7 @@ public class DicJoinvar extends javax.swing.JDialog {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(1).setMinWidth(0);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(0);
-            tab1.getColumnModel().getColumn(1).setMaxWidth(0);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(40);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);

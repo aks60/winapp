@@ -82,10 +82,13 @@ import frames.swing.listener.ListenerRecord;
 import frames.swing.listener.ListenerFrame;
 import common.eProfile;
 import domain.eJoining;
+import builder.making.Joining;
 import domain.eJoinvar;
+import frames.dialog.DicJoinvar;
 import frames.swing.FilterTable;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
 import javax.swing.JButton;
@@ -3246,15 +3249,16 @@ public class Systree extends javax.swing.JFrame {
             if (winNode != null) {
                 ElemSimple elem5e = (ElemSimple) winNode.com5t();
                 JButton btn = (JButton) evt.getSource();
-                ElemJoining elemJoin =(btn.getName().equals("btn26")) ?iwin.mapJoin.get(elem5e.joinPoint(0)) :iwin.mapJoin.get(elem5e.joinPoint(1));
-                System.out.println(elemJoin);
-                Record record = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
-                
-    
+                ElemJoining elemJoin = (btn.getName().equals("btn26")) ? iwin.mapJoin.get(elem5e.joinPoint(0)) : iwin.mapJoin.get(elem5e.joinPoint(1));
+                Joining joining = new Joining(iwin, true);
+                List<Record> list = joining.varList(elemJoin);
+                new DicJoinvar(this, (record) -> {
+                    System.out.println(record);
+                }, list);
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
-        }        
+        }
     }//GEN-LAST:event_joinToFrame
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

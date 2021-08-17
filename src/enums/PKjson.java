@@ -15,8 +15,8 @@ public class PKjson {
     public static String colorID1 = "colorID1"; //Текстура
     public static String colorID2 = "colorID2"; //Текстура
     public static String colorID3 = "colorID3"; //Текстура    
-    public static String stvorkaBottom = "stvorkaBottom"; //Текстура    
-    public static String stvorkaRight = "stvorkaRight"; //Текстура    
-    public static String stvorkaTop = "stvorkaTop"; //Текстура    
-    public static String stvorkaLeft = "stvorkaLeft"; //Текстура    
+    public static String stvorkaBottom = "stvorkaBottom"; //Элемент    
+    public static String stvorkaRight = "stvorkaRight"; //Элемент    
+    public static String stvorkaTop = "stvorkaTop"; //Элемент    
+    public static String stvorkaLeft = "stvorkaLeft"; //Элемент    
 }
