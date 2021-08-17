@@ -71,10 +71,10 @@ public class Joining extends Cal5e {
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
                             
-                            //Сохраним подхоящий вариант соединения из таблицы JOINVAR
+                            //Сохраним подхоящий вариант соединения из таблиц bd
                             elemJoin.type = TypeJoin.get(joinvarRec.getInt(eJoinvar.types)); 
+                            elemJoin.joiningRec = joiningRec;
                             elemJoin.joinvarRec = joinvarRec;
-                            //System.out.println(elemJoin.layout.name);
                             
                             if(shortPass == true) { //выход при поиске варианта соединения
                                 continue;

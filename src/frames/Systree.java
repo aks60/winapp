@@ -81,12 +81,14 @@ import startup.App;
 import frames.swing.listener.ListenerRecord;
 import frames.swing.listener.ListenerFrame;
 import common.eProfile;
+import domain.eJoining;
 import domain.eJoinvar;
 import frames.swing.FilterTable;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
+import javax.swing.JButton;
 
 public class Systree extends javax.swing.JFrame {
 
@@ -604,13 +606,17 @@ public class Systree extends javax.swing.JFrame {
                 txt33.setText(winNode.com5t().artiklRecAn.getStr(eArtikl.name));
                 txt27.setText(eColor.find(winNode.com5t().colorID1).getStr(eColor.name));
                 txt28.setText(eColor.find(winNode.com5t().colorID2).getStr(eColor.name));
-                txt29.setText(eColor.find(winNode.com5t().colorID3).getStr(eColor.name));                
+                txt29.setText(eColor.find(winNode.com5t().colorID3).getStr(eColor.name));
                 ElemSimple elem5e = (ElemSimple) winNode.com5t();
                 ElemJoining ej1 = iwin.mapJoin.get(elem5e.joinPoint(0));
                 ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
-                txt38.setText(ej1.joinvarRec.getStr(eJoinvar.name));
-                txt39.setText(ej2.joinvarRec.getStr(eJoinvar.name));
-                
+                if (ej1 != null) {
+                    txt38.setText(ej1.joinvarRec.getStr(eJoinvar.name) + " (" + ej1.joiningRec.getStr(eJoining.name) + ")");
+                }
+                if (ej2 != null) {
+                    txt39.setText(ej2.joinvarRec.getStr(eJoinvar.name) + " (" + ej2.joiningRec.getStr(eJoining.name) + ")");
+                }
+
                 //Стеклопакет
             } else if (winNode.com5t().type() == enums.Type.GLASS) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card15");
@@ -638,7 +644,7 @@ public class Systree extends javax.swing.JFrame {
                 txt24.setText(Uti5.df.format(iwin.rootGson.find(stv.id()).width()));
                 txt26.setText(Uti5.df.format(iwin.rootGson.find(stv.id()).height()));
                 txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
-            }    
+            }
 //                //Соединения
 //            } else if (winNode.com5t().type() == enums.Type.JOINING) {
 //                ((CardLayout) pan7.getLayout()).show(pan7, "card17");
@@ -647,8 +653,8 @@ public class Systree extends javax.swing.JFrame {
 //                
 //            }    
             lab2.setText("ID = " + winNode.com5t().id());
-            Arrays.asList(txt9, txt13, txt14, txt27, txt28,
-                    txt29, txt19, txt20, txt30, txt34).forEach(it -> it.setCaretPosition(0));
+            Arrays.asList(txt9, txt13, txt14, txt21, txt24, txt25, txt26, txt27, txt28,
+                    txt29, txt19, txt20, txt30, txt34, txt38, txt39).forEach(it -> it.setCaretPosition(0));
             Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
     }
@@ -675,9 +681,9 @@ public class Systree extends javax.swing.JFrame {
                 script2.getAsJsonObject().addProperty("nuni", systreeID); //запишем nuni в script
                 iwin.build(script2.toString()); //построение изделия
                 iwin.calcJoining = new builder.making.Joining(iwin, true); //для инит. соединений
-                iwin.calcJoining.calc();                
+                iwin.calcJoining.calc();
                 iwin.calcFurniture = new builder.making.Furniture(iwin, true); //для инит. ручки
-                iwin.calcFurniture.calc();                
+                iwin.calcFurniture.calc();
                 paintPanel.repaint(true);
                 loadingWin();
                 winTree.setSelectionInterval(0, 0);
@@ -1430,11 +1436,11 @@ public class Systree extends javax.swing.JFrame {
         btn26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn26.setMaximumSize(new java.awt.Dimension(18, 18));
         btn26.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn26.setName("btnField17"); // NOI18N
+        btn26.setName("btn26"); // NOI18N
         btn26.setPreferredSize(new java.awt.Dimension(18, 18));
         btn26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn26sysprofToFrame(evt);
+                joinToFrame(evt);
             }
         });
 
@@ -1447,11 +1453,11 @@ public class Systree extends javax.swing.JFrame {
         btn27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn27.setMaximumSize(new java.awt.Dimension(18, 18));
         btn27.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn27.setName("btnField17"); // NOI18N
+        btn27.setName("btn27"); // NOI18N
         btn27.setPreferredSize(new java.awt.Dimension(18, 18));
         btn27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn27sysprofToFrame(evt);
+                joinToFrame(evt);
             }
         });
 
@@ -2047,7 +2053,6 @@ public class Systree extends javax.swing.JFrame {
         );
 
         pan7.add(pan17, "card17");
-        pan17.getAccessibleContext().setAccessibleName("Соединения");
 
         pan2.add(pan7);
 
@@ -2545,7 +2550,7 @@ public class Systree extends javax.swing.JFrame {
         if (sysTree.isEditing()) {
             sysTree.getCellEditor().stopCellEditing();
         }
-        sysTree.setBorder(null);  
+        sysTree.setBorder(null);
         Uti5.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
@@ -3232,17 +3237,24 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_txt23Update
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-                 builder.making.Furniture calcFurniture = new builder.making.Furniture(iwin, true); //фурнитура 
-                calcFurniture.calc();
+        builder.making.Furniture calcFurniture = new builder.making.Furniture(iwin, true); //фурнитура 
+        calcFurniture.calc();
     }//GEN-LAST:event_btnTest
 
-    private void btn26sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn26sysprofToFrame
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn26sysprofToFrame
-
-    private void btn27sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn27sysprofToFrame
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn27sysprofToFrame
+    private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame
+        try {
+            if (winNode != null) {
+                ElemSimple elem5e = (ElemSimple) winNode.com5t();
+                JButton btn = (JButton) evt.getSource();
+                ElemJoining elemJoin =(btn.getName().equals("btn26")) ?iwin.mapJoin.get(elem5e.joinPoint(0)) :iwin.mapJoin.get(elem5e.joinPoint(1));;
+                //System.err.println(winNode.com5t().toString());
+                //Query qSysprofFilter = new Query(eSysprof.values(), eArtikl.values());
+    
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка: " + e);
+        }        
+    }//GEN-LAST:event_joinToFrame
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3396,7 +3408,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void initElements() {
 
-        new FrameToFile(this, btnClose);        
+        new FrameToFile(this, btnClose);
         south.add(filterTable, 0);
         Uti5.documentFilter(1, txt2, txt15);
         Uti5.documentFilter(2, txt3, txt4, txt5);

@@ -18,6 +18,7 @@ public class ElemJoining {
 
     public float id = -1; //идентификатор соединения
     private Wincalc iwin;
+    public Record joiningRec = null;
     public Record joinvarRec = null;
     public LayoutJoin layout = LayoutJoin.NONE; //расположение соединения 
     public TypeJoin type = TypeJoin.EMPTY;      //тип соединения (то что пишет )
