@@ -607,6 +607,7 @@ public class Profstroy {
             alterTable("sysprof", "fk_sysprof2", "systree_id", "systree");
             alterTable("sysfurn", "fk_sysfurn1", "systree_id", "systree");
             alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
+            alterTable("syspar1", "fk_syspar2", "params_id", "params");
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
             alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
             alterTable("project", "fk_project_1", "prjpart_id", "prjpart");
