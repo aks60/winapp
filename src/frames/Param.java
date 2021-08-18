@@ -131,6 +131,7 @@ public class Param extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Параметры");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(800, 599));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Param.this.windowClosed(evt);
@@ -139,7 +140,7 @@ public class Param extends javax.swing.JFrame {
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(900, 29));
+        north.setPreferredSize(new java.awt.Dimension(800, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -236,7 +237,7 @@ public class Param extends javax.swing.JFrame {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        centr.setPreferredSize(new java.awt.Dimension(900, 550));
+        centr.setPreferredSize(new java.awt.Dimension(800, 550));
         centr.setLayout(new java.awt.BorderLayout());
 
         pan1.setPreferredSize(new java.awt.Dimension(454, 304));
@@ -337,7 +338,7 @@ public class Param extends javax.swing.JFrame {
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setPreferredSize(new java.awt.Dimension(800, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 

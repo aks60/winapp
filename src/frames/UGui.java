@@ -163,12 +163,14 @@ public class UGui {
         }));
 
         LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS);
-        DefMutableTreeNode frm = root.add(new DefMutableTreeNode(new Com5t(Type.FRAME) {}));
+        DefMutableTreeNode frm = root.add(new DefMutableTreeNode(new Com5t(Type.FRAME) {
+        }));
         for (ElemSimple elem5e : listElem) {
             if (elem5e.owner().type() != Type.STVORKA) {
                 frm.add(new DefMutableTreeNode(elem5e));
-                if (elem5e.owner().type() != Type.GLASS) {
-                    ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {}));
+                if (elem5e.type() != Type.GLASS) {
+                    ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+                    }));
                 }
             }
         }
@@ -177,9 +179,11 @@ public class UGui {
             DefMutableTreeNode stv = root.add(new DefMutableTreeNode(areaStv));
             for (ElemSimple elemStv : iwin.listElem) {
                 if (elemStv.owner() == areaStv) {
-                    DefMutableTreeNode el = new DefMutableTreeNode(elemStv);
                     stv.add(new DefMutableTreeNode(elemStv));
-                    ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {}));                    
+                    if (elemStv.type() != Type.GLASS) {
+                        ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+                        }));
+                    }
                 }
             }
         }

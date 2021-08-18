@@ -44,13 +44,10 @@ public abstract class ElemSimple extends Com5t {
             return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y2; //точки левого и правого нижнего углового и прилегающего соед.
         } else if (layout() == Layout.RIGHT) {
             return (side == 0) ? x2 + ":" + y2 : (side == 1) ? x2 + ":" + y1 : x2 + ":" + y1 + (y2 - y1) / 2; //точки нижнего и верхнего правого углового и прилегающего соед.
-        } else if (layout() == Layout.TOP) {
+        } else if (layout() == Layout.TOP || layout() == Layout.ARCH) {
             return (side == 0) ? x2 + ":" + y1 : (side == 1) ? x1 + ":" + y1 : x1 + (x2 - x1) / 2 + ":" + y2; //точки правого и левого верхнего углового и прилегающего соед.
         } else if (layout() == Layout.LEFT) {
             return (side == 0) ? x1 + ":" + y1 : (side == 1) ? x1 + ":" + y2 : x1 + ":" + y1 + (y2 - y1) / 2; //точки верхнего и нижнего левого углового и прилегающего соед.
-        } else if (layout() == Layout.ARCH) {
-            return (side == 0) ? x2 + ":" + y1 : x1 + ":" + y1; //точки правого и левого верхнего углового.
-
             //импост, штульп...    
         } else if (layout() == Layout.VERT) { //вектор всегда снизу вверх
             return (side == 0) ? x1 + (x2 - x1) / 2 + ":" + y2 : (side == 1) ? x1 + (x2 - x1) / 2 + ":" + y1 : "0:0"; //точки нижнего и верхнего Т-обр и прилегающего соед.

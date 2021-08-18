@@ -688,6 +688,7 @@ public class Artikles extends javax.swing.JFrame {
         setTitle("Материальные ценности");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 599));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Artikles.this.windowClosed(evt);
@@ -696,7 +697,7 @@ public class Artikles extends javax.swing.JFrame {
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(900, 29));
+        north.setPreferredSize(new java.awt.Dimension(800, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -847,7 +848,7 @@ public class Artikles extends javax.swing.JFrame {
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
         center.setMinimumSize(new java.awt.Dimension(0, 0));
-        center.setPreferredSize(new java.awt.Dimension(900, 550));
+        center.setPreferredSize(new java.awt.Dimension(800, 550));
         center.setLayout(new java.awt.BorderLayout());
 
         pan4.setPreferredSize(new java.awt.Dimension(180, 500));
@@ -2228,7 +2229,7 @@ public class Artikles extends javax.swing.JFrame {
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setPreferredSize(new java.awt.Dimension(800, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
         filler1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
