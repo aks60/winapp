@@ -540,7 +540,7 @@ public class Profstroy {
             executeSql("update sysfurn set side_open = (CASE  WHEN (NOTKR = 'запрос') THEN 1 WHEN (NOTKR = 'левое') THEN 2 WHEN (NOTKR = 'правое') THEN 3 ELSE  (1) END )");
             executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "id");
-            executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and b.znumb = a.znumb) where b.params_id < 0");
+            executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             loadModels();
             updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");

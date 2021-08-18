@@ -29,11 +29,11 @@ public class Par5s {
 
         for (Record paramRec : paramList) {
             if (paramRec.getInt(GRUP) < 0) {
-                Integer code = iwin.mapPardef.get(paramRec.getInt(GRUP));
-                if (code == null) {
+                Record rec = iwin.mapPardef.get(paramRec.getInt(GRUP));
+                if (rec == null) {
                     return false; //если группы нет
                 }
-                if (paramRec.getStr(TEXT).equals(code.getStr(TEXT)) == false) {
+                if (paramRec.getStr(TEXT).equals(rec.getStr(TEXT)) == false) {
                     return false; //если группа есть, а параметр не совпал
                 }
             }

@@ -90,9 +90,9 @@ public class AreaSimple extends Com5t {
                 JsonObject jsonObj = new Gson().fromJson(param, JsonObject.class);
                 JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
                 if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
-                    jsonArr.forEach(code -> {
-                        Record paramRec = eParams.find(code.getAsInt());
-                        iwin().mapPardef.put(paramRec.getInt(eParams.params_id), code.getAsInt());
+                    jsonArr.forEach(it -> {
+                        Record paramRec = eParams.find(it.getAsInt());
+                        iwin().mapPardef.put(paramRec.getInt(eParams.params_id), paramRec);
                     });
                 }
             }

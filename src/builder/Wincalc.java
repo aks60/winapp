@@ -65,7 +65,7 @@ public class Wincalc {
     public AreaSimple rootArea = null; //главное окно кострукции
     public GsonRoot rootGson = null; //главное окно кострукции в формате gson
 
-    public HashMap<Integer, Integer> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
+    public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specific> listSpec = new ArrayList(); //спецификация
@@ -113,10 +113,8 @@ public class Wincalc {
             this.colorID3 = rootGson.color3;
             this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
             this.syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
-            for (Record rec : eSyspar1.find(nuni)) {
-                int grup = eParams.find(rec.getInt(eSyspar1.params_id)).getInt(eSyspar1.params_id);
-                mapPardef.put(grup, rec.getInt(eSyspar1.params_id)); //put(название парам., значение парам.)
-            }
+            eSyspar1.find(nuni).stream().forEach(rec -> mapPardef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
+
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {
                 rootArea = new AreaRectangl(this, null, rootGson.id(), Type.RECTANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //простое
