@@ -35,6 +35,7 @@ import builder.model.ElemFrame;
 import builder.model.ElemSimple;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
+import domain.eParams;
 import enums.Type;
 import frames.swing.Draw;
 import java.util.LinkedHashMap;
@@ -64,7 +65,7 @@ public class Wincalc {
     public AreaSimple rootArea = null; //главное окно кострукции
     public GsonRoot rootGson = null; //главное окно кострукции в формате gson
 
-    public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
+    public HashMap<Integer, Integer> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specific> listSpec = new ArrayList(); //спецификация
@@ -89,7 +90,7 @@ public class Wincalc {
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS);
         //Важно! Не нарушаем последовательность построения окна
-        Collections.sort(listElem, (a, b) -> Float.compare(a.id(), b.id()));  
+        Collections.sort(listElem, (a, b) -> Float.compare(a.id(), b.id()));
         return rootArea;
     }
 
@@ -112,8 +113,10 @@ public class Wincalc {
             this.colorID3 = rootGson.color3;
             this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
             this.syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
-            eSyspar1.find(nuni).stream().forEach(rec -> mapPardef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
-
+            for (Record rec : eSyspar1.find(nuni)) {
+                int grup = eParams.find(rec.getInt(eSyspar1.params_id)).getInt(eSyspar1.params_id);
+                mapPardef.put(grup, rec.getInt(eSyspar1.params_id)); //put(название парам., значение парам.)
+            }
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {
                 rootArea = new AreaRectangl(this, null, rootGson.id(), Type.RECTANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //простое
@@ -159,7 +162,7 @@ public class Wincalc {
                     //Добавим Elements
                 } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {
                     owner.listChild.add(new ElemCross(owner, el.type(), el.id(), el.param()));
- 
+
                 } else if (Type.GLASS == el.type()) {
                     owner.listChild.add(new ElemGlass(owner, el.id(), el.param()));
                 }
@@ -181,7 +184,7 @@ public class Wincalc {
             calcElements = new Elements(this); //составы
             calcElements.calc();
             calcJoining = new Joining(this); //соединения
-            calcJoining.calc();            
+            calcJoining.calc();
             calcFilling = new Filling(this); //заполнения
             calcFilling.calc();
             calcFurniture = new Furniture(this); //фурнитура 
