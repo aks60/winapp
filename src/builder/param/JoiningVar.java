@@ -79,7 +79,7 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                 case 1008:  //Эффективное заполнение изд., мм
-                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
+                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), iwin) == false) {
                         return false;
                     }
                     break;

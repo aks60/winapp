@@ -85,7 +85,9 @@ public class ElementDet extends Par5s {
                     }
                     break;
                 case 33008: //Эффективное заполнение изд., мм 
-                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
+                case 34008:  //Эффективное заполнение изделия, мм 
+                case 40008:  //Эффективное заполнение изд., мм                    
+                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), iwin) == false) {
                         return false;
                     }
                     break;
@@ -240,12 +242,6 @@ public class ElementDet extends Par5s {
                 case 38099:  //Трудозатраты, ч/ч. 
                 case 39099:  //Трудозатраты, ч/ч. 
                     mapParam.put(grup, rec.getStr(TEXT));
-                    break;
-                case 34008:  //Эффективное заполнение изделия, мм 
-                case 40008:  //Эффективное заполнение изд., мм                    
-                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
-                        return false;
-                    }
                     break;
                 case 34009: //Если два присоединенных артикула 
                     message(grup);

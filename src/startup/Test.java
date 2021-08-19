@@ -65,7 +65,7 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            wincalc();
+            //wincalc();
             //param();
             //query();
             //frame();
@@ -85,7 +85,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(1, false));
+            iwin.build(builder.script.Winscript.test(601004, false));
             iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
@@ -122,17 +122,17 @@ public class Test {
 
         Query.connection = Test.connect2();
 
-//        ElementTest et = new ElementTest();
-//        et.elementVar();
-//        et.elementDet();
-//        JoiningTest jt = new JoiningTest();
-//        jt.joiningVar();
-//        jt.joiningDet();
-//        FillingTest gt = new FillingTest();
-//        gt.fillingVar();
-//        gt.fillingDet();
+        ElementTest et = new ElementTest();
+        et.elementVar();
+        et.elementDet();
+        JoiningTest jt = new JoiningTest();
+        jt.joiningVar();
+        jt.joiningDet();
+        FillingTest gt = new FillingTest();
+        gt.fillingVar();
+        gt.fillingDet();
         FurnitureTest ft = new FurnitureTest();
-//        ft.furnitureVar();
+        ft.furnitureVar();
         ft.furnitureDet();
         
 //        Query.connection = Test.connect2();

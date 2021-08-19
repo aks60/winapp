@@ -20,7 +20,7 @@ public abstract class ElemSimple extends Com5t {
 
     public ElemSimple(Wincalc iwin, AreaSimple owner) {
         super(iwin, owner);
-        spcRec = new Specific(this);
+        spcRec = new Specific(id, this);
         uti3 = new UMod(this);
     }
 

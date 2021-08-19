@@ -109,7 +109,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31008: //Эффективное заполнение изделия, мм 
-                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getFloat(TEXT), iwin) == false) {
+                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), iwin) == false) {
                         return false;
                     }
                     break;
