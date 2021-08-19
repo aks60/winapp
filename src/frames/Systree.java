@@ -84,6 +84,7 @@ import common.eProfile;
 import domain.eJoining;
 import builder.making.Joining;
 import domain.eJoinvar;
+import enums.TypeJoin;
 import frames.dialog.DicJoinvar;
 import frames.swing.FilterTable;
 import java.awt.event.KeyEvent;
@@ -647,6 +648,8 @@ public class Systree extends javax.swing.JFrame {
                 ElemJoining ej1 = iwin.mapJoin.get(elem5e.joinPoint(0));
                 ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = iwin.mapJoin.get(elem5e.joinPoint(2));
+//                System.out.println(elem5e.joinPoint(0));
+//                System.out.println(elem5e.joinPoint(1));
                 Arrays.asList(txt36, txt37, txt38, txt39, txt40, txt41).forEach(it -> it.setText(""));
                 if (ej1 != null) {
                     txt38.setText(ej1.joinvarRec.getStr(eJoinvar.name));
@@ -656,7 +659,7 @@ public class Systree extends javax.swing.JFrame {
                     txt39.setText(ej2.joinvarRec.getStr(eJoinvar.name));
                     txt37.setText(ej2.joiningRec.getStr(eJoining.name));
                 }
-                if (ej3 != null) {
+                if (ej3 != null && ej3.type == TypeJoin.VAR10) {
                     txt41.setText(ej3.joinvarRec.getStr(eJoinvar.name));
                     txt40.setText(ej3.joiningRec.getStr(eJoining.name));
                 }

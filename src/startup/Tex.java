@@ -13,13 +13,12 @@ import domain.eSysprod;
 import java.awt.Frame;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Locale;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import frames.swing.listener.ListenerFrame;
 import common.eProfile;
-import frames.Specification;
+import dataset.Query;
 
 /**
  * <p>
@@ -60,6 +59,7 @@ public class Tex extends javax.swing.JFrame {
 
     private void connectBaseNumb(String num_base) {
         Arrays.asList(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
+        Query.listOpenTable.forEach(q -> q.clear());
         PathToDb frame = new PathToDb(this, num_base);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);

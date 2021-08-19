@@ -17,6 +17,7 @@ import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import dataset.Query;
 import enums.TypeJoin;
+import enums.LayoutJoin;
 import java.util.ArrayList;
 
 //Соединения

@@ -3,23 +3,20 @@ package builder.model;
 import dataset.Record;
 import enums.LayoutJoin;
 import enums.TypeJoin;
-import java.util.ArrayList;
 import builder.Wincalc;
 import builder.making.Specific;
-import common.UCom;
 import domain.eArtikl;
-import domain.eSetting;
-import domain.eSyssize;
-import enums.Layout;
-import enums.TypeArtikl;
+import domain.eJoining;
+import domain.eJoinvar;
 import java.util.Arrays;
 
 public class ElemJoining {
 
     public float id = -1; //идентификатор соединения
     private Wincalc iwin;
-    public Record joiningRec = null;
-    public Record joinvarRec = null;
+    public Record joiningRec = eJoining.up.newRecord();
+    public Record joinvarRec = eJoinvar.up.newRecord();
+    ;
     public LayoutJoin layout = LayoutJoin.NONE; //расположение соединения 
     public TypeJoin type = TypeJoin.EMPTY;      //тип соединения (то что пишет )
     public int vid = 0; //вид соединения ("0-Простое L-обр", "1-Крестовое †-обр") или ("0-Простое T-обр", "1-Крестовое †-обр", "2-Сложное Y-обр)
@@ -74,7 +71,6 @@ public class ElemJoining {
     }
 
     public String toString() {
-        return "ELEM: layout=" + layout.name + ", elem1=" + elem1.id() + ", elem2=" + elem2.id() + ", cutAngl1="
-                + elem1.anglCut[0] + ", cutAngl2=" + elem2.anglCut[1] + ", type=" + type + ", angl=" + angl;
+        return "id=" + id + ", type=" + type + " (" + elem1.spcRec.artikl + ":" + elem2.spcRec.artikl + "), " + layout.name;
     }
 }
