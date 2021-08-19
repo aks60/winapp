@@ -147,12 +147,12 @@ public class AreaSimple extends Com5t {
                         //elemImp.anglHoriz = 90;
                         if (elem5e.inside(elemImp.x2, elemImp.y2) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение нижнее                              
-                            ElemJoining el = new ElemJoining(TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
+                            ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
                             iwin().mapJoin.put(elemImp.joinPoint(0), el);
 
                         } else if (elem5e.inside(elemImp.x1, elemImp.y1) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение верхнее                            
-                            ElemJoining el = new ElemJoining(TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
+                            ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
                             iwin().mapJoin.put(elemImp.joinPoint(1), el);
                         }
 
@@ -161,12 +161,12 @@ public class AreaSimple extends Com5t {
                         //elemImp.anglHoriz = 270;
                         if (elem5e.inside(elemImp.x1, elemImp.y1) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение левое                             
-                            ElemJoining el = new ElemJoining(TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
+                            ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
                             iwin().mapJoin.put(elemImp.joinPoint(0), el);
 
                         } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение правое                              
-                            ElemJoining el = new ElemJoining(TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
+                            ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
                             iwin().mapJoin.put(elemImp.joinPoint(1), el);
                         }
                     }

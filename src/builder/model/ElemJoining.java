@@ -27,12 +27,7 @@ public class ElemJoining {
     public float angl = 90;    //угол между профилями
     public String costs = "";  //трудозатраты, ч/ч.
 
-    public ElemJoining(Wincalc iwin) {
-        this.id = ++iwin.genId;
-        this.iwin = iwin;
-    }
-
-    public ElemJoining(TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
+    public ElemJoining(Wincalc iwin, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
         this.id = ++iwin.genId;
         this.type = type;
         this.layout = layout;

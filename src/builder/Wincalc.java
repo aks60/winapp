@@ -47,7 +47,7 @@ public class Wincalc {
     public Integer nuni = 0;
     public Record artiklRec = null; //главный артикл системы профилей   
     public Record syssizeRec = null; //константы    
-    public float genId = 0; //генерация ключа в спецификации
+    public int genId = 0; //генерация ключа в спецификации
 
     public float width = 0.f; //ширина окна
     public float height = 0.f; //высота окна
@@ -73,7 +73,7 @@ public class Wincalc {
 
     public AreaSimple build(String productJson) {
 
-        genId = 100;
+        genId = 0;
         listSpec.clear();
         mapPardef.clear();
         mapJoin.clear();
@@ -179,6 +179,7 @@ public class Wincalc {
     //Конструктив и тарификация 
     public void constructiv(boolean norm_otx) {
         try {
+            genId = 0;
             calcElements = new Elements(this); //составы
             calcElements.calc();
             calcJoining = new Joining(this); //соединения

@@ -397,9 +397,9 @@ public class Specification extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(24);
             tab1.getColumnModel().getColumn(0).setMaxWidth(40);
             tab1.getColumnModel().getColumn(1).setMinWidth(0);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(34);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(24);
             tab1.getColumnModel().getColumn(1).setMaxWidth(40);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(28);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(24);
             tab1.getColumnModel().getColumn(2).setMaxWidth(40);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(3).setMaxWidth(60);

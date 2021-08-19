@@ -27,7 +27,7 @@ public class Specific {
     public Record detailRec = null;  //детализация в конструктиве
     public Record artiklRec = null;  //артикул в детализации конструктива
 
-    public float id = -1; //ID
+    public int id = -1; //ID
     public String place = "---";  //Место расмешения
     public String name = "-";  //Наименование
     public String artikl = "-";  //Артикул
@@ -51,8 +51,8 @@ public class Specific {
     public float cost1 = 0;  //Стоимость без скидки
     public float cost2 = 0;  //Стоимость со скидкой
 
-    public Specific(float id, ElemSimple elem5e) {
-        this.id = id;
+    public Specific(ElemSimple elem5e) {
+        this.id = ++elem5e.iwin().genId;
         this.elem5e = elem5e;
         this.mapParam = new HashMap();
     }

@@ -25,19 +25,19 @@ public class AreaRectangl extends AreaSimple {
         for (int index = 0; index < 4; index++) {
 
             if (index == 0) { //Угловое соединение правое нижнее
-                ElemJoining el = new ElemJoining( TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
+                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
                 iwin().mapJoin.put(elemBott.joinPoint(1), el);
 
             } else if (index == 1) { //Угловое соединение правое верхнее
-                ElemJoining el = new ElemJoining(TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
+                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
                 iwin().mapJoin.put(elemRight.joinPoint(1), el);
 
             } else if (index == 2) { //Угловое соединение левое верхнее    
-                ElemJoining el = new ElemJoining(TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
+                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
                 iwin().mapJoin.put(elemTop.joinPoint(1), el);
 
             } else if (index == 3) { //Угловое соединение левое нижнее
-                ElemJoining el = new ElemJoining(TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90);
+                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90);
                 iwin().mapJoin.put(elemLeft.joinPoint(1), el);
             }
         }

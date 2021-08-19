@@ -444,12 +444,12 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="40" minWidth="0" prefWidth="34" resizable="true">
+                    <Column maxWidth="40" minWidth="0" prefWidth="24" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="40" minWidth="-1" prefWidth="28" resizable="true">
+                    <Column maxWidth="40" minWidth="-1" prefWidth="24" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
