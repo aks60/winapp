@@ -636,6 +636,7 @@ public class Systree extends javax.swing.JFrame {
                 }
                 txt21.setText(stv.handleRec.getStr(eArtikl.code));
                 txt34.setText(stv.handleRec.getStr(eArtikl.name));
+                Object obj = iwin.rootGson.find(stv.id());
                 txt24.setText(UGui.df.format(iwin.rootGson.find(stv.id()).width()));
                 txt26.setText(UGui.df.format(iwin.rootGson.find(stv.id()).height()));
                 txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
@@ -2848,7 +2849,7 @@ public class Systree extends javax.swing.JFrame {
                 new DicSysprof(this, (sysprofRec) -> {
 
                     if (winNode.com5t().type() == enums.Type.FRAME_SIDE) { //рама окна
-                        float elemId = winNode.com5t().id();
+                        int elemId = winNode.com5t().id();
                         GsonElem gsonRama = iwin.rootGson.find(elemId);
                         String paramStr = gsonRama.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
@@ -2858,7 +2859,7 @@ public class Systree extends javax.swing.JFrame {
                         updateScript(selectID);
 
                     } else if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) { //рама створки
-                        float stvId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
+                        int stvId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
                         GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
                         String paramStr = stvArea.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
@@ -2879,7 +2880,7 @@ public class Systree extends javax.swing.JFrame {
                         updateScript(selectID);
 
                     } else {  //импост
-                        float elemId = winNode.com5t().id();
+                        int elemId = winNode.com5t().id();
                         GsonElem gsonElem = iwin.rootGson.find(elemId);
                         String paramStr = gsonElem.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
@@ -2916,7 +2917,7 @@ public class Systree extends javax.swing.JFrame {
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
-                float parentId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
+                int parentId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
                 GsonElem parentArea = (GsonElem) iwin.rootGson.find(parentId);
 
                 if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) {
@@ -2972,7 +2973,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
         try {
-            float selectID = winNode.com5t().id();
+            int selectID = winNode.com5t().id();
             HashSet<Record> set = new HashSet();
             String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
             String jfield = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
@@ -3047,7 +3048,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void artiklToGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artiklToGlass
         try {
-            float selectID = winNode.com5t().id();
+            int selectID = winNode.com5t().id();
             //Список доступных толщин в ветке системы например 4;5;8
             String depth = sysNode.rec().getStr(eSystree.depth);
             if (depth != null && depth.isEmpty() == false) {
@@ -3080,7 +3081,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void sysfurnToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysfurnToStvorka
         try {
-            float windowsID = winNode.com5t().id();
+            int windowsID = winNode.com5t().id();
             String systreeID = sysNode.rec().getStr(eSystree.id);
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
@@ -3106,7 +3107,7 @@ public class Systree extends javax.swing.JFrame {
         try {
             new DicEnums(this, (typeopenRec) -> {
 
-                float elemID = winNode.com5t().id();
+                int elemID = winNode.com5t().id();
                 GsonElem jsonStv = (GsonElem) iwin.rootGson.find(elemID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
@@ -3125,7 +3126,7 @@ public class Systree extends javax.swing.JFrame {
     private void handlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handlToStvorka
         try {
             HashSet<Integer> set = new HashSet();
-            float selectID = winNode.com5t().id();
+            int selectID = winNode.com5t().id();
             int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
             Query qFurndetAll = new Query(eFurndet.values()).select(eFurndet.up);
             ArrayList<Record> qFurndet = (ArrayList<Record>) qFurndetAll.stream().filter(rec -> rec.getInt(eFurndet.furniture_id1) == furnitureID).collect(toList());
@@ -3201,7 +3202,7 @@ public class Systree extends javax.swing.JFrame {
         }
         new DicHandl(this, (record) -> {
             try {
-                float selectID = areaStv.id();
+                int selectID = areaStv.id();
                 GsonElem stvArea = (GsonElem) iwin.rootGson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
@@ -3232,7 +3233,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void colorToHandl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToHandl
         try {
-            float selectID = winNode.com5t().id();
+            int selectID = winNode.com5t().id();
             HashSet<Record> colorSet = new HashSet();
             Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", winNode.com5t().artiklRec.getInt(eArtikl.id));
             artdetList.forEach(rec -> {
@@ -3264,14 +3265,14 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_colorToHandl
 
     private void txt24Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt24Update
-        float windowsID = winNode.com5t().id();
+        int windowsID = winNode.com5t().id();
         GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
         jsonStv.widthUp(UCom.getFloat(txt24.getText()));
         updateScript(windowsID);
     }//GEN-LAST:event_txt24Update
 
     private void txt26Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt26Update
-        float windowsID = winNode.com5t().id();
+        int windowsID = winNode.com5t().id();
         GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
         jsonStv.heightUp(UCom.getFloat(txt26.getText()));
         updateScript(windowsID);
