@@ -47,7 +47,7 @@ public class Wincalc {
     public Integer nuni = 0;
     public Record artiklRec = null; //главный артикл системы профилей   
     public Record syssizeRec = null; //константы    
-    public float genId = 100; //генерация ключа в спецификации
+    public float genId = 0; //генерация ключа в спецификации
 
     public float width = 0.f; //ширина окна
     public float height = 0.f; //высота окна
@@ -117,19 +117,19 @@ public class Wincalc {
 
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {
-                rootArea = new AreaRectangl(this, null, rootGson.id(), Type.RECTANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //простое
+                rootArea = new AreaRectangl(this, null, Type.RECTANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //простое
             } else if (Type.TRAPEZE == rootGson.type()) {
-                rootArea = new AreaTrapeze(this, null, rootGson.id(), Type.TRAPEZE, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //трапеция
+                rootArea = new AreaTrapeze(this, null, Type.TRAPEZE, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //трапеция
             } else if (Type.TRIANGL == rootGson.type()) {
-                rootArea = new AreaTriangl(this, null, rootGson.id(), Type.TRIANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //треугольник
+                rootArea = new AreaTriangl(this, null, Type.TRIANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //треугольник
             } else if (Type.ARCH == rootGson.type()) {
-                rootArea = new AreaArch(this, null, rootGson.id(), Type.ARCH, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //арка
+                rootArea = new AreaArch(this, null, Type.ARCH, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //арка
             }
 
             //Добавим рамы
             for (GsonElem gsonElem : rootGson.childs()) {
                 if (Type.FRAME_SIDE == gsonElem.type()) {
-                    rootArea.mapFrame.put(gsonElem.layout(), new ElemFrame(rootArea, gsonElem.id(), gsonElem.layout(), gsonElem.param()));
+                    rootArea.mapFrame.put(gsonElem.layout(), new ElemFrame(rootArea, gsonElem.layout(), gsonElem.param()));
                 }
             }
 
@@ -149,20 +149,20 @@ public class Wincalc {
 
                 //Добавим Area
                 if (Type.STVORKA == el.type()) {
-                    AreaSimple area5e = new AreaStvorka(Wincalc.this, owner, el.id(), el.param());
+                    AreaSimple area5e = new AreaStvorka(Wincalc.this, owner, el.param());
                     owner.listChild.add(area5e);
                     hm.put(area5e, el);
                 } else if (Type.AREA == el.type()) {
-                    AreaSimple area5e = new AreaSimple(Wincalc.this, owner, el.id(), el.type(), el.layout(), el.width(), el.height(), -1, -1, -1, null);
+                    AreaSimple area5e = new AreaSimple(Wincalc.this, owner, el.type(), el.layout(), el.width(), el.height(), -1, -1, -1, null);
                     owner.listChild.add(area5e);
                     hm.put(area5e, el);
 
                     //Добавим Elements
                 } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {
-                    owner.listChild.add(new ElemCross(owner, el.type(), el.id(), el.param()));
+                    owner.listChild.add(new ElemCross(owner, el.type(), el.param()));
 
                 } else if (Type.GLASS == el.type()) {
-                    owner.listChild.add(new ElemGlass(owner, el.id(), el.param()));
+                    owner.listChild.add(new ElemGlass(owner, el.param()));
                 }
             }
 

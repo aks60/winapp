@@ -21,9 +21,9 @@ public class ElemGlass extends ElemSimple {
     public float gzazo = 0; //зазор между фальцем и стеклопакетом 
     public float sideHoriz[] = {0, 90, 180, 270}; //угол боковой стороны к горизонту
 
-    public ElemGlass(AreaSimple owner, float id, String param) {
+    public ElemGlass(AreaSimple owner, String param) {
 
-        super(id, owner.iwin(), owner);
+        super(owner.iwin(), owner);
         this.layout = Layout.FULL;
         this.type = Type.GLASS;
 

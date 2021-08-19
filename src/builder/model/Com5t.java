@@ -19,7 +19,7 @@ public abstract class Com5t {
     public Record artiklRec = null;  //мат. средства
     public Record artiklRecAn = null;  //аналог мат. средства    
 
-    private float id = -1; //идентификатор    
+    protected float id = -1; //идентификатор    
     protected AreaSimple owner = null; //владелец
     private Wincalc iwin = null; //главный класс калькуляции
 
@@ -27,11 +27,12 @@ public abstract class Com5t {
     public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
 
     public Com5t(Type type) {
+        this.id = ++iwin.genId;
         this.type = type;
     }
 
-    public Com5t(float id, Wincalc iwin, AreaSimple owner) {
-        this.id = id;
+    public Com5t(Wincalc iwin, AreaSimple owner) {
+        this.id = ++iwin.genId;
         this.owner = owner;
         this.iwin = iwin;
     }

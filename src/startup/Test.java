@@ -85,12 +85,12 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(1, false));
+            iwin.build(builder.script.Winscript.test(601001, false));
             iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            //DBCompare.iwinRec(iwin, true);
-            iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
+            DBCompare.iwinRec(iwin, true);
+            //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
 
         } else if (_case.equals("min")) {
             List<Integer> prjList = Winscript.models();

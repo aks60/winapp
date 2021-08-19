@@ -108,7 +108,7 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
             ImageIcon image = new ImageIcon(bi);
             return image;
         } catch (Exception e) {
-            System.err.println("Ошибка:Util4.loadingTab() " + e);
+            System.out.println("Canvas.createImageIcon() " + e);
             return new ImageIcon();
         }
     }    

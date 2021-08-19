@@ -28,11 +28,12 @@ public class ElemJoining {
     public String costs = "";  //трудозатраты, ч/ч.
 
     public ElemJoining(Wincalc iwin) {
+        this.id = ++iwin.genId;
         this.iwin = iwin;
     }
 
-    public ElemJoining(float id, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
-        this.id = id;
+    public ElemJoining(TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
+        this.id = ++iwin.genId;
         this.type = type;
         this.layout = layout;
         this.elem1 = elem1;

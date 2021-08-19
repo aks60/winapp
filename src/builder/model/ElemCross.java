@@ -17,9 +17,9 @@ public class ElemCross extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
 
-    public ElemCross(AreaSimple owner, Type type, float id, String param) {
+    public ElemCross(AreaSimple owner, Type type, String param) {
 
-        super(id, owner.iwin(), owner);
+        super(owner.iwin(), owner);
         this.layout = (owner.layout() == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
         colorID1 = iwin().colorID1;
         colorID2 = iwin().colorID2;
@@ -31,7 +31,7 @@ public class ElemCross extends ElemSimple {
         //Коррекция положения импоста арки (подкдадка ареа над импостом)
         if ((Type.ARCH == owner.type || Type.TRAPEZE == owner.type) && owner.listChild.isEmpty()) {
             float dh = artiklRec.getFloat(eArtikl.height) / 2;
-            owner.listChild.add(new AreaSimple(iwin(), owner, owner.id() + .1f, Type.AREA, Layout.HORIZ, owner.width(), dh, -1, -1, -1, null));
+            owner.listChild.add(new AreaSimple(iwin(), owner, Type.AREA, Layout.HORIZ, owner.width(), dh, -1, -1, -1, null));
         }
         setLocation();
     }

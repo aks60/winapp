@@ -32,8 +32,8 @@ public class AreaSimple extends Com5t {
     public EnumMap<Layout, ElemFrame> mapFrame = new EnumMap<>(Layout.class); //список рам в окне 
     public LinkedList<Com5t> listChild = new LinkedList(); //дети
 
-    public AreaSimple(Wincalc iwin, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(id, iwin, owner);
+    public AreaSimple(Wincalc iwin, AreaSimple owner, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
+        super(iwin, owner);
         this.type = type;
         this.layout = layout;
         this.colorID1 = color1;
@@ -147,12 +147,12 @@ public class AreaSimple extends Com5t {
                         //elemImp.anglHoriz = 90;
                         if (elem5e.inside(elemImp.x2, elemImp.y2) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение нижнее                              
-                            ElemJoining el = new ElemJoining(id() + 1f / 100, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
+                            ElemJoining el = new ElemJoining(TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
                             iwin().mapJoin.put(elemImp.joinPoint(0), el);
 
                         } else if (elem5e.inside(elemImp.x1, elemImp.y1) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение верхнее                            
-                            ElemJoining el = new ElemJoining(id() + 2f / 100, TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
+                            ElemJoining el = new ElemJoining(TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
                             iwin().mapJoin.put(elemImp.joinPoint(1), el);
                         }
 
@@ -161,12 +161,12 @@ public class AreaSimple extends Com5t {
                         //elemImp.anglHoriz = 270;
                         if (elem5e.inside(elemImp.x1, elemImp.y1) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение левое                             
-                            ElemJoining el = new ElemJoining(id() + 3f / 100, TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
+                            ElemJoining el = new ElemJoining(TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
                             iwin().mapJoin.put(elemImp.joinPoint(0), el);
 
                         } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
                                 && iwin().mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение правое                              
-                            ElemJoining el = new ElemJoining(id() + 4f / 100, TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
+                            ElemJoining el = new ElemJoining(TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
                             iwin().mapJoin.put(elemImp.joinPoint(1), el);
                         }
                     }
