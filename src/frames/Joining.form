@@ -333,7 +333,7 @@
         <Container class="javax.swing.JPanel" name="pan4">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[220, 308]"/>
+              <Dimension value="[200, 300]"/>
             </Property>
           </Properties>
           <Constraints>
@@ -350,9 +350,6 @@
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder bevelType="0"/>
                   </Border>
-                </Property>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[354, 540]"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -441,7 +438,7 @@
         <Container class="javax.swing.JPanel" name="pan1">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[590, 308]"/>
+              <Dimension value="[600, 320]"/>
             </Property>
           </Properties>
           <Constraints>
@@ -460,7 +457,7 @@
                   </Border>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[290, 234]"/>
+                  <Dimension value="[300, 234]"/>
                 </Property>
               </Properties>
               <AuxValues>

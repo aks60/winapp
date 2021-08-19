@@ -15,6 +15,7 @@ import enums.Type;
 import java.util.Arrays;
 import java.util.Map;
 import builder.making.Furniture;
+import enums.TypeJoin;
 import enums.UseSide;
 
 public class ElemFrame extends ElemSimple {
@@ -37,11 +38,11 @@ public class ElemFrame extends ElemSimple {
         colorID1 = (param(par, PKjson.colorID1) != -1) ? param(par, PKjson.colorID1) : colorID1;
         colorID2 = (param(par, PKjson.colorID2) != -1) ? param(par, PKjson.colorID2) : colorID2;
         colorID3 = (param(par, PKjson.colorID3) != -1) ? param(par, PKjson.colorID3) : colorID3;
-        
+
         if (param(par, PKjson.sysprofID) != -1) { //профили через параметр
             sysprofRec = eSysprof.find3(param(par, PKjson.sysprofID));
-            
-        } else if(owner.sysprofRec != null) { //профили через параметр рамы, створки
+
+        } else if (owner.sysprofRec != null) { //профили через параметр рамы, створки
             sysprofRec = owner.sysprofRec;
         } else {
             if (Layout.BOTT.equals(layout())) {
@@ -254,8 +255,10 @@ public class ElemFrame extends ElemSimple {
 
     @Override
     public void paint() {
-        float d1z = artiklRec.getFloat(eArtikl.height);
+        ElemJoining ej1 = iwin().mapJoin.get(joinPoint(0));
+        ElemJoining ej2 = iwin().mapJoin.get(joinPoint(1));
         float w = root().width();
+        float z = (ej1.type == TypeJoin.VAR20 && ej2.type == TypeJoin.VAR20) ? artiklRec.getFloat(eArtikl.height) : 0;
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
         if (Layout.ARCH == layout) { //прорисовка арки
@@ -270,28 +273,28 @@ public class ElemFrame extends ElemSimple {
             iwin().draw.strokeArc(owner().width() / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4);
 
         } else if (Layout.TOP == layout) {
-            iwin().draw.strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, borderColor);
+            iwin().draw.strokePolygon(x1, x2, x2 - z, x1 + z, y1, y1, y2, y2, rgb, borderColor);
 
         } else if (Layout.BOTT == layout) {
-            iwin().draw.strokePolygon(x1 + d1z, x2 - d1z, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            iwin().draw.strokePolygon(x1 + z, x2 - z, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
         } else if (Layout.LEFT == layout) {
             if (Type.ARCH == owner().type) {
                 double r = ((AreaArch) root()).radiusArch;
-                double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
-                double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
-                iwin().draw.strokePolygon(x1, x2, x2, x1, y1, (float) (r - a), y2 - d1z, y2, rgb, borderColor);
+                double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * z) / ((r - z) * 2)));
+                double a = (r - z) * Math.sin(Math.toRadians(ang2));
+                iwin().draw.strokePolygon(x1, x2, x2, x1, y1, (float) (r - a), y2 - z, y2, rgb, borderColor);
             } else {
-                iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + d1z, y2 - d1z, y2, rgb, borderColor);
+                iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + z, y2 - z, y2, rgb, borderColor);
             }
         } else if (Layout.RIGHT == layout) {
             if (Type.ARCH == owner().type) {
                 double r = ((AreaArch) root()).radiusArch;
-                double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
-                double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
-                iwin().draw.strokePolygon(x1, x2, x2, x1, (float) (r - a), y1, y2, y2 - d1z, rgb, borderColor);
+                double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * z) / ((r - z) * 2)));
+                double a = (r - z) * Math.sin(Math.toRadians(ang2));
+                iwin().draw.strokePolygon(x1, x2, x2, x1, (float) (r - a), y1, y2, y2 - z, rgb, borderColor);
             } else {
-                iwin().draw.strokePolygon(x1, x2, x2, x1, y1 + d1z, y1, y2, y2 - d1z, rgb, borderColor);
+                iwin().draw.strokePolygon(x1, x2, x2, x1, y1 + z, y1, y2, y2 - z, rgb, borderColor);
             }
         }
     }

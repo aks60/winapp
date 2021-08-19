@@ -648,8 +648,6 @@ public class Systree extends javax.swing.JFrame {
                 ElemJoining ej1 = iwin.mapJoin.get(elem5e.joinPoint(0));
                 ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = iwin.mapJoin.get(elem5e.joinPoint(2));
-//                System.out.println(elem5e.joinPoint(0));
-//                System.out.println(elem5e.joinPoint(1));
                 Arrays.asList(txt36, txt37, txt38, txt39, txt40, txt41).forEach(it -> it.setText(""));
                 if (ej1 != null) {
                     txt38.setText(ej1.joinvarRec.getStr(eJoinvar.name));

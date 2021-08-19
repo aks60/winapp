@@ -248,15 +248,15 @@ public class JoiningVar extends Par5s {
                 case 2003:  //Угол варианта 
                 case 3003:  //Угол варианта 
                     if ("левый".equals(rec.getStr(TEXT))) {
-                        if (elemJoin.layout != LayoutJoin.LBOT
-                                && elemJoin.layout != LayoutJoin.LTOP
-                                && elemJoin.layout != LayoutJoin.TLEFT) {
+                        if (elemJoin.layout == LayoutJoin.LBOT
+                                && elemJoin.layout == LayoutJoin.LTOP
+                                && elemJoin.layout == LayoutJoin.TLEFT) {
                             return false;
                         }
                     } else { //правый
-                        if (elemJoin.layout != LayoutJoin.RBOT
-                                && elemJoin.layout != LayoutJoin.RTOP
-                                && elemJoin.layout != LayoutJoin.TRIGH) {
+                        if (elemJoin.layout == LayoutJoin.RBOT
+                                && elemJoin.layout == LayoutJoin.RTOP
+                                && elemJoin.layout == LayoutJoin.TRIGH) {
                             return false;
                         }
                     }
