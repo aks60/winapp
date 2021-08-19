@@ -182,14 +182,14 @@ public class Wincalc {
             genId = 0;
             calcElements = new Elements(this); //составы
             calcElements.calc();
-            calcJoining = new Joining(this); //соединения
-            calcJoining.calc();
-            calcFilling = new Filling(this); //заполнения
-            calcFilling.calc();
-            calcFurniture = new Furniture(this); //фурнитура 
-            calcFurniture.calc();
-            calTariffication = new Tariffic(this, norm_otx); //тарификация
-            calTariffication.calc();
+//            calcJoining = new Joining(this); //соединения
+//            calcJoining.calc();
+//            calcFilling = new Filling(this); //заполнения
+//            calcFilling.calc();
+//            calcFurniture = new Furniture(this); //фурнитура 
+//            calcFurniture.calc();
+//            calTariffication = new Tariffic(this, norm_otx); //тарификация
+//            calTariffication.calc();
 
             for (ElemSimple elemRec : listElem) {
                 listSpec.add(elemRec.spcRec);

@@ -19,7 +19,7 @@ public class UCom {
             return Integer.valueOf(str);
             
         } catch (Exception e) {
-            System.out.println("Ошибка:common.Util.getInt()");
+            System.out.println("Ошибка:UCom.getInt()");
             return 0;
         }
     }
@@ -31,7 +31,7 @@ public class UCom {
             try {
                 return Float.valueOf(str);
             } catch (java.lang.NumberFormatException e) {
-                System.err.println("Ошибка:Util.getFloat() " + e);
+                System.err.println("Ошибка:UCom.getFloat() " + e);
             }
         }
         return -1f;
@@ -43,7 +43,7 @@ public class UCom {
             try {
                 return Double.valueOf(str);
             } catch (java.lang.NumberFormatException e) {
-                System.err.println("Ошибка:Util.getFloat() " + e);
+                System.err.println("Ошибка:UCom.getFloat() " + e);
             }
         }
         return -1.0;
