@@ -636,7 +636,6 @@ public class Systree extends javax.swing.JFrame {
                 }
                 txt21.setText(stv.handleRec.getStr(eArtikl.code));
                 txt34.setText(stv.handleRec.getStr(eArtikl.name));
-                Object obj = iwin.rootGson.find(stv.id());
                 txt24.setText(UGui.df.format(iwin.rootGson.find(stv.id()).width()));
                 txt26.setText(UGui.df.format(iwin.rootGson.find(stv.id()).height()));
                 txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
