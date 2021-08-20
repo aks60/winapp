@@ -1,5 +1,6 @@
 package frames;
 
+import builder.making.UColor;
 import frames.dialog.ParGrup2;
 import frames.dialog.ParGrup2b;
 import frames.dialog.ParColor2;
@@ -49,15 +50,6 @@ import frames.swing.listener.ListenerFrame;
 //варианты соединений
 public class Joining extends javax.swing.JFrame {
 
-    private ImageIcon icon[] = {
-        new ImageIcon(getClass().getResource("/resource/img16/b000.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b001.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b002.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b003.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b004.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
-    private int[] indexIcon = {10, 20, 30, 31, 40, 41};
-
     private Query qGroups = new Query(eGroups.values());
     private Query qParams = new Query(eParams.values());
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
@@ -105,7 +97,7 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-
+        
         tab1.setToolTipText("");
         qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
         qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
@@ -221,11 +213,7 @@ public class Joining extends javax.swing.JFrame {
                 if (column == 0) {
                     int types = qJoinvar.get(table.convertRowIndexToModel(row)).getInt(eJoinvar.types);
                     JLabel label = (JLabel) comp;
-                    for (int i = 0; i < 6; i++) {
-                        if (types == indexIcon[i]) {
-                            label.setIcon(icon[i]);
-                        }
-                    }
+                    label.setIcon(UColor.iconFromTypeJoin(types));
                 }
                 return comp;
             }
@@ -1024,6 +1012,7 @@ public class Joining extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        new UColor();
         south.add(filterTable, 0);
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

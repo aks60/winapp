@@ -2310,7 +2310,7 @@
                                       <Component id="lab57" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt41" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="66" max="32767" attributes="0"/>
+                                  <EmptySpace pref="60" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2327,6 +2327,7 @@
                                 <EtchetBorder bevelType="0"/>
                               </Border>
                             </Property>
+                            <Property name="iconTextGap" type="int" value="1"/>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[80, 18]"/>
                             </Property>
@@ -2391,8 +2392,10 @@
                                 <EtchetBorder bevelType="0"/>
                               </Border>
                             </Property>
+                            <Property name="horizontalTextPosition" type="int" value="10"/>
+                            <Property name="iconTextGap" type="int" value="6"/>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[80, 18]"/>
+                              <Dimension value="[80, 20]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -2469,8 +2472,10 @@
                                 <EtchetBorder bevelType="0"/>
                               </Border>
                             </Property>
+                            <Property name="horizontalTextPosition" type="int" value="10"/>
+                            <Property name="iconTextGap" type="int" value="6"/>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[80, 18]"/>
+                              <Dimension value="[80, 20]"/>
                             </Property>
                           </Properties>
                         </Component>
@@ -2533,8 +2538,10 @@
                                 <EtchetBorder bevelType="0"/>
                               </Border>
                             </Property>
+                            <Property name="horizontalTextPosition" type="int" value="10"/>
+                            <Property name="iconTextGap" type="int" value="6"/>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[80, 18]"/>
+                              <Dimension value="[80, 20]"/>
                             </Property>
                           </Properties>
                         </Component>

@@ -8,7 +8,9 @@ import domain.eColor;
 import domain.eColmap;
 import domain.eSetting;
 import enums.UseColor;
+import java.util.Arrays;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class UColor {
@@ -16,6 +18,33 @@ public class UColor {
     private static final int TYPES = 2;
     private static final int COLOR_FK = 3;
     private static final int ARTIKL_ID = 4;
+
+    private static ImageIcon icon[] = {null, null, null, null, null, null};
+    private static ImageIcon icon2[] = {null, null, null, null, null, null};
+    private static int[] indexIcon = {10, 20, 30, 31, 40, 41};
+
+    public UColor() {
+        if (this.icon[0] == null) {
+            ImageIcon icon[] = {
+                new ImageIcon(getClass().getResource("/resource/img16/b000.gif")),
+                new ImageIcon(getClass().getResource("/resource/img16/b001.gif")),
+                new ImageIcon(getClass().getResource("/resource/img16/b002.gif")),
+                new ImageIcon(getClass().getResource("/resource/img16/b003.gif")),
+                new ImageIcon(getClass().getResource("/resource/img16/b004.gif")),
+                new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
+            this.icon = icon;
+        }
+        if (this.icon2[0] == null) {
+            ImageIcon icon[] = {
+                new ImageIcon(getClass().getResource("/resource/img16/b070.gif")),
+                new ImageIcon(getClass().getResource("/resource/img16/b071.gif")),
+                new ImageIcon(getClass().getResource("/resource/img16/b072.gif")),
+                new ImageIcon(getClass().getResource("/resource/img16/b073.gif")),
+                new ImageIcon(getClass().getResource("/resource/img16/b074.gif")),
+                new ImageIcon(getClass().getResource("/resource/img16/b075.gif"))};
+            this.icon2 = icon;
+        }
+    }
 
     public static void colorFromParam(ElemSimple slem5e) {  //см. http://help.profsegment.ru/?id=1107        
 
@@ -381,5 +410,23 @@ public class UColor {
             System.err.println("Ошибна Color.colorFromArt() " + e);
             return -1;
         }
+    }
+
+    public static ImageIcon iconFromTypeJoin(int typeJoin) {
+        for (int i = 0; i < 6; i++) {
+            if (typeJoin == indexIcon[i]) {
+                return icon[i];
+            }
+        }
+        return null;
+    }
+    
+    public static ImageIcon iconFromTypeJoin2(int typeJoin) {
+        for (int i = 0; i < 6; i++) {
+            if (typeJoin == indexIcon[i]) {
+                return icon2[i];
+            }
+        }
+        return null;
     }
 }

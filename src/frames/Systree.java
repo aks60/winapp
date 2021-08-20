@@ -83,6 +83,7 @@ import frames.swing.listener.ListenerFrame;
 import common.eProfile;
 import domain.eJoining;
 import builder.making.Joining;
+import builder.making.UColor;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.dialog.DicJoinvar;
@@ -649,17 +650,21 @@ public class Systree extends javax.swing.JFrame {
                 ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = iwin.mapJoin.get(elem5e.joinPoint(2));
                 Arrays.asList(txt36, txt37, txt38, txt39, txt40, txt41).forEach(it -> it.setText(""));
+                Arrays.asList(lab55, lab56, lab57).forEach(it -> it.setIcon(null));
                 if (ej1 != null) {
                     txt38.setText(ej1.joinvarRec.getStr(eJoinvar.name));
                     txt36.setText(ej1.joiningRec.getStr(eJoining.name));
+                    lab55.setIcon(UColor.iconFromTypeJoin2(ej1.type.id));
                 }
                 if (ej2 != null) {
                     txt39.setText(ej2.joinvarRec.getStr(eJoinvar.name));
                     txt37.setText(ej2.joiningRec.getStr(eJoining.name));
+                    lab56.setIcon(UColor.iconFromTypeJoin2(ej2.type.id));
                 }
                 if (ej3 != null && ej3.type == TypeJoin.VAR10) {
                     txt41.setText(ej3.joinvarRec.getStr(eJoinvar.name));
                     txt40.setText(ej3.joiningRec.getStr(eJoining.name));
+                    lab57.setIcon(UColor.iconFromTypeJoin2(ej3.type.id));
                 }
             }
             lab2.setText("ID = " + winNode.com5t().id());
@@ -1971,6 +1976,7 @@ public class Systree extends javax.swing.JFrame {
         lab49.setFont(frames.UGui.getFont(0,0));
         lab49.setText("1  соединение");
         lab49.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab49.setIconTextGap(1);
         lab49.setPreferredSize(new java.awt.Dimension(80, 18));
 
         lab50.setFont(frames.UGui.getFont(0,0));
@@ -1991,7 +1997,9 @@ public class Systree extends javax.swing.JFrame {
         lab55.setFont(frames.UGui.getFont(0,0));
         lab55.setText("Вариант");
         lab55.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab55.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab55.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        lab55.setIconTextGap(6);
+        lab55.setPreferredSize(new java.awt.Dimension(80, 20));
 
         txt38.setEditable(false);
         txt38.setBackground(new java.awt.Color(255, 255, 255));
@@ -2025,7 +2033,9 @@ public class Systree extends javax.swing.JFrame {
         lab56.setFont(frames.UGui.getFont(0,0));
         lab56.setText("Вариант");
         lab56.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab56.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab56.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        lab56.setIconTextGap(6);
+        lab56.setPreferredSize(new java.awt.Dimension(80, 20));
 
         txt39.setEditable(false);
         txt39.setBackground(new java.awt.Color(255, 255, 255));
@@ -2045,7 +2055,9 @@ public class Systree extends javax.swing.JFrame {
         lab57.setFont(frames.UGui.getFont(0,0));
         lab57.setText("Вариант");
         lab57.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab57.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab57.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        lab57.setIconTextGap(6);
+        lab57.setPreferredSize(new java.awt.Dimension(80, 20));
 
         txt41.setEditable(false);
         txt41.setBackground(new java.awt.Color(255, 255, 255));
@@ -2135,7 +2147,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pan7.add(pan17, "card17");
@@ -3323,8 +3335,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_txt23Update
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        builder.making.Furniture calcFurniture = new builder.making.Furniture(iwin, true); //фурнитура 
-        calcFurniture.calc();
+       lab49.setIcon(null);
     }//GEN-LAST:event_btnTest
 
     private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame
@@ -3505,7 +3516,8 @@ public class Systree extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        south.add(filterTable, 0);
+        new UColor();
+        south.add(filterTable, 0);        
         UGui.documentFilter(1, txt2, txt15);
         UGui.documentFilter(2, txt3, txt4, txt5);
         UGui.documentFilter(3, txt17, txt22, txt23, txt24, txt26, txt35);

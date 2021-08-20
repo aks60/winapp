@@ -1,5 +1,6 @@
 package frames.dialog;
 
+import builder.making.UColor;
 import dataset.Query;
 import frames.FrameToFile;
 import frames.UGui;
@@ -23,15 +24,8 @@ public class DicJoinvar extends javax.swing.JDialog {
 
     private static final int serialVersionUID = 1190782744;
     private Query qJoinvar = new Query(eJoinvar.name, eJoinvar.id);
-    private ImageIcon icon[] = {
-        new ImageIcon(getClass().getResource("/resource/img16/b000.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b001.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b002.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b003.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b004.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
-    private int[] indexIcon = {10, 20, 30, 31, 40, 41};
     private ListenerRecord listener = null;
+    private int[] indexIcon = {10, 20, 30, 31, 40, 41};
 
     public DicJoinvar(java.awt.Frame parent, ListenerRecord listenet) {
         super(parent, true);
@@ -65,7 +59,7 @@ public class DicJoinvar extends javax.swing.JDialog {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                label.setIcon(icon[row]);
+                label.setIcon(UColor.iconFromTypeJoin(indexIcon[row]));
                 return label;
             }
         });
@@ -82,7 +76,7 @@ public class DicJoinvar extends javax.swing.JDialog {
                 int types = qJoinvar.get(table.convertRowIndexToModel(row)).getInt(eJoinvar.types);
                 for (int i = 0; i < 6; i++) {
                     if (types == indexIcon[i]) {
-                        label.setIcon(icon[i]);
+                        label.setIcon(UColor.iconFromTypeJoin(types));
                     }
                 }
                 return label;
@@ -286,5 +280,6 @@ public class DicJoinvar extends javax.swing.JDialog {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
+        new UColor();
     }
 }
