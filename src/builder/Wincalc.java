@@ -198,19 +198,5 @@ public class Wincalc {
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.constructiv(" + e);
         }
-    }
-    
-
-//    //Конструктив для инициализации соединений и ручки конструкции
-//    public void constructiv() {
-//        try {
-//            calcJoining = new Joining(this, true); //для инит. соединений
-//            calcJoining.calc();
-//            calcFurniture = new builder.making.Furniture(this, true); //для инит. ручки
-//            calcFurniture.calc();
-//
-//        } catch (Exception e) {
-//            System.err.println("Ошибка:Wincalc.constructiv(" + e);
-//        }
-//    }    
+    }   
 }
