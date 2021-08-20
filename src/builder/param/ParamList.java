@@ -1249,12 +1249,11 @@ public class ParamList {
     };
 
     public static Dictionary dic_4002 = () -> {
-        return Arrays.asList("Простое T-обр", "Крестовое †-обр", "Сложное Y-обр");
+        return Arrays.asList("Простое Т-обр.", "Крестовое †-обр.", "Сложное Y-обр.");
     };
 
     public static Dictionary dic_3002 = () -> {
-        //return Arrays.asList("Простое Т-обр.", "Простое L-обр.", "Крестовое †-обр.");
-        return Arrays.asList("Простое L-обр", "Крестовое †-обр");
+        return Arrays.asList("Простое L-обр.", "Крестовое †-обр.");
     };
 
     public static Dictionary dic_SERIES = () -> {
