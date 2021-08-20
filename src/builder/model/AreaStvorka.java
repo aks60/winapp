@@ -34,20 +34,20 @@ public class AreaStvorka extends AreaSimple {
     public float handleHeight = 0; //высота ручки
     public LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке       
 
-    public AreaStvorka(Wincalc iwin, AreaSimple owner, String param) {
-        super(iwin, owner, Type.STVORKA, Layout.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
+    public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
+        super(iwin, owner, id, Type.STVORKA, Layout.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
 
         Gson gson = new GsonBuilder().create();
         JsonObject paramObj = new GsonBuilder().create().fromJson(param, JsonObject.class);
 
         //Добавим рамы створки    Ujson.getAsJsonObject(paramObj, stvKey)  
-        ElemFrame stvBot = new ElemFrame(this, Layout.BOTT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaBottom)));
+        ElemFrame stvBot = new ElemFrame(this, id + .1f, Layout.BOTT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaBottom)));
         mapFrame.put(stvBot.layout(), stvBot);
-        ElemFrame stvRigh = new ElemFrame(this, Layout.RIGHT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaRight)));
+        ElemFrame stvRigh = new ElemFrame(this, id + .2f, Layout.RIGHT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaRight)));
         mapFrame.put(stvRigh.layout(), stvRigh);
-        ElemFrame stvTop = new ElemFrame(this, Layout.TOP, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaTop)));
+        ElemFrame stvTop = new ElemFrame(this, id + .3f, Layout.TOP, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaTop)));
         mapFrame.put(stvTop.layout(), stvTop);
-        ElemFrame stvLeft = new ElemFrame(this, Layout.LEFT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaLeft)));
+        ElemFrame stvLeft = new ElemFrame(this, id + .4f, Layout.LEFT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaLeft)));
         mapFrame.put(stvLeft.layout(), stvLeft);
 
         //Положение элементов створки с учётом нахлёста

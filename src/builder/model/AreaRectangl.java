@@ -9,8 +9,8 @@ import enums.Type;
 
 public class AreaRectangl extends AreaSimple {
 
-    public AreaRectangl(Wincalc iwin, AreaSimple owner, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(iwin, owner, type, layout, width, height, color1, color2, color3, param);
+    public AreaRectangl(Wincalc iwin, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
+        super(iwin, owner, id, type, layout, width, height, color1, color2, color3, param);
 
         if (param(param, PKjson.colorID1) != -1) {
             this.colorID1 = param(param, PKjson.colorID1);

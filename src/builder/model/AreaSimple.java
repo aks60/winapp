@@ -32,8 +32,8 @@ public class AreaSimple extends Com5t {
     public EnumMap<Layout, ElemFrame> mapFrame = new EnumMap<>(Layout.class); //список рам в окне 
     public LinkedList<Com5t> listChild = new LinkedList(); //дети
 
-    public AreaSimple(Wincalc iwin, AreaSimple owner, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(iwin, owner);
+    public AreaSimple(Wincalc iwin, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
+        super(id, iwin, owner);
         this.type = type;
         this.layout = layout;
         this.colorID1 = color1;
