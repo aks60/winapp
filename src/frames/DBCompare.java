@@ -98,7 +98,7 @@ public class DBCompare extends javax.swing.JFrame {
         initElements();
         cn = Test.connect1();
         loadingData();
-        loadingTab14(iwin);
+        loadingTab1To4(iwin);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
@@ -132,7 +132,7 @@ public class DBCompare extends javax.swing.JFrame {
         }
     }
 
-    public void loadingTab14(Wincalc iwin) {
+    public void loadingTab1To4(Wincalc iwin) {
         try {
             Map<String, Vector> hmSpc = new HashMap();
             Set<String> setSpc1 = new HashSet();
