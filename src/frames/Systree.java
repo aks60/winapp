@@ -693,9 +693,8 @@ public class Systree extends javax.swing.JFrame {
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
                 JsonElement script2 = gson.fromJson(script, JsonElement.class);
-                script2.getAsJsonObject().addProperty("nuni", systreeID); //запишем nuni в script
                 iwin.build(script2.toString()); //построение изделия
-                iwin.calcJoining = new builder.making.Joining(iwin, true); //для инит. соединений
+                iwin.calcJoining = new Joining(iwin, true); //для инит. соединений
                 iwin.calcJoining.calc();
                 iwin.calcFurniture = new builder.making.Furniture(iwin, true); //для инит. ручки
                 iwin.calcFurniture.calc();
@@ -3335,7 +3334,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_txt23Update
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-       lab49.setIcon(null);
+       iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));
     }//GEN-LAST:event_btnTest
 
     private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame

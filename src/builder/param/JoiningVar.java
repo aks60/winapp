@@ -129,7 +129,7 @@ public class JoiningVar extends Par5s {
                 case 1013:  //Для Артикулов не указан состав
                 case 2013:  //Для Артикулов не указан состав 
                 case 3013:  //Для Артикулов не указан состав
-                case 4013:  //Для Артикулов не указан состав  
+                case 4013: //Для Артикулов не указан состав  
                 {
                     List<Record> elementList1 = eElement.find2(elemJoin.elem1.artiklRec.getInt(eArtikl.code));
                     boolean substr1 = false;
@@ -247,17 +247,23 @@ public class JoiningVar extends Par5s {
                     break;
                 case 2003:  //Угол варианта 
                 case 3003:  //Угол варианта 
-                    if ("левый".equals(rec.getStr(TEXT))) {
-                        if (elemJoin.layout == LayoutJoin.LBOT
-                                || elemJoin.layout == LayoutJoin.LTOP
-                                || elemJoin.layout == LayoutJoin.TLEFT) {
+                    if (elemJoin.type == TypeJoin.VAR30 && elemJoin.layout == LayoutJoin.RTOP) {
+                        if ("левый".equals(rec.getStr(TEXT))) {
                             return false;
                         }
-                    } else { //правый
-                        if (elemJoin.layout == LayoutJoin.RBOT
-                                || elemJoin.layout == LayoutJoin.RTOP
-                                || elemJoin.layout == LayoutJoin.TRIGH) {
+                    } else if(elemJoin.type == TypeJoin.VAR31 && elemJoin.layout == LayoutJoin.LTOP) {
+                        if ("правый".equals(rec.getStr(TEXT))) {
                             return false;
+                        }                        
+                    } else {
+                        if ("правый".equals(rec.getStr(TEXT))) {
+                            if (elemJoin.layout == LayoutJoin.LBOT || elemJoin.layout == LayoutJoin.LTOP || elemJoin.layout == LayoutJoin.TLEFT) {
+                                return false;
+                            }
+                        } else { //левый
+                            if (elemJoin.layout == LayoutJoin.RBOT || elemJoin.layout == LayoutJoin.RTOP || elemJoin.layout == LayoutJoin.TRIGH) {
+                                return false;
+                            }
                         }
                     }
                     break;

@@ -367,7 +367,7 @@ public class Order extends javax.swing.JFrame {
 
                 JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
                 iwin.build(jsonElem.toString()); //построение изделия
-                iwin.calcJoining = new builder.making.Joining(iwin, true); //для инит. соединений
+                iwin.calcJoining = new Joining(iwin, true); //для инит. соединений
                 iwin.calcJoining.calc();
                 iwin.calcFurniture = new builder.making.Furniture(iwin, true); //для инит. ручки
                 iwin.calcFurniture.calc();                

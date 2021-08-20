@@ -159,7 +159,7 @@ public class Wincalc {
                     //Добавим Elements
                 } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {
                     owner.listChild.add(new ElemCross(owner, el.type(), el.id(), el.param()));
- 
+
                 } else if (Type.GLASS == el.type()) {
                     owner.listChild.add(new ElemGlass(owner, el.id(), el.param()));
                 }
@@ -199,5 +199,18 @@ public class Wincalc {
             System.err.println("Ошибка:Wincalc.constructiv(" + e);
         }
     }
+    
 
+//    //Конструктив для инициализации соединений и ручки конструкции
+//    public void constructiv() {
+//        try {
+//            calcJoining = new Joining(this, true); //для инит. соединений
+//            calcJoining.calc();
+//            calcFurniture = new builder.making.Furniture(this, true); //для инит. ручки
+//            calcFurniture.calc();
+//
+//        } catch (Exception e) {
+//            System.err.println("Ошибка:Wincalc.constructiv(" + e);
+//        }
+//    }    
 }
