@@ -66,7 +66,7 @@ public class Test {
         try {
             //convert.Profstroy.exec();
             //wincalc();
-            //param();
+            param();
             //query();
             //frame();
             //json();

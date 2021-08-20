@@ -113,7 +113,7 @@ public class FurnitureVar extends Par5s {
                     } else {
                         float max = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().width() : elem5e.owner().height();
                         float min = (elem5e.owner().width() > elem5e.owner().height()) ? elem5e.owner().height() : elem5e.owner().width();
-                        if (UCom.containsNumb(rec.getStr(TEXT), max / min) == false) {
+                        if (UCom.containsNumbJust(rec.getStr(TEXT), max / min) == false) {
                             return false;
                         }
                     }
@@ -141,7 +141,7 @@ public class FurnitureVar extends Par5s {
                         if (rec.getFloat(TEXT) > elem5e.anglHoriz) {
                             return false;
                         }
-                    } else if (UCom.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
+                    } else if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
                         return false;
                     }
                     break;
@@ -160,7 +160,7 @@ public class FurnitureVar extends Par5s {
                     }
                     break;
                 case 21050:  //Ориентация стороны, ° 
-                    if (UCom.containsNumb(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.anglHoriz) == false) {
                         return false;
                     }
                     break;

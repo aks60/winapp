@@ -114,7 +114,7 @@ public class UCom {
     }
 
     //"180",  "30-179",  "0-89,99;90, 01-150;180, 01-269, 99;270, 01-359, 99"
-    public static boolean containsNumb(String txt, Number value) {
+    public static boolean containsNumbJust(String txt, Number value) {
         if (txt == null || txt.isEmpty() || txt.equals("*")) {
             return true;
         }
@@ -123,7 +123,7 @@ public class UCom {
         String[] arr = txt.split(";");
         if (arr.length == 1) {
             arr = arr[0].split("-");
-            if (arr.length == 1) {
+            if (arr.length == 1) { //если не диапазон, то точный поиск
                 arrList.add(Float.valueOf(arr[0]));
                 arrList.add(Float.valueOf(arr[0]));
             } else {
@@ -154,7 +154,7 @@ public class UCom {
     }
 
     //"180",  "30-179",  "0-89,99;90, 01-150;180, 01-269, 99;270, 01-359, 99"
-    public static boolean containsNumb2(String txt, Number value) {
+    public static boolean containsNumbExp(String txt, Number value) {
         if (txt == null || txt.isEmpty() || txt.equals("*")) {
             return true;
         }
@@ -163,8 +163,8 @@ public class UCom {
         String[] arr = txt.split(";");
         if (arr.length == 1) {
             arr = arr[0].split("-");
-            if (arr.length == 1) {
-                arrList.add(0f);
+            if (arr.length == 1) { //если не диапазон
+                arrList.add(0f);   //то поиск с нуля
                 arrList.add(Float.valueOf(arr[0]));
             } else {
                 arrList.add(Float.valueOf(arr[0]));
@@ -205,15 +205,15 @@ public class UCom {
         }
         String[] arr = txt.split("/");
         if (symmetry == '@') {
-            if (containsNumb(arr[0], val1) == true || containsNumb(arr[1], val2) == true) {
+            if (containsNumbJust(arr[0], val1) == true || containsNumbJust(arr[1], val2) == true) {
                 return true;
             }
-            if (containsNumb(arr[1], val1) == true || containsNumb(arr[0], val2) == true) {
+            if (containsNumbJust(arr[1], val1) == true || containsNumbJust(arr[0], val2) == true) {
                 return true;
             }
             return false;
         } else {
-            if (containsNumb(arr[0], val1) == true && containsNumb(arr[1], val2) == true) {
+            if (containsNumbJust(arr[0], val1) == true && containsNumbJust(arr[1], val2) == true) {
                 return true;
             }
             return false;
@@ -226,7 +226,7 @@ public class UCom {
             return true;
         }
         String[] arr = txt.split("/");
-        if (containsNumb(arr[0], val1) == true || containsNumb(arr[1], val2) == true) {
+        if (containsNumbJust(arr[0], val1) == true || containsNumbJust(arr[1], val2) == true) {
             return true;
         }
         return false;

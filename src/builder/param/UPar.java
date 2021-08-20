@@ -63,12 +63,12 @@ class UPar {
             String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
             int[] index = {1, 2, 3, 5, 19};
             for (int i = 0; i < arr.length; i++) {
-                if (arr.equals(txt) && UCom.containsNumb(String.valueOf(index[i]), elem5e.type().id) == false) {
+                if (arr.equals(txt) && UCom.containsNumbJust(String.valueOf(index[i]), elem5e.type().id) == false) {
                     return false;
                 }
             }
         } else {
-            if (UCom.containsNumb(txt, elem5e.type().id) == false) {
+            if (UCom.containsNumbJust(txt, elem5e.type().id) == false) {
                 return false;
             }
         }
@@ -147,7 +147,7 @@ class UPar {
                 depth = (elem.artiklRecAn.getFloat(eArtikl.depth) > depth) ? elem.artiklRecAn.getFloat(eArtikl.depth) : depth;
             }
         }
-        if(UCom.containsNumb2(txt, depth) == false) {
+        if(UCom.containsNumbJust(txt, depth) == false) {
             return false;
         }
         return true;

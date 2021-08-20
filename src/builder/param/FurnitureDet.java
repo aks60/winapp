@@ -82,7 +82,7 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24005:  //Коды текстуры створки 
                 case 25005:  //Коды текстуры створки 
-                    if (areaStv.mapFrame.entrySet().stream().filter(el -> UCom.containsNumb(rec.getStr(TEXT), el.getValue().colorID1) == true).findFirst().orElse(null) == null) {
+                    if (areaStv.mapFrame.entrySet().stream().filter(el -> UCom.containsNumbJust(rec.getStr(TEXT), el.getValue().colorID1) == true).findFirst().orElse(null) == null) {
                         return false;
                     }
                     break;
@@ -215,7 +215,7 @@ public class FurnitureDet extends Par5s {
                     Com5t glass = areaStv.listChild.stream().filter(el -> el.type() == Type.GLASS).findFirst().orElse(null);
                     if (glass != null) {
                         float weight = ((glass.width() * glass.height()) / 1000000) * glass.artiklRecAn.getFloat(eArtikl.density);
-                        if (UCom.containsNumb2(rec.getStr(TEXT), weight) == false) {
+                        if (UCom.containsNumbExp(rec.getStr(TEXT), weight) == false) {
                             return false;
                         }
                     }
@@ -250,19 +250,19 @@ public class FurnitureDet extends Par5s {
                 break;
                 case 24067:  //Коды основной текстуры изделия 
                 case 25067:  //Коды основной текстуры изделия 
-                    if (UCom.containsNumb(rec.getStr(TEXT), iwin.colorID1) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), iwin.colorID1) == false) {
                         return false;
                     }
                     break;
                 case 24068:  //Коды внутр. текстуры изделия 
                 case 25068:  //Коды внутр. текстуры изделия 
-                    if (UCom.containsNumb(rec.getStr(TEXT), iwin.colorID2) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), iwin.colorID2) == false) {
                         return false;
                     }
                     break;
                 case 24069:  //Коды внешн. текстуры изделия 
                 case 25069:  //Коды внешн. текстуры изделия     
-                    if (UCom.containsNumb(rec.getStr(TEXT), iwin.colorID3) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), iwin.colorID3) == false) {
                         return false;
                     }
                     break;

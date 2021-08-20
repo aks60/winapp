@@ -185,7 +185,7 @@ public class ElemGlass extends ElemSimple {
 
         } else if (UseUnit.PIE.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
             if (spcAdd.mapParam.get(13014) != null) {
-                if (UCom.containsNumb(spcAdd.mapParam.get(13014), anglHoriz) == true) { //Углы ориентации стороны
+                if (UCom.containsNumbJust(spcAdd.mapParam.get(13014), anglHoriz) == true) { //Углы ориентации стороны
                     spcRec.spcList.add(spcAdd);
                 }
             } else {

@@ -100,7 +100,7 @@ public class JoiningDet extends Par5s {
                             weight += glass.width() * glass.height() * glass.artiklRecAn.getFloat(eArtikl.density) / 1000000;
                         }
                     }
-                    if (UCom.containsNumb2(rec.getStr(TEXT), weight) == false) {
+                    if (UCom.containsNumbExp(rec.getStr(TEXT), weight) == false) {
                         return false;
                     }
                 }
@@ -125,25 +125,25 @@ public class JoiningDet extends Par5s {
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11066:  //Если текстура профиля Арт.1 
-                    if (UCom.containsNumb(rec.getStr(TEXT), elemJoin.elem1.colorID1) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elemJoin.elem1.colorID1) == false) {
                         return false;
                     }
                     break;
                 case 11067:  //Коды основной текстуры изделия 
                 case 12067:  //Коды основной текстуры изделия
-                    if (UCom.containsNumb(rec.getStr(TEXT), iwin.colorID1) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), iwin.colorID1) == false) {
                         return false;
                     }
                     break;
                 case 11068:  //Коды внутр. текстуры изделия 
                 case 12068:  //Коды внутр. текстуры изделия 
-                    if (UCom.containsNumb(rec.getStr(TEXT), iwin.colorID2) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), iwin.colorID2) == false) {
                         return false;
                     }
                     break;
                 case 11069:  //Коды внешн. текстуры изделия
                 case 12069:  //Коды внешн. текстуры изделия     
-                    if (UCom.containsNumb(rec.getStr(TEXT), iwin.colorID3) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), iwin.colorID3) == false) {
                         return false;
                     }
                     break;

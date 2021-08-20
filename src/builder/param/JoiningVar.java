@@ -54,7 +54,7 @@ public class JoiningVar extends Par5s {
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
                         int[] index = {1, 2, 3, 5, 19};
                         for (int i = 0; i < arr.length; i++) {
-                            if (arr.equals(rec.getStr(TEXT)) && UCom.containsNumb(String.valueOf(index[i]), elemJoin.elem1.type().id) == false) {
+                            if (arr.equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(index[i]), elemJoin.elem1.type().id) == false) {
                                 return false;
                             }
                         }
@@ -72,7 +72,7 @@ public class JoiningVar extends Par5s {
                     if ("ps3".equals(eSetting.find(2))) {
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
                         for (int i = 1; i < arr.length; i++) {
-                            if (arr.equals(rec.getStr(TEXT)) && UCom.containsNumb(String.valueOf(i), elemJoin.elem1.type().id) == false) {
+                            if (arr.equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(i), elemJoin.elem1.type().id) == false) {
                                 return false;
                             }
                         }
@@ -157,7 +157,7 @@ public class JoiningVar extends Par5s {
                         if (elemJoin.elem1.anglHoriz < rec.getFloat(TEXT)) {
                             return false;
                         }
-                    } else if (UCom.containsNumb(rec.getStr(TEXT), elemJoin.elem1.anglHoriz) == true) {
+                    } else if (UCom.containsNumbJust(rec.getStr(TEXT), elemJoin.elem1.anglHoriz) == true) {
                         return false;
                     }
                     break;
@@ -197,7 +197,7 @@ public class JoiningVar extends Par5s {
                 case 1043: //Ограничение габарита контура, мм 
                 {
                     float area = iwin.rootArea.width() * iwin.rootArea.height() / 1000000;
-                    if (UCom.containsNumb2(rec.getStr(TEXT), area) == false) {
+                    if (UCom.containsNumbExp(rec.getStr(TEXT), area) == false) {
                         return false;
                     }
                 }
@@ -249,14 +249,14 @@ public class JoiningVar extends Par5s {
                 case 3003:  //Угол варианта 
                     if ("левый".equals(rec.getStr(TEXT))) {
                         if (elemJoin.layout == LayoutJoin.LBOT
-                                && elemJoin.layout == LayoutJoin.LTOP
-                                && elemJoin.layout == LayoutJoin.TLEFT) {
+                                || elemJoin.layout == LayoutJoin.LTOP
+                                || elemJoin.layout == LayoutJoin.TLEFT) {
                             return false;
                         }
                     } else { //правый
                         if (elemJoin.layout == LayoutJoin.RBOT
-                                && elemJoin.layout == LayoutJoin.RTOP
-                                && elemJoin.layout == LayoutJoin.TRIGH) {
+                                || elemJoin.layout == LayoutJoin.RTOP
+                                || elemJoin.layout == LayoutJoin.TRIGH) {
                             return false;
                         }
                     }
@@ -268,7 +268,7 @@ public class JoiningVar extends Par5s {
                         if (rec.getFloat(TEXT) < elemJoin.angl) {
                             return false;
                         }
-                    } else if (UCom.containsNumb(rec.getStr(TEXT), elemJoin.angl) == false) { //Ограничение угла, °
+                    } else if (UCom.containsNumbJust(rec.getStr(TEXT), elemJoin.angl) == false) { //Ограничение угла, °
                         return false;
                     }
                     break;
@@ -326,7 +326,7 @@ public class JoiningVar extends Par5s {
                     break;
                 case 2020:  //Ограничение угла, °
                 case 3020:  //Ограничение угла, °
-                    if (UCom.containsNumb(rec.getStr(TEXT), elemJoin.angl) == false) { //Ограничение угла, °
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elemJoin.angl) == false) { //Ограничение угла, °
                         return false;
                     }
                     break;
