@@ -1253,6 +1253,7 @@ public class ParamList {
     };
 
     public static Dictionary dic_3002 = () -> {
+        //return Arrays.asList("Простое Т-обр.", "Простое L-обр.", "Крестовое †-обр.");
         return Arrays.asList("Простое L-обр", "Крестовое †-обр");
     };
 
