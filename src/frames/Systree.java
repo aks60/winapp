@@ -693,9 +693,9 @@ public class Systree extends javax.swing.JFrame {
             //Калькуляция и прорисовка окна
             if (script != null && script.isEmpty() == false) {
                 JsonElement script2 = gson.fromJson(script, JsonElement.class);
-                iwin.build(script2.toString()); //построение изделия
+                iwin.build(script2.toString()); //построение изделия                                              
                 iwin.calcJoining = new Joining(iwin, true); //для инит. соединений
-                iwin.calcJoining.calc();
+                iwin.calcJoining.calc();    
                 iwin.calcFurniture = new builder.making.Furniture(iwin, true); //для инит. ручки
                 iwin.calcFurniture.calc();
                 paintPanel.repaint(true);

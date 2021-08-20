@@ -44,10 +44,10 @@ public class JoiningTest extends ParamTest {
         assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("1;2;", grup)) : grup;
         assert false == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("2;9", grup)) : grup;
 
-        grup = 2003; //3003; //Угол варианта
-        assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(0)), param("левый", grup)) : grup;
-        assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("левый", grup)) : grup;
-        assert false == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("правый", grup)) : grup;
+//        grup = 2003; //3003; //Угол варианта
+//        assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(0)), param("левый", grup)) : grup;
+//        assert true == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("левый", grup)) : grup;
+//        assert false == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("правый", grup)) : grup;
 
         grup = 4020; //Угол варианта
         assert false == joiningVar4.check(iwin_4.mapJoin.get(stv_right_4.joinPoint(1)), param("30-89,98;90,11-179,9;180,1-269,9;270,1-359,9;", grup)) : grup;

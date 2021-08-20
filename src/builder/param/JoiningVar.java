@@ -32,15 +32,14 @@ public class JoiningVar extends Par5s {
         }
         //цикл по параметрам элементов соединения
         for (Record rec : paramList) {
-            if (check(elemJoin, rec) == false) {
+            if (check(elemJoin, rec, joinvarRec) == false) {
                 return false;
             }
         }
         return true;
     }
 
-    //@Override
-    public boolean check(ElemJoining elemJoin, Record rec) {
+    public boolean check(ElemJoining elemJoin, Record rec, Record var) {
 
         int grup = rec.getInt(GRUP);
         try {
@@ -247,16 +246,22 @@ public class JoiningVar extends Par5s {
                     break;
                 case 2003:  //Угол варианта 
                 case 3003:  //Угол варианта 
-                    if (elemJoin.type == TypeJoin.VAR30 && elemJoin.layout == LayoutJoin.RTOP) {
+                    if (var.getInt(eJoinvar.types) == 30 || var.getInt(eJoinvar.types) == 31) {
                         if ("левый".equals(rec.getStr(TEXT))) {
-                            return false;
+                            if (elemJoin.layout == LayoutJoin.LTOP && var.getInt(eJoinvar.types) == 30) {
+                                return false;
+                            } else if (elemJoin.layout == LayoutJoin.LBOT && var.getInt(eJoinvar.types) == 31) {
+                                return false;
+                            }
+                        } else if ("правый".equals(rec.getStr(TEXT))) {
+                            if (elemJoin.layout == LayoutJoin.RTOP && var.getInt(eJoinvar.types) == 31) {
+                                return false;
+                            } else if (elemJoin.layout == LayoutJoin.RBOT && var.getInt(eJoinvar.types) == 30) {
+                                return false;
+                            }
                         }
-                    } else if(elemJoin.type == TypeJoin.VAR31 && elemJoin.layout == LayoutJoin.LTOP) {
-                        if ("правый".equals(rec.getStr(TEXT))) {
-                            return false;
-                        }                        
                     } else {
-                        if ("правый".equals(rec.getStr(TEXT))) {
+                        if ("левый".equals(rec.getStr(TEXT))) {
                             if (elemJoin.layout == LayoutJoin.LBOT || elemJoin.layout == LayoutJoin.LTOP || elemJoin.layout == LayoutJoin.TLEFT) {
                                 return false;
                             }
@@ -479,5 +484,9 @@ public class JoiningVar extends Par5s {
             return false;
         }
         return true;
+    }
+
+    public boolean check(ElemJoining elemJoin, Record rec) {
+        return check(elemJoin, rec, null);
     }
 }
