@@ -47,7 +47,7 @@ public class Wincalc {
     public Integer nuni = 0;
     public Record artiklRec = null; //главный артикл системы профилей   
     public Record syssizeRec = null; //константы    
-    public int genId = 0; //генерация ключа в спецификации
+    public float genId = 0; //генерация ключа в спецификации
 
     public float width = 0.f; //ширина окна
     public float height = 0.f; //высота окна

@@ -6,8 +6,8 @@ import java.util.LinkedList;
 
 public class GsonElem {
 
-    protected int id = -1;  //идентификатор
-    protected static transient int genId = -1;  //идентификатор
+    protected float id = -1;  //идентификатор
+    protected static transient float genId = -1;  //идентификатор
     public transient GsonElem parent = null;  //владелец 
     protected LinkedList<GsonElem> childs = new LinkedList();  //список детей
     protected Layout layout = null; //сторона расположения эл. рамы
@@ -208,7 +208,7 @@ public class GsonElem {
         return list;
     }
 
-    public GsonElem find(int id) {
+    public GsonElem find(float id) {
         if (this.id == id) {
             return this;
         }

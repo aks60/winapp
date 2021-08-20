@@ -22,8 +22,8 @@ public class ElemFrame extends ElemSimple {
 
     protected float length = 0; //длина арки 
 
-    public ElemFrame(AreaSimple owner, Layout layout, String param) {
-        super(owner.iwin(), owner);
+    public ElemFrame(AreaSimple owner, float id, Layout layout, String param) {
+        super(id, owner.iwin(), owner);
         this.layout = layout;
         colorID1 = iwin().colorID1;
         colorID2 = iwin().colorID2;

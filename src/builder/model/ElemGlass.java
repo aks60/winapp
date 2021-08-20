@@ -21,19 +21,23 @@ public class ElemGlass extends ElemSimple {
     public float gzazo = 0; //зазор между фальцем и стеклопакетом 
     public float sideHoriz[] = {0, 90, 180, 270}; //угол боковой стороны к горизонту
 
-    public ElemGlass(AreaSimple owner, String param) {
+    public ElemCross(AreaSimple owner, Type type, float id, String param) {
 
-        super(owner.iwin(), owner);
-        this.layout = Layout.FULL;
-        this.type = Type.GLASS;
+        super(id, owner.iwin(), owner);
+        this.layout = (owner.layout() == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
+        colorID1 = iwin().colorID1;
+        colorID2 = iwin().colorID2;
+        colorID3 = iwin().colorID3;
+        this.type = type;
 
         initСonstructiv(param);
 
-        if (Type.ARCH == owner.type) {
-            setDimension(0, 0, owner.x2, iwin().heightAdd - iwin().height);
-        } else {
-            setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
+        //Коррекция положения импоста арки (подкдадка ареа над импостом)
+        if ((Type.ARCH == owner.type || Type.TRAPEZE == owner.type) && owner.listChild.isEmpty()) {
+            float dh = artiklRec.getFloat(eArtikl.height) / 2;
+            owner.listChild.add(new AreaSimple(iwin(), owner, owner.id() + .1f, Type.AREA, Layout.HORIZ, owner.width(), dh, -1, -1, -1, null));
         }
+        setLocation();
     }
 
     public void initСonstructiv(String param) {

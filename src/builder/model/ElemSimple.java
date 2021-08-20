@@ -18,8 +18,8 @@ public abstract class ElemSimple extends Com5t {
     protected UMod uti3 = null;
     public Color borderColor = Color.BLACK;
 
-    public ElemSimple(Wincalc iwin, AreaSimple owner) {
-        super(iwin, owner);
+    public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
+        super(id, iwin, owner);
         spcRec = new Specific(id, this);
         uti3 = new UMod(this);
     }
