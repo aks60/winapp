@@ -688,7 +688,6 @@ public class Artikles extends javax.swing.JFrame {
         setTitle("Материальные ценности");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 599));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Artikles.this.windowClosed(evt);
@@ -1412,8 +1411,9 @@ public class Artikles extends javax.swing.JFrame {
         lab23.setPreferredSize(new java.awt.Dimension(98, 18));
         pan96.add(lab23);
 
+        txt11.setEditable(false);
+        txt11.setBackground(new java.awt.Color(255, 255, 255));
         txt11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt11.setFocusable(false);
         txt11.setPreferredSize(new java.awt.Dimension(204, 18));
         pan96.add(txt11);
 

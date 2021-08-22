@@ -9,6 +9,10 @@ import enums.Type;
 
 public final class Bimax {
 
+    /**
+     * PUNIC:427779 - KBE / KBE 58 / 3 НЕПРЯМОУГОЛЬНЫЕ ОКНА/ДВЕРИ / АРКИ
+     * PUNIC:416791 - Rehau / Delight / 3 ТРАПЕЦИИ
+     */
     public static String script(Integer prj, boolean model) {
 
         if (prj == 601001) {
@@ -158,22 +162,6 @@ public final class Bimax {
             rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'sysprofID':1121, 'typeOpen':4,'sysfurnID':2916}")) //, 'artiklHandl':2159}"))
                     .addElem(new GsonElem(Type.GLASS, "{'artglasID':4663}"));
-        
-        } else if (prj == 700027) {  //punic = 427872 штульповое
-            rootGson = new GsonRoot(prj, 1, 198, "Montblanc / Eco / 1 ОКНА (штульп)",
-                    Layout.HORIZ, Type.RECTANGL, 1300, 1400, 1009, 1009, 1009, "{'ioknaParam':[-8252]}");
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
-            rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 450))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'typeOpen':1, 'sysfurnID':2915}"))
-                    .addElem(new GsonElem(Type.GLASS, "{'artglasID':3293}"));
-            rootGson.addElem(new GsonElem(Type.SHTULP));
-            rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 850))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'typeOpen':4, 'sysfurnID':2913}"))
-                    .addElem(new GsonElem(Type.GLASS, "{'artglasID':4267}"));
-            
 
         } else if (prj == 604004) {
             rootGson = new GsonRoot(prj, 1, 37, "Rehau\\Delight\\1 ОКНА",
@@ -192,6 +180,55 @@ public final class Bimax {
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'typeOpen':4, 'sysfurnID':91}"))
                     .addElem(new GsonElem(Type.GLASS));
 
+        } else if (prj == 700027) {  //punic = 427872 штульповое
+            rootGson = new GsonRoot(prj, 1, 198, "Montblanc / Eco / 1 ОКНА (штульп)",
+                    Layout.HORIZ, Type.RECTANGL, 1300, 1400, 1009, 1009, 1009, "{'ioknaParam':[-8252]}");
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
+            rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 450))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'typeOpen':1, 'sysfurnID':2915}"))
+                    .addElem(new GsonElem(Type.GLASS, "{'artglasID':3293}"));
+            rootGson.addElem(new GsonElem(Type.SHTULP));
+            rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 850))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'typeOpen':4, 'sysfurnID':2913}"))
+                    .addElem(new GsonElem(Type.GLASS, "{'artglasID':4267}"));
+
+        } else if (prj == 508634) {
+            rootGson = new GsonRoot(prj, 1, 303, "Rehau\\Delight\\4 ОКНА(ФИГУРНАЯ СТВОРКА)",
+                    Layout.HORIZ, Type.RECTANGL, 900, 1400, 1009, 1009, 1009);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
+            rootGson.addElem(new GsonElem(Type.GLASS));  
+            
+        } else if (prj == 508777) { //Стойка - ригель, надо тестировать
+            rootGson = new GsonRoot(prj, 1, 303, "Rehau\\Delight\\4 ОКНА(ФИГУРНАЯ СТВОРКА)",
+                    Layout.HORIZ, Type.RECTANGL, 900, 1400, 1009, 1009, 1009);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
+            rootGson.addElem(new GsonElem(Type.GLASS));  
+            
+            
+        } else if (prj == 495647) { //
+            //Арт.554008   Коробка 60мм  Белая, коричневая и карамель.
+            //Арт.554018  Створка Z57
+            //Арт.560607 615   Штапик 14.7
+            //Арт.865530 Уплотнитель притвора
+            rootGson = new GsonRoot(prj, 1, 303, "Rehau\\Delight\\3 ТРАПЕЦИИ",
+                    Layout.HORIZ, Type.RECTANGL, 900, 1400, 1009, 1009, 1009);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
+            rootGson.addElem(new GsonElem(Type.GLASS));  
+            
+            
+            ////////////////////////////////////////////////////////////////////////////////
         } else if (prj == 604005) {
             rootGson = new GsonRoot(prj, 1, 135, "Wintech\\Termotech 742\\1 ОКНА",
                     Layout.VERT, Type.ARCH, 1300, 1200, 1500, 1009, 10009, 1009);
@@ -296,7 +333,7 @@ public final class Bimax {
             area2.addElem(new GsonElem(Type.IMPOST));
             area2.addArea(new GsonElem(Layout.VERT, Type.AREA, 843))
                     .addElem(new GsonElem(Type.GLASS));
-            
+
         } else if (prj == 508983) { //427779
             rootGson = new GsonRoot(prj, 1, 17, "KBE / KBE 58 / 3 НЕПРЯМОУГОЛЬНЫЕ ОКНА/ДВЕРИ / АРКИ",
                     Layout.VERT, Type.ARCH, 1300, 1000, 1300, 1010, 10000, 10000);
@@ -333,7 +370,7 @@ public final class Bimax {
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.ARCH));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
-            
+
         } else {
             return null;
         }
@@ -397,4 +434,4 @@ Prj=604009        PS=13256,22       SA=13257,24       dx=1,02
 
 Prj=604010 Ord=1
 Prj=604010        PS=20823,77       SA=20825,69       dx=1,93 
-*/
+ */

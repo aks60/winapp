@@ -48,10 +48,14 @@ public class FilterTable extends javax.swing.JPanel {
     }
 
     public void mousePressed(JTable table) {
-        if (txtFilter.getText().length() == 0) {
-            this.table = table;
-            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-            txtFilter.setName(table.getName());
+        try {
+            if (txtFilter.getText().length() == 0) {
+                this.table = table;
+                labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+                txtFilter.setName(table.getName());
+            }
+        } catch (Exception e) {
+            System.err.println("ERROR");
         }
     }
 
@@ -122,77 +126,89 @@ public class FilterTable extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtCaretUpdate
-        if (table != null) {
-            if (txtFilter.getText().length() == 0) {
-                btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")));
-                ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(null);
+        try {
+            if (table != null) {
+                if (txtFilter.getText().length() == 0) {
+                    btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")));
+                    ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(null);
 
-            } else if (search == true) {
-                btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
-                indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-                if (table.getModel() instanceof DefTableModel) {
-                    Query query = ((DefTableModel) table.getModel()).getQuery();
-                    Field field = ((DefTableModel) table.getModel()).columns[indexColumn];
-                    for (int index = 0; index < query.size(); ++index) {
+                } else if (search == true) {
+                    btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
+                    indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+                    if (table.getModel() instanceof DefTableModel) {
+                        Query query = ((DefTableModel) table.getModel()).getQuery();
+                        Field field = ((DefTableModel) table.getModel()).columns[indexColumn];
+                        for (int index = 0; index < query.size(); ++index) {
 
-                        if (query.table(field).get(index).getStr(field).startsWith(txtFilter.getText())) {
-                            UGui.setSelectedRow(table, index);
-                            UGui.scrollRectToIndex(index, table);
-                            return;
+                            if (query.table(field).get(index).getStr(field).startsWith(txtFilter.getText())) {
+                                UGui.setSelectedRow(table, index);
+                                UGui.scrollRectToIndex(index, table);
+                                return;
+                            }
+                        }
+                    } else {
+                        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+                        for (int index = 0; index < dtm.getDataVector().size(); ++index) {
+                            Vector vector = dtm.getDataVector().get(index);
+                            if (String.valueOf(vector.get(indexColumn)).startsWith(txtFilter.getText())) {
+                                UGui.setSelectedRow(table, index);
+                                UGui.scrollRectToIndex(index, table);
+                                return;
+                            }
                         }
                     }
-                } else {
-                    DefaultTableModel dtm = (DefaultTableModel) table.getModel();
-                    for (int index = 0; index < dtm.getDataVector().size(); ++index) {
-                        Vector vector = dtm.getDataVector().get(index);
-                        if (String.valueOf(vector.get(indexColumn)).startsWith(txtFilter.getText())) {
-                            UGui.setSelectedRow(table, index);
-                            UGui.scrollRectToIndex(index, table);
-                            return;
-                        }
-                    }
+                } else if (search == false) {
+                    btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
+                    indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+                    String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+                    ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
+                    UGui.setSelectedRow(table);
                 }
-            } else if (search == false) {
-                btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
-                indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-                String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-                ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
-                UGui.setSelectedRow(table);
             }
+        } catch (Exception e) {
+            System.err.println("ERROR");
         }
     }//GEN-LAST:event_txtCaretUpdate
 
     private void btn1ActiPerf(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActiPerf
-        if (search == true) {
-            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif")));
-            search = !search;
-            txtCaretUpdate(null);
-        } else {
-            btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c043.gif")));
-            search = !search;
-            String txt = txtFilter.getText();
-            txtFilter.setText("");
-            txtCaretUpdate(null);
-            txtFilter.setText(txt);
+        try {
+            if (search == true) {
+                btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif")));
+                search = !search;
+                txtCaretUpdate(null);
+            } else {
+                btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c043.gif")));
+                search = !search;
+                String txt = txtFilter.getText();
+                txtFilter.setText("");
+                txtCaretUpdate(null);
+                txtFilter.setText(txt);
+            }
+            UGui.scrollRectToRow(table.getSelectedRow() - 1, table);
+        } catch (Exception e) {
+            System.err.println("ERROR");
         }
-        UGui.scrollRectToRow(table.getSelectedRow() - 1, table);
     }//GEN-LAST:event_btn1ActiPerf
 
     private void btn2ActiPerf(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActiPerf
-        if (txtFilter.getText().isEmpty()) {
-            btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
-            try {
-                Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
-                Transferable t = cb.getContents(null);
-                if (t.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-                    txtFilter.setText(t.getTransferData(DataFlavor.stringFlavor).toString());
+        try {
+            if (txtFilter.getText().isEmpty()) {
+                btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
+                try {
+                    Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    Transferable t = cb.getContents(null);
+                    if (t.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+                        txtFilter.setText(t.getTransferData(DataFlavor.stringFlavor).toString());
+                    }
+                } catch (UnsupportedFlavorException | IOException ex) {
+                    System.out.println("frames.swing.TableFilter.btn2ActiPerf()");
                 }
-            } catch (UnsupportedFlavorException | IOException ex) {
-                System.out.println("frames.swing.TableFilter.btn2ActiPerf()");
+            } else {
+                btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")));
+                txtFilter.setText("");
             }
-        } else {
-            btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b041.gif")));
-            txtFilter.setText("");
+        } catch (Exception e) {
+            System.err.println("ERROR");
         }
     }//GEN-LAST:event_btn2ActiPerf
 
