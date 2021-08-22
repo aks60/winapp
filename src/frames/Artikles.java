@@ -95,11 +95,11 @@ public class Artikles extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eArtikl.series_id) {
-                    Record artiklRec = qArtikl.get(tab1.convertRowIndexToModel(row));
+                    Record artiklRec = qArtikl.get(row);
                     Record groupRec = qGroups.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.series_id))).findFirst().orElse(eGroups.up.newRecord());
                     return groupRec.get(eGroups.name);
                 } else if (field == eArtikl.artgrp3_id) {
-                    Record artiklRec = qArtikl.get(tab1.convertRowIndexToModel(row));
+                    Record artiklRec = qArtikl.get(row);
                     Record groupRec = qGroups.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.artgrp3_id))).findFirst().orElse(eGroups.up.newRecord());
                     return groupRec.get(eGroups.name);
                 }

@@ -273,8 +273,7 @@ public class Systree extends javax.swing.JFrame {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 1) {
-                    int index = table.convertRowIndexToModel(row);
-                    Object v = qSysprod.get(index).get(eSysprod.values().length);
+                    Object v = qSysprod.get(row).get(eSysprod.values().length);
                     if (v instanceof Icon) {
                         Icon icon = (Icon) v;
                         label.setIcon(icon);

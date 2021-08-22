@@ -34,7 +34,7 @@ public class DicSysprof extends javax.swing.JDialog {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eSysprof.use_side) {
-                    Record sysprofRec = qSysprof.get(tab2.convertRowIndexToModel(row));
+                    Record sysprofRec = qSysprof.get(row);
                     return UseSide.get(sysprofRec.getInt(eSysprof.use_side)).text();
                 } 
                 return val;

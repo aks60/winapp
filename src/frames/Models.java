@@ -72,8 +72,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
-                    int index = table.convertRowIndexToModel(row);
-                    Object v = qModels.get(index).get(eSysmodel.values().length);
+                    Object v = qModels.get(row).get(eSysmodel.values().length);
                     if (v instanceof Icon) {
                         Icon icon = (Icon) v;
                         label.setIcon(icon);
@@ -92,8 +91,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
-                    int index = table.convertRowIndexToModel(row);
-                    Object v = qModels.get(index).get(eSysmodel.values().length);
+                    Object v = qModels.get(row).get(eSysmodel.values().length);
                     if (v instanceof Icon) {
                         Icon icon = (Icon) v;
                         label.setIcon(icon);

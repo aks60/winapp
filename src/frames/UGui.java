@@ -56,6 +56,7 @@ import javax.swing.tree.TreePath;
 import frames.swing.listener.ListenerSQL;
 import frames.swing.listener.ListenerObject;
 import common.eProfile;
+import domain.eArtikl;
 import domain.ePrjprod;
 import enums.PKjson;
 import enums.Type;
@@ -464,6 +465,12 @@ public class UGui {
             return table.convertRowIndexToModel(table.getSelectedRow());
         }
         return -1;
+    }
+
+    //Поиск Record в модели по row table
+    public static Record findRecordModel(Query q, JTable table, int row) {
+        int id = (int) table.getValueAt(row, table.getColumnCount() - 1);
+        return q.stream().filter(rec -> rec.getInt(1) == 1).findFirst().orElse(null);
     }
 
     //Отменить сортировку
