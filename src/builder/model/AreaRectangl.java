@@ -11,6 +11,7 @@ public class AreaRectangl extends AreaSimple {
 
     public AreaRectangl(Wincalc iwin, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
         super(iwin, owner, id, type, layout, width, height, color1, color2, color3, param);
+        setDimension(0, 0, width, height);
     }
 
     //@Override

@@ -54,15 +54,7 @@ public class AreaSimple extends Com5t {
 
     protected void initDimension(float width, float height) {
 
-        if (owner() == null) { //для root area
-            if (type == Type.ARCH) {
-                
-                setDimension(0, ((AreaArch) this).heightAdd - iwin().height, width, ((AreaArch) this).heightAdd - iwin().height + height);
-            } else {
-                setDimension(0, 0, width, height);
-            }
-
-        } else {
+        if (owner() != null) { 
             //Первая area добавляемая в area владельца
             if (owner().listChild.isEmpty() == true) {
                 if (Layout.VERT.equals(owner().layout())) { //сверху вниз
