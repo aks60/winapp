@@ -1011,7 +1011,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             table = tab1;
         } else if (btnT2.isSelected()) {
             table = tab2;
-        } else if (btnT2.isSelected()) {
+        } else if (btnT3.isSelected()) {
             table = tab3;
         }
         int index = UGui.getIndexRec(table);
