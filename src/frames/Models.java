@@ -521,6 +521,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             tab1.getColumnModel().getColumn(0).setResizable(false);
             tab1.getColumnModel().getColumn(0).setPreferredWidth(20);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(2).setResizable(false);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(68);
         }
 
@@ -551,7 +552,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 {"99", "мммммммммм", "321"}
             },
             new String [] {
-                "№", "Наименование конструкции", "Рисунок конструкции"
+                "№", "Наименование", "Рисунок"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -572,8 +573,10 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setResizable(false);
             tab2.getColumnModel().getColumn(0).setPreferredWidth(20);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(2).setResizable(false);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(68);
         }
 
@@ -604,7 +607,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 {"99", "мммммммммм", "321"}
             },
             new String [] {
-                "№", "Наименование конструкции", "Рисунок конструкции"
+                "№", "Наименование", "Рисунок"
             }
         ) {
             boolean[] canEdit = new boolean [] {
