@@ -8,6 +8,7 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import builder.Wincalc;
+import builder.model.AreaArch;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
 import enums.Type;
@@ -114,7 +115,7 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
 
     public static float height(Wincalc iwin) {
         if (iwin.rootArea.type() == Type.ARCH) {
-            return iwin.heightAdd;
+            return ((AreaArch) iwin.rootArea).heightAdd;
         }
         return iwin.height;
     }

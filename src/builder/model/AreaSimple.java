@@ -56,7 +56,8 @@ public class AreaSimple extends Com5t {
 
         if (owner() == null) { //для root area
             if (type == Type.ARCH) {
-                setDimension(0, iwin().heightAdd - iwin().height, width, iwin().heightAdd - iwin().height + height);
+                
+                setDimension(0, ((AreaArch) this).heightAdd - iwin().height, width, ((AreaArch) this).heightAdd - iwin().height + height);
             } else {
                 setDimension(0, 0, width, height);
             }
