@@ -12,6 +12,6 @@ public class AreaTrapeze extends AreaSimple {
 
     @Override
     public void joinFrame() {
-        System.out.println("Ркализация не определена");
+        System.out.println("Рализация не определена");
     }
 }

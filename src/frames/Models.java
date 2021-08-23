@@ -156,7 +156,12 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }
     
     private void selectionTab3(ListSelectionEvent event) {
-        
+        int index = UGui.getIndexRec(tab3);
+        if (index != -1) {
+            Object script = qModels.get(index, eSysmodel.script);
+            iwin.build(script.toString());
+            paintPanel.repaint(true);
+        }        
     }
     
     private void selectionTree() {
@@ -580,7 +585,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 {"99", "мммммммммм", "321"}
             },
             new String [] {
-                "Ном.п/п", "Наименование конструкции", "Рисунок конструкции"
+                "№", "Наименование конструкции", "Рисунок конструкции"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -592,7 +597,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             }
         });
         tab3.setFillsViewportHeight(true);
-        tab3.setRowHeight(80);
+        tab3.setRowHeight(68);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -603,6 +608,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(0).setResizable(false);
             tab3.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(80);
             tab3.getColumnModel().getColumn(2).setResizable(false);
             tab3.getColumnModel().getColumn(2).setPreferredWidth(68);
         }
@@ -950,6 +956,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 record.set(eSysmodel.form, 1001);
             } else if (tab2.getBorder() != null) {
                 record.set(eSysmodel.form, 1004);
+            } else if (tab3.getBorder() != null) {
+                record.set(eSysmodel.form, 1002);
             }
             qModels.insert(record);
             if (tab1.getBorder() != null) {
@@ -959,6 +967,10 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             } else if (tab2.getBorder() != null) {
                 loadingTab(tab2, 1004);  
                 UGui.setSelectedRow(tab2, qModels.size() - 1);
+                UGui.scrollRectToIndex(qModels.size() - 1, tab2);                
+            } else if (tab3.getBorder() != null) {
+                loadingTab(tab3, 1002);  
+                UGui.setSelectedRow(tab3, qModels.size() - 1);
                 UGui.scrollRectToIndex(qModels.size() - 1, tab2);                
             }
         }
@@ -1001,16 +1013,17 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         if (btnT1.isSelected()) {
             loadingTab(tab1, 1001);
             ((CardLayout) west.getLayout()).show(west, "pan13");
-            UGui.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2));
+            UGui.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3));
             UGui.setSelectedRow(tab1);
         } else if (btnT2.isSelected()) {
             loadingTab(tab2, 1004);
             ((CardLayout) west.getLayout()).show(west, "pan14");
-            UGui.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2));
+            UGui.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3));
             UGui.setSelectedRow(tab2);            
         } else if (btnT3.isSelected()) {
-            selectionTab3(null);
+            loadingTab(tab3, 1002);
             ((CardLayout) west.getLayout()).show(west, "pan15");
+            UGui.setSelectedRow(tab3); 
         } else {
             loadingWin();
             ((CardLayout) west.getLayout()).show(west, "pan18");
