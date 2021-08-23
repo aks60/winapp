@@ -6,6 +6,7 @@ import enums.TypeJoin;
 import enums.Layout;
 import builder.Wincalc;
 import builder.making.Specific;
+import enums.PKjson;
 import enums.Type;
 
 public class AreaArch extends AreaSimple {
@@ -13,7 +14,7 @@ public class AreaArch extends AreaSimple {
     public double radiusArch = 0; //радиус арки
 
     public AreaArch(Wincalc iwin, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(iwin, owner, id, type, layout, width, height, color1, color2, color3, param);
+        super(iwin, owner, id, type, layout, width, height, color1, color2, color3, param);       
     }
 
     @Override

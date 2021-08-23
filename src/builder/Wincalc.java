@@ -107,7 +107,7 @@ public class Wincalc {
             this.nuni = rootGson.nuni();
             this.width = rootGson.width();
             this.height = rootGson.height();
-            this.heightAdd = (rootGson.heightAdd() == 0) ? this.height : rootGson.heightAdd();
+            this.heightAdd = rootGson.heightAdd();
             this.colorID1 = rootGson.color1;
             this.colorID2 = rootGson.color2;
             this.colorID3 = rootGson.color3;
@@ -119,7 +119,7 @@ public class Wincalc {
             if (Type.RECTANGL == rootGson.type()) {
                 rootArea = new AreaRectangl(this, null, rootGson.id(), Type.RECTANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //простое
             } else if (Type.TRAPEZE == rootGson.type()) {
-                rootArea = new AreaTrapeze(this, null, rootGson.id(), Type.TRAPEZE, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //трапеция
+                rootArea = new AreaTrapeze(this, null, rootGson.id(), rootGson.view, Type.TRAPEZE, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //трапеция
             } else if (Type.TRIANGL == rootGson.type()) {
                 rootArea = new AreaTriangl(this, null, rootGson.id(), Type.TRIANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //треугольник
             } else if (Type.ARCH == rootGson.type()) {

@@ -78,13 +78,12 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
 
         super.paintComponent(g);
         if (iwin.rootArea != null && visible == true) {
-
             iwin.gc2d = (Graphics2D) g;
             iwin.gc2d.setColor(getBackground());
             iwin.gc2d.setStroke(new BasicStroke(2)); //толщина линии
             iwin.gc2d.translate(Com5t.TRANSLATE_XY, Com5t.TRANSLATE_XY);
-            iwin.scale = (getWidth() / iwin.width > getHeight() / iwin.heightAdd)
-                    ? getHeight() / (iwin.heightAdd + 240) : getWidth() / (iwin.width + 240);
+            iwin.scale = (getWidth() / iwin.width > getHeight() / height(iwin))
+                    ? getHeight() / (height(iwin) + 240) : getWidth() / (iwin.width + 240);
             iwin.gc2d.scale(iwin.scale, iwin.scale);
             iwin.rootArea.draw(getWidth(), getHeight());
 
@@ -93,7 +92,7 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
         }
     }
-    
+
     //Создание изображение конмьрукции
     public static ImageIcon createImageIcon(Wincalc iwin, Object script, int length) {
         try {
@@ -101,7 +100,7 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
             BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
             iwin.gc2d = bi.createGraphics();
             iwin.gc2d.fillRect(0, 0, length, length);
-            iwin.scale = (length / iwin.width > length / iwin.heightAdd) ? length / (iwin.heightAdd + 200) : length / (iwin.width + 200);
+            iwin.scale = (length / iwin.width > length / height(iwin)) ? length / (height(iwin) + 200) : length / (iwin.width + 200);
             iwin.gc2d.translate(2, 2);
             iwin.gc2d.scale(iwin.scale, iwin.scale);
             iwin.rootArea.draw(length, length); //рисую конструкцию
@@ -111,5 +110,12 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
             System.out.println("Canvas.createImageIcon() " + e);
             return new ImageIcon();
         }
-    }    
+    }
+
+    public static float height(Wincalc iwin) {
+        if (iwin.rootArea.type() == Type.ARCH) {
+            return iwin.heightAdd;
+        }
+        return iwin.height;
+    }
 }

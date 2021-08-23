@@ -43,14 +43,14 @@ public class FurnitureVar extends Par5s {
 
                 case 21001:  //Форма контура 
                     //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (Type.AREA - глухарь)
-                    if ("прямоугольная".equalsIgnoreCase(rec.getStr(TEXT)) && Type.RECTANGL.equals(elem5e.owner().type()) == false
+                    if ("прямоугольная".equals(rec.getStr(TEXT)) && Type.RECTANGL.equals(elem5e.owner().type()) == false
                             && Type.AREA.equals(elem5e.owner().type()) == false && Type.STVORKA.equals(elem5e.owner().type()) == false) {
                         return false;
-                    } else if ("трапециевидная".equalsIgnoreCase(rec.getStr(TEXT)) && Type.TRAPEZE.equals(elem5e.owner().type()) == false) {
+                    } else if ("трапециевидная".equals(rec.getStr(TEXT)) && Type.TRAPEZE.equals(elem5e.owner().type()) == false) {
                         return false;
-                    } else if ("арочная".equalsIgnoreCase(rec.getStr(TEXT)) && Type.ARCH.equals(elem5e.owner().type()) == false) {
+                    } else if ("арочная".equals(rec.getStr(TEXT)) && Type.ARCH.equals(elem5e.owner().type()) == false) {
                         return false;
-                    } else if ("не арочная".equalsIgnoreCase(rec.getStr(TEXT)) && Type.ARCH.equals(elem5e.owner().type()) == true) {
+                    } else if ("не арочная".equals(rec.getStr(TEXT)) && Type.ARCH.equals(elem5e.owner().type()) == true) {
                         return false;
                     }
                     break;

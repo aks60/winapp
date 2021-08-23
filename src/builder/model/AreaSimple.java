@@ -4,14 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dataset.Record;
-import domain.eArtikl;
 import domain.eParams;
 import domain.eSysprof;
 import enums.Layout;
 import enums.LayoutJoin;
 import enums.TypeJoin;
-import enums.UseArtiklTo;
-import enums.UseSide;
 import java.io.File;
 import java.util.EnumMap;
 import java.util.LinkedList;
@@ -25,10 +22,12 @@ import builder.Wincalc;
 import enums.PKjson;
 import enums.Type;
 import frames.UGui;
+import frames.swing.Canvas;
 import java.awt.BasicStroke;
 
 public class AreaSimple extends Com5t {
 
+    public int view = 0; //вид конструкции 
     public EnumMap<Layout, ElemFrame> mapFrame = new EnumMap<>(Layout.class); //список рам в окне 
     public LinkedList<Com5t> listChild = new LinkedList(); //дети
 
@@ -45,6 +44,9 @@ public class AreaSimple extends Com5t {
     }
 
     public void initСonstructiv(String param) {
+        if (param(param, PKjson.colorID1) != -1) {
+            this.colorID1 = param(param, PKjson.colorID1);
+        }
         if (param(param, PKjson.sysprofID) != -1) { //профили через параметр
             sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
         }
@@ -53,7 +55,11 @@ public class AreaSimple extends Com5t {
     protected void initDimension(float width, float height) {
 
         if (owner() == null) { //для root area
-            setDimension(0, iwin().heightAdd - iwin().height, width, iwin().heightAdd - iwin().height + height);
+            if (type == Type.ARCH) {
+                setDimension(0, iwin().heightAdd - iwin().height, width, iwin().heightAdd - iwin().height + height);
+            } else {
+                setDimension(0, 0, width, height);
+            }
 
         } else {
             //Первая area добавляемая в area владельца
@@ -226,17 +232,17 @@ public class AreaSimple extends Com5t {
                 int mov = 80;
                 for (int i = 1; i < ls1.size(); i++) {
                     float x1 = ls1.get(i - 1), x2 = ls1.get(i);
-                    line(x1, (iwin().heightAdd + mov), x2, (iwin().heightAdd + mov), 0);
+                    line(x1, Canvas.height(iwin()) + mov, x2, Canvas.height(iwin()) + mov, 0);
                 }
                 for (int i = 1; i < ls2.size(); i++) {
                     float y1 = ls2.get(i - 1), y2 = ls2.get(i);
                     line((this.x2 + mov), y1, (this.x2 + mov), y2, 0);
                 }
                 if (ls1.size() > 2) { //линия общей ширины
-                    line(root().x1, iwin().heightAdd + mov * 2, root().x2, iwin().heightAdd + mov * 2, 0);
+                    line(root().x1, Canvas.height(iwin()) + mov * 2, root().x2, Canvas.height(iwin()) + mov * 2, 0);
                 }
                 if (ls2.size() > 2) { //линия общей высоты
-                    line(iwin().width + mov * 2, 0, iwin().width + mov * 2, iwin().heightAdd, 0);
+                    line(iwin().width + mov * 2, 0, iwin().width + mov * 2, Canvas.height(iwin()), 0);
                 }
             }
             //Рисунок в память

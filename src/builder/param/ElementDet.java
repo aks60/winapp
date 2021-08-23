@@ -273,7 +273,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 34052:  //Поправка не прямого угла импоста, мм 
                     message(grup);
-                    if (elem5e.spcRec.getParam("0", 31052).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                    if (elem5e.spcRec.getParam("0", 31052).equals(rec.getStr(TEXT)) == false) {
                         mapParam.put(grup, rec.getStr(TEXT));
                     }
                     break;

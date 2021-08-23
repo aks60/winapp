@@ -103,6 +103,25 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 return label;
             }
         });
+        new DefTableModel(tab3, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
+        tab3.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (column == 2) {
+                    Object v = qModels.get(row).get(eSysmodel.values().length);
+                    if (v instanceof Icon) {
+                        Icon icon = (Icon) v;
+                        label.setIcon(icon);
+                    }
+                } else {
+                    label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+                    label.setIcon(null);
+                }
+                return label;
+            }
+        });
     }
     
     private void loadingTab(JTable tab, int form) {
@@ -121,7 +140,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             }
         }
         ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
-        UGui.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2));
+        UGui.updateBorderAndSql(tab, Arrays.asList(tab1, tab2, tab3));
         UGui.setSelectedRow(tab);
     }
     
@@ -938,6 +957,12 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 paintPanel.paint(paintPanel.getGraphics());
                 UGui.deleteRecord(tab2);
             }
+        } else if (tab3.getBorder() != null) {
+            if (UGui.isDeleteRecord(this) == 0 && tab3.getSelectedRow() != -1) {
+                iwin.rootArea = null;
+                paintPanel.paint(paintPanel.getGraphics());
+                UGui.deleteRecord(tab3);
+            }
         }
     }//GEN-LAST:event_btnDelete
 
@@ -971,7 +996,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             } else if (tab3.getBorder() != null) {
                 loadingTab(tab3, 1002);  
                 UGui.setSelectedRow(tab3, qModels.size() - 1);
-                UGui.scrollRectToIndex(qModels.size() - 1, tab2);                
+                UGui.scrollRectToIndex(qModels.size() - 1, tab3);                
             }
         }
     }//GEN-LAST:event_btnInsert
@@ -1023,6 +1048,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         } else if (btnT3.isSelected()) {
             loadingTab(tab3, 1002);
             ((CardLayout) west.getLayout()).show(west, "pan15");
+            UGui.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3));
             UGui.setSelectedRow(tab3); 
         } else {
             loadingWin();
@@ -1111,6 +1137,13 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab2(event);
+                }
+            }
+        });
+        tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab3(event);
                 }
             }
         });

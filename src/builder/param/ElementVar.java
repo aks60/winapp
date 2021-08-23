@@ -351,13 +351,13 @@ public class ElementVar extends Par5s {
                 case 37009: //Тип заполнения 
                 {
                     ElemGlass glass = (ElemGlass) elem5e.owner().listChild.stream().filter(it -> it.type() == Type.GLASS).findFirst().orElse(null);
-                    if ("Прямоугольное".equalsIgnoreCase(rec.getStr(TEXT)) && (glass.x3 != 0 || glass.y3 != 0)) {
+                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && glass.owner().view != 0) {
                         return false;
 
-                    } else if ("Арочное".equalsIgnoreCase(rec.getStr(TEXT)) && glass.radiusGlass == 0) {
+                    } else if ("Арочное".equals(rec.getStr(TEXT)) && glass.radiusGlass == 0) {
                         return false;
 
-                    } else if ("Произвольное".equalsIgnoreCase(rec.getStr(TEXT)) && glass.x3 == 0 && glass.y3 == 0) {
+                    } else if ("Произвольное".equals(rec.getStr(TEXT)) && glass.owner().view == 0) {
                         return false;
                     }
                 }
