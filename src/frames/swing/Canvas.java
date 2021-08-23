@@ -115,7 +115,7 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
 
     public static float height(Wincalc iwin) {
         if (iwin.rootArea.type() == Type.ARCH) {
-            //System.out.println(((AreaArch) iwin.rootArea).heightAdd);
+            System.out.println(((AreaArch) iwin.rootArea).heightAdd);
             return ((AreaArch) iwin.rootArea).heightAdd;
         }
         return iwin.height;
