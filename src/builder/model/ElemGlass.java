@@ -31,7 +31,7 @@ public class ElemGlass extends ElemSimple {
 
         if (Type.ARCH == owner.type) {
             setDimension(0, 0, owner.x2, ((AreaArch) iwin().rootArea).heightAdd - iwin().height);
-            //System.out.println(((AreaArch) iwin().rootArea).heightAdd);
+            System.out.println(((AreaArch) iwin().rootArea).heightAdd);
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }
