@@ -474,7 +474,6 @@ public enum P31000 {
                         return vstalst;
                     }
                 }
-                //System.out.println(strList);
 
             } else if(parvstm.pnumb == 31001) {
 

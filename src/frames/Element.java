@@ -1047,8 +1047,7 @@ public class Element extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        int leve = qGrCateg.getAs(UGui.getIndexRec(tab1), eGroups.npp);
-        System.out.println(leve);
+
     }//GEN-LAST:event_btnTest
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

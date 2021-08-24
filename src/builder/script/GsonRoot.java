@@ -9,7 +9,7 @@ public class GsonRoot extends GsonElem {
     public int prj = 1; //PNUMB - номер тестируемого проекта, поле пока нужно только для тестов 
     public int ord = 1; //ONUMB - номер тестируемого заказа, поле пока нужно только для тестов 
     private Integer nuni = -3;  //nuni профиля (PRO4_SYSPROF.NUNI)
-    private Float heightAdd = 0f;  //дополнительная высота, мм. Для прямоугольного изделия = height.
+    private Float heightAdd = 0f;  //дополнительная высота, мм.
     public int view = 0;
     public Integer color1 = -3;  //основная текстура
     public Integer color2 = -3;  //внутренняя текстура

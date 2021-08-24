@@ -4,15 +4,16 @@ import enums.Layout;
 import enums.LayoutJoin;
 import enums.TypeJoin;
 import builder.Wincalc;
-import enums.PKjson;
+import builder.script.GsonRoot;
 import enums.Type;
 
 public class AreaRectangl extends AreaSimple {
 
-    public AreaRectangl(Wincalc iwin, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(iwin, owner, id, type, layout, width, height, color1, color2, color3, param);
+    public AreaRectangl(Wincalc iwin, GsonRoot gson, int color1, int color2, int color3) {
+        super(iwin, null, gson.id(), Type.TRIANGL, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
+        setDimension(0, 0, gson.width(), gson.height());
     }
-
+    
     //@Override
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),

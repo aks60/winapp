@@ -165,7 +165,7 @@ public class Adm extends javax.swing.JFrame {
             UGui.setSelectedRow(tab4);
 
         } catch (Exception e) {
-            System.out.println("Ошибка: Adm.loadingTab4() " + e);
+            System.err.println("Ошибка: Adm.loadingTab4() " + e);
         }
     }
 

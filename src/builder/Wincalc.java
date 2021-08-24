@@ -51,7 +51,6 @@ public class Wincalc {
 
     public float width = 0.f; //ширина окна
     public float height = 0.f; //высота окна
-    public float heightAdd = 0.f; //арка, трапеция, треугольник
     public int colorID1 = -1;  //базовый цвет
     public int colorID2 = -1;  //внутренний цвет
     public int colorID3 = -1;  //внещний цвет
@@ -107,7 +106,7 @@ public class Wincalc {
             this.nuni = rootGson.nuni();
             this.width = rootGson.width();
             this.height = rootGson.height();
-            this.heightAdd = rootGson.heightAdd();
+            //this.heightAdd = rootGson.heightAdd();
             this.colorID1 = rootGson.color1;
             this.colorID2 = rootGson.color2;
             this.colorID3 = rootGson.color3;
@@ -117,13 +116,13 @@ public class Wincalc {
 
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {
-                rootArea = new AreaRectangl(this, null, rootGson.id(), Type.RECTANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //простое
+                rootArea = new AreaRectangl(this, rootGson, colorID1, colorID2, colorID3); //простое
             } else if (Type.TRAPEZE == rootGson.type()) {
-                rootArea = new AreaTrapeze(this, null, rootGson.id(), rootGson.view, Type.TRAPEZE, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //трапеция
+                rootArea = new AreaTrapeze(this, rootGson, colorID1, colorID2, colorID3); //трапеция
             } else if (Type.TRIANGL == rootGson.type()) {
-                rootArea = new AreaTriangl(this, null, rootGson.id(), Type.TRIANGL, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //треугольник
+                rootArea = new AreaTrapeze(this, rootGson, colorID1, colorID2, colorID3); //треугольник
             } else if (Type.ARCH == rootGson.type()) {
-                rootArea = new AreaArch(this, null, rootGson.id(), Type.ARCH, rootGson.layout(), rootGson.width(), rootGson.height(), colorID1, colorID2, colorID3, rootGson.param()); //арка
+                rootArea = new AreaArch(this, rootGson, colorID1, colorID2, colorID3); //арка
             }
 
             //Добавим рамы
