@@ -19,7 +19,7 @@ public class UCom {
             return Integer.valueOf(str);
             
         } catch (Exception e) {
-            System.out.println("Ошибка:UCom.getInt()");
+            System.err.println("Ошибка:UCom.getInt()");
             return 0;
         }
     }

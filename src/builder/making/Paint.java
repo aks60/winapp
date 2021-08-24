@@ -134,9 +134,6 @@ public class Paint {
 
                 //Текстура задана через параметр
             } else if (colorFk < 0) {
-//                if (spc.detailRec.getInt(1) == 148) {
-//                    System.out.println("TEST");
-//                }
                 if (colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id
                         || colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id) {
 
@@ -269,9 +266,6 @@ public class Paint {
     //Поиск текстуры в артикуле по параметру.
     private static int colorFromArtiklParam(int artiklID, int side, int elemColorID, int paramFk) {
         try {
-//            if (artiklID == 84) {
-//                System.out.println("TEST");
-//            }
             List<Record> colmapList = eColmap.find3(elemColorID, paramFk);
             List<Record> artdetList = eArtdet.find(artiklID);
 

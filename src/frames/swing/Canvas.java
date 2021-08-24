@@ -108,14 +108,13 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
             ImageIcon image = new ImageIcon(bi);
             return image;
         } catch (Exception e) {
-            System.out.println("Canvas.createImageIcon() " + e);
+            System.err.println("Canvas.createImageIcon() " + e);
             return new ImageIcon();
         }
     }
 
     public static float height(Wincalc iwin) {
         if (iwin.rootArea.type() == Type.ARCH) {
-            System.out.println(((AreaArch) iwin.rootArea).heightAdd);
             return ((AreaArch) iwin.rootArea).heightAdd;
         }
         return iwin.height;

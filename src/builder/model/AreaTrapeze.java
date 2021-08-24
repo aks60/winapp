@@ -2,6 +2,7 @@ package builder.model;
 
 import enums.Layout;
 import builder.Wincalc;
+import builder.script.GsonRoot;
 import enums.LayoutJoin;
 import enums.PKjson;
 import enums.Type;
@@ -9,11 +10,12 @@ import enums.TypeJoin;
 
 public class AreaTrapeze extends AreaSimple {
     
-    public AreaTrapeze(Wincalc iwin, AreaSimple owner, float id, int trapezeView, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(iwin, owner, id, type, layout, width, height, color1, color2, color3, param); 
-        this.view = view;
+    public AreaTrapeze(Wincalc iwin, GsonRoot gson, int color1, int color2, int color3) {
+        super(iwin, null, gson.id(), Type.TRIANGL, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
+        setDimension(0, 0, gson.width(), gson.height());
+        //this.view = view;
     }
-
+    
     @Override
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),

@@ -17,11 +17,7 @@ public class AreaArch extends AreaSimple {
     public AreaArch(Wincalc iwin, GsonRoot gson, int color1, int color2, int color3) {
         super(iwin, null, gson.id(), Type.ARCH, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
         this.heightAdd = gson.heightAdd();
-        setDimension(0, heightAdd - iwin().height, width(), heightAdd - iwin().height + height());        
-    }
-    
-    public AreaArch(Wincalc iwin, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(iwin, owner, id, type, layout, width, height, color1, color2, color3, param);       
+        setDimension(0, heightAdd - iwin().height, gson.width(), heightAdd - iwin().height + gson.height());
     }
 
     @Override
