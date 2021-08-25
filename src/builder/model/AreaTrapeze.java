@@ -13,7 +13,7 @@ public class AreaTrapeze extends AreaSimple {
     public AreaTrapeze(Wincalc iwin, GsonRoot gson, int color1, int color2, int color3) {
         super(iwin, null, gson.id(), Type.TRIANGL, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
         setDimension(0, 0, gson.width(), gson.height());
-        //this.view = view;
+        this.view = gson.view;
     }
     
     @Override
