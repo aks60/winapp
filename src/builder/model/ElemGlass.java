@@ -98,13 +98,10 @@ public class ElemGlass extends ElemSimple {
             }
         } else {
             ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
-            if (iwin().rootArea.type == Type.ARCH) {
+            if (iwin().rootArea.type == Type.TRAPEZE) {
                 System.out.println("builder.model.ElemGlass.setSpecific()");
                 
-            } else if (iwin().rootArea.type == Type.TRAPEZE) {
-                System.out.println("builder.model.ElemGlass.setSpecific()");
-                
-            } else if (iwin().rootArea.type == Type.RECTANGL) {
+            } else {
                 if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
                     x1 = owner.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
                     y1 = owner.y1 + eGlasprof.find2(insideTop.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
