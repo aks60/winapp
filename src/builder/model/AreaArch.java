@@ -11,13 +11,11 @@ import enums.Type;
 
 public class AreaArch extends AreaSimple {
 
-    public float heightAdd = 0.f;
     public double radiusArch = 0; //радиус арки
 
     public AreaArch(Wincalc iwin, GsonRoot gson, int color1, int color2, int color3) {
         super(iwin, null, gson.id(), Type.ARCH, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
-        this.heightAdd = gson.heightAdd();
-        setDimension(0, heightAdd - iwin().height, gson.width(), heightAdd - iwin().height + gson.height());
+        setDimension(0, iwin.heightAdd - iwin().height, gson.width(), iwin.heightAdd - iwin().height + gson.height());
     }
 
     @Override
@@ -27,7 +25,7 @@ public class AreaArch extends AreaSimple {
 
         double dh = elemArch.artiklRec.getFloat(eArtikl.height);
         double dw = elemLeft.artiklRec.getFloat(eArtikl.height);
-        double h = heightAdd - height();
+        double h = iwin().heightAdd - height();
         double w = width();
         double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки        
         double rad1 = Math.acos((w / 2) / r); // Math.toDegrees() — преобразование радианов в градусы ... Math.asin() — арксинус

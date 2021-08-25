@@ -51,6 +51,7 @@ public class Wincalc {
 
     public float width = 0.f; //ширина окна
     public float height = 0.f; //высота окна
+    public float heightAdd = 0.f; //дополнительная высота
     public int colorID1 = -1;  //базовый цвет
     public int colorID2 = -1;  //внутренний цвет
     public int colorID3 = -1;  //внещний цвет
@@ -106,6 +107,7 @@ public class Wincalc {
             this.nuni = rootGson.nuni();
             this.width = rootGson.width();
             this.height = rootGson.height();
+            this.heightAdd = rootGson.heightAdd();
             this.colorID1 = rootGson.color1;
             this.colorID2 = rootGson.color2;
             this.colorID3 = rootGson.color3;
