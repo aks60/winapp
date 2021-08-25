@@ -69,10 +69,14 @@ public abstract class Com5t {
     }
 
     public float length() {
-        if (Type.FRAME_SIDE == type() || Type.STVORKA_SIDE == type()) {
-            return (Layout.TOP == layout() || Layout.BOTT == layout()) ? x2 - x1 : y2 - y1;
+        ElemSimple elem5e = (ElemSimple) this;
+        if (elem5e.anglHoriz == 0 || elem5e.anglHoriz == 180) {
+            return x2 - x1;
+        } else if (elem5e.anglHoriz == 90 || elem5e.anglHoriz == 270) {
+            return y2 - y1;
         }
-        return (Layout.HORIZ == layout()) ? x2 - x1 : y2 - y1;
+        System.err.println("builder.model.Com5t.length()");
+        return 0;
     }
 
     public float width() {

@@ -69,7 +69,11 @@ public class ElemFrame extends ElemSimple {
             anglHoriz = 0;
 
         } else if (Layout.RIGHT == layout) {
-            setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
+            if (iwin().rootArea.type == Type.TRAPEZE && iwin().rootArea.view == 2) {
+                setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
+            } else {
+                setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
+            }
             anglHoriz = 90;
 
         } else if (Layout.TOP == layout) {
@@ -81,8 +85,13 @@ public class ElemFrame extends ElemSimple {
             anglHoriz = 270;
 
         } else if (Layout.SPEC == layout) {
-            setDimension(owner().x1, owner().y1, owner().x2, owner().y1); // + artiklRec.getFloat(eArtikl.height));
-            anglHoriz = 180;
+            if (iwin().rootArea.type() == Type.ARCH) {
+                setDimension(owner().x1, owner().y1, owner().x2, owner().y1); // + artiklRec.getFloat(eArtikl.height));
+                anglHoriz = 180;
+
+            } else if (iwin().rootArea.type() == Type.TRAPEZE) {
+                setDimension(owner().x1, owner().y1, owner().x2, owner().y1);
+            }
         }
     }
 
@@ -103,7 +112,7 @@ public class ElemFrame extends ElemSimple {
             if (iwin().rootArea.type == Type.ARCH) {
                 ((AreaArch) root()).frame(this, katet);
             } else if (iwin().rootArea.type == Type.TRAPEZE) {
-                System.out.println("builder.model.ElemFrame.setSpecific()");
+                ((AreaTrapeze) root()).frame(this);
             }
 
         } else if (Layout.TOP == layout) {

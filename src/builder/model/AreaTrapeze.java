@@ -10,6 +10,8 @@ import enums.TypeJoin;
 
 public class AreaTrapeze extends AreaSimple {
 
+    public float heightAdd = 0.f;
+    
     public AreaTrapeze(Wincalc iwin, GsonRoot gson, int color1, int color2, int color3) {
         super(iwin, null, gson.id(), Type.TRAPEZE, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
         setDimension(0, 0, gson.width(), gson.height());
@@ -40,5 +42,10 @@ public class AreaTrapeze extends AreaSimple {
 //                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
 //                iwin().mapJoin.put(elemTop.joinPoint(1), el);                
 //            }
+    }
+
+    protected void frame(ElemFrame elemFrame) {
+        System.out.println("builder.model.ElemFrame.setSpecific()");
+
     }
 }
