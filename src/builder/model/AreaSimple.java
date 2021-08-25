@@ -24,6 +24,7 @@ import enums.Type;
 import frames.UGui;
 import frames.swing.Canvas;
 import java.awt.BasicStroke;
+import java.util.Map;
 
 public class AreaSimple extends Com5t {
 
@@ -196,14 +197,18 @@ public class AreaSimple extends Com5t {
             elemStoikaList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам
-            if (Type.ARCH == type) {
-                mapFrame.get(Layout.SPEC).paint();
-            } else {
-                mapFrame.get(Layout.TOP).paint();
+            for (Map.Entry<Layout, ElemFrame> entry : mapFrame.entrySet()) {
+                ElemFrame frame = entry.getValue();
+                frame.paint();
             }
-            mapFrame.get(Layout.BOTT).paint();
-            mapFrame.get(Layout.LEFT).paint();
-            mapFrame.get(Layout.RIGHT).paint();
+//            if (Type.ARCH == type) {
+//                mapFrame.get(Layout.SPEC).paint();
+//            } else {
+//                mapFrame.get(Layout.TOP).paint();
+//            }
+//            mapFrame.get(Layout.BOTT).paint();
+//            mapFrame.get(Layout.LEFT).paint();
+//            mapFrame.get(Layout.RIGHT).paint();
 
             //Прорисовка створок
             LinkedList<AreaStvorka> elemStvorkaList = root().listElem(Type.STVORKA);

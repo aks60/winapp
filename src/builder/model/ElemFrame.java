@@ -70,7 +70,7 @@ public class ElemFrame extends ElemSimple {
 
         } else if (Layout.RIGHT == layout) {
             if (iwin().rootArea.type == Type.TRAPEZE && iwin().rootArea.view == 2) {
-                setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
+                setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y2 - iwin().heightAdd, owner().x2, owner().y2);
             } else {
                 setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
             }
@@ -81,7 +81,11 @@ public class ElemFrame extends ElemSimple {
             anglHoriz = 180;
 
         } else if (Layout.LEFT == layout) {
-            setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
+            if (iwin().rootArea.type == Type.TRAPEZE && iwin().rootArea.view == 2) {
+                setDimension(owner().x1, owner().y2 - iwin().heightAdd, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
+            } else {
+                setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
+            }
             anglHoriz = 270;
 
         } else if (Layout.SPEC == layout) {
@@ -90,7 +94,7 @@ public class ElemFrame extends ElemSimple {
                 anglHoriz = 180;
 
             } else if (iwin().rootArea.type() == Type.TRAPEZE) {
-                setDimension(owner().x1, owner().y1, owner().x2, owner().y1);
+                setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + iwin().heightAdd);
             }
         }
     }
@@ -275,15 +279,20 @@ public class ElemFrame extends ElemSimple {
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
         if (Layout.SPEC == layout) { //прорисовка арки
-            //TODO для прорисовки арки добавил один градус, а это не айс!
-            float d2z = artiklRec.getFloat(eArtikl.height);
-            double r = ((AreaArch) root()).radiusArch;
-            double ang1 = 90 - Math.toDegrees(Math.asin(owner().width() / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((owner().width() - 2 * d2z) / ((r - d2z) * 2)));
+            if (iwin().rootArea.type == Type.ARCH) {
+                //TODO для прорисовки арки добавил один градус, а это не айс!
+                float d2z = artiklRec.getFloat(eArtikl.height);
+                double r = ((AreaArch) root()).radiusArch;
+                double ang1 = 90 - Math.toDegrees(Math.asin(owner().width() / (r * 2)));
+                double ang2 = 90 - Math.toDegrees(Math.asin((owner().width() - 2 * d2z) / ((r - d2z) * 2)));
 
-            iwin().draw.strokeArc(owner().width() / 2 - r + d2z / 2, d2z / 2 - 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, d2z);
-            iwin().draw.strokeArc(owner().width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, 0, 4);
-            iwin().draw.strokeArc(owner().width() / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4);
+                iwin().draw.strokeArc(owner().width() / 2 - r + d2z / 2, d2z / 2 - 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, d2z);
+                iwin().draw.strokeArc(owner().width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, 0, 4);
+                iwin().draw.strokeArc(owner().width() / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4);
+            
+            } else if(iwin().rootArea.type == Type.TRAPEZE) {
+                iwin().draw.strokePolygon(x1, x2, x2 - z, x1 + z, y1, y1, y2, y2, rgb, borderColor);
+            }
 
         } else if (Layout.TOP == layout) {
             iwin().draw.strokePolygon(x1, x2, x2 - z, x1 + z, y1, y1, y2, y2, rgb, borderColor);
