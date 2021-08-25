@@ -76,7 +76,7 @@ public class Tariffic extends Cal5e {
                         } else if (form == TypeForm.P12.id && Type.ARCH == elem5e.owner().type()) {//не прямоугольное заполнение с арками
                             rulePrise(rulecalcRec, elem5e.spcRec);
                         }
-                    } else if (form == TypeForm.P04.id && Type.FRAME_SIDE == elem5e.owner().type() && Layout.ARCH == elem5e.layout()) { //фильтр для арки профиля AYPC.W62.0101
+                    } else if (form == TypeForm.P04.id && Type.FRAME_SIDE == elem5e.owner().type() && Layout.SPEC == elem5e.layout()) { //фильтр для арки профиля AYPC.W62.0101
                         rulePrise(rulecalcRec, elem5e.spcRec); //профиль с радиусом
 
                     } else {

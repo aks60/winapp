@@ -12,7 +12,7 @@ public enum Layout implements Enam {
     RIGHT(2, "Правая"),
     TOP(3, "Верхняя"),
     LEFT(4, "Левая"),
-    ARCH(5, "Арочная"),
+    SPEC(5, "Специаль."),
     FULL(6, "");
 
     //LSKEW("Левый угол"),

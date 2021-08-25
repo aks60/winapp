@@ -53,7 +53,7 @@ public class ElemFrame extends ElemSimple {
                 sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.TOP, UseSide.HORIZ, UseSide.ANY);
             } else if (Layout.LEFT.equals(layout())) {
                 sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.LEFT, UseSide.VERT, UseSide.ANY);
-            } else if (Layout.ARCH.equals(layout())) {
+            } else if (Layout.SPEC.equals(layout())) {
                 sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.TOP, UseSide.HORIZ, UseSide.ANY);
             }
         }
@@ -80,7 +80,7 @@ public class ElemFrame extends ElemSimple {
             setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
             anglHoriz = 270;
 
-        } else if (Layout.ARCH == layout) {
+        } else if (Layout.SPEC == layout) {
             setDimension(owner().x1, owner().y1, owner().x2, owner().y1); // + artiklRec.getFloat(eArtikl.height));
             anglHoriz = 180;
         }
@@ -99,7 +99,7 @@ public class ElemFrame extends ElemSimple {
         spcRec.anglHoriz = anglHoriz;
         double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
 
-        if (Layout.ARCH == layout()) {
+        if (Layout.SPEC == layout()) {
             ((AreaArch) root()).frame(this, katet);
 
         } else if (Layout.TOP == layout) {
@@ -261,7 +261,7 @@ public class ElemFrame extends ElemSimple {
         float z = (ej1.type == TypeJoin.VAR20 && ej2.type == TypeJoin.VAR20) ? artiklRec.getFloat(eArtikl.height) : 0;
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
-        if (Layout.ARCH == layout) { //прорисовка арки
+        if (Layout.SPEC == layout) { //прорисовка арки
             //TODO для прорисовки арки добавил один градус, а это не айс!
             float d2z = artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;

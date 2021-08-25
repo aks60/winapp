@@ -62,9 +62,9 @@ public class ElementVar extends Par5s {
                 }
                 break;
                 case 31002:  //Если профиль 
-                    if ("арочный".equals(rec.getStr(TEXT)) == false && Layout.ARCH == elem5e.layout() == true) {
+                    if ("арочный".equals(rec.getStr(TEXT)) == false && Layout.SPEC == elem5e.layout() == true) {
                         return false;
-                    } else if ("прямой".equals(rec.getStr(TEXT)) == false && Layout.ARCH != elem5e.layout() == true) {
+                    } else if ("прямой".equals(rec.getStr(TEXT)) == false && Layout.SPEC != elem5e.layout() == true) {
                         return false;
                     }
                     break;
