@@ -299,7 +299,7 @@ public class Tariffic extends Cal5e {
 
     //В зав. от единицы изм. форматируется количество
     private float formatAmount(Specific spcRec) {
-        //TODO Нужна доработка для расчёта по минимальному тарифу. См. dll VirtualPro4::CalcArtTariff
+        //Нужна доработка для расчёта по минимальному тарифу. См. dll VirtualPro4::CalcArtTariff
 
         if (UseUnit.METR.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //метры
             return spcRec.count * round(spcRec.width, precision) / 1000;

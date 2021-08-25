@@ -19,7 +19,6 @@ import java.util.stream.Stream;
 import javax.swing.JToggleButton;
 import frames.swing.listener.ListenerRecord;
 
-//TODO для справочника сделать вставку и редактирование
 public class DicGroups extends javax.swing.JDialog {
 
     private static final int serialVersionUID = 1095563562;

@@ -98,17 +98,24 @@ public class ElemGlass extends ElemSimple {
             }
         } else {
             ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
-
-            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-                x1 = owner.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
-                y1 = owner.y1 + eGlasprof.find2(insideTop.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
-                x2 = owner.x2 - eGlasprof.find2(insideRight.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
-                y2 = owner.y2 - eGlasprof.find2(insideBott.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
-            } else {
-                x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
-                y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
-                x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
-                y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+            if (iwin().rootArea.type == Type.ARCH) {
+                System.out.println("builder.model.ElemGlass.setSpecific()");
+                
+            } else if (iwin().rootArea.type == Type.TRAPEZE) {
+                System.out.println("builder.model.ElemGlass.setSpecific()");
+                
+            } else if (iwin().rootArea.type == Type.RECTANGL) {
+                if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
+                    x1 = owner.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
+                    y1 = owner.y1 + eGlasprof.find2(insideTop.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
+                    x2 = owner.x2 - eGlasprof.find2(insideRight.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
+                    y2 = owner.y2 - eGlasprof.find2(insideBott.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
+                } else {
+                    x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+                    y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+                    x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+                    y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+                }
             }
         }
         spcRec.width = width();
@@ -128,7 +135,7 @@ public class ElemGlass extends ElemSimple {
             if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108)) {  //штапик
                 if (Type.ARCH == owner().type()) { //штапик в арке
                     ((AreaArch) root()).shtapik(this, spcAdd);
-                    
+
                 } else { //штапик в прямоугольнике
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
@@ -156,9 +163,9 @@ public class ElemGlass extends ElemSimple {
                             if ("усекать нижний".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
                                 spcAdd.width = spcAdd.width - 2 * spcAdd.height;
                             }
-                        }                        
+                        }
                     }
-                    if("по биссектрисе".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
+                    if ("по биссектрисе".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
                         //
                     }
                     spcAdd.anglCut1 = 45;

@@ -112,7 +112,7 @@ public class Furniture extends javax.swing.JFrame {
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         qFurnall.select(eFurniture.up, "order by", eFurniture.name);
-        qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text); //TODO отключил фильтр, а это неправильно
+        qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text); 
         qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
         int types = (tbtn1.isSelected()) ? 0 : (tbtn2.isSelected()) ? 1 : -1;
         if (subsql == null) {

@@ -13,30 +13,25 @@ public class AreaRectangl extends AreaSimple {
         super(iwin, null, gson.id(), Type.RECTANGL, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
         setDimension(0, 0, gson.width(), gson.height());
     }
-    
+
     //@Override
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
                 elemTop = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
-        //Цикл по сторонам рамы
-        for (int index = 0; index < 4; index++) {
+        //Угловое соединение правое нижнее
+        ElemJoining joinBot = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
+        iwin().mapJoin.put(elemBott.joinPoint(1), joinBot);
 
-            if (index == 0) { //Угловое соединение правое нижнее
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
-                iwin().mapJoin.put(elemBott.joinPoint(1), el);
+        //Угловое соединение правое верхнее
+        ElemJoining joinRight = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
+        iwin().mapJoin.put(elemRight.joinPoint(1), joinRight);
 
-            } else if (index == 1) { //Угловое соединение правое верхнее
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
-                iwin().mapJoin.put(elemRight.joinPoint(1), el);
+        //Угловое соединение левое верхнее    
+        ElemJoining joinTop = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
+        iwin().mapJoin.put(elemTop.joinPoint(1), joinTop);
 
-            } else if (index == 2) { //Угловое соединение левое верхнее    
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
-                iwin().mapJoin.put(elemTop.joinPoint(1), el);
-
-            } else if (index == 3) { //Угловое соединение левое нижнее
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90);
-                iwin().mapJoin.put(elemLeft.joinPoint(1), el);
-            }
-        }
-    }   
+        //Угловое соединение левое нижнее
+        ElemJoining joinLeft = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90);
+        iwin().mapJoin.put(elemLeft.joinPoint(1), joinBot);
+    }
 }

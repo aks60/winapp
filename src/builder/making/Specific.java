@@ -107,7 +107,6 @@ public class Specific {
         this.unit = artiklRec.getInt(eArtikl.unit); //atypi;
         this.artiklRec = artiklRec;
         setAnglCut();
-        //this.height = artiklRec.aheig; //TODO парадокс добавления ширины, надо разобраться
     }
 
     public void setColor(int side, int colorID) {
@@ -121,7 +120,6 @@ public class Specific {
     }
 
     protected void setAnglCut() {
-        //TODO Тут логическая ошибка
         if (TypeArtikl.X109.isType(artiklRec)
                 || TypeArtikl.X135.isType(artiklRec)
                 || TypeArtikl.X117.isType(artiklRec)

@@ -100,7 +100,11 @@ public class ElemFrame extends ElemSimple {
         double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
 
         if (Layout.SPEC == layout()) {
-            ((AreaArch) root()).frame(this, katet);
+            if (iwin().rootArea.type == Type.ARCH) {
+                ((AreaArch) root()).frame(this, katet);
+            } else if (iwin().rootArea.type == Type.TRAPEZE) {
+                System.out.println("builder.model.ElemFrame.setSpecific()");
+            }
 
         } else if (Layout.TOP == layout) {
             spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
