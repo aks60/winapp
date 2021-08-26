@@ -51,7 +51,7 @@ public class AreaStvorka extends AreaSimple {
         mapFrame.put(stvLeft.layout(), stvLeft);
 
         //Положение элементов створки с учётом нахлёста
-        setLocation(stvLeft, stvBot, stvRigh, stvTop);
+        setNaxlest(stvLeft, stvBot, stvRigh, stvTop);
         stvBot.setLocation();
         stvRigh.setLocation();
         stvTop.setLocation();
@@ -66,7 +66,7 @@ public class AreaStvorka extends AreaSimple {
     }
 
     //Коррекция координат створки с учётом нахлёста
-    private void setLocation(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
+    private void setNaxlest(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
 
         ElemSimple joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
                 joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
@@ -140,6 +140,24 @@ public class AreaStvorka extends AreaSimple {
         }
     }
 
+    @Override
+    public void setLocation(ElemFrame frm) {
+        AreaSimple owner = frm.owner();
+        if (Layout.BOTT == frm.layout) {
+            frm.setDimension(owner.x1, owner.y2 - frm.artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
+            frm.anglHoriz = 0;
+        } else if (Layout.RIGHT == frm.layout) {
+            frm.setDimension(owner.x2 - frm.artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
+            frm.anglHoriz = 90;
+        } else if (Layout.TOP == frm.layout) {
+            frm.setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + frm.artiklRec.getFloat(eArtikl.height));
+            frm.anglHoriz = 180;
+        } else if (Layout.LEFT == frm.layout) {
+            frm.setDimension(owner.x1, owner.y1, owner.x1 + frm.artiklRec.getFloat(eArtikl.height), owner.y2);
+            frm.anglHoriz = 270;
+        }
+    }
+    
     @Override
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
