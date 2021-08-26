@@ -53,7 +53,7 @@ public class ElemFrame extends ElemSimple {
                 sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.TOP, UseSide.HORIZ, UseSide.ANY);
             } else if (Layout.LEFT.equals(layout())) {
                 sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.LEFT, UseSide.VERT, UseSide.ANY);
-            } 
+            }
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
@@ -61,7 +61,7 @@ public class ElemFrame extends ElemSimple {
 
     //Установка координат
     public void setLocation() {
-        rootArea().setLocation(this);
+        owner.setLocation(this);
     }
 
     @Override //Главная спецификация
@@ -76,15 +76,15 @@ public class ElemFrame extends ElemSimple {
         spcRec.anglCut2 = anglCut[1];
         spcRec.anglHoriz = anglHoriz;
         double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
-        
+
         rootArea().setSpecific(this);
-        
+
         spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2030, 3050, 4050));
         spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2040, 3060));
     }
 
     @Override //Вложеная спецификация
-    public void addSpecific(Specific spcAdd ) { //добавление спесификаций зависимых элементов
+    public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
 
         spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
