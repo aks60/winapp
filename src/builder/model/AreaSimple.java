@@ -55,7 +55,7 @@ public class AreaSimple extends Com5t {
 
     protected void initDimension(float width, float height) {
 
-        if (owner() != null) { 
+        if (owner() != null) {
             //Первая area добавляемая в area владельца
             if (owner().listChild.isEmpty() == true) {
                 if (Layout.VERT.equals(owner().layout())) { //сверху вниз
@@ -287,5 +287,11 @@ public class AreaSimple extends Com5t {
             iwin().draw.drawLine(x2, y2, x2 - 24, y2 + 12);
             iwin().gc2d.drawString(UGui.df.format((float) (x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
         }
+    }
+
+    public void setLocation(ElemFrame frame) {
+    }
+
+    public void setSpecific(ElemFrame frm) {
     }
 }

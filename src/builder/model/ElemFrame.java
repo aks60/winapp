@@ -63,70 +63,7 @@ public class ElemFrame extends ElemSimple {
 
     //Установка координат
     public void setLocation() {
-        //RECTANGL
-        if (rootArea().type == Type.RECTANGL) {
-            if (Layout.BOTT == layout) {
-                setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
-                anglHoriz = 0;
-            } else if (Layout.RIGHT == layout) {
-                setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
-                anglHoriz = 90;
-            } else if (Layout.TOP == layout) {
-                setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
-                anglHoriz = 180;
-            } else if (Layout.LEFT == layout) {
-                setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
-                anglHoriz = 270;
-            }
-            //ARCH
-        } else if (rootArea().type == Type.ARCH) {
-            if (Layout.BOTT == layout) {
-                setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
-                anglHoriz = 0;
-
-            } else if (Layout.RIGHT == layout) {
-                setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
-                anglHoriz = 90;
-
-            } else if (Layout.TOP == layout) {
-                setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
-                anglHoriz = 180;
-
-            } else if (Layout.LEFT == layout) {
-                setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
-                anglHoriz = 270;
-
-            } else if (Layout.SPEC == layout) {
-                setDimension(owner().x1, owner().y1, owner().x2, owner().y1); // + artiklRec.getFloat(eArtikl.height));
-                anglHoriz = 180;
-
-            }
-            //TRAPEZE
-        } else if (rootArea().type == Type.TRAPEZE) {
-            if (Layout.BOTT == layout) {
-                setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
-                anglHoriz = 0;
-            } else if (Layout.RIGHT == layout) {
-                if (iwin().rootArea.view == 2) {
-                    setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y2 - iwin().heightAdd, owner().x2, owner().y2);
-                } else {
-                    setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
-                }
-                anglHoriz = 90;
-            } else if (Layout.TOP == layout) {
-                setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
-                anglHoriz = 180;
-            } else if (Layout.LEFT == layout) {
-                if (iwin().rootArea.view == 4) {
-                    setDimension(owner().x1, owner().y2 - iwin().heightAdd, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
-                } else {
-                    setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
-                }
-                anglHoriz = 270;
-            } else if (Layout.SPEC == layout) {
-                setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + iwin().heightAdd);
-            }
-        }
+        rootArea().setLocation(this);
     }
 
     @Override //Главная спецификация
@@ -141,37 +78,15 @@ public class ElemFrame extends ElemSimple {
         spcRec.anglCut2 = anglCut[1];
         spcRec.anglHoriz = anglHoriz;
         double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
-
-        if (Layout.SPEC == layout()) {
-            if (rootArea().type == Type.ARCH) {
-                ((AreaArch) rootArea()).frame(this, katet);
-            } else if (rootArea().type == Type.TRAPEZE) {
-                ((AreaTrapeze) rootArea()).frame(this);
-            }
-
-        } else if (Layout.TOP == layout) {
-            spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
-            spcRec.height = artiklRec.getFloat(eArtikl.height);
-
-        } else if (Layout.BOTT == layout) {
-            spcRec.width = x2 - x1 + +(float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
-            spcRec.height = artiklRec.getFloat(eArtikl.height);
-
-        } else if (Layout.LEFT == layout) {
-            spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
-            spcRec.height = artiklRec.getFloat(eArtikl.height);
-
-        } else if (Layout.RIGHT == layout) {
-            spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
-            spcRec.height = artiklRec.getFloat(eArtikl.height);
-        }
+        
+        rootArea().setSpecific(this);
+        
         spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2030, 3050, 4050));
         spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2040, 3060));
     }
 
     @Override //Вложеная спецификация
-    public void addSpecific(Specific spcAdd
-    ) { //добавление спесификаций зависимых элементов
+    public void addSpecific(Specific spcAdd ) { //добавление спесификаций зависимых элементов
 
         spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом

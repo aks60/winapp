@@ -121,7 +121,7 @@ public class Wincalc {
             } else if (Type.TRAPEZE == rootGson.type()) {
                 rootArea = new AreaTrapeze(this, rootGson, colorID1, colorID2, colorID3); //трапеция
             } else if (Type.TRIANGL == rootGson.type()) {
-                rootArea = new AreaTrapeze(this, rootGson, colorID1, colorID2, colorID3); //треугольник
+                rootArea = new AreaTriangl(this, rootGson, colorID1, colorID2, colorID3); //треугольник
             } else if (Type.ARCH == rootGson.type()) {
                 rootArea = new AreaArch(this, rootGson, colorID1, colorID2, colorID3); //арка
             }
