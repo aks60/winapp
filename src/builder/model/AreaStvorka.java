@@ -173,7 +173,7 @@ public class AreaStvorka extends AreaSimple {
             }
         }
 
-        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
+        LinkedList<ElemSimple> listElem = rootArea().listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
         for (int index = 0; index < 4; index++) {
              if (index == 0) { //Прилегающее нижнее
                 ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR10, LayoutJoin.CBOT, elemBott, elemBott.joinFlat(Layout.BOTT), 0);                               

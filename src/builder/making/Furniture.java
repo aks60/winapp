@@ -45,7 +45,7 @@ public class Furniture extends Cal5e {
 
     public void calc() {
         super.calc();
-        LinkedList<AreaStvorka> stvorkaList = root().listElem(Type.STVORKA);
+        LinkedList<AreaStvorka> stvorkaList = rootArea().listElem(Type.STVORKA);
         try {
             //Цикл по створкам      
             for (AreaStvorka areaStv : stvorkaList) {

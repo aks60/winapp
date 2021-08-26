@@ -65,7 +65,7 @@ public class ElemGlass extends ElemSimple {
 
         if (owner() instanceof AreaArch) { //если арка
 
-            ElemFrame elemArch = root().mapFrame.get(Layout.SPEC);
+            ElemFrame elemArch = rootArea().mapFrame.get(Layout.SPEC);
             ElemSimple elemImpost = joinFlat(Layout.BOTT);
             /*for (Com5t elemBase : root().listChild) { //первый импост в стеклопакете снизу;
                 if (Type.IMPOST == elemBase.type) {
@@ -75,7 +75,7 @@ public class ElemGlass extends ElemSimple {
             }*/
             y1 = y1 + elemArch.artiklRec.getFloat(eArtikl.height) - elemArch.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
             y2 = y2 + elemImpost.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
-            double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec.getFloat(eArtikl.height) + elemArch.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+            double r = ((AreaArch) rootArea()).radiusArch - elemArch.artiklRec.getFloat(eArtikl.height) + elemArch.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             double l = Math.sqrt(2 * height() * r - height() * height());
             x1 = (owner().width() / 2) - (float) l;
             x2 = owner().width() - x1;
@@ -98,7 +98,7 @@ public class ElemGlass extends ElemSimple {
             }
         } else {
             ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
-            if (iwin().rootArea.type == Type.TRAPEZE) {
+            if (rootArea().type == Type.TRAPEZE) {
                 System.out.println("builder.model.ElemGlass.setSpecific()");
                 
             } else {
@@ -131,7 +131,7 @@ public class ElemGlass extends ElemSimple {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
             if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108)) {  //штапик
                 if (Type.ARCH == owner().type()) { //штапик в арке
-                    ((AreaArch) root()).shtapik(this, spcAdd);
+                    ((AreaArch) rootArea()).shtapik(this, spcAdd);
 
                 } else { //штапик в прямоугольнике
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
@@ -171,7 +171,7 @@ public class ElemGlass extends ElemSimple {
                 }
             } else { //всё остальное
                 if (Type.ARCH == owner().type()) { //в арке
-                    ((AreaArch) root()).padding(this, spcAdd);
+                    ((AreaArch) rootArea()).padding(this, spcAdd);
                 } else {
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width = spcAdd.width + width() + gzazo;
@@ -205,12 +205,12 @@ public class ElemGlass extends ElemSimple {
         iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
 
         if (owner().type == Type.ARCH) {
-            ElemFrame ef = root().mapFrame.get(Layout.SPEC);
+            ElemFrame ef = rootArea().mapFrame.get(Layout.SPEC);
             float dz = ef.artiklRec.getFloat(eArtikl.height);
-            double r = ((AreaArch) root()).radiusArch;
-            double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
-            iwin().gc2d.fillArc((int) ((int) root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
+            double r = ((AreaArch) rootArea()).radiusArch;
+            double ang1 = 90 - Math.toDegrees(Math.asin(rootArea().width() / (r * 2)));
+            double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * dz) / ((r - dz) * 2)));
+            iwin().gc2d.fillArc((int) ((int) rootArea().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
         } else {
             iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},

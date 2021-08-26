@@ -44,7 +44,7 @@ public class Filling extends Cal5e {
             Record systreeRec = eSystree.find(iwin().nuni);
             String depthSet = systreeRec.getStr(eSystree.depth);
             List<Record> sysprofList = eSysprof.find(iwin().nuni);
-            LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(Type.GLASS);
+            LinkedList<ElemGlass> elemGlassList = rootArea().listElem(Type.GLASS);
 
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {

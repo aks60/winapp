@@ -138,7 +138,7 @@ public class FillingDet extends Par5s {
                 case 14081: //Если артикул профиля контура 
                 case 15081: //Если артикул профиля контура 
                 {
-                    ElemSimple elem = (elem5e.owner().mapFrame.isEmpty() == false) ? elem5e.owner().mapFrame.get(Layout.BOTT) : elem5e.root().mapFrame.get(Layout.BOTT);
+                    ElemSimple elem = (elem5e.owner().mapFrame.isEmpty() == false) ? elem5e.owner().mapFrame.get(Layout.BOTT) : elem5e.rootArea().mapFrame.get(Layout.BOTT);
                     if (rec.getStr(TEXT).equals(elem.artiklRecAn.getStr(eArtikl.code)) == false) {
                         return false;
                     }

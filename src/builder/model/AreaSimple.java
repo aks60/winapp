@@ -70,11 +70,11 @@ public class AreaSimple extends Com5t {
                         AreaSimple prevArea = (AreaSimple) owner().listChild.get(index);
                         //Если последняя доб. area выходит за коорд. root area. Происходит при подкдадке ареа над импостом 
                         if (Layout.VERT.equals(owner().layout())) { //сверху вниз                            
-                            float Y2 = (prevArea.y2 + height > root().y2) ? root().y2 : prevArea.y2 + height;
+                            float Y2 = (prevArea.y2 + height > rootArea().y2) ? rootArea().y2 : prevArea.y2 + height;
                             setDimension(owner().x1, prevArea.y2, owner().x2, Y2);
 
                         } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
-                            float X2 = (prevArea.x2 + width > root().x2) ? root().x2 : prevArea.x2 + width;
+                            float X2 = (prevArea.x2 + width > rootArea().x2) ? rootArea().x2 : prevArea.x2 + width;
                             setDimension(prevArea.x2, owner().y1, X2, owner().y2);
                         }
                         break;
@@ -181,19 +181,19 @@ public class AreaSimple extends Com5t {
             //iwin().gc2d.fillRect(0, 0, width, height);
 
             //Прорисовка стеклопакетов
-            LinkedList<ElemGlass> elemGlassList = root().listElem(Type.GLASS);
+            LinkedList<ElemGlass> elemGlassList = rootArea().listElem(Type.GLASS);
             elemGlassList.stream().forEach(el -> el.paint());
 
             //Прорисовка импостов
-            LinkedList<ElemCross> elemImpostList = root().listElem(Type.IMPOST);
+            LinkedList<ElemCross> elemImpostList = rootArea().listElem(Type.IMPOST);
             elemImpostList.stream().forEach(el -> el.paint());
 
             //Прорисовка штульпов
-            LinkedList<ElemCross> elemShtulpList = root().listElem(Type.SHTULP);
+            LinkedList<ElemCross> elemShtulpList = rootArea().listElem(Type.SHTULP);
             elemShtulpList.stream().forEach(el -> el.paint());
 
             //Прорисовка стоек
-            LinkedList<ElemCross> elemStoikaList = root().listElem(Type.STOIKA);
+            LinkedList<ElemCross> elemStoikaList = rootArea().listElem(Type.STOIKA);
             elemStoikaList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам
@@ -211,13 +211,13 @@ public class AreaSimple extends Com5t {
 //            mapFrame.get(Layout.RIGHT).paint();
 
             //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(Type.STVORKA);
+            LinkedList<AreaStvorka> elemStvorkaList = rootArea().listElem(Type.STVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Прорисовка размера  
             if (iwin().scale > 0.1) {
                 LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
-                LinkedList<ElemCross> impostList = root().listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
+                LinkedList<ElemCross> impostList = rootArea().listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
                 for (ElemSimple impostElem : impostList) { //по импостам определим точки разрыва линии
                     if (Layout.VERT == impostElem.owner().layout) {
                         ls2.add(impostElem.y1 + (impostElem.y2 - impostElem.y1) / 2);
@@ -237,7 +237,7 @@ public class AreaSimple extends Com5t {
                     line((this.x2 + mov), y1, (this.x2 + mov), y2, 0);
                 }
                 if (ls1.size() > 2) { //линия общей ширины
-                    line(root().x1, Canvas.height(iwin()) + mov * 2, root().x2, Canvas.height(iwin()) + mov * 2, 0);
+                    line(rootArea().x1, Canvas.height(iwin()) + mov * 2, rootArea().x2, Canvas.height(iwin()) + mov * 2, 0);
                 }
                 if (ls2.size() > 2) { //линия общей высоты
                     line(iwin().width + mov * 2, 0, iwin().width + mov * 2, Canvas.height(iwin()), 0);

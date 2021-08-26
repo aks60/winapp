@@ -63,37 +63,67 @@ public class ElemFrame extends ElemSimple {
 
     //Установка координат
     public void setLocation() {
-
-        if (Layout.BOTT == layout) {
-            setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
-            anglHoriz = 0;
-
-        } else if (Layout.RIGHT == layout) {
-            if (iwin().rootArea.type == Type.TRAPEZE && iwin().rootArea.view == 2) {
-                setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y2 - iwin().heightAdd, owner().x2, owner().y2);
-            } else {
+        //RECTANGL
+        if (rootArea().type == Type.RECTANGL) {
+            if (Layout.BOTT == layout) {
+                setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
+                anglHoriz = 0;
+            } else if (Layout.RIGHT == layout) {
                 setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
-            }
-            anglHoriz = 90;
-
-        } else if (Layout.TOP == layout) {
-            setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
-            anglHoriz = 180;
-
-        } else if (Layout.LEFT == layout) {
-            if (iwin().rootArea.type == Type.TRAPEZE && iwin().rootArea.view == 2) {
-                setDimension(owner().x1, owner().y2 - iwin().heightAdd, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
-            } else {
+                anglHoriz = 90;
+            } else if (Layout.TOP == layout) {
+                setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
+                anglHoriz = 180;
+            } else if (Layout.LEFT == layout) {
                 setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
+                anglHoriz = 270;
             }
-            anglHoriz = 270;
+            //ARCH
+        } else if (rootArea().type == Type.ARCH) {
+            if (Layout.BOTT == layout) {
+                setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
+                anglHoriz = 0;
 
-        } else if (Layout.SPEC == layout) {
-            if (iwin().rootArea.type() == Type.ARCH) {
+            } else if (Layout.RIGHT == layout) {
+                setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
+                anglHoriz = 90;
+
+            } else if (Layout.TOP == layout) {
+                setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
+                anglHoriz = 180;
+
+            } else if (Layout.LEFT == layout) {
+                setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
+                anglHoriz = 270;
+
+            } else if (Layout.SPEC == layout) {
                 setDimension(owner().x1, owner().y1, owner().x2, owner().y1); // + artiklRec.getFloat(eArtikl.height));
                 anglHoriz = 180;
 
-            } else if (iwin().rootArea.type() == Type.TRAPEZE) {
+            }
+            //TRAPEZE
+        } else if (rootArea().type == Type.TRAPEZE) {
+            if (Layout.BOTT == layout) {
+                setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
+                anglHoriz = 0;
+            } else if (Layout.RIGHT == layout) {
+                if (iwin().rootArea.view == 2) {
+                    setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y2 - iwin().heightAdd, owner().x2, owner().y2);
+                } else {
+                    setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
+                }
+                anglHoriz = 90;
+            } else if (Layout.TOP == layout) {
+                setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
+                anglHoriz = 180;
+            } else if (Layout.LEFT == layout) {
+                if (iwin().rootArea.view == 4) {
+                    setDimension(owner().x1, owner().y2 - iwin().heightAdd, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
+                } else {
+                    setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
+                }
+                anglHoriz = 270;
+            } else if (Layout.SPEC == layout) {
                 setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + iwin().heightAdd);
             }
         }
@@ -113,10 +143,10 @@ public class ElemFrame extends ElemSimple {
         double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
 
         if (Layout.SPEC == layout()) {
-            if (iwin().rootArea.type == Type.ARCH) {
-                ((AreaArch) root()).frame(this, katet);
-            } else if (iwin().rootArea.type == Type.TRAPEZE) {
-                ((AreaTrapeze) root()).frame(this);
+            if (rootArea().type == Type.ARCH) {
+                ((AreaArch) rootArea()).frame(this, katet);
+            } else if (rootArea().type == Type.TRAPEZE) {
+                ((AreaTrapeze) rootArea()).frame(this);
             }
 
         } else if (Layout.TOP == layout) {
@@ -140,7 +170,8 @@ public class ElemFrame extends ElemSimple {
     }
 
     @Override //Вложеная спецификация
-    public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
+    public void addSpecific(Specific spcAdd
+    ) { //добавление спесификаций зависимых элементов
 
         spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
@@ -275,11 +306,10 @@ public class ElemFrame extends ElemSimple {
         try {
             ElemJoining ej1 = iwin().mapJoin.get(joinPoint(0));
             ElemJoining ej2 = iwin().mapJoin.get(joinPoint(1));
-            float w = root().width();
             float z = (ej1.type == TypeJoin.VAR20 && ej2.type == TypeJoin.VAR20) ? artiklRec.getFloat(eArtikl.height) : 0;
             int rgb = eColor.find(colorID2).getInt(eColor.rgb);
             //RECTANGL
-            if (iwin().rootArea.type == Type.RECTANGL) {
+            if (rootArea().type == Type.RECTANGL) {
                 if (Layout.BOTT == layout) {
                     iwin().draw.strokePolygon(x1 + z, x2 - z, x2, x1, y1, y1, y2, y2, rgb, borderColor);
                 } else if (Layout.RIGHT == layout) {
@@ -290,11 +320,11 @@ public class ElemFrame extends ElemSimple {
                     iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + z, y2 - z, y2, rgb, borderColor);
                 }
                 //ARCH
-            } else if (iwin().rootArea.type == Type.ARCH) {
+            } else if (rootArea().type == Type.ARCH) {
                 if (Layout.SPEC == layout) { //прорисовка арки
                     //TODO для прорисовки арки добавил один градус, а это не айс!
                     float d2z = artiklRec.getFloat(eArtikl.height);
-                    double r = ((AreaArch) root()).radiusArch;
+                    double r = ((AreaArch) rootArea()).radiusArch;
                     double ang1 = 90 - Math.toDegrees(Math.asin(owner().width() / (r * 2)));
                     double ang2 = 90 - Math.toDegrees(Math.asin((owner().width() - 2 * d2z) / ((r - d2z) * 2)));
                     iwin().draw.strokeArc(owner().width() / 2 - r + d2z / 2, d2z / 2 - 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, d2z);
@@ -305,19 +335,19 @@ public class ElemFrame extends ElemSimple {
                     iwin().draw.strokePolygon(x1 + z, x2 - z, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
                 } else if (Layout.LEFT == layout) {
-                    double r = ((AreaArch) root()).radiusArch;
-                    double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * z) / ((r - z) * 2)));
+                    double r = ((AreaArch) rootArea()).radiusArch;
+                    double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * z) / ((r - z) * 2)));
                     double a = (r - z) * Math.sin(Math.toRadians(ang2));
                     iwin().draw.strokePolygon(x1, x2, x2, x1, y1, (float) (r - a), y2 - z, y2, rgb, borderColor);
 
                 } else if (Layout.RIGHT == layout) {
-                    double r = ((AreaArch) root()).radiusArch;
-                    double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * z) / ((r - z) * 2)));
+                    double r = ((AreaArch) rootArea()).radiusArch;
+                    double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * z) / ((r - z) * 2)));
                     double a = (r - z) * Math.sin(Math.toRadians(ang2));
                     iwin().draw.strokePolygon(x1, x2, x2, x1, (float) (r - a), y1, y2, y2 - z, rgb, borderColor);
                 }
-                //RECTANGL
-            } else if (iwin().rootArea.type == Type.TRAPEZE) {
+                //TRAPEZE
+            } else if (rootArea().type == Type.TRAPEZE) {
                 if (Layout.SPEC == layout) {
                     iwin().draw.strokePolygon(x1, x2, x2 - z, x1 + z, y1, y1, y2, y2, rgb, borderColor);
 

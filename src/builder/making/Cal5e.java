@@ -27,7 +27,7 @@ public abstract class Cal5e {
         return iwin;
     }
 
-    public AreaSimple root() {
+    public AreaSimple rootArea() {
         return iwin.rootArea;
     }
 }

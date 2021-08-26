@@ -57,7 +57,7 @@ public class AreaArch extends AreaSimple {
     }
 
     protected void frame(ElemFrame elemFrame, double katet) {
-        AreaArch areaArch = (AreaArch) root();
+        AreaArch areaArch = (AreaArch) rootArea();
         double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
         elemFrame.length = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
         elemFrame.spcRec.width = elemFrame.length + (float) (katet / Math.sin(Math.toRadians(elemFrame.anglCut[0])) + katet / Math.sin(Math.toRadians(elemFrame.anglCut[1])));

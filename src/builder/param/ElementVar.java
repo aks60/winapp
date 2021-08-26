@@ -49,7 +49,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 31001: //Максимальное заполнение изделия, мм 
                 {
-                    List<ElemGlass> glassList = elem5e.iwin().rootArea.listElem(Type.GLASS);
+                    List<ElemGlass> glassList = elem5e.rootArea().listElem(Type.GLASS);
                     float depth = 0;
                     for (ElemGlass glass : glassList) {
                         if (glass.artiklRecAn.getFloat(eArtikl.depth) > depth) {
