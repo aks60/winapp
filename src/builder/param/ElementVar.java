@@ -63,10 +63,13 @@ public class ElementVar extends Par5s {
                 break;
                 case 31002:  //Если профиль 
                     if ("арочный".equals(rec.getStr(TEXT)) == true && (iwin.rootArea.type() == Type.ARCH && Layout.SPEC == elem5e.layout()) == false) {
+                        //System.out.println(rec.getStr(TEXT) + " 7 " + elem5e.owner().type() + "  " + elem5e.layout());
                         return false;
                     } else if ("прямой".equals(rec.getStr(TEXT)) == true && (iwin.rootArea.type() == Type.ARCH && Layout.SPEC == elem5e.layout()) == true) {
+                        //System.out.println(rec.getStr(TEXT) + " 8 " + elem5e.owner().type() + "  " + elem5e.layout());
                         return false;
                     }
+                    //System.out.println(rec.getStr(TEXT) + " 9 " + elem5e.owner().type() + "  " + elem5e.layout());
                     break;
                 case 31003:  //Если соединенный артикул  T-обр.
                     if (rec.getStr(TEXT).equals(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) == true) {
