@@ -30,9 +30,9 @@ public class AreaArch extends AreaSimple {
             frm.setDimension(owner.x2 - frm.artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
             frm.anglHoriz = 90;
 
-        } else if (Layout.TOP == frm.layout) {
-            frm.setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + frm.artiklRec.getFloat(eArtikl.height));
-            frm.anglHoriz = 180;
+//        } else if (Layout.TOP == frm.layout) {
+//            frm.setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + frm.artiklRec.getFloat(eArtikl.height));
+//            frm.anglHoriz = 180;
 
         } else if (Layout.LEFT == frm.layout) {
             frm.setDimension(owner.x1, owner.y1, owner.x1 + frm.artiklRec.getFloat(eArtikl.height), owner.y2);
