@@ -43,9 +43,9 @@ public class AreaArch extends AreaSimple {
     @Override
     public void setSpecific(ElemFrame frm) {
         double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
-        
+
         if (Layout.SPEC == frm.layout()) {
-                ((AreaArch) rootArea()).frame(frm, katet);
+            ((AreaArch) rootArea()).frame(frm, katet);
 
         } else if (Layout.BOTT == frm.layout) {
             frm.spcRec.width = frm.x2 - frm.x1 + +(float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
