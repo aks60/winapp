@@ -49,7 +49,7 @@ public class ElemFrame extends ElemSimple {
                 sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.BOT, UseSide.HORIZ, UseSide.ANY);
             } else if (Layout.RIGHT.equals(layout())) {
                 sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.RIGHT, UseSide.VERT, UseSide.ANY);
-            } else if (Layout.TOP.equals(layout()) || Layout.SPEC.equals(layout())) {
+            } else if (Layout.TOP.equals(layout())) {
                 sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.TOP, UseSide.HORIZ, UseSide.ANY);
             } else if (Layout.LEFT.equals(layout())) {
                 sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.LEFT, UseSide.VERT, UseSide.ANY);
@@ -234,7 +234,7 @@ public class ElemFrame extends ElemSimple {
                 }
                 //ARCH
             } else if (owner().type == Type.ARCH) {
-                if (Layout.SPEC == layout) { //прорисовка арки
+                if (Layout.TOP == layout) { //прорисовка арки
                     //TODO для прорисовки арки добавил один градус, а это не айс!
                     float d2z = artiklRec.getFloat(eArtikl.height);
                     double r = ((AreaArch) rootArea()).radiusArch;
@@ -261,7 +261,7 @@ public class ElemFrame extends ElemSimple {
                 }
                 //TRAPEZE
             } else if (owner().type == Type.TRAPEZE) {
-                if (Layout.SPEC == layout) {
+                if (Layout.TOP == layout) {
                     iwin().draw.strokePolygon(x1, x2, x2 - z, x1 + z, y1, y1, y2, y2, rgb, borderColor);
 
                 } else if (Layout.BOTT == layout) {

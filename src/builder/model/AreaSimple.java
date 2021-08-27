@@ -137,7 +137,7 @@ public class AreaSimple extends Com5t {
         for (ElemSimple elemImp : impList) {
             //Цикл по сторонам рамы и импостам (т.к. в створке Т-обр. соединений нет)
             for (ElemSimple elem5e : elemList) {
-                 if ((elem5e.owner.type == Type.ARCH && elem5e.layout == Layout.SPEC) == false) { //для арки inside() не работает
+                 if ((elem5e.owner.type == Type.ARCH && elem5e.layout == Layout.TOP) == false) { //для арки inside() не работает
 
                     elemImp.anglCut[0] = 90;
                     elemImp.anglCut[1] = 90;

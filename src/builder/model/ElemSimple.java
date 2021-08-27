@@ -44,7 +44,7 @@ public abstract class ElemSimple extends Com5t {
             return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y2; //точки левого и правого нижнего углового и прилегающего соед.
         } else if (layout() == Layout.RIGHT) {
             return (side == 0) ? x2 + ":" + y2 : (side == 1) ? x2 + ":" + y1 : x2 + ":" + y1 + (y2 - y1) / 2; //точки нижнего и верхнего правого углового и прилегающего соед.
-        } else if (layout() == Layout.TOP || layout() == Layout.SPEC) {
+        } else if (layout() == Layout.TOP) {
             return (side == 0) ? x2 + ":" + y1 : (side == 1) ? x1 + ":" + y1 : x1 + (x2 - x1) / 2 + ":" + y2; //точки правого и левого верхнего углового и прилегающего соед.
         } else if (layout() == Layout.LEFT) {
             return (side == 0) ? x1 + ":" + y1 : (side == 1) ? x1 + ":" + y2 : x1 + ":" + y1 + (y2 - y1) / 2; //точки верхнего и нижнего левого углового и прилегающего соед.
@@ -66,7 +66,7 @@ public abstract class ElemSimple extends Com5t {
         } else if (Layout.LEFT == layoutArea) {
             return listElem.stream().filter(el -> el != this && el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
         } else if (Layout.TOP == layoutArea) {
-            return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, y1) == true && (el.owner.type == Type.ARCH && el.layout() == Layout.SPEC) == false).findFirst().orElse(null);
+            return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, y1) == true && (el.owner.type == Type.ARCH && el.layout() == Layout.TOP) == false).findFirst().orElse(null);
         } else if (Layout.RIGHT == layoutArea) {
             return listElem.stream().filter(el -> el != this && el.inside(x2, y1 + (y2 - y1) / 2)).findFirst().orElse(null);
         }

@@ -168,7 +168,7 @@ public final class Bimax {
                     Layout.VERT, Type.ARCH, 1300, 1050, 1700, 1009, 1009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.SPEC));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addElem(new GsonElem(Type.GLASS));
@@ -231,7 +231,7 @@ public final class Bimax {
                     Layout.VERT, Type.ARCH, 1300, 1200, 1500, 1009, 10009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.SPEC));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addElem(new GsonElem(Type.GLASS));
@@ -249,7 +249,7 @@ public final class Bimax {
                     Layout.VERT, Type.ARCH, 1100, 1220, 1600, 1009, 1009, 10012);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.SPEC));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addElem(new GsonElem(Type.GLASS));
@@ -267,7 +267,7 @@ public final class Bimax {
                     Layout.VERT, Type.ARCH, 1400, 1300, 1700, 1009, 1009, 10001);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.SPEC));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addElem(new GsonElem(Type.GLASS));
@@ -285,7 +285,7 @@ public final class Bimax {
                     Layout.VERT, Type.ARCH, 1300, 1200, 1500, 1009, 10009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.SPEC));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addElem(new GsonElem(Type.GLASS));
@@ -303,7 +303,7 @@ public final class Bimax {
                     Layout.VERT, Type.ARCH, 1300, 1200, 1500, 1009, 10009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.SPEC));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addElem(new GsonElem(Type.GLASS));
@@ -315,7 +315,7 @@ public final class Bimax {
                     Layout.VERT, Type.ARCH, 1300, 1400, 1700, 1009, 10009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.SPEC));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addElem(new GsonElem(Type.GLASS));
@@ -336,7 +336,7 @@ public final class Bimax {
                     Layout.VERT, Type.ARCH, 1300, 1000, 1300, 1010, 10000, 10000);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.SPEC));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addElem(new GsonElem(Type.GLASS));
@@ -353,7 +353,7 @@ public final class Bimax {
                     Layout.VERT, Type.TRAPEZE, 1300, 1500, 1300, 1009, 10009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.SPEC));
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             rootGson.addElem(new GsonElem(Type.GLASS));
 //            rootGson.addElem(new GsonElem(Type.IMPOST));

@@ -39,7 +39,7 @@ public class AreaTrapeze extends AreaSimple {
                 frm.setDimension(owner.x1, owner.y1, owner.x1 + frm.artiklRec.getFloat(eArtikl.height), owner.y2);
             }
             frm.anglHoriz = 270;
-        } else if (Layout.SPEC == frm.layout) {
+        } else if (Layout.TOP == frm.layout) {
             frm.setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + iwin().heightAdd);
         }
     }
@@ -48,7 +48,7 @@ public class AreaTrapeze extends AreaSimple {
     public void setSpecific(ElemFrame frm) {
         double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
         
-        if (Layout.SPEC == frm.layout()) {
+        if (Layout.TOP == frm.layout()) {
             System.out.println("builder.model.ElemFrame.setSpecific()");
 
         } else if (Layout.BOTT == frm.layout) {
@@ -67,7 +67,7 @@ public class AreaTrapeze extends AreaSimple {
     
     @Override
     public void joinFrame() {
-        ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT), elemTop = mapFrame.get(Layout.SPEC), elemLeft = mapFrame.get(Layout.LEFT);
+        ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT), elemTop = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
 
         //Угловое соединение правое нижнее
         ElemJoining joinBott = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);

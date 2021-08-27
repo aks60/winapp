@@ -65,7 +65,7 @@ public class ElemGlass extends ElemSimple {
 
         if (owner() instanceof AreaArch) { //если арка
 
-            ElemFrame elemArch = rootArea().mapFrame.get(Layout.SPEC);
+            ElemFrame elemArch = rootArea().mapFrame.get(Layout.TOP);
             ElemSimple elemImpost = joinFlat(Layout.BOTT);
             /*for (Com5t elemBase : root().listChild) { //первый импост в стеклопакете снизу;
                 if (Type.IMPOST == elemBase.type) {
@@ -205,7 +205,7 @@ public class ElemGlass extends ElemSimple {
         iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
 
         if (owner().type == Type.ARCH) {
-            ElemFrame ef = rootArea().mapFrame.get(Layout.SPEC);
+            ElemFrame ef = rootArea().mapFrame.get(Layout.TOP);
             float dz = ef.artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) rootArea()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(rootArea().width() / (r * 2)));

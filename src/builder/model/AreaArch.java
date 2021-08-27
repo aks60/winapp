@@ -34,7 +34,7 @@ public class AreaArch extends AreaSimple {
             frm.setDimension(owner.x1, owner.y1, owner.x1 + frm.artiklRec.getFloat(eArtikl.height), owner.y2);
             frm.anglHoriz = 270;
 
-        } else if (Layout.SPEC == frm.layout) {
+        } else if (Layout.TOP == frm.layout) {
             frm.setDimension(owner.x1, owner.y1, owner.x2, owner.y1); // + frm.artiklRec.getFloat(eArtikl.height));
             frm.anglHoriz = 180;
         }
@@ -44,7 +44,7 @@ public class AreaArch extends AreaSimple {
     public void setSpecific(ElemFrame frm) {
         double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
 
-        if (Layout.SPEC == frm.layout()) {
+        if (frm.owner.type == Type.ARCH && Layout.TOP == frm.layout()) {
             ((AreaArch) rootArea()).frame(frm, katet);
 
         } else if (Layout.BOTT == frm.layout) {
@@ -64,7 +64,7 @@ public class AreaArch extends AreaSimple {
     @Override
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
-                elemArch = mapFrame.get(Layout.SPEC), elemLeft = mapFrame.get(Layout.LEFT);
+                elemArch = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
 
         double dh = elemArch.artiklRec.getFloat(eArtikl.height);
         double dw = elemLeft.artiklRec.getFloat(eArtikl.height);
@@ -104,13 +104,13 @@ public class AreaArch extends AreaSimple {
         double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
         elemFrame.length = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
         elemFrame.spcRec.width = elemFrame.length + (float) (katet / Math.sin(Math.toRadians(elemFrame.anglCut[0])) + katet / Math.sin(Math.toRadians(elemFrame.anglCut[1])));
-        elemFrame.spcRec.height = mapFrame.get(Layout.SPEC).artiklRec.getFloat(eArtikl.height);
+        elemFrame.spcRec.height = mapFrame.get(Layout.TOP).artiklRec.getFloat(eArtikl.height);
     }
 
     protected void shtapik(ElemGlass elemGlass, Specific spcAdd) {
         Float dw = spcAdd.width;
         ElemSimple imp = elemGlass.joinFlat(Layout.BOTT);
-        ElemSimple arch = mapFrame.get(Layout.SPEC);
+        ElemSimple arch = mapFrame.get(Layout.TOP);
         ElemSimple rama = mapFrame.get(Layout.LEFT);
 
         if (elemGlass.anglHoriz == elemGlass.sideHoriz[0]) { //по основанию арки

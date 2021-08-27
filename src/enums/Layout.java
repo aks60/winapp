@@ -12,7 +12,6 @@ public enum Layout implements Enam {
     RIGHT(2, "Правая"),
     TOP(3, "Верхняя"),
     LEFT(4, "Левая"),
-    SPEC(5, "Специальн."),
     FULL(6, "");
 
     //LSKEW("Левый угол"),
