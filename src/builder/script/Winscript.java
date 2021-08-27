@@ -16,16 +16,16 @@ public class Winscript {
     public static String test(Integer prj, boolean model) {
         String base_name = (eProperty.base_num.read().equals("1")) ? eProperty.base1.read()
                 : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
-        
+
         if (base_name.toLowerCase().contains("sial3.fdb")) {
             return Sial3.script(prj, model);
-            
+
         } else if (base_name.toLowerCase().contains("bimax.fdb")) {
             return Bimax.script(prj, model);
-            
+
         } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
             return Vidnal.script(prj, model);
-            
+
         } else if (base_name.toLowerCase().contains("krauss.fdb")) {
             return Krauss.script(prj, model);
 
@@ -34,18 +34,18 @@ public class Winscript {
         }
         return null;
     }
-    
-    public static List<Integer> models() {
+
+    public static List<Integer> models(String p) {
         String base_name = (eProperty.base_num.read().equals("1")) ? eProperty.base1.read()
                 : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
-        
+
         if (base_name.toLowerCase().contains("sial3.fdb")) {
             return Arrays.asList(601001, 601002, 601003, 601004);
-            
+
         } else if (base_name.toLowerCase().contains("bimax.fdb")) {
-            //return Arrays.asList(601010, 700027, 604004, 604005, 604006, 604007, 604008);
-            return Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, 700027, 604004, 604005, 604006, 604007, 604008, 604009, 604010, 605001);
-            
+            return ("max".equals(p)) ? Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, 700027, 604004, 604005, 604006, 604007, 604008, 604009, 604010, 605001)
+                    : Arrays.asList(601010, 700027, 604004, 604005, 604006, 604007, 604008);
+
         } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
             return Arrays.asList(26);
 
@@ -57,17 +57,17 @@ public class Winscript {
         }
         return null;
     }
-    
+
     public static String path() {
         String base_name = (eProperty.base_num.read().equals("1")) ? eProperty.base1.read()
                 : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
-        
+
         if (base_name.toLowerCase().contains("sial3.fdb")) {
             return "D:\\Okna\\Database\\ps3\\sial3.fdb";
-            
+
         } else if (base_name.toLowerCase().contains("bimax.fdb")) {
             return "D:\\Okna\\Database\\ps4\\ITEST.FDB";
-            
+
         } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
             return "D:\\Okna\\Database\\ps4\\vidnal.fdb";
 

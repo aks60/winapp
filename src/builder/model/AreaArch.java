@@ -19,48 +19,54 @@ public class AreaArch extends AreaSimple {
         setDimension(0, iwin.heightAdd - iwin().height, gson.width(), iwin.heightAdd - iwin().height + gson.height());
     }
 
-    @Override
-    public void setLocation(ElemFrame frm) {
-        AreaSimple owner = frm.owner();
-        if (Layout.BOTT == frm.layout) {
-            frm.setDimension(owner.x1, owner.y2 - frm.artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
-            frm.anglHoriz = 0;
+    /**
+//    @Override
+//    public void setLocation(ElemFrame frm) {
+//        AreaSimple owner = frm.owner();
+//        if (Layout.BOTT == frm.layout) {
+//            frm.setDimension(owner.x1, owner.y2 - frm.artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
+//            frm.anglHoriz = 0;
+//
+//        } else if (Layout.RIGHT == frm.layout) {
+//            frm.setDimension(owner.x2 - frm.artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
+//            frm.anglHoriz = 90;
+//
+//        } else if (Layout.LEFT == frm.layout) {
+//            frm.setDimension(owner.x1, owner.y1, owner.x1 + frm.artiklRec.getFloat(eArtikl.height), owner.y2);
+//            frm.anglHoriz = 270;
+//
+//        } else if (Layout.TOP == frm.layout) {
+//            frm.setDimension(owner.x1, owner.y1, owner.x2, owner.y1); // + frm.artiklRec.getFloat(eArtikl.height));
+//            frm.anglHoriz = 180;
+//        }
+//    }
 
-        } else if (Layout.RIGHT == frm.layout) {
-            frm.setDimension(owner.x2 - frm.artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
-            frm.anglHoriz = 90;
-
-        } else if (Layout.LEFT == frm.layout) {
-            frm.setDimension(owner.x1, owner.y1, owner.x1 + frm.artiklRec.getFloat(eArtikl.height), owner.y2);
-            frm.anglHoriz = 270;
-
-        } else if (Layout.TOP == frm.layout) {
-            frm.setDimension(owner.x1, owner.y1, owner.x2, owner.y1); // + frm.artiklRec.getFloat(eArtikl.height));
-            frm.anglHoriz = 180;
-        }
-    }
-
-    @Override
-    public void setSpecific(ElemFrame frm) {
-        double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
-
-        if (frm.owner.type == Type.ARCH && Layout.TOP == frm.layout()) {
-            ((AreaArch) rootArea()).frame(frm, katet);
-
-        } else if (Layout.BOTT == frm.layout) {
-            frm.spcRec.width = frm.x2 - frm.x1 + +(float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
-            frm.spcRec.height = frm.artiklRec.getFloat(eArtikl.height);
-
-        } else if (Layout.LEFT == frm.layout) {
-            frm.spcRec.width = frm.y2 - frm.y1 + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
-            frm.spcRec.height = frm.artiklRec.getFloat(eArtikl.height);
-
-        } else if (Layout.RIGHT == frm.layout) {
-            frm.spcRec.width = frm.y2 - frm.y1 + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
-            frm.spcRec.height = frm.artiklRec.getFloat(eArtikl.height);
-        }
-    }
-
+//    @Override
+//    public void setSpecific(ElemFrame frm) {
+//        double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
+//
+//        if (frm.owner.type == Type.ARCH && Layout.TOP == frm.layout()) {
+//            AreaArch areaArch = (AreaArch) rootArea();
+//            double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
+//            frm.length = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
+//            frm.spcRec.width = frm.length + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
+//            frm.spcRec.height = mapFrame.get(Layout.TOP).artiklRec.getFloat(eArtikl.height);
+//
+//        } else if (Layout.BOTT == frm.layout) {
+//            frm.spcRec.width = frm.x2 - frm.x1 + +(float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
+//            frm.spcRec.height = frm.artiklRec.getFloat(eArtikl.height);
+//
+//        } else if (Layout.LEFT == frm.layout) {
+//            frm.spcRec.width = frm.y2 - frm.y1 + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
+//            frm.spcRec.height = frm.artiklRec.getFloat(eArtikl.height);
+//
+//        } else if (Layout.RIGHT == frm.layout) {
+//            frm.spcRec.width = frm.y2 - frm.y1 + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
+//            frm.spcRec.height = frm.artiklRec.getFloat(eArtikl.height);
+//        }
+//    }
+*/
+    
     @Override
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
@@ -97,14 +103,6 @@ public class AreaArch extends AreaSimple {
         //Угловое соединение правое нижнее
         ElemJoining elem4 = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
         iwin().mapJoin.put(elemBott.joinPoint(1), elem4);
-    }
-
-    protected void frame(ElemFrame elemFrame, double katet) {
-        AreaArch areaArch = (AreaArch) rootArea();
-        double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
-        elemFrame.length = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
-        elemFrame.spcRec.width = elemFrame.length + (float) (katet / Math.sin(Math.toRadians(elemFrame.anglCut[0])) + katet / Math.sin(Math.toRadians(elemFrame.anglCut[1])));
-        elemFrame.spcRec.height = mapFrame.get(Layout.TOP).artiklRec.getFloat(eArtikl.height);
     }
 
     protected void shtapik(ElemGlass elemGlass, Specific spcAdd) {

@@ -82,7 +82,7 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "max";
+        String _case = "min";
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(604004, false));
@@ -93,7 +93,7 @@ public class Test {
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
 
         } else if (_case.equals("min")) {
-            List<Integer> prjList = Winscript.models();
+            List<Integer> prjList = Winscript.models(_case);
             for (int prj : prjList) {
                 String script = builder.script.Winscript.test(prj, false);
                 if (script != null) {
@@ -105,7 +105,7 @@ public class Test {
             }
 
         } else if (_case.equals("max")) {
-            List<Integer> prjList = Winscript.models();
+            List<Integer> prjList = Winscript.models(_case);
             for (int prj : prjList) {
                 String script = builder.script.Winscript.test(prj, false);
                 if (script != null) {

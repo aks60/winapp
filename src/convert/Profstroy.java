@@ -628,7 +628,7 @@ public class Profstroy {
     private static void loadModels() {
         try {
             println(Color.BLACK, "loadModels()");
-            List<Integer> prjList = Winscript.models();
+            List<Integer> prjList = Winscript.models("max");
 
             cn2.commit();
             int index = 0;
