@@ -70,7 +70,7 @@ public class AreaStvorka extends AreaSimple {
 
         ElemSimple joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
                 joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
-        
+
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
             x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
             y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
@@ -157,11 +157,33 @@ public class AreaStvorka extends AreaSimple {
             frm.anglHoriz = 270;
         }
     }
-    
+
+    @Override
+    public void setSpecific(ElemFrame frm) {
+        double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
+
+        if (Layout.TOP == layout) {
+            frm.spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
+            frm.spcRec.height = artiklRec.getFloat(eArtikl.height);
+
+        } else if (Layout.BOTT == layout) {
+            frm.spcRec.width = x2 - x1 + +(float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
+            frm.spcRec.height = artiklRec.getFloat(eArtikl.height);
+
+        } else if (Layout.LEFT == layout) {
+            frm.spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
+            frm.spcRec.height = artiklRec.getFloat(eArtikl.height);
+
+        } else if (Layout.RIGHT == layout) {
+            frm.spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
+            frm.spcRec.height = artiklRec.getFloat(eArtikl.height);
+        }
+    }
+
     @Override
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
-                elemTop = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);        
+                elemTop = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
         //Цикл по сторонам створки
         for (int index = 0; index < 4; index++) {
             elemBott.anglHoriz = 0;
@@ -193,10 +215,10 @@ public class AreaStvorka extends AreaSimple {
 
         LinkedList<ElemSimple> listElem = rootArea().listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
         for (int index = 0; index < 4; index++) {
-             if (index == 0) { //Прилегающее нижнее
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR10, LayoutJoin.CBOT, elemBott, elemBott.joinFlat(Layout.BOTT), 0);                               
+            if (index == 0) { //Прилегающее нижнее
+                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR10, LayoutJoin.CBOT, elemBott, elemBott.joinFlat(Layout.BOTT), 0);
                 iwin().mapJoin.put(elemBott.joinPoint(2), el);
-                
+
             } else if (index == 1) { //Прилегающее верхнее 
                 ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR10, LayoutJoin.CTOP, elemTop, elemTop.joinFlat(Layout.TOP), 0);
                 iwin().mapJoin.put(elemTop.joinPoint(2), el);
@@ -211,7 +233,7 @@ public class AreaStvorka extends AreaSimple {
             }
         }
     }
-    
+
     //Вычисление смещения створки через параметр
     private float offset(ElemSimple profStv, ElemSimple profFrm) {
         Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
