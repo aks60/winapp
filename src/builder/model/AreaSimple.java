@@ -289,9 +289,4 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    public void setLocation(ElemFrame frame) {
-    }
-
-    public void setSpecific(ElemFrame frm) {
-    }
 }

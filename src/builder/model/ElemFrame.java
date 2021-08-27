@@ -87,6 +87,9 @@ public class ElemFrame extends ElemSimple {
                     setDimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
                 }
                 anglHoriz = 90;
+            } else if (Layout.TOP == layout) {
+                setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + iwin().heightAdd);
+                anglHoriz = (float) (180 - Math.toDegrees(Math.atan((rootArea().height() - iwin().heightAdd) / rootArea().width())));
             } else if (Layout.LEFT == layout) {
                 if (iwin().rootArea.view == 4) {
                     setDimension(owner.x1, owner.y2 - iwin().heightAdd, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
@@ -94,8 +97,6 @@ public class ElemFrame extends ElemSimple {
                     setDimension(owner.x1, owner.y1, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
                 }
                 anglHoriz = 270;
-            } else if (Layout.TOP == layout) {
-                setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + iwin().heightAdd);
             }
 
         } else {
@@ -147,10 +148,12 @@ public class ElemFrame extends ElemSimple {
             }
         } else if (owner().type() == Type.TRAPEZE) {
             if (Layout.TOP == layout()) {
-                System.out.println("builder.model.ElemFrame.setSpecific()");
-
+                double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(rootArea().height() - iwin().heightAdd, 2));
+                spcRec.width = (float)  (length + katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                System.out.println(spcRec.width);
+                spcRec.height = artiklRec.getFloat(eArtikl.height);   
             } else if (Layout.BOTT == layout) {
-                spcRec.width = x2 - x1 + +(float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (Layout.LEFT == layout) {
                 spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
