@@ -330,23 +330,30 @@ public class ElemFrame extends ElemSimple {
         try {
             ElemJoining ej1 = iwin().mapJoin.get(joinPoint(0));
             ElemJoining ej2 = iwin().mapJoin.get(joinPoint(1));
-            float z = (ej1.type == TypeJoin.VAR20 && ej2.type == TypeJoin.VAR20) ? artiklRec.getFloat(eArtikl.height) : 0;
+            float dh = artiklRec.getFloat(eArtikl.height);
+            //float dh = (ej1.type == TypeJoin.VAR20 && ej2.type == TypeJoin.VAR20) ? artiklRec.getFloat(eArtikl.height) : 0;
             int rgb = eColor.find(colorID2).getInt(eColor.rgb);
             //RECTANGL
             if (owner().type == Type.RECTANGL || owner().type == Type.STVORKA) {
                 if (Layout.BOTT == layout) {
-                    iwin().draw.strokePolygon(x1 + z, x2 - z, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+                    iwin().draw.strokePolygon(x1 + dh, x2 - dh, x2, x1, y1, y1, y2, y2, rgb, borderColor);
                 } else if (Layout.RIGHT == layout) {
-                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1 + z, y1, y2, y2 - z, rgb, borderColor);
+                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1 + dh, y1, y2, y2 - dh, rgb, borderColor);
                 } else if (Layout.TOP == layout) {
-                    iwin().draw.strokePolygon(x1, x2, x2 - z, x1 + z, y1, y1, y2, y2, rgb, borderColor);
+                    iwin().draw.strokePolygon(x1, x2, x2 - dh, x1 + dh, y1, y1, y2, y2, rgb, borderColor);
                 } else if (Layout.LEFT == layout) {
-                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + z, y2 - z, y2, rgb, borderColor);
+                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + dh, y2 - dh, y2, rgb, borderColor);
                 }
                 //ARCH
             } else if (owner().type == Type.ARCH) {
                 if (Layout.TOP == layout) { //прорисовка арки
-                    //TODO для прорисовки арки добавил один градус, а это не айс!
+                    //TODO для прорисовки арки добавил один градус, а это не айс!                  
+//                    double r = ((AreaArch) rootArea()).radiusArch;
+//                    double ang1 = 90 - Math.toDegrees(Math.asin(owner().width() / (r * 2)));
+//                    double ang2 = 90 - Math.toDegrees(Math.asin((owner().width() - 2 * dh) / ((r - dh) * 2)));
+//                    iwin().draw.strokeArc(owner().width() / 2 - r + dh / 2, dh / 2 - 2, (r - dh / 2) * 2, (r - dh / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, dh);
+//                    iwin().draw.strokeArc(owner().width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, 0, 4);
+//                    iwin().draw.strokeArc(owner().width() / 2 - r + dh, dh - 2, (r - dh) * 2, (r - dh) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4);
                     float d2z = artiklRec.getFloat(eArtikl.height);
                     double r = ((AreaArch) rootArea()).radiusArch;
                     double ang1 = 90 - Math.toDegrees(Math.asin(owner().width() / (r * 2)));
@@ -356,33 +363,35 @@ public class ElemFrame extends ElemSimple {
                     iwin().draw.strokeArc(owner().width() / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4);
 
                 } else if (Layout.BOTT == layout) {
-                    iwin().draw.strokePolygon(x1 + z, x2 - z, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+                    iwin().draw.strokePolygon(x1 + dh, x2 - dh, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
                 } else if (Layout.LEFT == layout) {
                     double r = ((AreaArch) rootArea()).radiusArch;
-                    double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * z) / ((r - z) * 2)));
-                    double a = (r - z) * Math.sin(Math.toRadians(ang2));
-                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, (float) (r - a), y2 - z, y2, rgb, borderColor);
+                    double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * dh) / ((r - dh) * 2)));
+                    double a = (r - dh) * Math.sin(Math.toRadians(ang2));
+                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, (float) (r - a), y2 - dh, y2, rgb, borderColor);
 
                 } else if (Layout.RIGHT == layout) {
                     double r = ((AreaArch) rootArea()).radiusArch;
-                    double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * z) / ((r - z) * 2)));
-                    double a = (r - z) * Math.sin(Math.toRadians(ang2));
-                    iwin().draw.strokePolygon(x1, x2, x2, x1, (float) (r - a), y1, y2, y2 - z, rgb, borderColor);
+                    double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * dh) / ((r - dh) * 2)));
+                    double a = (r - dh) * Math.sin(Math.toRadians(ang2));
+                    iwin().draw.strokePolygon(x1, x2, x2, x1, (float) (r - a), y1, y2, y2 - dh, rgb, borderColor);
                 }
                 //TRAPEZE
             } else if (owner().type == Type.TRAPEZE) {
-                if (Layout.TOP == layout) {
-                    iwin().draw.strokePolygon(x1, x2, x2 - z, x1 + z, y1, y1, y2, y2, rgb, borderColor);
-
-                } else if (Layout.BOTT == layout) {
-                    iwin().draw.strokePolygon(x1 + z, x2 - z, x2, x1, y1, y1, y2, y2, rgb, borderColor);
-
-                } else if (Layout.LEFT == layout) {
-                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + z, y2 - z, y2, rgb, borderColor);
+                if (Layout.BOTT == layout) {
+                    iwin().draw.strokePolygon(x1 + dh, x2 - dh, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
                 } else if (Layout.RIGHT == layout) {
-                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1 + z, y1, y2, y2 - z, rgb, borderColor);
+                    double angl = Math.toRadians(90 - anglCut[1]);
+                    float dh2 = (float) (dh * Math.tan(angl)); 
+                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1 + dh2, y1, y2, y2 - dh, rgb, borderColor);
+
+                } else if (Layout.LEFT == layout) {
+                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + dh, y2 - dh, y2, rgb, borderColor);
+
+                } else if (Layout.TOP == layout) {
+                    iwin().draw.strokePolygon(x1, x2, x2 - dh, x1 + dh, y1, y1, y2, y2, rgb, borderColor);
                 }
             }
         } catch (Exception s) {
