@@ -348,19 +348,12 @@ public class ElemFrame extends ElemSimple {
             } else if (owner().type == Type.ARCH) {
                 if (Layout.TOP == layout) { //прорисовка арки
                     //TODO для прорисовки арки добавил один градус, а это не айс!                  
-//                    double r = ((AreaArch) rootArea()).radiusArch;
-//                    double ang1 = 90 - Math.toDegrees(Math.asin(owner().width() / (r * 2)));
-//                    double ang2 = 90 - Math.toDegrees(Math.asin((owner().width() - 2 * dh) / ((r - dh) * 2)));
-//                    iwin().draw.strokeArc(owner().width() / 2 - r + dh / 2, dh / 2 - 2, (r - dh / 2) * 2, (r - dh / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, dh);
-//                    iwin().draw.strokeArc(owner().width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, 0, 4);
-//                    iwin().draw.strokeArc(owner().width() / 2 - r + dh, dh - 2, (r - dh) * 2, (r - dh) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4);
-                    float d2z = artiklRec.getFloat(eArtikl.height);
                     double r = ((AreaArch) rootArea()).radiusArch;
                     double ang1 = 90 - Math.toDegrees(Math.asin(owner().width() / (r * 2)));
-                    double ang2 = 90 - Math.toDegrees(Math.asin((owner().width() - 2 * d2z) / ((r - d2z) * 2)));
-                    iwin().draw.strokeArc(owner().width() / 2 - r + d2z / 2, d2z / 2 - 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, d2z);
+                    double ang2 = 90 - Math.toDegrees(Math.asin((owner().width() - 2 * dh) / ((r - dh) * 2)));
+                    iwin().draw.strokeArc(owner().width() / 2 - r + dh / 2, dh / 2 - 2, (r - dh / 2) * 2, (r - dh / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, dh);
                     iwin().draw.strokeArc(owner().width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, 0, 4);
-                    iwin().draw.strokeArc(owner().width() / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4);
+                    iwin().draw.strokeArc(owner().width() / 2 - r + dh, dh - 2, (r - dh) * 2, (r - dh) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4);
 
                 } else if (Layout.BOTT == layout) {
                     iwin().draw.strokePolygon(x1 + dh, x2 - dh, x2, x1, y1, y1, y2, y2, rgb, borderColor);
