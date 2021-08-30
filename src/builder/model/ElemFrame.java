@@ -385,7 +385,7 @@ public class ElemFrame extends ElemSimple {
                     float dh2 = (float) (dh * Math.tan(ang1));
                     double ang2 = Math.toRadians(90 - anglCut[1]);
                     float dh3 = (float) (dh * Math.tan(ang2));                    
-                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y2, y2 + 80, y1 + 80, rgb, borderColor);
+                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y2, y2 + 60, y1 + 60, rgb, borderColor);
                 }
             }
         } catch (Exception s) {
