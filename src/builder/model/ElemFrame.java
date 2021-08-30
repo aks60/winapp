@@ -15,7 +15,6 @@ import enums.Type;
 import java.util.Arrays;
 import java.util.Map;
 import builder.making.Furniture;
-import enums.TypeJoin;
 import enums.UseSide;
 
 public class ElemFrame extends ElemSimple {
@@ -92,7 +91,7 @@ public class ElemFrame extends ElemSimple {
                 }
                 anglHoriz = 90;
             } else if (Layout.TOP == layout) {
-                setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + iwin().heightAdd);
+                setDimension(owner.x1, owner.y1, owner.x2, owner.y2 - iwin().heightAdd);
                 anglHoriz = (float) (180 - Math.toDegrees(Math.atan(H / W)));
                 anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                 anglCut[1] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
@@ -160,10 +159,6 @@ public class ElemFrame extends ElemSimple {
                 double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(rootArea().height() - iwin().heightAdd, 2));
                 spcRec.width = (float) (length + katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
-
-                System.out.println(spcRec.anglHoriz);
-                System.out.println(spcRec.width);
-
             } else if (Layout.BOTT == layout) {
                 spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
@@ -331,7 +326,6 @@ public class ElemFrame extends ElemSimple {
             ElemJoining ej1 = iwin().mapJoin.get(joinPoint(0));
             ElemJoining ej2 = iwin().mapJoin.get(joinPoint(1));
             float dh = artiklRec.getFloat(eArtikl.height);
-            //float dh = (ej1.type == TypeJoin.VAR20 && ej2.type == TypeJoin.VAR20) ? artiklRec.getFloat(eArtikl.height) : 0;
             int rgb = eColor.find(colorID2).getInt(eColor.rgb);
             //RECTANGL
             if (owner().type == Type.RECTANGL || owner().type == Type.STVORKA) {
@@ -377,14 +371,21 @@ public class ElemFrame extends ElemSimple {
 
                 } else if (Layout.RIGHT == layout) {
                     double angl = Math.toRadians(90 - anglCut[1]);
-                    float dh2 = (float) (dh * Math.tan(angl)); 
+                    float dh2 = (float) (dh * Math.tan(angl));
                     iwin().draw.strokePolygon(x1, x2, x2, x1, y1 + dh2, y1, y2, y2 - dh, rgb, borderColor);
 
                 } else if (Layout.LEFT == layout) {
-                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + dh, y2 - dh, y2, rgb, borderColor);
+                    double angl = Math.toRadians(90 - anglCut[0]);
+                    float dh2 = (float) (dh * Math.tan(angl));
+                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + dh2, y2 - dh2, y2, rgb, borderColor);
 
                 } else if (Layout.TOP == layout) {
-                    iwin().draw.strokePolygon(x1, x2, x2 - dh, x1 + dh, y1, y1, y2, y2, rgb, borderColor);
+                    //float 
+                    double ang1 = Math.toRadians(90 - anglCut[0]);
+                    float dh2 = (float) (dh * Math.tan(ang1));
+                    double ang2 = Math.toRadians(90 - anglCut[1]);
+                    float dh3 = (float) (dh * Math.tan(ang2));                    
+                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y2, y2 + 80, y1 + 80, rgb, borderColor);
                 }
             }
         } catch (Exception s) {
