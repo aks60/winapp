@@ -24,10 +24,12 @@ public class GsonRoot extends GsonElem {
     }
 
     public GsonRoot(int prj, int ord, int nuni, String name, Layout layoutArea, Type type, float width, float height1, float height2, int color1, int color2, int color3) {
-        init(prj, ord, nuni, name, layoutArea, type, width, height1, height2, color1, color2, color3, null);
+        
         if(height1 > height2) {
+            init(prj, ord, nuni, name, layoutArea, type, width, height1, height2, color1, color2, color3, null);
             view = 2;
         } else {
+            init(prj, ord, nuni, name, layoutArea, type, width, height2, height1, color1, color2, color3, null);
             view = 4;
         }
     }

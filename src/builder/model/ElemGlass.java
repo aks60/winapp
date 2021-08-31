@@ -95,9 +95,6 @@ public class ElemGlass extends ElemSimple {
                 x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
                 y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
-        } else if (rootArea().type == Type.TRAPEZE) {
-            System.out.println("builder.model.ElemGlass.setSpecific()");
-
         } else {
             ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
             if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
@@ -210,6 +207,14 @@ public class ElemGlass extends ElemSimple {
             double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * dz) / ((r - dz) * 2)));
             iwin().gc2d.fillArc((int) ((int) rootArea().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
+        } else if (owner().type == Type.TRAPEZE) {
+            if (owner.view == 2) {
+                iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                        new int[]{(int) y1, (int) (y2 - iwin().heightAdd), (int) y2, (int) y2}, 4);
+            } else {
+                iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                        new int[]{(int) y1, (int) y2, (int) y2, (int) (y2 - iwin().heightAdd)}, 4);
+            }
         } else {
             iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);

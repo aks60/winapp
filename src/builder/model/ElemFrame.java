@@ -91,18 +91,24 @@ public class ElemFrame extends ElemSimple {
                 }
                 anglHoriz = 90;
             } else if (Layout.TOP == layout) {
-                setDimension(owner.x1, owner.y1, owner.x2, owner.y2 - iwin().heightAdd);
-                anglHoriz = (float) (180 - Math.toDegrees(Math.atan(H / W)));
-                anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
-                anglCut[1] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
-
+                if (owner.view == 2) {
+                    setDimension(owner.x1, owner.y1, owner.x2, owner.y2 - iwin().heightAdd);
+                    anglHoriz = (float) (180 - Math.toDegrees(Math.atan(H / W)));
+                    anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+                    anglCut[1] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
+                } else {
+                    setDimension(owner.x1, owner.y2 - iwin().heightAdd, owner.x2, owner.y2);
+                    anglHoriz = (float) (180 + Math.toDegrees(Math.atan(H / W))); 
+                    anglCut[1] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+                    anglCut[0] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
+                }
             } else if (Layout.LEFT == layout) {
                 if (iwin().rootArea.view == 4) {
                     setDimension(owner.x1, owner.y2 - iwin().heightAdd, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
-                    anglCut[0] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
+                    anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                 } else {
                     setDimension(owner.x1, owner.y1, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
-                    anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+                    anglCut[0] = (float) (Math.toDegrees(Math.atan(W / H))) / 2;
                 }
                 anglHoriz = 270;
             }
@@ -377,15 +383,15 @@ public class ElemFrame extends ElemSimple {
                 } else if (Layout.LEFT == layout) {
                     double angl = Math.toRadians(90 - anglCut[0]);
                     float dh2 = (float) (dh * Math.tan(angl));
-                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + dh2, y2 - dh2, y2, rgb, borderColor);
+                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1 + dh2, y2 - dh, y2, rgb, borderColor);
 
                 } else if (Layout.TOP == layout) {
-                    //float 
                     double ang1 = Math.toRadians(90 - anglCut[0]);
                     float dh2 = (float) (dh * Math.tan(ang1));
                     double ang2 = Math.toRadians(90 - anglCut[1]);
-                    float dh3 = (float) (dh * Math.tan(ang2));                    
-                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y2, y2 + 60, y1 + 60, rgb, borderColor);
+                    float dh3 = (float) (dh * Math.tan(ang2));
+                    float dy = (float) (artiklRecAn.getDbl(eArtikl.height) / Math.sin(Math.toRadians(anglHoriz - 90)));
+                    iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y2, y2 + dy, y1 + dy, rgb, borderColor);
                 }
             }
         } catch (Exception s) {
