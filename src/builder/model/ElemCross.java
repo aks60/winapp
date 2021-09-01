@@ -29,7 +29,7 @@ public class ElemCross extends ElemSimple {
         initСonstructiv(param);
 
         //Коррекция положения импоста арки (подкдадка ареа над импостом)
-        if ((Type.ARCH == owner.type || Type.TRAPEZE == owner.type) && owner.listChild.isEmpty()) {
+        if (Type.ARCH == owner.type && owner.listChild.isEmpty()) {
             float dh = artiklRec.getFloat(eArtikl.height) / 2;
             owner.listChild.add(new AreaSimple(iwin(), owner, owner.id() + .1f, Type.AREA, Layout.HORIZ, owner.width(), dh, -1, -1, -1, null));
         }

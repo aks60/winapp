@@ -207,13 +207,13 @@ public class ElemGlass extends ElemSimple {
             double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * dz) / ((r - dz) * 2)));
             iwin().gc2d.fillArc((int) ((int) rootArea().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
-        } else if (owner().type == Type.TRAPEZE) {
-            if (owner.view == 2) {
+        } else if (rootArea().type == Type.TRAPEZE && y1 == 0) {
+            if (rootArea().view == 2) {
                 iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                        new int[]{(int) y1, (int) (y2 - iwin().heightAdd), (int) y2, (int) y2}, 4);
-            } else {
+                        new int[]{(int) y1, (int) (rootArea().height() - iwin().heightAdd), (int) y2, (int) y2}, 4);
+            } else if(rootArea().view == 4) {
                 iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                        new int[]{(int) (y2 - iwin().heightAdd), (int) y1, (int) y2, (int) y2}, 4);
+                        new int[]{(int) (rootArea().height() - iwin().heightAdd), (int) y1, (int) y2, (int) y2}, 4);
             }
         } else {
             iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},

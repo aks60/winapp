@@ -115,7 +115,7 @@ public abstract class Com5t {
 
     public String toString() {
         float ownerID = (owner == null) ? -1 : owner.id();
-        return "ELEM " + type.name() + ", layout=" + layout() + ", owner=" + ownerID + ", id=" + id
+        return "type=" + type() + ", layout=" + layout() + ", owner=" + ownerID + ", id=" + id
                 + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + ", width=" + width() + ", height=" + height();
     }
 
