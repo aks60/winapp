@@ -13,8 +13,8 @@ public abstract class Com5t {
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий              
 
-    protected Type type = Type.NONE; //Тип элемента   
-    protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) расположения компонентов ...
+    protected Type type = Type.NONE; //Тип элемента или конструкции  
+    protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства
     public Record artiklRecAn = null;  //аналог мат. средства    
@@ -87,12 +87,35 @@ public abstract class Com5t {
         return y2 - y1;
     }
 
+    //Тип ElemXxx или тип AreaXxx
     public Type type() {
         return type;
     }
 
+    //Расположение элемента
     public Layout layout() {
         return layout;
+    }
+
+    //Для определения формы контура или формы заполнения
+    public Type form() {
+
+        if (rootArea().type == Type.TRAPEZE) {
+            if ((rootArea().view == 2 || rootArea().view == 4) && y1 == 0) {
+                return Type.TRAPEZE;
+            }
+        } else if (rootArea().type == Type.ARCH) {
+            if (type == Type.GLASS) {
+                if (owner.y1 == 0) {
+                    return Type.ARCH;
+                }
+            } else {
+                if (layout == Layout.TOP) {
+                    return Type.ARCH;
+                }
+            }
+        }
+        return Type.RECTANGL;
     }
 
     //Точка попадает в контур элемента
