@@ -213,7 +213,7 @@ public class ElemGlass extends ElemSimple {
                         new int[]{(int) y1, (int) (y2 - iwin().heightAdd), (int) y2, (int) y2}, 4);
             } else {
                 iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                        new int[]{(int) y1, (int) y2, (int) y2, (int) (y2 - iwin().heightAdd)}, 4);
+                        new int[]{(int) (y2 - iwin().heightAdd), (int) y1, (int) y2, (int) y2}, 4);
             }
         } else {
             iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
