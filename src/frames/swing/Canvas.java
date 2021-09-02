@@ -83,8 +83,8 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
             iwin.gc2d.setColor(getBackground());
             iwin.gc2d.setStroke(new BasicStroke(2)); //толщина линии
             iwin.gc2d.translate(Com5t.TRANSLATE_XY, Com5t.TRANSLATE_XY);
-            iwin.scale = (getWidth() / iwin.width > getHeight() / height(iwin))
-                    ? getHeight() / (height(iwin) + 240) : getWidth() / (iwin.width + 240);
+            iwin.scale = (getWidth() / iwin.width > getHeight() / iwin.height)
+                    ? getHeight() / (iwin.height + 240) : getWidth() / (iwin.width + 240);
             iwin.gc2d.scale(iwin.scale, iwin.scale);
             iwin.rootArea.draw(getWidth(), getHeight());
 
@@ -101,7 +101,7 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
             BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
             iwin.gc2d = bi.createGraphics();
             iwin.gc2d.fillRect(0, 0, length, length);
-            iwin.scale = (length / iwin.width > length / height(iwin)) ? length / (height(iwin) + 200) : length / (iwin.width + 200);
+            iwin.scale = (length / iwin.width > length / iwin.height) ? length / (iwin.height + 200) : length / (iwin.width + 200);
             iwin.gc2d.translate(2, 2);
             iwin.gc2d.scale(iwin.scale, iwin.scale);
             iwin.rootArea.draw(length, length); //рисую конструкцию
@@ -111,12 +111,5 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
             System.err.println("Canvas.createImageIcon() " + e);
             return new ImageIcon();
         }
-    }
-
-    public static float height(Wincalc iwin) {
-        if (iwin.rootArea.type() == Type.ARCH) {
-            return iwin.heightAdd;
-        }
-        return iwin.height;
     }
 }

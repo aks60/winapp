@@ -183,8 +183,6 @@ public class AreaSimple extends Com5t {
     //Рисуем конструкцию
     public void draw(int width, int height) {
         try {
-            //iwin().gc2d.fillRect(0, 0, width, height);
-
             //Прорисовка стеклопакетов
             LinkedList<ElemGlass> elemGlassList = rootArea().listElem(Type.GLASS);
             elemGlassList.stream().forEach(el -> el.paint());
@@ -227,17 +225,17 @@ public class AreaSimple extends Com5t {
                 int mov = 80;
                 for (int i = 1; i < ls1.size(); i++) {
                     float x1 = ls1.get(i - 1), x2 = ls1.get(i);
-                    line(x1, Canvas.height(iwin()) + mov, x2, Canvas.height(iwin()) + mov, 0);
+                    line(x1, iwin().height + mov, x2, iwin().height + mov, 0);
                 }
                 for (int i = 1; i < ls2.size(); i++) {
                     float y1 = ls2.get(i - 1), y2 = ls2.get(i);
                     line((this.x2 + mov), y1, (this.x2 + mov), y2, 0);
                 }
                 if (ls1.size() > 2) { //линия общей ширины
-                    line(rootArea().x1, Canvas.height(iwin()) + mov * 2, rootArea().x2, Canvas.height(iwin()) + mov * 2, 0);
+                    line(rootArea().x1, iwin().height + mov * 2, rootArea().x2, iwin().height + mov * 2, 0);
                 }
                 if (ls2.size() > 2) { //линия общей высоты
-                    line(iwin().width + mov * 2, 0, iwin().width + mov * 2, Canvas.height(iwin()), 0);
+                    line(iwin().width + mov * 2, 0, iwin().width + mov * 2, iwin().height, 0);
                 }
             }
             //Рисунок в память
