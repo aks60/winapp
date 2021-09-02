@@ -39,7 +39,7 @@ public class AreaSimple extends Com5t {
         this.colorID1 = color1;
         this.colorID2 = color2;
         this.colorID3 = color3;
-        if (owner.type == Type.ARCH || owner.type == Type.TRAPEZE) {
+        if (owner != null && (owner.type == Type.ARCH || owner.type == Type.TRAPEZE)) {
             if (owner.listChild.isEmpty()) {
                 this.type = owner.type;
             }
