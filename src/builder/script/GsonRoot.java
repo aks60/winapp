@@ -34,6 +34,9 @@ public class GsonRoot extends GsonElem {
                 view = 4;
             }
         } else {
+            if (type == Type.ARCH) {
+               view = 3; 
+            }
             init(prj, ord, nuni, name, layoutArea, type, width, height1, height2, color1, color2, color3, null);
         }
     }
