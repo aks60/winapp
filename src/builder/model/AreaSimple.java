@@ -71,7 +71,7 @@ public class AreaSimple extends Com5t {
 
             } else { //Aреа перед текущей, т.к. this area ёщё не создана начнём с конца
                 for (int index = owner().listChild.size() - 1; index >= 0; --index) {
-                    //if (owner().listChild.get(index).type == Type.AREA) {
+                    if (owner().listChild.get(index) instanceof AreaSimple) {
                         AreaSimple prevArea = (AreaSimple) owner().listChild.get(index);
                         //Если последняя доб. area выходит за коорд. root area. Происходит при подкдадке ареа над импостом 
                         if (Layout.VERT.equals(owner().layout())) { //сверху вниз                            
@@ -83,7 +83,7 @@ public class AreaSimple extends Com5t {
                             setDimension(prevArea.x2, owner().y1, X2, owner().y2);
                         }
                         break;
-                    //}
+                    }
                 }
             }
         }
