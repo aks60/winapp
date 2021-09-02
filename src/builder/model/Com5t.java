@@ -75,7 +75,7 @@ public abstract class Com5t {
         } else if (elem5e.anglHoriz == 90 || elem5e.anglHoriz == 270) {
             return y2 - y1;
         }
-        System.err.println("builder.model.Com5t.length()");
+        System.err.println("ПРОМАХ! builder.model.Com5t.length()");
         return 0;
     }
 

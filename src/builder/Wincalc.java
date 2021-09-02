@@ -74,6 +74,7 @@ public class Wincalc {
     public AreaSimple build(String productJson) {
 
         genId = 0;
+        heightAdd = 0.f;
         listSpec.clear();
         mapPardef.clear();
         mapJoin.clear();
