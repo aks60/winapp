@@ -19,54 +19,6 @@ public class AreaTrapeze extends AreaSimple {
         this.view = gson.view;
     }
 
-/**
-//    @Override
-//    public void setLocation(ElemFrame frm) {
-//        AreaSimple owner = frm.owner();
-//        if (Layout.BOTT == frm.layout) {
-//            frm.setDimension(owner.x1, owner.y2 - frm.artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
-//            frm.anglHoriz = 0;
-//        } else if (Layout.RIGHT == frm.layout) {
-//            if (iwin().rootArea.view == 2) {
-//                frm.setDimension(owner.x2 - frm.artiklRec.getFloat(eArtikl.height), owner.y2 - iwin().heightAdd, owner.x2, owner.y2);
-//            } else {
-//                frm.setDimension(owner.x2 - frm.artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
-//            }
-//            frm.anglHoriz = 90;
-//        } else if (Layout.LEFT == frm.layout) {
-//            if (iwin().rootArea.view == 4) {
-//                frm.setDimension(owner.x1, owner.y2 - iwin().heightAdd, owner.x1 + frm.artiklRec.getFloat(eArtikl.height), owner.y2);
-//            } else {
-//                frm.setDimension(owner.x1, owner.y1, owner.x1 + frm.artiklRec.getFloat(eArtikl.height), owner.y2);
-//            }
-//            frm.anglHoriz = 270;
-//        } else if (Layout.TOP == frm.layout) {
-//            frm.setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + iwin().heightAdd);
-//        }
-//    }
-
-//    @Override
-//    public void setSpecific(ElemFrame frm) {
-//        double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
-//        
-//        if (Layout.TOP == frm.layout()) {
-//            System.out.println("builder.model.ElemFrame.setSpecific()");
-//
-//        } else if (Layout.BOTT == frm.layout) {
-//            frm.spcRec.width = frm.x2 - frm.x1 + +(float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
-//            frm.spcRec.height = frm.artiklRec.getFloat(eArtikl.height);
-//
-//        } else if (Layout.LEFT == frm.layout) {
-//            frm.spcRec.width = frm.y2 - frm.y1 + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
-//            frm.spcRec.height = frm.artiklRec.getFloat(eArtikl.height);
-//
-//        } else if (Layout.RIGHT == frm.layout) {
-//            frm.spcRec.width = frm.y2 - frm.y1 + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
-//            frm.spcRec.height = frm.artiklRec.getFloat(eArtikl.height);
-//        }        
-//    }
-*/
-
     @Override
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT), elemTop = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);

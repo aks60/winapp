@@ -97,27 +97,6 @@ public abstract class Com5t {
         return layout;
     }
 
-    //Для определения формы контура или формы заполнения
-    public Type form() {
-
-        if (rootArea().type == Type.TRAPEZE) {
-            if ((rootArea().view == 2 || rootArea().view == 4) && y1 == 0) {
-                return Type.TRAPEZE;
-            }
-        } else if (rootArea().type == Type.ARCH) {
-            if (type == Type.GLASS) {
-                if (owner.y1 == 0) {
-                    return Type.ARCH;
-                }
-            } else {
-                if (layout == Layout.TOP) {
-                    return Type.ARCH;
-                }
-            }
-        }
-        return Type.RECTANGL;
-    }
-
     //Точка попадает в контур элемента
     public boolean inside(float X, float Y) {
         if (((int) x2 | (int) y2) < 0) {
