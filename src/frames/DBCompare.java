@@ -203,14 +203,14 @@ public class DBCompare extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- SAOkna  за.выч.Профстрой ---")));
             setSpc1x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
             ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- ПрофСтрой  за.выч.SAOkna ---")));
-            setSpc2x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));            
-            ((DefaultTableModel) tab2.getModel()).addRow(new Object[] {""});
-            ((DefaultTableModel) tab2.getModel()).addRow(new Object[] {"Установленая фурнитура"});
+            setSpc2x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
+            ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{""});
+            ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{"Установленая фурнитура"});
             rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord + " and a.funic = b.funic");
             while (rs.next()) {
-                ((DefaultTableModel) tab2.getModel()).addRow(new Object[] {rs.getString("FNAME")});
+                ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{rs.getString("FNAME")});
             }
-            rs.close();            
+            rs.close();
 
             //=== Таблица 3 ===
             ((DefaultTableModel) tab3.getModel()).getDataVector().clear();
@@ -242,6 +242,26 @@ public class DBCompare extends javax.swing.JFrame {
                 vectorRec.add(rs.getObject("RAD"));
                 vectorRec.add(rs.getObject("TYPP"));
                 ((DefaultTableModel) tab4.getModel()).getDataVector().add(vectorRec);
+            }
+            rs.close();
+
+            //=== Таблица 5 ===
+            ((DefaultTableModel) tab5.getModel()).getDataVector().clear();
+            rs = st.executeQuery("select b.anumb, c.anumb, a.typ, d.anum1, d.anum2, d.cname, e.cname from SAVECON a"
+                    + " left join SAVEELM b on a.punic = b.punic and a.onumb = b.onumb and a.ne1 = b.nel left join SAVEELM c on a.punic = c.punic and a.onumb = c.onumb and a.ne2 = c.nel"
+                    + " left join connlst d on a.ncon = d.cconn left join connvar e on a.nvar = e.cunic"
+                    + " where a.punic = " + punic + " and a.onumb = "  + iwin.rootGson.ord + " order by a.typ, d.cname");
+            while (rs.next()) {
+                Vector vectorRec = new Vector();
+                vectorRec.add(++npp);
+                vectorRec.add(rs.getObject(1));
+                vectorRec.add(rs.getObject(2));
+                vectorRec.add(rs.getObject(3));
+                vectorRec.add(rs.getObject(4));
+                vectorRec.add(rs.getObject(5));
+                vectorRec.add(rs.getObject(6));
+                vectorRec.add(rs.getObject(7));
+                ((DefaultTableModel) tab5.getModel()).getDataVector().add(vectorRec);
             }
             rs.close();
 
@@ -282,7 +302,7 @@ public class DBCompare extends javax.swing.JFrame {
             rs.close();
             rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + txt19.getText() + " and a.onumb = " + txt20.getText() + " and a.funic = b.funic");
             while (rs.next()) {
-                ((DefaultTableModel) tab2.getModel()).addRow(new Object[] {rs.getString("FNAME")});
+                ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{rs.getString("FNAME")});
             }
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             paintPanel.repaint();
@@ -519,6 +539,7 @@ public class DBCompare extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         north = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
         lab1 = new javax.swing.JLabel();
@@ -532,6 +553,9 @@ public class DBCompare extends javax.swing.JFrame {
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        scr5 = new javax.swing.JScrollPane();
+        tab5 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         pan5 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
@@ -555,6 +579,19 @@ public class DBCompare extends javax.swing.JFrame {
         };
         checkFilter = new javax.swing.JCheckBox();
         labSum = new javax.swing.JLabel();
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(895, 60));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 895, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 44, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DBCompare");
@@ -673,7 +710,7 @@ public class DBCompare extends javax.swing.JFrame {
 
         tabb.addTab("Спецификация\n", pan4);
 
-        pan3.setLayout(new java.awt.BorderLayout());
+        pan3.setLayout(new javax.swing.BoxLayout(pan3, javax.swing.BoxLayout.PAGE_AXIS));
 
         scr2.setPreferredSize(new java.awt.Dimension(454, 200));
 
@@ -689,7 +726,44 @@ public class DBCompare extends javax.swing.JFrame {
         tab2.setFillsViewportHeight(true);
         scr2.setViewportView(tab2);
 
-        pan3.add(scr2, java.awt.BorderLayout.CENTER);
+        pan3.add(scr2);
+
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "№пп", "Артикл1", "Артикл2", "Тип", "Арт. аналог1", "Арт. аналог2", "Название", "Вариант"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab5.setFillsViewportHeight(true);
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(0).setMaxWidth(40);
+            tab5.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab5.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab5.getColumnModel().getColumn(3).setMaxWidth(40);
+            tab5.getColumnModel().getColumn(4).setPreferredWidth(20);
+            tab5.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab5.getColumnModel().getColumn(6).setPreferredWidth(200);
+            tab5.getColumnModel().getColumn(7).setPreferredWidth(200);
+        }
+
+        pan3.add(scr5);
+
+        jLabel1.setText("10 - Прилегающее, 20 - Угловое на ус, 30(31) - Угловое левое(правое), 40 - Т - образное (импост,ригель)");
+        pan3.add(jLabel1);
 
         tabb.addTab("Сравнение 1", pan3);
 
@@ -926,6 +1000,8 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JButton btnClose;
     private javax.swing.JPanel center;
     private javax.swing.JCheckBox checkFilter;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab19;
     private javax.swing.JLabel lab20;
@@ -947,11 +1023,13 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
+    private javax.swing.JScrollPane scr5;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
+    private javax.swing.JTable tab5;
     private javax.swing.JTabbedPane tabb;
     private javax.swing.JTextField txt19;
     private javax.swing.JTextField txt20;
