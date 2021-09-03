@@ -128,6 +128,10 @@ public class ElemGlass extends ElemSimple {
                 if (Type.ARCH == owner().type()) { //штапик в арке
                     ((AreaArch) rootArea()).addSpecificShtapik(this, spcAdd);
 
+//                } else if(Type.TRAPEZE == owner().type()) {
+//                    
+//                    System.out.println(spcAdd);
+                    
                 } else { //штапик в прямоугольнике
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
@@ -156,6 +160,8 @@ public class ElemGlass extends ElemSimple {
                                 spcAdd.width = spcAdd.width - 2 * spcAdd.height;
                             }
                         }
+                    } else {
+                        System.err.println("ПРОМАХ:builder.model.ElemGlass.addSpecific()");
                     }
                     if ("по биссектрисе".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
                         //

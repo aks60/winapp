@@ -227,4 +227,8 @@ public class Specific {
             System.err.println("Ошибка:Specification.write_txt2() " + e);
         }
     }
+    
+    public String toString() {
+        return artikl + " - " + name;
+    }
 }

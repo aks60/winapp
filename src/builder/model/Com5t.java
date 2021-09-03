@@ -74,9 +74,9 @@ public abstract class Com5t {
             return x2 - x1;
         } else if (elem5e.anglHoriz == 90 || elem5e.anglHoriz == 270) {
             return y2 - y1;
+        } else {
+            return (float) Math.sqrt(x2 * x2 + y2 * y2);
         }
-        System.err.println("ПРОМАХ! builder.model.Com5t.length()");
-        return 0;
     }
 
     public float width() {
