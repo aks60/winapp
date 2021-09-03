@@ -58,7 +58,7 @@ public class AreaArch extends AreaSimple {
         iwin().mapJoin.put(elemBott.joinPoint(1), elem4);
     }
 
-    protected void shtapik(ElemGlass elemGlass, Specific spcAdd) {
+    protected void addSpecificShtapik(ElemGlass elemGlass, Specific spcAdd) {
         Float dw = spcAdd.width;
         ElemSimple imp = elemGlass.joinFlat(Layout.BOTT);
         ElemSimple arch = mapFrame.get(Layout.TOP);
@@ -97,7 +97,7 @@ public class AreaArch extends AreaSimple {
         }
     }
 
-    protected void padding(ElemGlass elemGlass, Specific spcAdd) {
+    protected void addSpecificPadding(ElemGlass elemGlass, Specific spcAdd) {
 
         if (elemGlass.anglHoriz == elemGlass.sideHoriz[0]) { //по основанию арки
             double dh2 = spcAdd.artiklRec.getFloat(eArtikl.height) - elemGlass.gzazo;

@@ -45,7 +45,7 @@ public class AreaSimple extends Com5t {
             }
         }
         initСonstructiv(param);
-        initDimension(width, height);
+        setLocation(width, height);
         initParametr(param);
     }
 
@@ -58,7 +58,7 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    protected void initDimension(float width, float height) {
+    protected void setLocation(float width, float height) {
 
         if (owner() != null) {
             //Первая area добавляемая в area владельца

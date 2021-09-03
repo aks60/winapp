@@ -126,7 +126,7 @@ public class ElemGlass extends ElemSimple {
             if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108)) {  //штапик
 
                 if (Type.ARCH == owner().type()) { //штапик в арке
-                    ((AreaArch) rootArea()).shtapik(this, spcAdd);
+                    ((AreaArch) rootArea()).addSpecificShtapik(this, spcAdd);
 
                 } else { //штапик в прямоугольнике
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
@@ -166,7 +166,7 @@ public class ElemGlass extends ElemSimple {
                 }
             } else { //всё остальное
                 if (Type.ARCH == owner().type()) { //в арке
-                    ((AreaArch) rootArea()).padding(this, spcAdd);
+                    ((AreaArch) rootArea()).addSpecificPadding(this, spcAdd);
                 } else {
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width = spcAdd.width + width() + gzazo;
