@@ -80,6 +80,8 @@ public class ElemGlass extends ElemSimple {
             x2 = owner().width() - x1;
             radiusGlass = (float) r;
 
+       // } else if (owner().type() == Type.TRAPEZE) {
+
         } else if (owner().type() == Type.STVORKA) {
             AreaStvorka stv = (AreaStvorka) owner();
             ElemSimple insideLeft = stv.mapFrame.get(Layout.LEFT), insideTop = stv.mapFrame.get(Layout.TOP), insideBott = stv.mapFrame.get(Layout.BOTT), insideRight = stv.mapFrame.get(Layout.RIGHT);
@@ -131,7 +133,6 @@ public class ElemGlass extends ElemSimple {
 //                } else if(Type.TRAPEZE == owner().type()) {
 //                    
 //                    System.out.println(spcAdd);
-                    
                 } else { //штапик в прямоугольнике
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
@@ -217,7 +218,7 @@ public class ElemGlass extends ElemSimple {
             if (rootArea().view == 2) {
                 iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                         new int[]{(int) y1, (int) (rootArea().height() - iwin().heightAdd), (int) y2, (int) y2}, 4);
-            } else if(rootArea().view == 4) {
+            } else if (rootArea().view == 4) {
                 iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                         new int[]{(int) (rootArea().height() - iwin().heightAdd), (int) y1, (int) y2, (int) y2}, 4);
             }
