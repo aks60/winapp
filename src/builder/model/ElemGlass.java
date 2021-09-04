@@ -66,12 +66,6 @@ public class ElemGlass extends ElemSimple {
         if (owner().type() == Type.ARCH) { //если арка
             ElemFrame elemArch = rootArea().mapFrame.get(Layout.TOP);
             ElemSimple elemImpost = joinFlat(Layout.BOTT);
-            /*for (Com5t elemBase : root().listChild) { //первый импост в стеклопакете снизу;
-                if (Type.IMPOST == elemBase.type) {
-                    elemImpost = (ElemImpost) elemBase;
-                    break;
-                }
-            }*/
             y1 = y1 + elemArch.artiklRec.getFloat(eArtikl.height) - elemArch.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
             y2 = y2 + elemImpost.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             double r = ((AreaArch) rootArea()).radiusArch - elemArch.artiklRec.getFloat(eArtikl.height) + elemArch.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
@@ -80,7 +74,15 @@ public class ElemGlass extends ElemSimple {
             x2 = owner().width() - x1;
             radiusGlass = (float) r;
 
-       // } else if (owner().type() == Type.TRAPEZE) {
+        } else if (owner().type() == Type.TRAPEZE) {
+            ElemSimple insideLeft = rootArea().mapFrame.get(Layout.LEFT), insideTop = rootArea().mapFrame.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = rootArea().mapFrame.get(Layout.RIGHT);
+            x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+            ElemJoining ej = iwin().mapJoin.get(insideTop.joinPoint(1));
+            float dy = (float) (insideTop.artiklRec.getDbl(eArtikl.height) / Math.cos(Math.toRadians(90 - ej.angl)));
+            y1 = insideTop.y1 + dy - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+            x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+            y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+            System.out.println(insideBott.artiklRec.getFloat(eArtikl.size_falz));
 
         } else if (owner().type() == Type.STVORKA) {
             AreaStvorka stv = (AreaStvorka) owner();
