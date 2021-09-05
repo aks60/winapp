@@ -79,10 +79,10 @@ public class ElemGlass extends ElemSimple {
             x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
             ElemJoining ej = iwin().mapJoin.get(insideTop.joinPoint(1));
             float dy1 = (float) ((insideTop.artiklRec.getDbl(eArtikl.height) - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo) / Math.cos(Math.toRadians(90 - ej.angl)));          
-            float dy2 = (float) ((insideLeft.artiklRec.getDbl(eArtikl.height) - insideLeft.artiklRec.getDbl(eArtikl.size_falz) + gzazo) * Math.tan(Math.toRadians(90 - ej.angl)));
+            float dy2 = (float) ((insideLeft.artiklRec.getDbl(eArtikl.height) - insideLeft.artiklRec.getDbl(eArtikl.size_falz) - gzazo) * Math.tan(Math.toRadians(90 - ej.angl)));
             
             y1 = insideTop.y1 + dy1 - dy2;
-            x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+            x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
 
         } else if (owner().type() == Type.STVORKA) {
