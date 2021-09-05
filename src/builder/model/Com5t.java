@@ -71,20 +71,21 @@ public abstract class Com5t {
     public float length() {
         ElemSimple elem5e = (ElemSimple) this;
         if (elem5e.anglHoriz == 0 || elem5e.anglHoriz == 180) {
-            return x2 - x1;
+            return (x2 > x1) ? x2 - x1 : x1 - x2;
         } else if (elem5e.anglHoriz == 90 || elem5e.anglHoriz == 270) {
-            return y2 - y1;
+            return (y2 > y1) ? y2 - y1 : y1 - y2;
         } else {
             return (float) Math.sqrt(x2 * x2 + y2 * y2);
         }
     }
 
     public float width() {
-        return x2 - x1;
+        return (x2 > x1) ? x2 - x1 : x1 - x2;
     }
 
     public float height() {
-        return y2 - y1;
+
+        return (y2 > y1) ? y2 - y1 : y1 - y2;
     }
 
     //Тип ElemXxx или тип AreaXxx

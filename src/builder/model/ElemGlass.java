@@ -76,14 +76,24 @@ public class ElemGlass extends ElemSimple {
 
         } else if (owner().type() == Type.TRAPEZE) {
             ElemSimple insideLeft = rootArea().mapFrame.get(Layout.LEFT), insideTop = rootArea().mapFrame.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = rootArea().mapFrame.get(Layout.RIGHT);
-            x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
-            ElemJoining ej = iwin().mapJoin.get(insideTop.joinPoint(1));
-            float dy1 = (float) ((insideTop.artiklRec.getDbl(eArtikl.height) - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo) / Math.cos(Math.toRadians(90 - ej.angl)));          
-            float dy2 = (float) ((insideLeft.artiklRec.getDbl(eArtikl.height) - insideLeft.artiklRec.getDbl(eArtikl.size_falz) - gzazo) * Math.tan(Math.toRadians(90 - ej.angl)));
-            
-            y1 = insideTop.y1 + dy1 - dy2;
-            x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
-            y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+            if (rootArea().view == 2) {
+                x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+                ElemJoining ej = iwin().mapJoin.get(insideTop.joinPoint(1));
+                float dy1 = (float) ((insideTop.artiklRec.getDbl(eArtikl.height) - (insideTop.artiklRec.getFloat(eArtikl.size_falz) - gzazo)) / Math.cos(Math.toRadians(90 - ej.angl)));
+                float dy2 = (float) ((insideLeft.artiklRec.getDbl(eArtikl.height) - (insideLeft.artiklRec.getDbl(eArtikl.size_falz) - gzazo)) * Math.tan(Math.toRadians(90 - ej.angl)));
+                y1 = insideTop.y1 + dy1 + dy2;
+                x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+                y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+
+            } else if (rootArea().view == 4) {
+                x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+                ElemJoining ej = iwin().mapJoin.get(insideTop.joinPoint(0));
+                y1 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+                float dy1 = (float) ((insideTop.artiklRec.getDbl(eArtikl.height) - (insideTop.artiklRec.getFloat(eArtikl.size_falz) - gzazo)) / Math.cos(Math.toRadians(90 - ej.angl)));
+                float dy2 = (float) ((insideLeft.artiklRec.getDbl(eArtikl.height) - (insideLeft.artiklRec.getDbl(eArtikl.size_falz) - gzazo)) * Math.tan(Math.toRadians(90 - ej.angl)));
+                y2 = insideTop.y2 + dy1 + dy2;
+                x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+            }
 
         } else if (owner().type() == Type.STVORKA) {
             AreaStvorka stv = (AreaStvorka) owner();
