@@ -36,6 +36,7 @@ import builder.model.ElemSimple;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
 import domain.eParams;
+import enums.Form;
 import enums.Type;
 import frames.swing.Draw;
 import java.util.LinkedHashMap;
@@ -64,6 +65,7 @@ public class Wincalc {
 
     public AreaSimple rootArea = null; //главное окно кострукции
     public GsonRoot rootGson = null; //главное окно кострукции в формате gson
+    public Form form = Form.NUM0; //форма контура 
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList<ElemSimple> listElem; //список ElemSimple
@@ -74,6 +76,7 @@ public class Wincalc {
     public AreaSimple build(String productJson) {
 
         genId = 0;
+        form = Form.NUM0;
         heightAdd = 0.f;
         listSpec.clear();
         mapPardef.clear();
@@ -106,6 +109,7 @@ public class Wincalc {
 
             //Инит конструктива
             this.nuni = rootGson.nuni();
+            this.form = Form.NUM0.get(rootGson.form);
             this.width = rootGson.width();
             this.height = rootGson.height();
             this.heightAdd = rootGson.heightAdd();

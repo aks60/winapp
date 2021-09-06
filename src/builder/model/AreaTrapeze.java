@@ -17,7 +17,6 @@ public class AreaTrapeze extends AreaSimple {
     public AreaTrapeze(Wincalc iwin, GsonRoot gson, int color1, int color2, int color3) {
         super(iwin, null, gson.id(), Type.TRAPEZE, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
         setDimension(0, 0, gson.width(), gson.height());
-        this.form = Form.N0.get(gson.form);
     }
 
     @Override
@@ -26,14 +25,14 @@ public class AreaTrapeze extends AreaSimple {
 
         ElemJoining joinLeft = null, joinBott = null, joinRight = null, joinTop = null;
 
-        if (form == Form.N2) {
+        if (iwin().form == Form.NUM2) {
             float angl =(float) Math.toDegrees(Math.atan((height() - iwin().heightAdd) / width()));
             joinLeft = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90); //угловое соединение левое нижнее
             joinBott = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90); //угловое соединение правое нижнее
             joinRight = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 + angl); //угловое соединение правое верхнее
             joinTop = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 - angl);    //угловое соединение левое верхнее    
             
-        } else if (form == Form.N4) { 
+        } else if (iwin().form == Form.NUM4) { 
             float angl =(float) Math.toDegrees(Math.atan((height() - iwin().heightAdd) / width()));
             joinLeft = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90); //угловое соединение левое нижнее  
             joinBott = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90); //угловое соединение правое нижнее

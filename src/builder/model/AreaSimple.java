@@ -27,7 +27,6 @@ import java.awt.BasicStroke;
 
 public class AreaSimple extends Com5t {
 
-    public Form form = Form.N0; //вид конструкции 
     public EnumMap<Layout, ElemFrame> mapFrame = new EnumMap<>(Layout.class); //список рам в окне 
     public LinkedList<Com5t> listChild = new LinkedList(); //дети
 

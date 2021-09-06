@@ -3,11 +3,11 @@ package enums;
 import static enums.Layout.values;
 
 public enum Form {
-    N0(0, "Любая"),
-    N1(1, "Нижняя"),
-    N2(2, "Правая"),
-    N3(3, "Верхняя"),
-    N4(4, "Левая");
+    NUM0(0, "Любая"),
+    NUM1(1, "Нижняя"),
+    NUM2(2, "Правая"),
+    NUM3(3, "Верхняя"),
+    NUM4(4, "Левая");
 
     public int id;
     public String name;

@@ -77,7 +77,7 @@ public class ElemGlass extends ElemSimple {
 
         } else if (owner().type() == Type.TRAPEZE) {
             ElemSimple insideLeft = rootArea().mapFrame.get(Layout.LEFT), insideTop = rootArea().mapFrame.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = rootArea().mapFrame.get(Layout.RIGHT);
-            if (rootArea().form == Form.N2) {
+            if (iwin().form == Form.NUM2) {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
                 ElemJoining ej = iwin().mapJoin.get(insideTop.joinPoint(1));
                 float dy1 = (float) ((insideTop.artiklRec.getDbl(eArtikl.height) - (insideTop.artiklRec.getFloat(eArtikl.size_falz) - gzazo)) / Math.cos(Math.toRadians(90 - ej.angl)));
@@ -86,7 +86,7 @@ public class ElemGlass extends ElemSimple {
                 x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
                 y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
 
-            } else if (rootArea().form == Form.N4) {
+            } else if (iwin().form == Form.NUM4) {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
                 ElemJoining ej = iwin().mapJoin.get(insideTop.joinPoint(1));
                 float dy1 = (float) ((insideTop.artiklRec.getDbl(eArtikl.height) - (insideTop.artiklRec.getFloat(eArtikl.size_falz) - gzazo)) / Math.cos(Math.toRadians(90 - ej.angl)));
@@ -144,13 +144,37 @@ public class ElemGlass extends ElemSimple {
                 if (Type.ARCH == owner().type()) { //штапик в арке
                     ((AreaArch) rootArea()).addSpecificShtapik(this, spcAdd);
 
-//                } else if(Type.TRAPEZE == owner().type()) {
-//                    
-//                    System.out.println(spcAdd);
+                } else if (Type.TRAPEZE == owner().type()) {
+                    if (iwin().form == Form.NUM2) {
+                        if (anglHoriz == sideHoriz[1]) {
+                            Object o1 = y2 - (rootArea().height() - iwin().heightAdd);
+                            spcAdd.anglCut1 = 45;
+                            spcAdd.anglCut2 = 71;
+                            spcAdd.place = spcAdd.place + ".П";
+                        } else if (anglHoriz == sideHoriz[2]) {
+                            spcAdd.width += width() + 2 * gzazo;
+                            spcAdd.anglCut1 = 33;
+                            spcAdd.anglCut2 = 57;
+                            spcAdd.place = spcAdd.place + ".В";
+                        } else if (anglHoriz == sideHoriz[3]) {
+                            spcAdd.anglCut1 = 72;
+                            spcAdd.anglCut2 = 45;
+                            spcAdd.place = spcAdd.place + ".Л";
+                        }
+                    }
+                    if (anglHoriz == sideHoriz[0]) {
+                        spcAdd.width += width() + 2 * gzazo;
+                        spcAdd.place = spcAdd.place + ".Н";
+                        spcAdd.anglCut1 = 45;
+                        spcAdd.anglCut2 = 45;
+                    }
+                    spcRec.spcList.add(spcAdd); //добавим спецификацию
+
                 } else { //штапик в прямоугольнике
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                        spcAdd.place = (anglHoriz == sideHoriz[0]) ? spcAdd.place + ".Н" : spcAdd.place + ".В";
                         if (spcAdd.mapParam.get(15010) != null) {
                             if ("Нет".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
                                 spcAdd.width = spcAdd.width - 2 * spcAdd.height;
@@ -165,6 +189,7 @@ public class ElemGlass extends ElemSimple {
                     } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
                         spcAdd.width += height() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                        spcAdd.place = (anglHoriz == sideHoriz[1]) ? spcAdd.place + ".П" : spcAdd.place + ".Л";
                         if (spcAdd.mapParam.get(15010) != null) {
                             if ("Да".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
                                 spcAdd.width = spcAdd.width - 2 * spcAdd.height;
@@ -229,10 +254,10 @@ public class ElemGlass extends ElemSimple {
             iwin().gc2d.fillArc((int) ((int) rootArea().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
         } else if (rootArea().type == Type.TRAPEZE && y1 == 0) {
-            if (rootArea().form == Form.N2) {
+            if (iwin().form == Form.NUM2) {
                 iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                         new int[]{(int) y1, (int) (rootArea().height() - iwin().heightAdd), (int) y2, (int) y2}, 4);
-            } else if (rootArea().form == Form.N4) {
+            } else if (iwin().form == Form.NUM4) {
                 iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                         new int[]{(int) (rootArea().height() - iwin().heightAdd), (int) y1, (int) y2, (int) y2}, 4);
             }
