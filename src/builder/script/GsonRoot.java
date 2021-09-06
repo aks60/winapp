@@ -10,7 +10,7 @@ public class GsonRoot extends GsonElem {
     public int ord = 1; //ONUMB - номер тестируемого заказа, поле пока нужно только для тестов 
     private Integer nuni = -3;  //nuni профиля (PRO4_SYSPROF.NUNI)
     private Float heightAdd = 0f;  //дополнительная высота, мм.
-    public int view = 0;
+    public int form = 0;
     public Integer color1 = -3;  //основная текстура
     public Integer color2 = -3;  //внутренняя текстура
     public Integer color3 = -3;  //внешняя текстура    
@@ -28,14 +28,14 @@ public class GsonRoot extends GsonElem {
         if (type == Type.TRAPEZE) {
             if (height1 > height2) {
                 init(prj, ord, nuni, name, layoutArea, type, width, height1, height2, color1, color2, color3, null);
-                view = 2;
+                form = 2;
             } else {
                 init(prj, ord, nuni, name, layoutArea, type, width, height2, height1, color1, color2, color3, null);
-                view = 4;
+                form = 4;
             }
         } else {
             if (type == Type.ARCH) {
-               view = 3; 
+               form = 3; 
             }
             init(prj, ord, nuni, name, layoutArea, type, width, height1, height2, color1, color2, color3, null);
         }

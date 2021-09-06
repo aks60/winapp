@@ -15,6 +15,7 @@ import enums.Type;
 import java.util.Arrays;
 import java.util.Map;
 import builder.making.Furniture;
+import enums.Form;
 import enums.UseSide;
 
 public class ElemFrame extends ElemSimple {
@@ -82,7 +83,7 @@ public class ElemFrame extends ElemSimple {
                 setDimension(owner.x1, owner.y2 - artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
                 anglHoriz = 0;
             } else if (Layout.RIGHT == layout) {
-                if (iwin().rootArea.view == 2) {
+                if (iwin().rootArea.form == Form.N2) {
                     setDimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y2 - iwin().heightAdd, owner.x2, owner.y2);
                     anglCut[1] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                 } else {
@@ -91,7 +92,7 @@ public class ElemFrame extends ElemSimple {
                 }
                 anglHoriz = 90;
             } else if (Layout.TOP == layout) {
-                if (owner.view == 2) {
+                if (owner.form == Form.N2) {
                     setDimension(owner.x1, owner.y1, owner.x2, owner.y2 - iwin().heightAdd);
                     anglHoriz = (float) (180 - Math.toDegrees(Math.atan(H / W)));
                     anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
@@ -103,7 +104,7 @@ public class ElemFrame extends ElemSimple {
                     anglCut[0] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
                 }
             } else if (Layout.LEFT == layout) {
-                if (iwin().rootArea.view == 4) {
+                if (iwin().rootArea.form == Form.N4) {
                     setDimension(owner.x1, owner.y2 - iwin().heightAdd, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
                     anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                 } else {
@@ -376,7 +377,7 @@ public class ElemFrame extends ElemSimple {
                     iwin().draw.strokePolygon(x1 + dh, x2 - dh, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
                 } else if (Layout.RIGHT == layout) {
-                    double angl = (owner.view == 2) ? Math.toRadians(90 - anglCut[1]) : Math.toRadians(90 - anglCut[0]);
+                    double angl = (owner.form == Form.N2) ? Math.toRadians(90 - anglCut[1]) : Math.toRadians(90 - anglCut[0]);
                     float dh2 = (float) (dh * Math.tan(angl));
                     iwin().draw.strokePolygon(x1, x2, x2, x1, y1 + dh2, y1, y2, y2 - dh, rgb, borderColor);
 

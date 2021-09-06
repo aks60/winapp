@@ -6,6 +6,7 @@ import builder.making.Specific;
 import builder.script.GsonRoot;
 import domain.eArtikl;
 import domain.eSyssize;
+import enums.Form;
 import enums.LayoutJoin;
 import enums.PKjson;
 import enums.Type;
@@ -16,7 +17,7 @@ public class AreaTrapeze extends AreaSimple {
     public AreaTrapeze(Wincalc iwin, GsonRoot gson, int color1, int color2, int color3) {
         super(iwin, null, gson.id(), Type.TRAPEZE, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
         setDimension(0, 0, gson.width(), gson.height());
-        this.view = gson.view;
+        this.form = Form.N0.get(gson.form);
     }
 
     @Override
@@ -25,14 +26,14 @@ public class AreaTrapeze extends AreaSimple {
 
         ElemJoining joinLeft = null, joinBott = null, joinRight = null, joinTop = null;
 
-        if (view == 2) {
+        if (form == Form.N2) {
             float angl =(float) Math.toDegrees(Math.atan((height() - iwin().heightAdd) / width()));
             joinLeft = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90); //угловое соединение левое нижнее
             joinBott = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90); //угловое соединение правое нижнее
             joinRight = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 + angl); //угловое соединение правое верхнее
             joinTop = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 - angl);    //угловое соединение левое верхнее    
             
-        } else if (view == 4) { 
+        } else if (form == Form.N4) { 
             float angl =(float) Math.toDegrees(Math.atan((height() - iwin().heightAdd) / width()));
             joinLeft = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90); //угловое соединение левое нижнее  
             joinBott = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90); //угловое соединение правое нижнее

@@ -19,16 +19,15 @@ import java.util.Collections;
 import java.util.List;
 import startup.Main;
 import builder.Wincalc;
+import enums.Form;
 import enums.PKjson;
 import enums.Type;
 import frames.UGui;
-import frames.swing.Canvas;
 import java.awt.BasicStroke;
-import java.util.Map;
 
 public class AreaSimple extends Com5t {
 
-    public int view = 0; //вид конструкции 
+    public Form form = Form.N0; //вид конструкции 
     public EnumMap<Layout, ElemFrame> mapFrame = new EnumMap<>(Layout.class); //список рам в окне 
     public LinkedList<Com5t> listChild = new LinkedList(); //дети
 
