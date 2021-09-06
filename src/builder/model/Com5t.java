@@ -106,7 +106,8 @@ public abstract class Com5t {
         if (X < x1 || Y < y1) {
             return false;
         }
-        return ((x2 < x1 || x2 >= X) && (y2 < y1 || y2 >= Y));
+        //return ((x2 < x1 || x2 >= X) && (y2 < y1 || y2 >= Y));
+        return ((x2 >= X) && (y2 >= Y));
     }
 
     public void paint() {
