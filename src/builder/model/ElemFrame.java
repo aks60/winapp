@@ -149,45 +149,45 @@ public class ElemFrame extends ElemSimple {
                 AreaArch areaArch = (AreaArch) rootArea();
                 double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
                 length = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
-                spcRec.width = length + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = length + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = owner.mapFrame.get(Layout.TOP).artiklRec.getFloat(eArtikl.height);
             } else if (Layout.BOTT == layout) {
-                spcRec.width = x2 - x1 + +(float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = x2 - x1 + +(float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (Layout.LEFT == layout) {
-                spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (Layout.RIGHT == layout) {
-                spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
         } else if (owner().type() == Type.TRAPEZE) {
             if (Layout.TOP == layout()) {
                 double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(rootArea().height() - iwin().heightAdd, 2));
-                spcRec.width = (float) (length + katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = (float) (length + katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (Layout.BOTT == layout) {
-                spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (Layout.LEFT == layout) {
-                spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (Layout.RIGHT == layout) {
-                spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
         } else {
             if (Layout.TOP == layout) {
-                spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (Layout.BOTT == layout) {
-                spcRec.width = x2 - x1 + +(float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = x2 - x1 + +(float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (Layout.LEFT == layout) {
-                spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (Layout.RIGHT == layout) {
-                spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(anglCut[0])) + katet / Math.sin(Math.toRadians(anglCut[1])));
+                spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
         }
@@ -362,13 +362,13 @@ public class ElemFrame extends ElemSimple {
                 } else if (Layout.LEFT == layout) {
                     double r = ((AreaArch) rootArea()).radiusArch;
                     double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * dh) / ((r - dh) * 2)));
-                    double a = (r - dh) * Math.sin(Math.toRadians(ang2));
+                    double a = (r - dh) * UCom.sin(ang2);
                     iwin().draw.strokePolygon(x1, x2, x2, x1, y1, (float) (r - a), y2 - dh, y2, rgb, borderColor);
 
                 } else if (Layout.RIGHT == layout) {
                     double r = ((AreaArch) rootArea()).radiusArch;
                     double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * dh) / ((r - dh) * 2)));
-                    double a = (r - dh) * Math.sin(Math.toRadians(ang2));
+                    double a = (r - dh) * UCom.sin(ang2);
                     iwin().draw.strokePolygon(x1, x2, x2, x1, (float) (r - a), y1, y2, y2 - dh, rgb, borderColor);
                 }
                 //TRAPEZE
@@ -391,7 +391,7 @@ public class ElemFrame extends ElemSimple {
                     float dh2 = (float) (dh * Math.tan(ang1));
                     double ang2 = Math.toRadians(90 - anglCut[1]);
                     float dh3 = (float) (dh * Math.tan(ang2));
-                    float dy = (float) (artiklRecAn.getDbl(eArtikl.height) / Math.sin(Math.toRadians(anglHoriz - 90)));
+                    float dy = (float) (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
                     iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y2, y2 + dy, y1 + dy, rgb, borderColor);
                 }
             }

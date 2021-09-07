@@ -260,7 +260,15 @@ public class UCom {
         return (float) Math.sin(Math.toRadians(angl));
     }
     
+    public static float sin(double angl) {
+        return (float) Math.sin(Math.toRadians(angl));
+    }
+    
     public static float cos(float angl) {
+        return (float) Math.cos(Math.toRadians(angl));
+    }
+    
+    public static float cos(double angl) {
         return (float) Math.cos(Math.toRadians(angl));
     }
     

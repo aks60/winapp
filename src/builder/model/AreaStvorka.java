@@ -139,48 +139,6 @@ public class AreaStvorka extends AreaSimple {
             handleHeight = stvLeft.height() / 2;
         }
     }
-    
-/**
-//    @Override
-//    public void setLocation(ElemFrame frm) {
-//        AreaSimple owner = frm.owner();
-//        if (Layout.BOTT == frm.layout) {
-//            frm.setDimension(owner.x1, owner.y2 - frm.artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
-//            frm.anglHoriz = 0;
-//        } else if (Layout.RIGHT == frm.layout) {
-//            frm.setDimension(owner.x2 - frm.artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
-//            frm.anglHoriz = 90;
-//        } else if (Layout.TOP == frm.layout) {
-//            frm.setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + frm.artiklRec.getFloat(eArtikl.height));
-//            frm.anglHoriz = 180;
-//        } else if (Layout.LEFT == frm.layout) {
-//            frm.setDimension(owner.x1, owner.y1, owner.x1 + frm.artiklRec.getFloat(eArtikl.height), owner.y2);
-//            frm.anglHoriz = 270;
-//        }
-//    }
-
-//    @Override
-//    public void setSpecific(ElemFrame frm) {
-//        double katet = iwin().syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
-//
-//        if (Layout.TOP == layout) {
-//            frm.spcRec.width = x2 - x1 + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
-//            frm.spcRec.height = artiklRec.getFloat(eArtikl.height);
-//
-//        } else if (Layout.BOTT == layout) {
-//            frm.spcRec.width = x2 - x1 + +(float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
-//            frm.spcRec.height = artiklRec.getFloat(eArtikl.height);
-//
-//        } else if (Layout.LEFT == layout) {
-//            frm.spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
-//            frm.spcRec.height = artiklRec.getFloat(eArtikl.height);
-//
-//        } else if (Layout.RIGHT == layout) {
-//            frm.spcRec.width = y2 - y1 + (float) (katet / Math.sin(Math.toRadians(frm.anglCut[0])) + katet / Math.sin(Math.toRadians(frm.anglCut[1])));
-//            frm.spcRec.height = artiklRec.getFloat(eArtikl.height);
-//        }
-//    }
-*/
 
     @Override
     public void joinFrame() {
