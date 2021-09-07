@@ -84,7 +84,7 @@ public class ElemGlass extends ElemSimple {
                 float dy2 = (float) ((insideLeft.artiklRec.getDbl(eArtikl.height) - (insideLeft.artiklRec.getDbl(eArtikl.size_falz) - gzazo)) * Math.tan(Math.toRadians(90 - ej.angl)));
                 y1 = insideTop.y1 + dy1 + dy2;
                 x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
-                y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+                y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - (gzazo / (float) Math.sin(Math.toRadians(ej.angl)));;
 
             } else if (iwin().form == Form.NUM4) {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
@@ -146,27 +146,42 @@ public class ElemGlass extends ElemSimple {
 
                 } else if (Type.TRAPEZE == owner().type()) {
                     if (iwin().form == Form.NUM2) {
-                        if (anglHoriz == sideHoriz[1]) {
-                            Object o1 = y2 - (rootArea().height() - iwin().heightAdd);
+
+                        if (anglHoriz == sideHoriz[0]) {
+                            ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
+                            spcAdd.width += width() + 2 * gzazo;
+                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                            spcAdd.place = spcAdd.place + ".Н";
                             spcAdd.anglCut1 = 45;
-                            spcAdd.anglCut2 = 71;
+                            spcAdd.anglCut2 = 45;
+                            spcAdd.anglHoriz = 0;
+
+                        } else if (anglHoriz == sideHoriz[1]) {
+                            spcAdd.width += height() + 2 * gzazo; // * Math.tan(90 - spcAdd.anglCut1));
+                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                            spcAdd.anglCut1 = 45;
+                            spcAdd.anglCut2 = rootArea().mapFrame.get(Layout.RIGHT).anglCut[1];
+                            spcAdd.anglHoriz = rootArea().mapFrame.get(Layout.RIGHT).anglHoriz;
                             spcAdd.place = spcAdd.place + ".П";
+
                         } else if (anglHoriz == sideHoriz[2]) {
                             spcAdd.width += width() + 2 * gzazo;
-                            spcAdd.anglCut1 = 33;
-                            spcAdd.anglCut2 = 57;
+                            spcAdd.anglCut1 = rootArea().mapFrame.get(Layout.TOP).anglCut[0];
+                            spcAdd.anglCut2 = rootArea().mapFrame.get(Layout.TOP).anglCut[1];
+                            spcAdd.anglHoriz = rootArea().mapFrame.get(Layout.LEFT).anglHoriz;
                             spcAdd.place = spcAdd.place + ".В";
+
                         } else if (anglHoriz == sideHoriz[3]) {
-                            spcAdd.anglCut1 = 72;
                             spcAdd.anglCut2 = 45;
-                            spcAdd.place = spcAdd.place + ".Л";
+                            spcAdd.anglCut1 = rootArea().mapFrame.get(Layout.LEFT).anglCut[0];
+                            spcAdd.anglHoriz = rootArea().mapFrame.get(Layout.LEFT).anglHoriz;
+                            ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.LEFT).joinPoint(0));
+                            Object obj1 = gzazo + gzazo * Math.tan(90 - ej.angl);
+                            Object obj2 = height();
+                            spcAdd.width += height() + gzazo + gzazo / Math.sin(90 - ej.angl);
+                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                            spcAdd.place = spcAdd.place + ".*Л";
                         }
-                    }
-                    if (anglHoriz == sideHoriz[0]) {
-                        spcAdd.width += width() + 2 * gzazo;
-                        spcAdd.place = spcAdd.place + ".Н";
-                        spcAdd.anglCut1 = 45;
-                        spcAdd.anglCut2 = 45;
                     }
                     spcRec.spcList.add(spcAdd); //добавим спецификацию
 

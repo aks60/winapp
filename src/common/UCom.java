@@ -255,4 +255,16 @@ public class UCom {
         }
         return false;
     }
+    
+    public static float sin(float angl) {
+        return (float) Math.sin(Math.toRadians(angl));
+    }
+    
+    public static float cos(float angl) {
+        return (float) Math.cos(Math.toRadians(angl));
+    }
+    
+    public static float tan(float angl) {
+        return (float) Math.tan(Math.toRadians(angl));
+    }
 }
