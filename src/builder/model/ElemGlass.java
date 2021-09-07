@@ -84,7 +84,7 @@ public class ElemGlass extends ElemSimple {
                 float dy2 = (insideLeft.artiklRec.getFloat(eArtikl.height) - (insideLeft.artiklRec.getFloat(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
                 y1 = insideTop.y1 + dy1 + dy2;
                 x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
-                y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - (gzazo / UCom.sin(ej.angl));;
+                y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
 
             } else if (iwin().form == Form.NUM4) {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
@@ -157,15 +157,18 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.anglHoriz = 0;
 
                         } else if (anglHoriz == sideHoriz[1]) {
-                            ElemFrame el = rootArea().mapFrame.get(Layout.RIGHT);
-                            ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
-                            //float A = gzazo * UCom.sin(ej.angl - 90);
-                           // spcAdd.width += height() - (width() + A + A) * UCom.sin(ej.angl - 90) + gzazo + gzazo * UCom.cos(ej.angl - 90) - gzazo * UCom.tan(ej.angl - 90);
+                            ElemSimple insideTop = rootArea().mapFrame.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = rootArea().mapFrame.get(Layout.RIGHT);
+                            ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1)); 
+                            float dy1 = (insideTop.artiklRec.getFloat(eArtikl.height) - insideTop.artiklRec.getFloat(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
+                            float dy2 = (insideRight.artiklRec.getFloat(eArtikl.height) - insideRight.artiklRec.getFloat(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
+                            float Y1 = insideRight.y1 + dy1 + dy2;
+                            float Y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz);
+                            spcAdd.width += Y2 - Y1;
                             spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                             spcAdd.anglCut1 = 45;
-                            spcAdd.anglCut2 = rootArea().mapFrame.get(Layout.RIGHT).anglCut[1];
-                            spcAdd.anglHoriz = rootArea().mapFrame.get(Layout.RIGHT).anglHoriz;
-                            spcAdd.place = spcAdd.place + ".*П";
+                            spcAdd.anglCut2 = insideRight.anglCut[1];
+                            spcAdd.anglHoriz = insideRight.anglHoriz;
+                            spcAdd.place = spcAdd.place + ".П";
 
                         } else if (anglHoriz == sideHoriz[2]) {
                             spcAdd.width += width() + 2 * gzazo;
@@ -175,15 +178,20 @@ public class ElemGlass extends ElemSimple {
                             spcAdd.anglHoriz = rootArea().mapFrame.get(Layout.LEFT).anglHoriz;
                             spcAdd.place = spcAdd.place + ".В";
 
-                        } else if (anglHoriz == sideHoriz[3]) {
-                            ElemFrame el = rootArea().mapFrame.get(Layout.LEFT);
+                        } else if (anglHoriz == sideHoriz[3]) {                           
+                            ElemSimple insideLeft = rootArea().mapFrame.get(Layout.LEFT), insideTop = rootArea().mapFrame.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
                             ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.LEFT).joinPoint(0));
-                            spcAdd.anglCut2 = 45;
-                            spcAdd.anglCut1 = el.anglCut[0];
-                            spcAdd.anglHoriz = el.anglHoriz;
-                            spcAdd.width += height() + gzazo + gzazo / UCom.sin(ej.angl) + gzazo * UCom.cos(ej.angl);
+                            float dy1 = (insideTop.artiklRec.getFloat(eArtikl.height) - insideTop.artiklRec.getFloat(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
+                            float dy2 = (insideLeft.artiklRec.getFloat(eArtikl.height) - insideLeft.artiklRec.getFloat(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
+                            float Y1 = insideLeft.y1 + dy1 + dy2;
+                            float Y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz);
+                            spcAdd.width += Y2 - Y1;
+
                             spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                            spcAdd.place = spcAdd.place + ".*Л";
+                            spcAdd.anglCut1 = insideLeft.anglCut[0];
+                            spcAdd.anglCut2 = 45;
+                            spcAdd.anglHoriz = insideLeft.anglHoriz;
+                            spcAdd.place = spcAdd.place + ".Л";
                         }
                     }
                     spcRec.spcList.add(spcAdd); //добавим спецификацию
