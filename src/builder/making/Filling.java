@@ -51,7 +51,6 @@ public class Filling extends Cal5e {
                 UseArtiklTo typeProf = (elemGlass.owner().type() == Type.STVORKA)
                         ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //стекло может быть в створке или коробке
                 Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth); //толщина стекда
-
                 Record artprofRec = null;
                 //Цикл по системе конструкций, ищем артикул системы профилей
                 for (Record sysprofRec : sysprofList) {

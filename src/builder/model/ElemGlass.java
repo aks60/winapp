@@ -63,7 +63,6 @@ public class ElemGlass extends ElemSimple {
         spcRec.colorID1 = colorID1;
         spcRec.colorID2 = colorID2;
         spcRec.colorID3 = colorID3;
-
         if (owner().type() == Type.ARCH) { //если арка
             ElemFrame elemArch = rootArea().mapFrame.get(Layout.TOP);
             ElemSimple elemImpost = joinFlat(Layout.BOTT);
@@ -126,7 +125,7 @@ public class ElemGlass extends ElemSimple {
             }
         }
         spcRec.width = width();
-        spcRec.height = height();
+        spcRec.height = height();        
     }
 
     @Override //Вложенная спецификация 
