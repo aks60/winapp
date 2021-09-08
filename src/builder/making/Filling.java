@@ -97,17 +97,17 @@ public class Filling extends Cal5e {
 
                 //Цикл по списку детализации
                 for (Record glasdetRec : glasdetList) {
-                    
+
                     //Цикл по сторонам стеклопакета
                     for (int side = 0; side < 4; ++side) {
                         elemGlass.anglHoriz = elemGlass.sideHoriz[side];
                         HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific                        
-                        
+
                         //ФИЛЬТР детализации, параметры накапливаются в mapParam
                         if (fillingDet.filter(mapParam, elemGlass, glasdetRec) == true) {
                             Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
                             Specific spcAdd = new Specific(glasdetRec, artiklRec, elemGlass, mapParam);
-                            
+
                             if (UColor.colorFromProduct(spcAdd, 1)
                                     && UColor.colorFromProduct(spcAdd, 2)
                                     && UColor.colorFromProduct(spcAdd, 3)) {
