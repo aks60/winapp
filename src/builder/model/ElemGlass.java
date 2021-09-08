@@ -145,57 +145,8 @@ public class ElemGlass extends ElemSimple {
                     ((AreaArch) rootArea()).addSpecificShtapik(this, spcAdd);
 
                 } else if (Type.TRAPEZE == owner().type()) {
-                    if (iwin().form == Form.NUM2) {
-
-                        if (anglHoriz == sideHoriz[0]) {
-                            ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
-                            spcAdd.width += width() + 2 * gzazo;
-                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                            spcAdd.place = spcAdd.place + ".Н";
-                            spcAdd.anglCut1 = 45;
-                            spcAdd.anglCut2 = 45;
-                            spcAdd.anglHoriz = 0;
-
-                        } else if (anglHoriz == sideHoriz[1]) {
-                            ElemSimple insideTop = rootArea().mapFrame.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = rootArea().mapFrame.get(Layout.RIGHT);
-                            ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1)); 
-                            float dy1 = (insideTop.artiklRec.getFloat(eArtikl.height) - insideTop.artiklRec.getFloat(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
-                            float dy2 = (insideRight.artiklRec.getFloat(eArtikl.height) - insideRight.artiklRec.getFloat(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
-                            float Y1 = insideRight.y1 + dy1 + dy2;
-                            float Y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz);
-                            spcAdd.width += Y2 - Y1;
-                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                            spcAdd.anglCut1 = 45;
-                            spcAdd.anglCut2 = insideRight.anglCut[1];
-                            spcAdd.anglHoriz = insideRight.anglHoriz;
-                            spcAdd.place = spcAdd.place + ".П";
-
-                        } else if (anglHoriz == sideHoriz[2]) {
-                            spcAdd.width += width() + 2 * gzazo;
-                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                            spcAdd.anglCut1 = rootArea().mapFrame.get(Layout.TOP).anglCut[0];
-                            spcAdd.anglCut2 = rootArea().mapFrame.get(Layout.TOP).anglCut[1];
-                            spcAdd.anglHoriz = rootArea().mapFrame.get(Layout.LEFT).anglHoriz;
-                            spcAdd.place = spcAdd.place + ".В";
-
-                        } else if (anglHoriz == sideHoriz[3]) {                           
-                            ElemSimple insideLeft = rootArea().mapFrame.get(Layout.LEFT), insideTop = rootArea().mapFrame.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
-                            ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.LEFT).joinPoint(0));
-                            float dy1 = (insideTop.artiklRec.getFloat(eArtikl.height) - insideTop.artiklRec.getFloat(eArtikl.size_falz)) / UCom.cos(90 - ej.angl);
-                            float dy2 = (insideLeft.artiklRec.getFloat(eArtikl.height) - insideLeft.artiklRec.getFloat(eArtikl.size_falz)) * UCom.tan(90 - ej.angl);
-                            float Y1 = insideLeft.y1 + dy1 + dy2;
-                            float Y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz);
-                            spcAdd.width += Y2 - Y1;
-
-                            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                            spcAdd.anglCut1 = insideLeft.anglCut[0];
-                            spcAdd.anglCut2 = 45;
-                            spcAdd.anglHoriz = insideLeft.anglHoriz;
-                            spcAdd.place = spcAdd.place + ".Л";
-                        }
-                    }
-                    spcRec.spcList.add(spcAdd); //добавим спецификацию
-
+                    ((AreaTrapeze) rootArea()).addSpecificShtapik(this, spcAdd);                    
+                    
                 } else { //штапик в прямоугольнике
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
@@ -239,6 +190,10 @@ public class ElemGlass extends ElemSimple {
             } else { //всё остальное
                 if (Type.ARCH == owner().type()) { //в арке
                     ((AreaArch) rootArea()).addSpecificPadding(this, spcAdd);
+
+                } else if (Type.TRAPEZE == owner().type()) {
+                    ((AreaTrapeze) rootArea()).addSpecificPadding(this, spcAdd);
+                    
                 } else {
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width = spcAdd.width + width() + gzazo;
