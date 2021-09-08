@@ -469,22 +469,22 @@ public class Specification extends javax.swing.JFrame {
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         float id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         String str = tab1.getValueAt(tab1.getSelectedRow(), 3).toString().substring(0, 3);
-        Specific recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
-        Record recordDet = recordSpc.detailRec;
-        if (recordDet != null) {
+        Specific SspecificRec = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
+        Record detailRec = SspecificRec.detailRec;
+        if (detailRec != null) {
             FrameProgress.create(Specification.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
-                        App.Element.createFrame(Specification.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
+                        App.Element.createFrame(Specification.this, iwin.calcElements.listVariants, detailRec.getInt(eElemdet.id));
 
                     } else if (str.equals("СОЕ")) {
-                        App.Joining.createFrame(Specification.this, iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));
+                        App.Joining.createFrame(Specification.this, iwin.calcJoining.listVariants, detailRec.getInt(eJoindet.id));
 
                     } else if (str.equals("ЗАП")) {
-                        App.Filling.createFrame(Specification.this, iwin.calcFilling.listVariants, recordDet.getInt(eGlasdet.id));
+                        App.Filling.createFrame(Specification.this, iwin.calcFilling.listVariants, detailRec.getInt(eGlasdet.id));
 
                     } else if (str.equals("ФУР")) {
-                        App.Furniture.createFrame(Specification.this, iwin.calcFurniture.listVariants, recordDet.getInt(eFurndet.id));
+                        App.Furniture.createFrame(Specification.this, iwin.calcFurniture.listVariants, detailRec.getInt(eFurndet.id));
                     }
                 }
             });
@@ -492,7 +492,7 @@ public class Specification extends javax.swing.JFrame {
             FrameProgress.create(Specification.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
-                        App.Systree.createFrame(Specification.this, recordSpc.artiklRec.getInt(eArtikl.id));
+                        App.Systree.createFrame(Specification.this, SspecificRec.artiklRec.getInt(eArtikl.id));
 
                     } else if (str.equals("ЗАП")) {
                         App.Systree.createFrame(Specification.this);

@@ -139,14 +139,15 @@ public class ElemGlass extends ElemSimple {
         }
 
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
-            if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108)) {  //штапик
+            //Штапик
+            if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108)) {
 
                 if (Type.ARCH == owner().type()) { //штапик в арке
                     ((AreaArch) rootArea()).addSpecificShtapik(this, spcAdd);
 
                 } else if (Type.TRAPEZE == owner().type()) {
-                    ((AreaTrapeze) rootArea()).addSpecificShtapik(this, spcAdd);                    
-                    
+                    ((AreaTrapeze) rootArea()).addSpecificShtapik(this, spcAdd);
+
                 } else { //штапик в прямоугольнике
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
@@ -187,13 +188,14 @@ public class ElemGlass extends ElemSimple {
                     spcAdd.anglCut2 = 45;
                     spcRec.spcList.add(spcAdd);
                 }
-            } else { //всё остальное
+                //Всё остальное
+            } else {
                 if (Type.ARCH == owner().type()) { //в арке
                     ((AreaArch) rootArea()).addSpecificPadding(this, spcAdd);
 
                 } else if (Type.TRAPEZE == owner().type()) {
                     ((AreaTrapeze) rootArea()).addSpecificPadding(this, spcAdd);
-                    
+
                 } else {
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width = spcAdd.width + width() + gzazo;

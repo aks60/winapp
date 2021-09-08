@@ -25,9 +25,9 @@ public class AreaTrapeze extends AreaSimple {
 
             if (glass.anglHoriz == glass.sideHoriz[0]) {
                 ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
-                spcAdd.width += width() + 2 * glass.gzazo;
+                spcAdd.width += glass.width() + 2 * glass.gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.place = spcAdd.place + ".Н";
+                spcAdd.place = spcAdd.place + ".Н*";
                 spcAdd.anglCut1 = 45;
                 spcAdd.anglCut2 = 45;
                 spcAdd.anglHoriz = 0;
@@ -76,7 +76,7 @@ public class AreaTrapeze extends AreaSimple {
 
             if (glass.anglHoriz == glass.sideHoriz[0]) {
                 ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
-                spcAdd.width += width() + 2 * glass.gzazo;
+                spcAdd.width += glass.width() + 2 * glass.gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcAdd.place = spcAdd.place + ".Н";
                 spcAdd.anglCut1 = 45;
@@ -132,7 +132,7 @@ public class AreaTrapeze extends AreaSimple {
 
             if (glass.anglHoriz == glass.sideHoriz[0]) {
                 ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
-                spcAdd.width += width() + 2 * glass.gzazo;
+                spcAdd.width += glass.width() + 2 * glass.gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcAdd.place = spcAdd.place + ".Н";
                 spcAdd.anglCut1 = 45;
@@ -183,7 +183,7 @@ public class AreaTrapeze extends AreaSimple {
 
             if (glass.anglHoriz == glass.sideHoriz[0]) {
                 ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
-                spcAdd.width += width() + 2 * glass.gzazo;
+                spcAdd.width += glass.width() + 2 * glass.gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcAdd.place = spcAdd.place + ".Н";
                 spcAdd.anglCut1 = 45;
@@ -232,7 +232,6 @@ public class AreaTrapeze extends AreaSimple {
             }
         }
         glass.spcRec.spcList.add(spcAdd); //добавим спецификацию
-
     }
 
     @Override
