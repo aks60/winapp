@@ -126,6 +126,7 @@ public class ParamTest {
         imp_vert_3 = getElem(iwin_3.rootArea, 11.0f);
         glass_top_3 = (ElemGlass) getElem(iwin_3.rootArea, 6.0f);
         glass_left_3 = (ElemGlass) getElem(iwin_3.rootArea, 10.0f);
+        glass_left_3.anglHoriz = 0;
     }
 
     //700027

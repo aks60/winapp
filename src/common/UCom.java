@@ -114,6 +114,7 @@ public class UCom {
     }
 
     //"180",  "30-179",  "0-89,99;90, 01-150;180, 01-269, 99;270, 01-359, 99"
+    //Если не диапазон, то точный поиск
     public static boolean containsNumbJust(String txt, Number value) {
         if (txt == null || txt.isEmpty() || txt.equals("*")) {
             return true;
@@ -154,6 +155,7 @@ public class UCom {
     }
 
     //"180",  "30-179",  "0-89,99;90, 01-150;180, 01-269, 99;270, 01-359, 99"
+    //Если не диапазон, то поиск с нуля
     public static boolean containsNumbExp(String txt, Number value) {
         if (txt == null || txt.isEmpty() || txt.equals("*")) {
             return true;
