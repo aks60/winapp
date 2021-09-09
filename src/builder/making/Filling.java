@@ -7,7 +7,6 @@ import domain.eGlasgrp;
 import domain.eGlasprof;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.UseArtiklTo;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,8 +18,10 @@ import builder.model.ElemGlass;
 import builder.model.ElemSimple;
 import common.UCom;
 import dataset.Query;
+import static domain.eArtikl.depth;
 import enums.Layout;
 import enums.Type;
+import enums.UseArtiklTo;
 import java.util.Arrays;
 
 /**
@@ -31,7 +32,6 @@ public class Filling extends Cal5e {
     private FillingVar fillingVar = null;
     private FillingDet fillingDet = null;
     private ElementDet elementDet = null;
-    //public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
 
     public Filling(Wincalc iwin) {
         super(iwin);
@@ -51,23 +51,20 @@ public class Filling extends Cal5e {
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
                 boolean way = false;
-                Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth); //толщина стекда
-                ElemSimple elemFrameArr[] = {elemGlass.joinFlat(Layout.BOTT), elemGlass.joinFlat(Layout.RIGHT), elemGlass.joinFlat(Layout.TOP), elemGlass.joinFlat(Layout.LEFT)};
 
-//                UseArtiklTo typeProf = (elemGlass.owner().type() == Type.STVORKA)
-//                        ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //стекло может быть в створке или коробке
-//                Record artprofRec = null;
-//                //Цикл по системе конструкций, ищем артикул системы профилей
-//                for (Record sysprofRec : sysprofList) {
-//                    if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
-//                        artprofRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //включая аналог!
-//                        break;
-//                    }
-//                }
+                UseArtiklTo typeProf = (elemGlass.owner().type() == Type.STVORKA)
+                        ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //стекло может быть в створке или коробке
+                Record artprofRec = null;
+                //Цикл по системе конструкций, ищем артикул системы профилей
+                for (Record sysprofRec : sysprofList) {
+                    if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
+                        artprofRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //включая аналог!
+                        break;
+                    }
+                }
                 //Цикл по сторонам стеклопакета
                 for (int side = 0; side < 4; ++side) {
                     elemGlass.anglHoriz = elemGlass.sideHoriz[side];
-                    ElemSimple elemFrame = elemFrameArr[side];
 
                     //Цикл по группам заполнений
                     for (Record glasgrpRec : eGlasgrp.findAll()) {
@@ -77,7 +74,7 @@ public class Filling extends Cal5e {
 
                             //Цикл по профилям в группах заполнений
                             for (Record glasprofRec : glasprofList) {
-                                if (elemFrame.artiklRecAn.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
+                                if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
                                     if (Arrays.asList(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {
                                         elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
                                         if (way == false) {
