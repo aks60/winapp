@@ -61,7 +61,6 @@ public class AreaArch extends AreaSimple {
         Float dw = spcAdd.width;
         ElemSimple imp = elemGlass.joinFlat(Layout.BOTT);
         ElemSimple arch = mapFrame.get(Layout.TOP);
-        ElemSimple rama = mapFrame.get(Layout.LEFT);
 
         if (elemGlass.anglHoriz == elemGlass.sideHoriz[0]) { //по основанию арки
             double r1 = radiusArch - arch.artiklRec.getFloat(eArtikl.height) + arch.artiklRec.getDbl(eArtikl.size_falz); //внешний радиус
