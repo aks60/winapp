@@ -37,6 +37,21 @@ public class FillingDet extends Par5s {
         }
         return true;
     }
+    
+    public boolean filter2(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record glasdetRec) {
+
+//        List<Record> paramList = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации  
+//        if (filterParamDef(paramList) == false) {
+//            return false; //параметры по умолчанию
+//        }
+//        //Цикл по параметрам заполнения
+//        for (Record rec : paramList) {
+//            if (check(mapParam, elem5e, rec) == false) {
+//                return false;
+//            }
+//        }
+        return true;
+    }
 
     public boolean check(HashMap<Integer, String> mapParam, ElemGlass elem5e, Record rec) {
 
