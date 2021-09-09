@@ -52,31 +52,18 @@ public class Filling extends Cal5e {
             for (ElemGlass elemGlass : elemGlassList) {
                 boolean way = false;
                 Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth); //толщина стекда
-                
-                
-                UseArtiklTo typeProf = (elemGlass.owner().type() == Type.STVORKA)
-                        ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //стекло может быть в створке или коробке
-                Record artprofRec = null;
-                //Цикл по системе конструкций, ищем артикул системы профилей
-                for (Record sysprofRec : sysprofList) {
-                    if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
-                        artprofRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //включая аналог!
-                        break;
-                    }
-                }                
-                
-                
+
                 List<ElemSimple> elemFrameList = null;
-                if (elemGlass.owner().type() == Type.ARCH) {
-                    elemFrameList = Arrays.asList(elemGlass.joinFlat(Layout.BOTT), rootArea().mapFrame.get(Layout.RIGHT), elemGlass.joinFlat(Layout.TOP), rootArea().mapFrame.get(Layout.LEFT));
+                if (elemGlass.owner().type() == Type.STVORKA || elemGlass.owner().type() == Type.ARCH) {
+                    elemFrameList = Arrays.asList(rootArea().mapFrame.get(Layout.BOTT), rootArea().mapFrame.get(Layout.RIGHT), rootArea().mapFrame.get(Layout.TOP), rootArea().mapFrame.get(Layout.LEFT));
                 } else {
                     elemFrameList = Arrays.asList(elemGlass.joinFlat(Layout.BOTT), elemGlass.joinFlat(Layout.RIGHT), elemGlass.joinFlat(Layout.TOP), elemGlass.joinFlat(Layout.LEFT));
                 }
-                
+
                 //Цикл по сторонам стеклопакета
                 for (int side = 0; side < 4; ++side) {
                     ElemSimple elemFrame = elemFrameList.get(side);
-                    elemGlass.anglHoriz = elemGlass.sideHoriz[side];
+                    elemGlass.anglHoriz = elemGlass.sideHoriz[side]; //проверяемая сторона стеклопакета в цикле
 
                     //Цикл по группам заполнений
                     for (Record glasgrpRec : eGlasgrp.findAll()) {
@@ -86,15 +73,14 @@ public class Filling extends Cal5e {
 
                             //Цикл по профилям в группах заполнений
                             for (Record glasprofRec : glasprofList) {
-//                                if (elemFrame.artiklRecAn.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
-                                if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
+                                if (elemFrame.artiklRecAn.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
                                     if (Arrays.asList(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {
                                         elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
                                         if (way == false) {
                                             listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
-                                            
+
                                             //Заполним спецификацию элемента
-                                            elemGlass.setSpecific(); 
+                                            elemGlass.setSpecific();
                                             way = true;
                                         }
                                         detail(elemGlass, glasgrpRec, glasdetList);
