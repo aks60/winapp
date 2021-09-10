@@ -130,6 +130,11 @@ public class ElemGlass extends ElemSimple {
 
     @Override //Вложенная спецификация 
     public void addSpecific(Specific spcAdd) {
+        if (Type.ARCH == owner().type()) {
+            if(anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) {
+                return; //нет таких сторон уарки
+            }
+        }
         spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
         spcAdd.width = uti3.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм         
@@ -211,6 +216,7 @@ public class ElemGlass extends ElemSimple {
             spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd); //"[ / коэф-т ]" 
 
         } else if (UseUnit.PIE.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
+            
             if (spcAdd.mapParam.get(13014) != null) {
                 if (UCom.containsNumbJust(spcAdd.mapParam.get(13014), anglHoriz) == true) { //Углы ориентации стороны
                     spcRec.spcList.add(spcAdd);
