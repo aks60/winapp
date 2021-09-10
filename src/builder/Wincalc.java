@@ -94,7 +94,7 @@ public class Wincalc {
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS);
         //Важно! Не нарушаем последовательность построения окна
-       // Collections.sort(listElem, (a, b) -> Float.compare(a.id(), b.id()));
+        Collections.sort(listElem, (a, b) -> Float.compare(a.id(), b.id()));
         return rootArea;
     }
 
