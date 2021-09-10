@@ -78,14 +78,14 @@ public class ParamTest {
     public ParamTest() {
         try {
             iwin2();
-            //iwin3();
-            //iwin4();
+            iwin3();
+            iwin4();
         } catch (Exception e) {
             System.err.println("ОШИБКА:param.test.ParamTest() " + e);
         }
     }
 
-    //601004
+    //601004 "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)"
     private void iwin2() {
         iwin_2 = new builder.Wincalc(); //601004
         iwin_2.build(builder.script.Winscript.test(601004, false));
@@ -109,7 +109,7 @@ public class ParamTest {
         glass_right_2 = (ElemGlass) getElem(iwin_2.rootArea, 15.0f);
     }
 
-    //604005
+    //604005  "Wintech\\Termotech 742\\1 ОКНА"
     private void iwin3() {
         iwin_3 = new builder.Wincalc(); //604005
         iwin_3.build(builder.script.Winscript.test(604005, false));
@@ -126,14 +126,14 @@ public class ParamTest {
         furnitureDet3 = new FurnitureDet(iwin_3);
         frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
-        stv_right_3 = getElem(iwin_3.rootArea, 9.2f);
-        imp_vert_3 = getElem(iwin_3.rootArea, 10.0f);
+        stv_right_3 = getElem(iwin_3.rootArea, 10.2f);
+        imp_vert_3 = getElem(iwin_3.rootArea, 12.0f);
         glass_top_3 = (ElemGlass) getElem(iwin_3.rootArea, 6.0f);
         glass_left_3 = (ElemGlass) getElem(iwin_3.rootArea, 11.0f);
         glass_left_3.anglHoriz = 0;
     }
 
-    //700027
+    //700027  "Montblanc / Eco / 1 ОКНА (штульп)"
     private void iwin4() {
         iwin_4 = new builder.Wincalc(); //700027
         iwin_4.build(builder.script.Winscript.test(700027, false));

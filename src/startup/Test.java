@@ -65,8 +65,8 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec();
-            //wincalc();
-            param();
+            wincalc();
+            //param();
             //query();
             //frame();
             //json();
@@ -123,17 +123,17 @@ public class Test {
         Query.connection = Test.connect2();
 
         ElementTest et = new ElementTest();
-//        et.elementVar();
-//        et.elementDet();
-//        JoiningTest jt = new JoiningTest();
-//        jt.joiningVar();
-//        jt.joiningDet();
-//        FillingTest gt = new FillingTest();
-//        gt.fillingVar();
-//        gt.fillingDet();
-//        FurnitureTest ft = new FurnitureTest();
-//        ft.furnitureVar();
-//        ft.furnitureDet();
+        et.elementVar();
+        et.elementDet();
+        JoiningTest jt = new JoiningTest();
+        jt.joiningVar();
+        jt.joiningDet();
+        FillingTest gt = new FillingTest();
+        gt.fillingVar();
+        gt.fillingDet();
+        FurnitureTest ft = new FurnitureTest();
+        ft.furnitureVar();
+        ft.furnitureDet();
         
 //        Query.connection = Test.connect2();
 //        Set set = new HashSet();
