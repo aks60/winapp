@@ -132,7 +132,7 @@ public class ElemGlass extends ElemSimple {
     public void addSpecific(Specific spcAdd) {
         if (Type.ARCH == owner().type()) {
             if(anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) {
-                return; //нет таких сторон уарки
+                return;  //нет таких сторон уарки
             }
         }
         spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
