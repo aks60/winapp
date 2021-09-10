@@ -140,7 +140,7 @@ public class ElemCross extends ElemSimple {
 
         //Армирование
         if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X107)) {
-            spcAdd.place = "ВСТ." + layout().name.substring(0, 1);
+            spcAdd.place = "ВСТ." + layout().name.substring(0, 1).toLowerCase();
             spcAdd.anglCut1 = 90;
             spcAdd.anglCut2 = 90;
         }

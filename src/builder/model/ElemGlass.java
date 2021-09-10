@@ -156,7 +156,6 @@ public class ElemGlass extends ElemSimple {
                     if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                         spcAdd.width += width() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                        spcAdd.place = (anglHoriz == sideHoriz[0]) ? spcAdd.place + ".н" : spcAdd.place + ".в";
                         if (spcAdd.mapParam.get(15010) != null) {
                             if ("Нет".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
                                 spcAdd.width = spcAdd.width - 2 * spcAdd.height;
@@ -171,7 +170,6 @@ public class ElemGlass extends ElemSimple {
                     } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
                         spcAdd.width += height() + 2 * gzazo;
                         spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                        spcAdd.place = (anglHoriz == sideHoriz[1]) ? spcAdd.place + ".п" : spcAdd.place + ".л";
                         if (spcAdd.mapParam.get(15010) != null) {
                             if ("Да".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
                                 spcAdd.width = spcAdd.width - 2 * spcAdd.height;

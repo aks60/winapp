@@ -52,7 +52,7 @@ class UMod {
             int count_step = Integer.valueOf(spcAdd.getParam(1, 14060, 24060, 33060, 38060)); //"Количество на шаг"
             float width_next = 0;
             if ("null".equals(spcAdd.getParam("null", 38004, 39005))) {
-                width_next = elem5e.width() - width_begin;
+                width_next = elem5e.length() - width_begin;
 
             } else if ("по периметру".equals(spcAdd.getParam("null", 38004, 39005))) {
                 width_next = (elem5e.width() * 2 + elem5e.height() * 2) - width_begin;
