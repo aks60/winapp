@@ -60,8 +60,7 @@ public class Joining extends Cal5e {
                 if (joinvarList.isEmpty() == true && joiningRec.getStr(eJoining.analog).isEmpty() == false) {
                     joiningRec = eJoining.find2(joiningRec.getStr(eJoining.analog));
                     joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
-                }
-                listVariants.add(joiningRec.getInt(eJoining.id)); //сделано для запуска формы Joining на ветке Systree               
+                }                              
                 Collections.sort(joinvarList, (connvar1, connvar2) -> connvar1.getInt(eJoinvar.prio) - connvar2.getInt(eJoinvar.prio));
 
                 //Цикл по вариантам соединения
@@ -72,6 +71,7 @@ public class Joining extends Cal5e {
 
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
+                            listVariants.add(joiningRec.getInt(eJoining.id)); //сделано для запуска формы Joining на ветке Systree 
 
                             //Сохраним подхоящий вариант соединения из таблиц bd
                             elemJoin.type = TypeJoin.get(joinvarRec.getInt(eJoinvar.types));

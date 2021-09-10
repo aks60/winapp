@@ -66,11 +66,11 @@ public class Elements extends Cal5e {
             //Цикл по вариантам
             for (Record elementRec : elementList) {
 
-                int element_id = elementRec.getInt(eElement.id);
-                listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
+                int element_id = elementRec.getInt(eElement.id);                
 
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                 if (elementVar.filter(elem5e, elementRec) == true) {
+                    listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
                     UColor.colorFromParam(elem5e); //правило подбора текстур по параметру
 
                     //Цикл по детализации

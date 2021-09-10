@@ -74,11 +74,9 @@ public class Filling extends Cal5e {
                             //Цикл по профилям в группах заполнений
                             for (Record glasprofRec : glasprofList) {
                                 if (elemFrame.artiklRecAn.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
-                                    if (Arrays.asList(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {
+                                    if (Arrays.asList(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {  //внутреннее заполнение
                                         elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
                                         if (way == false) {
-                                            listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
-
                                             //Заполним спецификацию элемента
                                             elemGlass.setSpecific();
                                             way = true;
@@ -110,6 +108,7 @@ public class Filling extends Cal5e {
 
                     //ФИЛЬТР детализации, параметры накапливаются в mapParam
                     if (fillingDet.filter(mapParam, elemGlass, glasdetRec) == true) {
+                        listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
                         Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
                         Specific spcAdd = new Specific(glasdetRec, artiklRec, elemGlass, mapParam);
 

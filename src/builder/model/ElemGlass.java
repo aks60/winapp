@@ -139,7 +139,7 @@ public class ElemGlass extends ElemSimple {
 
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
             //Штапик
-            if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108)) {
+            if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108) || TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X135)) {
 
                 if (Type.ARCH == owner().type()) { //штапик в арке
                     ((AreaArch) rootArea()).addSpecificShtapik(this, spcAdd);
