@@ -76,7 +76,7 @@ public class ElemCross extends ElemSimple {
     @Override //Главная спецификация
     public void setSpecific() {
 
-        spcRec.place = (Layout.HORIZ == owner().layout()) ? "ВСТ.В" : "ВСТ.Г";
+        spcRec.place = (Layout.HORIZ == owner().layout()) ? "ВСТ.в" : "ВСТ.г";
         spcRec.setArtiklRec(artiklRec);
         spcRec.colorID1 = colorID1;
         spcRec.colorID2 = colorID2;

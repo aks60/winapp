@@ -159,12 +159,12 @@ class UMod {
 
     //Коэффициент, [ * коэф-т ]
     float get_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
-        return UCom.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));
+        return UCom.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));
     }
 
     //Коэффициент, [ / коэф-т ]
     float get_12040_15031_25036_34040_39040(Specific spcRec, Specific spcAdd) {
-        return UCom.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));
+        return UCom.getFloat(spcAdd.getParam("1", 12040, 15031, 25036, 34040, 39040));
     }
 
     //Othe

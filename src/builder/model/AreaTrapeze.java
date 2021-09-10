@@ -27,7 +27,7 @@ public class AreaTrapeze extends AreaSimple {
                 ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
                 spcAdd.width += glass.width() + 2 * glass.gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.place = spcAdd.place + ".Н";
+                spcAdd.place = spcAdd.place + ".н";
                 spcAdd.anglCut1 = 45;
                 spcAdd.anglCut2 = 45;
                 spcAdd.anglHoriz = 0;
@@ -44,7 +44,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut1 = 45;
                 spcAdd.anglCut2 = insideRight.anglCut[1];
                 spcAdd.anglHoriz = insideRight.anglHoriz;
-                spcAdd.place = spcAdd.place + ".П";
+                spcAdd.place = spcAdd.place + ".п";
 
             } else if (glass.anglHoriz == glass.sideHoriz[2]) {
                 ElemSimple insideLeft = rootArea().mapFrame.get(Layout.LEFT), insideRight = rootArea().mapFrame.get(Layout.RIGHT);
@@ -56,7 +56,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut1 = rootArea().mapFrame.get(Layout.TOP).anglCut[0];
                 spcAdd.anglCut2 = rootArea().mapFrame.get(Layout.TOP).anglCut[1];
                 spcAdd.anglHoriz = rootArea().mapFrame.get(Layout.LEFT).anglHoriz;
-                spcAdd.place = spcAdd.place + ".В";
+                spcAdd.place = spcAdd.place + ".в";
 
             } else if (glass.anglHoriz == glass.sideHoriz[3]) {
                 ElemSimple insideLeft = rootArea().mapFrame.get(Layout.LEFT), insideTop = rootArea().mapFrame.get(Layout.TOP), insideBott = glass.joinFlat(Layout.BOTT);
@@ -70,7 +70,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut1 = insideLeft.anglCut[0];
                 spcAdd.anglCut2 = 45;
                 spcAdd.anglHoriz = insideLeft.anglHoriz;
-                spcAdd.place = spcAdd.place + ".Л";
+                spcAdd.place = spcAdd.place + ".л";
             }
         } else if (iwin().form == Form.NUM4) {
 
@@ -78,7 +78,7 @@ public class AreaTrapeze extends AreaSimple {
                 ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
                 spcAdd.width += glass.width() + 2 * glass.gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.place = spcAdd.place + ".Н";
+                spcAdd.place = spcAdd.place + ".н";
                 spcAdd.anglCut1 = 45;
                 spcAdd.anglCut2 = 45;
                 spcAdd.anglHoriz = 0;
@@ -95,7 +95,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut2 = insideRirht.anglCut[0];
                 spcAdd.anglCut1 = 45;
                 spcAdd.anglHoriz = insideRirht.anglHoriz;
-                spcAdd.place = spcAdd.place + ".П";
+                spcAdd.place = spcAdd.place + ".п";
 
             } else if (glass.anglHoriz == glass.sideHoriz[2]) {
                 ElemSimple insideLeft = rootArea().mapFrame.get(Layout.LEFT), insideRight = rootArea().mapFrame.get(Layout.RIGHT);
@@ -107,7 +107,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut1 = rootArea().mapFrame.get(Layout.TOP).anglCut[0];
                 spcAdd.anglCut2 = rootArea().mapFrame.get(Layout.TOP).anglCut[1];
                 spcAdd.anglHoriz = rootArea().mapFrame.get(Layout.LEFT).anglHoriz;
-                spcAdd.place = spcAdd.place + ".В";
+                spcAdd.place = spcAdd.place + ".в";
 
             } else if (glass.anglHoriz == glass.sideHoriz[3]) {
                 ElemSimple insideTop = rootArea().mapFrame.get(Layout.TOP), insideBott = glass.joinFlat(Layout.BOTT), insideLeft = rootArea().mapFrame.get(Layout.RIGHT);
@@ -121,7 +121,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut2 = 45;
                 spcAdd.anglCut1 = insideLeft.anglCut[1];
                 spcAdd.anglHoriz = insideLeft.anglHoriz;
-                spcAdd.place = spcAdd.place + ".Л";
+                spcAdd.place = spcAdd.place + ".л";
             }
         }
         glass.spcRec.spcList.add(spcAdd); //добавим спецификацию
@@ -134,7 +134,7 @@ public class AreaTrapeze extends AreaSimple {
                 //ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
                 spcAdd.width += glass.width() + 2 * glass.gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.place = spcAdd.place + ".Н";
+                spcAdd.place = spcAdd.place + ".н";
                 spcAdd.anglCut1 = 45;
                 spcAdd.anglCut2 = 45;
                 spcAdd.anglHoriz = 0;
@@ -151,7 +151,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut1 = 45;
                 spcAdd.anglCut2 = insideRight.anglCut[1];
                 spcAdd.anglHoriz = insideRight.anglHoriz;
-                spcAdd.place = spcAdd.place + ".П";
+                spcAdd.place = spcAdd.place + ".п";
 
             } else if (glass.anglHoriz == glass.sideHoriz[2]) {
                 ElemSimple insideLeft = rootArea().mapFrame.get(Layout.LEFT), insideRight = rootArea().mapFrame.get(Layout.RIGHT);
@@ -163,7 +163,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut1 = rootArea().mapFrame.get(Layout.TOP).anglCut[0];
                 spcAdd.anglCut2 = rootArea().mapFrame.get(Layout.TOP).anglCut[1];
                 spcAdd.anglHoriz = rootArea().mapFrame.get(Layout.LEFT).anglHoriz;
-                spcAdd.place = spcAdd.place + ".В";
+                spcAdd.place = spcAdd.place + ".в";
 
             } else if (glass.anglHoriz == glass.sideHoriz[3]) {
                 ElemSimple insideLeft = rootArea().mapFrame.get(Layout.LEFT), insideTop = rootArea().mapFrame.get(Layout.TOP), insideBott = glass.joinFlat(Layout.BOTT);
@@ -177,7 +177,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut1 = insideLeft.anglCut[0];
                 spcAdd.anglCut2 = 45;
                 spcAdd.anglHoriz = insideLeft.anglHoriz;
-                spcAdd.place = spcAdd.place + ".Л";
+                spcAdd.place = spcAdd.place + ".л";
             }
         } else if (iwin().form == Form.NUM4) {
 
@@ -185,7 +185,7 @@ public class AreaTrapeze extends AreaSimple {
                 ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
                 spcAdd.width += glass.width() + 2 * glass.gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                spcAdd.place = spcAdd.place + ".Н";
+                spcAdd.place = spcAdd.place + ".н";
                 spcAdd.anglCut1 = 45;
                 spcAdd.anglCut2 = 45;
                 spcAdd.anglHoriz = 0;
@@ -202,7 +202,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut2 = insideRirht.anglCut[0];
                 spcAdd.anglCut1 = 45;
                 spcAdd.anglHoriz = insideRirht.anglHoriz;
-                spcAdd.place = spcAdd.place + ".П*";
+                spcAdd.place = spcAdd.place + ".п";
 
             } else if (glass.anglHoriz == glass.sideHoriz[2]) {
                 ElemSimple insideLeft = rootArea().mapFrame.get(Layout.LEFT), insideRight = rootArea().mapFrame.get(Layout.RIGHT);
@@ -214,7 +214,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut1 = rootArea().mapFrame.get(Layout.TOP).anglCut[0];
                 spcAdd.anglCut2 = rootArea().mapFrame.get(Layout.TOP).anglCut[1];
                 spcAdd.anglHoriz = rootArea().mapFrame.get(Layout.LEFT).anglHoriz;
-                spcAdd.place = spcAdd.place + ".В";
+                spcAdd.place = spcAdd.place + ".в";
 
             } else if (glass.anglHoriz == glass.sideHoriz[3]) {
                 ElemSimple insideTop = rootArea().mapFrame.get(Layout.TOP), insideBott = glass.joinFlat(Layout.BOTT), insideLeft = rootArea().mapFrame.get(Layout.RIGHT);
@@ -228,7 +228,7 @@ public class AreaTrapeze extends AreaSimple {
                 spcAdd.anglCut2 = 45;
                 spcAdd.anglCut1 = insideLeft.anglCut[1];
                 spcAdd.anglHoriz = insideLeft.anglHoriz;
-                spcAdd.place = spcAdd.place + ".Л*";
+                spcAdd.place = spcAdd.place + ".л";
             }
         }
         glass.spcRec.spcList.add(spcAdd); //добавим спецификацию
