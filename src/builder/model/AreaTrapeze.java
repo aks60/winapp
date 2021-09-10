@@ -131,7 +131,7 @@ public class AreaTrapeze extends AreaSimple {
         if (iwin().form == Form.NUM2) {
 
             if (glass.anglHoriz == glass.sideHoriz[0]) {
-                ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
+                //ElemJoining ej = iwin().mapJoin.get(rootArea().mapFrame.get(Layout.RIGHT).joinPoint(1));
                 spcAdd.width += glass.width() + 2 * glass.gzazo;
                 spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
                 spcAdd.place = spcAdd.place + ".Н";
