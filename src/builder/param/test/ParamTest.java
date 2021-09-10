@@ -101,7 +101,7 @@ public class ParamTest {
         furnitureDet2 = new FurnitureDet(iwin_2);
         frame_left_2 = getElem(iwin_2.rootArea, 1.0f);
         frame_right_2 = getElem(iwin_2.rootArea, 2.0f);
-        stv_right_2 = getElem(iwin_2.rootArea, 14f);
+        stv_right_2 = getElem(iwin_2.rootArea, 10.2f);
         imp_vert_2 = getElem(iwin_2.rootArea, 12.0f);
         imp_horiz_2 = getElem(iwin_2.rootArea, 7.0f);
         glass_top_2 = (ElemGlass) getElem(iwin_2.rootArea, 6.0f);
@@ -126,7 +126,7 @@ public class ParamTest {
         furnitureDet3 = new FurnitureDet(iwin_3);
         frame_left_3 = getElem(iwin_3.rootArea, 1.0f);
         frame_right_3 = getElem(iwin_3.rootArea, 2.0f);
-        stv_right_3 = getElem(iwin_3.rootArea, 14.0f);
+        stv_right_3 = getElem(iwin_3.rootArea, 9.2f);
         imp_vert_3 = getElem(iwin_3.rootArea, 10.0f);
         glass_top_3 = (ElemGlass) getElem(iwin_3.rootArea, 6.0f);
         glass_left_3 = (ElemGlass) getElem(iwin_3.rootArea, 11.0f);
@@ -150,8 +150,8 @@ public class ParamTest {
         furnitureDet4 = new FurnitureDet(iwin_4);
         frame_left_4 = getElem(iwin_4.rootArea, 1.0f);
         frame_right_4 = getElem(iwin_4.rootArea, 2.0f);
-        stv_left_4 = getElem(iwin_4.rootArea, 6.0f);
-        stv_right_4 = getElem(iwin_4.rootArea, 10f);
+        stv_left_4 = getElem(iwin_4.rootArea, 6.4f);
+        stv_right_4 = getElem(iwin_4.rootArea, 6.2f);
         glass_right_4 = (ElemGlass) getElem(iwin_4.rootArea, 11.0f);
         glass_left_4 = (ElemGlass) getElem(iwin_4.rootArea, 7.0f);
     }
