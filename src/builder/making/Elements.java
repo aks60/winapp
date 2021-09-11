@@ -87,7 +87,6 @@ public class Elements extends Cal5e {
                             if (UColor.colorFromProduct(spcAdd, 1)
                                     && UColor.colorFromProduct(spcAdd, 2)
                                     && UColor.colorFromProduct(spcAdd, 3)) {
-
                                 spcAdd.place = "ВСТ";
 
                                 //Если (контейнер) в списке детализации, например профиль с префиксом @

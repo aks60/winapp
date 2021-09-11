@@ -62,7 +62,7 @@ public class ElemCross extends ElemSimple {
 
                 if (Layout.VERT.equals(owner().layout())) { //сверху вниз
                     setDimension(prevArea.x1, prevArea.y2 - db, prevArea.x2, prevArea.y2 + db);
-                    anglHoriz = 270;
+                    anglHoriz = 0;
 
                 } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
                     setDimension(prevArea.x2 - db, prevArea.y1, prevArea.x2 + db, prevArea.y2);
