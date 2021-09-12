@@ -9,9 +9,7 @@ import domain.eElemdet;
 import domain.eFurndet;
 import domain.eGlasdet;
 import domain.eJoindet;
-import java.util.Arrays;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -400,7 +398,7 @@ public class Specification extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(1).setMaxWidth(40);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(26);
             tab1.getColumnModel().getColumn(2).setMaxWidth(40);
-            tab1.getColumnModel().getColumn(3).setPreferredWidth(44);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(3).setMaxWidth(60);
             tab1.getColumnModel().getColumn(4).setPreferredWidth(100);
             tab1.getColumnModel().getColumn(5).setPreferredWidth(240);
@@ -589,7 +587,6 @@ public class Specification extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
-
         new FrameToFile(this, btnClose);
         filterTable = new FilterTable(4, tab1);
         south.add(filterTable, 0);
@@ -665,6 +662,12 @@ public class Specification extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(23).setCellRenderer(cellRenderer3);
+        if ("Nimbus".equals(eProperty.lookandfeel.read())) {
+            for (int i = 0; i < 22; i++) {
+                tab1.getColumnModel().getColumn(i).setPreferredWidth(tab1.getColumnModel().getColumn(i).getPreferredWidth() + tab1.getColumnModel().getColumn(i).getPreferredWidth() / 4);
+            }
+        }
+        tab1.getTableHeader().setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11));
         TableColumnModel cm = tab1.getColumnModel();
         ColumnGroup angl = new ColumnGroup("Угол");
         angl.add(cm.getColumn(12));
