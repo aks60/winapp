@@ -396,7 +396,7 @@ public class Specification extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(0).setMaxWidth(40);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(26);
             tab1.getColumnModel().getColumn(1).setMaxWidth(40);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(26);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(28);
             tab1.getColumnModel().getColumn(2).setMaxWidth(40);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(3).setMaxWidth(60);
@@ -595,11 +595,6 @@ public class Specification extends javax.swing.JFrame {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
-//        DefaultTableModel dtm = new DefaultTableModel() {
-//            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-//            }
-//        };
-//        tab1.setModel(dtm);
         DefaultTableCellRenderer cellRenderer0 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
@@ -645,6 +640,8 @@ public class Specification extends javax.swing.JFrame {
                 return label;
             }
         };
+        tab1.getColumnModel().getColumn(1).setCellRenderer(cellRenderer1);
+        tab1.getColumnModel().getColumn(2).setCellRenderer(cellRenderer1);
         tab1.getColumnModel().getColumn(6).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(7).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(8).setCellRenderer(cellRenderer0);

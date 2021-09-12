@@ -85,7 +85,7 @@ public class Test {
          String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(604007, false));
+            iwin.build(builder.script.Winscript.test(601002, false));
             iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);

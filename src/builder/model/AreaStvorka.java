@@ -13,6 +13,7 @@ import enums.TypeJoin;
 import java.awt.Color;
 import java.util.LinkedList;
 import builder.Wincalc;
+import builder.making.Specific;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -138,6 +139,23 @@ public class AreaStvorka extends AreaSimple {
             handleLayout = LayoutHandle.MIDL; //по умолчанию
             handleHeight = stvLeft.height() / 2;
         }
+    }
+
+    protected void addFilling(ElemGlass glass, Specific spcAdd) {
+        if (glass.anglHoriz == glass.sideHoriz[0] || glass.anglHoriz == glass.sideHoriz[2]) { //по горизонтали
+            spcAdd.width += glass.width() + 2 * glass.gzazo;
+            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+
+        } else if (glass.anglHoriz == glass.sideHoriz[1] || glass.anglHoriz == glass.sideHoriz[3]) { //по вертикали
+            spcAdd.width += glass.height() + 2 * glass.gzazo;
+            spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+
+        } else {
+            System.err.println("Промах:builder.model.AreaStvorka.addFilling()");
+        }
+        spcAdd.anglCut1 = 45;
+        spcAdd.anglCut2 = 45;
+        glass.spcRec.spcList.add(spcAdd);
     }
 
     @Override
