@@ -125,13 +125,13 @@ public class ElemGlass extends ElemSimple {
             }
         }
         spcRec.width = width();
-        spcRec.height = height();        
+        spcRec.height = height();
     }
 
     @Override //Вложенная спецификация 
     public void addSpecific(Specific spcAdd) {
         if (Type.ARCH == owner().type()) {
-            if(anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) {
+            if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) {
                 return;  //нет таких сторон уарки
             }
         }
@@ -143,78 +143,59 @@ public class ElemGlass extends ElemSimple {
         }
 
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
-            //Штапик
-            //if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X108) || TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X)) {
+            //Арка
+            if (Type.ARCH == owner().type()) {
+                ((AreaArch) rootArea()).addFilling(this, spcAdd);
 
-                if (Type.ARCH == owner().type()) { //штапик в арке
-                    ((AreaArch) rootArea()).addSpecificShtapik(this, spcAdd);
+                //Трапеция
+            } else if (Type.TRAPEZE == owner().type()) {
+                ((AreaTrapeze) rootArea()).addFilling(this, spcAdd);
 
-                } else if (Type.TRAPEZE == owner().type()) {
-                    ((AreaTrapeze) rootArea()).addSpecificShtapik(this, spcAdd);
-
-                } else { //штапик в прямоугольнике
-                    if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
-                        spcAdd.width += width() + 2 * gzazo;
-                        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                        if (spcAdd.mapParam.get(15010) != null) {
-                            if ("Нет".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
-                                spcAdd.width = spcAdd.width - 2 * spcAdd.height;
-                            }
+                //Прямоугольник
+            } else {
+               if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
+                    spcAdd.width += width() + 2 * gzazo;
+                    spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                    if (spcAdd.mapParam.get(15010) != null) {
+                        if ("Нет".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
+                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
                         }
-                        if (spcAdd.mapParam.get(15011) != null) {
-                            if ("усекать боковой".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
-                                spcAdd.width = spcAdd.width - 2 * spcAdd.height;
-                            }
-                        }
-
-                    } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
-                        spcAdd.width += height() + 2 * gzazo;
-                        spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
-                        if (spcAdd.mapParam.get(15010) != null) {
-                            if ("Да".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
-                                spcAdd.width = spcAdd.width - 2 * spcAdd.height;
-                            }
-                        }
-                        if (spcAdd.mapParam.get(15011) != null) {
-                            if ("усекать нижний".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
-                                spcAdd.width = spcAdd.width - 2 * spcAdd.height;
-                            }
-                        }
-                    } else {
-                        System.err.println("ПРОМАХ:builder.model.ElemGlass.addSpecific()");
                     }
-                    if ("по биссектрисе".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
-                        //
+                    if (spcAdd.mapParam.get(15011) != null) {
+                        if ("усекать боковой".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
+                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                        }
                     }
-                    spcAdd.anglCut1 = 45;
-                    spcAdd.anglCut2 = 45;
-                    spcRec.spcList.add(spcAdd);
+
+                } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
+                    spcAdd.width += height() + 2 * gzazo;
+                    spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
+                    if (spcAdd.mapParam.get(15010) != null) {
+                        if ("Да".equals(spcAdd.mapParam.get(15010)) == false) { //Усекать нижний штапик
+                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                        }
+                    }
+                    if (spcAdd.mapParam.get(15011) != null) {
+                        if ("усекать нижний".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
+                            spcAdd.width = spcAdd.width - 2 * spcAdd.height;
+                        }
+                    }
+                } else {
+                    System.err.println("ПРОМАХ:builder.model.ElemGlass.addSpecific()");
                 }
-//                //Всё остальное
-//            } else {
-//                if (Type.ARCH == owner().type()) { //в арке
-//                    ((AreaArch) rootArea()).addSpecificPadding(this, spcAdd);
-//
-//                } else if (Type.TRAPEZE == owner().type()) {
-//                    ((AreaTrapeze) rootArea()).addSpecificPadding(this, spcAdd);
-//
-//                } else {
-//                    if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
-//                        spcAdd.width = spcAdd.width + width() + gzazo;
-//
-//                    } else if (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3]) { //по вертикали
-//                        spcAdd.width = spcAdd.width + height() + gzazo;
-//                    }
-//
-//                    spcRec.spcList.add(spcAdd);
-//                }
-//            }
+                if ("по биссектрисе".equals(spcAdd.mapParam.get(15011))) { //Расчет реза штапика
+                    //
+                }
+                spcAdd.anglCut1 = 45;
+                spcAdd.anglCut2 = 45;
+                spcRec.spcList.add(spcAdd);                
+            }
             spcAdd.width = uti3.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
             spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd); //"[ * коэф-т ]"
             spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd); //"[ / коэф-т ]" 
 
         } else if (UseUnit.PIE.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
-            
+
             if (spcAdd.mapParam.get(13014) != null) {
                 if (UCom.containsNumbJust(spcAdd.mapParam.get(13014), anglHoriz) == true) { //Углы ориентации стороны
                     spcRec.spcList.add(spcAdd);

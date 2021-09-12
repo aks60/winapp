@@ -20,7 +20,7 @@ import enums.UseSide;
 
 public class ElemFrame extends ElemSimple {
 
-    protected float length = 0; //длина арки 
+    protected float lengthArch = 0; //длина арки 
 
     public ElemFrame(AreaSimple owner, float id, Layout layout, String param) {
         super(id, owner.iwin(), owner);
@@ -148,8 +148,8 @@ public class ElemFrame extends ElemSimple {
             if (owner.type == Type.ARCH && Layout.TOP == layout()) {
                 AreaArch areaArch = (AreaArch) rootArea();
                 double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
-                length = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
-                spcRec.width = length + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                lengthArch = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
+                spcRec.width = lengthArch + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = owner.mapFrame.get(Layout.TOP).artiklRec.getFloat(eArtikl.height);
             } else if (Layout.BOTT == layout) {
                 spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
@@ -209,11 +209,23 @@ public class ElemFrame extends ElemSimple {
             spcAdd.anglCut1 = 90;
             spcAdd.anglCut2 = 90;
 
-            if (Layout.TOP == layout || Layout.BOTT == layout) {
-                spcAdd.width += x2 - x1;
+            if (Type.TRAPEZE == owner().type()) {
+                if (Layout.TOP == layout()) {
+                    spcAdd.width += length();
 
-            } else if (Layout.LEFT == layout || Layout.RIGHT == layout) {
-                spcAdd.width += y2 - y1;
+                } else if (Layout.BOTT == layout()) {
+                    spcAdd.width += x2 - x1;
+
+                } else if (Layout.LEFT == layout() || Layout.RIGHT == layout()) {
+                    spcAdd.width += y2 - y1;
+                }
+            } else {
+                if (Layout.TOP == layout() || Layout.BOTT == layout()) {
+                    spcAdd.width += x2 - x1;
+
+                } else if (Layout.LEFT == layout() || Layout.RIGHT == layout()) {
+                    spcAdd.width += y2 - y1;
+                }
             }
             if ("ps3".equals(eSetting.find(2))) {
                 if ("Да".equals(spcAdd.getParam(null, 34010))) {
@@ -293,10 +305,10 @@ public class ElemFrame extends ElemSimple {
 
                 } else if ("сторона - выс. ручки".equals(spcAdd.getParam("null", 25013))) {
                     AreaStvorka stv = (AreaStvorka) owner;
-                    spcAdd.width = length - stv.handleHeight - UCom.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм                        
+                    spcAdd.width = lengthArch - stv.handleHeight - UCom.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм                        
 
                 } else if ("половины стороны".equals(spcAdd.getParam("null", 25013))) {
-                    spcAdd.width = (length / 2) - UCom.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм 
+                    spcAdd.width = (lengthArch / 2) - UCom.getFloat(spcAdd.getParam(0, 25030)); //укорочение, мм 
                 }
             }
             //Фурнитура

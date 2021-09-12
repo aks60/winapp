@@ -20,7 +20,7 @@ public class AreaTrapeze extends AreaSimple {
         setDimension(0, 0, gson.width(), gson.height());
     }
 
-    protected void addSpecificShtapik(ElemGlass glass, Specific spcAdd) {
+    protected void addFilling(ElemGlass glass, Specific spcAdd) {
         if (iwin().form == Form.NUM2) {
 
             if (glass.anglHoriz == glass.sideHoriz[0]) {
