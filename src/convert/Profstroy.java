@@ -128,6 +128,8 @@ public class Profstroy {
             while (resultSet2.next()) {
                 listExistTable2.add(resultSet2.getString("TABLE_NAME"));
             }
+            //Отключаем все генераторы
+            st2.executeUpdate("update rdb$triggers  set rdb$trigger_inactive = 1  where rdb$trigger_name like 'IBE$%';");
             //Генераторы приёмника
             resultSet2 = st2.executeQuery("select rdb$generator_name from rdb$generators");
             while (resultSet2.next()) {
@@ -225,6 +227,9 @@ public class Profstroy {
                     executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
             }
+            //Включаем все генераторы
+            st2.executeUpdate("update rdb$triggers  set rdb$trigger_inactive = 0  where rdb$trigger_name like 'IBE$%';");
+            
             cn2.commit();
             cn2.setAutoCommit(true);
 
@@ -553,7 +558,6 @@ public class Profstroy {
             if (db.toUpperCase().contains("BIMAX.FDB")) {
                 executeSql("4", "update artikl set " + eArtikl.size_falz.name() + " = 20 where code = '336200'"); //поправка штульпа в bimax 
                 executeSql("delete from glaspar2 where params_id = 15030 and text = '0,97'"); //предположительно параметр добавлен в самом конце
-                executeSql("delete from joinpar2 where params_id = 12030 and text = '0,97'");
             }
         } catch (Exception e) {
             println(Color.RED, "Ошибка: updatePart().  " + e);
