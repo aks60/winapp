@@ -310,69 +310,70 @@ public class DBCompare extends javax.swing.JFrame {
                 }
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
                 paintPanel.repaint();
+
+                //=== Таблица 1 ===
+                ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
+                rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + txt19.getText() + "and a.ONUMB = " + txt20.getText() + "order by a.anumb");
+                if (rs.isLast() == false) {
+                    npp = 0;
+                    while (rs.next()) {
+                        Vector vectorRec = new Vector();
+                        vectorRec.add(++npp);
+                        for (int i = 0; i < Fld.values().length; i++) {
+                            vectorRec.add(rs.getObject(Fld.values()[i].name()));
+                        }
+                        vectorRec.set(4, hmColor.get(vectorRec.get(4)));  //цвет
+                        vectorRec.set(5, hmColor.get(vectorRec.get(5)));  //цвет
+                        vectorRec.set(6, hmColor.get(vectorRec.get(6)));  //цвет
+                        String artikl = rs.getString("ANUMB"); //артикл                              
+                        Record artiklRec = eArtikl.query().stream().filter(r -> artikl.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
+                        vectorRec.add(4, artiklRec.get(eArtikl.name)); //имя артикула                 
+                        vectorRec.add(null); //стоим. элемента без скидки
+                        vectorRec.add(null); //стоим. элемента со скидкой                
+                        ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
+                    }
+                }
+                rs.close();
             }
-            //=== Таблица 1 ===
-            ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
-            ResultSet rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + txt19.getText() + "and a.ONUMB = " + txt20.getText() + "order by a.anumb");
+            //=== Таблица 6 ===
+            Vector vectorData = new Vector();
+            Vector vectorColumn = new Vector(Arrays.asList("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
+            ResultSet rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
+                    + "where a.punic = b.punic and b.pdate > '01.01.2022' and b.pdate < '01.01.2022' order by b.pdate"); //427820
             if (rs.isLast() == false) {
-                int npp = 0;
                 while (rs.next()) {
                     Vector vectorRec = new Vector();
-                    vectorRec.add(++npp);
-                    for (int i = 0; i < Fld.values().length; i++) {
-                        vectorRec.add(rs.getObject(Fld.values()[i].name()));
+                    vectorRec.add(rs.getObject("PUNIC"));
+                    vectorRec.add(rs.getObject("PNUMB"));
+                    vectorRec.add(rs.getObject("ONUMB"));
+                    vectorRec.add(rs.getObject("ONAME"));
+                    vectorRec.add(rs.getObject("PDATE"));
+                    //vectorRec.add(rs.getObject("PDATE"));
+                    try {
+                        Blob blob = rs.getBlob("BPICT");
+                        int blobLength = (int) blob.length();
+                        byte[] bytes = blob.getBytes(1, blobLength);
+                        blob.free();
+                        BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
+                        ImageIcon icon = new ImageIcon(img);
+                        vectorRec.add(icon);
+                    } catch (Exception e) {
+                        vectorRec.add(null);
                     }
-                    vectorRec.set(4, hmColor.get(vectorRec.get(4)));  //цвет
-                    vectorRec.set(5, hmColor.get(vectorRec.get(5)));  //цвет
-                    vectorRec.set(6, hmColor.get(vectorRec.get(6)));  //цвет
-                    String artikl = rs.getString("ANUMB"); //артикл                              
-                    Record artiklRec = eArtikl.query().stream().filter(r -> artikl.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
-                    vectorRec.add(4, artiklRec.get(eArtikl.name)); //имя артикула                 
-                    vectorRec.add(null); //стоим. элемента без скидки
-                    vectorRec.add(null); //стоим. элемента со скидкой                
-                    ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
+                    vectorData.add(vectorRec);
                 }
             }
+            DefaultTableModel model = new DefaultTableModel(vectorData, vectorColumn) {
+                public Class getColumnClass(int column) {
+                    return (column == 5) ? ImageIcon.class : Object.class;
+                    //return Object.class;
+                }
+            };
+            tab6.setModel(model);
+            tab6.getColumnModel().getColumn(0).setMaxWidth(80);
+            tab6.getColumnModel().getColumn(1).setMaxWidth(80);
+            tab6.getColumnModel().getColumn(2).setMaxWidth(80);
             rs.close();
-//            //=== Таблица 6 ===
-//            Vector vectorData = new Vector();
-//            Vector vectorColumn = new Vector(Arrays.asList("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
-//            rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
-//                    + "where a.punic = b.punic and b.pdate > '01.01.2015' and b.pdate < '01.01.2016' order by b.pdate"); //427820
-//            if (rs.isLast() == false) {
-//                while (rs.next()) {
-//                    Vector vectorRec = new Vector();
-//                    vectorRec.add(rs.getObject("PUNIC"));
-//                    vectorRec.add(rs.getObject("PNUMB"));
-//                    vectorRec.add(rs.getObject("ONUMB"));
-//                    vectorRec.add(rs.getObject("ONAME"));
-//                    vectorRec.add(rs.getObject("PDATE"));
-//                    //vectorRec.add(rs.getObject("PDATE"));
-//                    try {
-//                        Blob blob = rs.getBlob("BPICT");
-//                        int blobLength = (int) blob.length();
-//                        byte[] bytes = blob.getBytes(1, blobLength);
-//                        blob.free();
-//                        BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
-//                        ImageIcon icon = new ImageIcon(img);
-//                        vectorRec.add(icon);
-//                    } catch (Exception e) {
-//                        vectorRec.add(null);
-//                    } 
-//                    vectorData.add(vectorRec);
-//                }
-//            }
-//            DefaultTableModel model = new DefaultTableModel(vectorData, vectorColumn) {
-//                public Class getColumnClass(int column) {
-//                    return (column == 5) ? ImageIcon.class : Object.class;
-//                    //return Object.class;
-//                }
-//            };
-//            tab6.setModel(model);
-//            tab6.getColumnModel().getColumn(0).setMaxWidth(80);
-//            tab6.getColumnModel().getColumn(1).setMaxWidth(80);
-//            tab6.getColumnModel().getColumn(2).setMaxWidth(80);
-//            rs.close();
         } catch (SQLException e) {
             System.err.println("Ошибка: DBCompare.loadingTab4().  " + e);
         }
