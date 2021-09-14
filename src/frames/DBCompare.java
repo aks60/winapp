@@ -337,7 +337,7 @@ public class DBCompare extends javax.swing.JFrame {
             //=== Таблица 6 ===
             Vector vectorData = new Vector();
             Vector vectorColumn = new Vector(Arrays.asList("T1", "T2", "T3", "T4", "T5"));
-            rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, a.bpict from listord a, listprj b where a.punic = b.punic and b.punic = 427876");
+            rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, a.bpict from listord a, listprj b where a.punic = b.punic and b.punic > 427800");
             if (rs.isLast() == false) {
                 while (rs.next()) {
                     Vector vectorRec = new Vector();
@@ -345,43 +345,23 @@ public class DBCompare extends javax.swing.JFrame {
                     vectorRec.add(rs.getObject("PNUMB"));
                     vectorRec.add(rs.getObject("ONUMB"));
                     vectorRec.add(rs.getObject("ONAME"));
-//                    try {
-//                        Blob blob = rs.getBlob("BPICT");
-//                        int blobLength = (int) blob.length();
-//                        byte[] bytes = blob.getBytes(1, blobLength);
-//                        blob.free();
-//                        BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
-//                        ImageIcon icon = new ImageIcon(img);
-//                        vectorData.add(icon.getImage());
-//                    } catch (Exception e) {
-//                        vectorData.add(null);
-//                    }
-
-                    byte[] imgData = rs.getBytes("BPICT");
-                    ImageIcon imagIcon = new ImageIcon(imgData);
-                    Image img = imagIcon.getImage();
-                    Image im = imagIcon.getImage();
-                    Image myImage = im.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-                    ImageIcon newImageIcon = new ImageIcon(myImage);
-                    vectorRec.add(newImageIcon);
-                    vectorData.add(vectorRec);
-
-//                    Image img = newImageIcon.getImage();                    
-//                    BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_BYTE_BINARY);
-//                    Graphics2D g2 = bi.createGraphics();
-//                    g2.drawImage(img, 0, 0, null);
-//                    g2.dispose();
-//                    try {
-//                        ImageIO.write(bi, "jpg", new File("D:\\Data\\00\\img.jpg"));
-//                    } catch (Exception e) {
-//
-//                    }
+                    try {
+                        Blob blob = rs.getBlob("BPICT");
+                        int blobLength = (int) blob.length();
+                        byte[] bytes = blob.getBytes(1, blobLength);
+                        blob.free();
+                        BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
+                        ImageIcon icon = new ImageIcon(img);
+                        vectorRec.add(icon);
+                        vectorData.add(vectorRec);
+                    } catch (Exception e) {
+                        vectorRec.add(null);
+                    }                             
                 }
             }
             DefaultTableModel model = new DefaultTableModel(vectorData, vectorColumn) {
                 public Class getColumnClass(int column) {
-                    return (column == 4) ? Image.class : Object.class;
-                    //return Object.class;
+                    return (column == 4) ? ImageIcon.class : Object.class;
                 }
             };
             tab6.setModel(model);
@@ -1107,67 +1087,3 @@ public class DBCompare extends javax.swing.JFrame {
         tab4.getColumnModel().getColumn(11).setCellRenderer(cellRenderer3);
     }
 }
-/*
-package tableicon;
-
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.table.*;
-
-public class TableIcon extends JPanel
-{
-    public TableIcon()
-    {
-        Icon aboutIcon = new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img32\\d026.gif");
-        Icon addIcon = new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img32\\d027.gif");
-        Icon copyIcon = new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img32\\d027.gif");
-
-        String[] columnNames = {"Picture", "Description"};
-        Object[][] data =
-        {
-            {aboutIcon, "About"},
-            {addIcon, "Add"},
-            {copyIcon, "Copy"},
-        };
-
-        DefaultTableModel model = new DefaultTableModel(data, columnNames)
-        {
-            //  Returning the Class of each column will allow different
-            //  renderers to be used based on Class
-            public Class getColumnClass(int column)
-            {
-                return getValueAt(0, column).getClass();
-            }
-        };
-        JTable table = new JTable( model );
-        table.setRowHeight(80);
-        table.setPreferredScrollableViewportSize(table.getPreferredSize());
-
-        JScrollPane scrollPane = new JScrollPane( table );
-        add( scrollPane );
-    }
-
-    private static void createAndShowGUI()
-    {
-        JFrame frame = new JFrame("Table Icon");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new TableIcon());
-        frame.setLocationByPlatform( true );
-        frame.pack();
-        frame.setVisible( true );
-    }
-
-    public static void main(String[] args)
-    {
-        EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                createAndShowGUI();
-            }
-        });
-    }
-
-}
-
- */
