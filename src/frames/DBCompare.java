@@ -11,7 +11,10 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -98,7 +103,7 @@ public class DBCompare extends javax.swing.JFrame {
         initElements();
         cn = Test.connect1();
         loadingData();
-        loadingTab14(iwin);
+        loadingTabGroup1(iwin);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
@@ -112,7 +117,7 @@ public class DBCompare extends javax.swing.JFrame {
         initElements();
         cn = Test.connect1();
         loadingData();
-        loadingTab41();
+        loadingTabGroup2();
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
         tabb.setSelectedIndex(3);
         tab1.setColumnSelectionInterval(3, 3);
@@ -132,7 +137,7 @@ public class DBCompare extends javax.swing.JFrame {
         }
     }
 
-    public void loadingTab14(Wincalc iwin) {
+    public void loadingTabGroup1(Wincalc iwin) {
         try {
             Map<String, Vector> hmSpc = new HashMap();
             Set<String> setSpc1 = new HashSet();
@@ -250,7 +255,7 @@ public class DBCompare extends javax.swing.JFrame {
             rs = st.executeQuery("select b.anumb, c.anumb, a.typ, d.anum1, d.anum2, d.cname, e.cname from SAVECON a"
                     + " left join SAVEELM b on a.punic = b.punic and a.onumb = b.onumb and a.ne1 = b.nel left join SAVEELM c on a.punic = c.punic and a.onumb = c.onumb and a.ne2 = c.nel"
                     + " left join connlst d on a.ncon = d.cconn left join connvar e on a.nvar = e.cunic"
-                    + " where a.punic = " + punic + " and a.onumb = "  + iwin.rootGson.ord + " order by a.typ, d.cname");
+                    + " where a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord + " order by a.typ, d.cname");
             while (rs.next()) {
                 Vector vectorRec = new Vector();
                 vectorRec.add(++npp);
@@ -271,47 +276,48 @@ public class DBCompare extends javax.swing.JFrame {
     }
 
     //select distinct a.punic, a.onumb from saveelm a, specpau b where a.punic = b.punic and a.onumb = b.onumb
-    public void loadingTab41() {
+    public void loadingTabGroup2() {
         try {
-            //=== Таблица 4 === 
-            int npp = 0;
-            ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
             cn = Test.connect1();
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + txt19.getText() + " and ONUMB = " + txt20.getText() + " order by TYPP");
-            if (rs.isLast() == false) {
-                while (rs.next()) {
-                    Vector vectorRec = new Vector();
-                    vectorRec.add(++npp);
-                    vectorRec.add(rs.getObject("PUNIC"));
-                    vectorRec.add(rs.getObject("ONUMB"));
-                    vectorRec.add(rs.getObject("ANUMB"));
-                    vectorRec.add(rs.getObject("C1X"));
-                    vectorRec.add(rs.getObject("C1Y"));
-                    vectorRec.add(rs.getObject("C2X"));
-                    vectorRec.add(rs.getObject("C2Y"));
-                    vectorRec.add(rs.getObject("ALENG"));
-                    vectorRec.add(rs.getObject("ALEN1"));
-                    vectorRec.add(rs.getObject("ALEN2"));
-                    vectorRec.add(rs.getObject("RAD"));
-                    vectorRec.add(rs.getObject("TYPP"));
-                    ((DefaultTableModel) tab4.getModel()).getDataVector().add(vectorRec);
+            //=== Таблица 4 === 
+            if (txt19.getText().isEmpty() == false) {
+                int npp = 0;
+                ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
+                ResultSet rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + txt19.getText() + " and ONUMB = " + txt20.getText() + " order by TYPP");
+                if (rs.isLast() == false) {
+                    while (rs.next()) {
+                        Vector vectorRec = new Vector();
+                        vectorRec.add(++npp);
+                        vectorRec.add(rs.getObject("PUNIC"));
+                        vectorRec.add(rs.getObject("ONUMB"));
+                        vectorRec.add(rs.getObject("ANUMB"));
+                        vectorRec.add(rs.getObject("C1X"));
+                        vectorRec.add(rs.getObject("C1Y"));
+                        vectorRec.add(rs.getObject("C2X"));
+                        vectorRec.add(rs.getObject("C2Y"));
+                        vectorRec.add(rs.getObject("ALENG"));
+                        vectorRec.add(rs.getObject("ALEN1"));
+                        vectorRec.add(rs.getObject("ALEN2"));
+                        vectorRec.add(rs.getObject("RAD"));
+                        vectorRec.add(rs.getObject("TYPP"));
+                        ((DefaultTableModel) tab4.getModel()).getDataVector().add(vectorRec);
+                    }
                 }
+                npp = 0;
+                rs.close();
+                rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + txt19.getText() + " and a.onumb = " + txt20.getText() + " and a.funic = b.funic");
+                while (rs.next()) {
+                    ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{rs.getString("FNAME")});
+                }
+                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                paintPanel.repaint();
             }
-            npp = 0;
-            rs.close();
-            rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + txt19.getText() + " and a.onumb = " + txt20.getText() + " and a.funic = b.funic");
-            while (rs.next()) {
-                ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{rs.getString("FNAME")});
-            }
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            paintPanel.repaint();
-
             //=== Таблица 1 ===
             ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + txt19.getText() + "and a.ONUMB = " + txt20.getText() + "order by a.anumb");
+            ResultSet rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + txt19.getText() + "and a.ONUMB = " + txt20.getText() + "order by a.anumb");
             if (rs.isLast() == false) {
-                npp = 0;
+                int npp = 0;
                 while (rs.next()) {
                     Vector vectorRec = new Vector();
                     vectorRec.add(++npp);
@@ -330,7 +336,58 @@ public class DBCompare extends javax.swing.JFrame {
                 }
             }
             rs.close();
+            //=== Таблица 6 ===
+            Vector vectorData = new Vector();
+            Vector vectorColumn = new Vector(Arrays.asList("T1", "T2", "T3", "T4", "T5"));
+            rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, a.bpict from listord a, listprj b where a.punic = b.punic and b.punic = 427876");
+            if (rs.isLast() == false) {
+                while (rs.next()) {
+                    Vector vectorRec = new Vector();
+                    vectorRec.add(rs.getObject("PUNIC"));
+                    vectorRec.add(rs.getObject("PNUMB"));
+                    vectorRec.add(rs.getObject("ONUMB"));
+                    vectorRec.add(rs.getObject("ONAME"));
+//                    try {
+//                        Blob blob = rs.getBlob("BPICT");
+//                        int blobLength = (int) blob.length();
+//                        byte[] bytes = blob.getBytes(1, blobLength);
+//                        blob.free();
+//                        BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
+//                        ImageIcon icon = new ImageIcon(img);
+//                        vectorData.add(icon.getImage());
+//                    } catch (Exception e) {
+//                        vectorData.add(null);
+//                    }
 
+                    byte[] imgData = rs.getBytes("BPICT");
+                    ImageIcon imagIcon = new ImageIcon(imgData);
+                    Image img = imagIcon.getImage();
+                    Image im = imagIcon.getImage();
+                    Image myImage = im.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+                    ImageIcon newImageIcon = new ImageIcon(myImage);
+                    vectorRec.add(newImageIcon);
+                    vectorData.add(vectorRec);
+
+//                    Image img = newImageIcon.getImage();                    
+//                    BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_BYTE_BINARY);
+//                    Graphics2D g2 = bi.createGraphics();
+//                    g2.drawImage(img, 0, 0, null);
+//                    g2.dispose();
+//                    try {
+//                        ImageIO.write(bi, "jpg", new File("D:\\Data\\00\\img.jpg"));
+//                    } catch (Exception e) {
+//
+//                    }
+                }
+            }
+            DefaultTableModel model = new DefaultTableModel(vectorData, vectorColumn) {
+                public Class getColumnClass(int column) {
+                    return (column == 4) ? Image.class : Object.class;
+                    //return Object.class;
+                }
+            };
+            tab6.setModel(model);
+            rs.close();
         } catch (SQLException e) {
             System.err.println("Ошибка: DBCompare.loadingTab4().  " + e);
         }
@@ -572,6 +629,9 @@ public class DBCompare extends javax.swing.JFrame {
         txt20 = new javax.swing.JTextField();
         btn1 = new javax.swing.JButton();
         labFurn = new javax.swing.JLabel();
+        pan11 = new javax.swing.JPanel();
+        scr6 = new javax.swing.JScrollPane();
+        tab6 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
@@ -716,7 +776,7 @@ public class DBCompare extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"select distinct a.punic, b.pnumb, a.onumb, c.oname from specpau a, listprj b, listord c where a.punic = b.punic and a.punic = c.punic and a.onumb = c.onumb order by a.punic, b.pnumb, a.onumb"},
+                {"select distinct b.punic, b.pnumb, a.onumb, c.oname, b.pdate from specpau a, listprj b, listord c where a.punic = b.punic and a.punic = c.punic and a.onumb = c.onumb order by b.pdate, b.pnumb, a.onumb"},
                 {""}
             },
             new String [] {
@@ -920,6 +980,33 @@ public class DBCompare extends javax.swing.JFrame {
 
         tabb.addTab("Рисунок конструкции", pan6);
 
+        pan11.setLayout(new java.awt.BorderLayout());
+
+        tab6.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Номер проекта", "Номер заказа", "Имя заказа", "Рисунок"
+            }
+        ));
+        tab6.setFillsViewportHeight(true);
+        tab6.setRowHeight(80);
+        scr6.setViewportView(tab6);
+        if (tab6.getColumnModel().getColumnCount() > 0) {
+            tab6.getColumnModel().getColumn(0).setPreferredWidth(140);
+            tab6.getColumnModel().getColumn(0).setMaxWidth(140);
+            tab6.getColumnModel().getColumn(1).setPreferredWidth(140);
+            tab6.getColumnModel().getColumn(1).setMaxWidth(140);
+            tab6.getColumnModel().getColumn(2).setPreferredWidth(140);
+            tab6.getColumnModel().getColumn(2).setMaxWidth(140);
+        }
+
+        pan11.add(scr6, java.awt.BorderLayout.CENTER);
+
+        tabb.addTab("Список заказов", pan11);
+
         center.add(tabb, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
@@ -987,7 +1074,7 @@ public class DBCompare extends javax.swing.JFrame {
     }//GEN-LAST:event_tab1MousePressed
 
     private void btn1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1
-        loadingTab41();
+        loadingTabGroup2();
     }//GEN-LAST:event_btn1
 
     private void txt19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt19ActionPerformed
@@ -1011,6 +1098,7 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
+    private javax.swing.JPanel pan11;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
@@ -1024,12 +1112,14 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
+    private javax.swing.JScrollPane scr6;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
+    private javax.swing.JTable tab6;
     private javax.swing.JTabbedPane tabb;
     private javax.swing.JTextField txt19;
     private javax.swing.JTextField txt20;

@@ -353,7 +353,7 @@ public class Systree extends javax.swing.JFrame {
             try {
                 Object script = record.get(eSysprod.script);
                 ImageIcon image = Canvas.createImageIcon(iwin, script, length);
-                record.add(image);
+                record.add(image);                
 
             } catch (Exception e) {
                 System.err.println("Ошибка:Systree.loadingTab5() " + e);
