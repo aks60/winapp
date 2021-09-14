@@ -334,38 +334,45 @@ public class DBCompare extends javax.swing.JFrame {
                 }
             }
             rs.close();
-            //=== Таблица 6 ===
-            Vector vectorData = new Vector();
-            Vector vectorColumn = new Vector(Arrays.asList("T1", "T2", "T3", "T4", "T5"));
-            rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, a.bpict from listord a, listprj b where a.punic = b.punic and b.punic > 427800");
-            if (rs.isLast() == false) {
-                while (rs.next()) {
-                    Vector vectorRec = new Vector();
-                    vectorRec.add(rs.getObject("PUNIC"));
-                    vectorRec.add(rs.getObject("PNUMB"));
-                    vectorRec.add(rs.getObject("ONUMB"));
-                    vectorRec.add(rs.getObject("ONAME"));
-                    try {
-                        Blob blob = rs.getBlob("BPICT");
-                        int blobLength = (int) blob.length();
-                        byte[] bytes = blob.getBytes(1, blobLength);
-                        blob.free();
-                        BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
-                        ImageIcon icon = new ImageIcon(img);
-                        vectorRec.add(icon);
-                        vectorData.add(vectorRec);
-                    } catch (Exception e) {
-                        vectorRec.add(null);
-                    }                             
-                }
-            }
-            DefaultTableModel model = new DefaultTableModel(vectorData, vectorColumn) {
-                public Class getColumnClass(int column) {
-                    return (column == 4) ? ImageIcon.class : Object.class;
-                }
-            };
-            tab6.setModel(model);
-            rs.close();
+//            //=== Таблица 6 ===
+//            Vector vectorData = new Vector();
+//            Vector vectorColumn = new Vector(Arrays.asList("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
+//            rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
+//                    + "where a.punic = b.punic and b.pdate > '01.01.2015' and b.pdate < '01.01.2016' order by b.pdate"); //427820
+//            if (rs.isLast() == false) {
+//                while (rs.next()) {
+//                    Vector vectorRec = new Vector();
+//                    vectorRec.add(rs.getObject("PUNIC"));
+//                    vectorRec.add(rs.getObject("PNUMB"));
+//                    vectorRec.add(rs.getObject("ONUMB"));
+//                    vectorRec.add(rs.getObject("ONAME"));
+//                    vectorRec.add(rs.getObject("PDATE"));
+//                    //vectorRec.add(rs.getObject("PDATE"));
+//                    try {
+//                        Blob blob = rs.getBlob("BPICT");
+//                        int blobLength = (int) blob.length();
+//                        byte[] bytes = blob.getBytes(1, blobLength);
+//                        blob.free();
+//                        BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
+//                        ImageIcon icon = new ImageIcon(img);
+//                        vectorRec.add(icon);
+//                    } catch (Exception e) {
+//                        vectorRec.add(null);
+//                    } 
+//                    vectorData.add(vectorRec);
+//                }
+//            }
+//            DefaultTableModel model = new DefaultTableModel(vectorData, vectorColumn) {
+//                public Class getColumnClass(int column) {
+//                    return (column == 5) ? ImageIcon.class : Object.class;
+//                    //return Object.class;
+//                }
+//            };
+//            tab6.setModel(model);
+//            tab6.getColumnModel().getColumn(0).setMaxWidth(80);
+//            tab6.getColumnModel().getColumn(1).setMaxWidth(80);
+//            tab6.getColumnModel().getColumn(2).setMaxWidth(80);
+//            rs.close();
         } catch (SQLException e) {
             System.err.println("Ошибка: DBCompare.loadingTab4().  " + e);
         }
@@ -885,7 +892,6 @@ public class DBCompare extends javax.swing.JFrame {
         lab20.setMinimumSize(new java.awt.Dimension(34, 14));
 
         txt19.setFont(frames.UGui.getFont(0,0));
-        txt19.setText("427850");
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(50, 18));
         txt19.addActionListener(new java.awt.event.ActionListener() {
