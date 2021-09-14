@@ -57,12 +57,16 @@ public class AreaArch extends AreaSimple {
         iwin().mapJoin.put(elemBott.joinPoint(1), elem4);
     }
 
-    protected void addSpecificShtapik(ElemGlass elemGlass, Specific spcAdd) {
+    protected void setFilling(ElemGlass glass) {
+        
+    }
+    
+    protected void addFilling(ElemGlass glass, Specific spcAdd) {
         Float dw = spcAdd.width;
-        ElemSimple imp = elemGlass.joinFlat(Layout.BOTT);
+        ElemSimple imp = glass.joinFlat(Layout.BOTT);
         ElemSimple arch = mapFrame.get(Layout.TOP);
 
-        if (elemGlass.anglHoriz == elemGlass.sideHoriz[0]) { //по основанию арки
+        if (glass.anglHoriz == glass.sideHoriz[0]) { //по основанию арки
             double r1 = radiusArch - arch.artiklRec.getFloat(eArtikl.height) + arch.artiklRec.getDbl(eArtikl.size_falz); //внешний радиус
             double h1 = imp.y1 + imp.artiklRec.getDbl(eArtikl.size_falz) - arch.artiklRec.getDbl(eArtikl.height) + arch.artiklRec.getDbl(eArtikl.size_falz);
             double l1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны штапика
@@ -74,9 +78,9 @@ public class AreaArch extends AreaSimple {
             spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
             spcAdd.anglCut2 = (float) ang1;
             spcAdd.anglCut1 = (float) ang1;
-            elemGlass.spcRec.spcList.add(spcAdd); //добавим спецификацию
+            glass.spcRec.spcList.add(spcAdd); //добавим спецификацию
 
-        } else if (elemGlass.anglHoriz == elemGlass.sideHoriz[2]) { //по дуге арки   
+        } else if (glass.anglHoriz == glass.sideHoriz[2]) { //по дуге арки   
             double r1 = radiusArch - arch.artiklRec.getFloat(eArtikl.height) + arch.artiklRec.getDbl(eArtikl.size_falz); //внешний радиус
             double h1 = imp.y1 + imp.artiklRec.getDbl(eArtikl.size_falz) - arch.artiklRec.getDbl(eArtikl.height) + arch.artiklRec.getDbl(eArtikl.size_falz);
             double l1 = Math.sqrt((2 * r1 * h1) - (h1 * h1)); //длина нижней стороны штапика
@@ -91,7 +95,7 @@ public class AreaArch extends AreaSimple {
             spcAdd.height = spcAdd.artiklRec.getFloat(eArtikl.height);
             spcAdd.anglCut2 = (float) ang3;
             spcAdd.anglCut1 = (float) ang3;
-            elemGlass.spcRec.spcList.add(spcAdd); //добавим спецификацию
+            glass.spcRec.spcList.add(spcAdd); //добавим спецификацию
         }
     }
 

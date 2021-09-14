@@ -68,6 +68,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import startup.App;
 import startup.Main;
+import static startup.Test.numDb;
 
 /**
  * В пс3 и пс4 разное количество полей в таблицах, но список столбцов в
@@ -80,15 +81,11 @@ import startup.Main;
 public class Profstroy {
 
     private static Queue<Object[]> que = null;
-    private static int count = 0;
     private static String versionPs = "4";
-    private static int numDb = Integer.valueOf(eProperty.base_num.read());
     private static Connection cn1;
     private static Connection cn2;
     private static Statement st1; //источник 
     private static Statement st2;//приёмник
-    private static String src, out;
-    private static JTextPane tp = null;
 
     public static void exec() {
         cn1 = startup.Test.connect1(); //источник
@@ -131,6 +128,8 @@ public class Profstroy {
             while (resultSet2.next()) {
                 listExistTable2.add(resultSet2.getString("TABLE_NAME"));
             }
+            //Отключаем все генераторы
+            st2.executeUpdate("update rdb$triggers  set rdb$trigger_inactive = 1  where rdb$trigger_name like 'IBE$%';");
             //Генераторы приёмника
             resultSet2 = st2.executeQuery("select rdb$generator_name from rdb$generators");
             while (resultSet2.next()) {
@@ -228,6 +227,9 @@ public class Profstroy {
                     executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
             }
+            //Включаем все генераторы
+            st2.executeUpdate("update rdb$triggers  set rdb$trigger_inactive = 0  where rdb$trigger_name like 'IBE$%';");
+            
             cn2.commit();
             cn2.setAutoCommit(true);
 
@@ -552,9 +554,10 @@ public class Profstroy {
             updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");
             updateSql(eProject.up, eProject.prjpart_id, "kname", ePrjpart.up, "partner");
             executeSql("update prjpart set org_leve2 = trim(org_leve2)");
-
-            if (Main.dev == true) {
+            String db = (numDb == 1) ? eProperty.base1.read() : (numDb == 2) ? eProperty.base2.read() : eProperty.base3.read();
+            if (db.toUpperCase().contains("BIMAX.FDB")) {
                 executeSql("4", "update artikl set " + eArtikl.size_falz.name() + " = 20 where code = '336200'"); //поправка штульпа в bimax 
+                executeSql("delete from glaspar2 where params_id = 15030 and text = '0,97'"); //предположительно параметр добавлен в самом конце
             }
         } catch (Exception e) {
             println(Color.RED, "Ошибка: updatePart().  " + e);

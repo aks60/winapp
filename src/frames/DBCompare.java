@@ -6,6 +6,8 @@ import common.UCom;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSetting;
+import frames.swing.DefTableModel;
+import frames.swing.FilterTable;
 import java.awt.BasicStroke;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -33,7 +35,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -56,6 +57,7 @@ public class DBCompare extends javax.swing.JFrame {
     private Graphics2D gc2d = null;
     private DecimalFormat df1 = new DecimalFormat("#0.0");
     private DecimalFormat df2 = new DecimalFormat("#0.00");
+    private FilterTable filterTable = null;
     private HashMap<Integer, String> hmColor = new HashMap();
     private JPanel paintPanel = new JPanel() {
 
@@ -108,8 +110,6 @@ public class DBCompare extends javax.swing.JFrame {
         tab1.setRowSorter(sorter);
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
         tab1.setColumnSelectionInterval(3, 3);
-        labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn())));
-        txtFilter.setName(tab1.getName());
     }
 
     public DBCompare() {
@@ -121,8 +121,6 @@ public class DBCompare extends javax.swing.JFrame {
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
         tabb.setSelectedIndex(3);
         tab1.setColumnSelectionInterval(3, 3);
-        labFilter.setText(tab1.getColumnName((tab1.getSelectedColumn())));
-        txtFilter.setName(tab1.getName());
     }
 
     public void loadingData() {
@@ -633,11 +631,6 @@ public class DBCompare extends javax.swing.JFrame {
         scr6 = new javax.swing.JScrollPane();
         tab6 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
-        labFilter = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField(){
-            public JTable table = null;
-        };
-        checkFilter = new javax.swing.JCheckBox();
         labSum = new javax.swing.JLabel();
 
         jPanel1.setPreferredSize(new java.awt.Dimension(895, 60));
@@ -733,9 +726,10 @@ public class DBCompare extends javax.swing.JFrame {
             }
         });
         tab1.setFillsViewportHeight(true);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab1MousePressed(evt);
+                tabMousePressed(evt);
             }
         });
         scr.setViewportView(tab1);
@@ -1016,28 +1010,6 @@ public class DBCompare extends javax.swing.JFrame {
         south.setPreferredSize(new java.awt.Dimension(900, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
-        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        labFilter.setText("Поле");
-        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
-        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
-        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        south.add(labFilter);
-
-        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
-        txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
-        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtFilterfilterUpdate(evt);
-            }
-        });
-        south.add(txtFilter);
-
-        checkFilter.setText("в конце строки   ");
-        south.add(checkFilter);
-
         labSum.setText("sum:0");
         labSum.setMaximumSize(new java.awt.Dimension(200, 14));
         labSum.setMinimumSize(new java.awt.Dimension(200, 14));
@@ -1053,25 +1025,9 @@ public class DBCompare extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnClose
 
-    private void txtFilterfilterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterfilterUpdate
-        JTable table = tab1;
-        if (txtFilter.getText().length() == 0) {
-            ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }//GEN-LAST:event_txtFilterfilterUpdate
-
-    private void tab1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MousePressed
-        JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1));
-        if (txtFilter.getText().length() == 0) {
-            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-            txtFilter.setName(table.getName());
-        }
-    }//GEN-LAST:event_tab1MousePressed
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+        filterTable.mousePressed((JTable) evt.getSource());
+    }//GEN-LAST:event_tabMousePressed
 
     private void btn1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1
         loadingTabGroup2();
@@ -1086,13 +1042,11 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JButton btn1;
     private javax.swing.JButton btnClose;
     private javax.swing.JPanel center;
-    private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab19;
     private javax.swing.JLabel lab20;
-    private javax.swing.JLabel labFilter;
     private javax.swing.JLabel labFurn;
     private javax.swing.JLabel labSum;
     private javax.swing.JPanel north;
@@ -1123,7 +1077,6 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabb;
     private javax.swing.JTextField txt19;
     private javax.swing.JTextField txt20;
-    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
@@ -1131,6 +1084,10 @@ public class DBCompare extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
+        //sorter = new TableRowSorter<DefaultTableModel>((DefaultTableModel) tab1.getModel());
+        filterTable = new FilterTable(0, tab1);
+        south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus();
         DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {

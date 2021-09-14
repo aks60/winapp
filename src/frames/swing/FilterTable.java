@@ -55,7 +55,7 @@ public class FilterTable extends javax.swing.JPanel {
                 txtFilter.setName(table.getName());
             }
         } catch (Exception e) {
-            System.err.println("ERROR");
+            System.err.println("ОШИБКА:swing.FilterTable.mousePressed() " + e);
         }
     }
 
@@ -166,7 +166,7 @@ public class FilterTable extends javax.swing.JPanel {
                 }
             }
         } catch (Exception e) {
-            System.err.println("ERROR");
+            System.err.println("ОШИБКА:swing.FilterTable.txtCaretUpdate() " + e);
         }
     }//GEN-LAST:event_txtCaretUpdate
 

@@ -9,9 +9,7 @@ import domain.eElemdet;
 import domain.eFurndet;
 import domain.eGlasdet;
 import domain.eJoindet;
-import java.util.Arrays;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -386,7 +384,7 @@ public class Specification extends javax.swing.JFrame {
         });
         tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tab1.setFillsViewportHeight(true);
-        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Specification.this.mousePressed(evt);
@@ -394,13 +392,13 @@ public class Specification extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(24);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(20);
             tab1.getColumnModel().getColumn(0).setMaxWidth(40);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(26);
             tab1.getColumnModel().getColumn(1).setMaxWidth(40);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(26);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(28);
             tab1.getColumnModel().getColumn(2).setMaxWidth(40);
-            tab1.getColumnModel().getColumn(3).setPreferredWidth(44);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(3).setMaxWidth(60);
             tab1.getColumnModel().getColumn(4).setPreferredWidth(100);
             tab1.getColumnModel().getColumn(5).setPreferredWidth(240);
@@ -589,7 +587,6 @@ public class Specification extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
-
         new FrameToFile(this, btnClose);
         filterTable = new FilterTable(4, tab1);
         south.add(filterTable, 0);
@@ -643,6 +640,8 @@ public class Specification extends javax.swing.JFrame {
                 return label;
             }
         };
+        tab1.getColumnModel().getColumn(1).setCellRenderer(cellRenderer1);
+        tab1.getColumnModel().getColumn(2).setCellRenderer(cellRenderer1);
         tab1.getColumnModel().getColumn(6).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(7).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(8).setCellRenderer(cellRenderer0);
@@ -660,6 +659,12 @@ public class Specification extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(23).setCellRenderer(cellRenderer3);
+        if ("Nimbus".equals(eProperty.lookandfeel.read())) {
+            for (int i = 0; i < 22; i++) {
+                tab1.getColumnModel().getColumn(i).setPreferredWidth(tab1.getColumnModel().getColumn(i).getPreferredWidth() + tab1.getColumnModel().getColumn(i).getPreferredWidth() / 4);
+            }
+        }
+        tab1.getTableHeader().setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11));
         TableColumnModel cm = tab1.getColumnModel();
         ColumnGroup angl = new ColumnGroup("Угол");
         angl.add(cm.getColumn(12));

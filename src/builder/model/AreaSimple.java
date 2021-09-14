@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.List;
 import startup.Main;
 import builder.Wincalc;
+import builder.making.Specific;
+import domain.eArtikl;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;

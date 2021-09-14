@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
 import builder.script.GsonRoot;
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import frames.swing.DefMutableTreeNode;
 import frames.swing.Canvas;
 import java.awt.CardLayout;
@@ -25,18 +26,26 @@ import frames.swing.listener.ListenerRecord;
 import frames.swing.listener.ListenerFrame;
 import dataset.Conn;
 import frames.swing.DefTableModel;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.Writer;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.TreePath;
 
 public class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
-    
+
     public Wincalc iwin = new Wincalc();
     private Window owner = null;
     private ListenerRecord listenet = null;
     private Canvas paintPanel = new Canvas(iwin);
     private Query qModels = new Query(eSysmodel.values());
-    
+
     public Models() {
         initComponents();
         initElements();
@@ -46,7 +55,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         btnRemov.setVisible(false);
         loadingTab(tab1, 1001);
     }
-    
+
     public Models(java.awt.Window owner, ListenerRecord listener) {
         initComponents();
         initElements();
@@ -57,19 +66,19 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         owner.setEnabled(false);
         loadingTab(tab1, 1001);
     }
-    
+
     private void loadingData() {
         //
     }
-    
+
     private void loadingModel() {
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
         new DefTableModel(tab1, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
         tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            
+
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                
+
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
                     Object v = qModels.get(row).get(eSysmodel.values().length);
@@ -86,9 +95,9 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         new DefTableModel(tab2, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
         tab2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            
+
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                
+
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
                     Object v = qModels.get(row).get(eSysmodel.values().length);
@@ -105,9 +114,9 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         new DefTableModel(tab3, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
         tab3.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            
+
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                
+
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
                     Object v = qModels.get(row).get(eSysmodel.values().length);
@@ -123,9 +132,9 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             }
         });
     }
-    
+
     private void loadingTab(JTable tab, int form) {
-        
+
         qModels.select(eSysmodel.up, "where", eSysmodel.form, "=", form);
         DefaultTableModel dm = (DefaultTableModel) tab.getModel();
         dm.getDataVector().removeAllElements();
@@ -134,7 +143,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 Object script = record.get(eSysmodel.script);
                 ImageIcon image = Canvas.createImageIcon(iwin, script, 68);
                 record.add(image);
-                
+
             } catch (Exception e) {
                 System.err.println("Ошибка:Models.loadingTab() " + e);
             }
@@ -143,19 +152,19 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         UGui.updateBorderAndSql(tab, Arrays.asList(tab1, tab2, tab3));
         UGui.setSelectedRow(tab);
     }
-    
+
     private void loadingWin() {
         try {
             DefMutableTreeNode root = UGui.loadWinTree(iwin);
             tree.setModel(new DefaultTreeModel(root));
             UGui.expandTree(tree, new TreePath(root), true);
             tree.setSelectionRow(0);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка: Systree.loadingWin() " + e);
         }
     }
-    
+
     private void selectionTab1(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
@@ -164,7 +173,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             paintPanel.repaint(true);
         }
     }
-    
+
     private void selectionTab2(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
@@ -173,43 +182,43 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             paintPanel.repaint(true);
         }
     }
-    
+
     private void selectionTab3(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab3);
         if (index != -1) {
             Object script = qModels.get(index, eSysmodel.script);
             iwin.build(script.toString());
             paintPanel.repaint(true);
-        }        
+        }
     }
-    
+
     private void selectionTree() {
-        
+
         DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.com5t().type() == enums.Type.RECTANGL || selectedNode.com5t().type() == enums.Type.ARCH) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan19");
-                
+
             } else if (selectedNode.com5t().type() == enums.Type.AREA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan20");
-                
+
             } else if (selectedNode.com5t().type() == enums.Type.FRAME_SIDE) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan21");
-                
+
             } else if (selectedNode.com5t().type() == enums.Type.STVORKA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan22");
-                
-            } else if (selectedNode.com5t().type() == enums.Type.IMPOST 
+
+            } else if (selectedNode.com5t().type() == enums.Type.IMPOST
                     || selectedNode.com5t().type() == enums.Type.STOIKA
                     || selectedNode.com5t().type() == enums.Type.SHTULP) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan23");
-                
+
             } else if (selectedNode.com5t().type() == enums.Type.GLASS) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan24");
             }
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -970,16 +979,32 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
-        if (prj != null) {
+        try {
+            Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
             String json = builder.script.Winscript.test(Integer.valueOf(prj.toString()), true);
-            GsonRoot gson = new Gson().fromJson(json, GsonRoot.class);
+            GsonRoot win = new Gson().fromJson(json, GsonRoot.class);
+            
+//            JFileChooser chooser = new JFileChooser();
+//            chooser.setCurrentDirectory(new File("."));
+//            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//            chooser.setAcceptAllFileFilterUsed(false);
+//            FileNameExtensionFilter filter = new FileNameExtensionFilter("Json (формат json)", "json");
+//            chooser.setFileFilter(filter);
+//            if (chooser.showDialog(this, "Выбрать") == JFileChooser.CANCEL_OPTION) {
+//                return;
+//            }
+//            String path = chooser.getSelectedFile().getPath();
+//            JsonReader reader = new JsonReader(new FileReader(path));
+//            GsonRoot win = new Gson().fromJson(reader, GsonRoot.class);
+//            String json = new Gson().toJson(win);
+//            reader.close();            
+
             Record record = eSysmodel.up.newRecord(Query.INS);
             record.set(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));
             record.set(eSysmodel.npp, qModels.size());
-            record.set(eSysmodel.name, "<html>" + gson.prj + " " + gson.name);
+            record.set(eSysmodel.name, "<html>" + win.prj + " " + win.name);
             record.set(eSysmodel.script, json);
-            
+
             if (tab1.getBorder() != null) {
                 record.set(eSysmodel.form, 1001);
             } else if (tab2.getBorder() != null) {
@@ -991,16 +1016,18 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             if (tab1.getBorder() != null) {
                 loadingTab(tab1, 1001);
                 UGui.setSelectedRow(tab1, qModels.size() - 1);
-                UGui.scrollRectToIndex(qModels.size() - 1, tab1);                 
+                UGui.scrollRectToIndex(qModels.size() - 1, tab1);
             } else if (tab2.getBorder() != null) {
-                loadingTab(tab2, 1004);  
+                loadingTab(tab2, 1004);
                 UGui.setSelectedRow(tab2, qModels.size() - 1);
-                UGui.scrollRectToIndex(qModels.size() - 1, tab2);                
+                UGui.scrollRectToIndex(qModels.size() - 1, tab2);
             } else if (tab3.getBorder() != null) {
-                loadingTab(tab3, 1002);  
+                loadingTab(tab3, 1002);
                 UGui.setSelectedRow(tab3, qModels.size() - 1);
-                UGui.scrollRectToIndex(qModels.size() - 1, tab3);                
+                UGui.scrollRectToIndex(qModels.size() - 1, tab3);
             }
+        } catch (Exception e) {
+            System.out.println("Ошибка:Models.btnInsert()");
         }
     }//GEN-LAST:event_btnInsert
 
@@ -1047,12 +1074,12 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             loadingTab(tab2, 1004);
             ((CardLayout) west.getLayout()).show(west, "pan14");
             UGui.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3));
-            UGui.setSelectedRow(tab2);            
+            UGui.setSelectedRow(tab2);
         } else if (btnT3.isSelected()) {
             loadingTab(tab3, 1002);
             ((CardLayout) west.getLayout()).show(west, "pan15");
             UGui.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3));
-            UGui.setSelectedRow(tab3); 
+            UGui.setSelectedRow(tab3);
         } else {
             loadingWin();
             ((CardLayout) west.getLayout()).show(west, "pan18");
@@ -1123,7 +1150,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     // End of variables declaration//GEN-END:variables
 // </editor-fold>
     private void initElements() {
-        
+
         new FrameToFile(this, btnClose);
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));

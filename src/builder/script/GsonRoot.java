@@ -2,6 +2,7 @@ package builder.script;
 
 import enums.Layout;
 import enums.Type;
+import startup.Main;
 
 public class GsonRoot extends GsonElem {
 
@@ -67,7 +68,7 @@ public class GsonRoot extends GsonElem {
         this.nuni = nuni;
         this.prj = Integer.valueOf(prj);
         this.name = (name == null) ? this.name : name;
-        if (nuni == -3) {
+        if (nuni == -3 && Main.dev == false) {
             this.color1 = -3;
             this.color2 = -3;
             this.color3 = -3;
