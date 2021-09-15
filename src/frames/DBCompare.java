@@ -194,8 +194,8 @@ public class DBCompare extends javax.swing.JFrame {
                 ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
             }
             rs.close();
-            lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = "
-                    + punic + "   Стоим.без.ск = " + UGui.df.format(sum1) + "   Стоим.со.ск = " + UGui.df.format(sum2));
+            lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = " + punic + "  Заказ: onumb = " 
+                    + iwin.rootGson.ord + "   Стоим.без.ск = " + UGui.df.format(sum1) + "   Стоим.со.ск = " + UGui.df.format(sum2));
 
             //=== Таблица 2 ===
             ((DefaultTableModel) tab2.getModel()).getDataVector().clear();
@@ -203,9 +203,9 @@ public class DBCompare extends javax.swing.JFrame {
             Set<String> setSpc2x = new HashSet(setSpc2);
             setSpc1x.removeAll(setSpc2);
             setSpc2x.removeAll(setSpc1);
-            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- SAOkna  за.выч.Профстрой ---")));
+            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- ЛИШНИЕ SAOkna  за.выч.Профстрой ---")));
             setSpc1x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
-            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- ПрофСтрой  за.выч.SAOkna ---")));
+            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- НЕДОСТАЮЩИЕ ПрофСтрой  за.выч.SAOkna ---")));
             setSpc2x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
             ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{""});
             ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{"Установленая фурнитура"});
@@ -339,7 +339,7 @@ public class DBCompare extends javax.swing.JFrame {
             Vector vectorData = new Vector();
             Vector vectorColumn = new Vector(Arrays.asList("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
             ResultSet rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
-                    + "where a.punic = b.punic and b.pdate > '01.01.2022' and b.pdate < '01.01.2022' order by b.pdate"); //427820
+                    + "where a.punic = b.punic and b.pdate > '01.01.2018' and b.pdate < '01.01.2022' order by b.pdate"); //427820
             if (rs.isLast() == false) {
                 while (rs.next()) {
                     Vector vectorRec = new Vector();
@@ -762,7 +762,7 @@ public class DBCompare extends javax.swing.JFrame {
                 {""}
             },
             new String [] {
-                "Артикул"
+                "."
             }
         ));
         tab2.setFillsViewportHeight(true);
@@ -893,6 +893,7 @@ public class DBCompare extends javax.swing.JFrame {
         lab20.setMinimumSize(new java.awt.Dimension(34, 14));
 
         txt19.setFont(frames.UGui.getFont(0,0));
+        txt19.setText("427708");
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(50, 18));
         txt19.addActionListener(new java.awt.event.ActionListener() {
@@ -902,7 +903,7 @@ public class DBCompare extends javax.swing.JFrame {
         });
 
         txt20.setFont(frames.UGui.getFont(0,0));
-        txt20.setText("1");
+        txt20.setText("2");
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt20.setPreferredSize(new java.awt.Dimension(20, 18));
 
