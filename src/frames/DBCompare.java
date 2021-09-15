@@ -348,7 +348,6 @@ public class DBCompare extends javax.swing.JFrame {
                     vectorRec.add(rs.getObject("ONUMB"));
                     vectorRec.add(rs.getObject("ONAME"));
                     vectorRec.add(rs.getObject("PDATE"));
-                    //vectorRec.add(rs.getObject("PDATE"));
                     try {
                         Blob blob = rs.getBlob("BPICT");
                         int blobLength = (int) blob.length();
@@ -357,6 +356,8 @@ public class DBCompare extends javax.swing.JFrame {
                         BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
                         ImageIcon icon = new ImageIcon(img);
                         vectorRec.add(icon);
+                        //ImageIO.write(img, "jpg", new File("img.jpg"));
+                       
                     } catch (Exception e) {
                         vectorRec.add(null);
                     }

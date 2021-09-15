@@ -404,15 +404,15 @@ public final class Bimax {
 
         } else if (prj == 508916) { //PUNIC = 427708  Трапеции
             rootGson = new GsonRoot(prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\*Открывание внутрь (ств. Z77)",
-                    Layout.VERT, Type.TRAPEZE, 1300, 1500, 1200, 1009, 10005, 1009);
+                    Layout.VERT, Type.TRAPEZE, 900, 1400, 1000, 1009, 10005, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
-            rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 400))
+            rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 400 + 87 - 30))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST));
-            rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 1100))
+            rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 1000 - 87 + 30))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'typeOpen':4, 'sysfurnID':1633}"))
                     .addElem(new GsonElem(Type.GLASS));
 
