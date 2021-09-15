@@ -194,8 +194,8 @@ public class DBCompare extends javax.swing.JFrame {
                 ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
             }
             rs.close();
-            lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = "
-                    + punic + "   Стоим.без.ск = " + UGui.df.format(sum1) + "   Стоим.со.ск = " + UGui.df.format(sum2));
+            lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = " + punic + "  Заказ: onumb = " 
+                    + iwin.rootGson.ord + "   Стоим.без.ск = " + UGui.df.format(sum1) + "   Стоим.со.ск = " + UGui.df.format(sum2));
 
             //=== Таблица 2 ===
             ((DefaultTableModel) tab2.getModel()).getDataVector().clear();
@@ -203,9 +203,9 @@ public class DBCompare extends javax.swing.JFrame {
             Set<String> setSpc2x = new HashSet(setSpc2);
             setSpc1x.removeAll(setSpc2);
             setSpc2x.removeAll(setSpc1);
-            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- SAOkna  за.выч.Профстрой ---")));
+            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- ЛИШНИЕ SAOkna  за.выч.Профстрой ---")));
             setSpc1x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
-            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- ПрофСтрой  за.выч.SAOkna ---")));
+            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- НЕДОСТАЮЩИЕ ПрофСтрой  за.выч.SAOkna ---")));
             setSpc2x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
             ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{""});
             ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{"Установленая фурнитура"});
@@ -762,7 +762,7 @@ public class DBCompare extends javax.swing.JFrame {
                 {""}
             },
             new String [] {
-                "Артикул"
+                "."
             }
         ));
         tab2.setFillsViewportHeight(true);
