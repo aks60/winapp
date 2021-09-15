@@ -339,7 +339,7 @@ public class DBCompare extends javax.swing.JFrame {
             Vector vectorData = new Vector();
             Vector vectorColumn = new Vector(Arrays.asList("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
             ResultSet rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
-                    + "where a.punic = b.punic and b.pdate > '01.01.2022' and b.pdate < '01.01.2022' order by b.pdate"); //427820
+                    + "where a.punic = b.punic and b.pdate > '01.01.2018' and b.pdate < '01.01.2022' order by b.pdate"); //427820
             if (rs.isLast() == false) {
                 while (rs.next()) {
                     Vector vectorRec = new Vector();
@@ -893,6 +893,7 @@ public class DBCompare extends javax.swing.JFrame {
         lab20.setMinimumSize(new java.awt.Dimension(34, 14));
 
         txt19.setFont(frames.UGui.getFont(0,0));
+        txt19.setText("427708");
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(50, 18));
         txt19.addActionListener(new java.awt.event.ActionListener() {
@@ -902,7 +903,7 @@ public class DBCompare extends javax.swing.JFrame {
         });
 
         txt20.setFont(frames.UGui.getFont(0,0));
-        txt20.setText("1");
+        txt20.setText("2");
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt20.setPreferredSize(new java.awt.Dimension(20, 18));
 
