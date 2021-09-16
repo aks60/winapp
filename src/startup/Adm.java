@@ -5,7 +5,7 @@ import frames.FrameToFile;
 import frames.swing.listener.ListenerFrame;
 import common.eProfile;
 import common.eProperty;
-import convert.Profstroy;
+import frames.Profstroy;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
