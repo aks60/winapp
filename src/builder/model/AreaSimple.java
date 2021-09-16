@@ -22,8 +22,7 @@ import builder.Wincalc;
 import common.UCom;
 import enums.PKjson;
 import enums.Type;
-import frames.UGui;
-import java.awt.BasicStroke;
+import frames.swing.Draw;
 
 public class AreaSimple extends Com5t {
 
@@ -206,17 +205,17 @@ public class AreaSimple extends Com5t {
                 int mov = 80;
                 for (int i = 1; i < ls1.size(); i++) {
                     float x1 = ls1.get(i - 1), x2 = ls1.get(i);
-                    iwin().draw.line(x1, iwin().height + mov, x2, iwin().height + mov, 0);
+                    Draw.line(iwin(), x1, iwin().height + mov, x2, iwin().height + mov, 0);
                 }
                 for (int i = 1; i < ls2.size(); i++) {
                     float y1 = ls2.get(i - 1), y2 = ls2.get(i);
-                    iwin().draw.line((this.x2 + mov), y1, (this.x2 + mov), y2, 0);
+                    Draw.line(iwin(), (this.x2 + mov), y1, (this.x2 + mov), y2, 0);
                 }
                 if (ls1.size() > 2) { //линия общей ширины
-                    iwin().draw.line(rootArea().x1, iwin().height + mov * 2, rootArea().x2, iwin().height + mov * 2, 0);
+                    Draw.line(iwin(), rootArea().x1, iwin().height + mov * 2, rootArea().x2, iwin().height + mov * 2, 0);
                 }
                 if (ls2.size() > 2) { //линия общей высоты
-                    iwin().draw.line(iwin().width + mov * 2, 0, iwin().width + mov * 2, iwin().height, 0);
+                    Draw.line(iwin(), iwin().width + mov * 2, 0, iwin().width + mov * 2, iwin().height, 0);
                 }
             }
             //Рисунок в память

@@ -57,7 +57,6 @@ public class Wincalc {
     public int colorID2 = -1;  //внутренний цвет
     public int colorID3 = -1;  //внещний цвет
 
-    public Draw draw = new Draw(this);
     public byte[] bufferByte = null; //буфер рисунка
     public BufferedImage bufferImg = null;  //образ рисунка
     public Graphics2D gc2d = null; //графический котекст рисунка  
