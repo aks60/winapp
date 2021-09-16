@@ -71,7 +71,7 @@ public class Test {
             //frame();
             //json();
             //parse();
-            //uid();            
+            //uid();  
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -82,10 +82,10 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-         String _case = "max";
+         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(508916, false));
+            iwin.build(builder.script.Winscript.test(601004, false));
             iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);

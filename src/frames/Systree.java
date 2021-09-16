@@ -26,6 +26,7 @@ import enums.UseSide;
 import enums.TypeOpen2;
 import enums.UseArtiklTo;
 import enums.TypeUse;
+import enums.Type;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -90,6 +91,7 @@ import frames.dialog.DicJoinvar;
 import frames.swing.FilterTable;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
@@ -2825,7 +2827,14 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        //LinkedList<AreaSimple> areaList = iwin.rootArea.listElem(enums.Type.AREA);
+        for (ElemSimple elem : iwin.listElem) {
+            if (elem.id() == 5) {
+                GsonElem gson = iwin.rootGson.find(elem.owner().id());
+                gson.resizeAll(333, Layout.VERT);
+                updateScript(elem.owner().id());
+            }
+        }
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -3294,12 +3303,13 @@ public class Systree extends javax.swing.JFrame {
 
     private void txt22Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt22Update
         float windowsID = winNode.com5t().id();
-        float dy = UCom.getFloat(txt22.getText()) / iwin.rootGson.height();
-        iwin.rootGson.height(UCom.getFloat(txt22.getText()));
-//        if (iwin.rootGson.heightAdd() != null) {
-//            iwin.rootGson.heightAdd(Util.getFloat(txt22.getText()));
-//        }
-        iwin.rootGson.heightDown(iwin.rootGson, dy);
+//        float dy = UCom.getFloat(txt22.getText()) / iwin.rootGson.height();
+//        iwin.rootGson.height(UCom.getFloat(txt22.getText()));
+////        if (iwin.rootGson.heightAdd() != null) {
+////            iwin.rootGson.heightAdd(Util.getFloat(txt22.getText()));
+////        }
+//        iwin.rootGson.heightDown(iwin.rootGson, dy);
+        iwin.rootGson.resizeAll(UCom.getFloat(txt22.getText()), Layout.VERT);
         updateScript(windowsID);
     }//GEN-LAST:event_txt22Update
 

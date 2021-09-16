@@ -1,8 +1,11 @@
 package builder.script;
 
+import builder.model.Com5t;
 import enums.Layout;
 import enums.Type;
 import java.util.LinkedList;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 public class GsonElem {
 
@@ -54,7 +57,7 @@ public class GsonElem {
         this.layout = layout;
         this.type = type;
     }
-    
+
     //Конструктор створки
     public GsonElem(Layout layout, Type type, String paramJson) {
         this.id = ++genId;
@@ -182,6 +185,32 @@ public class GsonElem {
             widthDown(area2, (wt * area2.width) / area2.width);
             area2.width = wt * area2.width;
         }
+    }
+
+    public void resizeAll(float length, Layout layout) {
+        GsonElem p = (parent == null) ? this : parent;
+        List<GsonElem> areaList = p.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
+
+        if (layout == Layout.HORIZ) {
+//                float dw = (this.width - length) / (areaList.size() - 1);
+//                gsonElem.width += (gsonElem == this) ? this.width - length : (dw > 0) ? -dw : dw;
+        } else {
+            if (parent == null) {
+                for (GsonElem gsonElem : areaList) {
+                    gsonElem.height += gsonElem.height / this.height * (length - this.height);
+                }
+                this.height = length;
+            } else {
+                for (GsonElem gsonElem : areaList) {
+                    float dh = gsonElem.height / this.height * (length - this.height);
+                    gsonElem.height += (gsonElem == this) ? length : (dh > 0) ? dh : -dh;
+                }
+            }
+        }
+    }
+
+    public void resizeNext(float length, Layout layout) {
+        System.err.println("В разработке!!!");
     }
 
     public LinkedList<GsonElem> childs() {

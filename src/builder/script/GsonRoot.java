@@ -85,5 +85,5 @@ public class GsonRoot extends GsonElem {
 
     public int nuni() {
         return nuni;
-    }
+    }    
 }

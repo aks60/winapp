@@ -161,7 +161,7 @@ public class ElemCross extends ElemSimple {
 
         spcRec.spcList.add(spcAdd);
     }
-
+    
     @Override
     public void paint() {
 

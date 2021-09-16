@@ -23,6 +23,7 @@ import common.UCom;
 import enums.PKjson;
 import enums.Type;
 import frames.swing.Draw;
+import static java.util.stream.Collectors.toList;
 
 public class AreaSimple extends Com5t {
 
@@ -100,6 +101,26 @@ public class AreaSimple extends Com5t {
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Com5t.parsingParam() " + e);
+        }
+    }
+
+    public void resizeAll(float x1, float y1, float x2, float y2) {
+        List<Com5t> areaList = owner.listChild.stream().filter(it -> it.type == Type.AREA).collect(toList());
+        if (this.x1 != x1) {
+            for (Com5t com5t : areaList) {
+                com5t.x1 += (com5t == this) ? this.x1 - x1 : (this.x1 - x1) / areaList.size();
+            }
+        } else if (this.y1 != y1) {
+
+            for (Com5t com5t : areaList) {
+                com5t.y1 += (com5t == this) ? this.y1 - y1 : (this.y1 - y1) / areaList.size();
+            }
+        } else if (this.x2 != x2) {
+            for (Com5t com5t : areaList) {
+                com5t.x2 += (com5t == this) ? this.x2 - x2 : (this.x2 - x2) / areaList.size();
+            }
+        } else if (this.y2 != y2) {
+            areaList.forEach(it -> it.y2 += (it == this) ? this.y2 - y1 : (this.y2 - y1) / areaList.size());
         }
     }
 
@@ -233,35 +254,4 @@ public class AreaSimple extends Com5t {
             System.err.println("Ошибка:AreaSimple.drawWin() " + s);
         }
     }
-
-//    private void line(float x1, float y1, float x2, float y2, float dy) {
-//
-//        iwin().gc2d.setColor(java.awt.Color.BLACK);
-//        int size = (iwin().scale > .3) ? 40 : (iwin().scale > .2) ? 55 : 70;
-//        iwin().gc2d.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, size));
-//        iwin().gc2d.setStroke(new BasicStroke(6)); //толщина линии
-//        y1 = y1 + dy;
-//        y2 = y2 + dy;
-//        iwin().draw.drawLine(x1, y1, x2, y2);
-//        if (x1 == x2 && y2 - y1 != 0) {
-//            iwin().draw.drawLine(x1 - 24, y1, x1 + 24, y1);
-//            iwin().draw.drawLine(x2 - 24, y2, x2 + 24, y2);
-//            iwin().draw.drawLine(x1, y1, x1 + 12, y1 + 24);
-//            iwin().draw.drawLine(x1, y1, x1 - 12, y1 + 24);
-//            iwin().draw.drawLine(x2, y2, x2 + 12, y2 - 24);
-//            iwin().draw.drawLine(x2, y2, x2 - 12, y2 - 24);
-//            iwin().gc2d.rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2);
-//            iwin().gc2d.drawString(UGui.df.format((float) (y2 - y1)), x1 + 60, y1 + (y2 - y1) / 2);
-//            iwin().gc2d.rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);
-//        } else if (y1 == y2 && x2 - x1 != 0) {
-//            iwin().draw.drawLine(x1, y1 - 24, x1, y1 + 24);
-//            iwin().draw.drawLine(x2, y2 - 24, x2, y2 + 24);
-//            iwin().draw.drawLine(x1, y1, x1 + 24, y1 - 12);
-//            iwin().draw.drawLine(x1, y1, x1 + 24, y1 + 12);
-//            iwin().draw.drawLine(x2, y2, x2 - 24, y2 - 12);
-//            iwin().draw.drawLine(x2, y2, x2 - 24, y2 + 12);
-//            iwin().gc2d.drawString(UGui.df.format((float) (x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
-//        }
-//    }
-
 }
