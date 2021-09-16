@@ -1,9 +1,11 @@
 package common;
 
-import builder.model.ElemSimple;
-import enums.Layout;
+import builder.model.AreaSimple;
+import builder.model.Com5t;
+import builder.model.ElemFrame;
+import enums.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class UCom {
@@ -256,6 +258,23 @@ public class UCom {
             return true;
         }
         return false;
+    }
+    
+    public static <E> void listElem(Com5t com5t, LinkedList<E> list, List<Type> type) {
+
+        if (type.contains(com5t.type())) {
+            list.add((E) com5t);
+        }
+        if (com5t instanceof AreaSimple) {
+            for (ElemFrame frm : ((AreaSimple) com5t).mapFrame.values()) {
+                if (type.contains(frm.type())) {
+                    list.add((E) frm);
+                }
+            }
+        }
+        if (com5t instanceof AreaSimple) {
+            ((AreaSimple) com5t).listChild.forEach(comp -> listElem(comp, list, type));
+        }
     }
     
     public static float sin(float angl) {
