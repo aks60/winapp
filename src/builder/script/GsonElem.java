@@ -16,8 +16,6 @@ public class GsonElem {
     protected Layout layout = null; //сторона расположения эл. рамы
     protected Type type = null; //тип элемента
     protected String param = null; //параметры элемента
-//    protected Float width = null; //ширина area, мм
-//    protected Float height = null; //высота area, мм
     protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения)    
 
     public GsonElem() {
@@ -68,13 +66,10 @@ public class GsonElem {
 
     public GsonElem addArea(GsonElem area) {
         childs = (childs == null) ? new LinkedList() : childs;
-        if (owner != null) {
-            if (area.length == null) {
-                area.length = this.length;
-            }
+        if (area.length == null) {
+            area.length = this.length;
         }
-         area.owner = this;
-         this.childs.add(area);
+        this.childs.add(area);
         return area;
     }
 
@@ -105,24 +100,11 @@ public class GsonElem {
     }
 
     public float height() {
-        return length();
+        return (owner.layout == Layout.VERT) ? length : owner.length;
     }
 
     public float width() {
-        return length();
-    }
-
-    public float length() {
-        try {
-            if (owner.layout == Layout.HORIZ) {
-                return width();
-            } else {
-                return height();
-            }
-        } catch (Exception e) {
-            System.err.println("builder.script.GsonElem.length() " + e);
-            return -1;
-        }
+        return (owner.layout == Layout.HORIZ) ? length : owner.length;
     }
 
     public void resizeAll(float length, Layout layoutAdd) {
@@ -198,7 +180,7 @@ public class GsonElem {
         return childs;
     }
 
-    public LinkedList<GsonElem> areas() {
+    private LinkedList<GsonElem> areas() {
         LinkedList<GsonElem> list = new LinkedList();
         childs.forEach(el -> {
             if (el.type() == Type.STVORKA || el.type() == Type.AREA) {
@@ -268,5 +250,14 @@ public class GsonElem {
             }
         }
         return null;
+    }
+
+    public void setParent(GsonElem node) {
+        node.elements().forEach(elem -> elem.owner = node);
+        for (GsonElem area : node.areas()) {
+            area.owner = node;
+            area.elements().forEach(elem -> elem.owner = node);
+            setParent(area); //реккурсия
+        }
     }
 }
