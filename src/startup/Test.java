@@ -12,6 +12,7 @@ import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
 import domain.eElement;
 import frames.DBCompare;
+import frames.Profstroy;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
@@ -64,7 +65,7 @@ public class Test {
 
         Main.dev = true;
         try {
-            //convert.Profstroy.exec();
+            //Profstroy.exec();
             wincalc();
             //param();
             //query();
@@ -72,7 +73,6 @@ public class Test {
             //json();
             //parse();
             //uid();  
-
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -89,7 +89,7 @@ public class Test {
             iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            DBCompare.iwinRec(iwin, true);
+            //DBCompare.iwinRec(iwin, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
 
         } else if (_case.equals("min")) {
@@ -154,12 +154,13 @@ public class Test {
 
         Query.connection = Test.connect2();
         lookAndFeel();
-        Tex app = new Tex();
-        app.setVisible(true);
-        frames.Joining frm = new frames.Joining();
-        FrameToFile.setFrameSize(frm);
+        App.createApp(eProfile.P02);
+        App.Top.frame = new Tex();
+
+        //frames.Joining frm = new frames.Joining();
+        //FrameToFile.setFrameSize(frm);
         //frm.iwin.build(Winscript.test(Winscript.rootGson.prj, null));
-        frm.setVisible(true);
+        //frm.setVisible(true);
     }
 
     private static void query() {

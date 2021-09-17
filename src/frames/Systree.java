@@ -2827,9 +2827,9 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        float id = 9.0f;
+        float id = 0.0f;
         GsonElem gson = iwin.rootGson.find(id);
-        gson.resizeAll(477, Layout.HORIZ);
+        iwin.rootGson.resizeAll(1600, Layout.VERT);
         updateScript(id);
     }//GEN-LAST:event_btnReport
 
@@ -3276,37 +3276,37 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_colorToHandl
 
     private void txt24Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt24Update
-        float windowsID = winNode.com5t().id();
-        GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
-        jsonStv.widthUp(UCom.getFloat(txt24.getText()));
-        updateScript(windowsID);
+//        float windowsID = winNode.com5t().id();
+//        GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
+//        jsonStv.widthUp(UCom.getFloat(txt24.getText()));
+//        updateScript(windowsID);
     }//GEN-LAST:event_txt24Update
 
     private void txt26Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt26Update
-        float windowsID = winNode.com5t().id();
-        GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
-        jsonStv.heightUp(UCom.getFloat(txt26.getText()));
-        updateScript(windowsID);
+//        float windowsID = winNode.com5t().id();
+//        GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
+//        jsonStv.heightUp(UCom.getFloat(txt26.getText()));
+//        updateScript(windowsID);
     }//GEN-LAST:event_txt26Update
 
     private void txt17Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt17Update
-        float windowsID = winNode.com5t().id();
-        float dx = UCom.getFloat(txt17.getText()) / iwin.rootGson.width();
-        iwin.rootGson.width(UCom.getFloat(txt17.getText()));
-        iwin.rootGson.widthDown(iwin.rootGson, dx);
-        updateScript(windowsID);
+//        float windowsID = winNode.com5t().id();
+//        float dx = UCom.getFloat(txt17.getText()) / iwin.rootGson.width();
+//        iwin.rootGson.width(UCom.getFloat(txt17.getText()));
+//        iwin.rootGson.widthDown(iwin.rootGson, dx);
+//        updateScript(windowsID);
     }//GEN-LAST:event_txt17Update
 
     private void txt22Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt22Update
-        float windowsID = winNode.com5t().id();
+//        float windowsID = winNode.com5t().id();
 //        float dy = UCom.getFloat(txt22.getText()) / iwin.rootGson.height();
 //        iwin.rootGson.height(UCom.getFloat(txt22.getText()));
 ////        if (iwin.rootGson.heightAdd() != null) {
 ////            iwin.rootGson.heightAdd(Util.getFloat(txt22.getText()));
 ////        }
 //        iwin.rootGson.heightDown(iwin.rootGson, dy);
-        iwin.rootGson.resizeAll(UCom.getFloat(txt22.getText()), Layout.VERT);
-        updateScript(windowsID);
+//        iwin.rootGson.resizeAll(UCom.getFloat(txt22.getText()), Layout.VERT);
+//        updateScript(windowsID);
     }//GEN-LAST:event_txt22Update
 
     private void txtKeyEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyEnter
