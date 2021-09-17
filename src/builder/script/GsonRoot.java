@@ -60,7 +60,7 @@ public class GsonRoot extends GsonElem {
         this.width = width;
         this.height = height1;
         this.heightAdd = height2;
-        this.length = (layout == Layout.HORIZ) ? width : height1;
+        this.length = (layout == Layout.VERT) ? width : height1;
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
