@@ -107,69 +107,114 @@ public class GsonElem {
         return (owner.layout == Layout.HORIZ) ? length : owner.length;
     }
 
-    public void resizeAll(float length, Layout layoutAdd) {
+    public void resizeAll(float length, Layout layout2) {
         GsonElem p = (owner == null) ? this : owner;
         List<GsonElem> areaList = p.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
 
-        if (layoutAdd == Layout.HORIZ) {
+        if (layout2 == Layout.HORIZ) {
             if (owner == null) {
                 float dx = (width() - length) / width();
                 for (GsonElem gsonElem : areaList) {
                     if (this.layout == Layout.HORIZ) {
                         gsonElem.length += dx * gsonElem.width();
-                        List<GsonElem> areaList2 = gsonElem.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
-                        if (areaList2.isEmpty() == false) {
-                            areaList2.get(0).resizeAll(gsonElem.width(), gsonElem.layout);
-                        }
-                    } else {
-                        gsonElem.length = length;
                     }
+                    gsonElem.resizeAll(gsonElem.length, layout2);
                 }
-                this.length = length;
+                ((GsonRoot) this).width = length;
             } else {
                 float dx = (width() - length) / (owner.width() - width());
                 for (GsonElem gsonElem : areaList) {
                     if (owner.layout == Layout.HORIZ) {
                         gsonElem.length = (gsonElem == this) ? length : gsonElem.width() + (dx * gsonElem.width());
-                        List<GsonElem> areaList2 = gsonElem.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
-                        if (areaList2.isEmpty() == false) {
-                            areaList2.get(0).resizeAll(gsonElem.width(), gsonElem.layout);
-                        }
-                    } else {
-                        gsonElem.length = length;
                     }
+                    gsonElem.resizeAll(gsonElem.width(), layout2);
                 }
             }
-        } else if (layoutAdd == Layout.VERT) {
+        } else if (layout2 == Layout.VERT) {
             if (owner == null) {
                 float dy = (height() - length) / height();
                 for (GsonElem gsonElem : areaList) {
                     if (this.layout == Layout.VERT) {
                         gsonElem.length -= dy * gsonElem.height();
-                        List<GsonElem> areaList2 = gsonElem.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
-                        if (areaList2.isEmpty() == false) {
-                            areaList2.get(0).resizeAll(gsonElem.height(), gsonElem.layout);
-                        }
-                    } else {
-                        gsonElem.length = length;
                     }
+                    gsonElem.resizeAll(gsonElem.length, layout2);
                 }
-                this.length = length;
+                ((GsonRoot) this).height = length;
             } else {
                 float dy = (height() - length) / (owner.height() - height());
                 for (GsonElem gsonElem : areaList) {
                     if (owner.layout == Layout.VERT) {
                         gsonElem.length = (gsonElem == this) ? length : gsonElem.height() + (dy * gsonElem.height());
-                        List<GsonElem> areaList2 = gsonElem.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
-                        if (areaList2.isEmpty() == false) {
-                            areaList2.get(0).resizeAll(gsonElem.height(), gsonElem.layout);
-                        }
-                    } else {
-                        gsonElem.length = length;
                     }
+                    gsonElem.resizeAll(gsonElem.height(), layout2);
                 }
             }
         }
+    }
+
+    public void resizeAll2(float length, Layout layoutAdd) {
+        /*        GsonElem p = (parent == null) ? this : parent;
+        List<GsonElem> areaList = p.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
+
+        if (layoutAdd == Layout.HORIZ) {
+            if (parent == null) {
+                float dx = (width - length) / width;
+                for (GsonElem gsonElem : areaList) {
+                    if (this.layout == Layout.HORIZ) {
+                        gsonElem.width += dx * gsonElem.width;                       
+                        List<GsonElem> areaList2 = gsonElem.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
+                        if (areaList2.isEmpty() == false) {
+                            //areaList2.get(0).resizeAll(gsonElem.width, layout);
+                        }
+                    } else {
+                        gsonElem.width = length;
+                    }
+                }
+                this.width = length;
+            } else {
+                float dx = (width - length) / (parent.width - width);
+                for (GsonElem gsonElem : areaList) {
+                    if (parent.layout == Layout.HORIZ) {
+                        gsonElem.width = (gsonElem == this) ? length : gsonElem.width + (dx * gsonElem.width);                       
+                        List<GsonElem> areaList2 = gsonElem.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
+                        if (areaList2.isEmpty() == false) {
+                            //areaList2.get(0).resizeAll(gsonElem.width, layout);
+                        }
+                    } else {
+                        gsonElem.width = length;
+                    }
+                }
+            }
+        } else if (layoutAdd == Layout.VERT) {
+            if (parent == null) {
+                float dy = (height - length) / height;
+                for (GsonElem gsonElem : areaList) {
+                    if (this.layout == Layout.VERT) {
+                        gsonElem.height -= dy * gsonElem.height;                       
+                        List<GsonElem> areaList2 = gsonElem.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
+                        if (areaList2.isEmpty() == false) {
+                            //areaList2.get(0).resizeAll(gsonElem.height, layout);
+                        }
+                    } else {
+                        gsonElem.height = length;
+                    }
+                }
+                this.height = length;
+            } else {
+                float dy = (height - length) / (parent.height - height);
+                for (GsonElem gsonElem : areaList) {
+                    if (parent.layout == Layout.VERT) {
+                        gsonElem.height = (gsonElem == this) ? length : gsonElem.height + (dy * gsonElem.height);                       
+                        List<GsonElem> areaList2 = gsonElem.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
+                        if (areaList2.isEmpty() == false) {
+                            //areaList2.get(0).resizeAll(gsonElem.height, layout);
+                        }
+                    } else {
+                        gsonElem.height = length;
+                    }
+                }
+            }
+        }*/
     }
 
     public void resizeNext(float length, Layout layout) {

@@ -736,7 +736,7 @@ public class Systree extends javax.swing.JFrame {
             String script = gson.toJson(iwin.rootGson);
             Record sysprodRec = qSysprod.get(UGui.getIndexRec(tab5));
             sysprodRec.set(eSysprod.script, script);
-            qSysprod.update(sysprodRec);
+            //qSysprod.update(sysprodRec);
 
             //Перерисум paintPanel 
             selectionTab5();
@@ -2829,7 +2829,7 @@ public class Systree extends javax.swing.JFrame {
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         float id = 0.0f;
         GsonElem gson = iwin.rootGson.find(id);
-        iwin.rootGson.resizeAll(1600, Layout.VERT);
+        iwin.rootGson.resizeAll(1000, Layout.HORIZ);
         updateScript(id);
     }//GEN-LAST:event_btnReport
 
