@@ -70,11 +70,11 @@ public class GsonElem {
         childs = (childs == null) ? new LinkedList() : childs;
         if (owner != null) {
             if (area.length == null) {
-                area.length = owner.length;
+                area.length = this.length;
             }
         }
-        area.owner = this;
-        this.childs.add(area);
+         area.owner = this;
+         this.childs.add(area);
         return area;
     }
 

@@ -10,6 +10,8 @@ public class GsonRoot extends GsonElem {
     public int prj = 1; //PNUMB - номер тестируемого проекта, поле пока нужно только для тестов 
     public int ord = 1; //ONUMB - номер тестируемого заказа, поле пока нужно только для тестов 
     private Integer nuni = -3;  //nuni профиля (PRO4_SYSPROF.NUNI)
+    protected Float width = null; //ширина area, мм
+    protected Float height = null; //высота area, мм    
     private Float heightAdd = 0f;  //дополнительная высота, мм.
     public int form = 0;
     public Integer color1 = -3;  //основная текстура
@@ -36,7 +38,7 @@ public class GsonRoot extends GsonElem {
             }
         } else {
             if (type == Type.ARCH) {
-               form = 3; 
+                form = 3;
             }
             init(prj, ord, nuni, name, layoutArea, type, width, height1, height2, color1, color2, color3, null);
         }
@@ -75,6 +77,14 @@ public class GsonRoot extends GsonElem {
         }
     }
 
+    public float height() {
+        return height;
+    }
+
+    public float width() {
+        return width;
+    }
+
     public Float heightAdd() {
         return (heightAdd == null) ? 0 : heightAdd;
     }
@@ -85,5 +95,5 @@ public class GsonRoot extends GsonElem {
 
     public int nuni() {
         return nuni;
-    }    
+    }
 }
