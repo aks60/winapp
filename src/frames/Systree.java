@@ -2827,14 +2827,10 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        //LinkedList<AreaSimple> areaList = iwin.rootArea.listElem(enums.Type.AREA);
-        for (ElemSimple elem : iwin.listElem) {
-            if (elem.id() == 5) {
-                GsonElem gson = iwin.rootGson.find(elem.owner().id());
-                gson.resizeAll(333, Layout.VERT);
-                updateScript(elem.owner().id());
-            }
-        }
+        float id = 9.0f;
+        GsonElem gson = iwin.rootGson.find(id);
+        gson.resizeAll(477, Layout.HORIZ);
+        updateScript(id);
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose

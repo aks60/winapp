@@ -192,20 +192,55 @@ public class GsonElem {
         List<GsonElem> areaList = p.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
 
         if (layout == Layout.HORIZ) {
-//                float dw = (this.width - length) / (areaList.size() - 1);
-//                gsonElem.width += (gsonElem == this) ? this.width - length : (dw > 0) ? -dw : dw;
-        } else {
             if (parent == null) {
-                for (GsonElem gsonElem : areaList) {
-                    gsonElem.height += gsonElem.height / this.height * (length - this.height);
-                }
-                this.height = length;
+//                for (GsonElem gsonElem : areaList) {
+//                    if (parent.layout == Layout.VERT) {
+//                        gsonElem.width += gsonElem.width / this.width * (length - this.width);
+//                        List<GsonElem> areaList2 = gsonElem.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
+//                        if (areaList2.isEmpty() == false) {
+//                            areaList2.get(0).resizeAll(gsonElem.width, layout);
+//                        }
+//                    } else {
+//                        gsonElem.width = length;
+//                    }
+//                }
+//                this.width = length;
             } else {
                 for (GsonElem gsonElem : areaList) {
-                    float dh = gsonElem.height / this.height * (length - this.height);
-                    gsonElem.height += (gsonElem == this) ? length : (dh > 0) ? dh : -dh;
+                    if (parent.layout == Layout.HORIZ) {
+                        gsonElem.width = (gsonElem == this) ? length : gsonElem.width + (gsonElem.width / this.width * (length - this.width));
+                        List<GsonElem> areaList2 = gsonElem.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
+                        if (areaList2.isEmpty() == false) {
+                            //areaList2.get(0).resizeAll(gsonElem.width, layout);
+                        }
+                    } else {
+                        gsonElem.width = length;
+                    }
                 }
             }
+        } else if (layout == Layout.VERT) {
+//            if (parent == null) {
+//                for (GsonElem gsonElem : areaList) {
+//                    gsonElem.height += gsonElem.height / this.height * (length - this.height);
+//                    List<GsonElem> areaList2 = gsonElem.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
+//                    if (areaList2.isEmpty() == false) {
+//                        areaList2.get(0).resizeAll(gsonElem.height, layout);
+//                    }
+//                }
+//                this.height = length;
+//            } else {
+//                for (GsonElem gsonElem : areaList) {
+//                    if (parent.layout == Layout.HORIZ) {
+//                        gsonElem.height = (gsonElem == this) ? length : gsonElem.height + (gsonElem.height / this.height * (length - this.height));
+//                        List<GsonElem> areaList2 = gsonElem.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
+//                        if (areaList2.isEmpty() == false) {
+//                            areaList2.get(0).resizeAll(gsonElem.height, layout);
+//                        }
+//                    } else {
+//                        gsonElem.height = length;
+//                    }
+//                }
+//            }
         }
     }
 

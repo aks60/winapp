@@ -45,6 +45,7 @@ public class AreaSimple extends Com5t {
         initСonstructiv(param);
         setLocation(width, height);
         initParametr(param);
+        //System.out.println(this);
     }
 
     public void initСonstructiv(String param) {

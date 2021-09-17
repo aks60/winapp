@@ -521,6 +521,9 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         tab1.setRowHeight(68);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
             }
@@ -1090,6 +1093,12 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3));
     }//GEN-LAST:event_tabMousePressed
+
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_tabMouseClicked
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
