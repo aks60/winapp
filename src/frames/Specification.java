@@ -39,7 +39,9 @@ import domain.ePrjprod;
 import frames.swing.FilterTable;
 import frames.swing.colgroup.ColumnGroup;
 import frames.swing.colgroup.GroupableTableHeader;
-import javax.swing.JToggleButton;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
+import javax.swing.JList;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
@@ -51,6 +53,10 @@ public class Specification extends javax.swing.JFrame {
     private DecimalFormat df3 = new DecimalFormat("#0.000");
     private builder.Wincalc iwin = new Wincalc();
     private FilterTable filterTable = null;
+    ImageIcon[] image = {new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b063.gif"),
+        new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b076.gif"),
+        new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b036.gif")
+    };
 
     public Specification() {
         initComponents();
@@ -262,7 +268,7 @@ public class Specification extends javax.swing.JFrame {
         cbx1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbx1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Детализация 1 ур.", "Детализация 2 ур.", "Детализация 3 ур.", "Соединения", "Вставки", "Заполнения", "Фурнитура" }));
         cbx1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        cbx1.setPreferredSize(new java.awt.Dimension(140, 25));
+        cbx1.setPreferredSize(new java.awt.Dimension(160, 25));
         cbx1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxGroupBy(evt);
@@ -273,7 +279,7 @@ public class Specification extends javax.swing.JFrame {
         cbx2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbx2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Учитывать норму отх.", "Без нормы отхода " }));
         cbx2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        cbx2.setPreferredSize(new java.awt.Dimension(160, 25));
+        cbx2.setPreferredSize(new java.awt.Dimension(180, 25));
         cbx2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxCalcType(evt);
@@ -324,7 +330,7 @@ public class Specification extends javax.swing.JFrame {
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 330, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 290, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -549,6 +555,7 @@ public class Specification extends javax.swing.JFrame {
                 UGui.setSelectedRow(tab1);
             }
         });
+        
     }//GEN-LAST:event_cbxCalcType
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
@@ -665,6 +672,29 @@ public class Specification extends javax.swing.JFrame {
                 tab1.getColumnModel().getColumn(i).setPreferredWidth(tab1.getColumnModel().getColumn(i).getPreferredWidth() + tab1.getColumnModel().getColumn(i).getPreferredWidth() / 4);
             }
         }
+        cbx1.setRenderer(new DefaultListCellRenderer() {
+
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                Component comp = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (index < 3) {
+                    setIcon(image[0]);
+                } else {
+                    setIcon(image[1]);
+                }
+                return comp;
+            }
+
+        });
+        cbx2.setRenderer(new DefaultListCellRenderer() {
+
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                Component comp = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                setIcon(image[2]);
+                return comp;
+            }
+
+        });
+
         tab1.getTableHeader().setFont(new java.awt.Font("Dialog", java.awt.Font.PLAIN, 11));
         TableColumnModel cm = tab1.getColumnModel();
         ColumnGroup angl = new ColumnGroup("Угол");

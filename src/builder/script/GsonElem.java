@@ -127,7 +127,7 @@ public class GsonElem {
                     if (owner.layout == Layout.HORIZ) {
                         gsonElem.length = (gsonElem == this) ? length : gsonElem.width() + (dx * gsonElem.width());
                     }
-                    //gsonElem.resizeAll(gsonElem.width(), layout2);
+                    gsonElem.resizeAll(gsonElem.width(), layout2);
                 }
             }
         } else if (layout2 == Layout.VERT) {
@@ -137,7 +137,7 @@ public class GsonElem {
                     if (this.layout == Layout.VERT) {
                         gsonElem.length -= dy * gsonElem.height();
                     }
-                    //gsonElem.resizeAll(gsonElem.length, layout2);
+                    gsonElem.resizeAll(gsonElem.length, layout2);
                 }
                 ((GsonRoot) this).height = length;
             } else {
@@ -146,7 +146,7 @@ public class GsonElem {
                     if (owner.layout == Layout.VERT) {
                         gsonElem.length = (gsonElem == this) ? length : gsonElem.height() + (dy * gsonElem.height());
                     }
-                    //gsonElem.resizeAll(gsonElem.height(), layout2);
+                    gsonElem.resizeAll(gsonElem.height(), layout2);
                 }
             }
         }
