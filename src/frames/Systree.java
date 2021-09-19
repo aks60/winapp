@@ -2827,9 +2827,9 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        float id = 0.0f;
+        float id = 5.0f;
         GsonElem gson = iwin.rootGson.find(id);
-        iwin.rootGson.resizeAll(1900, Layout.VERT);
+        gson.resizeAll(900, Layout.VERT);
         updateScript(id);
     }//GEN-LAST:event_btnReport
 

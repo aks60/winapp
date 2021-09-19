@@ -159,6 +159,59 @@ public class GsonElem {
             }
         }
     }
+    
+    public void resizeEvenly(float length2, Layout layout2) {
+        GsonElem this2 = (owner == null) ? this : (this.childs.isEmpty()) ? owner : this;
+        List<GsonElem> areaList2 = this2.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
+
+        if (layout2 == Layout.HORIZ) {
+            if (this2.owner == null) {
+
+                float dx = length2 / this2.width();
+                for (GsonElem elem : areaList2) {
+                    if (this2.layout == Layout.HORIZ) {
+                        elem.length = dx * elem.width();
+                        elem.resizeAll(elem.length, layout2);
+                    } else {
+                        elem.resizeAll(length2, layout2);
+                    }
+                }
+                ((GsonRoot) this2).width = length2;
+            } else {
+                float dx = length2 / this2.width();
+                for (GsonElem elem : areaList2) {
+                    if (this2.layout == Layout.HORIZ) {
+                        elem.length = (elem == this2) ? length2 : dx * elem.width();
+                        elem.resizeAll(elem.length, layout2);
+                    }
+                    elem.resizeAll(length2, layout2);
+                }
+            }
+        } else if (layout2 == Layout.VERT) {
+            if (this2.owner == null) {
+                float dy = length2 / this2.height();
+                for (GsonElem elem : areaList2) {
+                    if (this2.layout == Layout.VERT) {
+                        elem.length = dy * elem.height();
+                        elem.resizeAll(elem.length, layout2);
+                    }
+                    elem.resizeAll(length2, layout2);
+                }
+                GsonRoot gsonRoot = (GsonRoot) this2;
+                gsonRoot.heightAdd = (length2 / gsonRoot.height) * gsonRoot.heightAdd;
+                gsonRoot.height = length2;
+            } else {
+                float dy = length2 / this2.height();
+                for (GsonElem elem : areaList2) {
+                    if (this2.layout == Layout.VERT) {
+                        elem.length = (elem == this2) ? length2 : dy * elem.height();
+                        elem.resizeAll(elem.length, layout2);
+                    }
+                    elem.resizeAll(length2, layout2);
+                }
+            }
+        }
+    }
 
     public void resizeNext(float length, Layout layout) {
         System.err.println("В разработке!!!");
