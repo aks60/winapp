@@ -45,7 +45,7 @@ import frames.swing.listener.ListenerRecord;
 import frames.swing.listener.ListenerObject;
 import frames.swing.listener.ListenerFrame;
 
-public class Filling extends javax.swing.JFrame {
+public class Fillings extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
@@ -60,7 +60,7 @@ public class Filling extends javax.swing.JFrame {
             listenerColvar1, listenerColvar2, listenerColvar3, listenerTypset, listenerThicknes;
     private String subsql = "(-1)";
 
-    public Filling() {
+    public Fillings() {
         this.subsql = null;
         initComponents();
         initElements();
@@ -70,7 +70,7 @@ public class Filling extends javax.swing.JFrame {
         listenerAdd();
     }
 
-    public Filling(Set<Object> keys) {
+    public Fillings(Set<Object> keys) {
         if (keys.isEmpty() == false) {
             this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         }
@@ -82,7 +82,7 @@ public class Filling extends javax.swing.JFrame {
         listenerAdd();
     }
 
-    public Filling(Set<Object> keys, int deteilID) {
+    public Fillings(Set<Object> keys, int deteilID) {
         if (keys.isEmpty() == false) {
             this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         }
@@ -437,7 +437,7 @@ public class Filling extends javax.swing.JFrame {
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                Filling.this.windowClosed(evt);
+                Fillings.this.windowClosed(evt);
             }
         });
 
@@ -599,7 +599,7 @@ public class Filling extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Filling.this.mousePressed(evt);
+                Fillings.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -630,7 +630,7 @@ public class Filling extends javax.swing.JFrame {
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Filling.this.mousePressed(evt);
+                Fillings.this.mousePressed(evt);
             }
         });
         scr3.setViewportView(tab3);
@@ -665,7 +665,7 @@ public class Filling extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Filling.this.mousePressed(evt);
+                Fillings.this.mousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -698,7 +698,7 @@ public class Filling extends javax.swing.JFrame {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Filling.this.mousePressed(evt);
+                Fillings.this.mousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
@@ -739,7 +739,7 @@ public class Filling extends javax.swing.JFrame {
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Filling.this.mousePressed(evt);
+                Fillings.this.mousePressed(evt);
             }
         });
         scr5.setViewportView(tab5);
@@ -865,7 +865,7 @@ public class Filling extends javax.swing.JFrame {
             Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
             FrameProgress.create(this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
-                    App.Artikles.createFrame(Filling.this, record2);
+                    App.Artikles.createFrame(Fillings.this, record2);
                 }
             });
         } else if (tab5.getBorder() != null) {
@@ -873,7 +873,7 @@ public class Filling extends javax.swing.JFrame {
             Record record2 = eArtikl.find(record.getInt(eGlasprof.artikl_id), false);
             FrameProgress.create(this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
-                    App.Artikles.createFrame(Filling.this, record2);
+                    App.Artikles.createFrame(Fillings.this, record2);
                 }
             });
         }

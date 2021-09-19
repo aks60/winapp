@@ -18,13 +18,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 
-public class Kits extends javax.swing.JFrame {
+public class Kitss extends javax.swing.JFrame {
 
     private Query qKits = new Query(eKits.values()).select(eKits.up, "order by", eKits.name);
     private Query qKitdet = new Query(eKitdet.values());
     private Query qKitpar1 = new Query(eKitpar1.values());
 
-    public Kits() {
+    public Kitss() {
         initComponents();
         initElements();
         initDatamodel();
@@ -93,7 +93,7 @@ public class Kits extends javax.swing.JFrame {
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                Kits.this.windowClosed(evt);
+                Kitss.this.windowClosed(evt);
             }
         });
 
@@ -166,7 +166,7 @@ public class Kits extends javax.swing.JFrame {
         });
 
         btnGroup1.add(rbtn1);
-        rbtn1.setFont(UGui.getFont(0, 0));
+        rbtn1.setFont(frames.UGui.getFont(0, 0));
         rbtn1.setSelected(true);
         rbtn1.setText("Продажа");
         rbtn1.setMaximumSize(new java.awt.Dimension(96, 25));
@@ -174,21 +174,21 @@ public class Kits extends javax.swing.JFrame {
         rbtn1.setPreferredSize(new java.awt.Dimension(96, 25));
 
         btnGroup1.add(rbtn2);
-        rbtn2.setFont(UGui.getFont(0, 0));
+        rbtn2.setFont(frames.UGui.getFont(0, 0));
         rbtn2.setText("Скатка");
         rbtn2.setMaximumSize(new java.awt.Dimension(96, 25));
         rbtn2.setMinimumSize(new java.awt.Dimension(96, 25));
         rbtn2.setPreferredSize(new java.awt.Dimension(96, 25));
 
         btnGroup1.add(rbn3);
-        rbn3.setFont(UGui.getFont(0, 0));
+        rbn3.setFont(frames.UGui.getFont(0, 0));
         rbn3.setText("Стеклопакет");
         rbn3.setMaximumSize(new java.awt.Dimension(96, 25));
         rbn3.setMinimumSize(new java.awt.Dimension(96, 25));
         rbn3.setPreferredSize(new java.awt.Dimension(96, 25));
 
         btnGroup1.add(rbtn4);
-        rbtn4.setFont(UGui.getFont(0, 0));
+        rbtn4.setFont(frames.UGui.getFont(0, 0));
         rbtn4.setText("Ламинация");
         rbtn4.setMaximumSize(new java.awt.Dimension(96, 25));
         rbtn4.setMinimumSize(new java.awt.Dimension(96, 25));

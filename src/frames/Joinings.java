@@ -48,7 +48,7 @@ import frames.swing.listener.ListenerObject;
 import frames.swing.listener.ListenerFrame;
 
 //варианты соединений
-public class Joining extends javax.swing.JFrame {
+public class Joinings extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
     private Query qParams = new Query(eParams.values());
@@ -63,7 +63,7 @@ public class Joining extends javax.swing.JFrame {
     private ListenerRecord listenerArtikl, listenerJoinvar, listenerColvar1, listenerColvar2, listenerColvar3;
     private FilterTable filterTable = new FilterTable();
 
-    public Joining() {
+    public Joinings() {
         this.subsql = null;
         initComponents();
         initElements();
@@ -73,7 +73,7 @@ public class Joining extends javax.swing.JFrame {
         listenerAdd();
     }
 
-    public Joining(Set<Object> keys) {
+    public Joinings(Set<Object> keys) {
         if (keys.isEmpty() == false) {
             this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         }
@@ -85,7 +85,7 @@ public class Joining extends javax.swing.JFrame {
         listenerAdd();
     }
 
-    public Joining(Set<Object> keys, int deteilID) {
+    public Joinings(Set<Object> keys, int deteilID) {
         this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
         initElements();
@@ -504,7 +504,7 @@ public class Joining extends javax.swing.JFrame {
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                Joining.this.windowClosed(evt);
+                Joinings.this.windowClosed(evt);
             }
         });
 
@@ -690,7 +690,7 @@ public class Joining extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Joining.this.mousePressed(evt);
+                Joinings.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -741,7 +741,7 @@ public class Joining extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Joining.this.mousePressed(evt);
+                Joinings.this.mousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -780,7 +780,7 @@ public class Joining extends javax.swing.JFrame {
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Joining.this.mousePressed(evt);
+                Joinings.this.mousePressed(evt);
             }
         });
         scr3.setViewportView(tab3);
@@ -824,7 +824,7 @@ public class Joining extends javax.swing.JFrame {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Joining.this.mousePressed(evt);
+                Joinings.this.mousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
@@ -851,7 +851,7 @@ public class Joining extends javax.swing.JFrame {
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Joining.this.mousePressed(evt);
+                Joinings.this.mousePressed(evt);
             }
         });
         scr5.setViewportView(tab5);
@@ -970,7 +970,7 @@ public class Joining extends javax.swing.JFrame {
             Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eJoindet.artikl_id)).findFirst().orElse(eJoindet.up.newRecord());
             FrameProgress.create(this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
-                    App.Artikles.createFrame(Joining.this, record2);
+                    App.Artikles.createFrame(Joinings.this, record2);
                 }
             });
         }

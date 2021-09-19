@@ -90,7 +90,7 @@ import javax.swing.tree.TreePath;
 import startup.App;
 import startup.Main;
 
-public class Order extends javax.swing.JFrame {
+public class Orders extends javax.swing.JFrame {
 
     private Query qParams = new Query(eParams.id, eParams.params_id, eParams.text);
     private Query qCurrenc = new Query(eCurrenc.values());
@@ -107,7 +107,7 @@ public class Order extends javax.swing.JFrame {
     private Gson gson = new GsonBuilder().create();
     private FilterTable filterTable = null;
 
-    public Order() {
+    public Orders() {
         initComponents();
         initElements();
         loadingData();
@@ -641,10 +641,9 @@ public class Order extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заказы");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(900, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                Order.this.windowClosed(evt);
+                Orders.this.windowClosed(evt);
             }
         });
 
@@ -858,7 +857,7 @@ public class Order extends javax.swing.JFrame {
         tabb1.setPreferredSize(new java.awt.Dimension(600, 550));
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                Order.this.stateChanged(evt);
+                Orders.this.stateChanged(evt);
             }
         });
 
@@ -892,7 +891,7 @@ public class Order extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Order.this.mousePressed(evt);
+                Orders.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -2184,7 +2183,7 @@ public class Order extends javax.swing.JFrame {
         tab2.setRowHeight(68);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Order.this.mousePressed(evt);
+                Orders.this.mousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);

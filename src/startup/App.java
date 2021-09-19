@@ -53,18 +53,18 @@ import frames.Artikles;
 import frames.Color;
 import frames.Currenc;
 import frames.DBCompare;
-import frames.Element;
-import frames.Filling;
-import frames.Furniture;
+import frames.Elements;
+import frames.Fillings;
+import frames.Furniturs;
 import frames.Groups;
-import frames.Joining;
-import frames.Kits;
+import frames.Joinings;
+import frames.Kitss;
 import frames.Models;
-import frames.Order;
+import frames.Orders;
 import frames.Param;
 import frames.Partner;
 import frames.Rulecalc;
-import frames.Specification;
+import frames.Specifics;
 import frames.Syssize;
 import frames.Systree;
 import frames.TestFrame;
@@ -113,11 +113,11 @@ public enum App {
                     break;
                 case Joining:
                     if (param.length == 0) {
-                        frame = new Joining();
+                        frame = new Joinings();
                     } else if (param.length == 1) {
-                        frame = new Joining((Set) param[0]);
+                        frame = new Joinings((Set) param[0]);
                     } else {
-                        frame = new Joining((Set) param[0], (int) param[1]);
+                        frame = new Joinings((Set) param[0], (int) param[1]);
                     }
                     break;
                 case Currenc:
@@ -125,11 +125,11 @@ public enum App {
                     break;
                 case Element:
                     if (param.length == 0) {
-                        frame = new Element();
+                        frame = new Elements();
                     } else if (param.length == 1) {
-                        frame = new Element((Set) param[0]);
+                        frame = new Elements((Set) param[0]);
                     } else {
-                        frame = new Element((Set) param[0], (int) param[1]);
+                        frame = new Elements((Set) param[0], (int) param[1]);
                     }
                     break;
                 case Param:
@@ -137,24 +137,24 @@ public enum App {
                     break;
                 case Filling:
                     if (param.length == 0) {
-                        frame = new Filling();
+                        frame = new Fillings();
                     } else if (param.length == 1) {
-                        frame = new Filling((Set) param[0]);
+                        frame = new Fillings((Set) param[0]);
                     } else {
-                        frame = new Filling((Set) param[0], (int) param[1]);
+                        frame = new Fillings((Set) param[0], (int) param[1]);
                     }
                     break;
                 case Furniture:
                     if (param.length == 0) {
-                        frame = new Furniture();
+                        frame = new Furniturs();
                     } else if (param.length == 1) {
-                        frame = new Furniture((Set) param[0]);
+                        frame = new Furniturs((Set) param[0]);
                     } else {
-                        frame = new Furniture((Set) param[0], (int) param[1]);
+                        frame = new Furniturs((Set) param[0], (int) param[1]);
                     }
                     break;
                 case Kits:
-                    frame = new Kits();
+                    frame = new Kitss();
                     break;
                 case Systree:
                     if (param.length == 0) {
@@ -167,13 +167,13 @@ public enum App {
                     frame = new Partner();
                     break;
                 case Order:
-                    frame = new Order();
+                    frame = new Orders();
                     break;
                 case Models:
                     frame = new Models();
                     break;
                 case Specification:
-                    frame = new Specification();
+                    frame = new Specifics();
                     break;
                 case Syssize:
                     frame = new Syssize();

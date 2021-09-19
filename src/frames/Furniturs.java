@@ -51,7 +51,7 @@ import javax.swing.JOptionPane;
 import frames.swing.listener.ListenerRecord;
 import frames.swing.listener.ListenerFrame;
 
-public class Furniture extends javax.swing.JFrame {
+public class Furniturs extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
@@ -72,7 +72,7 @@ public class Furniture extends javax.swing.JFrame {
     private String subsql = "(-1)";
     private JTable tab2 = null; //активная таблица спецификации
 
-    public Furniture() {
+    public Furniturs() {
         this.subsql = null;
         initComponents();
         initElements();
@@ -82,7 +82,7 @@ public class Furniture extends javax.swing.JFrame {
         listenerSet();
     }
 
-    public Furniture(Set<Object> keys) {
+    public Furniturs(Set<Object> keys) {
         if (keys.isEmpty() == false) {
             this.subsql = (keys.isEmpty()) ? "(-1)" : keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         }
@@ -94,7 +94,7 @@ public class Furniture extends javax.swing.JFrame {
         listenerSet();
     }
 
-    public Furniture(Set<Object> keys, int deteilID) {
+    public Furniturs(Set<Object> keys, int deteilID) {
         if (keys.isEmpty() == false) {
             this.subsql = (keys.isEmpty()) ? "(-1)" : keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         }
@@ -682,7 +682,7 @@ public class Furniture extends javax.swing.JFrame {
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                Furniture.this.windowClosed(evt);
+                Furniturs.this.windowClosed(evt);
             }
         });
 
@@ -926,7 +926,7 @@ public class Furniture extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Furniture.this.mousePressed(evt);
+                Furniturs.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -961,7 +961,7 @@ public class Furniture extends javax.swing.JFrame {
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Furniture.this.mousePressed(evt);
+                Furniturs.this.mousePressed(evt);
             }
         });
         scr3.setViewportView(tab3);
@@ -998,7 +998,7 @@ public class Furniture extends javax.swing.JFrame {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Furniture.this.mousePressed(evt);
+                Furniturs.this.mousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
@@ -1050,7 +1050,7 @@ public class Furniture extends javax.swing.JFrame {
         tab2a.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2a.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Furniture.this.mousePressed(evt);
+                Furniturs.this.mousePressed(evt);
             }
         });
         scr2a.setViewportView(tab2a);
@@ -1078,7 +1078,7 @@ public class Furniture extends javax.swing.JFrame {
         tab2c.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2c.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Furniture.this.mousePressed(evt);
+                Furniturs.this.mousePressed(evt);
             }
         });
         scr2c.setViewportView(tab2c);
@@ -1109,7 +1109,7 @@ public class Furniture extends javax.swing.JFrame {
         tab2b.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2b.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Furniture.this.mousePressed(evt);
+                Furniturs.this.mousePressed(evt);
             }
         });
         scr2b.setViewportView(tab2b);
@@ -1150,7 +1150,7 @@ public class Furniture extends javax.swing.JFrame {
         tab6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Furniture.this.mousePressed(evt);
+                Furniturs.this.mousePressed(evt);
             }
         });
         scr6.setViewportView(tab6);
@@ -1177,7 +1177,7 @@ public class Furniture extends javax.swing.JFrame {
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Furniture.this.mousePressed(evt);
+                Furniturs.this.mousePressed(evt);
             }
         });
         scr5.setViewportView(tab5);
@@ -1361,7 +1361,7 @@ public class Furniture extends javax.swing.JFrame {
         Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eFurndet.artikl_id)).findFirst().orElse(eFurndet.up.newRecord());
         FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.Artikles.createFrame(Furniture.this, record2);
+                App.Artikles.createFrame(Furniturs.this, record2);
             }
         });
     }//GEN-LAST:event_btnConstructiv
@@ -1393,7 +1393,7 @@ public class Furniture extends javax.swing.JFrame {
                         list.add(record.getStr(eFurniture.name));
                     }
                 }
-                Object result = JOptionPane.showInputDialog(Furniture.this, "Выбор набора",
+                Object result = JOptionPane.showInputDialog(Furniturs.this, "Выбор набора",
                         "Наборы", JOptionPane.QUESTION_MESSAGE, null, list.toArray(), list.toArray()[0]);
 
                 if (result != null) {
