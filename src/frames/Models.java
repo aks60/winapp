@@ -579,6 +579,9 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         tab2.setRowHeight(68);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
             }
@@ -608,6 +611,9 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         scr3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         scr3.setPreferredSize(new java.awt.Dimension(200, 560));
         scr3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
             }
