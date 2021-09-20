@@ -194,29 +194,29 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
     private void selectionTree() {
 
-        DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
-        if (selectedNode != null) {
-            if (selectedNode.com5t().type() == enums.Type.RECTANGL || selectedNode.com5t().type() == enums.Type.ARCH) {
-                ((CardLayout) pan6.getLayout()).show(pan6, "pan19");
-
-            } else if (selectedNode.com5t().type() == enums.Type.AREA) {
-                ((CardLayout) pan6.getLayout()).show(pan6, "pan20");
-
-            } else if (selectedNode.com5t().type() == enums.Type.FRAME_SIDE) {
-                ((CardLayout) pan6.getLayout()).show(pan6, "pan21");
-
-            } else if (selectedNode.com5t().type() == enums.Type.STVORKA) {
-                ((CardLayout) pan6.getLayout()).show(pan6, "pan22");
-
-            } else if (selectedNode.com5t().type() == enums.Type.IMPOST
-                    || selectedNode.com5t().type() == enums.Type.STOIKA
-                    || selectedNode.com5t().type() == enums.Type.SHTULP) {
-                ((CardLayout) pan6.getLayout()).show(pan6, "pan23");
-
-            } else if (selectedNode.com5t().type() == enums.Type.GLASS) {
-                ((CardLayout) pan6.getLayout()).show(pan6, "pan24");
-            }
-        }
+//        DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
+//        if (selectedNode != null) {
+//            if (selectedNode.com5t().type() == enums.Type.RECTANGL || selectedNode.com5t().type() == enums.Type.ARCH) {
+//                ((CardLayout) pan6.getLayout()).show(pan6, "pan19");
+//
+//            } else if (selectedNode.com5t().type() == enums.Type.AREA) {
+//                ((CardLayout) pan6.getLayout()).show(pan6, "pan20");
+//
+//            } else if (selectedNode.com5t().type() == enums.Type.FRAME_SIDE) {
+//                ((CardLayout) pan6.getLayout()).show(pan6, "pan21");
+//
+//            } else if (selectedNode.com5t().type() == enums.Type.STVORKA) {
+//                ((CardLayout) pan6.getLayout()).show(pan6, "pan22");
+//
+//            } else if (selectedNode.com5t().type() == enums.Type.IMPOST
+//                    || selectedNode.com5t().type() == enums.Type.STOIKA
+//                    || selectedNode.com5t().type() == enums.Type.SHTULP) {
+//                ((CardLayout) pan6.getLayout()).show(pan6, "pan23");
+//
+//            } else if (selectedNode.com5t().type() == enums.Type.GLASS) {
+//                ((CardLayout) pan6.getLayout()).show(pan6, "pan24");
+//            }
+//        }
     }
 
     @SuppressWarnings("unchecked")
@@ -263,19 +263,6 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan8 = new javax.swing.JPanel();
         pan9 = new javax.swing.JPanel();
         pan10 = new javax.swing.JPanel();
-        pan6 = new javax.swing.JPanel();
-        pan19 = new javax.swing.JPanel();
-        lab19 = new javax.swing.JLabel();
-        pan20 = new javax.swing.JPanel();
-        lab20 = new javax.swing.JLabel();
-        pan21 = new javax.swing.JPanel();
-        lab21 = new javax.swing.JLabel();
-        pan22 = new javax.swing.JPanel();
-        lab22 = new javax.swing.JLabel();
-        pan23 = new javax.swing.JPanel();
-        lab23 = new javax.swing.JLabel();
-        pan24 = new javax.swing.JPanel();
-        lab24 = new javax.swing.JLabel();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -714,7 +701,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -736,7 +723,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 301, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -776,162 +763,6 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan4.add(pan10, java.awt.BorderLayout.WEST);
 
         pan17.add(pan4, java.awt.BorderLayout.CENTER);
-
-        pan6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan6.setPreferredSize(new java.awt.Dimension(200, 500));
-        pan6.setLayout(new java.awt.CardLayout());
-
-        lab19.setText("jLabel19");
-
-        javax.swing.GroupLayout pan19Layout = new javax.swing.GroupLayout(pan19);
-        pan19.setLayout(pan19Layout);
-        pan19Layout.setHorizontalGroup(
-            pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 196, Short.MAX_VALUE)
-            .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan19Layout.createSequentialGroup()
-                    .addGap(0, 78, Short.MAX_VALUE)
-                    .addComponent(lab19)
-                    .addGap(0, 78, Short.MAX_VALUE)))
-        );
-        pan19Layout.setVerticalGroup(
-            pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 483, Short.MAX_VALUE)
-            .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan19Layout.createSequentialGroup()
-                    .addGap(0, 234, Short.MAX_VALUE)
-                    .addComponent(lab19)
-                    .addGap(0, 235, Short.MAX_VALUE)))
-        );
-
-        pan6.add(pan19, "pan19");
-
-        lab20.setText("jLabel20");
-
-        javax.swing.GroupLayout pan20Layout = new javax.swing.GroupLayout(pan20);
-        pan20.setLayout(pan20Layout);
-        pan20Layout.setHorizontalGroup(
-            pan20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 196, Short.MAX_VALUE)
-            .addGroup(pan20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan20Layout.createSequentialGroup()
-                    .addGap(0, 78, Short.MAX_VALUE)
-                    .addComponent(lab20)
-                    .addGap(0, 78, Short.MAX_VALUE)))
-        );
-        pan20Layout.setVerticalGroup(
-            pan20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 483, Short.MAX_VALUE)
-            .addGroup(pan20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan20Layout.createSequentialGroup()
-                    .addGap(0, 234, Short.MAX_VALUE)
-                    .addComponent(lab20)
-                    .addGap(0, 235, Short.MAX_VALUE)))
-        );
-
-        pan6.add(pan20, "pan20");
-
-        lab21.setText("jLabel21");
-
-        javax.swing.GroupLayout pan21Layout = new javax.swing.GroupLayout(pan21);
-        pan21.setLayout(pan21Layout);
-        pan21Layout.setHorizontalGroup(
-            pan21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 196, Short.MAX_VALUE)
-            .addGroup(pan21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan21Layout.createSequentialGroup()
-                    .addGap(0, 78, Short.MAX_VALUE)
-                    .addComponent(lab21)
-                    .addGap(0, 78, Short.MAX_VALUE)))
-        );
-        pan21Layout.setVerticalGroup(
-            pan21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 483, Short.MAX_VALUE)
-            .addGroup(pan21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan21Layout.createSequentialGroup()
-                    .addGap(0, 234, Short.MAX_VALUE)
-                    .addComponent(lab21)
-                    .addGap(0, 235, Short.MAX_VALUE)))
-        );
-
-        pan6.add(pan21, "pan21");
-
-        lab22.setText("jLabel22");
-
-        javax.swing.GroupLayout pan22Layout = new javax.swing.GroupLayout(pan22);
-        pan22.setLayout(pan22Layout);
-        pan22Layout.setHorizontalGroup(
-            pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 196, Short.MAX_VALUE)
-            .addGroup(pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan22Layout.createSequentialGroup()
-                    .addGap(0, 78, Short.MAX_VALUE)
-                    .addComponent(lab22)
-                    .addGap(0, 78, Short.MAX_VALUE)))
-        );
-        pan22Layout.setVerticalGroup(
-            pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 483, Short.MAX_VALUE)
-            .addGroup(pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan22Layout.createSequentialGroup()
-                    .addGap(0, 234, Short.MAX_VALUE)
-                    .addComponent(lab22)
-                    .addGap(0, 235, Short.MAX_VALUE)))
-        );
-
-        pan6.add(pan22, "pan22");
-
-        lab23.setText("jLabel23");
-
-        javax.swing.GroupLayout pan23Layout = new javax.swing.GroupLayout(pan23);
-        pan23.setLayout(pan23Layout);
-        pan23Layout.setHorizontalGroup(
-            pan23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 196, Short.MAX_VALUE)
-            .addGroup(pan23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan23Layout.createSequentialGroup()
-                    .addGap(0, 78, Short.MAX_VALUE)
-                    .addComponent(lab23)
-                    .addGap(0, 78, Short.MAX_VALUE)))
-        );
-        pan23Layout.setVerticalGroup(
-            pan23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 483, Short.MAX_VALUE)
-            .addGroup(pan23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan23Layout.createSequentialGroup()
-                    .addGap(0, 234, Short.MAX_VALUE)
-                    .addComponent(lab23)
-                    .addGap(0, 235, Short.MAX_VALUE)))
-        );
-
-        pan6.add(pan23, "pan23");
-
-        lab24.setText("jLabel24");
-
-        javax.swing.GroupLayout pan24Layout = new javax.swing.GroupLayout(pan24);
-        pan24.setLayout(pan24Layout);
-        pan24Layout.setHorizontalGroup(
-            pan24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 196, Short.MAX_VALUE)
-            .addGroup(pan24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan24Layout.createSequentialGroup()
-                    .addGap(0, 78, Short.MAX_VALUE)
-                    .addComponent(lab24)
-                    .addGap(0, 78, Short.MAX_VALUE)))
-        );
-        pan24Layout.setVerticalGroup(
-            pan24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 483, Short.MAX_VALUE)
-            .addGroup(pan24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan24Layout.createSequentialGroup()
-                    .addGap(0, 234, Short.MAX_VALUE)
-                    .addComponent(lab24)
-                    .addGap(0, 235, Short.MAX_VALUE)))
-        );
-
-        pan6.add(pan24, "pan24");
-
-        pan17.add(pan6, java.awt.BorderLayout.EAST);
 
         centr.add(pan17, java.awt.BorderLayout.CENTER);
 
@@ -1120,12 +951,6 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     private javax.swing.JToggleButton btnT4;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPanel centr;
-    private javax.swing.JLabel lab19;
-    private javax.swing.JLabel lab20;
-    private javax.swing.JLabel lab21;
-    private javax.swing.JLabel lab22;
-    private javax.swing.JLabel lab23;
-    private javax.swing.JLabel lab24;
     private javax.swing.JLabel lab4;
     private javax.swing.JLabel lab5;
     private javax.swing.JPanel north;
@@ -1136,16 +961,9 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     private javax.swing.JPanel pan16;
     private javax.swing.JPanel pan17;
     private javax.swing.JPanel pan18;
-    private javax.swing.JPanel pan19;
-    private javax.swing.JPanel pan20;
-    private javax.swing.JPanel pan21;
-    private javax.swing.JPanel pan22;
-    private javax.swing.JPanel pan23;
-    private javax.swing.JPanel pan24;
     private javax.swing.JPanel pan25;
     private javax.swing.JPanel pan26;
     private javax.swing.JPanel pan4;
-    private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
     private javax.swing.JPanel pan8;
     private javax.swing.JPanel pan9;

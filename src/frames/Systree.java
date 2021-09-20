@@ -771,12 +771,17 @@ public class Systree extends javax.swing.JFrame {
         btnReport1 = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
         btnTest = new javax.swing.JButton();
+        jSpinner1 = new javax.swing.JSpinner();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         sysTree = new javax.swing.JTree();
         pan1 = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
         panDesign = new javax.swing.JPanel();
+        pan23 = new javax.swing.JPanel();
+        pan24 = new javax.swing.JPanel();
+        pan25 = new javax.swing.JPanel();
+        pan26 = new javax.swing.JPanel();
         pan7 = new javax.swing.JPanel();
         pan11 = new javax.swing.JPanel();
         scr7 = new javax.swing.JScrollPane();
@@ -1045,6 +1050,8 @@ public class Systree extends javax.swing.JFrame {
             }
         });
 
+        jSpinner1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
         javax.swing.GroupLayout toolLayout = new javax.swing.GroupLayout(tool);
         tool.setLayout(toolLayout);
         toolLayout.setHorizontalGroup(
@@ -1060,7 +1067,9 @@ public class Systree extends javax.swing.JFrame {
                 .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
                 .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 665, Short.MAX_VALUE)
+                .addGap(104, 104, 104)
+                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 489, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1076,7 +1085,9 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(toolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(toolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -1107,6 +1118,71 @@ public class Systree extends javax.swing.JFrame {
 
         panDesign.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panDesign.setLayout(new java.awt.BorderLayout());
+
+        pan23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pan23.setPreferredSize(new java.awt.Dimension(10, 294));
+
+        javax.swing.GroupLayout pan23Layout = new javax.swing.GroupLayout(pan23);
+        pan23.setLayout(pan23Layout);
+        pan23Layout.setHorizontalGroup(
+            pan23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 6, Short.MAX_VALUE)
+        );
+        pan23Layout.setVerticalGroup(
+            pan23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panDesign.add(pan23, java.awt.BorderLayout.EAST);
+
+        pan24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pan24.setPreferredSize(new java.awt.Dimension(364, 10));
+
+        javax.swing.GroupLayout pan24Layout = new javax.swing.GroupLayout(pan24);
+        pan24.setLayout(pan24Layout);
+        pan24Layout.setHorizontalGroup(
+            pan24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 360, Short.MAX_VALUE)
+        );
+        pan24Layout.setVerticalGroup(
+            pan24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 6, Short.MAX_VALUE)
+        );
+
+        panDesign.add(pan24, java.awt.BorderLayout.SOUTH);
+
+        pan25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pan25.setPreferredSize(new java.awt.Dimension(10, 284));
+
+        javax.swing.GroupLayout pan25Layout = new javax.swing.GroupLayout(pan25);
+        pan25.setLayout(pan25Layout);
+        pan25Layout.setHorizontalGroup(
+            pan25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 6, Short.MAX_VALUE)
+        );
+        pan25Layout.setVerticalGroup(
+            pan25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panDesign.add(pan25, java.awt.BorderLayout.WEST);
+
+        pan26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pan26.setPreferredSize(new java.awt.Dimension(364, 10));
+
+        javax.swing.GroupLayout pan26Layout = new javax.swing.GroupLayout(pan26);
+        pan26.setLayout(pan26Layout);
+        pan26Layout.setHorizontalGroup(
+            pan26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 360, Short.MAX_VALUE)
+        );
+        pan26Layout.setVerticalGroup(
+            pan26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 6, Short.MAX_VALUE)
+        );
+
+        panDesign.add(pan26, java.awt.BorderLayout.NORTH);
+
         pan2.add(panDesign);
 
         pan7.setPreferredSize(new java.awt.Dimension(300, 200));
@@ -3398,6 +3474,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab13;
     private javax.swing.JLabel lab14;
@@ -3450,6 +3527,10 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JPanel pan20;
     private javax.swing.JPanel pan21;
     private javax.swing.JPanel pan22;
+    private javax.swing.JPanel pan23;
+    private javax.swing.JPanel pan24;
+    private javax.swing.JPanel pan25;
+    private javax.swing.JPanel pan26;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;

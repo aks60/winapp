@@ -564,7 +564,7 @@ public class Tex extends javax.swing.JFrame {
         mn01.setLabel("  Настройки  ");
 
         mn15.setFont(frames.UGui.getFont(1,1));
-        mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
+        mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b053.gif"))); // NOI18N
         mn15.setText("Правила");
         mn15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -574,7 +574,7 @@ public class Tex extends javax.swing.JFrame {
         mn01.add(mn15);
 
         mn11.setFont(frames.UGui.getFont(1,1));
-        mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
+        mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b053.gif"))); // NOI18N
         mn11.setText("Настройки");
         mn11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

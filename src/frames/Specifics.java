@@ -55,7 +55,7 @@ public class Specifics extends javax.swing.JFrame {
     private FilterTable filterTable = null;
     ImageIcon[] image = {new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b063.gif"),
         new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b076.gif"),
-        new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b036.gif")
+        new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b077.gif")
     };
 
     public Specifics() {
@@ -669,7 +669,7 @@ public class Specifics extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(23).setCellRenderer(cellRenderer3);
         if ("Nimbus".equals(eProperty.lookandfeel.read())) {
             for (int i = 0; i < 22; i++) {
-                tab1.getColumnModel().getColumn(i).setPreferredWidth(tab1.getColumnModel().getColumn(i).getPreferredWidth() + tab1.getColumnModel().getColumn(i).getPreferredWidth() / 4);
+                tab1.getColumnModel().getColumn(i).setPreferredWidth(tab1.getColumnModel().getColumn(i).getPreferredWidth() + tab1.getColumnModel().getColumn(i).getPreferredWidth() / 3);
             }
         }
         cbx1.setRenderer(new DefaultListCellRenderer() {

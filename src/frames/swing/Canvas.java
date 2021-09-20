@@ -1,25 +1,28 @@
 package frames.swing;
 
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.*;
-import java.io.*;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import builder.Wincalc;
-import builder.model.AreaArch;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
 import enums.Type;
 import frames.swing.listener.ListenerFrame;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
-public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEvent> {
+public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEvent, MouseEvent> {
 
     private boolean visible = true;
     private Wincalc iwin = null;
 
     public Canvas(Wincalc iwin) {
+        initComponents();
         this.iwin = iwin;
         iwin.gc2d = (Graphics2D) this.getGraphics();
         this.addMouseListener(new MouseAdapter() {
@@ -94,7 +97,7 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
         }
     }
 
-    //Создание изображение конмьрукции
+    //Создание изображение конструкции
     public static ImageIcon createImageIcon(Wincalc iwin, Object script, int length) {
         try {
             iwin.build(script.toString());
@@ -112,4 +115,16 @@ public class Canvas extends JPanel implements ListenerFrame<MouseEvent, MouseEve
             return new ImageIcon();
         }
     }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        setLayout(new java.awt.BorderLayout());
+    }// </editor-fold>//GEN-END:initComponents
+
+// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
+// </editor-fold> 
 }
