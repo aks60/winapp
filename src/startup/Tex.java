@@ -114,8 +114,6 @@ public class Tex extends javax.swing.JFrame {
         tb4 = new javax.swing.JToolBar();
         btnTest = new javax.swing.JButton();
         btn42 = new javax.swing.JButton();
-        tb8 = new javax.swing.JToolBar();
-        pan1 = new javax.swing.JPanel();
         mn0 = new javax.swing.JMenuBar();
         mn01 = new javax.swing.JMenu();
         mn15 = new javax.swing.JMenuItem();
@@ -468,7 +466,7 @@ public class Tex extends javax.swing.JFrame {
         tb6.setRollover(true);
         tb6.setMaximumSize(new java.awt.Dimension(96, 28));
         tb6.setMinimumSize(new java.awt.Dimension(96, 28));
-        tb6.setPreferredSize(new java.awt.Dimension(94, 28));
+        tb6.setPreferredSize(new java.awt.Dimension(96, 28));
 
         buttonBaseGroup1.add(btnT7);
         btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c057.gif"))); // NOI18N
@@ -558,14 +556,6 @@ public class Tex extends javax.swing.JFrame {
         tb4.add(btn42);
 
         getContentPane().add(tb4);
-
-        tb8.setRollover(true);
-
-        pan1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
-        pan1.setPreferredSize(new java.awt.Dimension(120, 26));
-        tb8.add(pan1);
-
-        getContentPane().add(tb8);
 
         mn0.setPreferredSize(new java.awt.Dimension(800, 25));
 
@@ -1152,13 +1142,11 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JPopupMenu.Separator mn93;
     private javax.swing.JMenuItem mn94;
     private javax.swing.JMenu mn99;
-    private javax.swing.JPanel pan1;
     private javax.swing.JToolBar tb1;
     private javax.swing.JToolBar tb2;
     private javax.swing.JToolBar tb4;
     private javax.swing.JToolBar tb6;
     private javax.swing.JToolBar tb7;
-    private javax.swing.JToolBar tb8;
     private javax.swing.JToolBar td5;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
