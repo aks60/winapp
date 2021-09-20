@@ -2827,9 +2827,10 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        float id = 5.0f;
+        float id = 9.0f;
         GsonElem gson = iwin.rootGson.find(id);
-        gson.resizeAll(900, Layout.VERT);
+        GsonElem root = iwin.rootGson;
+        gson.resizWay(500, Layout.HORIZ);
         updateScript(id);
     }//GEN-LAST:event_btnReport
 
@@ -2951,7 +2952,7 @@ public class Systree extends javax.swing.JFrame {
                     updateScript(selectID);
 
                 } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE) {
-                    for (GsonElem elem : parentArea.elements()) {
+                    for (GsonElem elem : parentArea.elems()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             String paramStr = elem.param();
                             JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
@@ -2964,7 +2965,7 @@ public class Systree extends javax.swing.JFrame {
                 } else if (winNode.com5t().type() == enums.Type.IMPOST
                         || winNode.com5t().type() == enums.Type.STOIKA
                         || winNode.com5t().type() == enums.Type.SHTULP) {
-                    for (GsonElem elem : parentArea.elements()) {
+                    for (GsonElem elem : parentArea.elems()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             String paramStr = elem.param();
                             JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);

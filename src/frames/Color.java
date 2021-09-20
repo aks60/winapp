@@ -389,7 +389,6 @@ public class Color extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tab2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

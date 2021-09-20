@@ -2500,7 +2500,7 @@ public class Orders extends javax.swing.JFrame {
                     updateScript(selectID);
 
                 } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE) {
-                    for (GsonElem elem : jsonArea.elements()) {
+                    for (GsonElem elem : jsonArea.elems()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             String paramStr = elem.param();
                             JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);

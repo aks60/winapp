@@ -414,26 +414,35 @@ public final class Bimax {
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 1000 - 87 + 30))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'typeOpen':4, 'sysfurnID':1633}"))
-                    .addElem(new GsonElem(Type.GLASS));        
-            
+                    .addElem(new GsonElem(Type.GLASS));
+
         } else if (prj == 777) { //TEST
             rootGson = new GsonRoot(prj, 1, 8, "KBE\\KBE 58\\1 ОКНА\\*Открывание внутрь (ств. Z77)",
-                    Layout.VERT, Type.RECTANGL, 900, 1400, 1009, 1009, 1009);
+                    Layout.VERT, Type.RECTANGL, 1200, 1400, 1009, 1009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
-            rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 600))
+            GsonElem area1 = rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 600));
+            area1.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 200))
+                    .addElem(new GsonElem(Type.GLASS));
+            area1.addElem(new GsonElem(Type.IMPOST));
+            area1.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 400))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST));
-            GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 800));
-            
-            area.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 900/2))
+            GsonElem area2 = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 900));
+            area2.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 200))
                     .addElem(new GsonElem(Type.GLASS));
-            area.addElem(new GsonElem(Type.IMPOST));
-            area.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 900/2))
-                    .addElem(new GsonElem(Type.GLASS));            
-              
+            area2.addElem(new GsonElem(Type.IMPOST));
+            area2.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 300))
+                    .addElem(new GsonElem(Type.GLASS));
+            area2.addElem(new GsonElem(Type.IMPOST));
+            area2.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 400))
+                    .addElem(new GsonElem(Type.GLASS));
+            area2.addElem(new GsonElem(Type.IMPOST));
+            area2.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 300))
+                    .addElem(new GsonElem(Type.GLASS));
+
         } else {
             return null;
         }
