@@ -445,6 +445,7 @@ public class Adm extends javax.swing.JFrame {
         btnT7.setMaximumSize(new java.awt.Dimension(28, 25));
         btnT7.setMinimumSize(new java.awt.Dimension(28, 25));
         btnT7.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnT7.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c061.gif"))); // NOI18N
         btnT7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnT7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -459,6 +460,7 @@ public class Adm extends javax.swing.JFrame {
         btnT8.setMaximumSize(new java.awt.Dimension(28, 25));
         btnT8.setMinimumSize(new java.awt.Dimension(28, 25));
         btnT8.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnT8.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c062.gif"))); // NOI18N
         btnT8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnT8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -473,6 +475,7 @@ public class Adm extends javax.swing.JFrame {
         btnT9.setMaximumSize(new java.awt.Dimension(28, 25));
         btnT9.setMinimumSize(new java.awt.Dimension(28, 25));
         btnT9.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnT9.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c063.gif"))); // NOI18N
         btnT9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnT9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

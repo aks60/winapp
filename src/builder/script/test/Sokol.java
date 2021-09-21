@@ -14,14 +14,14 @@ public class Sokol {
         if (prj == 1) {
             rootGson = new GsonRoot(prj, 1, 13, "SOKOL\\МП-40",
                     Layout.HORIZ, Type.RECTANGL, 1000, 1000, 2001, 2001, 2001);
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
-            rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1000 / 2))
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1000 / 2))
                     .addElem(new GsonElem(Type.GLASS));
-            rootGson.addElem(new GsonElem(Type.STOIKA));
-            rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1000 / 2))
+            rootGson.addElem(new GsonElem(Type.STOIKA))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1000 / 2))
                     .addElem(new GsonElem(Type.GLASS));
         } else {
             return null;

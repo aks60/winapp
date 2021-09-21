@@ -26,7 +26,6 @@ import enums.UseSide;
 import enums.TypeOpen2;
 import enums.UseArtiklTo;
 import enums.TypeUse;
-import enums.Type;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,7 +90,6 @@ import frames.dialog.DicJoinvar;
 import frames.swing.FilterTable;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
@@ -703,6 +701,25 @@ public class Systree extends javax.swing.JFrame {
                 paintPanel.repaint(true);
                 loadingWin();
                 winTree.setSelectionInterval(0, 0);
+
+                List withList = new ArrayList();
+                List heightList = new ArrayList();
+                List<AreaSimple> areaList = iwin.rootArea.listElem(enums.Type.AREA);
+                for (AreaSimple area : areaList) {
+                    if (area.owner().layout() == Layout.HORIZ) {
+                        Object obj = area.listChild.stream().filter(it -> it.type() == enums.Type.AREA && area.layout() == Layout.HORIZ).findFirst().orElse(null);
+                        if (obj == null) {
+                            withList.add(area.width());
+                        }
+                    } else if (area.owner().layout() == Layout.VERT) {
+                        Object obj = area.listChild.stream().filter(it -> it.type() == enums.Type.AREA  && area.layout() == Layout.VERT).findFirst().orElse(null);
+                        if (obj == null) {
+                            heightList.add(area.height());
+                        }
+                    }
+                }
+                System.out.println(withList);
+                System.out.println(heightList);
 
             } else {
                 Graphics2D g = (Graphics2D) paintPanel.getGraphics();

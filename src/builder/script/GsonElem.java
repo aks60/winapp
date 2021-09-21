@@ -76,7 +76,7 @@ public class GsonElem {
     public GsonElem addElem(GsonElem element) {
         childs = (childs == null) ? new LinkedList() : childs;
         this.childs.add(element);
-        return element;
+        return this;
     }
 
     public float id() {
