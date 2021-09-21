@@ -71,9 +71,9 @@ public class FilterTable extends javax.swing.JPanel {
         btn2 = new javax.swing.JButton();
         checkFilter = new javax.swing.JCheckBox();
 
-        setMaximumSize(new java.awt.Dimension(420, 20));
+        setMaximumSize(new java.awt.Dimension(460, 20));
         setMinimumSize(new java.awt.Dimension(360, 20));
-        setPreferredSize(new java.awt.Dimension(420, 20));
+        setPreferredSize(new java.awt.Dimension(460, 20));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
@@ -119,9 +119,9 @@ public class FilterTable extends javax.swing.JPanel {
         add(btn2);
 
         checkFilter.setText("в конце строки");
-        checkFilter.setMaximumSize(new java.awt.Dimension(103, 18));
+        checkFilter.setMaximumSize(new java.awt.Dimension(120, 18));
         checkFilter.setMinimumSize(new java.awt.Dimension(103, 18));
-        checkFilter.setPreferredSize(new java.awt.Dimension(103, 18));
+        checkFilter.setPreferredSize(new java.awt.Dimension(120, 18));
         add(checkFilter);
     }// </editor-fold>//GEN-END:initComponents
 
