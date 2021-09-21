@@ -180,7 +180,7 @@ public class Tex extends javax.swing.JFrame {
         tb7.setPreferredSize(new java.awt.Dimension(68, 28));
 
         btn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c018.gif"))); // NOI18N
-        btn15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         btn15.setFocusable(false);
         btn15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn15.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -196,7 +196,7 @@ public class Tex extends javax.swing.JFrame {
         tb7.add(btn15);
 
         btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c060.gif"))); // NOI18N
-        btn2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         btn2.setFocusable(false);
         btn2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn2.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -564,7 +564,7 @@ public class Tex extends javax.swing.JFrame {
         mn01.setLabel("  Настройки  ");
 
         mn15.setFont(frames.UGui.getFont(1,1));
-        mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b053.gif"))); // NOI18N
+        mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn15.setText("Правила");
         mn15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -574,7 +574,7 @@ public class Tex extends javax.swing.JFrame {
         mn01.add(mn15);
 
         mn11.setFont(frames.UGui.getFont(1,1));
-        mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b053.gif"))); // NOI18N
+        mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn11.setText("Настройки");
         mn11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -805,7 +805,7 @@ public class Tex extends javax.swing.JFrame {
         mn05.setLabel("  Справка  ");
 
         mn51.setFont(frames.UGui.getFont(1,1));
-        mn51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
+        mn51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b053.gif"))); // NOI18N
         mn51.setText("Справка");
         mn51.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -815,7 +815,7 @@ public class Tex extends javax.swing.JFrame {
         mn05.add(mn51);
 
         mn52.setFont(frames.UGui.getFont(1,1));
-        mn52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
+        mn52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b053.gif"))); // NOI18N
         mn52.setText("Часто задаваемые вопросы");
         mn52.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -825,7 +825,7 @@ public class Tex extends javax.swing.JFrame {
         mn05.add(mn52);
 
         mn54.setFont(frames.UGui.getFont(1,1));
-        mn54.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
+        mn54.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b053.gif"))); // NOI18N
         mn54.setText("О программе");
         mn54.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
