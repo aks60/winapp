@@ -1,6 +1,7 @@
 package frames.swing;
 
 import frames.swing.rotate.VerticalLabelUI;
+import java.awt.Dimension;
 
 public class DrawScene extends javax.swing.JPanel {
 
@@ -27,6 +28,13 @@ public class DrawScene extends javax.swing.JPanel {
         lab3 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+                formAncestorResized(evt);
+            }
+        });
         setLayout(new java.awt.BorderLayout());
 
         pan01.setMinimumSize(new java.awt.Dimension(4, 18));
@@ -95,12 +103,12 @@ public class DrawScene extends javax.swing.JPanel {
 
         pan3.setMinimumSize(new java.awt.Dimension(4, 4));
         pan3.setPreferredSize(new java.awt.Dimension(4, 4));
-        pan3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+        pan3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         lab2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         lab2.setForeground(new java.awt.Color(0, 0, 255));
         lab2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lab2.setText("233");
+        lab2.setText("123");
         lab2.setPreferredSize(new java.awt.Dimension(123, 14));
         lab2.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         pan3.add(lab2);
@@ -120,6 +128,15 @@ public class DrawScene extends javax.swing.JPanel {
 
         add(pan05, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
+        Dimension dim = lab2.getPreferredSize();
+        int width = lab2.getWidth();
+        dim.setSize(++width, lab2.getHeight());
+        lab2.setSize(dim); 
+        lab2.setText(String.valueOf(width));
+        //System.out.println(dim.getWidth());
+    }//GEN-LAST:event_formAncestorResized
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
