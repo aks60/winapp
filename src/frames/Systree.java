@@ -117,7 +117,7 @@ public class Systree extends javax.swing.JFrame {
 
     private BasicLabelUI basicLabelUI = new VerticalLabelUI(false);
     private FilterTable filterTable = new FilterTable();
-    private DrawScene drawScene = new DrawScene();
+    private DrawScene drawScene = null;
     private Canvas paintPanel = new Canvas(iwin);
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
@@ -149,7 +149,7 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-
+        drawScene = new DrawScene(iwin);
         //Получим сохр. ID системы при выходе из программы
         Record sysprodRec = eSysprod.find(Integer.valueOf(eProperty.sysprodID.read()));
         if (sysprodRec != null) {
