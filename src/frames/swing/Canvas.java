@@ -87,7 +87,7 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
             iwin.gc2d.setStroke(new BasicStroke(2)); //толщина линии
             iwin.gc2d.translate(Com5t.TRANSLATE_XY, Com5t.TRANSLATE_XY);
             iwin.scale = (getWidth() / iwin.width > getHeight() / iwin.height)
-                    ? getHeight() / iwin.height : getWidth() / iwin.width;
+                    ? getHeight() / (iwin.height + 24) : getWidth() / (iwin.width + 24);
             iwin.gc2d.scale(iwin.scale, iwin.scale);
             iwin.rootArea.draw(getWidth(), getHeight());
 

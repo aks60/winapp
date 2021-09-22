@@ -87,6 +87,7 @@ import builder.making.UColor;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.dialog.DicJoinvar;
+import frames.swing.DrawScene;
 import frames.swing.FilterTable;
 import frames.swing.rotate.VerticalLabelUI;
 import java.awt.event.KeyEvent;
@@ -116,6 +117,7 @@ public class Systree extends javax.swing.JFrame {
 
     private BasicLabelUI basicLabelUI = new VerticalLabelUI(false);
     private FilterTable filterTable = new FilterTable();
+    private DrawScene drawScene = new DrawScene();
     private Canvas paintPanel = new Canvas(iwin);
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
@@ -324,7 +326,8 @@ public class Systree extends javax.swing.JFrame {
         rsvSystree.add(eSystree.cgrp, txt15);
         rsvSystree.add(eSystree.coef, txt35);
 
-        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
+        panDesign.add(drawScene, java.awt.BorderLayout.CENTER);
+        drawScene.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
         if (selectedPath != null) {
             sysTree.setSelectionPath(new TreePath(selectedPath));
@@ -796,16 +799,6 @@ public class Systree extends javax.swing.JFrame {
         pan1 = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
         panDesign = new javax.swing.JPanel();
-        pan23 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        pan24 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        pan25 = new javax.swing.JPanel();
-        pan26 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        pan27 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         pan7 = new javax.swing.JPanel();
         pan11 = new javax.swing.JPanel();
         scr7 = new javax.swing.JScrollPane();
@@ -921,7 +914,7 @@ public class Systree extends javax.swing.JFrame {
         btn11 = new javax.swing.JButton();
         lab47 = new javax.swing.JLabel();
         txt35 = new javax.swing.JTextField();
-        lab777 = new javax.swing.JLabel();
+        checkBox1 = new javax.swing.JCheckBox();
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
@@ -1135,75 +1128,7 @@ public class Systree extends javax.swing.JFrame {
         pan2.setPreferredSize(new java.awt.Dimension(540, 200));
         pan2.setLayout(new java.awt.GridLayout(1, 2));
 
-        panDesign.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panDesign.setLayout(new java.awt.BorderLayout());
-
-        pan23.setPreferredSize(new java.awt.Dimension(16, 14));
-        pan23.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("400");
-        jLabel3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(255, 0, 51)));
-        jLabel3.setMinimumSize(new java.awt.Dimension(14, 40));
-        jLabel3.setPreferredSize(new java.awt.Dimension(12, 120));
-        pan23.add(jLabel3);
-
-        panDesign.add(pan23, java.awt.BorderLayout.LINE_START);
-
-        pan24.setPreferredSize(new java.awt.Dimension(14, 18));
-        pan24.setLayout(new java.awt.BorderLayout());
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 0, 0));
-        jButton2.setText("-");
-        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jButton2.setMaximumSize(new java.awt.Dimension(16, 16));
-        jButton2.setMinimumSize(new java.awt.Dimension(16, 16));
-        jButton2.setPreferredSize(new java.awt.Dimension(16, 16));
-        pan24.add(jButton2, java.awt.BorderLayout.WEST);
-
-        pan25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan25.setLayout(new java.awt.BorderLayout());
-        pan24.add(pan25, java.awt.BorderLayout.CENTER);
-
-        panDesign.add(pan24, java.awt.BorderLayout.SOUTH);
-
-        pan26.setMinimumSize(new java.awt.Dimension(14, 18));
-        pan26.setPreferredSize(new java.awt.Dimension(14, 18));
-        pan26.setLayout(new java.awt.BorderLayout());
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 0, 0));
-        jButton1.setText("+");
-        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jButton1.setMaximumSize(new java.awt.Dimension(16, 16));
-        jButton1.setMinimumSize(new java.awt.Dimension(16, 16));
-        jButton1.setPreferredSize(new java.awt.Dimension(16, 16));
-        pan26.add(jButton1, java.awt.BorderLayout.WEST);
-
-        pan27.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("233");
-        jLabel1.setPreferredSize(new java.awt.Dimension(23, 14));
-        pan27.add(jLabel1);
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("400");
-        jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 1, new java.awt.Color(255, 0, 51)));
-        jLabel2.setPreferredSize(new java.awt.Dimension(40, 14));
-        pan27.add(jLabel2);
-
-        pan26.add(pan27, java.awt.BorderLayout.CENTER);
-
-        panDesign.add(pan26, java.awt.BorderLayout.NORTH);
-
         pan2.add(panDesign);
 
         pan7.setPreferredSize(new java.awt.Dimension(300, 200));
@@ -2398,13 +2323,7 @@ public class Systree extends javax.swing.JFrame {
         txt35.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt35.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        lab777.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        lab777.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lab777.setText("277");
-        lab777.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab777.setMaximumSize(new java.awt.Dimension(22, 38));
-        lab777.setMinimumSize(new java.awt.Dimension(22, 38));
-        lab777.setPreferredSize(new java.awt.Dimension(22, 38));
+        checkBox1.setText("jCheckBox1");
 
         javax.swing.GroupLayout pan6Layout = new javax.swing.GroupLayout(pan6);
         pan6.setLayout(pan6Layout);
@@ -2414,7 +2333,7 @@ public class Systree extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pan6Layout.createSequentialGroup()
-                        .addComponent(lab777, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pan6Layout.createSequentialGroup()
                         .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2531,8 +2450,8 @@ public class Systree extends javax.swing.JFrame {
                             .addComponent(lab23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addComponent(lab777, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp\nОсновные\n&nbsp;&nbsp;&nbsp", pan6);
@@ -3507,14 +3426,10 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JButton btnReport1;
     private javax.swing.JButton btnTest;
     private javax.swing.JPanel centr;
+    private javax.swing.JCheckBox checkBox1;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab13;
     private javax.swing.JLabel lab14;
@@ -3555,7 +3470,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JLabel lab55;
     private javax.swing.JLabel lab56;
     private javax.swing.JLabel lab57;
-    private javax.swing.JLabel lab777;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan11;
@@ -3568,11 +3482,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JPanel pan20;
     private javax.swing.JPanel pan21;
     private javax.swing.JPanel pan22;
-    private javax.swing.JPanel pan23;
-    private javax.swing.JPanel pan24;
-    private javax.swing.JPanel pan25;
-    private javax.swing.JPanel pan26;
-    private javax.swing.JPanel pan27;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
@@ -3667,7 +3576,5 @@ public class Systree extends javax.swing.JFrame {
         DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
         model.reload();
-
-        jLabel3.setUI(new VerticalLabelUI(false));
     }
 }

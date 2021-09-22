@@ -1,107 +1,144 @@
 package frames.swing;
 
-public class DrawScene extends javax.swing.JPanel {
+import frames.swing.rotate.VerticalLabelUI;
 
+public class DrawScene extends javax.swing.JPanel {
 
     public DrawScene() {
         initComponents();
+        initElements();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pan26 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        pan27 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        pan23 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        pan24 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        pan25 = new javax.swing.JPanel();
+        pan01 = new javax.swing.JPanel();
+        btn1 = new javax.swing.JButton();
+        btn4 = new javax.swing.JButton();
+        pan03 = new javax.swing.JPanel();
+        lab1 = new javax.swing.JLabel();
+        pan05 = new javax.swing.JPanel();
+        btn2 = new javax.swing.JButton();
+        pan06 = new javax.swing.JPanel();
+        btn3 = new javax.swing.JButton();
+        pan3 = new javax.swing.JPanel();
+        lab2 = new javax.swing.JLabel();
+        lab3 = new javax.swing.JLabel();
 
+        setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         setLayout(new java.awt.BorderLayout());
 
-        pan26.setMinimumSize(new java.awt.Dimension(14, 18));
-        pan26.setPreferredSize(new java.awt.Dimension(14, 18));
-        pan26.setLayout(new java.awt.BorderLayout());
+        pan01.setMinimumSize(new java.awt.Dimension(4, 18));
+        pan01.setPreferredSize(new java.awt.Dimension(4, 18));
+        pan01.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 0, 0));
-        jButton1.setText("+");
-        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jButton1.setMaximumSize(new java.awt.Dimension(16, 16));
-        jButton1.setMinimumSize(new java.awt.Dimension(16, 16));
-        jButton1.setPreferredSize(new java.awt.Dimension(16, 16));
-        pan26.add(jButton1, java.awt.BorderLayout.WEST);
+        btn1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn1.setForeground(new java.awt.Color(255, 0, 0));
+        btn1.setText("+");
+        btn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn1.setMaximumSize(new java.awt.Dimension(16, 16));
+        btn1.setMinimumSize(new java.awt.Dimension(16, 16));
+        btn1.setPreferredSize(new java.awt.Dimension(16, 16));
+        pan01.add(btn1, java.awt.BorderLayout.WEST);
 
-        pan27.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+        btn4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn4.setForeground(new java.awt.Color(255, 0, 0));
+        btn4.setText("+");
+        btn4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn4.setMaximumSize(new java.awt.Dimension(16, 16));
+        btn4.setMinimumSize(new java.awt.Dimension(16, 16));
+        btn4.setPreferredSize(new java.awt.Dimension(16, 16));
+        pan01.add(btn4, java.awt.BorderLayout.EAST);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("233");
-        jLabel1.setPreferredSize(new java.awt.Dimension(23, 14));
-        pan27.add(jLabel1);
+        add(pan01, java.awt.BorderLayout.NORTH);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("400");
-        jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 1, new java.awt.Color(255, 0, 51)));
-        jLabel2.setPreferredSize(new java.awt.Dimension(40, 14));
-        pan27.add(jLabel2);
+        pan03.setMinimumSize(new java.awt.Dimension(16, 4));
+        pan03.setPreferredSize(new java.awt.Dimension(14, 4));
+        pan03.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
-        pan26.add(pan27, java.awt.BorderLayout.CENTER);
+        lab1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lab1.setForeground(new java.awt.Color(0, 0, 255));
+        lab1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lab1.setText("400");
+        lab1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(255, 0, 51)));
+        lab1.setMinimumSize(new java.awt.Dimension(14, 40));
+        lab1.setPreferredSize(new java.awt.Dimension(14, 120));
+        lab1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        pan03.add(lab1);
 
-        add(pan26, java.awt.BorderLayout.NORTH);
+        add(pan03, java.awt.BorderLayout.LINE_START);
 
-        pan23.setPreferredSize(new java.awt.Dimension(16, 14));
-        pan23.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        pan05.setMinimumSize(new java.awt.Dimension(4, 18));
+        pan05.setPreferredSize(new java.awt.Dimension(4, 18));
+        pan05.setLayout(new java.awt.BorderLayout());
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("400");
-        jLabel3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(255, 0, 51)));
-        jLabel3.setMinimumSize(new java.awt.Dimension(14, 40));
-        jLabel3.setPreferredSize(new java.awt.Dimension(12, 120));
-        pan23.add(jLabel3);
+        btn2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btn2.setForeground(new java.awt.Color(255, 0, 0));
+        btn2.setText("-");
+        btn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn2.setMaximumSize(new java.awt.Dimension(16, 16));
+        btn2.setMinimumSize(new java.awt.Dimension(16, 16));
+        btn2.setPreferredSize(new java.awt.Dimension(16, 16));
+        pan05.add(btn2, java.awt.BorderLayout.WEST);
 
-        add(pan23, java.awt.BorderLayout.LINE_START);
+        pan06.setLayout(new java.awt.BorderLayout());
 
-        pan24.setPreferredSize(new java.awt.Dimension(14, 18));
-        pan24.setLayout(new java.awt.BorderLayout());
+        btn3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btn3.setForeground(new java.awt.Color(255, 0, 0));
+        btn3.setText("-");
+        btn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn3.setMaximumSize(new java.awt.Dimension(16, 16));
+        btn3.setMinimumSize(new java.awt.Dimension(16, 16));
+        btn3.setPreferredSize(new java.awt.Dimension(16, 16));
+        pan06.add(btn3, java.awt.BorderLayout.EAST);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 0, 0));
-        jButton2.setText("-");
-        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jButton2.setMaximumSize(new java.awt.Dimension(16, 16));
-        jButton2.setMinimumSize(new java.awt.Dimension(16, 16));
-        jButton2.setPreferredSize(new java.awt.Dimension(16, 16));
-        pan24.add(jButton2, java.awt.BorderLayout.WEST);
+        pan3.setMinimumSize(new java.awt.Dimension(4, 4));
+        pan3.setPreferredSize(new java.awt.Dimension(4, 4));
+        pan3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
-        pan25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan25.setLayout(new java.awt.BorderLayout());
-        pan24.add(pan25, java.awt.BorderLayout.CENTER);
+        lab2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lab2.setForeground(new java.awt.Color(0, 0, 255));
+        lab2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lab2.setText("233");
+        lab2.setPreferredSize(new java.awt.Dimension(123, 14));
+        lab2.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        pan3.add(lab2);
 
-        add(pan24, java.awt.BorderLayout.SOUTH);
+        lab3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        lab3.setForeground(new java.awt.Color(0, 0, 255));
+        lab3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lab3.setText("400");
+        lab3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 1, new java.awt.Color(255, 0, 51)));
+        lab3.setPreferredSize(new java.awt.Dimension(40, 14));
+        lab3.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        pan3.add(lab3);
+
+        pan06.add(pan3, java.awt.BorderLayout.CENTER);
+
+        pan05.add(pan06, java.awt.BorderLayout.CENTER);
+
+        add(pan05, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
-
+    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel pan23;
-    private javax.swing.JPanel pan24;
-    private javax.swing.JPanel pan25;
-    private javax.swing.JPanel pan26;
-    private javax.swing.JPanel pan27;
+    private javax.swing.JButton btn1;
+    private javax.swing.JButton btn2;
+    private javax.swing.JButton btn3;
+    private javax.swing.JButton btn4;
+    private javax.swing.JLabel lab1;
+    private javax.swing.JLabel lab2;
+    private javax.swing.JLabel lab3;
+    private javax.swing.JPanel pan01;
+    private javax.swing.JPanel pan03;
+    private javax.swing.JPanel pan05;
+    private javax.swing.JPanel pan06;
+    private javax.swing.JPanel pan3;
     // End of variables declaration//GEN-END:variables
+    // </editor-fold> 
+    
+    private void initElements() {
+        lab1.setUI(new VerticalLabelUI(false));
+    }
 }
