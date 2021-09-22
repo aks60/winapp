@@ -212,34 +212,34 @@ public class AreaSimple extends Com5t {
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Прорисовка размера  
-            if (iwin().scale > 0.1) {
-                LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
-                LinkedList<ElemCross> impostList = rootArea().listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
-                for (ElemSimple impostElem : impostList) { //по импостам определим точки разрыва линии
-                    if (Layout.VERT == impostElem.owner().layout) {
-                        ls2.add(impostElem.y1 + (impostElem.y2 - impostElem.y1) / 2);
-                    } else {
-                        ls1.add(impostElem.x1 + (impostElem.x2 - impostElem.x1) / 2);
-                    }
-                }
-                Collections.sort(ls1);
-                Collections.sort(ls2);
-                int mov = 80;
-                for (int i = 1; i < ls1.size(); i++) {
-                    float x1 = ls1.get(i - 1), x2 = ls1.get(i);
-                    Draw.line(iwin(), x1, iwin().height + mov, x2, iwin().height + mov, 0);
-                }
-                for (int i = 1; i < ls2.size(); i++) {
-                    float y1 = ls2.get(i - 1), y2 = ls2.get(i);
-                    Draw.line(iwin(), (this.x2 + mov), y1, (this.x2 + mov), y2, 0);
-                }
-                if (ls1.size() > 2) { //линия общей ширины
-                    Draw.line(iwin(), rootArea().x1, iwin().height + mov * 2, rootArea().x2, iwin().height + mov * 2, 0);
-                }
-                if (ls2.size() > 2) { //линия общей высоты
-                    Draw.line(iwin(), iwin().width + mov * 2, 0, iwin().width + mov * 2, iwin().height, 0);
-                }
-            }
+//            if (iwin().scale > 0.1) {
+//                LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
+//                LinkedList<ElemCross> impostList = rootArea().listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
+//                for (ElemSimple impostElem : impostList) { //по импостам определим точки разрыва линии
+//                    if (Layout.VERT == impostElem.owner().layout) {
+//                        ls2.add(impostElem.y1 + (impostElem.y2 - impostElem.y1) / 2);
+//                    } else {
+//                        ls1.add(impostElem.x1 + (impostElem.x2 - impostElem.x1) / 2);
+//                    }
+//                }
+//                Collections.sort(ls1);
+//                Collections.sort(ls2);
+//                int mov = 80;
+//                for (int i = 1; i < ls1.size(); i++) {
+//                    float x1 = ls1.get(i - 1), x2 = ls1.get(i);
+//                    Draw.line(iwin(), x1, iwin().height + mov, x2, iwin().height + mov, 0);
+//                }
+//                for (int i = 1; i < ls2.size(); i++) {
+//                    float y1 = ls2.get(i - 1), y2 = ls2.get(i);
+//                    Draw.line(iwin(), (this.x2 + mov), y1, (this.x2 + mov), y2, 0);
+//                }
+//                if (ls1.size() > 2) { //линия общей ширины
+//                    Draw.line(iwin(), rootArea().x1, iwin().height + mov * 2, rootArea().x2, iwin().height + mov * 2, 0);
+//                }
+//                if (ls2.size() > 2) { //линия общей высоты
+//                    Draw.line(iwin(), iwin().width + mov * 2, 0, iwin().width + mov * 2, iwin().height, 0);
+//                }
+//            }
             //Рисунок в память
             if (iwin().bufferImg != null) {
                 ByteArrayOutputStream bosFill = new ByteArrayOutputStream();

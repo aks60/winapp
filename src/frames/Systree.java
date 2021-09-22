@@ -1138,7 +1138,7 @@ public class Systree extends javax.swing.JFrame {
         panDesign.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panDesign.setLayout(new java.awt.BorderLayout());
 
-        pan23.setPreferredSize(new java.awt.Dimension(18, 14));
+        pan23.setPreferredSize(new java.awt.Dimension(16, 14));
         pan23.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -1146,12 +1146,11 @@ public class Systree extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("400");
         jLabel3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(255, 0, 51)));
-        jLabel3.setMaximumSize(new java.awt.Dimension(14, 40));
         jLabel3.setMinimumSize(new java.awt.Dimension(14, 40));
-        jLabel3.setPreferredSize(new java.awt.Dimension(14, 120));
+        jLabel3.setPreferredSize(new java.awt.Dimension(12, 120));
         pan23.add(jLabel3);
 
-        panDesign.add(pan23, java.awt.BorderLayout.EAST);
+        panDesign.add(pan23, java.awt.BorderLayout.LINE_START);
 
         pan24.setPreferredSize(new java.awt.Dimension(14, 18));
         pan24.setLayout(new java.awt.BorderLayout());
@@ -1163,21 +1162,10 @@ public class Systree extends javax.swing.JFrame {
         jButton2.setMaximumSize(new java.awt.Dimension(16, 16));
         jButton2.setMinimumSize(new java.awt.Dimension(16, 16));
         jButton2.setPreferredSize(new java.awt.Dimension(16, 16));
-        pan24.add(jButton2, java.awt.BorderLayout.EAST);
+        pan24.add(jButton2, java.awt.BorderLayout.WEST);
 
         pan25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-
-        javax.swing.GroupLayout pan25Layout = new javax.swing.GroupLayout(pan25);
-        pan25.setLayout(pan25Layout);
-        pan25Layout.setHorizontalGroup(
-            pan25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 344, Short.MAX_VALUE)
-        );
-        pan25Layout.setVerticalGroup(
-            pan25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 14, Short.MAX_VALUE)
-        );
-
+        pan25.setLayout(new java.awt.BorderLayout());
         pan24.add(pan25, java.awt.BorderLayout.CENTER);
 
         panDesign.add(pan24, java.awt.BorderLayout.SOUTH);
@@ -1193,7 +1181,7 @@ public class Systree extends javax.swing.JFrame {
         jButton1.setMaximumSize(new java.awt.Dimension(16, 16));
         jButton1.setMinimumSize(new java.awt.Dimension(16, 16));
         jButton1.setPreferredSize(new java.awt.Dimension(16, 16));
-        pan26.add(jButton1, java.awt.BorderLayout.EAST);
+        pan26.add(jButton1, java.awt.BorderLayout.WEST);
 
         pan27.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
