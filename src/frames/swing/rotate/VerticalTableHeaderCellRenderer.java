@@ -14,7 +14,7 @@ import javax.swing.UIManager;
 /*
 TableCellRenderer headerRenderer = new VerticalTableHeaderCellRenderer();
 Enumeration columns = table.getColumnModel().getColumns();
-while (columns.hasMoreElements()) {columns.nextElement(). setHeaderRenderer(headerRenderer);}
+while (columns.hasMoreElements()) {((TableColumn) columns.nextElement()).setHeaderRenderer(headerRenderer);}
 */
 //https://tips4java.wordpress.com/2009/03/06/vertical-table-header-cell-renderer/
 public class VerticalTableHeaderCellRenderer

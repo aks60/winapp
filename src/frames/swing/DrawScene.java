@@ -24,7 +24,7 @@ public class DrawScene extends javax.swing.JPanel {
     }
 
     private void addPanel(JPanel pan, String layout) {
-        pan.setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        //pan.setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pan.setPreferredSize(new Dimension(14, 10));
         add(pan, layout);
     }
