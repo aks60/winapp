@@ -78,6 +78,7 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
         repaint();
     }
 
+    //@Override
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
