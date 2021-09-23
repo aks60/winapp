@@ -1,18 +1,28 @@
 package frames.swing;
 
 import builder.Wincalc;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import builder.model.AreaSimple;
+import builder.model.Com5t;
+import builder.model.ElemCross;
+import builder.model.ElemSimple;
+import enums.Layout;
+import enums.Type;
 import java.awt.Graphics;
 import java.text.DecimalFormat;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DrawScene extends javax.swing.JPanel {
 
     private DecimalFormat df2 = new DecimalFormat("#0.00");
-    Wincalc iwin = null;
+    private Wincalc iwin = null;
+    private List<Float> vertList = new ArrayList();
+    private List<Float> horList = new ArrayList();
+    private List<Com5t> vertAreaList = new ArrayList();
+    private List<Com5t> horAreaList = new ArrayList();
 
     public DrawScene(Wincalc iwin) {
         this.iwin = iwin;
@@ -20,68 +30,96 @@ public class DrawScene extends javax.swing.JPanel {
         initElements();
     }
 
-    private void paintComp(Graphics g) {
-        
-    }
-    
-    private JPanel createPanel() {
-        JPanel pan = new JPanel(new java.awt.BorderLayout()) {
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-            }
-        };
-        pan.setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        pan.setPreferredSize(new Dimension(14, 10));
-        return pan;
+    public void Draw(List vertList, List horList) {
+//                int mov = 80;
+//                for (int i = 1; i < ls1.size(); i++) {
+//                    float x1 = ls1.get(i - 1), x2 = ls1.get(i);
+//                    Draw.line(iwin, x1, iwin.height + mov, x2, iwin.height + mov, 0);
+//                }
+//                for (int i = 1; i < ls2.size(); i++) {
+//                    float y1 = ls2.get(i - 1), y2 = ls2.get(i);
+//                    Draw.line(iwin, (this.x2 + mov), y1, (this.x2 + mov), y2, 0);
+//                }
+//                if (ls1.size() > 2) { //линия общей ширины
+//                    Draw.line(iwin, iwin.rootArea.x1, iwin.height + mov * 2, iwin.rootArea.x2, iwin.height + mov * 2, 0);
+//                }
+//                if (ls2.size() > 2) { //линия общей высоты
+//                    Draw.line(iwin, iwin.width + mov * 2, 0, iwin.width + mov * 2, iwin.height, 0);
+//                }
+//            }        
     }
 
-    private JButton  createButton(String text) {
-        javax.swing.JButton btn = new javax.swing.JButton();
-        btn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btn.setForeground(new java.awt.Color(255, 0, 0));
-        btn.setText(text);
-        btn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn.setMaximumSize(new java.awt.Dimension(16, 16));
-        btn.setMinimumSize(new java.awt.Dimension(16, 16));
-        btn.setPreferredSize(new java.awt.Dimension(16, 16));
-        btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //btn4ActionPerformed(evt);
+    
+    public void lineList() {
+        LinkedList<ElemCross> impostList = iwin.rootArea.listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
+        for (ElemSimple impostElem : impostList) { //по импостам определим точки разрыва линии
+            if (Layout.VERT == impostElem.owner().layout()) {
+                vertList.add(impostElem.y1 + (impostElem.y2 - impostElem.y1) / 2);
+            } else {
+                horList.add(impostElem.x1 + (impostElem.x2 - impostElem.x1) / 2);
             }
-        });
-        return btn;
+        }
+        Collections.sort(vertList);
+        Collections.sort(horList);
+    }
+
+    public void areaList() {
+
+        List<AreaSimple> areaList = iwin.rootArea.listElem(enums.Type.AREA);
+        for (AreaSimple area : areaList) {
+            if (area.owner().layout() == Layout.HORIZ) {
+                Com5t com = area.listChild.stream().filter(it -> it.type() == enums.Type.AREA && area.listChild.isEmpty()).findFirst().orElse(null);
+                if (com != null) {
+                    horAreaList.add(com);
+                }
+            } else if (area.owner().layout() == Layout.VERT) {
+                Com5t com = area.listChild.stream().filter(it -> it.type() == enums.Type.AREA && area.layout() == Layout.VERT).findFirst().orElse(null);
+                if (com != null) {
+                    vertAreaList.add(com);
+                }
+            }
+        }
+        System.out.println(vertAreaList);
+    }
+
+    private void paintComponentVert(Graphics g) {
+        for (Float val : vertList) {
+            g.drawLine(0, (int) (val.intValue() * iwin.scale), 8, (int) (val.intValue() * iwin.scale));
+        }
+        g.drawLine(0, 2, 8, 2);
+        g.drawLine(0, (int) (iwin.height * iwin.scale), 8, (int) (iwin.height * iwin.scale));
+    }
+
+    private void paintComponentHor(Graphics g) {
+        for (Float val : horList) {
+            g.drawLine((int) (val.intValue() * iwin.scale) + 20, 10, (int) (val.intValue() * iwin.scale) + 20, 18);
+        }
+        g.drawLine(20, 10, 20, 18);
+        g.drawLine((int) (iwin.width * iwin.scale) + 20, 10, (int) (iwin.width * iwin.scale) + 20, 18);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lab1 = new javax.swing.JLabel();
-        pan03 = new javax.swing.JPanel(){
+        pan1 = new javax.swing.JPanel(){
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                paintComp(g);
-            }
-        };
-        btn1 = new javax.swing.JButton();
-        btn4 = new javax.swing.JButton();
-        pan01 = new javax.swing.JPanel(){
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                paintComp(g);
+                paintComponentHor(g);
             }
         };
         btn2 = new javax.swing.JButton();
         btn3 = new javax.swing.JButton();
-
-        lab1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        lab1.setForeground(new java.awt.Color(0, 0, 255));
-        lab1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lab1.setText("400");
-        lab1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(255, 0, 51)));
-        lab1.setMinimumSize(new java.awt.Dimension(14, 40));
-        lab1.setPreferredSize(new java.awt.Dimension(14, 120));
-        lab1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        pan2 = new javax.swing.JPanel();
+        pan3 = new javax.swing.JPanel();
+        btn1 = new javax.swing.JButton();
+        btn4 = new javax.swing.JButton();
+        pan4 = new javax.swing.JPanel(){
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                paintComponentVert(g);
+            }
+        };
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
@@ -93,9 +131,36 @@ public class DrawScene extends javax.swing.JPanel {
         });
         setLayout(new java.awt.BorderLayout());
 
-        pan03.setMinimumSize(new java.awt.Dimension(4, 18));
-        pan03.setPreferredSize(new java.awt.Dimension(4, 18));
-        pan03.setLayout(new java.awt.BorderLayout());
+        pan1.setMinimumSize(new java.awt.Dimension(4, 18));
+        pan1.setPreferredSize(new java.awt.Dimension(4, 18));
+        pan1.setLayout(new java.awt.BorderLayout());
+
+        btn2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btn2.setForeground(new java.awt.Color(255, 0, 0));
+        btn2.setText("-");
+        btn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn2.setMaximumSize(new java.awt.Dimension(16, 16));
+        btn2.setMinimumSize(new java.awt.Dimension(16, 16));
+        btn2.setPreferredSize(new java.awt.Dimension(16, 16));
+        pan1.add(btn2, java.awt.BorderLayout.WEST);
+
+        btn3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btn3.setForeground(new java.awt.Color(255, 0, 0));
+        btn3.setText("-");
+        btn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn3.setMaximumSize(new java.awt.Dimension(16, 16));
+        btn3.setMinimumSize(new java.awt.Dimension(16, 16));
+        btn3.setPreferredSize(new java.awt.Dimension(16, 16));
+        pan1.add(btn3, java.awt.BorderLayout.EAST);
+
+        add(pan1, java.awt.BorderLayout.SOUTH);
+
+        pan2.setPreferredSize(new java.awt.Dimension(18, 10));
+        add(pan2, java.awt.BorderLayout.EAST);
+
+        pan3.setMinimumSize(new java.awt.Dimension(4, 18));
+        pan3.setPreferredSize(new java.awt.Dimension(4, 18));
+        pan3.setLayout(new java.awt.BorderLayout());
 
         btn1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btn1.setForeground(new java.awt.Color(255, 0, 0));
@@ -104,7 +169,7 @@ public class DrawScene extends javax.swing.JPanel {
         btn1.setMaximumSize(new java.awt.Dimension(16, 16));
         btn1.setMinimumSize(new java.awt.Dimension(16, 16));
         btn1.setPreferredSize(new java.awt.Dimension(16, 16));
-        pan03.add(btn1, java.awt.BorderLayout.WEST);
+        pan3.add(btn1, java.awt.BorderLayout.WEST);
 
         btn4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btn4.setForeground(new java.awt.Color(255, 0, 0));
@@ -118,33 +183,12 @@ public class DrawScene extends javax.swing.JPanel {
                 btn4ActionPerformed(evt);
             }
         });
-        pan03.add(btn4, java.awt.BorderLayout.EAST);
+        pan3.add(btn4, java.awt.BorderLayout.EAST);
 
-        add(pan03, java.awt.BorderLayout.NORTH);
+        add(pan3, java.awt.BorderLayout.NORTH);
 
-        pan01.setMinimumSize(new java.awt.Dimension(4, 18));
-        pan01.setPreferredSize(new java.awt.Dimension(4, 18));
-        pan01.setLayout(new java.awt.BorderLayout());
-
-        btn2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btn2.setForeground(new java.awt.Color(255, 0, 0));
-        btn2.setText("-");
-        btn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn2.setMaximumSize(new java.awt.Dimension(16, 16));
-        btn2.setMinimumSize(new java.awt.Dimension(16, 16));
-        btn2.setPreferredSize(new java.awt.Dimension(16, 16));
-        pan01.add(btn2, java.awt.BorderLayout.WEST);
-
-        btn3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btn3.setForeground(new java.awt.Color(255, 0, 0));
-        btn3.setText("-");
-        btn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn3.setMaximumSize(new java.awt.Dimension(16, 16));
-        btn3.setMinimumSize(new java.awt.Dimension(16, 16));
-        btn3.setPreferredSize(new java.awt.Dimension(16, 16));
-        pan01.add(btn3, java.awt.BorderLayout.EAST);
-
-        add(pan01, java.awt.BorderLayout.SOUTH);
+        pan4.setPreferredSize(new java.awt.Dimension(18, 10));
+        add(pan4, java.awt.BorderLayout.WEST);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
@@ -156,35 +200,18 @@ public class DrawScene extends javax.swing.JPanel {
     }//GEN-LAST:event_btn4ActionPerformed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
-    private JButton btn001, btn002, btn003, btn004;
-    private JPanel pan1, pan2, pan3, pan4;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
     private javax.swing.JButton btn3;
     private javax.swing.JButton btn4;
-    private javax.swing.JLabel lab1;
-    private javax.swing.JPanel pan01;
-    private javax.swing.JPanel pan03;
+    private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan2;
+    private javax.swing.JPanel pan3;
+    private javax.swing.JPanel pan4;
     // End of variables declaration//GEN-END:variables
     // </editor-fold> 
 
     private void initElements() {
-        //lab1.setUI(new VerticalLabelUI(false));
-//        pan1 = createPanel();
-//        add(pan1, BorderLayout.SOUTH);
-//        pan1.add(createButton("-"), java.awt.BorderLayout.WEST);
-//        pan1.add(createButton("-"), java.awt.BorderLayout.EAST);
-//
-//        pan2 = createPanel();
-//        add(pan2, BorderLayout.EAST);
-//
-//        pan3 = createPanel();
-//        add(pan3, BorderLayout.NORTH);
-//        pan3.add(createButton("+"), java.awt.BorderLayout.WEST);
-//        pan3.add(createButton("+"), java.awt.BorderLayout.EAST);
-//
-//        pan4 = createPanel();
-//        add(pan4, BorderLayout.WEST);
     }
 }

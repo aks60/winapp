@@ -115,7 +115,7 @@ public class Systree extends javax.swing.JFrame {
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Query qSyspar2 = new Query(eSyspar1.values());
 
-    private BasicLabelUI basicLabelUI = new VerticalLabelUI(false);
+    //private BasicLabelUI basicLabelUI = new VerticalLabelUI(false);
     private FilterTable filterTable = new FilterTable();
     private DrawScene drawScene = null;
     private Canvas paintPanel = new Canvas(iwin);
@@ -706,26 +706,9 @@ public class Systree extends javax.swing.JFrame {
                 iwin.calcFurniture.calc();
                 paintPanel.repaint(true);
                 loadingWin();
+                drawScene.lineList();
                 winTree.setSelectionInterval(0, 0);
 
-//                List withList = new ArrayList();
-//                List heightList = new ArrayList();
-//                List<AreaSimple> areaList = iwin.rootArea.listElem(enums.Type.AREA);
-//                for (AreaSimple area : areaList) {
-//                    if (area.owner().layout() == Layout.HORIZ) {
-//                        Object obj = area.listChild.stream().filter(it -> it.type() == enums.Type.AREA && area.layout() == Layout.HORIZ).findFirst().orElse(null);
-//                        if (obj == null) {
-//                            withList.add(area.width());
-//                        }
-//                    } else if (area.owner().layout() == Layout.VERT) {
-//                        Object obj = area.listChild.stream().filter(it -> it.type() == enums.Type.AREA  && area.layout() == Layout.VERT).findFirst().orElse(null);
-//                        if (obj == null) {
-//                            heightList.add(area.height());
-//                        }
-//                    }
-//                }
-//                System.out.println(withList);
-//                System.out.println(heightList);
             } else {
                 Graphics2D g = (Graphics2D) paintPanel.getGraphics();
                 g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
@@ -2858,11 +2841,12 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        float id = 9.0f;
-        GsonElem gson = iwin.rootGson.find(id);
-        GsonElem root = iwin.rootGson;
-        root.resizRoot(3000, Layout.HORIZ);
-        updateScript(id);
+//        float id = 9.0f;
+//        GsonElem gson = iwin.rootGson.find(id);
+//        GsonElem root = iwin.rootGson;
+//        root.resizRoot(3000, Layout.HORIZ);
+//        updateScript(id);
+        drawScene.areaList();
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose

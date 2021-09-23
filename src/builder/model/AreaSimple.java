@@ -183,7 +183,7 @@ public class AreaSimple extends Com5t {
     }
 
     //Рисуем конструкцию
-    public void draw(int width, int height) {
+    public void draw() {
         try {
             //Прорисовка стеклопакетов
             LinkedList<ElemGlass> elemGlassList = rootArea().listElem(Type.GLASS);
@@ -211,7 +211,7 @@ public class AreaSimple extends Com5t {
             LinkedList<AreaStvorka> elemStvorkaList = rootArea().listElem(Type.STVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
-            //Прорисовка размера  
+//            //Прорисовка размера  
 //            if (iwin().scale > 0.1) {
 //                LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
 //                LinkedList<ElemCross> impostList = rootArea().listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
@@ -240,6 +240,7 @@ public class AreaSimple extends Com5t {
 //                    Draw.line(iwin(), iwin().width + mov * 2, 0, iwin().width + mov * 2, iwin().height, 0);
 //                }
 //            }
+
             //Рисунок в память
             if (iwin().bufferImg != null) {
                 ByteArrayOutputStream bosFill = new ByteArrayOutputStream();
