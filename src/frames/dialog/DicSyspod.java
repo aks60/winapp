@@ -111,8 +111,9 @@ public class DicSyspod extends javax.swing.JDialog {
         for (Record record : qSysprod.table(eSysprod.up)) {
             try {
                 Object arrayRec[] = {record.get(eSysprod.name), null};
-                Object script = record.get(eSysprod.script);                
-                arrayRec[1] = Canvas.createImageIcon(iwin, script, 68); //image;
+                Object script = record.get(eSysprod.script);
+                iwin.build(script.toString());
+                arrayRec[1] = Canvas.createImageIcon(iwin, 68); //image;
                 dm.addRow(arrayRec);
 
             } catch (Exception e) {

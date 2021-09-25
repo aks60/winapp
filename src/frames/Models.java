@@ -141,7 +141,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         for (Record record : qModels.table(eSysmodel.up)) {
             try {
                 Object script = record.get(eSysmodel.script);
-                ImageIcon image = Canvas.createImageIcon(iwin, script, 68);
+                iwin.build(script.toString());
+                ImageIcon image = Canvas.createImageIcon(iwin, 68);
                 record.add(image);
 
             } catch (Exception e) {

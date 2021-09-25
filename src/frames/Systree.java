@@ -100,7 +100,7 @@ import javax.swing.plaf.basic.BasicLabelUI;
 
 public class Systree extends javax.swing.JFrame {
 
-    private Wincalc iwin = new Wincalc();
+    private Wincalc win = new Wincalc();
     public static javax.swing.JFrame frame = null;
     private int systreeID = -1; //выбранная система
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
@@ -115,10 +115,9 @@ public class Systree extends javax.swing.JFrame {
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Query qSyspar2 = new Query(eSyspar1.values());
 
-    //private BasicLabelUI basicLabelUI = new VerticalLabelUI(false);
     private FilterTable filterTable = new FilterTable();
-    private DrawScene drawScene = null;
-    private Canvas paintPanel = new Canvas(iwin);
+    private DrawScene drawScene = new DrawScene();
+    private Canvas paintPanel = new Canvas(win);
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
     private java.awt.Frame models = null;
@@ -148,8 +147,7 @@ public class Systree extends javax.swing.JFrame {
         selectionTab2(artiklID);
     }
 
-    private void loadingData() {
-        drawScene = new DrawScene(iwin);
+    private void loadingData() {        
         //Получим сохр. ID системы при выходе из программы
         Record sysprodRec = eSysprod.find(Integer.valueOf(eProperty.sysprodID.read()));
         if (sysprodRec != null) {
@@ -279,9 +277,8 @@ public class Systree extends javax.swing.JFrame {
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 1) {
                     Object v = qSysprod.get(row).get(eSysprod.values().length);
-                    if (v instanceof Icon) {
-                        Icon icon = (Icon) v;
-                        label.setIcon(icon);
+                    if (v instanceof Wincalc) {
+                        label.setIcon(Canvas.createImageIcon((Wincalc) v, 68));
                     }
                 } else {
                     label.setIcon(null);
@@ -339,7 +336,7 @@ public class Systree extends javax.swing.JFrame {
     private void loadingWin() {
         try {
             int row[] = winTree.getSelectionRows();
-            DefMutableTreeNode root = UGui.loadWinTree(iwin);
+            DefMutableTreeNode root = UGui.loadWinTree(win);
             winTree.setModel(new DefaultTreeModel(root));
             winTree.setSelectionRows(row);
 
@@ -353,14 +350,12 @@ public class Systree extends javax.swing.JFrame {
         qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
         DefaultTableModel dm = (DefaultTableModel) tab5.getModel();
         dm.getDataVector().removeAllElements();
-
-        int length = 68;
         for (Record record : qSysprod.table(eSysprod.up)) {
             try {
                 Object script = record.get(eSysprod.script);
-                ImageIcon image = Canvas.createImageIcon(iwin, script, length);
-                record.add(image);
-
+                Wincalc iwin2 = new Wincalc();
+                iwin2.build(script.toString());
+                record.add(iwin2);
             } catch (Exception e) {
                 System.err.println("Ошибка:Systree.loadingTab5() " + e);
             }
@@ -522,7 +517,7 @@ public class Systree extends javax.swing.JFrame {
                 String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
                 sysprodRec.set(eSysprod.script, script2);
                 qSysprod.execsql();
-                iwin.build(script2);
+                win.build(script2);
                 UGui.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
                 selectionWin();
                 UGui.setSelectedRow(tab7, index2);
@@ -571,10 +566,10 @@ public class Systree extends javax.swing.JFrame {
                     UGui.setSelectedRow(tab5);
                 }
             } else {
-                AreaSimple ra = iwin.rootArea;
-                iwin.rootArea = null;
+                AreaSimple ra = win.rootArea;
+                win.rootArea = null;
                 paintPanel.paint(paintPanel.getGraphics());
-                iwin.rootArea = ra;
+                win.rootArea = ra;
             }
         }
     }
@@ -586,13 +581,13 @@ public class Systree extends javax.swing.JFrame {
             //Конструкции
             if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card12");
-                ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type().name);
-                txt9.setText(eColor.find(iwin.colorID1).getStr(eColor.name));
-                txt13.setText(eColor.find(iwin.colorID2).getStr(eColor.name));
-                txt14.setText(eColor.find(iwin.colorID3).getStr(eColor.name));
-                txt17.setText(String.valueOf(iwin.rootGson.width()));
-                txt22.setText(String.valueOf(iwin.rootGson.height()));
-                txt23.setText(String.valueOf(iwin.rootGson.heightAdd()));
+                ((TitledBorder) pan12.getBorder()).setTitle(win.rootArea.type().name);
+                txt9.setText(eColor.find(win.colorID1).getStr(eColor.name));
+                txt13.setText(eColor.find(win.colorID2).getStr(eColor.name));
+                txt14.setText(eColor.find(win.colorID3).getStr(eColor.name));
+                txt17.setText(String.valueOf(win.rootGson.width()));
+                txt22.setText(String.valueOf(win.rootGson.height()));
+                txt23.setText(String.valueOf(win.rootGson.heightAdd()));
                 txt23.setEditable(winNode.com5t().type() == enums.Type.ARCH);
 
                 //Параметры
@@ -600,7 +595,7 @@ public class Systree extends javax.swing.JFrame {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card11");
                 qSyspar2.clear();
                 Map<Integer, String> map = new HashMap();
-                iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
+                win.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
                 map.forEach((pk, txt) -> qSyspar2.add(new Record(Query.SEL, pk, txt, pk, null, null)));
                 ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
@@ -652,9 +647,9 @@ public class Systree extends javax.swing.JFrame {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card17");
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
-                ElemJoining ej1 = iwin.mapJoin.get(elem5e.joinPoint(0));
-                ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
-                ElemJoining ej3 = iwin.mapJoin.get(elem5e.joinPoint(2));
+                ElemJoining ej1 = win.mapJoin.get(elem5e.joinPoint(0));
+                ElemJoining ej2 = win.mapJoin.get(elem5e.joinPoint(1));
+                ElemJoining ej3 = win.mapJoin.get(elem5e.joinPoint(2));
                 Arrays.asList(txt36, txt37, txt38, txt39, txt40, txt41).forEach(it -> it.setText(""));
                 Arrays.asList(lab55, lab56, lab57).forEach(it -> it.setIcon(null));
                 if (ej1 != null) {
@@ -692,23 +687,31 @@ public class Systree extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
-            String script = sysprodRec.getStr(eSysprod.script);
+            //String script = sysprodRec.getStr(eSysprod.script);
+            Wincalc iwin2 = (Wincalc) sysprodRec.get(eSysprod.values().length);
             eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
-
-            //Калькуляция и прорисовка окна
-            if (script != null && script.isEmpty() == false) {
-                JsonElement script2 = gson.fromJson(script, JsonElement.class);
-                iwin.build(script2.toString()); //построение изделия                                              
-                iwin.calcJoining = new Joining(iwin, true); //для инит. соединений
-                iwin.calcJoining.calc();
-                iwin.calcFurniture = new builder.making.Furniture(iwin, true); //для инит. ручки
-                iwin.calcFurniture.calc();
+            if (iwin2 != null) {
+                iwin2.correction();
+                win = iwin2;
+                drawScene.setIwin(iwin2);
+                drawScene.lineList();
                 paintPanel.repaint(true);
                 loadingWin();
-                drawScene.lineList();
                 winTree.setSelectionInterval(0, 0);
 
+//            //Калькуляция и прорисовка окна
+//            if (script != null && script.isEmpty() == false) {
+//                JsonElement script2 = gson.fromJson(script, JsonElement.class);
+//                iwin.build(script2.toString()); //построение изделия                                              
+//                iwin.calcJoining = new Joining(iwin, true); //для инит. соединений
+//                iwin.calcJoining.calc();
+//                iwin.calcFurniture = new builder.making.Furniture(iwin, true); //для инит. ручки
+//                iwin.calcFurniture.calc();
+//                drawScene.lineList();
+//                paintPanel.repaint(true);                
+//                loadingWin();               
+//                winTree.setSelectionInterval(0, 0);
             } else {
                 Graphics2D g = (Graphics2D) paintPanel.getGraphics();
                 g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
@@ -738,7 +741,7 @@ public class Systree extends javax.swing.JFrame {
     private void updateScript(float selectID) {
         try {
             //Сохраним скрипт в базе
-            String script = gson.toJson(iwin.rootGson);
+            String script = gson.toJson(win.rootGson);
             Record sysprodRec = qSysprod.get(UGui.getIndexRec(tab5));
             sysprodRec.set(eSysprod.script, script);
             //qSysprod.update(sysprodRec);
@@ -2814,7 +2817,7 @@ public class Systree extends javax.swing.JFrame {
             }
         } else if (tab5.getBorder() != null) {
             if (UGui.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
-                iwin.rootArea = null;
+                win.rootArea = null;
                 paintPanel.paint(paintPanel.getGraphics());
                 UGui.deleteRecord(tab5);
             }
@@ -2877,7 +2880,7 @@ public class Systree extends javax.swing.JFrame {
 
                     if (winNode.com5t().type() == enums.Type.FRAME_SIDE) { //рама окна
                         float elemId = winNode.com5t().id();
-                        GsonElem gsonRama = iwin.rootGson.find(elemId);
+                        GsonElem gsonRama = win.rootGson.find(elemId);
                         String paramStr = gsonRama.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
@@ -2887,7 +2890,7 @@ public class Systree extends javax.swing.JFrame {
 
                     } else if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) { //рама створки
                         float stvId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
-                        GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
+                        GsonElem stvArea = (GsonElem) win.rootGson.find(stvId);
                         String paramStr = stvArea.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         String stvKey = null;
@@ -2908,7 +2911,7 @@ public class Systree extends javax.swing.JFrame {
 
                     } else {  //импост
                         float elemId = winNode.com5t().id();
-                        GsonElem gsonElem = iwin.rootGson.find(elemId);
+                        GsonElem gsonElem = win.rootGson.find(elemId);
                         String paramStr = gsonElem.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
@@ -2945,7 +2948,7 @@ public class Systree extends javax.swing.JFrame {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
-                GsonElem parentArea = (GsonElem) iwin.rootGson.find(parentId);
+                GsonElem parentArea = (GsonElem) win.rootGson.find(parentId);
 
                 if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) {
                     String paramStr = parentArea.param();
@@ -3051,14 +3054,14 @@ public class Systree extends javax.swing.JFrame {
 
             ListenerRecord listenerColor = (colorRec) -> {
 
-                builder.script.GsonElem rootArea = iwin.rootGson.find(selectID);
+                builder.script.GsonElem rootArea = win.rootGson.find(selectID);
                 if (rootArea != null) {
                     if (evt.getSource() == btn9) {
-                        iwin.rootGson.color1 = colorRec.getInt(eColor.id);
+                        win.rootGson.color1 = colorRec.getInt(eColor.id);
                     } else if (evt.getSource() == btn13) {
-                        iwin.rootGson.color2 = colorRec.getInt(eColor.id);
+                        win.rootGson.color2 = colorRec.getInt(eColor.id);
                     } else {
-                        iwin.rootGson.color3 = colorRec.getInt(eColor.id);
+                        win.rootGson.color3 = colorRec.getInt(eColor.id);
                     }
                     updateScript(selectID);
                 }
@@ -3091,7 +3094,7 @@ public class Systree extends javax.swing.JFrame {
 
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonElem glassElem = (GsonElem) iwin.rootGson.find(selectID);
+                GsonElem glassElem = (GsonElem) win.rootGson.find(selectID);
                 String paramStr = glassElem.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
@@ -3115,7 +3118,7 @@ public class Systree extends javax.swing.JFrame {
 
             new DicName(this, (sysfurnRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin.rootGson.find(windowsID);
+                GsonElem stvArea = (GsonElem) win.rootGson.find(windowsID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
@@ -3135,7 +3138,7 @@ public class Systree extends javax.swing.JFrame {
             new DicEnums(this, (typeopenRec) -> {
 
                 float elemID = winNode.com5t().id();
-                GsonElem jsonStv = (GsonElem) iwin.rootGson.find(elemID);
+                GsonElem jsonStv = (GsonElem) win.rootGson.find(elemID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
@@ -3203,7 +3206,7 @@ public class Systree extends javax.swing.JFrame {
             }
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin.rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) win.rootGson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
@@ -3230,7 +3233,7 @@ public class Systree extends javax.swing.JFrame {
         new DicHandl(this, (record) -> {
             try {
                 float selectID = areaStv.id();
-                GsonElem stvArea = (GsonElem) iwin.rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) win.rootGson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
 
@@ -3277,7 +3280,7 @@ public class Systree extends javax.swing.JFrame {
             });
             DicColor frame = new DicColor(this, (colorRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin.rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) win.rootGson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
@@ -3352,7 +3355,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_txt23Update
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));
+        win.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));
     }//GEN-LAST:event_btnTest
 
     private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame
@@ -3362,9 +3365,9 @@ public class Systree extends javax.swing.JFrame {
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
                 JButton btn = (JButton) evt.getSource();
                 int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
-                ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
+                ElemJoining elemJoin = win.mapJoin.get(elem5e.joinPoint(k));
                 Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
-                Joining joining = new Joining(iwin, true);
+                Joining joining = new Joining(win, true);
                 List<Record> list = joining.varList(elemJoin);
                 new DicJoinvar(this, (record) -> {
                     System.out.println(record);

@@ -18,7 +18,6 @@ import javax.swing.UIManager;
 
 public class Man extends javax.swing.JFrame {
 
-    private Wincalc iwin = new Wincalc();
     private javax.swing.Timer timer = null;
     private ListenerFrame listenerMenu;
     private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();

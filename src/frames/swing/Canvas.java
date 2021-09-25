@@ -19,7 +19,18 @@ import javax.swing.ImageIcon;
 public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEvent, MouseEvent> {
 
     private boolean visible = true;
+
     private Wincalc iwin = null;
+
+    public Canvas() {
+        initComponents();
+        iwin.gc2d = (Graphics2D) this.getGraphics();
+        this.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                actionResponse(evt);
+            }
+        });
+    }
 
     public Canvas(Wincalc iwin) {
         initComponents();
@@ -30,6 +41,10 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
                 actionResponse(evt);
             }
         });
+    }
+
+    public void setIwin(Wincalc iwin) {
+        this.iwin = iwin;
     }
 
     public void actionResponse(MouseEvent evt) {
@@ -99,9 +114,8 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
     }
 
     //Создание изображение конструкции
-    public static ImageIcon createImageIcon(Wincalc iwin, Object script, int length) {
+    public static ImageIcon createImageIcon(Wincalc iwin, int length) {
         try {
-            iwin.build(script.toString());
             BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
             iwin.gc2d = bi.createGraphics();
             iwin.gc2d.fillRect(0, 0, length, length);
@@ -109,8 +123,8 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
             iwin.gc2d.translate(2, 2);
             iwin.gc2d.scale(iwin.scale, iwin.scale);
             iwin.rootArea.draw(); //рисую конструкцию
-            ImageIcon image = new ImageIcon(bi);
-            return image;
+            iwin.imageIcon = new ImageIcon(bi);
+            return iwin.imageIcon;
         } catch (Exception e) {
             System.err.println("Canvas.createImageIcon() " + e);
             return new ImageIcon();

@@ -41,6 +41,7 @@ import enums.Type;
 import frames.swing.Draw;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
 
 public class Wincalc {
 
@@ -57,8 +58,8 @@ public class Wincalc {
     public int colorID2 = -1;  //внутренний цвет
     public int colorID3 = -1;  //внещний цвет
 
-    public byte[] bufferByte = null; //буфер рисунка
     public BufferedImage bufferImg = null;  //образ рисунка
+    public ImageIcon imageIcon = null; //рисунок конструкции
     public Graphics2D gc2d = null; //графический котекст рисунка  
     public double scale = 1; //коэффициент сжатия
 
@@ -105,7 +106,7 @@ public class Wincalc {
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(json, GsonRoot.class);
             rootGson.setParent(rootGson);
-            
+
             //Инит конструктива
             this.nuni = rootGson.nuni();
             this.form = Form.NUM0.get(rootGson.form);
@@ -202,5 +203,14 @@ public class Wincalc {
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.constructiv(" + e);
         }
-    }   
+    }
+    
+    //Инит. соединений и ручки
+    public void correction() {
+        calcJoining = new Joining(this, true); //для инит. соединений
+        calcJoining.calc();
+        calcFurniture = new Furniture(this, true); //для инит. ручки
+        calcFurniture.calc();
+    }
+    
 }

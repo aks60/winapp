@@ -302,7 +302,8 @@ public class Orders extends javax.swing.JFrame {
             for (Record record : qPrjprod) {
                 try {
                     Object script = record.get(ePrjprod.script);
-                    ImageIcon image = Canvas.createImageIcon(iwin, script, length);
+                    iwin.build(script.toString());
+                    ImageIcon image = Canvas.createImageIcon(iwin, length);
                     record.add(image);
 
                 } catch (Exception e) {
