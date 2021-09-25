@@ -21,8 +21,11 @@ public class DrawScene extends javax.swing.JPanel {
     private Wincalc iwin = null;
     private List<Float> vertList = new ArrayList();
     private List<Float> horList = new ArrayList();
-    private List<Com5t> vertAreaList = new ArrayList();
-    private List<Com5t> horAreaList = new ArrayList();
+
+    public DrawScene() {
+        initComponents();
+        initElements();
+    }
 
     public DrawScene(Wincalc iwin) {
         this.iwin = iwin;
@@ -30,23 +33,8 @@ public class DrawScene extends javax.swing.JPanel {
         initElements();
     }
 
-    public void Draw(List vertList, List horList) {
-//                int mov = 80;
-//                for (int i = 1; i < ls1.size(); i++) {
-//                    float x1 = ls1.get(i - 1), x2 = ls1.get(i);
-//                    Draw.line(iwin, x1, iwin.height + mov, x2, iwin.height + mov, 0);
-//                }
-//                for (int i = 1; i < ls2.size(); i++) {
-//                    float y1 = ls2.get(i - 1), y2 = ls2.get(i);
-//                    Draw.line(iwin, (this.x2 + mov), y1, (this.x2 + mov), y2, 0);
-//                }
-//                if (ls1.size() > 2) { //линия общей ширины
-//                    Draw.line(iwin, iwin.rootArea.x1, iwin.height + mov * 2, iwin.rootArea.x2, iwin.height + mov * 2, 0);
-//                }
-//                if (ls2.size() > 2) { //линия общей высоты
-//                    Draw.line(iwin, iwin.width + mov * 2, 0, iwin.width + mov * 2, iwin.height, 0);
-//                }
-//            }        
+    public void setIwin(Wincalc iwin) {
+        this.iwin = iwin;
     }
 
     public void lineList() {
