@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DrawScene extends javax.swing.JPanel {
 
-    private DecimalFormat df1 = new DecimalFormat("#0.0");
+    private DecimalFormat df1 = new DecimalFormat("#0.#");
     private Wincalc iwin = null;
     private List<Float> vertList = new ArrayList();
     private List<Float> horList = new ArrayList();
@@ -75,9 +75,10 @@ public class DrawScene extends javax.swing.JPanel {
             int y = (int) (val.intValue() * iwin.scale);
             int y_old = (int) (val_old * iwin.scale);
             g.drawLine(0, y, 8, y);
-//            g.rotate(Math.toRadians(-90), 8, y - 8);
-//            g.drawString("2", 0, y - 8);
-//            g.rotate(Math.toRadians(90), 8, y - 8);
+            int y_txt = (int) (y - 14 - (y - y_old) / 2);
+            g.rotate(Math.toRadians(-90), 9, y_txt + 28);
+            g.drawString(df1.format(val.floatValue() - val_old), 9, y_txt + 28);
+            g.rotate(Math.toRadians(90), 9, y_txt + 28);
             val_old = val.intValue();
         }
         g.drawLine(0, 2, 8, 2);
