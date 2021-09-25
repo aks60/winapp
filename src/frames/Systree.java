@@ -2846,7 +2846,7 @@ public class Systree extends javax.swing.JFrame {
 //        GsonElem root = iwin.rootGson;
 //        root.resizRoot(3000, Layout.HORIZ);
 //        updateScript(id);
-        drawScene.areaList();
+//        drawScene.areaList();
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose

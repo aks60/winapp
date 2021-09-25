@@ -1,23 +1,23 @@
 package frames.swing;
 
 import builder.Wincalc;
-import builder.model.AreaSimple;
 import builder.model.Com5t;
 import builder.model.ElemCross;
 import builder.model.ElemSimple;
+import domain.eArtikl;
 import enums.Layout;
 import enums.Type;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class DrawScene extends javax.swing.JPanel {
 
-    private DecimalFormat df2 = new DecimalFormat("#0.00");
+    private DecimalFormat df1 = new DecimalFormat("#0.0");
     private Wincalc iwin = null;
     private List<Float> vertList = new ArrayList();
     private List<Float> horList = new ArrayList();
@@ -49,53 +49,54 @@ public class DrawScene extends javax.swing.JPanel {
 //            }        
     }
 
-    
     public void lineList() {
+        vertList.clear();
+        horList.clear();
         LinkedList<ElemCross> impostList = iwin.rootArea.listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
-        for (ElemSimple impostElem : impostList) { //по импостам определим точки разрыва линии
-            if (Layout.VERT == impostElem.owner().layout()) {
-                vertList.add(impostElem.y1 + (impostElem.y2 - impostElem.y1) / 2);
+        for (ElemSimple elem : impostList) { //по импостам определим точки разрыва линии
+            if (Layout.VERT == elem.owner().layout()) {
+                vertList.add(elem.y1 + elem.artiklRecAn.getFloat(eArtikl.size_centr));
             } else {
-                horList.add(impostElem.x1 + (impostElem.x2 - impostElem.x1) / 2);
+                horList.add(elem.x1 + elem.artiklRecAn.getFloat(eArtikl.size_centr));
             }
         }
-        Collections.sort(vertList);
-        Collections.sort(horList);
+        vertList.add(iwin.rootArea.height());
+        horList.add(iwin.rootArea.width());
+        pan1.repaint();
+        pan4.repaint();
     }
 
-    public void areaList() {
-
-        List<AreaSimple> areaList = iwin.rootArea.listElem(enums.Type.AREA);
-        for (AreaSimple area : areaList) {
-            if (area.owner().layout() == Layout.HORIZ) {
-                Com5t com = area.listChild.stream().filter(it -> it.type() == enums.Type.AREA && area.listChild.isEmpty()).findFirst().orElse(null);
-                if (com != null) {
-                    horAreaList.add(com);
-                }
-            } else if (area.owner().layout() == Layout.VERT) {
-                Com5t com = area.listChild.stream().filter(it -> it.type() == enums.Type.AREA && area.layout() == Layout.VERT).findFirst().orElse(null);
-                if (com != null) {
-                    vertAreaList.add(com);
-                }
-            }
-        }
-        System.out.println(vertAreaList);
-    }
-
-    private void paintComponentVert(Graphics g) {
+    private void paintVertical(Graphics gc) {
+        Graphics2D g = (Graphics2D) gc;
+        int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 9 : 8;
+        g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
+        float val_old = 0;
         for (Float val : vertList) {
-            g.drawLine(0, (int) (val.intValue() * iwin.scale), 8, (int) (val.intValue() * iwin.scale));
+            int y = (int) (val.intValue() * iwin.scale);
+            int y_old = (int) (val_old * iwin.scale);
+            g.drawLine(0, y, 8, y);
+//            g.rotate(Math.toRadians(-90), 8, y - 8);
+//            g.drawString("2", 0, y - 8);
+//            g.rotate(Math.toRadians(90), 8, y - 8);
+            val_old = val.intValue();
         }
         g.drawLine(0, 2, 8, 2);
-        g.drawLine(0, (int) (iwin.height * iwin.scale), 8, (int) (iwin.height * iwin.scale));
     }
 
-    private void paintComponentHor(Graphics g) {
+    private void paintHorizontal(Graphics gc) {
+        Graphics2D g = (Graphics2D) gc;
+        int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 9 : 8;
+        g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
+        float val_old = 0;
         for (Float val : horList) {
-            g.drawLine((int) (val.intValue() * iwin.scale) + 20, 10, (int) (val.intValue() * iwin.scale) + 20, 18);
+            int x = (int) (val.intValue() * iwin.scale);
+            int x_old = (int) (val_old * iwin.scale);
+            g.drawLine(x + 20, 10, x + 20, 18);
+            int x_txt = (int) (x - 14 - (x - x_old) / 2);
+            g.drawString(df1.format(val.floatValue() - val_old), x_txt + 20, 16);
+            val_old = val.intValue();
         }
         g.drawLine(20, 10, 20, 18);
-        g.drawLine((int) (iwin.width * iwin.scale) + 20, 10, (int) (iwin.width * iwin.scale) + 20, 18);
     }
 
     @SuppressWarnings("unchecked")
@@ -105,7 +106,7 @@ public class DrawScene extends javax.swing.JPanel {
         pan1 = new javax.swing.JPanel(){
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                paintComponentHor(g);
+                paintHorizontal(g);
             }
         };
         btn2 = new javax.swing.JButton();
@@ -117,7 +118,7 @@ public class DrawScene extends javax.swing.JPanel {
         pan4 = new javax.swing.JPanel(){
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                paintComponentVert(g);
+                paintVertical(g);
             }
         };
 
