@@ -73,6 +73,7 @@ public class Test {
             //json();
             //parse();
             //uid();  
+            
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -82,7 +83,7 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-         String _case = "max";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(601004, false));
@@ -134,7 +135,7 @@ public class Test {
         FurnitureTest ft = new FurnitureTest();
         ft.furnitureVar();
         ft.furnitureDet();
-        
+
 //        Query.connection = Test.connect2();
 //        Set set = new HashSet();
 //        Map<String, Set> map = new HashMap();

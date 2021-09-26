@@ -102,7 +102,7 @@ public class Orders extends javax.swing.JFrame {
     private Map<Integer, String> mapParams = new HashMap();
     private Wincalc iwin = new Wincalc();
     private DefMutableTreeNode winNode = null;
-    private Canvas paintPanel = new Canvas(iwin);
+    private Canvas canvas = new Canvas();
     private DefFieldEditor rsvPrj;
     private Gson gson = new GsonBuilder().create();
     private FilterTable filterTable = null;
@@ -113,7 +113,7 @@ public class Orders extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerAdd();
-        loadingTab1();        
+        loadingTab1();
     }
 
     private void loadingData() {
@@ -165,9 +165,8 @@ public class Orders extends javax.swing.JFrame {
                     Record rec = qPrjprod.get(row);
                     if (rec.size() > ePrjprod.values().length) {
                         Object v = rec.get(ePrjprod.values().length);
-                        if (v instanceof Icon) {
-                            Icon icon = (Icon) v;
-                            label.setIcon(icon);
+                        if (v instanceof Wincalc) {
+                            label.setIcon(((Wincalc) v).imageIcon);
                         }
                     }
                 } else {
@@ -208,8 +207,8 @@ public class Orders extends javax.swing.JFrame {
         rsvPrj.add(eProject.weight, txt7);
         rsvPrj.add(eProject.square, txt8);
 
-        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
-        paintPanel.setVisible(true);
+        panDesign.add(canvas, java.awt.BorderLayout.CENTER);
+        canvas.setVisible(true);
     }
 
     private void listenerAdd() {
@@ -300,10 +299,11 @@ public class Orders extends javax.swing.JFrame {
 
             for (Record record : qPrjprod) {
                 try {
-                    Object script = record.get(ePrjprod.script);
-                    iwin.build(script.toString());
-                    ImageIcon image = Canvas.createImageIcon(iwin, script, 68);
-                    record.add(image);
+                    String script = record.getStr(ePrjprod.script);
+                    Wincalc iwin2 = new Wincalc(script);
+                    iwin2.correction();
+                    Canvas.createIcon(iwin2, 68);
+                    record.add(iwin2);
 
                 } catch (Exception e) {
                     System.err.println("Ошибка:Order.loadingTab2() " + e);
@@ -354,29 +354,19 @@ public class Orders extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record prjprodRec = qPrjprod.get(index);
-            String script = prjprodRec.getStr(ePrjprod.script);
-            String systreeId = prjprodRec.getStr(ePrjprod.systree_id);
             eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
-            //qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", systreeId);            
-
-            //Калькуляция и прорисовка окна
-            if (script != null && script.isEmpty() == false) {
-                GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
-
-                JsonElement jsonElem = gson.fromJson(script, JsonElement.class);
-                iwin.build(jsonElem.toString()); //построение изделия
-                iwin.calcJoining = new Joining(iwin, true); //для инит. соединений
-                iwin.calcJoining.calc();
-                iwin.calcFurniture = new builder.making.Furniture(iwin, true); //для инит. ручки
-                iwin.calcFurniture.calc();                
-                paintPanel.repaint(true);
+            Object v = prjprodRec.get(ePrjprod.values().length);
+            if (v instanceof Wincalc) { //прорисовка окна  
+                
+                iwin = (Wincalc) v;
+                canvas.repaint(iwin);
                 loadingWin();
-                winTree.setSelectionRow(0);
+                winTree.setSelectionInterval(0, 0);
 
             } else {
-                Graphics2D g = (Graphics2D) paintPanel.getGraphics();
-                g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
+                Graphics2D g = (Graphics2D) canvas.getGraphics();
+                g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             }
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
         }
@@ -453,7 +443,7 @@ public class Orders extends javax.swing.JFrame {
                 txt24.setText(UGui.df.format(iwin.rootGson.find(stv.id()).width()));
                 txt26.setText(UGui.df.format(iwin.rootGson.find(stv.id()).height()));
                 txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
-                
+
                 //Соединения
             } else if (winNode.com5t().type() == enums.Type.JOINING) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card17");
@@ -3056,14 +3046,14 @@ public class Orders extends javax.swing.JFrame {
         FrameToFile.setFrameSize(this);
         UGui.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
         filterTable = new FilterTable(0, tab1);
-        south.add(filterTable, 0);       
-        filterTable.getTxt().grabFocus();  
+        south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus();
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
         winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
         DefaultTreeCellRenderer rnd2 = (DefaultTreeCellRenderer) winTree.getCellRenderer();
         rnd2.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));
         rnd2.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
-        rnd2.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));        
+        rnd2.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

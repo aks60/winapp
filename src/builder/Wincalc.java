@@ -73,6 +73,13 @@ public class Wincalc {
     public ArrayList<Specific> listSpec = new ArrayList(); //спецификация
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calTariffication; //объекты калькуляции конструктива
 
+    public Wincalc() {
+    }
+
+    public Wincalc(String productJson) {
+        build(productJson);
+    }
+
     public AreaSimple build(String productJson) {
 
         genId = 0;
@@ -204,7 +211,7 @@ public class Wincalc {
             System.err.println("Ошибка:Wincalc.constructiv(" + e);
         }
     }
-    
+
     //Инит. соединений и ручки
     public void correction() {
         calcJoining = new Joining(this, true); //для инит. соединений
@@ -212,5 +219,5 @@ public class Wincalc {
         calcFurniture = new Furniture(this, true); //для инит. ручки
         calcFurniture.calc();
     }
-    
+
 }

@@ -5,8 +5,6 @@ import dataset.Record;
 import domain.eSysmodel;
 import java.awt.Component;
 import java.awt.Window;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -16,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
 import builder.script.GsonRoot;
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 import frames.swing.DefMutableTreeNode;
 import frames.swing.Canvas;
 import java.awt.CardLayout;
@@ -26,16 +23,8 @@ import frames.swing.listener.ListenerRecord;
 import frames.swing.listener.ListenerFrame;
 import dataset.Conn;
 import frames.swing.DefTableModel;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.Writer;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.TreePath;
 
 public class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
@@ -43,7 +32,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     public Wincalc iwin = new Wincalc();
     private Window owner = null;
     private ListenerRecord listenet = null;
-    private Canvas paintPanel = new Canvas(iwin);
+    private Canvas canvas = new Canvas();
     private Query qModels = new Query(eSysmodel.values());
 
     public Models() {
@@ -72,8 +61,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }
 
     private void loadingModel() {
-        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
-        paintPanel.setVisible(true);
+        panDesign.add(canvas, java.awt.BorderLayout.CENTER);
+        canvas.setVisible(true);
         new DefTableModel(tab1, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
         tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
@@ -82,9 +71,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
                     Object v = qModels.get(row).get(eSysmodel.values().length);
-                    if (v instanceof Icon) {
-                        Icon icon = (Icon) v;
-                        label.setIcon(icon);
+                    if (v instanceof Wincalc) {
+                        label.setIcon(((Wincalc) v).imageIcon);
                     }
                 } else {
                     label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -101,9 +89,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
                     Object v = qModels.get(row).get(eSysmodel.values().length);
-                    if (v instanceof Icon) {
-                        Icon icon = (Icon) v;
-                        label.setIcon(icon);
+                    if (v instanceof Wincalc) {
+                        label.setIcon(((Wincalc) v).imageIcon);
                     }
                 } else {
                     label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -120,9 +107,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
                     Object v = qModels.get(row).get(eSysmodel.values().length);
-                    if (v instanceof Icon) {
-                        Icon icon = (Icon) v;
-                        label.setIcon(icon);
+                    if (v instanceof Wincalc) {
+                        label.setIcon(((Wincalc) v).imageIcon);
                     }
                 } else {
                     label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -134,16 +120,15 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     }
 
     private void loadingTab(JTable tab, int form) {
-
         qModels.select(eSysmodel.up, "where", eSysmodel.form, "=", form);
         DefaultTableModel dm = (DefaultTableModel) tab.getModel();
         dm.getDataVector().removeAllElements();
         for (Record record : qModels.table(eSysmodel.up)) {
             try {
-                Object script = record.get(eSysmodel.script);
-                iwin.build(script.toString());
-                ImageIcon image = Canvas.createImageIcon(iwin, script, 68);
-                record.add(image);
+                String script = record.getStr(eSysmodel.script);
+                Wincalc iwin2 = new Wincalc(script);
+                Canvas.createIcon(iwin2, 68);
+                record.add(iwin2);
 
             } catch (Exception e) {
                 System.err.println("Ошибка:Models.loadingTab() " + e);
@@ -169,27 +154,36 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     private void selectionTab1(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
-            Object script = qModels.get(index, eSysmodel.script);
-            iwin.build(script.toString());
-            paintPanel.repaint(true);
+            Record record = qModels.get(index);
+            Object v = record.get(eSysmodel.values().length);
+            if (v instanceof Wincalc) { //прорисовка окна               
+                iwin = (Wincalc) v;
+                canvas.repaint(iwin);
+            }
         }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
-            Object script = qModels.get(index, eSysmodel.script);
-            iwin.build(script.toString());
-            paintPanel.repaint(true);
+            Record record = qModels.get(index);
+            Object v = record.get(eSysmodel.values().length);
+            if (v instanceof Wincalc) { //прорисовка окна               
+                iwin = (Wincalc) v;
+                canvas.repaint(iwin);
+            }
         }
     }
 
     private void selectionTab3(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab3);
         if (index != -1) {
-            Object script = qModels.get(index, eSysmodel.script);
-            iwin.build(script.toString());
-            paintPanel.repaint(true);
+            Record record = qModels.get(index);
+            Object v = record.get(eSysmodel.values().length);
+            if (v instanceof Wincalc) { //прорисовка окна               
+                iwin = (Wincalc) v;
+                canvas.repaint(iwin);
+            }
         }
     }
 
@@ -801,19 +795,19 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         if (tab1.getBorder() != null) {
             if (UGui.isDeleteRecord(this) == 0 && tab1.getSelectedRow() != -1) {
                 iwin.rootArea = null;
-                paintPanel.paint(paintPanel.getGraphics());
+                canvas.paint(canvas.getGraphics());
                 UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
             if (UGui.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
                 iwin.rootArea = null;
-                paintPanel.paint(paintPanel.getGraphics());
+                canvas.paint(canvas.getGraphics());
                 UGui.deleteRecord(tab2);
             }
         } else if (tab3.getBorder() != null) {
             if (UGui.isDeleteRecord(this) == 0 && tab3.getSelectedRow() != -1) {
                 iwin.rootArea = null;
-                paintPanel.paint(paintPanel.getGraphics());
+                canvas.paint(canvas.getGraphics());
                 UGui.deleteRecord(tab3);
             }
         }
@@ -824,7 +818,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             Object prj = JOptionPane.showInputDialog(Models.this, "Номер проекта", "Проект", JOptionPane.QUESTION_MESSAGE);
             String json = builder.script.Winscript.test(Integer.valueOf(prj.toString()), true);
             GsonRoot win = new Gson().fromJson(json, GsonRoot.class);
-            
+
 //            JFileChooser chooser = new JFileChooser();
 //            chooser.setCurrentDirectory(new File("."));
 //            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -839,7 +833,6 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 //            GsonRoot win = new Gson().fromJson(reader, GsonRoot.class);
 //            String json = new Gson().toJson(win);
 //            reader.close();            
-
             Record record = eSysmodel.up.newRecord(Query.INS);
             record.set(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));
             record.set(eSysmodel.npp, qModels.size());

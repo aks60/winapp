@@ -27,17 +27,14 @@ public class DrawScene extends javax.swing.JPanel {
         initElements();
     }
 
-    public DrawScene(Wincalc iwin) {
+    public void repaint(Wincalc iwin) {
         this.iwin = iwin;
-        initComponents();
-        initElements();
+        lineList();
+        pan1.repaint();
+        pan4.repaint();        
     }
 
-    public void setIwin(Wincalc iwin) {
-        this.iwin = iwin;
-    }
-
-    public void lineList() {
+    private void lineList() {
         vertList.clear();
         horList.clear();
         LinkedList<ElemCross> impostList = iwin.rootArea.listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
@@ -50,8 +47,6 @@ public class DrawScene extends javax.swing.JPanel {
         }
         vertList.add(iwin.rootArea.height());
         horList.add(iwin.rootArea.width());
-        pan1.repaint();
-        pan4.repaint();
     }
 
     private void paintVertical(Graphics gc) {

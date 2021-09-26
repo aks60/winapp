@@ -18,13 +18,10 @@ import javax.swing.ImageIcon;
 
 public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEvent, MouseEvent> {
 
-    private boolean visible = true;
-
     private Wincalc iwin = null;
 
     public Canvas() {
         initComponents();
-        iwin.gc2d = (Graphics2D) this.getGraphics();
         this.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 actionResponse(evt);
@@ -32,19 +29,9 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
         });
     }
 
-    public Canvas(Wincalc iwin) {
-        initComponents();
+    public void repaint(Wincalc iwin) {
         this.iwin = iwin;
-        iwin.gc2d = (Graphics2D) this.getGraphics();
-        this.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                actionResponse(evt);
-            }
-        });
-    }
-
-    public void setIwin(Wincalc iwin) {
-        this.iwin = iwin;
+        repaint();
     }
 
     public void actionResponse(MouseEvent evt) {
@@ -88,16 +75,10 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
         }
     }
 
-    public void repaint(boolean b) {
-        this.visible = b;
-        repaint();
-    }
-
     //@Override
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
-        if (iwin.rootArea != null && visible == true) {
+        if (iwin != null) {
             iwin.gc2d = (Graphics2D) g;
             iwin.gc2d.setColor(getBackground());
             iwin.gc2d.setStroke(new BasicStroke(2)); //толщина линии
@@ -112,6 +93,7 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
         }
     }
+
     //Создание изображение конструкции
     public static ImageIcon createImageIcon(Wincalc iwin, Object script, int length) {
         try {
@@ -123,30 +105,31 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
             iwin.gc2d.translate(2, 2);
             iwin.gc2d.scale(iwin.scale, iwin.scale);
             iwin.rootArea.draw(); //рисую конструкцию
-            ImageIcon image = new ImageIcon(bi);
-            return image;
+            iwin.imageIcon = new ImageIcon(bi);
+            return iwin.imageIcon;
         } catch (Exception e) {
             System.err.println("Canvas.createImageIcon() " + e);
             return new ImageIcon();
         }
     }
-//    //Создание изображение конструкции
-//    public static ImageIcon createImageIcon(Wincalc iwin, int length) {
-//        try {
-//            BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-//            iwin.gc2d = bi.createGraphics();
-//            iwin.gc2d.fillRect(0, 0, length, length);
-//            iwin.scale = (length / iwin.width > length / iwin.height) ? length / (iwin.height + 200) : length / (iwin.width + 200);
-//            iwin.gc2d.translate(2, 2);
-//            iwin.gc2d.scale(iwin.scale, iwin.scale);
-//            iwin.rootArea.draw(); //рисую конструкцию
-//            iwin.imageIcon = new ImageIcon(bi);
-//            return iwin.imageIcon;
-//        } catch (Exception e) {
-//            System.err.println("Canvas.createImageIcon() " + e);
-//            return new ImageIcon();
-//        }
-//    }
+
+    //Создание изображение конструкции
+    public static ImageIcon createIcon(Wincalc iwin, int length) {
+        try {
+            BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+            iwin.gc2d = bi.createGraphics();
+            iwin.gc2d.fillRect(0, 0, length, length);
+            iwin.scale = (length / iwin.width > length / iwin.height) ? length / (iwin.height + 200) : length / (iwin.width + 200);
+            iwin.gc2d.translate(2, 2);
+            iwin.gc2d.scale(iwin.scale, iwin.scale);
+            iwin.rootArea.draw(); //рисую конструкцию
+            iwin.imageIcon = new ImageIcon(bi);
+            return iwin.imageIcon;
+        } catch (Exception e) {
+            System.err.println("Canvas.createImageIcon() " + e);
+            return new ImageIcon();
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
