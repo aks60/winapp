@@ -349,17 +349,7 @@ public class Systree extends javax.swing.JFrame {
                 String script = record.getStr(eSysprod.script);
                 Wincalc iwin2 = new Wincalc(script);
                 iwin2.correction();
-                
-//                iwin2.calcJoining = new Joining(iwin2, true); //для инит. соединений
-//                iwin2.calcJoining.calc();
-//                iwin2.calcFurniture = new Furniture(iwin2, true); //для инит. ручки
-//                iwin2.calcFurniture.calc();
-                
                 Canvas.createIcon(iwin2, 68);
-
-                ElemJoining ej1 = iwin2.mapJoin.get(iwin2.rootArea.mapFrame.get(Layout.TOP).joinPoint(0));
-                ElemJoining ej2 = iwin2.mapJoin.get(iwin2.rootArea.mapFrame.get(Layout.TOP).joinPoint(1));
-
                 record.add(iwin2);
 
             } catch (Exception e) {
@@ -572,10 +562,7 @@ public class Systree extends javax.swing.JFrame {
                     UGui.setSelectedRow(tab5);
                 }
             } else {
-                AreaSimple ra = iwin.rootArea;
-                iwin.rootArea = null;
-                canvas.paint(canvas.getGraphics());
-                iwin.rootArea = ra;
+                canvas.redraw(null);
             }
         }
     }
@@ -699,8 +686,8 @@ public class Systree extends javax.swing.JFrame {
             Object v = sysprodRec.get(eSysprod.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
                 iwin = (Wincalc) v;
-                canvas.repaint(iwin);
-                scene.repaint(iwin);
+                canvas.redraw(iwin);
+                scene.redraw(iwin);
                 loadingWin(iwin);
                 winTree.setSelectionInterval(0, 0);
 
@@ -758,6 +745,9 @@ public class Systree extends javax.swing.JFrame {
         }
     }
 
+    private Wincalc getIwin() {
+        return null;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

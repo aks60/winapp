@@ -360,7 +360,7 @@ public class Orders extends javax.swing.JFrame {
             if (v instanceof Wincalc) { //прорисовка окна  
                 
                 iwin = (Wincalc) v;
-                canvas.repaint(iwin);
+                canvas.redraw(iwin);
                 loadingWin();
                 winTree.setSelectionInterval(0, 0);
 

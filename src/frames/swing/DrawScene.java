@@ -27,11 +27,11 @@ public class DrawScene extends javax.swing.JPanel {
         initElements();
     }
 
-    public void repaint(Wincalc iwin) {
+    public void redraw(Wincalc iwin) {
         this.iwin = iwin;
         lineList();
         pan1.repaint();
-        pan4.repaint();        
+        pan4.repaint();
     }
 
     private void lineList() {
@@ -50,37 +50,49 @@ public class DrawScene extends javax.swing.JPanel {
     }
 
     private void paintVertical(Graphics gc) {
-        Graphics2D g = (Graphics2D) gc;
-        int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 9 : 8;
-        g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
-        float val_old = 0;
-        for (Float val : vertList) {
-            int y = (int) (val.intValue() * iwin.scale);
-            int y_old = (int) (val_old * iwin.scale);
-            g.drawLine(0, y, 8, y);
-            int y_txt = (int) (y - 14 - (y - y_old) / 2);
-            g.rotate(Math.toRadians(-90), 9, y_txt + 28);
-            g.drawString(df1.format(val.floatValue() - val_old), 9, y_txt + 28);
-            g.rotate(Math.toRadians(90), 9, y_txt + 28);
-            val_old = val.intValue();
+        if (iwin != null) {
+            Graphics2D g = (Graphics2D) gc;
+            int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 9 : 8;
+            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
+            float val_old = 0;
+            for (Float val : vertList) {
+                int y = (int) (val.intValue() * iwin.scale);
+                int y_old = (int) (val_old * iwin.scale);
+                g.drawLine(0, y, 8, y);
+                int y_txt = (int) (y - 14 - (y - y_old) / 2);
+                g.rotate(Math.toRadians(-90), 9, y_txt + 28);
+                g.drawString(df1.format(val.floatValue() - val_old), 9, y_txt + 28);
+                g.rotate(Math.toRadians(90), 9, y_txt + 28);
+                val_old = val.intValue();
+            }
+            g.drawLine(0, 2, 8, 2);
+            
+        } else {
+            gc.setColor(getBackground());
+            gc.fillRect(0, 0, this.getWidth(), this.getHeight());
         }
-        g.drawLine(0, 2, 8, 2);
     }
 
     private void paintHorizontal(Graphics gc) {
-        Graphics2D g = (Graphics2D) gc;
-        int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 9 : 8;
-        g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
-        float val_old = 0;
-        for (Float val : horList) {
-            int x = (int) (val.intValue() * iwin.scale);
-            int x_old = (int) (val_old * iwin.scale);
-            g.drawLine(x + 20, 10, x + 20, 18);
-            int x_txt = (int) (x - 14 - (x - x_old) / 2);
-            g.drawString(df1.format(val.floatValue() - val_old), x_txt + 20, 16);
-            val_old = val.intValue();
+        if (iwin != null) {
+            Graphics2D g = (Graphics2D) gc;
+            int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 9 : 8;
+            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
+            float val_old = 0;
+            for (Float val : horList) {
+                int x = (int) (val.intValue() * iwin.scale);
+                int x_old = (int) (val_old * iwin.scale);
+                g.drawLine(x + 20, 10, x + 20, 18);
+                int x_txt = (int) (x - 14 - (x - x_old) / 2);
+                g.drawString(df1.format(val.floatValue() - val_old), x_txt + 20, 16);
+                val_old = val.intValue();
+            }
+            g.drawLine(20, 10, 20, 18);
+            
+        } else {
+            gc.setColor(getBackground());
+            gc.fillRect(0, 0, this.getWidth(), this.getHeight());
         }
-        g.drawLine(20, 10, 20, 18);
     }
 
     @SuppressWarnings("unchecked")
