@@ -277,9 +277,13 @@ public class Systree extends javax.swing.JFrame {
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 1) {
                     Object v = qSysprod.get(row).get(eSysprod.values().length);
-                    if (v instanceof Wincalc) {
-                        label.setIcon(Canvas.createImageIcon((Wincalc) v, 68));
-                    }
+                    if (v instanceof Icon) {
+                        Icon icon = (Icon) v;
+                        label.setIcon(icon);
+                    }                    
+//                    if (v instanceof Wincalc) {
+//                        label.setIcon(Canvas.createImageIcon((Wincalc) v, 68));
+//                    }
                 } else {
                     label.setIcon(null);
                 }
@@ -355,7 +359,8 @@ public class Systree extends javax.swing.JFrame {
                 Object script = record.get(eSysprod.script);
                 Wincalc iwin2 = new Wincalc();
                 iwin2.build(script.toString());
-                record.add(iwin2);
+                Canvas.createImageIcon(iwin2, 68);
+                record.add(iwin2.imageIcon);
             } catch (Exception e) {
                 System.err.println("Ошибка:Systree.loadingTab5() " + e);
             }
@@ -687,31 +692,31 @@ public class Systree extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
-            //String script = sysprodRec.getStr(eSysprod.script);
-            Wincalc iwin2 = (Wincalc) sysprodRec.get(eSysprod.values().length);
+            String script = sysprodRec.getStr(eSysprod.script);
+            Wincalc iwin = (Wincalc) sysprodRec.get(eSysprod.values().length);
             eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
-            if (iwin2 != null) {
-                iwin2.correction();
-                win = iwin2;
-                drawScene.setIwin(iwin2);
-                drawScene.lineList();
-                paintPanel.repaint(true);
-                loadingWin();
-                winTree.setSelectionInterval(0, 0);
-
-//            //Калькуляция и прорисовка окна
-//            if (script != null && script.isEmpty() == false) {
-//                JsonElement script2 = gson.fromJson(script, JsonElement.class);
-//                iwin.build(script2.toString()); //построение изделия                                              
-//                iwin.calcJoining = new Joining(iwin, true); //для инит. соединений
-//                iwin.calcJoining.calc();
-//                iwin.calcFurniture = new builder.making.Furniture(iwin, true); //для инит. ручки
-//                iwin.calcFurniture.calc();
+//            if (iwin2 != null) {
+//                iwin2.correction();
+//                win = iwin2;
+//                drawScene.setIwin(iwin2);
 //                drawScene.lineList();
-//                paintPanel.repaint(true);                
-//                loadingWin();               
+//                paintPanel.repaint(true);
+//                loadingWin();
 //                winTree.setSelectionInterval(0, 0);
+
+            //Калькуляция и прорисовка окна
+            if (script != null && script.isEmpty() == false) {
+                JsonElement script2 = gson.fromJson(script, JsonElement.class);
+                iwin.build(script2.toString()); //построение изделия                                              
+                iwin.calcJoining = new Joining(iwin, true); //для инит. соединений
+                iwin.calcJoining.calc();
+                iwin.calcFurniture = new builder.making.Furniture(iwin, true); //для инит. ручки
+                iwin.calcFurniture.calc();
+                drawScene.lineList();
+                paintPanel.repaint(true);                
+                loadingWin();               
+                winTree.setSelectionInterval(0, 0);
             } else {
                 Graphics2D g = (Graphics2D) paintPanel.getGraphics();
                 g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
