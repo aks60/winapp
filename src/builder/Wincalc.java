@@ -214,9 +214,9 @@ public class Wincalc {
 
     //Инит. соединений и ручки
     public void correction() {
-        calcJoining = new Joining(this, true); //для инит. соединений
+        Cal5e calcJoining = new Joining(this, true); //для инит. соединений
         calcJoining.calc();
-        calcFurniture = new Furniture(this, true); //для инит. ручки
+        Cal5e calcFurniture = new Furniture(this, true); //для инит. ручки
         calcFurniture.calc();
     }
 

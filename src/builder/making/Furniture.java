@@ -79,10 +79,10 @@ public class Furniture extends Cal5e {
     protected void middle(AreaStvorka areaStv, Record furnitureRec, int count) {
         try {
             List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
-            List<Record> furnside1List = eFurnside1.find(furnitureRec.getInt(eFurniture.id));            
+            List<Record> furnsidetList = eFurnside1.find(furnitureRec.getInt(eFurniture.id));            
 
             //Цикл по описанию сторон фурнитуры
-            for (Record furnside1Rec : furnside1List) {
+            for (Record furnside1Rec : furnsidetList) {
                 ElemFrame elemFrame = areaStv.mapFrame.get((Layout) Layout.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
 
                 //ФИЛЬТР вариантов с учётом стороны

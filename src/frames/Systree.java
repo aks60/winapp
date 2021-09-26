@@ -96,7 +96,6 @@ import javax.swing.JButton;
 
 public class Systree extends javax.swing.JFrame {
 
-    private Wincalc iwin = new Wincalc();
     private DrawScene scene = new DrawScene();
     private Canvas canvas = new Canvas();
     private int systreeID = -1; //выбранная система
@@ -513,7 +512,7 @@ public class Systree extends javax.swing.JFrame {
                 String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
                 sysprodRec.set(eSysprod.script, script2);
                 qSysprod.execsql();
-                iwin.build(script2);
+                iwin().build(script2);
                 UGui.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
                 selectionWin();
                 UGui.setSelectedRow(tab7, index2);
@@ -568,6 +567,7 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void selectionWin() {
+        Wincalc iwin = iwin();
         winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
         if (winNode != null) {
 
@@ -685,10 +685,11 @@ public class Systree extends javax.swing.JFrame {
 
             Object v = sysprodRec.get(eSysprod.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
-                iwin = (Wincalc) v;
-                canvas.redraw(iwin);
-                scene.redraw(iwin);
-                loadingWin(iwin);
+                Wincalc win = (Wincalc) v;
+                //win.correction();
+                scene.redraw(win);
+                canvas.redraw(win);
+                loadingWin(win);
                 winTree.setSelectionInterval(0, 0);
 
             } else {
@@ -720,7 +721,7 @@ public class Systree extends javax.swing.JFrame {
     private void updateScript(float selectID) {
         try {
             //Сохраним скрипт в базе
-            String script = gson.toJson(iwin.rootGson);
+            String script = gson.toJson(iwin().rootGson);
             Record sysprodRec = qSysprod.get(UGui.getIndexRec(tab5));
             sysprodRec.set(eSysprod.script, script);
             //qSysprod.update(sysprodRec);
@@ -745,9 +746,18 @@ public class Systree extends javax.swing.JFrame {
         }
     }
 
-    private Wincalc getIwin() {
+    private Wincalc iwin() {
+        int index = UGui.getIndexRec(tab5);
+        if (index != -1) {
+            Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
+            Object v = sysprodRec.get(eSysprod.values().length);
+            if (v instanceof Wincalc) { //прорисовка окна               
+                return (Wincalc) v;
+            }
+        }
         return null;
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -2814,7 +2824,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        iwin().correction();
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -2843,6 +2853,7 @@ public class Systree extends javax.swing.JFrame {
                 }
                 new DicSysprof(this, (sysprofRec) -> {
 
+                    Wincalc iwin = iwin();
                     if (winNode.com5t().type() == enums.Type.FRAME_SIDE) { //рама окна
                         float elemId = winNode.com5t().id();
                         GsonElem gsonRama = iwin.rootGson.find(elemId);
@@ -2913,7 +2924,7 @@ public class Systree extends javax.swing.JFrame {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
-                GsonElem parentArea = (GsonElem) iwin.rootGson.find(parentId);
+                GsonElem parentArea = (GsonElem) iwin().rootGson.find(parentId);
 
                 if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) {
                     String paramStr = parentArea.param();
@@ -3019,6 +3030,7 @@ public class Systree extends javax.swing.JFrame {
 
             ListenerRecord listenerColor = (colorRec) -> {
 
+                Wincalc iwin = iwin();
                 builder.script.GsonElem rootArea = iwin.rootGson.find(selectID);
                 if (rootArea != null) {
                     if (evt.getSource() == btn9) {
@@ -3059,7 +3071,7 @@ public class Systree extends javax.swing.JFrame {
 
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonElem glassElem = (GsonElem) iwin.rootGson.find(selectID);
+                GsonElem glassElem = (GsonElem) iwin().rootGson.find(selectID);
                 String paramStr = glassElem.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
@@ -3083,7 +3095,7 @@ public class Systree extends javax.swing.JFrame {
 
             new DicName(this, (sysfurnRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin.rootGson.find(windowsID);
+                GsonElem stvArea = (GsonElem) iwin().rootGson.find(windowsID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
@@ -3103,7 +3115,7 @@ public class Systree extends javax.swing.JFrame {
             new DicEnums(this, (typeopenRec) -> {
 
                 float elemID = winNode.com5t().id();
-                GsonElem jsonStv = (GsonElem) iwin.rootGson.find(elemID);
+                GsonElem jsonStv = (GsonElem) iwin().rootGson.find(elemID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
@@ -3171,7 +3183,7 @@ public class Systree extends javax.swing.JFrame {
             }
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin.rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
@@ -3198,7 +3210,7 @@ public class Systree extends javax.swing.JFrame {
         new DicHandl(this, (record) -> {
             try {
                 float selectID = areaStv.id();
-                GsonElem stvArea = (GsonElem) iwin.rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
 
@@ -3245,7 +3257,7 @@ public class Systree extends javax.swing.JFrame {
             });
             DicColor frame = new DicColor(this, (colorRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin.rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
@@ -3320,12 +3332,13 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_txt23Update
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));
+
     }//GEN-LAST:event_btnTest
 
     private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame
         try {
             if (winNode != null) {
+                Wincalc iwin = iwin();
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
                 JButton btn = (JButton) evt.getSource();
