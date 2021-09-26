@@ -112,10 +112,10 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
         }
     }
-
     //Создание изображение конструкции
-    public static ImageIcon createImageIcon(Wincalc iwin, int length) {
+    public static ImageIcon createImageIcon(Wincalc iwin, Object script, int length) {
         try {
+            iwin.build(script.toString());
             BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
             iwin.gc2d = bi.createGraphics();
             iwin.gc2d.fillRect(0, 0, length, length);
@@ -123,13 +123,30 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
             iwin.gc2d.translate(2, 2);
             iwin.gc2d.scale(iwin.scale, iwin.scale);
             iwin.rootArea.draw(); //рисую конструкцию
-            iwin.imageIcon = new ImageIcon(bi);
-            return iwin.imageIcon;
+            ImageIcon image = new ImageIcon(bi);
+            return image;
         } catch (Exception e) {
             System.err.println("Canvas.createImageIcon() " + e);
             return new ImageIcon();
         }
     }
+//    //Создание изображение конструкции
+//    public static ImageIcon createImageIcon(Wincalc iwin, int length) {
+//        try {
+//            BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+//            iwin.gc2d = bi.createGraphics();
+//            iwin.gc2d.fillRect(0, 0, length, length);
+//            iwin.scale = (length / iwin.width > length / iwin.height) ? length / (iwin.height + 200) : length / (iwin.width + 200);
+//            iwin.gc2d.translate(2, 2);
+//            iwin.gc2d.scale(iwin.scale, iwin.scale);
+//            iwin.rootArea.draw(); //рисую конструкцию
+//            iwin.imageIcon = new ImageIcon(bi);
+//            return iwin.imageIcon;
+//        } catch (Exception e) {
+//            System.err.println("Canvas.createImageIcon() " + e);
+//            return new ImageIcon();
+//        }
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
