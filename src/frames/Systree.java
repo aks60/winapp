@@ -43,6 +43,7 @@ import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
+import builder.making.Furniture;
 import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemJoining;
@@ -97,7 +98,7 @@ public class Systree extends javax.swing.JFrame {
 
     private Wincalc iwin = new Wincalc();
     private DrawScene scene = new DrawScene();
-    private Canvas canvas = new Canvas();    
+    private Canvas canvas = new Canvas();
     private int systreeID = -1; //выбранная система
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
             listenerParam1, listenerParam2, listenerParam3, listenerArt211, listenerArt212;
@@ -327,7 +328,7 @@ public class Systree extends javax.swing.JFrame {
         }
     }
 
-    private void loadingWin() {
+    private void loadingWin(Wincalc iwin) {
         try {
             int row[] = winTree.getSelectionRows();
             DefMutableTreeNode root = UGui.loadWinTree(iwin);
@@ -348,7 +349,17 @@ public class Systree extends javax.swing.JFrame {
                 String script = record.getStr(eSysprod.script);
                 Wincalc iwin2 = new Wincalc(script);
                 iwin2.correction();
+                
+//                iwin2.calcJoining = new Joining(iwin2, true); //для инит. соединений
+//                iwin2.calcJoining.calc();
+//                iwin2.calcFurniture = new Furniture(iwin2, true); //для инит. ручки
+//                iwin2.calcFurniture.calc();
+                
                 Canvas.createIcon(iwin2, 68);
+
+                ElemJoining ej1 = iwin2.mapJoin.get(iwin2.rootArea.mapFrame.get(Layout.TOP).joinPoint(0));
+                ElemJoining ej2 = iwin2.mapJoin.get(iwin2.rootArea.mapFrame.get(Layout.TOP).joinPoint(1));
+
                 record.add(iwin2);
 
             } catch (Exception e) {
@@ -681,16 +692,16 @@ public class Systree extends javax.swing.JFrame {
     private void selectionTab5() {
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
-            Record sysprodRec = qSysprod.table(eSysprod.up).get(index);            
+            Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
             eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
-            
+
             Object v = sysprodRec.get(eSysprod.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
                 iwin = (Wincalc) v;
                 canvas.repaint(iwin);
                 scene.repaint(iwin);
-                loadingWin();
+                loadingWin(iwin);
                 winTree.setSelectionInterval(0, 0);
 
             } else {
@@ -2788,8 +2799,6 @@ public class Systree extends javax.swing.JFrame {
             }
         } else if (tab5.getBorder() != null) {
             if (UGui.isDeleteRecord(this) == 0 && tab5.getSelectedRow() != -1) {
-                iwin.rootArea = null;
-                canvas.paint(canvas.getGraphics());
                 UGui.deleteRecord(tab5);
             }
 //          else {    JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);     }

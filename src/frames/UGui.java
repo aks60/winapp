@@ -162,10 +162,10 @@ public class UGui {
         DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
         root.add(new DefMutableTreeNode(new Com5t(Type.PARAM) {
         }));
-
-        LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS);
         DefMutableTreeNode frm = root.add(new DefMutableTreeNode(new Com5t(Type.FRAME) {
         }));
+        
+        LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS);
         for (ElemSimple elem5e : listElem) {
             if (elem5e.owner().type() != Type.STVORKA) {
                 frm.add(new DefMutableTreeNode(elem5e));
