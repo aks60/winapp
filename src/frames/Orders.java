@@ -298,12 +298,11 @@ public class Orders extends javax.swing.JFrame {
             int id = projectRec.getInt(eProject.id);
             qPrjprod.select(ePrjprod.up, "where", ePrjprod.order_id, "=", id);
 
-            int length = 68;
             for (Record record : qPrjprod) {
                 try {
                     Object script = record.get(ePrjprod.script);
                     iwin.build(script.toString());
-                    ImageIcon image = Canvas.createImageIcon(iwin, length);
+                    ImageIcon image = Canvas.createImageIcon(iwin, script, 68);
                     record.add(image);
 
                 } catch (Exception e) {

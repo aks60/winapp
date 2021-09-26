@@ -142,7 +142,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             try {
                 Object script = record.get(eSysmodel.script);
                 iwin.build(script.toString());
-                ImageIcon image = Canvas.createImageIcon(iwin, 68);
+                ImageIcon image = Canvas.createImageIcon(iwin, script, 68);
                 record.add(image);
 
             } catch (Exception e) {
