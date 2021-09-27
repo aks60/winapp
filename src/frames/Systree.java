@@ -686,13 +686,8 @@ public class Systree extends javax.swing.JFrame {
             Object v = sysprodRec.get(eSysprod.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
                 Wincalc win = (Wincalc) v;
-                //new Furniture(win, true);
-                //new Joining(win, true);  
                 canvas.redraw(win);
-                scene.redraw(win);
-                pan1.repaint();
-                pan4.repaint();
-                
+                scene.redraw(win);               
                 loadingWin(win);
                 winTree.setSelectionInterval(0, 0);
 

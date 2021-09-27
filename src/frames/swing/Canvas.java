@@ -31,6 +31,7 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
 
     public void redraw(Wincalc iwin) {
         this.iwin = iwin;
+        scale(iwin);
         repaint();
     }
 
@@ -73,6 +74,11 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void scale(Wincalc iwin) {
+        iwin.scale = (getWidth() / iwin.width > getHeight() / iwin.height)
+                ? getHeight() / (iwin.height + 24) : getWidth() / (iwin.width + 24);
     }
 
     //@Override

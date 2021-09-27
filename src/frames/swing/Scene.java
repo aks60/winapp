@@ -30,8 +30,8 @@ public class Scene extends javax.swing.JPanel {
     public void redraw(Wincalc iwin) {
         this.iwin = iwin;
         lineList();
-//        pan1.repaint();
-//        pan4.repaint();
+        pan1.repaint();
+        pan4.repaint();
     }
 
     private void lineList() {
