@@ -15,14 +15,14 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DrawScene extends javax.swing.JPanel {
+public class Scene extends javax.swing.JPanel {
 
     private DecimalFormat df1 = new DecimalFormat("#0.#");
     private Wincalc iwin = null;
     private List<Float> vertList = new ArrayList();
     private List<Float> horList = new ArrayList();
 
-    public DrawScene() {
+    public Scene() {
         initComponents();
         initElements();
     }

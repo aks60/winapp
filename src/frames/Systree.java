@@ -85,7 +85,7 @@ import builder.making.UColor;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.dialog.DicJoinvar;
-import frames.swing.DrawScene;
+import frames.swing.Scene;
 import frames.swing.FilterTable;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
@@ -96,7 +96,7 @@ import javax.swing.JButton;
 
 public class Systree extends javax.swing.JFrame {
 
-    private DrawScene scene = new DrawScene();
+    private Scene scene = new Scene();
     private Canvas canvas = new Canvas();
     private int systreeID = -1; //выбранная система
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
