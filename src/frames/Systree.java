@@ -346,7 +346,6 @@ public class Systree extends javax.swing.JFrame {
             try {
                 String script = record.getStr(eSysprod.script);
                 Wincalc iwin2 = new Wincalc(script);
-                //iwin2.correction();
                 Canvas.createIcon(iwin2, 68);
                 record.add(iwin2);
 
@@ -614,6 +613,7 @@ public class Systree extends javax.swing.JFrame {
 
                 //Створка
             } else if (winNode.com5t().type() == enums.Type.STVORKA) {
+                new Furniture(iwin(), true); //найдём ручку створки
                 ((CardLayout) pan7.getLayout()).show(pan7, "card16");
                 AreaStvorka stv = (AreaStvorka) winNode.com5t();
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);;
@@ -636,12 +636,10 @@ public class Systree extends javax.swing.JFrame {
 
                 //Соединения
             } else if (winNode.com5t().type() == enums.Type.JOINING) {
+                new Joining(iwin(), true); //заполним соединения данными из конструктива
                 ((CardLayout) pan7.getLayout()).show(pan7, "card17");
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
-                Object obj = elem5e.joinPoint(0);
-                Object obj2 = elem5e.joinPoint(1);
-                System.err.println("");
                 ElemJoining ej1 = iwin.mapJoin.get(elem5e.joinPoint(0));
                 ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = iwin.mapJoin.get(elem5e.joinPoint(2));
@@ -688,9 +686,8 @@ public class Systree extends javax.swing.JFrame {
             Object v = sysprodRec.get(eSysprod.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
                 Wincalc win = (Wincalc) v;
-                new Furniture(win, true);
-                new Joining(win, true);
-                
+                //new Furniture(win, true);
+                //new Joining(win, true);  
                 canvas.redraw(win);
                 scene.redraw(win);
                 pan1.repaint();

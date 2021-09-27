@@ -52,7 +52,7 @@ public class DrawScene extends javax.swing.JPanel {
     private void paintVertical(Graphics gc) {
         if (iwin != null) {
             Graphics2D g = (Graphics2D) gc;
-            int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 9 : 8;
+            int size = (iwin.scale > .16) ? 12 : (iwin.scale > .15) ? 11 : 9;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
             float val_old = 0;
             for (Float val : vertList) {
@@ -76,7 +76,7 @@ public class DrawScene extends javax.swing.JPanel {
     private void paintHorizontal(Graphics gc) {
         if (iwin != null) {
             Graphics2D g = (Graphics2D) gc;
-            int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 9 : 8;
+            int size = (iwin.scale > .16) ? 12 : (iwin.scale > .15) ? 11 : 9;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
             float val_old = 0;
             for (Float val : horList) {
