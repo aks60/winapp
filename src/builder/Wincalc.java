@@ -211,13 +211,4 @@ public class Wincalc {
             System.err.println("Ошибка:Wincalc.constructiv(" + e);
         }
     }
-
-    //Инит. соединений и ручки
-    public void correction() {
-        Cal5e calcJoining = new Joining(this, true); //для инит. соединений
-        calcJoining.calc();
-        Cal5e calcFurniture = new Furniture(this, true); //для инит. ручки
-        calcFurniture.calc();
-    }
-
 }

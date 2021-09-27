@@ -28,7 +28,10 @@ public class Joining extends Cal5e {
     private ElementDet elementDet = null;
 
     public Joining(Wincalc iwin) {
-        this(iwin, false);
+        super(iwin);
+        joiningVar = new JoiningVar(iwin);
+        joiningDet = new JoiningDet(iwin);
+        elementDet = new ElementDet(iwin);
     }
 
     public Joining(Wincalc iwin, boolean shortPass) {
@@ -37,8 +40,10 @@ public class Joining extends Cal5e {
         joiningDet = new JoiningDet(iwin);
         elementDet = new ElementDet(iwin);
         this.shortPass = shortPass;
+        calc();
     }
 
+    @Override
     public void calc() {
         super.calc();
         try {

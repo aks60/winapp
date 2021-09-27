@@ -1,6 +1,7 @@
 package frames;
 
 import builder.Wincalc;
+import builder.making.Furniture;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
 import builder.making.Specific;
@@ -301,7 +302,8 @@ public class Orders extends javax.swing.JFrame {
                 try {
                     String script = record.getStr(ePrjprod.script);
                     Wincalc iwin2 = new Wincalc(script);
-                    iwin2.correction();
+                    new Furniture(iwin2, true);
+                    new Joining(iwin2, true);
                     Canvas.createIcon(iwin2, 68);
                     record.add(iwin2);
 
@@ -358,7 +360,7 @@ public class Orders extends javax.swing.JFrame {
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
             Object v = prjprodRec.get(ePrjprod.values().length);
             if (v instanceof Wincalc) { //прорисовка окна  
-                
+
                 iwin = (Wincalc) v;
                 canvas.redraw(iwin);
                 loadingWin();
@@ -435,8 +437,7 @@ public class Orders extends javax.swing.JFrame {
                     txt31.setText("");
                 }
                 //if (stv.handleRec.getInt(eArtikl.id) == -3) {
-                iwin.calcFurniture = new builder.making.Furniture(iwin, true); //фурнитура 
-                iwin.calcFurniture.calc();
+                new builder.making.Furniture(iwin, true); //фурнитура 
                 //}
                 txt21.setText(stv.handleRec.getStr(eArtikl.code));
                 txt34.setText(stv.handleRec.getStr(eArtikl.name));
@@ -2851,7 +2852,7 @@ public class Orders extends javax.swing.JFrame {
                 int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
                 ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
                 Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
-                Joining joining = new Joining(iwin, true);
+                Joining joining = new Joining(iwin);
                 List<Record> list = joining.varList(elemJoin);
                 new DicJoinvar(this, (record) -> {
                     System.out.println(record);
@@ -2871,7 +2872,7 @@ public class Orders extends javax.swing.JFrame {
                 int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
                 ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
                 Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
-                Joining joining = new Joining(iwin, true);
+                Joining joining = new Joining(iwin);
                 List<Record> list = joining.varList(elemJoin);
                 new DicJoinvar(this, (record) -> {
                     System.out.println(record);
@@ -2891,7 +2892,7 @@ public class Orders extends javax.swing.JFrame {
                 int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
                 ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
                 Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
-                Joining joining = new Joining(iwin, true);
+                Joining joining = new Joining(iwin);
                 List<Record> list = joining.varList(elemJoin);
                 new DicJoinvar(this, (record) -> {
                     System.out.println(record);

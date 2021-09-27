@@ -8,6 +8,7 @@ public class Kits extends Cal5e {
         super(iwin);
     }
     
+    @Override
     public void calc() { 
     }
 }

@@ -33,7 +33,9 @@ public class Furniture extends Cal5e {
     private HashSet<Record> setFurndet = new HashSet();
 
     public Furniture(Wincalc iwin) {
-        this(iwin, false);
+        super(iwin);
+        furnitureVar = new FurnitureVar(iwin);
+        furnitureDet = new FurnitureDet(iwin);
     }
 
     public Furniture(Wincalc iwin, boolean shortPass) {
@@ -41,8 +43,10 @@ public class Furniture extends Cal5e {
         furnitureVar = new FurnitureVar(iwin);
         furnitureDet = new FurnitureDet(iwin);
         this.shortPass = shortPass;
+        calc();
     }
 
+    @Override
     public void calc() {
         super.calc();
         LinkedList<AreaStvorka> stvorkaList = rootArea().listElem(Type.STVORKA);

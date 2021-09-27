@@ -31,6 +31,7 @@ public class Elements extends Cal5e {
 
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
     //Но при проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
+    @Override
     public void calc() {
         super.calc();
         LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(Type.FRAME_SIDE,
