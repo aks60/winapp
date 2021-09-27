@@ -99,7 +99,7 @@ public class AreaStvorka extends AreaSimple {
         if (param(param, PKjson.sysfurnID) != -3) {
             sysfurnRec = eSysfurn.find2(param(param, PKjson.sysfurnID));
         } else {
-            sysfurnRec = eSysfurn.find3(iwin().nuni);
+            sysfurnRec = eSysfurn.find3(iwin().nuni); //ищем первую в системе
         }
         //Ручка
         if (param(param, PKjson.artiklHandl) != -1) {
@@ -107,9 +107,9 @@ public class AreaStvorka extends AreaSimple {
         }
         //Сторона открывания
         if (param(param, PKjson.typeOpen) != -1) {
-            this.typeOpen = TypeOpen1.get(param(param, PKjson.typeOpen));
+            typeOpen = TypeOpen1.get(param(param, PKjson.typeOpen));
         } else {
-            this.typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
+            typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
         }
         //Подбор текстуры ручки
         if (param(param, PKjson.colorHandl) != -1) {

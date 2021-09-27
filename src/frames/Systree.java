@@ -112,7 +112,6 @@ public class Systree extends javax.swing.JFrame {
     private Query qSyspar2 = new Query(eSyspar1.values());
 
     private FilterTable filterTable = new FilterTable();
-    private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
     private java.awt.Frame models = null;
     private DefMutableTreeNode sysNode = null;
@@ -157,7 +156,7 @@ public class Systree extends javax.swing.JFrame {
         recordRoot.set(eSystree.id, -1);
         recordRoot.set(eSystree.parent_id, -1);
         recordRoot.set(eSystree.name, "Дерево системы профилей");
-        rootTree = new DefMutableTreeNode(recordRoot);
+        DefMutableTreeNode rootTree = new DefMutableTreeNode(recordRoot);
         ArrayList<DefMutableTreeNode> treeList = new ArrayList();
 
         for (Record record : qSystree) {
@@ -347,7 +346,7 @@ public class Systree extends javax.swing.JFrame {
             try {
                 String script = record.getStr(eSysprod.script);
                 Wincalc iwin2 = new Wincalc(script);
-                iwin2.correction();
+                //iwin2.correction();
                 Canvas.createIcon(iwin2, 68);
                 record.add(iwin2);
 
@@ -724,7 +723,7 @@ public class Systree extends javax.swing.JFrame {
             String script = gson.toJson(iwin().rootGson);
             Record sysprodRec = qSysprod.get(UGui.getIndexRec(tab5));
             sysprodRec.set(eSysprod.script, script);
-            //qSysprod.update(sysprodRec);
+            qSysprod.update(sysprodRec);
 
             //Перерисум paintPanel 
             selectionTab5();
@@ -3345,7 +3344,7 @@ public class Systree extends javax.swing.JFrame {
                 int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
                 ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
                 Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
-                Joining joining = new Joining(iwin, true);
+                Joining joining = new Joining(iwin);
                 List<Record> list = joining.varList(elemJoin);
                 new DicJoinvar(this, (record) -> {
                     System.out.println(record);

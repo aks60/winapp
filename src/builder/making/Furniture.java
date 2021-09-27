@@ -30,7 +30,7 @@ public class Furniture extends Cal5e {
 
     private FurnitureVar furnitureVar = null;
     private FurnitureDet furnitureDet = null;
-    private HashSet<Record> setFurndet = new HashSet();    
+    private HashSet<Record> setFurndet = new HashSet();
 
     public Furniture(Wincalc iwin) {
         this(iwin, false);
@@ -50,8 +50,8 @@ public class Furniture extends Cal5e {
             //Цикл по створкам      
             for (AreaStvorka areaStv : stvorkaList) {
 
-                //Если ручка выбрана вручную
-                if (areaStv.handleRec.getInt(eArtikl.id) != -3) {
+                //Если ручка выбрана вручную добавляю спецификацию.
+                if (areaStv.handleRec.getInt(eArtikl.id) != -3 && shortPass == false) {
                     ElemFrame sideStv = determOfSide(areaStv);
                     Specific spcAdd = new Specific(null, areaStv.handleRec, sideStv, new HashMap());
                     spcAdd.colorID1 = areaStv.handleColor;
@@ -62,8 +62,8 @@ public class Furniture extends Cal5e {
                 setFurndet.clear();
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
-                Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию, первая SYSFURN в ветке
-                //Теперь найдём sysfurnRec если есть параметр фурнитуры 
+                Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию, первая SYSFURN в списке системы
+                //Теперь найдём furnityreRec по sysfurnRec из параметра или по умолчанию в случае недачи                 
                 sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnRec.getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
 
@@ -79,7 +79,7 @@ public class Furniture extends Cal5e {
     protected void middle(AreaStvorka areaStv, Record furnitureRec, int count) {
         try {
             List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
-            List<Record> furnsidetList = eFurnside1.find(furnitureRec.getInt(eFurniture.id));            
+            List<Record> furnsidetList = eFurnside1.find(furnitureRec.getInt(eFurniture.id));
 
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnsidetList) {
@@ -196,26 +196,29 @@ public class Furniture extends Cal5e {
                     Specific spcAdd = new Specific(furndetRec, artiklRec, sideStv, mapParam);
 
                     //Пишем ручку в створку
-                    if (artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {                                                       
-                        
-                        if (areaStv.handleRec.getInt(eArtikl.id) == -3) {          
+                    if (artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
+
+                        if (areaStv.handleRec.getInt(eArtikl.id) == -3) {
                             areaStv.handleRec = artiklRec;
-                        } else {                          
-                            spcAdd.setArtiklRec(areaStv.artiklRecAn); //если ручка выбрана через параметр
                         }
+                        //else {                          
+                        //    spcAdd.setArtiklRec(areaStv.artiklRecAn); //если ручка выбрана через параметр
+                        //}
                         if (areaStv.handleColor == -3) {
                             UColor.colorFromProduct(spcAdd, 1);
                             areaStv.handleColor = spcAdd.colorID1;
                         } else {
                             spcAdd.setColor(1, areaStv.handleColor); //если цвет ручки выбран через параметр
-                        }              
+                        }
                     } else {
                         UColor.colorFromProduct(spcAdd, 1); //попадает или нет в спецификацию по цвету
                     }
-                    spcAdd.count = UCom.getFloat(spcAdd.getParam(spcAdd.count, 24030));
-                    spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
-                    spcAdd.place = "ФУРН";
-                    sideStv.addSpecific(spcAdd); //добавим спецификацию в элемент
+                    if (shortPass == false) {
+                        spcAdd.count = UCom.getFloat(spcAdd.getParam(spcAdd.count, 24030));
+                        spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
+                        spcAdd.place = "ФУРН";
+                        sideStv.addSpecific(spcAdd); //добавим спецификацию в элемент
+                    }
                 }
 
                 //Если это нобор   
@@ -230,7 +233,7 @@ public class Furniture extends Cal5e {
             }
             return true;
         } catch (Exception e) {
-            System.err.println("Furniture.detail() " + e);
+            System.err.println("Ошибка:Furniture.detail() " + e);
             return false;
         }
     }
