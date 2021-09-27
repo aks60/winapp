@@ -64,18 +64,18 @@ public class ElemGlass extends ElemSimple {
         spcRec.colorID2 = colorID2;
         spcRec.colorID3 = colorID3;
         if (owner().type() == Type.ARCH) { //если арка
-            ElemFrame elemArch = rootArea().mapFrame.get(Layout.TOP);
+            ElemFrame elemArch = root().mapFrame.get(Layout.TOP);
             ElemSimple elemImpost = joinFlat(Layout.BOTT);
             y1 = y1 + elemArch.artiklRec.getFloat(eArtikl.height) - elemArch.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
             y2 = y2 + elemImpost.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
-            double r = ((AreaArch) rootArea()).radiusArch - elemArch.artiklRec.getFloat(eArtikl.height) + elemArch.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+            double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec.getFloat(eArtikl.height) + elemArch.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             double l = Math.sqrt(2 * height() * r - height() * height());
             x1 = (owner().width() / 2) - (float) l;
             x2 = owner().width() - x1;
             radiusGlass = (float) r;
 
         } else if (owner().type() == Type.TRAPEZE) {
-            ElemSimple insideLeft = rootArea().mapFrame.get(Layout.LEFT), insideTop = rootArea().mapFrame.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = rootArea().mapFrame.get(Layout.RIGHT);
+            ElemSimple insideLeft = root().mapFrame.get(Layout.LEFT), insideTop = root().mapFrame.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = root().mapFrame.get(Layout.RIGHT);
             if (iwin().form == Form.NUM2) {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
                 ElemJoining ej = iwin().mapJoin.get(insideTop.joinPoint(1));
@@ -143,11 +143,11 @@ public class ElemGlass extends ElemSimple {
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
             //ARCH
             if (Type.ARCH == owner().type()) {
-                ((AreaArch) rootArea()).addFilling(this, spcAdd);
+                ((AreaArch) root()).addFilling(this, spcAdd);
 
                 //TRAPEZE
             } else if (Type.TRAPEZE == owner().type()) {
-                ((AreaTrapeze) rootArea()).addFilling(this, spcAdd);
+                ((AreaTrapeze) root()).addFilling(this, spcAdd);
 
                 //STVORKA
             } else if (Type.STVORKA == owner().type()) {
@@ -221,20 +221,20 @@ public class ElemGlass extends ElemSimple {
         iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
 
         if (owner().type == Type.ARCH) {
-            ElemFrame ef = rootArea().mapFrame.get(Layout.TOP);
+            ElemFrame ef = root().mapFrame.get(Layout.TOP);
             float dz = ef.artiklRec.getFloat(eArtikl.height);
-            double r = ((AreaArch) rootArea()).radiusArch;
-            double ang1 = 90 - Math.toDegrees(Math.asin(rootArea().width() / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * dz) / ((r - dz) * 2)));
-            iwin().gc2d.fillArc((int) ((int) rootArea().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
+            double r = ((AreaArch) root()).radiusArch;
+            double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
+            double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
+            iwin().gc2d.fillArc((int) ((int) root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
-        } else if (rootArea().type == Type.TRAPEZE && y1 == 0) {
+        } else if (root().type == Type.TRAPEZE && y1 == 0) {
             if (iwin().form == Form.NUM2) {
                 iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                        new int[]{(int) y1, (int) (rootArea().height() - iwin().heightAdd), (int) y2, (int) y2}, 4);
+                        new int[]{(int) y1, (int) (root().height() - iwin().heightAdd), (int) y2, (int) y2}, 4);
             } else if (iwin().form == Form.NUM4) {
                 iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                        new int[]{(int) (rootArea().height() - iwin().heightAdd), (int) y1, (int) y2, (int) y2}, 4);
+                        new int[]{(int) (root().height() - iwin().heightAdd), (int) y1, (int) y2, (int) y2}, 4);
             }
         } else {
             iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},

@@ -74,11 +74,11 @@ public class AreaSimple extends Com5t {
                         AreaSimple prevArea = (AreaSimple) owner().listChild.get(index);
                         //Если последняя доб. area выходит за коорд. root area. Происходит при подкдадке ареа над импостом 
                         if (Layout.VERT.equals(owner().layout())) { //сверху вниз                            
-                            float Y2 = (prevArea.y2 + height > rootArea().y2) ? rootArea().y2 : prevArea.y2 + height;
+                            float Y2 = (prevArea.y2 + height > root().y2) ? root().y2 : prevArea.y2 + height;
                             setDimension(owner().x1, prevArea.y2, owner().x2, Y2);
 
                         } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
-                            float X2 = (prevArea.x2 + width > rootArea().x2) ? rootArea().x2 : prevArea.x2 + width;
+                            float X2 = (prevArea.x2 + width > root().x2) ? root().x2 : prevArea.x2 + width;
                             setDimension(prevArea.x2, owner().y1, X2, owner().y2);
                         }
                         break;
@@ -186,19 +186,19 @@ public class AreaSimple extends Com5t {
     public void draw() {
         try {
             //Прорисовка стеклопакетов
-            LinkedList<ElemGlass> elemGlassList = rootArea().listElem(Type.GLASS);
+            LinkedList<ElemGlass> elemGlassList = root().listElem(Type.GLASS);
             elemGlassList.stream().forEach(el -> el.paint());
 
             //Прорисовка импостов
-            LinkedList<ElemCross> elemImpostList = rootArea().listElem(Type.IMPOST);
+            LinkedList<ElemCross> elemImpostList = root().listElem(Type.IMPOST);
             elemImpostList.stream().forEach(el -> el.paint());
 
             //Прорисовка штульпов
-            LinkedList<ElemCross> elemShtulpList = rootArea().listElem(Type.SHTULP);
+            LinkedList<ElemCross> elemShtulpList = root().listElem(Type.SHTULP);
             elemShtulpList.stream().forEach(el -> el.paint());
 
             //Прорисовка стоек
-            LinkedList<ElemCross> elemStoikaList = rootArea().listElem(Type.STOIKA);
+            LinkedList<ElemCross> elemStoikaList = root().listElem(Type.STOIKA);
             elemStoikaList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам
@@ -208,7 +208,7 @@ public class AreaSimple extends Com5t {
             mapFrame.get(Layout.RIGHT).paint();
 
             //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = rootArea().listElem(Type.STVORKA);
+            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(Type.STVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Рисунок в память

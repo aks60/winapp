@@ -48,7 +48,7 @@ public abstract class Com5t {
         return iwin;
     }
 
-    public AreaSimple rootArea() {
+    public AreaSimple root() {
         return iwin.rootArea;
     }
 

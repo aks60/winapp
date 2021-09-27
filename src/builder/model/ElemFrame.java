@@ -78,8 +78,8 @@ public class ElemFrame extends ElemSimple {
                 anglHoriz = 180;
             }
         } else if (owner().type() == Type.TRAPEZE) {
-            float H = rootArea().height() - iwin().heightAdd;
-            float W = rootArea().width();
+            float H = root().height() - iwin().heightAdd;
+            float W = root().width();
             if (Layout.BOTT == layout) {
                 setDimension(owner.x1, owner.y2 - artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
                 anglHoriz = 0;
@@ -147,7 +147,7 @@ public class ElemFrame extends ElemSimple {
 
         if (owner().type() == Type.ARCH) {
             if (owner.type == Type.ARCH && Layout.TOP == layout()) {
-                AreaArch areaArch = (AreaArch) rootArea();
+                AreaArch areaArch = (AreaArch) root();
                 double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
                 lengthArch = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
                 spcRec.width = lengthArch + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
@@ -164,7 +164,7 @@ public class ElemFrame extends ElemSimple {
             }
         } else if (owner().type() == Type.TRAPEZE) {
             if (Layout.TOP == layout()) {
-                double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(rootArea().height() - iwin().heightAdd, 2));
+                double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(root().height() - iwin().heightAdd, 2));
                 spcRec.width = (float) (length + katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (Layout.BOTT == layout) {
@@ -362,7 +362,7 @@ public class ElemFrame extends ElemSimple {
             } else if (owner().type == Type.ARCH) {
                 if (Layout.TOP == layout) { //прорисовка арки
                     //TODO для прорисовки арки добавил один градус, а это не айс!                  
-                    double r = ((AreaArch) rootArea()).radiusArch;
+                    double r = ((AreaArch) root()).radiusArch;
                     double ang1 = 90 - Math.toDegrees(Math.asin(owner().width() / (r * 2)));
                     double ang2 = 90 - Math.toDegrees(Math.asin((owner().width() - 2 * dh) / ((r - dh) * 2)));
                     Draw.strokeArc(iwin(), owner().width() / 2 - r + dh / 2, dh / 2 - 2, (r - dh / 2) * 2, (r - dh / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, dh);
@@ -373,14 +373,14 @@ public class ElemFrame extends ElemSimple {
                     Draw.strokePolygon(iwin(), x1 + dh, x2 - dh, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
                 } else if (Layout.LEFT == layout) {
-                    double r = ((AreaArch) rootArea()).radiusArch;
-                    double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * dh) / ((r - dh) * 2)));
+                    double r = ((AreaArch) root()).radiusArch;
+                    double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dh) / ((r - dh) * 2)));
                     double a = (r - dh) * UCom.sin(ang2);
                     Draw.strokePolygon(iwin(), x1, x2, x2, x1, y1, (float) (r - a), y2 - dh, y2, rgb, borderColor);
 
                 } else if (Layout.RIGHT == layout) {
-                    double r = ((AreaArch) rootArea()).radiusArch;
-                    double ang2 = 90 - Math.toDegrees(Math.asin((rootArea().width() - 2 * dh) / ((r - dh) * 2)));
+                    double r = ((AreaArch) root()).radiusArch;
+                    double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dh) / ((r - dh) * 2)));
                     double a = (r - dh) * UCom.sin(ang2);
                     Draw.strokePolygon(iwin(), x1, x2, x2, x1, (float) (r - a), y1, y2, y2 - dh, rgb, borderColor);
                 }

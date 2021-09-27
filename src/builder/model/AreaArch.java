@@ -50,7 +50,7 @@ public class AreaArch extends AreaSimple {
 
         //Угловое соединение левое нижнее
         ElemJoining elem3 = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
-        iwin().mapJoin.put(elemLeft.joinPoint(1), elem3);
+        iwin().mapJoin.put(elemBott.joinPoint(0), elem3);
 
         //Угловое соединение правое нижнее
         ElemJoining elem4 = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
