@@ -639,6 +639,9 @@ public class Systree extends javax.swing.JFrame {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card17");
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
+                Object obj = elem5e.joinPoint(0);
+                Object obj2 = elem5e.joinPoint(1);
+                System.err.println("");
                 ElemJoining ej1 = iwin.mapJoin.get(elem5e.joinPoint(0));
                 ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = iwin.mapJoin.get(elem5e.joinPoint(2));

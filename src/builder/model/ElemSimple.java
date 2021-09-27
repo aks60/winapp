@@ -3,6 +3,7 @@ package builder.model;
 import builder.making.Specific;
 import java.awt.Color;
 import builder.Wincalc;
+import enums.Form;
 import enums.Layout;
 import enums.Type;
 import java.util.LinkedList;
@@ -40,6 +41,9 @@ public abstract class ElemSimple extends Com5t {
     //Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка прилегающего вектора)
     //В этих точках лежат мапы соединений см. Wincalc.mapJoin
     public String joinPoint(int side) {
+        if (rootArea().type() == Type.ARCH && layout() == Layout.TOP && iwin().form == Form.NUM3) {
+            return (side == 0) ? x2 + ":" +  (iwin().height - iwin().heightAdd) : x1 + ":" + (iwin().height - iwin().heightAdd);
+        }
         if (layout() == Layout.BOTT) {
             return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y2; //точки левого и правого нижнего углового и прилегающего соед.
         } else if (layout() == Layout.RIGHT) {

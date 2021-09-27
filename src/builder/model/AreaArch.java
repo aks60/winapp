@@ -18,7 +18,7 @@ public class AreaArch extends AreaSimple {
         super(iwin, null, gson.id(), Type.ARCH, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
         setDimension(0, 0, gson.width(), gson.height());
     }
-    
+
     @Override
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
@@ -26,7 +26,7 @@ public class AreaArch extends AreaSimple {
 
         double dh = elemArch.artiklRec.getFloat(eArtikl.height);
         double dw = elemLeft.artiklRec.getFloat(eArtikl.height);
-        double h =  height() - iwin().heightAdd;
+        double h = height() - iwin().heightAdd;
         double w = width();
         double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки        
         double rad1 = Math.acos((w / 2) / r); // Math.toDegrees() — преобразование радианов в градусы ... Math.asin() — арксинус
@@ -40,7 +40,7 @@ public class AreaArch extends AreaSimple {
         ElemJoining elemJoin1 = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LTOP, elemArch, elemLeft, (float) ang4);
         elemJoin1.elem1.anglCut[1] = (float) ang4;  //угол реза арки
         elemJoin1.elem2.anglCut[0] = (float) ang3;  //угол реза рамы
-        iwin().mapJoin.put(elemArch.joinPoint(1), elemJoin1);
+        iwin().mapJoin.put(elemLeft.joinPoint(0), elemJoin1);
 
         //Угловое соединение правое верхнее
         ElemJoining elemJoin2 = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemArch, (float) ang4);
@@ -58,9 +58,9 @@ public class AreaArch extends AreaSimple {
     }
 
     protected void setFilling(ElemGlass glass) {
-        
+
     }
-    
+
     protected void addFilling(ElemGlass glass, Specific spcAdd) {
         Float dw = spcAdd.width;
         ElemSimple imp = glass.joinFlat(Layout.BOTT);
