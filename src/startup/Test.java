@@ -66,7 +66,7 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            //wincalc();
+            wincalc();
             //param();
             //query();
             //frame();
@@ -86,7 +86,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(604008, false));
+            iwin.build(builder.script.Winscript.test(605001, false));
             iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
