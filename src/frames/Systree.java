@@ -86,19 +86,18 @@ import enums.TypeJoin;
 import frames.dialog.DicJoinvar;
 import frames.swing.Scene;
 import frames.swing.FilterTable;
-import java.awt.Rectangle;
+import frames.swing.listener.ListenerObject;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 
-public class Systree extends javax.swing.JFrame {
+public class Systree extends javax.swing.JFrame implements ListenerObject {
 
-    private Scene scene = new Scene();
-    private Canvas canvas = new Canvas();
-    private int systreeID = -1; //выбранная система
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
             listenerParam1, listenerParam2, listenerParam3, listenerArt211, listenerArt212;
 
@@ -111,6 +110,9 @@ public class Systree extends javax.swing.JFrame {
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Query qSyspar2 = new Query(eSyspar1.values());
 
+    private int systreeID = -1; //выбранная система
+    private Canvas canvas = new Canvas();
+    private Scene scene = new Scene(canvas, this);
     private FilterTable filterTable = new FilterTable();
     private DefFieldEditor rsvSystree;
     private java.awt.Frame models = null;
@@ -318,7 +320,7 @@ public class Systree extends javax.swing.JFrame {
         rsvSystree.add(eSystree.coef, txt35);
 
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
-        scene.add(canvas, java.awt.BorderLayout.CENTER);
+        //scene.add(canvas, java.awt.BorderLayout.CENTER);
         canvas.setVisible(true);
         if (selectedPath != null) {
             sysTree.setSelectionPath(new TreePath(selectedPath));
@@ -557,12 +559,12 @@ public class Systree extends javax.swing.JFrame {
                 }
                 if (index != -1) {
                     UGui.setSelectedIndex(tab5, index);
-                    
+
                 } else {
                     UGui.setSelectedRow(tab5);
                 }
             } else {
-                canvas.redraw(null);
+                canvas.redraw();
             }
         }
     }
@@ -689,8 +691,9 @@ public class Systree extends javax.swing.JFrame {
             Object v = sysprodRec.get(eSysprod.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
                 Wincalc win = (Wincalc) v;
-                canvas.redraw(win);
-                scene.redraw(win);
+                scene.init(win);
+                canvas.redraw();                
+                scene.redraw();
                 loadingWin(win);
                 winTree.setSelectionInterval(0, 0);
 
@@ -758,6 +761,23 @@ public class Systree extends javax.swing.JFrame {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean action(Object obj) {
+        Wincalc iwin2 = (Wincalc) obj;
+        int index = UGui.getIndexRec(tab5);
+        if (index != -1) {
+            String script = gson.toJson(iwin2.rootGson);
+            Wincalc iwin3 = new Wincalc(script);
+            Canvas.createIcon(iwin3, 68);
+            Record sysprodRec = qSysprod.get(index);
+            sysprodRec.set(eSysprod.script, script);
+            sysprodRec.set(eSysprod.values().length, iwin3);
+            canvas.redraw();
+            scene.redraw();
+        }
+        return true;
     }
 
     @SuppressWarnings("unchecked")
@@ -1041,11 +1061,6 @@ public class Systree extends javax.swing.JFrame {
         btnTest.setMaximumSize(new java.awt.Dimension(25, 25));
         btnTest.setMinimumSize(new java.awt.Dimension(25, 25));
         btnTest.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTest(evt);
-            }
-        });
 
         javax.swing.GroupLayout toolLayout = new javax.swing.GroupLayout(tool);
         tool.setLayout(toolLayout);
@@ -2826,28 +2841,14 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        try {
-            // sizeArea = 1400;
-            float id = 6.0f;
-            GsonElem gson2 = iwin().rootGson.find(id);
-            GsonElem gson3 = iwin().rootGson;
-            gson2.resizWay(++sizeArea, Layout.VERT);
-
-            int index = UGui.getIndexRec(tab5);
-            if (index != -1) {
-                String script = gson.toJson(iwin().rootGson);
-                Wincalc iwin2 = new Wincalc(script);
-                Canvas.createIcon(iwin2, 68);
-                Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
-                sysprodRec.set(eSysprod.script, script);
-                sysprodRec.set(eSysprod.values().length, iwin2);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                btnTest.dispatchEvent(new MouseEvent(btnReport1, 
+                        MouseEvent.MOUSE_CLICKED, 1, MouseEvent.BUTTON1, 0, 0, 1, false
+                ));
             }
-            canvas.redraw(iwin());
-            scene.redraw(iwin());
-
-        } catch (Exception e) {
-            System.out.println("xxx");
-        }
+        });
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -3353,10 +3354,6 @@ public class Systree extends javax.swing.JFrame {
 //            iwin.rootGson.heightDown(iwin.rootGson, dy);
 //            updateScript(windowsID);
     }//GEN-LAST:event_txt23Update
-
-    private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-
-    }//GEN-LAST:event_btnTest
 
     private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame
         try {

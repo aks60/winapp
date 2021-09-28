@@ -38,7 +38,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import frames.swing.listener.ListenerRecord;
-import javax.swing.JLabel;
+import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 

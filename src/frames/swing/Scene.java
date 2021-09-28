@@ -1,42 +1,76 @@
 package frames.swing;
 
 import builder.Wincalc;
-import builder.model.Com5t;
 import builder.model.ElemCross;
 import builder.model.ElemSimple;
+import builder.script.GsonElem;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import domain.eArtikl;
 import enums.Layout;
 import enums.Type;
+import frames.swing.listener.ListenerObject;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class Scene extends javax.swing.JPanel {
 
+    public ListenerObject listenerGson = null;
+    private Gson gson = new GsonBuilder().create();
     private DecimalFormat df1 = new DecimalFormat("#0.#");
     private Wincalc iwin = null;
+    private Canvas canvas = null;
     private List<Float> vertList = new ArrayList();
     private List<Float> horList = new ArrayList();
+    private List<Boolean> vert2List = new ArrayList();
+    private List<Boolean> hor2List = new ArrayList();
 
-    public Scene() {
+    private float areaId = 0;
+    private int sizeArea = 400;
+
+    public Scene(Canvas canvas, ListenerObject listenerGson) {
         initComponents();
         initElements();
+        this.canvas = canvas;
+        this.listenerGson = listenerGson;
+        add(canvas, java.awt.BorderLayout.CENTER);
     }
 
-    public void redraw(Wincalc iwin) {
+    public void init(Wincalc iwin) {
         this.iwin = iwin;
+        canvas.init(iwin);
+        colorList();
+    }
+
+    public void redraw() {
         lineList();
         pan1.repaint();
         pan4.repaint();
     }
 
+    public void colorList() {
+        Arrays.asList(vert2List, hor2List).forEach(it -> it.clear());
+        LinkedList<ElemCross> impostList = iwin.rootArea.listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
+        for (ElemSimple elem : impostList) { //по импостам определим точки разрыва линии
+            if (Layout.VERT == elem.owner().layout()) {
+                vert2List.add(false);
+            } else {
+                hor2List.add(false);
+            }
+        }
+        vert2List.add(false);
+        hor2List.add(false);
+    }
+
     private void lineList() {
-        vertList.clear();
-        horList.clear();
+        Arrays.asList(vertList, horList).forEach(it -> it.clear());
         LinkedList<ElemCross> impostList = iwin.rootArea.listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
         for (ElemSimple elem : impostList) { //по импостам определим точки разрыва линии
             if (Layout.VERT == elem.owner().layout()) {
@@ -52,14 +86,17 @@ public class Scene extends javax.swing.JPanel {
     private void paintVertical(Graphics gc) {
         if (iwin != null) {
             Graphics2D g = (Graphics2D) gc;
-            int size = (iwin.scale > .16) ? 12 : (iwin.scale > .15) ? 11 : 9;
+            int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 10 : 9;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
             float val_old = 0;
-            for (Float val : vertList) {
+            for (int index = 0; index < vertList.size(); ++index) {
+                Float val = vertList.get(index);
                 int y = (int) (val.intValue() * iwin.scale);
                 int y_old = (int) (val_old * iwin.scale);
                 g.drawLine(0, y, 8, y);
                 int y_txt = (int) (y - 14 - (y - y_old) / 2);
+                Color color = (vert2List.get(index) == true) ? Color.red : Color.black;
+                g.setColor(color);
                 g.rotate(Math.toRadians(-90), 9, y_txt + 28);
                 g.drawString(df1.format(val.floatValue() - val_old), 9, y_txt + 28);
                 g.rotate(Math.toRadians(90), 9, y_txt + 28);
@@ -75,14 +112,18 @@ public class Scene extends javax.swing.JPanel {
 
     private void paintHorizontal(Graphics gc) {
         if (iwin != null) {
+            System.out.println("frames.swing.Scene.paintHorizontal()");
             Graphics2D g = (Graphics2D) gc;
-            int size = (iwin.scale > .16) ? 12 : (iwin.scale > .15) ? 11 : 9;
+            int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 10 : 9;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
             float val_old = 0;
-            for (Float val : horList) {
+            for (int index = 0; index < horList.size(); ++index) {
+                Float val = horList.get(index);
                 int x = (int) (val.intValue() * iwin.scale);
                 int x_old = (int) (val_old * iwin.scale);
                 g.drawLine(x + 20, 10, x + 20, 18);
+                Color color = (hor2List.get(index) == true) ? Color.red : Color.black;
+                g.setColor(color);
                 int x_txt = (int) (x - 14 - (x - x_old) / 2);
                 g.drawString(df1.format(val.floatValue() - val_old), x_txt + 20, 16);
                 val_old = val.intValue();
@@ -110,7 +151,6 @@ public class Scene extends javax.swing.JPanel {
         pan2 = new javax.swing.JPanel();
         pan3 = new javax.swing.JPanel();
         btn1 = new javax.swing.JButton();
-        btn4 = new javax.swing.JButton();
         pan4 = new javax.swing.JPanel(){
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -144,9 +184,9 @@ public class Scene extends javax.swing.JPanel {
         });
         pan1.add(btn2, java.awt.BorderLayout.WEST);
 
-        btn3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btn3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btn3.setForeground(new java.awt.Color(255, 0, 0));
-        btn3.setText("-");
+        btn3.setText("+");
         btn3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn3.setMaximumSize(new java.awt.Dimension(16, 16));
         btn3.setMinimumSize(new java.awt.Dimension(16, 16));
@@ -181,20 +221,6 @@ public class Scene extends javax.swing.JPanel {
         });
         pan3.add(btn1, java.awt.BorderLayout.WEST);
 
-        btn4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btn4.setForeground(new java.awt.Color(255, 0, 0));
-        btn4.setText("+");
-        btn4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn4.setMaximumSize(new java.awt.Dimension(16, 16));
-        btn4.setMinimumSize(new java.awt.Dimension(16, 16));
-        btn4.setPreferredSize(new java.awt.Dimension(16, 16));
-        btn4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn4Action(evt);
-            }
-        });
-        pan3.add(btn4, java.awt.BorderLayout.EAST);
-
         add(pan3, java.awt.BorderLayout.NORTH);
 
         pan4.setPreferredSize(new java.awt.Dimension(18, 10));
@@ -206,28 +232,60 @@ public class Scene extends javax.swing.JPanel {
         add(pan4, java.awt.BorderLayout.WEST);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn4Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4Action
-//
-    }//GEN-LAST:event_btn4Action
-
     private void pan4Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pan4Clicked
-//
+        //if (evt.getClickCount() == 2) {
+        float val_old = 0;
+        for (int index = 0; index < vertList.size(); ++index) {
+            float val = (float) (evt.getY() / iwin.scale);
+            if (val_old < val && val < vertList.get(index)) {
+                vert2List.set(index, !vert2List.get(index));
+                for (int i = 0; i < hor2List.size(); i++) {
+                    hor2List.set(i, false);
+                }
+                pan1.repaint();
+                pan4.repaint();
+                break;
+            }
+            val_old = vertList.get(index);
+        }
+        //}
     }//GEN-LAST:event_pan4Clicked
 
     private void pan1Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pan1Clicked
-        System.out.println(evt.getX() / iwin.scale);
+        // if (evt.getClickCount() == 2) {
+        float val_old = 0;
+        for (int index = 0; index < horList.size(); ++index) {
+            float val = (float) ((evt.getX() - 20) / iwin.scale);
+            if (val_old < val && val < horList.get(index)) {
+                hor2List.set(index, !hor2List.get(index));
+                for (int i = 0; i < vert2List.size(); i++) {
+                    vert2List.set(i, false);
+                }
+                pan1.repaint();
+                pan4.repaint();
+                break;
+            }
+            val_old = horList.get(index);
+        }
+        //}
     }//GEN-LAST:event_pan1Clicked
 
     private void btn1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1Action
-        //           
+        GsonElem gson = iwin.rootGson.find(23.0f);
+        gson.resizWay(++sizeArea, Layout.VERT);
+        listenerGson.action(iwin);
     }//GEN-LAST:event_btn1Action
 
     private void btn2Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2Action
-        // TODO add your handling code here:
+        GsonElem gson = iwin.rootGson.find(23.0f);
+        gson.resizWay(++sizeArea, Layout.VERT);
+        listenerGson.action(iwin);
     }//GEN-LAST:event_btn2Action
 
     private void btn3Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3Action
-        // TODO add your handling code here:
+        GsonElem gson = iwin.rootGson.find(23.0f);
+        gson.resizWay(++sizeArea, Layout.HORIZ);
+        listenerGson.action(iwin);
     }//GEN-LAST:event_btn3Action
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -235,7 +293,6 @@ public class Scene extends javax.swing.JPanel {
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
     private javax.swing.JButton btn3;
-    private javax.swing.JButton btn4;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;

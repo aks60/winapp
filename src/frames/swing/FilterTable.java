@@ -3,18 +3,20 @@ package frames.swing;
 import dataset.Field;
 import dataset.Query;
 import frames.UGui;
-import java.awt.Rectangle;
+import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -57,6 +59,19 @@ public class FilterTable extends javax.swing.JPanel {
         } catch (Exception e) {
             System.err.println("ОШИБКА:swing.FilterTable.mousePressed() " + e);
         }
+    }
+
+    //https://coderoad.ru/9549108/%D0%A1%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D1%83%D0%B9%D1%82%D0%B5-%D1%81%D0%BE%D0%B1%D1%8B%D1%82%D0%B8%D0%B5-%D0%B4%D0%B2%D0%BE%D0%B9%D0%BD%D0%BE%D0%B3%D0%BE-%D1%89%D0%B5%D0%BB%D1%87%D0%BA%D0%B0-%D0%BC%D1%8B%D1%88%D0%B8-%D0%B2-Java-Swing
+    public void genericTableColumnClick(Component comp_sender, Component comp_receiver) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                comp_receiver //получатель
+                        .dispatchEvent(new MouseEvent(comp_sender, //отправитель
+                                MouseEvent.MOUSE_CLICKED, 1, MouseEvent.BUTTON1, 0, 0, 1, false
+                        ));
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -222,3 +237,35 @@ public class FilterTable extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 }
+/*
+final JButton clickTwiceButton = new JButton();
+final JButton fireEventButton = new JButton();
+
+clickTwiceButton.addMouseListener(new java.awt.event.MouseAdapter() {
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        if (evt.getClickCount() == 2) {
+            JOptionPane.showMessageDialog(null, "Double clicked!");
+        }
+    }
+});
+
+fireEventButton.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        // Invoking later for no reason, just to simulate your code
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                clickTwiceButton.dispatchEvent(new MouseEvent(
+                     fireEventButton,
+                     MouseEvent.MOUSE_CLICKED, 
+                     1,
+                     MouseEvent.BUTTON1, 
+                     0, 0, 
+                     2, 
+                     false
+                ));
+            }
+        });
+    }         
+});
+*/

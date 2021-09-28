@@ -158,7 +158,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             Object v = record.get(eSysmodel.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
                 iwin = (Wincalc) v;
-                canvas.redraw(iwin);
+                canvas.init(iwin);
+                canvas.redraw();
             }
         }
     }
@@ -170,7 +171,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             Object v = record.get(eSysmodel.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
                 iwin = (Wincalc) v;
-                canvas.redraw(iwin);
+                canvas.init(iwin);
+                canvas.redraw();
             }
         }
     }
@@ -182,7 +184,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             Object v = record.get(eSysmodel.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
                 iwin = (Wincalc) v;
-                canvas.redraw(iwin);
+                canvas.init(iwin);
+                canvas.redraw();
             }
         }
     }
@@ -794,20 +797,20 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
             if (UGui.isDeleteRecord(this) == 0 && tab1.getSelectedRow() != -1) {
-                iwin.rootArea = null;
-                canvas.paint(canvas.getGraphics());
+                //iwin.rootArea = null;
+                //canvas.paint(canvas.getGraphics());
                 UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
             if (UGui.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
-                iwin.rootArea = null;
-                canvas.paint(canvas.getGraphics());
+                //iwin.rootArea = null;
+                //canvas.paint(canvas.getGraphics());
                 UGui.deleteRecord(tab2);
             }
         } else if (tab3.getBorder() != null) {
             if (UGui.isDeleteRecord(this) == 0 && tab3.getSelectedRow() != -1) {
-                iwin.rootArea = null;
-                canvas.paint(canvas.getGraphics());
+                //iwin.rootArea = null;
+                //canvas.paint(canvas.getGraphics());
                 UGui.deleteRecord(tab3);
             }
         }

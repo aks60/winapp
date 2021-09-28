@@ -29,8 +29,11 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
         });
     }
 
-    public void redraw(Wincalc iwin) {
-        this.iwin = iwin;
+    public void init(Wincalc iwin) {
+       this.iwin = iwin; 
+    }
+    
+    public void redraw() {
         scale(iwin);
         repaint();
     }
