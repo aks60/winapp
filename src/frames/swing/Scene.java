@@ -66,7 +66,7 @@ public class Scene extends javax.swing.JPanel {
                 val_old = val.intValue();
             }
             g.drawLine(0, 2, 8, 2);
-            
+
         } else {
             gc.setColor(getBackground());
             gc.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -88,7 +88,7 @@ public class Scene extends javax.swing.JPanel {
                 val_old = val.intValue();
             }
             g.drawLine(20, 10, 20, 18);
-            
+
         } else {
             gc.setColor(getBackground());
             gc.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -119,17 +119,15 @@ public class Scene extends javax.swing.JPanel {
         };
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
-            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
-            }
-            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
-                formAncestorResized(evt);
-            }
-        });
         setLayout(new java.awt.BorderLayout());
 
         pan1.setMinimumSize(new java.awt.Dimension(4, 18));
         pan1.setPreferredSize(new java.awt.Dimension(4, 18));
+        pan1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pan1Clicked(evt);
+            }
+        });
         pan1.setLayout(new java.awt.BorderLayout());
 
         btn2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -139,6 +137,11 @@ public class Scene extends javax.swing.JPanel {
         btn2.setMaximumSize(new java.awt.Dimension(16, 16));
         btn2.setMinimumSize(new java.awt.Dimension(16, 16));
         btn2.setPreferredSize(new java.awt.Dimension(16, 16));
+        btn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn2Action(evt);
+            }
+        });
         pan1.add(btn2, java.awt.BorderLayout.WEST);
 
         btn3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -148,6 +151,11 @@ public class Scene extends javax.swing.JPanel {
         btn3.setMaximumSize(new java.awt.Dimension(16, 16));
         btn3.setMinimumSize(new java.awt.Dimension(16, 16));
         btn3.setPreferredSize(new java.awt.Dimension(16, 16));
+        btn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn3Action(evt);
+            }
+        });
         pan1.add(btn3, java.awt.BorderLayout.EAST);
 
         add(pan1, java.awt.BorderLayout.SOUTH);
@@ -166,6 +174,11 @@ public class Scene extends javax.swing.JPanel {
         btn1.setMaximumSize(new java.awt.Dimension(16, 16));
         btn1.setMinimumSize(new java.awt.Dimension(16, 16));
         btn1.setPreferredSize(new java.awt.Dimension(16, 16));
+        btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn1Action(evt);
+            }
+        });
         pan3.add(btn1, java.awt.BorderLayout.WEST);
 
         btn4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -177,7 +190,7 @@ public class Scene extends javax.swing.JPanel {
         btn4.setPreferredSize(new java.awt.Dimension(16, 16));
         btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn4ActionPerformed(evt);
+                btn4Action(evt);
             }
         });
         pan3.add(btn4, java.awt.BorderLayout.EAST);
@@ -185,16 +198,37 @@ public class Scene extends javax.swing.JPanel {
         add(pan3, java.awt.BorderLayout.NORTH);
 
         pan4.setPreferredSize(new java.awt.Dimension(18, 10));
+        pan4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pan4Clicked(evt);
+            }
+        });
         add(pan4, java.awt.BorderLayout.WEST);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formAncestorResized
+    private void btn4Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4Action
+//
+    }//GEN-LAST:event_btn4Action
 
-    }//GEN-LAST:event_formAncestorResized
+    private void pan4Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pan4Clicked
+//
+    }//GEN-LAST:event_pan4Clicked
 
-    private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
+    private void pan1Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pan1Clicked
+        System.out.println(evt.getX() / iwin.scale);
+    }//GEN-LAST:event_pan1Clicked
 
-    }//GEN-LAST:event_btn4ActionPerformed
+    private void btn1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1Action
+        //           
+    }//GEN-LAST:event_btn1Action
+
+    private void btn2Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2Action
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn2Action
+
+    private void btn3Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3Action
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn3Action
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -849,15 +849,15 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             qModels.insert(record);
             if (tab1.getBorder() != null) {
                 loadingTab(tab1, 1001);
-                UGui.setSelectedRow(tab1, qModels.size() - 1);
+                UGui.setSelectedIndex(tab1, qModels.size() - 1);
                 UGui.scrollRectToIndex(qModels.size() - 1, tab1);
             } else if (tab2.getBorder() != null) {
                 loadingTab(tab2, 1004);
-                UGui.setSelectedRow(tab2, qModels.size() - 1);
+                UGui.setSelectedIndex(tab2, qModels.size() - 1);
                 UGui.scrollRectToIndex(qModels.size() - 1, tab2);
             } else if (tab3.getBorder() != null) {
                 loadingTab(tab3, 1002);
-                UGui.setSelectedRow(tab3, qModels.size() - 1);
+                UGui.setSelectedIndex(tab3, qModels.size() - 1);
                 UGui.scrollRectToIndex(qModels.size() - 1, tab3);
             }
         } catch (Exception e) {

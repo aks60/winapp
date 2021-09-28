@@ -339,7 +339,7 @@ public class Elements extends javax.swing.JFrame {
                 int index = UGui.getIndexRec(tab2);
                 qElement.set(record.getInt(0), UGui.getIndexRec(tab2), eElement.typset);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab2, index);
+                UGui.setSelectedIndex(tab2, index);
             }
         };
 
@@ -351,7 +351,7 @@ public class Elements extends javax.swing.JFrame {
                 qElement.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab2, index);
+                UGui.setSelectedIndex(tab2, index);
 
             } else if (tab3.getBorder() != null) {
                 int index = UGui.getIndexRec(tab3);
@@ -359,7 +359,7 @@ public class Elements extends javax.swing.JFrame {
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab3), eArtikl.name);
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab3), eArtikl.code);
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab3, index);
+                UGui.setSelectedIndex(tab3, index);
             }
         };
 
@@ -370,7 +370,7 @@ public class Elements extends javax.swing.JFrame {
                 int series_id = record.getInt(eGroups.id);
                 qElement.set(series_id, UGui.getIndexRec(tab2), eElement.series_id);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab2, index);
+                UGui.setSelectedIndex(tab2, index);
             }
         };
 
@@ -386,7 +386,7 @@ public class Elements extends javax.swing.JFrame {
             types = (types & 0xfffffff0) + record.getInt(0);
             elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab3, index);
+            UGui.setSelectedIndex(tab3, index);
         };
 
         listenerColvar2 = (record) -> {
@@ -397,7 +397,7 @@ public class Elements extends javax.swing.JFrame {
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab3, index);
+            UGui.setSelectedIndex(tab3, index);
         };
 
         listenerColvar3 = (record) -> {
@@ -408,7 +408,7 @@ public class Elements extends javax.swing.JFrame {
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
             elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab3, index);
+            UGui.setSelectedIndex(tab3, index);
         };
     }
 
@@ -475,9 +475,9 @@ public class Elements extends javax.swing.JFrame {
             qDet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", element_id);
             for (int index2 = 0; index2 < qDet.size(); index2++) {
                 if (qDet.get(index2).getInt(eElemdet.id) == deteilID) {
-                    UGui.setSelectedRow(tab2, index);
+                    UGui.setSelectedIndex(tab2, index);
                     UGui.scrollRectToRow(index, tab2);
-                    UGui.setSelectedRow(tab3, index2);
+                    UGui.setSelectedIndex(tab3, index2);
                     UGui.scrollRectToRow(index2, tab3);
                 }
             }
@@ -990,7 +990,7 @@ public class Elements extends javax.swing.JFrame {
             loadingData();
             for (int i = 0; i < qGrCateg.size(); ++i) {
                 if (qGrCateg.get(i).getInt(eGroups.id) == id) {
-                    UGui.setSelectedRow(tab1, i - 1);
+                    UGui.setSelectedIndex(tab1, i - 1);
                     ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(i - 1, i - 1);
                     UGui.scrollRectToRow(i, tab1);
                     break;
@@ -1004,7 +1004,7 @@ public class Elements extends javax.swing.JFrame {
         //int index = Util.get;
         int row = tab2.getRowCount() - 1;
         UGui.scrollRectToRow(row, tab2);
-        UGui.setSelectedRow(tab1, row);
+        UGui.setSelectedIndex(tab1, row);
 
     }//GEN-LAST:event_btnReport
 

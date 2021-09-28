@@ -139,7 +139,7 @@ public class DicSyspod extends javax.swing.JDialog {
                 }
             }
             if (index != -1) {
-                UGui.setSelectedRow(tab2, index);
+                UGui.setSelectedIndex(tab2, index);
             } else {
                 UGui.setSelectedRow(tab2);
             }

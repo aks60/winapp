@@ -44,7 +44,6 @@ import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
 import builder.making.Furniture;
-import builder.model.AreaSimple;
 import builder.model.AreaStvorka;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
@@ -87,6 +86,7 @@ import enums.TypeJoin;
 import frames.dialog.DicJoinvar;
 import frames.swing.Scene;
 import frames.swing.FilterTable;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.List;
@@ -118,6 +118,7 @@ public class Systree extends javax.swing.JFrame {
     private DefMutableTreeNode winNode = null;
     private TreeNode[] selectedPath = null;
     private Gson gson = new GsonBuilder().create();
+    int sizeArea = 200;
 
     public Systree() {
         initComponents();
@@ -427,7 +428,7 @@ public class Systree extends javax.swing.JFrame {
             qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);
             qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2, index);
+            UGui.setSelectedIndex(tab2, index);
         };
 
         listenerModel = (record) -> {
@@ -452,7 +453,7 @@ public class Systree extends javax.swing.JFrame {
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             for (int index = 0; index < qSysprod.size(); ++index) {
                 if (qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)) {
-                    UGui.setSelectedRow(tab5, index); //выделение рабочей записи
+                    UGui.setSelectedIndex(tab5, index); //выделение рабочей записи
                     UGui.scrollRectToRow(index, tab5);
                     winTree.setSelectionRow(0);
                 }
@@ -465,7 +466,7 @@ public class Systree extends javax.swing.JFrame {
             qSysfurn.set(record.getInt(eFurniture.id), UGui.getIndexRec(tab3), eSysfurn.furniture_id);
             qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), UGui.getIndexRec(tab3), eFurniture.name);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab3, index);
+            UGui.setSelectedIndex(tab3, index);
         };
 
         listenerArt211 = (record) -> {
@@ -473,7 +474,7 @@ public class Systree extends javax.swing.JFrame {
             int index = UGui.getIndexRec(tab3);
             qSysfurn.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab3), eSysfurn.artikl_id1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab3, index);
+            UGui.setSelectedIndex(tab3, index);
         };
 
         listenerArt212 = (record) -> {
@@ -481,7 +482,7 @@ public class Systree extends javax.swing.JFrame {
             int index = UGui.getIndexRec(tab3);
             qSysfurn.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab3), eSysfurn.artikl_id2);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab3, index);
+            UGui.setSelectedIndex(tab3, index);
         };
 
         listenerParam1 = (record) -> {
@@ -490,7 +491,7 @@ public class Systree extends javax.swing.JFrame {
             qSyspar1.set(record.getInt(eParams.id), UGui.getIndexRec(tab4), eSyspar1.params_id);
             qSyspar1.set(null, UGui.getIndexRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab4, index);
+            UGui.setSelectedIndex(tab4, index);
         };
 
         listenerParam2 = (record) -> {
@@ -498,7 +499,7 @@ public class Systree extends javax.swing.JFrame {
             int index = UGui.getIndexRec(tab4);
             qSyspar1.set(record.getStr(eParams.text), UGui.getIndexRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab4, index);
+            UGui.setSelectedIndex(tab4, index);
         };
 
         listenerParam3 = (record) -> {
@@ -513,7 +514,7 @@ public class Systree extends javax.swing.JFrame {
                 iwin().build(script2);
                 UGui.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
                 selectionWin();
-                UGui.setSelectedRow(tab7, index2);
+                UGui.setSelectedIndex(tab7, index2);
             }
         };
     }
@@ -551,10 +552,12 @@ public class Systree extends javax.swing.JFrame {
                     if (qSysprod.get(i).getInt(eSysprod.id) == sysprodID) {
                         index = i;
                         tabb1.setSelectedIndex(4);
+                        UGui.scrollRectToIndex(index, tab5);
                     }
                 }
                 if (index != -1) {
-                    UGui.setSelectedRow(tab5, index);
+                    UGui.setSelectedIndex(tab5, index);
+                    
                 } else {
                     UGui.setSelectedRow(tab5);
                 }
@@ -671,7 +674,7 @@ public class Systree extends javax.swing.JFrame {
     private void selectionTab2(int artiklID) {
         for (int i = 0; i < qSysprof.size(); i++) {
             if (qSysprof.get(i).getInt(eSysprof.artikl_id) == artiklID) {
-                UGui.setSelectedRow(tab2, i);
+                UGui.setSelectedIndex(tab2, i);
             }
         }
     }
@@ -687,7 +690,7 @@ public class Systree extends javax.swing.JFrame {
             if (v instanceof Wincalc) { //прорисовка окна               
                 Wincalc win = (Wincalc) v;
                 canvas.redraw(win);
-                scene.redraw(win);               
+                scene.redraw(win);
                 loadingWin(win);
                 winTree.setSelectionInterval(0, 0);
 
@@ -2823,7 +2826,28 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
+        try {
+            // sizeArea = 1400;
+            float id = 6.0f;
+            GsonElem gson2 = iwin().rootGson.find(id);
+            GsonElem gson3 = iwin().rootGson;
+            gson2.resizWay(++sizeArea, Layout.VERT);
 
+            int index = UGui.getIndexRec(tab5);
+            if (index != -1) {
+                String script = gson.toJson(iwin().rootGson);
+                Wincalc iwin2 = new Wincalc(script);
+                Canvas.createIcon(iwin2, 68);
+                Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
+                sysprodRec.set(eSysprod.script, script);
+                sysprodRec.set(eSysprod.values().length, iwin2);
+            }
+            canvas.redraw(iwin());
+            scene.redraw(iwin());
+
+        } catch (Exception e) {
+            System.out.println("xxx");
+        }
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose

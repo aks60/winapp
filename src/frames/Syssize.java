@@ -43,7 +43,7 @@ public class Syssize extends javax.swing.JFrame {
         this.listener = listener;
         for (int i = 0; i < qSyssize.size(); i++) {
             if (qSyssize.get(i).getInt(eSyssize.id) == id) {
-                UGui.setSelectedRow(tab1, i);
+                UGui.setSelectedIndex(tab1, i);
             }
         }
         btnChoice.setVisible(true);

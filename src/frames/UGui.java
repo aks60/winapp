@@ -437,16 +437,16 @@ public class UGui {
     //Выделить запись
     public static void setSelectedRow(JTable table) {
         if (table.getRowCount() > 0) {
-            int index = table.getSelectedColumn();
+            int column = table.getSelectedColumn();
             table.setRowSelectionInterval(0, 0);
-            if (index != -1) {
-                table.setColumnSelectionInterval(index, index);
+            if (column != -1) {
+                table.setColumnSelectionInterval(column, column);
             }
         }
     }
 
     //Выделить запись
-    public static void setSelectedRow(JTable table, int index) {
+    public static void setSelectedIndex(JTable table, int index) {
         if (table.getRowCount() > 0) {
 
             int row = table.convertRowIndexToView(index);
@@ -514,7 +514,7 @@ public class UGui {
             row = (row > 0) ? --row : 0;
             if (query.size() > 0) {
                 index = table.convertRowIndexToModel(row);
-                UGui.setSelectedRow(table, index);
+                UGui.setSelectedIndex(table, index);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
@@ -675,7 +675,7 @@ public class UGui {
             }
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(table, index);
+        UGui.setSelectedIndex(table, index);
     }
 
     //Слушатель редактирование палитры
@@ -696,7 +696,7 @@ public class UGui {
             elemdetRec.set(types, val);
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(table, index);
+        UGui.setSelectedIndex(table, index);
     }
 
     public static void listenerEnums(Record record, JTable table, Field field_fk, JTable... tables) {
@@ -705,7 +705,7 @@ public class UGui {
         int index = getIndexRec(table);
         query.set(record.getInt(0), getIndexRec(table), field_fk);
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(table, index);
+        UGui.setSelectedIndex(table, index);
     }
 
     //Программный клик на компоненте

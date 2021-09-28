@@ -141,7 +141,7 @@ public class FilterTable extends javax.swing.JPanel {
                         for (int index = 0; index < query.size(); ++index) {
 
                             if (query.table(field).get(index).getStr(field).startsWith(txtFilter.getText())) {
-                                UGui.setSelectedRow(table, index);
+                                UGui.setSelectedIndex(table, index);
                                 UGui.scrollRectToIndex(index, table);
                                 return;
                             }
@@ -151,7 +151,7 @@ public class FilterTable extends javax.swing.JPanel {
                         for (int index = 0; index < dtm.getDataVector().size(); ++index) {
                             Vector vector = dtm.getDataVector().get(index);
                             if (String.valueOf(vector.get(indexColumn)).startsWith(txtFilter.getText())) {
-                                UGui.setSelectedRow(table, index);
+                                UGui.setSelectedIndex(table, index);
                                 UGui.scrollRectToIndex(index, table);
                                 return;
                             }

@@ -352,7 +352,7 @@ public class Joinings extends javax.swing.JFrame {
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab4, index);
+                UGui.setSelectedIndex(tab4, index);
             }
         };
 
@@ -364,7 +364,7 @@ public class Joinings extends javax.swing.JFrame {
             types = (types & 0xfffffff0) + record.getInt(0);
             joindetRec.set(eJoindet.types, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab4, index);
+            UGui.setSelectedIndex(tab4, index);
         };
 
         listenerColvar2 = (record) -> {
@@ -375,7 +375,7 @@ public class Joinings extends javax.swing.JFrame {
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             joindetRec.set(eJoindet.types, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab4, index);
+            UGui.setSelectedIndex(tab4, index);
         };
 
         listenerColvar3 = (record) -> {
@@ -386,7 +386,7 @@ public class Joinings extends javax.swing.JFrame {
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
             joindetRec.set(eJoindet.types, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab4, index);
+            UGui.setSelectedIndex(tab4, index);
         };
 
         listenerJoinvar = (record) -> {
@@ -403,7 +403,7 @@ public class Joinings extends javax.swing.JFrame {
                 joinvarRec.set(eJoinvar.prio, ++max);
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2, index);
+            UGui.setSelectedIndex(tab2, index);
         };
     }
 
@@ -457,12 +457,12 @@ public class Joinings extends javax.swing.JFrame {
                 for (int index3 = 0; index3 < qDet.size(); index3++) {
                     if (qDet.get(index3).getInt(eJoindet.id) == deteilID) {
 
-                        UGui.setSelectedRow(tab1, index);
-                        UGui.scrollRectToRow(index, tab1);
-                        UGui.setSelectedRow(tab2, index2);
-                        UGui.scrollRectToRow(index2, tab2);
-                        UGui.setSelectedRow(tab4, index3);
-                        UGui.scrollRectToRow(index3, tab3);
+                        UGui.setSelectedIndex(tab1, index);
+                        UGui.scrollRectToIndex(index, tab1);
+                        UGui.setSelectedIndex(tab2, index2);
+                        UGui.scrollRectToIndex(index2, tab2);
+                        UGui.setSelectedIndex(tab4, index3);
+                        UGui.scrollRectToIndex(index3, tab3);
                         return;
                     }
                 }

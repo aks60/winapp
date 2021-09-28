@@ -259,7 +259,7 @@ public class Orders extends javax.swing.JFrame {
                     iwin.build(script2);
                     UGui.stopCellEditing(tab1, tab2, tab3, tab5);
                     selectionWin();
-                    UGui.setSelectedRow(tab5, index2);
+                    UGui.setSelectedIndex(tab5, index2);
                 }
             }, (int) grup);
         });
@@ -282,7 +282,7 @@ public class Orders extends javax.swing.JFrame {
             }
         }
         if (index != -1) {
-            UGui.setSelectedRow(tab1, index);
+            UGui.setSelectedIndex(tab1, index);
         } else {
             UGui.setSelectedRow(tab1);
         }
@@ -346,7 +346,7 @@ public class Orders extends javax.swing.JFrame {
             }
         }
         if (index != -1) {
-            UGui.setSelectedRow(tab2, index);
+            UGui.setSelectedIndex(tab2, index);
         } else {
             UGui.setSelectedRow(tab2);
         }
@@ -2251,7 +2251,7 @@ public class Orders extends javax.swing.JFrame {
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 for (int index = 0; index < qPrjprod.size(); ++index) {
                     if (qPrjprod.get(index, eSysprod.id) == record2.get(eSysprod.id)) {
-                        UGui.setSelectedRow(tab2, index);
+                        UGui.setSelectedIndex(tab2, index);
                         UGui.scrollRectToRow(index, tab2);
                         winTree.setSelectionRow(0);
                     }

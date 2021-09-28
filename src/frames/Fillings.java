@@ -275,7 +275,7 @@ public class Fillings extends javax.swing.JFrame {
                 qGlasdet.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
                 qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab2, index);
+                UGui.setSelectedIndex(tab2, index);
 
             } else if (tab5.getBorder() != null) {
                 int index = UGui.getIndexRec(tab5);
@@ -283,7 +283,7 @@ public class Fillings extends javax.swing.JFrame {
                 qGlasprof.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab5), eArtikl.code);
                 qGlasprof.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab5), eArtikl.name);
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab5, index);
+                UGui.setSelectedIndex(tab5, index);
             }
         };
 
@@ -299,7 +299,7 @@ public class Fillings extends javax.swing.JFrame {
             types = (types & 0xfffffff0) + record.getInt(0);
             glasdetRec.set(eGlasdet.types, types);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2, index);
+            UGui.setSelectedIndex(tab2, index);
         };
 
         listenerColvar2 = (record) -> {
@@ -310,7 +310,7 @@ public class Fillings extends javax.swing.JFrame {
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             glasdetRec.set(eGlasdet.types, types);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2, index);
+            UGui.setSelectedIndex(tab2, index);
         };
 
         listenerColvar3 = (record) -> {
@@ -321,7 +321,7 @@ public class Fillings extends javax.swing.JFrame {
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
             glasdetRec.set(eGlasdet.types, types);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2, index);
+            UGui.setSelectedIndex(tab2, index);
         };
 
         listenerTypset = (record) -> {
@@ -330,7 +330,7 @@ public class Fillings extends javax.swing.JFrame {
                 int index = UGui.getIndexRec(tab2);
                 qGlasdet.set(record.getInt(0), UGui.getIndexRec(tab2), eElement.typset);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab2, index);
+                UGui.setSelectedIndex(tab2, index);
             }
         };
 
@@ -341,7 +341,7 @@ public class Fillings extends javax.swing.JFrame {
                 String name = record.getStr(eArtikl.name);
                 qGlasdet.set(name, UGui.getIndexRec(tab2), eGlasdet.depth);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab2, index);
+                UGui.setSelectedIndex(tab2, index);
             }
         };
 
@@ -395,9 +395,9 @@ public class Fillings extends javax.swing.JFrame {
             qGlasdet2.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", glasgrp_id, "order by", eGlasdet.depth);
             for (int index2 = 0; index2 < qGlasdet2.size(); index2++) {
                 if (qGlasdet2.get(index2).getInt(eGlasdet.id) == deteilID) {
-                    UGui.setSelectedRow(tab1, index);
+                    UGui.setSelectedIndex(tab1, index);
                     UGui.scrollRectToRow(index, tab1);
-                    UGui.setSelectedRow(tab2, index2);
+                    UGui.setSelectedIndex(tab2, index2);
                     UGui.scrollRectToRow(index2, tab2);
                 }
             }

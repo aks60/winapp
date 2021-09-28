@@ -441,7 +441,7 @@ public class Furniturs extends javax.swing.JFrame {
                 int index = UGui.getIndexRec(tab);
                 query.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab), eFurndet.artikl_id);
                 ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab, index);
+                UGui.setSelectedIndex(tab, index);
             }
         };
 
@@ -460,7 +460,7 @@ public class Furniturs extends javax.swing.JFrame {
             types = (types & 0xfffffff0) + record.getInt(0);
             furndetRec.set(eFurndet.types, types);
             ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab, index);
+            UGui.setSelectedIndex(tab, index);
         };
 
         listenerSide1 = (record) -> {
@@ -575,11 +575,11 @@ public class Furniturs extends javax.swing.JFrame {
             tbtn3.setSelected(true);
         }
         tbtnAction(null);
-        UGui.setSelectedRow(tab1, iFurn);
+        UGui.setSelectedIndex(tab1, iFurn);
         UGui.scrollRectToRow(iFurn, tab1);
-        UGui.setSelectedRow(tab2a, iDet2a);
-        UGui.setSelectedRow(tab2b, iDet2b);
-        UGui.setSelectedRow(tab2c, iDet2c);
+        UGui.setSelectedIndex(tab2a, iDet2a);
+        UGui.setSelectedIndex(tab2b, iDet2b);
+        UGui.setSelectedIndex(tab2c, iDet2c);
         tabb1.setSelectedIndex(iTabb);
         if (iTabb == 0) {
             UGui.scrollRectToRow(iDet2a, tab2a);
@@ -1376,7 +1376,7 @@ public class Furniturs extends javax.swing.JFrame {
             for (int index2 = 0; index2 < qFurniture.size(); ++index2) {
                 Record record = qFurniture.get(index2);
                 if (record.getInt(eFurniture.id) == furndetID2) {
-                    UGui.setSelectedRow(tab1, index2);
+                    UGui.setSelectedIndex(tab1, index2);
                     Rectangle cellRect = tab1.getCellRect(index2, 0, false);
                     tab1.scrollRectToVisible(cellRect);
                 }

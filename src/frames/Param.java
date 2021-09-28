@@ -74,7 +74,7 @@ public class Param extends javax.swing.JFrame {
                 pardetRec.set(eParams.text, record.getStr(eColor.name));
                 qPardet.update(pardetRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab2, index);
+                UGui.setSelectedIndex(tab2, index);
             }
         };
     }

@@ -540,7 +540,7 @@ public class Specifics extends javax.swing.JFrame {
 
         for (int i = 0; i < tab1.getRowCount() - 1; i++) {
             if (tab1.getValueAt(i, 1) != null && UCom.getFloat(tab1.getValueAt(i, 1).toString()) == id) {
-                UGui.setSelectedRow(tab1, i);
+                UGui.setSelectedIndex(tab1, i);
                 return;
             }
         }
@@ -571,7 +571,7 @@ public class Specifics extends javax.swing.JFrame {
         createIwin();
         loadingTab1(groups(cbx1.getSelectedIndex()));
         cbxGroupBy(null);
-        UGui.setSelectedRow(tab1, index);
+        UGui.setSelectedIndex(tab1, index);
     }//GEN-LAST:event_btnRefresh
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     

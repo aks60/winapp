@@ -75,7 +75,7 @@ public class DicGroups extends javax.swing.JDialog {
         if (ID > 0) {
             for (int i = 0; i < qGroups.size(); ++i) {
                 if (qGroups.get(i).getInt(eGroups.id) == ID) {
-                    UGui.setSelectedRow(tab, i);
+                    UGui.setSelectedIndex(tab, i);
                     UGui.scrollRectToRow(i, tab);
                 }
             }

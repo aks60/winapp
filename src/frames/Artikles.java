@@ -448,7 +448,7 @@ public class Artikles extends javax.swing.JFrame {
         for (int index = 0; index < qArtikl.size(); ++index) {
             int id = qArtikl.getAs(index, eArtikl.id);
             if (id == artiklRec.getInt(eArtikl.id)) {
-                UGui.setSelectedRow(tab1, index);
+                UGui.setSelectedIndex(tab1, index);
                 UGui.scrollRectToRow(index, tab1);
             }
         }
@@ -2437,7 +2437,7 @@ public class Artikles extends javax.swing.JFrame {
                         artiklRec.setNo(eArtikl.level2, enam.id2);
                         ((DefTableModel) tab1.getModel()).getQuery().update(artiklRec);
                         selectionTree();
-                        UGui.setSelectedRow(tab1, index);
+                        UGui.setSelectedIndex(tab1, index);
                     }
                 }
             }
