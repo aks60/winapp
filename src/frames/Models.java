@@ -127,7 +127,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             try {
                 String script = record.getStr(eSysmodel.script);
                 Wincalc iwin2 = new Wincalc(script);
-                Canvas.createIcon(iwin2, 68);
+                iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
                 record.add(iwin2);
 
             } catch (Exception e) {
@@ -159,7 +159,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             if (v instanceof Wincalc) { //прорисовка окна               
                 iwin = (Wincalc) v;
                 canvas.init(iwin);
-                canvas.redraw();
+                canvas.draw(iwin);
             }
         }
     }
@@ -172,7 +172,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             if (v instanceof Wincalc) { //прорисовка окна               
                 iwin = (Wincalc) v;
                 canvas.init(iwin);
-                canvas.redraw();
+                canvas.draw(iwin);
             }
         }
     }
@@ -185,7 +185,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             if (v instanceof Wincalc) { //прорисовка окна               
                 iwin = (Wincalc) v;
                 canvas.init(iwin);
-                canvas.redraw();
+                canvas.draw(iwin);
             }
         }
     }

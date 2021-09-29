@@ -43,13 +43,13 @@ public abstract class ElemSimple extends Com5t {
     public String joinPoint(int side) {
         
         if (owner.type() == Type.ARCH && layout() == Layout.TOP && iwin().form == Form.NUM3) {
-            return (side == 0) ? x2 + ":" + (iwin().height - iwin().heightAdd) : x1 + ":" + (iwin().height - iwin().heightAdd);
+            return (side == 0) ? x2 + ":" + (iwin().height - iwin().heightAdd) : x1 + ":" + (iwin().height - iwin().heightAdd);        
         
         } else if (owner.type() == Type.TRAPEZE && layout() == Layout.TOP && iwin().form == Form.NUM2) {
-            return (side == 0) ? x2 + ":" + y1 : x1 + ":" + (iwin().height - iwin().heightAdd);
-        
-        } else if (owner.type() == Type.TRAPEZE && layout() == Layout.TOP && iwin().form == Form.NUM4) {
             return (side == 0) ? x2 + ":" + (iwin().height - iwin().heightAdd) : x1 + ":" + y1;
+            
+        } else if (owner.type() == Type.TRAPEZE && layout() == Layout.TOP && iwin().form == Form.NUM4) {
+            return (side == 0) ? x2 + ":" + y1 : x1 + ":" + (iwin().height - iwin().heightAdd);
         
         } else if (layout() == Layout.BOTT) {
             return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y2; //точки левого и правого нижнего углового и прилегающего соед.

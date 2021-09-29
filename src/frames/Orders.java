@@ -304,7 +304,7 @@ public class Orders extends javax.swing.JFrame {
                     Wincalc iwin2 = new Wincalc(script);
                     new Furniture(iwin2, true);
                     new Joining(iwin2, true);
-                    Canvas.createIcon(iwin2, 68);
+                    iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
                     record.add(iwin2);
 
                 } catch (Exception e) {
@@ -363,7 +363,7 @@ public class Orders extends javax.swing.JFrame {
 
                 iwin = (Wincalc) v;
                 canvas.init(iwin);
-                canvas.redraw();
+                canvas.draw(iwin);
                 loadingWin();
                 winTree.setSelectionInterval(0, 0);
 

@@ -33,7 +33,7 @@ public class Scene extends javax.swing.JPanel {
     private List<Boolean> hor2List = new ArrayList();
 
     private float areaId = 0;
-    private int sizeArea = 400;
+    private int sizeArea = 350;
 
     public Scene(Canvas canvas, ListenerObject listenerGson) {
         initComponents();
@@ -49,7 +49,8 @@ public class Scene extends javax.swing.JPanel {
         colorList();
     }
 
-    public void redraw() {
+    public void draw(Wincalc iwin) {
+        this.iwin = iwin;
         lineList();
         pan1.repaint();
         pan4.repaint();
@@ -112,7 +113,6 @@ public class Scene extends javax.swing.JPanel {
 
     private void paintHorizontal(Graphics gc) {
         if (iwin != null) {
-            System.out.println("frames.swing.Scene.paintHorizontal()");
             Graphics2D g = (Graphics2D) gc;
             int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 10 : 9;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
@@ -271,7 +271,7 @@ public class Scene extends javax.swing.JPanel {
     }//GEN-LAST:event_pan1Clicked
 
     private void btn1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1Action
-        GsonElem gson = iwin.rootGson.find(23.0f);
+        GsonElem gson = iwin.rootGson.find(6.0f);
         gson.resizWay(++sizeArea, Layout.VERT);
         listenerGson.action(iwin);
     }//GEN-LAST:event_btn1Action
