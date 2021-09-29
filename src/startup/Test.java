@@ -83,10 +83,10 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "ono";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(777, false));
+            iwin.build(builder.script.Winscript.test(605001, false));
             iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);

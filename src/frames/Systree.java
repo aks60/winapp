@@ -319,8 +319,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         rsvSystree.add(eSystree.cgrp, txt15);
         rsvSystree.add(eSystree.coef, txt35);
 
-        panDesign.add(scene, java.awt.BorderLayout.CENTER);
-        //scene.add(canvas, java.awt.BorderLayout.CENTER);
+        //panDesign.add(scene, java.awt.BorderLayout.CENTER);
         canvas.setVisible(true);
         if (selectedPath != null) {
             sysTree.setSelectionPath(new TreePath(selectedPath));
@@ -349,7 +348,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             try {
                 String script = record.getStr(eSysprod.script);
                 Wincalc iwin2 = new Wincalc(script);
-                Canvas.createIcon(iwin2, 68);
+                iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
                 record.add(iwin2);
 
             } catch (Exception e) {
@@ -564,7 +563,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     UGui.setSelectedRow(tab5);
                 }
             } else {
-                canvas.redraw();
+                canvas.draw(iwin());
             }
         }
     }
@@ -692,8 +691,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             if (v instanceof Wincalc) { //прорисовка окна               
                 Wincalc win = (Wincalc) v;
                 scene.init(win);
-                canvas.redraw();                
-                scene.redraw();
+                canvas.draw(win);
+                scene.draw(win);
                 loadingWin(win);
                 winTree.setSelectionInterval(0, 0);
 
@@ -770,12 +769,12 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         if (index != -1) {
             String script = gson.toJson(iwin2.rootGson);
             Wincalc iwin3 = new Wincalc(script);
-            Canvas.createIcon(iwin3, 68);
+            iwin3.imageIcon = Canvas.createIcon(iwin3, 68);
             Record sysprodRec = qSysprod.get(index);
             sysprodRec.set(eSysprod.script, script);
             sysprodRec.set(eSysprod.values().length, iwin3);
-            canvas.redraw();
-            scene.redraw();
+            canvas.draw(iwin3);
+            scene.draw(iwin3);
         }
         return true;
     }
@@ -2841,14 +2840,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                btnTest.dispatchEvent(new MouseEvent(btnReport1, 
-                        MouseEvent.MOUSE_CLICKED, 1, MouseEvent.BUTTON1, 0, 0, 1, false
-                ));
-            }
-        });
+
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -3536,6 +3528,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         new FrameToFile(this, btnClose);
         new UColor();
         south.add(filterTable, 0);
+        panDesign.add(scene, java.awt.BorderLayout.CENTER);
         UGui.documentFilter(1, txt2, txt15);
         UGui.documentFilter(2, txt3, txt4, txt5);
         UGui.documentFilter(3, txt17, txt22, txt23, txt24, txt26, txt35);
