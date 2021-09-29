@@ -26,6 +26,7 @@ public class FilterTable extends javax.swing.JPanel {
     private JTable table = null;
     private JTable[] tableList = null;
     private int indexColumn = 0;
+    private int indexBegin = 0;
     private boolean search = false;
 
     public FilterTable() {
@@ -38,7 +39,7 @@ public class FilterTable extends javax.swing.JPanel {
         mousePressed(table[0]);
         labFilter.setText(table[0].getColumnName(index));
         txtFilter.setName(table[0].getName());
-        table[0].setColumnSelectionInterval(index, index);
+        this.indexBegin = index;
     }
 
     public JLabel getLab() {
@@ -149,7 +150,7 @@ public class FilterTable extends javax.swing.JPanel {
 
                 } else if (search == true) {
                     btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
-                    indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+                    indexColumn = (table.getSelectedColumn() == -1) ? indexBegin : table.getSelectedColumn(); 
                     if (table.getModel() instanceof DefTableModel) {
                         Query query = ((DefTableModel) table.getModel()).getQuery();
                         Field field = ((DefTableModel) table.getModel()).columns[indexColumn];
@@ -174,7 +175,7 @@ public class FilterTable extends javax.swing.JPanel {
                     }
                 } else if (search == false) {
                     btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b064.gif")));
-                    indexColumn = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+                    indexColumn = (table.getSelectedColumn() == -1) ? indexBegin : table.getSelectedColumn();
                     String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
                     ((TableRowSorter<TableModel>) table.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, indexColumn));
                     UGui.setSelectedRow(table);
@@ -237,35 +238,3 @@ public class FilterTable extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 }
-/*
-final JButton clickTwiceButton = new JButton();
-final JButton fireEventButton = new JButton();
-
-clickTwiceButton.addMouseListener(new java.awt.event.MouseAdapter() {
-    public void mouseClicked(java.awt.event.MouseEvent evt) {
-        if (evt.getClickCount() == 2) {
-            JOptionPane.showMessageDialog(null, "Double clicked!");
-        }
-    }
-});
-
-fireEventButton.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        // Invoking later for no reason, just to simulate your code
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                clickTwiceButton.dispatchEvent(new MouseEvent(
-                     fireEventButton,
-                     MouseEvent.MOUSE_CLICKED, 
-                     1,
-                     MouseEvent.BUTTON1, 
-                     0, 0, 
-                     2, 
-                     false
-                ));
-            }
-        });
-    }         
-});
-*/
