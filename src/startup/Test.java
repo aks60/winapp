@@ -1,6 +1,5 @@
 package startup;
 
-import frames.FrameToFile;
 import builder.script.GsonRoot;
 import builder.script.Winscript;
 import common.*;
@@ -10,12 +9,15 @@ import builder.param.test.ElementTest;
 import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
+import builder.script.GsonElem;
 import domain.eElement;
+import enums.Layout;
 import frames.DBCompare;
-import frames.Profstroy;
 import java.sql.Connection;
+import java.util.LinkedHashSet;
 import javax.swing.UIManager;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class Test {
@@ -83,15 +85,20 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(605001, false));
-            iwin.constructiv(true);
+            iwin.build(builder.script.Winscript.test(777, false));
+            //iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
             //DBCompare.iwinRec(iwin, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
+
+//            Set<GsonElem> list = iwin.rootGson.lineArea(Layout.HORIZ);
+//            GsonElem elem1 = iwin.rootGson.find(16.0f);
+//            elem1.length = 999f;
+//            list.forEach(it -> System.out.println(it.id() + " " + it.length));
 
         } else if (_case.equals("min")) {
             List<Integer> prjList = Winscript.models(_case);

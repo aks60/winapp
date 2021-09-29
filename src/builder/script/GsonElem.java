@@ -16,7 +16,7 @@ public class GsonElem {
     protected Layout layout = null; //сторона расположения эл. рамы
     protected Type type = null; //тип элемента
     protected String param = null; //параметры элемента
-    protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения)    
+    public Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения)    
 
     public GsonElem() {
     }

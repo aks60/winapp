@@ -2,6 +2,9 @@ package builder.script;
 
 import enums.Layout;
 import enums.Type;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import startup.Main;
 
 public class GsonRoot extends GsonElem {
@@ -96,5 +99,29 @@ public class GsonRoot extends GsonElem {
 
     public int nuni() {
         return nuni;
+    }
+
+    public Set<GsonElem> lineArea(Layout layout) {
+        Set<GsonElem> list1 = new LinkedHashSet(), list2 = new LinkedHashSet(), list3 = new LinkedHashSet();;
+        lineArea(list1, this, layout);
+        for (GsonElem elem : list1) {
+            list3.clear();
+            lineArea(list3, elem, layout);
+            if (list3.isEmpty()) {
+                list2.add(elem);
+            }
+        }
+        return list2;
+    }
+
+    public void lineArea(Set<GsonElem> list, GsonElem elem, Layout layout) {
+        for (int i = 0; i < elem.childs.size(); ++i) {
+            GsonElem elem2 = elem.childs.get(i);
+            if (elem2.owner.layout == layout && (elem2.type == Type.IMPOST || elem2.type == Type.SHTULP || elem2.type == Type.STOIKA)) {
+                list.add(elem.childs.get(i - 1));
+                list.add(elem.childs.get(i + 1));
+            }
+            lineArea(list, elem2, layout);
+        }
     }
 }
