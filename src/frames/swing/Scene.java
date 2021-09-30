@@ -28,11 +28,6 @@ public class Scene extends javax.swing.JPanel {
     private Wincalc iwin = null;
     private Canvas canvas = null;
 
-    private List<Float> vertList = new ArrayList();
-    private List<Float> horList = new ArrayList();
-    private List<Boolean> vert2List = new ArrayList();
-    private List<Boolean> hor2List = new ArrayList();
-
     public List<GsonElem> lineHoriz = null;
     public List<GsonElem> lineVert = null;
 
@@ -52,42 +47,12 @@ public class Scene extends javax.swing.JPanel {
         lineHoriz = iwin.rootGson.lineArea(Layout.HORIZ);
         lineVert = iwin.rootGson.lineArea(Layout.VERT);
         canvas.init(iwin);
-        colorList();
     }
 
     public void draw(Wincalc iwin) {
         this.iwin = iwin;
-        lineList();
         pan1.repaint();
         pan4.repaint();
-    }
-
-    public void colorList() {
-        Arrays.asList(vert2List, hor2List).forEach(it -> it.clear());
-        LinkedList<ElemCross> impostList = iwin.rootArea.listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
-        for (ElemSimple elem : impostList) { //по импостам определим точки разрыва линии
-            if (Layout.VERT == elem.owner().layout()) {
-                vert2List.add(false);
-            } else {
-                hor2List.add(false);
-            }
-        }
-        vert2List.add(false);
-        hor2List.add(false);
-    }
-
-    private void lineList() {
-        Arrays.asList(vertList, horList).forEach(it -> it.clear());
-        LinkedList<ElemCross> impostList = iwin.rootArea.listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
-        for (ElemSimple elem : impostList) { //по импостам определим точки разрыва линии
-            if (Layout.VERT == elem.owner().layout()) {
-                vertList.add(elem.y1 + elem.artiklRecAn.getFloat(eArtikl.size_centr));
-            } else {
-                horList.add(elem.x1 + elem.artiklRecAn.getFloat(eArtikl.size_centr));
-            }
-        }
-        vertList.add(iwin.rootArea.height());
-        horList.add(iwin.rootArea.width());
     }
 
     private void paintVertical(Graphics gc) {
@@ -97,7 +62,7 @@ public class Scene extends javax.swing.JPanel {
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
             int y = 0;
             for (int i = 0; i < lineVert.size(); ++i) {
-                int dy = (int) (lineVert.get(i).length * iwin.scale);                
+                int dy = (int) (lineVert.get(i).length * iwin.scale);
                 g.drawLine(0, y + dy, 8, y + dy);
                 g.setColor(lineVert.get(i).color);
                 int dw = g.getFontMetrics().stringWidth(df1.format(lineVert.get(i).length));
@@ -114,7 +79,7 @@ public class Scene extends javax.swing.JPanel {
             gc.fillRect(0, 0, this.getWidth(), this.getHeight());
         }
     }
-    
+
     private void paintHorizontal(Graphics gc) {
         if (iwin != null) {
             Graphics2D g = (Graphics2D) gc;
@@ -122,7 +87,7 @@ public class Scene extends javax.swing.JPanel {
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
             int x = 0;
             for (int i = 0; i < lineHoriz.size(); ++i) {
-                int dx = (int) (lineHoriz.get(i).length * iwin.scale);                
+                int dx = (int) (lineHoriz.get(i).length * iwin.scale);
                 g.drawLine(x + dx + 20, 10, x + dx + 20, 18);
                 g.setColor(lineHoriz.get(i).color);
                 int dw = g.getFontMetrics().stringWidth(df1.format(lineHoriz.get(i).length));
@@ -237,19 +202,19 @@ public class Scene extends javax.swing.JPanel {
     private void pan4Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pan4Clicked
         //if (evt.getClickCount() == 2) {
         float val_old = 0;
-        for (int index = 0; index < vertList.size(); ++index) {
+        for (GsonElem elem : lineVert) {
             float val = (float) (evt.getY() / iwin.scale);
-            if (val_old < val && val < vertList.get(index)) {
-                vert2List.set(index, !vert2List.get(index));
-                lineVert.get(index).color = Color.RED;
-                for (int i = 0; i < hor2List.size(); i++) {
-                    hor2List.set(i, false);
+            if (val_old < val && val < val_old + elem.length) {
+
+                elem.color = (elem.color == Color.RED) ? Color.BLACK : Color.RED;
+                for (GsonElem elem2 : lineHoriz) {
+                    elem2.color = Color.BLACK;
                 }
                 pan1.repaint();
                 pan4.repaint();
                 break;
             }
-            val_old = vertList.get(index);
+            val_old += elem.length;
         }
         //}
     }//GEN-LAST:event_pan4Clicked
@@ -257,19 +222,19 @@ public class Scene extends javax.swing.JPanel {
     private void pan1Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pan1Clicked
         // if (evt.getClickCount() == 2) {
         float val_old = 0;
-        for (int index = 0; index < horList.size(); ++index) {
+        for (GsonElem elem : lineHoriz) {
             float val = (float) ((evt.getX() - 20) / iwin.scale);
-            if (val_old < val && val < horList.get(index)) {
-                hor2List.set(index, !hor2List.get(index));
-                lineHoriz.get(index).color = Color.RED;
-                for (int i = 0; i < vert2List.size(); i++) {
-                    vert2List.set(i, false);
+            if (val_old < val && val < val_old + elem.length) {
+
+                elem.color = (elem.color == Color.RED) ? Color.BLACK : Color.RED;
+                for (GsonElem elem2 : lineVert) {
+                    elem2.color = Color.BLACK;
                 }
                 pan1.repaint();
                 pan4.repaint();
                 break;
             }
-            val_old = horList.get(index);
+            val_old += elem.length;
         }
         //}
     }//GEN-LAST:event_pan1Clicked
