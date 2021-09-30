@@ -1,8 +1,8 @@
 package builder.script;
 
-import builder.model.Com5t;
 import enums.Layout;
 import enums.Type;
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
@@ -11,12 +11,15 @@ public class GsonElem {
 
     protected float id = -1;  //идентификатор
     protected static transient float genId = -1;  //идентификатор
-    public transient GsonElem owner = null;  //владелец 
+    protected transient GsonElem owner = null;  //владелец     
     protected LinkedList<GsonElem> childs = new LinkedList();  //список детей
     protected Layout layout = null; //сторона расположения эл. рамы
     protected Type type = null; //тип элемента
     protected String param = null; //параметры элемента
-    public Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения)    
+    public Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
+    
+    public transient Color color = Color.black;  //цвет выделения линии 
+    public transient float point = 0;  //точка scale 
 
     public GsonElem() {
     }

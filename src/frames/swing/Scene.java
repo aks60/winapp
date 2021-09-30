@@ -27,10 +27,14 @@ public class Scene extends javax.swing.JPanel {
     private DecimalFormat df1 = new DecimalFormat("#0.#");
     private Wincalc iwin = null;
     private Canvas canvas = null;
+
     private List<Float> vertList = new ArrayList();
     private List<Float> horList = new ArrayList();
     private List<Boolean> vert2List = new ArrayList();
     private List<Boolean> hor2List = new ArrayList();
+
+    public List<GsonElem> lineHoriz = null;
+    public List<GsonElem> lineVert = null;
 
     private float areaId = 0;
     private int sizeArea = 350;
@@ -45,6 +49,8 @@ public class Scene extends javax.swing.JPanel {
 
     public void init(Wincalc iwin) {
         this.iwin = iwin;
+        lineHoriz = iwin.rootGson.lineArea(Layout.HORIZ);
+        lineVert = iwin.rootGson.lineArea(Layout.VERT);
         canvas.init(iwin);
         colorList();
     }
@@ -89,20 +95,18 @@ public class Scene extends javax.swing.JPanel {
             Graphics2D g = (Graphics2D) gc;
             int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 10 : 9;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
-            float val_old = 0;
-            for (int index = 0; index < vertList.size(); ++index) {
-                Float val = vertList.get(index);
-                int y = (int) (val.intValue() * iwin.scale);
-                int y_old = (int) (val_old * iwin.scale);
-                g.drawLine(0, y, 8, y);
-                int y_txt = (int) (y - 14 - (y - y_old) / 2);
-                Color color = (vert2List.get(index) == true) ? Color.red : Color.black;
-                g.setColor(color);
-                g.rotate(Math.toRadians(-90), 9, y_txt + 28);
-                g.drawString(df1.format(val.floatValue() - val_old), 9, y_txt + 28);
-                g.rotate(Math.toRadians(90), 9, y_txt + 28);
-                val_old = val.intValue();
+            int y = 0;
+            for (int i = 0; i < lineVert.size(); ++i) {
+                int dy = (int) (lineVert.get(i).length * iwin.scale);                
+                g.drawLine(0, y + dy, 8, y + dy);
+                g.setColor(lineVert.get(i).color);
+                int dw = g.getFontMetrics().stringWidth(df1.format(lineVert.get(i).length));
+                g.rotate(Math.toRadians(-90), 9, y + dy - dy / 2 + dw / 2);
+                g.drawString(df1.format(lineVert.get(i).length), 9, y + dy - dy / 2 + dw / 2);
+                g.rotate(Math.toRadians(90), 9, y + dy - dy / 2 + dw / 2);
+                y = y + dy;
             }
+            g.setColor(getBackground());
             g.drawLine(0, 2, 8, 2);
 
         } else {
@@ -110,24 +114,22 @@ public class Scene extends javax.swing.JPanel {
             gc.fillRect(0, 0, this.getWidth(), this.getHeight());
         }
     }
-
+    
     private void paintHorizontal(Graphics gc) {
         if (iwin != null) {
             Graphics2D g = (Graphics2D) gc;
             int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 10 : 9;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
-            float val_old = 0;
-            for (int index = 0; index < horList.size(); ++index) {
-                Float val = horList.get(index);
-                int x = (int) (val.intValue() * iwin.scale);
-                int x_old = (int) (val_old * iwin.scale);
-                g.drawLine(x + 20, 10, x + 20, 18);
-                Color color = (hor2List.get(index) == true) ? Color.red : Color.black;
-                g.setColor(color);
-                int x_txt = (int) (x - 14 - (x - x_old) / 2);
-                g.drawString(df1.format(val.floatValue() - val_old), x_txt + 20, 16);
-                val_old = val.intValue();
+            int x = 0;
+            for (int i = 0; i < lineHoriz.size(); ++i) {
+                int dx = (int) (lineHoriz.get(i).length * iwin.scale);                
+                g.drawLine(x + dx + 20, 10, x + dx + 20, 18);
+                g.setColor(lineHoriz.get(i).color);
+                int dw = g.getFontMetrics().stringWidth(df1.format(lineHoriz.get(i).length));
+                g.drawString(df1.format(lineHoriz.get(i).length), x + dx + 20 - dx / 2 - dw / 2, 16);
+                x = x + dx;
             }
+            g.setColor(getBackground());
             g.drawLine(20, 10, 20, 18);
 
         } else {
@@ -239,6 +241,7 @@ public class Scene extends javax.swing.JPanel {
             float val = (float) (evt.getY() / iwin.scale);
             if (val_old < val && val < vertList.get(index)) {
                 vert2List.set(index, !vert2List.get(index));
+                lineVert.get(index).color = Color.RED;
                 for (int i = 0; i < hor2List.size(); i++) {
                     hor2List.set(i, false);
                 }
@@ -258,6 +261,7 @@ public class Scene extends javax.swing.JPanel {
             float val = (float) ((evt.getX() - 20) / iwin.scale);
             if (val_old < val && val < horList.get(index)) {
                 hor2List.set(index, !hor2List.get(index));
+                lineHoriz.get(index).color = Color.RED;
                 for (int i = 0; i < vert2List.size(); i++) {
                     vert2List.set(i, false);
                 }

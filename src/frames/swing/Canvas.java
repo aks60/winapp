@@ -3,6 +3,8 @@ package frames.swing;
 import builder.Wincalc;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
+import builder.script.GsonElem;
+import enums.Layout;
 import enums.Type;
 import frames.swing.listener.ListenerFrame;
 import java.awt.BasicStroke;
@@ -13,12 +15,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEvent, MouseEvent> {
 
     private Wincalc iwin = null;
+
 
     public Canvas() {
         initComponents();
