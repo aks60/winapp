@@ -127,6 +127,7 @@ public class Scene extends javax.swing.JPanel {
         pan2 = new javax.swing.JPanel();
         pan3 = new javax.swing.JPanel();
         btn1 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
         pan4 = new javax.swing.JPanel(){
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -136,7 +137,7 @@ public class Scene extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        pan1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        pan1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(0, 0, 0)));
         pan1.setMinimumSize(new java.awt.Dimension(4, 18));
         pan1.setPreferredSize(new java.awt.Dimension(4, 18));
         pan1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -176,9 +177,11 @@ public class Scene extends javax.swing.JPanel {
 
         add(pan1, java.awt.BorderLayout.SOUTH);
 
+        pan2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         pan2.setPreferredSize(new java.awt.Dimension(18, 10));
         add(pan2, java.awt.BorderLayout.EAST);
 
+        pan3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(0, 0, 0)));
         pan3.setMinimumSize(new java.awt.Dimension(4, 18));
         pan3.setPreferredSize(new java.awt.Dimension(4, 18));
         pan3.setLayout(new java.awt.BorderLayout());
@@ -196,6 +199,11 @@ public class Scene extends javax.swing.JPanel {
             }
         });
         pan3.add(btn1, java.awt.BorderLayout.WEST);
+
+        jCheckBox1.setSelected(true);
+        jCheckBox1.setText("Конструкция");
+        jCheckBox1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        pan3.add(jCheckBox1, java.awt.BorderLayout.EAST);
 
         add(pan3, java.awt.BorderLayout.NORTH);
 
@@ -263,6 +271,7 @@ public class Scene extends javax.swing.JPanel {
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
     private javax.swing.JButton btn3;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
