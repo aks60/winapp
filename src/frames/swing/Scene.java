@@ -11,6 +11,8 @@ import frames.swing.listener.ListenerObject;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -35,6 +37,13 @@ public class Scene extends javax.swing.JPanel {
         this.canvas = canvas;
         this.listenerGson = listenerGson;
         add(canvas, java.awt.BorderLayout.CENTER);
+        this.canvas.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                lineHoriz.forEach(it -> it.color = Color.BLACK);
+                lineVert.forEach(it -> it.color = Color.BLACK);
+                draw();
+            }
+        });
     }
 
     public void init(Wincalc iwin) {
@@ -46,6 +55,11 @@ public class Scene extends javax.swing.JPanel {
 
     public void draw(Wincalc iwin) {
         this.iwin = iwin;
+        pan1.repaint();
+        pan4.repaint();
+    }
+
+    public void draw() {
         pan1.repaint();
         pan4.repaint();
     }
@@ -201,7 +215,7 @@ public class Scene extends javax.swing.JPanel {
         for (GsonScale elem : lineVert) {
             float val = (float) (evt.getY() / iwin.scale);
             if (val_old < val && val < val_old + elem.length) {
-                elem.color = (elem.color == Color.RED) ? Color.BLACK : Color.RED;
+                elem.color = (evt.getClickCount() == 2) ? Color.GRAY : Color.BLUE;
                 pan1.repaint();
                 pan4.repaint();
                 break;
@@ -216,7 +230,7 @@ public class Scene extends javax.swing.JPanel {
         for (GsonScale elem : lineHoriz) {
             float val = (float) ((evt.getX() - 20) / iwin.scale);
             if (val_old < val && val < val_old + elem.length) {
-                elem.color = (elem.color == Color.RED) ? Color.BLACK : Color.RED;
+                elem.color = (evt.getClickCount() == 2) ? Color.GRAY : Color.BLUE;
                 pan1.repaint();
                 pan4.repaint();
                 break;
