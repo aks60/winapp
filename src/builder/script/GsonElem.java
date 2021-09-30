@@ -16,9 +16,8 @@ public class GsonElem {
     protected Layout layout = null; //сторона расположения эл. рамы
     protected Type type = null; //тип элемента
     protected String param = null; //параметры элемента
-    public Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
+    protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
     
-    public transient Color color = Color.black;  //цвет выделения линии 
     public transient float point = 0;  //точка scale 
 
     public GsonElem() {

@@ -2,6 +2,7 @@ package builder.script;
 
 import enums.Layout;
 import enums.Type;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -102,22 +103,25 @@ public class GsonRoot extends GsonElem {
         return nuni;
     }
 
-    public List<GsonElem> lineArea(Layout layout) {
-        Set<GsonElem> list1 = new LinkedHashSet(), list2 = new LinkedHashSet(), list3 = new LinkedHashSet();;
+    public List<GsonScale> lineArea(Layout layout) {
+        Set<GsonElem> list1 = new LinkedHashSet(), list2 = new LinkedHashSet();;
+        Set<GsonScale> listOut = new LinkedHashSet();
         lineArea(list1, this, layout);
         for (GsonElem elem : list1) {
-            list3.clear();
-            lineArea(list3, elem, layout);
-            if (list3.isEmpty()) {
-                list2.add(elem);
+            list2.clear();
+            lineArea(list2, elem, layout);
+            if (list2.isEmpty()) {
+                listOut.add(new GsonScale(elem));
             }
         }
-//        float old_val = 0;
-//        list2.forEach(act -> {
-//            act.point = act.point + old_val;
-//            old_val = act.point;
-//        });
-        return new ArrayList(list2);
+        if (listOut.isEmpty()) {
+            if (layout == Layout.HORIZ) {
+                listOut.add(new GsonScale(this, this.width));
+            } else {
+                listOut.add(new GsonScale(this, this.height));
+            }
+        }
+        return new ArrayList(listOut);
     }
 
     public void lineArea(Set<GsonElem> list, GsonElem elem, Layout layout) {
