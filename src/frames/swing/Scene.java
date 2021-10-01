@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import enums.Layout;
 import frames.swing.listener.ListenerObject;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
@@ -16,11 +15,6 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class Scene extends javax.swing.JPanel {
-
-    private static Color BLACK = Color.BLACK;
-    private static Color GRAY = Color.GRAY;
-    private static Color CHANGE = Color.BLUE;
-    private static Color ADJUST = Color.MAGENTA;
 
     public ListenerObject listenerGson = null;
     private Gson gson = new GsonBuilder().create();
@@ -42,8 +36,8 @@ public class Scene extends javax.swing.JPanel {
         add(canvas, java.awt.BorderLayout.CENTER);
         this.canvas.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                lineHoriz.forEach(it -> it.color = BLACK);
-                lineVert.forEach(it -> it.color = BLACK);
+                lineHoriz.forEach(it -> it.color = GsonScale.BLACK);
+                lineVert.forEach(it -> it.color = GsonScale.BLACK);
                 draw();
             }
         });
@@ -77,7 +71,7 @@ public class Scene extends javax.swing.JPanel {
                 g.drawString(df1.format(elem.width()), x + dx + 20 - dx / 2 - dw / 2, 16);
                 x = x + dx;
             }
-            g.setColor(BLACK);
+            g.setColor(GsonScale.BLACK);
             g.drawLine(20, 10, 20, 18);
 
         } else {
@@ -101,7 +95,7 @@ public class Scene extends javax.swing.JPanel {
                 g.rotate(Math.toRadians(90), 10, y + dy - dy / 2 + dw / 2);
                 y = y + dy;
             }
-            g.setColor(BLACK);
+            g.setColor(GsonScale.BLACK);
             g.drawLine(0, 2, 8, 2);
 
         } else {
@@ -111,20 +105,20 @@ public class Scene extends javax.swing.JPanel {
     }
 
     private int vectorMove(List<GsonScale> list) {
-        Object black = list.stream().filter(el -> el.color == BLACK).findFirst().orElse(null);
-        Object gray = list.stream().filter(el -> el.color == GRAY).findFirst().orElse(null);
-        Object change = list.stream().filter(el -> el.color == CHANGE).findFirst().orElse(null);
-        Object adjust = list.stream().filter(el -> el.color == ADJUST).findFirst().orElse(null);
+        //boolean black = list.stream().anyMatch(el -> el.color == GsonScale.BLACK);
+        //boolean gray = list.stream().anyMatch(el -> el.color == GsonScale.GRAY);
+        boolean change = list.stream().anyMatch(el -> el.color == GsonScale.CHANGE);
+        boolean adjust = list.stream().anyMatch(el -> el.color == GsonScale.ADJUST);
 
-        if (change == null && adjust == null) {
-            System.out.println("empty");
+        if (change == false && adjust == false) {
+            System.out.println("empty1");
             return 0;
         } else {
-            if (change == null) {
-                System.out.println("empty");
+            if (change == false) {
+                System.out.println("empty2");
                 return 0;
             }
-            if (change != null && adjust == null) {                
+            if (change != false && adjust == false) {                
                 return 1;
             } else {                
                 return 2;
@@ -247,10 +241,10 @@ public class Scene extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pan4Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pan4Clicked
-        lineHoriz.forEach(it -> it.color = BLACK);
+        lineHoriz.forEach(it -> it.color = GsonScale.BLACK);
         lineVert.forEach(it -> {
-            if (it.color == BLACK) {
-                it.color = GRAY;
+            if (it.color == GsonScale.BLACK) {
+                it.color = GsonScale.GRAY;
             }
         });
         float val_old = 0;
@@ -258,12 +252,12 @@ public class Scene extends javax.swing.JPanel {
             float val = (float) (evt.getY() / iwin.scale);
             if (val_old < val && val < val_old + elem.height()) {
 
-                if (elem.color == GRAY) {
-                    elem.color = CHANGE;
-                } else if (elem.color == CHANGE) {
-                    elem.color = ADJUST;
-                } else if (elem.color == ADJUST) {
-                    elem.color = GRAY;
+                if (elem.color == GsonScale.GRAY) {
+                    elem.color = GsonScale.CHANGE;
+                } else if (elem.color == GsonScale.CHANGE) {
+                    elem.color = GsonScale.ADJUST;
+                } else if (elem.color == GsonScale.ADJUST) {
+                    elem.color = GsonScale.GRAY;
                 }
                 pan1.repaint();
                 pan4.repaint();
@@ -274,10 +268,10 @@ public class Scene extends javax.swing.JPanel {
     }//GEN-LAST:event_pan4Clicked
 
     private void pan1Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pan1Clicked
-        lineVert.forEach(it -> it.color = BLACK);
+        lineVert.forEach(it -> it.color = GsonScale.BLACK);
         lineHoriz.forEach(it -> {
-            if (it.color == BLACK) {
-                it.color = GRAY;
+            if (it.color == GsonScale.BLACK) {
+                it.color = GsonScale.GRAY;
             }
         });
         float val_old = 0;
@@ -285,12 +279,12 @@ public class Scene extends javax.swing.JPanel {
             float val = (float) ((evt.getX() - 20) / iwin.scale);
             if (val_old < val && val < val_old + elem.width()) {
 
-                if (elem.color == GRAY) {
-                    elem.color = CHANGE;
-                } else if (elem.color == CHANGE) {
-                    elem.color = ADJUST;
-                } else if (elem.color == ADJUST) {
-                    elem.color = GRAY;
+                if (elem.color == GsonScale.GRAY) {
+                    elem.color = GsonScale.CHANGE;
+                } else if (elem.color == GsonScale.CHANGE) {
+                    elem.color = GsonScale.ADJUST;
+                } else if (elem.color == GsonScale.ADJUST) {
+                    elem.color = GsonScale.GRAY;
                 }
                 pan1.repaint();
                 pan4.repaint();
@@ -316,15 +310,17 @@ public class Scene extends javax.swing.JPanel {
         int val = vectorMove(lineHoriz);
         if (val == 1) {
             System.out.println("размер окна");
-            GsonElem gson = iwin.rootGson.find(23.0f);
-            iwin.rootGson.resizAll(++sizeArea, Layout.HORIZ);
-            listenerGson.action(iwin);
+            GsonScale rootGson2 = new GsonScale(iwin.rootGson);
+            
+            //GsonElem gson = iwin.rootGson.find(23.0f);
+            iwin.rootGson.resizRoot(1300, Layout.HORIZ);
+            listenerGson.action(null);
             
         } else if(val == 2) {
             System.out.println("размер элемента");
             GsonElem gson = iwin.rootGson.find(23.0f);           
             gson.resizAll(++sizeArea, Layout.HORIZ);
-            listenerGson.action(iwin);            
+            listenerGson.action(null);            
         }
     }//GEN-LAST:event_btn3Action
 

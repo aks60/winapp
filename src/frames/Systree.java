@@ -766,7 +766,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     @Override
     public boolean action(Object obj) {
-        Wincalc win = (Wincalc) obj;
+        Wincalc win = iwin();
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
             String script = gson.toJson(win.rootGson);

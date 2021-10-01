@@ -2,13 +2,13 @@ package builder.script;
 
 import enums.Layout;
 import enums.Type;
-import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import static java.util.stream.Collectors.toList;
 
 public class GsonElem {
-    
+
     protected static transient float genId = -1;  //идентификатор    
     protected float id = -1;  //идентификатор
     protected transient GsonElem owner = null;  //владелец     
@@ -17,7 +17,7 @@ public class GsonElem {
     protected Type type = null; //тип элемента
     protected String param = null; //параметры элемента
     protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
-    
+
     public transient float point = 0;  //точка scale 
 
     public GsonElem() {
@@ -105,10 +105,22 @@ public class GsonElem {
         return (owner.layout == Layout.VERT) ? length : owner.height();
     }
 
+    public void height(float val) {
+        if (owner.layout == Layout.VERT) {
+            length = val;
+        }
+    }
+
     public float width() {
         return (owner.layout == Layout.HORIZ) ? length : owner.width();
     }
-    
+
+    public void width(float val) {
+        if (owner.layout == Layout.HORIZ) {
+            length = val;
+        }
+    }
+
     public void resizRoot(float length2, Layout layout2) {
         List<GsonElem> areaList = this.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
 
@@ -138,8 +150,8 @@ public class GsonElem {
             gsonRoot.height = length2;
         }
     }
-
-    public void resizAll(float length2, Layout layout2) {        
+    
+    public void resizAll(float length2, Layout layout2) {
         List<GsonElem> areaList = this.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
         for (GsonElem elem : areaList) {
 
@@ -222,11 +234,11 @@ public class GsonElem {
             //Вертикальное перераспределение
         } else if (layout2 == Layout.VERT) {
             if (this.owner.layout == Layout.VERT) { //расположение по вертикали                
-			   for (int index = 0; index < areaList.size(); ++index) {
+                for (int index = 0; index < areaList.size(); ++index) {
                     if (this == areaList.get(index)) {
                         if (index < areaList.size() - 1) {
                             float size = 0;
-                             for (int index2 = index + 1; index2 < areaList.size(); ++index2) {
+                            for (int index2 = index + 1; index2 < areaList.size(); ++index2) {
                                 size += areaList.get(index2).height();
                             }
                             float dy = (this.length - length2) / size;
