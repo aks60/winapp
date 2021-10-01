@@ -563,7 +563,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     UGui.setSelectedRow(tab5);
                 }
             } else {
-                canvas.draw(iwin());
+                scene.init(null);
+                scene.draw();
+                canvas.draw();               
             }
         }
     }
@@ -687,12 +689,12 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
 
-            Object v = sysprodRec.get(eSysprod.values().length);
-            if (v instanceof Wincalc) { //прорисовка окна               
-                Wincalc win = (Wincalc) v;
+            Object w = sysprodRec.get(eSysprod.values().length);
+            if (w instanceof Wincalc) { //прорисовка окна               
+                Wincalc win = (Wincalc) w;
                 scene.init(win);
-                canvas.draw(win);
-                scene.draw(win);
+                canvas.draw();
+                scene.draw();
                 loadingWin(win);
                 winTree.setSelectionInterval(0, 0);
 
@@ -764,17 +766,17 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     @Override
     public boolean action(Object obj) {
-        Wincalc iwin2 = (Wincalc) obj;
+        Wincalc win = (Wincalc) obj;
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
-            String script = gson.toJson(iwin2.rootGson);
-            Wincalc iwin3 = new Wincalc(script);
-            iwin3.imageIcon = Canvas.createIcon(iwin3, 68);
+            String script = gson.toJson(win.rootGson);
+            win.build(script);
+            win.imageIcon = Canvas.createIcon(win, 68);
             Record sysprodRec = qSysprod.get(index);
             sysprodRec.set(eSysprod.script, script);
-            sysprodRec.set(eSysprod.values().length, iwin3);
-            canvas.draw(iwin3);
-            scene.draw(iwin3);
+            sysprodRec.set(eSysprod.values().length, win);
+            canvas.draw();
+            scene.draw();
         }
         return true;
     }
@@ -2842,7 +2844,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose

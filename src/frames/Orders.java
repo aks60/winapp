@@ -363,7 +363,7 @@ public class Orders extends javax.swing.JFrame {
 
                 iwin = (Wincalc) v;
                 canvas.init(iwin);
-                canvas.draw(iwin);
+                canvas.draw();
                 loadingWin();
                 winTree.setSelectionInterval(0, 0);
 

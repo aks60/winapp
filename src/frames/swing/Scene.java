@@ -48,45 +48,17 @@ public class Scene extends javax.swing.JPanel {
 
     public void init(Wincalc iwin) {
         this.iwin = iwin;
-        lineHoriz = iwin.rootGson.lineArea(Layout.HORIZ);
-        lineVert = iwin.rootGson.lineArea(Layout.VERT);
+        if (iwin != null) {
+            lineHoriz = iwin.rootGson.lineArea(Layout.HORIZ);
+            lineVert = iwin.rootGson.lineArea(Layout.VERT);
+        }
         canvas.init(iwin);
-    }
 
-    public void draw(Wincalc iwin) {
-        this.iwin = iwin;
-        pan1.repaint();
-        pan4.repaint();
     }
 
     public void draw() {
         pan1.repaint();
         pan4.repaint();
-    }
-
-    private void paintVertical(Graphics gc) {
-        if (iwin != null) {
-            Graphics2D g = (Graphics2D) gc;
-            int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 10 : 9;
-            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
-            int y = 0;
-            for (GsonScale elem : lineVert) {
-                int dy = (int) (elem.length * iwin.scale);
-                g.drawLine(0, y + dy, 8, y + dy);
-                g.setColor(elem.color);
-                int dw = g.getFontMetrics().stringWidth(df1.format(elem.length));
-                g.rotate(Math.toRadians(-90), 9, y + dy - dy / 2 + dw / 2);
-                g.drawString(df1.format(elem.length), 9, y + dy - dy / 2 + dw / 2);
-                g.rotate(Math.toRadians(90), 9, y + dy - dy / 2 + dw / 2);
-                y = y + dy;
-            }
-            g.setColor(Color.BLACK);
-            g.drawLine(0, 2, 8, 2);
-
-        } else {
-            gc.setColor(getBackground());
-            gc.fillRect(0, 0, this.getWidth(), this.getHeight());
-        }
     }
 
     private void paintHorizontal(Graphics gc) {
@@ -96,11 +68,11 @@ public class Scene extends javax.swing.JPanel {
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
             int x = 0;
             for (GsonScale elem : lineHoriz) {
-                int dx = (int) (elem.length * iwin.scale);
+                int dx = (int) (elem.width() * iwin.scale);
                 g.drawLine(x + dx + 20, 10, x + dx + 20, 18);
                 g.setColor(elem.color);
-                int dw = g.getFontMetrics().stringWidth(df1.format(elem.length));
-                g.drawString(df1.format(elem.length), x + dx + 20 - dx / 2 - dw / 2, 16);
+                int dw = g.getFontMetrics().stringWidth(df1.format(elem.width()));
+                g.drawString(df1.format(elem.width()), x + dx + 20 - dx / 2 - dw / 2, 16);
                 x = x + dx;
             }
             g.setColor(Color.BLACK);
@@ -108,7 +80,32 @@ public class Scene extends javax.swing.JPanel {
 
         } else {
             gc.setColor(getBackground());
-            gc.fillRect(0, 0, this.getWidth(), this.getHeight());
+            gc.fillRect(0, 0, pan1.getWidth(), pan1.getHeight());
+        }
+    }
+
+    private void paintVertical(Graphics gc) {
+        if (iwin != null) {
+            Graphics2D g = (Graphics2D) gc;
+            int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 10 : 9;
+            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
+            int y = 0;
+            for (GsonScale elem : lineVert) {
+                int dy = (int) (elem.height() * iwin.scale);
+                g.drawLine(0, y + dy, 8, y + dy);
+                g.setColor(elem.color);
+                int dw = g.getFontMetrics().stringWidth(df1.format(elem.height()));
+                g.rotate(Math.toRadians(-90), 9, y + dy - dy / 2 + dw / 2);
+                g.drawString(df1.format(elem.height()), 9, y + dy - dy / 2 + dw / 2);
+                g.rotate(Math.toRadians(90), 9, y + dy - dy / 2 + dw / 2);
+                y = y + dy;
+            }
+            g.setColor(Color.BLACK);
+            g.drawLine(0, 2, 8, 2);
+
+        } else {
+            gc.setColor(getBackground());
+            gc.fillRect(0, 0, pan4.getWidth(), pan4.getHeight());
         }
     }
 
@@ -127,7 +124,6 @@ public class Scene extends javax.swing.JPanel {
         pan2 = new javax.swing.JPanel();
         pan3 = new javax.swing.JPanel();
         btn1 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
         pan4 = new javax.swing.JPanel(){
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -178,7 +174,8 @@ public class Scene extends javax.swing.JPanel {
         add(pan1, java.awt.BorderLayout.SOUTH);
 
         pan2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
-        pan2.setPreferredSize(new java.awt.Dimension(18, 10));
+        pan2.setMinimumSize(new java.awt.Dimension(2, 10));
+        pan2.setPreferredSize(new java.awt.Dimension(2, 10));
         add(pan2, java.awt.BorderLayout.EAST);
 
         pan3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(0, 0, 0)));
@@ -200,11 +197,6 @@ public class Scene extends javax.swing.JPanel {
         });
         pan3.add(btn1, java.awt.BorderLayout.WEST);
 
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Конструкция");
-        jCheckBox1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        pan3.add(jCheckBox1, java.awt.BorderLayout.EAST);
-
         add(pan3, java.awt.BorderLayout.NORTH);
 
         pan4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 0, new java.awt.Color(0, 0, 0)));
@@ -219,31 +211,55 @@ public class Scene extends javax.swing.JPanel {
 
     private void pan4Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pan4Clicked
         lineHoriz.forEach(it -> it.color = Color.BLACK);
+        lineVert.forEach(it -> {
+            if (it.color == Color.BLACK) {
+                it.color = Color.GRAY;
+            }
+        });
         float val_old = 0;
         for (GsonScale elem : lineVert) {
             float val = (float) (evt.getY() / iwin.scale);
-            if (val_old < val && val < val_old + elem.length) {
-                elem.color = (evt.getClickCount() == 2) ? Color.GRAY : Color.BLUE;
+            if (val_old < val && val < val_old + elem.height()) {
+
+                if (elem.color == Color.GRAY) {
+                    elem.color = Color.BLUE;
+                } else if (elem.color == Color.BLUE) {
+                    elem.color = Color.MAGENTA;
+                } else if (elem.color == Color.MAGENTA) {
+                    elem.color = Color.GRAY;
+                }
                 pan1.repaint();
                 pan4.repaint();
                 break;
             }
-            val_old += elem.length;
+            val_old += elem.height();
         }
     }//GEN-LAST:event_pan4Clicked
 
     private void pan1Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pan1Clicked
         lineVert.forEach(it -> it.color = Color.BLACK);
+        lineHoriz.forEach(it -> {
+            if (it.color == Color.BLACK) {
+                it.color = Color.GRAY;
+            }
+        });
         float val_old = 0;
         for (GsonScale elem : lineHoriz) {
             float val = (float) ((evt.getX() - 20) / iwin.scale);
-            if (val_old < val && val < val_old + elem.length) {
-                elem.color = (evt.getClickCount() == 2) ? Color.GRAY : Color.BLUE;
+            if (val_old < val && val < val_old + elem.width()) {
+
+                if (elem.color == Color.GRAY) {
+                    elem.color = Color.BLUE;
+                } else if (elem.color == Color.BLUE) {
+                    elem.color = Color.MAGENTA;
+                } else if (elem.color == Color.MAGENTA) {
+                    elem.color = Color.GRAY;
+                }
                 pan1.repaint();
                 pan4.repaint();
                 break;
             }
-            val_old += elem.length;
+            val_old += elem.width();
         }
     }//GEN-LAST:event_pan1Clicked
 
@@ -260,10 +276,9 @@ public class Scene extends javax.swing.JPanel {
     }//GEN-LAST:event_btn2Action
 
     private void btn3Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3Action
-//        GsonElem gson = iwin.rootGson.find(23.0f);
-//        gson.resizWay(++sizeArea, Layout.HORIZ);
-//        listenerGson.action(iwin);
-        pan1.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        GsonElem gson = iwin.rootGson.find(23.0f);
+        gson.resizWay(++sizeArea, Layout.HORIZ);
+        listenerGson.action(iwin);
     }//GEN-LAST:event_btn3Action
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -271,7 +286,6 @@ public class Scene extends javax.swing.JPanel {
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
     private javax.swing.JButton btn3;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;

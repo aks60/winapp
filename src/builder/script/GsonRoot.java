@@ -115,11 +115,7 @@ public class GsonRoot extends GsonElem {
             }
         }
         if (listOut.isEmpty()) {
-            if (layout == Layout.HORIZ) {
-                listOut.add(new GsonScale(this, this.width));
-            } else {
-                listOut.add(new GsonScale(this, this.height));
-            }
+            listOut.add(new GsonScale(this));
         }
         return new ArrayList(listOut);
     }

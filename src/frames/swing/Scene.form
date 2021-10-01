@@ -119,8 +119,11 @@
             <MatteColorBorder bottom="0" left="0" right="1" top="0"/>
           </Border>
         </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[2, 10]"/>
+        </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[18, 10]"/>
+          <Dimension value="[2, 10]"/>
         </Property>
       </Properties>
       <Constraints>
@@ -183,18 +186,6 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
               <BorderConstraints direction="West"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="jCheckBox1">
-          <Properties>
-            <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43d;&#x441;&#x442;&#x440;&#x443;&#x43a;&#x446;&#x438;&#x44f;"/>
-            <Property name="horizontalTextPosition" type="int" value="2"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-              <BorderConstraints direction="East"/>
             </Constraint>
           </Constraints>
         </Component>

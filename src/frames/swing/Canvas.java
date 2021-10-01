@@ -23,7 +23,6 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
 
     private Wincalc iwin = null;
 
-
     public Canvas() {
         initComponents();
         this.addMouseListener(new MouseAdapter() {
@@ -34,11 +33,10 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
     }
 
     public void init(Wincalc iwin) {
-       this.iwin = iwin; 
-    }
-    
-    public void draw(Wincalc iwin) {
         this.iwin = iwin;
+    }
+
+    public void draw() {
         scale(iwin);
         repaint();
     }
@@ -85,8 +83,10 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
     }
 
     private void scale(Wincalc iwin) {
-        iwin.scale = (getWidth() / iwin.width > getHeight() / iwin.height)
-                ? getHeight() / (iwin.height + 24) : getWidth() / (iwin.width + 24);
+        if (iwin != null) {
+            iwin.scale = (getWidth() / iwin.width > getHeight() / iwin.height)
+                    ? getHeight() / (iwin.height + 24) : getWidth() / (iwin.width + 24);
+        }
     }
 
     //@Override
