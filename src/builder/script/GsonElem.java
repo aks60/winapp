@@ -8,9 +8,9 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 public class GsonElem {
-
+    
+    protected static transient float genId = -1;  //идентификатор    
     protected float id = -1;  //идентификатор
-    protected static transient float genId = -1;  //идентификатор
     protected transient GsonElem owner = null;  //владелец     
     protected LinkedList<GsonElem> childs = new LinkedList();  //список детей
     protected Layout layout = null; //сторона расположения эл. рамы
@@ -108,7 +108,7 @@ public class GsonElem {
     public float width() {
         return (owner.layout == Layout.HORIZ) ? length : owner.width();
     }
-
+    
     public void resizRoot(float length2, Layout layout2) {
         List<GsonElem> areaList = this.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
 
@@ -139,7 +139,7 @@ public class GsonElem {
         }
     }
 
-    public void resizAll(float length2, Layout layout2) {
+    public void resizAll(float length2, Layout layout2) {        
         List<GsonElem> areaList = this.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
         for (GsonElem elem : areaList) {
 

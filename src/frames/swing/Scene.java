@@ -19,8 +19,8 @@ public class Scene extends javax.swing.JPanel {
 
     private static Color BLACK = Color.BLACK;
     private static Color GRAY = Color.GRAY;
-    private static Color MAGENTA = Color.MAGENTA;
-    private static Color BLUE = Color.BLUE;
+    private static Color CHANGE = Color.BLUE;
+    private static Color ADJUST = Color.MAGENTA;
 
     public ListenerObject listenerGson = null;
     private Gson gson = new GsonBuilder().create();
@@ -110,21 +110,21 @@ public class Scene extends javax.swing.JPanel {
         }
     }
 
-    private int vectorMone(List<GsonScale> list) {
+    private int vectorMove(List<GsonScale> list) {
         Object black = list.stream().filter(el -> el.color == BLACK).findFirst().orElse(null);
         Object gray = list.stream().filter(el -> el.color == GRAY).findFirst().orElse(null);
-        Object blue = list.stream().filter(el -> el.color == BLUE).findFirst().orElse(null);
-        Object magenta = list.stream().filter(el -> el.color == MAGENTA).findFirst().orElse(null);
+        Object change = list.stream().filter(el -> el.color == CHANGE).findFirst().orElse(null);
+        Object adjust = list.stream().filter(el -> el.color == ADJUST).findFirst().orElse(null);
 
-        if (blue == null && magenta == null) {
+        if (change == null && adjust == null) {
             System.out.println("empty");
             return 0;
         } else {
-            if (blue == null) {
+            if (change == null) {
                 System.out.println("empty");
                 return 0;
             }
-            if (blue != null && magenta == null) {                
+            if (change != null && adjust == null) {                
                 return 1;
             } else {                
                 return 2;
@@ -259,10 +259,10 @@ public class Scene extends javax.swing.JPanel {
             if (val_old < val && val < val_old + elem.height()) {
 
                 if (elem.color == GRAY) {
-                    elem.color = BLUE;
-                } else if (elem.color == BLUE) {
-                    elem.color = MAGENTA;
-                } else if (elem.color == MAGENTA) {
+                    elem.color = CHANGE;
+                } else if (elem.color == CHANGE) {
+                    elem.color = ADJUST;
+                } else if (elem.color == ADJUST) {
                     elem.color = GRAY;
                 }
                 pan1.repaint();
@@ -286,10 +286,10 @@ public class Scene extends javax.swing.JPanel {
             if (val_old < val && val < val_old + elem.width()) {
 
                 if (elem.color == GRAY) {
-                    elem.color = BLUE;
-                } else if (elem.color == BLUE) {
-                    elem.color = MAGENTA;
-                } else if (elem.color == MAGENTA) {
+                    elem.color = CHANGE;
+                } else if (elem.color == CHANGE) {
+                    elem.color = ADJUST;
+                } else if (elem.color == ADJUST) {
                     elem.color = GRAY;
                 }
                 pan1.repaint();
@@ -313,7 +313,7 @@ public class Scene extends javax.swing.JPanel {
     }//GEN-LAST:event_btn2Action
 
     private void btn3Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3Action
-        int val = vectorMone(lineHoriz);
+        int val = vectorMove(lineHoriz);
         if (val == 1) {
             System.out.println("размер окна");
             GsonElem gson = iwin.rootGson.find(23.0f);
