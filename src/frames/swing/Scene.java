@@ -2,7 +2,6 @@ package frames.swing;
 
 import builder.Wincalc;
 import builder.script.GsonElem;
-import builder.script.GsonRoot;
 import builder.script.GsonScale;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,9 +14,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.List;
-import javax.swing.BorderFactory;
 
 public class Scene extends javax.swing.JPanel {
+
+    private static Color BLACK = Color.BLACK;
+    private static Color GRAY = Color.GRAY;
+    private static Color MAGENTA = Color.MAGENTA;
+    private static Color BLUE = Color.BLUE;
 
     public ListenerObject listenerGson = null;
     private Gson gson = new GsonBuilder().create();
@@ -29,7 +32,7 @@ public class Scene extends javax.swing.JPanel {
     public List<GsonScale> lineVert = null;
 
     private float areaId = 0;
-    private int sizeArea = 350;
+    private int sizeArea = 1350;
 
     public Scene(Canvas canvas, ListenerObject listenerGson) {
         initComponents();
@@ -39,8 +42,8 @@ public class Scene extends javax.swing.JPanel {
         add(canvas, java.awt.BorderLayout.CENTER);
         this.canvas.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                lineHoriz.forEach(it -> it.color = Color.BLACK);
-                lineVert.forEach(it -> it.color = Color.BLACK);
+                lineHoriz.forEach(it -> it.color = BLACK);
+                lineVert.forEach(it -> it.color = BLACK);
                 draw();
             }
         });
@@ -64,8 +67,7 @@ public class Scene extends javax.swing.JPanel {
     private void paintHorizontal(Graphics gc) {
         if (iwin != null) {
             Graphics2D g = (Graphics2D) gc;
-            int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 10 : 9;
-            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
+            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
             int x = 0;
             for (GsonScale elem : lineHoriz) {
                 int dx = (int) (elem.width() * iwin.scale);
@@ -75,7 +77,7 @@ public class Scene extends javax.swing.JPanel {
                 g.drawString(df1.format(elem.width()), x + dx + 20 - dx / 2 - dw / 2, 16);
                 x = x + dx;
             }
-            g.setColor(Color.BLACK);
+            g.setColor(BLACK);
             g.drawLine(20, 10, 20, 18);
 
         } else {
@@ -87,25 +89,60 @@ public class Scene extends javax.swing.JPanel {
     private void paintVertical(Graphics gc) {
         if (iwin != null) {
             Graphics2D g = (Graphics2D) gc;
-            int size = (iwin.scale > .16) ? 11 : (iwin.scale > .15) ? 10 : 9;
-            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, size));
+            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
             int y = 0;
             for (GsonScale elem : lineVert) {
                 int dy = (int) (elem.height() * iwin.scale);
                 g.drawLine(0, y + dy, 8, y + dy);
                 g.setColor(elem.color);
                 int dw = g.getFontMetrics().stringWidth(df1.format(elem.height()));
-                g.rotate(Math.toRadians(-90), 9, y + dy - dy / 2 + dw / 2);
-                g.drawString(df1.format(elem.height()), 9, y + dy - dy / 2 + dw / 2);
-                g.rotate(Math.toRadians(90), 9, y + dy - dy / 2 + dw / 2);
+                g.rotate(Math.toRadians(-90), 10, y + dy - dy / 2 + dw / 2);
+                g.drawString(df1.format(elem.height()), 10, y + dy - dy / 2 + dw / 2);
+                g.rotate(Math.toRadians(90), 10, y + dy - dy / 2 + dw / 2);
                 y = y + dy;
             }
-            g.setColor(Color.BLACK);
+            g.setColor(BLACK);
             g.drawLine(0, 2, 8, 2);
 
         } else {
             gc.setColor(getBackground());
             gc.fillRect(0, 0, pan4.getWidth(), pan4.getHeight());
+        }
+    }
+
+    private int vectorMone(List<GsonScale> list) {
+        Object black = list.stream().filter(el -> el.color == BLACK).findFirst().orElse(null);
+        Object gray = list.stream().filter(el -> el.color == GRAY).findFirst().orElse(null);
+        Object blue = list.stream().filter(el -> el.color == BLUE).findFirst().orElse(null);
+        Object magenta = list.stream().filter(el -> el.color == MAGENTA).findFirst().orElse(null);
+
+        if (blue == null && magenta == null) {
+            System.out.println("empty");
+            return 0;
+        } else {
+            if (blue == null) {
+                System.out.println("empty");
+                return 0;
+            }
+            if (blue != null && magenta == null) {                
+                return 1;
+            } else {                
+                return 2;
+            }
+        }
+    }
+
+    private int sizeFont() {
+        if (iwin.scale > .18) {
+            return 12;
+        } else if (iwin.scale > .16) {
+            return 11;
+        } else if (iwin.scale > .15) {
+            return 10;
+        } else if (iwin.scale > .13) {
+            return 9;
+        } else {
+            return 8;
         }
     }
 
@@ -210,10 +247,10 @@ public class Scene extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pan4Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pan4Clicked
-        lineHoriz.forEach(it -> it.color = Color.BLACK);
+        lineHoriz.forEach(it -> it.color = BLACK);
         lineVert.forEach(it -> {
-            if (it.color == Color.BLACK) {
-                it.color = Color.GRAY;
+            if (it.color == BLACK) {
+                it.color = GRAY;
             }
         });
         float val_old = 0;
@@ -221,12 +258,12 @@ public class Scene extends javax.swing.JPanel {
             float val = (float) (evt.getY() / iwin.scale);
             if (val_old < val && val < val_old + elem.height()) {
 
-                if (elem.color == Color.GRAY) {
-                    elem.color = Color.BLUE;
-                } else if (elem.color == Color.BLUE) {
-                    elem.color = Color.MAGENTA;
-                } else if (elem.color == Color.MAGENTA) {
-                    elem.color = Color.GRAY;
+                if (elem.color == GRAY) {
+                    elem.color = BLUE;
+                } else if (elem.color == BLUE) {
+                    elem.color = MAGENTA;
+                } else if (elem.color == MAGENTA) {
+                    elem.color = GRAY;
                 }
                 pan1.repaint();
                 pan4.repaint();
@@ -237,10 +274,10 @@ public class Scene extends javax.swing.JPanel {
     }//GEN-LAST:event_pan4Clicked
 
     private void pan1Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pan1Clicked
-        lineVert.forEach(it -> it.color = Color.BLACK);
+        lineVert.forEach(it -> it.color = BLACK);
         lineHoriz.forEach(it -> {
-            if (it.color == Color.BLACK) {
-                it.color = Color.GRAY;
+            if (it.color == BLACK) {
+                it.color = GRAY;
             }
         });
         float val_old = 0;
@@ -248,12 +285,12 @@ public class Scene extends javax.swing.JPanel {
             float val = (float) ((evt.getX() - 20) / iwin.scale);
             if (val_old < val && val < val_old + elem.width()) {
 
-                if (elem.color == Color.GRAY) {
-                    elem.color = Color.BLUE;
-                } else if (elem.color == Color.BLUE) {
-                    elem.color = Color.MAGENTA;
-                } else if (elem.color == Color.MAGENTA) {
-                    elem.color = Color.GRAY;
+                if (elem.color == GRAY) {
+                    elem.color = BLUE;
+                } else if (elem.color == BLUE) {
+                    elem.color = MAGENTA;
+                } else if (elem.color == MAGENTA) {
+                    elem.color = GRAY;
                 }
                 pan1.repaint();
                 pan4.repaint();
@@ -276,9 +313,19 @@ public class Scene extends javax.swing.JPanel {
     }//GEN-LAST:event_btn2Action
 
     private void btn3Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3Action
-        GsonElem gson = iwin.rootGson.find(23.0f);
-        gson.resizWay(++sizeArea, Layout.HORIZ);
-        listenerGson.action(iwin);
+        int val = vectorMone(lineHoriz);
+        if (val == 1) {
+            System.out.println("размер окна");
+            GsonElem gson = iwin.rootGson.find(23.0f);
+            iwin.rootGson.resizAll(++sizeArea, Layout.HORIZ);
+            listenerGson.action(iwin);
+            
+        } else if(val == 2) {
+            System.out.println("размер элемента");
+            GsonElem gson = iwin.rootGson.find(23.0f);           
+            gson.resizAll(++sizeArea, Layout.HORIZ);
+            listenerGson.action(iwin);            
+        }
     }//GEN-LAST:event_btn3Action
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
