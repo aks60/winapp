@@ -389,7 +389,7 @@ public class Orders extends javax.swing.JFrame {
                 txt14.setText(eColor.find(iwin.colorID3).getStr(eColor.name));
                 txt17.setText(String.valueOf(iwin.rootGson.width()));
                 txt22.setText(String.valueOf(iwin.rootGson.height()));
-                txt23.setText(String.valueOf(iwin.rootGson.heightAdd()));
+                txt23.setText(String.valueOf(iwin.rootGson.heightAdd));
                 txt23.setEditable(winNode.com5t().type() == enums.Type.ARCH);
 
                 //Параметры

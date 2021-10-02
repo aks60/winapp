@@ -17,7 +17,7 @@ public class GsonRoot extends GsonElem {
     private Integer nuni = -3;  //nuni профиля (PRO4_SYSPROF.NUNI)
     protected Float width = null; //ширина area, мм
     protected Float height = null; //высота area, мм    
-    protected Float heightAdd = 0f;  //дополнительная высота, мм.
+    public Float heightAdd = 0f;  //дополнительная высота, мм.
     public int form = 0;
     public Integer color1 = -3;  //основная текстура
     public Integer color2 = -3;  //внутренняя текстура
@@ -91,13 +91,13 @@ public class GsonRoot extends GsonElem {
         return width;
     }
 
-    public Float heightAdd() {
-        return (heightAdd == null) ? 0 : heightAdd;
-    }
-
-    public void heightAdd(float heightAdd) {
-        this.heightAdd = heightAdd;
-    }
+//    public Float heightAdd() {
+//        return (heightAdd == null) ? 0 : heightAdd;
+//    }
+//
+//    public void heightAdd(float heightAdd) {
+//        this.heightAdd = heightAdd;
+//    }
 
     public int nuni() {
         return nuni;
