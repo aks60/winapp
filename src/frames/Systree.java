@@ -770,11 +770,12 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
             String script = gson.toJson(win.rootGson);
+            //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
             win.build(script);
-            win.imageIcon = Canvas.createIcon(win, 68);
-            Record sysprodRec = qSysprod.get(index);
-            sysprodRec.set(eSysprod.script, script);
-            sysprodRec.set(eSysprod.values().length, win);
+            //win.imageIcon = Canvas.createIcon(win, 68);
+            //Record sysprodRec = qSysprod.get(index);
+            //sysprodRec.set(eSysprod.script, script);
+            //sysprodRec.set(eSysprod.values().length, win);
             canvas.draw();
             scene.draw();
         }
@@ -2844,7 +2845,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+            String script = gson.toJson(iwin().rootGson);
+            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script))); //для тестирования
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose

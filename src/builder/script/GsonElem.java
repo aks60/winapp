@@ -16,7 +16,7 @@ public class GsonElem {
     protected Layout layout = null; //сторона расположения эл. рамы
     protected Type type = null; //тип элемента
     protected String param = null; //параметры элемента
-    protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
+    public Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
 
     public transient float point = 0;  //точка scale 
 
@@ -105,23 +105,71 @@ public class GsonElem {
         return (owner.layout == Layout.VERT) ? length : owner.height();
     }
 
-    public void height(float val) {
-        if (owner.layout == Layout.VERT) {
-            length = val;
-        }
-    }
-
     public float width() {
         return (owner.layout == Layout.HORIZ) ? length : owner.width();
     }
 
-    public void width(float val) {
-        if (owner.layout == Layout.HORIZ) {
-            length = val;
+    public void resizRoot(float _diff, List<GsonScale> _list, Layout _layout) {
+
+        GsonRoot root = (GsonRoot) this;
+        float changeSum = 0;
+        for (GsonScale o : _list) {
+            float v = (_layout == Layout.HORIZ) ? o.width() : o.height();
+            changeSum += v;
+        }
+
+        //    Горизонтальное перераспределение
+        if (_layout == Layout.HORIZ) {            
+            for (GsonScale gsonScale : _list) {
+                GsonElem elem = gsonScale.gsonElem();
+                //if (elem.owner.layout == Layout.HORIZ) { //расположение по горизонтали
+                    float k =  elem.length / changeSum;
+                    elem.length = elem.length + _diff * k;
+                    
+                //    elem.resizAll(elem.length, _layout);
+                //} else {
+                    //
+                    //float k =  elem.owner.length / changeSum;
+                    //elem.owner.resizAll(elem.owner.length + _diff * k, _layout);
+                //}
+                int m = 0;
+            }
+            root.width = root.width + _diff;
+
+            //Вертикальное перераспределение
+        } else if (_layout == Layout.VERT) {
+            float k = (changeSum + _diff) / root.height();
+            for (GsonScale gsonScale : _list) {
+                GsonElem elem = gsonScale.gsonElem();
+                if (elem.owner.layout == Layout.VERT) { //расположение по вертикали
+                    elem.length = k * elem.height();
+                    elem.resizAll(elem.height(), _layout);
+                }
+                elem.owner.resizAll(_diff, _layout);
+            }
+            root.heightAdd = ((root.height + _diff) / root.height) * root.heightAdd;
+            root.height = root.height + _diff;
         }
     }
 
-    public void resizRoot(float length2, Layout layout2) {
+    public void resizAll(float _length, Layout _layout) {
+        List<GsonElem> areaList = this.childs().stream().filter(it -> it.type == Type.AREA).collect(toList());
+        for (GsonElem elem : areaList) {
+
+            if (_layout == Layout.HORIZ && this.layout() == Layout.HORIZ) { //горизонтальное перераспределение и расположение
+                elem.length = (_length / this.width()) * elem.width();
+                elem.resizAll(elem.length, _layout);
+
+            } else if (_layout == Layout.VERT && this.layout() == Layout.VERT) { //вертикальное перераспределение и расположение
+                elem.length = (_length / this.height()) * elem.height();
+                elem.resizAll(elem.length, _layout);
+            }
+            elem.resizAll(_length, _layout);
+        }
+    }
+
+// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+    public void resizRoot2(float length2, Layout layout2) {
         List<GsonElem> areaList = this.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
 
         //    Горизонтальное перераспределение
@@ -129,9 +177,9 @@ public class GsonElem {
             for (GsonElem elem : areaList) {
                 if (this.layout == Layout.HORIZ) { //расположение по горизонтали
                     elem.length = (length2 / this.width()) * elem.width();
-                    elem.resizAll(elem.length, layout2);
+                    elem.resizAll2(elem.length, layout2);
                 } else {
-                    elem.resizAll(length2, layout2);
+                    elem.resizAll2(length2, layout2);
                 }
             }
             ((GsonRoot) this).width = length2;
@@ -141,33 +189,33 @@ public class GsonElem {
             for (GsonElem elem : areaList) {
                 if (this.layout == Layout.VERT) { //расположение по вертикали
                     elem.length = (length2 / this.height()) * elem.height();
-                    elem.resizAll(elem.length, layout2);
+                    elem.resizAll2(elem.length, layout2);
                 }
-                elem.resizAll(length2, layout2);
+                elem.resizAll2(length2, layout2);
             }
             GsonRoot gsonRoot = (GsonRoot) this;
             gsonRoot.heightAdd = (length2 / gsonRoot.height) * gsonRoot.heightAdd;
             gsonRoot.height = length2;
         }
     }
-    
-    public void resizAll(float length2, Layout layout2) {
+
+    public void resizAll2(float length2, Layout layout2) {
         List<GsonElem> areaList = this.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
         for (GsonElem elem : areaList) {
 
             if (layout2 == Layout.HORIZ && this.layout == Layout.HORIZ) { //горизонтальное перераспределение и расположение
                 elem.length = (length2 / this.width()) * elem.width();
-                elem.resizAll(elem.length, layout2);
+                elem.resizAll2(elem.length, layout2);
 
             } else if (layout2 == Layout.VERT && this.layout == Layout.VERT) { //вертикальное перераспределение и расположение
                 elem.length = (length2 / this.height()) * elem.height();
-                elem.resizAll(elem.length, layout2);
+                elem.resizAll2(elem.length, layout2);
             }
-            elem.resizAll(length2, layout2);
+            elem.resizAll2(length2, layout2);
         }
     }
 
-    public void resizNext(float length2, Layout layout2) {
+    public void resizNext2(float length2, Layout layout2) {
         List<GsonElem> areaList = this.owner.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
 
         //   Горизонтальное перераспределение
@@ -178,7 +226,7 @@ public class GsonElem {
                         if (index < areaList.size() - 1) {
                             GsonElem elem = areaList.get(index + 1);
                             elem.length = elem.width() + this.length - length2;
-                            elem.resizAll(elem.length, layout2);
+                            elem.resizAll2(elem.length, layout2);
                         }
                         break;
                     }
@@ -193,7 +241,7 @@ public class GsonElem {
                         if (index < areaList.size() - 1) {
                             GsonElem elem = areaList.get(index + 1);
                             elem.length = elem.height() + this.length - length2;
-                            elem.resizAll(elem.length, layout2);
+                            elem.resizAll2(elem.length, layout2);
                         }
                         break;
                     }
@@ -201,10 +249,10 @@ public class GsonElem {
             }
         }
         this.length = length2;
-        this.resizAll(this.length, layout2);
+        this.resizAll2(this.length, layout2);
     }
 
-    public void resizWay(float length2, Layout layout2) {
+    public void resizWay2(float length2, Layout layout2) {
         List<GsonElem> areaList = this.owner.childs.stream().filter(it -> it.type == Type.AREA).collect(toList());
 
         //   Горизонтальное перераспределение
@@ -221,14 +269,14 @@ public class GsonElem {
                             for (int index2 = index + 1; index2 < areaList.size(); ++index2) {
                                 GsonElem elem = areaList.get(index2);
                                 elem.length += dx * elem.length;
-                                elem.resizAll(elem.length, layout2);
+                                elem.resizAll2(elem.length, layout2);
                             }
                         }
                         break;
                     }
                 }
                 this.length = length2;
-                this.resizAll(this.length, layout2);
+                this.resizAll2(this.length, layout2);
             }
 
             //Вертикальное перераспределение
@@ -245,17 +293,18 @@ public class GsonElem {
                             for (int index2 = index + 1; index2 < areaList.size(); ++index2) {
                                 GsonElem elem = areaList.get(index2);
                                 elem.length += dy * elem.length;
-                                elem.resizAll(elem.length, layout2);
+                                elem.resizAll2(elem.length, layout2);
                             }
                         }
                         break;
                     }
                 }
                 this.length = length2;
-                this.resizAll(this.length, layout2);
+                this.resizAll2(this.length, layout2);
             }
         }
     }
+// </editor-fold> 
 
     public LinkedList<GsonElem> childs() {
         return childs;

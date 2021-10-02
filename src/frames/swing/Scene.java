@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 public class Scene extends javax.swing.JPanel {
 
@@ -105,8 +106,6 @@ public class Scene extends javax.swing.JPanel {
     }
 
     private int vectorMove(List<GsonScale> list) {
-        //boolean black = list.stream().anyMatch(el -> el.color == GsonScale.BLACK);
-        //boolean gray = list.stream().anyMatch(el -> el.color == GsonScale.GRAY);
         boolean change = list.stream().anyMatch(el -> el.color == GsonScale.CHANGE);
         boolean adjust = list.stream().anyMatch(el -> el.color == GsonScale.ADJUST);
 
@@ -118,9 +117,9 @@ public class Scene extends javax.swing.JPanel {
                 System.out.println("empty2");
                 return 0;
             }
-            if (change != false && adjust == false) {                
+            if (change != false && adjust == false) {
                 return 1;
-            } else {                
+            } else {
                 return 2;
             }
         }
@@ -295,14 +294,16 @@ public class Scene extends javax.swing.JPanel {
     }//GEN-LAST:event_pan1Clicked
 
     private void btn1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1Action
-        GsonElem gson = iwin.rootGson.find(6.0f);
-        gson.resizWay(++sizeArea, Layout.VERT);
-        listenerGson.action(iwin);
+//        GsonElem gson = iwin.rootGson.find(6.0f);
+//        gson.resizWay2(++sizeArea, Layout.VERT);
+//        listenerGson.action(iwin);
+            String script2 = gson.toJson(iwin.rootGson);
+            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script2))); //для тестирования            
     }//GEN-LAST:event_btn1Action
 
     private void btn2Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2Action
         GsonElem gson = iwin.rootGson.find(23.0f);
-        gson.resizWay(++sizeArea, Layout.VERT);
+        gson.resizWay2(++sizeArea, Layout.VERT);
         listenerGson.action(iwin);
     }//GEN-LAST:event_btn2Action
 
@@ -310,17 +311,34 @@ public class Scene extends javax.swing.JPanel {
         int val = vectorMove(lineHoriz);
         if (val == 1) {
             System.out.println("размер окна");
-            GsonScale rootGson2 = new GsonScale(iwin.rootGson);
+            GsonElem gson1 = iwin.rootGson.find(16.0f);            
+            //iwin.rootGson.resizRoot2(1300, Layout.HORIZ);
+            //listenerGson.action(null);
+            //System.out.println(gson1.length);
             
-            //GsonElem gson = iwin.rootGson.find(23.0f);
-            iwin.rootGson.resizRoot(1300, Layout.HORIZ);
-            listenerGson.action(null);
             
-        } else if(val == 2) {
+            
+            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            iwin.rootGson.resizRoot(8, list, Layout.HORIZ);
+            //listenerGson.action(null);
+            String script2 = gson.toJson(iwin.rootGson);
+            //iwin.build(script2);             
+            GsonElem gson2 = iwin.rootGson.find(16.0f);
+            System.out.println(gson2.length);  
+                       
+            //List<GsonScale> list2 = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            iwin.rootGson.resizRoot(8, list, Layout.HORIZ);
+            //listenerGson.action(null);           
+            GsonElem gson3 = iwin.rootGson.find(16.0f);
+            System.out.println(gson3.length);            
+
+            
+            
+        } else if (val == 2) {
             System.out.println("размер элемента");
-            GsonElem gson = iwin.rootGson.find(23.0f);           
-            gson.resizAll(++sizeArea, Layout.HORIZ);
-            listenerGson.action(null);            
+            GsonElem gson = iwin.rootGson.find(23.0f);
+            gson.resizAll2(++sizeArea, Layout.HORIZ);
+            listenerGson.action(null);
         }
     }//GEN-LAST:event_btn3Action
 

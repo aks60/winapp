@@ -65,7 +65,7 @@ public class GsonRoot extends GsonElem {
         this.width = width;
         this.height = height1;
         this.heightAdd = height2;
-        this.length = (layout == Layout.VERT) ? width : height1;
+        this.length = null;
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
@@ -130,4 +130,5 @@ public class GsonRoot extends GsonElem {
             lineArea(list, elem2, layout);
         }
     }
+    
 }
