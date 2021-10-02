@@ -47,11 +47,10 @@ public class Scene extends javax.swing.JPanel {
     public void init(Wincalc iwin) {
         this.iwin = iwin;
         if (iwin != null) {
-            lineHoriz = iwin.rootGson.lineArea(Layout.HORIZ);
-            lineVert = iwin.rootGson.lineArea(Layout.VERT);
+            lineHoriz = iwin.rootGson.lineArea(iwin, Layout.HORIZ);
+            lineVert = iwin.rootGson.lineArea(iwin, Layout.VERT);
         }
         canvas.init(iwin);
-
     }
 
     public void draw() {
@@ -105,16 +104,13 @@ public class Scene extends javax.swing.JPanel {
         }
     }
 
-    private int vectorMove(List<GsonScale> list) {
+    private int directionScaling(List<GsonScale> list) {
         boolean change = list.stream().anyMatch(el -> el.color == GsonScale.CHANGE);
         boolean adjust = list.stream().anyMatch(el -> el.color == GsonScale.ADJUST);
-
         if (change == false && adjust == false) {
-            System.out.println("empty1");
             return 0;
         } else {
             if (change == false) {
-                System.out.println("empty2");
                 return 0;
             }
             if (change != false && adjust == false) {
@@ -294,51 +290,51 @@ public class Scene extends javax.swing.JPanel {
     }//GEN-LAST:event_pan1Clicked
 
     private void btn1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1Action
-//        GsonElem gson = iwin.rootGson.find(6.0f);
-//        gson.resizWay2(++sizeArea, Layout.VERT);
-//        listenerGson.action(iwin);
-            String script2 = gson.toJson(iwin.rootGson);
-            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script2))); //для тестирования            
+        int val = directionScaling(lineVert);
+        if (val == 1) {                   
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            iwin.rootGson.resizRoot(1, list, Layout.VERT);
+            listenerGson.action(null);
+              
+        } else if (val == 2) {
+            
+        }
     }//GEN-LAST:event_btn1Action
 
     private void btn2Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2Action
-        GsonElem gson = iwin.rootGson.find(23.0f);
-        gson.resizWay2(++sizeArea, Layout.VERT);
-        listenerGson.action(iwin);
+        
+        //По горизонтпи
+        int val = directionScaling(lineHoriz);
+        if (val == 1) {                   
+            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            iwin.rootGson.resizRoot(-1, list, Layout.HORIZ);
+            listenerGson.action(null);
+              
+        } else if (val == 2) {
+            
+        }
+        
+        //По вертикали
+        val = directionScaling(lineVert);
+        if (val == 1) {                   
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            iwin.rootGson.resizRoot(-1, list, Layout.VERT);
+            listenerGson.action(null);
+              
+        } else if (val == 2) {
+            
+        } 
     }//GEN-LAST:event_btn2Action
 
     private void btn3Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3Action
-        int val = vectorMove(lineHoriz);
-        if (val == 1) {
-            System.out.println("размер окна");
-            GsonElem gson1 = iwin.rootGson.find(16.0f);            
-            //iwin.rootGson.resizRoot2(1300, Layout.HORIZ);
-            //listenerGson.action(null);
-            //System.out.println(gson1.length);
-            
-            
-            
+        int val = directionScaling(lineHoriz);
+        if (val == 1) {                   
             List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-            iwin.rootGson.resizRoot(8, list, Layout.HORIZ);
-            //listenerGson.action(null);
-            String script2 = gson.toJson(iwin.rootGson);
-            //iwin.build(script2);             
-            GsonElem gson2 = iwin.rootGson.find(16.0f);
-            System.out.println(gson2.length);  
-                       
-            //List<GsonScale> list2 = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-            iwin.rootGson.resizRoot(8, list, Layout.HORIZ);
-            //listenerGson.action(null);           
-            GsonElem gson3 = iwin.rootGson.find(16.0f);
-            System.out.println(gson3.length);            
-
-            
-            
-        } else if (val == 2) {
-            System.out.println("размер элемента");
-            GsonElem gson = iwin.rootGson.find(23.0f);
-            gson.resizAll2(++sizeArea, Layout.HORIZ);
+            iwin.rootGson.resizRoot(1, list, Layout.HORIZ);
             listenerGson.action(null);
+              
+        } else if (val == 2) {
+            
         }
     }//GEN-LAST:event_btn3Action
 

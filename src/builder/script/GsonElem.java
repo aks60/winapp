@@ -117,35 +117,21 @@ public class GsonElem {
             float v = (_layout == Layout.HORIZ) ? o.width() : o.height();
             changeSum += v;
         }
-
         //    Горизонтальное перераспределение
-        if (_layout == Layout.HORIZ) {            
+        if (_layout == Layout.HORIZ) {
             for (GsonScale gsonScale : _list) {
                 GsonElem elem = gsonScale.gsonElem();
-                //if (elem.owner.layout == Layout.HORIZ) { //расположение по горизонтали
-                    float k =  elem.length / changeSum;
-                    elem.length = elem.length + _diff * k;
-                    
-                //    elem.resizAll(elem.length, _layout);
-                //} else {
-                    //
-                    //float k =  elem.owner.length / changeSum;
-                    //elem.owner.resizAll(elem.owner.length + _diff * k, _layout);
-                //}
-                int m = 0;
+                float k = elem.length / changeSum;
+                elem.length = elem.length + _diff * k;
             }
             root.width = root.width + _diff;
 
             //Вертикальное перераспределение
         } else if (_layout == Layout.VERT) {
-            float k = (changeSum + _diff) / root.height();
             for (GsonScale gsonScale : _list) {
                 GsonElem elem = gsonScale.gsonElem();
-                if (elem.owner.layout == Layout.VERT) { //расположение по вертикали
-                    elem.length = k * elem.height();
-                    elem.resizAll(elem.height(), _layout);
-                }
-                elem.owner.resizAll(_diff, _layout);
+                float k = elem.length / changeSum;
+                elem.length = elem.length + _diff * k;
             }
             root.heightAdd = ((root.height + _diff) / root.height) * root.heightAdd;
             root.height = root.height + _diff;

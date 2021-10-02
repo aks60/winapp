@@ -1,11 +1,9 @@
 package builder.script;
 
+import builder.Wincalc;
 import enums.Layout;
-import enums.Type;
 import java.awt.Color;
 import java.util.LinkedList;
-import java.util.List;
-import static java.util.stream.Collectors.toList;
 
 public class GsonScale {
 
@@ -15,37 +13,32 @@ public class GsonScale {
     public static Color ADJUST = Color.MAGENTA;
 
     public Color color = Color.black;  //цвет выделения линии 
-    private GsonElem gsonElem = null;
+    private float id = -1;
+    private Wincalc iwin = null;
 
-    public GsonScale(GsonElem gsonElem) {
-        this.gsonElem = gsonElem;
+    public GsonScale(Wincalc iwin, float id) {
+        this.iwin = iwin;
+        this.id = id;
     }
 
     public GsonElem gsonElem() {
-        return gsonElem;
+        return iwin.rootGson.find(id);
     }
 
     public LinkedList<GsonElem> childs() {
-        return gsonElem.childs();
+        return iwin.rootGson.find(id).childs;
     }
 
     public Layout layout() {
-        return gsonElem.layout();
+        return iwin.rootGson.find(id).layout();
     }
 
     public float width() {
-        return gsonElem.width();
+        return iwin.rootGson.find(id).width();
     }
-
-//    public void width(float val) {
-//        gsonElem.width(val);
-//    }
 
     public float height() {
-        return gsonElem.height();
+        return iwin.rootGson.find(id).height();
     }
 
-//    public void height(float val) {
-//        gsonElem.height(val);
-//    }
 }

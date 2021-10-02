@@ -1,8 +1,8 @@
 package builder.script;
 
+import builder.Wincalc;
 import enums.Layout;
 import enums.Type;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -103,7 +103,7 @@ public class GsonRoot extends GsonElem {
         return nuni;
     }
 
-    public List<GsonScale> lineArea(Layout layout) {
+    public List<GsonScale> lineArea(Wincalc iwin, Layout layout) {
         Set<GsonElem> list1 = new LinkedHashSet(), list2 = new LinkedHashSet();;
         Set<GsonScale> listOut = new LinkedHashSet();
         lineArea(list1, this, layout);
@@ -111,11 +111,11 @@ public class GsonRoot extends GsonElem {
             list2.clear();
             lineArea(list2, elem, layout);
             if (list2.isEmpty()) {
-                listOut.add(new GsonScale(elem));
+                listOut.add(new GsonScale(iwin, elem.id));
             }
         }
         if (listOut.isEmpty()) {
-            listOut.add(new GsonScale(this));
+            listOut.add(new GsonScale(iwin, this.id));
         }
         return new ArrayList(listOut);
     }

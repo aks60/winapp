@@ -770,12 +770,11 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
             String script = gson.toJson(win.rootGson);
-            //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
             win.build(script);
-            //win.imageIcon = Canvas.createIcon(win, 68);
-            //Record sysprodRec = qSysprod.get(index);
-            //sysprodRec.set(eSysprod.script, script);
-            //sysprodRec.set(eSysprod.values().length, win);
+            win.imageIcon = Canvas.createIcon(win, 68);
+            Record sysprodRec = qSysprod.get(index);
+            sysprodRec.set(eSysprod.script, script);
+            sysprodRec.set(eSysprod.values().length, win);
             canvas.draw();
             scene.draw();
         }
@@ -2673,7 +2672,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);
         qSystree.execsql();
-        Arrays.asList(tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (models != null)
             models.dispose();
     }//GEN-LAST:event_windowClosed
