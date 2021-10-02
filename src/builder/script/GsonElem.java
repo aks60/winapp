@@ -16,7 +16,7 @@ public class GsonElem {
     protected Layout layout = null; //сторона расположения эл. рамы
     protected Type type = null; //тип элемента
     protected String param = null; //параметры элемента
-    public Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
+    protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
 
     public transient float point = 0;  //точка scale 
 
@@ -123,6 +123,12 @@ public class GsonElem {
                 GsonElem elem = gsonScale.gsonElem();
                 float k = elem.length / changeSum;
                 elem.length = elem.length + _diff * k;
+                elem.owner.length = 0f;
+                for (GsonElem gsonElem : elem.owner.childs) {
+                    if (gsonElem.type == Type.AREA) {
+                        elem.owner.length += gsonElem.length;
+                    }
+                }
             }
             root.width = root.width + _diff;
 
@@ -132,6 +138,23 @@ public class GsonElem {
                 GsonElem elem = gsonScale.gsonElem();
                 float k = elem.length / changeSum;
                 elem.length = elem.length + _diff * k;
+
+                if (elem.owner != null && elem.owner.owner != null) {
+                    elem.owner.owner.length = 0f;
+                    for (GsonElem gsonElem : elem.owner.owner.childs) {
+                        if (gsonElem.type == Type.AREA) {
+                            elem.owner.owner.length += gsonElem.length;
+                        }
+                    }
+                }
+                if (elem.owner != null && elem.owner.owner != null && elem.owner.owner.owner != null) {
+                    elem.owner.owner.owner.length = 0f;
+                    for (GsonElem gsonElem : elem.owner.owner.owner.childs) {
+                        if (gsonElem.type == Type.AREA) {
+                            elem.owner.owner.owner.length += gsonElem.length;
+                        }
+                    }
+                }
             }
             root.heightAdd = ((root.height + _diff) / root.height) * root.heightAdd;
             root.height = root.height + _diff;
@@ -149,6 +172,11 @@ public class GsonElem {
             } else if (_layout == Layout.VERT && this.layout() == Layout.VERT) { //вертикальное перераспределение и расположение
                 elem.length = (_length / this.height()) * elem.height();
                 elem.resizAll(elem.length, _layout);
+                for (GsonElem gsonElem : elem.owner.childs) {
+                    if (gsonElem.type == Type.AREA) {
+                        elem.owner.length += gsonElem.length;
+                    }
+                }
             }
             elem.resizAll(_length, _layout);
         }

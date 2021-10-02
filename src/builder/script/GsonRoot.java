@@ -91,14 +91,6 @@ public class GsonRoot extends GsonElem {
         return width;
     }
 
-//    public Float heightAdd() {
-//        return (heightAdd == null) ? 0 : heightAdd;
-//    }
-//
-//    public void heightAdd(float heightAdd) {
-//        this.heightAdd = heightAdd;
-//    }
-
     public int nuni() {
         return nuni;
     }
