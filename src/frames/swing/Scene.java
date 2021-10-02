@@ -62,13 +62,13 @@ public class Scene extends javax.swing.JPanel {
         if (iwin != null) {
             Graphics2D g = (Graphics2D) gc;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
-            int x = 0;
+            int x = 20;
             for (GsonScale elem : lineHoriz) {
                 int dx = (int) (elem.width() * iwin.scale);
-                g.drawLine(x + dx + 20, 10, x + dx + 20, 18);
+                g.drawLine(x + dx, 10, x + dx, 18);
                 g.setColor(elem.color);
                 int dw = g.getFontMetrics().stringWidth(df1.format(elem.width()));
-                g.drawString(df1.format(elem.width()), x + dx + 20 - dx / 2 - dw / 2, 16);
+                g.drawString(df1.format(elem.width()), x + dx - dx / 2 - dw / 2, 16);
                 x = x + dx;
             }
             g.setColor(GsonScale.BLACK);
@@ -84,7 +84,7 @@ public class Scene extends javax.swing.JPanel {
         if (iwin != null) {
             Graphics2D g = (Graphics2D) gc;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
-            int y = 0;
+            int y = 2;
             for (GsonScale elem : lineVert) {
                 int dy = (int) (elem.height() * iwin.scale);
                 g.drawLine(0, y + dy, 8, y + dy);
