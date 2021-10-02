@@ -123,12 +123,7 @@ public class GsonElem {
                 GsonElem elem = gsonScale.gsonElem();
                 float k = elem.length / changeSum;
                 elem.length = elem.length + _diff * k;
-                elem.owner.length = 0f;
-                for (GsonElem gsonElem : elem.owner.childs) {
-                    if (gsonElem.type == Type.AREA) {
-                        elem.owner.length += gsonElem.length;
-                    }
-                }
+                elem.owner.resizAll(_layout);
             }
             root.width = root.width + _diff;
 
@@ -138,22 +133,8 @@ public class GsonElem {
                 GsonElem elem = gsonScale.gsonElem();
                 float k = elem.length / changeSum;
                 elem.length = elem.length + _diff * k;
-
-                if (elem.owner != null && elem.owner.owner != null) {
-                    elem.owner.owner.length = 0f;
-                    for (GsonElem gsonElem : elem.owner.owner.childs) {
-                        if (gsonElem.type == Type.AREA) {
-                            elem.owner.owner.length += gsonElem.length;
-                        }
-                    }
-                }
-                if (elem.owner != null && elem.owner.owner != null && elem.owner.owner.owner != null) {
-                    elem.owner.owner.owner.length = 0f;
-                    for (GsonElem gsonElem : elem.owner.owner.owner.childs) {
-                        if (gsonElem.type == Type.AREA) {
-                            elem.owner.owner.owner.length += gsonElem.length;
-                        }
-                    }
+                if (elem.owner != null) {
+                    elem.owner.resizAll(_layout);
                 }
             }
             root.heightAdd = ((root.height + _diff) / root.height) * root.heightAdd;
@@ -161,25 +142,18 @@ public class GsonElem {
         }
     }
 
-    public void resizAll(float _length, Layout _layout) {
-        List<GsonElem> areaList = this.childs().stream().filter(it -> it.type == Type.AREA).collect(toList());
-        for (GsonElem elem : areaList) {
-
-            if (_layout == Layout.HORIZ && this.layout() == Layout.HORIZ) { //горизонтальное перераспределение и расположение
-                elem.length = (_length / this.width()) * elem.width();
-                elem.resizAll(elem.length, _layout);
-
-            } else if (_layout == Layout.VERT && this.layout() == Layout.VERT) { //вертикальное перераспределение и расположение
-                elem.length = (_length / this.height()) * elem.height();
-                elem.resizAll(elem.length, _layout);
-                for (GsonElem gsonElem : elem.owner.childs) {
-                    if (gsonElem.type == Type.AREA) {
-                        elem.owner.length += gsonElem.length;
-                    }
+    public void resizAll(Layout _layout) {
+        if (_layout == this.layout()) {
+            this.owner.length = 0f;
+            for (GsonElem elem : this.childs) {
+                if (elem.type == Type.AREA) {
+                   this.owner.length += elem.length;
                 }
             }
-            elem.resizAll(_length, _layout);
         }
+//        if (this.owner != null) {
+//            this.owner.resizAll(_layout);
+//        }
     }
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
