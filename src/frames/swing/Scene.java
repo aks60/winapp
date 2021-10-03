@@ -293,11 +293,13 @@ public class Scene extends javax.swing.JPanel {
         int val = directionScaling(lineVert);
         if (val == 1) {                   
             List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-            iwin.rootGson.resizRoot(1, list, Layout.VERT);
+            iwin.rootGson.resizWin(1, list, Layout.VERT);
             listenerGson.action(null);
               
         } else if (val == 2) {
-            
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE || el.color == GsonScale.ADJUST).collect(toList());
+            iwin.rootGson.resizElem(1, list, Layout.VERT);
+            listenerGson.action(null);            
         }
     }//GEN-LAST:event_btn1Action
 
@@ -307,22 +309,26 @@ public class Scene extends javax.swing.JPanel {
         int val = directionScaling(lineHoriz);
         if (val == 1) {                   
             List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-            iwin.rootGson.resizRoot(-1, list, Layout.HORIZ);
+            iwin.rootGson.resizWin(-1, list, Layout.HORIZ);
             listenerGson.action(null);
               
         } else if (val == 2) {
-            
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE || el.color == GsonScale.ADJUST).collect(toList());
+            iwin.rootGson.resizElem(-1, list, Layout.HORIZ);
+            listenerGson.action(null);              
         }
         
         //По вертикали
         val = directionScaling(lineVert);
         if (val == 1) {                   
             List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-            iwin.rootGson.resizRoot(-1, list, Layout.VERT);
+            iwin.rootGson.resizWin(-1, list, Layout.VERT);
             listenerGson.action(null);
               
         } else if (val == 2) {
-            
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE || el.color == GsonScale.ADJUST).collect(toList());
+            iwin.rootGson.resizElem(-1, list, Layout.VERT);
+            listenerGson.action(null);              
         } 
     }//GEN-LAST:event_btn2Action
 
@@ -330,11 +336,13 @@ public class Scene extends javax.swing.JPanel {
         int val = directionScaling(lineHoriz);
         if (val == 1) {                   
             List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-            iwin.rootGson.resizRoot(1, list, Layout.HORIZ);
+            iwin.rootGson.resizWin(1, list, Layout.HORIZ);
             listenerGson.action(null);
               
         } else if (val == 2) {
-            
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE || el.color == GsonScale.ADJUST).collect(toList());
+            iwin.rootGson.resizElem(1, list, Layout.HORIZ);
+            listenerGson.action(null);              
         }
     }//GEN-LAST:event_btn3Action
 

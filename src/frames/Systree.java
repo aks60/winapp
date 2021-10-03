@@ -319,7 +319,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         rsvSystree.add(eSystree.cgrp, txt15);
         rsvSystree.add(eSystree.coef, txt35);
 
-        //panDesign.add(scene, java.awt.BorderLayout.CENTER);
         canvas.setVisible(true);
         if (selectedPath != null) {
             sysTree.setSelectionPath(new TreePath(selectedPath));

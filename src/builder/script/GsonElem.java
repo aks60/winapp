@@ -109,7 +109,11 @@ public class GsonElem {
         return (owner.layout == Layout.HORIZ) ? length : owner.width();
     }
 
-    public void resizRoot(float _diff, List<GsonScale> _list, Layout _layout) {
+    public void resizElem(float _diff, List<GsonScale> _list, Layout _layout) {
+        
+    }
+    
+    public void resizWin(float _diff, List<GsonScale> _list, Layout _layout) {
 
         GsonRoot root = (GsonRoot) this;
         float changeSum = 0;
@@ -123,7 +127,7 @@ public class GsonElem {
                 GsonElem elem = gsonScale.gsonElem();
                 float k = elem.length / changeSum;
                 elem.length = elem.length + _diff * k;
-                elem.owner.resizAll(_layout);
+                elem.owner.resizUp(_layout);
             }
             root.width = root.width + _diff;
 
@@ -133,27 +137,32 @@ public class GsonElem {
                 GsonElem elem = gsonScale.gsonElem();
                 float k = elem.length / changeSum;
                 elem.length = elem.length + _diff * k;
-                if (elem.owner != null) {
-                    elem.owner.resizAll(_layout);
-                }
+                elem.owner.resizUp(_layout);
             }
             root.heightAdd = ((root.height + _diff) / root.height) * root.heightAdd;
             root.height = root.height + _diff;
         }
     }
 
-    public void resizAll(Layout _layout) {
-        if (_layout == this.layout()) {
-            this.owner.length = 0f;
-            for (GsonElem elem : this.childs) {
-                if (elem.type == Type.AREA) {
-                   this.owner.length += elem.length;
+    public void resizUp(Layout _layout) {
+        if (this.owner != null) {
+            float sum = 0;
+            if (_layout == this.layout()) {
+                for (GsonElem elem : this.childs) {
+                    if (elem.type == Type.AREA) {
+                        sum += elem.length;
+                    }
                 }
             }
+            if (sum != 0) {
+                if (this.owner.layout != _layout) {
+                    this.owner.length = sum;
+                } else {
+                    this.length = sum;
+                }
+            }
+            this.owner.resizUp(_layout);
         }
-//        if (this.owner != null) {
-//            this.owner.resizAll(_layout);
-//        }
     }
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
