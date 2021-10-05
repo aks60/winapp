@@ -29,7 +29,8 @@ public enum Type implements Enam {
     TRIANGL(1003, 1, "Треугольное окно"),
     ARCH(1004, 1, "Арочное окно"),
     STVORKA(1005, 2, "Створка"),
-    FRAME(1006, 3, "Коробка");
+    FRAME(1006, 3, "Коробка"),
+    DOOR(1007, 3, "Дверь");
 
     public int id;
     public int id2 = 0; //это UseArtiklTo

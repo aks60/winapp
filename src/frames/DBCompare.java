@@ -894,7 +894,7 @@ public class DBCompare extends javax.swing.JFrame {
         lab20.setMinimumSize(new java.awt.Dimension(34, 14));
 
         txt19.setFont(frames.UGui.getFont(0,0));
-        txt19.setText("427708");
+        txt19.setText("427856");
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(50, 18));
         txt19.addActionListener(new java.awt.event.ActionListener() {
@@ -904,7 +904,7 @@ public class DBCompare extends javax.swing.JFrame {
         });
 
         txt20.setFont(frames.UGui.getFont(0,0));
-        txt20.setText("2");
+        txt20.setText("1");
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt20.setPreferredSize(new java.awt.Dimension(20, 18));
 

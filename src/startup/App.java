@@ -187,7 +187,7 @@ public enum App {
                     break;
             }
         } catch (Exception e) {
-            System.err.println("startup.App.createFrame() " + e);
+            System.err.println("ОШИБКА:startup.App.createFrame() " + e);
         }
         //eProfile.appframe = frame;
         frame.setName(this.name());

@@ -9,16 +9,11 @@ import builder.param.test.ElementTest;
 import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
-import builder.script.GsonElem;
-import builder.script.GsonScale;
 import domain.eElement;
-import enums.Layout;
 import frames.DBCompare;
 import java.sql.Connection;
-import java.util.LinkedHashSet;
 import javax.swing.UIManager;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public class Test {
@@ -69,7 +64,7 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            //wincalc();
+            wincalc();
             //param();
             //query();
             //frame();
@@ -86,10 +81,10 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(777, false));
+            iwin.build(builder.script.Winscript.test(700014, false));
             //iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
@@ -159,16 +154,11 @@ public class Test {
     }
 
     private static void frame() throws Exception {
-
-        Query.connection = Test.connect2();
-        lookAndFeel();
-        App.createApp(eProfile.P02);
-        App.Top.frame = new Tex();
-
-        //frames.Joining frm = new frames.Joining();
-        //FrameToFile.setFrameSize(frm);
-        //frm.iwin.build(Winscript.test(Winscript.rootGson.prj, null));
-        //frm.setVisible(true);
+        Main.main(new String[]{"tex"});
+        while (App.Top.frame == null) {
+           Thread.yield();
+        }
+        App.Artikles.createFrame(App.Top.frame);
     }
 
     private static void query() {
