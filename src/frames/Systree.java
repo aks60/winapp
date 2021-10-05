@@ -825,9 +825,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         txt17 = new javax.swing.JTextField();
         txt22 = new javax.swing.JTextField();
         txt23 = new javax.swing.JTextField();
-        btn17 = new javax.swing.JButton();
-        btn23 = new javax.swing.JButton();
-        btn25 = new javax.swing.JButton();
         pan13 = new javax.swing.JPanel();
         lab33 = new javax.swing.JLabel();
         lab34 = new javax.swing.JLabel();
@@ -1314,65 +1311,14 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         txt17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt17.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt17.setPreferredSize(new java.awt.Dimension(60, 18));
-        txt17.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtKeyEnter(evt);
-            }
-        });
 
         txt22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt22.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt22.setPreferredSize(new java.awt.Dimension(60, 18));
-        txt22.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtKeyEnter(evt);
-            }
-        });
 
         txt23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt23.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt23.setPreferredSize(new java.awt.Dimension(60, 18));
-        txt23.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtKeyEnter(evt);
-            }
-        });
-
-        btn17.setText("...");
-        btn17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn17.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn17.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn17.setName("btnField17"); // NOI18N
-        btn17.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt17Update(evt);
-            }
-        });
-
-        btn23.setText("...");
-        btn23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn23.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn23.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn23.setName("btnField17"); // NOI18N
-        btn23.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn23.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt22Update(evt);
-            }
-        });
-
-        btn25.setText("...");
-        btn25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn25.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn25.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn25.setName("btnField17"); // NOI18N
-        btn25.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn25.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt23Update(evt);
-            }
-        });
 
         javax.swing.GroupLayout pan12Layout = new javax.swing.GroupLayout(pan12);
         pan12.setLayout(pan12Layout);
@@ -1385,40 +1331,31 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     .addGroup(pan12Layout.createSequentialGroup()
                         .addComponent(lab38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan12Layout.createSequentialGroup()
                         .addComponent(lab35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan12Layout.createSequentialGroup()
                         .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(179, Short.MAX_VALUE))
+                        .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
         pan12Layout.setVerticalGroup(
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan12Layout.createSequentialGroup()
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addComponent(pan21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(107, Short.MAX_VALUE))
@@ -1815,11 +1752,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         txt24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt24.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt24.setPreferredSize(new java.awt.Dimension(60, 18));
-        txt24.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtKeyEnter(evt);
-            }
-        });
 
         lab42.setFont(frames.UGui.getFont(0,0));
         lab42.setText("Высота");
@@ -1829,11 +1761,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         txt26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt26.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt26.setPreferredSize(new java.awt.Dimension(60, 18));
-        txt26.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtKeyEnter(evt);
-            }
-        });
 
         btn15.setText("...");
         btn15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1841,11 +1768,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         btn15.setMinimumSize(new java.awt.Dimension(18, 18));
         btn15.setName("btnField17"); // NOI18N
         btn15.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt24Update(evt);
-            }
-        });
 
         btn16.setText("...");
         btn16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1853,11 +1775,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         btn16.setMinimumSize(new java.awt.Dimension(18, 18));
         btn16.setName("btnField17"); // NOI18N
         btn16.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt26Update(evt);
-            }
-        });
 
         lab48.setFont(frames.UGui.getFont(0,0));
         lab48.setText("Наимен.ручки");
@@ -3296,66 +3213,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         }
     }//GEN-LAST:event_colorToHandl
 
-    private void txt24Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt24Update
-//        float windowsID = winNode.com5t().id();
-//        GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
-//        jsonStv.widthUp(UCom.getFloat(txt24.getText()));
-//        updateScript(windowsID);
-    }//GEN-LAST:event_txt24Update
-
-    private void txt26Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt26Update
-//        float windowsID = winNode.com5t().id();
-//        GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
-//        jsonStv.heightUp(UCom.getFloat(txt26.getText()));
-//        updateScript(windowsID);
-    }//GEN-LAST:event_txt26Update
-
-    private void txt17Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt17Update
-//        float windowsID = winNode.com5t().id();
-//        float dx = UCom.getFloat(txt17.getText()) / iwin.rootGson.width();
-//        iwin.rootGson.width(UCom.getFloat(txt17.getText()));
-//        iwin.rootGson.widthDown(iwin.rootGson, dx);
-//        updateScript(windowsID);
-    }//GEN-LAST:event_txt17Update
-
-    private void txt22Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt22Update
-//        float windowsID = winNode.com5t().id();
-//        float dy = UCom.getFloat(txt22.getText()) / iwin.rootGson.height();
-//        iwin.rootGson.height(UCom.getFloat(txt22.getText()));
-////        if (iwin.rootGson.heightAdd() != null) {
-////            iwin.rootGson.heightAdd(Util.getFloat(txt22.getText()));
-////        }
-//        iwin.rootGson.heightDown(iwin.rootGson, dy);
-//        iwin.rootGson.resizeAll(UCom.getFloat(txt22.getText()), Layout.VERT);
-//        updateScript(windowsID);
-    }//GEN-LAST:event_txt22Update
-
-    private void txtKeyEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeyEnter
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-
-            if (evt.getSource() == txt17) {
-                txt17Update(null);
-            } else if (evt.getSource() == txt22) {
-                txt22Update(null);
-            } else if (evt.getSource() == txt23) {
-                txt23Update(null);
-            } else if (evt.getSource() == txt24) {
-                txt24Update(null);
-            } else if (evt.getSource() == txt26) {
-                txt26Update(null);
-            }
-        }
-    }//GEN-LAST:event_txtKeyEnter
-
-    private void txt23Update(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt23Update
-//            float windowsID = windowsNode.com5t().id();
-//            float dy = Util.getFloat(txt22.getText()) / iwin.rootGson.height();
-//            iwin.rootGson.height(Util.getFloat(txt22.getText()));
-//            iwin.rootGson.heightAdd(Util.getFloat(txt22.getText()));
-//            iwin.rootGson.heightDown(iwin.rootGson, dy);
-//            updateScript(windowsID);
-    }//GEN-LAST:event_txt23Update
-
     private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame
         try {
             if (winNode != null) {
@@ -3386,16 +3243,13 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     private javax.swing.JButton btn14;
     private javax.swing.JButton btn15;
     private javax.swing.JButton btn16;
-    private javax.swing.JButton btn17;
     private javax.swing.JButton btn18;
     private javax.swing.JButton btn19;
     private javax.swing.JButton btn2;
     private javax.swing.JButton btn20;
     private javax.swing.JButton btn21;
     private javax.swing.JButton btn22;
-    private javax.swing.JButton btn23;
     private javax.swing.JButton btn24;
-    private javax.swing.JButton btn25;
     private javax.swing.JButton btn26;
     private javax.swing.JButton btn27;
     private javax.swing.JButton btn28;
@@ -3560,13 +3414,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             }
         });
         DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
-        ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
-//        this.canvas.addMouseListener(new MouseAdapter() {
-//            public void mouseClicked(MouseEvent evt) {
-//                selectionWin();
-//                System.out.println(".mouseClicked()");
-//            }
-//        });        
+        ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();      
         model.reload();
     }
 }
