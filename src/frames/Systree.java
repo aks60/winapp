@@ -81,6 +81,7 @@ import common.eProfile;
 import domain.eJoining;
 import builder.making.Joining;
 import builder.making.UColor;
+import builder.script.GsonScale;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.dialog.DicJoinvar;
@@ -88,7 +89,9 @@ import frames.swing.Scene;
 import frames.swing.FilterTable;
 import frames.swing.listener.ListenerObject;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +113,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Query qSyspar2 = new Query(eSyspar1.values());
 
+    private DecimalFormat df1 = new DecimalFormat("#0.#");
     private int systreeID = -1; //выбранная система
     private Canvas canvas = new Canvas();
     private Scene scene = new Scene(canvas, this);
@@ -581,9 +585,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 txt9.setText(eColor.find(iwin.colorID1).getStr(eColor.name));
                 txt13.setText(eColor.find(iwin.colorID2).getStr(eColor.name));
                 txt14.setText(eColor.find(iwin.colorID3).getStr(eColor.name));
-                txt17.setText(String.valueOf(iwin.rootGson.width()));
-                txt22.setText(String.valueOf(iwin.rootGson.height()));
-                txt23.setText(String.valueOf(iwin.rootGson.heightAdd));
+                txt17.setText(df1.format(iwin.rootGson.width()));
+                txt22.setText(df1.format(iwin.rootGson.height()));
+                txt23.setText(df1.format(iwin.rootGson.heightAdd));
                 txt23.setEditable(winNode.com5t().type() == enums.Type.ARCH);
 
                 //Параметры
@@ -627,7 +631,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 txt16.setText(stv.handleLayout.name);
                 if (stv.handleLayout == LayoutHandle.VARIAT) {
                     txt31.setEditable(true);
-                    txt31.setText(String.valueOf(stv.handleHeight));
+                    txt31.setText(df1.format(stv.handleHeight));
                 } else {
                     txt31.setEditable(false);
                     txt31.setText("");
@@ -776,6 +780,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             sysprodRec.set(eSysprod.values().length, win);
             canvas.draw();
             scene.draw();
+            selectionWin();
         }
         return true;
     }
@@ -2671,7 +2676,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);
         qSystree.execsql();
-        Arrays.asList(tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (models != null)
             models.dispose();
     }//GEN-LAST:event_windowClosed
@@ -3556,6 +3561,12 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
         DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
+//        this.canvas.addMouseListener(new MouseAdapter() {
+//            public void mouseClicked(MouseEvent evt) {
+//                selectionWin();
+//                System.out.println(".mouseClicked()");
+//            }
+//        });        
         model.reload();
     }
 }

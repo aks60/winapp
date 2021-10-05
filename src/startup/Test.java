@@ -10,6 +10,7 @@ import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
 import builder.script.GsonElem;
+import builder.script.GsonScale;
 import domain.eElement;
 import enums.Layout;
 import frames.DBCompare;
@@ -68,14 +69,14 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            wincalc();
+            //wincalc();
             //param();
             //query();
             //frame();
             //json();
             //parse();
-            //uid();  
-            
+            //uid(); 
+
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -99,7 +100,6 @@ public class Test {
 //            GsonElem elem1 = iwin.rootGson.find(16.0f);
 //            elem1.length = 999f;
 //            list.forEach(it -> System.out.println(it.id() + " " + it.length));
-
         } else if (_case.equals("min")) {
             List<Integer> prjList = Winscript.models(_case);
             for (int prj : prjList) {

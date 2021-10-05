@@ -13,7 +13,7 @@ public class GsonScale {
     public static Color ADJUST = Color.MAGENTA;
 
     public Color color = Color.black;  //цвет выделения линии 
-    private float id = -1;
+    public float id = -1;
     private Wincalc iwin = null;
 
     public GsonScale(Wincalc iwin, float id) {
