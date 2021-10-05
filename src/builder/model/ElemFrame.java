@@ -358,6 +358,17 @@ public class ElemFrame extends ElemSimple {
                 } else if (Layout.LEFT == layout) {
                     Draw.strokePolygon(iwin(), x1, x2, x2, x1, y1, y1 + dh, y2 - dh, y2, rgb, borderColor);
                 }
+            //DOOR
+            } else if (owner().type == Type.DOOR) {
+                if (Layout.BOTT == layout) {
+                    Draw.strokePolygon(iwin(), x1 + dh, x2 - dh, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+                } else if (Layout.RIGHT == layout) {
+                    Draw.strokePolygon(iwin(), x1, x2, x2, x1, y1 + dh, y1, y2, y2 - dh, rgb, borderColor);
+                } else if (Layout.TOP == layout) {
+                    Draw.strokePolygon(iwin(), x1, x2, x2 - dh, x1 + dh, y1, y1, y2, y2, rgb, borderColor);
+                } else if (Layout.LEFT == layout) {
+                    Draw.strokePolygon(iwin(), x1, x2, x2, x1, y1, y1 + dh, y2 - dh, y2, rgb, borderColor);
+                }
                 //ARCH
             } else if (owner().type == Type.ARCH) {
                 if (Layout.TOP == layout) { //прорисовка арки

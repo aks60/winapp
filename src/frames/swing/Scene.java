@@ -128,10 +128,10 @@ public class Scene extends javax.swing.JPanel {
             return 11;
         } else if (iwin.scale > .15) {
             return 10;
-        } else if (iwin.scale > .13) {
-            return 9;
+//        } else if (iwin.scale > .13) {
+//            return 9;
         } else {
-            return 8;
+            return 9;
         }
     }
 

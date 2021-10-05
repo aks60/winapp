@@ -565,11 +565,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 } else {
                     UGui.setSelectedRow(tab5);
                 }
-            } else {
-                scene.init(null);
-                scene.draw();
-                canvas.draw();
-                winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
             }
         }
     }
@@ -687,6 +682,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }
 
     private void selectionTab5() {
+        System.out.println("frames.Systree.selectionTab5(=====)");
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
@@ -703,9 +699,14 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 winTree.setSelectionInterval(0, 0);
 
             } else {
-                Graphics2D g = (Graphics2D) canvas.getGraphics();
-                g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//                Graphics2D g = (Graphics2D) canvas.getGraphics();
+//                g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             }
+        } else {
+            scene.init(null);
+            scene.draw();
+            canvas.draw();
+            winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
         }
     }
 
