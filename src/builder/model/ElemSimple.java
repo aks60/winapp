@@ -74,17 +74,17 @@ public abstract class ElemSimple extends Com5t {
     }
 
     //Прилегающие соединения. Используется при построении конструкции, когда соединения ещё не определены  
-    public ElemSimple joinFlat(Layout layoutArea) {
+    public ElemSimple joinFlat(Layout layoutSide) {
         LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
-        if (Layout.BOTT == layoutArea) {
+        if (Layout.BOTT == layoutSide) {
             float Y2 = (y2 > y1) ? y2 : y1;
             return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, Y2) == true).findFirst().orElse(null);
-        } else if (Layout.LEFT == layoutArea) {
+        } else if (Layout.LEFT == layoutSide) {
             return listElem.stream().filter(el -> el != this && el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
-        } else if (Layout.TOP == layoutArea) {
+        } else if (Layout.TOP == layoutSide) {
             float Y1 = (y2 > y1) ? y1 : y2;
             return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout() == Layout.TOP) == false).findFirst().orElse(null);
-        } else if (Layout.RIGHT == layoutArea) {
+        } else if (Layout.RIGHT == layoutSide) {
             return listElem.stream().filter(el -> el != this && el.inside(x2, y1 + (y2 - y1) / 2)).findFirst().orElse(null);
         }
         return null;

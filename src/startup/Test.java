@@ -64,10 +64,10 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            wincalc();
+            //wincalc();
             //param();
             //query();
-            //frame();
+            frame();
             //json();
             //parse();
             //uid(); 
@@ -81,7 +81,7 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(700014, false));
@@ -154,7 +154,7 @@ public class Test {
         while (App.Top.frame == null) {
            Thread.yield();
         }
-        App.Artikles.createFrame(App.Top.frame);
+        App.TestFrame.createFrame(App.Top.frame);
     }
 
     private static void query() {

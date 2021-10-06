@@ -56,9 +56,9 @@ public class ElemCross extends ElemSimple {
 
     //Установка координат
     public void setLocation() {
-        for (int index = owner().listChild.size() - 1; index >= 0; --index) {
-            if (owner().listChild.get(index) instanceof AreaSimple) {
-                Com5t prevArea = owner().listChild.get(index); //index указывает на предыдущий элемент
+        for (int index = owner.listChild.size() - 1; index >= 0; --index) {
+            if (owner.listChild.get(index) instanceof AreaSimple) {
+                Com5t prevArea = owner.listChild.get(index); //index указывает на предыдущий элемент
                 float db = artiklRecAn.getFloat(eArtikl.size_centr);
 
                 if (Layout.VERT.equals(owner().layout())) { //сверху вниз

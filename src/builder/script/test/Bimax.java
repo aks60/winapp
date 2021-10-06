@@ -147,6 +147,18 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addElem(new GsonElem(Type.GLASS, "{'artglasID':4663}")); //или '4x12x4x12x4'
+        } else if (prj == 999) { //PUNIC =
+            rootGson = new GsonRoot(prj, 1, 54, "KBE\\KBE Эксперт\\1 ОКНА\\Открывание внутрь (ств. Z 77)",
+                    Layout.VERT, Type.RECTANGL, 700, 1400, 1009, 1009, 1009);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
+                    .addElem(new GsonElem(Type.GLASS, "{'artglasID':4663}"));
+            rootGson.addElem(new GsonElem(Type.IMPOST));
+            rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
+                    .addElem(new GsonElem(Type.GLASS, "{'artglasID':4663}"));
 
         } else if (prj == 601010) { //PUNIC =
             rootGson = new GsonRoot(prj, 1, 54, "KBE\\KBE Эксперт\\1 ОКНА\\Открывание внутрь (ств. Z 77)",
@@ -421,10 +433,10 @@ public final class Bimax {
                     Layout.VERT, Type.DOOR, 900, 2100, 1009, 1009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
-            GsonElem stv = rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA))
-                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 600))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
+            GsonElem stv = rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA));
+                    stv.addArea(new GsonElem(Layout.VERT, Type.AREA, 600))
                     .addElem(new GsonElem(Type.GLASS));
             stv.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1500))

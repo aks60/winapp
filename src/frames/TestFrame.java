@@ -1,17 +1,27 @@
 package frames;
 
+import builder.Wincalc;
 import dataset.Query;
+import dataset.Record;
 import domain.eProject;
+import domain.eSysprod;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import frames.swing.DefTableModel;
+import frames.swing.rotate.VerticalTableHeaderCellRenderer;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.util.Enumeration;
 import java.util.Vector;
+import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import startup.Test;
 
 public class TestFrame extends javax.swing.JFrame {
@@ -57,6 +67,13 @@ public class TestFrame extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).setRowCount(0);
             ((DefaultTableModel) tab3.getModel()).setRowCount(0);
 
+            TableCellRenderer headerRenderer = new VerticalTableHeaderCellRenderer();
+            tab1.getColumnModel().getColumn(1).setHeaderRenderer(headerRenderer);
+//            Enumeration<TableColumn> columns = tab1.getColumnModel().getColumns();
+//            while (columns.hasMoreElements()) {
+//                ((TableColumn) columns.nextElement()).setHeaderRenderer(headerRenderer);
+//            }
+
         } catch (Exception e) {
             System.err.println("frames.TestFrame.selectionTab1() " + e);
         }
@@ -84,7 +101,7 @@ public class TestFrame extends javax.swing.JFrame {
                     data.add(vector);
                 }
                 tab2.setModel(new DefaultTableModel(data, column));
-                ((DefaultTableModel) tab3.getModel()). setRowCount(0);
+                ((DefaultTableModel) tab3.getModel()).setRowCount(0);
                 UGui.setSelectedRow(tab2);
             } else {
                 sql2.setText("");
