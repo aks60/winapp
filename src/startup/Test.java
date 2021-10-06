@@ -84,17 +84,13 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(427856, false));
-            //iwin.constructiv(true);
+            iwin.build(builder.script.Winscript.test(700014, false));
+            iwin.constructiv(true);
             //Specific.write_txt1(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            //DBCompare.iwinRec(iwin, true);
+            DBCompare.iwinRec(iwin, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
 
-//            List<GsonElem> list = iwin.rootGson.lineArea(Layout.HORIZ);
-//            GsonElem elem1 = iwin.rootGson.find(16.0f);
-//            elem1.length = 999f;
-//            list.forEach(it -> System.out.println(it.id() + " " + it.length));
         } else if (_case.equals("min")) {
             List<Integer> prjList = Winscript.models(_case);
             for (int prj : prjList) {

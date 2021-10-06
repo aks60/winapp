@@ -55,7 +55,7 @@ public class Filling extends Cal5e {
                 Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth); //толщина стекда
 
                 List<ElemSimple> elemFrameList = null;
-                if (elemGlass.owner().type() == Type.STVORKA || elemGlass.owner().type() == Type.ARCH) {
+                if (elemGlass.owner().type() == Type.ARCH) {
                     elemFrameList = Arrays.asList(rootArea().mapFrame.get(Layout.BOTT), rootArea().mapFrame.get(Layout.RIGHT), rootArea().mapFrame.get(Layout.TOP), rootArea().mapFrame.get(Layout.LEFT));
                 } else {
                     elemFrameList = Arrays.asList(elemGlass.joinFlat(Layout.BOTT), elemGlass.joinFlat(Layout.RIGHT), elemGlass.joinFlat(Layout.TOP), elemGlass.joinFlat(Layout.LEFT));
