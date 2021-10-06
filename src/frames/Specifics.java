@@ -407,8 +407,8 @@ public class Specifics extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(3).setMaxWidth(60);
             tab1.getColumnModel().getColumn(4).setPreferredWidth(100);
             tab1.getColumnModel().getColumn(5).setPreferredWidth(240);
-            tab1.getColumnModel().getColumn(9).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(10).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(9).setPreferredWidth(48);
+            tab1.getColumnModel().getColumn(10).setPreferredWidth(46);
             tab1.getColumnModel().getColumn(11).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(12).setPreferredWidth(36);
             tab1.getColumnModel().getColumn(13).setPreferredWidth(36);
@@ -417,7 +417,7 @@ public class Specifics extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(16).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(17).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(18).setPreferredWidth(48);
-            tab1.getColumnModel().getColumn(19).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(19).setPreferredWidth(46);
             tab1.getColumnModel().getColumn(20).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(21).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(22).setPreferredWidth(52);
@@ -667,11 +667,11 @@ public class Specifics extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(23).setCellRenderer(cellRenderer3);
-        if ("Nimbus".equals(eProperty.lookandfeel.read())) {
-            for (int i = 0; i < 22; i++) {
-                tab1.getColumnModel().getColumn(i).setPreferredWidth(tab1.getColumnModel().getColumn(i).getPreferredWidth() + tab1.getColumnModel().getColumn(i).getPreferredWidth() / 3);
-            }
-        }
+//        if ("Nimbus".equals(eProperty.lookandfeel.read())) {
+//            for (int i = 0; i < 22; i++) {
+//                tab1.getColumnModel().getColumn(i).setPreferredWidth(tab1.getColumnModel().getColumn(i).getPreferredWidth() + tab1.getColumnModel().getColumn(i).getPreferredWidth() / 3);
+//            }
+//        }
         cbx1.setRenderer(new DefaultListCellRenderer() {
 
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
