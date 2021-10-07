@@ -43,10 +43,10 @@ public class ElemCross extends ElemSimple {
             sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
         } else {
             if (Layout.VERT.equals(owner().layout())) { //сверху вниз
-                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.HORIZ, UseSide.ANY);
+                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.HORIZ);
 
             } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
-                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.VERT, UseSide.ANY);
+                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.VERT);
             }
         }
         spcRec.place = (Layout.HORIZ == owner().layout()) ? Layout.VERT.name : Layout.HORIZ.name;

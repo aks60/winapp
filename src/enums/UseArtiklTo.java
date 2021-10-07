@@ -19,8 +19,8 @@ public enum UseArtiklTo implements Enam {
 
     public int id;
     public String name;
-    public Record sysprofRec;
-    public List<Record> sysprofList = new ArrayList();
+    //public Record sysprofRec;
+    //public List<Record> sysprofList = new ArrayList();
 
     UseArtiklTo(int id, String name) {
         this.id = id;

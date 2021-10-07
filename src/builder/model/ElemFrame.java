@@ -47,14 +47,23 @@ public class ElemFrame extends ElemSimple {
             sysprofRec = owner.sysprofRec;
         } else {
             if (Layout.BOTT.equals(layout())) {
-                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.BOT, UseSide.HORIZ, UseSide.ANY);
-            } else if (Layout.RIGHT.equals(layout())) {
-                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.RIGHT, UseSide.VERT, UseSide.ANY);
-            } else if (Layout.TOP.equals(layout())) {
-                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.TOP, UseSide.HORIZ, UseSide.ANY);
-            } else if (Layout.LEFT.equals(layout())) {
-                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.LEFT, UseSide.VERT, UseSide.ANY);
+                sysprofRec = eSysprof.find5(iwin.nuni, type.id2, UseSide.BOT, UseSide.HORIZ);
+            } else if (Layout.RIGHT.equals(layout)) {
+                sysprofRec = eSysprof.find5(iwin.nuni, type.id2, UseSide.RIGHT, UseSide.VERT);
+            } else if (Layout.TOP.equals(layout)) {
+                sysprofRec = eSysprof.find5(iwin.nuni, type.id2, UseSide.TOP, UseSide.HORIZ);
+            } else if (Layout.LEFT.equals(layout)) {
+                sysprofRec = eSysprof.find5(iwin.nuni, type.id2, UseSide.LEFT, UseSide.VERT);
             }
+//            if (Layout.BOTT.equals(layout())) {
+//                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.BOT, UseSide.HORIZ, UseSide.ANY);
+//            } else if (Layout.RIGHT.equals(layout())) {
+//                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.RIGHT, UseSide.VERT, UseSide.ANY);
+//            } else if (Layout.TOP.equals(layout())) {
+//                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.TOP, UseSide.HORIZ, UseSide.ANY);
+//            } else if (Layout.LEFT.equals(layout())) {
+//                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.MANUAL, UseSide.LEFT, UseSide.VERT, UseSide.ANY);
+//            }
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);

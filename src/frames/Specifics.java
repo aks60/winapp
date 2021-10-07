@@ -361,7 +361,6 @@ public class Specifics extends javax.swing.JFrame {
         centr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
-        scr1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -667,11 +666,11 @@ public class Specifics extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(23).setCellRenderer(cellRenderer3);
-//        if ("Nimbus".equals(eProperty.lookandfeel.read())) {
-//            for (int i = 0; i < 22; i++) {
-//                tab1.getColumnModel().getColumn(i).setPreferredWidth(tab1.getColumnModel().getColumn(i).getPreferredWidth() + tab1.getColumnModel().getColumn(i).getPreferredWidth() / 3);
-//            }
-//        }
+        if ("Nimbus".equals(eProperty.lookandfeel.read())) {
+            for (int i = 15; i < 22; i++) {
+                tab1.getColumnModel().getColumn(i).setPreferredWidth(tab1.getColumnModel().getColumn(i).getPreferredWidth() + tab1.getColumnModel().getColumn(i).getPreferredWidth() / 3);
+            }
+        }
         cbx1.setRenderer(new DefaultListCellRenderer() {
 
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

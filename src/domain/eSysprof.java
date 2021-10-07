@@ -84,7 +84,7 @@ public enum eSysprof implements Field {
                 + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _type.id + " order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
-   
+
     public static Record find3(int _id) {
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
@@ -92,38 +92,44 @@ public enum eSysprof implements Field {
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
-    
-//    public static Record find4(int nuni, UseArtiklTo _type, UseSide... _side) {
-//        if (nuni == -3) {
-//            return record(_type.id);
-//        }
-//        List<Integer> _side2 = Arrays.asList(_side).stream().map(s -> s.id).collect(Collectors.toList());
-//        if (Query.conf.equals("calc")) {
-//
-//            return query().stream().filter(rec -> rec.getInt(systree_id) == nuni && rec.getInt(use_type) == _type.id
-//                    && _side2.contains(rec.getInt(use_side))).findFirst().orElse(up.newRecord());
-//        }
-//        String str = _side2.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",", "(", ")"));
-//        Query sysprofList = new Query(values()).select(up, "where", systree_id, " = ",
-//                nuni, "and ", use_type, "=", _type.id, "and", use_side, "in", str, "order by", prio);
-//        return (sysprofList.isEmpty() == true) ? up.newRecord() : sysprofList.get(0);
-//    }
-    
-    public static Record find4(int nuni, int typeId, UseSide... _side) {
-        if (nuni == -3) {
-            return record(typeId);
-        }
-        List<Integer> _side2 = Arrays.asList(_side).stream().map(s -> s.id).collect(Collectors.toList());
-        if (Query.conf.equals("calc")) {
 
-            return query().stream().filter(rec -> rec.getInt(systree_id) == nuni && rec.getInt(use_type) == typeId
-                    && _side2.contains(rec.getInt(use_side))).findFirst().orElse(up.newRecord());
+    public static Record find4(int nuni, int id, UseSide us1) {
+        if (nuni == -3) {
+            return record(id);
         }
-        String str = _side2.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",", "(", ")"));
-        Query sysprofList = new Query(values()).select(up, "where", systree_id, " = ",
-                nuni, "and ", use_type, "=", typeId, "and", use_side, "in", str, "order by", prio);
-        return (sysprofList.isEmpty() == true) ? up.newRecord() : sysprofList.get(0);
+        List<Integer> uses = Arrays.asList(us1.id, UseSide.ANY.id);
+        Record record = query().stream().filter(rec -> rec.getInt(systree_id) == nuni && rec.getInt(use_type) == id
+                && UseSide.MANUAL.id != rec.getInt(use_side) && us1.id == rec.getInt(use_side)).findFirst().orElse(null);
+        if (record != null) {
+            return record;
+        }
+        record = query().stream().filter(rec -> rec.getInt(systree_id) == nuni && rec.getInt(use_type) == id
+                && UseSide.MANUAL.id != rec.getInt(use_side) && UseSide.ANY.id == rec.getInt(use_side)).findFirst().orElse(up.record(id));
+        
+        return record;
     }
+
+    public static Record find5(int nuni, int id, UseSide us1, UseSide us2) {
+        if (nuni == -3) {
+            return record(id);
+        }
+        List<Integer> uses = Arrays.asList(us1.id, us2.id, UseSide.ANY.id);
+        Record record = query().stream().filter(rec -> rec.getInt(systree_id) == nuni && rec.getInt(use_type) == id
+                && UseSide.MANUAL.id != rec.getInt(use_side) && us1.id == rec.getInt(use_side)).findFirst().orElse(null);
+        if (record != null) {
+            return record;
+        }
+        record = query().stream().filter(rec -> rec.getInt(systree_id) == nuni && rec.getInt(use_type) == id
+                && UseSide.MANUAL.id != rec.getInt(use_side) && us2.id == rec.getInt(use_side)).findFirst().orElse(null);
+        if (record != null) {
+            return record;
+        }
+        record = query().stream().filter(rec -> rec.getInt(systree_id) == nuni && rec.getInt(use_type) == id
+                && UseSide.MANUAL.id != rec.getInt(use_side) && UseSide.ANY.id == rec.getInt(use_side)).findFirst().orElse(up.record(id));
+        
+        return record;
+    }
+
 
     public static Record record(int typeId) {
 
