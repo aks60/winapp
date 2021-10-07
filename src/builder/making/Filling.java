@@ -112,6 +112,7 @@ public class Filling extends Cal5e {
                         listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
                         Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
                         Specific spcAdd = new Specific(glasdetRec, artiklRec, elemGlass, mapParam);
+                        //System.out.println(spcAdd);
 
                         if (UColor.colorFromProduct(spcAdd, 1)
                                 && UColor.colorFromProduct(spcAdd, 2)

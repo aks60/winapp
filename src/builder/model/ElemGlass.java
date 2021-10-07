@@ -36,21 +36,6 @@ public class ElemGlass extends ElemSimple {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }
     }
-    
-//    public ElemGlass(AreaSimple owner, float id, float length, String param) {
-//
-//        super(id, owner.iwin(), owner);
-//        this.layout = Layout.FULL;
-//        this.type = Type.GLASS;
-//
-//        initСonstructiv(param);
-//
-//        if (Layout.HORIZ == owner.layout) {
-//            setDimension(owner.x1, owner.y1, length, owner.y2);
-//        } else {
-//            setDimension(owner.x1, owner.y1, owner.x2, length);
-//        }
-//    }
 
     public void initСonstructiv(String param) {
 
