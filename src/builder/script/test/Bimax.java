@@ -436,7 +436,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             GsonElem stv = rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA));
-                    stv.addArea(new GsonElem(Layout.VERT, Type.AREA, 600))
+            stv.addArea(new GsonElem(Layout.VERT, Type.AREA, 600))
                     .addElem(new GsonElem(Type.GLASS));
             stv.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1500))
