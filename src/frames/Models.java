@@ -464,7 +464,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        west.setPreferredSize(new java.awt.Dimension(200, 560));
+        west.setPreferredSize(new java.awt.Dimension(300, 560));
         west.setLayout(new java.awt.CardLayout());
 
         pan13.setName(""); // NOI18N
@@ -507,11 +507,10 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setResizable(false);
             tab1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab1.getColumnModel().getColumn(2).setResizable(false);
+            tab1.getColumnModel().getColumn(0).setMaxWidth(20);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(68);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
         pan16.add(scr1, java.awt.BorderLayout.CENTER);
@@ -565,11 +564,10 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setResizable(false);
             tab2.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(2).setResizable(false);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(20);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(68);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
         pan25.add(scr2, java.awt.BorderLayout.CENTER);
@@ -623,11 +621,10 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
-            tab3.getColumnModel().getColumn(0).setResizable(false);
             tab3.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab3.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab3.getColumnModel().getColumn(2).setResizable(false);
+            tab3.getColumnModel().getColumn(0).setMaxWidth(20);
             tab3.getColumnModel().getColumn(2).setPreferredWidth(68);
+            tab3.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
         pan26.add(scr3, java.awt.BorderLayout.CENTER);
@@ -677,11 +674,10 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(0).setResizable(false);
             tab4.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab4.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab4.getColumnModel().getColumn(2).setResizable(false);
+            tab4.getColumnModel().getColumn(0).setMaxWidth(20);
             tab4.getColumnModel().getColumn(2).setPreferredWidth(68);
+            tab4.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
         pan18.add(scr4, java.awt.BorderLayout.CENTER);
@@ -732,7 +728,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
                 .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -754,7 +750,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 501, Short.MAX_VALUE)
+            .addGap(0, 401, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

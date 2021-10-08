@@ -91,20 +91,19 @@ public enum eSysprof implements Field {
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
-    }
+    }  
 
     public static Record find4(int nuni, int id, UseSide us1) {
         if (nuni == -3) {
             return record(id);
         }
-        List<Integer> uses = Arrays.asList(us1.id, UseSide.ANY.id);
         Record record = query().stream().filter(rec -> rec.getInt(systree_id) == nuni && rec.getInt(use_type) == id
                 && UseSide.MANUAL.id != rec.getInt(use_side) && us1.id == rec.getInt(use_side)).findFirst().orElse(null);
         if (record != null) {
             return record;
         }
         record = query().stream().filter(rec -> rec.getInt(systree_id) == nuni && rec.getInt(use_type) == id
-                && UseSide.MANUAL.id != rec.getInt(use_side) && UseSide.ANY.id == rec.getInt(use_side)).findFirst().orElse(up.record(id));
+                && UseSide.MANUAL.id != rec.getInt(use_side) && UseSide.ANY.id == rec.getInt(use_side)).findFirst().orElse(up.newRecord());
         
         return record;
     }
@@ -113,7 +112,6 @@ public enum eSysprof implements Field {
         if (nuni == -3) {
             return record(id);
         }
-        List<Integer> uses = Arrays.asList(us1.id, us2.id, UseSide.ANY.id);
         Record record = query().stream().filter(rec -> rec.getInt(systree_id) == nuni && rec.getInt(use_type) == id
                 && UseSide.MANUAL.id != rec.getInt(use_side) && us1.id == rec.getInt(use_side)).findFirst().orElse(null);
         if (record != null) {
