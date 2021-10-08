@@ -6,6 +6,8 @@ import builder.Wincalc;
 import enums.Form;
 import enums.Layout;
 import enums.Type;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public abstract class ElemSimple extends Com5t {
@@ -41,28 +43,28 @@ public abstract class ElemSimple extends Com5t {
     //Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка прилегающего вектора)
     //В этих точках лежат мапы соединений см. Wincalc.mapJoin
     public String joinPoint(int side) {
-        
+
         if (owner.type() == Type.ARCH && layout() == Layout.TOP && iwin().form == Form.NUM3) {
-            return (side == 0) ? x2 + ":" + (iwin().height - iwin().heightAdd) : x1 + ":" + (iwin().height - iwin().heightAdd);        
-        
+            return (side == 0) ? x2 + ":" + (iwin().height - iwin().heightAdd) : x1 + ":" + (iwin().height - iwin().heightAdd);
+
         } else if (owner.type() == Type.TRAPEZE && layout() == Layout.TOP && iwin().form == Form.NUM2) {
             return (side == 0) ? x2 + ":" + (iwin().height - iwin().heightAdd) : x1 + ":" + y1;
-            
+
         } else if (owner.type() == Type.TRAPEZE && layout() == Layout.TOP && iwin().form == Form.NUM4) {
             return (side == 0) ? x2 + ":" + y1 : x1 + ":" + (iwin().height - iwin().heightAdd);
-        
+
         } else if (layout() == Layout.BOTT) {
             return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y2; //точки левого и правого нижнего углового и прилегающего соед.
-        
+
         } else if (layout() == Layout.RIGHT) {
             return (side == 0) ? x2 + ":" + y2 : (side == 1) ? x2 + ":" + y1 : x2 + ":" + y1 + (y2 - y1) / 2; //точки нижнего и верхнего правого углового и прилегающего соед.
-        
+
         } else if (layout() == Layout.TOP) {
             return (side == 0) ? x2 + ":" + y1 : (side == 1) ? x1 + ":" + y1 : x1 + (x2 - x1) / 2 + ":" + y2; //точки правого и левого верхнего углового и прилегающего соед.
-        
+
         } else if (layout() == Layout.LEFT) {
             return (side == 0) ? x1 + ":" + y1 : (side == 1) ? x1 + ":" + y2 : x1 + ":" + y1 + (y2 - y1) / 2; //точки верхнего и нижнего левого углового и прилегающего соед.
-        
+
             //импост, штульп...    
         } else if (layout() == Layout.VERT) { //вектор всегда снизу вверх
             return (side == 0) ? x1 + (x2 - x1) / 2 + ":" + y2 : (side == 1) ? x1 + (x2 - x1) / 2 + ":" + y1 : "0:0"; //точки нижнего и верхнего Т-обр и прилегающего соед.
@@ -76,6 +78,7 @@ public abstract class ElemSimple extends Com5t {
     //Прилегающие соединения. Используется при построении конструкции, когда соединения ещё не определены  
     public ElemSimple joinFlat(Layout layoutSide) {
         LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
+        //Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id, b.id))); 
         if (Layout.BOTT == layoutSide) {
             float Y2 = (y2 > y1) ? y2 : y1;
             return listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, Y2) == true).findFirst().orElse(null);

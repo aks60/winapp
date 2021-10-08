@@ -60,7 +60,7 @@ public class Filling extends Cal5e {
                 } else {
                     elemFrameList = Arrays.asList(elemGlass.joinFlat(Layout.BOTT), elemGlass.joinFlat(Layout.RIGHT), elemGlass.joinFlat(Layout.TOP), elemGlass.joinFlat(Layout.LEFT));
                 }
- 
+
                 //Цикл по сторонам стеклопакета
                 for (int side = 0; side < 4; ++side) {
                     ElemSimple elemFrame = elemFrameList.get(side);
