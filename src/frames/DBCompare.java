@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -54,6 +55,8 @@ public class DBCompare extends javax.swing.JFrame {
         }
     }
     private Connection cn = null;
+    private DatabaseMetaData mdb = null;
+    ResultSet rsm = null;
     private Graphics2D gc2d = null;
     private DecimalFormat df1 = new DecimalFormat("#0.0");
     private DecimalFormat df2 = new DecimalFormat("#0.00");
@@ -125,6 +128,8 @@ public class DBCompare extends javax.swing.JFrame {
 
     public void loadingData() {
         try {
+            mdb = cn.getMetaData();
+            rsm = mdb.getTables(null, null, null, new String[]{"TABLE"});
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = st.executeQuery("select CNUMB, CNAME from COLSLST");
             while (rs.next()) {
@@ -194,7 +199,7 @@ public class DBCompare extends javax.swing.JFrame {
                 ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
             }
             rs.close();
-            lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = " + punic + "  Заказ: onumb = " 
+            lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = " + punic + "  Заказ: onumb = "
                     + iwin.rootGson.ord + "   Стоим.без.ск = " + UGui.df.format(sum1) + "   Стоим.со.ск = " + UGui.df.format(sum2));
 
             //=== Таблица 2 ===
@@ -249,24 +254,24 @@ public class DBCompare extends javax.swing.JFrame {
             rs.close();
 
             //=== Таблица 5 ===
-            ((DefaultTableModel) tab5.getModel()).getDataVector().clear();
-            rs = st.executeQuery("select b.anumb, c.anumb, a.typ, d.anum1, d.anum2, d.cname, e.cname from SAVECON a"
-                    + " left join SAVEELM b on a.punic = b.punic and a.onumb = b.onumb and a.ne1 = b.nel left join SAVEELM c on a.punic = c.punic and a.onumb = c.onumb and a.ne2 = c.nel"
-                    + " left join connlst d on a.ncon = d.cconn left join connvar e on a.nvar = e.cunic"
-                    + " where a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord + " order by a.typ, d.cname");
-            while (rs.next()) {
-                Vector vectorRec = new Vector();
-                vectorRec.add(++npp);
-                vectorRec.add(rs.getObject(1));
-                vectorRec.add(rs.getObject(2));
-                vectorRec.add(rs.getObject(3));
-                vectorRec.add(rs.getObject(4));
-                vectorRec.add(rs.getObject(5));
-                vectorRec.add(rs.getObject(6));
-                vectorRec.add(rs.getObject(7));
-                ((DefaultTableModel) tab5.getModel()).getDataVector().add(vectorRec);
-            }
-            rs.close();
+//            ((DefaultTableModel) tab5.getModel()).getDataVector().clear();
+//            rs = st.executeQuery("select b.anumb, c.anumb, a.typ, d.anum1, d.anum2, d.cname, e.cname from SAVECON a"
+//                    + " left join SAVEELM b on a.punic = b.punic and a.onumb = b.onumb and a.ne1 = b.nel left join SAVEELM c on a.punic = c.punic and a.onumb = c.onumb and a.ne2 = c.nel"
+//                    + " left join connlst d on a.ncon = d.cconn left join connvar e on a.nvar = e.cunic"
+//                    + " where a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord + " order by a.typ, d.cname");
+//            while (rs.next()) {
+//                Vector vectorRec = new Vector();
+//                vectorRec.add(++npp);
+//                vectorRec.add(rs.getObject(1));
+//                vectorRec.add(rs.getObject(2));
+//                vectorRec.add(rs.getObject(3));
+//                vectorRec.add(rs.getObject(4));
+//                vectorRec.add(rs.getObject(5));
+//                vectorRec.add(rs.getObject(6));
+//                vectorRec.add(rs.getObject(7));
+//                ((DefaultTableModel) tab5.getModel()).getDataVector().add(vectorRec);
+//            }
+//            rs.close();
 
         } catch (SQLException e) {
             System.err.println("Ошибка: DBCompare.loadingTab().  " + e);
@@ -357,7 +362,7 @@ public class DBCompare extends javax.swing.JFrame {
                         ImageIcon icon = new ImageIcon(img);
                         vectorRec.add(icon);
                         //ImageIO.write(img, "jpg", new File("img.jpg"));
-                       
+
                     } catch (Exception e) {
                         vectorRec.add(null);
                     }

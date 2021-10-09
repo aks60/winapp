@@ -27,7 +27,7 @@ public class Test {
             if (db.toUpperCase().contains("BIMAX.FDB")) {
                 return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\ps4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             } else if (db.toUpperCase().contains("SIAL3.FDB")) {
-                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\ps3\\sial3x.fdb?encoding=win1251", "sysdba", "masterkey");
+                return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\ps3\\sial3b.fdb?encoding=win1251", "sysdba", "masterkey");
             } else if (db.toUpperCase().contains("ALUTECH3.FDB")) {
                 return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\ps3\\alutech3.fdb?encoding=win1251", "sysdba", "masterkey");
             } else if (db.toUpperCase().contains("KRAUSS.FDB")) {
