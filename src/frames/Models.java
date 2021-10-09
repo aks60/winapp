@@ -372,6 +372,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         buttonGroup.add(btnT1);
         btnT1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c003.gif"))); // NOI18N
         btnT1.setSelected(true);
+        btnT1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnT1.setMaximumSize(new java.awt.Dimension(25, 25));
         btnT1.setMinimumSize(new java.awt.Dimension(25, 25));
         btnT1.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -383,6 +384,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
         buttonGroup.add(btnT2);
         btnT2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c004.gif"))); // NOI18N
+        btnT2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnT2.setMaximumSize(new java.awt.Dimension(25, 25));
         btnT2.setMinimumSize(new java.awt.Dimension(25, 25));
         btnT2.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -394,6 +396,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
         buttonGroup.add(btnT3);
         btnT3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c005.gif"))); // NOI18N
+        btnT3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnT3.setMaximumSize(new java.awt.Dimension(25, 25));
         btnT3.setMinimumSize(new java.awt.Dimension(25, 25));
         btnT3.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -405,6 +408,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 
         buttonGroup.add(btnT4);
         btnT4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c079.gif"))); // NOI18N
+        btnT4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnT4.setMaximumSize(new java.awt.Dimension(25, 25));
         btnT4.setMinimumSize(new java.awt.Dimension(25, 25));
         btnT4.setPreferredSize(new java.awt.Dimension(25, 25));

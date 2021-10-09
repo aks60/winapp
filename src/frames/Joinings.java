@@ -48,6 +48,7 @@ import frames.swing.listener.ListenerObject;
 import frames.swing.listener.ListenerFrame;
 
 //варианты соединений
+//TODO Сделать аналог соединений.
 public class Joinings extends javax.swing.JFrame {
 
     private Query qGroups = new Query(eGroups.values());

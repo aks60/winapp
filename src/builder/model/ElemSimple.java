@@ -91,7 +91,7 @@ public abstract class ElemSimple extends Com5t {
         } else if (Layout.RIGHT == layoutSide) {
             return listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x2, y1 + (y2 - y1) / 2)).findFirst().orElse(null);
         } else {
-            throw new IllegalArgumentException("Ошибка:ElemSimple.joinFlat() Придегающий элемент не обнаружен!");
+            throw new IllegalArgumentException("Неудача:ElemSimple.joinFlat() Придегающий элемент не обнаружен!");
         }
     }
 
