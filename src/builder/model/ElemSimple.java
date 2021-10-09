@@ -76,29 +76,23 @@ public abstract class ElemSimple extends Com5t {
         return null;
     }
 
-    //Прилегающее соединения. Используется при построении конструкции, когда соединения ещё не определены  
+    //Прилегающее соединения. Используется при построении конструкции, когда соединения ещё не определены 
     public ElemSimple joinFlat(Layout layoutSide) {
         LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
-        List<ElemSimple> elem5e = null;
-        //Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id, b.id)));
-
+        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id, b.id)));
         if (Layout.BOTT == layoutSide) {
             float Y2 = (y2 > y1) ? y2 : y1;
-            elem5e = listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, Y2) == true).collect(toList());
+            return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y2) == true).findFirst().orElse(null);
         } else if (Layout.LEFT == layoutSide) {
-            elem5e = listElem.stream().filter(el -> el != this && el.inside(x1, y1 + (y2 - y1) / 2) == true).collect(toList());
+            return listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
         } else if (Layout.TOP == layoutSide) {
             float Y1 = (y2 > y1) ? y1 : y2;
-            elem5e = listElem.stream().filter(el -> el != this && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout() == Layout.TOP) == false).collect(toList());
+            return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout() == Layout.TOP) == false).findFirst().orElse(null);
         } else if (Layout.RIGHT == layoutSide) {
-            elem5e = listElem.stream().filter(el -> el != this && el.inside(x2, y1 + (y2 - y1) / 2)).collect(toList());
+            return listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x2, y1 + (y2 - y1) / 2)).findFirst().orElse(null);
+        } else {
+            throw new IllegalArgumentException("Ошибка:ElemSimple.joinFlat() Придегающий элемент не обнаружен!");
         }
-        if (elem5e.size() > 1) {
-            System.out.println("---" + layoutSide);
-            System.out.println(this);
-            System.out.println(elem5e);
-        }
-        return elem5e.get(0);
     }
 
     //Элемент соединения 0-пред.артикл, 1-след.артикл, 2-прилег. артикл
@@ -119,33 +113,3 @@ public abstract class ElemSimple extends Com5t {
         return super.toString() + ", anglHoriz=" + anglHoriz + ", length=" + length();
     }
 }
-/*
-    public ElemSimple joinFlat2(Layout layoutSide) {
-        LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
-
-        //Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id, b.id)));
-        for (ElemSimple el : listElem) {
-            if (el != this && layoutSide == Layout.BOTT && (el.layout == Layout.BOTT) || el.layout == Layout.HORIZ) {
-                float Y2 = (y2 > y1) ? y2 : y1;
-                if (el.inside(x1 + (x2 - x1) / 2, Y2)) {
-                    return el;
-                }
-            } else if (el != this && layoutSide == Layout.TOP && (el.layout == Layout.TOP) || el.layout == Layout.HORIZ) {
-                float Y1 = (y2 > y1) ? y1 : y2;
-                if (el.inside(x1 + (x2 - x1) / 2, Y1)) {
-                    return el;
-                }
-            } else if (el != this && layoutSide == Layout.RIGHT && (el.layout == Layout.RIGHT) || el.layout == Layout.VERT) {
-                if (el.inside(x2, y1 + (y2 - y1) / 2)) {
-                    return el;
-                }
-            } else if (el != this && layoutSide == Layout.LEFT && (el.layout == Layout.LEFT) || el.layout == Layout.VERT) {
-                if (el.inside(x1, y1 + (y2 - y1) / 2)) {
-                    return el;
-                }
-            }
-        }
-        System.err.println("+++++++++++++++++++++");
-        return null;
-    }
- */
