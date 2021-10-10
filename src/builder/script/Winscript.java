@@ -66,7 +66,7 @@ public class Winscript {
                 : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
 
         if (base_name.toLowerCase().contains("sial3.fdb")) {
-            return "D:\\Okna\\Database\\ps3\\sial3.fdb";
+            return "D:\\Okna\\Database\\ps3\\sial3b.fdb";
 
         } else if (base_name.toLowerCase().contains("alutech3.fdb")) {
             return "D:\\Okna\\Database\\ps3\\alutech3.FDB";

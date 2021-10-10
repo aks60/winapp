@@ -21,19 +21,19 @@ public class AreaRectangl extends AreaSimple {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
                 elemTop = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
         //Угловое соединение правое нижнее
-        ElemJoining joinBot = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
-        iwin.mapJoin.put(elemBott.joinPoint(1), joinBot);
+        ElemJoining joinRBot = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
+        iwin.mapJoin.put(elemBott.joinPoint(1), joinRBot);
 
         //Угловое соединение правое верхнее
-        ElemJoining joinRight = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
-        iwin.mapJoin.put(elemRight.joinPoint(1), joinRight);
+        ElemJoining joinRTop = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
+        iwin.mapJoin.put(elemRight.joinPoint(1), joinRTop);
 
         //Угловое соединение левое верхнее    
-        ElemJoining joinTop = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
-        iwin.mapJoin.put(elemTop.joinPoint(1), joinTop);
+        ElemJoining joinLTop = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
+        iwin.mapJoin.put(elemTop.joinPoint(1), joinLTop);
 
         //Угловое соединение левое нижнее
-        ElemJoining joinLeft = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90);
-        iwin.mapJoin.put(elemLeft.joinPoint(1), joinBot);
+        ElemJoining joinLBot = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
+        iwin.mapJoin.put(elemLeft.joinPoint(1), joinLBot);
     }
 }

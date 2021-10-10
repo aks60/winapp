@@ -58,6 +58,9 @@ public class Joining extends Cal5e {
                 int id1 = (joinartRec1.get(eArtikl.analog_id) == null) ? joinartRec1.getInt(eArtikl.id) : joinartRec1.getInt(eArtikl.analog_id);
                 int id2 = (joinartRec2.get(eArtikl.analog_id) == null) ? joinartRec2.getInt(eArtikl.id) : joinartRec2.getInt(eArtikl.analog_id);
                 Record joiningRec = eJoining.find(id1, id2);
+                if(joiningRec.get(1) == null) {
+                    System.out.println("builder.making.Joining.calc()+++++++++++++");
+                }
 
                 //Список вариантов соединения для артикула1 и артикула2
                 List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
