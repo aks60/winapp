@@ -64,13 +64,14 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            wincalc();
+            //wincalc();
             //param();
             //query();
             //frame();
             //json();
             //parse();
             //uid(); 
+            builder.Wincalc iwin = new builder.Wincalc();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -81,7 +82,7 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(601007, false));

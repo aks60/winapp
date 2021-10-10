@@ -14,15 +14,16 @@ public abstract class Com5t {
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий              
 
-    protected Type type = Type.NONE; //Тип элемента или конструкции  
-    protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
+    public Type type = Type.NONE; //Тип элемента или конструкции  
+    public Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства
     public Record artiklRecAn = null;  //аналог мат. средства    
 
-    protected float id = -1; //идентификатор    
-    protected AreaSimple owner = null; //владелец
-    protected Wincalc iwin = null; //главный класс калькуляции
+    public float id = -1; //идентификатор    
+    public AreaSimple owner = null; //владелец
+    public Wincalc iwin = null; //главный класс калькуляции
+    public AreaSimple root = null; //главный класс конструкции
 
     public float x1 = 0, x2 = 0, y1 = 0, y2 = 0;//координаты area     
     public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
@@ -35,6 +36,7 @@ public abstract class Com5t {
         this.id = id;
         this.owner = owner;
         this.iwin = iwin;
+        this.root = iwin.rootArea;
     }
 
     public float id() {
@@ -43,10 +45,6 @@ public abstract class Com5t {
 
     public AreaSimple owner() {
         return owner;
-    }
-
-    public Wincalc iwin() {
-        return iwin;
     }
 
     public AreaSimple root() {

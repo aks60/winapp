@@ -73,11 +73,11 @@ public class AreaStvorka extends AreaSimple {
         ElemSimple joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
                 joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
 
-        if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
-            x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
-            y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
-            x2 = joinRig.x1 + joinRig.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
-            y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
+        if (iwin.syssizeRec.getInt(eSyssize.id) != -1) {
+            x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
+            y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
+            x2 = joinRig.x1 + joinRig.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+            y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
 
         } else {
             float X1 = (joinLef.type() == Type.IMPOST || joinLef.type() == Type.SHTULP || joinLef.type() == Type.STOIKA) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
@@ -99,7 +99,7 @@ public class AreaStvorka extends AreaSimple {
         if (param(param, PKjson.sysfurnID) != -3) {
             sysfurnRec = eSysfurn.find2(param(param, PKjson.sysfurnID));
         } else {
-            sysfurnRec = eSysfurn.find3(iwin().nuni); //ищем первую в системе
+            sysfurnRec = eSysfurn.find3(iwin.nuni); //ищем первую в системе
         }
         //Ручка
         if (param(param, PKjson.artiklHandl) != -1) {
@@ -115,7 +115,7 @@ public class AreaStvorka extends AreaSimple {
         if (param(param, PKjson.colorHandl) != -1) {
             handleColor = param(param, PKjson.colorHandl);
         } else {
-            handleColor = -3; //iwin().colorID1; //если цвет не установлен подбираю по основной текстуре
+            handleColor = -3; //iwin.colorID1; //если цвет не установлен подбираю по основной текстуре
         }
         //Положение или высота ручки на створке
         if (param(param, PKjson.positionHandl) != -1) {
@@ -175,40 +175,40 @@ public class AreaStvorka extends AreaSimple {
             });
 
             if (index == 0) { //Угловое соединение правое нижнее
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
-                iwin().mapJoin.put(elemBott.joinPoint(1), el);
+                ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
+                iwin.mapJoin.put(elemBott.joinPoint(1), el);
 
             } else if (index == 1) { //Угловое соединение правое верхнее
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
-                iwin().mapJoin.put(elemRight.joinPoint(1), el);
+                ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
+                iwin.mapJoin.put(elemRight.joinPoint(1), el);
 
             } else if (index == 2) { //Угловое соединение левое верхнее
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
-                iwin().mapJoin.put(elemTop.joinPoint(1), el);
+                ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
+                iwin.mapJoin.put(elemTop.joinPoint(1), el);
 
             } else if (index == 3) { //Угловое соединение левое нижнее
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
-                iwin().mapJoin.put(elemLeft.joinPoint(1), el);
+                ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
+                iwin.mapJoin.put(elemLeft.joinPoint(1), el);
             }
         }
 
         LinkedList<ElemSimple> listElem = root().listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
         for (int index = 0; index < 4; index++) {
             if (index == 0) { //Прилегающее нижнее
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR10, LayoutJoin.CBOT, elemBott, elemBott.joinFlat(Layout.BOTT), 0);
-                iwin().mapJoin.put(elemBott.joinPoint(2), el);
+                ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CBOT, elemBott, elemBott.joinFlat(Layout.BOTT), 0);
+                iwin.mapJoin.put(elemBott.joinPoint(2), el);
 
             } else if (index == 1) { //Прилегающее верхнее 
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR10, LayoutJoin.CTOP, elemTop, elemTop.joinFlat(Layout.TOP), 0);
-                iwin().mapJoin.put(elemTop.joinPoint(2), el);
+                ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CTOP, elemTop, elemTop.joinFlat(Layout.TOP), 0);
+                iwin.mapJoin.put(elemTop.joinPoint(2), el);
 
             } else if (index == 2) { //Прилегающее левое
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR10, LayoutJoin.CLEFT, elemLeft, elemLeft.joinFlat(Layout.LEFT), 0);
-                iwin().mapJoin.put(elemLeft.joinPoint(2), el);
+                ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, elemLeft, elemLeft.joinFlat(Layout.LEFT), 0);
+                iwin.mapJoin.put(elemLeft.joinPoint(2), el);
 
             } else if (index == 3) { //Прилегающее правое
-                ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR10, LayoutJoin.CRIGH, elemRight, elemRight.joinFlat(Layout.RIGHT), 0);
-                iwin().mapJoin.put(elemRight.joinPoint(2), el);
+                ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, elemRight, elemRight.joinFlat(Layout.RIGHT), 0);
+                iwin.mapJoin.put(elemRight.joinPoint(2), el);
             }
         }
     }
@@ -246,23 +246,23 @@ public class AreaStvorka extends AreaSimple {
             if (typeOpen.id == 1 || typeOpen.id == 3) {
                 X1 = elemR.x1 + (elemR.x2 - elemR.x1) / 2;
                 Y1 = elemR.y1 + (elemR.y2 - elemR.y1) / 2;
-                Draw.drawLine(iwin(), elemL.x1, elemL.y1, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
-                Draw.drawLine(iwin(), elemL.x1, elemL.y2, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
+                Draw.drawLine(iwin, elemL.x1, elemL.y1, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
+                Draw.drawLine(iwin, elemL.x1, elemL.y2, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
 
             } else if (typeOpen.id == 2 || typeOpen.id == 4) {
                 X1 = elemL.x1 + (elemL.x2 - elemL.x1) / 2;
                 Y1 = elemL.y1 + (elemL.y2 - elemL.y1) / 2;
-                Draw.drawLine(iwin(), elemR.x2, elemR.y1, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
-                Draw.drawLine(iwin(), elemR.x2, elemR.y2, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
+                Draw.drawLine(iwin, elemR.x2, elemR.y1, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
+                Draw.drawLine(iwin, elemR.x2, elemR.y2, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
             }
             if (typeOpen.id == 3 || typeOpen.id == 4) {
-                Draw.drawLine(iwin(), elemB.x1, elemB.y2, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1);
-                Draw.drawLine(iwin(), elemB.x2, elemB.y2, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1);
+                Draw.drawLine(iwin, elemB.x1, elemB.y2, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1);
+                Draw.drawLine(iwin, elemB.x2, elemB.y2, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1);
             }
-            Draw.strokePolygon(iwin(), X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
+            Draw.strokePolygon(iwin, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
             DX = DX - 12;
             Y1 = Y1 + 20;
-            Draw.strokePolygon(iwin(), X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
+            Draw.strokePolygon(iwin, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
         }
     }
 }

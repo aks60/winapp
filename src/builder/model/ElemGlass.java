@@ -24,14 +24,14 @@ public class ElemGlass extends ElemSimple {
 
     public ElemGlass(AreaSimple owner, float id, String param) {
 
-        super(id, owner.iwin(), owner);
+        super(id, owner.iwin, owner);
         this.layout = Layout.FULL;
         this.type = Type.GLASS;
 
         initСonstructiv(param);
 
         if (Type.ARCH == owner.type) {
-            setDimension(0, 0, owner.x2, iwin().height - iwin().heightAdd);
+            setDimension(0, 0, owner.x2, iwin.height - iwin.heightAdd);
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }
@@ -42,7 +42,7 @@ public class ElemGlass extends ElemSimple {
         if (param(param, PKjson.artglasID) != -1) {
             artiklRec = eArtikl.find(param(param, PKjson.artglasID), false);
         } else {
-            Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
+            Record sysreeRec = eSystree.find(iwin.nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
         artiklRecAn = artiklRec;
@@ -76,18 +76,18 @@ public class ElemGlass extends ElemSimple {
 
         } else if (owner().type() == Type.TRAPEZE) {
             ElemSimple insideLeft = root().mapFrame.get(Layout.LEFT), insideTop = root().mapFrame.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = root().mapFrame.get(Layout.RIGHT);
-            if (iwin().form == Form.NUM2) {
+            if (iwin.form == Form.NUM2) {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
-                ElemJoining ej = iwin().mapJoin.get(insideTop.joinPoint(1));
+                ElemJoining ej = iwin.mapJoin.get(insideTop.joinPoint(1));
                 float dy1 = (insideTop.artiklRec.getFloat(eArtikl.height) - (insideTop.artiklRec.getFloat(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
                 float dy2 = (insideLeft.artiklRec.getFloat(eArtikl.height) - (insideLeft.artiklRec.getFloat(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
                 y1 = insideTop.y1 + dy1 + dy2;
                 x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
                 y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
 
-            } else if (iwin().form == Form.NUM4) {
+            } else if (iwin.form == Form.NUM4) {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
-                ElemJoining ej = iwin().mapJoin.get(insideTop.joinPoint(1));
+                ElemJoining ej = iwin.mapJoin.get(insideTop.joinPoint(1));
                 float dy1 = (insideTop.artiklRec.getFloat(eArtikl.height) - (insideTop.artiklRec.getFloat(eArtikl.size_falz) - gzazo)) / UCom.cos(90 - ej.angl);
                 float dy2 = (insideRight.artiklRec.getFloat(eArtikl.height) - (insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo)) * UCom.tan(90 - ej.angl);
                 y2 = insideTop.y2 + dy1 - dy2;
@@ -99,7 +99,7 @@ public class ElemGlass extends ElemSimple {
             AreaStvorka stv = (AreaStvorka) owner();
             ElemSimple insideLeft = stv.mapFrame.get(Layout.LEFT), insideTop = stv.mapFrame.get(Layout.TOP), insideBott = stv.mapFrame.get(Layout.BOTT), insideRight = stv.mapFrame.get(Layout.RIGHT);
 
-            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
+            if (iwin.syssizeRec.getInt(eSyssize.id) == -1) {
                 x1 = insideLeft.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
                 y1 = insideTop.y1 + eGlasprof.find2(insideTop.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
                 x2 = insideRight.x2 - eGlasprof.find2(insideRight.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
@@ -112,7 +112,7 @@ public class ElemGlass extends ElemSimple {
             }
         } else {
             ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
-            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
+            if (iwin.syssizeRec.getInt(eSyssize.id) == -1) {
                 x1 = owner.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
                 y1 = owner.y1 + eGlasprof.find2(insideTop.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
                 x2 = owner.x2 - eGlasprof.find2(insideRight.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
@@ -218,7 +218,7 @@ public class ElemGlass extends ElemSimple {
 
     @Override
     public void paint() { //рисуём стёкла
-        iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
+        iwin.gc2d.setColor(new java.awt.Color(226, 255, 250));
 
         if (owner().type == Type.ARCH) {
             ElemFrame ef = root().mapFrame.get(Layout.TOP);
@@ -226,18 +226,18 @@ public class ElemGlass extends ElemSimple {
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
             double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
-            iwin().gc2d.fillArc((int) ((int) root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
+            iwin.gc2d.fillArc((int) ((int) root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
         } else if (root().type == Type.TRAPEZE && y1 == 0) {
-            if (iwin().form == Form.NUM2) {
-                iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                        new int[]{(int) y1, (int) (root().height() - iwin().heightAdd), (int) y2, (int) y2}, 4);
-            } else if (iwin().form == Form.NUM4) {
-                iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                        new int[]{(int) (root().height() - iwin().heightAdd), (int) y1, (int) y2, (int) y2}, 4);
+            if (iwin.form == Form.NUM2) {
+                iwin.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                        new int[]{(int) y1, (int) (root().height() - iwin.heightAdd), (int) y2, (int) y2}, 4);
+            } else if (iwin.form == Form.NUM4) {
+                iwin.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                        new int[]{(int) (root().height() - iwin.heightAdd), (int) y1, (int) y2, (int) y2}, 4);
             }
         } else {
-            iwin().gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+            iwin.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
         }
     }

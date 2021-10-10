@@ -96,7 +96,7 @@ public class AreaSimple extends Com5t {
                 if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
                     jsonArr.forEach(it -> {
                         Record paramRec = eParams.find(it.getAsInt());
-                        iwin().mapPardef.put(paramRec.getInt(eParams.params_id), paramRec);
+                        iwin.mapPardef.put(paramRec.getInt(eParams.params_id), paramRec);
                     });
                 }
             }
@@ -153,28 +153,28 @@ public class AreaSimple extends Com5t {
                     if (elemImp.owner().layout() == Layout.HORIZ) {
                         //elemImp.anglHoriz = 90;
                         if (elem5e.inside(elemImp.x2, elemImp.y2) == true
-                                && iwin().mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение нижнее                              
-                            ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
-                            iwin().mapJoin.put(elemImp.joinPoint(0), el);
+                                && iwin.mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение нижнее                              
+                            ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
+                            iwin.mapJoin.put(elemImp.joinPoint(0), el);
 
                         } else if (elem5e.inside(elemImp.x1, elemImp.y1) == true
-                                && iwin().mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение верхнее                            
-                            ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
-                            iwin().mapJoin.put(elemImp.joinPoint(1), el);
+                                && iwin.mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение верхнее                            
+                            ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
+                            iwin.mapJoin.put(elemImp.joinPoint(1), el);
                         }
 
                         //Импосты(штульпы...) расположены по вертикали снизу вверх и справо на лево
                     } else {
                         //elemImp.anglHoriz = 270;
                         if (elem5e.inside(elemImp.x1, elemImp.y1) == true
-                                && iwin().mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение левое                             
-                            ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
-                            iwin().mapJoin.put(elemImp.joinPoint(0), el);
+                                && iwin.mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение левое                             
+                            ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
+                            iwin.mapJoin.put(elemImp.joinPoint(0), el);
 
                         } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
-                                && iwin().mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение правое                              
-                            ElemJoining el = new ElemJoining(iwin(), TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
-                            iwin().mapJoin.put(elemImp.joinPoint(1), el);
+                                && iwin.mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение правое                              
+                            ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
+                            iwin.mapJoin.put(elemImp.joinPoint(1), el);
                         }
                     }
                 }
@@ -212,12 +212,12 @@ public class AreaSimple extends Com5t {
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Рисунок в память
-            if (iwin().bufferImg != null) {
+            if (iwin.bufferImg != null) {
                 ByteArrayOutputStream byteArrOutStream = new ByteArrayOutputStream();
-                ImageIO.write(iwin().bufferImg, "png", byteArrOutStream);
+                ImageIO.write(iwin.bufferImg, "png", byteArrOutStream);
                 if (Main.dev == true) {
                     File outputfile = new File("CanvasImage.png");
-                    ImageIO.write(iwin().bufferImg, "png", outputfile);
+                    ImageIO.write(iwin.bufferImg, "png", outputfile);
                 }
             }
         } catch (Exception s) {

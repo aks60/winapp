@@ -334,17 +334,17 @@ public class Paint {
                 case 15:
                     return spc.elem5e.colorID1; //по основе текстуры заполнения                 
                 case 1:
-                    return spc.elem5e.iwin().colorID1; //по основе изделия
+                    return spc.elem5e.iwin.colorID1; //по основе изделия
                 case 2:
-                    return spc.elem5e.iwin().colorID2; //по внутр.изделия
+                    return spc.elem5e.iwin.colorID2; //по внутр.изделия
                 case 3:
-                    return spc.elem5e.iwin().colorID3; //по внешн.изделия
+                    return spc.elem5e.iwin.colorID3; //по внешн.изделия
                 case 6:
-                    return spc.elem5e.iwin().colorID1; //по основе в серии
+                    return spc.elem5e.iwin.colorID1; //по основе в серии
                 case 7:
-                    return spc.elem5e.iwin().colorID2; //по внутр. в серии
+                    return spc.elem5e.iwin.colorID2; //по внутр. в серии
                 case 8:
-                    return spc.elem5e.iwin().colorID3; //по внешн. в серии
+                    return spc.elem5e.iwin.colorID3; //по внешн. в серии
                 default:
                     return -1;
             }

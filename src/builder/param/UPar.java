@@ -24,7 +24,7 @@ class UPar {
     //Толщина внешнего/внутреннего заполнения, мм
     static List<ElemGlass> getGlassDepth(ElemSimple elem5e) {
         ElemSimple glass1 = null, glass2 = null;
-        for (ElemSimple el : elem5e.iwin().listElem) {
+        for (ElemSimple el : elem5e.iwin.listElem) {
             if (el.type() == Type.GLASS) {
                 if (elem5e.layout() == Layout.VERT) {
                     if (el.inside(elem5e.x1 - 200, elem5e.y1 + elem5e.height() / 2)) {

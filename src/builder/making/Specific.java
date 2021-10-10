@@ -58,7 +58,7 @@ public class Specific {
     }
 
     public Specific(Record detailRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
-        this.id = ++elem5e.iwin().genId;
+        this.id = ++elem5e.iwin.genId;
         this.elem5e = elem5e;
         this.mapParam = mapParam;
         this.detailRec = detailRec;
@@ -66,7 +66,7 @@ public class Specific {
     }
 
     public Specific(Specific spec) {
-        this.id = spec.id; //++spec.elem5e.iwin().genId;
+        this.id = spec.id; //++spec.elem5e.iwin.genId;
         this.place = spec.place;
         this.artikl = spec.artikl;
         this.artiklRec = spec.artiklRec;

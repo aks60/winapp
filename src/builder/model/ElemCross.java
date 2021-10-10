@@ -20,11 +20,11 @@ public class ElemCross extends ElemSimple {
 
     public ElemCross(AreaSimple owner, Type type, float id, String param) {
 
-        super(id, owner.iwin(), owner);
+        super(id, owner.iwin, owner);
         this.layout = (owner.layout() == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
-        colorID1 = iwin().colorID1;
-        colorID2 = iwin().colorID2;
-        colorID3 = iwin().colorID3;
+        colorID1 = iwin.colorID1;
+        colorID2 = iwin.colorID2;
+        colorID3 = iwin.colorID3;
         this.type = type;
 
         initСonstructiv(param);
@@ -43,10 +43,10 @@ public class ElemCross extends ElemSimple {
             sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
         } else {
             if (Layout.VERT.equals(owner().layout())) { //сверху вниз
-                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.HORIZ);
+                sysprofRec = eSysprof.find4(iwin.nuni, type.id2, UseSide.HORIZ);
 
             } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
-                sysprofRec = eSysprof.find4(iwin().nuni, type.id2, UseSide.VERT);
+                sysprofRec = eSysprof.find4(iwin.nuni, type.id2, UseSide.VERT);
             }
         }
         spcRec.place = (Layout.HORIZ == owner().layout()) ? Layout.VERT.name : Layout.HORIZ.name;
@@ -88,8 +88,8 @@ public class ElemCross extends ElemSimple {
 
         if (type == Type.IMPOST) {
             //На эскизе заход импоста не показываю, сразу пишу в спецификацию
-            if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
-                float zax = iwin().syssizeRec.getFloat(eSyssize.zax);
+            if (iwin.syssizeRec.getInt(eSyssize.id) != -1) {
+                float zax = iwin.syssizeRec.getFloat(eSyssize.zax);
 
                 if (Layout.HORIZ == owner().layout()) { //слева направо  
                     ElemSimple insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
@@ -167,10 +167,10 @@ public class ElemCross extends ElemSimple {
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
         if (Layout.VERT == owner().layout()) {
-            Draw.strokePolygon(iwin(), x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            Draw.strokePolygon(iwin, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
         } else if (Layout.HORIZ == owner().layout()) {
-            Draw.strokePolygon(iwin(), x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            Draw.strokePolygon(iwin, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
         }
     }
 

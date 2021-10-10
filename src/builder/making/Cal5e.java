@@ -8,10 +8,10 @@ import frames.swing.listener.ListenerCheck;
 
 public abstract class Cal5e {
 
-    protected Wincalc iwin = null;
+    public Wincalc iwin = null;
     public Set listVariants = new HashSet();
-    protected String conf = Query.conf;
-    protected boolean shortPass = false;    
+    public String conf = Query.conf;
+    public boolean shortPass = false;    
 
     public Cal5e(Wincalc iwin) {
         this.iwin = iwin;
@@ -21,10 +21,6 @@ public abstract class Cal5e {
         conf = Query.conf;
         Query.conf = "calc";
         listVariants.clear();
-    }
-
-    public Wincalc iwin() {
-        return iwin;
     }
 
     public AreaSimple rootArea() {
