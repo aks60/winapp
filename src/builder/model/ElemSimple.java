@@ -79,7 +79,7 @@ public abstract class ElemSimple extends Com5t {
     //Прилегающее соединения. Используется при построении конструкции, когда соединения ещё не определены 
     public ElemSimple joinFlat(Layout layoutSide) {
         LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
-        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id, b.id)));
+        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
         if (Layout.BOTT == layoutSide) {
             float Y2 = (y2 > y1) ? y2 : y1;
             return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y2) == true).findFirst().orElse(null);

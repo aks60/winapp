@@ -14,13 +14,13 @@ public abstract class Com5t {
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий              
 
+    private float id = -1; //идентификатор 
     public Type type = Type.NONE; //Тип элемента или конструкции  
     public Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства
     public Record artiklRecAn = null;  //аналог мат. средства    
 
-    public float id = -1; //идентификатор    
     public AreaSimple owner = null; //владелец
     public Wincalc iwin = null; //главный класс калькуляции
     public AreaSimple root = null; //главный класс конструкции
