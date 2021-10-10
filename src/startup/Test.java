@@ -64,14 +64,13 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            wincalc();
+            //wincalc();
             //param();
             //query();
-            //frame();
+            frame();
             //json();
             //parse();
             //uid(); 
-            builder.Wincalc iwin = new builder.Wincalc();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);

@@ -9,11 +9,14 @@ import enums.Layout;
 import frames.swing.listener.ListenerObject;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
+import javax.swing.Timer;
 
 public class Scene extends javax.swing.JPanel {
 
@@ -28,10 +31,14 @@ public class Scene extends javax.swing.JPanel {
 
     private float areaId = 0;
     private int sizeArea = 1350;
+    private Timer timerHor = new Timer(200, (ev) -> btn3Action(null));
+    private Timer timerVert = new Timer(300, (ev) -> System.out.println("timerVert"));
 
     public Scene(Canvas canvas, ListenerObject listenerGson) {
         initComponents();
         initElements();
+        this.timerHor.setInitialDelay(1000);
+        this.timerVert.setInitialDelay(1000);
         this.canvas = canvas;
         this.listenerGson = listenerGson;
         add(canvas, java.awt.BorderLayout.CENTER);
@@ -177,6 +184,14 @@ public class Scene extends javax.swing.JPanel {
         btn2.setMaximumSize(new java.awt.Dimension(16, 16));
         btn2.setMinimumSize(new java.awt.Dimension(16, 16));
         btn2.setPreferredSize(new java.awt.Dimension(16, 16));
+        btn2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMouseReleased(evt);
+            }
+        });
         btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn2Action(evt);
@@ -191,6 +206,14 @@ public class Scene extends javax.swing.JPanel {
         btn3.setMaximumSize(new java.awt.Dimension(16, 16));
         btn3.setMinimumSize(new java.awt.Dimension(16, 16));
         btn3.setPreferredSize(new java.awt.Dimension(16, 16));
+        btn3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMouseReleased(evt);
+            }
+        });
         btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn3Action(evt);
@@ -217,6 +240,14 @@ public class Scene extends javax.swing.JPanel {
         btn1.setMaximumSize(new java.awt.Dimension(16, 16));
         btn1.setMinimumSize(new java.awt.Dimension(16, 16));
         btn1.setPreferredSize(new java.awt.Dimension(16, 16));
+        btn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnMouseReleased(evt);
+            }
+        });
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn1Action(evt);
@@ -370,10 +401,31 @@ public class Scene extends javax.swing.JPanel {
     }//GEN-LAST:event_btn3Action
 
     private void btn4Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4Action
-            iwin.rootGson.resizWin(lineHoriz, Layout.HORIZ);
-            iwin.rootGson.resizWin(lineVert, Layout.VERT);
-            listenerGson.action(null);
+        iwin.rootGson.resizWin(lineHoriz, Layout.HORIZ);
+        iwin.rootGson.resizWin(lineVert, Layout.VERT);
+        listenerGson.action(null);
     }//GEN-LAST:event_btn4Action
+
+    private void btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMousePressed
+        if (evt.getSource() == btn1) {
+            timerVert.start();
+
+        } else if (evt.getSource() == btn3) {
+            timerHor.start();
+
+        } else if (evt.getSource() == btn2) {
+            if (directionScaling(lineHoriz) != 0) {
+                timerHor.start();
+            } else if (directionScaling(lineVert) != 0) {
+                timerVert.start();
+            }
+        }
+    }//GEN-LAST:event_btnMousePressed
+
+    private void btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMouseReleased
+        timerHor.stop();
+        timerVert.stop();
+    }//GEN-LAST:event_btnMouseReleased
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
