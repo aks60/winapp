@@ -330,7 +330,7 @@ public class Profstroy {
                         try {  //Если была ошибка в пакете выполняю отдельные sql insert
                             st2.executeUpdate(sql);
                         } catch (SQLException e) {
-                            println(Color.RED, "SCRIPT-INSERT:  " + e);
+                            println(Color.RED, "SCRIPT-INSERT:  " + sql + " => " + e);
                         }
                     }
                 }

@@ -40,7 +40,7 @@ public class Winscript {
                 : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
 
         if (base_name.toLowerCase().contains("sial3.fdb")) {
-            return Arrays.asList(601001, 601002, 601003, 601004);
+            return Arrays.asList(601001, 601002, 601003, 601004, 601007);
 
         } else if (base_name.toLowerCase().contains("alutech3.fdb")) {
             return Arrays.asList(601001, 601002, 601003, 601004);
