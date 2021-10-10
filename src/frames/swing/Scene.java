@@ -31,7 +31,13 @@ public class Scene extends javax.swing.JPanel {
 
     private float areaId = 0;
     private int sizeArea = 1350;
-    private Timer timerHor = new Timer(200, (ev) -> btn3Action(null));
+    private Timer timerHor = new Timer(200, new ActionListener() {
+
+        public int m = 0;
+        public void actionPerformed(ActionEvent ev) {
+            System.out.println("timerHor");
+        }
+    });
     private Timer timerVert = new Timer(300, (ev) -> System.out.println("timerVert"));
 
     public Scene(Canvas canvas, ListenerObject listenerGson) {
