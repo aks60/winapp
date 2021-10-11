@@ -112,17 +112,17 @@ public final class Sial3 {
             rootGson.addElem(new GsonElem(Type.IMPOST));
 
         } else if (prj == 601007) { // Двери
-            rootGson = new GsonRoot(prj, 2, 4, "SIAL\\КП-40\\Распашные двери\\Дверь 1 ств. КП40 в проём с порогом",
+            rootGson = new GsonRoot(prj, 1, 5, "SIAL\\КП-45\\Распашные двери\\Дверь 1 ств в перегородку через КП4594",
                     Layout.VERT, Type.DOOR, 900, 2100, 24, 24, 24);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             GsonElem stv = rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA));
-            stv.addArea(new GsonElem(Layout.VERT, Type.AREA, 1300))
+            stv.addArea(new GsonElem(Layout.VERT, Type.AREA, 1200))
                     .addElem(new GsonElem(Type.GLASS));
             stv.addElem(new GsonElem(Type.IMPOST))
-                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 800))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 900))
                     .addElem(new GsonElem(Type.GLASS));
         } else {
             return null;
