@@ -83,6 +83,7 @@ public class Scene extends javax.swing.JPanel {
         if (iwin != null) {
             Graphics2D g = (Graphics2D) gc;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
+            float sum = 0;
             int x = 20;
             for (GsonScale elem : lineHoriz) {
                 int dx = (int) (elem.width() * iwin.scale);
@@ -93,11 +94,13 @@ public class Scene extends javax.swing.JPanel {
                 x = x + dx;
             }
             g.setColor(GsonScale.BLACK);
-            g.drawLine(20, 10, 20, 18);
-
+            g.drawLine(20, 10, 20, 18);                        
+            txt1.setText(df1.format(iwin.rootGson.width()));
+            
         } else {
             gc.setColor(getBackground());
             gc.fillRect(0, 0, pan1.getWidth(), pan1.getHeight());
+            txt1.setText("");
         }
     }
 
@@ -118,10 +121,14 @@ public class Scene extends javax.swing.JPanel {
             }
             g.setColor(GsonScale.BLACK);
             g.drawLine(0, 2, 8, 2);
+            txt2.setText(df1.format(iwin.rootGson.height()));
+            txt3.setText(df1.format(iwin.rootGson.heightAdd));
 
         } else {
             gc.setColor(getBackground());
             gc.fillRect(0, 0, pan4.getWidth(), pan4.getHeight());
+            txt2.setText("");
+            txt3.setText("");            
         }
     }
 
@@ -172,6 +179,15 @@ public class Scene extends javax.swing.JPanel {
         pan3 = new javax.swing.JPanel();
         btn1 = new javax.swing.JButton();
         btn4 = new javax.swing.JButton();
+        pan5 = new javax.swing.JPanel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(18, 0), new java.awt.Dimension(18, 0), new java.awt.Dimension(8, 32767));
+        lab1 = new javax.swing.JLabel();
+        txt1 = new javax.swing.JTextField();
+        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 32767));
+        lab2 = new javax.swing.JLabel();
+        txt2 = new javax.swing.JTextField();
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(2, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(32767, 0));
+        txt3 = new javax.swing.JTextField();
         pan4 = new javax.swing.JPanel(){
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -282,6 +298,39 @@ public class Scene extends javax.swing.JPanel {
             }
         });
         pan3.add(btn4, java.awt.BorderLayout.EAST);
+
+        pan5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+        pan5.add(filler2);
+
+        lab1.setFont(frames.UGui.getFont(0,0));
+        lab1.setText("Ширина");
+        pan5.add(lab1);
+
+        txt1.setText("0");
+        txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt1.setMinimumSize(new java.awt.Dimension(5, 16));
+        txt1.setPreferredSize(new java.awt.Dimension(40, 16));
+        pan5.add(txt1);
+        pan5.add(filler5);
+
+        lab2.setFont(frames.UGui.getFont(0,0));
+        lab2.setText("Высота");
+        pan5.add(lab2);
+
+        txt2.setText("0");
+        txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt2.setMinimumSize(new java.awt.Dimension(5, 16));
+        txt2.setPreferredSize(new java.awt.Dimension(40, 16));
+        pan5.add(txt2);
+        pan5.add(filler4);
+
+        txt3.setText("0");
+        txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt3.setMinimumSize(new java.awt.Dimension(5, 16));
+        txt3.setPreferredSize(new java.awt.Dimension(40, 16));
+        pan5.add(txt3);
+
+        pan3.add(pan5, java.awt.BorderLayout.CENTER);
 
         add(pan3, java.awt.BorderLayout.NORTH);
 
@@ -434,10 +483,19 @@ public class Scene extends javax.swing.JPanel {
     private javax.swing.JButton btn2;
     private javax.swing.JButton btn3;
     private javax.swing.JButton btn4;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler4;
+    private javax.swing.Box.Filler filler5;
+    private javax.swing.JLabel lab1;
+    private javax.swing.JLabel lab2;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
+    private javax.swing.JPanel pan5;
+    private javax.swing.JTextField txt1;
+    private javax.swing.JTextField txt2;
+    private javax.swing.JTextField txt3;
     // End of variables declaration//GEN-END:variables
     // </editor-fold> 
 

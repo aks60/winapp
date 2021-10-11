@@ -48,7 +48,7 @@ public class GsonElem {
         this.id = ++genId;
         this.layout = layout;
         this.type = type;
-        this.length = length; //длина стороны, сторона зависит от направлени расположения area
+        this.length = length; //длина стороны, сторона зависит от направления расположения area
     }
 
     //Конструктор створки
@@ -121,13 +121,13 @@ public class GsonElem {
             if (x != 0 && x < 0) {
                 el.length -= x;
                 dx += x;
-            } else {           
+            } else {
                 el.length -= x;
                 dx += x;
             }
             el.owner.resizUp(layout);
         }
-        if(e2 != null) {
+        if (e2 != null) {
             e2.length += dx - 1;
             e2.owner.resizUp(layout);
         }
@@ -145,9 +145,14 @@ public class GsonElem {
         if (_layout == Layout.HORIZ) {
             for (GsonScale gsonScale : _list) {
                 GsonElem elem = gsonScale.gsonElem();
-                float k = elem.length / changeSum;
-                elem.length = elem.length + _diff * k;
-                elem.owner.resizUp(_layout);
+                if (elem.length != null) {
+                    float k = elem.length / changeSum;
+                    elem.length = elem.length + _diff * k;
+                    elem.owner.resizUp(_layout);
+                    
+                } else {
+                    root.resizUp(_layout);
+                }
             }
             root.width = root.width + _diff;
 
@@ -155,9 +160,13 @@ public class GsonElem {
         } else if (_layout == Layout.VERT) {
             for (GsonScale gsonScale : _list) {
                 GsonElem elem = gsonScale.gsonElem();
-                float k = elem.length / changeSum;
-                elem.length = elem.length + _diff * k;
-                elem.owner.resizUp(_layout);
+                if (elem.length != null) {
+                    float k = elem.length / changeSum;
+                    elem.length = elem.length + _diff * k;
+                    elem.owner.resizUp(_layout);
+                } else {
+                    root.resizUp(_layout);
+                }
             }
             root.heightAdd = ((root.height + _diff) / root.height) * root.heightAdd;
             root.height = root.height + _diff;
