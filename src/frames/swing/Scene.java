@@ -1,7 +1,6 @@
 package frames.swing;
 
 import builder.Wincalc;
-import builder.script.GsonElem;
 import builder.script.GsonScale;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
+import javax.swing.JButton;
 import javax.swing.Timer;
 
 public class Scene extends javax.swing.JPanel {
@@ -28,23 +28,31 @@ public class Scene extends javax.swing.JPanel {
 
     public List<GsonScale> lineHoriz = null;
     public List<GsonScale> lineVert = null;
+    private Timer timer = new Timer(160, new ActionListener() {
 
-    private float areaId = 0;
-    private int sizeArea = 1350;
-    private Timer timerHor = new Timer(200, new ActionListener() {
+        public JButton btn = null;
 
-        public int m = 0;
-        public void actionPerformed(ActionEvent ev) {
-            System.out.println("timerHor");
+        public void actionPerformed(ActionEvent evt) {
+
+            if (evt.getSource() instanceof JButton) {
+                btn = (JButton) evt.getSource();
+                timer.start();
+            } else {
+                if (btn == btn1) {
+                    btn1Action(evt);
+                } else if (btn == btn2) {
+                    btn2Action(evt);
+                } else if (btn == btn3) {
+                    btn3Action(evt);
+                }
+            }
         }
     });
-    private Timer timerVert = new Timer(300, (ev) -> System.out.println("timerVert"));
 
     public Scene(Canvas canvas, ListenerObject listenerGson) {
         initComponents();
         initElements();
-        this.timerHor.setInitialDelay(1000);
-        this.timerVert.setInitialDelay(1000);
+        this.timer.setInitialDelay(1000);
         this.canvas = canvas;
         this.listenerGson = listenerGson;
         add(canvas, java.awt.BorderLayout.CENTER);
@@ -413,24 +421,11 @@ public class Scene extends javax.swing.JPanel {
     }//GEN-LAST:event_btn4Action
 
     private void btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMousePressed
-        if (evt.getSource() == btn1) {
-            timerVert.start();
-
-        } else if (evt.getSource() == btn3) {
-            timerHor.start();
-
-        } else if (evt.getSource() == btn2) {
-            if (directionScaling(lineHoriz) != 0) {
-                timerHor.start();
-            } else if (directionScaling(lineVert) != 0) {
-                timerVert.start();
-            }
-        }
+        timer.getActionListeners()[0].actionPerformed(new ActionEvent(evt.getSource(), evt.getID(), null));
     }//GEN-LAST:event_btnMousePressed
 
     private void btnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMouseReleased
-        timerHor.stop();
-        timerVert.stop();
+        timer.stop();
     }//GEN-LAST:event_btnMouseReleased
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -447,5 +442,6 @@ public class Scene extends javax.swing.JPanel {
     // </editor-fold> 
 
     private void initElements() {
+        //timerHor.addActionListener(btnMouseReleased);        
     }
 }
