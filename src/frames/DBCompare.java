@@ -272,7 +272,20 @@ public class DBCompare extends javax.swing.JFrame {
 //                ((DefaultTableModel) tab5.getModel()).getDataVector().add(vectorRec);
 //            }
 //            rs.close();
-
+             
+            //=== Таблица 7 ===
+            ((DefaultTableModel) tab7.getModel()).getDataVector().clear();
+            rs = st.executeQuery("select c.pname, b.pname from savefup a "
+                    + " left join parlist b on a.pnumb = b.pnumb and a.znumb = b.znumb"
+                    + " left join parlist c on a.pnumb = c.pnumb and c.znumb = 0 "
+                    + " where a.nel = 8 and a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord);
+            while (rs.next()) {
+                Vector vectorRec = new Vector();
+                vectorRec.add(rs.getObject(1));
+                vectorRec.add(rs.getObject(2));
+                ((DefaultTableModel) tab7.getModel()).getDataVector().add(vectorRec);
+            }
+            rs.close();
         } catch (SQLException e) {
             System.err.println("Ошибка: DBCompare.loadingTab().  " + e);
         }
@@ -600,8 +613,11 @@ public class DBCompare extends javax.swing.JFrame {
         scr = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
         pan3 = new javax.swing.JPanel();
+        pan12 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        scr7 = new javax.swing.JScrollPane();
+        tab7 = new javax.swing.JTable();
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -760,7 +776,9 @@ public class DBCompare extends javax.swing.JFrame {
 
         pan3.setLayout(new javax.swing.BoxLayout(pan3, javax.swing.BoxLayout.PAGE_AXIS));
 
-        scr2.setPreferredSize(new java.awt.Dimension(454, 200));
+        pan12.setLayout(new javax.swing.BoxLayout(pan12, javax.swing.BoxLayout.LINE_AXIS));
+
+        scr2.setPreferredSize(new java.awt.Dimension(454, 400));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -774,7 +792,27 @@ public class DBCompare extends javax.swing.JFrame {
         tab2.setFillsViewportHeight(true);
         scr2.setViewportView(tab2);
 
-        pan3.add(scr2);
+        pan12.add(scr2);
+
+        tab7.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Имя параметра", "Значение параметра"
+            }
+        ));
+        tab7.setFillsViewportHeight(true);
+        scr7.setViewportView(tab7);
+
+        pan12.add(scr7);
+
+        pan3.add(pan12);
+
+        scr5.setPreferredSize(new java.awt.Dimension(454, 204));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -941,7 +979,7 @@ public class DBCompare extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(labFurn, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addComponent(labFurn, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1047,6 +1085,7 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan11;
+    private javax.swing.JPanel pan12;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
@@ -1061,6 +1100,7 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
     private javax.swing.JScrollPane scr6;
+    private javax.swing.JScrollPane scr7;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
@@ -1068,6 +1108,7 @@ public class DBCompare extends javax.swing.JFrame {
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
     private javax.swing.JTable tab6;
+    private javax.swing.JTable tab7;
     private javax.swing.JTabbedPane tabb;
     private javax.swing.JTextField txt19;
     private javax.swing.JTextField txt20;
