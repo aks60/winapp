@@ -9,6 +9,7 @@ import enums.TypeArtikl;
 import builder.making.Specific;
 import domain.eSyssize;
 import common.UCom;
+import enums.Form;
 import enums.PKjson;
 import enums.Type;
 import frames.swing.Draw;
@@ -33,6 +34,15 @@ public class ElemCross extends ElemSimple {
         if (Type.ARCH == owner.type && owner.listChild.size() == 1) {
             AreaSimple prevArea = (AreaSimple) owner.listChild.get(0);
             prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.height) / 2);
+            
+        } else if (Type.TRAPEZE == owner.type && owner.listChild.size() == 1) {
+            AreaSimple prevArea = (AreaSimple) owner.listChild.get(0);
+            float dy = 0;
+            if(iwin.form == Form.NUM2) {
+               float angl = root.mapFrame.get(Layout.RIGHT).anglCut[1];
+               dy = (float) (root.mapFrame.get(Layout.RIGHT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
+            }
+            prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.size_centr) + dy);
         }
         setLocation();
     }

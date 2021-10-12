@@ -76,7 +76,7 @@ public class Joining extends Cal5e {
                 for (Record joinvarRec : joinvarList) {
 
                     //Если варианты соединения совпали
-                    //if (elemJoin.layout.equalType(joinvarRec.getInt(eJoinvar.types))) {
+                    if (elemJoin.layout.equalType(joinvarRec.getInt(eJoinvar.types))) {
 
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
@@ -110,7 +110,7 @@ public class Joining extends Cal5e {
                             }
                             break;
                         }
-                    //}
+                    }
                 }
             }
         } catch (Exception e) {

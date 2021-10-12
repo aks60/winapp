@@ -109,27 +109,29 @@ public class GsonElem {
         return (owner.layout == Layout.HORIZ) ? length : owner.width();
     }
 
-    public void resizWin(List<GsonScale> list, Layout layout) {
+    public void resizUp(List<GsonScale> list, Layout layout) {
         float dx = 1;
         GsonElem e2 = null;
         for (GsonScale gs : list) {
             GsonElem el = find(gs.id);
-            if (gs.color == GsonScale.ADJUST) {
-                e2 = el;
+            if (el.length != null) {
+                if (gs.color == GsonScale.ADJUST) {
+                    e2 = el;
+                }
+                float x = el.length - Math.round(el.length);
+                if (x != 0 && x < 0) {
+                    el.length -= x;
+                    dx += x;
+                } else {
+                    el.length -= x;
+                    dx += x;
+                }
+                el.owner.resizAll(layout);
             }
-            float x = el.length - Math.round(el.length);
-            if (x != 0 && x < 0) {
-                el.length -= x;
-                dx += x;
-            } else {
-                el.length -= x;
-                dx += x;
-            }
-            el.owner.resizUp(layout);
         }
-        if (e2 != null) {
+        if (e2 != null && e2.length != null) {
             e2.length += dx - 1;
-            e2.owner.resizUp(layout);
+            e2.owner.resizAll(layout);
         }
     }
 
@@ -148,9 +150,9 @@ public class GsonElem {
                 if (elem.length != null) {
                     float k = elem.length / changeSum;
                     elem.length = elem.length + _diff * k;
-                    elem.owner.resizUp(_layout);
+                    elem.owner.resizAll(_layout);
                 } else {
-                    root.resizUp(_layout);
+                    root.resizAll(_layout);
                 }
             }
             root.width = root.width + _diff;
@@ -162,23 +164,23 @@ public class GsonElem {
                 if (elem.length != null) {
                     float k = elem.length / changeSum;
                     elem.length = elem.length + _diff * k;
-                    elem.owner.resizUp(_layout);
+                    elem.owner.resizAll(_layout);
                 } else {
-                    root.resizUp(_layout);
+                    root.resizAll(_layout);
                 }
             }
             root.height = root.height + _diff;
             if (root.type == Type.ARCH) {
                 root.heightAdd = root.height - root.childs.get(4).height();
             } else if (root.type == Type.TRAPEZE) {
-                //
+                root.heightAdd = root.height - root.childs.get(4).height();
             } else {
                 root.heightAdd = root.height;
             }
         }
     }
 
-    public void resizUp(Layout _layout) {
+    public void resizAll(Layout _layout) {
         if (this.owner != null) {
             float sum = 0;
             if (_layout == this.layout()) {
@@ -195,7 +197,7 @@ public class GsonElem {
                     this.length = sum;
                 }
             }
-            this.owner.resizUp(_layout);
+            this.owner.resizAll(_layout);
         }
     }
 
