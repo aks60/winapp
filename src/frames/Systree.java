@@ -575,7 +575,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         if (winNode != null) {
 
             //Конструкции
-            if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.DOOR || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
+            if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card12");
                 ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type().name);
                 txt9.setText(eColor.find(iwin.colorID1).getStr(eColor.name));

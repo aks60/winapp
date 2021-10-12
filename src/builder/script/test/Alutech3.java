@@ -13,7 +13,7 @@ public final class Alutech3 {
 
         if (prj == 3) { //PUNIC = 427856  Двери
             rootGson = new GsonRoot(prj, 3, 66, "ALUTECH\\ALT.43\\Двери\\Наружу(2)",
-                    Layout.VERT, Type.DOOR, 900, 2100, 1009, 1009, 1009);
+                    Layout.VERT, Type.RECTANGL, 900, 2100, 1009, 1009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))

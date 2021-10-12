@@ -31,7 +31,6 @@ import builder.making.Joining;
 import builder.making.Elements;
 import builder.making.Filling;
 import builder.making.Furniture;
-import builder.model.AreaDoor;
 import builder.model.ElemFrame;
 import builder.model.ElemSimple;
 import builder.script.GsonRoot;
@@ -129,8 +128,6 @@ public class Wincalc {
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {
                 rootArea = new AreaRectangl(this, rootGson, colorID1, colorID2, colorID3); //простое
-            } else if (Type.DOOR == rootGson.type()) {
-                rootArea = new AreaDoor(this, rootGson, colorID1, colorID2, colorID3); //дверь
             } else if (Type.TRAPEZE == rootGson.type()) {
                 rootArea = new AreaTrapeze(this, rootGson, colorID1, colorID2, colorID3); //трапеция
             } else if (Type.TRIANGL == rootGson.type()) {

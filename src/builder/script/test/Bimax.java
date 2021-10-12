@@ -430,7 +430,7 @@ public final class Bimax {
 
         } else if (prj == 700014) { //PUNIC = 427856  Двери
             rootGson = new GsonRoot(prj, 1, 66, "Rehau\\Brilliant\\4 ДВЕРИ ВХОДНЫЕ\\Дверь наружу",
-                    Layout.VERT, Type.DOOR, 900, 2100, 1009, 1009, 1009);
+                    Layout.VERT, Type.RECTANGL, 900, 2100, 1009, 1009, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
@@ -444,7 +444,7 @@ public final class Bimax {
             
         } else if (prj == 700009) { //PUNIC = 427847 Двери
             rootGson = new GsonRoot(prj, 2, 66, "Darrio\\Двери DARRIO\\Дверь внутрь",
-                    Layout.VERT, Type.DOOR, 900, 2000, 1009, 23004, 1009);
+                    Layout.VERT, Type.RECTANGL, 900, 2000, 1009, 23004, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
