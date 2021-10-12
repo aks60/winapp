@@ -149,7 +149,6 @@ public class GsonElem {
                     float k = elem.length / changeSum;
                     elem.length = elem.length + _diff * k;
                     elem.owner.resizUp(_layout);
-                    
                 } else {
                     root.resizUp(_layout);
                 }
@@ -168,8 +167,14 @@ public class GsonElem {
                     root.resizUp(_layout);
                 }
             }
-            root.heightAdd = ((root.height + _diff) / root.height) * root.heightAdd;
             root.height = root.height + _diff;
+            if (root.type == Type.ARCH) {
+                root.heightAdd = root.height - root.childs.get(4).height();
+            } else if (root.type == Type.TRAPEZE) {
+                //
+            } else {
+                root.heightAdd = root.height;
+            }
         }
     }
 
