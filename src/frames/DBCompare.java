@@ -254,24 +254,24 @@ public class DBCompare extends javax.swing.JFrame {
             rs.close();
 
             //=== Таблица 5 ===
-//            ((DefaultTableModel) tab5.getModel()).getDataVector().clear();
-//            rs = st.executeQuery("select b.anumb, c.anumb, a.typ, d.anum1, d.anum2, d.cname, e.cname from SAVECON a"
-//                    + " left join SAVEELM b on a.punic = b.punic and a.onumb = b.onumb and a.ne1 = b.nel left join SAVEELM c on a.punic = c.punic and a.onumb = c.onumb and a.ne2 = c.nel"
-//                    + " left join connlst d on a.ncon = d.cconn left join connvar e on a.nvar = e.cunic"
-//                    + " where a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord + " order by a.typ, d.cname");
-//            while (rs.next()) {
-//                Vector vectorRec = new Vector();
-//                vectorRec.add(++npp);
-//                vectorRec.add(rs.getObject(1));
-//                vectorRec.add(rs.getObject(2));
-//                vectorRec.add(rs.getObject(3));
-//                vectorRec.add(rs.getObject(4));
-//                vectorRec.add(rs.getObject(5));
-//                vectorRec.add(rs.getObject(6));
-//                vectorRec.add(rs.getObject(7));
-//                ((DefaultTableModel) tab5.getModel()).getDataVector().add(vectorRec);
-//            }
-//            rs.close();
+            ((DefaultTableModel) tab5.getModel()).getDataVector().clear();
+            rs = st.executeQuery("select b.anumb, c.anumb, a.typ, d.anum1, d.anum2, d.cname, e.cname from SAVECON a"
+                    + " left join SAVEELM b on a.punic = b.punic and a.onumb = b.onumb and a.ne1 = b.nel left join SAVEELM c on a.punic = c.punic and a.onumb = c.onumb and a.ne2 = c.nel"
+                    + " left join connlst d on a.ncon = d.cconn left join connvar e on a.nvar = e.cunic"
+                    + " where a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord + " order by a.typ, d.cname");
+            while (rs.next()) {
+                Vector vectorRec = new Vector();
+                vectorRec.add(++npp);
+                vectorRec.add(rs.getObject(1));
+                vectorRec.add(rs.getObject(2));
+                vectorRec.add(rs.getObject(3));
+                vectorRec.add(rs.getObject(4));
+                vectorRec.add(rs.getObject(5));
+                vectorRec.add(rs.getObject(6));
+                vectorRec.add(rs.getObject(7));
+                ((DefaultTableModel) tab5.getModel()).getDataVector().add(vectorRec);
+            }
+            rs.close();
              
             //=== Таблица 7 ===
             ((DefaultTableModel) tab7.getModel()).getDataVector().clear();
