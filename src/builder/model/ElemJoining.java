@@ -28,6 +28,7 @@ public class ElemJoining {
 
     public ElemJoining(Wincalc iwin, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
         this.id = ++iwin.genId;
+        this.iwin = iwin;
         this.type = type;
         this.layout = layout;
         this.elem1 = elem1;

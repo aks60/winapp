@@ -49,7 +49,6 @@ public class Joining extends Cal5e {
         try {
             //Цикл по списку соединений
             for (Map.Entry<String, ElemJoining> hmElemJoin : iwin.mapJoin.entrySet()) {
-
                 ElemJoining elemJoin = hmElemJoin.getValue();
                 ElemSimple joinElem1 = elemJoin.elem1;
                 ElemSimple joinElem2 = elemJoin.elem2;
