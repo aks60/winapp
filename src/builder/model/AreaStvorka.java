@@ -190,8 +190,10 @@ public class AreaStvorka extends AreaSimple {
 
         //Для маятниковых дверей, т.к. прилегающее соединение отсутствует
         if (owner.type == Type.DOOR) {
+            LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
+
             //Прилегающее нижнее
-            el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, stvBott.joinFlat2(Layout.BOTT), 0);          
+            el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, stvBott.joinFlat2(Layout.BOTT), 0);
             iwin.mapJoin.put(stvBott.joinPoint(2), el);
 
             //Прилегающее верхнее 
