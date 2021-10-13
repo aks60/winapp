@@ -143,14 +143,16 @@ public class DBCompare extends javax.swing.JFrame {
     public void loadingTabGroup1(Wincalc iwin) {
         try {
             Map<String, Vector> hmSpc = new HashMap();
-            Set<String> setSpc1 = new HashSet();
-            Set<String> setSpc2 = new HashSet();
-            iwin.listSpec.forEach(rec -> setSpc1.add(rec.artikl));
-            setSpc1.forEach(el -> hmSpc.put(el, new Vector(Arrays.asList(el, 0f, 0f, 0f, 0f, 0f, 0f))));
+            Set<String> setSpcSa = new HashSet();
+            Set<String> setSpcPs = new HashSet();
+            iwin.listSpec.forEach(rec -> setSpcSa.add(rec.artikl));
+
+            //Заполним на будушее hmSpc из SA
+            setSpcSa.forEach(el -> hmSpc.put(el, new Vector(Arrays.asList(el, 0f, 0f, 0f, 0f, 0f, 0f))));
             iwin.listSpec.forEach(rec -> {
                 List<Float> val = hmSpc.get(rec.artikl);
-                val.set(1, val.get(1) + rec.count);
-                val.set(3, val.get(3) + rec.quant1);
+                val.set(1, val.get(1) + rec.count); //колич. в SA
+                val.set(3, val.get(3) + rec.quant1); //погонаж в SA
             });
 
             //=== Таблица 1 ===
@@ -183,20 +185,17 @@ public class DBCompare extends javax.swing.JFrame {
                 Record artiklRec = eArtikl.query().stream().filter(r -> artikl.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
                 sum1 = sum1 + value1;
                 sum2 = sum2 + value2;
-                setSpc2.add(artikl);
-                List<Float> val = hmSpc.get(artikl);
-                if (val == null) {
-                    hmSpc.put(artikl, new Vector(Arrays.asList(artikl, 0f, 0f, 0f, 0f, 0f, 0f)));
-                    val = hmSpc.get(artikl);
-                }
-                val.set(2, val.get(2) + count);
-                val.set(4, val.get(4) + pogonag);
-
                 vectorRec.add(4, artiklRec.get(eArtikl.name)); //имя артикула                
                 vectorRec.add(value1); //стоим. элемента без скидки
                 vectorRec.add(value2); //стоим. элемента со скидкой
 
                 ((DefaultTableModel) tab1.getModel()).getDataVector().add(vectorRec);
+
+                //Заполним на будушее hmSpc из PS
+                setSpcPs.add(artikl);
+                List<Float> val = hmSpc.getOrDefault(artikl, new Vector(Arrays.asList(artikl, 0f, 0f, 0f, 0f, 0f, 0f)));
+                val.set(2, val.get(2) + count); //колич в PS
+                val.set(4, val.get(4) + pogonag); //погонаж в PS               
             }
             rs.close();
             lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = " + punic + "  Заказ: onumb = "
@@ -204,10 +203,10 @@ public class DBCompare extends javax.swing.JFrame {
 
             //=== Таблица 2 ===
             ((DefaultTableModel) tab2.getModel()).getDataVector().clear();
-            Set<String> setSpc1x = new HashSet(setSpc1);
-            Set<String> setSpc2x = new HashSet(setSpc2);
-            setSpc1x.removeAll(setSpc2);
-            setSpc2x.removeAll(setSpc1);
+            Set<String> setSpc1x = new HashSet(setSpcSa);
+            Set<String> setSpc2x = new HashSet(setSpcPs);
+            setSpc1x.removeAll(setSpcPs);
+            setSpc2x.removeAll(setSpcSa);
             ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- ЛИШНИЕ SAOkna  за.выч.Профстрой ---")));
             setSpc1x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
             ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- НЕДОСТАЮЩИЕ ПрофСтрой  за.выч.SAOkna ---")));
@@ -272,7 +271,7 @@ public class DBCompare extends javax.swing.JFrame {
                 ((DefaultTableModel) tab5.getModel()).getDataVector().add(vectorRec);
             }
             rs.close();
-             
+
             //=== Таблица 7 ===
             ((DefaultTableModel) tab7.getModel()).getDataVector().clear();
             rs = st.executeQuery("select c.pname, b.pname from savefup a "
@@ -518,8 +517,8 @@ public class DBCompare extends javax.swing.JFrame {
         System.out.println();
         System.out.println("Prj=" + iwin.rootGson.prj + " Ord=" + iwin.rootGson.ord);
         Float iwinTotal = 0f, jarTotal = 0f;
-        Map<String, Float> hmDB1 = new LinkedHashMap();
-        Map<String, Float> hmDB2 = new LinkedHashMap();
+        Map<String, Float> hmDbPs = new LinkedHashMap();
+        Map<String, Float> hmDbSa = new LinkedHashMap();
         try {
             Connection conn = Test.connect1();
             Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -529,44 +528,42 @@ public class DBCompare extends javax.swing.JFrame {
             rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + iwin.rootGson.ord + "order by a.anumb");
             while (rs.next()) {
                 float leng = rs.getFloat("ALENG"); //длина
-                float count = rs.getFloat("AQTYP"); //колич
+                //float count = rs.getFloat("AQTYP"); //колич
                 float pogonag = rs.getFloat("AQTYA"); //погонаж
                 float perc = rs.getFloat("APERC"); //отход
                 float cost = rs.getFloat("APRC1"); //стоим.без.ск.за ед.изм
                 float value1 = (perc * pogonag / 100 + pogonag) * cost;
-                float value2 = (hmDB1.get(rs.getString("ANUMB")) == null) ? value1
-                        : value1 + hmDB1.get(rs.getString("ANUMB"));
+                float value2 = (hmDbPs.get(rs.getString("ANUMB")) == null) ? value1 : value1 + hmDbPs.get(rs.getString("ANUMB"));
                 String key = rs.getString("ANUMB");
-                hmDB1.put(key, value2);
+                hmDbPs.put(key, value2); //стоимость без скидки
             }
             conn.close();
 
             for (Specific spc : iwin.listSpec) {
                 String key = spc.artikl;
-                //Float val = (hmDB2.get(key) == null) ? 0.f : hmDB2.get(key);
-                Float val = hmDB2.getOrDefault(key, 0.f);
-                hmDB2.put(key, val + spc.cost1);
+                Float val = hmDbSa.getOrDefault(key, 0.f);
+                hmDbSa.put(key, val + spc.cost1); //стоимость без скидки
             }
 
             if (detail == true) {
                 System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "PS", "SA", "Delta"});
                 System.out.println();
-                for (Map.Entry<String, Float> entry : hmDB1.entrySet()) {
+                for (Map.Entry<String, Float> entry : hmDbPs.entrySet()) {
                     String key = entry.getKey();
                     Float val1 = entry.getValue();
-                    Float val2 = hmDB2.getOrDefault(key, 0.f);
-                    hmDB2.remove(key);
+                    Float val2 = hmDbSa.getOrDefault(key, 0.f);
+                    hmDbSa.remove(key);
                     Record rec = eArtikl.query().stream().filter(r -> key.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
                     System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{rec.get(eArtikl.name), key, val1, val2, Math.abs(val1 - val2)});
                     System.out.println();
                     jarTotal = jarTotal + val2;
                     iwinTotal = iwinTotal + val1;
                 }
-                if (hmDB2.isEmpty() == false) {
+                if (hmDbSa.isEmpty() == false) {
                     System.out.printf("%-24s%-20s", new Object[]{"Artikl", "Value"});
                 }
                 System.out.println();
-                for (Map.Entry<String, Float> entry : hmDB2.entrySet()) {
+                for (Map.Entry<String, Float> entry : hmDbSa.entrySet()) {
                     String key = entry.getKey();
                     Float value3 = entry.getValue();
                     System.out.printf("%-24s%-16.2f", "Лишние: " + key, value3);
@@ -574,15 +571,94 @@ public class DBCompare extends javax.swing.JFrame {
                     jarTotal = jarTotal + value3;
                 }
             } else {
-                for (Map.Entry<String, Float> entry : hmDB1.entrySet()) {
+                for (Map.Entry<String, Float> entry : hmDbPs.entrySet()) {
                     String key = entry.getKey();
                     Float val1 = entry.getValue();
-                    Float val2 = hmDB2.getOrDefault(key, 0.f);
-                    hmDB2.remove(key);
+                    Float val2 = hmDbSa.getOrDefault(key, 0.f);
+                    hmDbSa.remove(key);
                     jarTotal = jarTotal + val2;
                     iwinTotal = iwinTotal + val1;
                 }
-                for (Map.Entry<String, Float> entry : hmDB2.entrySet()) {
+                for (Map.Entry<String, Float> entry : hmDbSa.entrySet()) {
+                    String key = entry.getKey();
+                    Float value3 = entry.getValue();
+                    jarTotal = jarTotal + value3;
+                }
+            }
+            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.rootGson.prj, "PS=" + String.format("%.2f", iwinTotal), "SA="
+                    + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
+            System.out.println();
+
+        } catch (SQLException e) {
+            System.err.println("Ошибка: DBCompare.iwinRec().  " + e);
+        }
+    }
+
+    public static void iwinRec2(Wincalc iwin, boolean detail) {
+        System.out.println();
+        System.out.println("Prj=" + iwin.rootGson.prj + " Ord=" + iwin.rootGson.ord);
+        Float iwinTotal = 0f, jarTotal = 0f;
+        Map<String, Float> hmDbPs = new LinkedHashMap();
+        Map<String, Float> hmDbSa = new LinkedHashMap();
+        try {
+            Connection conn = Test.connect1();
+            Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
+            rs.next();
+            int punic = rs.getInt("PUNIC");
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + iwin.rootGson.ord + "order by a.anumb");
+            while (rs.next()) {
+                float pogonag = rs.getFloat("AQTYA"); //погонаж
+                float perc = rs.getFloat("APERC"); //отход
+                float cost = rs.getFloat("APRC1"); //стоим.без.ск.за ед.изм
+                float value1 = (perc * pogonag / 100 + pogonag) * cost; 
+                float value2 = (hmDbPs.get(rs.getString("ANUMB")) == null) ? value1 : value1 + hmDbPs.get(rs.getString("ANUMB"));
+                String key = rs.getString("ANUMB");
+                hmDbPs.put(key, value2);  //стоимость без скидки
+            }
+            conn.close();
+
+            for (Specific spc : iwin.listSpec) {
+                String key = spc.artikl;
+                Float val = hmDbSa.getOrDefault(key, 0.f);
+                hmDbSa.put(key, val + spc.cost1); //стоимость без скидки
+            }
+
+            if (detail == true) {
+                System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "PS ст.без.ск", "SA ст.без.ск", "Delta"});
+                System.out.println();
+                for (Map.Entry<String, Float> entry : hmDbPs.entrySet()) {
+                    String key = entry.getKey();
+                    Float val1 = entry.getValue();
+                    Float val2 = hmDbSa.getOrDefault(key, 0.f);
+                    hmDbSa.remove(key);
+                    Record rec = eArtikl.query().stream().filter(r -> key.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
+                    System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{rec.get(eArtikl.name), key, val1, val2, Math.abs(val1 - val2)});
+                    System.out.println();
+                    jarTotal = jarTotal + val2;
+                    iwinTotal = iwinTotal + val1;
+                }
+                if (hmDbSa.isEmpty() == false) {
+                    System.out.printf("%-24s%-20s", new Object[]{"Artikl", "Value"});
+                }
+                System.out.println();
+                for (Map.Entry<String, Float> entry : hmDbSa.entrySet()) {
+                    String key = entry.getKey();
+                    Float value3 = entry.getValue();
+                    System.out.printf("%-24s%-16.2f", "Лишние: " + key, value3);
+                    System.out.println();
+                    jarTotal = jarTotal + value3;
+                }
+            } else {
+                for (Map.Entry<String, Float> entry : hmDbPs.entrySet()) {
+                    String key = entry.getKey();
+                    Float val1 = entry.getValue();
+                    Float val2 = hmDbSa.getOrDefault(key, 0.f);
+                    hmDbSa.remove(key);
+                    jarTotal = jarTotal + val2;
+                    iwinTotal = iwinTotal + val1;
+                }
+                for (Map.Entry<String, Float> entry : hmDbSa.entrySet()) {
                     String key = entry.getKey();
                     Float value3 = entry.getValue();
                     jarTotal = jarTotal + value3;

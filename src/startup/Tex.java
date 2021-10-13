@@ -565,7 +565,7 @@ public class Tex extends javax.swing.JFrame {
 
         mn15.setFont(frames.UGui.getFont(1,1));
         mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn15.setText("Правила");
+        mn15.setText("Правила расч.");
         mn15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnRulecalc(evt);
@@ -575,7 +575,7 @@ public class Tex extends javax.swing.JFrame {
 
         mn11.setFont(frames.UGui.getFont(1,1));
         mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn11.setText("Настройки");
+        mn11.setText("Коэффициенты");
         mn11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnGroup1(evt);

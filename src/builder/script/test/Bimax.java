@@ -443,7 +443,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.GLASS));
             
         } else if (prj == 700009) { //PUNIC = 427847 Двери
-            rootGson = new GsonRoot(prj, 2, 66, "Darrio\\Двери DARRIO\\Дверь внутрь",
+            rootGson = new GsonRoot(prj, 2, 330, "Darrio\\Двери DARRIO\\Дверь внутрь",
                     Layout.VERT, Type.DOOR, 900, 2000, 1009, 10004, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
