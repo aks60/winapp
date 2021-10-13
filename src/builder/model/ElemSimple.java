@@ -76,10 +76,11 @@ public abstract class ElemSimple extends Com5t {
         return null;
     }
 
-    //Прилегающее соединения. Используется при построении конструкции, когда соединения ещё не определены 
+    //Прилегающее соединения
     public ElemSimple joinFlat(Layout layoutSide) {
         LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
+
         if (Layout.BOTT == layoutSide) {
             float Y2 = (y2 > y1) ? y2 : y1;
             return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y2) == true).findFirst().orElse(null);
@@ -90,9 +91,25 @@ public abstract class ElemSimple extends Com5t {
             return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout() == Layout.TOP) == false).findFirst().orElse(null);
         } else if (Layout.RIGHT == layoutSide) {
             return listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x2, y1 + (y2 - y1) / 2)).findFirst().orElse(null);
-        } else {
-            throw new IllegalArgumentException("Неудача:ElemSimple.joinFlat() Придегающий элемент не обнаружен!");
         }
+        throw new IllegalArgumentException("Неудача:ElemSimple.joinFlat() Придегающий элемент не обнаружен!");
+    }
+
+    //Для маятниковых дверей, т.к. прилегающее соединение отсутствует
+    public ElemSimple joinFlat2(Layout layoutSide) {
+        LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
+        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
+
+        if (Layout.BOTT == layoutSide) {
+            return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, y2 + 8) == true).findFirst().orElse(null);
+        } else if (Layout.LEFT == layoutSide) {
+            return listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x1 - 8, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
+        } else if (Layout.TOP == layoutSide) {
+            return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, y1 - 8) == true && (el.owner.type == Type.ARCH && el.layout() == Layout.TOP) == false).findFirst().orElse(null);
+        } else if (Layout.RIGHT == layoutSide) {
+            return listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x2 + 8, y1 + (y2 - y1) / 2)).findFirst().orElse(null);
+        }
+        throw new IllegalArgumentException("Неудача:ElemSimple.joinFlat() Придегающий элемент не обнаружен!");
     }
 
     //Элемент соединения 0-пред.артикл, 1-след.артикл, 2-прилег. артикл

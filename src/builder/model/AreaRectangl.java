@@ -20,6 +20,7 @@ public class AreaRectangl extends AreaSimple {
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
                 elemTop = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
+        
         //Угловое соединение правое нижнее
         ElemJoining joinRBot = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
         iwin.mapJoin.put(elemBott.joinPoint(1), joinRBot);

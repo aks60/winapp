@@ -85,9 +85,9 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(700009, false));
+            iwin.build(builder.script.Winscript.test(601007, false));
             iwin.constructiv(true);
-            Specific.write_txt(iwin.listSpec);
+            //Specific.write_txt(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
             //DBCompare.iwinRec(iwin, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
