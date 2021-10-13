@@ -177,47 +177,17 @@ public class Specific {
         }
     }
 
-    public static void write_txt1(ArrayList<Specific> specList) {
-        int npp = 0;
-        String format = "%-6s%-42s%-24s%-18s%-18s%-18s%-8s%-8s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s"
-                + "%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s %n";
-        Object str[] = {"Code", "Name", "Art", "Color1", "Color2", "Color3", "Count", "Quantity",
-            "UM", "InPrice", "CostPrice", "OutPrice", "OutTotal", "Width", "Height", "Weight",
-            "Angle", "ComplType", "ElemID", "elemType", "ObjectID", "ObjectType", "AreaID", "AreaType",
-            "AccessoryID", "PriceGRP", "PrintGroup", "CutAngle1", "CutAngle2", "Composite", "Усл.окна"};
-        String str3 = new String(("Спецификация (" + specList.size() + " строк):").getBytes());
-        System.out.printf(format, str);
-        for (Specific s : specList) {
-
-            Object str2[] = {String.valueOf(++npp), s.name, s.artikl,
-                eColor.find(s.colorID1).getStr(eColor.name),
-                eColor.find(s.colorID2).getStr(eColor.name),
-                eColor.find(s.colorID3).getStr(eColor.name),
-                String.valueOf(s.count), String.valueOf(s.quant1),
-                UseUnit.getName(s.unit), "0", String.valueOf(s.price1), String.valueOf(s.price2), String.valueOf(s.cost1),
-                String.valueOf(s.width), String.valueOf(s.height), "0", "0", "0", String.valueOf(s.id), "0", "0", "0", "0", "0",
-                "0", "0", "0", String.valueOf(s.anglCut2), String.valueOf(s.anglCut1), "0", "0"};
-            System.out.printf(format, str2);
-        }
-        float totalVal = 0;
-        for (Specific s : specList) {
-            totalVal = totalVal + s.cost2;
-        }
-        String str4 = new String(("Суммарная цена = " + totalVal).getBytes());
-        System.out.println(str4);
-    }
-
-    public static void write_txt2(ArrayList<Specific> specList) {
+    public static void write_txt(ArrayList<Specific> specList) {
         try {
             int npp = 0;
-            String format = "%-6s%-16s%-60s%-26s%-12s%-12s%-12s%-12s";
-            Object str[] = {"Npp", "Place", "Name", "Code", "areaId", "elemId", "owner", "xxx"};
+            String format = "%-4s%-8s%-60s%-26s%-12s%-12s%-12s";
+            Object str[] = {"Npp", "Place", "Name", "Artikl", "areaId", "elemId", "owner"};
             System.out.printf(format, str);
             System.out.println();
             float total = 0;
             for (Specific s : specList) {
                 Object str2[] = {String.valueOf(++npp), s.place, s.name, s.artikl,
-                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.spcRec.artiklRec.get(eArtikl.code), s.price1};
+                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.spcRec.artiklRec.get(eArtikl.code)};
                 total = total + s.weight;
                 System.out.printf(format, str2);
                 System.out.println();
