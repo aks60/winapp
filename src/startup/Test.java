@@ -86,7 +86,7 @@ public class Test {
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(601007, false));
-            iwin.constructiv(true);
+            //iwin.constructiv(true);
             //Specific.write_txt(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
             //DBCompare.iwinRec(iwin, true);
