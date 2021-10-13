@@ -17,7 +17,7 @@ import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import dataset.Query;
 import enums.TypeJoin;
-import enums.LayoutJoin;
+import enums.Type;
 import java.util.ArrayList;
 
 //Соединения
@@ -52,30 +52,34 @@ public class Joining extends Cal5e {
                 ElemJoining elemJoin = hmElemJoin.getValue();
                 ElemSimple joinElem1 = elemJoin.elem1;
                 ElemSimple joinElem2 = elemJoin.elem2;
-                Record joinartRec1 = joinElem1.artiklRecAn; //берём аналог профиля
-                Record joinartRec2 = joinElem2.artiklRecAn; //т.к. если его нет там будет оригинал              
-                int id1 = (joinartRec1.get(eArtikl.analog_id) == null) ? joinartRec1.getInt(eArtikl.id) : joinartRec1.getInt(eArtikl.analog_id);
-                int id2 = (joinartRec2.get(eArtikl.analog_id) == null) ? joinartRec2.getInt(eArtikl.id) : joinartRec2.getInt(eArtikl.analog_id);
+
+                int id1 = joinElem1.artiklRecAn.getInt(eArtikl.id);
+                int id2 = joinElem2.artiklRecAn.getInt(eArtikl.id);
                 Record joiningRec = eJoining.find(id1, id2);
-                if (joiningRec.get(1) == null) {
-                    joiningRec = eJoining.find(id2, id1);
-                }
 
                 //Список вариантов соединения для артикула1 и артикула2
                 List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
+
                 //Если неудача, ищем в аналоге соединения
                 if (joinvarList.isEmpty() == true && joiningRec.getStr(eJoining.analog).isEmpty() == false) {
                     joiningRec = eJoining.find2(joiningRec.getStr(eJoining.analog));
                     joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
                 }
-                //listVariants.add(joiningRec.getInt(eJoining.id)); //сделано для запуска формы Joining на ветке Systree 
+                //Если неудача то ищем зеркальность (применятся только для дверей)
+                if (joinvarList.isEmpty() && iwin.rootArea.type == Type.DOOR) {
+                    joiningRec = eJoining.find(id2, id1);
+                    joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
+                }
+
                 Collections.sort(joinvarList, (connvar1, connvar2) -> connvar1.getInt(eJoinvar.prio) - connvar2.getInt(eJoinvar.prio));
 
                 //Цикл по вариантам соединения
                 for (Record joinvarRec : joinvarList) {
 
                     //Если варианты соединения совпали
-                    if (elemJoin.layout.equalType(joinvarRec.getInt(eJoinvar.types))) {
+                    int types = joinvarRec.getInt(eJoinvar.types);
+                    if (elemJoin.layout.equalType(types)
+                            || (iwin.rootArea.type == Type.DOOR && joinvarRec.getInt(eJoinvar.mirr) == 1 && (types == 30 || types == 31))) {
 
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
