@@ -67,7 +67,7 @@ public class Furniture extends Cal5e {
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(iwin.nuni);
                 Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию, первая SYSFURN в списке системы
-                //Теперь найдём furnityreRec по sysfurnRec из параметра или по умолчанию в случае недачи                 
+                //Теперь найдём furnityreRec по sysfurnRec из параметра или по умолчанию в случае неудачи                 
                 sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnRec.getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
 
@@ -191,7 +191,6 @@ public class Furniture extends Cal5e {
                     return false;
                 }
             }
-
             //Если это элемент из мат. ценности (не набор)
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
@@ -201,28 +200,27 @@ public class Furniture extends Cal5e {
 
                     //Пишем ручку в створку
                     if (artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
-
-                        if (areaStv.handleRec.getInt(eArtikl.id) == -3) {
-                            areaStv.handleRec = artiklRec;
+                        if (UColor.colorFromProduct(spcAdd, 1)) {
+                            if (areaStv.handleRec.getInt(eArtikl.id) == -3) {
+                                areaStv.handleRec = artiklRec;
+                            }
+                            //else {                          
+                            //    spcAdd.setArtiklRec(areaStv.artiklRecAn); //если ручка выбрана через параметр
+                            //}
+                            if (areaStv.handleColor == -3) {
+                                areaStv.handleColor = spcAdd.colorID1;
+                            } else {
+                                spcAdd.setColor(1, areaStv.handleColor); //если цвет ручки выбран через параметр
+                            }
                         }
-                        //else {                          
-                        //    spcAdd.setArtiklRec(areaStv.artiklRecAn); //если ручка выбрана через параметр
-                        //}
-                        if (areaStv.handleColor == -3) {
-                            UColor.colorFromProduct(spcAdd, 1);
-                            areaStv.handleColor = spcAdd.colorID1;
-                        } else {
-                            spcAdd.setColor(1, areaStv.handleColor); //если цвет ручки выбран через параметр
-                        }
-                    } else {
-                        UColor.colorFromProduct(spcAdd, 1); //попадает или нет в спецификацию по цвету
                     }
-                    if (shortPass == false) {
+                    //попадает или нет в спецификацию по цвету
+                    if (shortPass == false && UColor.colorFromProduct(spcAdd, 1)) {
                         spcAdd.count = UCom.getFloat(spcAdd.getParam(spcAdd.count, 24030));
                         spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
                         spcAdd.place = "ФУРН";
                         sideStv.addSpecific(spcAdd); //добавим спецификацию в элемент
-                    }
+                    }                                   
                 }
 
                 //Если это нобор   
