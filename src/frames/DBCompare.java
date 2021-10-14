@@ -254,6 +254,9 @@ public class DBCompare extends javax.swing.JFrame {
 
             //=== Таблица 5 ===
             try {
+                DatabaseMetaData mdb1 = cn.getMetaData();
+                ResultSet resultSet1 = mdb1.getTables(null, null, null, new String[]{"TABLE"});
+                
                 ((DefaultTableModel) tab5.getModel()).getDataVector().clear();
                 rs = st.executeQuery("select b.anumb, c.anumb, a.typ, d.anum1, d.anum2, d.cname, e.cname from SAVECON a"
                         + " left join SAVEELM b on a.punic = b.punic and a.onumb = b.onumb and a.ne1 = b.nel left join SAVEELM c on a.punic = c.punic and a.onumb = c.onumb and a.ne2 = c.nel"
