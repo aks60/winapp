@@ -830,6 +830,12 @@ public class Joinings extends javax.swing.JFrame {
         });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(120);
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab4.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(5).setPreferredWidth(80);
             tab4.getColumnModel().getColumn(6).setMaxWidth(40);
         }
 

@@ -16,6 +16,7 @@ import builder.param.JoiningVar;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import dataset.Query;
+import domain.eSetting;
 import enums.TypeJoin;
 import enums.Type;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class Joining extends Cal5e {
     private JoiningVar joiningVar = null;
     private JoiningDet joiningDet = null;
     private ElementDet elementDet = null;
+    private boolean ps3 = "ps3".equals(eSetting.find(2));
 
     public Joining(Wincalc iwin) {
         super(iwin);
@@ -75,12 +77,17 @@ public class Joining extends Cal5e {
 
                 //Цикл по вариантам соединения
                 for (Record joinvarRec : joinvarList) {
-
-                    //Если варианты соединения совпали
+                    
+                    boolean go = false;
                     int types = joinvarRec.getInt(eJoinvar.types);
-                    if (elemJoin.layout.equalType(types)
-                            || (iwin.rootArea.type == Type.DOOR && joinvarRec.getInt(eJoinvar.mirr) == 1 && (types == 30 || types == 31))) {
-
+                    if (elemJoin.layout.equalType(types)) { //если варианты соединения совпали
+                        go = true;
+                    } else if (iwin.rootArea.type == Type.DOOR && joinvarRec.getInt(eJoinvar.mirr) == 1 && (types == 30 || types == 31)) { //когда включена зеркальность
+                        go = true;
+                    } else if (ps3 == true && iwin.rootArea.type == Type.DOOR && (types == 30 || types == 31)) { // похоже в ps3 это всегда
+                        go = true;
+                    }
+                    if (go == true) {
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
                             listVariants.add(joiningRec.getInt(eJoining.id)); //сделано для запуска формы Joining на ветке Systree 
@@ -91,7 +98,7 @@ public class Joining extends Cal5e {
                             elemJoin.joinvarRec = joinvarRec;
 
                             if (shortPass == true) { //выход при поиске варианта соединения
-                                continue;
+                                break;
                             }
                             List<Record> joindetList = eJoindet.find(joinvarRec.getInt(eJoinvar.id));
                             //Цикл по детализации соединений

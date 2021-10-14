@@ -5,6 +5,7 @@ import enums.LayoutJoin;
 import enums.TypeJoin;
 import builder.Wincalc;
 import builder.making.Specific;
+import dataset.Query;
 import domain.eArtikl;
 import domain.eJoining;
 import domain.eJoinvar;
@@ -29,11 +30,12 @@ public class ElemJoining {
     public static void create(String point, Wincalc iwin, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
         if (elem1 != null && elem2 != null) {
             iwin.mapJoin.put(point, new ElemJoining(iwin, type, layout, elem1, elem2, angl));
-        } else {
-            System.err.println("Соединение " + layout + "  не обработано.");
-        }
+        } 
+//        else {
+//            System.err.println("Неудача:model.ElemJoining.create(). Соединение " + layout + "  не обработано.");
+//        }
     }
-    
+
     public ElemJoining(Wincalc iwin, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
         this.id = ++iwin.genId;
         this.iwin = iwin;
@@ -68,6 +70,12 @@ public class ElemJoining {
         spcAdd.count = uti3.get_11070_12070_33078_34078(spcAdd); //ставить однократно
 
         elem1.spcRec.spcList.add(spcAdd);
+    }
+
+    public String elemsName() {
+        String name1 = eArtikl.query().stream().filter(rec -> rec.getInt(eArtikl.id) == elem1.artiklRecAn.getInt(eArtikl.id)).findFirst().orElse(eArtikl.up.newRecord()).getStr(eArtikl.code);
+        String name2 = eArtikl.query().stream().filter(rec -> rec.getInt(eArtikl.id) == elem2.artiklRecAn.getInt(eArtikl.id)).findFirst().orElse(eArtikl.up.newRecord()).getStr(eArtikl.code);
+        return name1 + "-" + name2;
     }
 
     public boolean equals(Object obj) {
