@@ -26,6 +26,14 @@ public class ElemJoining {
     public float angl = 90;    //угол между профилями
     public String costs = "";  //трудозатраты, ч/ч.
 
+    public static void create(String point, Wincalc iwin, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
+        if (elem1 != null && elem2 != null) {
+            iwin.mapJoin.put(point, new ElemJoining(iwin, type, layout, elem1, elem2, angl));
+        } else {
+            System.err.println("Соединение " + layout + "  не обработано.");
+        }
+    }
+    
     public ElemJoining(Wincalc iwin, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
         this.id = ++iwin.genId;
         this.iwin = iwin;

@@ -145,36 +145,21 @@ public class AreaSimple extends Com5t {
             //Цикл по сторонам рамы и импостам (т.к. в створке Т-обр. соединений нет)
             for (ElemSimple elem5e : elemList) {
                 if ((elem5e.owner.type == Type.ARCH && elem5e.layout == Layout.TOP) == false) { //для арки inside() не работает
-
                     elemImp.anglCut[0] = 90;
                     elemImp.anglCut[1] = 90;
-
-                    //Импосты(штульпы...)  расположены по горизонтали слева на право
-                    if (elemImp.owner().layout() == Layout.HORIZ) {
-                        //elemImp.anglHoriz = 90;
-                        if (elem5e.inside(elemImp.x2, elemImp.y2) == true
-                                && iwin.mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение нижнее                              
-                            ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
-                            iwin.mapJoin.put(elemImp.joinPoint(0), el);
-
-                        } else if (elem5e.inside(elemImp.x1, elemImp.y1) == true
-                                && iwin.mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение верхнее                            
-                            ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
-                            iwin.mapJoin.put(elemImp.joinPoint(1), el);
+                   
+                    if (elemImp.owner().layout() == Layout.HORIZ) { //Импосты(штульпы...)  расположены по горизонтали слева на право                     
+                        if (elem5e.inside(elemImp.x2, elemImp.y2) == true && iwin.mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение нижнее                              
+                            ElemJoining.create(elemImp.joinPoint(0), iwin, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
+                        } else if (elem5e.inside(elemImp.x1, elemImp.y1) == true && iwin.mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение верхнее                            
+                            ElemJoining.create(elemImp.joinPoint(1), iwin, TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
                         }
-
-                        //Импосты(штульпы...) расположены по вертикали снизу вверх и справо на лево
-                    } else {
-                        //elemImp.anglHoriz = 270;
-                        if (elem5e.inside(elemImp.x1, elemImp.y1) == true
-                                && iwin.mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение левое                             
-                            ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
-                            iwin.mapJoin.put(elemImp.joinPoint(0), el);
-
-                        } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true
-                                && iwin.mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение правое                              
-                            ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
-                            iwin.mapJoin.put(elemImp.joinPoint(1), el);
+                       
+                    } else {//Импосты(штульпы...) расположены по вертикали снизу вверх и справо на лево
+                        if (elem5e.inside(elemImp.x1, elemImp.y1) == true && iwin.mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение левое                             
+                            ElemJoining.create(elemImp.joinPoint(0), iwin, TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
+                        } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true && iwin.mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение правое                              
+                            ElemJoining.create(elemImp.joinPoint(1), iwin, TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
                         }
                     }
                 }

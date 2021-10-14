@@ -173,57 +173,21 @@ public class AreaStvorka extends AreaSimple {
         });
 
         //Угловое соединение правое нижнее
-        ElemJoining el = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RBOT, stvBott, stvRight, 90);
-        iwin.mapJoin.put(stvBott.joinPoint(1), el);
-
+        ElemJoining.create(stvBott.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RBOT, stvBott, stvRight, 90);
         //Угловое соединение правое верхнее
-        el = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RTOP, stvRight, stvTop, 90);
-        iwin.mapJoin.put(stvRight.joinPoint(1), el);
-
+        ElemJoining.create(stvRight.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RTOP, stvRight, stvTop, 90); 
         //Угловое соединение левое верхнее
-        el = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LTOP, stvTop, stvLeft, 90);
-        iwin.mapJoin.put(stvTop.joinPoint(1), el);
-
+        ElemJoining.create(stvTop.joinPoint(1),iwin, TypeJoin.VAR20, LayoutJoin.LTOP, stvTop, stvLeft, 90);
         //Угловое соединение левое нижнее
-        el = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90);
-        iwin.mapJoin.put(stvLeft.joinPoint(1), el);
-
-        //Для маятниковых дверей, т.к. прилегающее соединение отсутствует
-        if (owner.type == Type.DOOR) {
-            LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
-
-            //Прилегающее нижнее
-            el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, stvBott.joinFlat2(Layout.BOTT), 0);
-            iwin.mapJoin.put(stvBott.joinPoint(2), el);
-
-            //Прилегающее верхнее 
-            el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, stvTop.joinFlat2(Layout.TOP), 0);
-            iwin.mapJoin.put(stvTop.joinPoint(2), el);
-
-            //Прилегающее левое
-            el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, stvLeft.joinFlat2(Layout.LEFT), 0);
-            iwin.mapJoin.put(stvLeft.joinPoint(2), el);
-
-            //Прилегающее правое
-            el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, stvRight.joinFlat2(Layout.RIGHT), 0);
-            iwin.mapJoin.put(stvRight.joinPoint(2), el);
-        } else {
-            //Прилегающее нижнее
-            el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, stvBott.joinFlat(Layout.BOTT), 0);
-            iwin.mapJoin.put(stvBott.joinPoint(2), el);
-
-            //Прилегающее верхнее 
-            el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, stvTop.joinFlat(Layout.TOP), 0);
-            iwin.mapJoin.put(stvTop.joinPoint(2), el);
-
-            //Прилегающее левое
-            el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, stvLeft.joinFlat(Layout.LEFT), 0);
-            iwin.mapJoin.put(stvLeft.joinPoint(2), el);
-
-            //Прилегающее правое
-            el = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, stvRight.joinFlat(Layout.RIGHT), 0);
-            iwin.mapJoin.put(stvRight.joinPoint(2), el);
-        }
+        ElemJoining.create(stvLeft.joinPoint(1),iwin, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90); 
+        //Прилегающее нижнее
+        ElemJoining.create(stvBott.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, stvBott.joinFlat(Layout.BOTT), 0);
+        //Прилегающее верхнее 
+        ElemJoining.create(stvTop.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, stvTop.joinFlat(Layout.TOP), 0);        
+        //Прилегающее левое
+        ElemJoining.create(stvLeft.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, stvLeft.joinFlat(Layout.LEFT), 0);
+        //Прилегающее правое
+        ElemJoining.create(stvRight.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, stvRight.joinFlat(Layout.RIGHT), 0);
     }
 
     //Вычисление смещения створки через параметр

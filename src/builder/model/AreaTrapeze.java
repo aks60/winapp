@@ -123,28 +123,19 @@ public class AreaTrapeze extends AreaSimple {
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT), elemTop = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
 
-        ElemJoining joinLBot = null, joinRBot = null, joinRTop = null, joinLTop = null;
-
         if (iwin.form == Form.NUM2) {
             float angl = (float) Math.toDegrees(Math.atan((height() - iwin.heightAdd) / width()));
-            joinLBot = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90); //угловое соединение левое нижнее
-            joinRBot = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90); //угловое соединение правое нижнее
-            joinRTop = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 + angl); //угловое соединение правое верхнее
-            joinLTop = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 - angl);    //угловое соединение левое верхнее    
+            ElemJoining.create(elemLeft.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90); //угловое соединение левое нижнее
+            ElemJoining.create(elemBott.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90); //угловое соединение правое нижнее 
+            ElemJoining.create(elemRight.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 + angl); //угловое соединение правое верхнее
+            ElemJoining.create(elemTop.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 - angl);    //угловое соединение левое верхнее 
 
         } else if (iwin.form == Form.NUM4) {
             float angl = (float) Math.toDegrees(Math.atan((height() - iwin.heightAdd) / width()));
-            joinLBot = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90); //угловое соединение левое нижнее  
-            joinRBot = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90); //угловое соединение правое нижнее
-            joinRTop = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 - angl); //угловое соединение правое верхнее
-            joinLTop = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 + angl); //угловое соединение левое верхнее             
-        } else {
-            return;
+            ElemJoining.create(elemLeft.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90); //угловое соединение левое нижнее 
+            ElemJoining.create(elemBott.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90); //угловое соединение правое нижнее
+            ElemJoining.create(elemRight.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 - angl); //угловое соединение правое верхнее
+            ElemJoining.create(elemTop.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 + angl); //угловое соединение левое верхнее  
         }
-        iwin.mapJoin.put(elemLeft.joinPoint(1), joinLBot);
-        iwin.mapJoin.put(elemBott.joinPoint(1), joinRBot);
-        iwin.mapJoin.put(elemRight.joinPoint(1), joinRTop);
-        iwin.mapJoin.put(elemTop.joinPoint(1), joinLTop);
-
     }
 }

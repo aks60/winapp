@@ -15,25 +15,18 @@ public class AreaDoor extends AreaSimple {
         super(iwin, null, gson.id(), Type.DOOR, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
         setDimension(0, 0, gson.width(), gson.height());
     }
-    
+
     //@Override
     public void joinFrame() {
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
                 elemTop = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
         //Угловое соединение правое нижнее
-        ElemJoining joinRBot = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
-        iwin.mapJoin.put(elemBott.joinPoint(1), joinRBot);
-
+        ElemJoining.create(elemBott.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
         //Угловое соединение правое верхнее
-        ElemJoining joinRTop = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
-        iwin.mapJoin.put(elemRight.joinPoint(1), joinRTop);
-
+        ElemJoining.create(elemRight.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
         //Угловое соединение левое верхнее    
-        ElemJoining joinLTop = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
-        iwin.mapJoin.put(elemTop.joinPoint(1), joinLTop);
-
+        ElemJoining.create(elemTop.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
         //Угловое соединение левое нижнее
-        ElemJoining joinLBot = new ElemJoining(iwin, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
-        iwin.mapJoin.put(elemLeft.joinPoint(1), joinLBot);
+        ElemJoining.create(elemLeft.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
     }
 }
