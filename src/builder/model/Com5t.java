@@ -60,7 +60,7 @@ public abstract class Com5t {
 
     public int param(String par, String key) {
 
-        if (par != null && par.isEmpty() == false) {
+        if (par != null && par.isEmpty() == false && par.equals("{}") == false) {
             JsonObject jsonObj = new Gson().fromJson(par, JsonObject.class);
             return (jsonObj.get(key) == null) ? -1 : jsonObj.get(key).getAsInt();
         }

@@ -412,7 +412,7 @@ public class Furniturs extends javax.swing.JFrame {
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = (recordArt.getInt(eArtikl.level1) == -1) ? 0 : recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 25000, 24000, 25000, 24000, 0};
-                ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.joint, part[level]);
+                ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.furn, part[level]);
             }
         });
 

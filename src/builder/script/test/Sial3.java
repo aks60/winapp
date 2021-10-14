@@ -112,7 +112,7 @@ public final class Sial3 {
             rootGson.addElem(new GsonElem(Type.IMPOST));
 
         } else if (prj == 601007) { // Двери
-            rootGson = new GsonRoot(prj, 1, 5, "SIAL\\КП-45\\Распашные двери\\Дверь 1 ств в перегородку через КП4594",
+            rootGson = new GsonRoot(prj, 1, 5, "SIAL\\КП-45\\Распашные двери\\Дверь 1 ств",
                     Layout.VERT, Type.DOOR, 900, 2100, 24, 24, 24);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
