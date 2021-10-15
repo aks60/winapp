@@ -449,7 +449,7 @@ public class Color extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(1).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(2).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(48);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.WEST);

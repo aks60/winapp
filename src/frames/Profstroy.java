@@ -694,7 +694,7 @@ public class Profstroy {
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
                         + Conn.instanc().genId(eGroups.up) + "," + TypeGroups.COLOR.id + ",'" + rs.getString("GNAME") + "',"
-                        + rs.getString("GKOEF") + "," + rs.getInt("GUNIC") + ")";
+                        + rs.getString("GKOEF") + "," + rs.getInt("GNUMB") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from GRUPART");

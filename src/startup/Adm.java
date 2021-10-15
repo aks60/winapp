@@ -50,7 +50,6 @@ public class Adm extends javax.swing.JFrame {
 
     private Thread thread = null;
     private Queue<Object[]> listQue = new ConcurrentLinkedQueue<Object[]>();
-    //private ListenerFrame listenerMenu;
     private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();
     javax.swing.Timer timer = new Timer(100, new ActionListener() {
 
@@ -66,7 +65,6 @@ public class Adm extends javax.swing.JFrame {
     public Adm() {
         initComponents();
         initElements();
-        //loadingModel();
     }
 
     private void mnLookAndFeel(java.awt.event.ActionEvent evt) {

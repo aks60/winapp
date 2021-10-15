@@ -1,5 +1,7 @@
 package builder.script;
 
+import builder.script.test.Alutech3;
+import builder.script.test.Alutex3;
 import builder.script.test.Vidnal;
 import builder.script.test.Sial3;
 import builder.script.test.Krauss;
@@ -20,6 +22,12 @@ public class Winscript {
         if (base_name.toLowerCase().contains("sial3.fdb")) {
             return Sial3.script(prj, model);
 
+        } else if (base_name.toLowerCase().contains("alutex3.fdb")) {
+            return Alutex3.script(prj, model);
+            
+        } else if (base_name.toLowerCase().contains("alutech3.fdb")) {
+            return Alutech3.script(prj, model);
+            
         } else if (base_name.toLowerCase().contains("bimax.fdb")) {
             return Bimax.script(prj, model);
 

@@ -11,15 +11,14 @@ public final class Alutex3 {
 
     public static String script(Integer prj, boolean model) {
 
-        if (prj == 4) { //PUNIC = 427856  Двери
+        if (prj == 4) { //PUNIC = 0  Двери
             rootGson = new GsonRoot(prj, 1, 10, "ALUTECH\\ALT.W62\\Двери\\Внутрь(1)",
-                    Layout.VERT, Type.DOOR, 900, 2100, 1009, 1009, 1009);
+                    Layout.VERT, Type.DOOR, 900, 2100, 0, 0, 0);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
-            GsonElem stv = rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA));
-            stv.addArea(new GsonElem(Layout.VERT, Type.AREA))
+            rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA))
                     .addElem(new GsonElem(Type.GLASS));
         } else {
             return null;

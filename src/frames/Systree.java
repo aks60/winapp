@@ -644,21 +644,21 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 Arrays.asList(lab55, lab56, lab57).forEach(it -> it.setIcon(null));
                 if (ej1 != null) {
                     
-                    txt38.setText(ej1.joinvarRec.getStr(eJoinvar.name));
-                    txt42.setText(ej1.elemsName());
                     txt36.setText(ej1.joiningRec.getStr(eJoining.name));
+                    txt42.setText(ej1.elemsName());
+                    txt38.setText(ej1.joinvarRec.getStr(eJoinvar.name));
                     lab55.setIcon(UColor.iconFromTypeJoin2(ej1.type.id));
                 }
                 if (ej2 != null) {
-                    txt39.setText(ej2.joinvarRec.getStr(eJoinvar.name));
-                    txt43.setText(ej2.elemsName());
                     txt37.setText(ej2.joiningRec.getStr(eJoining.name));
+                    txt43.setText(ej2.elemsName());
+                    txt39.setText(ej2.joinvarRec.getStr(eJoinvar.name));
                     lab56.setIcon(UColor.iconFromTypeJoin2(ej2.type.id));
                 }
                 if (ej3 != null && ej3.type == TypeJoin.VAR10) {
-                    txt41.setText(ej3.joinvarRec.getStr(eJoinvar.name));
-                    txt44.setText(ej3.elemsName());
                     txt40.setText(ej3.joiningRec.getStr(eJoining.name));
+                    txt44.setText(ej3.elemsName());
+                    txt41.setText(ej3.joinvarRec.getStr(eJoinvar.name));
                     lab57.setIcon(UColor.iconFromTypeJoin2(ej3.type.id));
                 }
             }
