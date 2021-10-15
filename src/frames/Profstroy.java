@@ -846,7 +846,7 @@ public class Profstroy {
             st2.execute(str);
             cn2.commit();
         } catch (Exception e) {
-            println(Color.RED, "Ошибка:  executeSql(). " + e);
+            println(Color.RED, "Ошибка:executeSql().  <" + str + ">  " + e);
         }
     }
 

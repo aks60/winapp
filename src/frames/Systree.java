@@ -79,6 +79,7 @@ import domain.eJoining;
 import builder.making.Joining;
 import builder.making.UColor;
 import domain.eJoinvar;
+import domain.eSetting;
 import enums.TypeJoin;
 import frames.dialog.DicJoinvar;
 import frames.swing.Scene;
@@ -2816,8 +2817,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        String script = gson.toJson(iwin().rootGson);
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script))); //для тестирования
+
+        System.out.println("ps3".equals(eSetting.find(2))); 
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
