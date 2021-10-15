@@ -71,6 +71,9 @@ public class Winscript {
         } else if (base_name.toLowerCase().contains("alutech3.fdb")) {
             return "D:\\Okna\\Database\\ps3\\alutech3.FDB";
 
+        } else if (base_name.toLowerCase().contains("alutex3.fdb")) {
+            return "D:\\Okna\\Database\\ps3\\alutex3.FDB";
+
         } else if (base_name.toLowerCase().contains("bimax.fdb")) {
             return "D:\\Okna\\Database\\ps4\\ITEST.FDB";
 

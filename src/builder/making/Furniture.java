@@ -200,7 +200,7 @@ public class Furniture extends Cal5e {
 
                     //Пишем ручку в створку
                     if (artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
-                        if (UColor.colorFromProduct(spcAdd, 1)) {
+                        if (UColor.colorFromProduct(spcAdd, 1) == true) {
                             if (areaStv.handleRec.getInt(eArtikl.id) == -3) {
                                 areaStv.handleRec = artiklRec;
                             }
@@ -215,7 +215,7 @@ public class Furniture extends Cal5e {
                         }
                     }
                     //попадает или нет в спецификацию по цвету
-                    if (shortPass == false && UColor.colorFromProduct(spcAdd, 1)) {
+                    if (shortPass == false && UColor.colorFromProduct(spcAdd, 1) == true) {
                         spcAdd.count = UCom.getFloat(spcAdd.getParam(spcAdd.count, 24030));
                         spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
                         spcAdd.place = "ФУРН";
