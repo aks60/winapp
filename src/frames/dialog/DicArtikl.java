@@ -23,7 +23,7 @@ public class DicArtikl extends javax.swing.JDialog {
     private ListenerRecord listener = null;
     private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
     private List<Record> list = null;
-    private FilterTable filterTable = new FilterTable();
+    private FilterTable filterTable = null;
 
     public DicArtikl(java.awt.Frame parent, ListenerRecord listener, List<Record> list) {
         super(parent, true);
@@ -266,7 +266,8 @@ public class DicArtikl extends javax.swing.JDialog {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        south.add(filterTable, 0);        
+        filterTable = new FilterTable(1, tab2);
+        south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
     }
 }

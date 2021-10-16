@@ -10,7 +10,9 @@ import domain.eSystree;
 import enums.TypeJoin;
 import java.util.List;
 import builder.Wincalc;
+import builder.model.AreaStvorka;
 import builder.model.ElemJoining;
+import builder.model.ElemSimple;
 import common.UCom;
 import enums.LayoutJoin;
 import java.util.Arrays;
@@ -447,9 +449,15 @@ public class JoiningVar extends Par5s {
                 case 4097:  //Трудозатраты по длине 
                     message(rec.getInt(GRUP));
                     break;
-                case 4018:  //От ручки не менее, мм 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 4018: //От ручки не менее, мм 
+                {
+                    AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner;
+                    ElemSimple imp = elemJoin.elem1;
+                    if (Math.abs(imp.y2 - stv.handleHeight) < rec.getFloat(TEXT)) {
+                        return false;
+                    }
+                }
+                break;
                 case 4030:  //Угол максимальный, °                      
                     if ("ps3".equals(eSetting.find(2))) {
                         if (elemJoin.angl > rec.getFloat(TEXT)) {

@@ -907,15 +907,7 @@ public class DBCompare extends javax.swing.JFrame {
             new String [] {
                 "№пп", "Артикл1", "Артикл2", "Тип", "Арт. аналог1", "Арт. аналог2", "Название", "Вариант"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tab5.setFillsViewportHeight(true);
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
