@@ -137,8 +137,9 @@ public class AreaSimple extends Com5t {
 
     public void joinElem() {
 
-        List<ElemSimple> impList = listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
-        List<ElemSimple> elemList = listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
+        LinkedList<ElemSimple> impList = listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
+        LinkedList<ElemSimple> elemList = listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
+        Collections.sort(elemList, (a, b) -> Float.compare(a.id(), b.id()));
 
         //Цикл по импостам
         for (ElemSimple elemImp : impList) {
@@ -147,18 +148,18 @@ public class AreaSimple extends Com5t {
                 if ((elem5e.owner.type == Type.ARCH && elem5e.layout == Layout.TOP) == false) { //для арки inside() не работает
                     elemImp.anglCut[0] = 90;
                     elemImp.anglCut[1] = 90;
-                   
+
                     if (elemImp.owner().layout() == Layout.HORIZ) { //Импосты(штульпы...)  расположены по горизонтали слева на право                     
-                        if (elem5e.inside(elemImp.x2, elemImp.y2) == true && iwin.mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение нижнее                              
-                            ElemJoining.create(elemImp.joinPoint(0), iwin, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
-                        } else if (elem5e.inside(elemImp.x1, elemImp.y1) == true && iwin.mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение верхнее                            
+                        if (elem5e.inside(elemImp.x2, elemImp.y2) == true && elem5e != elemImp) { //T - соединение нижнее                              
+                            ElemJoining.create(elemImp.joinPoint(0), iwin, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);                            
+                        } else if (elem5e.inside(elemImp.x1, elemImp.y1) == true && elem5e != elemImp) { //T - соединение верхнее                            
                             ElemJoining.create(elemImp.joinPoint(1), iwin, TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
                         }
-                       
-                    } else {//Импосты(штульпы...) расположены по вертикали снизу вверх и справо на лево
-                        if (elem5e.inside(elemImp.x1, elemImp.y1) == true && iwin.mapJoin.get(elemImp.joinPoint(0)) == null) { //T - соединение левое                             
+
+                    } else {//Импосты(штульпы...) расположены по вертикали снизу вверх
+                        if (elem5e.inside(elemImp.x1, elemImp.y1) == true && elem5e != elemImp) { //T - соединение левое                             
                             ElemJoining.create(elemImp.joinPoint(0), iwin, TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
-                        } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true && iwin.mapJoin.get(elemImp.joinPoint(1)) == null) { //T - соединение правое                              
+                        } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true && elem5e != elemImp) { //T - соединение правое                              
                             ElemJoining.create(elemImp.joinPoint(1), iwin, TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
                         }
                     }

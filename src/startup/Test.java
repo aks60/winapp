@@ -91,8 +91,8 @@ public class Test {
             //iwin.constructiv(true);
             //Specific.write_txt(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            //DBCompare.iwinRec(iwin, true);
-            iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
+            DBCompare.iwinPs4(iwin, true);
+            //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
 
         } else if (_case.equals("min")) {
             List<Integer> prjList = Winscript.models(_case);
@@ -102,7 +102,7 @@ public class Test {
                     iwin.build(script);
                     iwin.constructiv(true);
                     //DBCompare.iwinXls(iwin, false);
-                    DBCompare.iwinRec(iwin, false);
+                    DBCompare.iwinPs4(iwin, false);
                 }
             }
 
@@ -114,7 +114,7 @@ public class Test {
                     iwin.build(script);
                     iwin.constructiv(true);
                     //DBCompare.iwinXls(iwin, false);
-                    DBCompare.iwinRec(iwin, false);
+                    DBCompare.iwinPs4(iwin, false);
                 }
             }
         }

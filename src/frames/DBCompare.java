@@ -520,7 +520,7 @@ public class DBCompare extends javax.swing.JFrame {
     }
 
     //Сравнение спецификации с профстроем
-    public static void iwinRec(Wincalc iwin, boolean detail) {
+    public static void iwinPs4(Wincalc iwin, boolean detail) {
         System.out.println();
         System.out.println("Prj=" + iwin.rootGson.prj + " Ord=" + iwin.rootGson.ord);
         Float iwinTotal = 0f, jarTotal = 0f;
