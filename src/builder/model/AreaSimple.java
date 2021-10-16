@@ -138,7 +138,7 @@ public class AreaSimple extends Com5t {
     public void joinElem() {
 
         List<ElemSimple> impList = listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
-        List<ElemSimple> elemList = listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
+        List<ElemSimple> elemList = listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
 
         //Цикл по импостам
         for (ElemSimple elemImp : impList) {
