@@ -749,13 +749,65 @@ public class UGui {
     //Список для выбора ручек в створке
     public static Query furndetTypeList(int furnitureID, Query qArtikl) {
         Query qResult = new Query(eArtikl.values());
-        HashSet<Integer> set = new HashSet();    
-        
+        HashSet<Integer> set = new HashSet();
+
         Query qFurndetAll = new Query(eFurndet.values()).select(eFurndet.up);
-        ArrayList<Record> qFurndet = (ArrayList<Record>) qFurndetAll.stream().filter(rec -> rec.getInt(eFurndet.furniture_id1) == furnitureID).collect(toList()); 
-        
+        ArrayList<Record> qFurndet = (ArrayList<Record>) qFurndetAll.stream().filter(rec -> rec.getInt(eFurndet.furniture_id1) == furnitureID).collect(toList());
+
         qArtikl.forEach(rec -> set.add(rec.getInt(eArtikl.id)));
         for (Record furndetRec : qFurndet) { //первый уровень
+            if (furndetRec.get(eFurndet.furniture_id2) == null) {
+                if (set.contains(furndetRec.getInt(eFurndet.artikl_id))) {
+                    for (Record artiklRec : qArtikl) { //все ручки первого уровня
+                        if (furndetRec.getInt(eFurndet.artikl_id) == artiklRec.getInt(eArtikl.id)) {
+                            if (artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
+                                qResult.add(artiklRec);
+                            }
+                        }
+                        for (Record furndetRec3 : qFurndetAll) {
+                            if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)
+                                    && furndetRec3.getInt(eFurndet.furndet_id) != furndetRec3.getInt(eFurndet.id)) {
+                                if (set.contains(furndetRec3.getInt(eFurndet.artikl_id))) {
+                                    for (Record artiklRec3 : qArtikl) { //все ручки второго уровня
+                                        if (furndetRec3.getInt(eFurndet.artikl_id) == artiklRec3.getInt(eArtikl.id)) {
+                                            if (artiklRec3.getStr(eArtikl.code).charAt(0) != '@') {
+                                                qResult.add(artiklRec3);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else { //набор в первом уровне т. к. во втором нет смысла
+                for (Record furndetRec2 : qFurndetAll) {
+                    if (furndetRec2.getInt(eFurndet.furniture_id2) == furndetRec.getInt(eFurndet.furniture_id2)) {
+                        if (set.contains(furndetRec2.getInt(eFurndet.artikl_id))) {
+                            for (Record artiklRec2 : qArtikl) { //все ручки первого уровня в наборе
+                                if (furndetRec2.getInt(eFurndet.artikl_id) == artiklRec2.getInt(eArtikl.id)) {
+                                    if (artiklRec2.getStr(eArtikl.code).charAt(0) != '@') {
+                                        qResult.add(artiklRec2);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return qResult;
+    }
+
+    public static Query furndetTypeList2(int furnitureID, Query qArtikl) {
+        Query qResult = new Query(eArtikl.values());
+        HashSet<Integer> set = new HashSet();
+
+        Query qFurndetAll = new Query(eFurndet.values()).select(eFurndet.up, "where", eFurndet.furniture_id1, "=", furnitureID);
+        //ArrayList<Record> qFurndet = (ArrayList<Record>) qFurndetAll.stream().filter(rec -> rec.getInt(eFurndet.furniture_id1) == furnitureID).collect(toList());
+
+        qArtikl.forEach(rec -> set.add(rec.getInt(eArtikl.id)));
+        for (Record furndetRec : qFurndetAll) { //первый уровень
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 if (set.contains(furndetRec.getInt(eFurndet.artikl_id))) {
                     for (Record artiklRec : qArtikl) { //все ручки первого уровня
