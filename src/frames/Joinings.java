@@ -97,7 +97,7 @@ public class Joinings extends javax.swing.JFrame {
         deteilFind(deteilID);
     }
 
-    private void loadingData() {
+    public void loadingData() {
         
         tab1.setToolTipText("");
         qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
@@ -111,7 +111,7 @@ public class Joinings extends javax.swing.JFrame {
         }
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name, eJoining.main, eJoining.analog) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -224,7 +224,7 @@ public class Joinings extends javax.swing.JFrame {
         UGui.setSelectedRow(tab1);
     }
 
-    private void listenerAdd() {
+    public void listenerAdd() {
         UGui.buttonCellEditor(tab1, 0).addActionListener(event -> {
             new DicArtikl(this, listenerArtikl, 1);
         });
@@ -334,7 +334,7 @@ public class Joinings extends javax.swing.JFrame {
         });
     }
 
-    private void listenerSet() {
+    public void listenerSet() {
 
         listenerArtikl = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
@@ -408,7 +408,7 @@ public class Joinings extends javax.swing.JFrame {
         };
     }
 
-    private void selectionTab1(ListSelectionEvent event) {
+    public void selectionTab1(ListSelectionEvent event) {
         UGui.clearTable(tab2, tab3, tab4, tab5);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
@@ -420,7 +420,7 @@ public class Joinings extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab2(ListSelectionEvent event) {
+    public void selectionTab2(ListSelectionEvent event) {
         UGui.clearTable(tab3, tab4, tab5);
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
@@ -435,7 +435,7 @@ public class Joinings extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab4(ListSelectionEvent event) {
+    public void selectionTab4(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab4);
         if (index != -1) {
             Record record = qJoindet.table(eJoindet.up).get(index);
@@ -446,7 +446,7 @@ public class Joinings extends javax.swing.JFrame {
         }
     }
 
-    private void deteilFind(int deteilID) {
+    public void deteilFind(int deteilID) {
         Query qVar = new Query(eJoinvar.values());
         Query qDet = new Query(eJoindet.values(), eArtikl.values());
         for (int index = 0; index < qJoining.size(); index++) {

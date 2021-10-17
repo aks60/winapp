@@ -25,7 +25,7 @@ public class DicTypset extends javax.swing.JDialog {
         setVisible(true);        
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         ((DefaultTableModel) tab1.getModel()).setRowCount(0);
         rows = new Object[][]{{TypeSet.P1.name, TypeSet.P1.id}, {TypeSet.P2.name, TypeSet.P2.id}, {TypeSet.P3.name, TypeSet.P3.id}, 
         {TypeSet.P4.name, TypeSet.P4.id}, {TypeSet.P5.name, TypeSet.P5.id}, {TypeSet.P6.name, TypeSet.P6.id}, {TypeSet.P6.name, TypeSet.P6.id}};
@@ -221,7 +221,7 @@ public class DicTypset extends javax.swing.JDialog {
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

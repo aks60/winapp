@@ -27,7 +27,7 @@ public class DicEnums extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    private void loadingModel(Enam... enam) {
+    public void loadingModel(Enam... enam) {
         ((DefaultTableModel) tab1.getModel()).setRowCount(enam.length);
         for (int i = 0; i < enam.length; i++) {
             tab1.setValueAt(enam[i].text(), i, 0);
@@ -215,7 +215,7 @@ public class DicEnums extends javax.swing.JDialog {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
 
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

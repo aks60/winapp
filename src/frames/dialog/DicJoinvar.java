@@ -45,7 +45,7 @@ public class DicJoinvar extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
 
         String[] titl = {"Наименование соединения", "ID"};
         Object[][] rows = {{TypeJoin.VAR10.name, TypeJoin.VAR10.id}, {TypeJoin.VAR20.name, TypeJoin.VAR20.id}, {TypeJoin.VAR30.name, TypeJoin.VAR30.id},
@@ -66,7 +66,7 @@ public class DicJoinvar extends javax.swing.JDialog {
         UGui.setSelectedRow(tab1);
     }
 
-    private void loadingModel(List<Record> joinvarList) {
+    public void loadingModel(List<Record> joinvarList) {
         qJoinvar.addAll(joinvarList);
         new DefTableModel(tab1, qJoinvar, eJoinvar.name, eJoinvar.id);
         tab1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
@@ -276,7 +276,7 @@ public class DicJoinvar extends javax.swing.JDialog {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
 
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

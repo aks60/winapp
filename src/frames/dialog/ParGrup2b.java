@@ -24,7 +24,7 @@ public class ParGrup2b extends javax.swing.JDialog {
         setVisible(true);
     }
     
-    private void loadingModel() {
+    public void loadingModel() {
         Vector<Vector> vectorData = new Vector();
         for (String str : list) {
             Vector vector = new Vector();
@@ -221,7 +221,7 @@ public class ParGrup2b extends javax.swing.JDialog {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
     // </editor-fold> 
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

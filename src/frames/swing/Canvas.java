@@ -82,7 +82,7 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
         }
     }
 
-    private void scale(Wincalc iwin) {
+    public void scale(Wincalc iwin) {
         if (iwin != null) {
             iwin.scale = (getWidth() / iwin.width > getHeight() / iwin.height)
                     ? getHeight() / (iwin.height + 24) : getWidth() / (iwin.width + 24);

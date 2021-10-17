@@ -44,7 +44,7 @@ public class LogoToDb extends javax.swing.JDialog {
     /**
      * Команда на соединение с БД.
      */
-    private void connectToDb() {
+    public void connectToDb() {
         labMes.setText("");
         if (++countCon > 3) {
             dispose();

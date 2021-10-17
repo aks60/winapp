@@ -95,7 +95,7 @@ public class Fillings extends javax.swing.JFrame {
         deteilFind(deteilID);
     }
 
-    private void loadingData() {
+    public void loadingData() {
         qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.glas, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
@@ -106,7 +106,7 @@ public class Fillings extends javax.swing.JFrame {
         }
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.depth);
         new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.color_fk, eGlasdet.types, eGlasdet.types, eGlasdet.types) {
 
@@ -174,7 +174,7 @@ public class Fillings extends javax.swing.JFrame {
         UGui.setSelectedRow(tab1);
     }
 
-    private void listenerAdd() {
+    public void listenerAdd() {
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
             Query query = new Query(eArtikl.name).select("select distinct " + eArtikl.depth.name() + " from " + eArtikl.up.tname() + " order by " + eArtikl.depth.name());
             DicName frame = new DicName(this, listenerThicknes, query, eArtikl.name);
@@ -265,7 +265,7 @@ public class Fillings extends javax.swing.JFrame {
         });
     }
 
-    private void listenerSet() {
+    public void listenerSet() {
 
         listenerArtikl = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
@@ -354,7 +354,7 @@ public class Fillings extends javax.swing.JFrame {
         };
     }
 
-    private void selectionTab1(ListSelectionEvent event) {
+    public void selectionTab1(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
@@ -374,7 +374,7 @@ public class Fillings extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab2(ListSelectionEvent event) {
+    public void selectionTab2(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
@@ -388,7 +388,7 @@ public class Fillings extends javax.swing.JFrame {
         }
     }
 
-    private void deteilFind(int deteilID) {
+    public void deteilFind(int deteilID) {
         Query qGlasdet2 = new Query(eGlasdet.values(), eArtikl.values());
         for (int index = 0; index < qGlasgrp.size(); index++) {
             int glasgrp_id = qGlasgrp.get(index).getInt(eGlasgrp.id);

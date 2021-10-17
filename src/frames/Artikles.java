@@ -81,14 +81,14 @@ public class Artikles extends javax.swing.JFrame {
         setSelectionPath(artiklRec);
     }
 
-    private void loadingData() {
+    public void loadingData() {
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
         qGroups.select(eGroups.up, "order by", eGroups.name);
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qColor.select(eColor.up, "order by", eColor.name);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
 
         DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.otx_norm, eArtikl.coeff, eArtikl.series_id, eArtikl.artgrp3_id) {
             @Override
@@ -346,7 +346,7 @@ public class Artikles extends javax.swing.JFrame {
         };
     }
 
-    private void loadingTree() {
+    public void loadingTree() {
 
         nodeRoot = new DefaultMutableTreeNode(TypeArtikl.ROOT);
         DefaultMutableTreeNode node = null;
@@ -381,7 +381,7 @@ public class Artikles extends javax.swing.JFrame {
         tree.setSelectionRow(0);
     }
 
-    private void selectionTree() {
+    public void selectionTree() {
 
         UGui.stopCellEditing(tab1, tab2);
         Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
@@ -410,7 +410,7 @@ public class Artikles extends javax.swing.JFrame {
 
     }
 
-    private void selectionTab1(ListSelectionEvent event) {
+    public void selectionTab1(ListSelectionEvent event) {
 
         UGui.stopCellEditing(tab2);
         Arrays.asList(qArtdet).forEach(q -> q.execsql());
@@ -2690,7 +2690,7 @@ public class Artikles extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
-    private void initElements() {
+    public void initElements() {
 
         new FrameToFile(this, btnClose);
         filterTable = new FilterTable(0, tab1);

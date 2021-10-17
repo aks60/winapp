@@ -60,7 +60,7 @@ public class DicArtikl extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
 
         new DefTableModel(tab2, qArtikl, eArtikl.level2, eArtikl.code, eArtikl.name) {
             public Object getValueAt(int col, int row, Object val) {
@@ -262,7 +262,7 @@ public class DicArtikl extends javax.swing.JDialog {
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
 
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

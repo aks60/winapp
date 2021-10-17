@@ -56,11 +56,11 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         loadingTab(tab1, 1001);
     }
 
-    private void loadingData() {
+    public void loadingData() {
         //
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         panDesign.add(canvas, java.awt.BorderLayout.CENTER);
         canvas.setVisible(true);
         new DefTableModel(tab1, qModels, eSysmodel.npp, eSysmodel.name, eSysmodel.id);
@@ -137,7 +137,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         });
     }
 
-    private void loadingTab(JTable tab, int form) {
+    public void loadingTab(JTable tab, int form) {
         qModels.select(eSysmodel.up, "where", eSysmodel.form, "=", form);
         DefaultTableModel dm = (DefaultTableModel) tab.getModel();
         dm.getDataVector().removeAllElements();
@@ -157,7 +157,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         UGui.setSelectedRow(tab);
     }
 
-    private void selectionTab1(ListSelectionEvent event) {
+    public void selectionTab1(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Record record = qModels.get(index);
@@ -170,7 +170,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         }
     }
 
-    private void selectionTab2(ListSelectionEvent event) {
+    public void selectionTab2(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record record = qModels.get(index);
@@ -183,7 +183,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         }
     }
 
-    private void selectionTab3(ListSelectionEvent event) {
+    public void selectionTab3(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab3);
         if (index != -1) {
             Record record = qModels.get(index);
@@ -196,7 +196,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         }
     }
 
-    private void selectionTab4(ListSelectionEvent event) {
+    public void selectionTab4(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab4);
         if (index != -1) {
             Record record = qModels.get(index);

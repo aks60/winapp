@@ -29,7 +29,7 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
         initListener();
     }
 
-    private void initListener() {
+    public void initListener() {
         super.addActionListener(this);
         btn.addMouseListener(new java.awt.event.MouseAdapter() {
 

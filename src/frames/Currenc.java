@@ -42,11 +42,11 @@ public class Currenc extends javax.swing.JFrame {
         setVisible(true);
     }
 
-    private void loadingData() {
+    public void loadingData() {
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case2, eCurrenc.cross_cour);
         tab1.getColumnModel().getColumn(3).setCellEditor(new DefCellEditor(3));
         UGui.setSelectedRow(tab1);
@@ -332,7 +332,7 @@ public class Currenc extends javax.swing.JFrame {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
 // </editor-fold>     
-    private void initElements() {
+    public void initElements() {
 
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
         FrameToFile.setFrameSize(this);

@@ -126,7 +126,7 @@ public class Orders extends javax.swing.JFrame {
         qPrjprod.select(ePrjprod.up);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         new DefTableModel(tab1, qProject, eProject.num_ord, eProject.num_acc, eProject.date4, eProject.date6, eProject.prjpart_id, eProject.manager) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
@@ -212,7 +212,7 @@ public class Orders extends javax.swing.JFrame {
         canvas.setVisible(true);
     }
 
-    private void listenerAdd() {
+    public void listenerAdd() {
 
         UGui.buttonCellEditor(tab1, 2).addActionListener(event -> {
             new DicDate(this, (obj) -> {
@@ -265,7 +265,7 @@ public class Orders extends javax.swing.JFrame {
         });
     }
 
-    private void loadingTab1() {
+    public void loadingTab1() {
         qProject.clear();
         int first = (btnF1.isSelected()) ? qProjectAll.size() - 10 : (btnF2.isSelected()) ? qProjectAll.size() - 30 : 0;
         first = (first < 0) ? 0 : first;
@@ -289,7 +289,7 @@ public class Orders extends javax.swing.JFrame {
         UGui.scrollRectToRow(index, tab1);
     }
 
-    private void loadingTab2() {
+    public void loadingTab2() {
         UGui.stopCellEditing(tab1, tab2, tab3, tab5);
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
         if (tab1.getSelectedRow() != -1) {
@@ -315,7 +315,7 @@ public class Orders extends javax.swing.JFrame {
         }
     }
 
-    private void loadingWin() {
+    public void loadingWin() {
         try {
             int row[] = winTree.getSelectionRows();
             DefMutableTreeNode root = UGui.loadWinTree(iwin);
@@ -327,7 +327,7 @@ public class Orders extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab1() {
+    public void selectionTab1() {
         int index = -1;
         UGui.stopCellEditing(tab1);
         if (tab1.getSelectedRow() != -1) {
@@ -352,7 +352,7 @@ public class Orders extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab2() {
+    public void selectionTab2() {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record prjprodRec = qPrjprod.get(index);
@@ -375,7 +375,7 @@ public class Orders extends javax.swing.JFrame {
         }
     }
 
-    private void selectionWin() {
+    public void selectionWin() {
         winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
         if (winNode != null) {
 
@@ -474,7 +474,7 @@ public class Orders extends javax.swing.JFrame {
         }
     }
 
-    private void updateScript(float selectID) {
+    public void updateScript(float selectID) {
         String script = gson.toJson(iwin.rootGson);
         Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab2));
         prjprodRec.set(ePrjprod.script, script);

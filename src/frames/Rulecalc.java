@@ -34,11 +34,11 @@ public class Rulecalc extends javax.swing.JFrame {
         listenerSet();
     }
 
-    private void loadingData() {
+    public void loadingData() {
         qRulecalc.select(eRulecalc.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eRulecalc.artikl_id, "order by", eRulecalc.type);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         new DefTableModel(tab2, qRulecalc, eRulecalc.name, eRulecalc.type, eArtikl.code, eArtikl.name, eRulecalc.quant, eRulecalc.size,
                 eRulecalc.coeff, eRulecalc.incr, eRulecalc.color1, eRulecalc.color2, eRulecalc.color3, eRulecalc.form) {
 
@@ -95,7 +95,7 @@ public class Rulecalc extends javax.swing.JFrame {
         UGui.setSelectedRow(tab2);
     }
 
-    private void listenerSet() {
+    public void listenerSet() {
 
         listenerArtikl = (arttiklRec) -> {
             int index = UGui.getIndexRec(tab2);
@@ -380,7 +380,7 @@ public class Rulecalc extends javax.swing.JFrame {
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

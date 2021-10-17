@@ -46,11 +46,11 @@ public class Partner extends javax.swing.JFrame {
         setVisible(true);
     }
 
-    private void loadingData() {
+    public void loadingData() {
         qPrjcontr.select(ePrjpart.up, "order by", ePrjpart.category, ",", ePrjpart.partner);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         new DefTableModel(tab1, qPrjcontr, ePrjpart.category, ePrjpart.partner, ePrjpart.manager, ePrjpart.flag2);
 
         UGui.buttonCellEditor(tab1, 0).addActionListener(event -> {
@@ -85,7 +85,7 @@ public class Partner extends javax.swing.JFrame {
         UGui.setSelectedRow(tab1);
     }
 
-    private void selectionTab1(ListSelectionEvent event) {
+    public void selectionTab1(ListSelectionEvent event) {
         UGui.stopCellEditing(tab1);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
@@ -862,7 +862,7 @@ public class Partner extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
    // </editor-fold> 
 
-    private void initElements() {
+    public void initElements() {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
         filterTable = new FilterTable(0, tab1);

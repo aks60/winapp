@@ -40,11 +40,11 @@ public class Param extends javax.swing.JFrame {
         listenerAdd();
     }
 
-    private void loadData() {
+    public void loadData() {
         qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
 
         new DefTableModel(tab1, qParams, eParams.text, eParams.komp,
                 eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.color);
@@ -60,7 +60,7 @@ public class Param extends javax.swing.JFrame {
         }
     }
 
-    private void listenerAdd() {
+    public void listenerAdd() {
 
         editorBtn.getButton().addActionListener(event -> {
             new DicColor(this, listenerColor, false);
@@ -79,7 +79,7 @@ public class Param extends javax.swing.JFrame {
         };
     }
 
-    private void selectionTab1(ListSelectionEvent event) {
+    public void selectionTab1(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Record record = qParams.get(index);
@@ -92,7 +92,7 @@ public class Param extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab2(ListSelectionEvent event) {
+    public void selectionTab2(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Record record = qParams.get(index);
@@ -417,7 +417,7 @@ public class Param extends javax.swing.JFrame {
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
-    private void initElements() {
+    public void initElements() {
 
         new FrameToFile(this, btnClose);
         filterTable = new FilterTable(0, tab1);

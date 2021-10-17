@@ -30,14 +30,14 @@ public class Kitss extends javax.swing.JFrame {
         initDatamodel();
     }
 
-    private void initDatamodel() {
+    public void initDatamodel() {
         new DefTableModel(tab1, qKits, eKits.name, eKits.artikl_id, eKits.color_id, eKits.quant, eKits.hide, eKits.categ);
         new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag);
         new DefTableModel(tab3, qKitpar1, eKitpar1.kitdet_id, eKitpar1.text);
         UGui.setSelectedRow(tab1);
     }
 
-    private void selectionTab1(ListSelectionEvent event) {
+    public void selectionTab1(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Record record = qKits.get(index);
@@ -48,7 +48,7 @@ public class Kitss extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab2(ListSelectionEvent event) {
+    public void selectionTab2(ListSelectionEvent event) {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record record = qKitdet.get(index);
@@ -435,7 +435,7 @@ public class Kitss extends javax.swing.JFrame {
     private javax.swing.JTable tab3;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
-    private void initElements() {
+    public void initElements() {
         btnIns.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
         btnDel.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
         btnRef.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));

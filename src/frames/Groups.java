@@ -53,7 +53,7 @@ public class Groups extends javax.swing.JFrame {
         qDecInc.select(eGroups.up, "where", eGroups.grup, "= 9 and", eGroups.id, "in (2002, 2003, 2004, 2055, 2056, 2058, 2101, 2104, 2073)", "order by", eGroups.name);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         new DefTableModel(tab1, qArtIncr, eGroups.name, eGroups.val);
         new DefTableModel(tab2, qArtDecr, eGroups.name, eGroups.val);
         new DefTableModel(tab3, qArtSeri, eGroups.name);
@@ -756,7 +756,7 @@ public class Groups extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

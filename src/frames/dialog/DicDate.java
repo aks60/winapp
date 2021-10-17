@@ -49,7 +49,7 @@ public class DicDate extends javax.swing.JDialog {
     }
     
     //Заполнение модели данных
-    protected void loadingTab() {
+    public void loadingTab() {
 
         //Запоминаем текущую дату
         Date date = appCalendar.getTime();

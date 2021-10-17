@@ -33,17 +33,17 @@ public class ParGrup2v extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    private void loadingData() {
+    public void loadingData() {
         qParams.select(eParams.up, "where", filter.name(), "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         tab1.setModel(new DefTableModel(tab1, qParams, eParams.id, eParams.text));
         tab2.setModel(new DefTableModel(tab2, qPardet, eParams.id, eParams.text));
         UGui.setSelectedRow(tab1);
     }
 
-    private void selectionTab1() {
+    public void selectionTab1() {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             int id = qParams.getAs(index, eParams.id);
@@ -268,7 +268,7 @@ public class ParGrup2v extends javax.swing.JDialog {
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
 
-    private void initElements() {
+    public void initElements() {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

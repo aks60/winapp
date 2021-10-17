@@ -107,7 +107,7 @@ public class Furniturs extends javax.swing.JFrame {
         deteilFind(deteilID);
     }
 
-    private void loadingData() {
+    public void loadingData() {
         tab2 = tab2a;
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
@@ -122,7 +122,7 @@ public class Furniturs extends javax.swing.JFrame {
         }
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.hand_side, eFurniture.hand_set1, eFurniture.hand_set2, eFurniture.hand_set3, eFurniture.p2_max,
                 eFurniture.max_width, eFurniture.max_height, eFurniture.max_weight, eFurniture.ways_use, eFurniture.pars, eFurniture.coord_lim, eFurniture.id) {
 
@@ -330,7 +330,7 @@ public class Furniturs extends javax.swing.JFrame {
         UGui.setSelectedRow(tab1);
     }
 
-    private void listenerAdd() {
+    public void listenerAdd() {
         UGui.buttonCellEditor(tab1, 1).addActionListener(event -> {
             new DicEnums(this, listenerVariant1, UseFurn1.values());
         });
@@ -431,7 +431,7 @@ public class Furniturs extends javax.swing.JFrame {
         });
     }
 
-    private void listenerSet() {
+    public void listenerSet() {
 
         listenerArtikl = (record) -> {
             UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
@@ -496,7 +496,7 @@ public class Furniturs extends javax.swing.JFrame {
         };
     }
 
-    private void selectionTab1(ListSelectionEvent event) {
+    public void selectionTab1(ListSelectionEvent event) {
         UGui.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
@@ -511,7 +511,7 @@ public class Furniturs extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab2a(ListSelectionEvent event) {
+    public void selectionTab2a(ListSelectionEvent event) {
         UGui.clearTable(tab2b, tab2c, tab5, tab6);
         int index = UGui.getIndexRec(tab2a);
         if (index != -1) {
@@ -526,7 +526,7 @@ public class Furniturs extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab2b(ListSelectionEvent event) {
+    public void selectionTab2b(ListSelectionEvent event) {
         UGui.clearTable(tab2c, tab5, tab6);
         int index = UGui.getIndexRec(tab2b);
         if (index != -1) {
@@ -541,7 +541,7 @@ public class Furniturs extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab2c(ListSelectionEvent event) {
+    public void selectionTab2c(ListSelectionEvent event) {
         UGui.clearTable(tab5, tab6);
         int index = UGui.getIndexRec(tab2c);
         if (index != -1) {
@@ -554,7 +554,7 @@ public class Furniturs extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab3(ListSelectionEvent event) {
+    public void selectionTab3(ListSelectionEvent event) {
         UGui.clearTable(tab4);
         int index = UGui.getIndexRec(tab3);
         if (index != -1) {
@@ -565,7 +565,7 @@ public class Furniturs extends javax.swing.JFrame {
         }
     }
 
-    private void selectionRows(Query qFurn, Query qDet2a, Query qDet2b, Query qDet2c, int iTabb, int iFurn, int iDet2a, int iDet2b, int iDet2c) {
+    public void selectionRows(Query qFurn, Query qDet2a, Query qDet2b, Query qDet2c, int iTabb, int iFurn, int iDet2a, int iDet2b, int iDet2c) {
 
         if (qFurn.get(iFurn).getInt(eFurniture.types) == 0) {
             tbtn1.setSelected(true);
@@ -591,7 +591,7 @@ public class Furniturs extends javax.swing.JFrame {
 
     }
 
-    private void deteilFind(int deteilID) {
+    public void deteilFind(int deteilID) {
         Query qFurn = new Query(eFurniture.values());
         Query qDet2a = new Query(eFurndet.values(), eArtikl.values());
         Query qDet2b = new Query(eFurndet.values(), eArtikl.values());

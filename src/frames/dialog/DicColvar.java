@@ -27,7 +27,7 @@ public class DicColvar extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         ((DefaultTableModel) tab1.getModel()).setRowCount(0);
         if (colorFk != -1) {
 
@@ -237,7 +237,7 @@ public class DicColvar extends javax.swing.JDialog {
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

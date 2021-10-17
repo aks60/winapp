@@ -39,12 +39,12 @@ public class DicArtikl2 extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
 
         new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name); 
     }
 
-    private void loadingTree() {
+    public void loadingTree() {
 
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Мат. ценности");
         DefaultMutableTreeNode treeNode2 = null;
@@ -79,7 +79,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
         tree.setSelectionRow(0);
     }
 
-    private void selectionTree2() {
+    public void selectionTree2() {
 
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (node != null) {
@@ -104,7 +104,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
         }
     }
 
-    private void selectionTree() {
+    public void selectionTree() {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (node != null) {
             qArtikl.clear();
@@ -402,7 +402,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

@@ -37,11 +37,11 @@ public class ParGrup2 extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    private void loadingData() {
+    public void loadingData() {
         qParams.select(eParams.up, "where", filter.name(), "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
     }
 
-    private void loadingModel(int... part) {
+    public void loadingModel(int... part) {
         DefaultTableModel dm1 = (DefaultTableModel) tab1.getModel();
         DefaultTableModel dm3 = (DefaultTableModel) tab3.getModel();
         dm1.getDataVector().clear();
@@ -447,7 +447,7 @@ public class ParGrup2 extends javax.swing.JDialog {
     private javax.swing.JTable tab3;
     // End of variables declaration//GEN-END:variables
 // </editor-fold>     
-    private void initElements() {
+    public void initElements() {
 
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Параметры системы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));

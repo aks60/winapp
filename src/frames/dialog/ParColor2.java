@@ -33,12 +33,12 @@ public class ParColor2 extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    private void loadingData(int artikl_id) {
+    public void loadingData(int artikl_id) {
         qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
         qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
 
         DefaultTableModel tableModel = (DefaultTableModel) tab1.getModel();
         tableModel.getDataVector().removeAllElements();
@@ -366,7 +366,7 @@ public class ParColor2 extends javax.swing.JDialog {
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

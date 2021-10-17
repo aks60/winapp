@@ -44,7 +44,7 @@ public class PathToDb extends javax.swing.JDialog {
     }
 
     //Соединение с БД.
-    private void connectToDb() {
+    public void connectToDb() {
         new SwingWorker() {
             @Override
             protected Object doInBackground() throws Exception {

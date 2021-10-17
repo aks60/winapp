@@ -39,11 +39,11 @@ public class DicGroups extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    private void loadingData() {
+    public void loadingData() {
         qGroups.select(eGroups.up, "where grup =", grup.numb(), "order by", eGroups.name);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         if (grup.numb() == TypeGroups.SERI_PROF.id) {
             setTitle("Серии профилей");
             ((CardLayout) centr.getLayout()).show(centr, "pan1");
@@ -71,7 +71,7 @@ public class DicGroups extends javax.swing.JDialog {
         }
     }
 
-    private void setSelectedRow(JTable tab) {
+    public void setSelectedRow(JTable tab) {
         if (ID > 0) {
             for (int i = 0; i < qGroups.size(); ++i) {
                 if (qGroups.get(i).getInt(eGroups.id) == ID) {
@@ -434,7 +434,7 @@ public class DicGroups extends javax.swing.JDialog {
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
     
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

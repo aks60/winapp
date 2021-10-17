@@ -50,11 +50,11 @@ public class Syssize extends javax.swing.JFrame {
         setVisible(true);
     }
 
-    private void loadingData() {
+    public void loadingData() {
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.naxl, eSyssize.zax, eSyssize.falz);
         tab1.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(3));
         tab1.getColumnModel().getColumn(2).setCellEditor(new DefCellEditor(3));
@@ -359,7 +359,7 @@ public class Syssize extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold>    
 
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

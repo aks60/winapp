@@ -27,11 +27,11 @@ public class ParGrup2a extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    private void loadingData() {       
+    public void loadingData() {       
         qParam2.select(eParams.up, "where", eParams.params_id, "=", grup, "and", eParams.id, "!=", eParams.params_id, "order by", eParams.text);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         tab1.setModel(new DefTableModel(tab1, qParam2, eParams.text));
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
@@ -220,7 +220,7 @@ public class ParGrup2a extends javax.swing.JDialog {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
-    private void initElements() {
+    public void initElements() {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
     }

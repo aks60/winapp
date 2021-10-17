@@ -51,13 +51,13 @@ public class Color extends javax.swing.JFrame {
         listenerAdd();
     }
 
-    private void loadingData() {
+    public void loadingData() {
         qColall.select(eColor.up, "order by", eColor.name);
         qGroup1.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLOR.id, "order by", eGroups.name);
         qGroup2.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id, "order by", eGroups.name);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
 
         new DefTableModel(tab1, qGroup1, eGroups.name, eGroups.val);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
@@ -108,7 +108,7 @@ public class Color extends javax.swing.JFrame {
         UGui.setSelectedRow(tab3);
     }
 
-    private void listenerAdd() {
+    public void listenerAdd() {
 
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
@@ -165,7 +165,7 @@ public class Color extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab1(ListSelectionEvent event) {
+    public void selectionTab1(ListSelectionEvent event) {
 
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qGroup1, qColor, qGroup2, qColmap).forEach(q -> q.execsql());
@@ -180,7 +180,7 @@ public class Color extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab3(ListSelectionEvent event) {
+    public void selectionTab3(ListSelectionEvent event) {
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qGroup2, qColmap).forEach(q -> q.execsql());
         int index = UGui.getIndexRec(tab3);
@@ -652,7 +652,7 @@ public class Color extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
-    private void initElements() {
+    public void initElements() {
 
         new FrameToFile(this, btnClose);
         south.add(filterTable, 0);

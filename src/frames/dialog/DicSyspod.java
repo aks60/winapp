@@ -46,7 +46,7 @@ public class DicSyspod extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    private void loadingData() {
+    public void loadingData() {
 
         //Получим сохр. ID системы при выходе из программы
         Record sysprodRec = eSysprod.find(Integer.valueOf(eProperty.sysprodID.read()));
@@ -56,7 +56,7 @@ public class DicSyspod extends javax.swing.JDialog {
         qSystree.select(eSystree.up);
     }
 
-    private void loadingModel() {
+    public void loadingModel() {
         tab2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -78,7 +78,7 @@ public class DicSyspod extends javax.swing.JDialog {
         }        
     }
     
-    private void loadingSys() {
+    public void loadingSys() {
         Record recordRoot = eSystree.up.newRecord(Query.SEL);
         recordRoot.set(eSystree.id, -1);
         recordRoot.set(eSystree.parent_id, -1);
@@ -102,7 +102,7 @@ public class DicSyspod extends javax.swing.JDialog {
         scr1.setViewportView(tree1);
     }
 
-    private void loadingTab2() {
+    public void loadingTab2() {
         
         qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
         DefaultTableModel dm = (DefaultTableModel) tab2.getModel();
@@ -122,7 +122,7 @@ public class DicSyspod extends javax.swing.JDialog {
         }        
     }   
     
-    private void selectionSys() {
+    public void selectionSys() {
 
         systreeNode = (DefMutableTreeNode) tree1.getLastSelectedPathComponent();
         if (systreeNode != null) {
@@ -148,7 +148,7 @@ public class DicSyspod extends javax.swing.JDialog {
         }
     }
     
-    private ArrayList<DefMutableTreeNode> addChild(ArrayList<DefMutableTreeNode> nodeList1, ArrayList<DefMutableTreeNode> nodeList2) {
+    public ArrayList<DefMutableTreeNode> addChild(ArrayList<DefMutableTreeNode> nodeList1, ArrayList<DefMutableTreeNode> nodeList2) {
 
         for (DefMutableTreeNode node : nodeList1) {
             String node2 = (String) node.getUserObject();
@@ -381,7 +381,7 @@ public class DicSyspod extends javax.swing.JDialog {
     private javax.swing.JTree tree1;
     // End of variables declaration//GEN-END:variables
 
-    private void initElements() {
+    public void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

@@ -66,7 +66,7 @@ public class Specifics extends javax.swing.JFrame {
         UGui.setSelectedRow(tab1);
     }
 
-    private void createIwin() {
+    public void createIwin() {
 
         if (eProfile.profile == eProfile.P02) {
             int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
@@ -102,7 +102,7 @@ public class Specifics extends javax.swing.JFrame {
         }
     }
 
-    private void loadingTab1(List<Specific> listSpec) {
+    public void loadingTab1(List<Specific> listSpec) {
         tab1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
@@ -140,7 +140,7 @@ public class Specifics extends javax.swing.JFrame {
         }
     }
 
-    private List<Specific> groups(int num) {
+    public List<Specific> groups(int num) {
         HashSet<String> hs = new HashSet();
         List<Specific> list = new ArrayList();
         Map<String, Specific> map = new HashMap();
@@ -593,7 +593,7 @@ public class Specifics extends javax.swing.JFrame {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
-    private void initElements() {
+    public void initElements() {
         new FrameToFile(this, btnClose);
         filterTable = new FilterTable(4, tab1);
         south.add(filterTable, 0);

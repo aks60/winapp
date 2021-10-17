@@ -353,7 +353,7 @@ public class Profstroy {
         }
     }
 
-    private static HashMap<String, String[]> deltaColumn(DatabaseMetaData mdb1, Field fieldUp) {
+    public static HashMap<String, String[]> deltaColumn(DatabaseMetaData mdb1, Field fieldUp) {
         try {
             HashMap<String, String[]> hmDeltaCol = new HashMap(); //поля не вошедшие в eEnum.values(), в последствии будут использоваться для sql update
             ResultSet rsc1 = mdb1.getColumns(null, null, fieldUp.meta().fname, null);
@@ -385,7 +385,7 @@ public class Profstroy {
     }
 
     //Секция удаления потеренных ссылок (фантомов)
-    private static void deletePart(Connection cn2, Statement st2) {
+    public static void deletePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов)");
             executeSql("delete from params where pnumb > 0");  //group > 0  
@@ -435,7 +435,7 @@ public class Profstroy {
     }
 
     //Секция коррекции внешних ключей
-    private static void updatePart(Connection cn2, Statement st2) {
+    public static void updatePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция коррекции внешних ключей");
             loadSetting("Функция loadSetting()");
@@ -565,7 +565,7 @@ public class Profstroy {
     }
 
     //Секция ссылочной целостности
-    private static void metaPart(Connection cn2, Statement st2) {
+    public static void metaPart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция создания внешних ключей");
             alterTable("artikl", "fk_currenc1", "currenc1_id", "currenc");
@@ -628,7 +628,7 @@ public class Profstroy {
         }
     }
 
-    private static void loadModels() {
+    public static void loadModels() {
         try {
             println(Color.BLACK, "loadModels()");
             List<Integer> prjList = Winscript.models("max");
@@ -657,7 +657,7 @@ public class Profstroy {
         }
     }
 
-    private static void loadSetting(String mes) {
+    public static void loadSetting(String mes) {
         println(Color.BLACK, mes);
         try {
             println(Color.BLACK, "updateSetting()");
@@ -678,7 +678,7 @@ public class Profstroy {
         }
     }
 
-    private static void loadGroups(String mes) {
+    public static void loadGroups(String mes) {
         println(Color.BLACK, mes);
         try {
             ResultSet rs = st1.executeQuery("select * from SYSDATA where SUNIC in (2002, 2003, 2004, 2005, 2007, 2009, 2010, 2013, 2055, 2056, 2057, 2058, 2062, 2073, 2101, 2104)");
@@ -736,7 +736,7 @@ public class Profstroy {
         }
     }
 
-    private static int checkKeyColor(int max) {
+    public static int checkKeyColor(int max) {
         List<Integer[]> recordList = new ArrayList();
         Set<Integer> set = new HashSet();
         try {
@@ -755,7 +755,7 @@ public class Profstroy {
         return max;
     }
 
-    private static void deleteSql(Field table1, String id1, Field table2, String id2) {
+    public static void deleteSql(Field table1, String id1, Field table2, String id2) {
         try {
             int recordDelete = 0, recordCount = 0;
             Set set = new HashSet();
@@ -784,7 +784,7 @@ public class Profstroy {
         }
     }
 
-    private static void updateSql(Field table1, Field fk1, String id1, Field table2, String id2) {
+    public static void updateSql(Field table1, Field fk1, String id1, Field table2, String id2) {
         try {
             int recordUpdate = 0, recordCount = 0;
             Set<Object[]> set = new HashSet();
@@ -815,7 +815,7 @@ public class Profstroy {
         }
     }
 
-    private static void alterTable(String tname1, String cn, String fk, String tname2) {
+    public static void alterTable(String tname1, String cn, String fk, String tname2) {
         String str = "alter table " + tname1 + " add constraint " + cn + " foreign key (" + fk + ") references " + tname2 + " (id)";
         println(Color.BLACK, str);
         try {
@@ -826,7 +826,7 @@ public class Profstroy {
         }
     }
 
-    private static void alterTable(String str) {
+    public static void alterTable(String str) {
         try {
             println(Color.BLACK, str);
             st2.execute(str);
@@ -836,7 +836,7 @@ public class Profstroy {
         }
     }
 
-    private static void executeSql(String... s) {
+    public static void executeSql(String... s) {
         if (s.length == 2 && versionPs.equals(s[0]) == false) {
             return;
         }
@@ -850,7 +850,7 @@ public class Profstroy {
         }
     }
 
-    private static void println(Object... obj) {
+    public static void println(Object... obj) {
         if (obj.length == 0 && obj.length == 1) {
             return;
         }
