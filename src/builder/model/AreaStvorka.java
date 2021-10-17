@@ -34,6 +34,8 @@ public class AreaStvorka extends AreaSimple {
     public Record handleRec = eArtikl.virtualRec(); //ручка
     public int handleColor = -3; //цвет ручки
     public float handleHeight = 0; //высота ручки
+    public Record loopRec = eArtikl.virtualRec(); //подвес(петли)
+    public float loopColor = -3;
     public LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке       
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {

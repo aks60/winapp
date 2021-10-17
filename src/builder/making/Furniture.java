@@ -22,6 +22,7 @@ import enums.Type;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import javax.swing.JOptionPane;
 
 /**
  * Фурнитура
@@ -66,12 +67,19 @@ public class Furniture extends Cal5e {
                 setFurndet.clear();
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(iwin.nuni);
-                
+
                 Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию, первая SYSFURN в списке системы
                 //Теперь найдём furnityreRec по sysfurnRec из параметра или по умолчанию в случае неудачи                 
                 sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnRec.getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
 
+                float max_width = stvorkaList.stream().max((s1, s2) -> s1.width().compareTo(s2.width())).get().width();
+                float max_height = stvorkaList.stream().max((s1, s2) -> s1.height().compareTo(s2.height())).get().height();
+                boolean p2_max = stvorkaList.stream().anyMatch(s -> furnityreRec.getFloat(eFurniture.p2_max) < (s.width() * 2 + s.height() * 2) / 2);
+                if (p2_max || furnityreRec.getFloat(eFurniture.max_height) < max_height || furnityreRec.getFloat(eFurniture.max_width) < max_width) {
+                    JOptionPane.showMessageDialog(null, "Размер створки превышает максимальный размер по фурнитуре.", "ВНИМАНИЕ!", 1);
+                }
+                
                 middle(areaStv, furnityreRec, 1); //основная фурнитура
             }
         } catch (Exception e) {
@@ -221,7 +229,7 @@ public class Furniture extends Cal5e {
                         spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
                         spcAdd.place = "ФУРН";
                         sideStv.addSpecific(spcAdd); //добавим спецификацию в элемент
-                    }                                   
+                    }
                 }
 
                 //Если это нобор   

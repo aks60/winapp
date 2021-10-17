@@ -78,11 +78,11 @@ public abstract class Com5t {
         }
     }
 
-    public float width() {
+    public Float width() {
         return (x2 > x1) ? x2 - x1 : x1 - x2;
     }
 
-    public float height() {
+    public Float height() {
 
         return (y2 > y1) ? y2 - y1 : y1 - y2;
     }
