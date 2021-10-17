@@ -2,6 +2,7 @@ package frames;
 
 import builder.Wincalc;
 import builder.model.AreaSimple;
+import builder.model.AreaStvorka;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
 import builder.script.GsonRoot;
@@ -20,6 +21,7 @@ import domain.eSysprod;
 import domain.eSystree;
 import enums.Enam;
 import builder.param.ParamList;
+import builder.script.GsonElem;
 import enums.UseColor;
 import java.awt.Component;
 import java.awt.Container;
@@ -57,15 +59,20 @@ import frames.swing.listener.ListenerSQL;
 import frames.swing.listener.ListenerObject;
 import common.eProfile;
 import domain.eArtikl;
+import domain.eFurndet;
 import domain.ePrjprod;
+import domain.eSysfurn;
 import enums.PKjson;
 import enums.Type;
+import frames.dialog.DicArtikl;
 import frames.swing.DefMutableTreeNode;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Locale;
+import static java.util.stream.Collectors.toList;
 import javax.swing.ImageIcon;
 
 /**
@@ -164,7 +171,7 @@ public class UGui {
         }));
         DefMutableTreeNode frm = root.add(new DefMutableTreeNode(new Com5t(Type.FRAME) {
         }));
-        
+
         LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS);
         for (ElemSimple elem5e : listElem) {
             if (elem5e.owner().type() != Type.STVORKA) {
@@ -737,5 +744,58 @@ public class UGui {
                 }
             });
         }
+    }
+
+    //Список для выбора ручек в створке
+    public static Query furndetTypeList(int furnitureID, Query qArtikl) {
+        Query qResult = new Query(eArtikl.values());
+        HashSet<Integer> set = new HashSet();    
+        
+        Query qFurndetAll = new Query(eFurndet.values()).select(eFurndet.up);
+        ArrayList<Record> qFurndet = (ArrayList<Record>) qFurndetAll.stream().filter(rec -> rec.getInt(eFurndet.furniture_id1) == furnitureID).collect(toList()); 
+        
+        qArtikl.forEach(rec -> set.add(rec.getInt(eArtikl.id)));
+        for (Record furndetRec : qFurndet) { //первый уровень
+            if (furndetRec.get(eFurndet.furniture_id2) == null) {
+                if (set.contains(furndetRec.getInt(eFurndet.artikl_id))) {
+                    for (Record artiklRec : qArtikl) { //все ручки первого уровня
+                        if (furndetRec.getInt(eFurndet.artikl_id) == artiklRec.getInt(eArtikl.id)) {
+                            if (artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
+                                qResult.add(artiklRec);
+                            }
+                        }
+                        for (Record furndetRec3 : qFurndetAll) {
+                            if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)
+                                    && furndetRec3.getInt(eFurndet.furndet_id) != furndetRec3.getInt(eFurndet.id)) {
+                                if (set.contains(furndetRec3.getInt(eFurndet.artikl_id))) {
+                                    for (Record artiklRec3 : qArtikl) { //все ручки второго уровня
+                                        if (furndetRec3.getInt(eFurndet.artikl_id) == artiklRec3.getInt(eArtikl.id)) {
+                                            if (artiklRec3.getStr(eArtikl.code).charAt(0) != '@') {
+                                                qResult.add(artiklRec3);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else { //набор в первом уровне т. к. во втором нет смысла
+                for (Record furndetRec2 : qFurndetAll) {
+                    if (furndetRec2.getInt(eFurndet.furniture_id2) == furndetRec.getInt(eFurndet.furniture_id2)) {
+                        if (set.contains(furndetRec2.getInt(eFurndet.artikl_id))) {
+                            for (Record artiklRec2 : qArtikl) { //все ручки первого уровня в наборе
+                                if (furndetRec2.getInt(eFurndet.artikl_id) == artiklRec2.getInt(eArtikl.id)) {
+                                    if (artiklRec2.getStr(eArtikl.code).charAt(0) != '@') {
+                                        qResult.add(artiklRec2);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return qResult;
     }
 }

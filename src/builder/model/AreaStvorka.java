@@ -30,12 +30,16 @@ import java.util.List;
 public class AreaStvorka extends AreaSimple {
 
     public Record sysfurnRec = eSysfurn.up.newRecord(); //фурнитура
-    public TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
     public Record handleRec = eArtikl.virtualRec(); //ручка
-    public int handleColor = -3; //цвет ручки
-    public float handleHeight = 0; //высота ручки
     public Record loopRec = eArtikl.virtualRec(); //подвес(петли)
-    public float loopColor = -3;
+    public Record lockRec = eArtikl.virtualRec(); //замок
+    
+    public int handleColor = -3; //цвет ручки
+    public int loopColor = -3; //цвет подвеса
+    public int lockColor = -3; //цвет замка
+    
+    public float handleHeight = 0; //высота ручки
+    public TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
     public LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке       
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
@@ -113,11 +117,9 @@ public class AreaStvorka extends AreaSimple {
         } else {
             typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
         }
-        //Подбор текстуры ручки
+        //Текстура ручки
         if (param(param, PKjson.colorHandl) != -1) {
             handleColor = param(param, PKjson.colorHandl);
-        } else {
-            handleColor = -3; //iwin.colorID1; //если цвет не установлен подбираю по основной текстуре
         }
         //Положение или высота ручки на створке
         if (param(param, PKjson.positionHandl) != -1) {
@@ -141,6 +143,22 @@ public class AreaStvorka extends AreaSimple {
         } else {
             handleLayout = LayoutHandle.MIDL; //по умолчанию
             handleHeight = stvLeft.height() / 2;
+        }
+        //Подвес (петли)
+        if (param(param, PKjson.artiklLoop) != -1) {
+            loopRec = eArtikl.find(param(param, PKjson.artiklLoop), false);
+        }
+        //Текстура подвеса
+        if (param(param, PKjson.colorLoop) != -1) {
+            loopColor = param(param, PKjson.colorLoop);
+        }
+        //Замок
+        if (param(param, PKjson.artiklLock) != -1) {
+            lockRec = eArtikl.find(param(param, PKjson.artiklLock), false);
+        }
+        //Текстура замка
+        if (param(param, PKjson.colorLock) != -1) {
+            lockColor = param(param, PKjson.colorLock);
         }
     }
 
@@ -177,15 +195,15 @@ public class AreaStvorka extends AreaSimple {
         //Угловое соединение правое нижнее
         ElemJoining.create(stvBott.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RBOT, stvBott, stvRight, 90);
         //Угловое соединение правое верхнее
-        ElemJoining.create(stvRight.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RTOP, stvRight, stvTop, 90); 
+        ElemJoining.create(stvRight.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RTOP, stvRight, stvTop, 90);
         //Угловое соединение левое верхнее
-        ElemJoining.create(stvTop.joinPoint(1),iwin, TypeJoin.VAR20, LayoutJoin.LTOP, stvTop, stvLeft, 90);
+        ElemJoining.create(stvTop.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LTOP, stvTop, stvLeft, 90);
         //Угловое соединение левое нижнее
-        ElemJoining.create(stvLeft.joinPoint(1),iwin, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90); 
+        ElemJoining.create(stvLeft.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90);
         //Прилегающее нижнее
         ElemJoining.create(stvBott.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, stvBott.joinFlat(Layout.BOTT), 0);
         //Прилегающее верхнее 
-        ElemJoining.create(stvTop.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, stvTop.joinFlat(Layout.TOP), 0);        
+        ElemJoining.create(stvTop.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, stvTop.joinFlat(Layout.TOP), 0);
         //Прилегающее левое
         ElemJoining.create(stvLeft.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, stvLeft.joinFlat(Layout.LEFT), 0);
         //Прилегающее правое
