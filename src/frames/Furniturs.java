@@ -575,20 +575,20 @@ public class Furniturs extends javax.swing.JFrame {
             tbtn3.setSelected(true);
         }
         tbtnAction(null);
-        
-//        UGui.setSelectedIndex(tab1, iFurn);
-//        UGui.scrollRectToRow(iFurn, tab1);
-//        UGui.setSelectedIndex(tab2a, iDet2a);
-//        UGui.setSelectedIndex(tab2b, iDet2b);
-//        UGui.setSelectedIndex(tab2c, iDet2c);
-//        tabb1.setSelectedIndex(iTabb);
-//        if (iTabb == 0) {
-//            UGui.scrollRectToRow(iDet2a, tab2a);
-//        } else if (iTabb == 1) {
-//            UGui.scrollRectToRow(iDet2b, tab2b);
-//        } else {
-//            UGui.scrollRectToRow(iDet2c, tab2c);
-//        }
+
+        UGui.setSelectedIndex(tab1, iFurn);
+        UGui.scrollRectToRow(iFurn, tab1);
+        UGui.setSelectedIndex(tab2a, iDet2a);
+        UGui.setSelectedIndex(tab2b, iDet2b);
+        UGui.setSelectedIndex(tab2c, iDet2c);
+        tabb1.setSelectedIndex(iTabb);
+        if (iTabb == 0) {
+            UGui.scrollRectToRow(iDet2a, tab2a);
+        } else if (iTabb == 1) {
+            UGui.scrollRectToRow(iDet2b, tab2b);
+        } else {
+            UGui.scrollRectToRow(iDet2c, tab2c);
+        }
     }
 
     public void selectionRows(int deteilID) {
@@ -1370,6 +1370,7 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void tbtnAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnAction
+        
         JTable table = null;
         if (tab2a.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
             table = tab2a;
@@ -1378,16 +1379,18 @@ public class Furniturs extends javax.swing.JFrame {
         } else if (tab2c.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
             table = tab2c;
         }
-        int index = UGui.getIndexRec(table);
-        Integer furndetID2 = (index == -1) ? null : ((DefTableModel) table.getModel()).getQuery().getAs(index, eFurndet.furniture_id2);
+        int index = (table == null) ? -1 : UGui.getIndexRec(table);
+        Integer furnitureId = (index == -1) ? null : ((DefTableModel) table.getModel()).getQuery().getAs(index, eFurndet.furniture_id2);
 
         loadingData();
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();        
         UGui.setSelectedRow(tab1);
-        if (furndetID2 != null && tbtn3.isSelected()) {
+        
+        //Если переход на набор, сразу ищем его
+        if (furnitureId != null && tbtn3.isSelected()) {
             for (int index2 = 0; index2 < qFurniture.size(); ++index2) {
                 Record record = qFurniture.get(index2);
-                if (record.getInt(eFurniture.id) == furndetID2) {
+                if (record.getInt(eFurniture.id) == furnitureId) {
                     UGui.setSelectedIndex(tab1, index2);
                     Rectangle cellRect = tab1.getCellRect(index2, 0, false);
                     tab1.scrollRectToVisible(cellRect);

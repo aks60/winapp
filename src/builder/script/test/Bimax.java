@@ -456,6 +456,20 @@ public final class Bimax {
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 600))
                     .addElem(new GsonElem(Type.GLASS));
             
+        } else if (prj == 508841) { //427653 Двери
+            rootGson = new GsonRoot(prj, 2, 330, "KBE / KBE Эксперт / 6 ВХОДНЫЕ ДВЕРИ / Дверь наружу",
+                    Layout.VERT, Type.DOOR, 900, 2100, 1009, 1009, 1009);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
+            GsonElem stv = rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA));
+            stv.addArea(new GsonElem(Layout.VERT, Type.AREA, 1300))
+                    .addElem(new GsonElem(Type.GLASS));
+            stv.addElem(new GsonElem(Type.IMPOST))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 800))
+                    .addElem(new GsonElem(Type.GLASS));
+            
         } else if (prj == 777) { //TEST
             rootGson = new GsonRoot(prj, 1, 8, "KBE\\KBE 58\\1 ОКНА\\*Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.RECTANGL, 1200, 1400, 1009, 1009, 1009);

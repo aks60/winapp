@@ -45,7 +45,7 @@ public class TestFrame extends javax.swing.JFrame {
 
     private void loadingTab1() {
         try {
-            sql1.setText("select * from LISTPRJ");
+            sql1.setText("select * from FURNSPC where FUNIC = 233");
             ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
             ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -67,8 +67,8 @@ public class TestFrame extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).setRowCount(0);
             ((DefaultTableModel) tab3.getModel()).setRowCount(0);
 
-            TableCellRenderer headerRenderer = new VerticalTableHeaderCellRenderer();
-            tab1.getColumnModel().getColumn(1).setHeaderRenderer(headerRenderer);
+//            TableCellRenderer headerRenderer = new VerticalTableHeaderCellRenderer();
+//            tab1.getColumnModel().getColumn(1).setHeaderRenderer(headerRenderer);
 //            Enumeration<TableColumn> columns = tab1.getColumnModel().getColumns();
 //            while (columns.hasMoreElements()) {
 //                ((TableColumn) columns.nextElement()).setHeaderRenderer(headerRenderer);
