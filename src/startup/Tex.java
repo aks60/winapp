@@ -471,7 +471,6 @@ public class Tex extends javax.swing.JFrame {
         buttonBaseGroup1.add(btnT7);
         btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c057.gif"))); // NOI18N
         btnT7.setSelected(true);
-        btnT7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnT7.setFocusable(false);
         btnT7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnT7.setMaximumSize(new java.awt.Dimension(28, 25));
@@ -488,7 +487,6 @@ public class Tex extends javax.swing.JFrame {
 
         buttonBaseGroup1.add(btnT8);
         btnT8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c058.gif"))); // NOI18N
-        btnT8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnT8.setFocusable(false);
         btnT8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnT8.setMaximumSize(new java.awt.Dimension(28, 25));
@@ -505,7 +503,6 @@ public class Tex extends javax.swing.JFrame {
 
         buttonBaseGroup1.add(btnT9);
         btnT9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c059.gif"))); // NOI18N
-        btnT9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnT9.setFocusable(false);
         btnT9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnT9.setMaximumSize(new java.awt.Dimension(28, 25));

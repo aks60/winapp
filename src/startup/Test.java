@@ -69,18 +69,14 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            //wincalc();
+            wincalc();
             //param();
             //query();
             //frame();
             //json();
             //parse();
             //uid(); 
-            HashSet<Integer> setPk = new HashSet(Arrays.asList(31, 33, 34));
-            boolean bbb  = setPk.contains(31);
-            boolean bbb2  = setPk.contains(32);
             
-
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }

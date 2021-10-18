@@ -22,6 +22,7 @@ import enums.Type;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import static java.util.stream.Collectors.toList;
 import javax.swing.JOptionPane;
 
 /**
@@ -91,7 +92,8 @@ public class Furniture extends Cal5e {
 
     protected void middle(AreaStvorka areaStv, Record furnitureRec, int count) {
         try {
-            List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
+            List<Record> furndetList1 = eFurndet.find(furnitureRec.getInt(eFurniture.id));
+            List<Record> furndetList2 = furndetList1.stream().filter(rec -> rec.getInt(eFurndet.id) != rec.getInt(eFurndet.furndet_id)).collect(toList());
             List<Record> furnsidetList = eFurnside1.find(furnitureRec.getInt(eFurniture.id));
 
             //Цикл по описанию сторон фурнитуры
@@ -106,21 +108,18 @@ public class Furniture extends Cal5e {
             }
 
             //Цикл по детализации (уровень 1)        
-            for (Record furndetRec1 : furndetList) {
+            for (Record furndetRec1 : furndetList1) {
                 if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
                     if (detail(areaStv, furndetRec1, count) == true) {
-
+                        
                         //Цикл по детализации (уровень 2)
-                        for (Record furndetRec2 : furndetList) {
-                            if (furndetRec2.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)
-                                    && furndetRec2.getInt(eFurndet.furndet_id) != furndetRec2.getInt(eFurndet.id)) {
+                        for (Record furndetRec2 : furndetList2) {
+                            if (furndetRec2.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
                                 if (detail(areaStv, furndetRec2, count) == true) {
 
                                     //Цикл по детализации (уровень 3)
-                                    for (Record furndetRec3 : furndetList) {
-                                        if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec2.getInt(eFurndet.id)
-                                                && furndetRec3.getInt(eFurndet.furndet_id) != furndetRec3.getInt(eFurndet.id)) {
-
+                                    for (Record furndetRec3 : furndetList2) {
+                                        if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec2.getInt(eFurndet.id)) {
                                             detail(areaStv, furndetRec3, count);
                                         }
                                     }

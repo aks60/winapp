@@ -398,11 +398,11 @@ public class Specifics extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(24);
             tab1.getColumnModel().getColumn(0).setMaxWidth(40);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(26);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(31);
             tab1.getColumnModel().getColumn(1).setMaxWidth(40);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(28);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(24);
             tab1.getColumnModel().getColumn(2).setMaxWidth(40);
-            tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(3).setMaxWidth(60);
             tab1.getColumnModel().getColumn(4).setPreferredWidth(100);
             tab1.getColumnModel().getColumn(5).setPreferredWidth(240);
@@ -473,8 +473,8 @@ public class Specifics extends javax.swing.JFrame {
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         float id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         String str = tab1.getValueAt(tab1.getSelectedRow(), 3).toString().substring(0, 3);
-        Specific SspecificRec = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
-        Record detailRec = SspecificRec.detailRec;
+        Specific specificRec = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
+        Record detailRec = specificRec.detailRec;
         if (detailRec != null) {
             FrameProgress.create(Specifics.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
@@ -496,7 +496,7 @@ public class Specifics extends javax.swing.JFrame {
             FrameProgress.create(Specifics.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
-                        App.Systree.createFrame(Specifics.this, SspecificRec.artiklRec.getInt(eArtikl.id));
+                        App.Systree.createFrame(Specifics.this, specificRec.artiklRec.getInt(eArtikl.id));
 
                     } else if (str.equals("ЗАП")) {
                         App.Systree.createFrame(Specifics.this);
