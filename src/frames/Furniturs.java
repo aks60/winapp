@@ -104,7 +104,7 @@ public class Furniturs extends javax.swing.JFrame {
         loadingModel();
         listenerAdd();
         listenerSet();
-        deteilFind(deteilID);
+        selectionRows(deteilID);
     }
 
     public void loadingData() {
@@ -112,7 +112,7 @@ public class Furniturs extends javax.swing.JFrame {
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         qFurnall.select(eFurniture.up, "order by", eFurniture.name);
-        qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text); 
+        qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
         int types = (tbtn1.isSelected()) ? 0 : (tbtn2.isSelected()) ? 1 : -1;
         if (subsql == null) {
@@ -575,51 +575,52 @@ public class Furniturs extends javax.swing.JFrame {
             tbtn3.setSelected(true);
         }
         tbtnAction(null);
-        UGui.setSelectedIndex(tab1, iFurn);
-        UGui.scrollRectToRow(iFurn, tab1);
-        UGui.setSelectedIndex(tab2a, iDet2a);
-        UGui.setSelectedIndex(tab2b, iDet2b);
-        UGui.setSelectedIndex(tab2c, iDet2c);
-        tabb1.setSelectedIndex(iTabb);
-        if (iTabb == 0) {
-            UGui.scrollRectToRow(iDet2a, tab2a);
-        } else if (iTabb == 1) {
-            UGui.scrollRectToRow(iDet2b, tab2b);
-        } else {
-            UGui.scrollRectToRow(iDet2c, tab2c);
-        }
-
+        
+//        UGui.setSelectedIndex(tab1, iFurn);
+//        UGui.scrollRectToRow(iFurn, tab1);
+//        UGui.setSelectedIndex(tab2a, iDet2a);
+//        UGui.setSelectedIndex(tab2b, iDet2b);
+//        UGui.setSelectedIndex(tab2c, iDet2c);
+//        tabb1.setSelectedIndex(iTabb);
+//        if (iTabb == 0) {
+//            UGui.scrollRectToRow(iDet2a, tab2a);
+//        } else if (iTabb == 1) {
+//            UGui.scrollRectToRow(iDet2b, tab2b);
+//        } else {
+//            UGui.scrollRectToRow(iDet2c, tab2c);
+//        }
     }
 
-    public void deteilFind(int deteilID) {
+    public void selectionRows(int deteilID) {
         Query qFurn = new Query(eFurniture.values());
         Query qDet2a = new Query(eFurndet.values(), eArtikl.values());
         Query qDet2b = new Query(eFurndet.values(), eArtikl.values());
         Query qDet2c = new Query(eFurndet.values(), eArtikl.values());
-
-        for (int index0 : Arrays.asList(0, 1, -1)) {
-            qFurn.select(eFurniture.up, "where", eFurniture.id, "in", subsql, "and", eFurniture.types, "=", index0, "order by", eFurniture.name);
-            for (int index1 = 0; index1 < qFurn.size(); index1++) {
-                int id = qFurn.get(index1).getInt(eFurniture.id);
-                qDet2a.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.furndet_id, "=", eFurndet.id);
-                for (int index2 = 0; index2 < qDet2a.size(); index2++) {
-                    if (qDet2a.get(index2).getInt(eFurndet.id) == deteilID) {
-                        selectionRows(qFurn, qDet2a, qDet2b, qDet2c, 0, index1, index2, 0, 0);
-                        return;
-                    } else {
-                        id = qDet2a.get(index2).getInt(eFurndet.id);
-                        qDet2b.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id);
-                        for (int index3 = 0; index3 < qDet2b.size(); index3++) {
-                            if (qDet2b.get(index3).getInt(eFurndet.id) == deteilID) {
-                                selectionRows(qFurn, qDet2a, qDet2b, qDet2c, 1, index1, index2, index3, 0);
-                                return;
-                            } else {
-                                id = qDet2b.get(index3).getInt(eFurndet.id);
-                                qDet2c.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id);
-                                for (int index4 = 0; index4 < qDet2c.size(); index4++) {
-                                    if (qDet2c.get(index4).getInt(eFurndet.id) == deteilID) {
-                                        selectionRows(qFurn, qDet2a, qDet2b, qDet2c, 2, index1, index2, index3, index4);
-                                        return;
+        try {
+            for (int index0 : Arrays.asList(0, 1, -1)) {
+                qFurn.select(eFurniture.up, "where", eFurniture.id, "in", subsql, "and", eFurniture.types, "=", index0, "order by", eFurniture.name);
+                for (int index1 = 0; index1 < qFurn.size(); index1++) {
+                    int id = qFurn.get(index1).getInt(eFurniture.id);
+                    qDet2a.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.furndet_id, "=", eFurndet.id);
+                    for (int index2 = 0; index2 < qDet2a.size(); index2++) {
+                        if (qDet2a.get(index2).getInt(eFurndet.id) == deteilID) {
+                            selectionRows(qFurn, qDet2a, qDet2b, qDet2c, 0, index1, index2, 0, 0);
+                            return;
+                        } else {
+                            id = qDet2a.get(index2).getInt(eFurndet.id);
+                            qDet2b.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id);
+                            for (int index3 = 0; index3 < qDet2b.size(); index3++) {
+                                if (qDet2b.get(index3).getInt(eFurndet.id) == deteilID) {
+                                    selectionRows(qFurn, qDet2a, qDet2b, qDet2c, 1, index1, index2, index3, 0);
+                                    return;
+                                } else {
+                                    id = qDet2b.get(index3).getInt(eFurndet.id);
+                                    qDet2c.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id);
+                                    for (int index4 = 0; index4 < qDet2c.size(); index4++) {
+                                        if (qDet2c.get(index4).getInt(eFurndet.id) == deteilID) {
+                                            selectionRows(qFurn, qDet2a, qDet2b, qDet2c, 2, index1, index2, index3, index4);
+                                            return;
+                                        }
                                     }
                                 }
                             }
@@ -627,6 +628,8 @@ public class Furniturs extends javax.swing.JFrame {
                     }
                 }
             }
+        } catch (Exception e) {
+            System.out.println("Ошибка:Furniturs.deteilFind()");
         }
     }
 
@@ -1343,7 +1346,7 @@ public class Furniturs extends javax.swing.JFrame {
         JTable table = (JTable) evt.getSource();
         UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
         if (table == tab2a) {
-            tab2 =tab2a;
+            tab2 = tab2a;
             selectionTab2a(null);
         } else if (table == tab2b) {
             tab2 = tab2b;
@@ -1369,15 +1372,15 @@ public class Furniturs extends javax.swing.JFrame {
     private void tbtnAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnAction
         JTable table = null;
         if (tab2a.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
-            table = tab2a;               
+            table = tab2a;
         } else if (tab2b.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
-            table = tab2b; 
+            table = tab2b;
         } else if (tab2c.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
-           table = tab2c;
+            table = tab2c;
         }
         int index = UGui.getIndexRec(table);
         Integer furndetID2 = (index == -1) ? null : ((DefTableModel) table.getModel()).getQuery().getAs(index, eFurndet.furniture_id2);
-        
+
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
@@ -1480,7 +1483,7 @@ public class Furniturs extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        
+
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
