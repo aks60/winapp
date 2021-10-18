@@ -1818,7 +1818,7 @@
                             </Property>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorToHandl"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorFromHandl"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btn21">
@@ -2136,6 +2136,9 @@
                               <Dimension value="[18, 18]"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorFromLoop"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="lab62">
                           <Properties>
@@ -2252,6 +2255,9 @@
                               <Dimension value="[18, 18]"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorFromLock"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

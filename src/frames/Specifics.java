@@ -605,7 +605,7 @@ public class Specifics extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer0 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
-                    value = (value.equals("virtual")) ? null : value;
+                    value = (value.equals("Авторасчёт")) ? null : value;
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;

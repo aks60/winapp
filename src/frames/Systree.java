@@ -1702,7 +1702,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         btn14.setPreferredSize(new java.awt.Dimension(18, 18));
         btn14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorToHandl(evt);
+                colorFromHandl(evt);
             }
         });
 
@@ -1817,6 +1817,11 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         btn17.setMinimumSize(new java.awt.Dimension(18, 18));
         btn17.setName("btnField17"); // NOI18N
         btn17.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorFromLoop(evt);
+            }
+        });
 
         lab62.setFont(frames.UGui.getFont(0,0));
         lab62.setText("Замок");
@@ -1859,6 +1864,11 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         btn24.setMinimumSize(new java.awt.Dimension(18, 18));
         btn24.setName("btnField17"); // NOI18N
         btn24.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorFromLock(evt);
+            }
+        });
 
         javax.swing.GroupLayout pan16Layout = new javax.swing.GroupLayout(pan16);
         pan16.setLayout(pan16Layout);
@@ -3218,7 +3228,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             float selectID = winNode.com5t().id();
             int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 11");
-            Query qResult = UGui.furndetTypeList(furnitureID, qArtikl);
+            Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
@@ -3276,23 +3286,11 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         }, indexLayoutHandl);
     }//GEN-LAST:event_heightHandlToStvorka
 
-    private void colorToHandl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToHandl
+    private void colorFromHandl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFromHandl
         try {
             float selectID = winNode.com5t().id();
-            HashSet<Record> colorSet = new HashSet();
-            Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", winNode.com5t().artiklRec.getInt(eArtikl.id));
-            artdetList.forEach(rec -> {
-
-                if (rec.getInt(eArtdet.color_fk) < 0) {
-                    eColor.query().forEach(rec2 -> {
-                        if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
-                            colorSet.add(rec2);
-                        }
-                    });
-                } else {
-                    colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
-                }
-            });
+            AreaStvorka stv = (AreaStvorka) winNode.com5t();
+            HashSet<Record> colorSet = UGui.artiklToColorSet(stv.handleRec.getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
@@ -3302,12 +3300,12 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
                 updateScript(selectID);
-
             }, colorSet);
+            
         } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
+            System.err.println("Ошибка:Systree.colorToHandl() " + e);
         }
-    }//GEN-LAST:event_colorToHandl
+    }//GEN-LAST:event_colorFromHandl
 
     private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame
         try {
@@ -3335,7 +3333,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             float selectID = winNode.com5t().id();
             int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 12");
-            Query qResult = UGui.furndetTypeList(furnitureID, qArtikl);
+            Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
@@ -3358,13 +3356,13 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             float selectID = winNode.com5t().id();
             int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 9");
-            Query qResult = UGui.furndetTypeList(furnitureID, qArtikl);
+            Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                paramObj.addProperty(PKjson.artiklLoop, artiklRec.getStr(eArtikl.id));
+                paramObj.addProperty(PKjson.artiklLock, artiklRec.getStr(eArtikl.id));
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
                 updateScript(selectID);
@@ -3375,6 +3373,48 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             System.err.println("Ошибка: " + e);
         }
     }//GEN-LAST:event_lockToStvorka
+
+    private void colorFromLoop(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFromLoop
+        try {
+            float selectID = winNode.com5t().id();
+            AreaStvorka stv = (AreaStvorka) winNode.com5t();
+            HashSet<Record> colorSet = UGui.artiklToColorSet(stv.loopRec.getInt(eArtikl.id));
+            DicColor frame = new DicColor(this, (colorRec) -> {
+
+                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
+                String paramStr = stvArea.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.addProperty(PKjson.colorLoop, colorRec.getStr(eColor.id));
+                paramStr = gson.toJson(paramObj);
+                stvArea.param(paramStr);
+                updateScript(selectID);
+            }, colorSet);
+            
+        } catch (Exception e) {
+            System.err.println("Ошибка:Systree.colorToHandl() " + e);
+        }
+    }//GEN-LAST:event_colorFromLoop
+
+    private void colorFromLock(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFromLock
+        try {
+            float selectID = winNode.com5t().id();
+            AreaStvorka stv = (AreaStvorka) winNode.com5t();
+            HashSet<Record> colorSet = UGui.artiklToColorSet(stv.lockRec.getInt(eArtikl.id));
+            DicColor frame = new DicColor(this, (colorRec) -> {
+
+                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
+                String paramStr = stvArea.param();
+                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.addProperty(PKjson.colorLock, colorRec.getStr(eColor.id));
+                paramStr = gson.toJson(paramObj);
+                stvArea.param(paramStr);
+                updateScript(selectID);
+            }, colorSet);
+            
+        } catch (Exception e) {
+            System.err.println("Ошибка:Systree.colorToHandl() " + e);
+        }
+    }//GEN-LAST:event_colorFromLock
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

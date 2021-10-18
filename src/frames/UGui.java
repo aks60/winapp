@@ -2,7 +2,6 @@ package frames;
 
 import builder.Wincalc;
 import builder.model.AreaSimple;
-import builder.model.AreaStvorka;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
 import builder.script.GsonRoot;
@@ -21,7 +20,6 @@ import domain.eSysprod;
 import domain.eSystree;
 import enums.Enam;
 import builder.param.ParamList;
-import builder.script.GsonElem;
 import enums.UseColor;
 import java.awt.Component;
 import java.awt.Container;
@@ -58,22 +56,21 @@ import javax.swing.tree.TreePath;
 import frames.swing.listener.ListenerSQL;
 import frames.swing.listener.ListenerObject;
 import common.eProfile;
+import domain.eArtdet;
 import domain.eArtikl;
+import domain.eColor;
 import domain.eFurndet;
 import domain.ePrjprod;
-import domain.eSysfurn;
 import enums.PKjson;
 import enums.Type;
-import frames.dialog.DicArtikl;
 import frames.swing.DefMutableTreeNode;
-import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Locale;
 import static java.util.stream.Collectors.toList;
-import javax.swing.ImageIcon;
 
 /**
  * <p>
@@ -746,108 +743,61 @@ public class UGui {
         }
     }
 
-    //Список для выбора ручек в створке
-    public static Query furndetTypeList(int furnitureID, Query qArtikl) {
+    //Список для выбора ручек, подвесов, накладок в створке   
+    public static Query artTypeToFurndetList(int furnitureID, Query qArtikl) {
+        HashSet<Integer> setPk = new HashSet();
+        qArtikl.stream().forEach(rec -> setPk.add(rec.getInt(eArtikl.id)));
+        HashSet<Integer> setFilter = new HashSet();
         Query qResult = new Query(eArtikl.values());
-        HashSet<Integer> set = new HashSet();
-
         Query qFurndetAll = new Query(eFurndet.values()).select(eFurndet.up);
-        ArrayList<Record> qFurndet = (ArrayList<Record>) qFurndetAll.stream().filter(rec -> rec.getInt(eFurndet.furniture_id1) == furnitureID).collect(toList());
+        List<Record> furndetList1 = qFurndetAll.stream().filter(rec -> setPk.contains(rec.getInt(eFurndet.artikl_id)) == true).collect(toList());
+        List<Record> furndetList2 = furndetList1.stream().filter(rec -> rec.getInt(eFurndet.furniture_id1) == furnitureID).collect(toList());
 
-        qArtikl.forEach(rec -> set.add(rec.getInt(eArtikl.id)));
-        for (Record furndetRec : qFurndet) { //первый уровень
-            if (furndetRec.get(eFurndet.furniture_id2) == null) {
-                if (set.contains(furndetRec.getInt(eFurndet.artikl_id))) {
-                    for (Record artiklRec : qArtikl) { //все ручки первого уровня
-                        if (furndetRec.getInt(eFurndet.artikl_id) == artiklRec.getInt(eArtikl.id)) {
-                            if (artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
-                                qResult.add(artiklRec);
-                            }
-                        }
-                        for (Record furndetRec3 : qFurndetAll) {
-                            if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)
-                                    && furndetRec3.getInt(eFurndet.furndet_id) != furndetRec3.getInt(eFurndet.id)) {
-                                if (set.contains(furndetRec3.getInt(eFurndet.artikl_id))) {
-                                    for (Record artiklRec3 : qArtikl) { //все ручки второго уровня
-                                        if (furndetRec3.getInt(eFurndet.artikl_id) == artiklRec3.getInt(eArtikl.id)) {
-                                            if (artiklRec3.getStr(eArtikl.code).charAt(0) != '@') {
-                                                qResult.add(artiklRec3);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+        //Цикл детализации конкретной записи фурнитуры
+        for (Record furndetRec2 : furndetList2) {
+
+            //Цикл по детализации определённого typeArtikl для конкретной фурнитуры
+            if (furndetRec2.get(eFurndet.furniture_id2) == null) { //не набор
+                int ID = setPk.stream().filter(it -> it == furndetRec2.getInt(eFurndet.artikl_id)).findFirst().orElse(-1);
+                if (ID != -1) {
+                    setFilter.add(ID);
+                }
+            } else { //это набор
+                int naborID = furndetRec2.getInt(eFurndet.furniture_id2);
+                //Цикл по всей детализации определённого typeArtikl
+                for (Record furndetRec1 : furndetList1) {
+
+                    int ID = setPk.stream().filter(it -> it == furndetRec1.getInt(eFurndet.artikl_id)).findFirst().orElse(-1);
+                    if (ID != -1) {
+                        setFilter.add(ID);
                     }
                 }
-            } else { //набор в первом уровне т. к. во втором нет смысла
-                for (Record furndetRec2 : qFurndetAll) {
-                    if (furndetRec2.getInt(eFurndet.furniture_id2) == furndetRec.getInt(eFurndet.furniture_id2)) {
-                        if (set.contains(furndetRec2.getInt(eFurndet.artikl_id))) {
-                            for (Record artiklRec2 : qArtikl) { //все ручки первого уровня в наборе
-                                if (furndetRec2.getInt(eFurndet.artikl_id) == artiklRec2.getInt(eArtikl.id)) {
-                                    if (artiklRec2.getStr(eArtikl.code).charAt(0) != '@') {
-                                        qResult.add(artiklRec2);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+            }
+        }
+        for (Integer id : setFilter) {
+            Record record = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findAny().get();
+            if (record.getStr(eArtikl.code).charAt(0) != '@') {
+                qResult.add(record);
             }
         }
         return qResult;
     }
 
-    public static Query furndetTypeList2(int furnitureID, Query qArtikl) {
-        Query qResult = new Query(eArtikl.values());
-        HashSet<Integer> set = new HashSet();
+    public static HashSet<Record> artiklToColorSet(int artiklID) {
+        HashSet<Record> colorSet = new HashSet();
+        Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", artiklID);
+        artdetList.stream().forEach(rec -> {
 
-        Query qFurndetAll = new Query(eFurndet.values()).select(eFurndet.up, "where", eFurndet.furniture_id1, "=", furnitureID);
-        //ArrayList<Record> qFurndet = (ArrayList<Record>) qFurndetAll.stream().filter(rec -> rec.getInt(eFurndet.furniture_id1) == furnitureID).collect(toList());
-
-        qArtikl.forEach(rec -> set.add(rec.getInt(eArtikl.id)));
-        for (Record furndetRec : qFurndetAll) { //первый уровень
-            if (furndetRec.get(eFurndet.furniture_id2) == null) {
-                if (set.contains(furndetRec.getInt(eFurndet.artikl_id))) {
-                    for (Record artiklRec : qArtikl) { //все ручки первого уровня
-                        if (furndetRec.getInt(eFurndet.artikl_id) == artiklRec.getInt(eArtikl.id)) {
-                            if (artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
-                                qResult.add(artiklRec);
-                            }
-                        }
-                        for (Record furndetRec3 : qFurndetAll) {
-                            if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)
-                                    && furndetRec3.getInt(eFurndet.furndet_id) != furndetRec3.getInt(eFurndet.id)) {
-                                if (set.contains(furndetRec3.getInt(eFurndet.artikl_id))) {
-                                    for (Record artiklRec3 : qArtikl) { //все ручки второго уровня
-                                        if (furndetRec3.getInt(eFurndet.artikl_id) == artiklRec3.getInt(eArtikl.id)) {
-                                            if (artiklRec3.getStr(eArtikl.code).charAt(0) != '@') {
-                                                qResult.add(artiklRec3);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+            if (rec.getInt(eArtdet.color_fk) < 0) {
+                eColor.query().forEach(rec2 -> {
+                    if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
+                        colorSet.add(rec2);
                     }
-                }
-            } else { //набор в первом уровне т. к. во втором нет смысла
-                for (Record furndetRec2 : qFurndetAll) {
-                    if (furndetRec2.getInt(eFurndet.furniture_id2) == furndetRec.getInt(eFurndet.furniture_id2)) {
-                        if (set.contains(furndetRec2.getInt(eFurndet.artikl_id))) {
-                            for (Record artiklRec2 : qArtikl) { //все ручки первого уровня в наборе
-                                if (furndetRec2.getInt(eFurndet.artikl_id) == artiklRec2.getInt(eArtikl.id)) {
-                                    if (artiklRec2.getStr(eArtikl.code).charAt(0) != '@') {
-                                        qResult.add(artiklRec2);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                });
+            } else {
+                colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
             }
-        }
-        return qResult;
+        });
+        return colorSet;
     }
 }

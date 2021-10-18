@@ -1367,8 +1367,17 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void tbtnAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnAction
-        int index = UGui.getIndexRec(tab2a);
-        Integer furndetID2 = (index == -1) ? null : qFurndet2a.getAs(index, eFurndet.furniture_id2);
+        JTable table = null;
+        if (tab2a.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
+            table = tab2a;               
+        } else if (tab2b.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
+            table = tab2b; 
+        } else if (tab2c.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
+           table = tab2c;
+        }
+        int index = UGui.getIndexRec(table);
+        Integer furndetID2 = (index == -1) ? null : ((DefTableModel) table.getModel()).getQuery().getAs(index, eFurndet.furniture_id2);
+        
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);

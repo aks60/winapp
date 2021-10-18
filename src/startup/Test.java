@@ -13,6 +13,8 @@ import domain.eElement;
 import frames.DBCompare;
 import frames.Profstroy;
 import java.sql.Connection;
+import java.util.Arrays;
+import java.util.HashSet;
 import javax.swing.UIManager;
 import java.util.List;
 import java.util.UUID;
@@ -67,13 +69,17 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            wincalc();
+            //wincalc();
             //param();
             //query();
             //frame();
             //json();
             //parse();
             //uid(); 
+            HashSet<Integer> setPk = new HashSet(Arrays.asList(31, 33, 34));
+            boolean bbb  = setPk.contains(31);
+            boolean bbb2  = setPk.contains(32);
+            
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);

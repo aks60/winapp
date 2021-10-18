@@ -151,7 +151,7 @@ public class DicArtikl extends javax.swing.JDialog {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -204,9 +204,11 @@ public class DicArtikl extends javax.swing.JDialog {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(20);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(0).setMinWidth(20);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(1).setMinWidth(40);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(320);
         }
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);
