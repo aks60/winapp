@@ -363,7 +363,7 @@ public class DBCompare extends javax.swing.JFrame {
             Vector vectorData = new Vector();
             Vector vectorColumn = new Vector(Arrays.asList("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
             ResultSet rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
-                    + "where a.punic = b.punic and b.pdate > '01.01.2018' and b.pdate < '01.01.2022' order by b.pdate"); //427820
+                    + "where a.punic = b.punic and b.pdate > '01.01.2016' and b.pdate < '01.01.2022' order by b.pdate"); //427820
             if (rs.isLast() == false) {
                 while (rs.next()) {
                     Vector vectorRec = new Vector();
