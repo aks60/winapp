@@ -34,6 +34,7 @@ public class Furniture extends Cal5e {
     private FurnitureVar furnitureVar = null;
     private FurnitureDet furnitureDet = null;
     private HashSet<Record> setFurndet = new HashSet();
+    private List list = Arrays.asList(9, 11, 12);
 
     public Furniture(Wincalc iwin) {
         super(iwin);
@@ -56,11 +57,6 @@ public class Furniture extends Cal5e {
         try {
             //Цикл по створкам      
             for (AreaStvorka areaStv : stvorkaList) {
-
-//                //Если ручка, подвес, замок выбраны вручную добавляю спецификацию
-//                if (shortPass == false) {
-//                    addSpecific(areaStv);
-//                }
                 setFurndet.clear();
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(iwin.nuni);
@@ -135,8 +131,7 @@ public class Furniture extends Cal5e {
             Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
 
             //Сделано для убыстрения поиска ручки, подвеса, замка при конструировании окна
-            if (shortPass == true) {
-                List list = Arrays.asList(9, 11, 12);
+            if (shortPass == true) {                
                 if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id) && furndetRec.get(eFurndet.furniture_id2) == null) {
                     if (artiklRec.getInt(eArtikl.level1) != 2 || (artiklRec.getInt(eArtikl.level1) == 2
                             && list.contains(artiklRec.getInt(eArtikl.level2)) == false)) { //т.к. ручки, подвеса, замка на этом уровне нет
@@ -144,13 +139,6 @@ public class Furniture extends Cal5e {
                     }
                 }
             }
-
-//            //Если ручка, подвес, замок выбраны вручную, не ищем
-//            if (artiklRec.getInt(eArtikl.level1) == 2 && artiklRec.getInt(eArtikl.level2) == 11) {
-//                if (areaStv.handleRec.getInt(eArtikl.id) != -3 && areaStv.loopRec.getInt(eArtikl.id) != -3 && areaStv.lockRec.getInt(eArtikl.id) != -3) {
-//                    return false;
-//                }
-//            }
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
 
             //ФИЛЬТР детализации            
