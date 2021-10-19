@@ -624,14 +624,14 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     txt31.setEditable(false);
                     setText(txt31, "");
                 }
-                setText(txt21, stv.handleRec.getStr(eArtikl.code) + ", " + stv.handleRec.getStr(eArtikl.name));
+                setText(txt21, stv.handleRec.getStr(eArtikl.code) + " | " + stv.handleRec.getStr(eArtikl.name));
                 setText(txt24, UGui.df.format(stv.mapFrame.get(Layout.BOTT).width()));
                 float h = (stv.mapFrame.get(Layout.RIGHT).height() > stv.mapFrame.get(Layout.LEFT).height()) ? stv.mapFrame.get(Layout.RIGHT).height() : stv.mapFrame.get(Layout.LEFT).height();
                 setText(txt26, UGui.df.format(h));
                 setText(txt25, eColor.find(stv.handleColor).getStr(eColor.name));
-                setText(txt45, stv.loopRec.getStr(eArtikl.code) + ", " + stv.loopRec.getStr(eArtikl.name));
+                setText(txt45, stv.loopRec.getStr(eArtikl.code) + " | " + stv.loopRec.getStr(eArtikl.name));
                 setText(txt47, eColor.find(stv.loopColor).getStr(eColor.name));
-                setText(txt46, stv.lockRec.getStr(eArtikl.code) + ", " + stv.lockRec.getStr(eArtikl.name));
+                setText(txt46, stv.lockRec.getStr(eArtikl.code) + " | " + stv.lockRec.getStr(eArtikl.name));
                 setText(txt48, eColor.find(stv.lockColor).getStr(eColor.name));
 
                 //Соединения
@@ -3221,19 +3221,21 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     private void handlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handlToStvorka
         try {
-            float selectID = winNode.com5t().id();
+            float stvorkaID = winNode.com5t().id();
             int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 11");
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) iwin().rootGson.find(stvorkaID);
                 String paramStr = stvArea.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                paramObj.remove(PKjson.colorHandl);
                 paramObj.addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
-                updateScript(selectID);
+                updateScript(stvorkaID);
+                btnRefresh(null);
 
             }, qResult);
 
@@ -3296,6 +3298,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
                 updateScript(selectID);
+                btnRefresh(null);
+                
             }, colorSet);
             
         } catch (Exception e) {
@@ -3339,6 +3343,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
                 updateScript(selectID);
+                btnRefresh(null);
 
             }, qResult);
 
@@ -3362,6 +3367,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
                 updateScript(selectID);
+                btnRefresh(null);
 
             }, qResult);
 
@@ -3384,6 +3390,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
                 updateScript(selectID);
+                btnRefresh(null);
+                
             }, colorSet);
             
         } catch (Exception e) {
@@ -3405,6 +3413,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 paramStr = gson.toJson(paramObj);
                 stvArea.param(paramStr);
                 updateScript(selectID);
+                btnRefresh(null);
+                
             }, colorSet);
             
         } catch (Exception e) {

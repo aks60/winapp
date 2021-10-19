@@ -131,7 +131,7 @@ public class Furniture extends Cal5e {
             Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
 
             //Сделано для убыстрения поиска ручки, подвеса, замка при конструировании окна
-            if (shortPass == true) {                
+            if (shortPass == true) {
                 if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id) && furndetRec.get(eFurndet.furniture_id2) == null) {
                     if (artiklRec.getInt(eArtikl.level1) != 2 || (artiklRec.getInt(eArtikl.level1) == 2
                             && list.contains(artiklRec.getInt(eArtikl.level2)) == false)) { //т.к. ручки, подвеса, замка на этом уровне нет
@@ -223,54 +223,54 @@ public class Furniture extends Cal5e {
 
     private boolean propertyStv(AreaStvorka areaStv, Specific spcAdd) {
         if (spcAdd.artiklRec.getInt(eArtikl.level1) == 2) {
-
+            boolean ret = true;
             //Ручка
             if (spcAdd.artiklRec.getInt(eArtikl.level2) == 11) {
                 if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
-                    
+
                     if (areaStv.handleRec.getInt(eArtikl.id) == -3) {
                         areaStv.handleRec = spcAdd.artiklRec;
-                        areaStv.handleColor = spcAdd.colorID1;
-                        return true;
+                        ret = true;
                     } else {
-                        if (areaStv.handleRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id)) {
-                            return true;
-                        }
+                        ret = (areaStv.handleRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
+                    }
+                    if (ret == true && areaStv.handleColor == -3) {
+                        areaStv.handleColor = spcAdd.colorID1;
                     }
                 }
-                return false;
-                
+                return ret;
+
                 //Подвес
             } else if (spcAdd.artiklRec.getInt(eArtikl.level2) == 12) {
                 if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
-                    
+
                     if (areaStv.loopRec.getInt(eArtikl.id) == -3) {
                         areaStv.loopRec = spcAdd.artiklRec;
-                        areaStv.loopColor = spcAdd.colorID1;
-                        return true;
+                        ret = true;
                     } else {
-                        if (areaStv.loopRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id)) {
-                            return true;
-                        }
+                        ret = (areaStv.loopRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
+                    }
+                    if (ret == true && areaStv.loopColor == -3) {
+                        areaStv.loopColor = spcAdd.colorID1;
                     }
                 }
-                return false;
-                
+                return ret;
+
                 //Замок  
             } else if (spcAdd.artiklRec.getInt(eArtikl.level2) == 9) {
                 if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
-                    
+
                     if (areaStv.lockRec.getInt(eArtikl.id) == -3) {
                         areaStv.lockRec = spcAdd.artiklRec;
-                        areaStv.lockColor = spcAdd.colorID1;
-                        return true;
+                        ret = true;
                     } else {
-                        if (areaStv.lockRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id)) {
-                            return true;
-                        }
+                        ret = (areaStv.lockRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
+                    }
+                    if (ret == true && areaStv.lockColor == -3) {
+                        areaStv.lockColor = spcAdd.colorID1;
                     }
                 }
-                return false;
+                return ret;
             }
         }
         return true;
