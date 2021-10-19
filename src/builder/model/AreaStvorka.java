@@ -33,11 +33,11 @@ public class AreaStvorka extends AreaSimple {
     public Record handleRec = eArtikl.virtualRec(); //ручка
     public Record loopRec = eArtikl.virtualRec(); //подвес(петли)
     public Record lockRec = eArtikl.virtualRec(); //замок
-    
+
     public int handleColor = -3; //цвет ручки
     public int loopColor = -3; //цвет подвеса
     public int lockColor = -3; //цвет замка
-    
+
     public float handleHeight = 0; //высота ручки
     public TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
     public LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке       
@@ -111,15 +111,31 @@ public class AreaStvorka extends AreaSimple {
         if (param(param, PKjson.artiklHandl) != -1) {
             handleRec = eArtikl.find(param(param, PKjson.artiklHandl), false);
         }
+        //Текстура ручки
+        if (param(param, PKjson.colorHandl) != -1) {
+            handleColor = param(param, PKjson.colorHandl);
+        }
+        //Подвес (петли)
+        if (param(param, PKjson.artiklLoop) != -1) {
+            loopRec = eArtikl.find(param(param, PKjson.artiklLoop), false);
+        }
+        //Текстура подвеса
+        if (param(param, PKjson.colorLoop) != -1) {
+            loopColor = param(param, PKjson.colorLoop);
+        }
+        //Замок
+        if (param(param, PKjson.artiklLock) != -1) {
+            lockRec = eArtikl.find(param(param, PKjson.artiklLock), false);
+        }
+        //Текстура замка
+        if (param(param, PKjson.colorLock) != -1) {
+            lockColor = param(param, PKjson.colorLock);
+        }
         //Сторона открывания
         if (param(param, PKjson.typeOpen) != -1) {
             typeOpen = TypeOpen1.get(param(param, PKjson.typeOpen));
         } else {
             typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
-        }
-        //Текстура ручки
-        if (param(param, PKjson.colorHandl) != -1) {
-            handleColor = param(param, PKjson.colorHandl);
         }
         //Положение или высота ручки на створке
         if (param(param, PKjson.positionHandl) != -1) {
@@ -143,22 +159,6 @@ public class AreaStvorka extends AreaSimple {
         } else {
             handleLayout = LayoutHandle.MIDL; //по умолчанию
             handleHeight = stvLeft.height() / 2;
-        }
-        //Подвес (петли)
-        if (param(param, PKjson.artiklLoop) != -1) {
-            loopRec = eArtikl.find(param(param, PKjson.artiklLoop), false);
-        }
-        //Текстура подвеса
-        if (param(param, PKjson.colorLoop) != -1) {
-            loopColor = param(param, PKjson.colorLoop);
-        }
-        //Замок
-        if (param(param, PKjson.artiklLock) != -1) {
-            lockRec = eArtikl.find(param(param, PKjson.artiklLock), false);
-        }
-        //Текстура замка
-        if (param(param, PKjson.colorLock) != -1) {
-            lockColor = param(param, PKjson.colorLock);
         }
     }
 

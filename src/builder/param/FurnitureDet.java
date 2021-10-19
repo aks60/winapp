@@ -29,6 +29,7 @@ public class FurnitureDet extends Par5s {
 
     public boolean filter(HashMap<Integer, String> mapParam, AreaStvorka areaStv, Record furndetRec) {
 
+        this.detailRec = furndetRec;
         List<Record> tableList = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
         if (filterParamDef(tableList) == false) {
             return false; //параметры по умолчанию
@@ -86,7 +87,19 @@ public class FurnitureDet extends Par5s {
                     }
                     break;
                 case 24006:  //Установить текстуру
-                    mapParam.put(grup, rec.getStr(TEXT));
+                    if ("по текстуре ручки".equals(rec.getStr(TEXT))) {
+                        if (areaStv.handleColor != detailRec.getInt(eFurndet.color_fk)) {
+                            return false;
+                        }
+                    } else if ("по текстуре подвеса".equals(rec.getStr(TEXT))) {
+                        if (areaStv.loopColor != detailRec.getInt(eFurndet.color_fk)) {
+                            return false;
+                        }
+                    } else if ("по текстуре замка".equals(rec.getStr(TEXT))) {
+                        if (areaStv.lockColor != detailRec.getInt(eFurndet.color_fk)) {
+                            return false;
+                        }
+                    }
                     break;
                 case 24007: //Коды текстуры ручки 
                 case 25007: //Коды текстуры ручки                  
@@ -326,7 +339,7 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 25013:  //Укорочение от 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
-                    break;                    
+                    break;
                 case 25030:  //Укорочение, мм 
                     mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
