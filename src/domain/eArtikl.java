@@ -4,6 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,7 @@ public enum eArtikl implements Field {
     tech_code("12", "64", "1", "Технолог.код контейнера", "ATECH"),
     size_furn("8", "15", "1", "Фальц внешний или Фурнитурный паз", "ASIZF"),
     size_falz("8", "15", "1", "Фальц внутренний или наплав(полка)", "ASIZN"),
-    size_tech("8", "15", "1", "Размер технолог. или толщина наплава(полки)", "ASIZV"),    
+    size_tech("8", "15", "1", "Размер технолог. или толщина наплава(полки)", "ASIZV"),
     size_centr("8", "15", "1", "B - Смещение оси от центра", "ASIZB"),
     size_frez("8", "15", "1", "Толщина фрезы", "AFREZ"),
     len_unit("8", "15", "1", "Длина ед. поставки", "ALENG"),
@@ -68,6 +69,7 @@ public enum eArtikl implements Field {
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
+    private static HashMap<Integer, Record> map = new HashMap();
 
     eArtikl(Object... p) {
         meta.init(p);
@@ -85,8 +87,19 @@ public enum eArtikl implements Field {
         if (query.size() == 0) {
             query.select(up, "order by", id);
             Query.listOpenTable.add(query);
+            map.clear();
+            query.stream().forEach(rec -> map.put(rec.getInt(id), rec));
         }
         return query;
+    }
+
+    public static Record get(int id) {
+        if (id == -3) {
+            return virtualRec();
+        }
+        query();
+        Record rec = map.get(id);
+        return (rec == null) ? virtualRec() : rec;
     }
 
     public static Record find(int _id, boolean _analog) {

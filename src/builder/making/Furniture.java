@@ -18,6 +18,7 @@ import builder.model.AreaStvorka;
 import builder.model.ElemFrame;
 import common.UCom;
 import dataset.Query;
+import static domain.eArtikl.up;
 import enums.Type;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -56,15 +57,10 @@ public class Furniture extends Cal5e {
             //Цикл по створкам      
             for (AreaStvorka areaStv : stvorkaList) {
 
-                //Если ручка выбрана вручную добавляю спецификацию.
-                if (areaStv.handleRec.getInt(eArtikl.id) != -3 && shortPass == false) {
-                    ElemFrame sideStv = determOfSide(areaStv);
-                    Specific spcAdd = new Specific(null, areaStv.handleRec, sideStv, new HashMap());
-                    spcAdd.colorID1 = areaStv.handleColor;
-                    spcAdd.place = "ФУРН";
-                    sideStv.addSpecific(spcAdd); //добавим спецификацию в элемент                    
-                }
-
+//                //Если ручка, подвес, замок выбраны вручную добавляю спецификацию
+//                if (shortPass == false) {
+//                    addSpecific(areaStv);
+//                }
                 setFurndet.clear();
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(iwin.nuni);
@@ -80,7 +76,7 @@ public class Furniture extends Cal5e {
                 if (p2_max || furnityreRec.getFloat(eFurniture.max_height) < max_height || furnityreRec.getFloat(eFurniture.max_width) < max_width) {
                     JOptionPane.showMessageDialog(null, "Размер створки превышает максимальный размер по фурнитуре.", "ВНИМАНИЕ!", 1);
                 }
-                
+
                 middle(areaStv, furnityreRec, 1); //основная фурнитура
             }
         } catch (Exception e) {
@@ -111,7 +107,7 @@ public class Furniture extends Cal5e {
             for (Record furndetRec1 : furndetList1) {
                 if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
                     if (detail(areaStv, furndetRec1, count) == true) {
-                        
+
                         //Цикл по детализации (уровень 2)
                         for (Record furndetRec2 : furndetList2) {
                             if (furndetRec2.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
@@ -138,22 +134,23 @@ public class Furniture extends Cal5e {
         try {
             Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
 
-            //Сделано для убыстрения поиска ручки при конструировании окна. Если ручки нет (eArtikl.level1) != 2) то сразу выход.
+            //Сделано для убыстрения поиска ручки, подвеса, замка при конструировании окна
             if (shortPass == true) {
-                if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)
-                        && furndetRec.get(eFurndet.furniture_id2) == null) {
-                    if (artiklRec.getInt(eArtikl.level1) != 2) { //т.к. ручки на уровне 2
+                List list = Arrays.asList(9, 11, 12);
+                if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id) && furndetRec.get(eFurndet.furniture_id2) == null) {
+                    if (artiklRec.getInt(eArtikl.level1) != 2 || (artiklRec.getInt(eArtikl.level1) == 2
+                            && list.contains(artiklRec.getInt(eArtikl.level2)) == false)) { //т.к. ручки, подвеса, замка на этом уровне нет
                         return false;
                     }
                 }
             }
 
-            //Если ручка выбрана вручную, не ищем её
-            if (artiklRec.getInt(eArtikl.level1) == 2 && artiklRec.getInt(eArtikl.level2) == 11) {
-                if (areaStv.handleRec.getInt(eArtikl.id) != -3) {
-                    return false;
-                }
-            }
+//            //Если ручка, подвес, замок выбраны вручную, не ищем
+//            if (artiklRec.getInt(eArtikl.level1) == 2 && artiklRec.getInt(eArtikl.level2) == 11) {
+//                if (areaStv.handleRec.getInt(eArtikl.id) != -3 && areaStv.loopRec.getInt(eArtikl.id) != -3 && areaStv.lockRec.getInt(eArtikl.id) != -3) {
+//                    return false;
+//                }
+//            }
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
 
             //ФИЛЬТР детализации            
@@ -199,39 +196,27 @@ public class Furniture extends Cal5e {
                     return false;
                 }
             }
-            //Если это элемент из мат. ценности (не набор)
+            //Если это элемент из мат. ценности (не НАБОР)
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
-                if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
-
+                if (artiklRec.getInt(eArtikl.id) != -1) {
                     ElemFrame sideStv = determOfSide(mapParam, areaStv);
                     Specific spcAdd = new Specific(furndetRec, artiklRec, sideStv, mapParam);
 
-                    //Пишем ручку в створку
-                    if (artiklRec.getInt(eArtikl.level1) == 2 && (artiklRec.getInt(eArtikl.level2) == 11 || artiklRec.getInt(eArtikl.level2) == 13)) {
-                        if (UColor.colorFromProduct(spcAdd, 1) == true) {
-                            if (areaStv.handleRec.getInt(eArtikl.id) == -3) {
-                                areaStv.handleRec = artiklRec;
-                            }
-                            //else {                          
-                            //    spcAdd.setArtiklRec(areaStv.artiklRecAn); //если ручка выбрана через параметр
-                            //}
-                            if (areaStv.handleColor == -3) {
-                                areaStv.handleColor = spcAdd.colorID1;
-                            } else {
-                                spcAdd.setColor(1, areaStv.handleColor); //если цвет ручки выбран через параметр
-                            }
-                        }
+                    //Ловим ручку, подвес, замок
+                    if (propertyStv(areaStv, spcAdd) == false) {
+                        return false; //выход из цикла поиска
                     }
-                    //попадает или нет в спецификацию по цвету
-                    if (shortPass == false && UColor.colorFromProduct(spcAdd, 1) == true) {
+
+                    //Добавим спецификацию в элемент
+                    if (shortPass == false && artiklRec.getStr(eArtikl.code).charAt(0) != '@' && UColor.colorFromProduct(spcAdd, 1) == true) {
                         spcAdd.count = UCom.getFloat(spcAdd.getParam(spcAdd.count, 24030));
                         spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
                         spcAdd.place = "ФУРН";
-                        sideStv.addSpecific(spcAdd); //добавим спецификацию в элемент
+                        sideStv.addSpecific(spcAdd);
                     }
                 }
 
-                //Если это нобор   
+                //Это НАБОР  
             } else {
                 int countKi2 = (mapParam.get(24030) == null) ? 1 : Integer.valueOf((mapParam.get(24030)));
                 Record furnitureRec2 = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id2));
@@ -246,6 +231,61 @@ public class Furniture extends Cal5e {
             System.err.println("Ошибка:Furniture.detail() " + e);
             return false;
         }
+    }
+
+    private boolean propertyStv(AreaStvorka areaStv, Specific spcAdd) {
+        if (spcAdd.artiklRec.getInt(eArtikl.level1) == 2) {
+
+            //Ручка
+            if (spcAdd.artiklRec.getInt(eArtikl.level2) == 11) {
+                if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
+                    
+                    if (areaStv.handleRec.getInt(eArtikl.id) == -3) {
+                        areaStv.handleRec = spcAdd.artiklRec;
+                        areaStv.handleColor = spcAdd.colorID1;
+                        return true;
+                    } else {
+                        if (areaStv.handleRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+                
+                //Подвес
+            } else if (spcAdd.artiklRec.getInt(eArtikl.level2) == 12) {
+                if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
+                    
+                    if (areaStv.loopRec.getInt(eArtikl.id) == -3) {
+                        areaStv.loopRec = spcAdd.artiklRec;
+                        areaStv.loopColor = spcAdd.colorID1;
+                        return true;
+                    } else {
+                        if (areaStv.loopRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+                
+                //Замок  
+            } else if (spcAdd.artiklRec.getInt(eArtikl.level2) == 9) {
+                if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
+                    
+                    if (areaStv.lockRec.getInt(eArtikl.id) == -3) {
+                        areaStv.lockRec = spcAdd.artiklRec;
+                        areaStv.lockColor = spcAdd.colorID1;
+                        return true;
+                    } else {
+                        if (areaStv.lockRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+        return true;
     }
 
     public ElemFrame determOfSide(HashMap<Integer, String> mapParam, AreaSimple area5e) {

@@ -775,10 +775,10 @@ public class UGui {
             }
         }
         for (Integer id : setFilter) {
-            Record record = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findAny().get();
-            if (record.getStr(eArtikl.code).charAt(0) != '@') {
+            Record record = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().get();
+            //if (record.getStr(eArtikl.code).charAt(0) != '@') {
                 qResult.add(record);
-            }
+            //}
         }
         return qResult;
     }

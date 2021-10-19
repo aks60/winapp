@@ -117,7 +117,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     private DefMutableTreeNode winNode = null;
     private TreeNode[] selectedPath = null;
     private Gson gson = new GsonBuilder().create();
-    int sizeArea = 200;
 
     public Systree() {
         initComponents();
@@ -667,9 +666,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 }
             }
             lab2.setText("ID = " + winNode.com5t().id());
-            //Arrays.asList(txt9, txt13, txt14, txt21, txt24, txt25, txt26, txt27, txt28, txt29, txt19, txt20, txt30, 
-            //      txt36, txt37, txt38, txt39, txt40, txt41, txt42, txt43, txt44).forEach(it -> it.setCaretPosition(0));
-
             Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
     }

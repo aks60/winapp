@@ -69,10 +69,10 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            //wincalc();
+            wincalc();
             //param();
             //query();
-            frame();
+            //frame();
             //json();
             //parse();
             //uid(); 
