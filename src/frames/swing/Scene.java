@@ -1,6 +1,7 @@
 package frames.swing;
 
 import builder.Wincalc;
+import builder.model.ElemSimple;
 import builder.script.GsonScale;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -109,10 +110,11 @@ public class Scene extends javax.swing.JPanel {
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
             int y = 2;
             for (GsonScale elem : lineVert) {
-                if(elem.gsonElem().owner().type() == Type.STVORKA) {
-                    System.out.println("++++++++");
-                }
                 int dy = (int) (elem.height() * iwin.scale);
+                ElemSimple elem5e = iwin.listElem.stream().filter(it -> it.id() == elem.id).findFirst().get();                
+                if(elem5e.owner().type() == Type.STVORKA) {
+                    dy += elem5e.owner.;
+                }               
                 g.drawLine(0, y + dy, 8, y + dy);
                 g.setColor(elem.color);
                 int dw = g.getFontMetrics().stringWidth(df1.format(elem.height()));
