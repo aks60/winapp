@@ -201,6 +201,10 @@ public class GsonElem {
         }
     }
 
+    public GsonElem owner() {
+        return owner;
+    }
+
     public LinkedList<GsonElem> childs() {
         return childs;
     }

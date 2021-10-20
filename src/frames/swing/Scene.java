@@ -5,6 +5,7 @@ import builder.script.GsonScale;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import enums.Layout;
+import enums.Type;
 import frames.swing.listener.ListenerObject;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -108,6 +109,9 @@ public class Scene extends javax.swing.JPanel {
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
             int y = 2;
             for (GsonScale elem : lineVert) {
+                if(elem.gsonElem().owner().type() == Type.STVORKA) {
+                    System.out.println("++++++++");
+                }
                 int dy = (int) (elem.height() * iwin.scale);
                 g.drawLine(0, y + dy, 8, y + dy);
                 g.setColor(elem.color);
