@@ -52,7 +52,7 @@ public enum eCurrenc implements Field {
         Record record = up.newRecord();
         record.setNo(id, -3);
         record.setNo(cross_cour, 1);
-        record.setNo(name, "Авторасчёт");
+        record.setNo(name, "Virtual");
         return record;
     }
 

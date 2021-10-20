@@ -40,7 +40,8 @@ public class AreaStvorka extends AreaSimple {
 
     public float handleHeight = 0; //высота ручки
     public TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
-    public LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке       
+    public LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке   
+    public boolean paramCheck[] = {true, true, true, true, true, true, true};
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, Type.STVORKA, Layout.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
@@ -104,32 +105,39 @@ public class AreaStvorka extends AreaSimple {
         //Фурнитура створки, ручка, подвес
         if (param(param, PKjson.sysfurnID) != -1) {
             sysfurnRec = eSysfurn.find2(param(param, PKjson.sysfurnID));
+            paramCheck[0] = false;
         } else {
             sysfurnRec = eSysfurn.find3(iwin.nuni); //ищем первую в системе
         }
         //Ручка
         if (param(param, PKjson.artiklHandl) != -1) {
             handleRec = eArtikl.find(param(param, PKjson.artiklHandl), false);
+            paramCheck[1] = false;
         }
         //Текстура ручки
         if (param(param, PKjson.colorHandl) != -1) {
             handleColor = param(param, PKjson.colorHandl);
+            paramCheck[2] = false;
         }
         //Подвес (петли)
         if (param(param, PKjson.artiklLoop) != -1) {
             loopRec = eArtikl.find(param(param, PKjson.artiklLoop), false);
+            paramCheck[3] = false;
         }
         //Текстура подвеса
         if (param(param, PKjson.colorLoop) != -1) {
             loopColor = param(param, PKjson.colorLoop);
+            paramCheck[4] = false;
         }
         //Замок
         if (param(param, PKjson.artiklLock) != -1) {
             lockRec = eArtikl.find(param(param, PKjson.artiklLock), false);
+            paramCheck[5] = false;
         }
         //Текстура замка
         if (param(param, PKjson.colorLock) != -1) {
             lockColor = param(param, PKjson.colorLock);
+            paramCheck[6] = false;
         }
         //Сторона открывания
         if (param(param, PKjson.typeOpen) != -1) {
