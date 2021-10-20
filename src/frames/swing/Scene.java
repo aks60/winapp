@@ -1,10 +1,12 @@
 package frames.swing;
 
 import builder.Wincalc;
+import builder.model.AreaStvorka;
 import builder.model.ElemSimple;
 import builder.script.GsonScale;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import domain.eSyssize;
 import enums.Layout;
 import enums.Type;
 import frames.swing.listener.ListenerObject;
@@ -110,16 +112,16 @@ public class Scene extends javax.swing.JPanel {
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
             int y = 2;
             for (GsonScale elem : lineVert) {
-                int dy = (int) (elem.height() * iwin.scale);
-                ElemSimple elem5e = iwin.listElem.stream().filter(it -> it.id() == elem.id).findFirst().get();                
-                if(elem5e.owner().type() == Type.STVORKA) {
-                    dy += elem5e.owner.;
-                }               
+                float naxl = 43;                
+//                if(elem.gsonElem().owner().type() == Type.STVORKA) {
+//                   naxl = iwin.syssizeRec.getFloat(eSyssize.naxl);
+//                } 
+                int dy = (int) ((elem.height() + naxl) * iwin.scale); 
                 g.drawLine(0, y + dy, 8, y + dy);
                 g.setColor(elem.color);
                 int dw = g.getFontMetrics().stringWidth(df1.format(elem.height()));
                 g.rotate(Math.toRadians(-90), 10, y + dy - dy / 2 + dw / 2);
-                g.drawString(df1.format(elem.height()), 10, y + dy - dy / 2 + dw / 2);
+                g.drawString(df1.format(elem.height() + naxl), 10, y + dy - dy / 2 + dw / 2);
                 g.rotate(Math.toRadians(90), 10, y + dy - dy / 2 + dw / 2);
                 y = y + dy;
             }
