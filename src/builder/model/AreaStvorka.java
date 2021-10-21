@@ -86,6 +86,8 @@ public class AreaStvorka extends AreaSimple {
             y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
             x2 = joinRig.x1 + joinRig.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
             y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+            
+            System.out.println(joinBot.y1 + "  " + joinBot.artiklRec.getFloat(eArtikl.size_falz) + "  " + iwin.syssizeRec.getFloat(eSyssize.naxl));
 
         } else {
             float X1 = (joinLef.type() == Type.IMPOST || joinLef.type() == Type.SHTULP || joinLef.type() == Type.STOIKA) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;

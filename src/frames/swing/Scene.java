@@ -91,6 +91,7 @@ public class Scene extends javax.swing.JPanel {
             int curX = 20;
             for (GsonScale elem : lineHoriz) {
                 int dx = (int) (elem.width() * iwin.scale);
+                //g.translate(Com5t.TRANSLATE_XY, 0);
                 g.drawLine(curX + dx, 10, curX + dx, 18);
                 g.setColor(elem.color);
                 int dw = g.getFontMetrics().stringWidth(df1.format(elem.width()));
@@ -254,7 +255,7 @@ public class Scene extends javax.swing.JPanel {
         panEast.setPreferredSize(new java.awt.Dimension(2, 10));
         add(panEast, java.awt.BorderLayout.EAST);
 
-        panNorth.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panNorth.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(0, 0, 0)));
         panNorth.setMinimumSize(new java.awt.Dimension(4, 18));
         panNorth.setPreferredSize(new java.awt.Dimension(4, 18));
         panNorth.setLayout(new java.awt.BorderLayout());
