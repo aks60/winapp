@@ -3,6 +3,7 @@ package builder.model;
 import builder.making.Specific;
 import java.awt.Color;
 import builder.Wincalc;
+import builder.script.GsonElem;
 import enums.Form;
 import enums.Layout;
 import enums.Type;
@@ -15,8 +16,7 @@ public abstract class ElemSimple extends Com5t {
 
     public float anglCut[] = {45, 45}; //угол реза
     public float[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
-    public float anglHoriz = -1; //угол к горизонту
-    //public ElemJoining joinElem[] = {null, null, null}; //соединения 0-левое, 1-правое, 2-прилегающее     
+    public float anglHoriz = -1; //угол к горизонту    
 
     public Specific spcRec = null; //спецификация элемента
     protected UMod uti3 = null;
@@ -124,7 +124,7 @@ public abstract class ElemSimple extends Com5t {
         }
         return null;
     }
-
+    
     @Override
     public String toString() {
         return super.toString() + ", anglHoriz=" + anglHoriz + ", length=" + length();

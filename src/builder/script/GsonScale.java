@@ -21,7 +21,7 @@ public class GsonScale {
         this.id = id;
     }
 
-    public GsonElem gsonElem() {
+    public GsonElem elem() {
         return iwin.rootGson.find(id);
     }
 

@@ -77,6 +77,17 @@ public abstract class Com5t {
             return (float) Math.sqrt(x2 * x2 + y2 * y2);
         }
     }
+    
+    public int index() {
+        if(owner != null) {
+            for (int index = 0; index < owner.listChild.size(); ++index) {
+                if(owner.listChild.get(index) == this) {
+                    return index;
+                }
+            }
+        }
+        return -1;
+    }
 
     public Float width() {
         return (x2 > x1) ? x2 - x1 : x1 - x2;

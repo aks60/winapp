@@ -16,15 +16,11 @@ import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import startup.Main;
 import builder.Wincalc;
-import builder.script.GsonElem;
 import common.UCom;
 import enums.PKjson;
 import enums.Type;
-import frames.swing.Draw;
-import static java.util.stream.Collectors.toList;
 
 public class AreaSimple extends Com5t {
 
@@ -112,7 +108,7 @@ public class AreaSimple extends Com5t {
         UCom.listElem(this, list, Arrays.asList(type));
         return list;
     }
-    
+
     public void joinFrame() {
     }
 
@@ -132,7 +128,7 @@ public class AreaSimple extends Com5t {
 
                     if (elemImp.owner().layout() == Layout.HORIZ) { //Импосты(штульпы...)  расположены по горизонтали слева на право                     
                         if (elem5e.inside(elemImp.x2, elemImp.y2) == true && elem5e != elemImp) { //T - соединение нижнее                              
-                            ElemJoining.create(elemImp.joinPoint(0), iwin, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);                            
+                            ElemJoining.create(elemImp.joinPoint(0), iwin, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
                         } else if (elem5e.inside(elemImp.x1, elemImp.y1) == true && elem5e != elemImp) { //T - соединение верхнее                            
                             ElemJoining.create(elemImp.joinPoint(1), iwin, TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
                         }
@@ -147,6 +143,39 @@ public class AreaSimple extends Com5t {
                 }
             }
         }
+    }
+
+    public Com5t find(float id) {
+        if (this.id() == id) {
+            return this;
+        }
+        for (Com5t com2 : listChild) { //уровень 2
+            if (com2.id() == id) {
+                return com2;
+            }
+            if (com2 instanceof AreaSimple) {
+                for (Com5t com3 : ((AreaSimple) com2).listChild) { //уровень 3
+                    if (com3.id() == id) {
+                        return com3;
+                    }
+                    if (com3 instanceof AreaSimple) {
+                        for (Com5t com4 : ((AreaSimple) com3).listChild) { //уровень 4
+                            if (com4.id() == id) {
+                                return com4;
+                            }
+                            if (com4 instanceof AreaSimple) {
+                                for (Com5t com5 : ((AreaSimple) com4).listChild) { //уровень 5
+                                    if (com5.id() == id) {
+                                        return com5;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     //Рисуем конструкцию

@@ -146,7 +146,7 @@ public class GsonElem {
         //    Горизонтальное перераспределение
         if (_layout == Layout.HORIZ) {
             for (GsonScale gsonScale : _list) {
-                GsonElem elem = gsonScale.gsonElem();
+                GsonElem elem = gsonScale.elem();
                 if (elem.length != null) {
                     float k = elem.length / changeSum;
                     elem.length = elem.length + _diff * k;
@@ -160,7 +160,7 @@ public class GsonElem {
             //Вертикальное перераспределение
         } else if (_layout == Layout.VERT) {
             for (GsonScale gsonScale : _list) {
-                GsonElem elem = gsonScale.gsonElem();
+                GsonElem elem = gsonScale.elem();
                 if (elem.length != null) {
                     float k = elem.length / changeSum;
                     elem.length = elem.length + _diff * k;

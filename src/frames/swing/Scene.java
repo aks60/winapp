@@ -2,11 +2,10 @@ package frames.swing;
 
 import builder.Wincalc;
 import builder.model.AreaStvorka;
-import builder.model.ElemSimple;
+import builder.model.Com5t;
 import builder.script.GsonScale;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import domain.eSyssize;
 import enums.Layout;
 import enums.Type;
 import frames.swing.listener.ListenerObject;
@@ -32,6 +31,8 @@ public class Scene extends javax.swing.JPanel {
 
     public List<GsonScale> lineHoriz = null;
     public List<GsonScale> lineVert = null;
+//    public List<GsonScale> crossHoriz = null;
+//    public List<GsonScale> crossVert = null;
     private Timer timer = new Timer(160, new ActionListener() {
 
         public JButton btn = null;
@@ -98,8 +99,8 @@ public class Scene extends javax.swing.JPanel {
                 x = x + dx;
             }
             g.setColor(GsonScale.BLACK);
-            g.drawLine(20, 10, 20, 18);                        
-            
+            g.drawLine(20, 10, 20, 18);
+
         } else {
             gc.setColor(getBackground());
             gc.fillRect(0, 0, pan1.getWidth(), pan1.getHeight());
@@ -110,13 +111,56 @@ public class Scene extends javax.swing.JPanel {
         if (iwin != null) {
             Graphics2D g = (Graphics2D) gc;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
+            float dh = 0, y = 2;
+            for (GsonScale elem : lineVert) {
+                if (elem.elem().owner().type() == Type.STVORKA) {
+                    AreaStvorka stv = (AreaStvorka) iwin.rootArea.find(elem.elem().owner().id());
+                    Com5t com = iwin.rootArea.find(elem.elem().id());
+                    if (com.index() == 0) {
+                        int dy = (int) ((elem.height() + (stv.y1 + dh)) * iwin.scale);
+                        g.drawLine(0, (int) (y + dy - dh), 8, (int) (y + dy - dh));
+                        g.setColor(elem.color);
+                        int dw = g.getFontMetrics().stringWidth(df1.format(elem.height()));
+                        g.rotate(Math.toRadians(-90), 10, y + dy - dy / 2 + dw / 2);
+                        g.drawString(df1.format(elem.height()), 10, y + dy - dy / 2 + dw / 2);
+                        g.rotate(Math.toRadians(90), 10, y + dy - dy / 2 + dw / 2);
+                        y = y + dy;
+                        if (dh == 0) {
+                            dh = stv.y1;
+                        }
+                    }
+                } else {
+//                    int dy = (int) ((elem.height() - dh) * iwin.scale);
+//                    g.drawLine(0, (int) (y + dy - dh), 8, (int) (y + dy - dh));
+//                    g.setColor(elem.color);
+//                    int dw = g.getFontMetrics().stringWidth(df1.format(elem.height()));
+//                    g.rotate(Math.toRadians(-90), 10, y + dy - dy / 2 + dw / 2);
+//                    g.drawString(df1.format(elem.height() - dh), 10, y + dy - dy / 2 + dw / 2);
+//                    
+//                    g.rotate(Math.toRadians(90), 10, y + dy - dy / 2 + dw / 2);
+//                    y = y + dy;
+                }
+            }
+            g.setColor(GsonScale.BLACK);
+            g.drawLine(0, 2, 8, 2);
+
+        } else {
+            gc.setColor(getBackground());
+            gc.fillRect(0, 0, pan4.getWidth(), pan4.getHeight());
+        }
+    }
+
+    private void paintVertical2(Graphics gc) {
+        if (iwin != null) {
+            Graphics2D g = (Graphics2D) gc;
+            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
             int y = 2;
             for (GsonScale elem : lineVert) {
-                float naxl = 43;                
+                float naxl = 0;
 //                if(elem.gsonElem().owner().type() == Type.STVORKA) {
 //                   naxl = iwin.syssizeRec.getFloat(eSyssize.naxl);
 //                } 
-                int dy = (int) ((elem.height() + naxl) * iwin.scale); 
+                int dy = (int) ((elem.height() + naxl) * iwin.scale);
                 g.drawLine(0, y + dy, 8, y + dy);
                 g.setColor(elem.color);
                 int dw = g.getFontMetrics().stringWidth(df1.format(elem.height()));
@@ -130,7 +174,7 @@ public class Scene extends javax.swing.JPanel {
 
         } else {
             gc.setColor(getBackground());
-            gc.fillRect(0, 0, pan4.getWidth(), pan4.getHeight());           
+            gc.fillRect(0, 0, pan4.getWidth(), pan4.getHeight());
         }
     }
 
