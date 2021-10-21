@@ -30,8 +30,8 @@ public abstract class ElemSimple extends Com5t {
 
     //Клик мышки попадает в контур элемента
     public boolean mouseClick(int X, int Y) {
-        int x = (int) (X / iwin.scale) - Com5t.TRANSLATE_XY;
-        int y = (int) (Y / iwin.scale) - Com5t.TRANSLATE_XY;
+        int x = (int) (X / iwin.scale);
+        int y = (int) (Y / iwin.scale);
         return inside(x, y);
     }
 

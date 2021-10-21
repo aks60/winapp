@@ -10,10 +10,7 @@ import java.util.Comparator;
 
 public abstract class Com5t {
 
-    public static final int TRANSLATE_XY = 2; //сдвиг графика    
-    public static final int SPACE_DX = 200;   //пространство для линий    
-    public static final int SPACE_DY = 240;   //пространство для линий              
-
+    public static final int TRANSLATE_XY = 2; //сдвиг графика                 
     private float id = -1; //идентификатор 
     public Type type = Type.NONE; //Тип элемента или конструкции  
     public Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...

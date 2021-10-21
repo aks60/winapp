@@ -104,7 +104,7 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
 
         } else {
             g.setColor(getBackground());
-            g.fillRect(0, 0, this.getWidth(), this.getHeight());
+            g.fillRect(0, 0, getWidth(), getHeight());
         }
     }
 
@@ -115,7 +115,6 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
             iwin.gc2d = bi.createGraphics();
             iwin.gc2d.fillRect(0, 0, length, length);
             iwin.scale = (length / iwin.width > length / iwin.height) ? length / (iwin.height + 200) : length / (iwin.width + 200);
-            iwin.gc2d.translate(2, 2);
             iwin.gc2d.scale(iwin.scale, iwin.scale);
             iwin.rootArea.draw(); //рисую конструкцию
             return new ImageIcon(bi);
