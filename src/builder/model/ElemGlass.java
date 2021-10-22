@@ -95,7 +95,7 @@ public class ElemGlass extends ElemSimple {
                 y1 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
 
-        } else if (owner.type == Type.STVORKA ||  (owner().owner != null && owner().owner.type == Type.STVORKA)) {
+        } else if (owner.type == Type.STVORKA) {
             AreaStvorka stv = (AreaStvorka) owner();
             ElemSimple insideLeft = stv.mapFrame.get(Layout.LEFT), insideTop = stv.mapFrame.get(Layout.TOP), insideBott = stv.mapFrame.get(Layout.BOTT), insideRight = stv.mapFrame.get(Layout.RIGHT);
             if (iwin.syssizeRec.getInt(eSyssize.id) == -1) {
@@ -109,6 +109,10 @@ public class ElemGlass extends ElemSimple {
                 x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
                 y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
+            
+        //} else if((owner().owner != null && owner().owner.type == Type.STVORKA)) {
+        //    AreaStvorka stv = (AreaStvorka) owner.owner;
+            
             
         } else {
             ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
