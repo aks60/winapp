@@ -42,7 +42,6 @@ public class AreaStvorka extends AreaSimple {
     public TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
     public LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке   
     public boolean paramCheck[] = {true, true, true, true, true, true, true};
-    public float naxlest = 0;
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, Type.STVORKA, Layout.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);

@@ -80,19 +80,22 @@ public abstract class ElemSimple extends Com5t {
     public ElemSimple joinFlat(Layout layoutSide) {
         LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
-
+        ElemSimple ret = null;
         if (Layout.BOTT == layoutSide) {
             float Y2 = (y2 > y1) ? y2 : y1;
-            return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y2) == true).findFirst().orElse(null);
+            ret = listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y2) == true).findFirst().orElse(null);
         } else if (Layout.LEFT == layoutSide) {
-            return listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
+            ret = listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
         } else if (Layout.TOP == layoutSide) {
             float Y1 = (y2 > y1) ? y1 : y2;
-            return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout() == Layout.TOP) == false).findFirst().orElse(null);
+            ret = listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout() == Layout.TOP) == false).findFirst().orElse(null);
         } else if (Layout.RIGHT == layoutSide) {
-            return listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x2, y1 + (y2 - y1) / 2)).findFirst().orElse(null);
+            ret = listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x2, y1 + (y2 - y1) / 2)).findFirst().orElse(null);
         }
-        throw new IllegalArgumentException("Неудача:ElemSimple.joinFlat() Придегающий элемент не обнаружен!");
+        if (ret == null) {
+            throw new IllegalArgumentException("Неудача:ElemSimple.joinFlat() Прилегающий элемент не обнаружен!");
+        }
+        return ret;
     }
 
     //Для маятниковых дверей, т.к. прилегающее соединение отсутствует
@@ -124,7 +127,7 @@ public abstract class ElemSimple extends Com5t {
         }
         return null;
     }
-    
+
     @Override
     public String toString() {
         return super.toString() + ", anglHoriz=" + anglHoriz + ", length=" + length();
