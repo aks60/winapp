@@ -80,28 +80,42 @@ public class AreaStvorka extends AreaSimple {
         ElemSimple joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
                 joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
 
-        boolean isType = (joinLef.type() == Type.IMPOST || joinLef.type() == Type.SHTULP || joinLef.type() == Type.STOIKA);
+        if (iwin.syssizeRec.getInt(eSyssize.id) != -1) {
+            x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
+            y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
+            x2 = joinRig.x1 + joinRig.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+            y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
 
-        if (eSyssize.find(joinLef.artiklRec).getInt(eSyssize.id) != -1) {
-            x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - eSyssize.find(joinLef.artiklRec).getFloat(eSyssize.naxl);
         } else {
-            x1 = ((isType == true) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1) + offset(stvLef, joinLef);
+            float X1 = (joinLef.type() == Type.IMPOST || joinLef.type() == Type.SHTULP || joinLef.type() == Type.STOIKA) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
+            float Y2 = (joinBot.type() == Type.IMPOST || joinBot.type() == Type.SHTULP || joinBot.type() == Type.STOIKA) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
+            float X2 = (joinRig.type() == Type.IMPOST || joinRig.type() == Type.SHTULP || joinBot.type() == Type.STOIKA) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
+            float Y1 = (joinTop.type() == Type.IMPOST || joinTop.type() == Type.SHTULP || joinBot.type() == Type.STOIKA) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
+            x1 = X1 + offset(stvLef, joinLef);
+            y2 = Y2 - offset(stvBot, joinBot);
+            x2 = X2 - offset(stvRig, joinRig);
+            y1 = Y1 + offset(stvTop, joinTop);
         }
-        if (eSyssize.find(joinTop.artiklRec).getInt(eSyssize.id) != -1) {
-            y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - eSyssize.find(joinTop.artiklRec).getFloat(eSyssize.naxl);
-        } else {
-            y1 = ((isType == true) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1) + offset(stvTop, joinTop);
-        }
-        if (eSyssize.find(joinRig.artiklRec).getInt(eSyssize.id) != -1) {
-            x2 = joinRig.x1 + joinRig.artiklRec.getFloat(eArtikl.size_falz) + eSyssize.find(joinRig.artiklRec).getFloat(eSyssize.naxl);
-        } else {
-            x2 = ((isType == true) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2) - offset(stvRig, joinRig);
-        }
-        if (eSyssize.find(joinBot.artiklRec).getInt(eSyssize.id) != -1) {
-            y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + eSyssize.find(joinBot.artiklRec).getFloat(eSyssize.naxl);
-        } else {
-            y2 = ((isType == true) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2) - offset(stvBot, joinBot);
-        }
+//        if (eSyssize.find(joinLef.artiklRec).getInt(eSyssize.id) != -1) {
+//            x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - eSyssize.find(joinLef.artiklRec).getFloat(eSyssize.naxl);
+//        } else {
+//            x1 = ((isType == true) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1) + offset(stvLef, joinLef);
+//        }
+//        if (eSyssize.find(joinTop.artiklRec).getInt(eSyssize.id) != -1) {
+//            y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - eSyssize.find(joinTop.artiklRec).getFloat(eSyssize.naxl);
+//        } else {
+//            y1 = ((isType == true) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1) + offset(stvTop, joinTop);
+//        }
+//        if (eSyssize.find(joinRig.artiklRec).getInt(eSyssize.id) != -1) {
+//            x2 = joinRig.x1 + joinRig.artiklRec.getFloat(eArtikl.size_falz) + eSyssize.find(joinRig.artiklRec).getFloat(eSyssize.naxl);
+//        } else {
+//            x2 = ((isType == true) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2) - offset(stvRig, joinRig);
+//        }
+//        if (eSyssize.find(joinBot.artiklRec).getInt(eSyssize.id) != -1) {
+//            y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + eSyssize.find(joinBot.artiklRec).getFloat(eSyssize.naxl);
+//        } else {
+//            y2 = ((isType == true) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2) - offset(stvBot, joinBot);
+//        }
     }
 
     public void initFurniture(String param) {

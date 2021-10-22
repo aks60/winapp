@@ -57,7 +57,7 @@ public class AreaArch extends AreaSimple {
         iwin.mapJoin.put(elemBott.joinPoint(1), elem4);
     }
 
-    protected void addFilling(ElemGlass glass) {
+    protected void setFilling(ElemGlass glass) {
 
     }
 

@@ -95,7 +95,7 @@ public class ElemGlass extends ElemSimple {
                 y1 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
 
-        } else if (owner().type() == Type.STVORKA) {
+        } else if (owner.type == Type.STVORKA) { // || owner().owner.type == Type.STVORKA) {
             AreaStvorka stv = (AreaStvorka) owner();
             ElemSimple insideLeft = stv.mapFrame.get(Layout.LEFT), insideTop = stv.mapFrame.get(Layout.TOP), insideBott = stv.mapFrame.get(Layout.BOTT), insideRight = stv.mapFrame.get(Layout.RIGHT);
 
@@ -123,6 +123,27 @@ public class ElemGlass extends ElemSimple {
                 x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
                 y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
+
+//            if (eSyssize.find(insideLeft.artiklRec).getInt(eSyssize.id) != -1) {
+//                x1 = owner.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
+//            } else {
+//                x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+//            }
+//            if (eSyssize.find(insideTop.artiklRec).getInt(eSyssize.id) != -1) {
+//                y1 = owner.y1 + eGlasprof.find2(insideTop.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
+//            } else {
+//                y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+//            }
+//            if (eSyssize.find(insideRight.artiklRec).getInt(eSyssize.id) != -1) {
+//                x2 = owner.x2 - eGlasprof.find2(insideRight.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
+//            } else {
+//                x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+//            }
+//            if (eSyssize.find(insideBott.artiklRec).getInt(eSyssize.id) != -1) {
+//                y2 = owner.y2 - eGlasprof.find2(insideBott.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
+//            } else {
+//                y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+//            }
         }
         spcRec.width = width();
         spcRec.height = height();
