@@ -39,7 +39,8 @@ public enum eSyssize implements Field {
         return query;
     }
 
-    public static Record find(int _id) {
+    public static Record find(Record artiklRec) {
+        int _id = artiklRec.getInt(eArtikl.syssize_id);
         if (_id == -3) {
             return record();
         }
