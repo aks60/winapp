@@ -109,11 +109,8 @@ public class ElemGlass extends ElemSimple {
                 x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
                 y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
-            
-        } else {  //Глухарь
 
-//            Object obj = this.owner.owner.mapFrame.get(Layout.BOTT);
-//            Object ob2 = root.mapFrame.get(Layout.BOTT);
+        } else {  //Глухарь
             ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
             if (iwin.syssizeRec.getInt(eSyssize.id) == -1) {
                 x1 = owner.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);

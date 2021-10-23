@@ -35,14 +35,13 @@ public class AreaSimple extends Com5t {
         this.colorID2 = color2;
         this.colorID3 = color3;
         if (owner != null && (owner.type == Type.ARCH || owner.type == Type.TRAPEZE)) {
-            if (owner.listChild.isEmpty()) { //пока примитивно, всё нестандартное сверху
+            if (owner.listChild.isEmpty()) { //примитивно, пока всё нестандартное сверху
                 this.type = owner.type;
             }
         }
         initСonstructiv(param);
         setLocation(width, height);
         initParametr(param);
-        //System.out.println(this);
     }
 
     public void initСonstructiv(String param) {
@@ -65,17 +64,20 @@ public class AreaSimple extends Com5t {
                     setDimension(owner.x1, owner.y1, owner.x1 + width, owner.y2);
                 }
 
-            } else { //Aреа перед текущей, т.к. this area ёщё не создана начнём с конца
+                //Aреа перед текущей, т.к. this area ёщё не создана начнём с конца
+            } else {
                 for (int index = owner.listChild.size() - 1; index >= 0; --index) {
                     if (owner.listChild.get(index) instanceof AreaSimple) {
                         AreaSimple prevArea = (AreaSimple) owner.listChild.get(index);
-                        //Если последняя доб. area выходит за коорд. root area. Происходит при подкдадке ареа над импостом 
+
+                        //Если последняя доб. area выходит за коорд. owner area. 
+                        //Происходит при подкдадке дополнительной ареа над импостом 
                         if (Layout.VERT.equals(owner.layout)) { //сверху вниз                            
-                            float Y2 = (prevArea.y2 + height > root().y2) ? root().y2 : prevArea.y2 + height;
+                            float Y2 = (prevArea.y2 + height > owner.y2) ? owner.y2 : prevArea.y2 + height;
                             setDimension(owner.x1, prevArea.y2, owner.x2, Y2);
 
                         } else if (Layout.HORIZ.equals(owner.layout)) { //слева направо
-                            float X2 = (prevArea.x2 + width > root().x2) ? root().x2 : prevArea.x2 + width;
+                            float X2 = (prevArea.x2 + width > owner.x2) ? owner.x2 : prevArea.x2 + width;
                             setDimension(prevArea.x2, owner.y1, X2, owner.y2);
                         }
                         break;
