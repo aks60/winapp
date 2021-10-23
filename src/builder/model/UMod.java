@@ -30,11 +30,11 @@ class UMod {
             return spcRec.width - dx;
 
         } else if (list.get(1).equals(ps)) {
-            AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
+            AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner;
             return stv.handleHeight - dx;
 
         } else if (list.get(2).equals(ps)) {
-            AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner();
+            AreaStvorka stv = (AreaStvorka) spcAdd.elem5e.owner;
             return spcRec.width - stv.handleHeight - dx;
 
         } else if (list.get(3).equals(ps)) {

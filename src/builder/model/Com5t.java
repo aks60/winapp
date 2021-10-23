@@ -40,10 +40,6 @@ public abstract class Com5t {
         return id;
     }
 
-    public AreaSimple owner() {
-        return owner;
-    }
-
     public AreaSimple root() {
         return iwin.rootArea;
     }

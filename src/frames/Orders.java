@@ -2390,7 +2390,7 @@ public class Orders extends javax.swing.JFrame {
                 for (int index = 0; index < qSysprof.size(); ++index) {
                     Record sysprofRec = qSysprof.get(index);
                     if (winNode.com5t().type.id2 == sysprofRec.getInt(eSysprof.use_type)) {
-                        if (sysprofRec.getInt(eSysprof.use_side) == winNode.com5t().layout().id
+                        if (sysprofRec.getInt(eSysprof.use_side) == winNode.com5t().layout.id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {
                             qSysprof2.add(sysprofRec);
@@ -2416,13 +2416,13 @@ public class Orders extends javax.swing.JFrame {
                         String paramStr = stvArea.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         String stvKey = null;
-                        if (winNode.com5t().layout() == Layout.BOTT) {
+                        if (winNode.com5t().layout == Layout.BOTT) {
                             stvKey = PKjson.stvorkaBottom;
-                        } else if (winNode.com5t().layout() == Layout.RIGHT) {
+                        } else if (winNode.com5t().layout == Layout.RIGHT) {
                             stvKey = PKjson.stvorkaRight;
-                        } else if (winNode.com5t().layout() == Layout.TOP) {
+                        } else if (winNode.com5t().layout == Layout.TOP) {
                             stvKey = PKjson.stvorkaTop;
-                        } else if (winNode.com5t().layout() == Layout.LEFT) {
+                        } else if (winNode.com5t().layout == Layout.LEFT) {
                             stvKey = PKjson.stvorkaLeft;
                         }
                         JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
@@ -2476,13 +2476,13 @@ public class Orders extends javax.swing.JFrame {
                     String paramStr = jsonArea.param();
                     JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                     String stvKey = null;
-                    if (winNode.com5t().layout() == Layout.BOTT) {
+                    if (winNode.com5t().layout == Layout.BOTT) {
                         stvKey = PKjson.stvorkaBottom;
-                    } else if (winNode.com5t().layout() == Layout.RIGHT) {
+                    } else if (winNode.com5t().layout == Layout.RIGHT) {
                         stvKey = PKjson.stvorkaRight;
-                    } else if (winNode.com5t().layout() == Layout.TOP) {
+                    } else if (winNode.com5t().layout == Layout.TOP) {
                         stvKey = PKjson.stvorkaTop;
-                    } else if (winNode.com5t().layout() == Layout.LEFT) {
+                    } else if (winNode.com5t().layout == Layout.LEFT) {
                         stvKey = PKjson.stvorkaLeft;
                     }
                     JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);

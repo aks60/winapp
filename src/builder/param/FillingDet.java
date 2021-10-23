@@ -90,9 +90,9 @@ public class FillingDet extends Par5s {
                     break;
                 case 14009: //Арочное заполнение 
                 case 15009: //Арочное заполнение  
-                    if ("Да".equals(rec.getStr(TEXT)) && elem5e.owner().type != Type.ARCH) {
+                    if ("Да".equals(rec.getStr(TEXT)) && elem5e.owner.type != Type.ARCH) {
                         return false;
-                    } else if ("Нет".equals(rec.getStr(TEXT)) && elem5e.owner().type == Type.ARCH) {
+                    } else if ("Нет".equals(rec.getStr(TEXT)) && elem5e.owner.type == Type.ARCH) {
                         return false;
                     }
                     break;
@@ -153,7 +153,7 @@ public class FillingDet extends Par5s {
                 case 14081: //Если артикул профиля контура 
                 case 15081: //Если артикул профиля контура 
                 {
-                    ElemSimple elem = (elem5e.owner().mapFrame.isEmpty() == false) ? elem5e.owner().mapFrame.get(Layout.BOTT) : elem5e.root().mapFrame.get(Layout.BOTT);
+                    ElemSimple elem = (elem5e.owner.mapFrame.isEmpty() == false) ? elem5e.owner.mapFrame.get(Layout.BOTT) : elem5e.root().mapFrame.get(Layout.BOTT);
                     if (rec.getStr(TEXT).equals(elem.artiklRecAn.getStr(eArtikl.code)) == false) {
                         return false;
                     }

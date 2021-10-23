@@ -53,9 +53,9 @@ public class FurnitureTest extends ParamTest {
      */
     public void furnitureDet() {
         HashMap<Integer, String> mapParam = new HashMap();
-        AreaStvorka area_stv_3 = (AreaStvorka) stv_right_3.owner();
-        AreaStvorka area_stv_2 = (AreaStvorka) stv_right_2.owner();
-        AreaStvorka area_stv_4 = (AreaStvorka) stv_right_4.owner();
+        AreaStvorka area_stv_3 = (AreaStvorka) stv_right_3.owner;
+        AreaStvorka area_stv_2 = (AreaStvorka) stv_right_2.owner;
+        AreaStvorka area_stv_4 = (AreaStvorka) stv_right_4.owner;
 
         grup = 24001; //25001 //Форма контура
         //assert true == furnitureDet3.check(mapParam, area_stv_3, param("арочная", grup)) : grup;

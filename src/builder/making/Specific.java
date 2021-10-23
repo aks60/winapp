@@ -187,7 +187,7 @@ public class Specific {
             float total = 0;
             for (Specific s : specList) {
                 Object str2[] = {String.valueOf(++npp), s.place, s.name, s.artikl,
-                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.spcRec.artiklRec.get(eArtikl.code)};
+                    s.elem5e.owner.id(), s.elem5e.id(), s.elem5e.spcRec.artiklRec.get(eArtikl.code)};
                 total = total + s.weight;
                 System.out.printf(format, str2);
                 System.out.println();
