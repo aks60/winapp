@@ -96,26 +96,6 @@ public class AreaStvorka extends AreaSimple {
             x2 = X2 - offset(stvRig, joinRig);
             y1 = Y1 + offset(stvTop, joinTop);
         }
-//        if (eSyssize.find(joinLef.artiklRec).getInt(eSyssize.id) != -1) {
-//            x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - eSyssize.find(joinLef.artiklRec).getFloat(eSyssize.naxl);
-//        } else {
-//            x1 = ((isType == true) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1) + offset(stvLef, joinLef);
-//        }
-//        if (eSyssize.find(joinTop.artiklRec).getInt(eSyssize.id) != -1) {
-//            y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - eSyssize.find(joinTop.artiklRec).getFloat(eSyssize.naxl);
-//        } else {
-//            y1 = ((isType == true) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1) + offset(stvTop, joinTop);
-//        }
-//        if (eSyssize.find(joinRig.artiklRec).getInt(eSyssize.id) != -1) {
-//            x2 = joinRig.x1 + joinRig.artiklRec.getFloat(eArtikl.size_falz) + eSyssize.find(joinRig.artiklRec).getFloat(eSyssize.naxl);
-//        } else {
-//            x2 = ((isType == true) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2) - offset(stvRig, joinRig);
-//        }
-//        if (eSyssize.find(joinBot.artiklRec).getInt(eSyssize.id) != -1) {
-//            y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + eSyssize.find(joinBot.artiklRec).getFloat(eSyssize.naxl);
-//        } else {
-//            y2 = ((isType == true) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2) - offset(stvBot, joinBot);
-//        }
     }
 
     public void initFurniture(String param) {
