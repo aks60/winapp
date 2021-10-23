@@ -25,7 +25,7 @@ class UPar {
     static List<ElemGlass> getGlassDepth(ElemSimple elem5e) {
         ElemSimple glass1 = null, glass2 = null;
         for (ElemSimple el : elem5e.iwin.listElem) {
-            if (el.type() == Type.GLASS) {
+            if (el.type == Type.GLASS) {
                 if (elem5e.layout() == Layout.VERT) {
                     if (el.inside(elem5e.x1 - 200, elem5e.y1 + elem5e.height() / 2)) {
                         glass1 = el;
@@ -49,9 +49,9 @@ class UPar {
 
     //Тип проема 
     static boolean is_13003_14005_15005_37008(String txt, ElemSimple elem5e) {
-        if ("глухой".equals(txt) == true && elem5e.owner().type() == Type.STVORKA == true) {
+        if ("глухой".equals(txt) == true && elem5e.owner().type == Type.STVORKA == true) {
             return false;
-        } else if ("не глухой".equals(txt) == true && elem5e.owner().type() == Type.STVORKA == false) {
+        } else if ("не глухой".equals(txt) == true && elem5e.owner().type == Type.STVORKA == false) {
             return false;
         }
         return true;
@@ -63,12 +63,12 @@ class UPar {
             String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
             int[] index = {1, 2, 3, 5, 19};
             for (int i = 0; i < arr.length; i++) {
-                if (arr.equals(txt) && UCom.containsNumbJust(String.valueOf(index[i]), elem5e.type().id) == false) {
+                if (arr.equals(txt) && UCom.containsNumbJust(String.valueOf(index[i]), elem5e.type.id) == false) {
                     return false;
                 }
             }
         } else {
-            if (UCom.containsNumbJust(txt, elem5e.type().id) == false) {
+            if (UCom.containsNumbJust(txt, elem5e.type.id) == false) {
                 return false;
             }
         }
@@ -143,7 +143,7 @@ class UPar {
     static boolean is_1008_11008_12008_14008_15008_31008_34008_40008(String txt, Wincalc iwin) {
         float depth = 0;
         for (ElemSimple elem : iwin.listElem) {
-            if (elem.type() == Type.GLASS) {
+            if (elem.type == Type.GLASS) {
                 depth = (elem.artiklRecAn.getFloat(eArtikl.depth) > depth) ? elem.artiklRecAn.getFloat(eArtikl.depth) : depth;
             }
         }
@@ -155,7 +155,7 @@ class UPar {
 
     //Название фурнитуры содержит 
     static boolean is_31037_38037_39037_40037(ElemSimple elem5e, String txt) {
-        if (Type.STVORKA == elem5e.owner().type()) {
+        if (Type.STVORKA == elem5e.owner().type) {
             AreaStvorka stv = (AreaStvorka) elem5e.owner();
             String name = eFurniture.find(stv.sysfurnRec.getInt(eSysfurn.furniture_id)).getStr(eFurniture.name);
             if ((name.equals(txt)) == false) {
@@ -169,7 +169,7 @@ class UPar {
 
     //Для типа открывания
     static boolean is_1039_38039_39039(ElemSimple elem5e, String txt) {
-        if (elem5e.owner().type() == Type.STVORKA) {
+        if (elem5e.owner().type == Type.STVORKA) {
             AreaStvorka stv = (AreaStvorka) elem5e.owner();
             if (!"фрамуга".equals(txt) && stv.typeOpen == TypeOpen1.UPPER) { //фрамуга
                 return false;

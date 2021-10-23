@@ -262,12 +262,12 @@ public class UCom {
     
     public static <E> void listElem(Com5t com5t, LinkedList<E> list, List<Type> type) {
 
-        if (type.contains(com5t.type())) {
+        if (type.contains(com5t.type)) {
             list.add((E) com5t);
         }
         if (com5t instanceof AreaSimple) {
             for (ElemFrame frm : ((AreaSimple) com5t).mapFrame.values()) {
-                if (type.contains(frm.type())) {
+                if (type.contains(frm.type)) {
                     list.add((E) frm);
                 }
             }

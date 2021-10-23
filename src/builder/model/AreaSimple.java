@@ -59,9 +59,9 @@ public class AreaSimple extends Com5t {
         if (owner() != null) {
             //Первая area добавляемая в area владельца
             if (owner().listChild.isEmpty() == true) {
-                if (Layout.VERT.equals(owner().layout())) { //сверху вниз
+                if (Layout.VERT.equals(owner().layout)) { //сверху вниз
                     setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + height);
-                } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
+                } else if (Layout.HORIZ.equals(owner().layout)) { //слева направо
                     setDimension(owner().x1, owner().y1, owner().x1 + width, owner().y2);
                 }
 
@@ -70,11 +70,11 @@ public class AreaSimple extends Com5t {
                     if (owner().listChild.get(index) instanceof AreaSimple) {
                         AreaSimple prevArea = (AreaSimple) owner().listChild.get(index);
                         //Если последняя доб. area выходит за коорд. root area. Происходит при подкдадке ареа над импостом 
-                        if (Layout.VERT.equals(owner().layout())) { //сверху вниз                            
+                        if (Layout.VERT.equals(owner().layout)) { //сверху вниз                            
                             float Y2 = (prevArea.y2 + height > root().y2) ? root().y2 : prevArea.y2 + height;
                             setDimension(owner().x1, prevArea.y2, owner().x2, Y2);
 
-                        } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
+                        } else if (Layout.HORIZ.equals(owner().layout)) { //слева направо
                             float X2 = (prevArea.x2 + width > root().x2) ? root().x2 : prevArea.x2 + width;
                             setDimension(prevArea.x2, owner().y1, X2, owner().y2);
                         }
@@ -126,7 +126,7 @@ public class AreaSimple extends Com5t {
                     elemImp.anglCut[0] = 90;
                     elemImp.anglCut[1] = 90;
 
-                    if (elemImp.owner().layout() == Layout.HORIZ) { //Импосты(штульпы...)  расположены по горизонтали слева на право                     
+                    if (elemImp.owner().layout == Layout.HORIZ) { //Импосты(штульпы...)  расположены по горизонтали слева на право                     
                         if (elem5e.inside(elemImp.x2, elemImp.y2) == true && elem5e != elemImp) { //T - соединение нижнее                              
                             ElemJoining.create(elemImp.joinPoint(0), iwin, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
                         } else if (elem5e.inside(elemImp.x1, elemImp.y1) == true && elem5e != elemImp) { //T - соединение верхнее                            

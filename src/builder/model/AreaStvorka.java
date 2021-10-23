@@ -51,13 +51,13 @@ public class AreaStvorka extends AreaSimple {
 
         //Добавим рамы створки    Ujson.getAsJsonObject(paramObj, stvKey)  
         ElemFrame stvBot = new ElemFrame(this, id + .1f, Layout.BOTT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaBottom)));
-        mapFrame.put(stvBot.layout(), stvBot);
+        mapFrame.put(stvBot.layout, stvBot);
         ElemFrame stvRigh = new ElemFrame(this, id + .2f, Layout.RIGHT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaRight)));
-        mapFrame.put(stvRigh.layout(), stvRigh);
+        mapFrame.put(stvRigh.layout, stvRigh);
         ElemFrame stvTop = new ElemFrame(this, id + .3f, Layout.TOP, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaTop)));
-        mapFrame.put(stvTop.layout(), stvTop);
+        mapFrame.put(stvTop.layout, stvTop);
         ElemFrame stvLeft = new ElemFrame(this, id + .4f, Layout.LEFT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaLeft)));
-        mapFrame.put(stvLeft.layout(), stvLeft);
+        mapFrame.put(stvLeft.layout, stvLeft);
 
         //Положение элементов створки с учётом нахлёста
         setNaxlest(stvLeft, stvBot, stvRigh, stvTop);
@@ -87,10 +87,10 @@ public class AreaStvorka extends AreaSimple {
             y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
 
         } else {
-            float X1 = (joinLef.type() == Type.IMPOST || joinLef.type() == Type.SHTULP || joinLef.type() == Type.STOIKA) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
-            float Y2 = (joinBot.type() == Type.IMPOST || joinBot.type() == Type.SHTULP || joinBot.type() == Type.STOIKA) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
-            float X2 = (joinRig.type() == Type.IMPOST || joinRig.type() == Type.SHTULP || joinBot.type() == Type.STOIKA) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
-            float Y1 = (joinTop.type() == Type.IMPOST || joinTop.type() == Type.SHTULP || joinBot.type() == Type.STOIKA) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
+            float X1 = (joinLef.type == Type.IMPOST || joinLef.type == Type.SHTULP || joinLef.type == Type.STOIKA) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
+            float Y2 = (joinBot.type == Type.IMPOST || joinBot.type == Type.SHTULP || joinBot.type == Type.STOIKA) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
+            float X2 = (joinRig.type == Type.IMPOST || joinRig.type == Type.SHTULP || joinBot.type == Type.STOIKA) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
+            float Y1 = (joinTop.type == Type.IMPOST || joinTop.type == Type.SHTULP || joinBot.type == Type.STOIKA) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
             x1 = X1 + offset(stvLef, joinLef);
             y2 = Y2 - offset(stvBot, joinBot);
             x2 = X2 - offset(stvRig, joinRig);

@@ -95,16 +95,6 @@ public abstract class Com5t {
         return (y2 > y1) ? y2 - y1 : y1 - y2;
     }
 
-    //Тип ElemXxx или тип AreaXxx
-    public Type type() {
-        return type;
-    }
-
-    //Расположение элемента
-    public Layout layout() {
-        return layout;
-    }
-
     //Точка попадает в контур элемента
     public boolean inside(float X, float Y) {
         if (((int) x2 | (int) y2) < 0) {
@@ -126,7 +116,7 @@ public abstract class Com5t {
 
     public String toString() {
         float ownerID = (owner == null) ? -1 : owner.id();
-        return "type=" + type() + ", layout=" + layout() + ", owner=" + ownerID + ", id=" + id
+        return "type=" + type + ", layout=" + layout + ", owner=" + ownerID + ", id=" + id
                 + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + ", width=" + width() + ", height=" + height();
     }
 

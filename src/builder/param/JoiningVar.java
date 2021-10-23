@@ -55,12 +55,12 @@ public class JoiningVar extends Par5s {
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
                         int[] index = {1, 2, 3, 5, 19};
                         for (int i = 0; i < arr.length; i++) {
-                            if (arr.equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(index[i]), elemJoin.elem1.type().id) == false) {
+                            if (arr.equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(index[i]), elemJoin.elem1.type.id) == false) {
                                 return false;
                             }
                         }
                     } else {
-                        if (UCom.containsNumb(rec.getStr(TEXT), elemJoin.elem1.type().id, elemJoin.elem2.type().id) == false) {
+                        if (UCom.containsNumb(rec.getStr(TEXT), elemJoin.elem1.type.id, elemJoin.elem2.type.id) == false) {
                             return false;
                         }
                     }
@@ -73,7 +73,7 @@ public class JoiningVar extends Par5s {
                     if ("ps3".equals(eSetting.find(2))) {
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
                         for (int i = 1; i < arr.length; i++) {
-                            if (arr.equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(i), elemJoin.elem1.type().id) == false) {
+                            if (arr.equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(i), elemJoin.elem1.type.id) == false) {
                                 return false;
                             }
                         }

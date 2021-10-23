@@ -22,7 +22,7 @@ public class ElemCross extends ElemSimple {
     public ElemCross(AreaSimple owner, Type type, float id, String param) {
 
         super(id, owner.iwin, owner);
-        this.layout = (owner.layout() == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
+        this.layout = (owner.layout == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
         colorID1 = iwin.colorID1;
         colorID2 = iwin.colorID2;
         colorID3 = iwin.colorID3;
@@ -52,14 +52,14 @@ public class ElemCross extends ElemSimple {
         if (param(param, PKjson.sysprofID) != -1) {
             sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
         } else {
-            if (Layout.VERT.equals(owner().layout())) { //сверху вниз
+            if (Layout.VERT.equals(owner().layout)) { //сверху вниз
                 sysprofRec = eSysprof.find4(iwin.nuni, type.id2, UseSide.HORIZ);
 
-            } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
+            } else if (Layout.HORIZ.equals(owner().layout)) { //слева направо
                 sysprofRec = eSysprof.find4(iwin.nuni, type.id2, UseSide.VERT);
             }
         }
-        spcRec.place = (Layout.HORIZ == owner().layout()) ? Layout.VERT.name : Layout.HORIZ.name;
+        spcRec.place = (Layout.HORIZ == owner().layout) ? Layout.VERT.name : Layout.HORIZ.name;
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
@@ -71,11 +71,11 @@ public class ElemCross extends ElemSimple {
                 Com5t prevArea = owner.listChild.get(index); //index указывает на предыдущий элемент
                 float db = artiklRecAn.getFloat(eArtikl.size_centr);
 
-                if (Layout.VERT.equals(owner().layout())) { //сверху вниз
+                if (Layout.VERT.equals(owner().layout)) { //сверху вниз
                     setDimension(prevArea.x1, prevArea.y2 - db, prevArea.x2, prevArea.y2 + db);
                     anglHoriz = 0;
 
-                } else if (Layout.HORIZ.equals(owner().layout())) { //слева направо
+                } else if (Layout.HORIZ.equals(owner().layout)) { //слева направо
                     setDimension(prevArea.x2 - db, prevArea.y1, prevArea.x2 + db, prevArea.y2);
                     anglHoriz = 90;
                 }
@@ -87,7 +87,7 @@ public class ElemCross extends ElemSimple {
     @Override //Главная спецификация
     public void setSpecific() {
 
-        spcRec.place = (Layout.HORIZ == owner().layout()) ? "ВСТ.в" : "ВСТ.г";
+        spcRec.place = (Layout.HORIZ == owner().layout) ? "ВСТ.в" : "ВСТ.г";
         spcRec.setArtiklRec(artiklRec);
         spcRec.colorID1 = colorID1;
         spcRec.colorID2 = colorID2;
@@ -101,41 +101,41 @@ public class ElemCross extends ElemSimple {
             if (iwin.syssizeRec.getInt(eSyssize.id) != -1) {
                 float zax = iwin.syssizeRec.getFloat(eSyssize.zax);
 
-                if (Layout.HORIZ == owner().layout()) { //слева направо  
+                if (Layout.HORIZ == owner().layout) { //слева направо  
                     ElemSimple insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
                     spcRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
                     spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-                } else if (Layout.VERT == owner().layout()) { //снизу вверх
+                } else if (Layout.VERT == owner().layout) { //снизу вверх
                     ElemSimple insideLeft = joinFlat(Layout.LEFT), insideRight = joinFlat(Layout.RIGHT);
                     spcRec.width = insideRight.x1 - insideLeft.x2 + zax * 2 + insideLeft.artiklRec.getFloat(eArtikl.size_falz) + insideRight.artiklRec.getFloat(eArtikl.size_falz);
                     spcRec.height = artiklRec.getFloat(eArtikl.height);
                 }
             } else {
-                if (Layout.HORIZ == owner().layout()) { //слева направо  
+                if (Layout.HORIZ == owner().layout) { //слева направо  
                     spcRec.width = y2 - y1;
                     spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-                } else if (Layout.VERT == owner().layout()) { //снизу вверх
+                } else if (Layout.VERT == owner().layout) { //снизу вверх
                     spcRec.width = x2 - x1;
                     spcRec.height = artiklRec.getFloat(eArtikl.height);
                 }
             }
         } else if (type == Type.SHTULP) {
-            if (Layout.HORIZ == owner().layout()) { //слева направо  
+            if (Layout.HORIZ == owner().layout) { //слева направо  
                 spcRec.width = y2 - y1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-            } else if (Layout.VERT == owner().layout()) { //сверху вниз
+            } else if (Layout.VERT == owner().layout) { //сверху вниз
                 spcRec.width = x2 - x1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
         } else if (type == Type.STOIKA) {
-            if (Layout.HORIZ == owner().layout()) { //слева направо  
+            if (Layout.HORIZ == owner().layout) { //слева направо  
                 spcRec.width = y2 - y1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
 
-            } else if (Layout.VERT == owner().layout()) { //сверху вниз
+            } else if (Layout.VERT == owner().layout) { //сверху вниз
                 spcRec.width = x2 - x1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
@@ -151,7 +151,7 @@ public class ElemCross extends ElemSimple {
 
         //Армирование
         if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X107)) {
-            spcAdd.place = "ВСТ." + layout().name.substring(0, 1).toLowerCase();
+            spcAdd.place = "ВСТ." + layout.name.substring(0, 1).toLowerCase();
             spcAdd.anglCut1 = 90;
             spcAdd.anglCut2 = 90;
         }
@@ -176,10 +176,10 @@ public class ElemCross extends ElemSimple {
     public void paint() {
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
-        if (Layout.VERT == owner().layout()) {
+        if (Layout.VERT == owner().layout) {
             Draw.strokePolygon(iwin, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
-        } else if (Layout.HORIZ == owner().layout()) {
+        } else if (Layout.HORIZ == owner().layout) {
             Draw.strokePolygon(iwin, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
         }
     }

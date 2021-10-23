@@ -380,9 +380,9 @@ public class Orders extends javax.swing.JFrame {
         if (winNode != null) {
 
             //Конструкции
-            if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.ARCH) {
+            if (winNode.com5t().type == enums.Type.RECTANGL || winNode.com5t().type == enums.Type.ARCH) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card12");
-                ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type().name);
+                ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type.name);
                 pan12.repaint();
                 txt9.setText(eColor.find(iwin.colorID1).getStr(eColor.name));
                 txt13.setText(eColor.find(iwin.colorID2).getStr(eColor.name));
@@ -390,10 +390,10 @@ public class Orders extends javax.swing.JFrame {
                 txt17.setText(String.valueOf(iwin.rootGson.width()));
                 txt22.setText(String.valueOf(iwin.rootGson.height()));
                 txt23.setText(String.valueOf(iwin.rootGson.heightAdd));
-                txt23.setEditable(winNode.com5t().type() == enums.Type.ARCH);
+                txt23.setEditable(winNode.com5t().type == enums.Type.ARCH);
 
                 //Параметры
-            } else if (winNode.com5t().type() == enums.Type.PARAM) {
+            } else if (winNode.com5t().type == enums.Type.PARAM) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card14");
                 qSyspar1.clear();
                 Map<Integer, String> map = new HashMap();
@@ -402,11 +402,11 @@ public class Orders extends javax.swing.JFrame {
                 ((DefTableModel) tab5.getModel()).fireTableDataChanged();
 
                 //Рама, импост...
-            } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE
-                    || winNode.com5t().type() == enums.Type.STVORKA_SIDE
-                    || winNode.com5t().type() == enums.Type.IMPOST
-                    || winNode.com5t().type() == enums.Type.STOIKA
-                    || winNode.com5t().type() == enums.Type.SHTULP) {
+            } else if (winNode.com5t().type == enums.Type.FRAME_SIDE
+                    || winNode.com5t().type == enums.Type.STVORKA_SIDE
+                    || winNode.com5t().type == enums.Type.IMPOST
+                    || winNode.com5t().type == enums.Type.STOIKA
+                    || winNode.com5t().type == enums.Type.SHTULP) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
                 txt32.setText(winNode.com5t().artiklRec.getStr(eArtikl.code));
@@ -416,14 +416,14 @@ public class Orders extends javax.swing.JFrame {
                 txt29.setText(eColor.find(winNode.com5t().colorID3).getStr(eColor.name));
 
                 //Стеклопакет
-            } else if (winNode.com5t().type() == enums.Type.GLASS) {
+            } else if (winNode.com5t().type == enums.Type.GLASS) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card15");
                 Record artiklRec = eArtikl.find(winNode.com5t().artiklRec.getInt(eArtikl.id), false);
                 txt19.setText(artiklRec.getStr(eArtikl.code));
                 txt18.setText(artiklRec.getStr(eArtikl.name));
 
                 //Створка
-            } else if (winNode.com5t().type() == enums.Type.STVORKA) {
+            } else if (winNode.com5t().type == enums.Type.STVORKA) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card16");
                 AreaStvorka stv = (AreaStvorka) winNode.com5t();
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);
@@ -447,7 +447,7 @@ public class Orders extends javax.swing.JFrame {
                 txt25.setText(eColor.find(stv.handleColor).getStr(eColor.name));
 
                 //Соединения
-            } else if (winNode.com5t().type() == enums.Type.JOINING) {
+            } else if (winNode.com5t().type == enums.Type.JOINING) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card17");
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
@@ -2389,7 +2389,7 @@ public class Orders extends javax.swing.JFrame {
                 //Отфильтруем подходящие по параметрам
                 for (int index = 0; index < qSysprof.size(); ++index) {
                     Record sysprofRec = qSysprof.get(index);
-                    if (winNode.com5t().type().id2 == sysprofRec.getInt(eSysprof.use_type)) {
+                    if (winNode.com5t().type.id2 == sysprofRec.getInt(eSysprof.use_type)) {
                         if (sysprofRec.getInt(eSysprof.use_side) == winNode.com5t().layout().id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {
@@ -2400,7 +2400,7 @@ public class Orders extends javax.swing.JFrame {
                 }
                 new DicSysprof(this, (sysprofRec) -> {
 
-                    if (winNode.com5t().type() == enums.Type.FRAME_SIDE) { //рама окна
+                    if (winNode.com5t().type == enums.Type.FRAME_SIDE) { //рама окна
                         float gsonId = winNode.com5t().id();
                         GsonElem gsonRama = iwin.rootGson.find(gsonId);
                         String paramStr = gsonRama.param();
@@ -2410,7 +2410,7 @@ public class Orders extends javax.swing.JFrame {
                         gsonRama.param(paramStr);
                         updateScript(selectID);
 
-                    } else if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) { //рама створки
+                    } else if (winNode.com5t().type == enums.Type.STVORKA_SIDE) { //рама створки
                         float stvId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
                         GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
                         String paramStr = stvArea.param();
@@ -2472,7 +2472,7 @@ public class Orders extends javax.swing.JFrame {
                 float parentId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
                 GsonElem jsonArea = (GsonElem) iwin.rootGson.find(parentId);
 
-                if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) {
+                if (winNode.com5t().type == enums.Type.STVORKA_SIDE) {
                     String paramStr = jsonArea.param();
                     JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                     String stvKey = null;
@@ -2491,7 +2491,7 @@ public class Orders extends javax.swing.JFrame {
                     jsonArea.param(paramStr);
                     updateScript(selectID);
 
-                } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE) {
+                } else if (winNode.com5t().type == enums.Type.FRAME_SIDE) {
                     for (GsonElem elem : jsonArea.elems()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             String paramStr = elem.param();

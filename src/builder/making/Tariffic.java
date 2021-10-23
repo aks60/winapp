@@ -65,19 +65,19 @@ public class Tariffic extends Cal5e {
 
                     //Фильтр по полю форма профиля, заполнения. В БиМакс используюеся только 1, 4, 10, 12 параметры
                     int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
-                    if (Type.GLASS == elem5e.type()) {//фильтр для стеклопакета
+                    if (Type.GLASS == elem5e.type) {//фильтр для стеклопакета
 
                         if (form == TypeForm.P00.id) {//не проверять форму
                             rulePrise(rulecalcRec, elem5e.spcRec);
 
-                        } else if (form == TypeForm.P10.id && Type.TRAPEZE == elem5e.owner().type()) { //не прямоугольное, не арочное заполнение
+                        } else if (form == TypeForm.P10.id && Type.TRAPEZE == elem5e.owner().type) { //не прямоугольное, не арочное заполнение
                             rulePrise(rulecalcRec, elem5e.spcRec);
 
-                        } else if (form == TypeForm.P12.id && Type.ARCH == elem5e.owner().type()) {//не прямоугольное заполнение с арками
+                        } else if (form == TypeForm.P12.id && Type.ARCH == elem5e.owner().type) {//не прямоугольное заполнение с арками
                             rulePrise(rulecalcRec, elem5e.spcRec);
                         }
-                    } else if (form == TypeForm.P04.id && elem5e.type() == Type.FRAME_SIDE
-                            && elem5e.owner().type() == Type.ARCH && elem5e.layout() == Layout.TOP) {  //профиль с радиусом  (фильтр для арки профиля AYPC.W62.0101)
+                    } else if (form == TypeForm.P04.id && elem5e.type == Type.FRAME_SIDE
+                            && elem5e.owner().type == Type.ARCH && elem5e.layout == Layout.TOP) {  //профиль с радиусом  (фильтр для арки профиля AYPC.W62.0101)
                         rulePrise(rulecalcRec, elem5e.spcRec); //профиль с радиусом
 
                     } else {
@@ -323,7 +323,7 @@ public class Tariffic extends Cal5e {
 
     //Процентная надбавка на изделия сложной формы
     private float percentMarkup() {
-        if (Type.ARCH == iwin.rootArea.type()) {
+        if (Type.ARCH == iwin.rootArea.type) {
             return eGroups.find(2101).getFloat(eGroups.val);
         }
         return 0;

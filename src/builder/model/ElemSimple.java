@@ -45,32 +45,32 @@ public abstract class ElemSimple extends Com5t {
     //В этих точках лежат мапы соединений см. Wincalc.mapJoin
     public String joinPoint(int side) {
 
-        if (owner.type() == Type.ARCH && layout() == Layout.TOP && iwin.form == Form.NUM3) {
+        if (owner.type == Type.ARCH && layout == Layout.TOP && iwin.form == Form.NUM3) {
             return (side == 0) ? x2 + ":" + (iwin.height - iwin.heightAdd) : x1 + ":" + (iwin.height - iwin.heightAdd);
 
-        } else if (owner.type() == Type.TRAPEZE && layout() == Layout.TOP && iwin.form == Form.NUM2) {
+        } else if (owner.type == Type.TRAPEZE && layout == Layout.TOP && iwin.form == Form.NUM2) {
             return (side == 0) ? x2 + ":" + (iwin.height - iwin.heightAdd) : x1 + ":" + y1;
 
-        } else if (owner.type() == Type.TRAPEZE && layout() == Layout.TOP && iwin.form == Form.NUM4) {
+        } else if (owner.type == Type.TRAPEZE && layout == Layout.TOP && iwin.form == Form.NUM4) {
             return (side == 0) ? x2 + ":" + y1 : x1 + ":" + (iwin.height - iwin.heightAdd);
 
-        } else if (layout() == Layout.BOTT) {
+        } else if (layout == Layout.BOTT) {
             return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : x1 + (x2 - x1) / 2 + ":" + y2; //точки левого и правого нижнего углового и прилегающего соед.
 
-        } else if (layout() == Layout.RIGHT) {
+        } else if (layout == Layout.RIGHT) {
             return (side == 0) ? x2 + ":" + y2 : (side == 1) ? x2 + ":" + y1 : x2 + ":" + y1 + (y2 - y1) / 2; //точки нижнего и верхнего правого углового и прилегающего соед.
 
-        } else if (layout() == Layout.TOP) {
+        } else if (layout == Layout.TOP) {
             return (side == 0) ? x2 + ":" + y1 : (side == 1) ? x1 + ":" + y1 : x1 + (x2 - x1) / 2 + ":" + y2; //точки правого и левого верхнего углового и прилегающего соед.
 
-        } else if (layout() == Layout.LEFT) {
+        } else if (layout == Layout.LEFT) {
             return (side == 0) ? x1 + ":" + y1 : (side == 1) ? x1 + ":" + y2 : x1 + ":" + y1 + (y2 - y1) / 2; //точки верхнего и нижнего левого углового и прилегающего соед.
 
             //импост, штульп...    
-        } else if (layout() == Layout.VERT) { //вектор всегда снизу вверх
+        } else if (layout == Layout.VERT) { //вектор всегда снизу вверх
             return (side == 0) ? x1 + (x2 - x1) / 2 + ":" + y2 : (side == 1) ? x1 + (x2 - x1) / 2 + ":" + y1 : "0:0"; //точки нижнего и верхнего Т-обр и прилегающего соед.
 
-        } else if (layout() == Layout.HORIZ) { //вектор всегда слева на право
+        } else if (layout == Layout.HORIZ) { //вектор всегда слева на право
             return (side == 0) ? x1 + ":" + y1 + (y2 - y1) / 2 : (side == 1) ? x2 + ":" + y1 + (y2 - y1) / 2 : "0:0"; //точки левого и правого Т-обр и прилегающего соед. 
         }
         return null;
@@ -88,7 +88,7 @@ public abstract class ElemSimple extends Com5t {
             ret = listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
         } else if (Layout.TOP == layoutSide) {
             float Y1 = (y2 > y1) ? y1 : y2;
-            ret = listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout() == Layout.TOP) == false).findFirst().orElse(null);
+            ret = listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP) == false).findFirst().orElse(null);
         } else if (Layout.RIGHT == layoutSide) {
             ret = listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x2, y1 + (y2 - y1) / 2)).findFirst().orElse(null);
         }
@@ -108,7 +108,7 @@ public abstract class ElemSimple extends Com5t {
         } else if (Layout.LEFT == layoutSide) {
             return listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x1 - 8, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
         } else if (Layout.TOP == layoutSide) {
-            return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, y1 - 8) == true && (el.owner.type == Type.ARCH && el.layout() == Layout.TOP) == false).findFirst().orElse(null);
+            return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, y1 - 8) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP) == false).findFirst().orElse(null);
         } else if (Layout.RIGHT == layoutSide) {
             return listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x2 + 8, y1 + (y2 - y1) / 2)).findFirst().orElse(null);
         }

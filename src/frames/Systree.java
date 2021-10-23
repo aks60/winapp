@@ -566,19 +566,19 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         if (winNode != null) {
 
             //Конструкции
-            if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.DOOR || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
+            if (winNode.com5t().type == enums.Type.RECTANGL || winNode.com5t().type == enums.Type.DOOR || winNode.com5t().type == enums.Type.TRAPEZE || winNode.com5t().type == enums.Type.ARCH) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card12");
-                ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type().name);
+                ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type.name);
                 setText(txt9, eColor.find(iwin.colorID1).getStr(eColor.name));
                 setText(txt13, eColor.find(iwin.colorID2).getStr(eColor.name));
                 setText(txt14, eColor.find(iwin.colorID3).getStr(eColor.name));
                 setText(txt17, df1.format(iwin.rootGson.width()));
                 setText(txt22, df1.format(iwin.rootGson.height()));
                 setText(txt23, df1.format(iwin.rootGson.heightAdd));
-                txt23.setEditable(winNode.com5t().type() == enums.Type.ARCH);
+                txt23.setEditable(winNode.com5t().type == enums.Type.ARCH);
 
                 //Параметры
-            } else if (winNode.com5t().type() == enums.Type.PARAM) {
+            } else if (winNode.com5t().type == enums.Type.PARAM) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card11");
                 qSyspar2.clear();
                 Map<Integer, String> map = new HashMap();
@@ -587,11 +587,11 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
                 //Рама, импост...
-            } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE
-                    || winNode.com5t().type() == enums.Type.STVORKA_SIDE
-                    || winNode.com5t().type() == enums.Type.IMPOST
-                    || winNode.com5t().type() == enums.Type.STOIKA
-                    || winNode.com5t().type() == enums.Type.SHTULP) {
+            } else if (winNode.com5t().type == enums.Type.FRAME_SIDE
+                    || winNode.com5t().type == enums.Type.STVORKA_SIDE
+                    || winNode.com5t().type == enums.Type.IMPOST
+                    || winNode.com5t().type == enums.Type.STOIKA
+                    || winNode.com5t().type == enums.Type.SHTULP) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
                 setText(txt32, winNode.com5t().artiklRecAn.getStr(eArtikl.code));
@@ -601,14 +601,14 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 setText(txt29, eColor.find(winNode.com5t().colorID3).getStr(eColor.name));
 
                 //Стеклопакет
-            } else if (winNode.com5t().type() == enums.Type.GLASS) {
+            } else if (winNode.com5t().type == enums.Type.GLASS) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card15");
                 Record artiklRec = eArtikl.find(winNode.com5t().artiklRec.getInt(eArtikl.id), false);
                 setText(txt19, artiklRec.getStr(eArtikl.code));
                 setText(txt18, artiklRec.getStr(eArtikl.name));
 
                 //Створка
-            } else if (winNode.com5t().type() == enums.Type.STVORKA) {
+            } else if (winNode.com5t().type == enums.Type.STVORKA) {
                 new Furniture(iwin(), true); //найдём ручку створки
                 ((CardLayout) pan7.getLayout()).show(pan7, "card16");
                 AreaStvorka stv = (AreaStvorka) winNode.com5t();
@@ -642,7 +642,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 check5.setSelected(stv.paramCheck[6]);
 
                 //Соединения
-            } else if (winNode.com5t().type() == enums.Type.JOINING) {
+            } else if (winNode.com5t().type == enums.Type.JOINING) {
                 new Joining(iwin(), true); //заполним соединения данными из конструктива
                 ((CardLayout) pan7.getLayout()).show(pan7, "card17");
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
@@ -3043,7 +3043,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     Record sysprofRec = qSysprof.get(index);
 
                     //Отфильтруем подходящие по параметрам
-                    if (winNode.com5t().type().id2 == sysprofRec.getInt(eSysprof.use_type)) {
+                    if (winNode.com5t().type.id2 == sysprofRec.getInt(eSysprof.use_type)) {
                         if (sysprofRec.getInt(eSysprof.use_side) == winNode.com5t().layout().id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {
@@ -3056,7 +3056,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 new DicSysprof(this, (sysprofRec) -> {
 
                     Wincalc iwin = iwin();
-                    if (winNode.com5t().type() == enums.Type.FRAME_SIDE) { //рама окна
+                    if (winNode.com5t().type == enums.Type.FRAME_SIDE) { //рама окна
                         float elemId = winNode.com5t().id();
                         GsonElem gsonRama = iwin.rootGson.find(elemId);
                         String paramStr = gsonRama.param();
@@ -3066,7 +3066,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                         gsonRama.param(paramStr);
                         updateScript(selectID);
 
-                    } else if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) { //рама створки
+                    } else if (winNode.com5t().type == enums.Type.STVORKA_SIDE) { //рама створки
                         float stvId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
                         GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
                         String paramStr = stvArea.param();
@@ -3128,7 +3128,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 float parentId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
                 GsonElem parentArea = (GsonElem) iwin().rootGson.find(parentId);
 
-                if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) {
+                if (winNode.com5t().type == enums.Type.STVORKA_SIDE) {
                     String paramStr = parentArea.param();
                     JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                     String stvKey = null;
@@ -3147,7 +3147,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     parentArea.param(paramStr);
                     updateScript(selectID);
 
-                } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE) {
+                } else if (winNode.com5t().type == enums.Type.FRAME_SIDE) {
                     for (GsonElem elem : parentArea.elems()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             String paramStr = elem.param();
@@ -3158,9 +3158,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                             updateScript(selectID);
                         }
                     }
-                } else if (winNode.com5t().type() == enums.Type.IMPOST
-                        || winNode.com5t().type() == enums.Type.STOIKA
-                        || winNode.com5t().type() == enums.Type.SHTULP) {
+                } else if (winNode.com5t().type == enums.Type.IMPOST
+                        || winNode.com5t().type == enums.Type.STOIKA
+                        || winNode.com5t().type == enums.Type.SHTULP) {
                     for (GsonElem elem : parentArea.elems()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             String paramStr = elem.param();

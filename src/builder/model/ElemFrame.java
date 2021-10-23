@@ -46,7 +46,7 @@ public class ElemFrame extends ElemSimple {
         } else if (owner.sysprofRec != null) { //профили через параметр рамы, створки
             sysprofRec = owner.sysprofRec;
         } else {
-            if (Layout.BOTT.equals(layout())) {
+            if (Layout.BOTT.equals(layout)) {
                 sysprofRec = eSysprof.find5(iwin.nuni, type.id2, UseSide.BOT, UseSide.HORIZ);
             } else if (Layout.RIGHT.equals(layout)) {
                 sysprofRec = eSysprof.find5(iwin.nuni, type.id2, UseSide.RIGHT, UseSide.VERT);
@@ -63,7 +63,7 @@ public class ElemFrame extends ElemSimple {
     //Установка координат
     public void setLocation() {
 
-        if (owner().type() == Type.ARCH) {
+        if (owner().type == Type.ARCH) {
             if (Layout.BOTT == layout) {
                 setDimension(owner.x1, owner.y2 - artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
                 anglHoriz = 0;
@@ -77,7 +77,7 @@ public class ElemFrame extends ElemSimple {
                 setDimension(owner.x1, owner.y1, owner.x2, owner.y1); // + artiklRec.getFloat(eArtikl.height));
                 anglHoriz = 180;
             }
-        } else if (owner().type() == Type.TRAPEZE) {
+        } else if (owner().type == Type.TRAPEZE) {
             float H = root().height() - iwin.heightAdd;
             float W = root().width();
             if (Layout.BOTT == layout) {
@@ -135,7 +135,7 @@ public class ElemFrame extends ElemSimple {
     @Override //Главная спецификация
     public void setSpecific() {  //добавление основной спесификации
 
-        spcRec.place = "ВСТ." + layout().name.substring(0, 1).toLowerCase();
+        spcRec.place = "ВСТ." + layout.name.substring(0, 1).toLowerCase();
         spcRec.setArtiklRec(artiklRec);
         spcRec.colorID1 = colorID1;
         spcRec.colorID2 = colorID2;
@@ -145,8 +145,8 @@ public class ElemFrame extends ElemSimple {
         spcRec.anglHoriz = anglHoriz;
         double katet = iwin.syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
 
-        if (owner().type() == Type.ARCH) {
-            if (owner.type == Type.ARCH && Layout.TOP == layout()) {
+        if (owner().type == Type.ARCH) {
+            if (owner.type == Type.ARCH && Layout.TOP == layout) {
                 AreaArch areaArch = (AreaArch) root();
                 double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
                 lengthArch = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
@@ -162,8 +162,8 @@ public class ElemFrame extends ElemSimple {
                 spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
-        } else if (owner().type() == Type.TRAPEZE) {
-            if (Layout.TOP == layout()) {
+        } else if (owner().type == Type.TRAPEZE) {
+            if (Layout.TOP == layout) {
                 double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(root().height() - iwin.heightAdd, 2));
                 spcRec.width = (float) (length + katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
@@ -206,25 +206,25 @@ public class ElemFrame extends ElemSimple {
 
         //Армирование
         if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X107)) {
-            spcAdd.place = "ВСТ." + layout().name.substring(0, 1).toLowerCase();
+            spcAdd.place = "ВСТ." + layout.name.substring(0, 1).toLowerCase();
             spcAdd.anglCut1 = 90;
             spcAdd.anglCut2 = 90;
 
-            if (Type.TRAPEZE == owner().type()) {
-                if (Layout.TOP == layout()) {
+            if (Type.TRAPEZE == owner().type) {
+                if (Layout.TOP == layout) {
                     spcAdd.width += length();
 
-                } else if (Layout.BOTT == layout()) {
+                } else if (Layout.BOTT == layout) {
                     spcAdd.width += x2 - x1;
 
-                } else if (Layout.LEFT == layout() || Layout.RIGHT == layout()) {
+                } else if (Layout.LEFT == layout || Layout.RIGHT == layout) {
                     spcAdd.width += y2 - y1;
                 }
             } else {
-                if (Layout.TOP == layout() || Layout.BOTT == layout()) {
+                if (Layout.TOP == layout || Layout.BOTT == layout) {
                     spcAdd.width += x2 - x1;
 
-                } else if (Layout.LEFT == layout() || Layout.RIGHT == layout()) {
+                } else if (Layout.LEFT == layout || Layout.RIGHT == layout) {
                     spcAdd.width += y2 - y1;
                 }
             }

@@ -63,9 +63,9 @@ public class ElementVar extends Par5s {
                 }
                 break;
                 case 31002:  //Если профиль 
-                    if ("арочный".equals(rec.getStr(TEXT)) == true && (elem5e.owner().type() == Type.ARCH && Layout.TOP == elem5e.layout()) == false) {
+                    if ("арочный".equals(rec.getStr(TEXT)) == true && (elem5e.owner().type == Type.ARCH && Layout.TOP == elem5e.layout()) == false) {
                         return false;
-                    } else if ("прямой".equals(rec.getStr(TEXT)) == true && (elem5e.owner().type() == Type.ARCH && Layout.TOP == elem5e.layout()) == true) {
+                    } else if ("прямой".equals(rec.getStr(TEXT)) == true && (elem5e.owner().type == Type.ARCH && Layout.TOP == elem5e.layout()) == true) {
                         return false;
                     }
                     break;
@@ -246,7 +246,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31051:  //Если створка фурнитуры 
-                    if (elem5e.owner().type() == Type.STVORKA) {
+                    if (elem5e.owner().type == Type.STVORKA) {
                         if ("ведущая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) == -3) {
                             return false;
                         } else if ("ведомая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner()).handleRec.getInt(eArtikl.id) != -3) {
@@ -351,7 +351,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 37009: //Тип заполнения 
                 {
-                    ElemGlass glass = (ElemGlass) elem5e.owner().listChild.stream().filter(it -> it.type() == Type.GLASS).findFirst().orElse(null);
+                    ElemGlass glass = (ElemGlass) elem5e.owner().listChild.stream().filter(it -> it.type == Type.GLASS).findFirst().orElse(null);
                     if ("Прямоугольное".equals(rec.getStr(TEXT)) && iwin.form != Form.NUM0) {
                         return false;
 
