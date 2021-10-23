@@ -76,7 +76,7 @@ public abstract class ElemSimple extends Com5t {
         return null;
     }
 
-    //Прилегающее соединения
+    //Прилегающие соединения
     public ElemSimple joinFlat(Layout layoutSide) {
         LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
