@@ -75,45 +75,110 @@ public abstract class ElemSimple extends Com5t {
     }
 
     //Прилегающие соединения
-    public ElemSimple joinFlat2(Layout layoutSide) {
+    public ElemSimple joinFlatUp(Layout layoutSide) {
         for (Com5t el : owner.listChild) {
             for (Map.Entry<Layout, ElemFrame> en : owner.mapFrame.entrySet()) {
-                if (joinFlat2(layoutSide, en.getValue()) != null) {
+                if (joinFlatCheck(layoutSide, en.getValue()) != null) {
                     return (ElemSimple) en.getValue();
                 }
             }
-            if (joinFlat2(layoutSide, el) != null) {
+            if (joinFlatCheck(layoutSide, el) != null) {
+                return (ElemSimple) el;
+            }
+            if (joinFlatDown(layoutSide, el) != null) {
                 return (ElemSimple) el;
             }
             if (owner.owner != null) {
                 for (Com5t e2 : owner.owner.listChild) {
                     for (Map.Entry<Layout, ElemFrame> en : owner.owner.mapFrame.entrySet()) {
-                        if (joinFlat2(layoutSide, en.getValue()) != null) {
+                        if (joinFlatCheck(layoutSide, en.getValue()) != null) {
                             return (ElemSimple) en.getValue();
                         }
                     }
-                    if (joinFlat2(layoutSide, e2) != null) {
+                    if (joinFlatCheck(layoutSide, e2) != null) {
+                        return (ElemSimple) e2;
+                    }
+                    if (joinFlatDown(layoutSide, e2) != null) {
                         return (ElemSimple) e2;
                     }
                     if (owner.owner.owner != null) {
                         for (Com5t e3 : owner.owner.owner.listChild) {
                             for (Map.Entry<Layout, ElemFrame> en : owner.owner.owner.mapFrame.entrySet()) {
-                                if (joinFlat2(layoutSide, en.getValue()) != null) {
+                                if (joinFlatCheck(layoutSide, en.getValue()) != null) {
                                     return (ElemSimple) en.getValue();
                                 }
                             }
-                            if (joinFlat2(layoutSide, e3) != null) {
+                            if (joinFlatCheck(layoutSide, e3) != null) {
+                                return (ElemSimple) e3;
+                            }
+                            if (joinFlatDown(layoutSide, e3) != null) {
                                 return (ElemSimple) e3;
                             }
                             if (owner.owner.owner.owner != null) {
                                 for (Com5t e4 : owner.owner.owner.owner.listChild) {
                                     for (Map.Entry<Layout, ElemFrame> en : owner.owner.owner.owner.mapFrame.entrySet()) {
-                                        if (joinFlat2(layoutSide, en.getValue()) != null) {
+                                        if (joinFlatCheck(layoutSide, en.getValue()) != null) {
                                             return (ElemSimple) en.getValue();
                                         }
                                     }
-                                    if (joinFlat2(layoutSide, e4) != null) {
+                                    if (joinFlatCheck(layoutSide, e4) != null) {
                                         return (ElemSimple) e4;
+                                    }
+                                    if (joinFlatDown(layoutSide, e4) != null) {
+                                        return (ElemSimple) e4;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //System.out.println(this);
+        return null;
+    }
+
+    public ElemSimple joinFlatDown(Layout layoutSide, Com5t el) {
+        if (el instanceof AreaSimple) {
+            for (Map.Entry<Layout, ElemFrame> en : ((AreaSimple) el).mapFrame.entrySet()) {
+                if (joinFlatCheck(layoutSide, en.getValue()) != null) {
+                    return (ElemSimple) en.getValue();
+                }
+            }
+            for (Com5t e2 : ((AreaSimple) el).listChild) {
+                if (joinFlatCheck(layoutSide, e2) != null) {
+                    return (ElemSimple) e2;
+                }
+                if (e2 instanceof AreaSimple) {
+                    for (Map.Entry<Layout, ElemFrame> en : ((AreaSimple) e2).mapFrame.entrySet()) {
+                        if (joinFlatCheck(layoutSide, en.getValue()) != null) {
+                            return (ElemSimple) en.getValue();
+                        }
+                    }
+                    for (Com5t e3 : ((AreaSimple) e2).listChild) {
+                        if (joinFlatCheck(layoutSide, e3) != null) {
+                            return (ElemSimple) e3;
+                        }
+                        if (e3 instanceof AreaSimple) {
+                            for (Map.Entry<Layout, ElemFrame> en : ((AreaSimple) e3).mapFrame.entrySet()) {
+                                if (joinFlatCheck(layoutSide, en.getValue()) != null) {
+                                    return (ElemSimple) en.getValue();
+                                }
+                            }
+                            for (Com5t e4 : ((AreaSimple) e3).listChild) {
+                                if (joinFlatCheck(layoutSide, e4) != null) {
+                                    return (ElemSimple) e4;
+                                }
+                                if (e4 instanceof AreaSimple) {
+                                    for (Map.Entry<Layout, ElemFrame> en : ((AreaSimple) e4).mapFrame.entrySet()) {
+                                        if (joinFlatCheck(layoutSide, en.getValue()) != null) {
+                                            return (ElemSimple) en.getValue();
+                                        }
+                                    }
+                                    for (Com5t e5 : ((AreaSimple) e4).listChild) {
+                                        if (joinFlatCheck(layoutSide, e5) != null) {
+                                            return (ElemSimple) e5;
+                                        }
                                     }
                                 }
                             }
@@ -125,8 +190,11 @@ public abstract class ElemSimple extends Com5t {
         return null;
     }
 
-    public ElemSimple joinFlat2(Layout layoutSide, Com5t el) {
-        if (el.type == Type.STVORKA_SIDE || el.type == Type.FRAME_SIDE && el.type == Type.IMPOST && el.type == Type.SHTULP && el.type == Type.STOIKA) {
+    public ElemSimple joinFlatCheck(Layout layoutSide, Com5t el) {
+//        if (el.id() == 3.0) {
+//            System.out.println("+++++++++++++++++++++");
+//        }
+        if (el.type == Type.STVORKA_SIDE || el.type == Type.FRAME_SIDE || el.type == Type.IMPOST || el.type == Type.SHTULP || el.type == Type.STOIKA) {
             if (Layout.BOTT == layoutSide) {
                 float Y2 = (y2 > y1) ? y2 : y1;
                 if (el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
@@ -138,7 +206,7 @@ public abstract class ElemSimple extends Com5t {
                 }
             } else if (Layout.TOP == layoutSide) {
                 float Y1 = (y2 > y1) ? y1 : y2;
-                if (el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP)) {
+                if (el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP) == false) {
                     return (ElemSimple) el;
                 }
             } else if (Layout.RIGHT == layoutSide) {
@@ -146,6 +214,9 @@ public abstract class ElemSimple extends Com5t {
                     return (ElemSimple) el;
                 }
             }
+//            if (el.id() == 1.0) {
+//                System.out.println("---------------");
+//            }
         }
         return null;
     }
