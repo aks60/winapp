@@ -111,7 +111,14 @@ public class ElemGlass extends ElemSimple {
 //            }
 
         } else {  //Глухарь
-            ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
+            ElemSimple insideLeft = joinFlat2(Layout.LEFT), insideTop = joinFlat2(Layout.TOP), insideBott = joinFlat2(Layout.BOTT), insideRight = joinFlat2(Layout.RIGHT);
+//            if (id() == 11) {
+//                AreaStvorka obj = (AreaStvorka) owner;
+//                Object ob2 = obj.mapFrame.get(Layout.RIGHT);
+//                Object ob3 = joinFlat2(Layout.LEFT);
+//                Object ob4 = joinFlat2(Layout.RIGHT);
+//                int mmm = 0;
+//            }            
             if (iwin.syssizeRec.getInt(eSyssize.id) == -1) {
                 x1 = owner.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
                 y1 = owner.y1 + eGlasprof.find2(insideTop.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);

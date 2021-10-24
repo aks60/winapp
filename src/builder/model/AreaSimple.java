@@ -54,6 +54,41 @@ public class AreaSimple extends Com5t {
     }
 
     protected void setLocation(float width, float height) {
+        //Происходит при подкдадке дополнительной ареа в арке
+        //или сужении area створки при нахлёсте профилей
+        if (owner != null) {
+            if (owner.listChild.isEmpty() == true) {
+
+                if (Layout.VERT.equals(owner.layout)) { //сверху вниз
+                    float Y2 = (owner.y1 + height > owner.y2) ? owner.y2 : owner.y1 + height;
+                    setDimension(owner.x1, owner.y1, owner.x2, Y2);
+
+                } else if (Layout.HORIZ.equals(owner.layout)) { //слева направо
+                    float X2 = (owner.x1 + width > owner.x2) ? owner.x2 : owner.x1 + width;
+                    setDimension(owner.x1, owner.y1, X2, owner.y2);
+                }
+
+            } else {
+                for (int index = owner.listChild.size() - 1; index >= 0; --index) { //т.к. this area ёщё не создана начнём с конца
+                    if (owner.listChild.get(index) instanceof AreaSimple) {
+                        AreaSimple prevArea = (AreaSimple) owner.listChild.get(index);
+
+                        if (Layout.VERT.equals(owner.layout)) { //сверху вниз                            
+                            float Y2 = (prevArea.y2 + height > owner.y2) ? owner.y2 : prevArea.y2 + height;
+                            setDimension(owner.x1, prevArea.y2, owner.x2, Y2);
+
+                        } else if (Layout.HORIZ.equals(owner.layout)) { //слева направо
+                            float X2 = (prevArea.x2 + width > owner.x2) ? owner.x2 : prevArea.x2 + width;
+                            setDimension(prevArea.x2, owner.y1, X2, owner.y2);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    protected void setLocation2(float width, float height) {
 
         if (owner != null) {
             //Первая area добавляемая в area владельца
@@ -71,7 +106,8 @@ public class AreaSimple extends Com5t {
                         AreaSimple prevArea = (AreaSimple) owner.listChild.get(index);
 
                         //Если последняя доб. area выходит за коорд. owner area. 
-                        //Происходит при подкдадке дополнительной ареа над импостом 
+                        //Происходит при подкдадке дополнительной ареа над импостом и
+                        //сужении створки при нахлёсте профиля
                         if (Layout.VERT.equals(owner.layout)) { //сверху вниз                            
                             float Y2 = (prevArea.y2 + height > owner.y2) ? owner.y2 : prevArea.y2 + height;
                             setDimension(owner.x1, prevArea.y2, owner.x2, Y2);

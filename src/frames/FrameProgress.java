@@ -69,12 +69,13 @@ public class FrameProgress extends javax.swing.JDialog {
         lab.setFont(frames.UGui.getFont(0,1));
         lab.setForeground(new java.awt.Color(255, 255, 51));
         lab.setText("    Пожалуйста, подождите...");
+        lab.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         lab.setFocusable(false);
         lab.setIconTextGap(0);
         lab.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         lab.setMinimumSize(new java.awt.Dimension(250, 12));
         lab.setOpaque(true);
-        lab.setPreferredSize(new java.awt.Dimension(151, 10));
+        lab.setPreferredSize(new java.awt.Dimension(151, 11));
         jPanel1.add(lab, java.awt.BorderLayout.NORTH);
 
         progressBar.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -86,7 +87,7 @@ public class FrameProgress extends javax.swing.JDialog {
         jPanel2.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         jPanel2.setMinimumSize(new java.awt.Dimension(300, 8));
         jPanel2.setName(""); // NOI18N
-        jPanel2.setPreferredSize(new java.awt.Dimension(360, 10));
+        jPanel2.setPreferredSize(new java.awt.Dimension(360, 11));
         jPanel1.add(jPanel2, java.awt.BorderLayout.SOUTH);
 
         jPanel3.setBackground(new java.awt.Color(85, 85, 255));

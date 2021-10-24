@@ -3,14 +3,12 @@ package builder.model;
 import builder.making.Specific;
 import java.awt.Color;
 import builder.Wincalc;
-import builder.script.GsonElem;
 import enums.Form;
 import enums.Layout;
 import enums.Type;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
-import static java.util.stream.Collectors.toList;
+import java.util.Map;
 
 public abstract class ElemSimple extends Com5t {
 
@@ -77,6 +75,81 @@ public abstract class ElemSimple extends Com5t {
     }
 
     //Прилегающие соединения
+    public ElemSimple joinFlat2(Layout layoutSide) {
+        for (Com5t el : owner.listChild) {
+            for (Map.Entry<Layout, ElemFrame> en : owner.mapFrame.entrySet()) {
+                if (joinFlat2(layoutSide, en.getValue()) != null) {
+                    return (ElemSimple) en.getValue();
+                }
+            }
+            if (joinFlat2(layoutSide, el) != null) {
+                return (ElemSimple) el;
+            }
+            if (owner.owner != null) {
+                for (Com5t e2 : owner.owner.listChild) {
+                    for (Map.Entry<Layout, ElemFrame> en : owner.owner.mapFrame.entrySet()) {
+                        if (joinFlat2(layoutSide, en.getValue()) != null) {
+                            return (ElemSimple) en.getValue();
+                        }
+                    }
+                    if (joinFlat2(layoutSide, e2) != null) {
+                        return (ElemSimple) e2;
+                    }
+                    if (owner.owner.owner != null) {
+                        for (Com5t e3 : owner.owner.owner.listChild) {
+                            for (Map.Entry<Layout, ElemFrame> en : owner.owner.owner.mapFrame.entrySet()) {
+                                if (joinFlat2(layoutSide, en.getValue()) != null) {
+                                    return (ElemSimple) en.getValue();
+                                }
+                            }
+                            if (joinFlat2(layoutSide, e3) != null) {
+                                return (ElemSimple) e3;
+                            }
+                            if (owner.owner.owner.owner != null) {
+                                for (Com5t e4 : owner.owner.owner.owner.listChild) {
+                                    for (Map.Entry<Layout, ElemFrame> en : owner.owner.owner.owner.mapFrame.entrySet()) {
+                                        if (joinFlat2(layoutSide, en.getValue()) != null) {
+                                            return (ElemSimple) en.getValue();
+                                        }
+                                    }
+                                    if (joinFlat2(layoutSide, e4) != null) {
+                                        return (ElemSimple) e4;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public ElemSimple joinFlat2(Layout layoutSide, Com5t el) {
+        if (el.type == Type.STVORKA_SIDE || el.type == Type.FRAME_SIDE && el.type == Type.IMPOST && el.type == Type.SHTULP && el.type == Type.STOIKA) {
+            if (Layout.BOTT == layoutSide) {
+                float Y2 = (y2 > y1) ? y2 : y1;
+                if (el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
+                    return (ElemSimple) el;
+                }
+            } else if (Layout.LEFT == layoutSide) {
+                if (el != this && el.layout != Layout.HORIZ && el.inside(x1, y1 + (y2 - y1) / 2) == true) {
+                    return (ElemSimple) el;
+                }
+            } else if (Layout.TOP == layoutSide) {
+                float Y1 = (y2 > y1) ? y1 : y2;
+                if (el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP)) {
+                    return (ElemSimple) el;
+                }
+            } else if (Layout.RIGHT == layoutSide) {
+                if (el != this && el.layout != Layout.HORIZ && el.inside(x2, y1 + (y2 - y1) / 2)) {
+                    return (ElemSimple) el;
+                }
+            }
+        }
+        return null;
+    }
+
     public ElemSimple joinFlat(Layout layoutSide) {
         LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
@@ -96,23 +169,6 @@ public abstract class ElemSimple extends Com5t {
             throw new IllegalArgumentException("Неудача:ElemSimple.joinFlat() Прилегающий элемент не обнаружен!");
         }
         return ret;
-    }
-
-    //Для маятниковых дверей, т.к. прилегающее соединение отсутствует
-    public ElemSimple joinFlat2(Layout layoutSide) {
-        LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
-        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
-
-        if (Layout.BOTT == layoutSide) {
-            return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, y2 + 8) == true).findFirst().orElse(null);
-        } else if (Layout.LEFT == layoutSide) {
-            return listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x1 - 8, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
-        } else if (Layout.TOP == layoutSide) {
-            return listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, y1 - 8) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP) == false).findFirst().orElse(null);
-        } else if (Layout.RIGHT == layoutSide) {
-            return listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x2 + 8, y1 + (y2 - y1) / 2)).findFirst().orElse(null);
-        }
-        throw new IllegalArgumentException("Неудача:ElemSimple.joinFlat() Придегающий элемент не обнаружен!");
     }
 
     //Элемент соединения 0-пред.артикл, 1-след.артикл, 2-прилег. артикл

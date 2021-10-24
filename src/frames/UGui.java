@@ -2,6 +2,7 @@ package frames;
 
 import builder.Wincalc;
 import builder.model.AreaSimple;
+import builder.model.AreaStvorka;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
 import builder.script.GsonRoot;
@@ -68,7 +69,6 @@ import frames.swing.DefMutableTreeNode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Locale;
 import static java.util.stream.Collectors.toList;
 
@@ -239,40 +239,41 @@ public class UGui {
     }
 
     public static void loadWinTree(Wincalc iwin, DefMutableTreeNode root, Com5t com) {
-        DefMutableTreeNode stv = root.add(new DefMutableTreeNode(com));
-        stv.add(new DefMutableTreeNode(iwin.rootArea.mapFrame.get(Layout.BOTT)));
-        ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+        DefMutableTreeNode nodeStv = root.add(new DefMutableTreeNode(com));
+        AreaStvorka stv = (AreaStvorka) com;
+        nodeStv.add(new DefMutableTreeNode(stv.mapFrame.get(Layout.BOTT)));
+        ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        stv.add(new DefMutableTreeNode(iwin.rootArea.mapFrame.get(Layout.RIGHT)));
-        ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+        nodeStv.add(new DefMutableTreeNode(stv.mapFrame.get(Layout.RIGHT)));
+        ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        stv.add(new DefMutableTreeNode(iwin.rootArea.mapFrame.get(Layout.TOP)));
-        ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+        nodeStv.add(new DefMutableTreeNode(stv.mapFrame.get(Layout.TOP)));
+        ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        stv.add(new DefMutableTreeNode(iwin.rootArea.mapFrame.get(Layout.LEFT)));
-        ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+        nodeStv.add(new DefMutableTreeNode(stv.mapFrame.get(Layout.LEFT)));
+        ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));        
         for (Com5t com2 : ((AreaSimple) com).listChild) {
             if (com2 instanceof ElemSimple) {
-                stv.add(new DefMutableTreeNode(com2));
+                nodeStv.add(new DefMutableTreeNode(com2));
                 if (com2.type != Type.GLASS) {
-                    ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+                    ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                     }));
                 }
             } else {
                 for (Com5t com3 : ((AreaSimple) com2).listChild) {
                     if (com3 instanceof ElemSimple) {
-                        stv.add(new DefMutableTreeNode(com3));
+                        nodeStv.add(new DefMutableTreeNode(com3));
                         if (com3.type != Type.GLASS) {
-                            ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+                            ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                             }));
                         }
                     } else {
                         for (Com5t com4 : ((AreaSimple) com3).listChild) {
                             if (com4 instanceof ElemSimple) {
-                                stv.add(new DefMutableTreeNode(com4));
+                                nodeStv.add(new DefMutableTreeNode(com4));
                                 if (com4.type != Type.GLASS) {
-                                    ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+                                    ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                                     }));
                                 }
                             }
