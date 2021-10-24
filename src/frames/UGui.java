@@ -216,41 +216,64 @@ public class UGui {
                                                             }));
                                                         }
                                                     }
+                                                } else {
+                                                    loadWinTree(iwin, root, com4);
                                                 }
                                             }
                                         }
+                                    } else {
+                                        loadWinTree(iwin, root, com3);
                                     }
                                 }
                             }
+                        } else {
+                            loadWinTree(iwin, root, com2);
                         }
                     }
                 }
             } else {
-                DefMutableTreeNode stv = root.add(new DefMutableTreeNode(com));
-                for (Com5t com2 : ((AreaSimple) com).listChild) {
-                    if (com2 instanceof ElemSimple) {
-                        stv.add(new DefMutableTreeNode(com2));
-                        if (com2.type != Type.GLASS) {
+                loadWinTree(iwin, root, com);
+            }
+        }
+        return root;
+    }
+
+    public static void loadWinTree(Wincalc iwin, DefMutableTreeNode root, Com5t com) {
+        DefMutableTreeNode stv = root.add(new DefMutableTreeNode(com));
+        stv.add(new DefMutableTreeNode(iwin.rootArea.mapFrame.get(Layout.BOTT)));
+        ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+        }));
+        stv.add(new DefMutableTreeNode(iwin.rootArea.mapFrame.get(Layout.RIGHT)));
+        ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+        }));
+        stv.add(new DefMutableTreeNode(iwin.rootArea.mapFrame.get(Layout.TOP)));
+        ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+        }));
+        stv.add(new DefMutableTreeNode(iwin.rootArea.mapFrame.get(Layout.LEFT)));
+        ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+        }));        
+        for (Com5t com2 : ((AreaSimple) com).listChild) {
+            if (com2 instanceof ElemSimple) {
+                stv.add(new DefMutableTreeNode(com2));
+                if (com2.type != Type.GLASS) {
+                    ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
+                    }));
+                }
+            } else {
+                for (Com5t com3 : ((AreaSimple) com2).listChild) {
+                    if (com3 instanceof ElemSimple) {
+                        stv.add(new DefMutableTreeNode(com3));
+                        if (com3.type != Type.GLASS) {
                             ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                             }));
                         }
                     } else {
-                        for (Com5t com3 : ((AreaSimple) com2).listChild) {
-                            if (com3 instanceof ElemSimple) {
-                                stv.add(new DefMutableTreeNode(com3));
-                                if (com3.type != Type.GLASS) {
+                        for (Com5t com4 : ((AreaSimple) com3).listChild) {
+                            if (com4 instanceof ElemSimple) {
+                                stv.add(new DefMutableTreeNode(com4));
+                                if (com4.type != Type.GLASS) {
                                     ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                                     }));
-                                }
-                            } else {
-                                for (Com5t com4 : ((AreaSimple) com3).listChild) {
-                                    if (com4 instanceof ElemSimple) {
-                                        stv.add(new DefMutableTreeNode(com4));
-                                        if (com4.type != Type.GLASS) {
-                                            ((DefMutableTreeNode) stv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
-                                            }));
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -258,7 +281,6 @@ public class UGui {
                 }
             }
         }
-        return root;
     }
 
     public static void expandTree(JTree tree, TreePath path, boolean expand) {
