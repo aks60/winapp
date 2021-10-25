@@ -349,7 +349,7 @@ public class Profstroy {
                 }
             }
         } catch (SQLException e) {
-            println(Color.RED, "Ошибка: convertTable().  " + e);
+            println(Color.RED, "Ошибка: convertTable(), таблица " + fields[0].tname() + " - " + e);
         }
     }
 
