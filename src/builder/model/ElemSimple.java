@@ -23,7 +23,7 @@ public abstract class ElemSimple extends Com5t {
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);
         iwin.listTreeEl.add(this);
-        iwin.listSortE2.add(this);
+        iwin.listSortEl.add(this);
         spcRec = new Specific(id, this);
         uti3 = new UMod(this);
     }

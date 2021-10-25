@@ -67,7 +67,7 @@ public class Wincalc {
     public Form form = Form.NUM0; //форма контура 
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
-    public LinkedList<ElemSimple> listSortE2 = new LinkedList(); //список ElemSimple
+    public LinkedList<ElemSimple> listSortEl = new LinkedList(); //список ElemSimple
     public LinkedList<ElemSimple> listTreeEl = new LinkedList(); //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specific> listSpec = new ArrayList(); //спецификация
@@ -85,7 +85,7 @@ public class Wincalc {
         genId = 0;
         form = Form.NUM0;
         heightAdd = 0.f;
-        listSortE2.clear();
+        listSortEl.clear();
         listTreeEl.clear();
         listSpec.clear();
         mapPardef.clear();
@@ -99,7 +99,7 @@ public class Wincalc {
         rootArea.joinElem(); //T-соединения рамы 
         LinkedList<AreaStvorka> listAreaStv = rootArea.listElem(Type.STVORKA); //список створок
         listAreaStv.stream().forEach(area5e -> area5e.joinFrame());  //соединения створок
-        Collections.sort(listSortE2, (a, b) -> Float.compare(a.id(), b.id()));
+        Collections.sort(listSortEl, (a, b) -> Float.compare(a.id(), b.id()));
         return rootArea;
     }
 
@@ -201,7 +201,7 @@ public class Wincalc {
             calTariffication = new Tariffic(this, norm_otx); //тарификация
             calTariffication.calc();
 
-            for (ElemSimple elemRec : listSortE2) {
+            for (ElemSimple elemRec : listSortEl) {
                 listSpec.add(elemRec.spcRec);
                 listSpec.addAll(elemRec.spcRec.spcList);
             }
