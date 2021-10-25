@@ -24,6 +24,11 @@ public abstract class ElemSimple extends Com5t {
         super(id, iwin, owner);
         spcRec = new Specific(id, this);
         uti3 = new UMod(this);
+//        if (owner.layout == Layout.HORIZ) {
+//            iwin.listElemHor.add(this);
+//        } else {
+//            iwin.listElemVer.add(this);
+//        }
     }
 
     //Клик мышки попадает в контур элемента

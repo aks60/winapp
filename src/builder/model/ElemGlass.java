@@ -95,32 +95,23 @@ public class ElemGlass extends ElemSimple {
                 y1 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
 
-//        } else if (owner.type == Type.STVORKA) {
-//            AreaStvorka stv = (AreaStvorka) owner;
-//            ElemSimple insideLeft = stv.mapFrame.get(Layout.LEFT), insideTop = stv.mapFrame.get(Layout.TOP), insideBott = stv.mapFrame.get(Layout.BOTT), insideRight = stv.mapFrame.get(Layout.RIGHT);
-//            if (iwin.syssizeRec.getInt(eSyssize.id) == -1) {
-//                x1 = insideLeft.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
-//                y1 = insideTop.y1 + eGlasprof.find2(insideTop.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
-//                x2 = insideRight.x2 - eGlasprof.find2(insideRight.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
-//                y2 = insideBott.y2 - eGlasprof.find2(insideBott.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
-//            } else {
-//                x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
-//                y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
-//                x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
-//                y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
-//            }
+        } else if (owner.type == Type.STVORKA) {
+            AreaStvorka stv = (AreaStvorka) owner;
+            ElemSimple insideLeft = stv.mapFrame.get(Layout.LEFT), insideTop = stv.mapFrame.get(Layout.TOP), insideBott = stv.mapFrame.get(Layout.BOTT), insideRight = stv.mapFrame.get(Layout.RIGHT);
+            if (iwin.syssizeRec.getInt(eSyssize.id) == -1) {
+                x1 = insideLeft.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
+                y1 = insideTop.y1 + eGlasprof.find2(insideTop.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
+                x2 = insideRight.x2 - eGlasprof.find2(insideRight.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
+                y2 = insideBott.y2 - eGlasprof.find2(insideBott.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
+            } else {
+                x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+                y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+                x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+                y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+            }
 
         } else {  //Глухарь
-//            ElemSimple insideLeft2 = joinFlat(Layout.LEFT), insideTop2 = joinFlat(Layout.TOP), insideBott2 = joinFlat(Layout.BOTT), insideRight2 = joinFlat(Layout.RIGHT);
-            ElemSimple insideLeft = joinFlatUp(Layout.LEFT), insideTop = joinFlatUp(Layout.TOP), insideBott = joinFlatUp(Layout.BOTT), insideRight = joinFlatUp(Layout.RIGHT);
-//            if (id() == 11) {
-//                AreaStvorka obj = (AreaStvorka) owner;
-//                Object ob2 = obj.mapFrame.get(Layout.RIGHT);
-//                Object ob3 = joinFlat2(Layout.LEFT);
-//                Object ob4 = joinFlat2(Layout.RIGHT);
-//                int mmm = 0;
-//            } 
-            ElemSimple ob9 = joinFlatUp(Layout.TOP);
+            ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
             if (iwin.syssizeRec.getInt(eSyssize.id) == -1) {
                 x1 = owner.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
                 y1 = owner.y1 + eGlasprof.find2(insideTop.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
