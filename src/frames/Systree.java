@@ -800,6 +800,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             btn.setIcon(icon);
         } else {
             btn.setText("...");
+            btn.setIcon(null);
         }
     }
     
