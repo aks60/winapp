@@ -76,7 +76,7 @@ public class ElemJoining {
         if (joiningRec.get(1) != null) {
             String name1 = eArtikl.query().stream().filter(rec -> rec.getInt(eArtikl.id) == elem1.artiklRecAn.getInt(eArtikl.id)).findFirst().orElse(eArtikl.up.newRecord()).getStr(eArtikl.code);
             String name2 = eArtikl.query().stream().filter(rec -> rec.getInt(eArtikl.id) == elem2.artiklRecAn.getInt(eArtikl.id)).findFirst().orElse(eArtikl.up.newRecord()).getStr(eArtikl.code);
-            return name1 + "-" + name2;
+            return name1 + " ~ " + name2;
         }
         return "";
     }

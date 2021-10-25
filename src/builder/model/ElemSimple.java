@@ -22,13 +22,9 @@ public abstract class ElemSimple extends Com5t {
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);
+        iwin.listElem2.add(this);
         spcRec = new Specific(id, this);
         uti3 = new UMod(this);
-//        if (owner.layout == Layout.HORIZ) {
-//            iwin.listElemHor.add(this);
-//        } else {
-//            iwin.listElemVer.add(this);
-//        }
     }
 
     //Клик мышки попадает в контур элемента
@@ -80,6 +76,38 @@ public abstract class ElemSimple extends Com5t {
     }
 
     //Прилегающие соединения
+    public ElemSimple joinFlat(Layout layoutSide) {
+        boolean begin = false;
+        for (int index = iwin.listElem2.size() - 1; index >= 0; --index) {
+            ElemSimple el = iwin.listElem2.get(index);
+            if (begin == true && el.type != Type.GLASS) {
+                if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
+                    float Y2 = (y2 > y1) ? y2 : y1;
+                    if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
+                        return (ElemSimple) el;
+                    }
+                } else if (Layout.LEFT == layoutSide && el.layout != Layout.HORIZ) {
+                    if (el.inside(x1, y1 + (y2 - y1) / 2) == true) {
+                        return (ElemSimple) el;
+                    }
+                } else if (Layout.TOP == layoutSide && el.layout != Layout.VERT) {
+                    float Y1 = (y2 > y1) ? y1 : y2;
+                    if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP) == false) {
+                        return (ElemSimple) el;
+                    }
+                } else if (Layout.RIGHT == layoutSide && el.layout != Layout.HORIZ) {
+                    if (el.inside(x2, y1 + (y2 - y1) / 2)) {
+                        return (ElemSimple) el;
+                    }
+                }
+            }
+            if (this == el) {
+                begin = true;
+            }
+        }
+        return null;
+    }
+
     public ElemSimple joinFlatUp(Layout layoutSide) {
         for (Com5t el : owner.listChild) {
             for (Map.Entry<Layout, ElemFrame> en : owner.mapFrame.entrySet()) {
@@ -226,7 +254,7 @@ public abstract class ElemSimple extends Com5t {
         return null;
     }
 
-    public ElemSimple joinFlat(Layout layoutSide) {
+    public ElemSimple joinFlat2(Layout layoutSide) {
         LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
         ElemSimple ret = null;

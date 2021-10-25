@@ -3006,7 +3006,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);
         qSystree.execsql();
-        Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());        
+        Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         Query.listOpenTable.forEach(q -> q.clear());
         int row[] = winTree.getSelectionRows();
         loadingData();
@@ -3025,8 +3025,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
-        System.out.println("ps3".equals(eSetting.find(2)));
+        iwin().listElem2.forEach(el -> System.out.println(el));
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose

@@ -451,9 +451,7 @@ public class Specifics extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        //btnJoin.setSelected(false);
-        //btnJoin.doClick();
-        //btnGroup.clearSelection();
+        
     }//GEN-LAST:event_btnReport
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed

@@ -68,8 +68,7 @@ public class Wincalc {
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList<ElemSimple> listElem; //список ElemSimple
-    //public LinkedList<ElemSimple> listElemHor; //список ElemSimple
-    //public LinkedList<ElemSimple> listElemVer; //список ElemSimple
+    public LinkedList<ElemSimple> listElem2 = new LinkedList(); //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specific> listSpec = new ArrayList(); //спецификация
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calTariffication; //объекты калькуляции конструктива
