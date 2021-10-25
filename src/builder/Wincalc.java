@@ -67,8 +67,8 @@ public class Wincalc {
     public Form form = Form.NUM0; //форма контура 
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
-    public LinkedList<ElemSimple> listElem; //список ElemSimple
-    public LinkedList<ElemSimple> listElem2 = new LinkedList(); //список ElemSimple
+    public LinkedList<ElemSimple> listSortE2 = new LinkedList(); //список ElemSimple
+    public LinkedList<ElemSimple> listTreeEl = new LinkedList(); //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specific> listSpec = new ArrayList(); //спецификация
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calTariffication; //объекты калькуляции конструктива
@@ -85,6 +85,8 @@ public class Wincalc {
         genId = 0;
         form = Form.NUM0;
         heightAdd = 0.f;
+        listSortE2.clear();
+        listTreeEl.clear();
         listSpec.clear();
         mapPardef.clear();
         mapJoin.clear();
@@ -97,11 +99,7 @@ public class Wincalc {
         rootArea.joinElem(); //T-соединения рамы 
         LinkedList<AreaStvorka> listAreaStv = rootArea.listElem(Type.STVORKA); //список створок
         listAreaStv.stream().forEach(area5e -> area5e.joinFrame());  //соединения створок
-
-        //Список элементов, (важно! получаем после построения створки)
-        listElem = rootArea.listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS);
-        //Важно! Не нарушаем последовательность построения окна
-        Collections.sort(listElem, (a, b) -> Float.compare(a.id(), b.id()));
+        Collections.sort(listSortE2, (a, b) -> Float.compare(a.id(), b.id()));
         return rootArea;
     }
 
@@ -203,7 +201,7 @@ public class Wincalc {
             calTariffication = new Tariffic(this, norm_otx); //тарификация
             calTariffication.calc();
 
-            for (ElemSimple elemRec : listElem) {
+            for (ElemSimple elemRec : listSortE2) {
                 listSpec.add(elemRec.spcRec);
                 listSpec.addAll(elemRec.spcRec.spcList);
             }

@@ -22,7 +22,8 @@ public abstract class ElemSimple extends Com5t {
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);
-        iwin.listElem2.add(this);
+        iwin.listTreeEl.add(this);
+        iwin.listSortE2.add(this);
         spcRec = new Specific(id, this);
         uti3 = new UMod(this);
     }
@@ -78,8 +79,8 @@ public abstract class ElemSimple extends Com5t {
     //Прилегающие соединения
     public ElemSimple joinFlat(Layout layoutSide) {
         boolean begin = false;
-        for (int index = iwin.listElem2.size() - 1; index >= 0; --index) {
-            ElemSimple el = iwin.listElem2.get(index);
+        for (int index = iwin.listTreeEl.size() - 1; index >= 0; --index) {
+            ElemSimple el = iwin.listTreeEl.get(index);
             if (begin == true && el.type != Type.GLASS) {
                 if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
                     float Y2 = (y2 > y1) ? y2 : y1;
@@ -106,173 +107,6 @@ public abstract class ElemSimple extends Com5t {
             }
         }
         return null;
-    }
-
-    public ElemSimple joinFlatUp(Layout layoutSide) {
-        for (Com5t el : owner.listChild) {
-            for (Map.Entry<Layout, ElemFrame> en : owner.mapFrame.entrySet()) {
-                if (joinFlatCheck(layoutSide, en.getValue()) != null) {
-                    return (ElemSimple) en.getValue();
-                }
-            }
-            if (joinFlatCheck(layoutSide, el) != null) {
-                return (ElemSimple) el;
-            }
-            if (joinFlatDown(layoutSide, el) != null) {
-                return (ElemSimple) el;
-            }
-            if (owner.owner != null) {
-                for (Com5t e2 : owner.owner.listChild) {
-                    for (Map.Entry<Layout, ElemFrame> en : owner.owner.mapFrame.entrySet()) {
-                        if (joinFlatCheck(layoutSide, en.getValue()) != null) {
-                            return (ElemSimple) en.getValue();
-                        }
-                    }
-                    if (joinFlatCheck(layoutSide, e2) != null) {
-                        return (ElemSimple) e2;
-                    }
-                    if (joinFlatDown(layoutSide, e2) != null) {
-                        return (ElemSimple) e2;
-                    }
-                    if (owner.owner.owner != null) {
-                        for (Com5t e3 : owner.owner.owner.listChild) {
-                            for (Map.Entry<Layout, ElemFrame> en : owner.owner.owner.mapFrame.entrySet()) {
-                                if (joinFlatCheck(layoutSide, en.getValue()) != null) {
-                                    return (ElemSimple) en.getValue();
-                                }
-                            }
-                            if (joinFlatCheck(layoutSide, e3) != null) {
-                                return (ElemSimple) e3;
-                            }
-                            if (joinFlatDown(layoutSide, e3) != null) {
-                                return (ElemSimple) e3;
-                            }
-                            if (owner.owner.owner.owner != null) {
-                                for (Com5t e4 : owner.owner.owner.owner.listChild) {
-                                    for (Map.Entry<Layout, ElemFrame> en : owner.owner.owner.owner.mapFrame.entrySet()) {
-                                        if (joinFlatCheck(layoutSide, en.getValue()) != null) {
-                                            return (ElemSimple) en.getValue();
-                                        }
-                                    }
-                                    if (joinFlatCheck(layoutSide, e4) != null) {
-                                        return (ElemSimple) e4;
-                                    }
-                                    if (joinFlatDown(layoutSide, e4) != null) {
-                                        return (ElemSimple) e4;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        //System.out.println(this);
-        return null;
-    }
-
-    public ElemSimple joinFlatDown(Layout layoutSide, Com5t el) {
-        if (el instanceof AreaSimple) {
-            for (Map.Entry<Layout, ElemFrame> en : ((AreaSimple) el).mapFrame.entrySet()) {
-                if (joinFlatCheck(layoutSide, en.getValue()) != null) {
-                    return (ElemSimple) en.getValue();
-                }
-            }
-            for (Com5t e2 : ((AreaSimple) el).listChild) {
-                if (joinFlatCheck(layoutSide, e2) != null) {
-                    return (ElemSimple) e2;
-                }
-                if (e2 instanceof AreaSimple) {
-                    for (Map.Entry<Layout, ElemFrame> en : ((AreaSimple) e2).mapFrame.entrySet()) {
-                        if (joinFlatCheck(layoutSide, en.getValue()) != null) {
-                            return (ElemSimple) en.getValue();
-                        }
-                    }
-                    for (Com5t e3 : ((AreaSimple) e2).listChild) {
-                        if (joinFlatCheck(layoutSide, e3) != null) {
-                            return (ElemSimple) e3;
-                        }
-                        if (e3 instanceof AreaSimple) {
-                            for (Map.Entry<Layout, ElemFrame> en : ((AreaSimple) e3).mapFrame.entrySet()) {
-                                if (joinFlatCheck(layoutSide, en.getValue()) != null) {
-                                    return (ElemSimple) en.getValue();
-                                }
-                            }
-                            for (Com5t e4 : ((AreaSimple) e3).listChild) {
-                                if (joinFlatCheck(layoutSide, e4) != null) {
-                                    return (ElemSimple) e4;
-                                }
-                                if (e4 instanceof AreaSimple) {
-                                    for (Map.Entry<Layout, ElemFrame> en : ((AreaSimple) e4).mapFrame.entrySet()) {
-                                        if (joinFlatCheck(layoutSide, en.getValue()) != null) {
-                                            return (ElemSimple) en.getValue();
-                                        }
-                                    }
-                                    for (Com5t e5 : ((AreaSimple) e4).listChild) {
-                                        if (joinFlatCheck(layoutSide, e5) != null) {
-                                            return (ElemSimple) e5;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    public ElemSimple joinFlatCheck(Layout layoutSide, Com5t el) {
-//        if (el.id() == 3.0) {
-//            System.out.println("+++++++++++++++++++++");
-//        }
-        if (el.type == Type.STVORKA_SIDE || el.type == Type.FRAME_SIDE || el.type == Type.IMPOST || el.type == Type.SHTULP || el.type == Type.STOIKA) {
-            if (Layout.BOTT == layoutSide) {
-                float Y2 = (y2 > y1) ? y2 : y1;
-                if (el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
-                    return (ElemSimple) el;
-                }
-            } else if (Layout.LEFT == layoutSide) {
-                if (el != this && el.layout != Layout.HORIZ && el.inside(x1, y1 + (y2 - y1) / 2) == true) {
-                    return (ElemSimple) el;
-                }
-            } else if (Layout.TOP == layoutSide) {
-                float Y1 = (y2 > y1) ? y1 : y2;
-                if (el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP) == false) {
-                    return (ElemSimple) el;
-                }
-            } else if (Layout.RIGHT == layoutSide) {
-                if (el != this && el.layout != Layout.HORIZ && el.inside(x2, y1 + (y2 - y1) / 2)) {
-                    return (ElemSimple) el;
-                }
-            }
-//            if (el.id() == 1.0) {
-//                System.out.println("---------------");
-//            }
-        }
-        return null;
-    }
-
-    public ElemSimple joinFlat2(Layout layoutSide) {
-        LinkedList<ElemSimple> listElem = root().listElem(Type.STVORKA_SIDE, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA); //список элементов
-        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
-        ElemSimple ret = null;
-        if (Layout.BOTT == layoutSide) {
-            float Y2 = (y2 > y1) ? y2 : y1;
-            ret = listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y2) == true).findFirst().orElse(null);
-        } else if (Layout.LEFT == layoutSide) {
-            ret = listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
-        } else if (Layout.TOP == layoutSide) {
-            float Y1 = (y2 > y1) ? y1 : y2;
-            ret = listElem.stream().filter(el -> el != this && el.layout != Layout.VERT && el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP) == false).findFirst().orElse(null);
-        } else if (Layout.RIGHT == layoutSide) {
-            ret = listElem.stream().filter(el -> el != this && el.layout != Layout.HORIZ && el.inside(x2, y1 + (y2 - y1) / 2)).findFirst().orElse(null);
-        }
-        if (ret == null) {
-            throw new IllegalArgumentException("Неудача:ElemSimple.joinFlat() Прилегающий элемент не обнаружен!");
-        }
-        return ret;
     }
 
     //Элемент соединения 0-пред.артикл, 1-след.артикл, 2-прилег. артикл

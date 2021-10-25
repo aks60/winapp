@@ -43,8 +43,8 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
 
     public void actionResponse(MouseEvent evt) {
 
-        if (iwin != null && iwin.listElem != null) {
-            iwin.listElem.forEach(el -> el.borderColor = Color.BLACK);
+        if (iwin != null && iwin.listSortE2 != null) {
+            iwin.listSortE2.forEach(el -> el.borderColor = Color.BLACK);
             repaint();
             iwin.rootArea.listElem(Type.STVORKA_SIDE).forEach(el -> {
                 if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {

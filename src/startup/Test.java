@@ -93,7 +93,7 @@ public class Test {
             iwin.constructiv(true);
             //Specific.write_txt(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            DBCompare.iwinPs4(iwin, true);
+            DBCompare.iwinPs4(iwin, false);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
 
         } else if (_case.equals("min")) {
