@@ -55,7 +55,12 @@ public abstract class Com5t {
 
         if (par != null && par.isEmpty() == false && par.equals("{}") == false) {
             JsonObject jsonObj = new Gson().fromJson(par, JsonObject.class);
-            return (jsonObj.get(key) == null) ? -1 : jsonObj.get(key).getAsInt();
+            if (jsonObj.get(key) == null) {
+                return -1;
+            } else if (jsonObj.get(key).getAsInt() == -3) {
+                return -3;
+            }
+            return jsonObj.get(key).getAsInt();
         }
         return -1;
     }
@@ -70,11 +75,11 @@ public abstract class Com5t {
             return (float) Math.sqrt(x2 * x2 + y2 * y2);
         }
     }
-    
+
     public int index() {
-        if(owner != null) {
+        if (owner != null) {
             for (int index = 0; index < owner.listChild.size(); ++index) {
-                if(owner.listChild.get(index) == this) {
+                if (owner.listChild.get(index) == this) {
                     return index;
                 }
             }

@@ -19,6 +19,7 @@ import dataset.Query;
 import enums.Type;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 /**
  * Расчёт стоимости элементов окна
@@ -264,7 +265,7 @@ public class Tariffic extends Cal5e {
                         }
 
                     } else if (rulecalcRec.getInt(eRulecalc.common) == 1) { //по использованию c расчётом общего количества по артикулу, подтипу, типу
-                        LinkedList<ElemSimple> elemList = iwin.listSortEl;
+                        ArrayList<ElemSimple> elemList = iwin.listSortEl;
                         float quantity3 = 0;
                         if (rulecalcRec.get(eRulecalc.artikl_id) != null) { //по артикулу
                             for (ElemSimple elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)

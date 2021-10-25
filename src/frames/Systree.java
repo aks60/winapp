@@ -630,15 +630,15 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 }
                 setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
                 setIcon(btn10, stv.paramCheck[0]);
-                setText(txt21, stv.handleRec.getStr(eArtikl.code) + " | " + stv.handleRec.getStr(eArtikl.name));
+                setText(txt21, stv.handleRec.getStr(eArtikl.code) + " ~ " + stv.handleRec.getStr(eArtikl.name));
                 setIcon(btn12, stv.paramCheck[1]);            
                 setText(txt25, eColor.find(stv.handleColor).getStr(eColor.name));
                 setIcon(btn14, stv.paramCheck[2]);
-                setText(txt45, stv.loopRec.getStr(eArtikl.code) + " | " + stv.loopRec.getStr(eArtikl.name));
+                setText(txt45, stv.loopRec.getStr(eArtikl.code) + " ~ " + stv.loopRec.getStr(eArtikl.name));
                 setIcon(btn15, stv.paramCheck[3]);
                 setText(txt47, eColor.find(stv.loopColor).getStr(eColor.name));
                 setIcon(btn17, stv.paramCheck[4]);
-                setText(txt46, stv.lockRec.getStr(eArtikl.code) + " | " + stv.lockRec.getStr(eArtikl.name));
+                setText(txt46, stv.lockRec.getStr(eArtikl.code) + " ~ " + stv.lockRec.getStr(eArtikl.name));
                 setIcon(btn23, stv.paramCheck[5]);
                 setText(txt48, eColor.find(stv.lockColor).getStr(eColor.name));
                 setIcon(btn24, stv.paramCheck[6]);
@@ -795,7 +795,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }
 
     private void setIcon(JButton btn, boolean b) {
-        if(b == true) {
+        if(b == false) {
             btn.setText("");
             btn.setIcon(icon);
         } else {
