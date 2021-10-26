@@ -124,6 +124,20 @@ public final class Sial3 {
             stv.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 900 + 47))
                     .addElem(new GsonElem(Type.GLASS));
+            
+        } else if (prj == 601007) { // Двери
+            rootGson = new GsonRoot(prj, 2, 2, "SIAL\\КП-45\\Двери маятниковые\\Маятниковая 1-створчатая",
+                    Layout.VERT, Type.DOOR, 900, 2100, 24, 24, 24);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
+            GsonElem stv = rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA));
+            stv.addArea(new GsonElem(Layout.VERT, Type.AREA, 1200 - 47))
+                    .addElem(new GsonElem(Type.GLASS));
+            stv.addElem(new GsonElem(Type.IMPOST))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 900 + 47))
+                    .addElem(new GsonElem(Type.GLASS));
         } else {
             return null;
         }

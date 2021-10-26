@@ -38,8 +38,10 @@ import builder.script.GsonRoot;
 import builder.script.GsonElem;
 import enums.Form;
 import enums.Type;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import static java.util.stream.Collectors.toList;
 import javax.swing.ImageIcon;
 
 public class Wincalc {
@@ -86,10 +88,8 @@ public class Wincalc {
         genId = 0;
         form = Form.NUM0;
         heightAdd = 0.f;
-        listSortAr.clear();
-        listSortEl.clear();
+        Arrays.asList(listSortAr, listSortEl, listSpec).forEach(el -> el.clear());
         listTreeEl.clear();
-        listSpec.clear();
         mapPardef.clear();
         mapJoin.clear();
 
@@ -97,11 +97,11 @@ public class Wincalc {
         parsing(productJson);
 
         //Соединения 
-        rootArea.joinFrame(); //соединения рамы
-        rootArea.joinElem(); //T-соединения рамы 
-        LinkedList<AreaStvorka> listAreaStv = rootArea.listElem(Type.STVORKA); //список створок
-        listAreaStv.stream().forEach(area5e -> area5e.joinFrame());  //соединения створок
-        Collections.sort(listSortEl, (a, b) -> Float.compare(a.id(), b.id()));
+        rootArea.joinFrame(); //угловые соединения рам
+        rootArea.joinCross(); //T-соединения рам и створок 
+        listSortAr.stream().filter(el -> el.type == Type.STVORKA)
+                .collect(toList()).forEach(el -> el.joinFrame()); //угловые и прилегающие соединения створок
+
         return rootArea;
     }
 

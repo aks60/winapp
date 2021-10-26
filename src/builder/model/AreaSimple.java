@@ -151,7 +151,7 @@ public class AreaSimple extends Com5t {
     public void joinFrame() {
     }
 
-    public void joinElem() {
+    public void joinCross() {
 
         LinkedList<ElemSimple> impList = listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
         LinkedList<ElemSimple> elemList = listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);

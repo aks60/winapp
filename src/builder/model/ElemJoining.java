@@ -31,9 +31,6 @@ public class ElemJoining {
         if (elem1 != null && elem2 != null) {
             iwin.mapJoin.put(point, new ElemJoining(iwin, type, layout, elem1, elem2, angl));
         }
-//        else {
-//            System.err.println("Неудача:model.ElemJoining.create(). Соединение " + layout + "  не обработано.");
-//        }
     }
     
     public ElemJoining(Wincalc iwin, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
