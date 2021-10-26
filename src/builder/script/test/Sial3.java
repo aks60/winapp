@@ -64,7 +64,7 @@ public final class Sial3 {
                     .addElem(new GsonElem(Type.GLASS, "{'artglasID':283}"));
 
         } else if (prj == 601005) {
-            rootGson = new GsonRoot(prj, 1, 12, "СИАЛ\\КП45\\Окна\\",
+            rootGson = new GsonRoot(prj, 5, 12, "СИАЛ\\КП45\\Окна\\",
                     Layout.HORIZ, Type.RECTANGL, 1800, 2020, 30, 30, 30);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
@@ -83,7 +83,7 @@ public final class Sial3 {
                     .addElem(new GsonElem(Type.GLASS, "{'artglasID':286}"));
 
         } else if (prj == 601006) {
-            rootGson = new GsonRoot(prj, 1, 12, "СИАЛ\\КП45\\Окна\\",
+            rootGson = new GsonRoot(prj, 6, 12, "СИАЛ\\КП45\\Окна\\",
                     Layout.HORIZ, Type.RECTANGL, 3800, 1800, 37, 37, 37);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
@@ -125,8 +125,8 @@ public final class Sial3 {
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 900 + 47))
                     .addElem(new GsonElem(Type.GLASS));
             
-        } else if (prj == 601007) { // Двери
-            rootGson = new GsonRoot(prj, 2, 2, "SIAL\\КП-45\\Двери маятниковые\\Маятниковая 1-створчатая",
+        } else if (prj == 601008) { // Двери
+            rootGson = new GsonRoot(prj, 1, 2, "SIAL\\КП-45\\Двери маятниковые\\Маятниковая 1-створчатая",
                     Layout.VERT, Type.DOOR, 900, 2100, 24, 24, 24);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
