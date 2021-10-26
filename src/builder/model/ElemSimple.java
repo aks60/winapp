@@ -79,34 +79,39 @@ public abstract class ElemSimple extends Com5t {
     //Прилегающие соединения
     public ElemSimple joinFlat(Layout layoutSide) {
         boolean begin = false;
-        for (int index = iwin.listTreeEl.size() - 1; index >= 0; --index) {
-            ElemSimple el = iwin.listTreeEl.get(index);
-            if (begin == true && el.type != Type.GLASS) {
-                if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
-                    float Y2 = (y2 > y1) ? y2 : y1;
-                    if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
-                        return (ElemSimple) el;
-                    }
-                } else if (Layout.LEFT == layoutSide && el.layout != Layout.HORIZ) {
-                    if (el.inside(x1, y1 + (y2 - y1) / 2) == true) {
-                        return (ElemSimple) el;
-                    }
-                } else if (Layout.TOP == layoutSide && el.layout != Layout.VERT) {
-                    float Y1 = (y2 > y1) ? y1 : y2;
-                    if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP) == false) {
-                        return (ElemSimple) el;
-                    }
-                } else if (Layout.RIGHT == layoutSide && el.layout != Layout.HORIZ) {
-                    if (el.inside(x2, y1 + (y2 - y1) / 2)) {
-                        return (ElemSimple) el;
+        try {
+            for (int index = iwin.listTreeEl.size() - 1; index >= 0; --index) {
+                ElemSimple el = iwin.listTreeEl.get(index);
+                if (begin == true && el.type != Type.GLASS) {
+                    if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
+                        float Y2 = (y2 > y1) ? y2 : y1;
+                        if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
+                            return (ElemSimple) el;
+                        }
+                    } else if (Layout.LEFT == layoutSide && el.layout != Layout.HORIZ) {
+                        if (el.inside(x1, y1 + (y2 - y1) / 2) == true) {
+                            return (ElemSimple) el;
+                        }
+                    } else if (Layout.TOP == layoutSide && el.layout != Layout.VERT) {
+                        float Y1 = (y2 > y1) ? y1 : y2;
+                        if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP) == false) {
+                            return (ElemSimple) el;
+                        }
+                    } else if (Layout.RIGHT == layoutSide && el.layout != Layout.HORIZ) {
+                        if (el.inside(x2, y1 + (y2 - y1) / 2)) {
+                            return (ElemSimple) el;
+                        }
                     }
                 }
+                if (this == el) {
+                    begin = true;
+                }
             }
-            if (this == el) {
-                begin = true;
-            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Ошибка:ElemSimple.joinFlat() " + e);
+            return null;
         }
-        return null;
     }
 
     //Элемент соединения 0-пред.артикл, 1-след.артикл, 2-прилег. артикл

@@ -77,6 +77,8 @@ import common.eProfile;
 import domain.eJoining;
 import builder.making.Joining;
 import builder.making.UColor;
+import builder.model.AreaSimple;
+import builder.model.Com5t;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.dialog.DicJoinvar;
@@ -89,7 +91,6 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 
 public class Systree extends javax.swing.JFrame implements ListenerObject {
 
@@ -2944,6 +2945,13 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
+       
+//       float m1 = 5.1f;
+//       ElemSimple e1 = iwin().listSortEl.stream().filter(it -> it.id() == m1).findFirst().orElse(null);
+//       ElemSimple e2 = iwin().listSortEl.stream().filter(it -> it.id() == 4.0f).findFirst().orElse(null);
+//       ElemSimple e3 = e1.joinFlat(Layout.BOTT);
+//       float m2 = 4.0f;
+       
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose

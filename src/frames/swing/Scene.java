@@ -115,7 +115,7 @@ public class Scene extends javax.swing.JPanel {
             float dh = 0, curY = 2;
             for (GsonScale gson : lineVert) {
                 if (gson.elem().owner() != null && gson.elem().owner().type() == Type.STVORKA) {
-                    dh = iwin.rootArea.find(gson.elem().owner().id()).y1;
+                    dh = iwin.listSortAr.stream().filter(it -> it.id() == gson.elem().owner().id()).findFirst().get().y1;
                 }
                 if (gson == lineVert.get(lineVert.size() - 1)) {
                     dh = -1 * dh;

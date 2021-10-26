@@ -67,6 +67,7 @@ public class Wincalc {
     public Form form = Form.NUM0; //форма контура 
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
+    public ArrayList<AreaSimple> listSortAr = new ArrayList(); //список ElemSimple
     public ArrayList<ElemSimple> listSortEl = new ArrayList(); //список ElemSimple
     public LinkedList<ElemSimple> listTreeEl = new LinkedList(); //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
@@ -85,6 +86,7 @@ public class Wincalc {
         genId = 0;
         form = Form.NUM0;
         heightAdd = 0.f;
+        listSortAr.clear();
         listSortEl.clear();
         listTreeEl.clear();
         listSpec.clear();

@@ -51,6 +51,7 @@ public class AreaSimple extends Com5t {
         if (param(param, PKjson.sysprofID) != -1) { //профили через параметр
             sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
         }
+        iwin.listSortAr.add(this);
     }
 
     protected void setLocation(float width, float height) {
@@ -140,7 +141,7 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    //Список элементов окна
+    @Deprecated  //Список элементов окна
     public <E> LinkedList<E> listElem(Type... type) {
         LinkedList<E> list = new LinkedList();
         UCom.listElem(this, list, Arrays.asList(type));
@@ -181,39 +182,6 @@ public class AreaSimple extends Com5t {
                 }
             }
         }
-    }
-
-    public Com5t find(float id) {
-        if (this.id() == id) {
-            return this;
-        }
-        for (Com5t com2 : listChild) { //уровень 2
-            if (com2.id() == id) {
-                return com2;
-            }
-            if (com2 instanceof AreaSimple) {
-                for (Com5t com3 : ((AreaSimple) com2).listChild) { //уровень 3
-                    if (com3.id() == id) {
-                        return com3;
-                    }
-                    if (com3 instanceof AreaSimple) {
-                        for (Com5t com4 : ((AreaSimple) com3).listChild) { //уровень 4
-                            if (com4.id() == id) {
-                                return com4;
-                            }
-                            if (com4 instanceof AreaSimple) {
-                                for (Com5t com5 : ((AreaSimple) com4).listChild) { //уровень 5
-                                    if (com5.id() == id) {
-                                        return com5;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return null;
     }
 
     //Рисуем конструкцию
