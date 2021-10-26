@@ -200,22 +200,27 @@ public class AreaStvorka extends AreaSimple {
             elem.getValue().anglCut[1] = 45;
         });
 
-        //Угловое соединение правое нижнее
-        ElemJoining.create(stvBott.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RBOT, stvBott, stvRight, 90);
-        //Угловое соединение правое верхнее
-        ElemJoining.create(stvRight.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RTOP, stvRight, stvTop, 90);
-        //Угловое соединение левое верхнее
-        ElemJoining.create(stvTop.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LTOP, stvTop, stvLeft, 90);
-        //Угловое соединение левое нижнее
-        ElemJoining.create(stvLeft.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90);
-        //Прилегающее нижнее
-        ElemJoining.create(stvBott.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, stvBott.joinFlat(Layout.BOTT), 0);
-        //Прилегающее верхнее 
-        ElemJoining.create(stvTop.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, stvTop.joinFlat(Layout.TOP), 0);
-        //Прилегающее левое
-        ElemJoining.create(stvLeft.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, stvLeft.joinFlat(Layout.LEFT), 0);
-        //Прилегающее правое
-        ElemJoining.create(stvRight.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, stvRight.joinFlat(Layout.RIGHT), 0);
+        //Тупо
+        if (iwin.rootArea.type == Type.DOOR) {
+
+        } else {
+            //Угловое соединение правое нижнее
+            ElemJoining.create(stvBott.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RBOT, stvBott, stvRight, 90);
+            //Угловое соединение правое верхнее
+            ElemJoining.create(stvRight.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RTOP, stvRight, stvTop, 90);
+            //Угловое соединение левое верхнее
+            ElemJoining.create(stvTop.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LTOP, stvTop, stvLeft, 90);
+            //Угловое соединение левое нижнее
+            ElemJoining.create(stvLeft.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90);
+            //Прилегающее нижнее
+            ElemJoining.create(stvBott.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, stvBott.joinFlat(Layout.BOTT), 0);
+            //Прилегающее верхнее 
+            ElemJoining.create(stvTop.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, stvTop.joinFlat(Layout.TOP), 0);
+            //Прилегающее левое
+            ElemJoining.create(stvLeft.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, stvLeft.joinFlat(Layout.LEFT), 0);
+            //Прилегающее правое
+            ElemJoining.create(stvRight.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, stvRight.joinFlat(Layout.RIGHT), 0);
+        }
     }
 
     //Вычисление смещения створки через параметр
