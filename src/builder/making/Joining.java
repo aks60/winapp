@@ -81,9 +81,9 @@ public class Joining extends Cal5e {
                     int types = joinvarRec.getInt(eJoinvar.types);
                     if (elemJoin.layout.equalType(types)) { //если варианты соединения совпали
                         go = true;
-                    } else if (iwin.rootArea.type == Type.DOOR && joinvarRec.getInt(eJoinvar.mirr) == 1 && (types == 30 || types == 31)) { //когда включена зеркальность
+                    } else if (iwin.rootArea.type == Type.DOOR && elemJoin.type != TypeJoin.VAR10 && joinvarRec.getInt(eJoinvar.mirr) == 1) { //когда включена зеркальность
                         go = true;
-                    } else if (ps3 == true && iwin.rootArea.type == Type.DOOR && (types == 30 || types == 31)) { // похоже в ps3 это всегда
+                    } else if (ps3 == true && iwin.rootArea.type == Type.DOOR  && elemJoin.type != TypeJoin.VAR10) { // похоже в ps3 это всегда
                         go = true;
                     }
                     if (go == true) {
@@ -91,7 +91,7 @@ public class Joining extends Cal5e {
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
                             listVariants.add(joiningRec.getInt(eJoining.id)); //сделано для запуска формы Joining на ветке Systree 
 
-                            //Сохраним подхоящий вариант соединения из таблиц bd
+                            //Сохраним подхоящий вариант соединения из таблиц bd                           
                             elemJoin.type = TypeJoin.get(joinvarRec.getInt(eJoinvar.types));
                             elemJoin.joiningRec = joiningRec;
                             elemJoin.joinvarRec = joinvarRec;
