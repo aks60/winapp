@@ -104,6 +104,9 @@ class UMod {
 
             } else if ("Да".equals(spcAdd.getParam("Нет", 11020, 12020))) {
                 elem5e = elemJoin.elem2;
+                
+            } else {
+                elem5e = elemJoin.elem1; //по умолч.
             }
             if ("большей".equals(spcAdd.getParam("", 11072, 12072))) {
                 float length = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
@@ -235,15 +238,6 @@ class UMod {
         }
     }
 
-//    //Изменение сторон покраски
-//    void get_31090(Specific spcAdd) {
-//        if ("Да".equals(spcAdd.getParam("null", 31090))) {
-//            int color = spcAdd.colorID2;
-//            spcAdd.colorID2 = spcAdd.colorID3;
-//            spcAdd.colorID2 = color;
-//        }
-//    }
-//    
     //Округлять количество до ближайшего
     float get_39063(Specific spcAdd) {
         String txt = spcAdd.getParam("null", 39063);
