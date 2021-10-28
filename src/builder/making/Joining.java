@@ -81,9 +81,9 @@ public class Joining extends Cal5e {
                     int types = joinvarRec.getInt(eJoinvar.types);
                     if (elemJoin.layout.equalType(types)) { //если варианты соединения совпали
                         go = true;
-                    } else if (iwin.rootArea.type == Type.DOOR && elemJoin.type != TypeJoin.VAR10 && joinvarRec.getInt(eJoinvar.mirr) == 1) { //когда включена зеркальность
+                    } else if (iwin.rootArea.type == Type.DOOR && types != TypeJoin.VAR10.id && elemJoin.type != TypeJoin.VAR10 && joinvarRec.getInt(eJoinvar.mirr) == 1) { //когда включена зеркальность
                         go = true;
-                    } else if (ps3 == true && iwin.rootArea.type == Type.DOOR  && elemJoin.type != TypeJoin.VAR10) { // похоже в ps3 это всегда
+                    } else if (ps3 == true && iwin.rootArea.type == Type.DOOR && types != TypeJoin.VAR10.id && elemJoin.type != TypeJoin.VAR10) { // похоже в ps3 это всегда
                         go = true;
                     }
                     if (go == true) {
@@ -121,8 +121,8 @@ public class Joining extends Cal5e {
                                 break;
                             }
                         }
+                        break; //если в ранжированном списке один из вариантов совпал
                     }
-
                 }
             }
         } catch (Exception e) {
