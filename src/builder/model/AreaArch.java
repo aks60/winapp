@@ -20,7 +20,10 @@ public class AreaArch extends AreaSimple {
     }
 
     @Override
-    public void joinFrame() {
+    public void joining() {
+        
+        super.joining();
+        
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
                 elemArch = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
 

@@ -40,6 +40,7 @@ import enums.Form;
 import enums.Type;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
 import javax.swing.ImageIcon;
@@ -88,19 +89,16 @@ public class Wincalc {
         genId = 0;
         form = Form.NUM0;
         heightAdd = 0.f;
-        Arrays.asList(listSortAr, listSortEl, listSpec).forEach(el -> el.clear());
-        listTreeEl.clear();
-        mapPardef.clear();
-        mapJoin.clear();
+        Arrays.asList((List) listSortAr, (List) listSortEl, (List) listSpec, (List) listTreeEl).forEach(el -> el.clear());
+        Arrays.asList(mapPardef, mapJoin).forEach(el -> el.clear());
 
         //Парсинг входного скрипта
         parsing(productJson);
 
         //Соединения 
-        rootArea.joinFrame(); //угловые соединения рам
-        rootArea.joinCross(); //T-соединения рам и створок 
+        rootArea.joining(); //соединения ареа
         listSortAr.stream().filter(el -> el.type == Type.STVORKA)
-                .collect(toList()).forEach(el -> el.joinFrame()); //угловые и прилегающие соединения створок
+                .collect(toList()).forEach(el -> el.joining()); //соединения створок
 
         return rootArea;
     }

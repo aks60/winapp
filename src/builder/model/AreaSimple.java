@@ -148,16 +148,13 @@ public class AreaSimple extends Com5t {
         return list;
     }
 
-    public void joinFrame() {
-    }
-
-    public void joinCross() {
+    public void joining() {
 
         LinkedList<ElemSimple> impList = listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
         LinkedList<ElemSimple> elemList = listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
         Collections.sort(elemList, (a, b) -> Float.compare(a.id(), b.id()));
 
-        //Цикл по импостам
+        //T - соединения
         for (ElemSimple elemImp : impList) {
             //Цикл по сторонам рамы и импостам (т.к. в створке Т-обр. соединений нет)
             for (ElemSimple elem5e : elemList) {

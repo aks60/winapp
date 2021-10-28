@@ -13,7 +13,10 @@ public class AreaTriangl extends AreaSimple {
     }
 
     @Override
-    public void joinFrame() {
+    public void joining() {
+        
+        super.joining();
+        
         System.out.println("Реализация не определена");
     }
 }

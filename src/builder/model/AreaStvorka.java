@@ -188,7 +188,7 @@ public class AreaStvorka extends AreaSimple {
     }
 
     @Override
-    public void joinFrame() {
+    public void joining() {
         ElemSimple stvBott = mapFrame.get(Layout.BOTT), stvRight = mapFrame.get(Layout.RIGHT),
                 stvTop = mapFrame.get(Layout.TOP), stvLeft = mapFrame.get(Layout.LEFT);
         stvBott.anglHoriz = 0;
