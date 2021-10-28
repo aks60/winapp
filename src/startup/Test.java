@@ -89,11 +89,11 @@ public class Test {
         String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(601008, false));
+            iwin.build(builder.script.Winscript.test(601007, false));
             iwin.constructiv(true);
             //Specific.write_txt(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            DBCompare.iwinPs4(iwin, false);
+            //DBCompare.iwinPs4(iwin, false);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
 
         } else if (_case.equals("min")) {

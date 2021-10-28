@@ -5,6 +5,7 @@ import builder.model.Com5t;
 import builder.model.ElemFrame;
 import enums.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class UCom {
                 str = str.substring(0, str.length() - 1);
             }
             return Integer.valueOf(str);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:UCom.getInt()");
             return 0;
@@ -259,7 +260,7 @@ public class UCom {
         }
         return false;
     }
-    
+
     public static <E> void listElem(Com5t com5t, LinkedList<E> list, List<Type> type) {
 
         if (type.contains(com5t.type)) {
@@ -276,23 +277,34 @@ public class UCom {
             ((AreaSimple) com5t).listChild.forEach(comp -> listElem(comp, list, type));
         }
     }
-    
+
+    public static <E> LinkedList<E> listSortObj(ArrayList<AreaSimple> list, Type... type) {
+        List tp = Arrays.asList(type);
+        LinkedList<E> list2 = new LinkedList();
+        for (AreaSimple el : list) {
+            if (tp.contains(el.type)) {
+                list2.add((E) el);
+            }
+        }
+        return list2;
+    }
+
     public static float sin(float angl) {
         return (float) Math.sin(Math.toRadians(angl));
     }
-    
+
     public static float sin(double angl) {
         return (float) Math.sin(Math.toRadians(angl));
     }
-    
+
     public static float cos(float angl) {
         return (float) Math.cos(Math.toRadians(angl));
     }
-    
+
     public static float cos(double angl) {
         return (float) Math.cos(Math.toRadians(angl));
     }
-    
+
     public static float tan(float angl) {
         return (float) Math.tan(Math.toRadians(angl));
     }

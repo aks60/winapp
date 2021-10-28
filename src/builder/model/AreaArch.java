@@ -22,7 +22,7 @@ public class AreaArch extends AreaSimple {
     @Override
     public void joining() {
         
-        super.joining();
+        super.joining(); //T - соединения
         
         ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
                 elemArch = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
