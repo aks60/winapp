@@ -115,7 +115,6 @@ public enum eArtikl implements Field {
             }
             return recordRec;
         }
-
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         if (_analog == true && recordList.isEmpty() == false && recordList.get(0, analog_id) != null) {
 

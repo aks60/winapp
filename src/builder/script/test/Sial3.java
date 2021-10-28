@@ -118,7 +118,7 @@ public final class Sial3 {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
-            GsonElem stv = rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA));
+            GsonElem stv = rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'artiklHandl':98, 'artiklLoop':749, 'colorLoop':24}"));
             stv.addArea(new GsonElem(Layout.VERT, Type.AREA, 1200 - 47))
                     .addElem(new GsonElem(Type.GLASS));
             stv.addElem(new GsonElem(Type.IMPOST))

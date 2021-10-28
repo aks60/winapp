@@ -152,7 +152,7 @@ public class JoiningDet extends Par5s {
                     break;
                 case 11072:  //Расчет по стороне 
                 case 12072:  //Расчет по стороне 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11095: //Если признак системы конструкции 
                 case 12095: //Если признак системы конструкции 

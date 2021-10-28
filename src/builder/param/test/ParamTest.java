@@ -78,8 +78,8 @@ public class ParamTest {
     public ParamTest() {
         try {
             iwin2();
-            iwin3();
-            iwin4();
+//            iwin3();
+//            iwin4();
         } catch (Exception e) {
             System.err.println("ОШИБКА:param.test.ParamTest() " + e);
         }
