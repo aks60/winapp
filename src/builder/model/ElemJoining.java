@@ -26,7 +26,6 @@ public class ElemJoining {
 
     public float angl = 90;    //угол между профилями
     public String costs = "";  //трудозатраты, ч/ч.
-    public boolean use = false;
 
     public static void create(String point, Wincalc iwin, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
         if (elem1 != null && elem2 != null) {
