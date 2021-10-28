@@ -128,16 +128,16 @@ public class Test {
 
         ElementTest et = new ElementTest();
         et.elementVar();
-//        et.elementDet();
-//        JoiningTest jt = new JoiningTest();
-//        jt.joiningVar();
-//        jt.joiningDet();
-//        FillingTest gt = new FillingTest();
-//        gt.fillingVar();
-//        gt.fillingDet();
-//        FurnitureTest ft = new FurnitureTest();
-//        ft.furnitureVar();
-//        ft.furnitureDet();
+        et.elementDet();
+        JoiningTest jt = new JoiningTest();
+        jt.joiningVar();
+        jt.joiningDet();
+        FillingTest gt = new FillingTest();
+        gt.fillingVar();
+        gt.fillingDet();
+        FurnitureTest ft = new FurnitureTest();
+        ft.furnitureVar();
+        ft.furnitureDet();
 
 //        Query.connection = Test.connect2();
 //        Set set = new HashSet();
