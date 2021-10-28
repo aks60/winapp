@@ -265,7 +265,7 @@ public class Tariffic extends Cal5e {
                         }
 
                     } else if (rulecalcRec.getInt(eRulecalc.common) == 1) { //по использованию c расчётом общего количества по артикулу, подтипу, типу
-                        ArrayList<ElemSimple> elemList = iwin.listSortEl;
+                        LinkedList<ElemSimple> elemList = iwin.listSortEl;
                         float quantity3 = 0;
                         if (rulecalcRec.get(eRulecalc.artikl_id) != null) { //по артикулу
                             for (ElemSimple elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)

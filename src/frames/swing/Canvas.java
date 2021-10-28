@@ -4,6 +4,7 @@ import builder.Wincalc;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
 import builder.script.GsonElem;
+import common.UCom;
 import enums.Layout;
 import enums.Type;
 import frames.swing.listener.ListenerFrame;
@@ -46,21 +47,21 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
         if (iwin != null && iwin.listSortEl != null) {
             iwin.listSortEl.forEach(el -> el.borderColor = Color.BLACK);
             repaint();
-            iwin.rootArea.listElem(Type.STVORKA_SIDE).forEach(el -> {
+            UCom.listSortObj(iwin.listSortAr, Type.STVORKA_SIDE).forEach(el -> {
                 if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
                     ((ElemSimple) el).borderColor = Color.RED;
                     ((ElemSimple) el).paint();
                     repaint();
                 }
             });
-            iwin.rootArea.listElem(Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA).forEach(el -> {
+            UCom.listSortObj(iwin.listSortEl, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA).forEach(el -> {
                 if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
                     ((ElemSimple) el).borderColor = Color.RED;
                     ((ElemSimple) el).paint();
                     repaint();
                 }
             });
-            iwin.rootArea.listElem(Type.GLASS).forEach(el -> {
+            UCom.listSortObj(iwin.listSortEl, Type.GLASS).forEach(el -> {
                 if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
                     ((ElemSimple) el).borderColor = Color.RED;
                     ((ElemSimple) el).paint();

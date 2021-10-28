@@ -261,29 +261,12 @@ public class UCom {
         return false;
     }
 
-    public static <E> void listElem(Com5t com5t, LinkedList<E> list, List<Type> type) {
-
-        if (type.contains(com5t.type)) {
-            list.add((E) com5t);
-        }
-        if (com5t instanceof AreaSimple) {
-            for (ElemFrame frm : ((AreaSimple) com5t).mapFrame.values()) {
-                if (type.contains(frm.type)) {
-                    list.add((E) frm);
-                }
-            }
-        }
-        if (com5t instanceof AreaSimple) {
-            ((AreaSimple) com5t).listChild.forEach(comp -> listElem(comp, list, type));
-        }
-    }
-
-    public static <E> LinkedList<E> listSortObj(ArrayList<AreaSimple> list, Type... type) {
+    public static <T extends Com5t, E extends Com5t> LinkedList<T> listSortObj(LinkedList<E> list, Type... type) {
         List tp = Arrays.asList(type);
-        LinkedList<E> list2 = new LinkedList();
-        for (AreaSimple el : list) {
+        LinkedList<T> list2 = new LinkedList();
+        for (E el : list) {
             if (tp.contains(el.type)) {
-                list2.add((E) el);
+                list2.add((T) el);
             }
         }
         return list2;

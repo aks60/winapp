@@ -141,18 +141,10 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    @Deprecated  //Список элементов окна
-    public <E> LinkedList<E> listElem(Type... type) {
-        LinkedList<E> list = new LinkedList();
-        UCom.listElem(this, list, Arrays.asList(type));
-        return list;
-    }
-
     public void joining() {
 
-        LinkedList<ElemSimple> impList = listElem(Type.IMPOST, Type.SHTULP, Type.STOIKA);
-        LinkedList<ElemSimple> elemList = listElem(Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
-        Collections.sort(elemList, (a, b) -> Float.compare(a.id(), b.id()));
+        LinkedList<ElemSimple> impList = UCom.listSortObj(iwin.listSortEl, Type.IMPOST, Type.SHTULP, Type.STOIKA);
+        LinkedList<ElemSimple> elemList = UCom.listSortObj(iwin.listSortEl, Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
 
         //T - соединения
         for (ElemSimple elemImp : impList) {
@@ -185,19 +177,19 @@ public class AreaSimple extends Com5t {
     public void draw() {
         try {
             //Прорисовка стеклопакетов
-            LinkedList<ElemGlass> elemGlassList = root().listElem(Type.GLASS);
+            LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(iwin.listSortEl, Type.GLASS);
             elemGlassList.stream().forEach(el -> el.paint());
 
             //Прорисовка импостов
-            LinkedList<ElemCross> elemImpostList = root().listElem(Type.IMPOST);
+            LinkedList<ElemCross> elemImpostList = UCom.listSortObj(iwin.listSortEl, Type.IMPOST);
             elemImpostList.stream().forEach(el -> el.paint());
 
             //Прорисовка штульпов
-            LinkedList<ElemCross> elemShtulpList = root().listElem(Type.SHTULP);
+            LinkedList<ElemCross> elemShtulpList = UCom.listSortObj(iwin.listSortEl, Type.SHTULP);
             elemShtulpList.stream().forEach(el -> el.paint());
 
             //Прорисовка стоек
-            LinkedList<ElemCross> elemStoikaList = root().listElem(Type.STOIKA);
+            LinkedList<ElemCross> elemStoikaList = UCom.listSortObj(iwin.listSortEl, Type.STOIKA);
             elemStoikaList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам
@@ -207,7 +199,7 @@ public class AreaSimple extends Com5t {
             mapFrame.get(Layout.RIGHT).paint();
 
             //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(Type.STVORKA);
+            LinkedList<AreaStvorka> elemStvorkaList = UCom.listSortObj(iwin.listSortEl, Type.STVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Рисунок в память

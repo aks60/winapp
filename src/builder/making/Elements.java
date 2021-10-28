@@ -12,6 +12,7 @@ import builder.Wincalc;
 import builder.param.ElementDet;
 import builder.param.ElementVar;
 import builder.model.ElemSimple;
+import common.UCom;
 import dataset.Query;
 import enums.Type;
 
@@ -34,7 +35,7 @@ public class Elements extends Cal5e {
     @Override
     public void calc() {
         super.calc();
-        LinkedList<ElemSimple> listElem = iwin.rootArea.listElem(Type.FRAME_SIDE,
+        LinkedList<ElemSimple> listElem = UCom.listSortObj(iwin.listSortEl, Type.FRAME_SIDE,
                 Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS); //список элементов конструкции
         try {
             //Цикл по списку элементов конструкции
