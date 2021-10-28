@@ -199,7 +199,7 @@ public class AreaSimple extends Com5t {
             mapFrame.get(Layout.RIGHT).paint();
 
             //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = UCom.listSortObj(iwin.listSortEl, Type.STVORKA);
+            LinkedList<AreaStvorka> elemStvorkaList = UCom.listSortObj(iwin.listSortAr, Type.STVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Рисунок в память
