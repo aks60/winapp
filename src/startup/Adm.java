@@ -77,22 +77,26 @@ public class Adm extends javax.swing.JFrame {
     }
 
     private void loadingPath() {
-        
+
         if (eProperty.base_num.read().equals("1")) {
             labPath2.setText(eProperty.server1.read() + "/" + eProperty.port1.read() + "\\" + eProperty.base1.read());
-            
+
         } else if (eProperty.base_num.read().equals("2")) {
             //edPath.setText("D:\\Okna\\Database\\ps3\\sial3.fdb");
             labPath2.setText(eProperty.server2.read() + "/" + eProperty.port2.read() + "\\" + eProperty.base2.read());
-            
+
         } else if (eProperty.base_num.read().equals("3")) {
             //edPath.setText("D:\\Okna\\Database\\ps4\\krauss.fdb");
             //edPath.setText("D:\\Okna\\Database\\ps4\\vidnal.fdb");
             labPath2.setText(eProperty.server3.read() + "/" + eProperty.port3.read() + "\\" + eProperty.base3.read());
-            
+
         }
         edPath.setText(Winscript.path());
-        edPort.setText((eProperty.base_num.read().equals("2")) ? "3055" : "3050");
+        if (Main.dev == true) {
+            edPort.setText((eProperty.base_num.read().equals("2") || eProperty.base_num.read().equals("3")) ? "3055" : "3050");
+        } else {
+            edPort.setText("3050");
+        }
         edServer.setText("localhost");
         edUser.setText("sysdba");
         edPass.setText("masterkey");
@@ -1252,7 +1256,7 @@ public class Adm extends javax.swing.JFrame {
         int result = chooser.showDialog(this, "Выбрать");
         if (result == JFileChooser.APPROVE_OPTION) {
             edPath.setText(chooser.getSelectedFile().getPath());
-        }        
+        }
     }//GEN-LAST:event_btn10btnAction
 
     private void btnStart(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStart
@@ -1360,9 +1364,9 @@ public class Adm extends javax.swing.JFrame {
         JPasswordField pass2 = new JPasswordField();
         Object[] ob = {"Изменение пароля SYSDBA", pass1, "Подтвердите новый пароль", pass2};
         int result = JOptionPane.showConfirmDialog(null, ob, "Изменение пароля", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION) {            
-            if (pass1.getText().equals(pass2.getText()))  {
-                
+        if (result == JOptionPane.OK_OPTION) {
+            if (pass1.getText().equals(pass2.getText())) {
+
                 Conn.instanc().modifyPassword("sysdba", pass2.getPassword());
                 JOptionPane.showMessageDialog(this, "Операция выполнена успешно!", "Изменение паспорта SYSDBA", JOptionPane.NO_OPTION);
             } else {
