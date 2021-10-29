@@ -66,7 +66,7 @@ public enum eJoining implements Field {
         Query recordList = new Query(values()).select(up, "where", analog, "='", _analog, "'");
         return recordList.stream().filter(rec -> (rec.getInt(main) & 0x100) != 0).findFirst().orElse(up.newRecord());
     }
-
+ 
     public String toString() {
         return meta.descr();
     }

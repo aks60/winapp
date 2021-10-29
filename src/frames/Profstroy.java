@@ -219,14 +219,14 @@ public class Profstroy {
             updatePart(cn2, st2);
             metaPart(cn2, st2);
 
-            println(Color.GREEN, "Удаление лищних столбцов");
-            executeSql("ALTER TABLE GROUPS DROP  FK;");
-            for (Field fieldUp : App.db) {
-                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
-                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
-                }
-            }
+//            println(Color.GREEN, "Удаление лищних столбцов");
+//            executeSql("ALTER TABLE GROUPS DROP  FK;");
+//            for (Field fieldUp : App.db) {
+//                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+//                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+//                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+//                }
+//            }
             //Включаем все генераторы
             st2.executeUpdate("update rdb$triggers  set rdb$trigger_inactive = 0  where rdb$trigger_name like 'IBE$%';");
             
