@@ -35,7 +35,12 @@ public class Draw {
         iwin.gc2d.drawArc((int) (x), (int) (y), (int) (w), (int) (h), (int) startAngle, (int) arcExtent);
     }
 
-    
+//    public static void drawString(Wincalc iwin, String txt, float x, float y) {
+//        iwin.gc2d.rotate(Math.toRadians(-90), 10, curY + dy - dy / 2 + dw / 2);
+//        iwin.gc2d.drawString(df1.format(gson.height() + dh), 10, curY + dy - dy / 2 + dw / 2);
+//        iwin.gc2d.rotate(Math.toRadians(90), 10, curY + dy - dy / 2 + dw / 2);
+//    }
+
 //    public static void line(Wincalc iwin, float x1, float y1, float x2, float y2, float dy) {
 //
 //        iwin.gc2d.setColor(java.awt.Color.BLACK);

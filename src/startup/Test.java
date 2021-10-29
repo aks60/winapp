@@ -1,5 +1,6 @@
 package startup;
 
+import builder.making.Joining;
 import builder.script.GsonRoot;
 import builder.script.Winscript;
 import common.*;
@@ -89,11 +90,12 @@ public class Test {
         String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(601007, false));
+            iwin.build(builder.script.Winscript.test(601008, false));
+            //new Joining(iwin, true);
             iwin.constructiv(true);
             //Specific.write_txt(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            //DBCompare.iwinPs4(iwin, false);
+            DBCompare.iwinPs4(iwin, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
 
         } else if (_case.equals("min")) {

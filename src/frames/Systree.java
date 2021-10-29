@@ -345,6 +345,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             try {
                 String script = record.getStr(eSysprod.script);
                 Wincalc iwin2 = new Wincalc(script);
+                new Joining(iwin2, true); //заполним соединения из конструктива
                 iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
                 record.add(iwin2);
 
@@ -646,7 +647,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
                 //Соединения
             } else if (winNode.com5t().type == enums.Type.JOINING) {
-                new Joining(iwin(), true); //заполним соединения данными из конструктива
+                //new Joining(iwin(), true); //заполним соединения данными из конструктива
                 ((CardLayout) pan7.getLayout()).show(pan7, "card17");
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();

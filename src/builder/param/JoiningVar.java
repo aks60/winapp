@@ -478,6 +478,9 @@ public class JoiningVar extends Par5s {
                 case 4064:  //Поправка для состава, мм 
                     message(rec.getInt(GRUP));
                     break;
+                case 4090:  //Зеркальный вариант соединения
+                    message(rec.getInt(GRUP));
+                    break;
                 case 4800:  //Код обработки 
                     message(rec.getInt(GRUP));
                     break;
