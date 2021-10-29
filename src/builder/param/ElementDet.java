@@ -267,6 +267,9 @@ public class ElementDet extends Par5s {
                 case 34049:  //Поправка по нормали от начала/конца, мм 
                     message(grup);
                     break;
+                case 34050: //Поправка, мм
+                    message(grup);
+                    break;
                 case 34051:  //Поправка, мм 
                 case 39020:  //Поправка, мм 
                     mapParam.put(grup, rec.getStr(TEXT));

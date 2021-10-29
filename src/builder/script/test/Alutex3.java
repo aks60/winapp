@@ -18,7 +18,7 @@ public final class Alutex3 {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
-            rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA))
+            rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'artiklHandl':1472}"))
                     .addElem(new GsonElem(Type.GLASS));
         } else {
             return null;
