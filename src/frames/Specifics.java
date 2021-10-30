@@ -453,7 +453,7 @@ public class Specifics extends javax.swing.JFrame {
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
         float id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
-        Specific recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
+        Specific recordSpc = iwin.listSpec.find(id);
         FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(Specifics.this, recordSpc.artiklRec);
@@ -464,7 +464,7 @@ public class Specifics extends javax.swing.JFrame {
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         float id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         String str = tab1.getValueAt(tab1.getSelectedRow(), 3).toString().substring(0, 3);
-        Specific specificRec = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
+        Specific specificRec = iwin.listSpec.find(id);
         Record detailRec = specificRec.detailRec;
         if (detailRec != null) {
             FrameProgress.create(Specifics.this, new ListenerFrame() {

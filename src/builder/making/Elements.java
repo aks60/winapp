@@ -97,7 +97,7 @@ public class Elements extends Cal5e {
                                     elem5e.spcRec.mapParam = spcAdd.mapParam; //переназначаем mapParam
 
                                 } else {
-                                    elem5e.addSpecific(spcAdd); //коррекция спецификации 
+                                    elem5e.addSpecific(spcAdd); //в спецификацию
                                 }
                             }
                         }

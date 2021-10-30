@@ -183,7 +183,7 @@ public class ElemFrame extends ElemSimple {
                 spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (Layout.BOTT == layout) {
-                spcRec.width = x2 - x1 + +(float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
+                spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             } else if (Layout.LEFT == layout) {
                 spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));

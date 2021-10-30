@@ -21,10 +21,8 @@ import builder.making.Cal5e;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import builder.making.Specific;
 import builder.making.Tariffic;
 import builder.making.Joining;
@@ -36,6 +34,8 @@ import builder.model.ElemFrame;
 import builder.model.ElemSimple;
 import builder.script.GsonRoot;
 import builder.script.GsonElem;
+import common.ArrayList2;
+import common.LinkedList2;
 import enums.Form;
 import enums.Type;
 import java.util.Arrays;
@@ -70,11 +70,11 @@ public class Wincalc {
     public Form form = Form.NUM0; //форма контура 
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
-    public LinkedList<AreaSimple> listSortAr = new LinkedList(); //список ElemSimple
-    public LinkedList<ElemSimple> listSortEl = new LinkedList(); //список ElemSimple
-    public LinkedList<ElemSimple> listTreeEl = new LinkedList(); //список ElemSimple
+    public LinkedList2<AreaSimple> listSortAr = new LinkedList2(); //список ElemSimple
+    public LinkedList2<ElemSimple> listSortEl = new LinkedList2(); //список ElemSimple
+    public LinkedList2<ElemSimple> listTreeEl = new LinkedList2(); //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
-    public ArrayList<Specific> listSpec = new ArrayList(); //спецификация
+    public ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calTariffication; //объекты калькуляции конструктива
 
     public Wincalc() {
@@ -189,8 +189,7 @@ public class Wincalc {
 
     //Конструктив и тарификация 
     public void constructiv(boolean norm_otx) {
-        try {
-            
+        try {            
             calcElements = new Elements(this); //составы
             calcElements.calc();
             calcJoining = new Joining(this); //соединения

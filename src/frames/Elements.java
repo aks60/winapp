@@ -828,15 +828,7 @@ public class Elements extends javax.swing.JFrame {
             new String [] {
                 "Артикул", "Название", "Текстура", "Основная", "Внутренняя", "Внешняя", "ID"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tab3.setFillsViewportHeight(true);
         tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

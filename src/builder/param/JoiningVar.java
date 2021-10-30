@@ -422,16 +422,16 @@ public class JoiningVar extends Par5s {
                 case 3030:  //Усечение Артикула1/Артикула2, мм 
                 case 3031:  //Усечение Артикула1/Артикула2, мм 
                     if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 1, мм
-                        elemJoin.elem1.spcRec.width += 2 * rec.getFloat(TEXT);
+                        elemJoin.elem1.spcRec.width -= 2 * rec.getFloat(TEXT);
                     } else {
                         String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
-                        elemJoin.elem1.spcRec.width += 2 * UCom.getFloat(arr[0]);
-                        elemJoin.elem2.spcRec.width += 2 * UCom.getFloat(arr[1]);
+                        elemJoin.elem1.spcRec.width -= 2 * UCom.getFloat(arr[0]);
+                        elemJoin.elem2.spcRec.width -= 2 * UCom.getFloat(arr[1]);
                     }
                     break;
                 case 3040:
                     if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 2, мм
-                        elemJoin.elem2.spcRec.width += 2 * rec.getFloat(TEXT);
+                        elemJoin.elem2.spcRec.width -= 2 * rec.getFloat(TEXT);
                     }
                     break;
                 case 3045:  //Расстояние от уровня деления, мм 

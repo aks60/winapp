@@ -252,7 +252,7 @@ public class UGui {
         }));
         nodeStv.add(new DefMutableTreeNode(stv.mapFrame.get(Layout.LEFT)));
         ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
-        }));        
+        }));
         for (Com5t com2 : ((AreaSimple) com).listChild) {
             if (com2 instanceof ElemSimple) {
                 nodeStv.add(new DefMutableTreeNode(com2));
@@ -512,18 +512,26 @@ public class UGui {
 
     //Прокрутить скроллинг и сделать ячейку видимой
     public static void scrollRectToIndex(int index, JTable table) {
-        int row = table.convertRowIndexToView(index);
-        scrollRectToRow(row, table);
+        try {
+            int row = table.convertRowIndexToView(index);
+            scrollRectToRow(row, table);
+        } catch (Exception e) {
+            System.err.println("Ошибка:UGui.scrollRectToIndex() " + e);
+        }
     }
 
     //Прокрутить скроллинг и сделать ячейку видимой
     public static void scrollRectToRow(int row, JTable table) {
-        if (table.getRowCount() > row + 4) {
-            Rectangle cellRect = table.getCellRect(row + 4, 0, false);
-            table.scrollRectToVisible(cellRect);
-        } else if (table.getRowCount() > row) {
-            Rectangle cellRect = table.getCellRect(row, 0, false);
-            table.scrollRectToVisible(cellRect);
+        try {
+            if (table.getRowCount() > row + 4) {
+                Rectangle cellRect = table.getCellRect(row + 4, 0, false);
+                table.scrollRectToVisible(cellRect);
+            } else if (table.getRowCount() > row) {
+                Rectangle cellRect = table.getCellRect(row, 0, false);
+                table.scrollRectToVisible(cellRect);
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:UGui.scrollRectToRow() " + e);
         }
     }
 
