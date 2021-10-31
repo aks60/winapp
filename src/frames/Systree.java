@@ -815,10 +815,10 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         btnIns = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
-        btn5 = new javax.swing.JToggleButton();
         btnReport1 = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
         btnTest = new javax.swing.JButton();
+        btn5 = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         sysTree = new javax.swing.JTree();
@@ -1046,20 +1046,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             }
         });
 
-        btn5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
-        btn5.setToolTipText("Артикулы в системе...");
-        btn5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn5.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn5.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn5.setPreferredSize(new java.awt.Dimension(25, 25));
-        btn5.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findFromArtikl(evt);
-            }
-        });
-
         btnReport1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
         btnReport1.setToolTipText(bundle.getString("Печать")); // NOI18N
         btnReport1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1097,6 +1083,17 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         btnTest.setMinimumSize(new java.awt.Dimension(25, 25));
         btnTest.setPreferredSize(new java.awt.Dimension(25, 25));
 
+        btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btn5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn5.setMaximumSize(new java.awt.Dimension(25, 25));
+        btn5.setMinimumSize(new java.awt.Dimension(25, 25));
+        btn5.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findFromArtikl(evt);
+            }
+        });
+
         javax.swing.GroupLayout toolLayout = new javax.swing.GroupLayout(tool);
         tool.setLayout(toolLayout);
         toolLayout.setHorizontalGroup(
@@ -1126,9 +1123,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(toolLayout.createSequentialGroup()
                 .addGroup(toolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -1899,12 +1896,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pan16Layout.createSequentialGroup()
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pan16Layout.createSequentialGroup()
-                                .addComponent(lab45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(pan16Layout.createSequentialGroup()
-                                .addComponent(lab30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)))
+                            .addComponent(lab45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lab30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                             .addComponent(txt30, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
@@ -2073,7 +2067,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         txt38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt38.setPreferredSize(new java.awt.Dimension(180, 18));
 
-        btn26.setText("...");
+        btn26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b018.gif"))); // NOI18N
         btn26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn26.setMaximumSize(new java.awt.Dimension(18, 18));
         btn26.setMinimumSize(new java.awt.Dimension(18, 18));
@@ -2085,7 +2079,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             }
         });
 
-        btn27.setText("...");
+        btn27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b018.gif"))); // NOI18N
         btn27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn27.setMaximumSize(new java.awt.Dimension(18, 18));
         btn27.setMinimumSize(new java.awt.Dimension(18, 18));
@@ -2131,7 +2125,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         txt41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt41.setPreferredSize(new java.awt.Dimension(180, 18));
 
-        btn28.setText("...");
+        btn28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b018.gif"))); // NOI18N
         btn28.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn28.setMaximumSize(new java.awt.Dimension(18, 18));
         btn28.setMinimumSize(new java.awt.Dimension(18, 18));
@@ -2759,6 +2753,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
+        btn5.setEnabled(table == tab2);
+        System.out.println(table == tab2);
         UGui.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
         if (sysTree.isEditing()) {
             sysTree.getCellEditor().stopCellEditing();
@@ -3356,24 +3352,26 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_colorFromHandl
 
     private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame
-        try {
-            if (winNode != null) {
-                Wincalc iwin = iwin();
-                DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
-                ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
-                JButton btn = (JButton) evt.getSource();
-                int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
-                ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
-                Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
-                Joining joining = new Joining(iwin);
-                List<Record> list = joining.varList(elemJoin);
-                new DicJoinvar(this, (record) -> {
-                    System.out.println(record);
-                }, list);
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
-        }
+
+
+//        try {
+//            if (winNode != null) {
+//                Wincalc iwin = iwin();
+//                DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
+//                ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
+//                JButton btn = (JButton) evt.getSource();
+//                int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
+//                ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
+//                Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
+//                Joining joining = new Joining(iwin);
+//                List<Record> list = joining.varList(elemJoin);
+//                new DicJoinvar(this, (record) -> {
+//                    System.out.println(record);
+//                }, list);
+//            }
+//        } catch (Exception e) {
+//            System.err.println("Ошибка: " + e);
+//        }
     }//GEN-LAST:event_joinToFrame
 
     private void loopToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loopToStvorka
@@ -3502,7 +3500,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     private javax.swing.JButton btn28;
     private javax.swing.JButton btn3;
     private javax.swing.JButton btn4;
-    private javax.swing.JToggleButton btn5;
+    private javax.swing.JButton btn5;
     private javax.swing.JButton btn6;
     private javax.swing.JButton btn7;
     private javax.swing.JButton btn9;

@@ -467,7 +467,7 @@ public class JoiningVar extends Par5s {
                     break;
                 case 4040:  //Размер от оси профиля, мм.
                 case 4044:  //Размер от края пакета, мм     
-                    elemJoin.elem1.spcRec.width += -rec.getFloat(TEXT);
+                    elemJoin.elem1.spcRec.width -= rec.getFloat(TEXT);
                     break;
                 case 4046:  //Длина Артикула 1, мм 
                     elemJoin.elem1.spcRec.width += rec.getFloat(TEXT);

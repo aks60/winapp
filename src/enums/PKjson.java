@@ -27,5 +27,9 @@ public class PKjson {
     public static String stvorkaBottom = "stvorkaBottom"; //Элемент    
     public static String stvorkaRight = "stvorkaRight"; //Элемент    
     public static String stvorkaTop = "stvorkaTop"; //Элемент    
-    public static String stvorkaLeft = "stvorkaLeft"; //Элемент    
+    public static String stvorkaLeft = "stvorkaLeft"; //Элемент 
+    
+//    public static String joinSide0 = "joinSide0"; //Соединение элемента левое
+//    public static String joinSide1 = "joinSide1"; //Соединение элемента правое
+//    public static String joinSide2 = "joinSide2"; //Соединение элемента прилегающее
 }

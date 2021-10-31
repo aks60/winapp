@@ -53,6 +53,7 @@ public class ElemJoining {
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
         UMod uti3 = elem1.uti3;
         Specific spcRec = elem1.spcRec;
+        Specific spcRec2 = elem2.spcRec;
 
         String sideCalc = spcAdd.getParam("null", 11072, 12072);
         if (sideCalc != null && "большей".equals(sideCalc)) {
