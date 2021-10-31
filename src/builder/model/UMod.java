@@ -11,9 +11,9 @@ import domain.eSetting;
 import enums.Layout;
 import java.util.List;
 
-class UMod2 {
+class UMod {
 
-    UMod2(ElemSimple elem5e) {
+    UMod(ElemSimple elem5e) {
     }
 
     //Укорочение мм от высоты ручки 
