@@ -17,7 +17,6 @@ public abstract class ElemSimple extends Com5t {
     public float anglHoriz = -1; //угол к горизонту    
 
     public Specific spcRec = null; //спецификация элемента
-    protected UMod uti3 = null;
     public Color borderColor = Color.BLACK;
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
@@ -25,7 +24,6 @@ public abstract class ElemSimple extends Com5t {
         iwin.listTreeEl.add(this);
         iwin.listSortEl.add(this);
         spcRec = new Specific(id, this);
-        uti3 = new UMod(this);
     }
 
     //Клик мышки попадает в контур элемента
