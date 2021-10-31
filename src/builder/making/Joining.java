@@ -57,22 +57,22 @@ public class Joining extends Cal5e {
 
                 int id1 = joinElem1.artiklRecAn.getInt(eArtikl.id);
                 int id2 = joinElem2.artiklRecAn.getInt(eArtikl.id);
-                Record joiningRec = eJoining.find(id1, id2);
+                Record joiningRec1 = eJoining.find(id1, id2);
+                Record joiningRec2 = null;
 
                 //Список вариантов соединения для артикула1 и артикула2
-                List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
+                List<Record> joinvarList = eJoinvar.find(joiningRec1.getInt(eJoining.id));
 
+                //Если неудача то ищем зеркальность (только для дверей)
+                if (iwin.rootArea.type == Type.DOOR && joinvarList.isEmpty()) {
+                    joiningRec1 = eJoining.find(id2, id1);
+                    joinvarList = eJoinvar.find(joiningRec1.getInt(eJoining.id));
+                }
                 //Если неудача, ищем в аналоге соединения
-                if (joinvarList.isEmpty() == true && joiningRec.getStr(eJoining.analog).isEmpty() == false) {
-                    joiningRec = eJoining.find2(joiningRec.getStr(eJoining.analog));
-                    joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
+                if (joinvarList.isEmpty() == true && joiningRec1.getStr(eJoining.analog).isEmpty() == false) {
+                    joiningRec2 = eJoining.find2(joiningRec1.getStr(eJoining.analog));
+                    joinvarList = eJoinvar.find(joiningRec2.getInt(eJoining.id));
                 }
-                //Если неудача то ищем зеркальность (применятся только для дверей)
-                if (joinvarList.isEmpty() && iwin.rootArea.type == Type.DOOR) {
-                    joiningRec = eJoining.find(id2, id1);
-                    joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
-                }
-
                 Collections.sort(joinvarList, (connvar1, connvar2) -> connvar1.getInt(eJoinvar.prio) - connvar2.getInt(eJoinvar.prio));
 
                 //Цикл по вариантам соединения
@@ -89,11 +89,14 @@ public class Joining extends Cal5e {
                     if (go == true) {
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
-                            listVariants.add(joiningRec.getInt(eJoining.id)); //сделано для запуска формы Joining на ветке Systree 
+                            listVariants.add(joiningRec1.getInt(eJoining.id)); //сделано для запуска формы Joining на ветке Systree 
+                            if(joiningRec2 != null) {
+                                listVariants.add(joiningRec2.getInt(eJoining.id)); //нашол в аналоге
+                            }
 
                             //Сохраним подхоящий вариант соединения из таблиц bd                           
                             elemJoin.type = TypeJoin.get(joinvarRec.getInt(eJoinvar.types));
-                            elemJoin.joiningRec = joiningRec;
+                            elemJoin.joiningRec = joiningRec1;
                             elemJoin.joinvarRec = joinvarRec;
 
                             if (shortPass == true) { //выход при поиске варианта соединения

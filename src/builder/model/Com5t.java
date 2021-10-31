@@ -5,8 +5,8 @@ import com.google.gson.JsonObject;
 import dataset.Record;
 import enums.Layout;
 import builder.Wincalc;
+import domain.eArtikl;
 import enums.Type;
-import java.util.Comparator;
 
 public abstract class Com5t {
 
@@ -116,8 +116,9 @@ public abstract class Com5t {
     }
 
     public String toString() {
+        String art = (artiklRecAn == null) ? "null" : artiklRecAn.getStr(eArtikl.code);
         float ownerID = (owner == null) ? -1 : owner.id();
-        return "type=" + type + ", layout=" + layout + ", owner=" + ownerID + ", id=" + id
+        return "art=" + art + "type=" + type + ", layout=" + layout + ", owner=" + ownerID + ", id=" + id
                 + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + ", width=" + width() + ", height=" + height();
     }
 

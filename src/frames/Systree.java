@@ -77,8 +77,6 @@ import common.eProfile;
 import domain.eJoining;
 import builder.making.Joining;
 import builder.making.UColor;
-import builder.model.AreaSimple;
-import builder.model.Com5t;
 import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.dialog.DicJoinvar;
@@ -95,7 +93,7 @@ import javax.swing.JButton;
 public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
-    
+
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
             listenerParam1, listenerParam2, listenerParam3, listenerArt211, listenerArt212;
 
@@ -633,7 +631,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
                 setIcon(btn10, stv.paramCheck[0]);
                 setText(txt21, stv.handleRec.getStr(eArtikl.code) + " ÷ " + stv.handleRec.getStr(eArtikl.name));
-                setIcon(btn12, stv.paramCheck[1]);            
+                setIcon(btn12, stv.paramCheck[1]);
                 setText(txt25, eColor.find(stv.handleColor).getStr(eColor.name));
                 setIcon(btn14, stv.paramCheck[2]);
                 setText(txt45, stv.loopRec.getStr(eArtikl.code) + " ÷ " + stv.loopRec.getStr(eArtikl.name));
@@ -797,7 +795,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }
 
     private void setIcon(JButton btn, boolean b) {
-        if(b == false) {
+        if (b == false) {
             btn.setText("");
             btn.setIcon(icon);
         } else {
@@ -805,7 +803,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             btn.setIcon(null);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -2754,7 +2752,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         btn5.setEnabled(table == tab2);
-        System.out.println(table == tab2);
         UGui.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
         if (sysTree.isEditing()) {
             sysTree.getCellEditor().stopCellEditing();
@@ -2942,13 +2939,13 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-       
+
 //       float m1 = 5.1f;
 //       ElemSimple e1 = iwin().listSortEl.stream().filter(it -> it.id() == m1).findFirst().orElse(null);
 //       ElemSimple e2 = iwin().listSortEl.stream().filter(it -> it.id() == 4.0f).findFirst().orElse(null);
 //       ElemSimple e3 = e1.joinFlat(Layout.BOTT);
 //       float m2 = 4.0f;
-       
+
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -3352,26 +3349,27 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_colorFromHandl
 
     private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame
-
-
-//        try {
-//            if (winNode != null) {
-//                Wincalc iwin = iwin();
-//                DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
-//                ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
-//                JButton btn = (JButton) evt.getSource();
-//                int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
-//                ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
-//                Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
-//                Joining joining = new Joining(iwin);
-//                List<Record> list = joining.varList(elemJoin);
-//                new DicJoinvar(this, (record) -> {
-//                    System.out.println(record);
-//                }, list);
-//            }
-//        } catch (Exception e) {
-//            System.err.println("Ошибка: " + e);
-//        }
+        Wincalc iwin = iwin();
+        HashMap<String, ElemJoining> mapJoin = new HashMap(iwin().mapJoin);
+        try {
+            if (winNode != null) {               
+                DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
+                ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
+                JButton btn = (JButton) evt.getSource();
+                int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
+                ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
+                Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
+                List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(1));
+                iwin.mapJoin.clear();
+                iwin.mapJoin.put(elem5e.joinPoint(k), elemJoin);
+                Joining joining = new Joining(iwin, true);
+                App.Joining.createFrame(Systree.this, joining.listVariants, -1);
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Systree.joinToFrame() " + e);
+        } finally {
+            iwin.mapJoin = mapJoin;
+        }
     }//GEN-LAST:event_joinToFrame
 
     private void loopToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loopToStvorka
@@ -3653,7 +3651,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         UGui.documentFilter(2, txt3, txt4, txt5);
         UGui.documentFilter(3, txt17, txt22, txt23, txt24, txt26, txt35);
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab5)));
-        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) sysTree.getCellRenderer();        
+        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) sysTree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));

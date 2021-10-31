@@ -189,11 +189,11 @@ public class Wincalc {
 
     //Конструктив и тарификация 
     public void constructiv(boolean norm_otx) {
-        try {            
+        try {      
+            calcJoining = new Joining(this); //соединения
+            calcJoining.calc();            
             calcElements = new Elements(this); //составы
             calcElements.calc();
-            calcJoining = new Joining(this); //соединения
-            calcJoining.calc();
             calcFilling = new Filling(this); //заполнения
             calcFilling.calc();
             calcFurniture = new Furniture(this); //фурнитура 

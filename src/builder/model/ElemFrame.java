@@ -201,9 +201,9 @@ public class ElemFrame extends ElemSimple {
     @Override //Вложеная спецификация
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
 
-        spcAdd.count = uti3.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
-        spcAdd.count += uti3.get_14050_24050_33050_38050(spcAdd); //кол. ед. с шагом
-        spcAdd.width = uti3.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
+        spcAdd.count = UMod2.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
+        spcAdd.count += UMod2.get_14050_24050_33050_38050(spcRec, spcAdd); //кол. ед. с шагом
+        spcAdd.width = UMod2.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
 
         //Армирование
         if (TypeArtikl.isType(spcAdd.artiklRec, TypeArtikl.X107)) {
@@ -318,7 +318,7 @@ public class ElemFrame extends ElemSimple {
                 if (layout.id == Integer.valueOf(spcAdd.getParam("0", 24010, 25010, 38010, 39002))) {  //"номер стороны"   
                     if ("null".equals(spcAdd.getParam("null", 25013)) == false //"укорочение от"
                             && spcAdd.getParam(0, 25030).equals(0) == false) { //"укорочение, мм"  
-                        spcAdd.width = uti3.get_25013(spcRec, spcAdd); //укорочение от высоты ручки
+                        spcAdd.width = UMod2.get_25013(spcRec, spcAdd); //укорочение от высоты ручки
                     }
                 } else {
                     spcAdd.width += width() + iwin.syssizeRec.getFloat(eSyssize.prip) * 2;
@@ -327,16 +327,16 @@ public class ElemFrame extends ElemSimple {
                 spcAdd.width += spcRec.width;
             }
         }
-        uti3.get_12075_34075_39075(this, spcAdd); //углы реза
-        uti3.get_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2
+        UMod2.get_12075_34075_39075(this, spcAdd); //углы реза
+        UMod2.get_34077_39077(spcAdd); //задать Угол_реза_1/Угол_реза_2
         spcAdd.height = UCom.getFloat(spcAdd.getParam(spcAdd.height, 40006)); ////высота заполнения, мм 
-        spcAdd.width = uti3.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
+        spcAdd.width = UMod2.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм
         spcAdd.width = UCom.getFloat(spcAdd.getParam(spcAdd.width, 40004)); //ширина заполнения, мм        
-        spcAdd.width = spcAdd.width * uti3.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
-        spcAdd.width = spcAdd.width / uti3.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
-        uti3.get_40007(spcAdd); //высоту сделать длиной
-        spcAdd.count = uti3.get_11070_12070_33078_34078(spcAdd); //ставить однократно
-        spcAdd.count = uti3.get_39063(spcAdd); //округлять количество до ближайшего
+        spcAdd.width = spcAdd.width * UMod2.get_12030_15030_25035_34030_39030(spcRec, spcAdd);//"[ * коэф-т ]"
+        spcAdd.width = spcAdd.width / UMod2.get_12040_15031_25036_34040_39040(spcRec, spcAdd);//"[ / коэф-т ]"
+        UMod2.get_40007(spcAdd); //высоту сделать длиной
+        spcAdd.count = UMod2.get_11070_12070_33078_34078(spcAdd); //ставить однократно
+        spcAdd.count = UMod2.get_39063(spcAdd); //округлять количество до ближайшего
 
         spcRec.spcList.add(spcAdd);
     }

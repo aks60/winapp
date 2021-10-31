@@ -46,14 +46,14 @@ public class Elements extends Cal5e {
                 }
                 //Варианты состава для артикула профиля
                 int artikl_id = elem5e.artiklRecAn.getInt(eArtikl.id);
-                //Найдем список элементов по артикулу элемента конструкции
+                
+                //Варианты состава по артикулу элемента конструкции
                 List<Record> elementList3 = eElement.find2(artikl_id);
                 detail(elementList3, elem5e);
 
-                //Варианты состава для серии профилей
-                int series_id = elem5e.artiklRecAn.getInt(eArtikl.series_id);
-                //Найдем список элементов по артикулу элемента конструкции
-                List<Record> elementList2 = eElement.find(series_id);
+                //Варианты состава по серии профилей
+                int series_id = elem5e.artiklRecAn.getInt(eArtikl.series_id);                
+                List<Record> elementList2 = eElement.find(series_id); //список элементов в серии
                 detail(elementList2, elem5e);
             }
         } catch (Exception e) {
@@ -73,6 +73,7 @@ public class Elements extends Cal5e {
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                 if (elementVar.filter(elem5e, elementRec) == true) {
                     listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
+                    
                     UColor.colorFromParam(elem5e); //правило подбора текстур по параметру
 
                     //Цикл по детализации

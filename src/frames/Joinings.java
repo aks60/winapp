@@ -98,7 +98,7 @@ public class Joinings extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-        
+
         tab1.setToolTipText("");
         qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
         qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
@@ -447,27 +447,31 @@ public class Joinings extends javax.swing.JFrame {
     }
 
     public void deteilFind(int deteilID) {
-        Query qVar = new Query(eJoinvar.values());
-        Query qDet = new Query(eJoindet.values(), eArtikl.values());
-        for (int index = 0; index < qJoining.size(); index++) {
-            int joining_id = qJoining.get(index).getInt(eJoining.id);
-            qVar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", joining_id, "order by", eJoinvar.prio);
-            for (int index2 = 0; index2 < qVar.size(); index2++) {
-                int joinvar_id = qVar.get(index2).getInt(eJoining.id);
-                qDet.select(eJoindet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eJoindet.artikl_id, "where", eJoindet.joinvar_id, "=", joinvar_id, "order by", eJoindet.artikl_id);
-                for (int index3 = 0; index3 < qDet.size(); index3++) {
-                    if (qDet.get(index3).getInt(eJoindet.id) == deteilID) {
+        try {
+            Query qVar = new Query(eJoinvar.values());
+            Query qDet = new Query(eJoindet.values(), eArtikl.values());
+            for (int index = 0; index < qJoining.size(); index++) {
+                int joining_id = qJoining.get(index).getInt(eJoining.id);
+                qVar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", joining_id, "order by", eJoinvar.prio);
+                for (int index2 = 0; index2 < qVar.size(); index2++) {
+                    int joinvar_id = qVar.get(index2).getInt(eJoining.id);
+                    qDet.select(eJoindet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eJoindet.artikl_id, "where", eJoindet.joinvar_id, "=", joinvar_id, "order by", eJoindet.artikl_id);
+                    for (int index3 = 0; index3 < qDet.size(); index3++) {
+                        if (qDet.get(index3).getInt(eJoindet.id) == deteilID) {
 
-                        UGui.setSelectedIndex(tab1, index);
-                        UGui.scrollRectToIndex(index, tab1);
-                        UGui.setSelectedIndex(tab2, index2);
-                        UGui.scrollRectToIndex(index2, tab2);
-                        UGui.setSelectedIndex(tab4, index3);
-                        UGui.scrollRectToIndex(index3, tab3);
-                        return;
+                            UGui.setSelectedIndex(tab1, index);
+                            UGui.scrollRectToIndex(index, tab1);
+                            UGui.setSelectedIndex(tab2, index2);
+                            UGui.scrollRectToIndex(index2, tab2);
+                            UGui.setSelectedIndex(tab4, index3);
+                            UGui.scrollRectToIndex(index3, tab3);
+                            return;
+                        }
                     }
                 }
             }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Joinings.deteilFind() " + e);
         }
     }
 
