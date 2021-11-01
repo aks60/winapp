@@ -70,8 +70,8 @@ public class ElemJoining {
         spcAdd.width = UMod.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
 
         if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
-            spcAdd.width += elem1.length();
-            //spcAdd.width += spcRec.width;
+            //spcAdd.width += elem1.length();
+            spcAdd.width += spcRec.width;
         }
         UMod.get_12075_34075_39075(elem1, spcAdd); //углы реза
         spcAdd.width = UMod.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм       
