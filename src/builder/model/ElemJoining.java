@@ -61,16 +61,26 @@ public class ElemJoining {
         } else if (sideCalc != null && "общей".equals(sideCalc)) {
             if (elem1.layout == Layout.HORIZ || elem1.layout == Layout.BOTT || elem1.layout == Layout.TOP) {
                 spcAdd.width = (elem1.x1 > elem2.x1) ? elem1.x1 - elem2.x2 : elem2.x1 - elem1.x2;
-            } else if(elem1.layout == Layout.VERT || elem1.layout == Layout.RIGHT || elem1.layout == Layout.LEFT) {
+            } else if (elem1.layout == Layout.VERT || elem1.layout == Layout.RIGHT || elem1.layout == Layout.LEFT) {
                 spcAdd.width = (elem1.y1 > elem2.y1) ? elem1.y1 - elem2.y2 : elem2.y1 - elem1.y2;
             }
         }
         spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += UMod.get_11050(spcAdd, this); //кол. ед. с шагом
         spcAdd.width = UMod.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
-        
-        if(spcAdd.artiklRec.getInt(eArtikl.level1) == 1 && spcAdd.artiklRec.getInt(eArtikl.level2) == 35) {
-            spcAdd.width += elem1.length(); //spcRec.width; 
+
+        if(spcAdd.detailRec.getInt(1) == 6841 || spcAdd.detailRec.getInt(1) == 7352) {
+            System.out.println("builder.model.ElemJoining.addSpecific()");
+        }
+            
+        if (spcAdd.artiklRec.getInt(eArtikl.level1) == 3 && spcAdd.artiklRec.getInt(eArtikl.level2) == 1) {
+            Specific spc = elem1.spcRec.spcList.stream().filter(s
+                    -> s.artiklRec.getInt(eArtikl.level1) == 1 && s.artiklRec.getInt(eArtikl.level2) == 11).findFirst().orElse(null);
+            if (spc != null) {
+                spcAdd.width += spc.width;
+            } else {
+                spcAdd.width += elem1.length(); 
+            }
         } else if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
             spcAdd.width += elem1.length();;
         }
