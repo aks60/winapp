@@ -194,8 +194,8 @@ public class ElemFrame extends ElemSimple {
             }
         }
 
-        spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2030, 3050, 4050));
-        spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2040, 3060));
+        //spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2030, 3050, 4050));
+        //spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2040, 3060));
     }
 
     @Override //Вложеная спецификация

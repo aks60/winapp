@@ -41,9 +41,6 @@ public class Elements extends Cal5e {
             //Цикл по списку элементов конструкции
             for (ElemSimple elem5e : listElem) {
 
-                if (elem5e.type != Type.GLASS) {
-                    elem5e.setSpecific(); //коррекция спецификации              
-                }
                 //Варианты состава для артикула профиля
                 int artikl_id = elem5e.artiklRecAn.getInt(eArtikl.id);
                 

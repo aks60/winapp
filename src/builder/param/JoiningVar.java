@@ -419,10 +419,11 @@ public class JoiningVar extends Par5s {
                         return false;
                     }
                     break;
-                case 3030:  //Усечение Артикула1/Артикула2, мм 
+                case 3030:  //Усечение Артикула1/Артикула2, мм
                 case 3031:  //Усечение Артикула1/Артикула2, мм 
                     if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 1, мм
                         elemJoin.elem1.spcRec.width -= rec.getFloat(TEXT);
+                        //elemJoin.elem1.setDimension(ID, ID, ID, ID);
                     } else {
                         String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
                         elemJoin.elem1.spcRec.width -= UCom.getFloat(arr[0]);

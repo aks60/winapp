@@ -95,10 +95,9 @@ public class Wincalc {
         //Парсинг входного скрипта
         parsing(productJson);
 
-        //Соединения 
         rootArea.joining(); //соединения ареа
-        listSortAr.stream().filter(el -> el.type == Type.STVORKA)
-                .collect(toList()).forEach(el -> el.joining()); //соединения створок
+        listSortAr.stream().filter(el -> el.type == Type.STVORKA).collect(toList()).forEach(el -> el.joining()); //соединения створок
+        listSortEl.stream().filter(el -> el.type != Type.GLASS).collect(toList()).forEach(it -> it.setSpecific()); //спецификация профилей
 
         return rootArea;
     }

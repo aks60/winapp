@@ -69,20 +69,9 @@ public class ElemJoining {
         spcAdd.count += UMod.get_11050(spcAdd, this); //кол. ед. с шагом
         spcAdd.width = UMod.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
 
-        if(spcAdd.detailRec.getInt(1) == 6841 || spcAdd.detailRec.getInt(1) == 7352) {
-            System.out.println("builder.model.ElemJoining.addSpecific()");
-        }
-            
-        if (spcAdd.artiklRec.getInt(eArtikl.level1) == 3 && spcAdd.artiklRec.getInt(eArtikl.level2) == 1) {
-            Specific spc = elem1.spcRec.spcList.stream().filter(s
-                    -> s.artiklRec.getInt(eArtikl.level1) == 1 && s.artiklRec.getInt(eArtikl.level2) == 11).findFirst().orElse(null);
-            if (spc != null) {
-                spcAdd.width += spc.width;
-            } else {
-                spcAdd.width += elem1.length(); 
-            }
-        } else if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
-            spcAdd.width += elem1.length();;
+        if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
+            spcAdd.width += elem1.length();
+            //spcAdd.width += spcRec.width;
         }
         UMod.get_12075_34075_39075(elem1, spcAdd); //углы реза
         spcAdd.width = UMod.get_12065_15045_25040_34070_39070(spcRec, spcAdd); //длина мм       

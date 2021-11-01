@@ -77,9 +77,9 @@ public class Filling extends Cal5e {
                                 if (elemFrame.artiklRecAn.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
                                     if (Arrays.asList(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {  //внутреннее заполнение
                                         elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
-                                        if (way == false) {
-                                            //Заполним спецификацию элемента
-                                            elemGlass.setSpecific();
+                                        if (way == false) {    
+                                            
+                                            elemGlass.setSpecific(); //спецификация стеклопакета
                                             way = true;
                                         }
                                         detail(elemGlass, glasgrpRec, glasdetList);
