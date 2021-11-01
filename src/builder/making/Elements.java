@@ -69,7 +69,7 @@ public class Elements extends Cal5e {
 
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                 if (elementVar.filter(elem5e, elementRec) == true) {
-                    listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
+                    setVariant.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
                     
                     UColor.colorFromParam(elem5e); //правило подбора текстур по параметру
 

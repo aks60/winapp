@@ -5,6 +5,7 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 import java.util.List;
+import java.util.Set;
 import static java.util.stream.Collectors.toList;
 
 public enum eJoinvar implements Field {
@@ -52,6 +53,12 @@ public enum eJoinvar implements Field {
         return new Query(values()).select(up, "where", joining_id, "=", _id, "order by", prio);
     }
 
+    public static List<Record> find2(Set<Integer> setVariant) {
+        
+        String sql = setVariant.toString();
+        return null;
+    }
+    
     public String toString() {
         return meta.descr();
     }

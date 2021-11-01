@@ -20,6 +20,8 @@ import domain.eSetting;
 import enums.TypeJoin;
 import enums.Type;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 //Соединения
 public class Joining extends Cal5e {
@@ -27,6 +29,7 @@ public class Joining extends Cal5e {
     private JoiningVar joiningVar = null;
     private JoiningDet joiningDet = null;
     private ElementDet elementDet = null;
+    private HashMap<ElemJoining, Integer> mapJoinvar = new HashMap();
     private boolean ps3 = "ps3".equals(eSetting.find(2));
 
     public Joining(Wincalc iwin) {
@@ -89,9 +92,13 @@ public class Joining extends Cal5e {
                     if (go == true) {
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
-                            listVariants.add(joiningRec1.getInt(eJoining.id)); //сделано для запуска формы Joining на ветке Systree 
-                            if(joiningRec2 != null) {
-                                listVariants.add(joiningRec2.getInt(eJoining.id)); //нашол в аналоге
+
+                            //Накопление данных для запуска детализации
+                            mapJoinvar.put(elemJoin, joinvarRec.getInt(eJoinvar.id));
+
+                            setVariant.add(joiningRec1.getInt(eJoining.id)); //сделано для запуска формы Joining на ветке Systree 
+                            if (joiningRec2 != null) {
+                                setVariant.add(joiningRec2.getInt(eJoining.id)); //нашол в аналоге
                             }
 
                             //Сохраним подхоящий вариант соединения из таблиц bd                           
@@ -99,26 +106,8 @@ public class Joining extends Cal5e {
                             elemJoin.joiningRec = joiningRec1;
                             elemJoin.joinvarRec = joinvarRec;
 
-                            if (shortPass == true) { //выход при поиске варианта соединения
+                            if (shortPass == true ) { //выход при поиске варианта соединения
                                 break;
-                            }
-                            List<Record> joindetList = eJoindet.find(joinvarRec.getInt(eJoinvar.id));
-                            //Цикл по детализации соединений
-                            for (Record joindetRec : joindetList) {
-                                HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры
-
-                                //ФИЛЬТР детализации 
-                                if (joiningDet.filter(mapParam, elemJoin, joindetRec) == true) {
-                                    Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
-                                    Specific spcAdd = new Specific(joindetRec, artiklRec, joinElem1, mapParam);
-                                    if (UColor.colorFromProduct(spcAdd, 1)
-                                            && UColor.colorFromProduct(spcAdd, 2)
-                                            && UColor.colorFromProduct(spcAdd, 3)) {
-
-                                        spcAdd.place = "СОЕД";
-                                        elemJoin.addSpecific(spcAdd);
-                                    }
-                                }
                             }
                             if (ps3 == false) {
                                 break;
@@ -128,10 +117,41 @@ public class Joining extends Cal5e {
                     }
                 }
             }
+            //
+            detal();
+
         } catch (Exception e) {
             System.err.println("Ошибка:Joining.calc() " + e);
         } finally {
             Query.conf = conf;
+        }
+    }
+
+    public void detal() {
+
+        for (Map.Entry<ElemJoining, Integer> entry : mapJoinvar.entrySet()) {
+            
+            ElemJoining elemJoin = entry.getKey();
+            Integer key = entry.getValue();
+            List<Record> joindetList = eJoindet.find(key);
+
+            //Цикл по детализации соединений
+            for (Record joindetRec : joindetList) {
+                HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры
+
+                //ФИЛЬТР детализации 
+                if (joiningDet.filter(mapParam, elemJoin, joindetRec) == true) {
+                    Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
+                    Specific spcAdd = new Specific(joindetRec, artiklRec, elemJoin.elem1, mapParam);
+                    if (UColor.colorFromProduct(spcAdd, 1)
+                            && UColor.colorFromProduct(spcAdd, 2)
+                            && UColor.colorFromProduct(spcAdd, 3)) {
+
+                        spcAdd.place = "СОЕД";
+                        elemJoin.addSpecific(spcAdd);
+                    }
+                }
+            }
         }
     }
 

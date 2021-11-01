@@ -470,16 +470,16 @@ public class Specifics extends javax.swing.JFrame {
             FrameProgress.create(Specifics.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
-                        App.Element.createFrame(Specifics.this, iwin.calcElements.listVariants, detailRec.getInt(eElemdet.id));
+                        App.Element.createFrame(Specifics.this, iwin.calcElements.setVariant, detailRec.getInt(eElemdet.id));
 
                     } else if (str.equals("СОЕ")) {
-                        App.Joining.createFrame(Specifics.this, iwin.calcJoining.listVariants, detailRec.getInt(eJoindet.id));
+                        App.Joining.createFrame(Specifics.this, iwin.calcJoining.setVariant, detailRec.getInt(eJoindet.id));
 
                     } else if (str.equals("ЗАП")) {
-                        App.Filling.createFrame(Specifics.this, iwin.calcFilling.listVariants, detailRec.getInt(eGlasdet.id));
+                        App.Filling.createFrame(Specifics.this, iwin.calcFilling.setVariant, detailRec.getInt(eGlasdet.id));
 
                     } else if (str.equals("ФУР")) {
-                        App.Furniture.createFrame(Specifics.this, iwin.calcFurniture.listVariants, detailRec.getInt(eFurndet.id));
+                        App.Furniture.createFrame(Specifics.this, iwin.calcFurniture.setVariant, detailRec.getInt(eFurndet.id));
                     }
                 }
             });

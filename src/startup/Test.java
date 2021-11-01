@@ -1,6 +1,5 @@
 package startup;
 
-import builder.making.Joining;
 import builder.script.GsonRoot;
 import builder.script.Winscript;
 import common.*;
@@ -12,12 +11,12 @@ import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
 import domain.eElement;
 import frames.DBCompare;
-import frames.Profstroy;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.HashSet;
 import javax.swing.UIManager;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class Test {
@@ -90,7 +89,7 @@ public class Test {
         String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(604004, false));
+            iwin.build(builder.script.Winscript.test(601002, false));
             //new Joining(iwin, true);
             iwin.constructiv(true);
             //Specific.write_txt(iwin.listSpec);

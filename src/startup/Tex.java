@@ -917,7 +917,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                     constructive();
                     iwin.calcElements = new builder.making.Elements(iwin);
                     iwin.calcElements.calc();
-                    App.Element.createFrame(Tex.this, iwin.calcElements.listVariants);
+                    App.Element.createFrame(Tex.this, iwin.calcElements.setVariant);
                 }
             }
         });
@@ -933,7 +933,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                     constructive();
                     iwin.calcFurniture = new builder.making.Furniture(iwin); //фурнитура 
                     iwin.calcFurniture.calc();
-                    App.Furniture.createFrame(Tex.this, iwin.calcFurniture.listVariants);
+                    App.Furniture.createFrame(Tex.this, iwin.calcFurniture.setVariant);
                 }
             }
         });
@@ -958,7 +958,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                     constructive();
                     iwin.calcJoining = new builder.making.Joining(iwin);
                     iwin.calcJoining.calc();
-                    App.Joining.createFrame(Tex.this, iwin.calcJoining.listVariants);
+                    App.Joining.createFrame(Tex.this, iwin.calcJoining.setVariant);
 
                 }
             }
@@ -975,7 +975,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                     constructive();
                     iwin.calcFilling = new builder.making.Filling(iwin);
                     iwin.calcFilling.calc();
-                    App.Filling.createFrame(Tex.this, iwin.calcFilling.listVariants);
+                    App.Filling.createFrame(Tex.this, iwin.calcFilling.setVariant);
                 }
             }
         });

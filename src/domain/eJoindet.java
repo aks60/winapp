@@ -5,6 +5,8 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 
 public enum eJoindet implements Field {

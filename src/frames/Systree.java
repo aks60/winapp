@@ -3363,7 +3363,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 iwin.mapJoin.clear();
                 iwin.mapJoin.put(elem5e.joinPoint(k), elemJoin);
                 Joining joining = new Joining(iwin, true);
-                App.Joining.createFrame(Systree.this, joining.listVariants, -1);
+                App.Joining.createFrame(Systree.this, joining.setVariant, -1);
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.joinToFrame() " + e);

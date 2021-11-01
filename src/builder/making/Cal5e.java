@@ -9,7 +9,7 @@ import frames.swing.listener.ListenerCheck;
 public abstract class Cal5e {
 
     public Wincalc iwin = null;
-    public Set listVariants = new HashSet();
+    public Set setVariant = new HashSet();
     public String conf = Query.conf;
     public boolean shortPass = false;    
 
@@ -20,7 +20,7 @@ public abstract class Cal5e {
     public void calc() {
         conf = Query.conf;
         Query.conf = "calc";
-        listVariants.clear();
+        setVariant.clear();
     }
 
     public AreaSimple rootArea() {
