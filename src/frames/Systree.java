@@ -2964,6 +2964,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     //Отфильтруем подходящие по параметрам
                     if (winNode.com5t().type.id2 == sysprofRec.getInt(eSysprof.use_type)) {
                         if (sysprofRec.getInt(eSysprof.use_side) == winNode.com5t().layout.id
+                                || ((winNode.com5t().layout == Layout.BOTT || winNode.com5t().layout == Layout.TOP) && sysprofRec.getInt(eSysprof.use_side) == UseSide.HORIZ.id)
+                                || ((winNode.com5t().layout == Layout.RIGHT || winNode.com5t().layout == Layout.LEFT) && sysprofRec.getInt(eSysprof.use_side) == UseSide.VERT.id)                                
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {
 
@@ -3352,7 +3354,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         Wincalc iwin = iwin();
         HashMap<String, ElemJoining> mapJoin = new HashMap(iwin().mapJoin);
         try {
-            if (winNode != null) {               
+            if (winNode != null) {
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
                 JButton btn = (JButton) evt.getSource();

@@ -37,7 +37,7 @@ public class Color extends javax.swing.JFrame {
     private Query qColall = new Query(eColor.values());
     private Query qColor = new Query(eColor.values());
     private Query qColmap = new Query(eColmap.values());
-    private FilterTable filterTable = new FilterTable();
+    private FilterTable filterTable = null;
     private ListenerRecord listenerColor1, listenerColor2;
     private ListenerSQL preset = (record) -> {
     };
@@ -655,8 +655,9 @@ public class Color extends javax.swing.JFrame {
     public void initElements() {
 
         new FrameToFile(this, btnClose);
-        south.add(filterTable, 0);
-        filterTable.getTxt().grabFocus(); 
+        filterTable = new FilterTable(0, tab2);
+        south.add(filterTable, 0);        
+        filterTable.getTxt().grabFocus();
         
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {

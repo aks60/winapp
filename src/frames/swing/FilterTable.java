@@ -94,9 +94,9 @@ public class FilterTable extends javax.swing.JPanel {
 
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         btn1.setBorder(null);
-        btn1.setMaximumSize(new java.awt.Dimension(60, 25));
-        btn1.setMinimumSize(new java.awt.Dimension(32, 20));
-        btn1.setPreferredSize(new java.awt.Dimension(36, 23));
+        btn1.setMaximumSize(new java.awt.Dimension(30, 23));
+        btn1.setMinimumSize(new java.awt.Dimension(30, 23));
+        btn1.setPreferredSize(new java.awt.Dimension(30, 23));
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn1ActiPerf(evt);

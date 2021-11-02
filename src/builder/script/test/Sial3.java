@@ -127,10 +127,10 @@ public final class Sial3 {
             
         } else if (prj == 601008) { // Двери
             rootGson = new GsonRoot(prj, 1, 2, "SIAL\\КП-45\\Двери маятниковые\\Маятниковая 1-створчатая",
-                    Layout.VERT, Type.DOOR, 900, 2100, 24, 24, 24);
-            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
-                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    Layout.VERT, Type.DOOR, 900, 2100, 33, 33, 33);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT, "{'sysprofID':160}"))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT, "{'sysprofID':160}"))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP, "{'sysprofID':160}"))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             GsonElem stv = rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA));
             stv.addArea(new GsonElem(Layout.VERT, Type.AREA, 1200 - 47))

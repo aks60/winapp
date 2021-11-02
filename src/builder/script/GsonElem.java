@@ -42,6 +42,13 @@ public class GsonElem {
         this.type = type;
         this.layout = layoutRama;
     }
+    //Конструктор Elem
+    public GsonElem(Type type, Layout layoutRama, String paramJson) {
+        this.id = ++genId;
+        this.type = type;
+        this.layout = layoutRama;
+        this.param = paramJson;
+    }
 
     //Конструктор Area
     public GsonElem(Layout layout, Type type, float length) {

@@ -1,27 +1,18 @@
 package frames;
 
-import builder.Wincalc;
 import dataset.Query;
-import dataset.Record;
 import domain.eProject;
-import domain.eSysprod;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import frames.swing.DefTableModel;
-import frames.swing.rotate.VerticalTableHeaderCellRenderer;
-import java.awt.Component;
+import frames.swing.FilterTable2;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.util.Enumeration;
 import java.util.Vector;
-import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 import startup.Test;
 
 public class TestFrame extends javax.swing.JFrame {
@@ -31,6 +22,7 @@ public class TestFrame extends javax.swing.JFrame {
     private TableRowSorter<DefTableModel> sorter3 = null;
     private Connection cn = Test.connect1();
     private Query qOrders = new Query(eProject.values());
+    private FilterTable2 filterTable = null;
 
     public TestFrame() {
         initComponents();
@@ -406,6 +398,8 @@ public class TestFrame extends javax.swing.JFrame {
 
         getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMaximumSize(new java.awt.Dimension(32767, 31));
         south.setPreferredSize(new java.awt.Dimension(688, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
@@ -525,6 +519,11 @@ public class TestFrame extends javax.swing.JFrame {
 // </editor-fold> 
     private void initElements() {
         new FrameToFile(this, btnClose);
+        
+//        filterTable = new FilterTable2(0, tab1);
+//        south.add(filterTable, 0);        
+//        filterTable.getTxt().grabFocus();   
+        
         tab1.setAutoCreateRowSorter(true);
         tab2.setAutoCreateRowSorter(true);
         tab3.setAutoCreateRowSorter(true);
