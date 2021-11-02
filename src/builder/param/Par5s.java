@@ -45,7 +45,8 @@ public class Par5s {
     protected void message(int code) {
         if (code >= 0) {
             //if (ParamList.find(code).pass() != 0) {
-            System.err.println("ВНИМАНИЕ! ПАРААМЕТР " + code + " В РАЗРАБОТКЕ.");
+            String str = ParamList.find(code).text();
+            System.err.println("Не обработан:  " + code + "-" + str);
             //}
         }
     }
