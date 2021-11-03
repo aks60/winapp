@@ -1,6 +1,7 @@
 package frames;
 
 import builder.making.UColor;
+import builder.model.ElemJoining;
 import frames.dialog.ParGrup2;
 import frames.dialog.ParGrup2b;
 import frames.dialog.ParColor2;
@@ -36,15 +37,11 @@ import frames.swing.FilterTable;
 import java.awt.Component;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.Main;
 import startup.App;
 import frames.swing.listener.ListenerRecord;
-import frames.swing.listener.ListenerObject;
 import frames.swing.listener.ListenerFrame;
 
 //варианты соединений
@@ -74,16 +71,19 @@ public class Joinings extends javax.swing.JFrame {
         listenerAdd();
     }
 
-    public Joinings(Set<Object> keys) {
-        if (keys.isEmpty() == false) {
-            this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
-        }
+    public Joinings(ElemJoining join) {
+        this.subsql = "(" + join.joiningRec.getStr(1) + ")";
         initComponents();
         initElements();
         loadingData();
         loadingModel();
         listenerSet();
         listenerAdd();
+        for (int index = 0; index < qJoinvar.size() - 1; ++index) {
+            if (qJoinvar.get(index).getInt(1) == join.joinvarRec.getInt(1)) {
+                UGui.setSelectedIndex(tab2, index);
+            }
+        }
     }
 
     public Joinings(Set<Object> keys, int deteilID) {

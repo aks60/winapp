@@ -7,13 +7,13 @@ import domain.eJoinpar1;
 import domain.eJoinvar;
 import domain.eSetting;
 import domain.eSystree;
-import enums.TypeJoin;
 import java.util.List;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import common.UCom;
+import enums.Layout;
 import enums.LayoutJoin;
 import java.util.Arrays;
 
@@ -50,12 +50,11 @@ public class JoiningVar extends Par5s {
                 case 2005:  //Контейнер имеет тип Артикула1/Артикула2
                 case 3005:  //Контейнер имеет тип Артикула1/Артикула2
                 case 4005: //Контейнер имеет тип Артикула1/Артикула2
-                {
                     if ("ps3".equals(eSetting.find(2))) { //Контейнер Артикула 1 имеет тип
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
                         int[] index = {1, 2, 3, 5, 19};
                         for (int i = 0; i < arr.length; i++) {
-                            if (arr.equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(index[i]), elemJoin.elem1.type.id) == false) {
+                            if (arr[i].equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(index[i]), elemJoin.elem1.type.id) == false) {
                                 return false;
                             }
                         }
@@ -64,16 +63,16 @@ public class JoiningVar extends Par5s {
                             return false;
                         }
                     }
-                }
-                break;
+                    break;
                 case 1006:  //Контейнер Артикула 2 имеет тип
                 case 2006:  //Контейнер Артикула 2 имеет тип
                 case 3006:  //Контейнер Артикула 2 имеет тип
                 case 4006:  //Контейнер Артикула 2 имеет тип
                     if ("ps3".equals(eSetting.find(2))) {
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
-                        for (int i = 1; i < arr.length; i++) {
-                            if (arr.equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(i), elemJoin.elem1.type.id) == false) {
+                        int[] index = {1, 2, 3, 5, 19};
+                        for (int i = 0; i < arr.length; i++) {
+                            if (arr[i].equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(index[i]), elemJoin.elem2.type.id) == false) {
                                 return false;
                             }
                         }
@@ -153,6 +152,20 @@ public class JoiningVar extends Par5s {
                     }
                 }
                 break;
+                case 1014:  //Только горизонтальная ориентация
+                    if ("ps3".equals(eSetting.find(2))) {
+                        if ("Да".equals(rec.getStr(TEXT)) && elemJoin.elem1.layout != Layout.HORIZ && elemJoin.elem1.layout != Layout.BOTT && elemJoin.elem1.layout != Layout.TOP) {
+                            return false;
+                        }
+                    }
+                    break;
+                case 1015:  //Только вертикальная ориентация
+                    if ("ps3".equals(eSetting.find(2))) {
+                        if ("Да".equals(rec.getStr(TEXT)) && elemJoin.elem1.layout != Layout.VERT && elemJoin.elem1.layout != Layout.RIGHT && elemJoin.elem1.layout != Layout.LEFT) {
+                            return false;
+                        }
+                    }
+                    break;
                 case 1020:  //Ограничение угла к горизонту, °
                     if ("ps3".equals(eSetting.find(2))) { //Угол к горизонту минимальный
                         if (elemJoin.elem1.anglHoriz < rec.getFloat(TEXT)) {

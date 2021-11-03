@@ -94,8 +94,8 @@ public class Test {
             iwin.constructiv(true);
             //Specific.write_txt(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            DBCompare.iwinPs4(iwin, true);
-            //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")"));           
+            //DBCompare.iwinPs4(iwin, true);
+            iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {
             List<Integer> prjList = Winscript.models(_case);

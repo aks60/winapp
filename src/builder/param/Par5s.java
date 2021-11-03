@@ -43,12 +43,12 @@ public class Par5s {
 
     //Необработанные параметры
     protected void message(int code) {
-        if (code >= 0) {
-            //if (ParamList.find(code).pass() != 0) {
-            String str = ParamList.find(code).text();
-            System.err.println("Не обработан:  " + code + "-" + str);
-            //}
-        }
+//        if (code >= 0) {
+//            //if (ParamList.find(code).pass() != 0) {
+//            String str = ParamList.find(code).text();
+//            System.err.println("Не обработан:  " + code + "-" + str);
+//            //}
+//        }
     }
 
     //Необработанные параметры

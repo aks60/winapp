@@ -1,6 +1,7 @@
 package startup;
 
 import builder.Wincalc;
+import builder.model.ElemJoining;
 import frames.FrameToFile;
 import common.eProfile;
 import dataset.Field;
@@ -69,7 +70,6 @@ import frames.Syssize;
 import frames.Systree;
 import frames.TestFrame;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.util.Set;
@@ -115,7 +115,7 @@ public enum App {
                     if (param.length == 0) {
                         frame = new Joinings();
                     } else if (param.length == 1) {
-                        frame = new Joinings((Set) param[0]);
+                        frame = new Joinings((ElemJoining) param[0]);
                     } else {
                         frame = new Joinings((Set) param[0], (int) param[1]);
                     }

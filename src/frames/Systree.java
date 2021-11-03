@@ -1386,7 +1386,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addComponent(pan21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pan7.add(pan12, "card12");
@@ -1576,7 +1576,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     .addComponent(txt33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pan22, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 119, Short.MAX_VALUE))
+                .addGap(0, 89, Short.MAX_VALUE))
         );
 
         pan7.add(pan13, "card13");
@@ -1646,7 +1646,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 233, Short.MAX_VALUE))
+                .addGap(0, 203, Short.MAX_VALUE))
         );
 
         pan7.add(pan15, "card15");
@@ -2254,7 +2254,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 .addGroup(pan17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 62, Short.MAX_VALUE))
+                .addGap(0, 32, Short.MAX_VALUE))
         );
 
         pan7.add(pan17, "card17");
@@ -2530,7 +2530,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                         .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lab23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp\nОсновные\n&nbsp;&nbsp;&nbsp", pan6);
@@ -2965,7 +2965,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     if (winNode.com5t().type.id2 == sysprofRec.getInt(eSysprof.use_type)) {
                         if (sysprofRec.getInt(eSysprof.use_side) == winNode.com5t().layout.id
                                 || ((winNode.com5t().layout == Layout.BOTT || winNode.com5t().layout == Layout.TOP) && sysprofRec.getInt(eSysprof.use_side) == UseSide.HORIZ.id)
-                                || ((winNode.com5t().layout == Layout.RIGHT || winNode.com5t().layout == Layout.LEFT) && sysprofRec.getInt(eSysprof.use_side) == UseSide.VERT.id)                                
+                                || ((winNode.com5t().layout == Layout.RIGHT || winNode.com5t().layout == Layout.LEFT) && sysprofRec.getInt(eSysprof.use_side) == UseSide.VERT.id)
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
                                 || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {
 
@@ -3351,26 +3351,18 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_colorFromHandl
 
     private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame
-        Wincalc iwin = iwin();
-        HashMap<String, ElemJoining> mapJoin = new HashMap(iwin().mapJoin);
         try {
+            Wincalc iwin = iwin();
             if (winNode != null) {
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
                 JButton btn = (JButton) evt.getSource();
-                int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
-                ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
-                Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
-                List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(1));
-                iwin.mapJoin.clear();
-                iwin.mapJoin.put(elem5e.joinPoint(k), elemJoin);
-                Joining joining = new Joining(iwin, true);
-                App.Joining.createFrame(Systree.this, joining.setVariant, -1);
+                int point = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
+                ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(point));
+                App.Joining.createFrame(Systree.this, elemJoin);
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.joinToFrame() " + e);
-        } finally {
-            iwin.mapJoin = mapJoin;
         }
     }//GEN-LAST:event_joinToFrame
 

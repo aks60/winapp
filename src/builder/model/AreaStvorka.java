@@ -11,7 +11,6 @@ import enums.LayoutJoin;
 import enums.TypeOpen1;
 import enums.TypeJoin;
 import java.awt.Color;
-import java.util.LinkedList;
 import builder.Wincalc;
 import builder.making.Specific;
 import com.google.gson.Gson;
@@ -25,6 +24,7 @@ import enums.Type;
 import enums.TypeOpen2;
 import frames.UJson;
 import frames.swing.Draw;
+import java.util.Arrays;
 import java.util.List;
 
 public class AreaStvorka extends AreaSimple {
@@ -87,10 +87,11 @@ public class AreaStvorka extends AreaSimple {
             y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
 
         } else {
-            float X1 = (joinLef.type == Type.IMPOST || joinLef.type == Type.SHTULP || joinLef.type == Type.STOIKA) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
-            float Y2 = (joinBot.type == Type.IMPOST || joinBot.type == Type.SHTULP || joinBot.type == Type.STOIKA) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
-            float X2 = (joinRig.type == Type.IMPOST || joinRig.type == Type.SHTULP || joinBot.type == Type.STOIKA) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
-            float Y1 = (joinTop.type == Type.IMPOST || joinTop.type == Type.SHTULP || joinBot.type == Type.STOIKA) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
+            List cross = Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA);
+            float X1 = (cross.contains(joinLef.type)) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
+            float Y2 = (cross.contains(joinBot.type)) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
+            float X2 = (cross.contains(joinBot.type)) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
+            float Y1 = (cross.contains(joinBot.type)) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
             x1 = X1 + offset(stvLef, joinLef);
             y2 = Y2 - offset(stvBot, joinBot);
             x2 = X2 - offset(stvRig, joinRig);
@@ -225,6 +226,20 @@ public class AreaStvorka extends AreaSimple {
 
     //Вычисление смещения створки через параметр
     private float offset(ElemSimple profStv, ElemSimple profFrm) {
+//        Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
+//        List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
+//        Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
+//        if (joinvarRec != null) {
+//            List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
+//            Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.params_id) == 1040).findFirst().orElse(null);
+//            if (joinpar1Rec != null) {
+//                return UCom.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
+//            }
+//        }
+        return 38;
+    }
+    
+    private float offset2(ElemSimple profStv, ElemSimple profFrm) {
         Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
         List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
         Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);

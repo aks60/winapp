@@ -28,11 +28,9 @@ import enums.TypeSet;
 import enums.UseColor;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -44,7 +42,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import startup.App;
 import frames.swing.listener.ListenerRecord;
-import frames.swing.listener.ListenerObject;
 import frames.swing.listener.ListenerFrame;
 
 public class Elements extends javax.swing.JFrame {

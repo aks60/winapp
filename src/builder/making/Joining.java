@@ -19,9 +19,8 @@ import dataset.Query;
 import domain.eSetting;
 import enums.TypeJoin;
 import enums.Type;
+import frames.swing.listener.ListenerCheck;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 //Соединения
 public class Joining extends Cal5e {
@@ -31,6 +30,7 @@ public class Joining extends Cal5e {
     private ElementDet elementDet = null;
     private HashMap<ElemJoining, Integer> mapJoinvar = new HashMap();
     private boolean ps3 = "ps3".equals(eSetting.find(2));
+    private ListenerCheck<ElemJoining, Record> listenerCheck = null;
 
     public Joining(Wincalc iwin) {
         super(iwin);
@@ -66,30 +66,38 @@ public class Joining extends Cal5e {
                 //Список вариантов соединения для артикула1 и артикула2
                 List<Record> joinvarList = eJoinvar.find(joiningRec1.getInt(eJoining.id));
 
-                //Если неудача то ищем зеркальность (только для дверей)
-                if (iwin.rootArea.type == Type.DOOR && joinvarList.isEmpty()) {
-                    joiningRec1 = eJoining.find(id2, id1);
-                    joinvarList = eJoinvar.find(joiningRec1.getInt(eJoining.id));
-                }
                 //Если неудача, ищем в аналоге соединения
                 if (joinvarList.isEmpty() == true && joiningRec1.getStr(eJoining.analog).isEmpty() == false) {
                     joiningRec2 = eJoining.find2(joiningRec1.getStr(eJoining.analog));
                     joinvarList = eJoinvar.find(joiningRec2.getInt(eJoining.id));
+                }
+                //Если неудача то ищем зеркальность (только для дверей)
+                if (iwin.rootArea.type == Type.DOOR && joinvarList.isEmpty()) {
+                    joiningRec1 = eJoining.find(id2, id1);
+                    joinvarList = eJoinvar.find(joiningRec1.getInt(eJoining.id));
                 }
                 Collections.sort(joinvarList, (connvar1, connvar2) -> connvar1.getInt(eJoinvar.prio) - connvar2.getInt(eJoinvar.prio));
 
                 //Цикл по вариантам соединения
                 for (Record joinvarRec : joinvarList) {
                     boolean go = false;
-                    int types = joinvarRec.getInt(eJoinvar.types);
-                    if (elemJoin.layout.equalType(types)) { //если варианты соединения совпали
+                    int typeID = joinvarRec.getInt(eJoinvar.types);
+
+                    if (elemJoin.layout.equalType(typeID)) { //если варианты соединения совпали
                         go = true;
-                    } else if (iwin.rootArea.type == Type.DOOR && types != TypeJoin.VAR10.id && elemJoin.type != TypeJoin.VAR10 && joinvarRec.getInt(eJoinvar.mirr) == 1) { //когда включена зеркальность
-                        go = true;
-                    } else if (ps3 == true && iwin.rootArea.type == Type.DOOR && types != TypeJoin.VAR10.id && elemJoin.type != TypeJoin.VAR10) { // похоже в ps3 это всегда
-                        go = true;
+                    } else if (joinvarRec.getInt(eJoinvar.mirr) == 1) { //когда включена зеркальность
+                        if (iwin.rootArea.type == Type.DOOR && (typeID == 30 || typeID == 31)
+                                && (elemJoin.layout.id == 30 || elemJoin.layout.id == 31)) {
+                            go = true;
+                        }
                     }
                     if (go == true) {
+                        
+                        listenerCheck = (join, rec) -> {
+                           
+                            return true;
+                        };
+                        
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
 
@@ -106,18 +114,13 @@ public class Joining extends Cal5e {
                             elemJoin.joiningRec = joiningRec1;
                             elemJoin.joinvarRec = joinvarRec;
 
-                            if (shortPass == true ) { //выход при поиске варианта соединения
-                                break;
-                            }
-                            if (ps3 == false) {
-                                break;
-                            }
+                            break; //если текущий вариант совпал
                         }
-                        break; //если в ранжированном списке один из вариантов совпал
                     }
                 }
             }
-            //
+            
+            //Детализация
             detal();
 
         } catch (Exception e) {
@@ -130,7 +133,7 @@ public class Joining extends Cal5e {
     public void detal() {
 
         for (Map.Entry<ElemJoining, Integer> entry : mapJoinvar.entrySet()) {
-            
+
             ElemJoining elemJoin = entry.getKey();
             Integer key = entry.getValue();
             List<Record> joindetList = eJoindet.find(key);
