@@ -19,8 +19,8 @@ import dataset.Query;
 import domain.eSetting;
 import enums.TypeJoin;
 import enums.Type;
-import frames.swing.listener.ListenerCheck;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 //Соединения
 public class Joining extends Cal5e {
@@ -30,7 +30,6 @@ public class Joining extends Cal5e {
     private ElementDet elementDet = null;
     private HashMap<ElemJoining, Integer> mapJoinvar = new HashMap();
     private boolean ps3 = "ps3".equals(eSetting.find(2));
-    private ListenerCheck<ElemJoining, Record> listenerCheck = null;
 
     public Joining(Wincalc iwin) {
         super(iwin);
@@ -92,12 +91,6 @@ public class Joining extends Cal5e {
                         }
                     }
                     if (go == true) {
-                        
-                        listenerCheck = (join, rec) -> {
-                           
-                            return true;
-                        };
-                        
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
 
@@ -106,7 +99,7 @@ public class Joining extends Cal5e {
 
                             setVariant.add(joiningRec1.getInt(eJoining.id)); //сделано для запуска формы Joining на ветке Systree 
                             if (joiningRec2 != null) {
-                                setVariant.add(joiningRec2.getInt(eJoining.id)); //нашол в аналоге
+                                setVariant.add(joiningRec2.getInt(eJoining.id)); //если нашол в аналоге
                             }
 
                             //Сохраним подхоящий вариант соединения из таблиц bd                           
@@ -114,14 +107,19 @@ public class Joining extends Cal5e {
                             elemJoin.joiningRec = joiningRec1;
                             elemJoin.joinvarRec = joinvarRec;
 
+                            if (shortPass == true) {
+                                //eJoinpar1.params_id) == 1040
+                            }
                             break; //если текущий вариант совпал
                         }
                     }
                 }
             }
-            
+
             //Детализация
-            detal();
+            if (shortPass == false) {
+                detal();
+            }
 
         } catch (Exception e) {
             System.err.println("Ошибка:Joining.calc() " + e);
