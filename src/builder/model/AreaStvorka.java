@@ -13,6 +13,7 @@ import enums.TypeJoin;
 import java.awt.Color;
 import builder.Wincalc;
 import builder.making.Specific;
+import builder.param.JoiningVar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -26,6 +27,7 @@ import frames.UJson;
 import frames.swing.Draw;
 import java.util.Arrays;
 import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 public class AreaStvorka extends AreaSimple {
 
@@ -87,6 +89,11 @@ public class AreaStvorka extends AreaSimple {
             y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
 
         } else {
+            ElemJoining elemJoinBoot = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBot, joinBot, 0);
+            ElemJoining elemJoinRig = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig, 0);
+            ElemJoining elemJoinTop = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, joinTop, 0);
+            ElemJoining elemJoinLeft = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLef, joinLef, 0);
+            
             List cross = Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA);
             float X1 = (cross.contains(joinLef.type)) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
             float Y2 = (cross.contains(joinBot.type)) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
@@ -226,19 +233,26 @@ public class AreaStvorka extends AreaSimple {
 
     //Вычисление смещения створки через параметр
     private float offset(ElemSimple profStv, ElemSimple profFrm) {
+            JoiningVar joiningVar = new JoiningVar(iwin);
+            ElemJoining elemJoin = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, profStv, profFrm, 0);            
+            joiningVar.check(elemJoin, loopRec, loopRec);
+                    
+        
 //        Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
 //        List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
-//        Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
-//        if (joinvarRec != null) {
+//        for (Record joinvarRec : joinvarList) {
+//
 //            List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-//            Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.params_id) == 1040).findFirst().orElse(null);
-//            if (joinpar1Rec != null) {
-//                return UCom.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
+//            for (Record joinpar1Rec : joinpar1List) {
+//                
+//                if (joinpar1Rec != null && joinpar1Rec.getInt(eJoinpar1.params_id) == 1040) {
+//                    return joinpar1Rec.getFloat(eJoinpar1.text);
+//                }
 //            }
 //        }
-        return 38;
+        return 78;
     }
-    
+
     private float offset2(ElemSimple profStv, ElemSimple profFrm) {
         Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
         List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
@@ -293,7 +307,7 @@ public class AreaStvorka extends AreaSimple {
             } else {
                 Draw.strokePolygon(iwin, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
                 DX = DX - 12;
-                Y1 = Y1 + 20;                
+                Y1 = Y1 + 20;
             }
         }
     }
