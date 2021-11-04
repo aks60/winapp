@@ -407,9 +407,9 @@ public class Orders extends javax.swing.JFrame {
                 ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
                 txt32.setText(winNode.com5t().artiklRec.getStr(eArtikl.code));
                 txt33.setText(winNode.com5t().artiklRec.getStr(eArtikl.name));
-                txt27.setText(eColor.find(winNode.com5t().colorID1).getStr(eColor.name));
-                txt28.setText(eColor.find(winNode.com5t().colorID2).getStr(eColor.name));
-                txt29.setText(eColor.find(winNode.com5t().colorID3).getStr(eColor.name));
+                txt27.setText(eColor.find(winNode.com5t().colorID1()).getStr(eColor.name));
+                txt28.setText(eColor.find(winNode.com5t().colorID2()).getStr(eColor.name));
+                txt29.setText(eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
 
                 //Стеклопакет
             } else if (winNode.com5t().type == enums.Type.GLASS) {

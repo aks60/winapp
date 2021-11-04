@@ -82,7 +82,7 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24005:  //Коды текстуры створки 
                 case 25005:  //Коды текстуры створки 
-                    if (areaStv.mapFrame.entrySet().stream().filter(el -> UCom.containsNumbJust(rec.getStr(TEXT), el.getValue().colorID1) == true).findFirst().orElse(null) == null) {
+                    if (areaStv.mapFrame.entrySet().stream().filter(el -> UCom.containsNumbJust(rec.getStr(TEXT), el.getValue().colorID1()) == true).findFirst().orElse(null) == null) {
                         return false;
                     }
                     break;
@@ -104,7 +104,7 @@ public class FurnitureDet extends Par5s {
                 case 24007: //Коды текстуры ручки 
                 case 25007: //Коды текстуры ручки                  
                 {
-                    String name = eColor.find(areaStv.colorID1).getStr(eColor.name);
+                    String name = eColor.find(areaStv.colorID1()).getStr(eColor.name);
                     if (name.equals(rec.getStr(TEXT)) == false) {
                         return false;
                     }

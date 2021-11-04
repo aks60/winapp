@@ -599,9 +599,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
                 setText(txt32, winNode.com5t().artiklRecAn.getStr(eArtikl.code));
                 setText(txt33, winNode.com5t().artiklRecAn.getStr(eArtikl.name));
-                setText(txt27, eColor.find(winNode.com5t().colorID1).getStr(eColor.name));
-                setText(txt28, eColor.find(winNode.com5t().colorID2).getStr(eColor.name));
-                setText(txt29, eColor.find(winNode.com5t().colorID3).getStr(eColor.name));
+                setText(txt27, eColor.find(winNode.com5t().colorID1()).getStr(eColor.name));
+                setText(txt28, eColor.find(winNode.com5t().colorID2()).getStr(eColor.name));
+                setText(txt29, eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
 
                 //Стеклопакет
             } else if (winNode.com5t().type == enums.Type.GLASS) {

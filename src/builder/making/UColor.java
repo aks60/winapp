@@ -360,18 +360,18 @@ public class UColor {
                     return spc.detailRec.getInt(COLOR_FK);  //указана вручную
                 case 11: //Профиль
                     if ("ps3".equals(eSetting.find(2))) {
-                        return spc.elem5e.colorID1; //по основе текстуры профиля
+                        return spc.elem5e.colorID1(); //по основе текстуры профиля
                     } else {
                         if (side == 1) {
-                            return spc.elem5e.colorID1; //по основе текстуры профиля
+                            return spc.elem5e.colorID1(); //по основе текстуры профиля
                         } else if (side == 2) {
-                            return spc.elem5e.colorID2; //по внутр. текстуры профиля 
+                            return spc.elem5e.colorID2(); //по внутр. текстуры профиля 
                         } else if (side == 3) {
-                            return spc.elem5e.colorID3; //по внешн. текстуры профиля  
+                            return spc.elem5e.colorID3(); //по внешн. текстуры профиля  
                         }
                     }
                 case 15:
-                    return spc.elem5e.colorID1; //по основе текстуры заполнения                 
+                    return spc.elem5e.colorID1(); //по основе текстуры заполнения                 
                 case 1:
                     return spc.elem5e.iwin.colorID1; //по основе изделия
                 case 2:

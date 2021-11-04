@@ -22,8 +22,8 @@ public abstract class Com5t {
     public Wincalc iwin = null; //главный класс калькуляции
     public AreaSimple root = null; //главный класс конструкции
 
-    public float x1 = 0, x2 = 0, y1 = 0, y2 = 0;//координаты area     
-    public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
+    protected float x1 = 0, x2 = 0, y1 = 0, y2 = 0;//координаты area     
+    protected int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
 
     public Com5t(Type type) {
         this.type = type;
@@ -87,6 +87,22 @@ public abstract class Com5t {
         return -1;
     }
 
+    public float x1() {
+        return x1;
+    }
+
+    public float y1() {
+        return y1;
+    }
+
+    public float x2() {
+        return x2;
+    }
+
+    public float y2() {
+        return y2;
+    }
+
     public Float width() {
         return (x2 > x1) ? x2 - x1 : x1 - x2;
     }
@@ -94,6 +110,18 @@ public abstract class Com5t {
     public Float height() {
 
         return (y2 > y1) ? y2 - y1 : y1 - y2;
+    }
+
+    public int colorID1() {
+        return colorID1;
+    }
+
+    public int colorID2() {
+        return colorID2;
+    }
+
+    public int colorID3() {
+        return colorID3;
     }
 
     //Точка попадает в контур элемента

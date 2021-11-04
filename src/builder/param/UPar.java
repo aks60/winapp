@@ -27,18 +27,18 @@ class UPar {
         for (ElemSimple el : elem5e.iwin.listSortEl) {
             if (el.type == Type.GLASS) {
                 if (elem5e.layout == Layout.VERT) {
-                    if (el.inside(elem5e.x1 - 200, elem5e.y1 + elem5e.height() / 2)) {
+                    if (el.inside(elem5e.x1() - 200, elem5e.y1() + elem5e.height() / 2)) {
                         glass1 = el;
                     }
-                    if (el.inside(elem5e.x2 + 200, elem5e.y1 + elem5e.height() / 2)) {
+                    if (el.inside(elem5e.x2() + 200, elem5e.y1() + elem5e.height() / 2)) {
                         glass2 = el;
                     }
                 }
                 if (elem5e.layout == Layout.HORIZ) {
-                    if (el.inside(elem5e.y1 - 200, elem5e.x1 + elem5e.width() / 2)) {
+                    if (el.inside(elem5e.y1() - 200, elem5e.x1() + elem5e.width() / 2)) {
                         glass1 = el;
                     }
-                    if (el.inside(elem5e.y2 + 200, elem5e.x1 + elem5e.width() / 2)) {
+                    if (el.inside(elem5e.y2() + 200, elem5e.x1() + elem5e.width() / 2)) {
                         glass2 = el;
                     }
                 }

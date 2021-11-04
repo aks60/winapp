@@ -91,10 +91,10 @@ public class JoiningVar extends Par5s {
                 case 1010:  //Внешнее соединение 
                 case 4010:  //Внешнее соединение                     
                     if ("Да".equals(rec.getStr(TEXT))) {
-                        if (iwin.mapJoin.get(iwin.rootArea.x2 + ":" + iwin.rootArea.y1) != elemJoin
-                                && iwin.mapJoin.get(iwin.rootArea.x2 + ":" + iwin.rootArea.y2) != elemJoin
-                                && iwin.mapJoin.get(iwin.rootArea.x2 + ":" + iwin.rootArea.y1) != elemJoin
-                                && iwin.mapJoin.get(iwin.rootArea.x1 + ":" + iwin.rootArea.y1) != elemJoin) {
+                        if (iwin.mapJoin.get(iwin.rootArea.x2() + ":" + iwin.rootArea.y1()) != elemJoin
+                                && iwin.mapJoin.get(iwin.rootArea.x2() + ":" + iwin.rootArea.y2()) != elemJoin
+                                && iwin.mapJoin.get(iwin.rootArea.x2() + ":" + iwin.rootArea.y1()) != elemJoin
+                                && iwin.mapJoin.get(iwin.rootArea.x1() + ":" + iwin.rootArea.y1()) != elemJoin) {
                             return false;
                         }
                     }
@@ -488,7 +488,7 @@ public class JoiningVar extends Par5s {
                 {
                     AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner;
                     ElemSimple imp = elemJoin.elem1;
-                    if (Math.abs(imp.y2 - stv.handleHeight) < rec.getFloat(TEXT)) {
+                    if (Math.abs(imp.y2() - stv.handleHeight) < rec.getFloat(TEXT)) {
                         return false;
                     }
                 }
