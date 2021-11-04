@@ -93,16 +93,37 @@ public class AreaStvorka extends AreaSimple {
             ElemJoining elemJoinRig = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig, 0);
             ElemJoining elemJoinTop = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, joinTop, 0);
             ElemJoining elemJoinLeft = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLef, joinLef, 0);
-            
+
+            List<ElemJoining> joinList = Arrays.asList(elemJoinBoot, elemJoinRig, elemJoinTop, elemJoinLeft);
+            JoiningVar joiningVar = new JoiningVar(iwin);
             List cross = Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA);
-            float X1 = (cross.contains(joinLef.type)) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
-            float Y2 = (cross.contains(joinBot.type)) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
-            float X2 = (cross.contains(joinBot.type)) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
-            float Y1 = (cross.contains(joinBot.type)) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
-            x1 = X1 + offset(stvLef, joinLef);
-            y2 = Y2 - offset(stvBot, joinBot);
-            x2 = X2 - offset(stvRig, joinRig);
-            y1 = Y1 + offset(stvTop, joinTop);
+
+            for (ElemJoining elemJoining : joinList) {
+                Record joiningRec = eJoining.find(elemJoining.elem1.artiklRec, elemJoining.elem2.artiklRec);
+                List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
+                for (Record joinvarRec : joinvarList) {
+                    
+                    if (joiningVar.filter(elemJoining, joinvarRec) == true) {
+                        List<Record> joinparList = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
+                        Record joinparRec = joinparList.stream().filter(rec -> rec.getInt(eJoinpar1.params_id) == 1040).findFirst().orElse(null);
+                        float offset = (joinparRec == null) ? 0 : joinparRec.getFloat(2);
+                        if (elemJoining.elem1.layout == Layout.BOTT) {
+                            float Y2 = (cross.contains(joinBot.type)) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
+                            y2 = Y2 - offset;
+                        } else if (elemJoining.elem1.layout == Layout.RIGHT) {
+                            float X2 = (cross.contains(joinRig.type)) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
+                            x2 = X2 - offset;
+                        } else if (elemJoining.elem1.layout == Layout.TOP) {
+                            float Y1 = (cross.contains(joinTop.type)) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
+                            y1 = Y1 + offset;
+                        } else if (elemJoining.elem1.layout == Layout.LEFT) {
+                            float X1 = (cross.contains(joinLef.type)) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
+                            x1 = X1 + offset;
+                        }
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -232,12 +253,11 @@ public class AreaStvorka extends AreaSimple {
     }
 
     //Вычисление смещения створки через параметр
-    private float offset(ElemSimple profStv, ElemSimple profFrm) {
-            JoiningVar joiningVar = new JoiningVar(iwin);
-            ElemJoining elemJoin = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, profStv, profFrm, 0);            
-            joiningVar.check(elemJoin, loopRec, loopRec);
-                    
-        
+    private float offset2(ElemSimple profStv, ElemSimple profFrm) {
+        JoiningVar joiningVar = new JoiningVar(iwin);
+        ElemJoining elemJoin = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, profStv, profFrm, 0);
+        joiningVar.check(elemJoin, loopRec, loopRec);
+
 //        Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
 //        List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
 //        for (Record joinvarRec : joinvarList) {
@@ -253,7 +273,7 @@ public class AreaStvorka extends AreaSimple {
         return 78;
     }
 
-    private float offset2(ElemSimple profStv, ElemSimple profFrm) {
+    private float offset(ElemSimple profStv, ElemSimple profFrm) {
         Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
         List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
         Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
