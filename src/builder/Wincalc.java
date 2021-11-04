@@ -191,11 +191,9 @@ public class Wincalc {
     public void constructiv(boolean norm_otx) {
         try {
             calcJoining = new Joining(this); //соединения
-            calcJoining.calc();
-            
-            ElemSimple el9 = listSortEl.find(5.3f);
-            System.out.println(el9.width() + "  " + el9.spcRec.width + " " + el9.id());
-       
+            calcJoining.calc();           
+            //ElemSimple el9 = listSortEl.find(5.3f);
+            //System.out.println(el9.width() + "  " + el9.spcRec.width + " " + el9.id());      
             calcElements = new Elements(this); //составы
             calcElements.calc();
             calcFilling = new Filling(this); //заполнения

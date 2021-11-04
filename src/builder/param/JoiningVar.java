@@ -529,8 +529,8 @@ public class JoiningVar extends Par5s {
             System.err.println("Ошибка:JoiningVar.check()  parametr=" + grup + "    " + e);
             return false;
         }
-        ElemSimple el9 = iwin.listSortEl.find(5.3f);
-        System.out.println(el9.width() + "  " + el9.spcRec.width + " " + el9.id() + "  " +  grup);
+        //ElemSimple el9 = iwin.listSortEl.find(5.3f);
+        //System.out.println(el9.width() + "  " + el9.spcRec.width + " " + el9.id() + "  " +  grup);
         return true;
     }
 
