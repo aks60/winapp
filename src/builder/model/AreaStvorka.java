@@ -12,8 +12,8 @@ import enums.TypeOpen1;
 import enums.TypeJoin;
 import java.awt.Color;
 import builder.Wincalc;
+import builder.making.Joining;
 import builder.making.Specific;
-import builder.param.JoiningVar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -26,8 +26,8 @@ import enums.TypeOpen2;
 import frames.UJson;
 import frames.swing.Draw;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import static java.util.stream.Collectors.toList;
 
 public class AreaStvorka extends AreaSimple {
 
@@ -44,6 +44,7 @@ public class AreaStvorka extends AreaSimple {
     public TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
     public LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке   
     public boolean paramCheck[] = {true, true, true, true, true, true, true};
+    public float offset[] = {0, 0, 0, 0};
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, Type.STVORKA, Layout.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
@@ -78,7 +79,6 @@ public class AreaStvorka extends AreaSimple {
 
     //Коррекция координат створки с учётом нахлёста
     private void setNaxlest(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
-
         ElemSimple joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
                 joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
 
@@ -88,43 +88,29 @@ public class AreaStvorka extends AreaSimple {
             x2 = joinRig.x1 + joinRig.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
             y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
 
-        } else {
-            ElemJoining elemJoinBoot = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBot, joinBot, 0);
-            ElemJoining elemJoinRig = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig, 0);
-            ElemJoining elemJoinTop = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, joinTop, 0);
-            ElemJoining elemJoinLeft = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLef, joinLef, 0);
+        } else { //Вычисление смещения створки через параметр
+            HashMap<String, ElemJoining> mapJoin = iwin.mapJoin;
+            try {
+                iwin.mapJoin.clear();
+                iwin.mapJoin.put(stvBot.joinPoint(2), new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBot, joinBot, 0));
+                iwin.mapJoin.put(stvRig.joinPoint(2), new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig, 0));
+                iwin.mapJoin.put(stvTop.joinPoint(2), new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, joinTop, 0));
+                iwin.mapJoin.put(stvLef.joinPoint(2), new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLef, joinLef, 0));
+                Joining joining = new Joining(iwin, true);
+                joining.calc();
+                                
+                y2 = (joinBot.y2 - joinBot.artiklRec.getFloat(eArtikl.size_centr)) - offset[0];
+                x2 = (joinRig.x2 - joinRig.artiklRec.getFloat(eArtikl.size_centr)) - offset[1];
+                y1 = (joinTop.y1 + joinTop.artiklRec.getFloat(eArtikl.size_centr)) + offset[2];
+                x1 = (joinLef.x1 + joinLef.artiklRec.getFloat(eArtikl.size_centr)) + offset[3];
 
-            List<ElemJoining> joinList = Arrays.asList(elemJoinBoot, elemJoinRig, elemJoinTop, elemJoinLeft);
-            JoiningVar joiningVar = new JoiningVar(iwin);
-            List cross = Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA);
-
-            for (ElemJoining elemJoining : joinList) {
-                Record joiningRec = eJoining.find(elemJoining.elem1.artiklRec, elemJoining.elem2.artiklRec);
-                List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
-                for (Record joinvarRec : joinvarList) {
-                    
-                    if (joiningVar.filter(elemJoining, joinvarRec) == true) {
-                        List<Record> joinparList = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-                        Record joinparRec = joinparList.stream().filter(rec -> rec.getInt(eJoinpar1.params_id) == 1040).findFirst().orElse(null);
-                        float offset = (joinparRec == null) ? 0 : joinparRec.getFloat(2);
-                        if (elemJoining.elem1.layout == Layout.BOTT) {
-                            float Y2 = (cross.contains(joinBot.type)) ? joinBot.y2 - joinBot.height() / 2 : joinBot.y2;
-                            y2 = Y2 - offset;
-                        } else if (elemJoining.elem1.layout == Layout.RIGHT) {
-                            float X2 = (cross.contains(joinRig.type)) ? joinRig.x2 - joinRig.width() / 2 : joinRig.x2;
-                            x2 = X2 - offset;
-                        } else if (elemJoining.elem1.layout == Layout.TOP) {
-                            float Y1 = (cross.contains(joinTop.type)) ? joinTop.y1 + joinTop.height() / 2 : joinTop.y1;
-                            y1 = Y1 + offset;
-                        } else if (elemJoining.elem1.layout == Layout.LEFT) {
-                            float X1 = (cross.contains(joinLef.type)) ? joinLef.x1 + joinLef.width() / 2 : joinLef.x1;
-                            x1 = X1 + offset;
-                        }
-                        break;
-                    }
-                }
+            } catch (Exception e) {
+                System.err.println("Ошибка:model.AreaStvorka.setNaxlest() " + e);
+            } finally {
+                iwin.mapJoin = mapJoin;
             }
         }
+
     }
 
     public void initFurniture(String param) {
@@ -250,41 +236,6 @@ public class AreaStvorka extends AreaSimple {
         //Прилегающее правое
         ElemSimple frmRight = (stvRight.joinFlat(Layout.RIGHT) != null) ? stvRight.joinFlat(Layout.RIGHT) : root.mapFrame.get(Layout.RIGHT);
         ElemJoining.create(stvRight.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0);
-    }
-
-    //Вычисление смещения створки через параметр
-    private float offset2(ElemSimple profStv, ElemSimple profFrm) {
-        JoiningVar joiningVar = new JoiningVar(iwin);
-        ElemJoining elemJoin = new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, profStv, profFrm, 0);
-        joiningVar.check(elemJoin, loopRec, loopRec);
-
-//        Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
-//        List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
-//        for (Record joinvarRec : joinvarList) {
-//
-//            List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-//            for (Record joinpar1Rec : joinpar1List) {
-//                
-//                if (joinpar1Rec != null && joinpar1Rec.getInt(eJoinpar1.params_id) == 1040) {
-//                    return joinpar1Rec.getFloat(eJoinpar1.text);
-//                }
-//            }
-//        }
-        return 78;
-    }
-
-    private float offset(ElemSimple profStv, ElemSimple profFrm) {
-        Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
-        List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
-        Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
-        if (joinvarRec != null) {
-            List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-            Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.params_id) == 1040).findFirst().orElse(null);
-            if (joinpar1Rec != null) {
-                return UCom.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
-            }
-        }
-        return 0;
     }
 
     @Override

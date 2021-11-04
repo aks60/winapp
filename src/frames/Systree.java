@@ -343,7 +343,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             try {
                 String script = record.getStr(eSysprod.script);
                 Wincalc iwin2 = new Wincalc(script);
-                new Joining(iwin2, true); //заполним соединения из конструктива
+                Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
+                joining.calc();                
                 iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
                 record.add(iwin2);
 

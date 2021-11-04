@@ -15,12 +15,12 @@ import builder.model.ElemSimple;
 import common.UCom;
 import enums.Layout;
 import enums.LayoutJoin;
+import enums.Type;
 import java.util.Arrays;
 
 //Соединения
 public class JoiningVar extends Par5s {
 
-    //Соединения
     public JoiningVar(Wincalc iwin) {
         super(iwin);
     }
@@ -156,12 +156,16 @@ public class JoiningVar extends Par5s {
                     if ("ps3".equals(eSetting.find(2))) {
                         if ("Да".equals(rec.getStr(TEXT)) && elemJoin.elem1.layout != Layout.HORIZ && elemJoin.elem1.layout != Layout.BOTT && elemJoin.elem1.layout != Layout.TOP) {
                             return false;
+                        } else if ("Нет".equals(rec.getStr(TEXT)) && (elemJoin.elem1.layout == Layout.HORIZ || elemJoin.elem1.layout == Layout.BOTT || elemJoin.elem1.layout == Layout.TOP)) {
+                            return false;
                         }
                     }
                     break;
                 case 1015:  //Только вертикальная ориентация
                     if ("ps3".equals(eSetting.find(2))) {
                         if ("Да".equals(rec.getStr(TEXT)) && elemJoin.elem1.layout != Layout.VERT && elemJoin.elem1.layout != Layout.RIGHT && elemJoin.elem1.layout != Layout.LEFT) {
+                            return false;
+                        } else if ("Нет".equals(rec.getStr(TEXT)) && (elemJoin.elem1.layout == Layout.VERT || elemJoin.elem1.layout == Layout.RIGHT || elemJoin.elem1.layout == Layout.LEFT)) {
                             return false;
                         }
                     }
@@ -207,6 +211,18 @@ public class JoiningVar extends Par5s {
                 case 1040:  //Размер, мм (Смещение осей рамы и створки. Наследие ps3)
                     //Параметр вычисляктся на раннем этапе см. конструктор AreaStvorka()
                     //Применяется если сист. константы отсутствуют
+                    if (elemJoin.elem1.type == Type.STVORKA_SIDE) {
+                        AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner;
+                        if (elemJoin.elem1.layout == Layout.BOTT) {
+                            stv.offset[0] = rec.getFloat(TEXT);
+                        } else if (elemJoin.elem1.layout == Layout.RIGHT) {
+                            stv.offset[1] = rec.getFloat(TEXT);
+                        } else if (elemJoin.elem1.layout == Layout.TOP) {
+                            stv.offset[2] = rec.getFloat(TEXT);
+                        } else if (elemJoin.elem1.layout == Layout.LEFT) {
+                            stv.offset[3] = rec.getFloat(TEXT);
+                        }
+                    }
                     break;
                 case 1043: //Ограничение габарита контура, мм 
                 {

@@ -1,14 +1,12 @@
 package frames;
 
 import builder.Wincalc;
-import builder.making.Furniture;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
 import builder.making.Specific;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import builder.making.Joining;
-import builder.script.GsonRoot;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -75,8 +73,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -302,8 +298,8 @@ public class Orders extends javax.swing.JFrame {
                 try {
                     String script = record.getStr(ePrjprod.script);
                     Wincalc iwin2 = new Wincalc(script);
-                    new Furniture(iwin2, true);
-                    new Joining(iwin2, true);
+                    Joining joining = new Joining(iwin2, true);
+                    joining.calc();
                     iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
                     record.add(iwin2);
 

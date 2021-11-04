@@ -12,6 +12,7 @@ import builder.param.test.JoiningTest;
 import domain.eElement;
 import frames.DBCompare;
 import java.sql.Connection;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.HashSet;
 import javax.swing.UIManager;
@@ -75,7 +76,7 @@ public class Test {
             //frame();
             //json();
             //parse();
-            //uid(); 
+            //uid();
             
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -86,7 +87,7 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(601008, false));

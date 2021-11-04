@@ -44,7 +44,6 @@ public class Joining extends Cal5e {
         joiningDet = new JoiningDet(iwin);
         elementDet = new ElementDet(iwin);
         this.shortPass = shortPass;
-        calc();
     }
 
     @Override

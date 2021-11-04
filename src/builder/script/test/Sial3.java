@@ -133,10 +133,10 @@ public final class Sial3 {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP, "{'sysprofID':160}"))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             GsonElem stv = rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA));
-            stv.addArea(new GsonElem(Layout.VERT, Type.AREA, 1200 - 47))
+            stv.addArea(new GsonElem(Layout.VERT, Type.AREA, 1500))
                     .addElem(new GsonElem(Type.GLASS));
             stv.addElem(new GsonElem(Type.IMPOST))
-                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 900 + 47))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 600))
                     .addElem(new GsonElem(Type.GLASS));
         } else {
             return null;
