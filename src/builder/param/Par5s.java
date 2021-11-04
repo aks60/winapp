@@ -16,6 +16,7 @@ public class Par5s {
     protected final int GRUP = 3;   //Ключ параметра    
     protected final int TEXT = 2;   //Текст 
     protected Wincalc iwin = null;
+    public boolean shortPass = false;
     protected String versionDb = eSetting.find(2);
     public HashMap<Integer, String> mapParamTmp = new HashMap();
     public Record detailRec = null; //текущий элемент детализации

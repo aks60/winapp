@@ -37,6 +37,7 @@ import builder.script.GsonElem;
 import common.ArrayList2;
 import common.LinkedList2;
 import enums.Form;
+import enums.Layout;
 import enums.Type;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -98,7 +99,7 @@ public class Wincalc {
         rootArea.joining(); //соединения ареа
         listSortAr.stream().filter(el -> el.type == Type.STVORKA).collect(toList()).forEach(el -> el.joining()); //соединения створок
         listSortEl.stream().filter(el -> el.type != Type.GLASS).collect(toList()).forEach(it -> it.setSpecific()); //спецификация профилей
-
+       
         return rootArea;
     }
 
@@ -188,9 +189,13 @@ public class Wincalc {
 
     //Конструктив и тарификация 
     public void constructiv(boolean norm_otx) {
-        try {      
+        try {
             calcJoining = new Joining(this); //соединения
-            calcJoining.calc();            
+            calcJoining.calc();
+            
+            ElemSimple el9 = listSortEl.find(5.3f);
+            System.out.println(el9.width() + "  " + el9.spcRec.width + " " + el9.id());
+       
             calcElements = new Elements(this); //составы
             calcElements.calc();
             calcFilling = new Filling(this); //заполнения

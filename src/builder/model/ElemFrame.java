@@ -194,13 +194,13 @@ public class ElemFrame extends ElemSimple {
             }
         }
 
-        //spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2030, 3050, 4050));
-        //spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2040, 3060));
+        spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2030, 3050, 4050));
+        spcRec.width = spcRec.width + UCom.getFloat(spcRec.getParam(0, 2040, 3060));
     }
 
     @Override //Вложеная спецификация
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
-
+        
         spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
         spcAdd.count += UMod.get_14050_24050_33050_38050(spcRec, spcAdd); //кол. ед. с шагом
         spcAdd.width = UMod.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм

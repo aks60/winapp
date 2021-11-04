@@ -24,6 +24,11 @@ public class JoiningVar extends Par5s {
     public JoiningVar(Wincalc iwin) {
         super(iwin);
     }
+    
+    public JoiningVar(Wincalc iwin, boolean shortPass) {
+        super(iwin);
+        this.shortPass = shortPass;
+    }
 
     //1000 - прилегающее соединение, 2000 - угловое на ус, 3000 - угловое (левое, правое), 4000 - Т образное соединение
     public boolean filter(ElemJoining elemJoin, Record joinvarRec) {
@@ -452,7 +457,7 @@ public class JoiningVar extends Par5s {
                 case 3031:  //Усечение Артикула1/Артикула2, мм 
                     if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 1, мм
                         elemJoin.elem1.spcRec.width -= rec.getFloat(TEXT);
-                        //elemJoin.elem1.setDimension(ID, ID, ID, ID);
+
                     } else {
                         String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
                         elemJoin.elem1.spcRec.width -= UCom.getFloat(arr[0]);
@@ -524,6 +529,8 @@ public class JoiningVar extends Par5s {
             System.err.println("Ошибка:JoiningVar.check()  parametr=" + grup + "    " + e);
             return false;
         }
+        ElemSimple el9 = iwin.listSortEl.find(5.3f);
+        System.out.println(el9.width() + "  " + el9.spcRec.width + " " + el9.id() + "  " +  grup);
         return true;
     }
 
