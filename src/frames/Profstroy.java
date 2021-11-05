@@ -218,6 +218,7 @@ public class Profstroy {
             deletePart(cn2, st2);
             updatePart(cn2, st2);
             metaPart(cn2, st2);
+            loadModels();
 
             println(Color.GREEN, "Удаление лищних столбцов");
             executeSql("ALTER TABLE GROUPS DROP  FK;");
@@ -543,7 +544,7 @@ public class Profstroy {
             executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "id");
             executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
-            loadModels();
+            /////////////////loadModels();
             updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.kits_id, "kunic", eKits.up, "kunic");
@@ -630,6 +631,7 @@ public class Profstroy {
 
     public static void loadModels() {
         try {
+            println(Color.GREEN, "Секция загрузки тестовых моделей");
             println(Color.BLACK, "loadModels()");
             List<Integer> prjList = Winscript.models("max");
 
