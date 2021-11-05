@@ -404,24 +404,28 @@ public class JoiningVar extends Par5s {
                 case 2030:  //Припуск Артикула1/Артикула2, мм 
                 case 3050:  //Припуск Артикула1/Артикула2, мм  
                 case 4050:
-                    if ("ps3".equals(eSetting.find(2))) { //Припуск Артикула 1, мм
-                        elemJoin.elem1.spcRec.mapParam.put(grup, rec.getStr(TEXT));
-                    } else {
-                        String strTxt = rec.getStr(TEXT);
-                        char normal = strTxt.charAt(strTxt.length() - 1);
-                        if (normal == '@') {
-                            strTxt = strTxt.substring(0, strTxt.length() - 1);
+                    listenerList.add(() -> {
+                        if ("ps3".equals(eSetting.find(2))) { //Припуск Артикула 1, мм
+                            elemJoin.elem1.spcRec.width += rec.getFloat(TEXT);
+                        } else {
+                            String strTxt = rec.getStr(TEXT);
+                            char normal = strTxt.charAt(strTxt.length() - 1);
+                            if (normal == '@') {
+                                strTxt = strTxt.substring(0, strTxt.length() - 1);
+                            }
+                            String arr[] = strTxt.split("/");
+                            elemJoin.elem1.spcRec.width += UCom.getFloat(arr[0]);
+                            elemJoin.elem2.spcRec.width += UCom.getFloat(arr[1]);
                         }
-                        String arr2[] = strTxt.split("/");
-                        elemJoin.elem1.spcRec.mapParam.put(grup, arr2[0]);
-                        elemJoin.elem2.spcRec.mapParam.put(grup, arr2[1]);
-                    }
+                    });
                     break;
                 case 2040:
                 case 3060:
-                    if ("ps3".equals(eSetting.find(2))) { //Припуск Артикула 2, мм
-                        elemJoin.elem2.spcRec.mapParam.put(grup, rec.getStr(TEXT));
-                    }
+                    listenerList.add(() -> {
+                        if ("ps3".equals(eSetting.find(2))) { //Припуск Артикула 2, мм
+                            elemJoin.elem2.spcRec.width += rec.getFloat(TEXT);
+                        }
+                    });
                     break;
                 case 2055:  //Продолжение общей арки 
                     message(rec.getInt(GRUP));
@@ -496,14 +500,14 @@ public class JoiningVar extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 4018: //От ручки не менее, мм 
-                    {
-                        AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner;
-                        ElemSimple imp = elemJoin.elem1;
-                        if (Math.abs(imp.y2() - stv.handleHeight) < rec.getFloat(TEXT)) {
-                            return false;
-                        }
+                {
+                    AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner;
+                    ElemSimple imp = elemJoin.elem1;
+                    if (Math.abs(imp.y2() - stv.handleHeight) < rec.getFloat(TEXT)) {
+                        return false;
                     }
-                    break;
+                }
+                break;
                 case 4030:  //Угол максимальный, °                      
                     if ("ps3".equals(eSetting.find(2))) {
                         if (elemJoin.angl > rec.getFloat(TEXT)) {
