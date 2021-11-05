@@ -87,16 +87,16 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-         String _case = "max";
+         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(601008, false));
+            iwin.build(builder.script.Winscript.test(601010, false));
             //new Joining(iwin, true);
             iwin.constructiv(true);
             //Specific.write_txt(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            //DBCompare.iwinPs4(iwin, true);
-            iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
+            DBCompare.iwinPs4(iwin, true);
+            //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {
             List<Integer> prjList = Winscript.models(_case);

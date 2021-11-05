@@ -19,7 +19,7 @@ public class Par5s {
     protected String versionDb = eSetting.find(2);
     public HashMap<Integer, String> mapParamTmp = new HashMap();
     public Record detailRec = null; //текущий элемент детализации
-    protected ArrayList<ListenerParam> listenerList = new ArrayList();
+    protected ArrayList<ListenerParam> listenerList = null;
 
     public Par5s(Wincalc iwin) {
         this.iwin = iwin;

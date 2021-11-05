@@ -16,6 +16,7 @@ import common.UCom;
 import enums.Layout;
 import enums.LayoutJoin;
 import enums.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 //Соединения
@@ -23,10 +24,12 @@ public class JoiningVar extends Par5s {
 
     public JoiningVar(Wincalc iwin) {
         super(iwin);
+        listenerList = new ArrayList();
     }
 
     public JoiningVar(Wincalc iwin, boolean shortPass) {
         super(iwin);
+        listenerList = new ArrayList();
         this.shortPass = shortPass;
     }
 
@@ -428,12 +431,12 @@ public class JoiningVar extends Par5s {
                     break;
                 case 2064: //Поправка для состава Арт.1/Арт.2, мм 
                 case 3064: //Поправка для состава Арт.1/Арт.2 , мм 
-                {
-                    String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
-                    elemJoin.elem1.spcRec.width += UCom.getFloat(arr[0]);
-                    elemJoin.elem2.spcRec.width += UCom.getFloat(arr[1]);
-                }
-                break;
+                    listenerList.add(() -> {
+                        String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
+                        elemJoin.elem1.spcRec.width += UCom.getFloat(arr[0]);
+                        elemJoin.elem2.spcRec.width += UCom.getFloat(arr[1]);
+                    });
+                    break;
                 case 2066:  //Расчет углов реза профилей 
                     message(rec.getInt(GRUP));
                     break;
@@ -493,14 +496,14 @@ public class JoiningVar extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 4018: //От ручки не менее, мм 
-                {
-                    AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner;
-                    ElemSimple imp = elemJoin.elem1;
-                    if (Math.abs(imp.y2() - stv.handleHeight) < rec.getFloat(TEXT)) {
-                        return false;
+                    {
+                        AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner;
+                        ElemSimple imp = elemJoin.elem1;
+                        if (Math.abs(imp.y2() - stv.handleHeight) < rec.getFloat(TEXT)) {
+                            return false;
+                        }
                     }
-                }
-                break;
+                    break;
                 case 4030:  //Угол максимальный, °                      
                     if ("ps3".equals(eSetting.find(2))) {
                         if (elemJoin.angl > rec.getFloat(TEXT)) {
@@ -509,11 +512,15 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                 case 4040:  //Размер от оси профиля, мм.
-                case 4044:  //Размер от края пакета, мм     
-                    elemJoin.elem1.spcRec.width -= rec.getFloat(TEXT);
+                case 4044:  //Размер от края пакета, мм 
+                    listenerList.add(() -> {
+                        elemJoin.elem1.spcRec.width -= rec.getFloat(TEXT);
+                    });
                     break;
                 case 4046:  //Длина Артикула 1, мм 
-                    elemJoin.elem1.spcRec.width += rec.getFloat(TEXT);
+                    listenerList.add(() -> {
+                        elemJoin.elem1.spcRec.width += rec.getFloat(TEXT);
+                    });
                     break;
                 case 4061:  //Максимальный размер шва, мм 
                     message(rec.getInt(GRUP));
@@ -537,8 +544,6 @@ public class JoiningVar extends Par5s {
             System.err.println("Ошибка:JoiningVar.check()  parametr=" + grup + "    " + e);
             return false;
         }
-//        ElemSimple el9 = iwin.listSortEl.find(5.4f);
-//        System.out.println(el9.width() + "  " + el9.spcRec.width + " " + el9.id() + "  " +  grup + " " + var.getStr(1));
         return true;
     }
 

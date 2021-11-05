@@ -15,16 +15,19 @@ import common.UCom;
 import enums.Form;
 import enums.Type;
 import enums.TypeJoin;
+import java.util.ArrayList;
 
 //Составы 31000, 37000
 public class ElementVar extends Par5s {
 
     public ElementVar(Wincalc iwin) {
         super(iwin);
+        listenerList = new ArrayList();
     }
 
     public boolean filter(ElemSimple elem5e, Record elementRec) {
 
+        listenerList.clear();
         List<Record> paramList = eElempar1.find3(elementRec.getInt(eElement.id)); //список параметров вариантов использования
         if (filterParamDef(paramList) == false) {
             return false;
@@ -258,9 +261,9 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31052:  //Поправка в спецификацию, мм 
-                    //if (elem5e.artiklRec.getInt(eArttikl.id) == LayoutArea.ARCH) {
-                    elem5e.spcRec.width = elem5e.spcRec.width + rec.getFloat(TEXT);
-                    //}
+                    listenerList.add(() -> {
+                        elem5e.spcRec.width = elem5e.spcRec.width + rec.getFloat(TEXT);
+                    });
                     break;
                 case 31054:  //Коды основной текстуры изделия
                 case 37054:  //Коды основной текстуры изделия    
@@ -310,12 +313,13 @@ public class ElementVar extends Par5s {
                     elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
                     break;
                 case 31090:  //Изменение сторон покраски 
-                    //elem5e.spcRec.mapParam.put(grup, rec.getStr(TEXT));
-                    if ("Да".equals(rec.getStr(TEXT))) {
-                        int color = elem5e.spcRec.colorID2;
-                        elem5e.spcRec.colorID2 = elem5e.spcRec.colorID3;
-                        elem5e.spcRec.colorID2 = color;
-                    }
+                    listenerList.add(() -> {
+                        if ("Да".equals(rec.getStr(TEXT))) {
+                            int color = elem5e.spcRec.colorID2;
+                            elem5e.spcRec.colorID2 = elem5e.spcRec.colorID3;
+                            elem5e.spcRec.colorID2 = color;
+                        }
+                    });
                     break;
                 case 31095:  //Если признак системы конструкции 
                 case 37095:  //Если признак системы конструкции                    
