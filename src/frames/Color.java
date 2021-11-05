@@ -1,6 +1,5 @@
 package frames;
 
-import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -11,9 +10,7 @@ import domain.eParams;
 import enums.TypeGroups;
 import frames.dialog.DicColor;
 import java.util.Arrays;
-import java.util.stream.Stream;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +24,6 @@ import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
-import common.listener.ListenerSQL;
 import common.listener.ListenerRecord;
 
 public class Color extends javax.swing.JFrame {
@@ -39,8 +35,6 @@ public class Color extends javax.swing.JFrame {
     private Query qColmap = new Query(eColmap.values());
     private FilterTable filterTable = null;
     private ListenerRecord listenerColor1, listenerColor2;
-    private ListenerSQL preset = (record) -> {
-    };
 
     public Color() {
         initComponents();

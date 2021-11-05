@@ -1,6 +1,6 @@
 package common.listener;
 
-public interface ListenerObject {
+public interface ListenerObject<E> {
 
-    public boolean action(Object o);
+    public boolean action(E o);
 }

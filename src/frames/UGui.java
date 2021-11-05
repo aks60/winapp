@@ -54,9 +54,9 @@ import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import common.listener.ListenerSQL;
 import common.listener.ListenerObject;
 import common.eProfile;
+import common.listener.ListenerRecord;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
@@ -582,7 +582,7 @@ public class UGui {
     }
 
     //Вставить запись
-    public static void insertRecord(JTable table, Field field, ListenerSQL listener) {
+    public static void insertRecord(JTable table, Field field, ListenerRecord listener) {
 
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = field.newRecord(Query.INS);
@@ -594,7 +594,7 @@ public class UGui {
     }
 
     //Изменить запись
-    public static void updateRecord(JTable table, ListenerSQL listener) {
+    public static void updateRecord(JTable table, ListenerRecord listener) {
         Record record = ((DefTableModel) table.getModel()).getQuery().get(UGui.getIndexRec(table));
         listener.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsUpdated(table.getSelectedRow(), table.getSelectedRow());
