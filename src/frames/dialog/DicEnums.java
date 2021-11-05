@@ -8,7 +8,7 @@ import enums.LayoutFurn1;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 //Справочник наборов Tnum
 public class DicEnums extends javax.swing.JDialog {

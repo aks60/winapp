@@ -16,7 +16,7 @@ import java.util.HashMap;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
-import frames.swing.listener.ListenerFrame;
+import common.listener.ListenerFrame;
 import common.eProfile;
 import dataset.Query;
 

@@ -19,8 +19,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 import startup.Main;
 import startup.App;
-import frames.swing.listener.ListenerRecord;
-import frames.swing.listener.ListenerFrame;
+import common.listener.ListenerRecord;
+import common.listener.ListenerFrame;
 
 public class DefTableModel extends DefaultTableModel implements ListenerFrame {
 

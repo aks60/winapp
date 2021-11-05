@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 

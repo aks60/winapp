@@ -7,7 +7,7 @@ import builder.script.GsonElem;
 import common.UCom;
 import enums.Layout;
 import enums.Type;
-import frames.swing.listener.ListenerFrame;
+import common.listener.ListenerFrame;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;

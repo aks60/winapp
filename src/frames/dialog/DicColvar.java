@@ -6,7 +6,7 @@ import dataset.Record;
 import enums.UseColor;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 //Варианты текстур
 public class DicColvar extends javax.swing.JDialog {

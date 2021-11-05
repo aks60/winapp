@@ -17,7 +17,7 @@ import java.awt.CardLayout;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JToggleButton;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 public class DicGroups extends javax.swing.JDialog {
 

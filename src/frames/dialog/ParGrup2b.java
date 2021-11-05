@@ -6,7 +6,7 @@ import dataset.Record;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 public class ParGrup2b extends javax.swing.JDialog {
 

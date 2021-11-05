@@ -17,7 +17,7 @@ import frames.swing.DefTableModel;
 import java.util.Arrays;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 public class Syssize extends javax.swing.JFrame {
 

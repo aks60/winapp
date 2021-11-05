@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import javax.swing.JCheckBoxMenuItem;
-import frames.swing.listener.ListenerFrame;
+import common.listener.ListenerFrame;
 import common.eProfile;
 import common.eProperty;
 import frames.PathToDb;

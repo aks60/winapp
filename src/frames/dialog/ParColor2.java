@@ -14,7 +14,7 @@ import frames.swing.DefTableModel;
 import domain.eGroups;
 import enums.TypeGroups;
 import enums.UseColor;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 public class ParColor2 extends javax.swing.JDialog {
 

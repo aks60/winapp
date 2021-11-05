@@ -48,8 +48,8 @@ import javax.swing.RowFilter;
 import startup.Main;
 import startup.App;
 import javax.swing.JOptionPane;
-import frames.swing.listener.ListenerRecord;
-import frames.swing.listener.ListenerFrame;
+import common.listener.ListenerRecord;
+import common.listener.ListenerFrame;
 
 public class Furniturs extends javax.swing.JFrame {
 

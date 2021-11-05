@@ -10,7 +10,7 @@ import enums.UseSide;
 import frames.UGui;
 import frames.swing.DefTableModel;
 import java.util.List;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 public class DicSysprof extends javax.swing.JDialog {
 

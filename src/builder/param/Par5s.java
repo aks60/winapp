@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
 import builder.making.Specific;
-import frames.swing.listener.ListenerParam;
+import common.listener.ListenerParam;
 import java.util.ArrayList;
 
 public class Par5s {

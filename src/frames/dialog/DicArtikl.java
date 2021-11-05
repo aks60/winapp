@@ -13,7 +13,7 @@ import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
 import java.util.List;
 import java.util.stream.Collectors;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 import javax.swing.JTable;
 
 //Справочник артикулов

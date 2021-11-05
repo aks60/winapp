@@ -8,7 +8,7 @@ import dataset.Record;
 import domain.eFurniture;
 import java.util.Set;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 //Справочник фурнитур
 public class DicName extends javax.swing.JDialog {

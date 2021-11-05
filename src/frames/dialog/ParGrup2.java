@@ -15,7 +15,7 @@ import java.util.Vector;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 public class ParGrup2 extends javax.swing.JDialog {
 

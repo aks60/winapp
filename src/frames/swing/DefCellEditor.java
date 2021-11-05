@@ -13,7 +13,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
-import frames.swing.listener.ListenerObject;
+import common.listener.ListenerObject;
 
 public class DefCellEditor extends DefaultCellEditor {
 

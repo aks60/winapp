@@ -1,6 +1,6 @@
 package frames;
 
-import frames.swing.listener.ListenerFrame;
+import common.listener.ListenerFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.geom.RoundRectangle2D;

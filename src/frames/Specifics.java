@@ -33,7 +33,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.App;
-import frames.swing.listener.ListenerFrame;
+import common.listener.ListenerFrame;
 import common.eProfile;
 import domain.ePrjprod;
 import frames.swing.FilterTable;

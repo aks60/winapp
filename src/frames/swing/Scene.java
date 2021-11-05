@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import enums.Layout;
 import enums.Type;
-import frames.swing.listener.ListenerObject;
+import common.listener.ListenerObject;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;

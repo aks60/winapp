@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 public class Rulecalc extends javax.swing.JFrame {
 

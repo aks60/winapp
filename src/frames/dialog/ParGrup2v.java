@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
 import javax.swing.JTable;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 

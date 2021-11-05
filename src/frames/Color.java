@@ -27,8 +27,8 @@ import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
-import frames.swing.listener.ListenerSQL;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerSQL;
+import common.listener.ListenerRecord;
 
 public class Color extends javax.swing.JFrame {
 

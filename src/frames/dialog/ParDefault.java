@@ -6,7 +6,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eParams;
 import frames.swing.DefTableModel;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 public class ParDefault extends javax.swing.JDialog {
 

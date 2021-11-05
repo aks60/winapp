@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 import java.sql.ResultSet;
 import javax.swing.event.ListSelectionListener;
 

@@ -14,7 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 public class Currenc extends javax.swing.JFrame {
 

@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.DefaultTableColumnModel;

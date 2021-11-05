@@ -21,7 +21,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 public class Param extends javax.swing.JFrame {
 

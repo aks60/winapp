@@ -41,8 +41,8 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.Main;
 import startup.App;
-import frames.swing.listener.ListenerRecord;
-import frames.swing.listener.ListenerFrame;
+import common.listener.ListenerRecord;
+import common.listener.ListenerFrame;
 
 //варианты соединений
 //TODO Сделать аналог соединений.

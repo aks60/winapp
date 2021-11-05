@@ -41,8 +41,8 @@ import frames.swing.FilterTable;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.App;
-import frames.swing.listener.ListenerRecord;
-import frames.swing.listener.ListenerFrame;
+import common.listener.ListenerRecord;
+import common.listener.ListenerFrame;
 
 public class Elements extends javax.swing.JFrame {
 

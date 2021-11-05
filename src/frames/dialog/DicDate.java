@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import frames.UGui;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import frames.swing.listener.ListenerObject;
+import common.listener.ListenerObject;
 
 /**
  *Календарь

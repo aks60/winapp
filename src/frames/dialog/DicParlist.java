@@ -6,8 +6,8 @@ import builder.param.ParamList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.listener.ListenerRecord;
-import frames.swing.listener.ListenerFrame;
+import common.listener.ListenerRecord;
+import common.listener.ListenerFrame;
 
 public class DicParlist extends javax.swing.JDialog implements ListenerFrame<Object, Object> {
 

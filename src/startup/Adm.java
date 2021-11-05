@@ -2,7 +2,7 @@ package startup;
 
 import builder.script.Winscript;
 import frames.FrameToFile;
-import frames.swing.listener.ListenerFrame;
+import common.listener.ListenerFrame;
 import common.eProfile;
 import common.eProperty;
 import frames.Profstroy;

@@ -1,4 +1,4 @@
-package frames.swing.listener;
+package common.listener;
 
 public interface ListenerCheck<A, B> {
 

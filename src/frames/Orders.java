@@ -29,7 +29,7 @@ import java.util.Set;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefFieldEditor;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 import common.eProfile;
 import common.eProperty;
 import dataset.Conn;

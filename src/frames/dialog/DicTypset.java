@@ -5,7 +5,7 @@ import frames.UGui;
 import dataset.Record;
 import enums.TypeSet;
 import javax.swing.table.DefaultTableModel;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 //Тип состава
 public class DicTypset extends javax.swing.JDialog {

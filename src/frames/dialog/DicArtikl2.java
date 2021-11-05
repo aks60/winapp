@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import frames.swing.listener.ListenerRecord;
+import common.listener.ListenerRecord;
 
 //Справочник артикулов
 public class DicArtikl2 extends javax.swing.JDialog {
