@@ -24,7 +24,7 @@ public class JoiningVar extends Par5s {
     public JoiningVar(Wincalc iwin) {
         super(iwin);
     }
-    
+
     public JoiningVar(Wincalc iwin, boolean shortPass) {
         super(iwin);
         this.shortPass = shortPass;
@@ -284,13 +284,13 @@ public class JoiningVar extends Par5s {
                 case 3003:  //Угол варианта 
                     if (var.getInt(eJoinvar.types) == 30 || var.getInt(eJoinvar.types) == 31) {
                         if ("левый".equals(rec.getStr(TEXT))) {
-                            if (elemJoin.layout == LayoutJoin.LTOP && var.getInt(eJoinvar.types) == 30) {
+                            if (elemJoin.layout == LayoutJoin.LTOP && var.getInt(eJoinvar.types) == 31) {
                                 return false;
                             } else if (elemJoin.layout == LayoutJoin.LBOT && var.getInt(eJoinvar.types) == 31) {
                                 return false;
                             }
                         } else if ("правый".equals(rec.getStr(TEXT))) {
-                            if (elemJoin.layout == LayoutJoin.RTOP && var.getInt(eJoinvar.types) == 31) {
+                            if (elemJoin.layout == LayoutJoin.RTOP && var.getInt(eJoinvar.types) == 30) {
                                 return false;
                             } else if (elemJoin.layout == LayoutJoin.RBOT && var.getInt(eJoinvar.types) == 30) {
                                 return false;
@@ -456,6 +456,10 @@ public class JoiningVar extends Par5s {
                 case 3030:  //Усечение Артикула1/Артикула2, мм
                 case 3031:  //Усечение Артикула1/Артикула2, мм 
                     if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 1, мм
+                        ElemSimple el9 = iwin.listSortEl.find(5.4f);
+                        if (el9 == elemJoin.elem1 || el9 == elemJoin.elem2) {
+                            System.out.println("builder.param.JoiningVar.check()");
+                        }                        
                         elemJoin.elem1.spcRec.width -= rec.getFloat(TEXT);
 
                     } else {
@@ -529,8 +533,8 @@ public class JoiningVar extends Par5s {
             System.err.println("Ошибка:JoiningVar.check()  parametr=" + grup + "    " + e);
             return false;
         }
-        //ElemSimple el9 = iwin.listSortEl.find(5.3f);
-        //System.out.println(el9.width() + "  " + el9.spcRec.width + " " + el9.id() + "  " +  grup);
+        ElemSimple el9 = iwin.listSortEl.find(5.4f);
+        System.out.println(el9.width() + "  " + el9.spcRec.width + " " + el9.id() + "  " +  grup);
         return true;
     }
 
