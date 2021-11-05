@@ -4,7 +4,6 @@ import java.util.*;
 import builder.Wincalc;
 import builder.model.AreaSimple;
 import dataset.Query;
-import frames.swing.listener.ListenerCheck;
 
 public abstract class Cal5e {
 

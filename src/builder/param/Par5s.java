@@ -6,9 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
 import builder.making.Specific;
-import builder.model.AreaStvorka;
-import builder.model.ElemJoining;
-import builder.model.ElemSimple;
+import frames.swing.listener.ListenerParam;
+import java.util.ArrayList;
 
 public class Par5s {
 
@@ -20,11 +19,12 @@ public class Par5s {
     protected String versionDb = eSetting.find(2);
     public HashMap<Integer, String> mapParamTmp = new HashMap();
     public Record detailRec = null; //текущий элемент детализации
+    protected ArrayList<ListenerParam> listenerList = new ArrayList();
 
     public Par5s(Wincalc iwin) {
         this.iwin = iwin;
     }
-    
+
     //Фильтр параметров по умолчанию + выбранных клиентом
     protected boolean filterParamDef(List<Record> paramList) {
 
@@ -67,6 +67,12 @@ public class Par5s {
             if (ParamList.find(code).pass() != 0) {
                 System.err.println("ВНИМАНИЕ! ID " + spc.id + " ПАРААМЕТР " + code + " VALUE " + spc.getParam("-1", code) + " В РАЗРАБОТКЕ.");
             }
+        }
+    }
+
+    public void listenerFire() {
+        for (ListenerParam lp : listenerList) {
+            lp.action();
         }
     }
 }

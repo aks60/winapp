@@ -33,6 +33,7 @@ public class JoiningVar extends Par5s {
     //1000 - прилегающее соединение, 2000 - угловое на ус, 3000 - угловое (левое, правое), 4000 - Т образное соединение
     public boolean filter(ElemJoining elemJoin, Record joinvarRec) {
 
+        listenerList.clear();
         List<Record> paramList = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
         if (filterParamDef(paramList) == false) {
             return false;
@@ -217,16 +218,18 @@ public class JoiningVar extends Par5s {
                     //Параметр вычисляктся на раннем этапе см. конструктор AreaStvorka()
                     //Применяется если сист. константы отсутствуют
                     if (elemJoin.elem1.type == Type.STVORKA_SIDE) {
-                        AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner;
-                        if (elemJoin.elem1.layout == Layout.BOTT) {
-                            stv.offset[0] = rec.getFloat(TEXT);
-                        } else if (elemJoin.elem1.layout == Layout.RIGHT) {
-                            stv.offset[1] = rec.getFloat(TEXT);
-                        } else if (elemJoin.elem1.layout == Layout.TOP) {
-                            stv.offset[2] = rec.getFloat(TEXT);
-                        } else if (elemJoin.elem1.layout == Layout.LEFT) {
-                            stv.offset[3] = rec.getFloat(TEXT);
-                        }
+                        listenerList.add(() -> {
+                            AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner;
+                            if (elemJoin.elem1.layout == Layout.BOTT) {
+                                stv.offset[0] = rec.getFloat(TEXT);
+                            } else if (elemJoin.elem1.layout == Layout.RIGHT) {
+                                stv.offset[1] = rec.getFloat(TEXT);
+                            } else if (elemJoin.elem1.layout == Layout.TOP) {
+                                stv.offset[2] = rec.getFloat(TEXT);
+                            } else if (elemJoin.elem1.layout == Layout.LEFT) {
+                                stv.offset[3] = rec.getFloat(TEXT);
+                            }
+                        });
                     }
                     break;
                 case 1043: //Ограничение габарита контура, мм 
@@ -455,23 +458,24 @@ public class JoiningVar extends Par5s {
                     break;
                 case 3030:  //Усечение Артикула1/Артикула2, мм
                 case 3031:  //Усечение Артикула1/Артикула2, мм 
-                    if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 1, мм
-//                        ElemSimple el9 = iwin.listSortEl.find(5.4f);
-//                        if (el9 == elemJoin.elem1 || el9 == elemJoin.elem2) {
-//                            System.out.println("builder.param.JoiningVar.check()");
-//                        }                        
-                        elemJoin.elem1.spcRec.width -= rec.getFloat(TEXT);
+                    listenerList.add(() -> {
+                        if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 1, мм
+                            ElemSimple el9 = iwin.listSortEl.find(5.4f);
+                            elemJoin.elem1.spcRec.width -= rec.getFloat(TEXT);
 
-                    } else {
-                        String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
-                        elemJoin.elem1.spcRec.width -= UCom.getFloat(arr[0]);
-                        elemJoin.elem2.spcRec.width -= UCom.getFloat(arr[1]);
-                    }
+                        } else {
+                            String[] arr = rec.getStr(TEXT).replace(",", ".").split("/");
+                            elemJoin.elem1.spcRec.width -= UCom.getFloat(arr[0]);
+                            elemJoin.elem2.spcRec.width -= UCom.getFloat(arr[1]);
+                        }
+                    });
                     break;
                 case 3040:
-                    if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 2, мм
-                        elemJoin.elem2.spcRec.width -= rec.getFloat(TEXT);
-                    }
+                    listenerList.add(() -> {
+                        if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 2, мм
+                            elemJoin.elem2.spcRec.width -= rec.getFloat(TEXT);
+                        }
+                    });
                     break;
                 case 3045:  //Расстояние от уровня деления, мм 
                 case 4045:  //Расстояние от уровня деления, мм 

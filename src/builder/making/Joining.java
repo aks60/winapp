@@ -93,7 +93,9 @@ public class Joining extends Cal5e {
                         //ФИЛЬТР вариантов  
                         if (joiningVar.filter(elemJoin, joinvarRec) == true) {
 
-                                                        
+                            //Если в проверочных парам. успех,
+                            //выполним установочные параметры
+                             joiningVar.listenerFire();                           
                             
                             //Накопление данных для запуска детализации
                             mapJoinvar.put(elemJoin, joinvarRec.getInt(eJoinvar.id));
