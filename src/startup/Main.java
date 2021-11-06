@@ -48,7 +48,7 @@ public class Main {
             public void run() {
                 try {
                     runRussifier();
-                    String lafName = "Dark Metal"; //eProperty.lookandfeel.read();
+                    String lafName = eProperty.lookandfeel.read();
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     for (LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
                         if (lafName.equals(laf.getName())) {
