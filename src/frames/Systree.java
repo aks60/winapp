@@ -1168,15 +1168,15 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
         tab7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null}
+                {"Xxxxxxxxxxxxx", "uuuuuuu", "12345"},
+                {"Vvvvvvvvvvvvv", "eeeeeee", "54321"}
             },
             new String [] {
                 "Параметр", "Значение по умолчанию", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false
+                true, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
