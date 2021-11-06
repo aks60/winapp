@@ -87,7 +87,7 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-         String _case = "max";
+         String _case = "one";
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(601010, false));
