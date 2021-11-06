@@ -1,5 +1,6 @@
 package builder.model;
 
+import builder.making.Filling;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
@@ -21,6 +22,7 @@ public class ElemGlass extends ElemSimple {
     public float radiusGlass = 0; //радиус стекла
     public float gzazo = 0; //зазор между фальцем и стеклопакетом 
     public float sideHoriz[] = {0, 90, 180, 270}; //угол боковой стороны к горизонту
+    public float gsize[] = {0, 0, 0, 0}; //размер от оси до стеклопакета
 
     public ElemGlass(AreaSimple owner, float id, String param) {
 
@@ -35,6 +37,8 @@ public class ElemGlass extends ElemSimple {
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }
+        Filling filling = new Filling(iwin, true);
+        filling.calc2(this);
     }
 
     public void initСonstructiv(String param) {
@@ -95,9 +99,10 @@ public class ElemGlass extends ElemSimple {
                 y1 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
 
-        } else {  
+        } else {
             ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
             if (iwin.syssizeRec.getInt(eSyssize.id) == -1) {
+
                 x1 = owner.x1 + eGlasprof.find2(insideLeft.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
                 y1 = owner.y1 + eGlasprof.find2(insideTop.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
                 x2 = owner.x2 - eGlasprof.find2(insideRight.artiklRec.getInt(eArtikl.id)).getFloat(eGlasprof.gsize);
