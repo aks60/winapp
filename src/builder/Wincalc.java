@@ -99,7 +99,6 @@ public class Wincalc {
         rootArea.joining(); //соединения ареа
         listSortAr.stream().filter(el -> el.type == Type.STVORKA).collect(toList()).forEach(el -> el.joining()); //соединения створок
         listSortEl.forEach(it -> it.setSpecific()); //спецификация профилей
-        //listSortEl.stream().filter(el -> el.type != Type.GLASS).collect(toList()).forEach(it -> it.setSpecific()); //спецификация профилей
        
         return rootArea;
     }
