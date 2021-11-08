@@ -99,7 +99,7 @@ public class Wincalc {
         rootArea.joining(); //соединения ареа
         listSortAr.stream().filter(el -> el.type == Type.STVORKA).collect(toList()).forEach(el -> el.joining()); //соединения створок
         listSortEl.forEach(it -> it.setSpecific()); //спецификация профилей
-       
+
         return rootArea;
     }
 
@@ -191,7 +191,7 @@ public class Wincalc {
     public void constructiv(boolean norm_otx) {
         try {
             calcJoining = new Joining(this); //соединения
-            calcJoining.calc();               
+            calcJoining.calc();
             calcElements = new Elements(this); //составы
             calcElements.calc();
             calcFilling = new Filling(this); //заполнения
@@ -202,7 +202,9 @@ public class Wincalc {
             calTariffication.calc();
 
             for (ElemSimple elemRec : listSortEl) {
-                listSpec.add(elemRec.spcRec);
+                if (elemRec.spcRec.artikl.trim().charAt(0) != '@') {
+                    listSpec.add(elemRec.spcRec);
+                }
                 listSpec.addAll(elemRec.spcRec.spcList);
             }
             Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width));

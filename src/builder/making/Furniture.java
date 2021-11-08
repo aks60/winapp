@@ -194,9 +194,13 @@ public class Furniture extends Cal5e {
                     if (propertyStv(areaStv, spcAdd) == false) {
                         return false; //выход из цикла поиска
                     }
-
+                    //Если цвет не подходит
+                    if(UColor.colorFromProduct(spcAdd, 1) == false) {
+                        return false; //выход из цикла поиска
+                    }
+                    
                     //Добавим спецификацию в элемент
-                    if (shortPass == false && artiklRec.getStr(eArtikl.code).charAt(0) != '@' && UColor.colorFromProduct(spcAdd, 1) == true) {
+                    if (shortPass == false) {
                         spcAdd.count = UCom.getFloat(spcAdd.getParam(spcAdd.count, 24030));
                         spcAdd.count = spcAdd.count * countKit; //умножаю на количество комплектов
                         spcAdd.place = "ФУРН";

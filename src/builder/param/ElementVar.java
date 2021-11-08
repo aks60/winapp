@@ -172,7 +172,8 @@ public class ElementVar extends Par5s {
                 break;
                 case 31015:  //Разбиение профиля по уровням 
                     message(grup);
-                    break;
+                    return false;
+                    //break;
                 case 31016:  //Зазор_на_метр,_мм/Размер_,мм терморазрыва 
                     message(grup);
                     break;
