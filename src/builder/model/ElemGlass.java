@@ -103,10 +103,11 @@ public class ElemGlass extends ElemSimple {
             ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
             
             if (iwin.syssizeRec.getInt(eSyssize.id) == -1) {
-                y2 = insideBott.y2 - insideBott.artiklRec.getFloat(eArtikl.size_centr) - gsize[0]; //BOT
-                x2 = insideRight.x2 - insideRight.artiklRec.getFloat(eArtikl.size_centr) - gsize[1]; //RIG
-                y1 = insideTop.y1 + insideTop.artiklRec.getFloat(eArtikl.size_centr) + gsize[2]; //TOP
-                x1 = insideLeft.x1 + insideLeft.artiklRec.getFloat(eArtikl.size_centr) + gsize[3]; //LEF  
+                y2 = insideBott.y2 - insideBott.artiklRec.getFloat(eArtikl.size_centr) - gsize[0]; 
+                x2 = insideRight.x2 - insideRight.artiklRec.getFloat(eArtikl.size_centr) - gsize[1]; 
+                y1 = insideTop.y1 + insideTop.artiklRec.getFloat(eArtikl.size_centr) + gsize[2]; 
+                x1 = insideLeft.x1 + insideLeft.artiklRec.getFloat(eArtikl.size_centr) + gsize[3];
+                System.out.println("builder.model.ElemGlass.setSpecific()");
             } else {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
                 y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;

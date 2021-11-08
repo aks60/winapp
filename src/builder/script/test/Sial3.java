@@ -126,7 +126,7 @@ public final class Sial3 {
                     .addElem(new GsonElem(Type.GLASS));
             
         } else if (prj == 601008) { // Двери
-            rootGson = new GsonRoot(prj, 1, 2, "SIAL\\КП-45\\Двери маятниковые\\Маятниковая 1-створчатая. SA:CBOT 1040=23мм, CTOP 1040=100",
+            rootGson = new GsonRoot(prj, 1, 2, "SIAL\\КП-45\\Двери маятниковые\\Маятниковая 1-створчатая. SA:[CBOT 1040=23мм, CTOP 1040=100]",
                     Layout.VERT, Type.DOOR, 900, 2100, 33, 33, 33);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT, "{'sysprofID':160}"))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT, "{'sysprofID':160}"))
