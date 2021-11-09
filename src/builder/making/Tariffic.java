@@ -62,7 +62,7 @@ public class Tariffic extends Cal5e {
 
                 Record systreeRec = eSystree.find(iwin.nuni);
                 //Цикл по правилам расчёта. Увеличение себестоимости в coeff раз и на incr величину наценки.
-                for (Record rulecalcRec : eRulecalc.get()) {
+                for (Record rulecalcRec : eRulecalc.list()) {
 
                     //Фильтр по полю форма профиля, заполнения. В БиМакс используюеся только 1, 4, 10, 12 параметры
                     int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
@@ -97,7 +97,7 @@ public class Tariffic extends Cal5e {
                 for (Specific specificationRec2 : elem5e.spcRec.spcList) {
 
                     //Цикл по правилам расчёта.
-                    for (Record rulecalcRec : eRulecalc.get()) {
+                    for (Record rulecalcRec : eRulecalc.list()) {
                         int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
                         if (form == TypeForm.P00.id) { //не проверять форму 
                             rulePrise(rulecalcRec, specificationRec2);
