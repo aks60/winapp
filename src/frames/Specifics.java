@@ -400,7 +400,7 @@ public class Specifics extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(4).setPreferredWidth(100);
             tab1.getColumnModel().getColumn(5).setPreferredWidth(240);
             tab1.getColumnModel().getColumn(9).setPreferredWidth(48);
-            tab1.getColumnModel().getColumn(10).setPreferredWidth(46);
+            tab1.getColumnModel().getColumn(10).setPreferredWidth(48);
             tab1.getColumnModel().getColumn(11).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(12).setPreferredWidth(36);
             tab1.getColumnModel().getColumn(13).setPreferredWidth(36);

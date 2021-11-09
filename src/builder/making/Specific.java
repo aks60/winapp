@@ -52,6 +52,7 @@ public class Specific {
     public float cost2 = 0;  //Стоимость со скидкой
 
     public Specific(float id, ElemSimple elem5e) {
+        ++elem5e.iwin.genId;
         this.id = id;
         this.elem5e = elem5e;
         this.mapParam = new HashMap();
