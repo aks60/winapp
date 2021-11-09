@@ -88,7 +88,7 @@ public class Tariffic extends Cal5e {
                     }
                 }
 
-                elem5e.spcRec.price2 = elem5e.spcRec.price1 * elem5e.spcRec.quant2; //себест. за ед. без отхода  
+                elem5e.spcRec.price2 = elem5e.spcRec.price1 * elem5e.spcRec.quant2; //себест. за ед. с отходом 
                 Record artgrp1Rec = eGroups.find(elem5e.spcRec.artiklRec.getInt(eArtikl.artgrp1_id));
                 elem5e.spcRec.cost1 = elem5e.spcRec.price2 * artgrp1Rec.getFloat(eGroups.val, 1) * systreeRec.getFloat(eSystree.coef, 1);
                 elem5e.spcRec.cost1 = elem5e.spcRec.cost1 + (elem5e.spcRec.cost1 / 100) * percentMarkup; //стоимость без скидки                     
@@ -103,7 +103,7 @@ public class Tariffic extends Cal5e {
                             rulePrise(rulecalcRec, specificationRec2);
                         }
                     }
-                    specificationRec2.price2 = specificationRec2.price1 * specificationRec2.quant2; //себест. за ед. без отхода 
+                    specificationRec2.price2 = specificationRec2.price1 * specificationRec2.quant2; //себест. за ед. с отходом  
                     Record artgrp1Rec2 = eGroups.find(specificationRec2.artiklRec.getInt(eArtikl.artgrp1_id));
                     specificationRec2.cost1 = specificationRec2.price2 * artgrp1Rec2.getFloat(eGroups.val, 1) * systreeRec.getFloat(eSystree.coef);
                     specificationRec2.cost1 = specificationRec2.cost1 + (specificationRec2.cost1 / 100) * percentMarkup; //стоимость без скидки                        
@@ -259,7 +259,7 @@ public class Tariffic extends Cal5e {
             return spcRec.count;
 
         } else if (UseUnit.ML.id == spcRec.artiklRec.getInt(eArtikl.unit)) { //мл
-            return spcRec.quant1;
+            return spcRec.count;
         }
         return 0;
     }
