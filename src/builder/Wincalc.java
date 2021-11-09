@@ -205,7 +205,11 @@ public class Wincalc {
                 if (elemRec.spcRec.artikl.trim().charAt(0) != '@') {
                     listSpec.add(elemRec.spcRec);
                 }
-                listSpec.addAll(elemRec.spcRec.spcList);
+                for (Specific specific : elemRec.spcRec.spcList) {
+                    if (specific.artikl.trim().charAt(0) != '@') {
+                        listSpec.add(specific);
+                    }
+                }
             }
             Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width));
 

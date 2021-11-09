@@ -316,6 +316,7 @@ public class Currenc extends javax.swing.JFrame {
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
         listener.action(eCurrenc.up.newRecord());
+        this.dispose();
     }//GEN-LAST:event_btnRemoveert
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

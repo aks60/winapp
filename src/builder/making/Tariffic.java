@@ -189,64 +189,6 @@ public class Tariffic extends Cal5e {
         return inPrice;
     }
 
-    //Себес-сть за ед. изм. Считает тариф для заданного артикула заданных цветов по таблице eArtdet
-    public float calcPrice2(Specific specificRec) {
-
-        float inPrice = 0;
-        Record color1Rec = eColor.find(specificRec.colorID1);  //основная
-        Record color2Rec = eColor.find(specificRec.colorID2);  //внутренняя
-        Record color3Rec = eColor.find(specificRec.colorID3);  //внешняя
-
-        Record kursBaseRec = eCurrenc.find(specificRec.artiklRec.getInt(eArtikl.currenc1_id));    // кросс-курс валюты для основной текстуры
-        Record kursNoBaseRec = eCurrenc.find(specificRec.artiklRec.getInt(eArtikl.currenc2_id));  // кросс-курс валюты для неосновных текстур (внутренняя, внешняя, двухсторонняя)
-
-        //Цикл по тарификационной таблице ARTDET мат. ценностей
-        for (Record artdetRec : eArtdet.find(specificRec.artiklRec.getInt(eArtikl.id))) {
-
-            float artdetTariff = 0;
-            boolean artdetUsed = false;
-
-            if (artdetRec.getFloat(eArtdet.cost_c4) != 0 && color2Rec.getInt(eColor.id) == color3Rec.getInt(eColor.id)
-                    && artdetRec.getInt(eArtdet.mark_c2) == 1 && artdetRec.getInt(eArtdet.mark_c3) == 1
-                    && isTariff(artdetRec, color2Rec)) { //если двухсторонняя текстура
-
-                artdetTariff += (artdetRec.getInt(eArtdet.cost_c4) * Math.max(color2Rec.getFloat(eColor.coef2), color2Rec.getFloat(eColor.coef3)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour));
-                artdetUsed = true;
-
-            } else {
-
-                if ("1".equals(artdetRec.getStr(eArtdet.mark_c1))) {  //подбираем тариф основной текстуры
-                    if (isTariff(artdetRec, color1Rec)) {
-                        Record colgrpRec = eGroups.find(color1Rec.getInt(eColor.colgrp_id));
-                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_c1) * color1Rec.getFloat(eColor.coef1) * colgrpRec.getFloat(eGroups.val)) / kursBaseRec.getFloat(eCurrenc.cross_cour);
-                        artdetUsed = true;
-                    }
-                }
-                if ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))) { //подбираем тариф внутренней текстуры
-                    if (isTariff(artdetRec, color2Rec)) {
-                        Record colgrpRec = eGroups.find(color2Rec.getInt(eColor.colgrp_id));
-                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_c2) * color2Rec.getFloat(eColor.coef2) * colgrpRec.getFloat(eGroups.val)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
-                        artdetUsed = true;
-                    }
-                }
-                if ("1".equals(artdetRec.getStr(eArtdet.mark_c3)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))) { //подбираем тариф внешней текстуры
-                    if (isTariff(artdetRec, color3Rec)) {
-                        Record colgrpRec = eGroups.find(color3Rec.getInt(eColor.colgrp_id));
-                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_c3) * color3Rec.getFloat(eColor.coef3) * colgrpRec.getFloat(eGroups.val)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
-                        artdetUsed = true;
-                    }
-                }
-            }
-            if (artdetUsed && artdetRec.getFloat(eArtdet.cost_min) != 0 && specificRec.quant1 != 0 && artdetTariff * specificRec.quant1 < artdetRec.getFloat(eArtdet.cost_min)) {
-                artdetTariff = artdetRec.getFloat(eArtdet.cost_min) / specificRec.quant1;    //используем минимальный тариф 
-            }
-            if (artdetUsed) {
-                inPrice = inPrice + (artdetTariff * artdetRec.getFloat(eArtdet.price_coeff));
-            }
-        }
-        return inPrice;
-    }
-
     //Правила расчёта. Фильтр по полю form, color(1,2,3) таблицы RULECALC
     private void rulePrise(Record rulecalcRec, Specific specifRec) {
 

@@ -90,13 +90,13 @@ public class Test {
          String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(601010, false));
+            iwin.build(builder.script.Winscript.test(601007, false));
             //new Joining(iwin, true);
             iwin.constructiv(true);
             //Specific.write_txt(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            DBCompare.iwinPs4(iwin, true);
-            //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
+            //DBCompare.iwinPs4(iwin, true);
+            iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {
             List<Integer> prjList = Winscript.models(_case);
@@ -105,8 +105,8 @@ public class Test {
                 if (script != null) {
                     iwin.build(script);
                     iwin.constructiv(true);
-                    //DBCompare.iwinXls(iwin, false);
-                    DBCompare.iwinPs4(iwin, false);
+                    DBCompare.iwinXls(iwin, false);
+                    //DBCompare.iwinPs4(iwin, false);
                 }
             }
 

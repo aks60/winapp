@@ -89,7 +89,6 @@ public class AreaStvorka extends AreaSimple {
             y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
 
         } else { //Вычисление смещения створки через параметр
-            HashMap<String, ElemJoining> mapJoin = iwin.mapJoin;
             try {
                 iwin.mapJoin.clear();
                 iwin.mapJoin.put(stvBot.joinPoint(2), new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBot, joinBot, 0));
@@ -107,7 +106,7 @@ public class AreaStvorka extends AreaSimple {
             } catch (Exception e) {
                 System.err.println("Ошибка:model.AreaStvorka.setNaxlest() " + e);
             } finally {
-                iwin.mapJoin = mapJoin;
+                iwin.mapJoin.clear();
             }
         }
 
