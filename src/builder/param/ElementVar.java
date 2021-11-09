@@ -10,12 +10,14 @@ import java.util.List;
 import builder.Wincalc;
 import builder.model.AreaStvorka;
 import builder.model.ElemGlass;
+import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import common.UCom;
 import enums.Form;
 import enums.Type;
 import enums.TypeJoin;
 import java.util.ArrayList;
+import java.util.Map;
 
 //Составы 31000, 37000
 public class ElementVar extends Par5s {
@@ -86,13 +88,20 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31004: //Если прилегающий артикул 
-                    if (elem5e.joinElem(2) == null) {
+                {
+                    boolean ret = false;
+                    for (Map.Entry<String, ElemJoining> entry : iwin.mapJoin.entrySet()) {
+                        ElemJoining elemJoining = entry.getValue();
+                        if (elemJoining.elem2.artiklRecAn.getInt(1) == elem5e.artiklRecAn.getInt(1)
+                                && rec.getStr(TEXT).equals(elemJoining.elem1.artiklRecAn.getStr(eArtikl.code))) {
+                            ret = true;
+                        }
+                    }
+                    if (ret == false) {
                         return false;
                     }
-                    if (rec.getStr(TEXT).equals(elem5e.joinElem(2).artiklRecAn.getStr(eArtikl.code)) == false) {
-                        return false;
-                    }
-                    break;
+                }
+                break;
                 case 31005:  //Коды основной текстуры контейнера 
                 case 37005:  //Коды основной текстуры контейнера 
                     if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.colorID1()) == false) {
@@ -175,7 +184,7 @@ public class ElementVar extends Par5s {
                     if ("Авто".equals(rec.getStr(TEXT)) == false) {
                         return false;
                     }
-                break;
+                    break;
                 case 31016:  //Зазор_на_метр,_мм/Размер_,мм терморазрыва 
                     message(grup);
                     break;
