@@ -798,7 +798,7 @@ public class Joinings extends javax.swing.JFrame {
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab3.getColumnModel().getColumn(1).setMaxWidth(120);
+            tab3.getColumnModel().getColumn(1).setMaxWidth(160);
         }
 
         pan1.add(scr3);
@@ -882,7 +882,7 @@ public class Joinings extends javax.swing.JFrame {
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab5.getColumnModel().getColumn(1).setMaxWidth(120);
+            tab5.getColumnModel().getColumn(1).setMaxWidth(160);
         }
 
         jPanel3.add(scr5, java.awt.BorderLayout.EAST);

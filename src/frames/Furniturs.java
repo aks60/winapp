@@ -1008,6 +1008,7 @@ public class Furniturs extends javax.swing.JFrame {
         if (tab4.getColumnModel().getColumnCount() > 0) {
             tab4.getColumnModel().getColumn(0).setPreferredWidth(220);
             tab4.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(1).setMaxWidth(160);
         }
 
         pan8.add(scr4, java.awt.BorderLayout.CENTER);
@@ -1160,6 +1161,7 @@ public class Furniturs extends javax.swing.JFrame {
         if (tab6.getColumnModel().getColumnCount() > 0) {
             tab6.getColumnModel().getColumn(0).setPreferredWidth(220);
             tab6.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab6.getColumnModel().getColumn(1).setMaxWidth(160);
         }
 
         pan10.add(scr6, java.awt.BorderLayout.CENTER);
