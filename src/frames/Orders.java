@@ -7,6 +7,7 @@ import builder.making.Specific;
 import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import builder.making.Joining;
+import builder.making.UColor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -32,6 +33,7 @@ import frames.swing.DefFieldEditor;
 import common.listener.ListenerRecord;
 import common.eProfile;
 import common.eProperty;
+import common.listener.ListenerObject;
 import dataset.Conn;
 import domain.eArtdet;
 import domain.eArtikl;
@@ -64,6 +66,7 @@ import frames.dialog.ParDefault;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
 import frames.swing.FilterTable;
+import frames.swing.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Graphics2D;
@@ -87,7 +90,7 @@ import javax.swing.tree.TreePath;
 import startup.App;
 import startup.Main;
 
-public class Orders extends javax.swing.JFrame {
+public class Orders extends javax.swing.JFrame implements ListenerObject {
 
     private Query qParams = new Query(eParams.id, eParams.params_id, eParams.text);
     private Query qCurrenc = new Query(eCurrenc.values());
@@ -97,9 +100,10 @@ public class Orders extends javax.swing.JFrame {
     private Query qPrjprod = new Query(ePrjprod.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Map<Integer, String> mapParams = new HashMap();
-    private Wincalc iwin = new Wincalc();
+    //private Wincalc iwin = new Wincalc();
     private DefMutableTreeNode winNode = null;
     private Canvas canvas = new Canvas();
+    private Scene scene = new Scene(canvas, this);
     private DefFieldEditor rsvPrj;
     private Gson gson = new GsonBuilder().create();
     private FilterTable filterTable = null;
@@ -122,7 +126,7 @@ public class Orders extends javax.swing.JFrame {
         qPrjprod.select(ePrjprod.up);
     }
 
-    public void loadingModel() {
+    public void loadingModel()  {
         new DefTableModel(tab1, qProject, eProject.num_ord, eProject.num_acc, eProject.date4, eProject.date6, eProject.prjpart_id, eProject.manager) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
@@ -252,7 +256,7 @@ public class Orders extends javax.swing.JFrame {
                     String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
                     sysprodRec.set(ePrjprod.script, script2);
                     qPrjprod.execsql();
-                    iwin.build(script2);
+                    iwin().build(script2);
                     UGui.stopCellEditing(tab1, tab2, tab3, tab5);
                     selectionWin();
                     UGui.setSelectedIndex(tab5, index2);
@@ -311,7 +315,7 @@ public class Orders extends javax.swing.JFrame {
         }
     }
 
-    public void loadingWin() {
+    public void loadingWin(Wincalc iwin) {
         try {
             int row[] = winTree.getSelectionRows();
             DefMutableTreeNode root = UGui.loadWinTree(iwin);
@@ -348,30 +352,45 @@ public class Orders extends javax.swing.JFrame {
         }
     }
 
-    public void selectionTab2() {
-        int index = UGui.getIndexRec(tab2);
+    private Wincalc iwin() {
+        int index = UGui.getIndexRec(tab5);
         if (index != -1) {
-            Record prjprodRec = qPrjprod.get(index);
-            eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
+            Record sysprodRec = qPrjprod.table(eSysprod.up).get(index);
+            Object v = sysprodRec.get(eSysprod.values().length);
+            if (v instanceof Wincalc) { //прорисовка окна               
+                return (Wincalc) v;
+            }
+        }
+        return null;
+    }
+    
+    public void selectionTab2() {
+        int index = UGui.getIndexRec(tab5);
+        if (index != -1) {
+            Record sysprodRec = qPrjprod.table(eSysprod.up).get(index);
+            eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
-            Object v = prjprodRec.get(ePrjprod.values().length);
-            if (v instanceof Wincalc) { //прорисовка окна  
 
-                iwin = (Wincalc) v;
-                canvas.init(iwin);
+            Object w = sysprodRec.get(eSysprod.values().length);
+            if (w instanceof Wincalc) { //прорисовка окна               
+                Wincalc win = (Wincalc) w;
+                scene.init(win);
                 canvas.draw();
-                loadingWin();
+                scene.draw();
+                loadingWin(win);
                 winTree.setSelectionInterval(0, 0);
 
-            } else {
-                Graphics2D g = (Graphics2D) canvas.getGraphics();
-                g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             }
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-        }
+        } else {
+            scene.init(null);
+            scene.draw();
+            canvas.draw();
+            winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
+        }        
     }
 
     public void selectionWin() {
+        Wincalc iwin = iwin();
         winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
         if (winNode != null) {
 
@@ -471,7 +490,7 @@ public class Orders extends javax.swing.JFrame {
     }
 
     public void updateScript(float selectID) {
-        String script = gson.toJson(iwin.rootGson);
+        String script = gson.toJson(iwin().rootGson);
         Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab2));
         prjprodRec.set(ePrjprod.script, script);
         qPrjprod.update(prjprodRec);
@@ -487,6 +506,25 @@ public class Orders extends javax.swing.JFrame {
         } while (node != null);
     }
 
+    @Override
+    public boolean action(Object obj) {
+        Wincalc win = iwin();
+        int index = UGui.getIndexRec(tab5);
+        if (index != -1) {
+            String script = gson.toJson(win.rootGson);
+            win.build(script);
+            win.imageIcon = Canvas.createIcon(win, 68);
+            Record sysprodRec = qPrjprod.get(index);
+            sysprodRec.set(ePrjprod.script, script);
+            sysprodRec.set(ePrjprod.values().length, win);
+            canvas.draw();
+            scene.draw();
+            selectionWin();
+        }
+        return true;
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -806,7 +844,7 @@ public class Orders extends javax.swing.JFrame {
                 .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 478, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 512, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -899,7 +937,7 @@ public class Orders extends javax.swing.JFrame {
         pan3.setPreferredSize(new java.awt.Dimension(600, 550));
         pan3.setLayout(new java.awt.BorderLayout());
 
-        pan5.setPreferredSize(new java.awt.Dimension(600, 210));
+        pan5.setPreferredSize(new java.awt.Dimension(600, 250));
         pan5.setLayout(new java.awt.BorderLayout());
 
         scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1157,7 +1195,7 @@ public class Orders extends javax.swing.JFrame {
             .addGroup(pan12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                    .addComponent(pan21, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addGroup(pan12Layout.createSequentialGroup()
                         .addGroup(pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pan12Layout.createSequentialGroup()
@@ -1178,7 +1216,7 @@ public class Orders extends javax.swing.JFrame {
                                 .addComponent(txt23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 11, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan12Layout.setVerticalGroup(
@@ -1362,17 +1400,17 @@ public class Orders extends javax.swing.JFrame {
             .addGroup(pan13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pan13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                    .addComponent(pan20, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                        .addComponent(txt32, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan13Layout.createSequentialGroup()
                         .addComponent(lab34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)))
+                        .addComponent(txt33, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan13Layout.setVerticalGroup(
@@ -1389,7 +1427,7 @@ public class Orders extends javax.swing.JFrame {
                     .addComponent(txt33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pan8.add(pan13, "card13");
@@ -1439,13 +1477,13 @@ public class Orders extends javax.swing.JFrame {
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                        .addComponent(txt19, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)))
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan15Layout.setVerticalGroup(
@@ -1460,7 +1498,7 @@ public class Orders extends javax.swing.JFrame {
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
 
         pan8.add(pan15, "card15");
@@ -1695,7 +1733,7 @@ public class Orders extends javax.swing.JFrame {
                         .addComponent(txt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 11, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pan16Layout.createSequentialGroup()
                         .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lab47, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1747,7 +1785,7 @@ public class Orders extends javax.swing.JFrame {
                     .addComponent(lab37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(pan16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1881,11 +1919,11 @@ public class Orders extends javax.swing.JFrame {
                             .addGroup(pan17Layout.createSequentialGroup()
                                 .addComponent(lab49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt36, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE))
+                                .addComponent(txt36, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
                             .addGroup(pan17Layout.createSequentialGroup()
                                 .addComponent(lab54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt40, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)))
+                                .addComponent(txt40, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1893,7 +1931,7 @@ public class Orders extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan17Layout.createSequentialGroup()
                         .addComponent(lab50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt37, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan17Layout.createSequentialGroup()
@@ -1932,17 +1970,17 @@ public class Orders extends javax.swing.JFrame {
                 .addGroup(pan17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         pan8.add(pan17, "card17");
 
         pan5.add(pan8, java.awt.BorderLayout.CENTER);
 
-        pan3.add(pan5, java.awt.BorderLayout.NORTH);
+        pan3.add(pan5, java.awt.BorderLayout.SOUTH);
 
         panDesign.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panDesign.setPreferredSize(new java.awt.Dimension(604, 400));
+        panDesign.setPreferredSize(new java.awt.Dimension(604, 350));
         panDesign.setLayout(new java.awt.BorderLayout());
         pan3.add(panDesign, java.awt.BorderLayout.CENTER);
 
@@ -1973,10 +2011,10 @@ public class Orders extends javax.swing.JFrame {
 
         centr.add(tabb1, java.awt.BorderLayout.CENTER);
 
-        pan11.setPreferredSize(new java.awt.Dimension(300, 550));
+        pan11.setPreferredSize(new java.awt.Dimension(400, 550));
         pan11.setLayout(new java.awt.BorderLayout());
 
-        pan2.setPreferredSize(new java.awt.Dimension(300, 230));
+        pan2.setPreferredSize(new java.awt.Dimension(400, 250));
 
         lab1.setFont(frames.UGui.getFont(0,0));
         lab1.setText("Тип расчтета");
@@ -2106,7 +2144,7 @@ public class Orders extends javax.swing.JFrame {
                             .addComponent(lab8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         pan2Layout.setVerticalGroup(
             pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2140,12 +2178,12 @@ public class Orders extends javax.swing.JFrame {
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
-        pan11.add(pan2, java.awt.BorderLayout.NORTH);
+        pan11.add(pan2, java.awt.BorderLayout.SOUTH);
 
-        pan7.setPreferredSize(new java.awt.Dimension(304, 350));
+        pan7.setPreferredSize(new java.awt.Dimension(404, 350));
         pan7.setLayout(new java.awt.BorderLayout());
 
         scr2.setPreferredSize(new java.awt.Dimension(204, 404));
@@ -2348,16 +2386,16 @@ public class Orders extends javax.swing.JFrame {
 
                 ListenerRecord listenerColor = (colorRec) -> {
 
-                    GsonElem jsonElem = iwin.rootGson.find(selectID);
+                    GsonElem jsonElem = iwin().rootGson.find(selectID);
                     if (jsonElem != null) {
                         String paramStr = (jsonElem.param().isEmpty()) ? "{}" : jsonElem.param();
                         JsonObject jsonObject = gson.fromJson(paramStr, JsonObject.class);
                         if (evt.getSource() == btn9) {
-                            iwin.rootGson.color1 = colorRec.getInt(eColor.id);
+                            iwin().rootGson.color1 = colorRec.getInt(eColor.id);
                         } else if (evt.getSource() == btn13) {
-                            iwin.rootGson.color2 = colorRec.getInt(eColor.id);
+                            iwin().rootGson.color2 = colorRec.getInt(eColor.id);
                         } else {
-                            iwin.rootGson.color3 = colorRec.getInt(eColor.id);
+                            iwin().rootGson.color3 = colorRec.getInt(eColor.id);
                         }
                         updateScript(selectID);
                     }
@@ -2398,7 +2436,7 @@ public class Orders extends javax.swing.JFrame {
 
                     if (winNode.com5t().type == enums.Type.FRAME_SIDE) { //рама окна
                         float gsonId = winNode.com5t().id();
-                        GsonElem gsonRama = iwin.rootGson.find(gsonId);
+                        GsonElem gsonRama = iwin().rootGson.find(gsonId);
                         String paramStr = gsonRama.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
@@ -2408,7 +2446,7 @@ public class Orders extends javax.swing.JFrame {
 
                     } else if (winNode.com5t().type == enums.Type.STVORKA_SIDE) { //рама створки
                         float stvId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
-                        GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
+                        GsonElem stvArea = (GsonElem) iwin().rootGson.find(stvId);
                         String paramStr = stvArea.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         String stvKey = null;
@@ -2429,7 +2467,7 @@ public class Orders extends javax.swing.JFrame {
 
                     } else {  //импост
                         float elemId = winNode.com5t().id();
-                        GsonElem gsonElem = iwin.rootGson.find(elemId);
+                        GsonElem gsonElem = iwin().rootGson.find(elemId);
                         String paramStr = gsonElem.param();
                         JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                         paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
@@ -2466,7 +2504,7 @@ public class Orders extends javax.swing.JFrame {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
-                GsonElem jsonArea = (GsonElem) iwin.rootGson.find(parentId);
+                GsonElem jsonArea = (GsonElem) iwin().rootGson.find(parentId);
 
                 if (winNode.com5t().type == enums.Type.STVORKA_SIDE) {
                     String paramStr = jsonArea.param();
@@ -2516,7 +2554,7 @@ public class Orders extends javax.swing.JFrame {
 
             new DicName(this, (sysfurnRec) -> {
 
-                GsonElem jsonStv = (GsonElem) iwin.rootGson.find(windowsID);
+                GsonElem jsonStv = (GsonElem) iwin().rootGson.find(windowsID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
@@ -2536,7 +2574,7 @@ public class Orders extends javax.swing.JFrame {
             new DicEnums(this, (typeopenRec) -> {
 
                 float elemID = winNode.com5t().id();
-                GsonElem jsonStv = (GsonElem) iwin.rootGson.find(elemID);
+                GsonElem jsonStv = (GsonElem) iwin().rootGson.find(elemID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
@@ -2570,7 +2608,7 @@ public class Orders extends javax.swing.JFrame {
             });
             DicColor frame = new DicColor(this, (colorRec) -> {
 
-                GsonElem jsonStv = (GsonElem) iwin.rootGson.find(selectID);
+                GsonElem jsonStv = (GsonElem) iwin().rootGson.find(selectID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
@@ -2637,7 +2675,7 @@ public class Orders extends javax.swing.JFrame {
             }
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonElem jsonStv = (GsonElem) iwin.rootGson.find(selectID);
+                GsonElem jsonStv = (GsonElem) iwin().rootGson.find(selectID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
@@ -2664,7 +2702,7 @@ public class Orders extends javax.swing.JFrame {
         new DicHandl(this, (record) -> {
             try {
                 float selectID = areaStv.id();
-                GsonElem jsonStv = (GsonElem) iwin.rootGson.find(selectID);
+                GsonElem jsonStv = (GsonElem) iwin().rootGson.find(selectID);
                 String paramStr = jsonStv.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
 
@@ -2710,7 +2748,7 @@ public class Orders extends javax.swing.JFrame {
 
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonElem glassElem = (GsonElem) iwin.rootGson.find(selectID);
+                GsonElem glassElem = (GsonElem) iwin().rootGson.find(selectID);
                 String paramStr = glassElem.param();
                 JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 paramObj.addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
@@ -2794,10 +2832,10 @@ public class Orders extends javax.swing.JFrame {
 
                         String script = prjprodRec.getStr(ePrjprod.script);
                         JsonElement je = new Gson().fromJson(script, JsonElement.class);
-                        iwin.build(je.toString());
+                        iwin().build(je.toString());
                         Query.listOpenTable.forEach(q -> q.clear());
-                        iwin.constructiv(true);
-                        for (Specific spc : iwin.listSpec) {
+                        iwin().constructiv(true);
+                        for (Specific spc : iwin().listSpec) {
                             int i = -1;
                             total[++i] = total[i] + spc.weight; //масса
                             total[++i] = total[i] + spc.price2; //Себес-сть за злемент
@@ -2847,9 +2885,9 @@ public class Orders extends javax.swing.JFrame {
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
                 JButton btn = (JButton) evt.getSource();
                 int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
-                ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
+                ElemJoining elemJoin = iwin().mapJoin.get(elem5e.joinPoint(k));
                 Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
-                Joining joining = new Joining(iwin);
+                Joining joining = new Joining(iwin());
                 List<Record> list = joining.varList(elemJoin);
                 new DicJoinvar(this, (record) -> {
                     System.out.println(record);
@@ -2867,9 +2905,9 @@ public class Orders extends javax.swing.JFrame {
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
                 JButton btn = (JButton) evt.getSource();
                 int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
-                ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
+                ElemJoining elemJoin = iwin().mapJoin.get(elem5e.joinPoint(k));
                 Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
-                Joining joining = new Joining(iwin);
+                Joining joining = new Joining(iwin());
                 List<Record> list = joining.varList(elemJoin);
                 new DicJoinvar(this, (record) -> {
                     System.out.println(record);
@@ -2887,9 +2925,9 @@ public class Orders extends javax.swing.JFrame {
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
                 JButton btn = (JButton) evt.getSource();
                 int k = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
-                ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(k));
+                ElemJoining elemJoin = iwin().mapJoin.get(elem5e.joinPoint(k));
                 Record joiningRec = eJoining.find(elemJoin.elem1.artiklRecAn, elemJoin.elem2.artiklRecAn);
-                Joining joining = new Joining(iwin);
+                Joining joining = new Joining(iwin());
                 List<Record> list = joining.varList(elemJoin);
                 new DicJoinvar(this, (record) -> {
                     System.out.println(record);
@@ -3042,6 +3080,8 @@ public class Orders extends javax.swing.JFrame {
     private void initElements() {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
+        new UColor();
+        panDesign.add(scene, java.awt.BorderLayout.CENTER);               
         UGui.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
         filterTable = new FilterTable(0, tab1);
         south.add(filterTable, 0);
