@@ -160,6 +160,7 @@ public final class Bimax {
             rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
                     .addElem(new GsonElem(Type.GLASS, "{'artglasID':4663}"));
 
+            //Тут просочилась ручка не подходящая по параметру. Возможно ошибка ПрофСтроя4
         } else if (prj == 601010) { //PUNIC =  
             rootGson = new GsonRoot(prj, 1, 54, "KBE\\KBE Эксперт\\1 ОКНА\\Открывание внутрь (ств. Z77)",
                     Layout.HORIZ, Type.RECTANGL, 1300, 1400, 1009, 1009, 1009, "{'ioknaParam':[-8558]}");
@@ -168,13 +169,14 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'sysprofID':1121, 'typeOpen':1,'sysfurnID':2335}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'sysprofID':1121, 'typeOpen':1,'sysfurnID':2335}")) //,'artiklHandl':2159,'colorHandl':1009}"))
                     .addElem(new GsonElem(Type.GLASS, "{'artglasID':4663}"));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'sysprofID':1121, 'typeOpen':4,'sysfurnID':2916}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'sysprofID':1121, 'typeOpen':4,'sysfurnID':2916}")) //,'artiklHandl':5058,'colorHandl':1009}"))
                     .addElem(new GsonElem(Type.GLASS, "{'artglasID':4663}"));
 
+            //Нерешёння проблема со штапиком
         } else if (prj == 604004) { //PUNIC =
             rootGson = new GsonRoot(prj, 1, 37, "Rehau\\Delight\\1 ОКНА",
                     Layout.VERT, Type.ARCH, 1300, 1700, 1050, 1009, 1009, 1009);
@@ -441,7 +443,7 @@ public final class Bimax {
             stv.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1500))
                     .addElem(new GsonElem(Type.GLASS));
-            
+
         } else if (prj == 700009) { //PUNIC = 427847 Двери
             rootGson = new GsonRoot(prj, 2, 330, "Darrio\\Двери DARRIO\\Дверь внутрь",
                     Layout.VERT, Type.DOOR, 900, 2000, 1009, 10004, 1009);
@@ -455,7 +457,7 @@ public final class Bimax {
             stv.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 600))
                     .addElem(new GsonElem(Type.GLASS));
-            
+
         } else if (prj == 508841) { //427653 Двери
             rootGson = new GsonRoot(prj, 2, 330, "KBE / KBE Эксперт / 6 ВХОДНЫЕ ДВЕРИ / Дверь наружу",
                     Layout.VERT, Type.DOOR, 900, 2100, 1009, 1009, 1009);
@@ -469,9 +471,8 @@ public final class Bimax {
             stv.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 800))
                     .addElem(new GsonElem(Type.GLASS));
-            
-///////////////////////////////////////////////////////////////////////////////// 
 
+///////////////////////////////////////////////////////////////////////////////// 
         } else if (prj == 777) { //TEST
             rootGson = new GsonRoot(prj, 1, 8, "KBE\\KBE 58\\1 ОКНА\\*Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.RECTANGL, 1200, 1400, 1009, 1009, 1009);

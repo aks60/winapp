@@ -35,6 +35,7 @@ public class Furniture extends Cal5e {
     private FurnitureDet furnitureDet = null;
     private HashSet<Record> setFurndet = new HashSet();
     private List list = Arrays.asList(9, 11, 12);
+    private boolean max_size_message = true;
 
     public Furniture(Wincalc iwin) {
         super(iwin);
@@ -70,7 +71,10 @@ public class Furniture extends Cal5e {
                 float max_height = stvorkaList.stream().max((s1, s2) -> s1.height().compareTo(s2.height())).get().height();
                 boolean p2_max = stvorkaList.stream().anyMatch(s -> furnityreRec.getFloat(eFurniture.p2_max) < (s.width() * 2 + s.height() * 2) / 2);
                 if (p2_max || furnityreRec.getFloat(eFurniture.max_height) < max_height || furnityreRec.getFloat(eFurniture.max_width) < max_width) {
-                    JOptionPane.showMessageDialog(null, "Размер створки превышает максимальный размер по фурнитуре.", "ВНИМАНИЕ!", 1);
+                    if (max_size_message == true) {
+                        JOptionPane.showMessageDialog(null, "Размер створки превышает максимальный размер по фурнитуре.", "ВНИМАНИЕ!", 1);
+                    }
+                    max_size_message = false;
                 }
 
                 middle(areaStv, furnityreRec, 1); //основная фурнитура
@@ -192,13 +196,13 @@ public class Furniture extends Cal5e {
 
                     //Ловим ручку, подвес, замок
                     if (propertyStv(areaStv, spcAdd) == false) {
-                        return false; //выход из цикла поиска
+                        return false; //выход из цикла поиска ручки
                     }
                     //Если цвет не подходит
-                    if(UColor.colorFromProduct(spcAdd, 1) == false) {
+                    if (UColor.colorFromProduct(spcAdd, 1) == false) {
                         return false; //выход из цикла поиска
                     }
-                    
+
                     //Добавим спецификацию в элемент
                     if (shortPass == false) {
                         spcAdd.count = UCom.getFloat(spcAdd.getParam(spcAdd.count, 24030));
@@ -227,22 +231,22 @@ public class Furniture extends Cal5e {
 
     private boolean propertyStv(AreaStvorka areaStv, Specific spcAdd) {
         if (spcAdd.artiklRec.getInt(eArtikl.level1) == 2) {
-            boolean ret = true;
+            boolean add_specific = true;
             //Ручка
             if (spcAdd.artiklRec.getInt(eArtikl.level2) == 11) {
                 if (UColor.colorFromProduct(spcAdd, 1) == true) { //подбор по цвету
 
                     if (areaStv.handleRec.getInt(eArtikl.id) == -3) {
                         areaStv.handleRec = spcAdd.artiklRec;
-                        ret = true;
+                        add_specific = true;
                     } else {
-                        ret = (areaStv.handleRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
+                        add_specific = (areaStv.handleRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
                     }
-                    if (ret == true && areaStv.handleColor == -3) {
+                    if (add_specific == true && areaStv.handleColor == -3) {
                         areaStv.handleColor = spcAdd.colorID1;
                     }
                 }
-                return ret;
+                return add_specific;
 
                 //Подвес
             } else if (spcAdd.artiklRec.getInt(eArtikl.level2) == 12) {
@@ -250,15 +254,15 @@ public class Furniture extends Cal5e {
 
                     if (areaStv.loopRec.getInt(eArtikl.id) == -3) {
                         areaStv.loopRec = spcAdd.artiklRec;
-                        ret = true;
+                        add_specific = true;
                     } else {
-                        ret = (areaStv.loopRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
+                        add_specific = (areaStv.loopRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
                     }
-                    if (ret == true && areaStv.loopColor == -3) {
+                    if (add_specific == true && areaStv.loopColor == -3) {
                         areaStv.loopColor = spcAdd.colorID1;
                     }
                 }
-                return ret;
+                return add_specific;
 
                 //Замок  
             } else if (spcAdd.artiklRec.getInt(eArtikl.level2) == 9) {
@@ -266,15 +270,15 @@ public class Furniture extends Cal5e {
 
                     if (areaStv.lockRec.getInt(eArtikl.id) == -3) {
                         areaStv.lockRec = spcAdd.artiklRec;
-                        ret = true;
+                        add_specific = true;
                     } else {
-                        ret = (areaStv.lockRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
+                        add_specific = (areaStv.lockRec.getInt(eArtikl.id) == spcAdd.artiklRec.getInt(eArtikl.id));
                     }
-                    if (ret == true && areaStv.lockColor == -3) {
+                    if (add_specific == true && areaStv.lockColor == -3) {
                         areaStv.lockColor = spcAdd.colorID1;
                     }
                 }
-                return ret;
+                return add_specific;
             }
         }
         return true;
