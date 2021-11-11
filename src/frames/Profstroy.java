@@ -428,7 +428,7 @@ public class Profstroy {
             deleteSql(eSyspar1.up, "psss", eSystree.up, "id");//systree_id 
             //deleteSql(eKits.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitdet.up, "kunic", eKits.up, "kunic");//kits_id  
-            //deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
+            deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitpar1.up, "psss", eKitdet.up, "kincr");//kitdet_id
         } catch (Exception e) {
             println(Color.RED, "Ошибка: deletePart().  " + e);
@@ -544,7 +544,7 @@ public class Profstroy {
             executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "id");
             executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
-            updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
+            //updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.kits_id, "kunic", eKits.up, "kunic");
             updateSql(eKitdet.up, eKitdet.artikl_id, "anumb", eArtikl.up, "code");
@@ -614,14 +614,14 @@ public class Profstroy {
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
             alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
             alterTable("project", "fk_project_1", "prjpart_id", "prjpart");
-            alterTable("kits", "fk_kits1", "artikl_id", "artikl");
-            alterTable("kits", "fk_kits2", "color_id", "color");
+//            alterTable("kits", "fk_kits1", "artikl_id", "artikl");
+//            alterTable("kits", "fk_kits2", "color_id", "color");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
             alterTable("kitdet", "fk_kitdet2", "artikl_id", "artikl");
-            alterTable("kitdet", "fk_kitdet3", "color1_id", "color");
-            alterTable("kitdet", "fk_kitdet4", "color2_id", "color");
-            alterTable("kitdet", "fk_kitdet5", "color3_id", "color");
-            alterTable("kitpar1", "fk_kitpar1", "kitdet_id", "kitdet");
+//            alterTable("kitdet", "fk_kitdet3", "color1_id", "color");
+//            alterTable("kitdet", "fk_kitdet4", "color2_id", "color");
+//            alterTable("kitdet", "fk_kitdet5", "color3_id", "color");
+//            alterTable("kitpar1", "fk_kitpar1", "kitdet_id", "kitdet");
 
         } catch (Exception e) {
             println(Color.RED, "Ошибка: metaPart().  " + e);
