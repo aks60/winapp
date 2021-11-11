@@ -47,7 +47,6 @@ import domain.eParams;
 import domain.ePrjprod;
 import domain.eSysfurn;
 import domain.eSyspar1;
-import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.Layout;
@@ -76,6 +75,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -92,6 +92,7 @@ import startup.Main;
 
 public class Orders extends javax.swing.JFrame implements ListenerObject {
 
+    private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
     private Query qParams = new Query(eParams.id, eParams.params_id, eParams.text);
     private Query qCurrenc = new Query(eCurrenc.values());
     private Query qPrjpart = new Query(ePrjpart.values());
@@ -100,7 +101,6 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private Query qPrjprod = new Query(ePrjprod.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Map<Integer, String> mapParams = new HashMap();
-    //private Wincalc iwin = new Wincalc();
     private DefMutableTreeNode winNode = null;
     private Canvas canvas = new Canvas();
     private Scene scene = new Scene(canvas, this);
@@ -126,7 +126,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         qPrjprod.select(ePrjprod.up);
     }
 
-    public void loadingModel()  {
+    public void loadingModel() {
         new DefTableModel(tab1, qProject, eProject.num_ord, eProject.num_acc, eProject.date4, eProject.date6, eProject.prjpart_id, eProject.manager) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
@@ -277,7 +277,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         int index = -1;
         int orderID = Integer.valueOf(eProperty.orderID.read());
         for (int index2 = 0; index2 < qProject.size(); ++index2) {
-            if (qProject.get(index2).getInt(eSysprod.id) == orderID) {
+            if (qProject.get(index2).getInt(ePrjprod.id) == orderID) {
                 index = index2;
             }
         }
@@ -302,7 +302,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 try {
                     String script = record.getStr(ePrjprod.script);
                     Wincalc iwin2 = new Wincalc(script);
-                    Joining joining = new Joining(iwin2, true);
+                    Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
                     joining.calc();
                     iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
                     record.add(iwin2);
@@ -353,25 +353,24 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }
 
     private Wincalc iwin() {
-        int index = UGui.getIndexRec(tab5);
+        int index = UGui.getIndexRec(tab2);
         if (index != -1) {
-            Record sysprodRec = qPrjprod.table(eSysprod.up).get(index);
-            Object v = sysprodRec.get(eSysprod.values().length);
+            Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
+            Object v = sysprodRec.get(ePrjprod.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
                 return (Wincalc) v;
             }
         }
         return null;
     }
-    
-    public void selectionTab2() {
-        int index = UGui.getIndexRec(tab5);
-        if (index != -1) {
-            Record sysprodRec = qPrjprod.table(eSysprod.up).get(index);
-            eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
-            App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
 
-            Object w = sysprodRec.get(eSysprod.values().length);
+    public void selectionTab2() {
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            Record prjprodRec = qPrjprod.get(index);
+            eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
+            App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());           
+            Object w = prjprodRec.get(ePrjprod.values().length);
             if (w instanceof Wincalc) { //прорисовка окна               
                 Wincalc win = (Wincalc) w;
                 scene.init(win);
@@ -386,7 +385,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             scene.draw();
             canvas.draw();
             winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
-        }        
+        }
     }
 
     public void selectionWin() {
@@ -523,7 +522,21 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         }
         return true;
     }
-    
+
+    private void setText(JTextField comp, String txt) {
+        comp.setText(txt);
+        comp.setCaretPosition(0);
+    }
+
+    private void setIcon(JButton btn, boolean b) {
+        if (b == false) {
+            btn.setText("");
+            btn.setIcon(icon);
+        } else {
+            btn.setText("...");
+            btn.setIcon(null);
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -2277,15 +2290,15 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             new DicSyspod(this, (record) -> {
                 Record record2 = ePrjprod.up.newRecord();
                 record2.set(ePrjprod.id, Conn.instanc().genId(ePrjprod.up));
-                record2.set(ePrjprod.name, record.getStr(eSysprod.name));
-                record2.set(ePrjprod.script, record.getStr(eSysprod.script));
-                record2.set(ePrjprod.systree_id, record.getStr(eSysprod.systree_id));
+                record2.set(ePrjprod.name, record.getStr(ePrjprod.name));
+                record2.set(ePrjprod.script, record.getStr(ePrjprod.script));
+                record2.set(ePrjprod.systree_id, record.getStr(ePrjprod.systree_id));
                 record2.set(ePrjprod.order_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
                 qPrjprod.insert(record2);
                 loadingTab2();
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 for (int index = 0; index < qPrjprod.size(); ++index) {
-                    if (qPrjprod.get(index, eSysprod.id) == record2.get(eSysprod.id)) {
+                    if (qPrjprod.get(index, ePrjprod.id) == record2.get(ePrjprod.id)) {
                         UGui.setSelectedIndex(tab2, index);
                         UGui.scrollRectToRow(index, tab2);
                         winTree.setSelectionRow(0);
@@ -3081,7 +3094,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
         new UColor();
-        panDesign.add(scene, java.awt.BorderLayout.CENTER);               
+        panDesign.add(scene, java.awt.BorderLayout.CENTER);
         UGui.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
         filterTable = new FilterTable(0, tab1);
         south.add(filterTable, 0);
