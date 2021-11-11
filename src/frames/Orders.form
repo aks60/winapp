@@ -29,7 +29,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,73,0,0,3,77"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,87,0,0,3,-124"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -74,7 +74,7 @@
                   <Component id="btnF2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="btnF3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="383" max="32767" attributes="0"/>
+                  <EmptySpace pref="438" max="32767" attributes="0"/>
                   <Component id="btnTest" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnClose" min="-2" max="-2" attributes="0"/>
@@ -1091,7 +1091,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                           <SubComponents>
-                            <Container class="javax.swing.JScrollPane" name="scr5">
+                            <Container class="javax.swing.JScrollPane" name="scr4">
                               <Properties>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="null"/>
@@ -1111,7 +1111,7 @@
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JTable" name="tab5">
+                                <Component class="javax.swing.JTable" name="tab4">
                                   <Properties>
                                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                                       <Table columnCount="3" rowCount="2">
@@ -1140,7 +1140,7 @@
                                       </TableColumnModel>
                                     </Property>
                                     <Property name="fillsViewportHeight" type="boolean" value="true"/>
-                                    <Property name="name" type="java.lang.String" value="tab5" noResource="true"/>
+                                    <Property name="name" type="java.lang.String" value="tab4" noResource="true"/>
                                     <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
                                       <JTableSelectionModel selectionMode="0"/>
                                     </Property>
@@ -1149,7 +1149,7 @@
                                     </Property>
                                   </Properties>
                                   <Events>
-                                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tab5MousePressed"/>
+                                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tab4MousePressed"/>
                                   </Events>
                                 </Component>
                               </SubComponents>
@@ -1640,7 +1640,7 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="pan20" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="66" max="32767" attributes="0"/>
+                                      <EmptySpace pref="80" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -2037,7 +2037,7 @@
                                           <Component id="lab36" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="txt18" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="176" max="32767" attributes="0"/>
+                                      <EmptySpace pref="190" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -3129,9 +3129,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="horizontalTextPosition" type="int" value="10"/>
                                 <Property name="iconTextGap" type="int" value="6"/>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[80, 19]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[80, 19]"/>
+                                </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[80, 18]"/>
+                                  <Dimension value="[80, 19]"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -3162,8 +3169,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="horizontalTextPosition" type="int" value="10"/>
+                                <Property name="iconTextGap" type="int" value="6"/>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[80, 19]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[80, 19]"/>
+                                </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[80, 18]"/>
+                                  <Dimension value="[80, 19]"/>
                                 </Property>
                               </Properties>
                             </Component>
@@ -3226,8 +3241,16 @@
                                     <EtchetBorder bevelType="0"/>
                                   </Border>
                                 </Property>
+                                <Property name="horizontalTextPosition" type="int" value="10"/>
+                                <Property name="iconTextGap" type="int" value="6"/>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[80, 19]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[80, 19]"/>
+                                </Property>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[80, 18]"/>
+                                  <Dimension value="[80, 19]"/>
                                 </Property>
                               </Properties>
                             </Component>

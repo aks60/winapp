@@ -2054,6 +2054,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab55.setFont(frames.UGui.getFont(0,0));
         lab55.setText("Вариант");
         lab55.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab55.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         lab55.setIconTextGap(6);
         lab55.setPreferredSize(new java.awt.Dimension(80, 19));
 
@@ -2089,6 +2090,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab56.setFont(frames.UGui.getFont(0,0));
         lab56.setText("Вариант");
         lab56.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab56.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         lab56.setIconTextGap(6);
         lab56.setPreferredSize(new java.awt.Dimension(80, 19));
 
@@ -2110,6 +2112,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab57.setFont(frames.UGui.getFont(0,0));
         lab57.setText("Вариант");
         lab57.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab57.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         lab57.setIconTextGap(6);
         lab57.setPreferredSize(new java.awt.Dimension(80, 19));
 
@@ -3159,6 +3162,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                         iwin.rootGson.color3 = colorRec.getInt(eColor.id);
                     }
                     updateScript(selectID);
+                    btnRefresh(null);
                 }
             };
             if (arr1 == null && arr2.length == 0) {

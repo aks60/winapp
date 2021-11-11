@@ -218,16 +218,16 @@ public class Profstroy {
             deletePart(cn2, st2);
             updatePart(cn2, st2);
             metaPart(cn2, st2);
-            loadModels();
+//            loadModels();
 
-            println(Color.GREEN, "Удаление лищних столбцов");
-            executeSql("ALTER TABLE GROUPS DROP  FK;");
-            for (Field fieldUp : App.db) {
-                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
-                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
-                }
-            }
+//            println(Color.GREEN, "Удаление лищних столбцов");
+//            executeSql("ALTER TABLE GROUPS DROP  FK;");
+//            for (Field fieldUp : App.db) {
+//                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+//                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+//                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+//                }
+//            }
             //Включаем все генераторы
             st2.executeUpdate("update rdb$triggers  set rdb$trigger_inactive = 0  where rdb$trigger_name like 'IBE$%';");
             
@@ -426,9 +426,9 @@ public class Profstroy {
             deleteSql(eSysfurn.up, "funic", eFurniture.up, "funic");//furniture_id 
             deleteSql(eSysfurn.up, "nuni", eSystree.up, "id");//systree_id
             deleteSql(eSyspar1.up, "psss", eSystree.up, "id");//systree_id 
-            deleteSql(eKits.up, "anumb", eArtikl.up, "code");//artikl_id
+            //deleteSql(eKits.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitdet.up, "kunic", eKits.up, "kunic");//kits_id  
-            deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
+            //deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitpar1.up, "psss", eKitdet.up, "kincr");//kitdet_id
         } catch (Exception e) {
             println(Color.RED, "Ошибка: deletePart().  " + e);
@@ -544,7 +544,6 @@ public class Profstroy {
             executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "id");
             executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
-            /////////////////loadModels();
             updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.kits_id, "kunic", eKits.up, "kunic");

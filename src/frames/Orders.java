@@ -142,7 +142,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             }
         };
         new DefTableModel(tab2, qPrjprod, ePrjprod.name, ePrjprod.id);
-        new DefTableModel(tab5, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
+        new DefTableModel(tab4, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.params_id) {
@@ -248,11 +248,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             });
         });
 
-        UGui.buttonCellEditor(tab5, 1).addActionListener(event -> {
-            Object grup = tab5.getValueAt(tab5.getSelectedRow(), 2);
+        UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
+            Object grup = tab4.getValueAt(tab4.getSelectedRow(), 2);
             ParDefault frame = new ParDefault(this, record -> {
                 int index = UGui.getIndexRec(tab2);
-                int index2 = UGui.getIndexRec(tab5);
+                int index2 = UGui.getIndexRec(tab4);
                 if (index != -1) {
                     Record sysprodRec = qPrjprod.get(index);
                     String script = sysprodRec.getStr(ePrjprod.script);
@@ -260,9 +260,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     sysprodRec.set(ePrjprod.script, script2);
                     qPrjprod.execsql();
                     iwin().build(script2);
-                    UGui.stopCellEditing(tab1, tab2, tab3, tab5);
+                    UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                     selectionWin();
-                    UGui.setSelectedIndex(tab5, index2);
+                    UGui.setSelectedIndex(tab4, index2);
                 }
             }, (int) grup);
         });
@@ -293,7 +293,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }
 
     public void loadingTab2() {
-        UGui.stopCellEditing(tab1, tab2, tab3, tab5);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
         if (tab1.getSelectedRow() != -1) {
 
@@ -415,7 +415,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 Map<Integer, String> map = new HashMap();
                 iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
                 map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, pk, null, null)));
-                ((DefTableModel) tab5.getModel()).fireTableDataChanged();
+                ((DefTableModel) tab4.getModel()).fireTableDataChanged();
 
                 //Рама, импост...
             } else if (winNode.com5t().type == enums.Type.FRAME_SIDE
@@ -504,26 +504,37 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }
 
     public void updateScript(float selectID) {
-        String script = gson.toJson(iwin().rootGson);
-        Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab2));
-        prjprodRec.set(ePrjprod.script, script);
-        qPrjprod.update(prjprodRec);
-        selectionTab2();
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) winTree.getModel().getRoot();
-        do {
-            if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
-                TreePath path = new TreePath(node.getPath());
-                winTree.setSelectionPath(path);
-                winTree.scrollPathToVisible(path);
-            }
-            node = node.getNextNode();
-        } while (node != null);
+        try {
+            //Сохраним скрипт в базе
+            String script = gson.toJson(iwin().rootGson);
+            Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab2));
+            prjprodRec.set(ePrjprod.script, script);
+            qPrjprod.update(prjprodRec);
+
+            //Перерисум paintPanel 
+            selectionTab2();
+
+            //Установим курсор выделения
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) winTree.getModel().getRoot();
+            do {
+                if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
+                    TreePath path = new TreePath(node.getPath());
+                    winTree.setSelectionPath(path);
+                    winTree.scrollPathToVisible(path);
+                    return;
+                }
+                node = node.getNextNode();
+            } while (node != null);
+
+        } catch (Exception e) {
+            System.err.println("frames.Systree.updateScript()");;
+        }
     }
 
     @Override
     public boolean action(Object obj) {
         Wincalc win = iwin();
-        int index = UGui.getIndexRec(tab5);
+        int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             String script = gson.toJson(win.rootGson);
             win.build(script);
@@ -600,8 +611,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         winTree = new javax.swing.JTree();
         pan8 = new javax.swing.JPanel();
         pan14 = new javax.swing.JPanel();
-        scr5 = new javax.swing.JScrollPane();
-        tab5 = new javax.swing.JTable();
+        scr4 = new javax.swing.JScrollPane();
+        tab4 = new javax.swing.JTable();
         pan12 = new javax.swing.JPanel();
         pan21 = new javax.swing.JPanel();
         lab27 = new javax.swing.JLabel();
@@ -879,7 +890,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 383, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 438, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1201,10 +1212,10 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
         pan14.setLayout(new java.awt.BorderLayout());
 
-        scr5.setBorder(null);
-        scr5.setPreferredSize(new java.awt.Dimension(450, 300));
+        scr4.setBorder(null);
+        scr4.setPreferredSize(new java.awt.Dimension(450, 300));
 
-        tab5.setModel(new javax.swing.table.DefaultTableModel(
+        tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null}
@@ -1221,22 +1232,22 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 return canEdit [columnIndex];
             }
         });
-        tab5.setFillsViewportHeight(true);
-        tab5.setName("tab5"); // NOI18N
-        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+        tab4.setFillsViewportHeight(true);
+        tab4.setName("tab4"); // NOI18N
+        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab5MousePressed(evt);
+                tab4MousePressed(evt);
             }
         });
-        scr5.setViewportView(tab5);
-        if (tab5.getColumnModel().getColumnCount() > 0) {
-            tab5.getColumnModel().getColumn(0).setPreferredWidth(400);
-            tab5.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab5.getColumnModel().getColumn(2).setMaxWidth(40);
+        scr4.setViewportView(tab4);
+        if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(400);
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab4.getColumnModel().getColumn(2).setMaxWidth(40);
         }
 
-        pan14.add(scr5, java.awt.BorderLayout.CENTER);
+        pan14.add(scr4, java.awt.BorderLayout.CENTER);
 
         pan8.add(pan14, "card14");
 
@@ -1630,7 +1641,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     .addComponent(txt33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         pan8.add(pan13, "card13");
@@ -1701,7 +1712,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
 
         pan8.add(pan15, "card15");
@@ -2105,8 +2116,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         lab55.setFont(frames.UGui.getFont(0,0));
         lab55.setText("Вариант");
         lab55.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab55.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         lab55.setIconTextGap(6);
-        lab55.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab55.setMaximumSize(new java.awt.Dimension(80, 19));
+        lab55.setMinimumSize(new java.awt.Dimension(80, 19));
+        lab55.setPreferredSize(new java.awt.Dimension(80, 19));
 
         txt38.setEditable(false);
         txt38.setBackground(new java.awt.Color(255, 255, 255));
@@ -2116,7 +2130,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         lab56.setFont(frames.UGui.getFont(0,0));
         lab56.setText("Вариант");
         lab56.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab56.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab56.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        lab56.setIconTextGap(6);
+        lab56.setMaximumSize(new java.awt.Dimension(80, 19));
+        lab56.setMinimumSize(new java.awt.Dimension(80, 19));
+        lab56.setPreferredSize(new java.awt.Dimension(80, 19));
 
         txt39.setEditable(false);
         txt39.setBackground(new java.awt.Color(255, 255, 255));
@@ -2136,7 +2154,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         lab57.setFont(frames.UGui.getFont(0,0));
         lab57.setText("Вариант");
         lab57.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab57.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab57.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        lab57.setIconTextGap(6);
+        lab57.setMaximumSize(new java.awt.Dimension(80, 19));
+        lab57.setMinimumSize(new java.awt.Dimension(80, 19));
+        lab57.setPreferredSize(new java.awt.Dimension(80, 19));
 
         txt41.setEditable(false);
         txt41.setBackground(new java.awt.Color(255, 255, 255));
@@ -2316,10 +2338,14 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        Query.listOpenTable.forEach(q -> q.clear());
+        int index1 = UGui.getIndexRec(tab1);
+        int index2 = UGui.getIndexRec(tab2);
         loadingData();
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab1);
+        UGui.setSelectedIndex(tab1, index1);
+        UGui.setSelectedIndex(tab2, index2);       
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -2370,25 +2396,25 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        UGui.stopCellEditing(tab1, tab2, tab3, tab5);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         eProperty.save(); //запишем текущий ordersId в файл
         Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab5));
+        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
-        UGui.stopCellEditing(tab1, tab2, tab3, tab5);
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         if (tabb1.getSelectedIndex() == 0) {
-            UGui.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab5));
+            UGui.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab4));
         } else if (tabb1.getSelectedIndex() == 1) {
-            UGui.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab5));
+            UGui.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4));
         } else if (tabb1.getSelectedIndex() == 2) {
-            UGui.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab5));
+            UGui.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab4));
         }
     }//GEN-LAST:event_stateChanged
 
@@ -2400,7 +2426,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 record2.set(eProject.currenc_id, record.get(eCurrenc.id));
                 rsvPrj.load();
             }
-            UGui.stopCellEditing(tab1, tab2, tab3, tab5);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         });
     }//GEN-LAST:event_btn1ActionPerformed
 
@@ -2472,6 +2498,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                             iwin().rootGson.color3 = colorRec.getInt(eColor.id);
                         }
                         updateScript(selectID);
+                        btnRefresh(null);
                     }
                 };
                 if (arr1 == null && arr2.length == 0) {
@@ -2873,7 +2900,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         loadingTab1();
     }//GEN-LAST:event_btnFilter
 
-    private void tab5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab5MousePressed
+    private void tab4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab4MousePressed
 //        JTable table = (JTable) evt.getSource();
 //        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
 //        if (systemTree.isEditing()) {
@@ -2884,10 +2911,10 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 //            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
 //            txtFilter.setName(table.getName());
 //        }
-    }//GEN-LAST:event_tab5MousePressed
+    }//GEN-LAST:event_tab4MousePressed
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        int index = UGui.getIndexRec(tab5);
+        int index = UGui.getIndexRec(tab4);
         Record prjprodRec = qPrjprod.get(index);
         String script = prjprodRec.getStr(ePrjprod.script);
         System.out.println(script);
@@ -3095,13 +3122,13 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
-    private javax.swing.JScrollPane scr5;
+    private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr6;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
-    private javax.swing.JTable tab5;
+    private javax.swing.JTable tab4;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JTextField txt13;
     private javax.swing.JTextField txt14;

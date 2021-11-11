@@ -11,13 +11,10 @@ import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
 import domain.eElement;
 import frames.DBCompare;
+import frames.Profstroy;
 import java.sql.Connection;
-import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.HashSet;
 import javax.swing.UIManager;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public class Test {
@@ -69,8 +66,8 @@ public class Test {
 
         Main.dev = true;
         try {
-            //Profstroy.exec();
-            wincalc();
+            Profstroy.exec();
+            //wincalc();
             //param();
             //query();
             //frame();
