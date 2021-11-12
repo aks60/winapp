@@ -70,6 +70,8 @@ public class DicColor extends javax.swing.JDialog {
         setVisible(true);
     }
 
+    
+    
     private void loadingModel() {
         new DefTableModel(tab1, qColgrp, eGroups.id, eGroups.name);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name);

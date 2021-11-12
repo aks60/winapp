@@ -700,15 +700,15 @@ public class Elements extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"aaaa", null, "vvvvvvvvvvvvvvv", "111", null, null, null, null,  new Double(0.0), null},
-                {"aaaa", null, "hhhhhhhhhhhhhh", "222", null, null, null, null,  new Double(0.0), null}
+                {null, null, "vvvvvvvvvvvvvvv", "111", null, null, null, null,  new Double(0.0), null},
+                {null, null, "hhhhhhhhhhhhhh", "222", null, null, null, null,  new Double(0.0), null}
             },
             new String [] {
                 "Артикул", "Название", "Наименование вставок", "Тип состава", "Признак состава", "Для серии", "Умолчание", "Обязательно", "Наценка", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {

@@ -1,17 +1,18 @@
 package frames;
 
+import common.listener.ListenerRecord;
 import dataset.Conn;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eColmap;
-import domain.eElement;
-import domain.eGroups;
 import domain.eKitdet;
 import domain.eKitpar1;
 import domain.eKits;
-import frames.dialog.DicArtikl;
+import frames.dialog.DicArtikl2;
+import frames.dialog.DicColor;
+import frames.swing.DefCellBoolRenderer;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
+import java.util.HashSet;
 import javax.swing.JRadioButton;
 
 public class Kits extends javax.swing.JFrame {
@@ -28,28 +30,19 @@ public class Kits extends javax.swing.JFrame {
     private Query qKits = new Query(eKits.values());
     private Query qKitdet = new Query(eKitdet.values());
     private Query qKitpar1 = new Query(eKitpar1.values());
+    private ListenerRecord listenerArtikl, listenerColor1, listenerColor2, listenerColor3;
 
     public Kits() {
         initComponents();
         initElements();
+        listenerSet();
         loadingData(0);
         loadingModel();
+        listenerAdd();
     }
 
     public void loadingData(int type) {
         qKits.select(eKits.up, "where", eKits.types, "=", type, "order by", eKits.name);
-    }
-
-    public void listenerAdd() {
-        UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
-//            int level = qGrCateg.getAs(UGui.getIndexRec(tab1), eGroups.npp);
-//            DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
-        });
-
-        UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
-//            int level = qGrCateg.getAs(UGui.getIndexRec(tab1), eGroups.npp);
-//            DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
-        });
     }
 
     public void loadingModel() {
@@ -77,7 +70,77 @@ public class Kits extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab3, qKitpar1, eKitpar1.kitdet_id, eKitpar1.text);
+        DefCellBoolRenderer br = new DefCellBoolRenderer();
+        tab2.getColumnModel().getColumn(5).setCellRenderer(br);
         UGui.setSelectedRow(tab1);
+    }
+
+    public void listenerAdd() {
+        UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
+            DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
+        });
+
+        UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
+            DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
+        });
+
+        UGui.buttonCellEditor(tab2, 2).addActionListener(event -> {
+            Record record = qKitdet.get(UGui.getIndexRec(tab2));
+            int artikl_id = record.getInt(eKitdet.artikl_id);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
+            new DicColor(this, listenerColor1, colorSet);
+        });
+
+        UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
+            Record record = qKitdet.get(UGui.getIndexRec(tab2));
+            int artikl_id = record.getInt(eKitdet.artikl_id);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
+            new DicColor(this, listenerColor2, colorSet);
+        });
+
+        UGui.buttonCellEditor(tab2, 4).addActionListener(event -> {
+            Record record = qKitdet.get(UGui.getIndexRec(tab2));
+            int artikl_id = record.getInt(eKitdet.artikl_id);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
+            new DicColor(this, listenerColor3, colorSet);
+        });
+    }
+
+    public void listenerSet() {
+
+        listenerArtikl = (record) -> {
+            UGui.stopCellEditing(tab1, tab2, tab3);
+            if (tab2.getBorder() != null) {
+                int index = UGui.getIndexRec(tab2);
+                qKitdet.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2), eKitdet.artikl_id);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                UGui.setSelectedIndex(tab2, index);
+            }
+        };
+
+        listenerColor1 = (record) -> {
+            UGui.stopCellEditing(tab1, tab2, tab3);
+            int index = UGui.getIndexRec(tab2);
+            Record record2 = qKitdet.get(index);
+            record2.set(eKitdet.color1_id, record.getInt(eColor.id));
+            ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
+        };
+
+        listenerColor2 = (record) -> {
+            UGui.stopCellEditing(tab1, tab2, tab3);
+            int index = UGui.getIndexRec(tab2);
+            Record record2 = qKitdet.get(index);
+            record2.set(eKitdet.color2_id, record.getInt(eColor.id));
+            ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
+        };
+
+        listenerColor3 = (record) -> {
+            UGui.stopCellEditing(tab1, tab2, tab3);
+            int index = UGui.getIndexRec(tab2);
+            Record record2 = qKitdet.get(index);
+            record2.set(eKitdet.color3_id, record.getInt(eColor.id));
+            ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
+        };
     }
 
     public void selectionTab1(ListSelectionEvent event) {
@@ -341,15 +404,15 @@ public class Kits extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "111", "1", "1", "1", "1",  new Integer(1)},
-                {"2", "222", "2", "2", "2", "2",  new Integer(2)}
+                {"1", "111", "1", "1", "1", null,  new Integer(1)},
+                {"2", "222", "2", "2", "2", null,  new Integer(2)}
             },
             new String [] {
                 "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "Основной элемент", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -360,6 +423,11 @@ public class Kits extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(140);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(260);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(5).setMaxWidth(60);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
