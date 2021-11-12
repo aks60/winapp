@@ -545,7 +545,7 @@ public class Profstroy {
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "id");
             executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             //updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
-            updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");
+            //updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.kits_id, "kunic", eKits.up, "kunic");
             updateSql(eKitdet.up, eKitdet.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eKitdet.up, eKitdet.color1_id, "clnum", eColor.up, "cnumb");

@@ -31,10 +31,10 @@ public class Kitss extends javax.swing.JFrame {
     }
 
     public void initDatamodel() {
-        new DefTableModel(tab1, qKits, eKits.name, eKits.artikl_id, eKits.color_id, eKits.quant, eKits.hide, eKits.categ);
-        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag);
-        new DefTableModel(tab3, qKitpar1, eKitpar1.kitdet_id, eKitpar1.text);
-        UGui.setSelectedRow(tab1);
+//        new DefTableModel(tab1, qKits, eKits.name, eKits.artikl_id, eKits.color_id, eKits.quant, eKits.hide, eKits.categ);
+//        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag);
+//        new DefTableModel(tab3, qKitpar1, eKitpar1.kitdet_id, eKitpar1.text);
+//        UGui.setSelectedRow(tab1);
     }
 
     public void selectionTab1(ListSelectionEvent event) {
