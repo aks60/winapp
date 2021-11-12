@@ -59,7 +59,7 @@ import frames.Fillings;
 import frames.Furniturs;
 import frames.Groups;
 import frames.Joinings;
-import frames.Kitss;
+import frames.Kits;
 import frames.Models;
 import frames.Orders;
 import frames.Param;
@@ -154,7 +154,7 @@ public enum App {
                     }
                     break;
                 case Kits:
-                    frame = new Kitss();
+                    frame = new Kits();
                     break;
                 case Systree:
                     if (param.length == 0) {

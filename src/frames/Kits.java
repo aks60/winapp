@@ -18,13 +18,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 
-public class Kitss extends javax.swing.JFrame {
+public class Kits extends javax.swing.JFrame {
 
     private Query qKits = new Query(eKits.values()).select(eKits.up, "order by", eKits.name);
     private Query qKitdet = new Query(eKitdet.values());
     private Query qKitpar1 = new Query(eKitpar1.values());
 
-    public Kitss() {
+    public Kits() {
         initComponents();
         initElements();
         initDatamodel();
@@ -93,7 +93,7 @@ public class Kitss extends javax.swing.JFrame {
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                Kitss.this.windowClosed(evt);
+                Kits.this.windowClosed(evt);
             }
         });
 
