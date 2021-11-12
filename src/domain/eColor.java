@@ -8,8 +8,11 @@ import static domain.eArtdet.artikl_id;
 import static domain.eArtdet.color_fk;
 import static domain.eArtdet.id;
 import static domain.eArtikl.code;
+import static domain.eArtikl.id;
 import static domain.eArtikl.up;
 import static domain.eArtikl.values;
+import static domain.eArtikl.virtualRec;
+import java.util.HashMap;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 
@@ -38,6 +41,7 @@ public enum eColor implements Field {
     //cprc2("8", "15", "1", "null", "CPRC2");
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
+    private static HashMap<Integer, Record> map = new HashMap();
 
     eColor(Object... p) {
         meta.init(p);
@@ -55,10 +59,21 @@ public enum eColor implements Field {
         if (query.size() == 0) {
             query.select(up, "order by", id);
             Query.listOpenTable.add(query);
+            map.clear();
+            query.stream().forEach(rec -> map.put(rec.getInt(id), rec));            
         }
         return query;
     }
 
+    public static Record get(int id) {
+        if (id == -3) {
+            return virtualRec();
+        }
+        query();
+        Record rec = map.get(id);
+        return (rec == null) ? virtualRec() : rec;
+    }
+    
     public static Record find(int _id) {
         if (_id == -3) {
             return virtualRec();

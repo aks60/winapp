@@ -3,11 +3,15 @@ package frames;
 import dataset.Conn;
 import dataset.Query;
 import dataset.Record;
+import domain.eArtikl;
 import domain.eColor;
 import domain.eColmap;
+import domain.eElement;
+import domain.eGroups;
 import domain.eKitdet;
 import domain.eKitpar1;
 import domain.eKits;
+import frames.dialog.DicArtikl;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
@@ -36,9 +40,42 @@ public class Kits extends javax.swing.JFrame {
         qKits.select(eKits.up, "where", eKits.types, "=", type, "order by", eKits.name);
     }
 
+    public void listenerAdd() {
+        UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
+//            int level = qGrCateg.getAs(UGui.getIndexRec(tab1), eGroups.npp);
+//            DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
+        });
+
+        UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
+//            int level = qGrCateg.getAs(UGui.getIndexRec(tab1), eGroups.npp);
+//            DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
+        });
+    }
+
     public void loadingModel() {
         new DefTableModel(tab1, qKits, eKits.name);
-        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag);
+        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag) {
+
+            public Object getValueAt(int col, int row, Object val) {
+
+                if (val != null && col == 0) {
+                    return eArtikl.get((int) val).getStr(eArtikl.code);
+
+                } else if (val != null && col == 1) {
+                    return eArtikl.get((int) val).getStr(eArtikl.name);
+
+                } else if (val != null && columns[col] == eKitdet.color1_id) {
+                    return eColor.get((int) val).getStr(eColor.name);
+
+                } else if (val != null && columns[col] == eKitdet.color2_id) {
+                    return eColor.get((int) val).getStr(eColor.name);
+
+                } else if (val != null && columns[col] == eKitdet.color3_id) {
+                    return eColor.get((int) val).getStr(eColor.name);
+                }
+                return val;
+            }
+        };
         new DefTableModel(tab3, qKitpar1, eKitpar1.kitdet_id, eKitpar1.text);
         UGui.setSelectedRow(tab1);
     }
@@ -270,15 +307,15 @@ public class Kits extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"111111111111111",  new Float(1.0)},
-                {"222222222222222",  new Float(2.0)}
+                {"111111111111111",  new Integer(1)},
+                {"222222222222222",  new Integer(2)}
             },
             new String [] {
                 "Название комплекта", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -304,19 +341,29 @@ public class Kits extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "111", "1", "1", "1", "1"},
-                {"2", "222", "2", "2", "2", "2"}
+                {"1", "111", "1", "1", "1", "1",  new Integer(1)},
+                {"2", "222", "2", "2", "2", "2",  new Integer(2)}
             },
             new String [] {
-                "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "Основной элемент"
+                "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "Основной элемент", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(5).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(46);
         }
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);
@@ -370,9 +417,12 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        qKits.select(eKits.up, "order by", eKits.name);
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab1);
+        Object val = 1005;
+        System.out.println(eArtikl.get((int) val));
+
+//        qKits.select(eKits.up, "order by", eKits.name);
+//        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+//        UGui.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
