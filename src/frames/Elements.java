@@ -333,41 +333,33 @@ public class Elements extends javax.swing.JFrame {
         listenerTypset = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int index = UGui.getIndexRec(tab2);
                 qElement.set(record.getInt(0), UGui.getIndexRec(tab2), eElement.typset);
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.setSelectedIndex(tab2, index);
+                UGui.fireTableRowUpdated(tab2);
             }
         };
 
         listenerArtikl = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int index = UGui.getIndexRec(tab2);
                 qElement.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2), eElement.artikl_id);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
-                ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
-                //UGui.setSelectedIndex(tab2, index);
+                UGui.fireTableRowUpdated(tab2);
 
             } else if (tab3.getBorder() != null) {
-                int index = UGui.getIndexRec(tab3);
                 qElemdet.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab3), eElemdet.artikl_id);
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab3), eArtikl.name);
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab3), eArtikl.code);
-                ((DefaultTableModel) tab3.getModel()).fireTableRowsUpdated(tab3.getSelectedRow(), tab3.getSelectedRow());
-                //UGui.setSelectedIndex(tab3, index);
+                UGui.fireTableRowUpdated(tab3);
             }
         };
 
         listenerSeries = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int index = UGui.getIndexRec(tab2);
                 int series_id = record.getInt(eGroups.id);
                 qElement.set(series_id, UGui.getIndexRec(tab2), eElement.series_id);
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.setSelectedIndex(tab2, index);
+                UGui.fireTableRowUpdated(tab2);
             }
         };
 
@@ -377,35 +369,29 @@ public class Elements extends javax.swing.JFrame {
 
         listenerColvar1 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab3);
             Record elemdetRec = qElemdet.get(UGui.getIndexRec(tab3));
             int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
             types = (types & 0xfffffff0) + record.getInt(0);
             elemdetRec.set(eElemdet.types, types);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab3, index);
+            UGui.fireTableRowUpdated(tab3);
         };
 
         listenerColvar2 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab3);
             Record elemdetRec = qElemdet.get(UGui.getIndexRec(tab3));
             int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
             types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             elemdetRec.set(eElemdet.types, types);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab3, index);
+            UGui.fireTableRowUpdated(tab3);
         };
 
         listenerColvar3 = (record) -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab3);
             Record elemdetRec = qElemdet.get(UGui.getIndexRec(tab3));
             int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
             types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
             elemdetRec.set(eElemdet.types, types);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab3, index);
+            UGui.fireTableRowUpdated(tab3);
         };
     }
 

@@ -568,6 +568,14 @@ public class UGui {
         return -1;
     }
 
+    //Получить convertRowIndexToModel
+    public static int getIndexRec(JTable table, int def) {
+        if (table.getSelectedRow() != -1) {
+            return table.convertRowIndexToModel(table.getSelectedRow());
+        }
+        return def;
+    }
+
     //Поиск Record в модели по row table
     public static Record findRecordModel(Query q, JTable table, int row) {
         int id = (int) table.getValueAt(row, table.getColumnCount() - 1);
@@ -591,6 +599,19 @@ public class UGui {
         listener.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
         UGui.scrollRectToIndex(query.size() - 1, table);
+    }
+
+    //Вставить запись
+    public static void insertRecord2(JTable table, Field field, ListenerRecord listener) {
+
+        int index = UGui.getIndexRec(table);
+        index = (index == -1) ? 0 : index;
+        Query query = ((DefTableModel) table.getModel()).getQuery();
+        Record record = field.newRecord(Query.INS);
+        record.setNo(field.fields()[1], Conn.instanc().genId(field));
+        query.add(index, record);
+        listener.action(record);
+        ((DefaultTableModel) table.getModel()).fireTableRowsInserted(index, index);
     }
 
     //Изменить запись
@@ -646,6 +667,11 @@ public class UGui {
             }
         }
         return JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    }
+
+    //Обновление записи в таблице JTable
+    public static void fireTableRowUpdated(JTable table) {
+        ((DefaultTableModel) table.getModel()).fireTableRowsUpdated(table.getSelectedRow(), table.getSelectedRow());
     }
 
     //Установить border и выполнить sql

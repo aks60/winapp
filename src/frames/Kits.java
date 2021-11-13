@@ -2,20 +2,20 @@ package frames;
 
 import builder.param.ParamList;
 import common.listener.ListenerRecord;
-import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
-import domain.eColmap;
 import domain.eKitdet;
 import domain.eKitpar2;
 import domain.eKits;
 import domain.eParams;
 import enums.Enam;
+import enums.UseUnit;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicColor;
+import frames.dialog.ParGrup2;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
@@ -51,6 +51,7 @@ public class Kits extends javax.swing.JFrame {
     }
 
     public void loadingData(String type) {
+        eArtikl.query();
         qParams.select(eParams.up, "where", eParams.kits, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         qKits.select(eKits.up, "where", eKits.types, "=", type, "order by", eKits.categ, ",", eKits.name);
     }
@@ -119,11 +120,11 @@ public class Kits extends javax.swing.JFrame {
             jcb.setEditable(true);
             JOptionPane.showMessageDialog(null, jcb, "Категория", JOptionPane.QUESTION_MESSAGE);
             Object result = jcb.getSelectedItem();
-            
+
             UGui.stopCellEditing(tab1, tab2, tab3);
             int index = UGui.getIndexRec(tab1);
             qKits.set(result, index, eKits.categ);
-            ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
+            UGui.fireTableRowUpdated(tab1);
         });
 
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
@@ -154,6 +155,26 @@ public class Kits extends javax.swing.JFrame {
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
             new DicColor(this, listenerColor3, colorSet);
         });
+
+        UGui.buttonCellEditor(tab3, 0).addActionListener(event -> {
+            int index = UGui.getIndexRec(tab2);
+            if (index != -1) {
+                int param = -1;
+                Record recordDet = qKitdet.get(index);
+                int artikl_id = recordDet.getInt(eKitdet.artikl_id);
+                Record recordArt = eArtikl.get(artikl_id);
+                if (UseUnit.PIE.id == recordArt.getInt(eArtikl.unit)) {
+                    param = 7000;
+                } else if (UseUnit.METR.id == recordArt.getInt(eArtikl.unit)) {
+                    param = 8000;
+                } else if (UseUnit.METR2.id == recordArt.getInt(eArtikl.unit)) {
+                    param = 9000;
+                }
+                ParGrup2 frame = new ParGrup2(this, (rec) -> {
+                    System.out.println(rec);
+                }, eParams.kits, param);
+            }
+        });
     }
 
     public void listenerSet() {
@@ -163,8 +184,7 @@ public class Kits extends javax.swing.JFrame {
             if (tab2.getBorder() != null) {
                 int index = UGui.getIndexRec(tab2);
                 qKitdet.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2), eKitdet.artikl_id);
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.setSelectedIndex(tab2, index);
+                UGui.fireTableRowUpdated(tab2);
             }
         };
 
@@ -173,7 +193,7 @@ public class Kits extends javax.swing.JFrame {
             int index = UGui.getIndexRec(tab2);
             Record record2 = qKitdet.get(index);
             record2.set(eKitdet.color1_id, record.getInt(eColor.id));
-            ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
+            UGui.fireTableRowUpdated(tab2);
         };
 
         listenerColor2 = (record) -> {
@@ -181,7 +201,7 @@ public class Kits extends javax.swing.JFrame {
             int index = UGui.getIndexRec(tab2);
             Record record2 = qKitdet.get(index);
             record2.set(eKitdet.color2_id, record.getInt(eColor.id));
-            ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
+            UGui.fireTableRowUpdated(tab2);
         };
 
         listenerColor3 = (record) -> {
@@ -189,12 +209,13 @@ public class Kits extends javax.swing.JFrame {
             int index = UGui.getIndexRec(tab2);
             Record record2 = qKitdet.get(index);
             record2.set(eKitdet.color3_id, record.getInt(eColor.id));
-            ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
+            UGui.fireTableRowUpdated(tab2);
         };
     }
 
     public void selectionTab1(ListSelectionEvent event) {
         Arrays.asList(qKits, qKitdet, qKitpar1).forEach(q -> q.execsql());
+        UGui.clearTable(tab2, tab3);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Record record = qKits.get(index);
@@ -207,6 +228,7 @@ public class Kits extends javax.swing.JFrame {
 
     public void selectionTab2(ListSelectionEvent event) {
         Arrays.asList(qKits, qKitdet, qKitpar1).forEach(q -> q.execsql());
+        UGui.clearTable(tab3);
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record record = qKitdet.get(index);
@@ -349,7 +371,7 @@ public class Kits extends javax.swing.JFrame {
 
         btnGroup1.add(rbtn3);
         rbtn3.setFont(frames.UGui.getFont(0, 0));
-        rbtn3.setText("Стеклопакет");
+        rbtn3.setText("Ламинация");
         rbtn3.setActionCommand("2");
         rbtn3.setMaximumSize(new java.awt.Dimension(96, 25));
         rbtn3.setMinimumSize(new java.awt.Dimension(96, 25));
@@ -362,7 +384,7 @@ public class Kits extends javax.swing.JFrame {
 
         btnGroup1.add(rbtn4);
         rbtn4.setFont(frames.UGui.getFont(0, 0));
-        rbtn4.setText("Ламинация");
+        rbtn4.setText("Стеклопакет");
         rbtn4.setActionCommand("3");
         rbtn4.setMaximumSize(new java.awt.Dimension(96, 25));
         rbtn4.setMinimumSize(new java.awt.Dimension(96, 25));
@@ -389,9 +411,9 @@ public class Kits extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtn4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbtn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rbtn4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 303, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -407,12 +429,11 @@ public class Kits extends javax.swing.JFrame {
                                 .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(rbtn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(rbtn4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(rbtn4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(rbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(rbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(rbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rbtn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -544,38 +565,30 @@ public class Kits extends javax.swing.JFrame {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(tab1, tab2, tab3);
         Arrays.asList(qKits, qKitdet, qKitpar1).forEach(q -> q.execsql());
+        int index = UGui.getIndexRec(tab1);
+        int index2 = UGui.getIndexRec(tab2);
+        int index3 = UGui.getIndexRec(tab3);
         loadingData(btnGroup1.getSelection().getActionCommand());
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab1);
+        UGui.setSelectedIndex(tab1, index);
+        UGui.setSelectedIndex(tab2, index2);
+        UGui.setSelectedIndex(tab3, index3);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+        if (tab1.getBorder() != null) {
+            if (UGui.isDeleteRecord(this, tab2) == 0) {
+                UGui.deleteRecord(tab1);
+            }
 
-            if (tab1.getBorder() != null) {
-                Record kitsRec = qKits.get(UGui.getIndexRec(tab1));
-                kitsRec.set(eKits.up, Query.DEL);
-                qKits.delete(kitsRec);
-                qKits.removeRec(UGui.getIndexRec(tab1));
-                ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab1);
+        } else if (tab2.getBorder() != null) {
+            if (UGui.isDeleteRecord(this, tab3) == 0) {
+                UGui.deleteRecord(tab2);
+            }
 
-            } else if (tab2.getBorder() != null) {
-                Record kitdetRc = qKitdet.get(UGui.getIndexRec(tab2));
-                kitdetRc.set(eColor.up, Query.DEL);
-                qKitdet.delete(kitdetRc);
-                qKitdet.removeRec(UGui.getIndexRec(tab2));
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab2);
-
-            } else if (tab3.getBorder() != null) {
-                Record kitpar1Rec = qKitpar1.get(UGui.getIndexRec(tab3));
-                kitpar1Rec.set(eColmap.up, Query.DEL);
-                qKitpar1.delete(kitpar1Rec);
-                qKitpar1.removeRec(UGui.getIndexRec(tab3));
-                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                UGui.setSelectedRow(tab3);
+        } else if (tab3.getBorder() != null) {
+            if (UGui.isDeleteRecord(this) == 0) {
+                UGui.deleteRecord(tab3);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -583,31 +596,25 @@ public class Kits extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
             int index = UGui.getIndexRec(tab1);
-            UGui.insertRecord(tab1, eKits.up, (record) -> {
+            String name = qKits.getAs(index, eKits.categ);
+            UGui.insertRecord2(tab1, eKits.up, (record) -> {
                 if (index != -1) {
-                    record.setNo(eKits.categ, qKits.getAs(index, eKits.categ));
+                    record.setNo(eKits.categ, name);
                 }
+                record.setNo(eKits.types, btnGroup1.getSelection().getActionCommand());
             });
 
         } else if (tab2.getBorder() != null) {
-            int index = UGui.getIndexRec(tab1);
-            Record kitsRec = qKits.get(index);
-            Record kitdetRec = eKitdet.up.newRecord(Query.INS);
-            kitdetRec.setNo(eKitdet.id, Conn.instanc().genId(eKitdet.up));
-            kitdetRec.setNo(eKitdet.kits_id, kitsRec.getInt(eKits.id));
-            qKitdet.add(kitdetRec);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.scrollRectToIndex(qKitdet.size() - 1, tab2);
+            int index = UGui.getIndexRec(tab1, 0);
+            UGui.insertRecord2(tab2, eKitdet.up, (record) -> {
+                record.setNo(eKitdet.kits_id, qKits.getAs(index, eKits.id));
+            });
 
         } else if (tab3.getBorder() != null) {
-            int index = UGui.getIndexRec(tab2);
-            Record kitdetRec = qKitdet.get(index);
-            Record kitpar1Rec = eKitpar2.up.newRecord(Query.INS);
-            kitpar1Rec.setNo(eColmap.id, Conn.instanc().genId(eColmap.up));
-            kitpar1Rec.setNo(eKitpar2.kitdet_id, kitdetRec.getInt(eKitdet.id));
-            qKitpar1.add(kitpar1Rec);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            UGui.scrollRectToIndex(qKitpar1.size() - 1, tab3);
+            int index = UGui.getIndexRec(tab3, 0);
+            UGui.insertRecord2(tab3, eKitpar2.up, (record) -> {
+                record.setNo(eKitpar2.kitdet_id, qKitdet.getAs(index, eKitdet.id));
+            });
         }
     }//GEN-LAST:event_btnInsert
 
@@ -624,9 +631,9 @@ public class Kits extends javax.swing.JFrame {
             loadingData("0");
         } else if (rbtn == rbtn2) {
             loadingData("1");
-        } else if (rbtn == rbtn4) {
-            loadingData("2");
         } else if (rbtn == rbtn3) {
+            loadingData("2");
+        } else if (rbtn == rbtn4) {
             loadingData("3");
         }
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
