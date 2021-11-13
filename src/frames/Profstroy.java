@@ -36,7 +36,7 @@ import domain.eJoinpar1;
 import domain.eJoinpar2;
 import domain.eJoinvar;
 import domain.eKitdet;
-import domain.eKitpar1;
+import domain.eKitpar2;
 import domain.eKits;
 import domain.ePrjpart;
 import domain.eRulecalc;
@@ -429,7 +429,7 @@ public class Profstroy {
             //deleteSql(eKits.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitdet.up, "kunic", eKits.up, "kunic");//kits_id  
             deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
-            deleteSql(eKitpar1.up, "psss", eKitdet.up, "kincr");//kitdet_id
+            deleteSql(eKitpar2.up, "psss", eKitdet.up, "kincr");//kitdet_id
         } catch (Exception e) {
             println(Color.RED, "Ошибка: deletePart().  " + e);
         }
@@ -551,7 +551,7 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color1_id, "clnum", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color2_id, "clnu1", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
-            updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");
+            updateSql(eKitpar2.up, eKitpar2.kitdet_id, "psss", eKitdet.up, "kincr");
             updateSql(eProject.up, eProject.prjpart_id, "kname", ePrjpart.up, "partner");
             executeSql("update prjpart set org_leve2 = trim(org_leve2)");
             String db = (numDb == 1) ? eProperty.base1.read() : (numDb == 2) ? eProperty.base2.read() : eProperty.base3.read();

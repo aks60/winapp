@@ -347,16 +347,16 @@ public class Elements extends javax.swing.JFrame {
                 qElement.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab2), eElement.artikl_id);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab2), eArtikl.name);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab2), eArtikl.code);
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                UGui.setSelectedIndex(tab2, index);
+                ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(tab2.getSelectedRow(), tab2.getSelectedRow());
+                //UGui.setSelectedIndex(tab2, index);
 
             } else if (tab3.getBorder() != null) {
                 int index = UGui.getIndexRec(tab3);
                 qElemdet.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab3), eElemdet.artikl_id);
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab3), eArtikl.name);
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab3), eArtikl.code);
-                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                UGui.setSelectedIndex(tab3, index);
+                ((DefaultTableModel) tab3.getModel()).fireTableRowsUpdated(tab3.getSelectedRow(), tab3.getSelectedRow());
+                //UGui.setSelectedIndex(tab3, index);
             }
         };
 

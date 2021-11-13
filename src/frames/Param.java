@@ -46,9 +46,9 @@ public class Param extends javax.swing.JFrame {
 
     public void loadingModel() {
 
-        new DefTableModel(tab1, qParams, eParams.text, eParams.komp,
+        new DefTableModel(tab1, qParams, eParams.text, eParams.kits,
                 eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.color);
-        new DefTableModel(tab2, qPardet, eParams.text, eParams.komp,
+        new DefTableModel(tab2, qPardet, eParams.text, eParams.kits,
                 eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.label);
 
         DefCellBoolRenderer br = new DefCellBoolRenderer();
@@ -373,14 +373,14 @@ public class Param extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             UGui.insertRecord(tab1, eParams.up, (record) -> {
                 record.setNo(eParams.params_id, record.getInt(eParams.id));
-                Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
+                Arrays.asList(eParams.kits.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
             });
         } else if (tab2.getBorder() != null) {
             UGui.insertRecord(tab2, eParams.up, (record) -> {
                 Record record2 = qParams.get(UGui.getIndexRec(tab1));
                 record.setNo(eParams.params_id, record2.getInt(eParams.id));
-                Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
+                Arrays.asList(eParams.kits.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
             });
         }

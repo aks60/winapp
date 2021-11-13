@@ -34,7 +34,7 @@ import domain.eJoinpar1;
 import domain.eJoinpar2;
 import domain.eJoinvar;
 import domain.eKitdet;
-import domain.eKitpar1;
+import domain.eKitpar2;
 import domain.eKits;
 import domain.eParams;
 import domain.ePrjpart;
@@ -239,7 +239,7 @@ public enum App {
     //Список таблиц базы данных
     public static Field[] db = { //в порядке удаления при конвертирования из базы приёмника
         eSetting.up, eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSysmodel.up,
-        eKitpar1.up, eKitdet.up, eKits.up,
+        eKitpar2.up, eKitdet.up, eKits.up,
         eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
         eElempar1.up, eElempar2.up, eElemdet.up, eElement.up,
         eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
