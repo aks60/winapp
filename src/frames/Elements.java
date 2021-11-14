@@ -986,9 +986,7 @@ public class Elements extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReport
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-
-        JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        UGui.updateBorderAndSql((JTable) evt.getSource(), Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 

@@ -27,6 +27,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
+import frames.swing.FilterTable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -40,6 +41,7 @@ public class Kits extends javax.swing.JFrame {
     private Query qKitdet = new Query(eKitdet.values());
     private Query qKitpar2 = new Query(eKitpar2.values());
     private Query qParams = new Query(eParams.values());
+    private FilterTable filterTable = null;
     private ListenerRecord listenerArtikl, listenerColor1, listenerColor2, listenerColor3;
 
     public Kits() {
@@ -173,7 +175,7 @@ public class Kits extends javax.swing.JFrame {
                 }, eParams.kits, param);
             }
         });
-        
+
         UGui.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
             return UGui.listenerCell(tab3, component, eKitpar2.params_id);
 
@@ -190,7 +192,7 @@ public class Kits extends javax.swing.JFrame {
                     UGui.listenerParam(rec, tab3, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3);
                 }, list);
             }
-        });        
+        });
     }
 
     public void listenerSet() {
@@ -424,6 +426,11 @@ public class Kits extends javax.swing.JFrame {
         });
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(80);
@@ -500,18 +507,7 @@ public class Kits extends javax.swing.JFrame {
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(800, 20));
-
-        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
-        south.setLayout(southLayout);
-        southLayout.setHorizontalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 837, Short.MAX_VALUE)
-        );
-        southLayout.setVerticalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
-
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -522,7 +518,6 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        UGui.stopCellEditing(tab1, tab2, tab3);
         Arrays.asList(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
         int index = UGui.getIndexRec(tab1);
         int index2 = UGui.getIndexRec(tab2);
@@ -591,6 +586,11 @@ public class Kits extends javax.swing.JFrame {
         UGui.setSelectedRow(tab1);
     }//GEN-LAST:event_comboBoxAction
 
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+        UGui.updateBorderAndSql((JTable) evt.getSource(), Arrays.asList(tab1, tab2, tab3));
+        filterTable.mousePressed((JTable) evt.getSource());
+    }//GEN-LAST:event_tabMousePressed
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -611,10 +611,15 @@ public class Kits extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     public void initElements() {
+        new FrameToFile(this, btnClose);
+        filterTable = new FilterTable(0, tab1);
+        south.add(filterTable, 0);
+        
+        filterTable.getTxt().grabFocus();
         btnIns.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
         btnDel.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
         btnRef.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
-        new FrameToFile(this, btnClose);
+
         FocusListener listenerFocus = new FocusListener() {
 
             javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
