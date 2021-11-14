@@ -2839,14 +2839,14 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 }
 
             } else if (tab2.getBorder() != null) {
-                UGui.insertRecord(tab2, eSysprof.up, (record) -> {
+                UGui.insertRecordEnd(tab2, eSysprof.up, (record) -> {
                     record.set(eSysprof.systree_id, systreeID);
                     Record record2 = eArtikl.up.newRecord();
                     qSysprof.table(eArtikl.up).add(record2);;
                 });
 
             } else if (tab3.getBorder() != null) {
-                UGui.insertRecord(tab3, eSysfurn.up, (record) -> {
+                UGui.insertRecordEnd(tab3, eSysfurn.up, (record) -> {
                     record.set(eSysfurn.systree_id, systreeID);
                     record.setNo(eSysfurn.npp, 0);
                     record.setNo(eSysfurn.replac, 0);
@@ -2854,7 +2854,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     qSysfurn.table(eFurniture.up).add(record2);;
                 });
             } else if (tab4.getBorder() != null) {
-                UGui.insertRecord(tab4, eSyspar1.up, (record) -> {
+                UGui.insertRecordEnd(tab4, eSyspar1.up, (record) -> {
                     record.set(eSyspar1.systree_id, systreeID);
                 });
 

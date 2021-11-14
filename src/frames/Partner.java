@@ -754,7 +754,7 @@ public class Partner extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            UGui.insertRecord(tab1, ePrjpart.up, (prjpartRec) -> {
+            UGui.insertRecordEnd(tab1, ePrjpart.up, (prjpartRec) -> {
                 try {
                     ResultSet rs = Query.connection.createStatement().executeQuery("SELECT current_user FROM rdb$database");
                     rs.next();

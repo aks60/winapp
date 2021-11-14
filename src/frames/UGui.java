@@ -590,7 +590,7 @@ public class UGui {
     }
 
     //Вставить запись
-    public static void insertRecord(JTable table, Field field, ListenerRecord listener) {
+    public static void insertRecordEnd(JTable table, Field field, ListenerRecord listener) {
 
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = field.newRecord(Query.INS);
@@ -602,7 +602,7 @@ public class UGui {
     }
 
     //Вставить запись
-    public static void insertRecord2(JTable table, Field field, ListenerRecord listener) {
+    public static void insertRecordCur(JTable table, Field field, ListenerRecord listener) {
 
         int index = UGui.getIndexRec(table);
         index = (index == -1) ? 0 : index;
@@ -612,6 +612,7 @@ public class UGui {
         query.add(index, record);
         listener.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(index, index);
+        UGui.setSelectedIndex(table, index);
     }
 
     //Изменить запись

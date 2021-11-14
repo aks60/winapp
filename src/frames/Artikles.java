@@ -2269,7 +2269,7 @@ public class Artikles extends javax.swing.JFrame {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
             if (node != null && node.isLeaf()) {
                 TypeArtikl typeArtikl = (TypeArtikl) node.getUserObject();
-                UGui.insertRecord(tab1, eArtikl.up, (record) -> {
+                UGui.insertRecordEnd(tab1, eArtikl.up, (record) -> {
                     record.setNo(eArtikl.level1, typeArtikl.id1);
                     record.setNo(eArtikl.level2, typeArtikl.id2);
                 });

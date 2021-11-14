@@ -655,32 +655,32 @@ public class Groups extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            UGui.insertRecord(tab1, eGroups.up, (record) -> {
+            UGui.insertRecordEnd(tab1, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.PRICE_INC.id);
             });
 
         } else if (tab2.getBorder() != null) {
-            UGui.insertRecord(tab2, eGroups.up, (record) -> {
+            UGui.insertRecordEnd(tab2, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.PRICE_DEC.id);
             });
 
         } else if (tab3.getBorder() != null) {
-            UGui.insertRecord(tab3, eGroups.up, (record) -> {
+            UGui.insertRecordEnd(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.SERI_PROF.id);
             });
 
         } else if (tab4.getBorder() != null) {
-            UGui.insertRecord(tab4, eGroups.up, (record) -> {
+            UGui.insertRecordEnd(tab4, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.CATEG_PRF.id);
             });
 
         } else if (tab5.getBorder() != null) {
-            UGui.insertRecord(tab5, eGroups.up, (record) -> {
+            UGui.insertRecordEnd(tab5, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLOR.id);
             });
 
         } else if (tab6.getBorder() != null) {
-            UGui.insertRecord(tab6, eGroups.up, (record) -> {
+            UGui.insertRecordEnd(tab6, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.CATEG_VST.id);
             });
         }

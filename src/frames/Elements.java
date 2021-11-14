@@ -917,7 +917,7 @@ public class Elements extends javax.swing.JFrame {
             ppmCateg.show(north, btnIns.getX(), btnIns.getY() + 18);
 
         } else if (tab2.getBorder() != null) {
-            UGui.insertRecord(tab2, eElement.up, (record) -> {
+            UGui.insertRecordEnd(tab2, eElement.up, (record) -> {
                 Record groupsRec = qGrCateg.get(UGui.getIndexRec(tab1));
                 int id = groupsRec.getInt(eGroups.id);
                 record.set(eElement.elemgrp_id, id);
@@ -926,20 +926,20 @@ public class Elements extends javax.swing.JFrame {
             });
         } else if (tab3.getBorder() != null) {
             if (UGui.getIndexRec(tab2) != -1) {
-                UGui.insertRecord(tab3, eElemdet.up, (record) -> {
+                UGui.insertRecordEnd(tab3, eElemdet.up, (record) -> {
                     record.set(eElemdet.element_id, qElement.get(UGui.getIndexRec(tab2), eElement.id));
                     Record record2 = eArtikl.up.newRecord();
                     qElemdet.table(eArtikl.up).add(record2);
                 });
             }
         } else if (tab4.getBorder() != null) {
-            UGui.insertRecord(tab4, eElempar1.up, (record) -> {
+            UGui.insertRecordEnd(tab4, eElempar1.up, (record) -> {
                 int id = qElement.getAs(UGui.getIndexRec(tab2), eElement.id);
                 record.set(eElempar1.element_id, id);
             });
 
         } else if (tab5.getBorder() != null) {
-            UGui.insertRecord(tab5, eElempar2.up, (record) -> {
+            UGui.insertRecordEnd(tab5, eElempar2.up, (record) -> {
                 int id = qElemdet.getAs(UGui.getIndexRec(tab3), eElemdet.id);
                 record.set(eElempar2.elemdet_id, id);
             });

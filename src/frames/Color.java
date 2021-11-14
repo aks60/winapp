@@ -570,27 +570,27 @@ public class Color extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            UGui.insertRecord(tab1, eGroups.up, (record) -> {
+            UGui.insertRecordEnd(tab1, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLOR.id);
                 record.set(eGroups.name, "");
                 record.set(eGroups.val, 1);
             });
         } else if (tab2.getBorder() != null) {
 
-            UGui.insertRecord(tab2, eColor.up, (record) -> {
+            UGui.insertRecordEnd(tab2, eColor.up, (record) -> {
                 Record groupRec = qGroup1.get(UGui.getIndexRec(tab1));
                 record.setNo(eColor.colgrp_id, groupRec.getInt(eGroups.id));
                 qColall.add(record);
             });
 
         } else if (tab3.getBorder() != null) {
-            UGui.insertRecord(tab3, eGroups.up, (record) -> {
+            UGui.insertRecordEnd(tab3, eGroups.up, (record) -> {
                 record.set(eGroups.grup, TypeGroups.COLMAP.id);
                 record.set(eGroups.name, "");
             });
 
         } else if (tab4.getBorder() != null) {
-            UGui.insertRecord(tab4, eColor.up, (record) -> {
+            UGui.insertRecordEnd(tab4, eColor.up, (record) -> {
                 Record groupRec = qGroup2.get(UGui.getIndexRec(tab3));
                 record.setNo(eColmap.colgrp_id, groupRec.getInt(eGroups.id));
                 record.set(eColmap.joint, 1);

@@ -941,29 +941,29 @@ public class Joinings extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            UGui.insertRecord(tab1, eJoining.up, (record) -> {
+            UGui.insertRecordEnd(tab1, eJoining.up, (record) -> {
             });
 
         } else if (tab2.getBorder() != null) {
-            UGui.insertRecord(tab2, eJoinvar.up, (record) -> {
+            UGui.insertRecordEnd(tab2, eJoinvar.up, (record) -> {
                 int id = qJoining.getAs(UGui.getIndexRec(tab1), eJoining.id);
                 record.set(eJoinvar.joining_id, id);
             });
 
         } else if (tab3.getBorder() != null) {
-            UGui.insertRecord(tab3, eJoinpar1.up, (record) -> {
+            UGui.insertRecordEnd(tab3, eJoinpar1.up, (record) -> {
                 int id = qJoinvar.getAs(UGui.getIndexRec(tab2), eJoinvar.id);
                 record.set(eJoinpar1.joinvar_id, id);
             });
 
         } else if (tab4.getBorder() != null) {
-            UGui.insertRecord(tab4, eJoindet.up, (record) -> {
+            UGui.insertRecordEnd(tab4, eJoindet.up, (record) -> {
                 int id = qJoinvar.getAs(UGui.getIndexRec(tab2), eJoinvar.id);
                 record.set(eJoindet.joinvar_id, id);
             });
 
         } else if (tab5.getBorder() != null) {
-            UGui.insertRecord(tab5, eJoinpar2.up, (record) -> {
+            UGui.insertRecordEnd(tab5, eJoinpar2.up, (record) -> {
                 int id = qJoindet.getAs(UGui.getIndexRec(tab4), eJoindet.id);
                 record.set(eJoinpar2.joindet_id, id);
             });

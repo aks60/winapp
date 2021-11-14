@@ -812,12 +812,12 @@ public class Fillings extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            UGui.insertRecord(tab1, eGlasgrp.up, (record) -> {
+            UGui.insertRecordEnd(tab1, eGlasgrp.up, (record) -> {
                 record.set(eGlasgrp.gap, 0);
             });
 
         } else if (tab2.getBorder() != null) {
-            UGui.insertRecord(tab2, eGlasdet.up, (record) -> {
+            UGui.insertRecordEnd(tab2, eGlasdet.up, (record) -> {
                 int id = qGlasgrp.getAs(UGui.getIndexRec(tab1), eGlasgrp.id);
                 record.set(eGlasdet.depth, 0);
                 record.set(eGlasdet.glasgrp_id, id);
@@ -825,19 +825,19 @@ public class Fillings extends javax.swing.JFrame {
             });
 
         } else if (tab3.getBorder() != null) {
-            UGui.insertRecord(tab3, eGlaspar1.up, (record) -> {
+            UGui.insertRecordEnd(tab3, eGlaspar1.up, (record) -> {
                 int id = qGlasgrp.getAs(UGui.getIndexRec(tab1), eGlasgrp.id);
                 record.set(eGlaspar1.glasgrp_id, id);
             });
 
         } else if (tab4.getBorder() != null) {
-            UGui.insertRecord(tab4, eGlaspar2.up, (record) -> {
+            UGui.insertRecordEnd(tab4, eGlaspar2.up, (record) -> {
                 int id = qGlasdet.getAs(UGui.getIndexRec(tab2), eGlasdet.id);
                 record.set(eGlaspar2.glasdet_id, id);
             });
 
         } else if (tab5.getBorder() != null) {
-            UGui.insertRecord(tab5, eGlasprof.up, (record) -> {
+            UGui.insertRecordEnd(tab5, eGlasprof.up, (record) -> {
                 int id = qGlasgrp.getAs(UGui.getIndexRec(tab1), eGlasgrp.id);
                 record.set(eGlasprof.glasgrp_id, id);
                 record.set(eGlasprof.gsize, .0);

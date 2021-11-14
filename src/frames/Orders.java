@@ -2368,7 +2368,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            UGui.insertRecord(tab1, eProject.up, (projectRec) -> {
+            UGui.insertRecordEnd(tab1, eProject.up, (projectRec) -> {
                 projectRec.set(eProject.manager, eProfile.user);
                 projectRec.set(eProject.date4, UGui.getDateCur());
             });

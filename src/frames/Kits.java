@@ -16,6 +16,8 @@ import enums.UseUnit;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicColor;
 import frames.dialog.ParGrup2;
+import frames.dialog.ParGrup2a;
+import frames.dialog.ParGrup2b;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
@@ -30,14 +32,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JComboBox;
-import javax.swing.JRadioButton;
 import startup.Main;
 
 public class Kits extends javax.swing.JFrame {
 
     private Query qKits = new Query(eKits.values());
     private Query qKitdet = new Query(eKitdet.values());
-    private Query qKitpar1 = new Query(eKitpar2.values());
+    private Query qKitpar2 = new Query(eKitpar2.values());
     private Query qParams = new Query(eParams.values());
     private ListenerRecord listenerArtikl, listenerColor1, listenerColor2, listenerColor3;
 
@@ -80,7 +81,7 @@ public class Kits extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab3, qKitpar1, eKitpar2.params_id, eKitpar2.text) {
+        new DefTableModel(tab3, qKitpar2, eKitpar2.params_id, eKitpar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 if (val != null) {
@@ -98,9 +99,6 @@ public class Kits extends javax.swing.JFrame {
                 return val;
             }
         };
-
-        //DefCellBoolRenderer br = new DefCellBoolRenderer();
-        //tab2.getColumnModel().getColumn(5).setCellRenderer(br);
         UGui.setSelectedRow(tab1);
     }
 
@@ -171,10 +169,28 @@ public class Kits extends javax.swing.JFrame {
                     param = 9000;
                 }
                 ParGrup2 frame = new ParGrup2(this, (rec) -> {
-                    System.out.println(rec);
+                    UGui.listenerParam(rec, tab3, eKitpar2.params_id, eKitpar2.text, tab1, tab2);
                 }, eParams.kits, param);
             }
         });
+        
+        UGui.buttonCellEditor(tab3, 1, (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return UGui.listenerCell(tab3, component, eKitpar2.params_id);
+
+        }).addActionListener(event -> {
+            Record record = qKitpar2.get(UGui.getIndexRec(tab3));
+            int grup = record.getInt(eKitpar2.params_id);
+            if (grup < 0) {
+                ParGrup2a frame = new ParGrup2a(this, (rec) -> {
+                    UGui.listenerParam(rec, tab3, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3);
+                }, grup);
+            } else {
+                List list = ParamList.find(grup).dict();
+                ParGrup2b frame = new ParGrup2b(this, (rec) -> {
+                    UGui.listenerParam(rec, tab3, eKitpar2.params_id, eKitpar2.text, tab1, tab2, tab3);
+                }, list);
+            }
+        });        
     }
 
     public void listenerSet() {
@@ -214,7 +230,7 @@ public class Kits extends javax.swing.JFrame {
     }
 
     public void selectionTab1(ListSelectionEvent event) {
-        Arrays.asList(qKits, qKitdet, qKitpar1).forEach(q -> q.execsql());
+        Arrays.asList(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
         UGui.clearTable(tab2, tab3);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
@@ -227,13 +243,13 @@ public class Kits extends javax.swing.JFrame {
     }
 
     public void selectionTab2(ListSelectionEvent event) {
-        Arrays.asList(qKits, qKitdet, qKitpar1).forEach(q -> q.execsql());
+        Arrays.asList(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
         UGui.clearTable(tab3);
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record record = qKitdet.get(index);
             Integer id = record.getInt(eKitdet.id);
-            qKitpar1.select(eKitpar2.up, "where", eKitpar2.kitdet_id, "=", id, "order by", eKitpar2.text);
+            qKitpar2.select(eKitpar2.up, "where", eKitpar2.kitdet_id, "=", id, "order by", eKitpar2.text);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab3);
         }
@@ -243,16 +259,12 @@ public class Kits extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnGroup1 = new javax.swing.ButtonGroup();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        rbtn1 = new javax.swing.JRadioButton();
-        rbtn2 = new javax.swing.JRadioButton();
-        rbtn3 = new javax.swing.JRadioButton();
-        rbtn4 = new javax.swing.JRadioButton();
+        cbx1 = new javax.swing.JComboBox<>();
         west = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -341,57 +353,14 @@ public class Kits extends javax.swing.JFrame {
             }
         });
 
-        btnGroup1.add(rbtn1);
-        rbtn1.setFont(frames.UGui.getFont(0, 0));
-        rbtn1.setSelected(true);
-        rbtn1.setText("Продажа");
-        rbtn1.setActionCommand("0");
-        rbtn1.setMaximumSize(new java.awt.Dimension(96, 25));
-        rbtn1.setMinimumSize(new java.awt.Dimension(96, 25));
-        rbtn1.setName(""); // NOI18N
-        rbtn1.setPreferredSize(new java.awt.Dimension(96, 25));
-        rbtn1.addActionListener(new java.awt.event.ActionListener() {
+        cbx1.setBackground(new java.awt.Color(212, 208, 200));
+        cbx1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbx1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Продажа", "Скатка", "Ламинация", "Стеклопакет" }));
+        cbx1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        cbx1.setPreferredSize(new java.awt.Dimension(160, 25));
+        cbx1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnActionPerformed(evt);
-            }
-        });
-
-        btnGroup1.add(rbtn2);
-        rbtn2.setFont(frames.UGui.getFont(0, 0));
-        rbtn2.setText("Скатка");
-        rbtn2.setActionCommand("1");
-        rbtn2.setMaximumSize(new java.awt.Dimension(96, 25));
-        rbtn2.setMinimumSize(new java.awt.Dimension(96, 25));
-        rbtn2.setPreferredSize(new java.awt.Dimension(96, 25));
-        rbtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnActionPerformed(evt);
-            }
-        });
-
-        btnGroup1.add(rbtn3);
-        rbtn3.setFont(frames.UGui.getFont(0, 0));
-        rbtn3.setText("Ламинация");
-        rbtn3.setActionCommand("2");
-        rbtn3.setMaximumSize(new java.awt.Dimension(96, 25));
-        rbtn3.setMinimumSize(new java.awt.Dimension(96, 25));
-        rbtn3.setPreferredSize(new java.awt.Dimension(96, 25));
-        rbtn3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnActionPerformed(evt);
-            }
-        });
-
-        btnGroup1.add(rbtn4);
-        rbtn4.setFont(frames.UGui.getFont(0, 0));
-        rbtn4.setText("Стеклопакет");
-        rbtn4.setActionCommand("3");
-        rbtn4.setMaximumSize(new java.awt.Dimension(96, 25));
-        rbtn4.setMinimumSize(new java.awt.Dimension(96, 25));
-        rbtn4.setPreferredSize(new java.awt.Dimension(96, 25));
-        rbtn4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnActionPerformed(evt);
+                comboBoxAction(evt);
             }
         });
 
@@ -407,14 +376,8 @@ public class Kits extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(rbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtn4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 303, Short.MAX_VALUE)
+                .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 527, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -429,11 +392,7 @@ public class Kits extends javax.swing.JFrame {
                                 .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(rbtn4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(rbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(rbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(rbtn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -564,11 +523,11 @@ public class Kits extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(tab1, tab2, tab3);
-        Arrays.asList(qKits, qKitdet, qKitpar1).forEach(q -> q.execsql());
+        Arrays.asList(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
         int index = UGui.getIndexRec(tab1);
         int index2 = UGui.getIndexRec(tab2);
         int index3 = UGui.getIndexRec(tab3);
-        loadingData(btnGroup1.getSelection().getActionCommand());
+        loadingData(String.valueOf(cbx1.getSelectedIndex()));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedIndex(tab1, index);
         UGui.setSelectedIndex(tab2, index2);
@@ -597,22 +556,22 @@ public class Kits extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             int index = UGui.getIndexRec(tab1);
             String name = qKits.getAs(index, eKits.categ);
-            UGui.insertRecord2(tab1, eKits.up, (record) -> {
+            UGui.insertRecordCur(tab1, eKits.up, (record) -> {
                 if (index != -1) {
                     record.setNo(eKits.categ, name);
                 }
-                record.setNo(eKits.types, btnGroup1.getSelection().getActionCommand());
+                record.setNo(eKits.types, cbx1.getSelectedIndex());
             });
 
         } else if (tab2.getBorder() != null) {
             int index = UGui.getIndexRec(tab1, 0);
-            UGui.insertRecord2(tab2, eKitdet.up, (record) -> {
+            UGui.insertRecordCur(tab2, eKitdet.up, (record) -> {
                 record.setNo(eKitdet.kits_id, qKits.getAs(index, eKits.id));
             });
 
         } else if (tab3.getBorder() != null) {
             int index = UGui.getIndexRec(tab3, 0);
-            UGui.insertRecord2(tab3, eKitpar2.up, (record) -> {
+            UGui.insertRecordCur(tab3, eKitpar2.up, (record) -> {
                 record.setNo(eKitpar2.kitdet_id, qKitdet.getAs(index, eKitdet.id));
             });
         }
@@ -620,39 +579,27 @@ public class Kits extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2, tab3);
-        Arrays.asList(qKits, qKitdet, qKitpar1).forEach(q -> q.execsql());
+        Arrays.asList(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
-    private void rbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnActionPerformed
-        JRadioButton rbtn = (JRadioButton) evt.getSource();
+    private void comboBoxAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAction
         UGui.stopCellEditing(tab1, tab2, tab3);
         Arrays.asList(tab1, tab2, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        if (rbtn == rbtn1) {
-            loadingData("0");
-        } else if (rbtn == rbtn2) {
-            loadingData("1");
-        } else if (rbtn == rbtn3) {
-            loadingData("2");
-        } else if (rbtn == rbtn4) {
-            loadingData("3");
-        }
+        int index = cbx1.getSelectedIndex();
+        loadingData(String.valueOf(index));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
-    }//GEN-LAST:event_rbtnActionPerformed
+    }//GEN-LAST:event_comboBoxAction
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
-    private javax.swing.ButtonGroup btnGroup1;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
+    private javax.swing.JComboBox<String> cbx1;
     private javax.swing.JPanel centr;
     private javax.swing.JPanel north;
-    private javax.swing.JRadioButton rbtn1;
-    private javax.swing.JRadioButton rbtn2;
-    private javax.swing.JRadioButton rbtn3;
-    private javax.swing.JRadioButton rbtn4;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
