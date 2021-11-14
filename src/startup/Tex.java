@@ -107,6 +107,9 @@ public class Tex extends javax.swing.JFrame {
         btn26 = new javax.swing.JButton();
         btn27 = new javax.swing.JButton();
         btn21 = new javax.swing.JButton();
+        tb8 = new javax.swing.JToolBar();
+        btn17 = new javax.swing.JButton();
+        btn3 = new javax.swing.JButton();
         tb6 = new javax.swing.JToolBar();
         btnT7 = new javax.swing.JToggleButton();
         btnT8 = new javax.swing.JToggleButton();
@@ -140,6 +143,9 @@ public class Tex extends javax.swing.JFrame {
         mn36 = new javax.swing.JMenuItem();
         mn38 = new javax.swing.JPopupMenu.Separator();
         mn37 = new javax.swing.JMenuItem();
+        mn07 = new javax.swing.JMenu();
+        mn71 = new javax.swing.JMenuItem();
+        mn72 = new javax.swing.JMenuItem();
         mn06 = new javax.swing.JMenu();
         mn63 = new javax.swing.JMenu();
         mn631 = new javax.swing.JCheckBoxMenuItem();
@@ -150,7 +156,6 @@ public class Tex extends javax.swing.JFrame {
         mn51 = new javax.swing.JMenuItem();
         mn52 = new javax.swing.JMenuItem();
         mn54 = new javax.swing.JMenuItem();
-        mn99 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SA-OKNA   <АРМ Технолог>");
@@ -455,14 +460,51 @@ public class Tex extends javax.swing.JFrame {
         btn21.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn41(evt);
+                mnSpecif(evt);
             }
         });
         tb2.add(btn21);
 
         getContentPane().add(tb2);
 
-        tb6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
+        tb8.setRollover(true);
+        tb8.setPreferredSize(new java.awt.Dimension(68, 28));
+
+        btn17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c080.gif"))); // NOI18N
+        btn17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
+        btn17.setFocusable(false);
+        btn17.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn17.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn17.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn17.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn17.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnPartn(evt);
+            }
+        });
+        tb8.add(btn17);
+
+        btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c081.gif"))); // NOI18N
+        btn3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
+        btn3.setFocusable(false);
+        btn3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn3.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn3.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn3.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn3.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnOrder(evt);
+            }
+        });
+        tb8.add(btn3);
+
+        getContentPane().add(tb8);
+
+        tb6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
         tb6.setRollover(true);
         tb6.setMaximumSize(new java.awt.Dimension(96, 28));
         tb6.setMinimumSize(new java.awt.Dimension(96, 28));
@@ -744,12 +786,37 @@ public class Tex extends javax.swing.JFrame {
         mn37.setText("Спецификация");
         mn37.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn41(evt);
+                mnSpecif(evt);
             }
         });
         mn03.add(mn37);
 
         mn0.add(mn03);
+
+        mn07.setActionCommand(" Заказы  ");
+        mn07.setFont(frames.UGui.getFont(1,1));
+        mn07.setLabel(" Заказы");
+        mn07.setPreferredSize(new java.awt.Dimension(67, 19));
+
+        mn71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn71.setText("Контрагенты");
+        mn71.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnPartn(evt);
+            }
+        });
+        mn07.add(mn71);
+
+        mn72.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn72.setText("Заказы");
+        mn72.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnOrder(evt);
+            }
+        });
+        mn07.add(mn72);
+
+        mn0.add(mn07);
 
         mn06.setFont(frames.UGui.getFont(1,1));
         mn06.setLabel("  Сервис  ");
@@ -833,10 +900,6 @@ public class Tex extends javax.swing.JFrame {
 
         mn0.add(mn05);
 
-        mn99.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        mn99.setMargin(new java.awt.Insets(2, 80, 2, 2));
-        mn0.add(mn99);
-
         setJMenuBar(mn0);
 
         getAccessibleContext().setAccessibleName("");
@@ -875,7 +938,7 @@ private void mnAboutBox(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAbo
 private void mn51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn51ActionPerformed
 }//GEN-LAST:event_mn51ActionPerformed
 
-private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
+private void mnSpecif(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSpecif
 
     FrameProgress.create(Tex.this, new ListenerFrame() {
         public void actionRequest(Object obj) {
@@ -883,7 +946,7 @@ private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
             btn1.setSelected(true);
         }
     });
-}//GEN-LAST:event_mn41
+}//GEN-LAST:event_mnSpecif
 
 private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
 
@@ -1074,6 +1137,23 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
         });*/
     }//GEN-LAST:event_formWindowActivated
 
+    private void mnPartn(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPartn
+
+        FrameProgress.create(Tex.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.Partner.createFrame(Tex.this);
+            }
+        });
+    }//GEN-LAST:event_mnPartn
+
+    private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder
+        FrameProgress.create(Tex.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.Order.createFrame(Tex.this);
+            }
+        });
+    }//GEN-LAST:event_mnOrder
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btn1;
@@ -1083,6 +1163,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JButton btn14;
     private javax.swing.JButton btn15;
     private javax.swing.JButton btn16;
+    private javax.swing.JButton btn17;
     private javax.swing.JButton btn2;
     private javax.swing.JButton btn21;
     private javax.swing.JButton btn23;
@@ -1090,6 +1171,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JButton btn25;
     private javax.swing.JButton btn26;
     private javax.swing.JButton btn27;
+    private javax.swing.JButton btn3;
     private javax.swing.JButton btn42;
     private javax.swing.JButton btn51;
     private javax.swing.JButton btn52;
@@ -1108,6 +1190,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JMenu mn03;
     private javax.swing.JMenu mn05;
     private javax.swing.JMenu mn06;
+    private javax.swing.JMenu mn07;
     private javax.swing.JMenu mn09;
     private javax.swing.JMenuItem mn11;
     private javax.swing.JSeparator mn13;
@@ -1134,16 +1217,18 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JCheckBoxMenuItem mn631;
     private javax.swing.JCheckBoxMenuItem mn632;
     private javax.swing.JCheckBoxMenuItem mn633;
+    private javax.swing.JMenuItem mn71;
+    private javax.swing.JMenuItem mn72;
     private javax.swing.JMenuItem mn91;
     private javax.swing.JMenuItem mn92;
     private javax.swing.JPopupMenu.Separator mn93;
     private javax.swing.JMenuItem mn94;
-    private javax.swing.JMenu mn99;
     private javax.swing.JToolBar tb1;
     private javax.swing.JToolBar tb2;
     private javax.swing.JToolBar tb4;
     private javax.swing.JToolBar tb6;
     private javax.swing.JToolBar tb7;
+    private javax.swing.JToolBar tb8;
     private javax.swing.JToolBar td5;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
