@@ -66,15 +66,15 @@
                   <Component id="btnRef" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCalc" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="lab2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Component id="btnF1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnF2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnF3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="438" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="lab2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="426" max="32767" attributes="0"/>
                   <Component id="btnTest" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnClose" min="-2" max="-2" attributes="0"/>
@@ -86,7 +86,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnClose" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnClose" alignment="0" pref="27" max="32767" attributes="0"/>
                       <Component id="btnRef" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnCalc" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
@@ -95,20 +95,15 @@
                                   <Component id="btnDel" alignment="0" max="32767" attributes="1"/>
                                   <Component id="btnIns" alignment="0" max="32767" attributes="1"/>
                               </Group>
-                              <Component id="btnTest" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="1" groupAlignment="1" attributes="0">
-                                  <Component id="btnF1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnF2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnF3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnTest" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lab2" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="lab2" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="btnF1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnF2" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnF3" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
