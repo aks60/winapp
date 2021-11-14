@@ -668,7 +668,7 @@ public class Joinings extends javax.swing.JFrame {
         centr.setPreferredSize(new java.awt.Dimension(800, 500));
         centr.setLayout(new java.awt.BorderLayout());
 
-        pan4.setPreferredSize(new java.awt.Dimension(200, 300));
+        pan4.setPreferredSize(new java.awt.Dimension(600, 300));
         pan4.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -718,8 +718,8 @@ public class Joinings extends javax.swing.JFrame {
 
         centr.add(pan4, java.awt.BorderLayout.CENTER);
 
-        pan1.setPreferredSize(new java.awt.Dimension(600, 320));
-        pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.LINE_AXIS));
+        pan1.setPreferredSize(new java.awt.Dimension(300, 330));
+        pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.PAGE_AXIS));
 
         scr2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr2.setPreferredSize(new java.awt.Dimension(300, 234));

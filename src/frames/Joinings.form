@@ -333,7 +333,7 @@
         <Container class="javax.swing.JPanel" name="pan4">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[200, 300]"/>
+              <Dimension value="[600, 300]"/>
             </Property>
           </Properties>
           <Constraints>
@@ -438,7 +438,7 @@
         <Container class="javax.swing.JPanel" name="pan1">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[600, 320]"/>
+              <Dimension value="[300, 330]"/>
             </Property>
           </Properties>
           <Constraints>
@@ -447,7 +447,9 @@
             </Constraint>
           </Constraints>
 
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
+            <Property name="axis" type="int" value="3"/>
+          </Layout>
           <SubComponents>
             <Container class="javax.swing.JScrollPane" name="scr2">
               <Properties>

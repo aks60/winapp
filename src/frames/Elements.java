@@ -488,14 +488,13 @@ public class Elements extends javax.swing.JFrame {
         tab2 = new javax.swing.JTable();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
+        scr1 = new javax.swing.JScrollPane();
+        tab1 = new javax.swing.JTable();
         pan2 = new javax.swing.JPanel();
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
-        west = new javax.swing.JPanel();
-        scr1 = new javax.swing.JScrollPane();
-        tab1 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
 
         itCateg1.setText("ПРОФИЛИ");
@@ -682,6 +681,7 @@ public class Elements extends javax.swing.JFrame {
         pan1.setPreferredSize(new java.awt.Dimension(847, 320));
         pan1.setLayout(new java.awt.BorderLayout());
 
+        scr2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 0, 0, 0));
         scr2.setPreferredSize(new java.awt.Dimension(454, 320));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
@@ -715,6 +715,7 @@ public class Elements extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(1).setPreferredWidth(200);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(200);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(32);
             tab2.getColumnModel().getColumn(6).setMaxWidth(60);
@@ -761,6 +762,37 @@ public class Elements extends javax.swing.JFrame {
         }
 
         pan1.add(scr4, java.awt.BorderLayout.EAST);
+
+        scr1.setPreferredSize(new java.awt.Dimension(120, 404));
+
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"wwwwwww"},
+                {"ddddddddd"}
+            },
+            new String [] {
+                "Категория"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Elements.this.mousePressed(evt);
+            }
+        });
+        scr1.setViewportView(tab1);
+
+        pan1.add(scr1, java.awt.BorderLayout.WEST);
 
         centr.add(pan1, java.awt.BorderLayout.CENTER);
 
@@ -832,40 +864,6 @@ public class Elements extends javax.swing.JFrame {
         centr.add(pan2, java.awt.BorderLayout.SOUTH);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
-
-        west.setPreferredSize(new java.awt.Dimension(140, 480));
-        west.setLayout(new java.awt.BorderLayout());
-
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"wwwwwww"},
-                {"ddddddddd"}
-            },
-            new String [] {
-                "Категория"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tab1.setFillsViewportHeight(true);
-        tab1.setName("tab1"); // NOI18N
-        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Elements.this.mousePressed(evt);
-            }
-        });
-        scr1.setViewportView(tab1);
-
-        west.add(scr1, java.awt.BorderLayout.CENTER);
-
-        getContentPane().add(west, java.awt.BorderLayout.WEST);
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
@@ -1044,7 +1042,6 @@ public class Elements extends javax.swing.JFrame {
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
-    private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
     // </editor-fold> 
     private void initElements() {
@@ -1056,7 +1053,7 @@ public class Elements extends javax.swing.JFrame {
 
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Категории вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
+                "                 ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Списки вставок", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

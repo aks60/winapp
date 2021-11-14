@@ -1071,7 +1071,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "По спецификации" }));
         jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jComboBox1.setMinimumSize(new java.awt.Dimension(12, 12));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(120, 18));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(120, 20));
 
         javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
         pan2.setLayout(pan2Layout);
@@ -1145,7 +1145,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pan11.add(pan2, java.awt.BorderLayout.SOUTH);
