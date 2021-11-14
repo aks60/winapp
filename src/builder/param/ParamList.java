@@ -1300,7 +1300,7 @@ public class ParamList {
     };
 
     public static Dictionary dic_8075 = () -> {
-        return Arrays.asList("90х90, 90х45, 45х90, 45х45");
+        return Arrays.asList("90х90", "90х45", "45х90", "45х45");
     };
     
     public static Dictionary dic_12075_34075_39075 = () -> {
