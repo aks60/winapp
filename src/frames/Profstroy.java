@@ -552,7 +552,7 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color2_id, "clnu1", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
             updateSql(eKitpar2.up, eKitpar2.kitdet_id, "psss", eKitdet.up, "kincr");
-            updateSql(eProject.up, eProject.prjpart_id, "kname", ePropart.up, "partner");
+            updateSql(eProject.up, eProject.propart_id, "kname", ePropart.up, "partner");
             executeSql("update prjpart set org_leve2 = trim(org_leve2)");
             String db = (numDb == 1) ? eProperty.base1.read() : (numDb == 2) ? eProperty.base2.read() : eProperty.base3.read();
             if (db.toUpperCase().contains("BIMAX.FDB")) {

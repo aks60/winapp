@@ -130,11 +130,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }
 
     public void loadingModel() {
-        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.num_acc, eProject.date4, eProject.date6, eProject.prjpart_id, eProject.manager) {
+        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.num_acc, eProject.date4, eProject.date6, eProject.propart_id, eProject.manager) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eProject.prjpart_id) {
+                if (field == eProject.propart_id) {
                     Record record = qPrjpart.stream().filter(rec -> rec.get(ePropart.id).equals(val)).findFirst().orElse(ePropart.up.newRecord());
                     return record.get(ePropart.partner);
                 }
@@ -243,7 +243,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             new Partner(this, (record) -> {
                 UGui.stopCellEditing(tab1);
                 Record record2 = qProject.get(UGui.getIndexRec(tab1));
-                record2.set(eProject.prjpart_id, record.getInt(ePropart.id));
+                record2.set(eProject.propart_id, record.getInt(ePropart.id));
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
         });
@@ -299,7 +299,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
             Record projectRec = qProject.get(UGui.getIndexRec(tab1));
             int id = projectRec.getInt(eProject.id);
-            qPrjprod.select(eProprod.up, "where", eProprod.order_id, "=", id);
+            qPrjprod.select(eProprod.up, "where", eProprod.project_id, "=", id);
 
             for (Record record : qPrjprod) {
                 try {
@@ -2377,7 +2377,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 record2.set(eProprod.name, record.getStr(eSysprod.name));
                 record2.set(eProprod.script, record.getStr(eSysprod.script));
                 record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));
-                record2.set(eProprod.order_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
+                record2.set(eProprod.project_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
                 qPrjprod.insert(record2);
                 loadingTab2();
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -2867,7 +2867,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 int projectID = qProject.get(UGui.getIndexRec(tab1)).getInt(eProject.id);
                 float total[] = {0, 0, 0, 0, 0, 0};
                 for (Record prjprodRec : qPrjprod) {
-                    if (prjprodRec.getInt(eProprod.order_id) == projectID) {
+                    if (prjprodRec.getInt(eProprod.project_id) == projectID) {
 
                         String script = prjprodRec.getStr(eProprod.script);
                         JsonElement je = new Gson().fromJson(script, JsonElement.class);
