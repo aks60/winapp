@@ -45,6 +45,7 @@ import domain.eFurniture;
 import domain.eJoining;
 import domain.eJoinvar;
 import domain.eParams;
+import domain.eProkit;
 import domain.eProprod;
 import domain.eSysfurn;
 import domain.eSyspar1;
@@ -60,7 +61,6 @@ import frames.dialog.DicArtikl;
 import frames.dialog.DicColor;
 import frames.dialog.DicEnums;
 import frames.dialog.DicHandl;
-import frames.dialog.DicJoinvar;
 import frames.dialog.DicSyspod;
 import frames.dialog.DicSysprof;
 import frames.dialog.ParDefault;
@@ -70,11 +70,9 @@ import frames.swing.FilterTable;
 import frames.swing.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
 import javax.swing.ImageIcon;
@@ -97,10 +95,12 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
     private Query qParams = new Query(eParams.id, eParams.params_id, eParams.text);
     private Query qCurrenc = new Query(eCurrenc.values());
-    private Query qPrjpart = new Query(ePropart.values());
-    private Query qProject = new Query(eProject.values());
     private Query qProjectAll = new Query(eProject.values());
-    private Query qPrjprod = new Query(eProprod.values());
+    private Query qProject = new Query(eProject.values());
+    private Query qPropart = new Query(ePropart.values());
+    private Query qProprod = new Query(eProprod.values());
+    private Query qProkit1 = new Query(eProkit.values());
+    private Query qProkit2 = new Query(eProkit.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Map<Integer, String> mapParams = new HashMap();
     private DefMutableTreeNode winNode = null;
@@ -121,12 +121,14 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }
 
     private void loadingData() {
+        int orderID = Integer.valueOf(eProperty.orderID.read());
         qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id);
         qParams.forEach(rec -> mapParams.put(rec.getInt(eParams.id), rec.getStr(eParams.text)));
-        qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
-        qPrjpart.select(ePropart.up);
+        qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);        
         qProjectAll.select(eProject.up, "order by", eProject.date4);
-        qPrjprod.select(eProprod.up);
+        qPropart.select(ePropart.up);
+        qProprod.select(eProprod.up);
+        qProkit1.select(eProkit.up);
     }
 
     public void loadingModel() {
@@ -135,13 +137,13 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eProject.propart_id) {
-                    Record record = qPrjpart.stream().filter(rec -> rec.get(ePropart.id).equals(val)).findFirst().orElse(ePropart.up.newRecord());
+                    Record record = qPropart.stream().filter(rec -> rec.get(ePropart.id).equals(val)).findFirst().orElse(ePropart.up.newRecord());
                     return record.get(ePropart.partner);
                 }
                 return val;
             }
         };
-        new DefTableModel(tab2, qPrjprod, eProprod.name, eProprod.id);
+        new DefTableModel(tab2, qProprod, eProprod.name, eProprod.id);
         new DefTableModel(tab4, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -166,7 +168,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 1) {
-                    Record rec = qPrjprod.get(row);
+                    Record rec = qProprod.get(row);
                     if (rec.size() > eProprod.values().length) {
                         Object v = rec.get(eProprod.values().length);
                         if (v instanceof Wincalc) {
@@ -210,8 +212,6 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         rsvPrj.add(eProject.cost4, txt6);
         rsvPrj.add(eProject.weight, txt7);
         rsvPrj.add(eProject.square, txt8);
-
-        //panDesign.add(canvas, java.awt.BorderLayout.CENTER);
         canvas.setVisible(true);
     }
 
@@ -254,11 +254,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 int index = UGui.getIndexRec(tab2);
                 int index2 = UGui.getIndexRec(tab4);
                 if (index != -1) {
-                    Record sysprodRec = qPrjprod.get(index);
+                    Record sysprodRec = qProprod.get(index);
                     String script = sysprodRec.getStr(eProprod.script);
                     String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
                     sysprodRec.set(eProprod.script, script2);
-                    qPrjprod.execsql();
+                    qProprod.execsql();
                     iwin().build(script2);
                     UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                     selectionWin();
@@ -275,10 +275,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         for (int i = first; i < qProjectAll.size(); ++i) {
             qProject.add(qProjectAll.get(i));
         }
-        ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-
-        int index = -1;
         int orderID = Integer.valueOf(eProperty.orderID.read());
+        ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+        int index = -1;        
         for (int index2 = 0; index2 < qProject.size(); ++index2) {
             if (qProject.get(index2).getInt(eProprod.id) == orderID) {
                 index = index2;
@@ -294,14 +293,14 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
     public void loadingTab2() {
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
+        Arrays.asList(qProject, qProprod).forEach(q -> q.execsql());
         if (tab1.getSelectedRow() != -1) {
 
             Record projectRec = qProject.get(UGui.getIndexRec(tab1));
             int id = projectRec.getInt(eProject.id);
-            qPrjprod.select(eProprod.up, "where", eProprod.project_id, "=", id);
+            qProprod.select(eProprod.up, "where", eProprod.project_id, "=", id);
 
-            for (Record record : qPrjprod) {
+            for (Record record : qProprod) {
                 try {
                     String script = record.getStr(eProprod.script);
                     Wincalc iwin2 = new Wincalc(script);
@@ -342,8 +341,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             loadingTab2();
             index = -1;
             int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
-            for (int i = 0; i < qPrjprod.size(); ++i) {
-                if (qPrjprod.get(i).getInt(eProprod.id) == prjprodID) {
+            for (int i = 0; i < qProprod.size(); ++i) {
+                if (qProprod.get(i).getInt(eProprod.id) == prjprodID) {
                     index = i;
                 }
             }
@@ -358,7 +357,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private Wincalc iwin() {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
-            Record sysprodRec = qPrjprod.table(eProprod.up).get(index);
+            Record sysprodRec = qProprod.table(eProprod.up).get(index);
             Object v = sysprodRec.get(eProprod.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
                 return (Wincalc) v;
@@ -370,9 +369,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     public void selectionTab2() {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
-            Record prjprodRec = qPrjprod.get(index);
+            Record prjprodRec = qProprod.get(index);
             eProperty.prjprodID.write(prjprodRec.getStr(eProprod.id)); //запишем текущий prjprodID в файл
-            App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());           
+            App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
             Object w = prjprodRec.get(eProprod.values().length);
             if (w instanceof Wincalc) { //прорисовка окна               
                 Wincalc win = (Wincalc) w;
@@ -446,7 +445,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);
                 setText(txt24, UGui.df.format(stv.mapFrame.get(Layout.BOTT).width()));
                 float h = (stv.mapFrame.get(Layout.RIGHT).height() > stv.mapFrame.get(Layout.LEFT).height()) ? stv.mapFrame.get(Layout.RIGHT).height() : stv.mapFrame.get(Layout.LEFT).height();
-                setText(txt26, UGui.df.format(h));                
+                setText(txt26, UGui.df.format(h));
                 setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
                 setIcon(btn10, stv.paramCheck[0]);
                 setText(txt30, stv.typeOpen.name2);
@@ -469,7 +468,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 setText(txt46, stv.lockRec.getStr(eArtikl.code) + " ÷ " + stv.lockRec.getStr(eArtikl.name));
                 setIcon(btn23, stv.paramCheck[5]);
                 setText(txt48, eColor.find(stv.lockColor).getStr(eColor.name));
-                setIcon(btn24, stv.paramCheck[6]);                
+                setIcon(btn24, stv.paramCheck[6]);
 
                 //Соединения
             } else if (winNode.com5t().type == enums.Type.JOINING) {
@@ -479,7 +478,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 ElemJoining ej1 = iwin.mapJoin.get(elem5e.joinPoint(0));
                 ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = iwin.mapJoin.get(elem5e.joinPoint(2));
-                
+
                 if (ej1 != null) {
                     setText(txt36, ej1.joiningRec.getStr(eJoining.name));
                     setText(txt42, ej1.name());
@@ -507,9 +506,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         try {
             //Сохраним скрипт в базе
             String script = gson.toJson(iwin().rootGson);
-            Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab2));
+            Record prjprodRec = qProprod.get(UGui.getIndexRec(tab2));
             prjprodRec.set(eProprod.script, script);
-            qPrjprod.update(prjprodRec);
+            qProprod.update(prjprodRec);
 
             //Перерисум paintPanel 
             selectionTab2();
@@ -539,7 +538,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             String script = gson.toJson(win.rootGson);
             win.build(script);
             win.imageIcon = Canvas.createIcon(win, 68);
-            Record sysprodRec = qPrjprod.get(index);
+            Record sysprodRec = qProprod.get(index);
             sysprodRec.set(eProprod.script, script);
             sysprodRec.set(eProprod.values().length, win);
             canvas.draw();
@@ -563,7 +562,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             btn.setIcon(null);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -708,6 +707,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         pan6 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
+        scr5 = new javax.swing.JScrollPane();
+        tab5 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -2301,6 +2302,34 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Изд.№", "Название", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Всего"
+            }
+        ));
+        tab3.setFillsViewportHeight(true);
+        tab3.setPreferredSize(new java.awt.Dimension(700, 32));
+        tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(240);
+            tab3.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tab3.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab3.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tab3.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tab3.getColumnModel().getColumn(6).setPreferredWidth(50);
+            tab3.getColumnModel().getColumn(7).setPreferredWidth(50);
+        }
+
+        pan6.add(scr3, java.awt.BorderLayout.CENTER);
+
+        scr5.setPreferredSize(new java.awt.Dimension(700, 240));
+
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
@@ -2308,12 +2337,28 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 "Изд.№", "Артикул", "Название", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Угол 1", "Угол 2", "Кол-во", "Погонаж", "Скидка %", "Примечание"
             }
         ));
-        tab3.setFillsViewportHeight(true);
-        tab3.setPreferredSize(new java.awt.Dimension(700, 32));
-        tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr3.setViewportView(tab3);
+        tab5.setFillsViewportHeight(true);
+        tab5.setPreferredSize(new java.awt.Dimension(700, 32));
+        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab5.getColumnModel().getColumn(1).setHeaderValue("Артикул");
+            tab5.getColumnModel().getColumn(2).setPreferredWidth(240);
+            tab5.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(5).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(6).setPreferredWidth(50);
+            tab5.getColumnModel().getColumn(7).setPreferredWidth(50);
+            tab5.getColumnModel().getColumn(8).setHeaderValue("Угол 1");
+            tab5.getColumnModel().getColumn(9).setHeaderValue("Угол 2");
+            tab5.getColumnModel().getColumn(10).setPreferredWidth(50);
+            tab5.getColumnModel().getColumn(11).setHeaderValue("Погонаж");
+            tab5.getColumnModel().getColumn(12).setHeaderValue("Скидка %");
+            tab5.getColumnModel().getColumn(13).setHeaderValue("Примечание");
+        }
 
-        pan6.add(scr3, java.awt.BorderLayout.CENTER);
+        pan6.add(scr5, java.awt.BorderLayout.SOUTH);
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp;\nКомплектация\n&nbsp;&nbsp;&nbsp;", pan6);
 
@@ -2342,7 +2387,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         int index2 = UGui.getIndexRec(tab2);
         loadingData();
         UGui.setSelectedIndex(tab1, index1);
-        UGui.setSelectedIndex(tab2, index2);       
+        UGui.setSelectedIndex(tab2, index2);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -2378,11 +2423,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 record2.set(eProprod.script, record.getStr(eSysprod.script));
                 record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));
                 record2.set(eProprod.project_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
-                qPrjprod.insert(record2);
+                qProprod.insert(record2);
                 loadingTab2();
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                for (int index = 0; index < qPrjprod.size(); ++index) {
-                    if (qPrjprod.get(index, eProprod.id) == record2.get(eProprod.id)) {
+                for (int index = 0; index < qProprod.size(); ++index) {
+                    if (qProprod.get(index, eProprod.id) == record2.get(eProprod.id)) {
                         UGui.setSelectedIndex(tab2, index);
                         UGui.scrollRectToRow(index, tab2);
                         winTree.setSelectionRow(0);
@@ -2395,7 +2440,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         eProperty.save(); //запишем текущий ordersId в файл
-        Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
+        Arrays.asList(qProject, qProprod).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
@@ -2432,7 +2477,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             if (winNode != null) {
                 float selectID = winNode.com5t().id();
                 HashSet<Record> set = new HashSet();
-                int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
+                int systreeID = qProprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
                 Record systreeRec = eSystree.find(systreeID);
                 String[] arr1 = (systreeRec.getStr(eSystree.cgrp).isEmpty() == false) ? systreeRec.getStr(eSystree.cgrp).split(";") : null;
                 eSystree col = (evt.getSource() == btn9) ? eSystree.col1 : (evt.getSource() == btn13) ? eSystree.col2 : eSystree.col3;
@@ -2513,7 +2558,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         try {
             if (winNode != null) {
                 float selectID = winNode.com5t().id();
-                int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
+                int systreeID = qProprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
                 Query qSysprof = new Query(eSysprof.values(), eArtikl.values()).select(eSysprof.up, "left join",
                         eArtikl.up, "on", eArtikl.id, "=", eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeID);
                 Query qSysprof2 = new Query(eSysprof.values(), eArtikl.values());
@@ -2645,7 +2690,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private void sysfurnToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysfurnToStvorka
         try {
             float windowsID = winNode.com5t().id();
-            int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
+            int systreeID = qProprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
 
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
@@ -2831,7 +2876,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private void btnToArtiklGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToArtiklGlass
         try {
             float selectID = winNode.com5t().id();
-            int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
+            int systreeID = qProprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
             Record systreeRec = eSystree.find(systreeID);
             String depth = systreeRec.getStr(eSystree.depth);
             if (depth != null && depth.isEmpty() == false) {
@@ -2866,7 +2911,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             if (UGui.getIndexRec(tab1) != -1) {
                 int projectID = qProject.get(UGui.getIndexRec(tab1)).getInt(eProject.id);
                 float total[] = {0, 0, 0, 0, 0, 0};
-                for (Record prjprodRec : qPrjprod) {
+                for (Record prjprodRec : qProprod) {
                     if (prjprodRec.getInt(eProprod.project_id) == projectID) {
 
                         String script = prjprodRec.getStr(eProprod.script);
@@ -2912,7 +2957,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
         int index = UGui.getIndexRec(tab4);
-        Record prjprodRec = qPrjprod.get(index);
+        Record prjprodRec = qProprod.get(index);
         String script = prjprodRec.getStr(eProprod.script);
         System.out.println(script);
     }//GEN-LAST:event_btnTest
@@ -3120,12 +3165,14 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
+    private javax.swing.JScrollPane scr5;
     private javax.swing.JScrollPane scr6;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
+    private javax.swing.JTable tab5;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JTextField txt13;
     private javax.swing.JTextField txt14;
@@ -3173,8 +3220,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
     private void initElements() {
         new FrameToFile(this, btnClose);
-        new UColor(); 
-        south.add(filterTable, 0);                
+        new UColor();
+        south.add(filterTable, 0);
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
         UGui.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
         txt3.setEditable(false);
@@ -3184,7 +3231,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         DefaultTreeCellRenderer rnd2 = (DefaultTreeCellRenderer) winTree.getCellRenderer();
         rnd2.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));
         rnd2.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
-        rnd2.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));       
+        rnd2.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

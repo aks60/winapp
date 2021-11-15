@@ -427,6 +427,7 @@ public class Profstroy {
             deleteSql(eSysfurn.up, "nuni", eSystree.up, "id");//systree_id
             deleteSql(eSyspar1.up, "psss", eSystree.up, "id");//systree_id 
             //deleteSql(eKits.up, "anumb", eArtikl.up, "code");//artikl_id
+            deleteSql(eKitpar2.up, "psss", eKitdet.up, "kincr");//kitdet_id
             deleteSql(eKitdet.up, "kunic", eKits.up, "kunic");//kits_id  
             deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitpar2.up, "psss", eKitdet.up, "kincr");//kitdet_id
@@ -614,14 +615,13 @@ public class Profstroy {
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
             alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
             alterTable("project", "fk_project_1", "propart_id", "propart");
-//            alterTable("kits", "fk_kits1", "artikl_id", "artikl");
-//            alterTable("kits", "fk_kits2", "color_id", "color");
+            alterTable("project", "fk_project_2", "prokit_id", "prokit");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
             alterTable("kitdet", "fk_kitdet2", "artikl_id", "artikl");
-//            alterTable("kitdet", "fk_kitdet3", "color1_id", "color");
-//            alterTable("kitdet", "fk_kitdet4", "color2_id", "color");
-//            alterTable("kitdet", "fk_kitdet5", "color3_id", "color");
-//            alterTable("kitpar1", "fk_kitpar1", "kitdet_id", "kitdet");
+            alterTable("kitdet", "fk_kitdet3", "color1_id", "color");
+            alterTable("kitdet", "fk_kitdet4", "color2_id", "color");
+            alterTable("kitdet", "fk_kitdet5", "color3_id", "color");
+            alterTable("kitpar2", "fk_kitpar1", "kitdet_id", "kitdet");
 
         } catch (Exception e) {
             println(Color.RED, "Ошибка: metaPart().  " + e);
