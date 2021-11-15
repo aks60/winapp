@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public enum eElement implements Field {
-    up("0", "0", "0", "Составы", "VSTALST"),
+    up("0", "0", "0", "Вставки", "VSTALST"),
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "64", "1", "Наименование", "VNAME"),
     typset("4", "10", "1", "Тип состава", "typset"),

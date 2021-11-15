@@ -553,7 +553,7 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
             updateSql(eKitpar2.up, eKitpar2.kitdet_id, "psss", eKitdet.up, "kincr");
             updateSql(eProject.up, eProject.propart_id, "kname", ePropart.up, "partner");
-            executeSql("update prjpart set org_leve2 = trim(org_leve2)");
+            executeSql("update propart set org_leve2 = trim(org_leve2)");
             String db = (numDb == 1) ? eProperty.base1.read() : (numDb == 2) ? eProperty.base2.read() : eProperty.base3.read();
             if (db.toUpperCase().contains("BIMAX.FDB")) {
                 executeSql("4", "update artikl set " + eArtikl.size_falz.name() + " = 20 where code = '336200'"); //поправка штульпа в bimax 
@@ -613,7 +613,7 @@ public class Profstroy {
             alterTable("syspar1", "fk_syspar2", "params_id", "params");
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
             alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
-            alterTable("project", "fk_project_1", "prjpart_id", "prjpart");
+            alterTable("project", "fk_project_1", "propart_id", "propart");
 //            alterTable("kits", "fk_kits1", "artikl_id", "artikl");
 //            alterTable("kits", "fk_kits2", "color_id", "color");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
