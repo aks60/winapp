@@ -246,7 +246,7 @@ public enum App {
         eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
         eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
         eColmap.up, eColor.up,
-        eProprod.up, eProject.up, ePropart.up, eProkit.up,
+        eProkit.up, eProprod.up, eProject.up, ePropart.up,
         eRulecalc.up, eSystree.up,
         eArtdet.up, eArtikl.up,
         eSyssize.up, eGroups.up, eCurrenc.up, eParams.up,};

@@ -115,7 +115,7 @@ public class Tex extends javax.swing.JFrame {
         btnT7 = new javax.swing.JToggleButton();
         btnT8 = new javax.swing.JToggleButton();
         btnT9 = new javax.swing.JToggleButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(2, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(22, 32767));
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(1, 0), new java.awt.Dimension(1, 0), new java.awt.Dimension(22, 32767));
         tb4 = new javax.swing.JToolBar();
         btnTest = new javax.swing.JButton();
         btn42 = new javax.swing.JButton();

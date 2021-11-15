@@ -120,7 +120,6 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }
 
     private void loadingData() {
-        int orderID = Integer.valueOf(eProperty.orderID.read());
         qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id);
         qParams.forEach(rec -> mapParams.put(rec.getInt(eParams.id), rec.getStr(eParams.text)));
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
@@ -276,6 +275,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         for (int i = first; i < qProjectAll.size(); ++i) {
             qProject.add(qProjectAll.get(i));
         }
+        //Выделяем заказ если сохранён в Property
         int orderID = Integer.valueOf(eProperty.orderID.read());
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
         int index = -1;
@@ -293,6 +293,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }
 
     public void loadingTab2() {
+        int index = -1;
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(qProject, qProprod).forEach(q -> q.execsql());
         if (tab1.getSelectedRow() != -1) {
@@ -315,7 +316,19 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 }
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            UGui.setSelectedRow(tab2);
+            
+            //Выделяем конструкцию если сохранена в Property
+            int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
+            for (int i = 0; i < qProprod.size(); ++i) {
+                if (qProprod.get(i).getInt(eProprod.id) == prjprodID) {
+                    index = i;
+                }
+            }
+            if (index != -1) {
+                UGui.setSelectedIndex(tab2, index);
+            } else {
+                UGui.setSelectedRow(tab2);
+            }
         }
     }
 
@@ -328,18 +341,6 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         UGui.setSelectedRow(tab4);
     }
 
-    public void loadingWin(Wincalc iwin) {
-        try {
-            int row[] = winTree.getSelectionRows();
-            DefMutableTreeNode root = UGui.loadWinTree(iwin);
-            winTree.setModel(new DefaultTreeModel(root));
-            winTree.setSelectionRows(row);
-
-        } catch (Exception e) {
-            System.err.println("Ошибка: Systree.loadingWin() " + e);
-        }
-    }
-
     public void selectionTab1() {
         int index = -1;
         UGui.stopCellEditing(tab1);
@@ -348,30 +349,19 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             lab2.setText("Заказ № " + qProject.getAs(UGui.getIndexRec(tab1), eProject.num_ord));
             int orderID = qProject.getAs(UGui.getIndexRec(tab1), eProject.id);
             eProperty.orderID.write(String.valueOf(orderID));
+
             rsvPrj.load();
             loadingTab2();
-            index = -1;
-            int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
-            for (int i = 0; i < qProprod.size(); ++i) {
-                if (qProprod.get(i).getInt(eProprod.id) == prjprodID) {
-                    index = i;
-                }
-            }
-        }
-        if (index != -1) {
-            UGui.setSelectedIndex(tab2, index);
-        } else {
-            UGui.setSelectedRow(tab2);
         }
     }
 
     public void selectionTab2() {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
-            Record prjprodRec = qProprod.get(index);
-            eProperty.prjprodID.write(prjprodRec.getStr(eProprod.id)); //запишем текущий prjprodID в файл
+            Record proprodRec = qProprod.get(index);
+            eProperty.prjprodID.write(proprodRec.getStr(eProprod.id)); //запишем текущий prjprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
-            Object w = prjprodRec.get(eProprod.values().length);
+            Object w = proprodRec.get(eProprod.values().length);
             if (w instanceof Wincalc) { //прорисовка окна               
                 Wincalc win = (Wincalc) w;
                 scene.init(win);
@@ -387,6 +377,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             canvas.draw();
             winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
         }
+        
         loadingTab4();
     }
 
@@ -400,6 +391,18 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             }
         }
         return null;
+    }
+
+    public void loadingWin(Wincalc iwin) {
+        try {
+            int row[] = winTree.getSelectionRows();
+            DefMutableTreeNode root = UGui.loadWinTree(iwin);
+            winTree.setModel(new DefaultTreeModel(root));
+            winTree.setSelectionRows(row);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: Systree.loadingWin() " + e);
+        }
     }
 
     public void selectionWin() {
@@ -901,7 +904,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 426, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 379, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1156,7 +1159,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addContainerGap(63, Short.MAX_VALUE))
         );
 
-        pan11.add(pan2, java.awt.BorderLayout.SOUTH);
+        pan11.add(pan2, java.awt.BorderLayout.NORTH);
 
         pan7.setPreferredSize(new java.awt.Dimension(404, 350));
         pan7.setLayout(new java.awt.BorderLayout());
@@ -1649,7 +1652,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     .addComponent(txt33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         pan8.add(pan13, "card13");
@@ -1720,7 +1723,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         pan8.add(pan15, "card15");
@@ -2290,7 +2293,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addGroup(pan17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pan8.add(pan17, "card17");
