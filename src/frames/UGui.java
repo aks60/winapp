@@ -61,7 +61,7 @@ import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eFurndet;
-import domain.ePrjprod;
+import domain.eProprod;
 import enums.Layout;
 import enums.PKjson;
 import enums.Type;
@@ -348,10 +348,10 @@ public class UGui {
 
             } else if (eProfile.profile == eProfile.P03) {
                 int productID = Integer.valueOf(eProperty.prjprodID.read());
-                Record productRec = ePrjprod.find(productID);
+                Record productRec = eProprod.find(productID);
                 if (productRec != null) {
 
-                    String str = productRec.getStr(ePrjprod.name);
+                    String str = productRec.getStr(eProprod.name);
                     if (str.length() > 6) {
                         if (str.length() < 128) {
                             str = str.substring(6, str.length());
@@ -359,7 +359,7 @@ public class UGui {
                             str = str.substring(6, 128);
                         }
                     }
-                    return "   Изделие: " + eSystree.patch(productRec.getInt(ePrjprod.systree_id), "") + "/" + str;
+                    return "   Изделие: " + eSystree.patch(productRec.getInt(eProprod.systree_id), "") + "/" + str;
                 }
             }
             return "";
@@ -390,10 +390,10 @@ public class UGui {
 
             } else if (eProfile.profile == eProfile.P03) {
                 int productID = Integer.valueOf(eProperty.prjprodID.read());
-                Record productRec = ePrjprod.find(productID);
+                Record productRec = eProprod.find(productID);
                 if (productRec != null) {
 
-                    String str = productRec.getStr(ePrjprod.name);
+                    String str = productRec.getStr(eProprod.name);
                     if (str.length() > 6) {
                         if (str.length() < 128) {
                             str = str.substring(6, str.length());
@@ -401,7 +401,7 @@ public class UGui {
                             str = str.substring(6, 128);
                         }
                     }
-                    return "   Изделие: " + eSystree.patch(productRec.getInt(ePrjprod.systree_id), "") + "/" + str;
+                    return "   Изделие: " + eSystree.patch(productRec.getInt(eProprod.systree_id), "") + "/" + str;
                 }
             }
             return "";

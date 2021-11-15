@@ -18,7 +18,7 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eProject;
-import domain.ePrjpart;
+import domain.ePropart;
 import frames.dialog.DicDate;
 import frames.dialog.DicName;
 import frames.swing.DefCellRenderer;
@@ -45,7 +45,7 @@ import domain.eFurniture;
 import domain.eJoining;
 import domain.eJoinvar;
 import domain.eParams;
-import domain.ePrjprod;
+import domain.eProprod;
 import domain.eSysfurn;
 import domain.eSyspar1;
 import domain.eSysprod;
@@ -97,10 +97,10 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
     private Query qParams = new Query(eParams.id, eParams.params_id, eParams.text);
     private Query qCurrenc = new Query(eCurrenc.values());
-    private Query qPrjpart = new Query(ePrjpart.values());
+    private Query qPrjpart = new Query(ePropart.values());
     private Query qProject = new Query(eProject.values());
     private Query qProjectAll = new Query(eProject.values());
-    private Query qPrjprod = new Query(ePrjprod.values());
+    private Query qPrjprod = new Query(eProprod.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Map<Integer, String> mapParams = new HashMap();
     private DefMutableTreeNode winNode = null;
@@ -124,9 +124,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id);
         qParams.forEach(rec -> mapParams.put(rec.getInt(eParams.id), rec.getStr(eParams.text)));
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
-        qPrjpart.select(ePrjpart.up);
+        qPrjpart.select(ePropart.up);
         qProjectAll.select(eProject.up, "order by", eProject.date4);
-        qPrjprod.select(ePrjprod.up);
+        qPrjprod.select(eProprod.up);
     }
 
     public void loadingModel() {
@@ -135,13 +135,13 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eProject.prjpart_id) {
-                    Record record = qPrjpart.stream().filter(rec -> rec.get(ePrjpart.id).equals(val)).findFirst().orElse(ePrjpart.up.newRecord());
-                    return record.get(ePrjpart.partner);
+                    Record record = qPrjpart.stream().filter(rec -> rec.get(ePropart.id).equals(val)).findFirst().orElse(ePropart.up.newRecord());
+                    return record.get(ePropart.partner);
                 }
                 return val;
             }
         };
-        new DefTableModel(tab2, qPrjprod, ePrjprod.name, ePrjprod.id);
+        new DefTableModel(tab2, qPrjprod, eProprod.name, eProprod.id);
         new DefTableModel(tab4, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -167,8 +167,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 1) {
                     Record rec = qPrjprod.get(row);
-                    if (rec.size() > ePrjprod.values().length) {
-                        Object v = rec.get(ePrjprod.values().length);
+                    if (rec.size() > eProprod.values().length) {
+                        Object v = rec.get(eProprod.values().length);
                         if (v instanceof Wincalc) {
                             label.setIcon(((Wincalc) v).imageIcon);
                         }
@@ -243,7 +243,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             new Partner(this, (record) -> {
                 UGui.stopCellEditing(tab1);
                 Record record2 = qProject.get(UGui.getIndexRec(tab1));
-                record2.set(eProject.prjpart_id, record.getInt(ePrjpart.id));
+                record2.set(eProject.prjpart_id, record.getInt(ePropart.id));
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
         });
@@ -255,9 +255,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 int index2 = UGui.getIndexRec(tab4);
                 if (index != -1) {
                     Record sysprodRec = qPrjprod.get(index);
-                    String script = sysprodRec.getStr(ePrjprod.script);
+                    String script = sysprodRec.getStr(eProprod.script);
                     String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
-                    sysprodRec.set(ePrjprod.script, script2);
+                    sysprodRec.set(eProprod.script, script2);
                     qPrjprod.execsql();
                     iwin().build(script2);
                     UGui.stopCellEditing(tab1, tab2, tab3, tab4);
@@ -280,7 +280,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         int index = -1;
         int orderID = Integer.valueOf(eProperty.orderID.read());
         for (int index2 = 0; index2 < qProject.size(); ++index2) {
-            if (qProject.get(index2).getInt(ePrjprod.id) == orderID) {
+            if (qProject.get(index2).getInt(eProprod.id) == orderID) {
                 index = index2;
             }
         }
@@ -299,11 +299,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
             Record projectRec = qProject.get(UGui.getIndexRec(tab1));
             int id = projectRec.getInt(eProject.id);
-            qPrjprod.select(ePrjprod.up, "where", ePrjprod.order_id, "=", id);
+            qPrjprod.select(eProprod.up, "where", eProprod.order_id, "=", id);
 
             for (Record record : qPrjprod) {
                 try {
-                    String script = record.getStr(ePrjprod.script);
+                    String script = record.getStr(eProprod.script);
                     Wincalc iwin2 = new Wincalc(script);
                     Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
                     joining.calc();
@@ -343,7 +343,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             index = -1;
             int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
             for (int i = 0; i < qPrjprod.size(); ++i) {
-                if (qPrjprod.get(i).getInt(ePrjprod.id) == prjprodID) {
+                if (qPrjprod.get(i).getInt(eProprod.id) == prjprodID) {
                     index = i;
                 }
             }
@@ -358,8 +358,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private Wincalc iwin() {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
-            Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
-            Object v = sysprodRec.get(ePrjprod.values().length);
+            Record sysprodRec = qPrjprod.table(eProprod.up).get(index);
+            Object v = sysprodRec.get(eProprod.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
                 return (Wincalc) v;
             }
@@ -371,9 +371,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record prjprodRec = qPrjprod.get(index);
-            eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
+            eProperty.prjprodID.write(prjprodRec.getStr(eProprod.id)); //запишем текущий prjprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());           
-            Object w = prjprodRec.get(ePrjprod.values().length);
+            Object w = prjprodRec.get(eProprod.values().length);
             if (w instanceof Wincalc) { //прорисовка окна               
                 Wincalc win = (Wincalc) w;
                 scene.init(win);
@@ -508,7 +508,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             //Сохраним скрипт в базе
             String script = gson.toJson(iwin().rootGson);
             Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab2));
-            prjprodRec.set(ePrjprod.script, script);
+            prjprodRec.set(eProprod.script, script);
             qPrjprod.update(prjprodRec);
 
             //Перерисум paintPanel 
@@ -540,8 +540,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             win.build(script);
             win.imageIcon = Canvas.createIcon(win, 68);
             Record sysprodRec = qPrjprod.get(index);
-            sysprodRec.set(ePrjprod.script, script);
-            sysprodRec.set(ePrjprod.values().length, win);
+            sysprodRec.set(eProprod.script, script);
+            sysprodRec.set(eProprod.values().length, win);
             canvas.draw();
             scene.draw();
             selectionWin();
@@ -2372,17 +2372,17 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
         } else if (tab2.getBorder() != null) {
             new DicSyspod(this, (record) -> {
-                Record record2 = ePrjprod.up.newRecord();
-                record2.set(ePrjprod.id, Conn.instanc().genId(eSysprod.up));
-                record2.set(ePrjprod.name, record.getStr(eSysprod.name));
-                record2.set(ePrjprod.script, record.getStr(eSysprod.script));
-                record2.set(ePrjprod.systree_id, record.getStr(eSysprod.systree_id));
-                record2.set(ePrjprod.order_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
+                Record record2 = eProprod.up.newRecord();
+                record2.set(eProprod.id, Conn.instanc().genId(eSysprod.up));
+                record2.set(eProprod.name, record.getStr(eSysprod.name));
+                record2.set(eProprod.script, record.getStr(eSysprod.script));
+                record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));
+                record2.set(eProprod.order_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
                 qPrjprod.insert(record2);
                 loadingTab2();
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 for (int index = 0; index < qPrjprod.size(); ++index) {
-                    if (qPrjprod.get(index, ePrjprod.id) == record2.get(ePrjprod.id)) {
+                    if (qPrjprod.get(index, eProprod.id) == record2.get(eProprod.id)) {
                         UGui.setSelectedIndex(tab2, index);
                         UGui.scrollRectToRow(index, tab2);
                         winTree.setSelectionRow(0);
@@ -2432,7 +2432,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             if (winNode != null) {
                 float selectID = winNode.com5t().id();
                 HashSet<Record> set = new HashSet();
-                int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
+                int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
                 Record systreeRec = eSystree.find(systreeID);
                 String[] arr1 = (systreeRec.getStr(eSystree.cgrp).isEmpty() == false) ? systreeRec.getStr(eSystree.cgrp).split(";") : null;
                 eSystree col = (evt.getSource() == btn9) ? eSystree.col1 : (evt.getSource() == btn13) ? eSystree.col2 : eSystree.col3;
@@ -2513,7 +2513,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         try {
             if (winNode != null) {
                 float selectID = winNode.com5t().id();
-                int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
+                int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
                 Query qSysprof = new Query(eSysprof.values(), eArtikl.values()).select(eSysprof.up, "left join",
                         eArtikl.up, "on", eArtikl.id, "=", eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeID);
                 Query qSysprof2 = new Query(eSysprof.values(), eArtikl.values());
@@ -2645,7 +2645,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private void sysfurnToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysfurnToStvorka
         try {
             float windowsID = winNode.com5t().id();
-            int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
+            int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
 
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
@@ -2831,7 +2831,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private void btnToArtiklGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToArtiklGlass
         try {
             float selectID = winNode.com5t().id();
-            int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
+            int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
             Record systreeRec = eSystree.find(systreeID);
             String depth = systreeRec.getStr(eSystree.depth);
             if (depth != null && depth.isEmpty() == false) {
@@ -2867,9 +2867,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 int projectID = qProject.get(UGui.getIndexRec(tab1)).getInt(eProject.id);
                 float total[] = {0, 0, 0, 0, 0, 0};
                 for (Record prjprodRec : qPrjprod) {
-                    if (prjprodRec.getInt(ePrjprod.order_id) == projectID) {
+                    if (prjprodRec.getInt(eProprod.order_id) == projectID) {
 
-                        String script = prjprodRec.getStr(ePrjprod.script);
+                        String script = prjprodRec.getStr(eProprod.script);
                         JsonElement je = new Gson().fromJson(script, JsonElement.class);
                         iwin().build(je.toString());
                         Query.listOpenTable.forEach(q -> q.clear());
@@ -2913,7 +2913,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
         int index = UGui.getIndexRec(tab4);
         Record prjprodRec = qPrjprod.get(index);
-        String script = prjprodRec.getStr(ePrjprod.script);
+        String script = prjprodRec.getStr(eProprod.script);
         System.out.println(script);
     }//GEN-LAST:event_btnTest
 

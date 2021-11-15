@@ -5,7 +5,7 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 
-public enum ePrjprod implements Field {
+public enum eProprod implements Field {
     up("0", "0", "0", "Изделия заказов", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),
     npp("5", "5", "1", "Номе п/п", "npp"),
@@ -18,7 +18,7 @@ public enum ePrjprod implements Field {
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
-    ePrjprod(Object... p) {
+    eProprod(Object... p) {
         meta.init(p);
     }
 
