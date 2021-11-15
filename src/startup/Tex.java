@@ -510,7 +510,7 @@ public class Tex extends javax.swing.JFrame {
         tb6.setRollover(true);
         tb6.setMaximumSize(new java.awt.Dimension(96, 28));
         tb6.setMinimumSize(new java.awt.Dimension(96, 28));
-        tb6.setPreferredSize(new java.awt.Dimension(86, 28));
+        tb6.setPreferredSize(new java.awt.Dimension(87, 28));
 
         buttonBaseGroup1.add(btnT7);
         btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c057.gif"))); // NOI18N
@@ -1257,7 +1257,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
             }
         }
         if("Nimbus".equals(lookAndFeel.getName())) {
-            tb6.setPreferredSize(new Dimension(96, 28));
+            tb6.setPreferredSize(new Dimension(97, 28));
         }
         if (eProperty.base_num.read().equals("1")) {
             mn631.setSelected(true);
