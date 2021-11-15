@@ -161,7 +161,7 @@ public class DBCompare extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
             rs.next();
             int punic = rs.getInt("PUNIC");
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + iwin.rootGson.ord + "order by a.anumb");
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + " and a.ONUMB = " + iwin.rootGson.ord + " and clke != -1 order by a.anumb");
             int npp = 0;
             double sum1 = 0, sum2 = 0;
             while (rs.next()) {
@@ -337,7 +337,7 @@ public class DBCompare extends javax.swing.JFrame {
 
                 //=== Таблица 1 ===
                 ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
-                rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + txt19.getText() + "and a.ONUMB = " + txt20.getText() + "order by a.anumb");
+                rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + txt19.getText() + "and a.ONUMB = " + txt20.getText() + "  and clke != -1 order by a.anumb");
                 if (rs.isLast() == false) {
                     npp = 0;
                     while (rs.next()) {
@@ -532,7 +532,7 @@ public class DBCompare extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
             rs.next();
             int punic = rs.getInt("PUNIC");
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + iwin.rootGson.ord + "order by a.anumb");
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + iwin.rootGson.ord + "  and clke != -1order by a.anumb");
             while (rs.next()) {
                 float leng = rs.getFloat("ALENG"); //длина
                 //float count = rs.getFloat("AQTYP"); //колич
@@ -613,7 +613,7 @@ public class DBCompare extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
             rs.next();
             int punic = rs.getInt("PUNIC");
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + iwin.rootGson.ord + "order by a.anumb");
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + iwin.rootGson.ord + "  and clke != -1 order by a.anumb");
             while (rs.next()) {
                 float pogonag = rs.getFloat("AQTYA"); //погонаж
                 float perc = rs.getFloat("APERC"); //отход
@@ -865,7 +865,7 @@ public class DBCompare extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"select distinct b.punic, b.pnumb, a.onumb, c.oname, b.pdate from specpau a, listprj b, listord c where a.punic = b.punic and a.punic = c.punic and a.onumb = c.onumb order by b.pdate, b.pnumb, a.onumb"},
+                {"select distinct b.punic, b.pnumb, a.onumb, c.oname, b.pdate from specpau a, listprj b, listord c where a.punic = b.punic and a.punic = c.punic and a.onumb = c.onumb  and clke != -1  order by b.pdate, b.pnumb, a.onumb"},
                 {""}
             },
             new String [] {

@@ -384,7 +384,7 @@
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="1" rowCount="2">
                                 <Column editable="true" title="." type="java.lang.Object">
-                                  <Data value="select distinct b.punic, b.pnumb, a.onumb, c.oname, b.pdate from specpau a, listprj b, listord c where a.punic = b.punic and a.punic = c.punic and a.onumb = c.onumb order by b.pdate, b.pnumb, a.onumb"/>
+                                  <Data value="select distinct b.punic, b.pnumb, a.onumb, c.oname, b.pdate from specpau a, listprj b, listord c where a.punic = b.punic and a.punic = c.punic and a.onumb = c.onumb  and clke != -1  order by b.pdate, b.pnumb, a.onumb"/>
                                   <Data value=""/>
                                 </Column>
                               </Table>
