@@ -19,6 +19,7 @@ import javax.swing.UIManager;
 import common.listener.ListenerFrame;
 import common.eProfile;
 import dataset.Query;
+import java.awt.Dimension;
 
 /**
  * <p>
@@ -114,6 +115,7 @@ public class Tex extends javax.swing.JFrame {
         btnT7 = new javax.swing.JToggleButton();
         btnT8 = new javax.swing.JToggleButton();
         btnT9 = new javax.swing.JToggleButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(2, 0), new java.awt.Dimension(2, 0), new java.awt.Dimension(22, 32767));
         tb4 = new javax.swing.JToolBar();
         btnTest = new javax.swing.JButton();
         btn42 = new javax.swing.JButton();
@@ -160,7 +162,7 @@ public class Tex extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SA-OKNA   <АРМ Технолог>");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(659, 80));
+        setPreferredSize(new java.awt.Dimension(800, 80));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -508,7 +510,7 @@ public class Tex extends javax.swing.JFrame {
         tb6.setRollover(true);
         tb6.setMaximumSize(new java.awt.Dimension(96, 28));
         tb6.setMinimumSize(new java.awt.Dimension(96, 28));
-        tb6.setPreferredSize(new java.awt.Dimension(96, 28));
+        tb6.setPreferredSize(new java.awt.Dimension(86, 28));
 
         buttonBaseGroup1.add(btnT7);
         btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c057.gif"))); // NOI18N
@@ -560,6 +562,7 @@ public class Tex extends javax.swing.JFrame {
         tb6.add(btnT9);
 
         getContentPane().add(tb6);
+        getContentPane().add(filler1);
 
         tb4.setRollover(true);
         tb4.setMaximumSize(new java.awt.Dimension(70, 28));
@@ -1184,6 +1187,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.ButtonGroup buttonBaseGroup2;
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;
     private javax.swing.ButtonGroup buttonMenuGroup;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JMenuBar mn0;
     private javax.swing.JMenu mn01;
     private javax.swing.JMenu mn02;
@@ -1251,6 +1255,9 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
             if (lookAndFeel.getName().equals(laf.getName())) {
                 mnIt.setSelected(true);
             }
+        }
+        if("Nimbus".equals(lookAndFeel.getName())) {
+            tb6.setPreferredSize(new Dimension(96, 28));
         }
         if (eProperty.base_num.read().equals("1")) {
             mn631.setSelected(true);
