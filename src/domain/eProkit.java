@@ -20,7 +20,7 @@ public enum eProkit implements Field {
     flag("5", "5", "1", "Флаг", "KMAIN"), //Основного элемента комплекта
     artikl_id("4", "10", "1", "Ссылка", "artikl_id"),
     project_id("4", "10", "0", "Ссылка", "project_id"),
-    prokit_id("4", "10", "0", "Ссылка", "kits_id");
+    prokit_id("4", "10", "0", "Ссылка", "prokit_id");
    
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
