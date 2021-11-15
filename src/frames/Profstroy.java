@@ -613,9 +613,10 @@ public class Profstroy {
             alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
             alterTable("syspar1", "fk_syspar2", "params_id", "params");
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
-            alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
-            alterTable("project", "fk_project_1", "propart_id", "propart");
-            alterTable("project", "fk_project_2", "prokit_id", "prokit");
+            alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");            
+            alterTable("project", "fk_project_1", "propart_id", "propart");            
+            alterTable("proprod", "fk_proprod_1", "project_id", "project");
+            alterTable("prokit", "fk_prokit_1", "proprod_id", "proprod");           
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
             alterTable("kitdet", "fk_kitdet2", "artikl_id", "artikl");
             alterTable("kitdet", "fk_kitdet3", "color1_id", "color");

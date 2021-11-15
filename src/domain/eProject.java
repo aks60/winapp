@@ -45,8 +45,7 @@ public enum eProject implements Field {
     date5("93", "19", "1", "Дата расчета заказа", "CDATE"),
     date6("93", "19", "1", "Дата отпр. в производство", "WDATE"),
     currenc_id("4", "10", "1", "Валюта", "CNUMB"),
-    propart_id("4", "10", "1", "Контрагент", "propart_id"),
-    prokit_id("4", "10", "1", "Комплектация", "prokit_id");
+    propart_id("4", "10", "1", "Контрагент", "propart_id");
 
 //    punic("4", "10", "1", "null", "PUNIC"),
 //    num_prj("4", "10", "1", "Номер проекта", "PNUMB"),

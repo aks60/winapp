@@ -6,7 +6,7 @@ import dataset.Query;
 import static domain.eKitdet.values;
 
 public enum eProkit implements Field {
-    up("0", "0", "0", "Комплекты", "KOMPLST"),
+    up("0", "0", "0", "Комплекты", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),    
     name("12", "64", "1", "Название комплекта", "name"),
     type("5", "5", "1", "Флаг", "type"),
@@ -19,8 +19,7 @@ public enum eProkit implements Field {
     color3_id("4", "10", "1", "Ссылка", "color3_id"),
     flag("5", "5", "1", "Флаг", "KMAIN"), //Основного элемента комплекта
     artikl_id("4", "10", "1", "Ссылка", "artikl_id"),
-    project_id("4", "10", "0", "Ссылка", "project_id"),
-    prokit_id("4", "10", "0", "Ссылка", "prokit_id");
+    proprod_id("4", "10", "0", "Изделие", "proprod_id");
    
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
