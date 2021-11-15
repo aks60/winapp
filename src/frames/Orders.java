@@ -99,8 +99,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private Query qProject = new Query(eProject.values());
     private Query qPropart = new Query(ePropart.values());
     private Query qProprod = new Query(eProprod.values());
-    private Query qProkit1 = new Query(eProkit.values());
-    private Query qProkit2 = new Query(eProkit.values());
+    private Query qProkit = new Query(eProkit.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Map<Integer, String> mapParams = new HashMap();
     private DefMutableTreeNode winNode = null;
@@ -124,11 +123,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         int orderID = Integer.valueOf(eProperty.orderID.read());
         qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id);
         qParams.forEach(rec -> mapParams.put(rec.getInt(eParams.id), rec.getStr(eParams.text)));
-        qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);        
+        qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qProjectAll.select(eProject.up, "order by", eProject.date4);
         qPropart.select(ePropart.up);
-        qProprod.select(eProprod.up);
-        qProkit1.select(eProkit.up, "where", eProkit.artikl_id, "=", eProkit.id);
+        //qProprod.select(eProprod.up);
+        //qProkit.select(eProkit.up);
     }
 
     public void loadingModel() {
@@ -143,7 +142,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 return val;
             }
         };
-        new DefTableModel(tab2, qProprod, eProprod.name, eProprod.id);        
+        new DefTableModel(tab2, qProprod, eProprod.name, eProprod.id);
         new DefTableModel(tab3, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -158,8 +157,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 }
                 return val;
             }
-        };    
-        new DefTableModel(tab4, qProkit1, eProprod.name, eProprod.id);
+        };
+        new DefTableModel(tab4, qProkit, eProprod.name, eProprod.id);
 
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
@@ -261,13 +260,13 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     sysprodRec.set(eProprod.script, script2);
                     qProprod.execsql();
                     iwin().build(script2);
-                    UGui.stopCellEditing(tab1, tab2, tab4, tab3);
+                    UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                     selectionWin();
                     UGui.setSelectedIndex(tab3, index2);
                 }
             }, (int) grup);
         });
-        
+
     }
 
     public void loadingTab1() {
@@ -279,7 +278,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         }
         int orderID = Integer.valueOf(eProperty.orderID.read());
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-        int index = -1;        
+        int index = -1;
         for (int index2 = 0; index2 < qProject.size(); ++index2) {
             if (qProject.get(index2).getInt(eProprod.id) == orderID) {
                 index = index2;
@@ -290,7 +289,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         } else {
             UGui.setSelectedRow(tab1);
         }
-        UGui.scrollRectToRow(index, tab1);
+        UGui.scrollRectToIndex(index, tab1);
     }
 
     public void loadingTab2() {
@@ -316,7 +315,17 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 }
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            UGui.setSelectedRow(tab2);
         }
+    }
+
+    public void loadingTab4() {
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        Record proprodRec = qProprod.get(UGui.getIndexRec(tab2));
+        int id = proprodRec.getInt(eProprod.id);
+        qProkit.select(eProkit.up, "where", eProkit.proprod_id, "=", id);
+        ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+        UGui.setSelectedRow(tab4);
     }
 
     public void loadingWin(Wincalc iwin) {
@@ -356,18 +365,6 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         }
     }
 
-    private Wincalc iwin() {
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            Record sysprodRec = qProprod.table(eProprod.up).get(index);
-            Object v = sysprodRec.get(eProprod.values().length);
-            if (v instanceof Wincalc) { //прорисовка окна               
-                return (Wincalc) v;
-            }
-        }
-        return null;
-    }
-
     public void selectionTab2() {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
@@ -390,6 +387,19 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             canvas.draw();
             winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
         }
+        loadingTab4();
+    }
+
+    private Wincalc iwin() {
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            Record sysprodRec = qProprod.table(eProprod.up).get(index);
+            Object v = sysprodRec.get(eProprod.values().length);
+            if (v instanceof Wincalc) { //прорисовка окна               
+                return (Wincalc) v;
+            }
+        }
+        return null;
     }
 
     public void selectionWin() {
@@ -709,8 +719,6 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         pan6 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
-        scr5 = new javax.swing.JScrollPane();
-        tab5 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -2300,15 +2308,15 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         pan6.setPreferredSize(new java.awt.Dimension(700, 404));
         pan6.setLayout(new java.awt.BorderLayout());
 
-        scr4.setPreferredSize(new java.awt.Dimension(700, 404));
+        scr4.setPreferredSize(new java.awt.Dimension(700, 240));
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Изд.№", "Название", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Всего"
+                "Артикул", "Название", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Кол-во", "Погонаж", "Угол 1", "Угол 2", "Скидка %"
             }
         ));
         tab4.setFillsViewportHeight(true);
@@ -2316,7 +2324,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(120);
             tab4.getColumnModel().getColumn(1).setPreferredWidth(240);
             tab4.getColumnModel().getColumn(2).setPreferredWidth(80);
             tab4.getColumnModel().getColumn(3).setPreferredWidth(80);
@@ -2324,43 +2332,13 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             tab4.getColumnModel().getColumn(5).setPreferredWidth(50);
             tab4.getColumnModel().getColumn(6).setPreferredWidth(50);
             tab4.getColumnModel().getColumn(7).setPreferredWidth(50);
+            tab4.getColumnModel().getColumn(8).setPreferredWidth(50);
+            tab4.getColumnModel().getColumn(9).setPreferredWidth(50);
+            tab4.getColumnModel().getColumn(10).setPreferredWidth(50);
+            tab4.getColumnModel().getColumn(11).setPreferredWidth(50);
         }
 
         pan6.add(scr4, java.awt.BorderLayout.CENTER);
-
-        scr5.setPreferredSize(new java.awt.Dimension(700, 240));
-
-        tab5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Изд.№", "Артикул", "Название", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Угол 1", "Угол 2", "Кол-во", "Погонаж", "Скидка %", "Примечание"
-            }
-        ));
-        tab5.setFillsViewportHeight(true);
-        tab5.setPreferredSize(new java.awt.Dimension(700, 32));
-        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr5.setViewportView(tab5);
-        if (tab5.getColumnModel().getColumnCount() > 0) {
-            tab5.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tab5.getColumnModel().getColumn(1).setHeaderValue("Артикул");
-            tab5.getColumnModel().getColumn(2).setPreferredWidth(240);
-            tab5.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tab5.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab5.getColumnModel().getColumn(5).setPreferredWidth(80);
-            tab5.getColumnModel().getColumn(6).setPreferredWidth(50);
-            tab5.getColumnModel().getColumn(7).setPreferredWidth(50);
-            tab5.getColumnModel().getColumn(8).setHeaderValue("Угол 1");
-            tab5.getColumnModel().getColumn(9).setHeaderValue("Угол 2");
-            tab5.getColumnModel().getColumn(10).setPreferredWidth(50);
-            tab5.getColumnModel().getColumn(11).setHeaderValue("Погонаж");
-            tab5.getColumnModel().getColumn(12).setHeaderValue("Скидка %");
-            tab5.getColumnModel().getColumn(13).setHeaderValue("Примечание");
-        }
-
-        pan6.add(scr5, java.awt.BorderLayout.SOUTH);
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp;\nКомплектация\n&nbsp;&nbsp;&nbsp;", pan6);
 
@@ -3167,14 +3145,12 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
-    private javax.swing.JScrollPane scr5;
     private javax.swing.JScrollPane scr6;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
-    private javax.swing.JTable tab5;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JTextField txt13;
     private javax.swing.JTextField txt14;

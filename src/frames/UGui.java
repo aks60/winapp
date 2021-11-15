@@ -537,9 +537,11 @@ public class UGui {
 
     //Выделить запись
     public static void setSelectedRow(JTable table) {
+        
         if (table.getRowCount() > 0) {
-            int column = table.getSelectedColumn();
             table.setRowSelectionInterval(0, 0);
+            
+            int column = table.getSelectedColumn();
             if (column != -1) {
                 table.setColumnSelectionInterval(column, column);
             }
