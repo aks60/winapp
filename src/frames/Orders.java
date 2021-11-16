@@ -818,7 +818,10 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
         btnSet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c040.gif"))); // NOI18N
         btnSet.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSet.setPreferredSize(new java.awt.Dimension(16, 25));
+        btnSet.setEnabled(false);
+        btnSet.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnSet.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnSet.setPreferredSize(new java.awt.Dimension(25, 25));
         btnSet.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnSet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -963,7 +966,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -979,7 +982,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 363, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 348, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2524,10 +2527,10 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     qProkit.table(eArtikl.up).add(record3);
                 });
             } else if (((JButton) evt.getSource()) == btnSet) {
-                        DicKits frame = new DicKits(Orders.this, (q) -> {
-                            System.out.println(q);
-                            return true;
-                        });
+                DicKits frame = new DicKits(Orders.this, (q) -> {
+                    System.out.println(q);
+                    return true;
+                });
 //                FrameProgress.create(Orders.this, new ListenerFrame() {
 //                    public void actionRequest(Object obj) {
 //                        DicKits frame = new DicKits(Orders.this, (q) -> {
@@ -3354,5 +3357,14 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
         model.reload();
+        tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                if (tabb1.getSelectedIndex() == 2) {
+                    btnSet.setEnabled(true);
+                } else {
+                    btnSet.setEnabled(false);
+                }
+            }
+        });
     }
 }
