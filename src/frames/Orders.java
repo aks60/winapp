@@ -44,7 +44,6 @@ import domain.eFurndet;
 import domain.eFurniture;
 import domain.eJoining;
 import domain.eJoinvar;
-import domain.eKitdet;
 import domain.eParams;
 import domain.eProkit;
 import domain.eProprod;
@@ -59,12 +58,13 @@ import enums.PKjson;
 import enums.TypeOpen1;
 import enums.UseSide;
 import frames.dialog.DicArtikl;
+import frames.dialog.DicArtikl2;
 import frames.dialog.DicColor;
 import frames.dialog.DicEnums;
 import frames.dialog.DicHandl;
+import frames.dialog.DicKits;
 import frames.dialog.DicSyspod;
 import frames.dialog.DicSysprof;
-import frames.dialog.ParColor2;
 import frames.dialog.ParDefault;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
@@ -111,6 +111,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private Gson gson = new GsonBuilder().create();
     private FilterTable filterTable = new FilterTable();
     private DecimalFormat df1 = new DecimalFormat("#0.#");
+    private ListenerObject<Query> listenerQuery = null;
 
     public Orders() {
         initComponents();
@@ -127,8 +128,6 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qProjectAll.select(eProject.up, "order by", eProject.date4);
         qPropart.select(ePropart.up);
-        //qProprod.select(eProprod.up);
-        //qProkit.select(eProkit.up);
     }
 
     public void loadingModel() {
@@ -294,7 +293,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, (record) -> {
+            DicArtikl2 frame = new DicArtikl2(this, (record) -> {
                 UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                 qProkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), eProkit.artikl_id);
                 qProkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
@@ -318,11 +317,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             int index = UGui.getIndexRec(tab4);
             Record record = qProkit.get(index);
             HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(eProkit.artikl_id));
-            
-            DicColor frame = new DicColor(this, (record2) -> {                                
+
+            DicColor frame = new DicColor(this, (record2) -> {
                 record.set(eProkit.color1_id, record2.getInt(eColor.id));
                 UGui.fireTableRowUpdated(tab4);
-                
+
             }, colorSet);
         });
 
@@ -331,11 +330,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             int index = UGui.getIndexRec(tab4);
             Record record = qProkit.get(index);
             HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(eProkit.artikl_id));
-            
-            DicColor frame = new DicColor(this, (record2) -> {                                
+
+            DicColor frame = new DicColor(this, (record2) -> {
                 record.set(eProkit.color2_id, record2.getInt(eColor.id));
                 UGui.fireTableRowUpdated(tab4);
-                
+
             }, colorSet);
         });
 
@@ -344,14 +343,21 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             int index = UGui.getIndexRec(tab4);
             Record record = qProkit.get(index);
             HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(eProkit.artikl_id));
-            
-            DicColor frame = new DicColor(this, (record2) -> {                                
+
+            DicColor frame = new DicColor(this, (record2) -> {
                 record.set(eProkit.color3_id, record2.getInt(eColor.id));
                 UGui.fireTableRowUpdated(tab4);
-                
+
             }, colorSet);
         });
 
+    }
+
+    public void listenerSet() {
+
+        listenerQuery = (q) -> {
+            return true;
+        };
     }
 
     public void selectionTab1() {
@@ -641,6 +647,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         buttonGroup = new javax.swing.ButtonGroup();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
+        btnSet = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
@@ -809,6 +816,16 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             }
         });
 
+        btnSet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c040.gif"))); // NOI18N
+        btnSet.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSet.setPreferredSize(new java.awt.Dimension(16, 25));
+        btnSet.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnSet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsert(evt);
+            }
+        });
+
         btnRef.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c038.gif"))); // NOI18N
         btnRef.setToolTipText(bundle.getString("Обновить")); // NOI18N
         btnRef.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -945,6 +962,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(btnSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -960,7 +979,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 379, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 363, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -983,7 +1002,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                                 .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1004,8 +1024,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         pan1.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
-        scr1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scr1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scr1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1017,14 +1036,13 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tab1.setFillsViewportHeight(true);
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -1233,9 +1251,16 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 "Наименование", "Рисунок", "ID"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 true, false, true
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -2381,7 +2406,15 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             new String [] {
                 "Артикул", "Название", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Кол-во", "Угол 1", "Угол 2", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab4.setFillsViewportHeight(true);
         tab4.setPreferredSize(new java.awt.Dimension(700, 32));
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -2483,9 +2516,30 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             });
         } else if (tab4.getBorder() != null) {
             int index = UGui.getIndexRec(tab2);
-            UGui.insertRecordEnd(tab4, eProkit.up, (prokitRec) -> {
-                prokitRec.set(eProkit.proprod_id, qProprod.get(index, eProprod.id));
-            });
+            if (((JButton) evt.getSource()) == btnIns) {
+                UGui.insertRecordEnd(tab4, eProkit.up, (record2) -> {
+                    Object obj = qProprod.get(index, eProprod.id);
+                    record2.set(eProkit.proprod_id, qProprod.get(index, eProprod.id));
+                    Record record3 = eArtikl.up.newRecord();
+                    qProkit.table(eArtikl.up).add(record3);
+                });
+            } else if (((JButton) evt.getSource()) == btnSet) {
+                        DicKits frame = new DicKits(Orders.this, (q) -> {
+                            System.out.println(q);
+                            return true;
+                        });
+//                FrameProgress.create(Orders.this, new ListenerFrame() {
+//                    public void actionRequest(Object obj) {
+//                        DicKits frame = new DicKits(Orders.this, (q) -> {
+//                            System.out.println(q);
+//                            return true;
+//                        });
+//                        //FrameToFile.setFrameSize(frame); //размеры окна
+//                        //frame.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage());
+//                        //frame.setVisible(true);
+//                    }
+//                });
+            }
         }
     }//GEN-LAST:event_btnInsert
 
@@ -2991,7 +3045,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_btnCalcresh
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
-        //loadingTab1();
+        loadingTab1();
     }//GEN-LAST:event_btnFilter
 
     private void tab3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab3MousePressed
@@ -3148,6 +3202,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private javax.swing.JToggleButton btnF3;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
+    private javax.swing.JButton btnSet;
     private javax.swing.JButton btnTest;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPanel centr;

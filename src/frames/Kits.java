@@ -1,6 +1,7 @@
 package frames;
 
 import builder.param.ParamList;
+import common.listener.ListenerObject;
 import common.listener.ListenerRecord;
 import dataset.Field;
 import dataset.Query;
@@ -28,6 +29,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
+import java.awt.Frame;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -377,9 +379,9 @@ public class Kits extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 527, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 508, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -593,6 +595,8 @@ public class Kits extends javax.swing.JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChoice;
+    private javax.swing.JButton btnChoice1;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
@@ -614,7 +618,7 @@ public class Kits extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         filterTable = new FilterTable(0, tab1);
         south.add(filterTable, 0);
-        
+
         filterTable.getTxt().grabFocus();
         btnIns.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
         btnDel.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3));
