@@ -44,6 +44,7 @@ import domain.eFurndet;
 import domain.eFurniture;
 import domain.eJoining;
 import domain.eJoinvar;
+import domain.eKitdet;
 import domain.eParams;
 import domain.eProkit;
 import domain.eProprod;
@@ -63,6 +64,7 @@ import frames.dialog.DicEnums;
 import frames.dialog.DicHandl;
 import frames.dialog.DicSyspod;
 import frames.dialog.DicSysprof;
+import frames.dialog.ParColor2;
 import frames.dialog.ParDefault;
 import frames.swing.Canvas;
 import frames.swing.DefMutableTreeNode;
@@ -99,7 +101,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private Query qProject = new Query(eProject.values());
     private Query qPropart = new Query(ePropart.values());
     private Query qProprod = new Query(eProprod.values());
-    private Query qProkit = new Query(eProkit.values());
+    private Query qProkit = new Query(eProkit.values(), eArtikl.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Map<Integer, String> mapParams = new HashMap();
     private DefMutableTreeNode winNode = null;
@@ -157,7 +159,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 return val;
             }
         };
-        new DefTableModel(tab4, qProkit, eProprod.name, eProprod.id);
+        new DefTableModel(tab4, qProkit, eArtikl.code, eArtikl.name, eProkit.color1_id, eProkit.color2_id,
+                eProkit.color3_id, eProkit.width, eProkit.height, eProkit.numb, eProkit.angl1, eProkit.angl2);
 
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
@@ -214,6 +217,30 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         canvas.setVisible(true);
     }
 
+    public void loadingTab1() {
+        qProject.clear();
+        int first = (btnF1.isSelected()) ? qProjectAll.size() - 10 : (btnF2.isSelected()) ? qProjectAll.size() - 30 : 0;
+        first = (first < 0) ? 0 : first;
+        for (int i = first; i < qProjectAll.size(); ++i) {
+            qProject.add(qProjectAll.get(i));
+        }
+        //Выделяем заказ если сохранён в Property
+        int orderID = Integer.valueOf(eProperty.orderID.read());
+        ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+        int index = -1;
+        for (int index2 = 0; index2 < qProject.size(); ++index2) {
+            if (qProject.get(index2).getInt(eProprod.id) == orderID) {
+                index = index2;
+            }
+        }
+        if (index != -1) {
+            UGui.setSelectedIndex(tab1, index);
+        } else {
+            UGui.setSelectedRow(tab1);
+        }
+        UGui.scrollRectToIndex(index, tab1);
+    }
+
     public void listenerAdd() {
 
         UGui.buttonCellEditor(tab1, 2).addActionListener(event -> {
@@ -266,84 +293,71 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             }, (int) grup);
         });
 
-    }
+        UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, (record) -> {
+                UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+                qProkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), eProkit.artikl_id);
+                qProkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
+                qProkit.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab4), eArtikl.name);
+                UGui.fireTableRowUpdated(tab4);
+            }, 1, 2, 3, 4, 5);
+        });
 
-    public void loadingTab1() {
-        qProject.clear();
-        int first = (btnF1.isSelected()) ? qProjectAll.size() - 10 : (btnF2.isSelected()) ? qProjectAll.size() - 30 : 0;
-        first = (first < 0) ? 0 : first;
-        for (int i = first; i < qProjectAll.size(); ++i) {
-            qProject.add(qProjectAll.get(i));
-        }
-        //Выделяем заказ если сохранён в Property
-        int orderID = Integer.valueOf(eProperty.orderID.read());
-        ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-        int index = -1;
-        for (int index2 = 0; index2 < qProject.size(); ++index2) {
-            if (qProject.get(index2).getInt(eProprod.id) == orderID) {
-                index = index2;
-            }
-        }
-        if (index != -1) {
-            UGui.setSelectedIndex(tab1, index);
-        } else {
-            UGui.setSelectedRow(tab1);
-        }
-        UGui.scrollRectToIndex(index, tab1);
-    }
+        UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, (record) -> {
+                UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+                qProkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), eProkit.artikl_id);
+                qProkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
+                qProkit.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab4), eArtikl.name);
+                UGui.fireTableRowUpdated(tab4);
+            }, 1, 2, 3, 4, 5);
+        });
 
-    public void loadingTab2() {
-        int index = -1;
-        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Arrays.asList(qProject, qProprod).forEach(q -> q.execsql());
-        if (tab1.getSelectedRow() != -1) {
-
-            Record projectRec = qProject.get(UGui.getIndexRec(tab1));
-            int id = projectRec.getInt(eProject.id);
-            qProprod.select(eProprod.up, "where", eProprod.project_id, "=", id);
-
-            for (Record record : qProprod) {
-                try {
-                    String script = record.getStr(eProprod.script);
-                    Wincalc iwin2 = new Wincalc(script);
-                    Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
-                    joining.calc();
-                    iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
-                    record.add(iwin2);
-
-                } catch (Exception e) {
-                    System.err.println("Ошибка:Order.loadingTab2() " + e);
-                }
-            }
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+            int index = UGui.getIndexRec(tab4);
+            Record record = qProkit.get(index);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(eProkit.artikl_id));
             
-            //Выделяем конструкцию если сохранена в Property
-            int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
-            for (int i = 0; i < qProprod.size(); ++i) {
-                if (qProprod.get(i).getInt(eProprod.id) == prjprodID) {
-                    index = i;
-                }
-            }
-            if (index != -1) {
-                UGui.setSelectedIndex(tab2, index);
-            } else {
-                UGui.setSelectedRow(tab2);
-            }
-        }
-    }
+            DicColor frame = new DicColor(this, (record2) -> {                                
+                record.set(eProkit.color1_id, record2.getInt(eColor.id));
+                UGui.fireTableRowUpdated(tab4);
+                
+            }, colorSet);
+        });
 
-    public void loadingTab4() {
-        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Record proprodRec = qProprod.get(UGui.getIndexRec(tab2));
-        int id = proprodRec.getInt(eProprod.id);
-        qProkit.select(eProkit.up, "where", eProkit.proprod_id, "=", id);
-        ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab4);
+        UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+            int index = UGui.getIndexRec(tab4);
+            Record record = qProkit.get(index);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(eProkit.artikl_id));
+            
+            DicColor frame = new DicColor(this, (record2) -> {                                
+                record.set(eProkit.color2_id, record2.getInt(eColor.id));
+                UGui.fireTableRowUpdated(tab4);
+                
+            }, colorSet);
+        });
+
+        UGui.buttonCellEditor(tab4, 4).addActionListener(event -> {
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+            int index = UGui.getIndexRec(tab4);
+            Record record = qProkit.get(index);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(eProkit.artikl_id));
+            
+            DicColor frame = new DicColor(this, (record2) -> {                                
+                record.set(eProkit.color3_id, record2.getInt(eColor.id));
+                UGui.fireTableRowUpdated(tab4);
+                
+            }, colorSet);
+        });
+
     }
 
     public void selectionTab1() {
         int index = -1;
-        UGui.stopCellEditing(tab1);
+        UGui.clearTable(tab2, tab4);
+        Arrays.asList(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (tab1.getSelectedRow() != -1) {
 
             lab2.setText("Заказ № " + qProject.getAs(UGui.getIndexRec(tab1), eProject.num_ord));
@@ -351,57 +365,43 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             eProperty.orderID.write(String.valueOf(orderID));
 
             rsvPrj.load();
-            loadingTab2();
-        }
-    }
 
-    public void selectionTab2() {
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            Record proprodRec = qProprod.get(index);
-            eProperty.prjprodID.write(proprodRec.getStr(eProprod.id)); //запишем текущий prjprodID в файл
-            App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
-            Object w = proprodRec.get(eProprod.values().length);
-            if (w instanceof Wincalc) { //прорисовка окна               
-                Wincalc win = (Wincalc) w;
-                scene.init(win);
-                canvas.draw();
-                scene.draw();
-                loadingWin(win);
-                winTree.setSelectionInterval(0, 0);
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+            Arrays.asList(qProject, qProprod).forEach(q -> q.execsql());
+            if (tab1.getSelectedRow() != -1) {
 
+                Record projectRec = qProject.get(UGui.getIndexRec(tab1));
+                int id = projectRec.getInt(eProject.id);
+                qProprod.select(eProprod.up, "where", eProprod.project_id, "=", id);
+
+                for (Record record : qProprod) {
+                    try {
+                        String script = record.getStr(eProprod.script);
+                        Wincalc iwin2 = new Wincalc(script);
+                        Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
+                        joining.calc();
+                        iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
+                        record.add(iwin2);
+
+                    } catch (Exception e) {
+                        System.err.println("Ошибка:Order.loadingTab2() " + e);
+                    }
+                }
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+
+                //Выделяем конструкцию если сохранена в Property
+                int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
+                for (int i = 0; i < qProprod.size(); ++i) {
+                    if (qProprod.get(i).getInt(eProprod.id) == prjprodID) {
+                        index = i;
+                    }
+                }
+                if (index != -1) {
+                    UGui.setSelectedIndex(tab2, index);
+                } else {
+                    UGui.setSelectedRow(tab2);
+                }
             }
-        } else {
-            scene.init(null);
-            scene.draw();
-            canvas.draw();
-            winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
-        }
-        
-        loadingTab4();
-    }
-
-    private Wincalc iwin() {
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            Record sysprodRec = qProprod.table(eProprod.up).get(index);
-            Object v = sysprodRec.get(eProprod.values().length);
-            if (v instanceof Wincalc) { //прорисовка окна               
-                return (Wincalc) v;
-            }
-        }
-        return null;
-    }
-
-    public void loadingWin(Wincalc iwin) {
-        try {
-            int row[] = winTree.getSelectionRows();
-            DefMutableTreeNode root = UGui.loadWinTree(iwin);
-            winTree.setModel(new DefaultTreeModel(root));
-            winTree.setSelectionRows(row);
-
-        } catch (Exception e) {
-            System.err.println("Ошибка: Systree.loadingWin() " + e);
         }
     }
 
@@ -514,6 +514,62 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 }
             }
             Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
+        }
+    }
+
+    public void selectionTab2() {
+        UGui.clearTable(tab4);
+        Arrays.asList(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            Record proprodRec = qProprod.get(index);
+            eProperty.prjprodID.write(proprodRec.getStr(eProprod.id)); //запишем текущий prjprodID в файл
+            App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
+            Object w = proprodRec.get(eProprod.values().length);
+            if (w instanceof Wincalc) { //прорисовка окна               
+                Wincalc win = (Wincalc) w;
+                scene.init(win);
+                canvas.draw();
+                scene.draw();
+                loadingWin(win);
+                winTree.setSelectionInterval(0, 0);
+
+            }
+        } else {
+            scene.init(null);
+            scene.draw();
+            canvas.draw();
+            winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
+        }
+
+        Record proprodRec = qProprod.get(UGui.getIndexRec(tab2));
+        int id = proprodRec.getInt(eProprod.id);
+        qProkit.select(eProkit.up, "left join", eArtikl.up, "on", eProkit.artikl_id, "=", eArtikl.id, "where", eProkit.proprod_id, "=", id);
+        ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+        UGui.setSelectedRow(tab4);
+    }
+
+    private Wincalc iwin() {
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            Record sysprodRec = qProprod.table(eProprod.up).get(index);
+            Object v = sysprodRec.get(eProprod.values().length);
+            if (v instanceof Wincalc) { //прорисовка окна               
+                return (Wincalc) v;
+            }
+        }
+        return null;
+    }
+
+    public void loadingWin(Wincalc iwin) {
+        try {
+            int row[] = winTree.getSelectionRows();
+            DefMutableTreeNode root = UGui.loadWinTree(iwin);
+            winTree.setModel(new DefaultTreeModel(root));
+            winTree.setSelectionRows(row);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка: Systree.loadingWin() " + e);
         }
     }
 
@@ -953,15 +1009,15 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Номер заказа", "Номер счёта", "Дата от...", "Дата до...", "Контрагент", "User"
+                "Номер заказа", "Номер счёта", "Дата от...", "Дата до...", "Контрагент", "User", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -985,6 +1041,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             tab1.getColumnModel().getColumn(3).setPreferredWidth(60);
             tab1.getColumnModel().getColumn(4).setPreferredWidth(120);
             tab1.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tab1.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(6).setMaxWidth(50);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -1168,15 +1226,15 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Наименование", "Рисунок"
+                "Наименование", "Рисунок", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false
+                true, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1196,6 +1254,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             tab2.getColumnModel().getColumn(1).setMinWidth(68);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(68);
             tab2.getColumnModel().getColumn(1).setMaxWidth(68);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(20);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(50);
         }
 
         pan7.add(scr2, java.awt.BorderLayout.CENTER);
@@ -2315,11 +2375,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Артикул", "Название", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Кол-во", "Погонаж", "Угол 1", "Угол 2", "Скидка %"
+                "Артикул", "Название", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Кол-во", "Угол 1", "Угол 2", "ID"
             }
         ));
         tab4.setFillsViewportHeight(true);
@@ -2337,8 +2397,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             tab4.getColumnModel().getColumn(7).setPreferredWidth(50);
             tab4.getColumnModel().getColumn(8).setPreferredWidth(50);
             tab4.getColumnModel().getColumn(9).setPreferredWidth(50);
-            tab4.getColumnModel().getColumn(10).setPreferredWidth(50);
-            tab4.getColumnModel().getColumn(11).setPreferredWidth(50);
+            tab4.getColumnModel().getColumn(10).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(10).setMaxWidth(50);
         }
 
         pan6.add(scr4, java.awt.BorderLayout.CENTER);
@@ -2363,8 +2423,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        UGui.stopCellEditing(tab1, tab2, tab4, tab3);
-        Arrays.asList(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         Query.listOpenTable.forEach(q -> q.clear());
         int index1 = UGui.getIndexRec(tab1);
         int index2 = UGui.getIndexRec(tab2);
@@ -2374,24 +2434,30 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (tab1.getBorder() != null) {
-            if (UGui.isDeleteRecord(tab1, this, tab2) == 0 && tab1.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(tab1, this, tab2) == 0) {
                 UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(this) == 0) {
                 int row = tab2.getSelectedRow();
                 UGui.deleteRecord(tab2);
                 ((DefTableModel) tab2.getModel()).fireTableRowsDeleted(row, row);
             } else {
                 JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
             }
+        } else if (tab4.getBorder() != null) {
+            if (UGui.isDeleteRecord(tab4, this) == 0) {
+                UGui.deleteRecord(tab4);
+            }
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, eProject.up, (projectRec) -> {
                 projectRec.set(eProject.manager, eProfile.user);
@@ -2400,22 +2466,25 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
         } else if (tab2.getBorder() != null) {
             new DicSyspod(this, (record) -> {
-                Record record2 = eProprod.up.newRecord();
-                record2.set(eProprod.id, Conn.instanc().genId(eSysprod.up));
-                record2.set(eProprod.name, record.getStr(eSysprod.name));
-                record2.set(eProprod.script, record.getStr(eSysprod.script));
-                record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));
-                record2.set(eProprod.project_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
-                qProprod.insert(record2);
-                loadingTab2();
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                for (int index = 0; index < qProprod.size(); ++index) {
-                    if (qProprod.get(index, eProprod.id) == record2.get(eProprod.id)) {
-                        UGui.setSelectedIndex(tab2, index);
-                        UGui.scrollRectToRow(index, tab2);
-                        winTree.setSelectionRow(0);
+                UGui.insertRecordEnd(tab2, eProject.up, (record2) -> {
+                    record2.set(eProprod.id, Conn.instanc().genId(eSysprod.up));
+                    record2.set(eProprod.name, record.getStr(eSysprod.name));
+                    record2.set(eProprod.script, record.getStr(eSysprod.script));
+                    record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));
+                    record2.set(eProprod.project_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
+                    for (int index = 0; index < qProprod.size(); ++index) {
+                        if (qProprod.get(index, eProprod.id) == record2.get(eProprod.id)) {
+                            UGui.setSelectedIndex(tab2, index);
+                            UGui.scrollRectToRow(index, tab2);
+                            winTree.setSelectionRow(0);
+                        }
                     }
-                }
+                });
+            });
+        } else if (tab4.getBorder() != null) {
+            int index = UGui.getIndexRec(tab2);
+            UGui.insertRecordEnd(tab4, eProkit.up, (prokitRec) -> {
+                prokitRec.set(eProkit.proprod_id, qProprod.get(index, eProprod.id));
             });
         }
     }//GEN-LAST:event_btnInsert
@@ -2922,7 +2991,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_btnCalcresh
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
-        loadingTab1();
+        //loadingTab1();
     }//GEN-LAST:event_btnFilter
 
     private void tab3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab3MousePressed
@@ -2939,10 +3008,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_tab3MousePressed
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        int index = UGui.getIndexRec(tab3);
-        Record prjprodRec = qProprod.get(index);
-        String script = prjprodRec.getStr(eProprod.script);
-        System.out.println(script);
+        qProkit.select(eProkit.up, "left join", eArtikl.up, "on", eProkit.artikl_id, "=", eArtikl.id, "where", eProkit.proprod_id, "=", 4);
+        System.out.println(qProkit);
     }//GEN-LAST:event_btnTest
 
     private void btn15loopToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn15loopToStvorka

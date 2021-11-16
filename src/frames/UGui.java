@@ -600,6 +600,7 @@ public class UGui {
         query.add(record);
         listener.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
+        UGui.setSelectedIndex(table, query.size() - 1);
         UGui.scrollRectToIndex(query.size() - 1, table);
     }
 
@@ -825,7 +826,7 @@ public class UGui {
             int val = UseColor.PROF.id + (UseColor.PROF.id << 4) + (UseColor.PROF.id << 8);
             elemdetRec.set(types, val);
         }
-        ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+        ((DefaultTableModel) table.getModel()).fireTableRowsUpdated(index, index);
         UGui.setSelectedIndex(table, index);
     }
 
