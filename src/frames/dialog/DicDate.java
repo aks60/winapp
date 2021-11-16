@@ -8,9 +8,18 @@ import frames.UGui;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import common.listener.ListenerObject;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
- *Календарь
+ * Календарь
  */
 public class DicDate extends javax.swing.JDialog {
 
@@ -43,45 +52,102 @@ public class DicDate extends javax.swing.JDialog {
 
         loadingTab();
         tabDay.requestFocus();
-        
+
         FrameToFile.setFrameSize(this);
         setVisible(true);
     }
-    
+
     //Заполнение модели данных
     public void loadingTab() {
 
         //Запоминаем текущую дату
         Date date = appCalendar.getTime();
         int month = appCalendar.get(Calendar.MONTH);
-        
+
         //Очищаем DataModelDay    
         for (int col = 0; col < tabDay.getColumnCount(); col++) {
             for (int row = 0; row < tabDay.getRowCount(); row++) {
                 tabDay.setValueAt(null, row, col);
             }
-        }        
+        }
         //Устанавливаем объект appCalendar на первый день текущего месяца
         appCalendar.set(Calendar.DAY_OF_MONTH, 1);
         int dx = appCalendar.get(Calendar.WEEK_OF_MONTH);
-                
+
         do { //Заполняем массив DataModelDay днями месяца
             int day_of_week = overDay[appCalendar.get(Calendar.DAY_OF_WEEK) - 1];
             int week_of_month = appCalendar.get(Calendar.WEEK_OF_MONTH) - dx;
             int day_of_month = appCalendar.get(Calendar.DAY_OF_MONTH);
             tabDay.setValueAt(day_of_month, week_of_month, day_of_week);
-            
+
             appCalendar.add(Calendar.DAY_OF_MONTH, 1);  //передвигаю объект appCalendar на новый день
         } while (appCalendar.get(Calendar.MONTH) == month);
-                
+
         appCalendar.setTime(date); //возвращаем текущую дату
-        
+
         //Выделяем элементы даты
         int day_of_week = overDay[appCalendar.get(Calendar.DAY_OF_WEEK) - 1];
         int week_of_moth = appCalendar.get(Calendar.WEEK_OF_MONTH) - dx;
         tabDay.setRowSelectionInterval(week_of_moth, week_of_moth);
         tabDay.setColumnSelectionInterval(day_of_week, day_of_week);
         listMonth.setSelectedIndex(appCalendar.get(Calendar.MONTH));
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        String serverUrl = args.length > 0 ? args[0] : "https://www.google.co.in";
+        System.out.println(getServerHttpDate(serverUrl));
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        System.out.println(ts);
+
+        //formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US)    Tue, 24 Jul 2018 13:25:37 GMT
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        Date date2 = null;
+        Date date1 = null;
+        try {
+            date1 = sdf.parse(getServerHttpDate(serverUrl));
+            date2 = sdf2.parse(ts.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("date1 : " + sdf2.format(date1));
+        System.out.println("date2 : " + sdf2.format(date2));
+
+        if (date1.compareTo(date2) > 0) {
+            System.out.println("Date1 is after Date2");
+
+//        List<String> cmd = new ArrayList<String>();
+//        cmd.add("hg rollback");
+//        ProcessBuilder pb = new ProcessBuilder(cmd);
+//        //pb.directory(new File("C:\\Windows\\System32"));
+//        pb.directory(new File("C:\\Windows\\SysWOW64\\"));
+//        Process p = pb.start();
+        } else if (date1.compareTo(date2) < 0) {
+            System.out.println("Date1 is before Date2");
+        } else if (date1.compareTo(date2) == 0) {
+            System.out.println("Date1 is equal to Date2");
+        } else {
+            System.out.println("How to get here?");
+        }
+
+    }
+    
+    private static String getServerHttpDate(String serverUrl) throws IOException {
+        URL url = new URL(serverUrl);
+        URLConnection connection = url.openConnection();
+
+        Map<String, List<String>> httpHeaders = connection.getHeaderFields();
+
+        for (Map.Entry<String, List<String>> entry : httpHeaders.entrySet()) {
+            String headerName = entry.getKey();
+            if (headerName != null && headerName.equalsIgnoreCase("date")) {
+                return entry.getValue().get(0);
+            }
+        }
+        return null;
     }
 
     @SuppressWarnings("unchecked")
@@ -363,12 +429,12 @@ public class DicDate extends javax.swing.JDialog {
     //Смена года
     private void yearChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_yearChanged
         if (evt.getValueIsAdjusting() == false) {
-            int index = listYear.getSelectedIndex();           
+            int index = listYear.getSelectedIndex();
             appCalendar.set(Calendar.YEAR, UGui.getYearCur() + 25 - index);
             loadingTab();
         }
     }//GEN-LAST:event_yearChanged
-    
+
     //Смена месяца
     private void monthChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_monthChanged
         if (evt.getValueIsAdjusting() == false) {
