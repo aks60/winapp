@@ -39,7 +39,7 @@ public class MetaField {
         }
         type(Integer.valueOf(p[Entity.type.ordinal()].toString())); //тип поля
         this.size = Integer.valueOf(p[Entity.size.ordinal()].toString());
-        this.isnull = p[Entity.nullable.ordinal()].equals("1"); //равно null
+        this.isnull = p[Entity.nullable.ordinal()].equals("1"); //разрешено null
         this.descr = p[Entity.comment.ordinal()].toString(); //описание поля 
         this.fname = p[Entity.fname.ordinal()].toString(); //переопределение имени поля
     }
@@ -47,7 +47,7 @@ public class MetaField {
     /**
      * Проверка нужна для корректного ввода данных пользователем
      */
-    public String validate(Object value) {
+    public String validateField(Object value) {
 
         if (fname == null || size == 0) {
             return null;

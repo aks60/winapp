@@ -244,7 +244,7 @@ public class DicName extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemovebtnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovebtnRemov
-        Record record = eFurniture.virtualRec();
+        Record record = eFurniture.up.newRecord();
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnRemovebtnRemov

@@ -1258,17 +1258,14 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
 
         txt9.setEditable(false);
-        txt9.setBackground(new java.awt.Color(255, 255, 255));
         txt9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt9.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt13.setEditable(false);
-        txt13.setBackground(new java.awt.Color(255, 255, 255));
         txt13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt13.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt14.setEditable(false);
-        txt14.setBackground(new java.awt.Color(255, 255, 255));
         txt14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt14.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1403,12 +1400,10 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab34.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt32.setEditable(false);
-        txt32.setBackground(new java.awt.Color(255, 255, 255));
         txt32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt32.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt33.setEditable(false);
-        txt33.setBackground(new java.awt.Color(255, 255, 255));
         txt33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt33.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1443,7 +1438,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab53.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt27.setEditable(false);
-        txt27.setBackground(new java.awt.Color(255, 255, 255));
         txt27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt27.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1460,7 +1454,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
 
         txt28.setEditable(false);
-        txt28.setBackground(new java.awt.Color(255, 255, 255));
         txt28.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt28.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1477,7 +1470,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
 
         txt29.setEditable(false);
-        txt29.setBackground(new java.awt.Color(255, 255, 255));
         txt29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt29.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1605,11 +1597,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
 
         txt19.setEditable(false);
-        txt19.setBackground(new java.awt.Color(255, 255, 255));
         txt19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt19.setPreferredSize(new java.awt.Dimension(180, 18));
 
-        txt18.setEditable(false);
         txt18.setBackground(new java.awt.Color(255, 255, 255));
         txt18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt18.setPreferredSize(new java.awt.Dimension(180, 18));
@@ -1723,22 +1713,18 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
 
         txt20.setEditable(false);
-        txt20.setBackground(new java.awt.Color(255, 255, 255));
         txt20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt20.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt30.setEditable(false);
-        txt30.setBackground(new java.awt.Color(255, 255, 255));
         txt30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt30.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt25.setEditable(false);
-        txt25.setBackground(new java.awt.Color(255, 255, 255));
         txt25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt25.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt21.setEditable(false);
-        txt21.setBackground(new java.awt.Color(255, 255, 255));
         txt21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt21.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1746,7 +1732,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         txt31.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt16.setEditable(false);
-        txt16.setBackground(new java.awt.Color(255, 255, 255));
         txt16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt16.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1769,7 +1754,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         txt26.setPreferredSize(new java.awt.Dimension(60, 18));
 
         txt45.setEditable(false);
-        txt45.setBackground(new java.awt.Color(255, 255, 255));
         txt45.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt45.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1786,7 +1770,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
 
         txt47.setEditable(false);
-        txt47.setBackground(new java.awt.Color(255, 255, 255));
         txt47.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt47.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -1803,12 +1786,10 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
 
         txt46.setEditable(false);
-        txt46.setBackground(new java.awt.Color(255, 255, 255));
         txt46.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt46.setPreferredSize(new java.awt.Dimension(180, 18));
 
         txt48.setEditable(false);
-        txt48.setBackground(new java.awt.Color(255, 255, 255));
         txt48.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt48.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2036,7 +2017,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab50.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt36.setEditable(false);
-        txt36.setBackground(new java.awt.Color(255, 255, 255));
         txt36.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt36.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2047,7 +2027,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab58.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt37.setEditable(false);
-        txt37.setBackground(new java.awt.Color(255, 255, 255));
         txt37.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt37.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2059,7 +2038,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab55.setPreferredSize(new java.awt.Dimension(80, 19));
 
         txt38.setEditable(false);
-        txt38.setBackground(new java.awt.Color(255, 255, 255));
         txt38.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt38.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2095,7 +2073,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab56.setPreferredSize(new java.awt.Dimension(80, 19));
 
         txt39.setEditable(false);
-        txt39.setBackground(new java.awt.Color(255, 255, 255));
         txt39.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt39.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2105,7 +2082,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab54.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt40.setEditable(false);
-        txt40.setBackground(new java.awt.Color(255, 255, 255));
         txt40.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt40.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2117,7 +2093,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab57.setPreferredSize(new java.awt.Dimension(80, 19));
 
         txt41.setEditable(false);
-        txt41.setBackground(new java.awt.Color(255, 255, 255));
         txt41.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt41.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2134,7 +2109,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
 
         txt42.setEditable(false);
-        txt42.setBackground(new java.awt.Color(255, 255, 255));
         txt42.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt42.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2145,7 +2119,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab59.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt43.setEditable(false);
-        txt43.setBackground(new java.awt.Color(255, 255, 255));
         txt43.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt43.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2156,7 +2129,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab60.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt44.setEditable(false);
-        txt44.setBackground(new java.awt.Color(255, 255, 255));
         txt44.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt44.setPreferredSize(new java.awt.Dimension(180, 18));
 
@@ -2174,8 +2146,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     .addGroup(pan17Layout.createSequentialGroup()
                         .addComponent(lab49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt36, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt36, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan17Layout.createSequentialGroup()
                         .addComponent(lab50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2321,7 +2293,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         lab23.setPreferredSize(new java.awt.Dimension(120, 18));
 
         txt1.setEditable(false);
-        txt1.setBackground(new java.awt.Color(255, 255, 255));
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt1.setPreferredSize(new java.awt.Dimension(70, 18));
@@ -2343,13 +2314,11 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         txt5.setPreferredSize(new java.awt.Dimension(72, 18));
 
         txt7.setEditable(false);
-        txt7.setBackground(new java.awt.Color(255, 255, 255));
         txt7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt7.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt7.setPreferredSize(new java.awt.Dimension(70, 18));
 
         txt8.setEditable(false);
-        txt8.setBackground(new java.awt.Color(255, 255, 255));
         txt8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt8.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt8.setPreferredSize(new java.awt.Dimension(450, 18));
@@ -2359,7 +2328,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         txt10.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt11.setEditable(false);
-        txt11.setBackground(new java.awt.Color(255, 255, 255));
         txt11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt11.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txt11.setPreferredSize(new java.awt.Dimension(70, 18));
