@@ -195,9 +195,11 @@ public class Query extends Table {
     public String execsql() {
         try {
             for (Record record : this) {
+                String message = record.validate(fields);
                 if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
                     if (record.validate(fields) != null) { //проверка на корректность ввода данных                        
-                        JOptionPane.showMessageDialog(App.Top.frame, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(App.Top.frame, message
+                                + ".\nЗапись не будет сохранена.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                         return record.validate(fields);
                     }
                 }

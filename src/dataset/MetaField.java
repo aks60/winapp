@@ -47,7 +47,7 @@ public class MetaField {
     /**
      * Проверка нужна для корректного ввода данных пользователем
      */
-    public String validate(Object value) {
+    public String validateField(Object value) {
 
         if (fname == null || size == 0) {
             return null;

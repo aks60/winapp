@@ -139,7 +139,7 @@ public class Record<E> extends ArrayList<E> {
         for (int index = 1; index < fields.size(); index++) {
             MetaField prop = fields.get(index).meta();
             Object value = super.get(fields.get(index).ordinal());
-            Object mes = prop.validate(value);
+            Object mes = prop.validateField(value);
             if (mes != null) {
                 return mes.toString();
             }
