@@ -1,7 +1,7 @@
 package frames;
 
 import builder.param.ParamList;
-import common.listener.ListenerObject;
+import common.listener.ListenerFrame;
 import common.listener.ListenerRecord;
 import dataset.Field;
 import dataset.Query;
@@ -29,12 +29,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
-import java.awt.Frame;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JComboBox;
+import startup.App;
 import startup.Main;
 
 public class Kits extends javax.swing.JFrame {
@@ -269,6 +269,7 @@ public class Kits extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         cbx1 = new javax.swing.JComboBox<>();
+        btnFind = new javax.swing.JButton();
         west = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -368,6 +369,22 @@ public class Kits extends javax.swing.JFrame {
             }
         });
 
+        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnFind.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnFind.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFind.setFocusable(false);
+        btnFind.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFind.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnFind.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnFind.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnFind.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnFind.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFind(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -379,9 +396,11 @@ public class Kits extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
+                .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 508, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 484, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -397,7 +416,8 @@ public class Kits extends javax.swing.JFrame {
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -555,21 +575,21 @@ public class Kits extends javax.swing.JFrame {
             String name = qKits.getAs(index, eKits.categ);
             UGui.insertRecordCur(tab1, eKits.up, (record) -> {
                 if (index != -1) {
-                    record.setNo(eKits.categ, name);
+                    record.set(eKits.categ, name);
                 }
-                record.setNo(eKits.types, cbx1.getSelectedIndex());
+                record.set(eKits.types, cbx1.getSelectedIndex());
             });
 
         } else if (tab2.getBorder() != null) {
             int index = UGui.getIndexRec(tab1, 0);
             UGui.insertRecordCur(tab2, eKitdet.up, (record) -> {
-                record.setNo(eKitdet.kits_id, qKits.getAs(index, eKits.id));
+                record.set(eKitdet.kits_id, qKits.getAs(index, eKits.id));
             });
 
         } else if (tab3.getBorder() != null) {
-            int index = UGui.getIndexRec(tab3, 0);
+            int index = UGui.getIndexRec(tab2, 0);
             UGui.insertRecordCur(tab3, eKitpar2.up, (record) -> {
-                record.setNo(eKitpar2.kitdet_id, qKitdet.getAs(index, eKitdet.id));
+                record.set(eKitpar2.kitdet_id, qKitdet.getAs(index, eKitdet.id));
             });
         }
     }//GEN-LAST:event_btnInsert
@@ -593,10 +613,25 @@ public class Kits extends javax.swing.JFrame {
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 
+    private void btnFind(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFind
+        if (tab2.getBorder() != null) {
+            Record record = ((DefTableModel) tab2.getModel()).getQuery().get(UGui.getIndexRec(tab2));
+            if (record != null) {
+                Record record2 = eArtikl.find(record.getInt(eKitdet.artikl_id), false);
+                FrameProgress.create(this, new ListenerFrame() {
+                    public void actionRequest(Object obj) {
+                        App.Artikles.createFrame(Kits.this, record2);
+                    }
+                });
+            }
+        }
+    }//GEN-LAST:event_btnFind
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JComboBox<String> cbx1;

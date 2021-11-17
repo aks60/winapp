@@ -805,8 +805,7 @@ public class UGui {
                 record2.set(text, record.getStr(0));
             }
         }
-        ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        UGui.setSelectedIndex(table, index);
+        ((DefaultTableModel) table.getModel()).fireTableRowsUpdated(index, index);
     }
 
     //Слушатель редактирование палитры
