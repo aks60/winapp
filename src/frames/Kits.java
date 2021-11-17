@@ -595,8 +595,6 @@ public class Kits extends javax.swing.JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChoice;
-    private javax.swing.JButton btnChoice1;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;

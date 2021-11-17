@@ -34,6 +34,7 @@ import frames.swing.DefFieldEditor;
 import common.listener.ListenerRecord;
 import common.eProfile;
 import common.eProperty;
+import common.listener.ListenerFrame;
 import common.listener.ListenerObject;
 import dataset.Conn;
 import domain.eArtdet;
@@ -44,6 +45,7 @@ import domain.eFurndet;
 import domain.eFurniture;
 import domain.eJoining;
 import domain.eJoinvar;
+import domain.eKitdet;
 import domain.eParams;
 import domain.eProkit;
 import domain.eProprod;
@@ -657,6 +659,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         btnF3 = new javax.swing.JToggleButton();
         btnTest = new javax.swing.JButton();
         lab2 = new javax.swing.JLabel();
+        btnFind = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         tabb1 = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
@@ -821,7 +824,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         btnSet.setEnabled(false);
         btnSet.setMaximumSize(new java.awt.Dimension(25, 25));
         btnSet.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnSet.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnSet.setPreferredSize(new java.awt.Dimension(16, 25));
         btnSet.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btnSet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -959,6 +962,22 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         lab2.setMaximumSize(new java.awt.Dimension(120, 24));
         lab2.setPreferredSize(new java.awt.Dimension(120, 24));
 
+        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnFind.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnFind.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFind.setFocusable(false);
+        btnFind.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFind.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnFind.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnFind.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnFind.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnFind.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFind(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -974,15 +993,17 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCalc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
+                .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 348, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -995,19 +1016,19 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCalc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnF1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -2493,27 +2514,29 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             int index = UGui.getIndexRec(tab2);
             if (((JButton) evt.getSource()) == btnIns) {
                 UGui.insertRecordEnd(tab4, eProkit.up, (record2) -> {
-                    Object obj = qProprod.get(index, eProprod.id);
                     record2.set(eProkit.proprod_id, qProprod.get(index, eProprod.id));
                     Record record3 = eArtikl.up.newRecord();
                     qProkit.table(eArtikl.up).add(record3);
                 });
             } else if (((JButton) evt.getSource()) == btnSet) {
                 DicKits frame = new DicKits(Orders.this, (q) -> {
-                    System.out.println(q);
+                    for (Record record : q) {
+                        UGui.insertRecordEnd(tab4, eProkit.up, (record2) -> {
+                            record2.set(eProkit.proprod_id, qProprod.get(index, eProprod.id));
+                            record2.set(eProkit.artikl_id, record.get(eKitdet.artikl_id));
+                            record2.set(eProkit.color1_id, record.get(eKitdet.color1_id));
+                            record2.set(eProkit.color2_id, record.get(eKitdet.color2_id));
+                            record2.set(eProkit.color3_id, record.get(eKitdet.color3_id));
+                            Record record3 = eArtikl.up.newRecord();
+                            qProkit.table(eArtikl.up).add(record3);
+                            Record record4 = eArtikl.get(record.getInt(eKitdet.artikl_id));
+                            record3.set(eArtikl.code, record4.getStr(eArtikl.code));
+                            record3.set(eArtikl.name, record4.getStr(eArtikl.name));
+                        });
+                    }
+                    qProkit.execsql();
                     return true;
                 });
-//                FrameProgress.create(Orders.this, new ListenerFrame() {
-//                    public void actionRequest(Object obj) {
-//                        DicKits frame = new DicKits(Orders.this, (q) -> {
-//                            System.out.println(q);
-//                            return true;
-//                        });
-//                        //FrameToFile.setFrameSize(frame); //размеры окна
-//                        //frame.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage());
-//                        //frame.setVisible(true);
-//                    }
-//                });
             }
         }
     }//GEN-LAST:event_btnInsert
@@ -3149,6 +3172,20 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
     }//GEN-LAST:event_txtKeyEnter
 
+    private void btnFind(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFind
+        if (tab4.getBorder() != null) {
+            Record record = ((DefTableModel) tab4.getModel()).getQuery().get(UGui.getIndexRec(tab4));
+            if (record != null) {
+                Record record2 = eArtikl.find(record.getInt(eProkit.artikl_id), false);
+                FrameProgress.create(this, new ListenerFrame() {
+                    public void actionRequest(Object obj) {
+                        App.Artikles.createFrame(Orders.this, record2);
+                    }
+                });
+            }
+        }
+    }//GEN-LAST:event_btnFind
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
@@ -3175,6 +3212,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private javax.swing.JToggleButton btnF1;
     private javax.swing.JToggleButton btnF2;
     private javax.swing.JToggleButton btnF3;
+    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSet;
@@ -3331,8 +3369,10 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 if (tabb1.getSelectedIndex() == 2) {
                     btnSet.setEnabled(true);
+                    btnFind.setEnabled(true);
                 } else {
                     btnSet.setEnabled(false);
+                    btnFind.setEnabled(false);
                 }
             }
         });
