@@ -135,11 +135,11 @@ public class Record<E> extends ArrayList<E> {
     }
 
     //Проверка на корректность ввода
-    public String validate(ArrayList<Field> fields) {
+    public String validateRec(ArrayList<Field> fields) {
         for (int index = 1; index < fields.size(); index++) {
-            MetaField prop = fields.get(index).meta();
+            MetaField meta = fields.get(index).meta();
             Object value = super.get(fields.get(index).ordinal());
-            Object mes = prop.validateField(value);
+            Object mes = meta.validateField(value);
             if (mes != null) {
                 return mes.toString();
             }
