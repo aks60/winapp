@@ -73,10 +73,6 @@ public interface Field {
         record.set(0, up);
         return record;
     }
-    
-//    default Record newRecord(String up) {
-//        
-//    }
 
     public MetaField meta();
 
