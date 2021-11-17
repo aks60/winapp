@@ -212,7 +212,8 @@ public class Kits extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3);
             int index = UGui.getIndexRec(tab2);
             Record record2 = qKitdet.get(index);
-            record2.set(eKitdet.color1_id, record.getInt(eColor.id));
+            Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
+            record2.set(eKitdet.color1_id, ID);
             UGui.fireTableRowUpdated(tab2);
         };
 
@@ -220,7 +221,8 @@ public class Kits extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3);
             int index = UGui.getIndexRec(tab2);
             Record record2 = qKitdet.get(index);
-            record2.set(eKitdet.color2_id, record.getInt(eColor.id));
+            Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
+            record2.set(eKitdet.color2_id, ID);
             UGui.fireTableRowUpdated(tab2);
         };
 
@@ -228,7 +230,8 @@ public class Kits extends javax.swing.JFrame {
             UGui.stopCellEditing(tab1, tab2, tab3);
             int index = UGui.getIndexRec(tab2);
             Record record2 = qKitdet.get(index);
-            record2.set(eKitdet.color3_id, record.getInt(eColor.id));
+            Integer ID = (record.get(eColor.id) == null) ? null : record.getInt(eColor.id);
+            record2.set(eKitdet.color3_id, ID);
             UGui.fireTableRowUpdated(tab2);
         };
     }
