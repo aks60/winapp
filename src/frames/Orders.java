@@ -244,51 +244,51 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
     public void loadingTab2() {
         int index = -1;
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            Arrays.asList(qProject, qProprod).forEach(q -> q.execsql());
-            if (tab1.getSelectedRow() != -1) {
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+        Arrays.asList(qProject, qProprod).forEach(q -> q.execsql());
+        if (tab1.getSelectedRow() != -1) {
 
-                Record projectRec = qProject.get(UGui.getIndexRec(tab1));
-                int id = projectRec.getInt(eProject.id);
-                qProprod.select(eProprod.up, "where", eProprod.project_id, "=", id);
+            Record projectRec = qProject.get(UGui.getIndexRec(tab1));
+            int id = projectRec.getInt(eProject.id);
+            qProprod.select(eProprod.up, "where", eProprod.project_id, "=", id);
 
-                for (Record record : qProprod) {
-                    try {
-                        String script = record.getStr(eProprod.script);
-                        Wincalc iwin2 = new Wincalc(script);
-                        Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
-                        joining.calc();
-                        iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
-                        record.add(iwin2);
+            for (Record record : qProprod) {
+                try {
+                    String script = record.getStr(eProprod.script);
+                    Wincalc iwin2 = new Wincalc(script);
+                    Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
+                    joining.calc();
+                    iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
+                    record.add(iwin2);
 
-                    } catch (Exception e) {
-                        System.err.println("Ошибка:Order.loadingTab2() " + e);
-                    }
-                }
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-
-                //Выделяем конструкцию если сохранена в Property
-                int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
-                for (int i = 0; i < qProprod.size(); ++i) {
-                    if (qProprod.get(i).getInt(eProprod.id) == prjprodID) {
-                        index = i;
-                    }
-                }
-                if (index != -1) {
-                    UGui.setSelectedIndex(tab2, index);
-                } else {
-                    UGui.setSelectedRow(tab2);
+                } catch (Exception e) {
+                    System.err.println("Ошибка:Order.loadingTab2() " + e);
                 }
             }
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+
+            //Выделяем конструкцию если сохранена в Property
+            int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
+            for (int i = 0; i < qProprod.size(); ++i) {
+                if (qProprod.get(i).getInt(eProprod.id) == prjprodID) {
+                    index = i;
+                }
+            }
+            if (index != -1) {
+                UGui.setSelectedIndex(tab2, index);
+            } else {
+                UGui.setSelectedRow(tab2);
+            }
+        }
     }
-    
+
     public void loadingTab4() {
-        UGui.stopCellEditing(tab1, tab2, tab3, tab4);      
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         Record proprodRec = qProprod.get(UGui.getIndexRec(tab2));
         int id = proprodRec.getInt(eProprod.id);
         qProkit.select(eProkit.up, "left join", eArtikl.up, "on", eProkit.artikl_id, "=", eArtikl.id, "where", eProkit.proprod_id, "=", id);
         ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab4);        
+        UGui.setSelectedRow(tab4);
     }
 
     public void selectionTab1() {
@@ -330,7 +330,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
         }
 
-        loadingTab4();  
+        loadingTab4();
     }
 
     public void selectionWin() {
@@ -456,7 +456,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         }
         return null;
     }
- 
+
     public void listenerAdd() {
 
         UGui.buttonCellEditor(tab1, 2).addActionListener(event -> {
@@ -576,7 +576,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             return true;
         };
     }
-    
+
     public void loadingWin(Wincalc iwin) {
         try {
             int row[] = winTree.getSelectionRows();
@@ -2478,7 +2478,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
+            if (UGui.isDeleteRecord(tab2, this, tab4) == 0) {
                 UGui.deleteRecord(tab2);
             }
         } else if (tab4.getBorder() != null) {
@@ -2499,40 +2499,23 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
         } else if (tab2.getBorder() != null) {
             new DicSyspod(this, (record) -> {
-                Record record2 = eProprod.up.newRecord();
-                record2.set(eProprod.id, Conn.instanc().genId(eSysprod.up));
-                record2.set(eProprod.name, record.getStr(eSysprod.name));
-                record2.set(eProprod.script, record.getStr(eSysprod.script));
-                record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));
-                record2.set(eProprod.project_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
-                qProprod.insert(record2);
-                loadingTab2();
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                for (int index = 0; index < qProprod.size(); ++index) {
-                    if (qProprod.get(index, eProprod.id) == record2.get(eProprod.id)) {
-                        UGui.setSelectedIndex(tab2, index);
-                        UGui.scrollRectToRow(index, tab2);
-                        winTree.setSelectionRow(0);
-                    }
+                UGui.insertRecordEnd(tab2, eProject.up, (record2) -> {
+                    record2.set(eProprod.id, Conn.instanc().genId(eSysprod.up));
+                    record2.set(eProprod.name, record.getStr(eSysprod.name));
+                    record2.set(eProprod.script, record.getStr(eSysprod.script));
+                    record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));
+                    record2.set(eProprod.project_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
+                });
+            });
+            Object ID = qProprod.get(UGui.getIndexRec(tab2), eProprod.id);
+            loadingTab2();
+            for (int index = 0; index < qProprod.size(); ++index) {
+                if (qProprod.get(index, eProprod.id) == ID) {
+                    UGui.setSelectedIndex(tab2, index);
+                    UGui.scrollRectToRow(index, tab2);
+                    winTree.setSelectionRow(0);
                 }
-            });           
-//            new DicSyspod(this, (record) -> {
-//                UGui.insertRecordEnd(tab2, eProject.up, (record2) -> {
-//                    record2.set(eProprod.id, Conn.instanc().genId(eSysprod.up));
-//                    record2.set(eProprod.name, record.getStr(eSysprod.name));
-//                    record2.set(eProprod.script, record.getStr(eSysprod.script));
-//                    record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));
-//                    record2.set(eProprod.project_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
-//                    for (int index = 0; index < qProprod.size(); ++index) {
-//                        if (qProprod.get(index, eProprod.id) == record2.get(eProprod.id)) {
-//                            UGui.setSelectedIndex(tab2, index);
-//                            UGui.scrollRectToRow(index, tab2);
-//                            winTree.setSelectionRow(0);
-//                        }
-//                    }
-//                });
-//            });
-
+            }
         } else if (tab4.getBorder() != null) {
             int index = UGui.getIndexRec(tab2);
             if (index != -1) {
