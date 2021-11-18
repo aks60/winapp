@@ -46,6 +46,9 @@ public class KitDet extends Par5s {
                 case 7030:  //Количество 
                     message(rec.getInt(GRUP));
                     break;
+                case 7031: //Коэф-т колич. комплекта
+                    message(rec.getInt(GRUP));
+                    break;                    
                 case 7040:  //Порог расчета, мм 
                     message(rec.getInt(GRUP));
                     break;
@@ -53,9 +56,6 @@ public class KitDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 7060:  //Количество на шаг 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 7078:  //Комплект одно текстурный 
                     message(rec.getInt(GRUP));
                     break;
                 case 7081:  //Если ширина комплекта, мм 
@@ -73,6 +73,9 @@ public class KitDet extends Par5s {
                 case 8060:  //Количество" 
                     message(rec.getInt(GRUP));
                     break;
+                case 8061: //Коэф-т колич. комплекта
+                    message(rec.getInt(GRUP));
+                    break;                    
                 case 8065:  //Ширина, мм 
                     message(rec.getInt(GRUP));
                     break;
@@ -106,6 +109,9 @@ public class KitDet extends Par5s {
                 case 9060:  //Количество 
                     message(rec.getInt(GRUP));
                     break;
+                case 9061: //Коэф-т колич. комплекта
+                    message(rec.getInt(GRUP));
+                    break;                    
                 case 9065:  //Длина, мм 
                     message(rec.getInt(GRUP));
                     break;

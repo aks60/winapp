@@ -63,7 +63,7 @@ public class Kits extends javax.swing.JFrame {
 
     public void loadingModel() {
         new DefTableModel(tab1, qKits, eKits.categ, eKits.name, eKits.numb);
-        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id) {
+        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.id) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -81,6 +81,11 @@ public class Kits extends javax.swing.JFrame {
 
                 } else if (val != null && columns[col] == eKitdet.color3_id) {
                     return eColor.get((int) val).getStr(eColor.name);
+
+                } else if (val != null && col == 5) { //columns[col] == eArtikl.unit) {
+                    //Record record = qKitdet.table(eArtikl.up).get(UGui.getIndexRec(tab2));
+                    //return UseUnit.getName(record.getInt(eArtikl.unit));
+                    return "xx";
                 }
                 return val;
             }
@@ -476,15 +481,15 @@ public class Kits extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "111", "1", "1", "1",  new Integer(1)},
-                {"2", "222", "2", "2", "2",  new Integer(2)}
+                {"1", "111", "1", "1", "1", null,  new Integer(1)},
+                {"2", "222", "2", "2", "2", null,  new Integer(2)}
             },
             new String [] {
-                "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "ID"
+                "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "Ед.измерения", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -500,8 +505,8 @@ public class Kits extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(5).setMaxWidth(46);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(46);
         }
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);
@@ -511,19 +516,20 @@ public class Kits extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"111", "1"},
-                {"222", "2"}
+                {"111", "1", null},
+                {"222", "2", null}
             },
             new String [] {
-                "Параметр", "Значение"
+                "Параметр", "Значение", "ID"
             }
         ));
         tab3.setFillsViewportHeight(true);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
-            tab3.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab3.getColumnModel().getColumn(1).setPreferredWidth(20);
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(480);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tab3.getColumnModel().getColumn(2).setPreferredWidth(40);
         }
 
         centr.add(scr3, java.awt.BorderLayout.SOUTH);
