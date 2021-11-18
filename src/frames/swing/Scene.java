@@ -30,7 +30,7 @@ public class Scene extends javax.swing.JPanel {
     private Canvas canvas = null;
     public List<GsonScale> lineHoriz = null;
     public List<GsonScale> lineVert = null;
-    
+
     private Timer timer = new Timer(160, new ActionListener() {
 
         public JButton btn = null;
@@ -61,9 +61,11 @@ public class Scene extends javax.swing.JPanel {
         add(canvas, java.awt.BorderLayout.CENTER);
         this.canvas.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                lineHoriz.forEach(it -> it.color = GsonScale.BLACK);
-                lineVert.forEach(it -> it.color = GsonScale.BLACK);
-                draw();
+                if (iwin != null) {
+                    lineHoriz.forEach(it -> it.color = GsonScale.BLACK);
+                    lineVert.forEach(it -> it.color = GsonScale.BLACK);
+                    draw();
+                }
             }
         });
     }
@@ -132,12 +134,12 @@ public class Scene extends javax.swing.JPanel {
             g.setColor(GsonScale.BLACK);
             g.drawLine(0, 2, 8, 2);
 
-       } else {
+        } else {
             gc.setColor(getBackground());
             gc.fillRect(0, 0, panWest.getWidth(), panWest.getHeight());
         }
     }
-    
+
     private int directionScaling(List<GsonScale> list) {
         boolean change = list.stream().anyMatch(el -> el.color == GsonScale.CHANGE);
         boolean adjust = list.stream().anyMatch(el -> el.color == GsonScale.ADJUST);

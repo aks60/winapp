@@ -93,23 +93,19 @@
                       <Component id="btnClose" alignment="0" pref="27" max="32767" attributes="0"/>
                       <Component id="btnRef" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnCalc" alignment="0" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="btnDel" alignment="0" max="32767" attributes="1"/>
-                              <Component id="btnIns" alignment="0" max="32767" attributes="1"/>
-                          </Group>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnTest" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lab2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="btnF2" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnF3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnSet" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="btnFind" alignment="1" max="32767" attributes="0"/>
-                              <Component id="btnF1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="btnDel" alignment="0" max="32767" attributes="1"/>
+                          <Component id="btnIns" alignment="0" max="32767" attributes="1"/>
                       </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnTest" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lab2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="btnF2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnF3" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSet" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnFind" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnF1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

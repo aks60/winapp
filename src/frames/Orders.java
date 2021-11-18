@@ -2512,31 +2512,35 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             });
         } else if (tab4.getBorder() != null) {
             int index = UGui.getIndexRec(tab2);
-            if (((JButton) evt.getSource()) == btnIns) {
-                UGui.insertRecordEnd(tab4, eProkit.up, (record2) -> {
-                    record2.set(eProkit.proprod_id, qProprod.get(index, eProprod.id));
-                    Record record3 = eArtikl.up.newRecord();
-                    qProkit.table(eArtikl.up).add(record3);
-                });
-            } else if (((JButton) evt.getSource()) == btnSet) {
-                DicKits frame = new DicKits(Orders.this, (q) -> {
-                    for (Record record : q) {
-                        UGui.insertRecordEnd(tab4, eProkit.up, (record2) -> {
-                            record2.set(eProkit.proprod_id, qProprod.get(index, eProprod.id));
-                            record2.set(eProkit.artikl_id, record.get(eKitdet.artikl_id));
-                            record2.set(eProkit.color1_id, record.get(eKitdet.color1_id));
-                            record2.set(eProkit.color2_id, record.get(eKitdet.color2_id));
-                            record2.set(eProkit.color3_id, record.get(eKitdet.color3_id));
-                            Record record3 = eArtikl.up.newRecord();
-                            qProkit.table(eArtikl.up).add(record3);
-                            Record record4 = eArtikl.get(record.getInt(eKitdet.artikl_id));
-                            record3.set(eArtikl.code, record4.getStr(eArtikl.code));
-                            record3.set(eArtikl.name, record4.getStr(eArtikl.name));
-                        });
-                    }
-                    qProkit.execsql();
-                    return true;
-                });
+            if (index != -1) {
+                if (((JButton) evt.getSource()) == btnIns) {
+                    UGui.insertRecordEnd(tab4, eProkit.up, (record2) -> {
+                        record2.set(eProkit.proprod_id, qProprod.get(index, eProprod.id));
+                        Record record3 = eArtikl.up.newRecord();
+                        qProkit.table(eArtikl.up).add(record3);
+                    });
+                } else if (((JButton) evt.getSource()) == btnSet) {
+                    DicKits frame = new DicKits(Orders.this, (q) -> {
+                        for (Record record : q) {
+                            UGui.insertRecordEnd(tab4, eProkit.up, (record2) -> {
+                                record2.set(eProkit.proprod_id, qProprod.get(index, eProprod.id));
+                                record2.set(eProkit.artikl_id, record.get(eKitdet.artikl_id));
+                                record2.set(eProkit.color1_id, record.get(eKitdet.color1_id));
+                                record2.set(eProkit.color2_id, record.get(eKitdet.color2_id));
+                                record2.set(eProkit.color3_id, record.get(eKitdet.color3_id));
+                                Record record3 = eArtikl.up.newRecord();
+                                qProkit.table(eArtikl.up).add(record3);
+                                Record record4 = eArtikl.get(record.getInt(eKitdet.artikl_id));
+                                record3.set(eArtikl.code, record4.getStr(eArtikl.code));
+                                record3.set(eArtikl.name, record4.getStr(eArtikl.name));
+                            });
+                        }
+                        qProkit.execsql();
+                        return true;
+                    });
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Изделие не выбрано.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnInsert

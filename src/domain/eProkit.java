@@ -6,7 +6,7 @@ import dataset.Query;
 import static domain.eKitdet.values;
 
 public enum eProkit implements Field {
-    up("0", "0", "0", "Комплекты", "EMPTY"),
+    up("0", "0", "0", "Комплекты изделия", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),    
     numb("8", "15", "1", "Количество", "numb"),
     width("8", "15", "1", "Длина", "width"),
@@ -17,7 +17,7 @@ public enum eProkit implements Field {
     angl1("8", "15", "1", "Угол", "angl1"),
     angl2("8", "15", "1", "Угол", "angl2"),
     flag("5", "5", "1", "Флаг", "flag"), //Основного элемента комплекта
-    artikl_id("4", "10", "1", "Артикл", "artikl_id"),
+    artikl_id("4", "10", "0", "Артикл", "artikl_id"),
     proprod_id("4", "10", "0", "Изделие", "proprod_id");
     
     //name("12", "64", "1", "Название комплекта", "name"),
