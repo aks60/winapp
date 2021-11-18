@@ -8,7 +8,7 @@ import static domain.eKitdet.values;
 public enum eProkit implements Field {
     up("0", "0", "0", "Комплекты", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),    
-    numb("8", "15", "1", "Количество", "count"),
+    numb("8", "15", "1", "Количество", "numb"),
     width("8", "15", "1", "Длина", "width"),
     height("8", "15", "1", "Ширина", "height"),
     color1_id("4", "10", "1", "Ссылка", "color1_id"),

@@ -62,8 +62,8 @@ public class Kits extends javax.swing.JFrame {
     }
 
     public void loadingModel() {
-        new DefTableModel(tab1, qKits, eKits.categ, eKits.name);
-        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.numb , eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id) {
+        new DefTableModel(tab1, qKits, eKits.categ, eKits.name, eKits.numb);
+        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -434,15 +434,15 @@ public class Kits extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"111", "111111111111111",  new Integer(1)},
-                {"222", "222222222222222",  new Integer(2)}
+                {"111", "111111111111111", null,  new Integer(1)},
+                {"222", "222222222222222", null,  new Integer(2)}
             },
             new String [] {
-                "Категория", "Название комплекта", "ID"
+                "Категория", "Название комплекта", "Количество комплектов", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -460,8 +460,9 @@ public class Kits extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(80);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(2).setMaxWidth(46);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(3).setMaxWidth(46);
         }
 
         west.add(scr1, java.awt.BorderLayout.CENTER);
@@ -475,15 +476,15 @@ public class Kits extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "111", null, "1", "1", "1",  new Integer(1)},
-                {"2", "222", null, "2", "2", "2",  new Integer(2)}
+                {"1", "111", "1", "1", "1",  new Integer(1)},
+                {"2", "222", "2", "2", "2",  new Integer(2)}
             },
             new String [] {
-                "Артикул", "Название", "Количество комплектов", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "ID"
+                "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -496,12 +497,11 @@ public class Kits extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(140);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(260);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(6).setMaxWidth(46);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(5).setMaxWidth(46);
         }
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);

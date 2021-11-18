@@ -193,7 +193,7 @@ public class Query extends Table {
         select(sql);
     }
 
-    public String execsql() {
+    public void execsql() {
         try {
             for (Record record : this) {
                 String message = record.validateRec(fields);
@@ -202,7 +202,6 @@ public class Query extends Table {
                     if (record.validateRec(fields) != null) { //проверка на корректность ввода данных                        
                         JOptionPane.showMessageDialog(App.Top.frame, "Таблица <" + fields.get(0).fields()[0].meta().descr + ">.\n" + message
                                 + ".\nЗапись не будет сохранена.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-                        return record.validateRec(fields);
                         
                     } else {
                         if (Query.INS.equals(record.getStr(0))) {
@@ -215,10 +214,8 @@ public class Query extends Table {
                     }
                 }
             }
-            return "";
         } catch (Exception e) {
-            System.err.println(e);
-            return "";
+            System.err.println("Ошибка:Query.execsql() " + e);
         }
     }
 

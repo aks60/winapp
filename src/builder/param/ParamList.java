@@ -663,6 +663,7 @@ public class ParamList {
         P4098(4098, 0, "Бригада (участок)", dic_TEAM),
         P4099(4099, 0, "Трудозатраты, ч/ч.", check_FLOAT),
         P7030(7030, "Количество", check_COUNT),
+        P7031(7031, "Кол. комп. * Кол. элементов", check_COUNT),
         P7040(7040, "Порог расчета, мм", check_FLOAT),
         P7050(7050, "Шаг, мм", check_FLOAT),
         P7060(7060, "Количество на шаг", check_COUNT),
@@ -672,6 +673,7 @@ public class ParamList {
         P7099(7099, 0, "Трудозатраты, ч/ч.", check_FLOAT),
         P8050(8050, "Поправка, мм", check_FLOAT),
         P8060(8060, "Количество", check_COUNT),
+        P8061(8061, "Кол. комп. * Кол. элементов", check_COUNT),
         P8065(8065, "Длина, мм", check_FLOAT),
         P8070(8070, "Ширина, мм", check_FLOAT),
         P8075(8075, "Углы реза", dic_8075),
@@ -683,6 +685,7 @@ public class ParamList {
         P9050(9050, "Поправка длины, мм", check_FLOAT),
         P9055(9055, "Поправка ширины, мм", check_FLOAT),
         P9060(9060, "Количество", check_COUNT),
+        P9061(9061, "Кол. комп. * Кол. элементов", check_COUNT),
         P9065(9065, "Длина, мм", check_FLOAT),
         P9070(9070, "Ширина, мм", check_FLOAT),
         P9081(9081, 0, "Если ширина комплекта, мм", check_STRING),
@@ -1371,7 +1374,7 @@ public class ParamList {
     };
 
     public static Checkparam check_COUNT = (c) -> {
-        return ("-0123456789".indexOf(c) != -1);
+        return ("-0123456789.".indexOf(c) != -1);
     };
 
     public static Checkparam check_INT = (c) -> {
