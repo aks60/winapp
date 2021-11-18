@@ -242,6 +242,221 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         UGui.scrollRectToIndex(index, tab1);
     }
 
+    public void loadingTab2() {
+        int index = -1;
+            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
+            Arrays.asList(qProject, qProprod).forEach(q -> q.execsql());
+            if (tab1.getSelectedRow() != -1) {
+
+                Record projectRec = qProject.get(UGui.getIndexRec(tab1));
+                int id = projectRec.getInt(eProject.id);
+                qProprod.select(eProprod.up, "where", eProprod.project_id, "=", id);
+
+                for (Record record : qProprod) {
+                    try {
+                        String script = record.getStr(eProprod.script);
+                        Wincalc iwin2 = new Wincalc(script);
+                        Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
+                        joining.calc();
+                        iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
+                        record.add(iwin2);
+
+                    } catch (Exception e) {
+                        System.err.println("Ошибка:Order.loadingTab2() " + e);
+                    }
+                }
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+
+                //Выделяем конструкцию если сохранена в Property
+                int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
+                for (int i = 0; i < qProprod.size(); ++i) {
+                    if (qProprod.get(i).getInt(eProprod.id) == prjprodID) {
+                        index = i;
+                    }
+                }
+                if (index != -1) {
+                    UGui.setSelectedIndex(tab2, index);
+                } else {
+                    UGui.setSelectedRow(tab2);
+                }
+            }
+    }
+    
+    public void loadingTab4() {
+        UGui.stopCellEditing(tab1, tab2, tab3, tab4);      
+        Record proprodRec = qProprod.get(UGui.getIndexRec(tab2));
+        int id = proprodRec.getInt(eProprod.id);
+        qProkit.select(eProkit.up, "left join", eArtikl.up, "on", eProkit.artikl_id, "=", eArtikl.id, "where", eProkit.proprod_id, "=", id);
+        ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+        UGui.setSelectedRow(tab4);        
+    }
+
+    public void selectionTab1() {
+        UGui.clearTable(tab2, tab4);
+        Arrays.asList(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        if (tab1.getSelectedRow() != -1) {
+
+            lab2.setText("Заказ № " + qProject.getAs(UGui.getIndexRec(tab1), eProject.num_ord));
+            int orderID = qProject.getAs(UGui.getIndexRec(tab1), eProject.id);
+            eProperty.orderID.write(String.valueOf(orderID));
+
+            rsvPrj.load();
+            loadingTab2();
+        }
+    }
+
+    public void selectionTab2() {
+        UGui.clearTable(tab4);
+        Arrays.asList(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            Record proprodRec = qProprod.get(index);
+            eProperty.prjprodID.write(proprodRec.getStr(eProprod.id)); //запишем текущий prjprodID в файл
+            App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
+            Object w = proprodRec.get(eProprod.values().length);
+            if (w instanceof Wincalc) { //прорисовка окна               
+                Wincalc win = (Wincalc) w;
+                scene.init(win);
+                canvas.draw();
+                scene.draw();
+                loadingWin(win);
+                winTree.setSelectionInterval(0, 0);
+
+            }
+        } else {
+            scene.init(null);
+            scene.draw();
+            canvas.draw();
+            winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
+        }
+
+        loadingTab4();  
+    }
+
+    public void selectionWin() {
+        Wincalc iwin = iwin();
+        winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
+        if (winNode != null) {
+
+            //Конструкции
+            if (winNode.com5t().type == enums.Type.RECTANGL || winNode.com5t().type == enums.Type.DOOR || winNode.com5t().type == enums.Type.TRAPEZE || winNode.com5t().type == enums.Type.ARCH) {
+                ((CardLayout) pan8.getLayout()).show(pan8, "card12");
+                ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type.name);
+                txt9.setText(eColor.find(iwin.colorID1).getStr(eColor.name));
+                txt13.setText(eColor.find(iwin.colorID2).getStr(eColor.name));
+                txt14.setText(eColor.find(iwin.colorID3).getStr(eColor.name));
+                txt17.setText(String.valueOf(iwin.rootGson.width()));
+                txt22.setText(String.valueOf(iwin.rootGson.height()));
+                txt23.setText(String.valueOf(iwin.rootGson.heightAdd));
+                txt23.setEditable(winNode.com5t().type == enums.Type.ARCH);
+
+                //Параметры
+            } else if (winNode.com5t().type == enums.Type.PARAM) {
+                ((CardLayout) pan8.getLayout()).show(pan8, "card14");
+                qSyspar1.clear();
+                Map<Integer, String> map = new HashMap();
+                iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
+                map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, pk, null, null)));
+                ((DefTableModel) tab3.getModel()).fireTableDataChanged();
+
+                //Рама, импост...
+            } else if (winNode.com5t().type == enums.Type.FRAME_SIDE
+                    || winNode.com5t().type == enums.Type.STVORKA_SIDE
+                    || winNode.com5t().type == enums.Type.IMPOST
+                    || winNode.com5t().type == enums.Type.STOIKA
+                    || winNode.com5t().type == enums.Type.SHTULP) {
+                ((CardLayout) pan8.getLayout()).show(pan8, "card13");
+                ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
+                txt32.setText(winNode.com5t().artiklRec.getStr(eArtikl.code));
+                txt33.setText(winNode.com5t().artiklRec.getStr(eArtikl.name));
+                txt27.setText(eColor.find(winNode.com5t().colorID1()).getStr(eColor.name));
+                txt28.setText(eColor.find(winNode.com5t().colorID2()).getStr(eColor.name));
+                txt29.setText(eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
+
+                //Стеклопакет
+            } else if (winNode.com5t().type == enums.Type.GLASS) {
+                ((CardLayout) pan8.getLayout()).show(pan8, "card15");
+                Record artiklRec = eArtikl.find(winNode.com5t().artiklRec.getInt(eArtikl.id), false);
+                txt19.setText(artiklRec.getStr(eArtikl.code));
+                txt18.setText(artiklRec.getStr(eArtikl.name));
+
+                //Створка
+            } else if (winNode.com5t().type == enums.Type.STVORKA) {
+                new Furniture(iwin(), true); //найдём ручку створки
+                ((CardLayout) pan8.getLayout()).show(pan8, "card16");
+                AreaStvorka stv = (AreaStvorka) winNode.com5t();
+                int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);
+                setText(txt24, UGui.df.format(stv.mapFrame.get(Layout.BOTT).width()));
+                float h = (stv.mapFrame.get(Layout.RIGHT).height() > stv.mapFrame.get(Layout.LEFT).height()) ? stv.mapFrame.get(Layout.RIGHT).height() : stv.mapFrame.get(Layout.LEFT).height();
+                setText(txt26, UGui.df.format(h));
+                setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
+                setIcon(btn10, stv.paramCheck[0]);
+                setText(txt30, stv.typeOpen.name2);
+                setText(txt16, stv.handleLayout.name);
+                if (stv.handleLayout == LayoutHandle.VARIAT) {
+                    txt31.setEditable(true);
+                    setText(txt31, df1.format(stv.handleHeight));
+                } else {
+                    txt31.setEditable(false);
+                    setText(txt31, "");
+                }
+                setText(txt21, stv.handleRec.getStr(eArtikl.code) + " ÷ " + stv.handleRec.getStr(eArtikl.name));
+                setIcon(btn12, stv.paramCheck[1]);
+                setText(txt25, eColor.find(stv.handleColor).getStr(eColor.name));
+                setIcon(btn14, stv.paramCheck[2]);
+                setText(txt45, stv.loopRec.getStr(eArtikl.code) + " ÷ " + stv.loopRec.getStr(eArtikl.name));
+                setIcon(btn15, stv.paramCheck[3]);
+                setText(txt47, eColor.find(stv.loopColor).getStr(eColor.name));
+                setIcon(btn17, stv.paramCheck[4]);
+                setText(txt46, stv.lockRec.getStr(eArtikl.code) + " ÷ " + stv.lockRec.getStr(eArtikl.name));
+                setIcon(btn23, stv.paramCheck[5]);
+                setText(txt48, eColor.find(stv.lockColor).getStr(eColor.name));
+                setIcon(btn24, stv.paramCheck[6]);
+
+                //Соединения
+            } else if (winNode.com5t().type == enums.Type.JOINING) {
+                ((CardLayout) pan8.getLayout()).show(pan8, "card17");
+                DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
+                ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
+                ElemJoining ej1 = iwin.mapJoin.get(elem5e.joinPoint(0));
+                ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
+                ElemJoining ej3 = iwin.mapJoin.get(elem5e.joinPoint(2));
+
+                if (ej1 != null) {
+                    setText(txt36, ej1.joiningRec.getStr(eJoining.name));
+                    setText(txt42, ej1.name());
+                    setText(txt38, ej1.joinvarRec.getStr(eJoinvar.name));
+                    lab55.setIcon(UColor.iconFromTypeJoin2(ej1.type.id));
+                }
+                if (ej2 != null) {
+                    setText(txt37, ej2.joiningRec.getStr(eJoining.name));
+                    setText(txt43, ej2.name());
+                    setText(txt39, ej2.joinvarRec.getStr(eJoinvar.name));
+                    lab56.setIcon(UColor.iconFromTypeJoin2(ej2.type.id));
+                }
+                if (ej3 != null) {
+                    setText(txt40, ej3.joiningRec.getStr(eJoining.name));
+                    setText(txt44, ej3.name());
+                    setText(txt41, ej3.joinvarRec.getStr(eJoinvar.name));
+                    lab57.setIcon(UColor.iconFromTypeJoin2(ej3.type.id));
+                }
+            }
+            Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
+        }
+    }
+
+    private Wincalc iwin() {
+        int index = UGui.getIndexRec(tab2);
+        if (index != -1) {
+            Record sysprodRec = qProprod.table(eProprod.up).get(index);
+            Object v = sysprodRec.get(eProprod.values().length);
+            if (v instanceof Wincalc) { //прорисовка окна               
+                return (Wincalc) v;
+            }
+        }
+        return null;
+    }
+ 
     public void listenerAdd() {
 
         UGui.buttonCellEditor(tab1, 2).addActionListener(event -> {
@@ -361,214 +576,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             return true;
         };
     }
-
-    public void selectionTab1() {
-        int index = -1;
-        UGui.clearTable(tab2, tab4);
-        Arrays.asList(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        if (tab1.getSelectedRow() != -1) {
-
-            lab2.setText("Заказ № " + qProject.getAs(UGui.getIndexRec(tab1), eProject.num_ord));
-            int orderID = qProject.getAs(UGui.getIndexRec(tab1), eProject.id);
-            eProperty.orderID.write(String.valueOf(orderID));
-
-            rsvPrj.load();
-
-            UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-            Arrays.asList(qProject, qProprod).forEach(q -> q.execsql());
-            if (tab1.getSelectedRow() != -1) {
-
-                Record projectRec = qProject.get(UGui.getIndexRec(tab1));
-                int id = projectRec.getInt(eProject.id);
-                qProprod.select(eProprod.up, "where", eProprod.project_id, "=", id);
-
-                for (Record record : qProprod) {
-                    try {
-                        String script = record.getStr(eProprod.script);
-                        Wincalc iwin2 = new Wincalc(script);
-                        Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
-                        joining.calc();
-                        iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
-                        record.add(iwin2);
-
-                    } catch (Exception e) {
-                        System.err.println("Ошибка:Order.loadingTab2() " + e);
-                    }
-                }
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-
-                //Выделяем конструкцию если сохранена в Property
-                int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
-                for (int i = 0; i < qProprod.size(); ++i) {
-                    if (qProprod.get(i).getInt(eProprod.id) == prjprodID) {
-                        index = i;
-                    }
-                }
-                if (index != -1) {
-                    UGui.setSelectedIndex(tab2, index);
-                } else {
-                    UGui.setSelectedRow(tab2);
-                }
-            }
-        }
-    }
-
-    public void selectionWin() {
-        Wincalc iwin = iwin();
-        winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
-        if (winNode != null) {
-
-            //Конструкции
-            if (winNode.com5t().type == enums.Type.RECTANGL || winNode.com5t().type == enums.Type.DOOR || winNode.com5t().type == enums.Type.TRAPEZE || winNode.com5t().type == enums.Type.ARCH) {
-                ((CardLayout) pan8.getLayout()).show(pan8, "card12");
-                ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type.name);
-                txt9.setText(eColor.find(iwin.colorID1).getStr(eColor.name));
-                txt13.setText(eColor.find(iwin.colorID2).getStr(eColor.name));
-                txt14.setText(eColor.find(iwin.colorID3).getStr(eColor.name));
-                txt17.setText(String.valueOf(iwin.rootGson.width()));
-                txt22.setText(String.valueOf(iwin.rootGson.height()));
-                txt23.setText(String.valueOf(iwin.rootGson.heightAdd));
-                txt23.setEditable(winNode.com5t().type == enums.Type.ARCH);
-
-                //Параметры
-            } else if (winNode.com5t().type == enums.Type.PARAM) {
-                ((CardLayout) pan8.getLayout()).show(pan8, "card14");
-                qSyspar1.clear();
-                Map<Integer, String> map = new HashMap();
-                iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
-                map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, pk, null, null)));
-                ((DefTableModel) tab3.getModel()).fireTableDataChanged();
-
-                //Рама, импост...
-            } else if (winNode.com5t().type == enums.Type.FRAME_SIDE
-                    || winNode.com5t().type == enums.Type.STVORKA_SIDE
-                    || winNode.com5t().type == enums.Type.IMPOST
-                    || winNode.com5t().type == enums.Type.STOIKA
-                    || winNode.com5t().type == enums.Type.SHTULP) {
-                ((CardLayout) pan8.getLayout()).show(pan8, "card13");
-                ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
-                txt32.setText(winNode.com5t().artiklRec.getStr(eArtikl.code));
-                txt33.setText(winNode.com5t().artiklRec.getStr(eArtikl.name));
-                txt27.setText(eColor.find(winNode.com5t().colorID1()).getStr(eColor.name));
-                txt28.setText(eColor.find(winNode.com5t().colorID2()).getStr(eColor.name));
-                txt29.setText(eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
-
-                //Стеклопакет
-            } else if (winNode.com5t().type == enums.Type.GLASS) {
-                ((CardLayout) pan8.getLayout()).show(pan8, "card15");
-                Record artiklRec = eArtikl.find(winNode.com5t().artiklRec.getInt(eArtikl.id), false);
-                txt19.setText(artiklRec.getStr(eArtikl.code));
-                txt18.setText(artiklRec.getStr(eArtikl.name));
-
-                //Створка
-            } else if (winNode.com5t().type == enums.Type.STVORKA) {
-                new Furniture(iwin(), true); //найдём ручку створки
-                ((CardLayout) pan8.getLayout()).show(pan8, "card16");
-                AreaStvorka stv = (AreaStvorka) winNode.com5t();
-                int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);
-                setText(txt24, UGui.df.format(stv.mapFrame.get(Layout.BOTT).width()));
-                float h = (stv.mapFrame.get(Layout.RIGHT).height() > stv.mapFrame.get(Layout.LEFT).height()) ? stv.mapFrame.get(Layout.RIGHT).height() : stv.mapFrame.get(Layout.LEFT).height();
-                setText(txt26, UGui.df.format(h));
-                setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
-                setIcon(btn10, stv.paramCheck[0]);
-                setText(txt30, stv.typeOpen.name2);
-                setText(txt16, stv.handleLayout.name);
-                if (stv.handleLayout == LayoutHandle.VARIAT) {
-                    txt31.setEditable(true);
-                    setText(txt31, df1.format(stv.handleHeight));
-                } else {
-                    txt31.setEditable(false);
-                    setText(txt31, "");
-                }
-                setText(txt21, stv.handleRec.getStr(eArtikl.code) + " ÷ " + stv.handleRec.getStr(eArtikl.name));
-                setIcon(btn12, stv.paramCheck[1]);
-                setText(txt25, eColor.find(stv.handleColor).getStr(eColor.name));
-                setIcon(btn14, stv.paramCheck[2]);
-                setText(txt45, stv.loopRec.getStr(eArtikl.code) + " ÷ " + stv.loopRec.getStr(eArtikl.name));
-                setIcon(btn15, stv.paramCheck[3]);
-                setText(txt47, eColor.find(stv.loopColor).getStr(eColor.name));
-                setIcon(btn17, stv.paramCheck[4]);
-                setText(txt46, stv.lockRec.getStr(eArtikl.code) + " ÷ " + stv.lockRec.getStr(eArtikl.name));
-                setIcon(btn23, stv.paramCheck[5]);
-                setText(txt48, eColor.find(stv.lockColor).getStr(eColor.name));
-                setIcon(btn24, stv.paramCheck[6]);
-
-                //Соединения
-            } else if (winNode.com5t().type == enums.Type.JOINING) {
-                ((CardLayout) pan8.getLayout()).show(pan8, "card17");
-                DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
-                ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
-                ElemJoining ej1 = iwin.mapJoin.get(elem5e.joinPoint(0));
-                ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
-                ElemJoining ej3 = iwin.mapJoin.get(elem5e.joinPoint(2));
-
-                if (ej1 != null) {
-                    setText(txt36, ej1.joiningRec.getStr(eJoining.name));
-                    setText(txt42, ej1.name());
-                    setText(txt38, ej1.joinvarRec.getStr(eJoinvar.name));
-                    lab55.setIcon(UColor.iconFromTypeJoin2(ej1.type.id));
-                }
-                if (ej2 != null) {
-                    setText(txt37, ej2.joiningRec.getStr(eJoining.name));
-                    setText(txt43, ej2.name());
-                    setText(txt39, ej2.joinvarRec.getStr(eJoinvar.name));
-                    lab56.setIcon(UColor.iconFromTypeJoin2(ej2.type.id));
-                }
-                if (ej3 != null) {
-                    setText(txt40, ej3.joiningRec.getStr(eJoining.name));
-                    setText(txt44, ej3.name());
-                    setText(txt41, ej3.joinvarRec.getStr(eJoinvar.name));
-                    lab57.setIcon(UColor.iconFromTypeJoin2(ej3.type.id));
-                }
-            }
-            Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
-        }
-    }
-
-    public void selectionTab2() {
-        UGui.clearTable(tab4);
-        Arrays.asList(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            Record proprodRec = qProprod.get(index);
-            eProperty.prjprodID.write(proprodRec.getStr(eProprod.id)); //запишем текущий prjprodID в файл
-            App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
-            Object w = proprodRec.get(eProprod.values().length);
-            if (w instanceof Wincalc) { //прорисовка окна               
-                Wincalc win = (Wincalc) w;
-                scene.init(win);
-                canvas.draw();
-                scene.draw();
-                loadingWin(win);
-                winTree.setSelectionInterval(0, 0);
-
-            }
-        } else {
-            scene.init(null);
-            scene.draw();
-            canvas.draw();
-            winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
-        }
-
-        Record proprodRec = qProprod.get(UGui.getIndexRec(tab2));
-        int id = proprodRec.getInt(eProprod.id);
-        qProkit.select(eProkit.up, "left join", eArtikl.up, "on", eProkit.artikl_id, "=", eArtikl.id, "where", eProkit.proprod_id, "=", id);
-        ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-        UGui.setSelectedRow(tab4);
-    }
-
-    private Wincalc iwin() {
-        int index = UGui.getIndexRec(tab2);
-        if (index != -1) {
-            Record sysprodRec = qProprod.table(eProprod.up).get(index);
-            Object v = sysprodRec.get(eProprod.values().length);
-            if (v instanceof Wincalc) { //прорисовка окна               
-                return (Wincalc) v;
-            }
-        }
-        return null;
-    }
-
+    
     public void loadingWin(Wincalc iwin) {
         try {
             int row[] = winTree.getSelectionRows();
@@ -2470,12 +2478,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 UGui.deleteRecord(tab1);
             }
         } else if (tab2.getBorder() != null) {
-            if (UGui.isDeleteRecord(this) == 0) {
-                int row = tab2.getSelectedRow();
+            if (UGui.isDeleteRecord(this) == 0 && tab2.getSelectedRow() != -1) {
                 UGui.deleteRecord(tab2);
-                ((DefTableModel) tab2.getModel()).fireTableRowsDeleted(row, row);
-            } else {
-                JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
             }
         } else if (tab4.getBorder() != null) {
             if (UGui.isDeleteRecord(tab4, this) == 0) {
@@ -2495,21 +2499,40 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
         } else if (tab2.getBorder() != null) {
             new DicSyspod(this, (record) -> {
-                UGui.insertRecordEnd(tab2, eProject.up, (record2) -> {
-                    record2.set(eProprod.id, Conn.instanc().genId(eSysprod.up));
-                    record2.set(eProprod.name, record.getStr(eSysprod.name));
-                    record2.set(eProprod.script, record.getStr(eSysprod.script));
-                    record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));
-                    record2.set(eProprod.project_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
-                    for (int index = 0; index < qProprod.size(); ++index) {
-                        if (qProprod.get(index, eProprod.id) == record2.get(eProprod.id)) {
-                            UGui.setSelectedIndex(tab2, index);
-                            UGui.scrollRectToRow(index, tab2);
-                            winTree.setSelectionRow(0);
-                        }
+                Record record2 = eProprod.up.newRecord();
+                record2.set(eProprod.id, Conn.instanc().genId(eSysprod.up));
+                record2.set(eProprod.name, record.getStr(eSysprod.name));
+                record2.set(eProprod.script, record.getStr(eSysprod.script));
+                record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));
+                record2.set(eProprod.project_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
+                qProprod.insert(record2);
+                loadingTab2();
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                for (int index = 0; index < qProprod.size(); ++index) {
+                    if (qProprod.get(index, eProprod.id) == record2.get(eProprod.id)) {
+                        UGui.setSelectedIndex(tab2, index);
+                        UGui.scrollRectToRow(index, tab2);
+                        winTree.setSelectionRow(0);
                     }
-                });
-            });
+                }
+            });           
+//            new DicSyspod(this, (record) -> {
+//                UGui.insertRecordEnd(tab2, eProject.up, (record2) -> {
+//                    record2.set(eProprod.id, Conn.instanc().genId(eSysprod.up));
+//                    record2.set(eProprod.name, record.getStr(eSysprod.name));
+//                    record2.set(eProprod.script, record.getStr(eSysprod.script));
+//                    record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));
+//                    record2.set(eProprod.project_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
+//                    for (int index = 0; index < qProprod.size(); ++index) {
+//                        if (qProprod.get(index, eProprod.id) == record2.get(eProprod.id)) {
+//                            UGui.setSelectedIndex(tab2, index);
+//                            UGui.scrollRectToRow(index, tab2);
+//                            winTree.setSelectionRow(0);
+//                        }
+//                    }
+//                });
+//            });
+
         } else if (tab4.getBorder() != null) {
             int index = UGui.getIndexRec(tab2);
             if (index != -1) {
