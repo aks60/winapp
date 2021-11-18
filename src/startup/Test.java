@@ -16,6 +16,7 @@ import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
 import java.util.UUID;
+import javax.swing.JOptionPane;
 
 public class Test {
 
@@ -66,7 +67,7 @@ public class Test {
 
         Main.dev = true;
         try {
-            Profstroy.exec();
+            //Profstroy.exec();
             //wincalc();
             //param();
             //query();
@@ -74,6 +75,8 @@ public class Test {
             //json();
             //parse();
             //uid();
+//                        JOptionPane.showMessageDialog(null, "Таблица <Комплекты>.\nПоле <Работа> заполнено не корректно"
+//                                + ".\nЗапись не будет сохранена.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);            
             
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);

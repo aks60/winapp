@@ -42,7 +42,8 @@ public class Query extends Table {
         }
     }
 
-    public Query(Field[]... fieldsArr) {
+    public Query(Field[]  
+        ... fieldsArr) {
         this.root = this;
         mapQuery.put(fieldsArr[0][0].tname(), this);
         for (Field[] fields : fieldsArr) {
@@ -177,7 +178,7 @@ public class Query extends Table {
             Field[] f = fields.get(0).fields();
             String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
             System.out.println("SQL-DELETE " + sql);
-            statement.executeUpdate(sql);            
+            statement.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println("Query.delete() " + e);
             if (e.getErrorCode() == 335544466) {
@@ -197,18 +198,21 @@ public class Query extends Table {
             for (Record record : this) {
                 String message = record.validateRec(fields);
                 if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
+                    
                     if (record.validateRec(fields) != null) { //проверка на корректность ввода данных                        
-                        JOptionPane.showMessageDialog(App.Top.frame, message
+                        JOptionPane.showMessageDialog(App.Top.frame, "Таблица <" + fields.get(0).fields()[0].meta().descr + ">.\n" + message
                                 + ".\nЗапись не будет сохранена.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                         return record.validateRec(fields);
+                        
+                    } else {
+                        if (Query.INS.equals(record.getStr(0))) {
+                            insert(record);
+                        } else if (Query.UPD.equals(record.getStr(0))) {
+                            update(record);
+                        } else if (Query.DEL.equals(record.getStr(0))) {
+                            delete(record);
+                        }
                     }
-                }
-                if (Query.INS.equals(record.getStr(0))) {
-                    insert(record);
-                } else if (Query.UPD.equals(record.getStr(0))) {
-                    update(record);
-                } else if (Query.DEL.equals(record.getStr(0))) {
-                    delete(record);
                 }
             }
             return "";

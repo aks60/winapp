@@ -63,7 +63,7 @@ public class Kits extends javax.swing.JFrame {
 
     public void loadingModel() {
         new DefTableModel(tab1, qKits, eKits.categ, eKits.name);
-        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id) {
+        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.numb , eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -137,21 +137,21 @@ public class Kits extends javax.swing.JFrame {
             DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
-        UGui.buttonCellEditor(tab2, 2).addActionListener(event -> {
+        UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
             Record record = qKitdet.get(UGui.getIndexRec(tab2));
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
             new DicColor(this, listenerColor1, colorSet);
         });
 
-        UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
+        UGui.buttonCellEditor(tab2, 4).addActionListener(event -> {
             Record record = qKitdet.get(UGui.getIndexRec(tab2));
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
             new DicColor(this, listenerColor2, colorSet);
         });
 
-        UGui.buttonCellEditor(tab2, 4).addActionListener(event -> {
+        UGui.buttonCellEditor(tab2, 5).addActionListener(event -> {
             Record record = qKitdet.get(UGui.getIndexRec(tab2));
             int artikl_id = record.getInt(eKitdet.artikl_id);
             HashSet<Record> colorSet = UGui.artiklToColorSet(artikl_id);
@@ -475,15 +475,15 @@ public class Kits extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "111", "1", "1", "1",  new Integer(1)},
-                {"2", "222", "2", "2", "2",  new Integer(2)}
+                {"1", "111", null, "1", "1", "1",  new Integer(1)},
+                {"2", "222", null, "2", "2", "2",  new Integer(2)}
             },
             new String [] {
-                "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "ID"
+                "Артикул", "Название", "Количество комплектов", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -496,11 +496,12 @@ public class Kits extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(140);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(260);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(5).setMaxWidth(46);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(46);
         }
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);

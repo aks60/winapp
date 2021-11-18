@@ -7,6 +7,7 @@ import dataset.Query;
 public enum eKitdet implements Field {
     up("0", "0", "0", "Спецификация комплектов", "KOMPSPC"),
     id("4", "10", "0", "Идентификатор", "id"),
+    numb("8", "15", "0", "Количество", "count"),
     flag("5", "5", "1", "Флаг", "KMAIN"), //Основного элемента комплекта
     color1_id("4", "10", "1", "Ссылка", "color1_id"),
     color2_id("4", "10", "1", "Ссылка", "color2_id"),
