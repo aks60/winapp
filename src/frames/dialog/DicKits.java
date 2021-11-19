@@ -53,7 +53,7 @@ public class DicKits extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qKits, eKits.categ, eKits.name);
+        new DefTableModel(tab1, qKits, eKits.categ, eKits.name, eKits.numb);
         new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -114,7 +114,6 @@ public class DicKits extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Справочник текстур");
-        setPreferredSize(new java.awt.Dimension(612, 609));
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -199,16 +198,23 @@ public class DicKits extends javax.swing.JDialog {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"111", "name1"},
-                {"222", "name2"}
+                {"111", "name1", null, null},
+                {"222", "name2", null, null}
             },
             new String [] {
-                "Категория", "Название комплекта"
+                "Категория", "Название комплекта", "Кол.комплектов", "ID"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                true, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -227,8 +233,10 @@ public class DicKits extends javax.swing.JDialog {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(300);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(20);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -237,15 +245,23 @@ public class DicKits extends javax.swing.JDialog {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура"
+                "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -256,11 +272,12 @@ public class DicKits extends javax.swing.JDialog {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(15);
-            tab2.getColumnModel().getColumn(3).setPreferredWidth(15);
-            tab2.getColumnModel().getColumn(4).setPreferredWidth(15);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(400);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(160);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(160);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(160);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(60);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.SOUTH);

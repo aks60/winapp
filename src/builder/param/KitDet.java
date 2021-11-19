@@ -46,7 +46,7 @@ public class KitDet extends Par5s {
                 case 7030:  //Количество 
                     message(rec.getInt(GRUP));
                     break;
-                case 7031: //Коэф-т колич. комплекта
+                case 7031: //[Коэф.колич.комп] * кол.на шаг 
                     message(rec.getInt(GRUP));
                     break;                    
                 case 7040:  //Порог расчета, мм 

@@ -83,9 +83,9 @@ public class Kits extends javax.swing.JFrame {
                     return eColor.get((int) val).getStr(eColor.name);
 
                 } else if (val != null && col == 5) { //columns[col] == eArtikl.unit) {
-                    //Record record = qKitdet.table(eArtikl.up).get(UGui.getIndexRec(tab2));
-                    //return UseUnit.getName(record.getInt(eArtikl.unit));
-                    return "xx";
+                    int id = qKitdet.getAs(UGui.getIndexRec(tab2), eKitdet.artikl_id);
+                    Record record = eArtikl.get(id);
+                    return UseUnit.getName(record.getInt(eArtikl.unit));
                 }
                 return val;
             }
@@ -498,6 +498,11 @@ public class Kits extends javax.swing.JFrame {
         });
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(140);
@@ -525,6 +530,11 @@ public class Kits extends javax.swing.JFrame {
         ));
         tab3.setFillsViewportHeight(true);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(0).setPreferredWidth(480);
