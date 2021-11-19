@@ -11,12 +11,13 @@ import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
 import domain.eElement;
 import frames.DBCompare;
-import frames.Profstroy;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
 import java.util.UUID;
-import javax.swing.JOptionPane;
+import javax.script.Bindings;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 
 public class Test {
 
@@ -63,7 +64,7 @@ public class Test {
 
     // </editor-fold>     
     //
-    public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
+    public static void main(String[] args) throws Exception { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
 
         Main.dev = true;
         try {
@@ -75,9 +76,8 @@ public class Test {
             //json();
             //parse();
             //uid();
-//                        JOptionPane.showMessageDialog(null, "Таблица <Комплекты>.\nПоле <Работа> заполнено не корректно"
-//                                + ".\nЗапись не будет сохранена.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);            
-            
+            //script();            
+
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -87,7 +87,7 @@ public class Test {
 
         Query.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
-         String _case = "max";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(604004, false));
@@ -159,7 +159,7 @@ public class Test {
     private static void frame() throws Exception {
         Main.main(new String[]{"tex"});
         while (App.Top.frame == null) {
-           Thread.yield();
+            Thread.yield();
         }
         App.TestFrame.createFrame(App.Top.frame);
     }
@@ -274,5 +274,67 @@ public class Test {
         String filterStr = "" + uid;
         str = filterStr.replaceAll("-", "");
         System.out.println(Integer.parseInt(str));
+    }
+
+    //https://spec-zone.ru/RU/Java/Docs/7/technotes/guides/scripting/programmer_guide/index.html#top
+    private static void script() throws Exception {
+        ScriptEngineManager factory = new ScriptEngineManager();
+        ScriptEngine engine = factory.getEngineByName("nashorn"); //factory.getEngineByName("JavaScript");
+        Bindings scope = engine.createBindings();
+//        
+//        File f = new File("test.js");
+//        engine.put("file", f);
+//        engine.eval("print(file.getAbsolutePath())");
+
+        //https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil
+        //Переменные сценария
+//        float B = 3;
+//        float L = 1200;
+//        float H = 56;
+//        engine.put("B", B);
+//        engine.put("L", L);
+//        engine.put("H", H);
+//        engine.eval("print(Math.ceil(L + 33.3));");
+//
+        //Вызов Функций Сценария и Методов
+//        String script = "function hello(name) { print('Hello, ' + name); }";
+//        engine.eval(script);
+//        Invocable inv = (Invocable) engine;
+//        inv.invokeFunction("hello", "Аксёнов!!" );
+//
+        //Основанным на объектах сценария
+//        String script = "var obj = new Object(); obj.hello = function(name) { print('Hello, ' + name); }";
+//        engine.eval(script);
+//        Invocable inv = (Invocable) engine;
+//        Object obj = engine.get("obj");
+//        inv.invokeMethod(obj, "hello", "Аксёнов!!" );
+//
+        //Реализация Интерфейсов Java Сценариями
+//        String script = "function run() { print('run called Аксёнов'); }";
+//        engine.eval(script);
+//        Invocable inv = (Invocable) engine;
+//        Runnable r = inv.getInterface(Runnable.class);
+//        Thread th = new Thread(r);
+//        th.start();
+//
+        //На объектах или объектно-ориентирован
+//        String script = "var obj = new Object(); obj.run = function() { print('run method called Аксёнов'); }";
+//        engine.eval(script);
+//        Object obj = engine.get("obj");
+//        Invocable inv = (Invocable) engine;
+//        Runnable r = inv.getInterface(obj, Runnable.class);
+//        Thread th = new Thread(r);
+//        th.start(); 
+
+//        float Q = 3;
+//        float L = 1200;
+//        float H = 56;
+//        engine.put("Q", Q);
+//        engine.put("L", L);
+//        engine.put("H", H);
+//    
+//        String script ="Math.ceil((Q * 2 * L) + 3.3)";
+//        Object result = engine.eval(script);
+//        System.out.println(result);
     }
 }
