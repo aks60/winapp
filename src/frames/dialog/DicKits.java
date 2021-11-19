@@ -19,8 +19,14 @@ import domain.eArtdet;
 import domain.eArtikl;
 import domain.eKitdet;
 import domain.eKits;
+import enums.UseUnit;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 
 //Дополнительные комплекты
 public class DicKits extends javax.swing.JDialog {
@@ -29,6 +35,7 @@ public class DicKits extends javax.swing.JDialog {
     private ListenerObject<Query> listener = null;
     private Query qKits = new Query(eKits.values());
     private Query qKitdet = new Query(eKitdet.values());
+    private int colorID[] = {-1, -1, -1};
 
     public DicKits(Frame parent, ListenerObject<Query> listenerQuery) {
         super(parent, true);
@@ -47,7 +54,8 @@ public class DicKits extends javax.swing.JDialog {
 
     private void loadingModel() {
         new DefTableModel(tab1, qKits, eKits.categ, eKits.name);
-        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag) {
+        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id,
+                eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.id, eKitdet.flag) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -65,6 +73,12 @@ public class DicKits extends javax.swing.JDialog {
 
                 } else if (val != null && columns[col] == eKitdet.color3_id) {
                     return eColor.get((int) val).getStr(eColor.name);
+
+                } else if (val != null && col == 5) { //columns[col] == eArtikl.unit) {
+                    int index = tab2.convertRowIndexToModel(row);
+                    int id = qKitdet.getAs(index, eKitdet.artikl_id);
+                    Record record = eArtikl.get(id);
+                    return UseUnit.getName(record.getInt(eArtikl.unit));
                 }
                 return val;
             }
@@ -109,7 +123,7 @@ public class DicKits extends javax.swing.JDialog {
         txt14 = new javax.swing.JTextField();
         btn9 = new javax.swing.JButton();
         btn13 = new javax.swing.JButton();
-        btn2 = new javax.swing.JButton();
+        btn14 = new javax.swing.JButton();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
         scr2 = new javax.swing.JScrollPane();
@@ -179,7 +193,7 @@ public class DicKits extends javax.swing.JDialog {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cbx1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 267, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 285, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -203,7 +217,7 @@ public class DicKits extends javax.swing.JDialog {
 
         pan1.setLayout(new java.awt.BorderLayout());
 
-        pan2.setPreferredSize(new java.awt.Dimension(513, 88));
+        pan2.setPreferredSize(new java.awt.Dimension(513, 92));
 
         lab30.setFont(frames.UGui.getFont(0,0));
         lab30.setText("Кол. комп.");
@@ -221,7 +235,7 @@ public class DicKits extends javax.swing.JDialog {
         lab13.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt1.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt1.setPreferredSize(new java.awt.Dimension(60, 18));
 
         lab14.setFont(frames.UGui.getFont(0,0));
         lab14.setText("Ширина");
@@ -231,25 +245,31 @@ public class DicKits extends javax.swing.JDialog {
         lab14.setPreferredSize(new java.awt.Dimension(80, 18));
 
         txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt2.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt2.setPreferredSize(new java.awt.Dimension(60, 18));
 
         txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txt3.setPreferredSize(new java.awt.Dimension(44, 18));
+        txt3.setPreferredSize(new java.awt.Dimension(60, 18));
 
         lab27.setFont(frames.UGui.getFont(0,0));
-        lab27.setText("Основная");
+        lab27.setText("Основная текстура");
         lab27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab27.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab27.setMaximumSize(new java.awt.Dimension(120, 18));
+        lab27.setMinimumSize(new java.awt.Dimension(120, 18));
+        lab27.setPreferredSize(new java.awt.Dimension(120, 18));
 
         lab31.setFont(frames.UGui.getFont(0,0));
-        lab31.setText("Внутренняя");
+        lab31.setText("Внутренняя текстура");
         lab31.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab31.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab31.setMaximumSize(new java.awt.Dimension(120, 18));
+        lab31.setMinimumSize(new java.awt.Dimension(120, 18));
+        lab31.setPreferredSize(new java.awt.Dimension(120, 18));
 
         lab32.setFont(frames.UGui.getFont(0,0));
-        lab32.setText("Внешняя");
+        lab32.setText("Внешняя текстура");
         lab32.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab32.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab32.setMaximumSize(new java.awt.Dimension(120, 18));
+        lab32.setMinimumSize(new java.awt.Dimension(120, 18));
+        lab32.setPreferredSize(new java.awt.Dimension(120, 18));
 
         txt9.setEditable(false);
         txt9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -271,7 +291,7 @@ public class DicKits extends javax.swing.JDialog {
         btn9.setPreferredSize(new java.awt.Dimension(18, 18));
         btn9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn9colorToWindows(evt);
+                colorToWindows(evt);
             }
         });
 
@@ -283,19 +303,19 @@ public class DicKits extends javax.swing.JDialog {
         btn13.setPreferredSize(new java.awt.Dimension(18, 18));
         btn13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn13colorToWindows(evt);
+                colorToWindows(evt);
             }
         });
 
-        btn2.setText("...");
-        btn2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn2.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn2.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn2.setName("btn2"); // NOI18N
-        btn2.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn2.addActionListener(new java.awt.event.ActionListener() {
+        btn14.setText("...");
+        btn14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn14.setMaximumSize(new java.awt.Dimension(18, 18));
+        btn14.setMinimumSize(new java.awt.Dimension(18, 18));
+        btn14.setName("btn14"); // NOI18N
+        btn14.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn2colorToWindows(evt);
+                colorToWindows(evt);
             }
         });
 
@@ -323,20 +343,20 @@ public class DicKits extends javax.swing.JDialog {
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
+                        .addComponent(txt14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt9, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                        .addComponent(txt9, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(lab31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt13, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
+                        .addComponent(txt13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         pan2Layout.setVerticalGroup(
@@ -357,7 +377,7 @@ public class DicKits extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lab32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -426,20 +446,20 @@ public class DicKits extends javax.swing.JDialog {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "Основной элемент", "ID"
+                "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "Ед.измерения", "Основной элемент", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -465,8 +485,8 @@ public class DicKits extends javax.swing.JDialog {
             tab2.getColumnModel().getColumn(2).setPreferredWidth(160);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(160);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(160);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(6).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(7).setPreferredWidth(60);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.SOUTH);
@@ -566,8 +586,10 @@ public class DicKits extends javax.swing.JDialog {
         UGui.setSelectedRow(tab1);
     }//GEN-LAST:event_comboBoxAction
 
-    private void btn9colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9colorToWindows
+    private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
         try {
+            JTextField txt = (evt.getSource() == btn9) ? txt9 : (evt.getSource() == btn13) ? txt13 : txt14;
+            int index = (evt.getSource() == btn9) ? 0 : (evt.getSource() == btn13) ? 1 : 2;
             Record record = qKitdet.stream().filter(rec -> 1 == rec.getInt(eKitdet.flag)).findFirst().orElse(null);
             if (record != null) {
                 int id = record.getInt(eKitdet.artikl_id);
@@ -585,178 +607,25 @@ public class DicKits extends javax.swing.JDialog {
                         colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
                     }
                 });
-                DicColor frame = new DicColor(null, (record2) -> {
-                    //
-
+                DicColor frame = new DicColor(null, (rec) -> {
+                    txt.setText(rec.getStr(eColor.name));
+                    colorID[index] = rec.getInt(eColor.id);
+                    
                 }, colorSet);
             } else {
-                DicColor frame = new DicColor(null, (record2) -> {
-                    //
-
+                DicColor frame = new DicColor(null, (rec) -> {
+                    txt.setText(rec.getStr(eColor.name));
+                    colorID[index] = rec.getInt(eColor.id);
                 });
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
-    }//GEN-LAST:event_btn9colorToWindows
-
-    private void btn13colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn13colorToWindows
-        /*   try {
-            float selectID = winNode.com5t().id();
-            HashSet<Record> set = new HashSet();
-            String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
-            String jfield = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
-            Integer[] arr2 = UCom.parserInt(jfield);
-            if (arr1 != null) {
-                for (String s1 : arr1) { //группы
-                    HashSet<Record> se2 = new HashSet();
-                    boolean b = false;
-                    for (Record rec : eColor.query()) {
-
-                        if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-                            se2.add(rec); //текстуры группы
-
-                            for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
-                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                    b = true;
-                                }
-                            }
-                        }
-                    }
-                    if (b == false) { //если небыло пападаний то добавляем всю группу
-                        set.addAll(se2);
-                    }
-                }
-            }
-            if (arr2.length != 0) {
-                for (Record rec : eColor.query()) {
-                    if (arr1 != null) {
-
-                        for (String s1 : arr1) { //группы
-                            if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-                                for (int i = 0; i < arr2.length; i = i + 2) { //текстуры
-                                    if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                        set.add(rec);
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
-                            if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                set.add(rec);
-                            }
-                        }
-                    }
-                }
-            }
-
-            ListenerRecord listenerColor = (colorRec) -> {
-
-                Wincalc iwin = iwin();
-                builder.script.GsonElem rootArea = iwin.rootGson.find(selectID);
-                if (rootArea != null) {
-                    if (evt.getSource() == btn9) {
-                        iwin.rootGson.color1 = colorRec.getInt(eColor.id);
-                    } else if (evt.getSource() == btn13) {
-                        iwin.rootGson.color2 = colorRec.getInt(eColor.id);
-                    } else {
-                        iwin.rootGson.color3 = colorRec.getInt(eColor.id);
-                    }
-                    updateScript(selectID);
-                    btnRefresh(null);
-                }
-            };
-            if (arr1 == null && arr2.length == 0) {
-                new DicColor(this, listenerColor);
-            } else {
-                new DicColor(this, listenerColor, set);
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
-        }*/
-    }//GEN-LAST:event_btn13colorToWindows
-
-    private void btn2colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2colorToWindows
-        /* try {
-            float selectID = winNode.com5t().id();
-            HashSet<Record> set = new HashSet();
-            String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
-            String jfield = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
-            Integer[] arr2 = UCom.parserInt(jfield);
-            if (arr1 != null) {
-                for (String s1 : arr1) { //группы
-                    HashSet<Record> se2 = new HashSet();
-                    boolean b = false;
-                    for (Record rec : eColor.query()) {
-
-                        if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-                            se2.add(rec); //текстуры группы
-
-                            for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
-                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                    b = true;
-                                }
-                            }
-                        }
-                    }
-                    if (b == false) { //если небыло пападаний то добавляем всю группу
-                        set.addAll(se2);
-                    }
-                }
-            }
-            if (arr2.length != 0) {
-                for (Record rec : eColor.query()) {
-                    if (arr1 != null) {
-
-                        for (String s1 : arr1) { //группы
-                            if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-                                for (int i = 0; i < arr2.length; i = i + 2) { //текстуры
-                                    if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                        set.add(rec);
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
-                            if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                set.add(rec);
-                            }
-                        }
-                    }
-                }
-            }
-
-            ListenerRecord listenerColor = (colorRec) -> {
-
-                Wincalc iwin = iwin();
-                builder.script.GsonElem rootArea = iwin.rootGson.find(selectID);
-                if (rootArea != null) {
-                    if (evt.getSource() == btn9) {
-                        iwin.rootGson.color1 = colorRec.getInt(eColor.id);
-                    } else if (evt.getSource() == btn13) {
-                        iwin.rootGson.color2 = colorRec.getInt(eColor.id);
-                    } else {
-                        iwin.rootGson.color3 = colorRec.getInt(eColor.id);
-                    }
-                    updateScript(selectID);
-                    btnRefresh(null);
-                }
-            };
-            if (arr1 == null && arr2.length == 0) {
-                new DicColor(this, listenerColor);
-            } else {
-                new DicColor(this, listenerColor, set);
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
-        }*/
-    }//GEN-LAST:event_btn2colorToWindows
+    }//GEN-LAST:event_colorToWindows
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn13;
-    private javax.swing.JButton btn2;
+    private javax.swing.JButton btn14;
     private javax.swing.JButton btn9;
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
@@ -795,6 +664,63 @@ public class DicKits extends javax.swing.JDialog {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab1();
+                }
+            }
+        });
+        
+        JTextField editorText1 = (JTextField) txt3;
+        PlainDocument doc1 = (PlainDocument) editorText1.getDocument();
+        doc1.setDocumentFilter(new DocumentFilter() {
+
+            @Override
+            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                if ("0123456789.,".indexOf(string) != -1) { //проверка на коррекность ввода
+                    super.insertString(fb, offset, string, attr);
+                }
+            }
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                if ("0123456789.,".indexOf(string) != -1) {  //проверка на коррекность ввода
+                    super.replace(fb, offset, length, string, attrs);
+                }
+            }
+        });
+        
+        JTextField editorText2 = (JTextField) txt2;
+        PlainDocument doc2 = (PlainDocument) editorText2.getDocument();
+        doc2.setDocumentFilter(new DocumentFilter() {
+
+            @Override
+            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                if ("0123456789.,".indexOf(string) != -1) { //проверка на коррекность ввода
+                    super.insertString(fb, offset, string, attr);
+                }
+            }
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                if ("0123456789.,".indexOf(string) != -1) {  //проверка на коррекность ввода
+                    super.replace(fb, offset, length, string, attrs);
+                }
+            }
+        });
+        
+        JTextField editorText3 = (JTextField) txt1;
+        PlainDocument doc3 = (PlainDocument) editorText3.getDocument();
+        doc3.setDocumentFilter(new DocumentFilter() {
+
+            @Override
+            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                if ("0123456789.,".indexOf(string) != -1) { //проверка на коррекность ввода
+                    super.insertString(fb, offset, string, attr);
+                }
+            }
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                if ("0123456789.,".indexOf(string) != -1) {  //проверка на коррекность ввода
+                    super.replace(fb, offset, length, string, attrs);
                 }
             }
         });

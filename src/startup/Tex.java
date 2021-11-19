@@ -111,6 +111,7 @@ public class Tex extends javax.swing.JFrame {
         tb8 = new javax.swing.JToolBar();
         btn17 = new javax.swing.JButton();
         btn3 = new javax.swing.JButton();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(1, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(8, 32767));
         tb6 = new javax.swing.JToolBar();
         btnT7 = new javax.swing.JToggleButton();
         btnT8 = new javax.swing.JToggleButton();
@@ -505,6 +506,7 @@ public class Tex extends javax.swing.JFrame {
         tb8.add(btn3);
 
         getContentPane().add(tb8);
+        getContentPane().add(filler2);
 
         tb6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
         tb6.setRollover(true);
@@ -1188,6 +1190,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;
     private javax.swing.ButtonGroup buttonMenuGroup;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.JMenuBar mn0;
     private javax.swing.JMenu mn01;
     private javax.swing.JMenu mn02;

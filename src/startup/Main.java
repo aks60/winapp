@@ -198,7 +198,7 @@ public class Main {
         UIManager.put("FileChooser.saveInLabelText", "Сохранить в:");
         UIManager.put("FileChooser.upFolderAccessibleName", "Вверх");
         UIManager.put("FileChooser.upFolderToolTipText", "На один уровень вверх");
-        UIManager.put("FileChooser.viewMenuLabelText", "Просмотр");
+        UIManager.put("FileChooser.viewMenuLabelText", "Просмотр");        
         UIManager.put("MetalTitlePane.closeMnemonic", "67");
         UIManager.put("MetalTitlePane.closeTitle", "Закрыть");
         UIManager.put("MetalTitlePane.iconifyMnemonic", "69");
@@ -207,6 +207,7 @@ public class Main {
         UIManager.put("MetalTitlePane.maximizeTitle", "Развернуть");
         UIManager.put("MetalTitlePane.restoreMnemonic", "82");
         UIManager.put("MetalTitlePane.restoreTitle", "Восстановить");
+        /*
         UIManager.put("FileChooser.detailsViewActionLabelText", "Таблица");
         UIManager.put("FileChooser.detailsViewButtonAccessibleName", "Таблица");
         UIManager.put("FileChooser.detailsViewButtonToolTipText", "Таблица");
@@ -231,5 +232,6 @@ public class Main {
         UIManager.put("FileChooser.upFolderAccessibleName", "Вверх");
         UIManager.put("FileChooser.upFolderToolTipText", "Вверх на один уровень");
         UIManager.put("FileChooser.viewMenuLabelText", "Просмотр");
+       */
     }
 }
