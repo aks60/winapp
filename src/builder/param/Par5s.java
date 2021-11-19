@@ -8,6 +8,8 @@ import builder.Wincalc;
 import builder.making.Specific;
 import common.listener.ListenerParam;
 import java.util.ArrayList;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 
 public class Par5s {
 
@@ -73,6 +75,22 @@ public class Par5s {
     public void listenerFire() {
         for (ListenerParam lp : listenerList) {
             lp.action();
+        }
+    }
+
+    protected Object calcScript(float Q, float L, float H, String script) {
+        try {
+            ScriptEngineManager factory = new ScriptEngineManager();
+            ScriptEngine engine = factory.getEngineByName("nashorn"); //factory.getEngineByName("JavaScript");
+            engine.put("Q", Q);
+            engine.put("L", L);
+            engine.put("H", H);
+            script = script.replace("ceil", "Math.ceil");
+            return engine.eval(script);
+
+        } catch (Exception e) {
+            System.out.println("Ошибка: builder.param.Par5s.calcScript() " + e);
+            return -1;
         }
     }
 }

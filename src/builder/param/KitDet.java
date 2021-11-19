@@ -23,9 +23,9 @@ public class KitDet extends Par5s {
         super(iwin);
     }
 
-    public boolean filter(HashMap<Integer, String> mapParam, ElemGlass elem5e, Record glasdetRec) {
+    public boolean filter(HashMap<Integer, String> mapParam, ElemGlass elem5e, Record kitdetRec) {
 
-        List<Record> paramList = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации  
+        List<Record> paramList = eGlaspar2.find(kitdetRec.getInt(eGlasdet.id)); //список параметров детализации  
         if (filterParamDef(paramList) == false) {
             return false; //параметры по умолчанию
         }
@@ -44,11 +44,12 @@ public class KitDet extends Par5s {
         try {
             switch (grup) {
                 case 7030:  //Количество 
+                    Object v = calcScript(0f, 0f, 0f, rec.getStr(GRUP));
+                    System.out.println(v);
+                    break;
+                case 7031: //Количество 
                     message(rec.getInt(GRUP));
                     break;
-                case 7031: //[Коэф.колич.комп] * кол.на шаг 
-                    message(rec.getInt(GRUP));
-                    break;                    
                 case 7040:  //Порог расчета, мм 
                     message(rec.getInt(GRUP));
                     break;
@@ -72,14 +73,16 @@ public class KitDet extends Par5s {
                     break;
                 case 8060:  //Количество" 
                     message(rec.getInt(GRUP));
-                    break;
-                case 8061: //Коэф-т колич. комплекта
+                case 8061:  //Количество" 
                     message(rec.getInt(GRUP));
-                    break;                    
+                    break;
                 case 8065:  //Ширина, мм 
                     message(rec.getInt(GRUP));
                     break;
                 case 8070:  //Длина, мм 
+                    message(rec.getInt(GRUP));
+                    break;
+                case 8071:  //Длина, мм 
                     message(rec.getInt(GRUP));
                     break;
                 case 8075:  //Углы реза 
@@ -93,7 +96,7 @@ public class KitDet extends Par5s {
                     break;
                 case 8097:  //Трудозатраты по длине 
                     message(rec.getInt(GRUP));
-                    break;                    
+                    break;
                 case 8098:  //Бригада (участок) 
                     message(rec.getInt(GRUP));
                     break;
@@ -109,13 +112,19 @@ public class KitDet extends Par5s {
                 case 9060:  //Количество 
                     message(rec.getInt(GRUP));
                     break;
-                case 9061: //Коэф-т колич. комплекта
+                case 9061:  //Количество 
                     message(rec.getInt(GRUP));
-                    break;                    
+                    break;
                 case 9065:  //Длина, мм 
                     message(rec.getInt(GRUP));
                     break;
+                case 9066:  //Длина, мм 
+                    message(rec.getInt(GRUP));
+                    break;
                 case 9070:  //Ширина, мм 
+                    message(rec.getInt(GRUP));
+                    break;
+                case 9071:  //Ширина, мм 
                     message(rec.getInt(GRUP));
                     break;
                 case 9081:  //Если ширина комплекта, мм 
@@ -126,7 +135,7 @@ public class KitDet extends Par5s {
                     break;
                 case 9097:  //Трудозатраты по площади 
                     message(rec.getInt(GRUP));
-                    break;                    
+                    break;
                 case 9098:  //Бригада (участок) 
                     message(rec.getInt(GRUP));
                     break;
@@ -143,4 +152,3 @@ public class KitDet extends Par5s {
         return true;
     }
 }
-

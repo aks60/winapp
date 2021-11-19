@@ -332,7 +332,7 @@
             <Component class="javax.swing.JTable" name="tab1">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="2">
+                  <Table columnCount="3" rowCount="2">
                     <Column editable="true" title="&#x41a;&#x430;&#x442;&#x435;&#x433;&#x43e;&#x440;&#x438;&#x44f;" type="java.lang.Object">
                       <Data value="111"/>
                       <Data value="222"/>
@@ -341,7 +341,6 @@
                       <Data value="111111111111111"/>
                       <Data value="222222222222222"/>
                     </Column>
-                    <Column editable="true" title="&#x41a;&#x43e;&#x43b;&#x438;&#x447;&#x435;&#x441;&#x442;&#x432;&#x43e; &#x43a;&#x43e;&#x43c;&#x43f;&#x43b;&#x435;&#x43a;&#x442;&#x43e;&#x432;" type="java.lang.Object"/>
                     <Column editable="true" title="ID" type="java.lang.Integer">
                       <Data value="1"/>
                       <Data value="2"/>
@@ -356,11 +355,6 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="200" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="60" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -422,7 +416,7 @@
             <Component class="javax.swing.JTable" name="tab2">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="7" rowCount="2">
+                  <Table columnCount="8" rowCount="2">
                     <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;" type="java.lang.Object">
                       <Data value="1"/>
                       <Data value="2"/>
@@ -444,6 +438,7 @@
                       <Data value="2"/>
                     </Column>
                     <Column editable="true" title="&#x415;&#x434;.&#x438;&#x437;&#x43c;&#x435;&#x440;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
+                    <Column editable="true" title="&#x41e;&#x441;&#x43d;&#x43e;&#x432;&#x43d;&#x43e;&#x439; &#x44d;&#x43b;&#x435;&#x43c;&#x435;&#x43d;&#x442;" type="java.lang.Boolean"/>
                     <Column editable="true" title="ID" type="java.lang.Integer">
                       <Data value="1"/>
                       <Data value="2"/>
@@ -478,6 +473,11 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="60" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
