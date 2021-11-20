@@ -95,8 +95,8 @@ public class KitDet extends Par5s {
                     mapParam.put(grup, String.valueOf(v));
                 }
                 break;
-                case 8075:  //Углы реза 
-                    message(rec.getInt(GRUP));
+                case 8075: //Углы реза 
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 8081:  //Ширина комплекта, мм 
                     message(rec.getInt(GRUP));

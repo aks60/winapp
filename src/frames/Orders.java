@@ -59,6 +59,7 @@ import enums.LayoutHandle;
 import enums.PKjson;
 import enums.TypeOpen1;
 import enums.UseSide;
+import enums.UseUnit;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicColor;
@@ -161,7 +162,23 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             }
         };
         new DefTableModel(tab4, qProkit, eArtikl.code, eArtikl.name, eProkit.color1_id, eProkit.color2_id,
-                eProkit.color3_id, eProkit.width, eProkit.height, eProkit.numb, eProkit.angl1, eProkit.angl2);
+                eProkit.color3_id, eProkit.width, eProkit.height, eProkit.numb, eProkit.angl1, eProkit.angl2) {
+
+            public Object getValueAt(int col, int row, Object val) {
+
+                if (val != null && columns[col] == eProkit.color1_id) {
+                    return eColor.get((int) val).getStr(eColor.name);
+
+                } else if (val != null && columns[col] == eProkit.color2_id) {
+                    return eColor.get((int) val).getStr(eColor.name);
+
+                } else if (val != null && columns[col] == eProkit.color3_id) {
+                    return eColor.get((int) val).getStr(eColor.name);
+
+                }
+                return val;
+            }
+        };
 
         tab1.getColumnModel().getColumn(1).setCellRenderer(new DefCellRenderer());
         tab1.getColumnModel().getColumn(2).setCellRenderer(new DefCellRenderer());
@@ -2525,21 +2542,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     });
                 } else if (((JButton) evt.getSource()) == btnSet) {
                     DicKits frame = new DicKits(Orders.this, (q) -> {
-                        for (Record record : q) {
-                            UGui.insertRecordEnd(tab4, eProkit.up, (record2) -> {
-                                record2.set(eProkit.proprod_id, qProprod.get(index, eProprod.id));
-                                record2.set(eProkit.artikl_id, record.get(eKitdet.artikl_id));
-                                record2.set(eProkit.color1_id, record.get(eKitdet.color1_id));
-                                record2.set(eProkit.color2_id, record.get(eKitdet.color2_id));
-                                record2.set(eProkit.color3_id, record.get(eKitdet.color3_id));
-                                Record record3 = eArtikl.up.newRecord();
-                                qProkit.table(eArtikl.up).add(record3);
-                                Record record4 = eArtikl.get(record.getInt(eKitdet.artikl_id));
-                                record3.set(eArtikl.code, record4.getStr(eArtikl.code));
-                                record3.set(eArtikl.name, record4.getStr(eArtikl.name));
-                            });
-                        }
-                        qProkit.execsql();
+                        loadingTab4();
                         return true;
                     }, qProprod.getAs(index, eProprod.id));
                 }

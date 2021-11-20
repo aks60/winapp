@@ -242,6 +242,7 @@ public class DicKits extends javax.swing.JDialog {
         lab13.setMinimumSize(new java.awt.Dimension(34, 14));
         lab13.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt1.setText("0");
         txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt1.setPreferredSize(new java.awt.Dimension(60, 18));
 
@@ -252,11 +253,9 @@ public class DicKits extends javax.swing.JDialog {
         lab14.setMinimumSize(new java.awt.Dimension(34, 14));
         lab14.setPreferredSize(new java.awt.Dimension(80, 18));
 
-        txt2.setText("700");
         txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt2.setPreferredSize(new java.awt.Dimension(60, 18));
 
-        txt3.setText("2");
         txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt3.setPreferredSize(new java.awt.Dimension(60, 18));
 
@@ -547,11 +546,11 @@ public class DicKits extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Укажите количество комплектов.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                 return;
             } else if (txt2.getText().isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Укажите длину комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-//                return;
+                JOptionPane.showMessageDialog(this, "Укажите длину комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                return;
             } else if (txt9.getText().isEmpty() || txt13.getText().isEmpty() || txt14.getText().isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Укажите текстуру комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-//                return;
+                JOptionPane.showMessageDialog(this, "Укажите текстуру комплекта.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
         }
         HashMap<Integer, String> mapParam = new HashMap();
@@ -560,35 +559,34 @@ public class DicKits extends javax.swing.JDialog {
             mapParam.clear();
             //ФИЛЬТР детализации, параметры накапливаются в mapParam
             if (kitDet.filter(mapParam, record) == true) {
-                
+
                 Record artiklRec = eArtikl.get(record.getInt(eKitdet.artikl_id));
                 Record recordKit = eProkit.up.newRecord(Query.INS);
                 recordKit.set(eProkit.id, Conn.instanc().genId(eProkit.up));
                 recordKit.set(eProkit.proprod_id, proprodID);
-                recordKit.set(eProkit.numb, get_7031_8061_9061(mapParam)); //количество                
-                System.out.println(get_7031_8061_9061(mapParam));
-                
+                recordKit.set(eProkit.artikl_id, artiklRec.getInt(eArtikl.id));
+
+                recordKit.set(eProkit.numb, get_7031_8061_9061(mapParam)); //количество                                
                 Float width = get_8066_9066(mapParam);
-                width = (width == null) ? 0 : width;               
-                System.out.println(get_8066_9066(mapParam));
-                
-                recordKit.set(eProkit.width, width); //длина
+                width = (width == null) ? 0 : width;
+                recordKit.set(eProkit.width, width); //длина                
                 Float height = get_8071_9071(mapParam);
                 height = (height == null) ? artiklRec.getFloat(eArtikl.height) : height;
-                recordKit.set(eProkit.height, height); //ширина
+                recordKit.set(eProkit.height, height); //ширина               
                 Float angl1 = get_8075(mapParam, 0);
                 angl1 = (angl1 == null) ? 90 : angl1;
-                recordKit.set(eProkit.angl1, angl1); //угол 1
+                recordKit.set(eProkit.angl1, angl1); //угол 1                
                 Float angl2 = get_8075(mapParam, 1);
                 angl1 = (angl2 == null) ? 90 : angl2;
                 recordKit.set(eProkit.angl2, angl2); //угол 2
-
-                System.out.println(recordKit);
-                //qProkit.insert(recordKit);
+                recordKit.set(eProkit.color1_id, colorID[0]); //color1
+                recordKit.set(eProkit.color2_id, colorID[1]); //color2
+                recordKit.set(eProkit.color3_id, colorID[2]); //color3
+                qProkit.insert(recordKit);
             }
         }
 
-        //listener.action(qKitdet);
+        listener.action(null);
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
@@ -652,14 +650,11 @@ public class DicKits extends javax.swing.JDialog {
                     }
                 });
                 DicColor frame = new DicColor(null, (rec) -> {
-                    txt.setText(rec.getStr(eColor.name));
-                    colorID[index] = rec.getInt(eColor.id);
-
+                    setColor(index, rec);
                 }, colorSet);
             } else {
                 DicColor frame = new DicColor(null, (rec) -> {
-                    txt.setText(rec.getStr(eColor.name));
-                    colorID[index] = rec.getInt(eColor.id);
+                    setColor(index, rec);
                 });
             }
         } catch (Exception e) {
@@ -802,7 +797,7 @@ public class DicKits extends javax.swing.JDialog {
     private Float get_8075(HashMap<Integer, String> mapParam, int m) {
         String angl = getParam(mapParam, 8075);
         if (angl != null) {
-            String s[] = angl.split("x");
+            String s[] = angl.split("х");
             return Float.valueOf(s[m]);
         }
         return null;
@@ -820,5 +815,24 @@ public class DicKits extends javax.swing.JDialog {
             }
         }
         return null;
+    }
+
+    private void setColor(int index, Record rec) {
+        if (index == 0) {
+            txt9.setText(rec.getStr(eColor.name));
+            colorID[0] = rec.getInt(eColor.id);
+            txt13.setText(rec.getStr(eColor.name));
+            colorID[1] = rec.getInt(eColor.id);
+            txt14.setText(rec.getStr(eColor.name));
+            colorID[2] = rec.getInt(eColor.id);
+
+        } else if (index == 1) {
+            txt13.setText(rec.getStr(eColor.name));
+            colorID[1] = rec.getInt(eColor.id);
+            
+        } else if (index == 2) {
+            txt14.setText(rec.getStr(eColor.name));
+            colorID[2] = rec.getInt(eColor.id);
+        }
     }
 }
