@@ -19,11 +19,16 @@ import enums.Type;
 //Заполнения
 public class KitDet extends Par5s {
 
-    public KitDet(Wincalc iwin) {
-        super(iwin);
+    private float Q, L, H;
+
+    public KitDet(float Q, float L, float H) {
+        super(new Wincalc());
+        this.Q = Q;
+        this.L = L;
+        this.H = H;
     }
 
-    public boolean filter(HashMap<Integer, String> mapParam, ElemGlass elem5e, Record kitdetRec) {
+    public boolean filter(HashMap<Integer, String> mapParam, Record kitdetRec) {
 
         List<Record> paramList = eGlaspar2.find(kitdetRec.getInt(eGlasdet.id)); //список параметров детализации  
         if (filterParamDef(paramList) == false) {
@@ -31,24 +36,25 @@ public class KitDet extends Par5s {
         }
         //Цикл по параметрам заполнения
         for (Record rec : paramList) {
-            if (check(mapParam, elem5e, rec) == false) {
+            if (check(mapParam, rec) == false) {
                 return false;
             }
         }
         return true;
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemGlass elem5e, Record rec) {
+    public boolean check(HashMap<Integer, String> mapParam, Record rec) {
 
         int grup = rec.getInt(GRUP);
         try {
             switch (grup) {
-                case 7030:  //Количество 
-                    Object v = calcScript(0f, 0f, 0f, rec.getStr(GRUP));
-                    System.out.println(v);
-                    break;
-                case 7031: //Количество 
+                case 7030: //Количество 
                     message(rec.getInt(GRUP));
+                    break;
+                case 7031:  //Количество 
+                    Object v = calcScript(0f, 0f, 0f, rec.getStr(GRUP));
+                    mapParam.put(grup, String.valueOf(v));
+                    ;
                     break;
                 case 7040:  //Порог расчета, мм 
                     message(rec.getInt(GRUP));

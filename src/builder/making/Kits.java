@@ -12,8 +12,7 @@ public class Kits extends Cal5e {
         super(iwin);
     }
 
-    @Override
-    public void calc() {
+    public void calc(float Q, float L, float H, Query kitDet) {
         super.calc();
         try {
 

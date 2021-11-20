@@ -255,6 +255,7 @@ public class DicHandl extends javax.swing.JDialog {
         } 
     }//GEN-LAST:event_rbtStateChanged
 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
@@ -269,7 +270,8 @@ public class DicHandl extends javax.swing.JDialog {
     private javax.swing.JPanel south;
     private javax.swing.JTextField txt01;
     // End of variables declaration//GEN-END:variables
-
+    // </editor-fold>
+    
     private void initElements() {
 
         FrameToFile.setFrameSize(this);

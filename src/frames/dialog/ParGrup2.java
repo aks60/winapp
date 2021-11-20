@@ -425,6 +425,7 @@ public class ParGrup2 extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_tab3tabMouseClicked
 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnCard1;
     private javax.swing.JToggleButton btnCard2;
@@ -446,7 +447,7 @@ public class ParGrup2 extends javax.swing.JDialog {
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     // End of variables declaration//GEN-END:variables
-// </editor-fold>     
+    // </editor-fold>     
     public void initElements() {
 
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

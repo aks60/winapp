@@ -255,6 +255,7 @@ public class ParGrup2v extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tabMouseClicked
 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
@@ -267,7 +268,7 @@ public class ParGrup2v extends javax.swing.JDialog {
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
-
+    // </editor-fold>
     public void initElements() {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);

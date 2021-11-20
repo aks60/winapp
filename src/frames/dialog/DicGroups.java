@@ -410,6 +410,7 @@ public class DicGroups extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tab2mouse2Clicked
 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
@@ -433,7 +434,8 @@ public class DicGroups extends javax.swing.JDialog {
     private javax.swing.JTable tab4;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
-    
+   // </editor-fold>
+
     public void initElements() {
 
         FrameToFile.setFrameSize(this);

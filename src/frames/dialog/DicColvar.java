@@ -237,6 +237,7 @@ public class DicColvar extends javax.swing.JDialog {
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
+    
     public void initElements() {
 
         FrameToFile.setFrameSize(this);

@@ -367,6 +367,7 @@ public class DicSyspod extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoveActionPerformed
 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
@@ -381,7 +382,8 @@ public class DicSyspod extends javax.swing.JDialog {
     private javax.swing.JTable tab2;
     private javax.swing.JTree tree1;
     // End of variables declaration//GEN-END:variables
-
+    // </editor-fold>
+    
     public void initElements() {
 
         FrameToFile.setFrameSize(this);

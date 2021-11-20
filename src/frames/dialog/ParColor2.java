@@ -349,6 +349,7 @@ public class ParColor2 extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tab2tabMouseClicked
 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnCard1;
     private javax.swing.JToggleButton btnCard2;
@@ -366,6 +367,8 @@ public class ParColor2 extends javax.swing.JDialog {
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
+    // </editor-fold>
+    
     public void initElements() {
 
         FrameToFile.setFrameSize(this);

@@ -369,6 +369,7 @@ public class DicColor extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tabMousePressed
 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
@@ -385,7 +386,8 @@ public class DicColor extends javax.swing.JDialog {
     private javax.swing.JTable tab2;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
-
+    // </editor-fold>
+    
     private void initElements() {
 
         FrameToFile.setFrameSize(this);

@@ -467,6 +467,7 @@ public class DicDate extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_formShown
 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnOk;
@@ -480,4 +481,5 @@ public class DicDate extends javax.swing.JDialog {
     private javax.swing.JTable tabDay;
     private javax.swing.JPanel tool;
     // End of variables declaration//GEN-END:variables
+    // </editor-fold>
 }

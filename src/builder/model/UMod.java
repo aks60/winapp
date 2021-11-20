@@ -9,6 +9,7 @@ import builder.model.ElemSimple;
 import common.UCom;
 import domain.eSetting;
 import enums.Layout;
+import java.util.HashMap;
 import java.util.List;
 
 class UMod {
@@ -95,28 +96,28 @@ class UMod {
             int count_step = Integer.valueOf(spcAdd.getParam(1, 11060)); //"Количество на шаг"
             ElemSimple elem5e = null;
             float width_next = 0;
-            
+
             if ("Да".equals(spcAdd.getParam("Нет", 11010, 12010))) {
                 elem5e = elemJoin.elem1;
 
             } else if ("Да".equals(spcAdd.getParam("Нет", 11020, 12020))) {
                 elem5e = elemJoin.elem2;
-                
+
             } else {
                 elem5e = elemJoin.elem1; //по умолч.
             }
             if ("большей".equals(spcAdd.getParam("", 11072, 12072))) {
                 float length = (elem5e.width() > elem5e.height()) ? elem5e.width() : elem5e.height();
                 width_next = length - width_begin;
-                
+
             } else if ("меньшей".equals(spcAdd.getParam("", 11072, 12072))) {
                 float length = (elem5e.width() < elem5e.height()) ? elem5e.width() : elem5e.height();
                 width_next = length - width_begin;
-                
-            } else  if ("общей".equals(spcAdd.getParam("", 11072, 12072))) {
+
+            } else if ("общей".equals(spcAdd.getParam("", 11072, 12072))) {
                 float length = elemJoin.elem2.width();
                 width_next = length - width_begin;
-                
+
             } else {
                 width_next = elem5e.width() - width_begin;
             }
@@ -157,6 +158,8 @@ class UMod {
         return spcAdd.width;
     }
 
+    //Длина, мм
+    //public static float get_
     //Коэффициент, [ * коэф-т ]
     public static float get_12030_15030_25035_34030_39030(Specific spcRec, Specific spcAdd) {
         return UCom.getFloat(spcAdd.getParam("1", 12030, 15030, 25035, 34030, 39030));

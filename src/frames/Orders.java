@@ -2543,7 +2543,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                         }
                         qProkit.execsql();
                         return true;
-                    });
+                    }, qProprod.getAs(index, eProprod.id));
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Изделие не выбрано.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
