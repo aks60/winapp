@@ -4,6 +4,12 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eGlaspar2.glasdet_id;
+import static domain.eGlaspar2.up;
+import static domain.eGlaspar2.values;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum eKitpar2 implements Field {
     up("0", "0", "0", "Парметры комплектов", "PARKOMP"),
@@ -39,6 +45,14 @@ public enum eKitpar2 implements Field {
         return query;
     }
 
+    public static List<Record> find(int _id) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(kitdet_id) == _id).collect(Collectors.toList());
+        }
+        Query recordList = new Query(values()).select(up, "where", kitdet_id, "=", _id);
+        return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
+    }
+    
     public String toString() {
         return meta.descr();
     }

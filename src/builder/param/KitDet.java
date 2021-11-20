@@ -1,20 +1,11 @@
 package builder.param;
 
 import dataset.Record;
-import domain.eArtikl;
-import domain.eGlasdet;
-import domain.eGlaspar2;
-import domain.eSetting;
-import domain.eSystree;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.model.ElemGlass;
-import builder.model.ElemSimple;
-import common.UCom;
-import enums.Layout;
-import enums.Type;
+import domain.eKitdet;
+import domain.eKitpar2;
 
 //Заполнения
 public class KitDet extends Par5s {
@@ -30,7 +21,7 @@ public class KitDet extends Par5s {
 
     public boolean filter(HashMap<Integer, String> mapParam, Record kitdetRec) {
 
-        List<Record> paramList = eGlaspar2.find(kitdetRec.getInt(eGlasdet.id)); //список параметров детализации  
+        List<Record> paramList = eKitpar2.find(kitdetRec.getInt(eKitdet.id)); //список параметров детализации  
         if (filterParamDef(paramList) == false) {
             return false; //параметры по умолчанию
         }
@@ -51,11 +42,12 @@ public class KitDet extends Par5s {
                 case 7030: //Количество 
                     message(rec.getInt(GRUP));
                     break;
-                case 7031:  //Количество 
-                    Object v = calcScript(0f, 0f, 0f, rec.getStr(GRUP));
+                case 7031: //Количество 
+                {
+                    Object v = calcScript(Q, L, H, rec.getStr(TEXT));
                     mapParam.put(grup, String.valueOf(v));
-                    ;
-                    break;
+                }
+                break;
                 case 7040:  //Порог расчета, мм 
                     message(rec.getInt(GRUP));
                     break;
@@ -79,18 +71,30 @@ public class KitDet extends Par5s {
                     break;
                 case 8060:  //Количество" 
                     message(rec.getInt(GRUP));
-                case 8061:  //Количество" 
+                case 8061: //Количество" 
+                {
+                    Object v = calcScript(Q, L, H, rec.getStr(TEXT));
+                    mapParam.put(grup, String.valueOf(v));
+                }
+                break;
+                case 8065:  //Длина, мм 
                     message(rec.getInt(GRUP));
                     break;
-                case 8065:  //Ширина, мм 
+                case 8066: //Длина, мм 
+                {
+                    Object v = calcScript(Q, L, H, rec.getStr(TEXT));
+                    mapParam.put(grup, String.valueOf(v));
+                }
+                break;
+                case 8070:  //"Ширина, мм 
                     message(rec.getInt(GRUP));
                     break;
-                case 8070:  //Длина, мм 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 8071:  //Длина, мм 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 8071: //"Ширина, мм
+                {
+                    Object v = calcScript(Q, L, H, rec.getStr(TEXT));
+                    mapParam.put(grup, String.valueOf(v));
+                }
+                break;
                 case 8075:  //Углы реза 
                     message(rec.getInt(GRUP));
                     break;
@@ -118,21 +122,30 @@ public class KitDet extends Par5s {
                 case 9060:  //Количество 
                     message(rec.getInt(GRUP));
                     break;
-                case 9061:  //Количество 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 9061: //Количество 
+                {
+                    Object v = calcScript(Q, L, H, rec.getStr(TEXT));
+                    mapParam.put(grup, String.valueOf(v));
+                }
+                break;
                 case 9065:  //Длина, мм 
                     message(rec.getInt(GRUP));
                     break;
-                case 9066:  //Длина, мм 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 9066: //Длина, мм 
+                {
+                    Object v = calcScript(Q, L, H, rec.getStr(TEXT));
+                    mapParam.put(grup, String.valueOf(v));
+                }
+                break;
                 case 9070:  //Ширина, мм 
                     message(rec.getInt(GRUP));
                     break;
-                case 9071:  //Ширина, мм 
-                    message(rec.getInt(GRUP));
-                    break;
+                case 9071: //Ширина, мм 
+                {
+                    Object v = calcScript(Q, L, H, rec.getStr(TEXT));
+                    mapParam.put(grup, String.valueOf(v));
+                }
+                break;
                 case 9081:  //Если ширина комплекта, мм 
                     message(rec.getInt(GRUP));
                     break;

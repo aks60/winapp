@@ -252,9 +252,11 @@ public class DicKits extends javax.swing.JDialog {
         lab14.setMinimumSize(new java.awt.Dimension(34, 14));
         lab14.setPreferredSize(new java.awt.Dimension(80, 18));
 
+        txt2.setText("700");
         txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt2.setPreferredSize(new java.awt.Dimension(60, 18));
 
+        txt3.setText("2");
         txt3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt3.setPreferredSize(new java.awt.Dimension(60, 18));
 
@@ -563,9 +565,13 @@ public class DicKits extends javax.swing.JDialog {
                 Record recordKit = eProkit.up.newRecord(Query.INS);
                 recordKit.set(eProkit.id, Conn.instanc().genId(eProkit.up));
                 recordKit.set(eProkit.proprod_id, proprodID);
-                recordKit.set(eProkit.numb, get_7031_8061_9061(mapParam)); //количество
+                recordKit.set(eProkit.numb, get_7031_8061_9061(mapParam)); //количество                
+                System.out.println(get_7031_8061_9061(mapParam));
+                
                 Float width = get_8066_9066(mapParam);
-                width = (width == null) ? 0 : width;
+                width = (width == null) ? 0 : width;               
+                System.out.println(get_8066_9066(mapParam));
+                
                 recordKit.set(eProkit.width, width); //длина
                 Float height = get_8071_9071(mapParam);
                 height = (height == null) ? artiklRec.getFloat(eArtikl.height) : height;
