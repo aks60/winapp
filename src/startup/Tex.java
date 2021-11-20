@@ -111,12 +111,10 @@ public class Tex extends javax.swing.JFrame {
         tb8 = new javax.swing.JToolBar();
         btn17 = new javax.swing.JButton();
         btn3 = new javax.swing.JButton();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(1, 0), new java.awt.Dimension(1, 0), new java.awt.Dimension(8, 32767));
         tb6 = new javax.swing.JToolBar();
         btnT7 = new javax.swing.JToggleButton();
         btnT8 = new javax.swing.JToggleButton();
         btnT9 = new javax.swing.JToggleButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(1, 0), new java.awt.Dimension(1, 0), new java.awt.Dimension(22, 32767));
         tb4 = new javax.swing.JToolBar();
         btnTest = new javax.swing.JButton();
         btn42 = new javax.swing.JButton();
@@ -363,7 +361,7 @@ public class Tex extends javax.swing.JFrame {
         tb2.setRollover(true);
         tb2.setMaximumSize(new java.awt.Dimension(176, 28));
         tb2.setMinimumSize(new java.awt.Dimension(176, 28));
-        tb2.setPreferredSize(new java.awt.Dimension(198, 28));
+        tb2.setPreferredSize(new java.awt.Dimension(200, 28));
 
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif"))); // NOI18N
         btn1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
@@ -471,7 +469,7 @@ public class Tex extends javax.swing.JFrame {
         getContentPane().add(tb2);
 
         tb8.setRollover(true);
-        tb8.setPreferredSize(new java.awt.Dimension(68, 28));
+        tb8.setPreferredSize(new java.awt.Dimension(70, 28));
 
         btn17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c080.gif"))); // NOI18N
         btn17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
@@ -506,22 +504,20 @@ public class Tex extends javax.swing.JFrame {
         tb8.add(btn3);
 
         getContentPane().add(tb8);
-        getContentPane().add(filler2);
 
-        tb6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
         tb6.setRollover(true);
         tb6.setMaximumSize(new java.awt.Dimension(96, 28));
         tb6.setMinimumSize(new java.awt.Dimension(96, 28));
-        tb6.setPreferredSize(new java.awt.Dimension(87, 28));
+        tb6.setPreferredSize(new java.awt.Dimension(94, 28));
 
         buttonBaseGroup1.add(btnT7);
         btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c057.gif"))); // NOI18N
-        btnT7.setSelected(true);
+        btnT7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
         btnT7.setFocusable(false);
         btnT7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnT7.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnT7.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnT7.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnT7.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnT7.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnT7.setPreferredSize(new java.awt.Dimension(26, 26));
         btnT7.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c061.gif"))); // NOI18N
         btnT7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnT7.addActionListener(new java.awt.event.ActionListener() {
@@ -533,11 +529,12 @@ public class Tex extends javax.swing.JFrame {
 
         buttonBaseGroup1.add(btnT8);
         btnT8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c058.gif"))); // NOI18N
+        btnT8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
         btnT8.setFocusable(false);
         btnT8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnT8.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnT8.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnT8.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnT8.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnT8.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnT8.setPreferredSize(new java.awt.Dimension(26, 26));
         btnT8.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c062.gif"))); // NOI18N
         btnT8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnT8.addActionListener(new java.awt.event.ActionListener() {
@@ -549,11 +546,12 @@ public class Tex extends javax.swing.JFrame {
 
         buttonBaseGroup1.add(btnT9);
         btnT9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c059.gif"))); // NOI18N
+        btnT9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
         btnT9.setFocusable(false);
         btnT9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnT9.setMaximumSize(new java.awt.Dimension(28, 25));
-        btnT9.setMinimumSize(new java.awt.Dimension(28, 25));
-        btnT9.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnT9.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnT9.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnT9.setPreferredSize(new java.awt.Dimension(26, 26));
         btnT9.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c063.gif"))); // NOI18N
         btnT9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnT9.addActionListener(new java.awt.event.ActionListener() {
@@ -564,7 +562,6 @@ public class Tex extends javax.swing.JFrame {
         tb6.add(btnT9);
 
         getContentPane().add(tb6);
-        getContentPane().add(filler1);
 
         tb4.setRollover(true);
         tb4.setMaximumSize(new java.awt.Dimension(70, 28));
@@ -1189,8 +1186,6 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.ButtonGroup buttonBaseGroup2;
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;
     private javax.swing.ButtonGroup buttonMenuGroup;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
     private javax.swing.JMenuBar mn0;
     private javax.swing.JMenu mn01;
     private javax.swing.JMenu mn02;
