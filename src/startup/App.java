@@ -4,7 +4,6 @@ import builder.Wincalc;
 import builder.model.ElemJoining;
 import frames.FrameToFile;
 import common.eProfile;
-import common.listener.ListenerObject;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -67,6 +66,7 @@ import frames.Orders;
 import frames.Param;
 import frames.Partner;
 import frames.Rulecalc;
+import frames.Setting;
 import frames.Specifics;
 import frames.Syssize;
 import frames.Systree;
@@ -79,7 +79,7 @@ import javax.swing.JFrame;
 
 public enum App {
 
-    Top, Groups, Currenc, Color, Artikles, Joining, Element, Param,
+    Top, Setting, Groups, Currenc, Color, Artikles, Joining, Element, Param,
     Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, Models,
     Specification, Syssize, TestFrame, RuleCalc, DBCompare;
     public javax.swing.JFrame frame;
@@ -93,6 +93,9 @@ public enum App {
 
                 case TestFrame:
                     frame = new TestFrame();
+                    break;
+                case Setting:
+                    frame = new Setting(parent);
                     break;
                 case RuleCalc:
                     frame = new Rulecalc();

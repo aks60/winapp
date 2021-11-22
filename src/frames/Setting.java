@@ -5,35 +5,13 @@ import java.awt.GraphicsEnvironment;
 import java.io.File;
 import javax.swing.DefaultComboBoxModel;
 
-/**
- * <p>
- * ��������� ������� </p>
- */
-public class Property extends javax.swing.JDialog {
+public class Setting extends javax.swing.JFrame {
 
     private String[] fontName = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
-    public Property(java.awt.Window owner) {
-        super(owner);
+    public Setting(java.awt.Window owner) {
         initComponents();
-
-        txtWord.setText(eProperty.cmd_word.read());
-        txtExcel.setText(eProperty.cmd_excel.read());
-        txtHtml.setText(eProperty.cmd_html.read());
-        
-        txtURL.setText(eProperty.url_src.read());
-        Integer num = Integer.valueOf(eProperty.web_port.read());
-        boolean start = (eProperty.web_start.read().equals("true") == true) ? true : false;
-
-        comboBox.setModel(new DefaultComboBoxModel(fontName));
-        String name = eProperty.fontname.read();
-        Integer size = Integer.valueOf(eProperty.fontsize.read());
-        for (int i = 0; i < fontName.length; i++) {
-            if (name.equals(fontName[i])) {
-                comboBox.setSelectedIndex(i);
-            }
-        }
-        spinner2.setValue(size);
+        initElements();
     }
 
     @SuppressWarnings("unchecked")
@@ -63,12 +41,12 @@ public class Property extends javax.swing.JDialog {
         txtURL = new javax.swing.JTextField();
         btnProp4 = new javax.swing.JButton();
         panTool = new javax.swing.JPanel();
-        btnExit = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
         btnHelp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Параметры системные");
-        setIconImage((new javax.swing.ImageIcon(getClass().getResource("/image/px32/d033.gif")).getImage()));
+        setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -94,7 +72,7 @@ public class Property extends javax.swing.JDialog {
         jLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel8.setPreferredSize(new java.awt.Dimension(44, 18));
 
-        btnProp2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/px16/b031.gif"))); // NOI18N
+        btnProp2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
         btnProp2.setText("Сохранить шрифт в настройках программы");
         btnProp2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnProp2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -168,7 +146,7 @@ public class Property extends javax.swing.JDialog {
         jLabel6.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel6.setPreferredSize(new java.awt.Dimension(158, 70));
 
-        btnProp3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/px16/b031.gif"))); // NOI18N
+        btnProp3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
         btnProp3.setText("Сохранить параметры отчётов");
         btnProp3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnProp3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -269,7 +247,7 @@ public class Property extends javax.swing.JDialog {
         txtURL.setMinimumSize(new java.awt.Dimension(236, 18));
         txtURL.setPreferredSize(new java.awt.Dimension(236, 18));
 
-        btnProp4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/px16/b031.gif"))); // NOI18N
+        btnProp4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
         btnProp4.setText("Сохранить путь к серверу");
         btnProp4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnProp4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -320,22 +298,19 @@ public class Property extends javax.swing.JDialog {
         panTool.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panTool.setPreferredSize(new java.awt.Dimension(500, 50));
 
-        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/px16/b009.gif"))); // NOI18N
-        btnExit.setText("Выход");
-        btnExit.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnExit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnExit.setMaximumSize(new java.awt.Dimension(80, 25));
-        btnExit.setMinimumSize(new java.awt.Dimension(0, 0));
-        btnExit.setPreferredSize(new java.awt.Dimension(100, 25));
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
+        btnClose.setText("Выход");
+        btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnClose.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnClose.setMaximumSize(new java.awt.Dimension(80, 25));
+        btnClose.setMinimumSize(new java.awt.Dimension(0, 0));
+        btnClose.setPreferredSize(new java.awt.Dimension(100, 25));
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExit(evt);
+                btnClose(evt);
             }
         });
 
-        btnHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/px24/c026.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint"); // NOI18N
-        btnHelp.setToolTipText(bundle.getString("Справка")); // NOI18N
         btnHelp.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnHelp.setFocusable(false);
         btnHelp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -355,7 +330,7 @@ public class Property extends javax.swing.JDialog {
             panToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panToolLayout.createSequentialGroup()
                 .addContainerGap(386, Short.MAX_VALUE)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(panToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panToolLayout.createSequentialGroup()
@@ -367,7 +342,7 @@ public class Property extends javax.swing.JDialog {
             panToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panToolLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panToolLayout.createSequentialGroup()
@@ -381,9 +356,9 @@ public class Property extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
-}//GEN-LAST:event_btnExit
+}//GEN-LAST:event_btnClose
 
     private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionPerformed
         //ExecuteCmd.startHelp(this.getClass().getName());
@@ -411,8 +386,9 @@ public class Property extends javax.swing.JDialog {
         eProperty.save();
     }//GEN-LAST:event_btnProp4
 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnClose;
     private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnProp2;
     private javax.swing.JButton btnProp3;
@@ -438,4 +414,28 @@ public class Property extends javax.swing.JDialog {
     private javax.swing.JTextField txtURL;
     private javax.swing.JTextField txtWord;
     // End of variables declaration//GEN-END:variables
+// </editor-fold> 
+    
+    public void initElements() {
+
+        new FrameToFile(this, btnClose);
+        
+        txtWord.setText(eProperty.cmd_word.read());
+        txtExcel.setText(eProperty.cmd_excel.read());
+        txtHtml.setText(eProperty.cmd_html.read());
+
+        txtURL.setText(eProperty.url_src.read());
+        Integer num = Integer.valueOf(eProperty.web_port.read());
+        boolean start = (eProperty.web_start.read().equals("true") == true) ? true : false;
+
+        comboBox.setModel(new DefaultComboBoxModel(fontName));
+        String name = eProperty.fontname.read();
+        Integer size = Integer.valueOf(eProperty.fontsize.read());
+        for (int i = 0; i < fontName.length; i++) {
+            if (name.equals(fontName[i])) {
+                comboBox.setSelectedIndex(i);
+            }
+        }
+        spinner2.setValue(size);        
+    }
 }

@@ -88,6 +88,7 @@ public class Tex extends javax.swing.JFrame {
         buttonBaseGroup2 = new javax.swing.ButtonGroup();
         buttonMenuGroup = new javax.swing.ButtonGroup();
         tb7 = new javax.swing.JToolBar();
+        btn4 = new javax.swing.JButton();
         btn15 = new javax.swing.JButton();
         btn2 = new javax.swing.JButton();
         tb1 = new javax.swing.JToolBar();
@@ -120,6 +121,7 @@ public class Tex extends javax.swing.JFrame {
         btn42 = new javax.swing.JButton();
         mn0 = new javax.swing.JMenuBar();
         mn01 = new javax.swing.JMenu();
+        mn12 = new javax.swing.JMenuItem();
         mn15 = new javax.swing.JMenuItem();
         mn11 = new javax.swing.JMenuItem();
         mn13 = new javax.swing.JSeparator();
@@ -183,7 +185,25 @@ public class Tex extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         tb7.setRollover(true);
-        tb7.setPreferredSize(new java.awt.Dimension(68, 28));
+        tb7.setMaximumSize(new java.awt.Dimension(94, 28));
+        tb7.setMinimumSize(new java.awt.Dimension(94, 28));
+        tb7.setPreferredSize(new java.awt.Dimension(94, 28));
+
+        btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c015.gif"))); // NOI18N
+        btn4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+        btn4.setFocusable(false);
+        btn4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn4.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn4.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn4.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn4.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnSetting(evt);
+            }
+        });
+        tb7.add(btn4);
 
         btn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c018.gif"))); // NOI18N
         btn15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
@@ -604,9 +624,19 @@ public class Tex extends javax.swing.JFrame {
         mn01.setFont(frames.UGui.getFont(1,1));
         mn01.setLabel("  Настройки  ");
 
+        mn12.setFont(frames.UGui.getFont(1,1));
+        mn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
+        mn12.setText("Установки");
+        mn12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnSetting(evt);
+            }
+        });
+        mn01.add(mn12);
+
         mn15.setFont(frames.UGui.getFont(1,1));
         mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn15.setText("Правила расч.");
+        mn15.setText("Правила расч...");
         mn15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnRulecalc(evt);
@@ -1151,10 +1181,18 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.Order.createFrame(Tex.this);
+                App.Setting.createFrame(Tex.this);
             }
         });
     }//GEN-LAST:event_mnOrder
+
+    private void mnSetting(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSetting
+        FrameProgress.create(Tex.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                App.Setting.createFrame(Tex.this);
+            }
+        });
+    }//GEN-LAST:event_mnSetting
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1174,6 +1212,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JButton btn26;
     private javax.swing.JButton btn27;
     private javax.swing.JButton btn3;
+    private javax.swing.JButton btn4;
     private javax.swing.JButton btn42;
     private javax.swing.JButton btn51;
     private javax.swing.JButton btn52;
@@ -1195,6 +1234,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JMenu mn07;
     private javax.swing.JMenu mn09;
     private javax.swing.JMenuItem mn11;
+    private javax.swing.JMenuItem mn12;
     private javax.swing.JSeparator mn13;
     private javax.swing.JMenuItem mn14;
     private javax.swing.JMenuItem mn15;
