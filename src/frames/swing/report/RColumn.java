@@ -27,15 +27,15 @@ public class RColumn {
 
     public String toString() {
         String str = "";
-//        for (int i = 0; i < fields.size(); i++) {
-//            if (i > 1) {
-//                str += fields.get(i).meta().getColName() + "; ";
-//            } else if (i == 1) {
-//                str += "; " + fields.get(i).meta().getColName() + "; ";
-//            } else if (i == 0) {
-//                str += fields.get(i).meta().getColName();
-//            }
-//        }
+        for (int i = 0; i < fields.size(); i++) {
+            if (i > 1) {
+                str += fields.get(i).meta().fname + "; ";
+            } else if (i == 1) {
+                str += "; " + fields.get(i).meta().fname + "; ";
+            } else if (i == 0) {
+                str += fields.get(i).meta().fname;
+            }
+        }
         return str;
     }
 }

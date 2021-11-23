@@ -1,20 +1,20 @@
 package frames;
 
-import dataset.Conn;
+import common.ExecuteCmd;
 import dataset.Query;
-import dataset.Record;
 import domain.eCurrenc;
 import frames.swing.DefCellEditor;
 import java.awt.Frame;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
 import common.listener.ListenerRecord;
+import dataset.Field;
+import frames.swing.report.TableHTML;
 
 public class Currenc extends javax.swing.JFrame {
 
@@ -63,6 +63,7 @@ public class Currenc extends javax.swing.JFrame {
         btnIns = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
+        btnReport = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -177,6 +178,22 @@ public class Currenc extends javax.swing.JFrame {
             }
         });
 
+        btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
+        btnReport.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnReport.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnReport.setFocusable(false);
+        btnReport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnReport.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnReport.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnReport.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnReport.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReport(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -192,7 +209,9 @@ public class Currenc extends javax.swing.JFrame {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 359, Short.MAX_VALUE)
+                .addGap(65, 65, 65)
+                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -209,7 +228,8 @@ public class Currenc extends javax.swing.JFrame {
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -318,6 +338,12 @@ public class Currenc extends javax.swing.JFrame {
         listener.action(eCurrenc.up.newRecord());
         this.dispose();
     }//GEN-LAST:event_btnRemoveert
+
+    private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
+        Field[] fields = {eCurrenc.id, eCurrenc.name};
+        TableHTML.load("Список предметов", qCurrenc, fields);
+        ExecuteCmd.repoType(this);
+    }//GEN-LAST:event_btnReport
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
@@ -326,6 +352,7 @@ public class Currenc extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;
     private javax.swing.JPanel north;
     private javax.swing.JScrollPane scr1;

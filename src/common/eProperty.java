@@ -37,16 +37,19 @@ public enum eProperty {
     base3("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE3.FDB?encoding=win1251"),
     path_app(System.getProperty("user.home") + "/Acron/Okno", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
     path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"), //Аркаим или Arkaim
-    cmd_word("libreoffice -writer ", "cmd /c start winword.exe "),
-    cmd_excel("libreoffice -calc ", "cmd /c start excel.exe "),
-    cmd_html("firefox ", "cmd /c start iexplore.exe "),
+    cmd_word("/usr/bin/oowriter ", "cmd /c start winword.exe "),
+    cmd_excel("/usr/bin/oocalc ", "cmd /c start excel.exe "),
+    cmd_html("/usr/bin/firefox ", "cmd /c start iexplore.exe "),       
+//    cmd_word("libreoffice -writer ", "cmd /c start winword.exe "), 
+//    cmd_excel("libreoffice -calc ", "cmd /c start excel.exe "),
+//    cmd_html("firefox ", "cmd /c start iexplore.exe "),
     fontname("Dialog"),
     fontsize("11");
     private static Properties prop = null;
     public final static String filename = "v9.properties"; //имя файла properties
 
     //Значения по умолчанию
-    private String value;
+    public String value;
 
     public static String password = "*";
     public static FileWriter logconv = null;
