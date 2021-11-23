@@ -1,6 +1,6 @@
 package frames;
 
-import common.ExecuteCmd;
+import frames.swing.report.ExecuteCmd;
 import dataset.Query;
 import domain.eCurrenc;
 import frames.swing.DefCellEditor;

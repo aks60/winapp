@@ -36,7 +36,7 @@ public enum eProperty {
     base2("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE2.FDB?encoding=win1251"),
     base3("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE3.FDB?encoding=win1251"),
     path_app(System.getProperty("user.home") + "/Acron/Okno", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
-    path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"), //Аркаим или Arkaim
+    path_prop(System.getProperty("user.home") + "/Acron/Okna", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okna"), //Аркаим или Arkaim
     cmd_word("/usr/bin/oowriter ", "cmd /c start winword.exe "),
     cmd_excel("/usr/bin/oocalc ", "cmd /c start excel.exe "),
     cmd_html("/usr/bin/firefox ", "cmd /c start iexplore.exe "),       
@@ -46,7 +46,7 @@ public enum eProperty {
     fontname("Dialog"),
     fontsize("11");
     private static Properties prop = null;
-    public final static String filename = "v9.properties"; //имя файла properties
+    public final static String filename = "okna.properties"; //имя файла properties
 
     //Значения по умолчанию
     public String value;

@@ -18,7 +18,7 @@ public class TableHTML {
         try ( PrintWriter out = new PrintWriter(new File(eProperty.path_prop.value, "report.html"))) {
             String text = text(title, table);
             byte[] ptext = text.getBytes();
-            String text2 = new String(ptext, "windows-1251");            
+            String text2 = new String(ptext, "windows-1251");
             out.print(text2);
 
         } catch (IOException e) {
@@ -38,9 +38,9 @@ public class TableHTML {
 
     public static void load(String title, Table table, Field... field) {
         try ( PrintWriter out = new PrintWriter(new File(eProperty.path_prop.value, "report.html"))) {
-            String text = text(title, table, field);
+            String text = text2(title, table, field);
             byte[] ptext = text.getBytes();
-            String text2 = new String(ptext, "UTF-8");            
+            String text2 = new String(ptext, "UTF-8");
             out.print(text2);
 
         } catch (IOException e) {
@@ -145,6 +145,80 @@ public class TableHTML {
         }
         str += "</TABLE></BODY>";
         return str;
+    }
+
+    public static String text2(String title, Table table, Field... fields) {
+        return "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n"
+                + "<html>\n"
+                + "<head>\n"
+                + "  <meta content=\"text/html; charset=UTF-8\"\n"
+                + " http-equiv=\"content-type\">\n"
+                + "  <title>qwerty</title>\n"
+                + "</head>\n"
+                + "<body style=\"margin-top: 60px; margin-left: 0px; width: 865px;\">\n"
+                + "&nbsp; &nbsp;Группы печати<br>\n"
+                + "&nbsp; &nbsp;Группы печати<br>\n"
+                + "&nbsp; &nbsp;Группы печати<br>\n"
+                + "<br>\n"
+                + "&nbsp; &nbsp;<span\n"
+                + " style=\"margin-top: 0px; text-decoration: underline;\">Группы\n"
+                + "печати &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\n"
+                + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>\n"
+                + "<br>\n"
+                + "</span>&nbsp; &nbsp;\n"
+                + "<table\n"
+                + " style=\"text-align: left; margin-left: 0px; height: 340px; width: 595px;\"\n"
+                + " border=\"1\" cellpadding=\"2\" cellspacing=\"2\">\n"
+                + "  <tbody>\n"
+                + "    <tr>\n"
+                + "      <td style=\"width: 285px;\" rowspan=\"10\"><img\n"
+                + " style=\"width: 32px; height: 32px;\" alt=\"qwe\"\n"
+                + " src=\"file:///C:/Documents%20and%20Settings/All%20Users/Application%20Data/Acron/Okna/117.ico\"><br>\n"
+                + "      </td>\n"
+                + "      <td style=\"width: 101px;\">Ыпавпапрачри</td>\n"
+                + "      <td style=\"width: 147px;\"></td>\n"
+                + "    </tr>\n"
+                + "    <tr>\n"
+                + "      <td style=\"width: 101px;\">Рдшгордлордлшг</td>\n"
+                + "      <td style=\"width: 147px;\"></td>\n"
+                + "    </tr>\n"
+                + "    <tr>\n"
+                + "      <td style=\"width: 101px;\">Тщшрощдшрдщлшгр</td>\n"
+                + "      <td style=\"width: 147px;\"></td>\n"
+                + "    </tr>\n"
+                + "    <tr>\n"
+                + "      <td style=\"width: 101px;\">Бщжшощжшодло</td>\n"
+                + "      <td style=\"width: 147px;\"></td>\n"
+                + "    </tr>\n"
+                + "    <tr>\n"
+                + "      <td style=\"width: 101px;\"></td>\n"
+                + "      <td style=\"width: 147px;\"></td>\n"
+                + "    </tr>\n"
+                + "    <tr>\n"
+                + "      <td style=\"width: 101px;\"></td>\n"
+                + "      <td style=\"width: 147px;\"></td>\n"
+                + "    </tr>\n"
+                + "    <tr>\n"
+                + "      <td style=\"width: 101px;\"></td>\n"
+                + "      <td style=\"width: 147px;\"></td>\n"
+                + "    </tr>\n"
+                + "    <tr>\n"
+                + "      <td style=\"width: 101px;\"></td>\n"
+                + "      <td style=\"width: 147px;\"></td>\n"
+                + "    </tr>\n"
+                + "    <tr>\n"
+                + "      <td style=\"width: 101px;\"></td>\n"
+                + "      <td style=\"width: 147px;\"></td>\n"
+                + "    </tr>\n"
+                + "    <tr>\n"
+                + "      <td style=\"width: 101px;\"></td>\n"
+                + "      <td style=\"width: 147px;\"></td>\n"
+                + "    </tr>\n"
+                + "  </tbody>\n"
+                + "</table>\n"
+                + "<br>\n"
+                + "</body>\n"
+                + "</html>";
     }
 
     public static String text(String title, Table table, Field... fields) {
