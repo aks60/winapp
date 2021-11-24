@@ -1181,7 +1181,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder
         FrameProgress.create(Tex.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.Setting.createFrame(Tex.this);
+                App.Order.createFrame(Tex.this);
             }
         });
     }//GEN-LAST:event_mnOrder
