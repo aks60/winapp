@@ -17,7 +17,7 @@ import startup.Main;
 public enum eProperty {
 
     lookandfeel("Metal", "Windows"),
-    url_src("http://aks.acron.ru:8080"),
+    url_src("http://aks.okna.ru:8080"),
     web_port("8080"),
     web_start("false"),
     typedb("fb"),
@@ -35,8 +35,8 @@ public enum eProperty {
     base1("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE.FDB?encoding=win1251"),
     base2("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE2.FDB?encoding=win1251"),
     base3("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE3.FDB?encoding=win1251"),
-    path_app(System.getProperty("user.home") + "/Acron/Okno", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
-    path_prop(System.getProperty("user.home") + "/Acron/Okna", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okna"), //Аркаим или Arkaim
+    path_app(System.getProperty("user.home") + "/Avers/Okna", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
+    path_prop(System.getProperty("user.home") + "/Avers/Okna", "C:\\Documents and Settings\\All Users\\Application Data\\Avers\\Okna"), //Аркаим или Arkaim
     cmd_word("/usr/bin/oowriter ", "cmd /c start winword.exe "),
     cmd_excel("/usr/bin/oocalc ", "cmd /c start excel.exe "),
     cmd_html("/usr/bin/firefox ", "cmd /c start iexplore.exe "),       
