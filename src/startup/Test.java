@@ -11,6 +11,7 @@ import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
 import domain.eElement;
 import frames.DBCompare;
+import frames.Profstroy;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
@@ -68,8 +69,8 @@ public class Test {
 
         Main.dev = true;
         try {
-            //Profstroy.exec();
-            wincalc();
+            Profstroy.exec();
+            //wincalc();
             //param();
             //query();
             //frame();

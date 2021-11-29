@@ -50,6 +50,7 @@ import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSyssize;
 import domain.eSystree;
+import domain.eSysuser;
 import frames.AboutBox;
 import frames.Artikles;
 import frames.Color;
@@ -253,5 +254,5 @@ public enum App {
         eProkit.up, eProprod.up, eProject.up, ePropart.up,
         eRulecalc.up, eSystree.up,
         eArtdet.up, eArtikl.up,
-        eSyssize.up, eGroups.up, eCurrenc.up, eParams.up,};
+        eSyssize.up, eGroups.up, eCurrenc.up, eSysuser.up, eParams.up,};
 }
