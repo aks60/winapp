@@ -15,6 +15,7 @@ import domain.eGroups;
 import enums.TypeGroups;
 import enums.UseColor;
 import common.listener.ListenerRecord;
+import java.util.Vector;
 
 public class ParColor2 extends javax.swing.JDialog {
 
@@ -58,7 +59,7 @@ public class ParColor2 extends javax.swing.JDialog {
                 }
             }
         }
-        tableModel.getDataVector().stream().sorted((rec1, rec2) -> rec1.get(1).toString().compareTo(rec2.get(1).toString())).collect(Collectors.toList());
+        tableModel.getDataVector().stream().sorted((rec1, rec2) -> ((Vector)rec1).get(1).toString().compareTo(((Vector)rec2).get(1).toString())).collect(Collectors.toList());
         tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.id, eGroups.name));
 
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();

@@ -102,7 +102,7 @@ class UPar {
         }
         return true;
     }
-    
+
     //Если признак системы конструкции
     static boolean is_11095_12095_31095_33095_34095_37095_38095_39095_40095(String txt, int nuni) {
         Record systreefRec = eSystree.find(nuni);
@@ -147,7 +147,7 @@ class UPar {
                 depth = (elem.artiklRecAn.getFloat(eArtikl.depth) > depth) ? elem.artiklRecAn.getFloat(eArtikl.depth) : depth;
             }
         }
-        if(UCom.containsNumbJust(txt, depth) == false) {
+        if (UCom.containsNumbJust(txt, depth) == false) {
             return false;
         }
         return true;
@@ -191,9 +191,10 @@ class UPar {
     }
 
     static boolean is_11001_11002_12001_12002_13001_14001_15001_33001_34001(String txt, ElemSimple elem5e) {
-        if (eElement.query().stream().filter(elemRec
-                -> elem5e.artiklRecAn.getInt(eArtikl.id) == elemRec.getInt(eElement.artikl_id)
-                && txt.equals(elemRec.get(eElement.signset))).findFirst().isEmpty()) {
+        Record record = eElement.query().stream().filter(rec
+                -> elem5e.artiklRecAn.getInt(eArtikl.id) == rec.getInt(eElement.artikl_id)
+                && txt.equals(rec.get(eElement.signset))).findFirst().orElse(null);
+        if (record == null) {
             return false;
         }
         return true;

@@ -1,6 +1,8 @@
 package common;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -21,6 +23,7 @@ public enum eProfile {
     //Конструктор
     eProfile(String title, String... role) {
         this.title = title;
-        this.roleSet = Set.of(role);
+        List list = Arrays.asList(role);
+        this.roleSet = new HashSet(list);
     }
 }

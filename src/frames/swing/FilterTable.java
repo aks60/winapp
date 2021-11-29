@@ -165,7 +165,7 @@ public class FilterTable extends javax.swing.JPanel {
                     } else {
                         DefaultTableModel dtm = (DefaultTableModel) table.getModel();
                         for (int index = 0; index < dtm.getDataVector().size(); ++index) {
-                            Vector vector = dtm.getDataVector().get(index);
+                            Vector vector = (Vector) dtm.getDataVector().get(index);
                             if (String.valueOf(vector.get(indexColumn)).startsWith(txtFilter.getText())) {
                                 UGui.setSelectedIndex(table, index);
                                 UGui.scrollRectToIndex(index, table);
