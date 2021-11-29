@@ -7,12 +7,12 @@ import static domain.eArtikl.id;
 
 public enum eSysuser implements Field {
 
-    up("0", "0", "0", "EMPTY"),
-    user2("12", "2147483647", "0", "Пользователь"),
-    uch("4", "10", "1", "Учреждение"),
-    role("12", "2147483647", "1", "Роль"),
-    fio("12", "2147483647", "1", "ФИО пользователя"),
-    openkey("12", "2147483647", "1", "Открытый ключ");
+    up("0", "0", "0", "Пользователи системы", "EMPTY"),
+    id("4", "10", "0", "Идентификатор", "id"),
+    user2("12", "64", "0", "Пользователь", "user2"),
+    role("12", "64", "1", "Роль", "role"),
+    fio("12", "128", "1", "ФИО пользователя", "fio"),
+    openkey("12", "512", "1", "Открытый ключ", "openkey");
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
