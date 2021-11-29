@@ -22,7 +22,7 @@ public class Main {
         frame.setVisible(true);
     }
 
-    //java -jar C:\\Okna\\winapp\\dist\\winapp.jar tex loc
+    ////java -jar C:\\Okna\\winapp\\dist\\winapp.jar tex loc
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
         
