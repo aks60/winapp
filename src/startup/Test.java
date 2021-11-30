@@ -54,9 +54,9 @@ public class Test {
         try {
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
-            Conn con = Conn.initConnect();
+            Conn con = Conn.init();
             con.createConnection(eProperty.server(numDb.toString()), eProperty.port(numDb.toString()), eProperty.base(numDb.toString()), eProperty.user.read(), eProperty.password.toCharArray(), null);;
-            return con.getConnection();
+            return con.connection();
         } catch (Exception e) {
             System.err.println("Ошибка:Test.connect() " + e);
             return null;
@@ -86,7 +86,7 @@ public class Test {
 
     private static void wincalc() throws Exception {
 
-        Conn.instanc().setConnection(Test.connect2());
+        Conn.instanc().connection(Test.connect2());
         builder.Wincalc iwin = new builder.Wincalc();
         String _case = "max";
 
@@ -127,7 +127,7 @@ public class Test {
 
     private static void param() {
 
-        Conn.instanc().setConnection(Test.connect2());
+        Conn.instanc().connection(Test.connect2());
 
         ElementTest et = new ElementTest();
         et.elementVar();
@@ -167,7 +167,7 @@ public class Test {
 
     private static void query() {
         try {
-            Conn.instanc().setConnection(Test.connect2());
+            Conn.instanc().connection(Test.connect2());
             Object obj = eElement.find3(1386, 33);
             System.out.println(obj);
 
@@ -218,7 +218,7 @@ public class Test {
 
     private static void json() {
 
-        Conn.instanc().setConnection(Test.connect2());
+        Conn.instanc().connection(Test.connect2());
         builder.Wincalc iwin = new builder.Wincalc();
         String script = Winscript.test(601004, false);
         iwin.build(script);

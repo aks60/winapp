@@ -107,7 +107,7 @@ public class Profstroy {
         try {
             println(Color.GREEN, "Подготовка методанных");
             cn2.setAutoCommit(false);
-            Conn.instanc().setConnection(cn2);
+            Conn.instanc().connection(cn2);
             st1 = cn1.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY); //источник 
             st2 = cn2.createStatement();//приёмник
             DatabaseMetaData mdb1 = cn1.getMetaData();
@@ -214,7 +214,7 @@ public class Profstroy {
                 executeSql("GRANT TEXNOLOG_RW, DEFROLE TO TEXNOLOG");
                 executeSql("GRANT MANAGER_RW, DEFROLE TO MANAGER");
             }
-            Conn.initConnect().setConnection(cn2);
+            Conn.init().connection(cn2);
             deletePart(cn2, st2);
             updatePart(cn2, st2);
             metaPart(cn2, st2);

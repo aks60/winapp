@@ -24,25 +24,28 @@ public class Conn {
     public final static String fbserver = "jdbc:firebirdsql:";
     public String url = "";
 
-    public static Conn initConnect() {
+    public static Conn init() {
 
         instanceClass = new Conn();
         return instanceClass;
     }
 
     public static Conn instanc() {
+        if(instanceClass == null) {
+            instanceClass = new Conn();
+        }
         return instanceClass;
     }
 
-    public void setConnection(Connection connection) {
+    public void connection(Connection connection) {
         this.connection = connection;
     }
 
-    public Connection getConnection() {
+    public Connection connection() {
         return connection;
     }
     
-    public void setAutoCommit(boolean autoCommit) {
+    public void autoCommit(boolean autoCommit) {
         try {
             connection.setAutoCommit(autoCommit);
         } catch (SQLException e) {

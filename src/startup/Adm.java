@@ -152,7 +152,7 @@ public class Adm extends javax.swing.JFrame {
                     + "rdb$user_privileges b WHERE a.rdb$role_name = b.rdb$relation_name AND  "
                     + "a.rdb$role_name != 'DEFROLE' AND b.rdb$user != 'SYSDBA' AND NOT EXISTS "
                     + "(SELECT * FROM rdb$roles c WHERE c.rdb$role_name = b.rdb$user)";
-            Statement statement = Conn.instanc().getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            Statement statement = Conn.instanc().connection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = statement.executeQuery(sql);
             int npp = 0;
             while (rs.next()) {
@@ -1203,9 +1203,9 @@ public class Adm extends javax.swing.JFrame {
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         try {
-            Conn.instanc().getConnection().createStatement().executeUpdate("create user AKS2 password '1'");
-            Conn.instanc().getConnection().createStatement().executeUpdate("grant DEFROLE to AKS2");
-            Conn.instanc().getConnection().createStatement().executeUpdate("grant TEXNOLOG_RW to AKS2");
+            Conn.instanc().connection().createStatement().executeUpdate("create user AKS2 password '1'");
+            Conn.instanc().connection().createStatement().executeUpdate("grant DEFROLE to AKS2");
+            Conn.instanc().connection().createStatement().executeUpdate("grant TEXNOLOG_RW to AKS2");
 
         } catch (Exception e) {
         }
@@ -1264,13 +1264,13 @@ public class Adm extends javax.swing.JFrame {
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
             String num_base = eProperty.base_num.read();
-            Conn con2 = Conn.initConnect();
+            Conn con2 = Conn.init();
             con2.createConnection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);
-            Connection c2 = con2.getConnection();
+            Connection c2 = con2.connection();
 
             Conn con1 = new Conn();
             con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray(), null);
-            Connection c1 = con1.getConnection();
+            Connection c1 = con1.connection();
 
             txtPane.setText("");
             thread = new Thread(new Runnable() {

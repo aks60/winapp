@@ -755,7 +755,7 @@ public class Partner extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, ePropart.up, (prjpartRec) -> {
                 try {
-                    ResultSet rs = Conn.instanc().getConnection().createStatement().executeQuery("SELECT current_user FROM rdb$database");
+                    ResultSet rs = Conn.instanc().connection().createStatement().executeQuery("SELECT current_user FROM rdb$database");
                     rs.next();
                     prjpartRec.setNo(ePropart.manager, rs.getString(1));
                     prjpartRec.setNo(ePropart.category, arrCateg[0]);
