@@ -107,7 +107,7 @@ public class Profstroy {
         try {
             println(Color.GREEN, "Подготовка методанных");
             cn2.setAutoCommit(false);
-            Conn.connection = cn2;
+            Conn.instanc().setConnection(cn2);
             st1 = cn1.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY); //источник 
             st2 = cn2.createStatement();//приёмник
             DatabaseMetaData mdb1 = cn1.getMetaData();

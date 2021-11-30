@@ -17,7 +17,7 @@ import startup.App;
 public class Conn {
 
     private static Conn instanceClass = null;
-    public static Connection connection = null;
+    protected static Connection connection = null;
     protected Statement statement = null;
     protected boolean autoCommit = false;
     public final static String driver = "org.firebirdsql.jdbc.FBDriver";
@@ -38,16 +38,16 @@ public class Conn {
         this.connection = connection;
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
+    
     public void setAutoCommit(boolean autoCommit) {
         try {
             connection.setAutoCommit(autoCommit);
         } catch (SQLException e) {
             System.out.println("dataset.IConnect.setAutoCommit() " + e);
         }
-    }
-
-    public Connection getConnection() {
-        return connection;
     }
 
     /**
