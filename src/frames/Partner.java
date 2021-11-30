@@ -10,12 +10,11 @@ import frames.swing.FilterTable;
 import java.awt.Frame;
 import java.awt.Window;
 import java.util.Arrays;
-import java.util.stream.Stream;
 import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
+import dataset.Conn;
 import java.sql.ResultSet;
 import javax.swing.event.ListSelectionListener;
 
@@ -756,7 +755,7 @@ public class Partner extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, ePropart.up, (prjpartRec) -> {
                 try {
-                    ResultSet rs = Query.connection.createStatement().executeQuery("SELECT current_user FROM rdb$database");
+                    ResultSet rs = Conn.connection.createStatement().executeQuery("SELECT current_user FROM rdb$database");
                     rs.next();
                     prjpartRec.setNo(ePropart.manager, rs.getString(1));
                     prjpartRec.setNo(ePropart.category, arrCateg[0]);

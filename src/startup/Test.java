@@ -86,7 +86,7 @@ public class Test {
 
     private static void wincalc() throws Exception {
 
-        Query.connection = Test.connect2();
+        Conn.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
         String _case = "max";
 
@@ -127,7 +127,7 @@ public class Test {
 
     private static void param() {
 
-        Query.connection = Test.connect2();
+        Conn.connection = Test.connect2();
 
         ElementTest et = new ElementTest();
         et.elementVar();
@@ -167,7 +167,7 @@ public class Test {
 
     private static void query() {
         try {
-            Query.connection = Test.connect2();
+            Conn.connection = Test.connect2();
             Object obj = eElement.find3(1386, 33);
             System.out.println(obj);
 
@@ -218,7 +218,7 @@ public class Test {
 
     private static void json() {
 
-        Query.connection = Test.connect2();
+        Conn.connection = Test.connect2();
         builder.Wincalc iwin = new builder.Wincalc();
         String script = Winscript.test(601004, false);
         iwin.build(script);

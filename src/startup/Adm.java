@@ -9,7 +9,6 @@ import frames.Profstroy;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
-import static dataset.Query.connection;
 import dataset.eExcep;
 import frames.PathToDb;
 import frames.UGui;
@@ -153,7 +152,7 @@ public class Adm extends javax.swing.JFrame {
                     + "rdb$user_privileges b WHERE a.rdb$role_name = b.rdb$relation_name AND  "
                     + "a.rdb$role_name != 'DEFROLE' AND b.rdb$user != 'SYSDBA' AND NOT EXISTS "
                     + "(SELECT * FROM rdb$roles c WHERE c.rdb$role_name = b.rdb$user)";
-            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            Statement statement = Conn.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = statement.executeQuery(sql);
             int npp = 0;
             while (rs.next()) {

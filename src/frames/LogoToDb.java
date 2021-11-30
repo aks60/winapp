@@ -70,7 +70,6 @@ public class LogoToDb extends javax.swing.JDialog {
                             con.getConnection().close();
                             pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), role);
                             if (pass == eExcep.yesConn) {
-                                Query.connection = con.getConnection();
                                 if (eProfile.P02.roleSet.contains(role)) {
                                     App.createApp(eProfile.P02);
                                 } else if (eProfile.P03.roleSet.contains(role)) {
@@ -85,7 +84,6 @@ public class LogoToDb extends javax.swing.JDialog {
                     } else {
                         pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), null);
                         if (pass == eExcep.yesConn) {
-                            Query.connection = con.getConnection();
                             App.createApp(eProfile.P01);
                             eProperty.user.write(edUser.getText().trim());
                             eProperty.password = String.valueOf(edPass.getPassword()).trim();

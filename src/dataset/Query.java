@@ -2,7 +2,6 @@ package dataset;
 
 import common.eProfile;
 import static dataset.Query.INS;
-import static dataset.Query.connection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +16,7 @@ public class Query extends Table {
 
     public static String conf = "app";
     private static String schema = "";
-    public static Connection connection = null;
+    public Connection connection = null;
     public static String INS = "INS";
     public static String SEL = "SEL";
     public static String UPD = "UPD";
@@ -26,11 +25,13 @@ public class Query extends Table {
     public static LinkedHashSet<Query> listOpenTable = new LinkedHashSet<Query>();
 
     public Query(Query query) {
-        this.root = query;
+        connection = Conn.connection;
+        this.root = query;        
     }
 
     public Query(Field... fields) {
         this.root = this;
+        connection = Conn.connection;
         mapQuery.put(fields[0].tname(), this);
         for (Field field : fields) {
             if (!field.name().equals("up")) {
@@ -42,9 +43,9 @@ public class Query extends Table {
         }
     }
 
-    public Query(Field[]  
-        ... fieldsArr) {
+    public Query(Field[]... fieldsArr) {
         this.root = this;
+        connection = Conn.connection;
         mapQuery.put(fieldsArr[0][0].tname(), this);
         for (Field[] fields : fieldsArr) {
             for (Field field : fields) {

@@ -107,7 +107,7 @@ public class Profstroy {
         try {
             println(Color.GREEN, "Подготовка методанных");
             cn2.setAutoCommit(false);
-            Query.connection = cn2;
+            Conn.connection = cn2;
             st1 = cn1.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY); //источник 
             st2 = cn2.createStatement();//приёмник
             DatabaseMetaData mdb1 = cn1.getMetaData();
@@ -623,6 +623,7 @@ public class Profstroy {
             alterTable("kitdet", "fk_kitdet4", "color2_id", "color");
             alterTable("kitdet", "fk_kitdet5", "color3_id", "color");
             alterTable("kitpar2", "fk_kitpar1", "kitdet_id", "kitdet");
+            alterTable("alter table sysuser add constraint unq1_sysuser unique (user2)");
 
         } catch (Exception e) {
             println(Color.RED, "Ошибка: metaPart().  " + e);
