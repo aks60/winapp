@@ -159,7 +159,6 @@ public class Query extends Table {
 
     public void insert(Record record) {
         try {
-            //Field[] f = fields.get(0).fields();
             Statement statement = connection.createStatement();
             //если нет, генерю сам
             String nameCols = "", nameVals = "";
