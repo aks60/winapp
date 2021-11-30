@@ -25,13 +25,13 @@ public class Query extends Table {
     public static LinkedHashSet<Query> listOpenTable = new LinkedHashSet<Query>();
 
     public Query(Query query) {
-        connection = Conn.connection;
+        this.connection = Conn.connection;
         this.root = query;        
     }
 
     public Query(Field... fields) {
         this.root = this;
-        connection = Conn.connection;
+        this.connection = Conn.connection;
         mapQuery.put(fields[0].tname(), this);
         for (Field field : fields) {
             if (!field.name().equals("up")) {
@@ -45,7 +45,7 @@ public class Query extends Table {
 
     public Query(Field[]... fieldsArr) {
         this.root = this;
-        connection = Conn.connection;
+        this.connection = Conn.connection;
         mapQuery.put(fieldsArr[0][0].tname(), this);
         for (Field[] fields : fieldsArr) {
             for (Field field : fields) {
@@ -59,6 +59,41 @@ public class Query extends Table {
         }
     }
 
+    public Query(Connection connection, Query query) {
+        this.connection = connection;
+        this.root = query;        
+    }
+
+    public Query(Connection connection, Field... fields) {
+        this.root = this;
+        this.connection = connection;
+        mapQuery.put(fields[0].tname(), this);
+        for (Field field : fields) {
+            if (!field.name().equals("up")) {
+                if (mapQuery.get(field.tname()) == null) {
+                    mapQuery.put(field.tname(), new Query(this));
+                }
+                mapQuery.get(field.tname()).fields.add(field);
+            }
+        }
+    }
+
+    public Query(Connection connection, Field[]... fieldsArr) {
+        this.root = this;
+        this.connection = connection;
+        mapQuery.put(fieldsArr[0][0].tname(), this);
+        for (Field[] fields : fieldsArr) {
+            for (Field field : fields) {
+                if (!field.name().equals("up")) {
+                    if (mapQuery.get(field.tname()) == null) {
+                        mapQuery.put(field.tname(), new Query(this));
+                    }
+                    mapQuery.get(field.tname()).fields.add(field);
+                }
+            }
+        }
+    }
+    
     public Query table(Field field) {
         return root.mapQuery.get(field.tname());
     }
