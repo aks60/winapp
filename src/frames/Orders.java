@@ -712,8 +712,6 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         tab2 = new javax.swing.JTable();
         pan3 = new javax.swing.JPanel();
         pan5 = new javax.swing.JPanel();
-        scr6 = new javax.swing.JScrollPane();
-        winTree = new javax.swing.JTree();
         pan8 = new javax.swing.JPanel();
         pan14 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
@@ -809,6 +807,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         txt43 = new javax.swing.JTextField();
         lab60 = new javax.swing.JLabel();
         txt44 = new javax.swing.JTextField();
+        scr6 = new javax.swing.JScrollPane();
+        winTree = new javax.swing.JTree();
         panDesign = new javax.swing.JPanel();
         pan6 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
@@ -1344,13 +1344,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         pan5.setPreferredSize(new java.awt.Dimension(400, 250));
         pan5.setLayout(new java.awt.BorderLayout());
 
-        scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr6.setPreferredSize(new java.awt.Dimension(4, 260));
-        scr6.setViewportView(winTree);
-
-        pan5.add(scr6, java.awt.BorderLayout.SOUTH);
-
-        pan8.setPreferredSize(new java.awt.Dimension(10, 210));
+        pan8.setPreferredSize(new java.awt.Dimension(10, 272));
         pan8.setLayout(new java.awt.CardLayout());
 
         pan14.setLayout(new java.awt.BorderLayout());
@@ -1776,7 +1770,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     .addComponent(txt33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pan8.add(pan13, "card13");
@@ -1845,7 +1839,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
 
         pan8.add(pan15, "card15");
@@ -2397,12 +2391,18 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addGroup(pan17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pan8.add(pan17, "card17");
 
-        pan5.add(pan8, java.awt.BorderLayout.CENTER);
+        pan5.add(pan8, java.awt.BorderLayout.NORTH);
+
+        scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr6.setPreferredSize(new java.awt.Dimension(4, 260));
+        scr6.setViewportView(winTree);
+
+        pan5.add(scr6, java.awt.BorderLayout.CENTER);
 
         pan3.add(pan5, java.awt.BorderLayout.EAST);
 
