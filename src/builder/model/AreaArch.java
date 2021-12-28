@@ -24,8 +24,8 @@ public class AreaArch extends AreaSimple {
         
         super.joining(); //T - соединения
         
-        ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
-                elemArch = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
+        ElemSimple elemBott = frames.get(Layout.BOTT), elemRight = frames.get(Layout.RIGHT),
+                elemArch = frames.get(Layout.TOP), elemLeft = frames.get(Layout.LEFT);
 
         double dh = elemArch.artiklRec.getFloat(eArtikl.height);
         double dw = elemLeft.artiklRec.getFloat(eArtikl.height);
@@ -63,7 +63,7 @@ public class AreaArch extends AreaSimple {
     protected void addFilling(ElemGlass glass, Specific spcAdd) {
         Float dw = spcAdd.width;
         ElemSimple imp = glass.joinFlat(Layout.BOTT);
-        ElemSimple arch = mapFrame.get(Layout.TOP);
+        ElemSimple arch = frames.get(Layout.TOP);
 
         if (glass.anglHoriz == glass.sideHoriz[0]) { //по основанию арки
             double r1 = radiusArch - arch.artiklRec.getFloat(eArtikl.height) + arch.artiklRec.getDbl(eArtikl.size_falz); //внешний радиус

@@ -21,8 +21,8 @@ public class AreaRectangl extends AreaSimple {
         
         super.joining(); //T - соединения
         
-        ElemSimple elemBott = mapFrame.get(Layout.BOTT), elemRight = mapFrame.get(Layout.RIGHT),
-                elemTop = mapFrame.get(Layout.TOP), elemLeft = mapFrame.get(Layout.LEFT);
+        ElemSimple elemBott = frames.get(Layout.BOTT), elemRight = frames.get(Layout.RIGHT),
+                elemTop = frames.get(Layout.TOP), elemLeft = frames.get(Layout.LEFT);
         
         //Угловое соединение правое нижнее
         ElemJoining.create(elemBott.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);

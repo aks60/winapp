@@ -168,19 +168,19 @@ public class UGui {
         }));
         DefMutableTreeNode frm = root.add(new DefMutableTreeNode(new Com5t(Type.FRAME) {
         }));
-        frm.add(new DefMutableTreeNode(iwin.rootArea.mapFrame.get(Layout.BOTT)));
+        frm.add(new DefMutableTreeNode(iwin.rootArea.frames.get(Layout.BOTT)));
         ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        frm.add(new DefMutableTreeNode(iwin.rootArea.mapFrame.get(Layout.RIGHT)));
+        frm.add(new DefMutableTreeNode(iwin.rootArea.frames.get(Layout.RIGHT)));
         ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        frm.add(new DefMutableTreeNode(iwin.rootArea.mapFrame.get(Layout.TOP)));
+        frm.add(new DefMutableTreeNode(iwin.rootArea.frames.get(Layout.TOP)));
         ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        frm.add(new DefMutableTreeNode(iwin.rootArea.mapFrame.get(Layout.LEFT)));
+        frm.add(new DefMutableTreeNode(iwin.rootArea.frames.get(Layout.LEFT)));
         ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        for (Com5t com : iwin.rootArea.listChild) {
+        for (Com5t com : iwin.rootArea.childs) {
             if (com.type != Type.STVORKA) {
                 if (com instanceof ElemSimple) {
                     frm.add(new DefMutableTreeNode(com));
@@ -189,7 +189,7 @@ public class UGui {
                         }));
                     }
                 } else {
-                    for (Com5t com2 : ((AreaSimple) com).listChild) {
+                    for (Com5t com2 : ((AreaSimple) com).childs) {
                         if (com2.type != Type.STVORKA) {
                             if (com2 instanceof ElemSimple) {
                                 frm.add(new DefMutableTreeNode(com2));
@@ -198,7 +198,7 @@ public class UGui {
                                     }));
                                 }
                             } else {
-                                for (Com5t com3 : ((AreaSimple) com2).listChild) {
+                                for (Com5t com3 : ((AreaSimple) com2).childs) {
                                     if (com3.type != Type.STVORKA) {
                                         if (com3 instanceof ElemSimple) {
                                             frm.add(new DefMutableTreeNode(com3));
@@ -207,7 +207,7 @@ public class UGui {
                                                 }));
                                             }
                                         } else {
-                                            for (Com5t com4 : ((AreaSimple) com3).listChild) {
+                                            for (Com5t com4 : ((AreaSimple) com3).childs) {
                                                 if (com4.type != Type.STVORKA) {
                                                     if (com4 instanceof ElemSimple) {
                                                         frm.add(new DefMutableTreeNode(com4));
@@ -241,19 +241,19 @@ public class UGui {
     public static void loadWinTree(Wincalc iwin, DefMutableTreeNode root, Com5t com) {
         DefMutableTreeNode nodeStv = root.add(new DefMutableTreeNode(com));
         AreaStvorka stv = (AreaStvorka) com;
-        nodeStv.add(new DefMutableTreeNode(stv.mapFrame.get(Layout.BOTT)));
+        nodeStv.add(new DefMutableTreeNode(stv.frames.get(Layout.BOTT)));
         ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        nodeStv.add(new DefMutableTreeNode(stv.mapFrame.get(Layout.RIGHT)));
+        nodeStv.add(new DefMutableTreeNode(stv.frames.get(Layout.RIGHT)));
         ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        nodeStv.add(new DefMutableTreeNode(stv.mapFrame.get(Layout.TOP)));
+        nodeStv.add(new DefMutableTreeNode(stv.frames.get(Layout.TOP)));
         ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        nodeStv.add(new DefMutableTreeNode(stv.mapFrame.get(Layout.LEFT)));
+        nodeStv.add(new DefMutableTreeNode(stv.frames.get(Layout.LEFT)));
         ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        for (Com5t com2 : ((AreaSimple) com).listChild) {
+        for (Com5t com2 : ((AreaSimple) com).childs) {
             if (com2 instanceof ElemSimple) {
                 nodeStv.add(new DefMutableTreeNode(com2));
                 if (com2.type != Type.GLASS) {
@@ -261,7 +261,7 @@ public class UGui {
                     }));
                 }
             } else {
-                for (Com5t com3 : ((AreaSimple) com2).listChild) {
+                for (Com5t com3 : ((AreaSimple) com2).childs) {
                     if (com3 instanceof ElemSimple) {
                         nodeStv.add(new DefMutableTreeNode(com3));
                         if (com3.type != Type.GLASS) {
@@ -269,7 +269,7 @@ public class UGui {
                             }));
                         }
                     } else {
-                        for (Com5t com4 : ((AreaSimple) com3).listChild) {
+                        for (Com5t com4 : ((AreaSimple) com3).childs) {
                             if (com4 instanceof ElemSimple) {
                                 nodeStv.add(new DefMutableTreeNode(com4));
                                 if (com4.type != Type.GLASS) {

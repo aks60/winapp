@@ -54,13 +54,13 @@ public class AreaStvorka extends AreaSimple {
 
         //Добавим рамы створки    Ujson.getAsJsonObject(paramObj, stvKey)  
         ElemFrame stvBot = new ElemFrame(this, id + .1f, Layout.BOTT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaBottom)));
-        mapFrame.put(stvBot.layout, stvBot);
+        frames.put(stvBot.layout, stvBot);
         ElemFrame stvRigh = new ElemFrame(this, id + .2f, Layout.RIGHT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaRight)));
-        mapFrame.put(stvRigh.layout, stvRigh);
+        frames.put(stvRigh.layout, stvRigh);
         ElemFrame stvTop = new ElemFrame(this, id + .3f, Layout.TOP, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaTop)));
-        mapFrame.put(stvTop.layout, stvTop);
+        frames.put(stvTop.layout, stvTop);
         ElemFrame stvLeft = new ElemFrame(this, id + .4f, Layout.LEFT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaLeft)));
-        mapFrame.put(stvLeft.layout, stvLeft);
+        frames.put(stvLeft.layout, stvLeft);
 
         //Положение элементов створки с учётом нахлёста
         setNaxlest(stvLeft, stvBot, stvRigh, stvTop);
@@ -114,7 +114,7 @@ public class AreaStvorka extends AreaSimple {
 
     public void initFurniture(String param) {
 
-        ElemFrame stvLeft = mapFrame.get(Layout.LEFT);
+        ElemFrame stvLeft = frames.get(Layout.LEFT);
 
         //Фурнитура створки, ручка, подвес
         if (param(param, PKjson.sysfurnID) != -1) {
@@ -203,13 +203,13 @@ public class AreaStvorka extends AreaSimple {
 
     @Override
     public void joining() {
-        ElemSimple stvBott = mapFrame.get(Layout.BOTT), stvRight = mapFrame.get(Layout.RIGHT),
-                stvTop = mapFrame.get(Layout.TOP), stvLeft = mapFrame.get(Layout.LEFT);
+        ElemSimple stvBott = frames.get(Layout.BOTT), stvRight = frames.get(Layout.RIGHT),
+                stvTop = frames.get(Layout.TOP), stvLeft = frames.get(Layout.LEFT);
         stvBott.anglHoriz = 0;
         stvRight.anglHoriz = 90;
         stvTop.anglHoriz = 180;
         stvLeft.anglHoriz = 270;
-        mapFrame.entrySet().forEach(elem -> {
+        frames.entrySet().forEach(elem -> {
             elem.getValue().anglCut[0] = 45;
             elem.getValue().anglCut[1] = 45;
         });
@@ -224,33 +224,33 @@ public class AreaStvorka extends AreaSimple {
         ElemJoining.create(stvLeft.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90);
 
         //Прилегающее нижнее
-        ElemSimple frmBott = (stvBott.joinFlat(Layout.BOTT) != null) ? stvBott.joinFlat(Layout.BOTT) : root.mapFrame.get(Layout.BOTT);
+        ElemSimple frmBott = (stvBott.joinFlat(Layout.BOTT) != null) ? stvBott.joinFlat(Layout.BOTT) : root.frames.get(Layout.BOTT);
         ElemJoining.create(stvBott.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, frmBott, 0);
         //Прилегающее верхнее 
-        ElemSimple frmTop = (stvTop.joinFlat(Layout.TOP) != null) ? stvTop.joinFlat(Layout.TOP) : root.mapFrame.get(Layout.TOP);
+        ElemSimple frmTop = (stvTop.joinFlat(Layout.TOP) != null) ? stvTop.joinFlat(Layout.TOP) : root.frames.get(Layout.TOP);
         ElemJoining.create(stvTop.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0);
         //Прилегающее левое
-        ElemSimple frmLeft = (stvLeft.joinFlat(Layout.LEFT) != null) ? stvLeft.joinFlat(Layout.LEFT) : root.mapFrame.get(Layout.LEFT);
+        ElemSimple frmLeft = (stvLeft.joinFlat(Layout.LEFT) != null) ? stvLeft.joinFlat(Layout.LEFT) : root.frames.get(Layout.LEFT);
         ElemJoining.create(stvLeft.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, frmLeft, 0);
         //Прилегающее правое
-        ElemSimple frmRight = (stvRight.joinFlat(Layout.RIGHT) != null) ? stvRight.joinFlat(Layout.RIGHT) : root.mapFrame.get(Layout.RIGHT);
+        ElemSimple frmRight = (stvRight.joinFlat(Layout.RIGHT) != null) ? stvRight.joinFlat(Layout.RIGHT) : root.frames.get(Layout.RIGHT);
         ElemJoining.create(stvRight.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0);
     }
 
     @Override
     public void paint() {
 
-        mapFrame.get(Layout.TOP).paint();
-        mapFrame.get(Layout.BOTT).paint();
-        mapFrame.get(Layout.LEFT).paint();
-        mapFrame.get(Layout.RIGHT).paint();
+        frames.get(Layout.TOP).paint();
+        frames.get(Layout.BOTT).paint();
+        frames.get(Layout.LEFT).paint();
+        frames.get(Layout.RIGHT).paint();
 
         if (typeOpen != TypeOpen1.INVALID) {
             float DX = 20, DY = 60, X1 = 0, Y1 = 0;
-            ElemSimple elemL = mapFrame.get(Layout.LEFT);
-            ElemSimple elemR = mapFrame.get(Layout.RIGHT);
-            ElemSimple elemT = mapFrame.get(Layout.TOP);
-            ElemSimple elemB = mapFrame.get(Layout.BOTT);
+            ElemSimple elemL = frames.get(Layout.LEFT);
+            ElemSimple elemR = frames.get(Layout.RIGHT);
+            ElemSimple elemT = frames.get(Layout.TOP);
+            ElemSimple elemB = frames.get(Layout.BOTT);
 
             if (typeOpen.id == 1 || typeOpen.id == 3) {
                 X1 = elemR.x1 + (elemR.x2 - elemR.x1) / 2;

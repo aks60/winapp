@@ -63,7 +63,7 @@ public class Filling extends Cal5e {
 
             List<ElemSimple> elemFrameList = null;
             if (elemGlass.owner.type == Type.ARCH) {
-                elemFrameList = Arrays.asList(rootArea().mapFrame.get(Layout.BOTT), rootArea().mapFrame.get(Layout.RIGHT), rootArea().mapFrame.get(Layout.TOP), rootArea().mapFrame.get(Layout.LEFT));
+                elemFrameList = Arrays.asList(rootArea().frames.get(Layout.BOTT), rootArea().frames.get(Layout.RIGHT), rootArea().frames.get(Layout.TOP), rootArea().frames.get(Layout.LEFT));
             } else {
                 elemFrameList = Arrays.asList(elemGlass.joinFlat(Layout.BOTT), elemGlass.joinFlat(Layout.RIGHT), elemGlass.joinFlat(Layout.TOP), elemGlass.joinFlat(Layout.LEFT));
             }

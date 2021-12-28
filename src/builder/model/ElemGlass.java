@@ -68,7 +68,7 @@ public class ElemGlass extends ElemSimple {
         spcRec.colorID2 = colorID2;
         spcRec.colorID3 = colorID3;
         if (owner.type == Type.ARCH) { //если арка
-            ElemFrame elemArch = root().mapFrame.get(Layout.TOP);
+            ElemFrame elemArch = root().frames.get(Layout.TOP);
             ElemSimple elemImpost = joinFlat(Layout.BOTT);
             y1 = y1 + elemArch.artiklRec.getFloat(eArtikl.height) - elemArch.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
             y2 = y2 + elemImpost.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
@@ -79,7 +79,7 @@ public class ElemGlass extends ElemSimple {
             radiusGlass = (float) r;
 
         } else if (owner.type == Type.TRAPEZE) {
-            ElemSimple insideLeft = root().mapFrame.get(Layout.LEFT), insideTop = root().mapFrame.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = root().mapFrame.get(Layout.RIGHT);
+            ElemSimple insideLeft = root().frames.get(Layout.LEFT), insideTop = root().frames.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = root().frames.get(Layout.RIGHT);
             if (iwin.form == Form.NUM2) {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
                 ElemJoining ej = iwin.mapJoin.get(insideTop.joinPoint(1));
@@ -211,7 +211,7 @@ public class ElemGlass extends ElemSimple {
         iwin.gc2d.setColor(new java.awt.Color(226, 255, 250));
 
         if (owner.type == Type.ARCH) {
-            ElemFrame ef = root().mapFrame.get(Layout.TOP);
+            ElemFrame ef = root().frames.get(Layout.TOP);
             float dz = ef.artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));

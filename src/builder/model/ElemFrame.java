@@ -152,7 +152,7 @@ public class ElemFrame extends ElemSimple {
                 double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
                 lengthArch = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
                 spcRec.width = lengthArch + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
-                spcRec.height = owner.mapFrame.get(Layout.TOP).artiklRec.getFloat(eArtikl.height);
+                spcRec.height = owner.frames.get(Layout.TOP).artiklRec.getFloat(eArtikl.height);
             } else if (Layout.BOTT == layout) {
                 spcRec.width = x2 - x1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
@@ -263,7 +263,7 @@ public class ElemFrame extends ElemSimple {
                     colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, elemStv.handleColor);
 
                 } else if ("по текстуре подвеса".equals(spcAdd.getParam("null", 24006))) {
-                    for (Map.Entry<Layout, ElemFrame> elem : elemStv.mapFrame.entrySet()) {
+                    for (Map.Entry<Layout, ElemFrame> elem : elemStv.frames.entrySet()) {
                         for (Specific spc : elem.getValue().spcRec.spcList) {
                             if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 12) {
                                 colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);
@@ -272,7 +272,7 @@ public class ElemFrame extends ElemSimple {
                     }
 
                 } else if ("по текстуре замка".equals(spcAdd.getParam("null", 24006))) {
-                    for (Map.Entry<Layout, ElemFrame> elem : elemStv.mapFrame.entrySet()) {
+                    for (Map.Entry<Layout, ElemFrame> elem : elemStv.frames.entrySet()) {
                         for (Specific spc : elem.getValue().spcRec.spcList) {
                             if (spc.artiklRec.getInt(eArtikl.level1) == 2 && spc.artiklRec.getInt(eArtikl.level2) == 9) {
                                 colorID = Paint.colorFromArtikl(spcAdd.artiklRec.getInt(eArtikl.id), 1, spc.colorID1);

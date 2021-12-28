@@ -31,16 +31,16 @@ public class ElemCross extends ElemSimple {
         initСonstructiv(param);
 
         //Коррекция положения импоста арки (подкдадка ареа над импостом)
-        if (Type.ARCH == owner.type && owner.listChild.size() == 1) {
-            AreaSimple prevArea = (AreaSimple) owner.listChild.get(0);
+        if (Type.ARCH == owner.type && owner.childs.size() == 1) {
+            AreaSimple prevArea = (AreaSimple) owner.childs.get(0);
             prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.height) / 2);
             
-        } else if (Type.TRAPEZE == owner.type && owner.listChild.size() == 1) {
-            AreaSimple prevArea = (AreaSimple) owner.listChild.get(0);
+        } else if (Type.TRAPEZE == owner.type && owner.childs.size() == 1) {
+            AreaSimple prevArea = (AreaSimple) owner.childs.get(0);
             float dy = 0;
             if(iwin.form == Form.NUM2) {
-               float angl = root.mapFrame.get(Layout.RIGHT).anglCut[1];
-               dy = (float) (root.mapFrame.get(Layout.RIGHT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
+               float angl = root.frames.get(Layout.RIGHT).anglCut[1];
+               dy = (float) (root.frames.get(Layout.RIGHT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
             }
             prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.size_centr) + dy);
         }
@@ -66,9 +66,9 @@ public class ElemCross extends ElemSimple {
 
     //Установка координат
     public void setLocation() {
-        for (int index = owner.listChild.size() - 1; index >= 0; --index) {
-            if (owner.listChild.get(index) instanceof AreaSimple) {
-                Com5t prevArea = owner.listChild.get(index); //index указывает на предыдущий элемент
+        for (int index = owner.childs.size() - 1; index >= 0; --index) {
+            if (owner.childs.get(index) instanceof AreaSimple) {
+                Com5t prevArea = owner.childs.get(index); //index указывает на предыдущий элемент
                 float db = artiklRecAn.getFloat(eArtikl.size_centr);
 
                 if (Layout.VERT.equals(owner.layout)) { //сверху вниз

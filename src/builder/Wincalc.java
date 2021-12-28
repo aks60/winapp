@@ -141,7 +141,7 @@ public class Wincalc {
             //Добавим рамы
             for (GsonElem gsonElem : rootGson.childs()) {
                 if (Type.FRAME_SIDE == gsonElem.type()) {
-                    rootArea.mapFrame.put(gsonElem.layout(), new ElemFrame(rootArea, gsonElem.id(), gsonElem.layout(), gsonElem.param()));
+                    rootArea.frames.put(gsonElem.layout(), new ElemFrame(rootArea, gsonElem.id(), gsonElem.layout(), gsonElem.param()));
                 }
             }
 
@@ -161,19 +161,19 @@ public class Wincalc {
                 //Добавим Area
                 if (Type.STVORKA == el.type()) {
                     AreaSimple area5e = new AreaStvorka(Wincalc.this, owner, el.id(), el.param());
-                    owner.listChild.add(area5e);
+                    owner.childs.add(area5e);
                     hm.put(area5e, el);
                 } else if (Type.AREA == el.type()) {
                     AreaSimple area5e = new AreaSimple(Wincalc.this, owner, el.id(), el.type(), el.layout(), el.width(), el.height(), -1, -1, -1, null);
-                    owner.listChild.add(area5e);
+                    owner.childs.add(area5e);
                     hm.put(area5e, el);
 
                     //Добавим Elements
                 } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {
-                    owner.listChild.add(new ElemCross(owner, el.type(), el.id(), el.param()));
+                    owner.childs.add(new ElemCross(owner, el.type(), el.id(), el.param()));
 
                 } else if (Type.GLASS == el.type()) {
-                    owner.listChild.add(new ElemGlass(owner, el.id(), el.param()));
+                    owner.childs.add(new ElemGlass(owner, el.id(), el.param()));
                 }
             }
 

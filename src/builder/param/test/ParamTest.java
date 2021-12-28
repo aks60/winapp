@@ -158,53 +158,53 @@ public class ParamTest {
 
     //Получить элемент по ключу
     public ElemSimple getElem(AreaSimple rootArea, float id) {
-        for (ElemFrame frm : rootArea.mapFrame.values()) {
+        for (ElemFrame frm : rootArea.frames.values()) {
             if (frm.id() == id) {
                 return (ElemSimple) frm;
             }
         }
-        for (Com5t it1 : rootArea.listChild) {
+        for (Com5t it1 : rootArea.childs) {
             if (it1.id() == id) {
                 return (ElemSimple) it1;
             }
             if (it1 instanceof AreaSimple) {
-                for (ElemFrame frm : ((AreaSimple) it1).mapFrame.values()) {
+                for (ElemFrame frm : ((AreaSimple) it1).frames.values()) {
                     if (frm.id() == id) {
                         return (ElemSimple) frm;
                     }
                 }
             }
             if (it1 instanceof AreaSimple) {
-                for (Com5t it2 : ((AreaSimple) it1).listChild) {
+                for (Com5t it2 : ((AreaSimple) it1).childs) {
                     if (it2.id() == id) {
                         return (ElemSimple) it2;
                     }
                     if (it2 instanceof AreaSimple) {
-                        for (ElemFrame frm : ((AreaSimple) it2).mapFrame.values()) {
+                        for (ElemFrame frm : ((AreaSimple) it2).frames.values()) {
                             if (frm.id() == id) {
                                 return frm;
                             }
                         }
                     }
                     if (it2 instanceof AreaSimple) {
-                        for (Com5t it3 : ((AreaSimple) it2).listChild) {
+                        for (Com5t it3 : ((AreaSimple) it2).childs) {
                             if (it3.id() == id) {
                                 return (ElemSimple) it3;
                             }
                             if (it3 instanceof AreaSimple) {
-                                for (ElemFrame frm : ((AreaSimple) it3).mapFrame.values()) {
+                                for (ElemFrame frm : ((AreaSimple) it3).frames.values()) {
                                     if (frm.id() == id) {
                                         return frm;
                                     }
                                 }
                             }
                             if (it3 instanceof AreaSimple) {
-                                for (Com5t it4 : ((AreaSimple) it3).listChild) {
+                                for (Com5t it4 : ((AreaSimple) it3).childs) {
                                     if (it4.id() == id) {
                                         return (ElemSimple) it4;
                                     }
                                     if (it4 instanceof AreaSimple) {
-                                        for (ElemFrame frm : ((AreaSimple) it4).mapFrame.values()) {
+                                        for (ElemFrame frm : ((AreaSimple) it4).frames.values()) {
                                             if (frm.id() == id) {
                                                 return frm;
                                             }

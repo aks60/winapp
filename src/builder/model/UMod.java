@@ -62,13 +62,13 @@ class UMod {
                     && "null".equals(spcAdd.getParam("null", 38010, 39002))) {
                 float length = 0;
                 if ("1".equals(spcAdd.getParam("null", 38010, 39002))) {
-                    length = spcRec.elem5e.root().mapFrame.get(Layout.BOTT).length();
+                    length = spcRec.elem5e.root().frames.get(Layout.BOTT).length();
                 } else if ("2".equals(spcAdd.getParam("null", 38010, 39002))) {
-                    length = spcRec.elem5e.root().mapFrame.get(Layout.RIGHT).length();
+                    length = spcRec.elem5e.root().frames.get(Layout.RIGHT).length();
                 } else if ("3".equals(spcAdd.getParam("null", 38010, 39002))) {
-                    length = spcRec.elem5e.root().mapFrame.get(Layout.TOP).length();
+                    length = spcRec.elem5e.root().frames.get(Layout.TOP).length();
                 } else if ("4".equals(spcAdd.getParam("null", 38010, 39002))) {
-                    length = spcRec.elem5e.root().mapFrame.get(Layout.LEFT).length();
+                    length = spcRec.elem5e.root().frames.get(Layout.LEFT).length();
                 }
                 width_next = length - width_begin;
             }

@@ -78,8 +78,8 @@ public abstract class Com5t {
 
     public int index() {
         if (owner != null) {
-            for (int index = 0; index < owner.listChild.size(); ++index) {
-                if (owner.listChild.get(index) == this) {
+            for (int index = 0; index < owner.childs.size(); ++index) {
+                if (owner.childs.get(index) == this) {
                     return index;
                 }
             }

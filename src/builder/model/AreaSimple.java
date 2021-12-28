@@ -24,8 +24,8 @@ import enums.Type;
 
 public class AreaSimple extends Com5t {
 
-    public EnumMap<Layout, ElemFrame> mapFrame = new EnumMap<>(Layout.class); //список рам в окне 
-    public LinkedList<Com5t> listChild = new LinkedList(); //дети
+    public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне 
+    public LinkedList<Com5t> childs = new LinkedList(); //дети
 
     public AreaSimple(Wincalc iwin, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
         super(id, iwin, owner);
@@ -35,7 +35,7 @@ public class AreaSimple extends Com5t {
         this.colorID2 = color2;
         this.colorID3 = color3;
         if (owner != null && (owner.type == Type.ARCH || owner.type == Type.TRAPEZE)) {
-            if (owner.listChild.isEmpty()) { //примитивно, пока всё нестандартное сверху
+            if (owner.childs.isEmpty()) { //примитивно, пока всё нестандартное сверху
                 this.type = owner.type;
             }
         }
@@ -58,7 +58,7 @@ public class AreaSimple extends Com5t {
         //Происходит при подкдадке дополнительной ареа в арке
         //или сужении area створки при нахлёсте профилей
         if (owner != null) {
-            if (owner.listChild.isEmpty() == true) {
+            if (owner.childs.isEmpty() == true) {
 
                 if (Layout.VERT.equals(owner.layout)) { //сверху вниз
                     float Y2 = (owner.y1 + height > owner.y2) ? owner.y2 : owner.y1 + height;
@@ -70,9 +70,9 @@ public class AreaSimple extends Com5t {
                 }
 
             } else {
-                for (int index = owner.listChild.size() - 1; index >= 0; --index) { //т.к. this area ёщё не создана начнём с конца
-                    if (owner.listChild.get(index) instanceof AreaSimple) {
-                        AreaSimple prevArea = (AreaSimple) owner.listChild.get(index);
+                for (int index = owner.childs.size() - 1; index >= 0; --index) { //т.к. this area ёщё не создана начнём с конца
+                    if (owner.childs.get(index) instanceof AreaSimple) {
+                        AreaSimple prevArea = (AreaSimple) owner.childs.get(index);
 
                         if (Layout.VERT.equals(owner.layout)) { //сверху вниз                            
                             float Y2 = (prevArea.y2 + height > owner.y2) ? owner.y2 : prevArea.y2 + height;
@@ -93,7 +93,7 @@ public class AreaSimple extends Com5t {
 
         if (owner != null) {
             //Первая area добавляемая в area владельца
-            if (owner.listChild.isEmpty() == true) {
+            if (owner.childs.isEmpty() == true) {
                 if (Layout.VERT.equals(owner.layout)) { //сверху вниз
                     setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + height);
                 } else if (Layout.HORIZ.equals(owner.layout)) { //слева направо
@@ -102,9 +102,9 @@ public class AreaSimple extends Com5t {
 
                 //Aреа перед текущей, т.к. this area ёщё не создана начнём с конца
             } else {
-                for (int index = owner.listChild.size() - 1; index >= 0; --index) {
-                    if (owner.listChild.get(index) instanceof AreaSimple) {
-                        AreaSimple prevArea = (AreaSimple) owner.listChild.get(index);
+                for (int index = owner.childs.size() - 1; index >= 0; --index) {
+                    if (owner.childs.get(index) instanceof AreaSimple) {
+                        AreaSimple prevArea = (AreaSimple) owner.childs.get(index);
 
                         //Если последняя доб. area выходит за коорд. owner area. 
                         //Происходит при подкдадке дополнительной ареа над импостом и
@@ -193,10 +193,10 @@ public class AreaSimple extends Com5t {
             elemStoikaList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам
-            mapFrame.get(Layout.TOP).paint();
-            mapFrame.get(Layout.BOTT).paint();
-            mapFrame.get(Layout.LEFT).paint();
-            mapFrame.get(Layout.RIGHT).paint();
+            frames.get(Layout.TOP).paint();
+            frames.get(Layout.BOTT).paint();
+            frames.get(Layout.LEFT).paint();
+            frames.get(Layout.RIGHT).paint();
 
             //Прорисовка створок
             LinkedList<AreaStvorka> elemStvorkaList = UCom.listSortObj(iwin.listSortAr, Type.STVORKA);

@@ -79,7 +79,7 @@ class UPar {
     static boolean is_STRING_XX000(String txt, ElemSimple elem5e) {
         Record sysprofRec = elem5e.sysprofRec;
         if (elem5e instanceof ElemGlass) {
-            sysprofRec = elem5e.owner.mapFrame.get(Layout.BOTT).sysprofRec;
+            sysprofRec = elem5e.owner.frames.get(Layout.BOTT).sysprofRec;
         }
         Record artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklRecAn.get(eArtikl.tech_code) == null) {
