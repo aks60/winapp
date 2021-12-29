@@ -254,5 +254,6 @@ public enum App {
         eProkit.up, eProprod.up, eProject.up, ePropart.up,
         eRulecalc.up, eSystree.up,
         eArtdet.up, eArtikl.up,
-        eSyssize.up, eGroups.up, eCurrenc.up, eSysuser.up, eParams.up,};
+        eSyssize.up, eGroups.up, eCurrenc.up, eSysuser.up, eParams.up
+    };
 }

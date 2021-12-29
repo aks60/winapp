@@ -153,10 +153,10 @@ public class Wincalc {
         }
     }
 
-    private void recursion(AreaSimple owner, GsonElem gsonElem) {
+    private void recursion(AreaSimple owner, GsonElem gson) {
         try {
             LinkedHashMap<AreaSimple, GsonElem> hm = new LinkedHashMap();
-            for (GsonElem el : gsonElem.childs()) {
+            for (GsonElem el : gson.childs()) {
 
                 //Добавим Area
                 if (Type.STVORKA == el.type()) {
