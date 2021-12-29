@@ -158,17 +158,16 @@ public class Wincalc {
             LinkedHashMap<AreaSimple, GsonElem> hm = new LinkedHashMap();
             for (GsonElem el : gson.childs()) {
 
-                //Добавим Area
                 if (Type.STVORKA == el.type()) {
                     AreaSimple area5e = new AreaStvorka(Wincalc.this, owner, el.id(), el.param());
                     owner.childs.add(area5e);
                     hm.put(area5e, el);
+ 
                 } else if (Type.AREA == el.type()) {
                     AreaSimple area5e = new AreaSimple(Wincalc.this, owner, el.id(), el.type(), el.layout(), el.width(), el.height(), -1, -1, -1, null);
                     owner.childs.add(area5e);
                     hm.put(area5e, el);
-
-                    //Добавим Elements
+                   
                 } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {
                     owner.childs.add(new ElemCross(owner, el.type(), el.id(), el.param()));
 
