@@ -138,22 +138,15 @@ public class Wincalc {
                 rootArea = new AreaArch(this, rootGson, colorID1, colorID2, colorID3); //арка
             }
 
-            //Добавим рамы
-            for (GsonElem gsonElem : rootGson.childs()) {
-                if (Type.FRAME_SIDE == gsonElem.type()) {
-                    rootArea.frames.put(gsonElem.layout(), new ElemFrame(rootArea, gsonElem.id(), gsonElem.layout(), gsonElem.param()));
-                }
-            }
-
-            //Всё остальное
-            recursion(rootArea, rootGson);
+            //Создадим элементы конструкции
+            elements(rootArea, rootGson);
 
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.parsing() " + e);
         }
     }
 
-    private void recursion(AreaSimple owner, GsonElem gson) {
+    private void elements(AreaSimple owner, GsonElem gson) {
         try {
             LinkedHashMap<AreaSimple, GsonElem> hm = new LinkedHashMap();
             for (GsonElem el : gson.childs()) {
@@ -162,12 +155,15 @@ public class Wincalc {
                     AreaSimple area5e = new AreaStvorka(Wincalc.this, owner, el.id(), el.param());
                     owner.childs.add(area5e);
                     hm.put(area5e, el);
- 
+
                 } else if (Type.AREA == el.type()) {
                     AreaSimple area5e = new AreaSimple(Wincalc.this, owner, el.id(), el.type(), el.layout(), el.width(), el.height(), -1, -1, -1, null);
                     owner.childs.add(area5e);
                     hm.put(area5e, el);
-                   
+
+                } else if (Type.FRAME_SIDE == el.type()) {
+                    rootArea.frames.put(el.layout(), new ElemFrame(rootArea, el.id(), el.layout(), el.param()));
+
                 } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {
                     owner.childs.add(new ElemCross(owner, el.type(), el.id(), el.param()));
 
@@ -178,7 +174,7 @@ public class Wincalc {
 
             //Теперь вложенные элементы
             for (Map.Entry<AreaSimple, GsonElem> entry : hm.entrySet()) {
-                recursion(entry.getKey(), entry.getValue());
+                elements(entry.getKey(), entry.getValue());
             }
 
         } catch (Exception e) {
