@@ -68,7 +68,7 @@ public class AboutBox extends javax.swing.JFrame {
 
         labImage.setBackground(new java.awt.Color(255, 255, 255));
         labImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif"))); // NOI18N
+        labImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d035.png"))); // NOI18N
         labImage.setMaximumSize(new java.awt.Dimension(300, 70));
         labImage.setOpaque(true);
         labImage.setPreferredSize(new java.awt.Dimension(80, 60));
