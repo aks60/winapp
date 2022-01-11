@@ -100,7 +100,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addElem(new GsonElem(Type.GLASS, "{artglasID:5746}")); //или R4x10x4x10x4
+                    .addElem(new GsonElem(Type.GLASS, "{\"artglasID\":5746}")); //или R4x10x4x10x4
 
         } else if (prj == 601007) { //PUNIC =
             rootGson = new GsonRoot(prj, 1, 87, "NOVOTEX\\Techno 58\\1 ОКНА",
@@ -146,7 +146,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addElem(new GsonElem(Type.GLASS, "{artglasID:4663}")); //или 4x12x4x12x4
+                    .addElem(new GsonElem(Type.GLASS, "{\"artglasID\":4663}")); //или 4x12x4x12x4
         } else if (prj == 999) { //PUNIC =
             rootGson = new GsonRoot(prj, 1, 54, "KBE\\KBE Эксперт\\1 ОКНА\\Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.RECTANGL, 700, 1400, 1009, 1009, 1009);
@@ -155,10 +155,10 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addElem(new GsonElem(Type.GLASS, "{artglasID:4663}"));
+                    .addElem(new GsonElem(Type.GLASS, "{\"artglasID\":4663}"));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addElem(new GsonElem(Type.GLASS, "{artglasID:4663}"));
+                    .addElem(new GsonElem(Type.GLASS, "{\"artglasID\":4663}"));
 
             //Тут просочилась ручка не подходящая по параметру. Возможно ошибка ПрофСтроя4
         } else if (prj == 601010) { //PUNIC =  
@@ -170,11 +170,11 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{sysprofID:1121, \"typeOpen\":1,\"sysfurnID\":2335}")) //,artiklHandl:2159,colorHandl:1009}"))
-                    .addElem(new GsonElem(Type.GLASS, "{artglasID:4663}"));
+                    .addElem(new GsonElem(Type.GLASS, "{\"artglasID\":4663}"));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{sysprofID:1121, \"typeOpen\":4,\"sysfurnID\":2916}")) //,artiklHandl:5058,colorHandl:1009}"))
-                    .addElem(new GsonElem(Type.GLASS, "{artglasID:4663}"));
+                    .addElem(new GsonElem(Type.GLASS, "{\"artglasID\":4663}"));
 
             //Нерешёння проблема со штапиком
         } else if (prj == 604004) { //PUNIC =
@@ -204,11 +204,11 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 450))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":1, \"sysfurnID\":2915}"))
-                    .addElem(new GsonElem(Type.GLASS, "{artglasID:3293}"));
+                    .addElem(new GsonElem(Type.GLASS, "{\"artglasID\":3293}"));
             rootGson.addElem(new GsonElem(Type.SHTULP))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 850))
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":2913}"))
-                    .addElem(new GsonElem(Type.GLASS, "{artglasID:4267}"));
+                    .addElem(new GsonElem(Type.GLASS, "{\"artglasID\":4267}"));
 
         } else if (prj == 508634) { //PUNIC =
             rootGson = new GsonRoot(prj, 1, 303, "Rehau\\Delight\\4 ОКНА(ФИГУРНАЯ СТВОРКА)",
