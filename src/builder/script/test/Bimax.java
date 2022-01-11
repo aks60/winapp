@@ -22,7 +22,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":1, \"sysfurnID\":1634}"))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 601002) { //PUNIC = 427818
@@ -33,11 +33,11 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1300 / 2))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:3, sysfurnID:860}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":3, \"sysfurnID\":860}"))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1300 / 2))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:860}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":860}"))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 601003) { //PUNIC = 427819
@@ -52,11 +52,11 @@ public final class Bimax {
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1300));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 720))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.STVORKA, "{typeOpen:1, sysfurnID:389}"))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.STVORKA, "{\"typeOpen\":1, \"sysfurnID\":389}"))
                     .addElem(new GsonElem(Type.GLASS));
             area.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 720))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.STVORKA, "{typeOpen:3, sysfurnID:819}"))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.STVORKA, "{\"typeOpen\":3, \"sysfurnID\":819}"))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 601004) { //PUNIC = 427820
@@ -71,11 +71,11 @@ public final class Bimax {
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1300));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 720))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":1, \"sysfurnID\":1634}"))
                     .addElem(new GsonElem(Type.GLASS));
             area.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 720))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:1633}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":1633}"))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 601005) { //PUNIC = 
@@ -86,11 +86,11 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 800))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":1, \"sysfurnID\":1634}"))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 800))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:1633}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":1633}"))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 601006) { //PUNIC =
@@ -114,11 +114,11 @@ public final class Bimax {
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1100));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 550))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1537}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":1, \"sysfurnID\":1537}"))
                     .addElem(new GsonElem(Type.GLASS));
             area.addElem(new GsonElem(Type.IMPOST));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 550))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:1536}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":1536}"))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 601008) { //PUNIC =
@@ -133,7 +133,7 @@ public final class Bimax {
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 600));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 550))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:534}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":534}"))
                     .addElem(new GsonElem(Type.GLASS));
             area.addElem(new GsonElem(Type.IMPOST));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 1150))
@@ -169,11 +169,11 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{sysprofID:1121, typeOpen:1,sysfurnID:2335}")) //,artiklHandl:2159,colorHandl:1009}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{sysprofID:1121, \"typeOpen\":1,\"sysfurnID\":2335}")) //,artiklHandl:2159,colorHandl:1009}"))
                     .addElem(new GsonElem(Type.GLASS, "{artglasID:4663}"));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{sysprofID:1121, typeOpen:4,sysfurnID:2916}")) //,artiklHandl:5058,colorHandl:1009}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{sysprofID:1121, \"typeOpen\":4,\"sysfurnID\":2916}")) //,artiklHandl:5058,colorHandl:1009}"))
                     .addElem(new GsonElem(Type.GLASS, "{artglasID:4663}"));
 
             //Нерешёння проблема со штапиком
@@ -192,7 +192,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.GLASS));
             area.addElem(new GsonElem(Type.IMPOST, "{sysprofID:3246}"));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:91}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":91}"))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 700027) {  //punic = 427872 штульповое
@@ -203,11 +203,11 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 450))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:2915}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":1, \"sysfurnID\":2915}"))
                     .addElem(new GsonElem(Type.GLASS, "{artglasID:3293}"));
             rootGson.addElem(new GsonElem(Type.SHTULP))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 850))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:2913}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":2913}"))
                     .addElem(new GsonElem(Type.GLASS, "{artglasID:4267}"));
 
         } else if (prj == 508634) { //PUNIC =
@@ -240,11 +240,11 @@ public final class Bimax {
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1200));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:2745}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":1, \"sysfurnID\":2745}"))
                     .addElem(new GsonElem(Type.GLASS));
             area.addElem(new GsonElem(Type.IMPOST));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:2744}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":2744}"))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 604006) { //PUNIC = 427832
@@ -259,11 +259,11 @@ public final class Bimax {
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1220));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 550))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:2745}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":1, \"sysfurnID\":2745}"))
                     .addElem(new GsonElem(Type.GLASS));
             area.addElem(new GsonElem(Type.IMPOST));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 550))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:2744}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":2744}"))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 604007) { //PUNIC = 427831
@@ -278,11 +278,11 @@ public final class Bimax {
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = (GsonElem) rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1300));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 700))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:535}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":1, \"sysfurnID\":535}"))
                     .addElem(new GsonElem(Type.GLASS));
             area.addElem(new GsonElem(Type.IMPOST));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 700))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:3, sysfurnID:534}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":3, \"sysfurnID\":534}"))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 604008) { //PUNIC = 427830
@@ -297,11 +297,11 @@ public final class Bimax {
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = (GsonElem) rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1200));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:3, sysfurnID:-1}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":3, \"sysfurnID\":-1}"))
                     .addElem(new GsonElem(Type.GLASS));
             area.addElem(new GsonElem(Type.IMPOST));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:3, sysfurnID:-1}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":3, \"sysfurnID\":-1}"))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 604009) { //PUNIC =
@@ -333,7 +333,7 @@ public final class Bimax {
             area.addElem(new GsonElem(Type.IMPOST));
             GsonElem area2 = (GsonElem) area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650));
             area2.addArea(new GsonElem(Layout.VERT, Type.AREA, 557))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:701}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":701}"))
                     .addElem(new GsonElem(Type.GLASS));
             area2.addElem(new GsonElem(Type.IMPOST));
             area2.addArea(new GsonElem(Layout.VERT, Type.AREA, 843))
@@ -354,7 +354,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.GLASS));
             area.addElem(new GsonElem(Type.IMPOST));
             area.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:316}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":316}"))
                     .addElem(new GsonElem(Type.GLASS));
 
 //        } else if (prj == 495647) { // PUNIC = 414087
@@ -427,7 +427,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1000))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:1633}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{\"typeOpen\":4, \"sysfurnID\":1633}"))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 700014) { //PUNIC = 427856  Двери
