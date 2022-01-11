@@ -20,11 +20,11 @@ public class Krauss {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1430))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{'typeOpen':3, 'sysfurnID':180}"))
-                    .addElem(new GsonElem(Type.GLASS, "{'artglasID':150}"));
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:3, sysfurnID:180}"))
+                    .addElem(new GsonElem(Type.GLASS, "{artglasID:150}"));
             rootGson.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1040))
-                    .addElem(new GsonElem(Type.GLASS, "{'artglasID':150}"));
+                    .addElem(new GsonElem(Type.GLASS, "{artglasID:150}"));
 
         } else {
             return null;
