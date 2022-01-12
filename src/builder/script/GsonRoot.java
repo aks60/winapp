@@ -1,6 +1,7 @@
 package builder.script;
 
 import builder.Wincalc;
+import com.google.gson.JsonParser;
 import enums.Layout;
 import enums.Type;
 import java.util.ArrayList;
@@ -69,7 +70,8 @@ public class GsonRoot extends GsonElem {
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
-        this.param = paramJson;
+        if(paramJson != null)
+        this.param = new JsonParser().parse(paramJson).toString();
     }
 
     public void propery(String prj, int nuni, String name) {

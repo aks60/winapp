@@ -1,17 +1,17 @@
 package startup;
 
-import builder.script.GsonRoot;
 import builder.script.Winscript;
 import common.*;
 import dataset.*;
-import com.google.gson.GsonBuilder;
 import builder.param.test.ElementTest;
 import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import domain.eElement;
 import frames.DBCompare;
-import frames.Profstroy;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
@@ -217,16 +217,15 @@ public class Test {
     }
 
     private static void json() {
-
-        Conn.instanc().connection(Test.connect2());
-        builder.Wincalc iwin = new builder.Wincalc();
-        String script = Winscript.test(601004, false);
-        iwin.build(script);
-
-        GsonBuilder builder = new GsonBuilder();
-        //builder.registerTypeAdapter(Element.class, new GsonDeserializer<Element>());
-        //builder.setPrettyPrinting();
-        GsonRoot root = builder.create().fromJson(script, GsonRoot.class);
+//        Conn.instanc().connection(Test.connect2());
+//        builder.Wincalc iwin = new builder.Wincalc();
+//        String script = Winscript.test(601004, false);
+//        iwin.build(script);
+//
+//        GsonBuilder builder = new GsonBuilder();
+//        //builder.registerTypeAdapter(Element.class, new GsonDeserializer<Element>());
+//        //builder.setPrettyPrinting();
+//        GsonRoot root = builder.create().fromJson(script, GsonRoot.class);
 //        
 //        for (Element el : root.getElements()) {
 //            System.out.println(el.getElemType());
@@ -326,7 +325,6 @@ public class Test {
 //        Runnable r = inv.getInterface(obj, Runnable.class);
 //        Thread th = new Thread(r);
 //        th.start(); 
-
 //        float Q = 3;
 //        float L = 1200;
 //        float H = 56;
