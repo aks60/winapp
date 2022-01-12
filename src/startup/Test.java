@@ -70,7 +70,7 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            //wincalc();
+            wincalc();
             //param();
             //query();
             //frame();
@@ -88,15 +88,15 @@ public class Test {
 
         Conn.instanc().connection(Test.connect2());
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(604004, false));
+            iwin.build(builder.script.Winscript.test(601001, false));
             //new Joining(iwin, true);
             iwin.constructiv(true);
             //Specific.write_txt(iwin.listSpec);
             //DBCompare.iwinXls(iwin, true);
-            DBCompare.iwinPs4(iwin, true);
+            DBCompare.iwinPs4(iwin, false);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {
