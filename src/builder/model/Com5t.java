@@ -51,6 +51,26 @@ public abstract class Com5t {
         this.y2 = y2;
     }
 
+    public boolean isJson(JsonObject jso, String key) {
+        if (jso == null) {
+            return false;
+        }
+        if (jso.isJsonNull()) {
+            return false;
+        }
+        if(jso.get(key) == null) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isJson(JsonObject jso) {
+        if (jso == null) {
+            return false;
+        }
+        return !jso.isJsonNull();
+    }
+
     public int param(String par, String key) {
 
         if (par != null && par.isEmpty() == false && par.equals("{}") == false) {

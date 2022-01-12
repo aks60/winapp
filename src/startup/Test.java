@@ -8,11 +8,13 @@ import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
 import frames.DBCompare;
 import java.sql.Connection;
+import java.util.HashMap;
 import javax.swing.UIManager;
 import java.util.List;
 import java.util.UUID;
@@ -70,11 +72,11 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            wincalc();
+            //wincalc();
             //param();
             //query();
             //frame();
-            //json();
+            json();
             //parse();
             //uid();
             //script();            
@@ -217,6 +219,32 @@ public class Test {
     }
 
     private static void json() {
+        Gson gson = new Gson();
+        JsonParser parse = new JsonParser();
+
+        String str1 = "{\"developers\": [{ \"firstName\":777 , \"lastName\":\"Torvalds\" }, "
+                + "{ \"firstName\":\"John\" , \"lastName\":\"von Neumann\"}]}";
+
+        String str2 = "\"developers\": [ \"firstName\":\"Linus\" , \"lastName\":\"Torvalds\" }, "
+                + "{ \"firstName\":\"John\" , \"lastName\":\"von Neumann\" } ]}";
+
+        String str3 = null; //"{typeOpen:1, \"sysfurnID\":1634}";
+
+        JsonObject obj = gson.fromJson(str3, JsonObject.class);        
+        Object out = obj.get("sysfurnID");
+        System.out.println(obj);
+
+        //boolean firstStringValid = JSONUtils.isJSONValid(str1); //true
+        //boolean secondStringValid = JSONUtils.isJSONValid(str2); //false
+        //Object obj = gson.fromJson(str1, Object.class);
+        //System.out.println(new GsonBuilder().create().toJson(parse.parse(str1)));
+//        JSONObject output = new JSONObj;
+//        Object obj = gson.toJson(parse.parse(str3));
+//        System.out.println(obj);    
+        //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(str1)));
+        //
+        //String p = gson.fromJson(str3, String.class);
+        //System.out.println(gson.fromJson(str3, String.class)); 
 //        Conn.instanc().connection(Test.connect2());
 //        builder.Wincalc iwin = new builder.Wincalc();
 //        String script = Winscript.test(601004, false);
@@ -226,30 +254,6 @@ public class Test {
 //        //builder.registerTypeAdapter(Element.class, new GsonDeserializer<Element>());
 //        //builder.setPrettyPrinting();
 //        GsonRoot root = builder.create().fromJson(script, GsonRoot.class);
-//        
-//        for (Element el : root.getElements()) {
-//            System.out.println(el.getElemType());
-//        }
-//        for (AreaElem ar : root.getAreas()) {
-//            System.out.println(ar.getElemType());
-//            for (Element el : ar.getElements()) {
-//                System.out.println(el.getElemType());
-//            }
-//            for (AreaElem ar2 : ar.getAreas()) {
-//                System.out.println(ar2.getElemType());
-//                for (Element el2 : ar2.getElements()) {
-//                    System.out.println(el2.getElemType());
-//                }
-//                for (AreaElem ar3 : ar2.getAreas()) {
-//                    System.out.println(ar3.getElemType());
-//                    for (Element el3 : ar3.getElements()) {
-//                        System.out.println(el3.getElemType());
-//                    }
-//
-//                }
-//
-//            }
-//        }
     }
 
     private static void lookAndFeel() {

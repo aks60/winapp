@@ -21,13 +21,14 @@ import builder.Wincalc;
 import common.UCom;
 import enums.PKjson;
 import enums.Type;
+import java.util.HashMap;
 
 public class AreaSimple extends Com5t {
 
     public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне 
     public LinkedList<Com5t> childs = new LinkedList(); //дети
 
-    public AreaSimple(Wincalc iwin, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, String param) {
+    public AreaSimple(Wincalc iwin, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, JsonObject param) {
         super(id, iwin, owner);
         this.type = type;
         this.layout = layout;
@@ -44,12 +45,12 @@ public class AreaSimple extends Com5t {
         initParametr(param);
     }
 
-    public void initСonstructiv(String param) {
-        if (param(param, PKjson.colorID1) != -1) {
-            this.colorID1 = param(param, PKjson.colorID1);
+    public void initСonstructiv(JsonObject param) {
+        if (isJson(param, PKjson.colorID1)) {
+            this.colorID1 = param.get(PKjson.colorID1).getAsInt();
         }
-        if (param(param, PKjson.sysprofID) != -1) { //профили через параметр
-            sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
+        if (isJson(param, PKjson.sysprofID)) {//профили через параметр
+            sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         }
         iwin.listSortAr.add(this);
     }
@@ -124,11 +125,10 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    protected void initParametr(String param) {
+    protected void initParametr(JsonObject param) {
         try {
-            if (param != null && param.isEmpty() == false && param.equals("null") == false) {
-                JsonObject jsonObj = new Gson().fromJson(param, JsonObject.class);
-                JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
+            if (isJson(param)) {
+                JsonArray jsonArr = param.getAsJsonArray(PKjson.ioknaParam);
                 if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
                     jsonArr.forEach(it -> {
                         Record paramRec = eParams.find(it.getAsInt());

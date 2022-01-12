@@ -46,20 +46,17 @@ public class AreaStvorka extends AreaSimple {
     public boolean paramCheck[] = {true, true, true, true, true, true, true};
     public float offset[] = {0, 0, 0, 0};
 
-    public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
+    public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, JsonObject param) {
         super(iwin, owner, id, Type.STVORKA, Layout.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
-
-        Gson gson = new GsonBuilder().create();
-        JsonObject paramObj = new GsonBuilder().create().fromJson(param, JsonObject.class);
-
-        //Добавим рамы створки    Ujson.getAsJsonObject(paramObj, stvKey)  
-        ElemFrame stvBot = new ElemFrame(this, id + .1f, Layout.BOTT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaBottom)));
+        
+        //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
+        ElemFrame stvBot = new ElemFrame(this, id + .1f, Layout.BOTT, param.getAsJsonObject(PKjson.stvorkaBottom));
         frames.put(stvBot.layout, stvBot);
-        ElemFrame stvRigh = new ElemFrame(this, id + .2f, Layout.RIGHT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaRight)));
+        ElemFrame stvRigh = new ElemFrame(this, id + .2f, Layout.RIGHT, param.getAsJsonObject(PKjson.stvorkaRight));
         frames.put(stvRigh.layout, stvRigh);
-        ElemFrame stvTop = new ElemFrame(this, id + .3f, Layout.TOP, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaTop)));
+        ElemFrame stvTop = new ElemFrame(this, id + .3f, Layout.TOP, param.getAsJsonObject(PKjson.stvorkaTop));
         frames.put(stvTop.layout, stvTop);
-        ElemFrame stvLeft = new ElemFrame(this, id + .4f, Layout.LEFT, gson.toJson(UJson.getAsJsonObject(paramObj, PKjson.stvorkaLeft)));
+        ElemFrame stvLeft = new ElemFrame(this, id + .4f, Layout.LEFT, param.getAsJsonObject(PKjson.stvorkaLeft));
         frames.put(stvLeft.layout, stvLeft);
 
         //Положение элементов створки с учётом нахлёста
@@ -112,59 +109,59 @@ public class AreaStvorka extends AreaSimple {
 
     }
 
-    public void initFurniture(String param) {
+    public void initFurniture(JsonObject param) {
 
         ElemFrame stvLeft = frames.get(Layout.LEFT);
 
         //Фурнитура створки, ручка, подвес
-        if (param(param, PKjson.sysfurnID) != -1) {
-            sysfurnRec = eSysfurn.find2(param(param, PKjson.sysfurnID));
+        if (isJson(param, PKjson.sysfurnID)) {
+            sysfurnRec = eSysfurn.find2(param.get(PKjson.sysfurnID).getAsInt());
             paramCheck[0] = false;
         } else {
             sysfurnRec = eSysfurn.find3(iwin.nuni); //ищем первую в системе
         }
         //Ручка
-        if (param(param, PKjson.artiklHandl) != -1) {
-            handleRec = eArtikl.find(param(param, PKjson.artiklHandl), false);
+        if (isJson(param, PKjson.artiklHandl)) {
+            handleRec = eArtikl.find(param.get(PKjson.artiklHandl).getAsInt(), false);
             paramCheck[1] = false;
         }
         //Текстура ручки
-        if (param(param, PKjson.colorHandl) != -1) {
-            handleColor = param(param, PKjson.colorHandl);
+        if (isJson(param, PKjson.colorHandl)) {
+            handleColor = param.get(PKjson.colorHandl).getAsInt();
             paramCheck[2] = false;
         }
         //Подвес (петли)
-        if (param(param, PKjson.artiklLoop) != -1) {
-            loopRec = eArtikl.find(param(param, PKjson.artiklLoop), false);
+        if (isJson(param, PKjson.artiklLoop)) {
+            loopRec = eArtikl.find(param.get(PKjson.artiklLoop).getAsInt(), false);
             paramCheck[3] = false;
         }
         //Текстура подвеса
-        if (param(param, PKjson.colorLoop) != -1) {
-            loopColor = param(param, PKjson.colorLoop);
+        if (isJson(param, PKjson.colorLoop)) {
+            loopColor = param.get(PKjson.colorLoop).getAsInt();
             paramCheck[4] = false;
         }
         //Замок
-        if (param(param, PKjson.artiklLock) != -1) {
-            lockRec = eArtikl.find(param(param, PKjson.artiklLock), false);
+        if (isJson(param, PKjson.artiklLock)) {
+            lockRec = eArtikl.find(param.get(PKjson.artiklLock).getAsInt(), false);
             paramCheck[5] = false;
         }
         //Текстура замка
-        if (param(param, PKjson.colorLock) != -1) {
-            lockColor = param(param, PKjson.colorLock);
+        if (isJson(param, PKjson.colorLock)) {
+            lockColor = param.get(PKjson.colorLock).getAsInt();
             paramCheck[6] = false;
         }
         //Сторона открывания
-        if (param(param, PKjson.typeOpen) != -1) {
-            typeOpen = TypeOpen1.get(param(param, PKjson.typeOpen));
+        if (isJson(param, PKjson.typeOpen)) {
+            typeOpen = TypeOpen1.get(param.get(PKjson.typeOpen).getAsInt());
         } else {
             typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
         }
         //Положение или высота ручки на створке
-        if (param(param, PKjson.positionHandl) != -1) {
-            int position = param(param, PKjson.positionHandl);
+        if (isJson(param, PKjson.positionHandl)) {
+            int position = param.get(PKjson.positionHandl).getAsInt();
             if (position == LayoutHandle.VARIAT.id) {
                 handleLayout = LayoutHandle.VARIAT;
-                handleHeight = param(param, PKjson.heightHandl);
+                handleHeight = param.get(PKjson.heightHandl).getAsInt();
             } else {
                 handleLayout = (position == LayoutHandle.MIDL.id) ? LayoutHandle.MIDL : LayoutHandle.CONST;
                 handleHeight = stvLeft.height() / 2;

@@ -1,11 +1,13 @@
 package builder.script;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import enums.Layout;
 import enums.Type;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
-import static java.util.stream.Collectors.toList;
+import java.util.Map;
 
 public class GsonElem {
 
@@ -15,7 +17,7 @@ public class GsonElem {
     protected LinkedList<GsonElem> childs = new LinkedList();  //список детей
     protected Layout layout = null; //сторона расположения эл. рамы
     protected Type type = null; //тип элемента
-    protected String param = null; //параметры элемента
+    protected JsonObject param = null; //параметры элемента
     protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
 
     public transient float point = 0;  //точка scale 
@@ -33,7 +35,7 @@ public class GsonElem {
     public GsonElem(Type type, String paramJson) {
         this.id = ++genId;
         this.type = type;
-        this.param = paramJson;
+        this.param = new Gson().fromJson(paramJson, JsonObject.class);
     }
 
     //Конструктор Elem
@@ -47,7 +49,7 @@ public class GsonElem {
         this.id = ++genId;
         this.type = type;
         this.layout = layoutRama;
-        this.param = paramJson;
+        this.param = new Gson().fromJson(paramJson, JsonObject.class);
     }
 
     //Конструктор Area
@@ -70,7 +72,7 @@ public class GsonElem {
         this.id = ++genId;
         this.layout = layout;
         this.type = type;
-        this.param = paramJson; //параметры элемента
+        this.param = new Gson().fromJson(paramJson, JsonObject.class); //параметры элемента
     }
 
     public GsonElem addArea(GsonElem area) {
@@ -100,11 +102,11 @@ public class GsonElem {
         return layout;
     }
 
-    public String param() {
-        return (param == null || param.isEmpty() == true) ? "{}" : param;
+    public JsonObject param() {
+        return param;
     }
 
-    public void param(String param) {
+    public void param(JsonObject param) {
         this.param = param;
     }
 

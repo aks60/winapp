@@ -15,6 +15,7 @@ import enums.Type;
 import java.util.Arrays;
 import java.util.Map;
 import builder.making.Furniture;
+import com.google.gson.JsonObject;
 import enums.Form;
 import enums.TypeJoin;
 import enums.UseSide;
@@ -24,7 +25,7 @@ public class ElemFrame extends ElemSimple {
 
     protected float lengthArch = 0; //длина арки 
 
-    public ElemFrame(AreaSimple owner, float id, Layout layout, String param) {
+    public ElemFrame(AreaSimple owner, float id, Layout layout, JsonObject param) {
         super(id, owner.iwin, owner);
         this.layout = layout;
         colorID1 = iwin.colorID1;
@@ -35,14 +36,14 @@ public class ElemFrame extends ElemSimple {
         setLocation();
     }
 
-    public void initСonstructiv(String par) {
+    public void initСonstructiv(JsonObject param) {
 
-        colorID1 = (param(par, PKjson.colorID1) != -1) ? param(par, PKjson.colorID1) : colorID1;
-        colorID2 = (param(par, PKjson.colorID2) != -1) ? param(par, PKjson.colorID2) : colorID2;
-        colorID3 = (param(par, PKjson.colorID3) != -1) ? param(par, PKjson.colorID3) : colorID3;
+        colorID1 = (isJson(param, PKjson.colorID1)) ? param.get(PKjson.colorID1).getAsInt() : colorID1;
+        colorID2 = (isJson(param, PKjson.colorID2)) ? param.get(PKjson.colorID2).getAsInt() : colorID2;
+        colorID3 = (isJson(param, PKjson.colorID3)) ? param.get(PKjson.colorID3).getAsInt() : colorID3;
 
-        if (param(par, PKjson.sysprofID) != -1) { //профили через параметр
-            sysprofRec = eSysprof.find3(param(par, PKjson.sysprofID));
+        if (isJson(param, PKjson.sysprofID)) { //профили через параметр
+            sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
 
         } else if (owner.sysprofRec != null) { //профили через параметр рамы, створки
             sysprofRec = owner.sysprofRec;

@@ -10,6 +10,7 @@ import domain.eSystree;
 import enums.Layout;
 import enums.TypeArtikl;
 import builder.making.Specific;
+import com.google.gson.JsonObject;
 import common.UCom;
 import domain.eGlasprof;
 import enums.Form;
@@ -24,7 +25,7 @@ public class ElemGlass extends ElemSimple {
     public float sideHoriz[] = {0, 90, 180, 270}; //угол боковой стороны к горизонту
     public float gsize[] = {0, 0, 0, 0}; //размер от оси до стеклопакета
 
-    public ElemGlass(AreaSimple owner, float id, String param) {
+    public ElemGlass(AreaSimple owner, float id, JsonObject param) {
 
         super(id, owner.iwin, owner);
         this.layout = Layout.FULL;
@@ -41,10 +42,10 @@ public class ElemGlass extends ElemSimple {
         filling.calc2(this);
     }
 
-    public void initСonstructiv(String param) {
+    public void initСonstructiv(JsonObject param) {
 
-        if (param(param, PKjson.artglasID) != -1) {
-            artiklRec = eArtikl.find(param(param, PKjson.artglasID), false);
+        if (isJson(param, PKjson.artglasID)) {
+            artiklRec = eArtikl.find(param.get(PKjson.artglasID).getAsInt(), false);
         } else {
             Record sysreeRec = eSystree.find(iwin.nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));

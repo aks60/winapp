@@ -7,6 +7,7 @@ import enums.Layout;
 import enums.UseSide;
 import enums.TypeArtikl;
 import builder.making.Specific;
+import com.google.gson.JsonObject;
 import domain.eSyssize;
 import common.UCom;
 import enums.Form;
@@ -19,7 +20,7 @@ public class ElemCross extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
 
-    public ElemCross(AreaSimple owner, Type type, float id, String param) {
+    public ElemCross(AreaSimple owner, Type type, float id, JsonObject param) {
 
         super(id, owner.iwin, owner);
         this.layout = (owner.layout == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
@@ -47,10 +48,10 @@ public class ElemCross extends ElemSimple {
         setLocation();
     }
 
-    public void initСonstructiv(String param) {
+    public void initСonstructiv(JsonObject param) {
 
-        if (param(param, PKjson.sysprofID) != -1) {
-            sysprofRec = eSysprof.find3(param(param, PKjson.sysprofID));
+        if (isJson(param, PKjson.sysprofID)) {
+            sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         } else {
             if (Layout.VERT.equals(owner.layout)) { //сверху вниз
                 sysprofRec = eSysprof.find4(iwin.nuni, type.id2, UseSide.HORIZ);

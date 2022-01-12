@@ -1,10 +1,13 @@
 package builder.script;
 
 import builder.Wincalc;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import enums.Layout;
 import enums.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,7 +54,7 @@ public class GsonRoot extends GsonElem {
     }
 
     public GsonRoot(int prj, int ord, int nuni, String name, Layout layout, Type type, float width, float height1, float height2, int color1, int color2, int color3, String paramJson) {
-        init(prj, ord, nuni, name, layout, type, width, height1, height2, color1, color2, color3, param);
+        init(prj, ord, nuni, name, layout, type, width, height1, height2, color1, color2, color3, paramJson);
     }
 
     public void init(int prj, int ord, int nuni, String name, Layout layout, Type type, float width, float height1, float height2, int color1, int color2, int color3, String paramJson) {
@@ -71,7 +74,7 @@ public class GsonRoot extends GsonElem {
         this.color2 = color2;
         this.color3 = color3;
         if(paramJson != null)
-        this.param = new JsonParser().parse(paramJson).toString();
+        this.param = new Gson().fromJson(paramJson, JsonObject.class);
     }
 
     public void propery(String prj, int nuni, String name) {
