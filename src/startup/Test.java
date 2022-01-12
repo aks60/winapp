@@ -8,13 +8,12 @@ import builder.param.test.FillingTest;
 import builder.param.test.FurnitureTest;
 import builder.param.test.JoiningTest;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
 import frames.DBCompare;
+import frames.Profstroy;
 import java.sql.Connection;
-import java.util.HashMap;
 import javax.swing.UIManager;
 import java.util.List;
 import java.util.UUID;
@@ -72,7 +71,7 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            wincalc();
+            //wincalc();
             //param();
             //query();
             //frame();
