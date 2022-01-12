@@ -44,6 +44,7 @@ public class GsonElem {
         this.type = type;
         this.layout = layoutRama;
     }
+
     //Конструктор Elem
     public GsonElem(Type type, Layout layoutRama, String paramJson) {
         this.id = ++genId;
@@ -103,6 +104,9 @@ public class GsonElem {
     }
 
     public JsonObject param() {
+        if (param instanceof JsonObject) {
+            param = new JsonObject();
+        }
         return param;
     }
 

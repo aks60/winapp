@@ -71,19 +71,19 @@ public abstract class Com5t {
         return !jso.isJsonNull();
     }
 
-    public int param(String par, String key) {
-
-        if (par != null && par.isEmpty() == false && par.equals("{}") == false) {
-            JsonObject jsonObj = new Gson().fromJson(par, JsonObject.class);
-            if (jsonObj.get(key) == null) {
-                return -1;
-            } else if (jsonObj.get(key).getAsInt() == -3) {
-                return -3;
-            }
-            return jsonObj.get(key).getAsInt();
-        }
-        return -1;
-    }
+//    public int param(String par, String key) {
+//
+//        if (par != null && par.isEmpty() == false && par.equals("{}") == false) {
+//            JsonObject jsonObj = new Gson().fromJson(par, JsonObject.class);
+//            if (jsonObj.get(key) == null) {
+//                return -1;
+//            } else if (jsonObj.get(key).getAsInt() == -3) {
+//                return -3;
+//            }
+//            return jsonObj.get(key).getAsInt();
+//        }
+//        return -1;
+//    }
 
     public float length() {
         ElemSimple elem5e = (ElemSimple) this;

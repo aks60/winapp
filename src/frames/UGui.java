@@ -324,7 +324,7 @@ public class UGui {
         }
         jsonArr.add(paramDef);
         jsonObj.add(PKjson.ioknaParam, jsonArr);
-        gsonRoot.param(gson.toJson(jsonObj));
+        gsonRoot.param(jsonObj);
         return gson.toJson(gsonRoot);
     }
 

@@ -2946,18 +2946,13 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     if (winNode.com5t().type == enums.Type.FRAME_SIDE) { //рама окна
                         float elemId = winNode.com5t().id();
                         GsonElem gsonRama = iwin.rootGson.find(elemId);
-                        String paramStr = gsonRama.param();
-                        JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                        paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
-                        paramStr = gson.toJson(paramObj);
-                        gsonRama.param(paramStr);
+                        gsonRama.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         updateScript(selectID);
 
                     } else if (winNode.com5t().type == enums.Type.STVORKA_SIDE) { //рама створки
                         float stvId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
                         GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
-                        String paramStr = stvArea.param();
-                        JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                        JsonObject paramObj = stvArea.param();
                         String stvKey = null;
                         if (winNode.com5t().layout == Layout.BOTT) {
                             stvKey = PKjson.stvorkaBottom;
@@ -2970,18 +2965,12 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                         }
                         JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
                         jso.addProperty(PKjson.sysprofID, sysprofRec.getStr(eSysprof.id));
-                        paramStr = gson.toJson(paramObj);
-                        stvArea.param(paramStr);
                         updateScript(selectID);
 
                     } else {  //импост
                         float elemId = winNode.com5t().id();
                         GsonElem gsonElem = iwin.rootGson.find(elemId);
-                        String paramStr = gsonElem.param();
-                        JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                        paramObj.addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
-                        paramStr = gson.toJson(paramObj);
-                        gsonElem.param(paramStr);
+                        gsonElem.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         updateScript(selectID);
                     }
 
@@ -3016,8 +3005,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 GsonElem parentArea = (GsonElem) iwin().rootGson.find(parentId);
 
                 if (winNode.com5t().type == enums.Type.STVORKA_SIDE) {
-                    String paramStr = parentArea.param();
-                    JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
+                    JsonObject paramObj = parentArea.param();
                     String stvKey = null;
                     if (winNode.com5t().layout == Layout.BOTT) {
                         stvKey = PKjson.stvorkaBottom;
@@ -3030,18 +3018,12 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     }
                     JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
                     jso.addProperty(colorID, colorRec.getStr(eColor.id));
-                    paramStr = gson.toJson(paramObj);
-                    parentArea.param(paramStr);
                     updateScript(selectID);
 
                 } else if (winNode.com5t().type == enums.Type.FRAME_SIDE) {
                     for (GsonElem elem : parentArea.elems()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
-                            String paramStr = elem.param();
-                            JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                            paramObj.addProperty(colorID, colorRec.getStr(eColor.id));
-                            paramStr = gson.toJson(paramObj);
-                            elem.param(paramStr);
+                            elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
                             updateScript(selectID);
                         }
                     }
@@ -3050,11 +3032,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                         || winNode.com5t().type == enums.Type.SHTULP) {
                     for (GsonElem elem : parentArea.elems()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
-                            String paramStr = elem.param();
-                            JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                            paramObj.addProperty(colorID, colorRec.getStr(eColor.id));
-                            paramStr = gson.toJson(paramObj);
-                            elem.param(paramStr);
+                            elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
                             updateScript(selectID);
                         }
                     }
@@ -3162,11 +3140,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem glassElem = (GsonElem) iwin().rootGson.find(selectID);
-                String paramStr = glassElem.param();
-                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                paramObj.addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
-                paramStr = gson.toJson(paramObj);
-                glassElem.param(paramStr);
+                glassElem.param().addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
                 updateScript(selectID);
 
             }, qArtikl);
@@ -3186,15 +3160,11 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             new DicName(this, (sysfurnRec) -> {
 
                 GsonElem stvArea = (GsonElem) iwin().rootGson.find(windowsID);
-                String paramStr = stvArea.param();
-                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
                 if (sysfurnRec.getInt(eArtikl.id) == -3) {
-                    paramObj.remove(PKjson.sysfurnID);
+                    stvArea.param().remove(PKjson.sysfurnID);
                 } else {
-                    paramObj.addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
+                    stvArea.param().addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
                 }
-                paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
                 updateScript(windowsID);
                 btnRefresh(null);
 
@@ -3211,11 +3181,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
                 float elemID = winNode.com5t().id();
                 GsonElem jsonStv = (GsonElem) iwin().rootGson.find(elemID);
-                String paramStr = jsonStv.param();
-                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                paramObj.addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
-                paramStr = gson.toJson(paramObj);
-                jsonStv.param(paramStr);
+                jsonStv.param().addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
                 updateScript(elemID);
 
             }, TypeOpen1.INVALID, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTMOV,
@@ -3234,16 +3200,12 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem stvArea = (GsonElem) iwin().rootGson.find(stvorkaID);
-                String paramStr = stvArea.param();
-                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                paramObj.remove(PKjson.colorHandl);
+                stvArea.param().remove(PKjson.colorHandl);
                 if (artiklRec.getInt(eArtikl.id) == -3) {
-                    paramObj.remove(PKjson.artiklHandl);
+                    stvArea.param().remove(PKjson.artiklHandl);
                 } else {
-                    paramObj.addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
+                    stvArea.param().addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
                 }
-                paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
                 updateScript(stvorkaID);
                 btnRefresh(null);
 
@@ -3267,24 +3229,20 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             try {
                 float selectID = areaStv.id();
                 GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
-                String paramStr = stvArea.param();
-                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
 
                 if (record.getInt(0) == 0) {
-                    paramObj.addProperty(PKjson.positionHandl, LayoutHandle.MIDL.id);
+                    stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.MIDL.id);
                     txt31.setEditable(false);
 
                 } else if (record.getInt(0) == 1) {
-                    paramObj.addProperty(PKjson.positionHandl, LayoutHandle.CONST.id);
+                    stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.CONST.id);
                     txt31.setEditable(false);
 
                 } else if (record.getInt(0) == 2) {
-                    paramObj.addProperty(PKjson.positionHandl, LayoutHandle.VARIAT.id);
-                    paramObj.addProperty(PKjson.heightHandl, record.getInt(1));
+                    stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.VARIAT.id);
+                    stvArea.param().addProperty(PKjson.heightHandl, record.getInt(1));
                     txt31.setEditable(true);
                 }
-                paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
                 updateScript(selectID);
 
             } catch (Exception e) {
@@ -3302,11 +3260,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
-                String paramStr = stvArea.param();
-                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                paramObj.addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
-                paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
+                stvArea.param().addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
                 updateScript(selectID);
                 btnRefresh(null);
 
@@ -3342,16 +3296,12 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
-                String paramStr = stvArea.param();
-                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                paramObj.remove(PKjson.colorLoop);
+                stvArea.param().remove(PKjson.colorLoop);
                 if (artiklRec.getInt(eArtikl.id) == -3) {
-                    paramObj.remove(PKjson.artiklLoop);
+                    stvArea.param().remove(PKjson.artiklLoop);
                 } else {
-                    paramObj.addProperty(PKjson.artiklLoop, artiklRec.getStr(eArtikl.id));
+                    stvArea.param().addProperty(PKjson.artiklLoop, artiklRec.getStr(eArtikl.id));
                 }
-                paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
                 updateScript(selectID);
                 btnRefresh(null);
 
@@ -3371,16 +3321,12 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
-                String paramStr = stvArea.param();
-                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                paramObj.remove(PKjson.colorLock);
+                stvArea.param().remove(PKjson.colorLock);
                 if (artiklRec.getInt(eArtikl.id) == -3) {
-                    paramObj.remove(PKjson.artiklLock);
+                    stvArea.param().remove(PKjson.artiklLock);
                 } else {
-                    paramObj.addProperty(PKjson.artiklLock, artiklRec.getStr(eArtikl.id));
+                    stvArea.param().addProperty(PKjson.artiklLock, artiklRec.getStr(eArtikl.id));
                 }
-                paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
                 updateScript(selectID);
                 btnRefresh(null);
 
@@ -3399,11 +3345,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
-                String paramStr = stvArea.param();
-                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                paramObj.addProperty(PKjson.colorLoop, colorRec.getStr(eColor.id));
-                paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
+                stvArea.param().addProperty(PKjson.colorLoop, colorRec.getStr(eColor.id));
                 updateScript(selectID);
                 btnRefresh(null);
 
@@ -3422,11 +3364,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
-                String paramStr = stvArea.param();
-                JsonObject paramObj = gson.fromJson(paramStr, JsonObject.class);
-                paramObj.addProperty(PKjson.colorLock, colorRec.getStr(eColor.id));
-                paramStr = gson.toJson(paramObj);
-                stvArea.param(paramStr);
+                stvArea.param().addProperty(PKjson.colorLock, colorRec.getStr(eColor.id));
                 updateScript(selectID);
                 btnRefresh(null);
 
