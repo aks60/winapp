@@ -90,41 +90,6 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    protected void setLocation2(float width, float height) {
-
-        if (owner != null) {
-            //Первая area добавляемая в area владельца
-            if (owner.childs.isEmpty() == true) {
-                if (Layout.VERT.equals(owner.layout)) { //сверху вниз
-                    setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + height);
-                } else if (Layout.HORIZ.equals(owner.layout)) { //слева направо
-                    setDimension(owner.x1, owner.y1, owner.x1 + width, owner.y2);
-                }
-
-                //Aреа перед текущей, т.к. this area ёщё не создана начнём с конца
-            } else {
-                for (int index = owner.childs.size() - 1; index >= 0; --index) {
-                    if (owner.childs.get(index) instanceof AreaSimple) {
-                        AreaSimple prevArea = (AreaSimple) owner.childs.get(index);
-
-                        //Если последняя доб. area выходит за коорд. owner area. 
-                        //Происходит при подкдадке дополнительной ареа над импостом и
-                        //сужении створки при нахлёсте профиля
-                        if (Layout.VERT.equals(owner.layout)) { //сверху вниз                            
-                            float Y2 = (prevArea.y2 + height > owner.y2) ? owner.y2 : prevArea.y2 + height;
-                            setDimension(owner.x1, prevArea.y2, owner.x2, Y2);
-
-                        } else if (Layout.HORIZ.equals(owner.layout)) { //слева направо
-                            float X2 = (prevArea.x2 + width > owner.x2) ? owner.x2 : prevArea.x2 + width;
-                            setDimension(prevArea.x2, owner.y1, X2, owner.y2);
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
     protected void initParametr(JsonObject param) {
         try {
             if (isJson(param)) {
