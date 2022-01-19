@@ -61,6 +61,7 @@ public class AreaStvorka extends AreaSimple {
 
         //Положение элементов створки с учётом нахлёста
         setNaxlest(stvLeft, stvBot, stvRigh, stvTop);
+        //Коррекция фреймов створок с учётом нахлёста
         stvBot.setLocation();
         stvRigh.setLocation();
         stvTop.setLocation();
@@ -74,7 +75,7 @@ public class AreaStvorka extends AreaSimple {
         stvLeft.spcRec.height = height();
     }
 
-    //Коррекция координат створки с учётом нахлёста
+    //Коррекция координат area створки с учётом нахлёста
     private void setNaxlest(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
         ElemSimple joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
                 joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
