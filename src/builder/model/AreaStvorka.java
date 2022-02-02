@@ -18,6 +18,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import common.UCom;
+import domain.eArtdet;
+import domain.eColor;
 import domain.eSysfurn;
 import enums.LayoutHandle;
 import enums.PKjson;
@@ -48,7 +50,7 @@ public class AreaStvorka extends AreaSimple {
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, JsonObject param) {
         super(iwin, owner, id, Type.STVORKA, Layout.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
-        
+
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
         ElemFrame stvBot = new ElemFrame(this, id + .1f, Layout.BOTT, param.getAsJsonObject(PKjson.stvorkaBottom));
         frames.put(stvBot.layout, stvBot);
@@ -95,7 +97,7 @@ public class AreaStvorka extends AreaSimple {
                 iwin.mapJoin.put(stvLef.joinPoint(2), new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLef, joinLef, 0));
                 Joining joining = new Joining(iwin, true);
                 joining.calc();
-                                
+
                 y2 = (joinBot.y2 - joinBot.artiklRec.getFloat(eArtikl.size_centr)) - offset[0];
                 x2 = (joinRig.x2 - joinRig.artiklRec.getFloat(eArtikl.size_centr)) - offset[1];
                 y1 = (joinTop.y1 + joinTop.artiklRec.getFloat(eArtikl.size_centr)) + offset[2];
@@ -125,11 +127,18 @@ public class AreaStvorka extends AreaSimple {
         if (isJson(param, PKjson.artiklHandl)) {
             handleRec = eArtikl.find(param.get(PKjson.artiklHandl).getAsInt(), false);
             paramCheck[1] = false;
+        } else {
+            handleRec = eArtikl.find(sysfurnRec.getInt(eSysfurn.artikl_id1), false);
+            paramCheck[1] = true;
         }
         //Текстура ручки
         if (isJson(param, PKjson.colorHandl)) {
             handleColor = param.get(PKjson.colorHandl).getAsInt();
             paramCheck[2] = false;
+        } else {
+            int colorFK = eArtdet.find2(handleRec.getInt(eArtikl.id)).getInt(eArtdet.color_fk);
+            handleColor = eColor.find3(colorFK).getInt(eColor.id);
+            paramCheck[2] = true;
         }
         //Подвес (петли)
         if (isJson(param, PKjson.artiklLoop)) {
