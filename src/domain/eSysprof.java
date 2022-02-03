@@ -108,7 +108,7 @@ public enum eSysprof implements Field {
         return record;
     }
 
-    public static Record find5(int nuni, int id, UseSide us1, UseSide us2) {
+    /*public static Record find5(int nuni, int id, UseSide us1, UseSide us2) {
         if (nuni == -3) {
             return record(id);
         }
@@ -126,6 +126,18 @@ public enum eSysprof implements Field {
                 && UseSide.MANUAL.id != rec.getInt(use_side) && UseSide.ANY.id == rec.getInt(use_side)).findFirst().orElse(up.record(id));
         
         return record;
+    }*/
+
+    public static Record find6(int nuni, int typ, UseSide us1, UseSide us2) {
+        if (nuni == -3) {
+            return record(typ);
+        }
+        return query().stream().filter(rec -> rec.getInt(systree_id) == nuni 
+                && rec.getInt(use_type) == typ
+                && UseSide.MANUAL.id != rec.getInt(use_side) 
+                && (us1.id == rec.getInt(use_side) || us2.id == rec.getInt(use_side) || UseSide.ANY.id == rec.getInt(use_side))
+        
+        ).findFirst().orElse(up.record(typ));
     }
 
 
