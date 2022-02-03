@@ -4,13 +4,8 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eColor.colgrp_id;
-import static domain.eColor.id;
-import static domain.eColor.up;
-import static domain.eColor.values;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
-import static domain.eColor.virtualRec;
 
 public enum eColmap implements Field {
     up("0", "0", "0", "Парметры текстур", "PARCOLS"),

@@ -4,20 +4,6 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eArtdet.values;
-import static domain.eArtikl.code;
-import static domain.eArtikl.up;
-import static domain.eArtikl.values;
-import static domain.eSysprof.artikl_id;
-import static domain.eSysprof.id;
-import static domain.eSysprof.systree_id;
-import static domain.eSysprof.up;
-import enums.UseSide;
-import enums.UseArtiklTo;
-import java.sql.SQLException;
-import static domain.eSysprof.use_type;
-import static domain.eSysprof.use_side;
-import static domain.eArtikl.virtualRec;
 
 public enum eSystree implements Field {
     up("0", "0", "0", "Дерево системы профилей", "SYSPROF"),
