@@ -91,9 +91,9 @@ public enum eSysprof implements Field {
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
-    }  
+    }
 
-    public static Record find4(int nuni, int id, UseSide us1) {
+    /*public static Record find4(int nuni, int id, UseSide us1) {
         if (nuni == -3) {
             return record(id);
         }
@@ -106,6 +106,17 @@ public enum eSysprof implements Field {
                 && UseSide.MANUAL.id != rec.getInt(use_side) && UseSide.ANY.id == rec.getInt(use_side)).findFirst().orElse(up.newRecord());
         
         return record;
+    }*/
+    
+    public static Record find4x(int nuni, int typ, UseSide us1) {
+        if (nuni == -3) {
+            return record(typ);
+        }
+        return query().stream().filter(rec -> rec.getInt(systree_id) == nuni
+                && rec.getInt(use_type) == typ
+                && UseSide.MANUAL.id != rec.getInt(use_side)
+                && (us1.id == rec.getInt(use_side) || UseSide.ANY.id == rec.getInt(use_side))
+        ).findFirst().orElse(up.record(typ));
     }
 
     /*public static Record find5(int nuni, int id, UseSide us1, UseSide us2) {
@@ -127,19 +138,17 @@ public enum eSysprof implements Field {
         
         return record;
     }*/
-
-    public static Record find6(int nuni, int typ, UseSide us1, UseSide us2) {
+    
+    public static Record find5x(int nuni, int typ, UseSide us1, UseSide us2) {
         if (nuni == -3) {
             return record(typ);
         }
-        return query().stream().filter(rec -> rec.getInt(systree_id) == nuni 
+        return query().stream().filter(rec -> rec.getInt(systree_id) == nuni
                 && rec.getInt(use_type) == typ
-                && UseSide.MANUAL.id != rec.getInt(use_side) 
+                && UseSide.MANUAL.id != rec.getInt(use_side)
                 && (us1.id == rec.getInt(use_side) || us2.id == rec.getInt(use_side) || UseSide.ANY.id == rec.getInt(use_side))
-        
         ).findFirst().orElse(up.record(typ));
     }
-
 
     public static Record record(int typeId) {
 
