@@ -3046,12 +3046,15 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     private void colorToWindows(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorToWindows
         try {
             float selectID = winNode.com5t().id();
-            HashSet<Record> set = new HashSet();
-            String[] arr1 = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
-            String jfield = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
-            Integer[] arr2 = UCom.parserInt(jfield);
-            if (arr1 != null) {
-                for (String s1 : arr1) { //группы
+            HashSet<Record> groupSet = new HashSet();
+            
+            String[] groupArr = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
+            String colorTxt = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
+            Integer[] colorArr = UCom.parserInt(colorTxt);
+            
+            //Поле группы текстур заполнено
+            if (groupArr != null) {
+                for (String s1 : groupArr) { //группы
                     HashSet<Record> se2 = new HashSet();
                     boolean b = false;
                     for (Record rec : eColor.query()) {
@@ -3059,35 +3062,36 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                         if (rec.getStr(eColor.colgrp_id).equals(s1)) {
                             se2.add(rec); //текстуры группы
 
-                            for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
-                                if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
+                            for (int i = 0; i < colorArr.length; i = i + 2) { //тестуры
+                                if (rec.getInt(eColor.id) >= colorArr[i] && rec.getInt(eColor.id) <= colorArr[i + 1]) {
                                     b = true;
                                 }
                             }
                         }
                     }
                     if (b == false) { //если небыло пападаний то добавляем всю группу
-                        set.addAll(se2);
+                        groupSet.addAll(se2);
                     }
                 }
             }
-            if (arr2.length != 0) {
+            //Поле текстур заполнено
+            if (colorArr.length != 0) {
                 for (Record rec : eColor.query()) {
-                    if (arr1 != null) {
+                    if (groupArr != null) {
 
-                        for (String s1 : arr1) { //группы
+                        for (String s1 : groupArr) { //группы
                             if (rec.getStr(eColor.colgrp_id).equals(s1)) {
-                                for (int i = 0; i < arr2.length; i = i + 2) { //текстуры
-                                    if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                        set.add(rec);
+                                for (int i = 0; i < colorArr.length; i = i + 2) { //текстуры
+                                    if (rec.getInt(eColor.id) >= colorArr[i] && rec.getInt(eColor.id) <= colorArr[i + 1]) {
+                                        groupSet.add(rec);
                                     }
                                 }
                             }
                         }
                     } else {
-                        for (int i = 0; i < arr2.length; i = i + 2) { //тестуры
-                            if (rec.getInt(eColor.id) >= arr2[i] && rec.getInt(eColor.id) <= arr2[i + 1]) {
-                                set.add(rec);
+                        for (int i = 0; i < colorArr.length; i = i + 2) { //тестуры
+                            if (rec.getInt(eColor.id) >= colorArr[i] && rec.getInt(eColor.id) <= colorArr[i + 1]) {
+                                groupSet.add(rec);
                             }
                         }
                     }
@@ -3110,10 +3114,10 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     btnRefresh(null);
                 }
             };
-            if (arr1 == null && arr2.length == 0) {
+            if (groupArr == null && colorArr.length == 0) {
                 new DicColor(this, listenerColor);
             } else {
-                new DicColor(this, listenerColor, set);
+                new DicColor(this, listenerColor, groupSet);
             }
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
