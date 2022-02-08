@@ -2928,11 +2928,11 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
                     //Отфильтруем подходящие по параметрам
                     if (winNode.com5t().type.id2 == sysprofRec.getInt(eSysprof.use_type)) {
-                        if (sysprofRec.getInt(eSysprof.use_side) == winNode.com5t().layout.id
-                                || ((winNode.com5t().layout == Layout.BOTT || winNode.com5t().layout == Layout.TOP) && sysprofRec.getInt(eSysprof.use_side) == UseSide.HORIZ.id)
-                                || ((winNode.com5t().layout == Layout.RIGHT || winNode.com5t().layout == Layout.LEFT) && sysprofRec.getInt(eSysprof.use_side) == UseSide.VERT.id)
-                                || sysprofRec.getInt(eSysprof.use_side) == UseSide.ANY.id
-                                || sysprofRec.getInt(eSysprof.use_side) == UseSide.MANUAL.id) {
+                        int useSideId = sysprofRec.getInt(eSysprof.use_side);
+                        if (useSideId == winNode.com5t().layout.id
+                                || ((winNode.com5t().layout == Layout.BOTT || winNode.com5t().layout == Layout.TOP) && useSideId == UseSide.HORIZ.id)
+                                || ((winNode.com5t().layout == Layout.RIGHT || winNode.com5t().layout == Layout.LEFT) && useSideId == UseSide.VERT.id)
+                                || useSideId == UseSide.ANY.id || useSideId == UseSide.MANUAL.id) {
 
                             qSysprofFilter.add(sysprofRec);
                             qSysprofFilter.table(eArtikl.up).add(qSysprof.table(eArtikl.up).get(index));
@@ -2984,16 +2984,17 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         try {
             float selectID = winNode.com5t().id();
             HashSet<Record> colorSet = new HashSet();
+            //Все текстуры артикула элемента конструкции
             Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", winNode.com5t().artiklRec.getInt(eArtikl.id));
             artdetList.forEach(rec -> {
 
-                if (rec.getInt(eArtdet.color_fk) < 0) {
+                if (rec.getInt(eArtdet.color_fk) < 0) { //все текстуры групы color_fk
                     eColor.query().forEach(rec2 -> {
                         if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
                             colorSet.add(rec2);
                         }
                     });
-                } else {
+                } else { //текстура color_fk 
                     colorSet.add(eColor.find(rec.getInt(eArtdet.color_fk)));
                 }
             });
@@ -3015,6 +3016,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     } else if (winNode.com5t().layout == Layout.LEFT) {
                         stvKey = PKjson.stvorkaLeft;
                     }
+                    
                     JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
                     jso.addProperty(colorID, colorRec.getStr(eColor.id));
                     updateScript(selectID);
