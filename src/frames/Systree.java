@@ -326,7 +326,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             int row[] = winTree.getSelectionRows();
             DefMutableTreeNode root = UGui.loadWinTree(iwin);
             winTree.setModel(new DefaultTreeModel(root));
-            //winTree.setSelectionRows(row);
+            winTree.setSelectionRows(row);
 
         } catch (Exception e) {
             System.err.println("Ошибка: Systree.loadingWin() " + e);
@@ -2949,6 +2949,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                         gsonRama.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         updateScript(selectID);
 
+                        
+                        
+                        
                     } else if (winNode.com5t().type == enums.Type.STVORKA_SIDE) { //рама створки
                         float stvId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
                         GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
