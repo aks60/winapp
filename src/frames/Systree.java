@@ -120,7 +120,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         initComponents();
         initElements();
         loadingData();
-        loadingSys();
+        loadingSysTree();
         loadingModel();
         listenerAdd();
         listenerSet();
@@ -130,7 +130,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         initComponents();
         initElements();
         loadingData();
-        loadingSys();
+        loadingSysTree();
         loadingModel();
         listenerAdd();
         listenerSet();
@@ -148,7 +148,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
     }
 
-    public void loadingSys() {
+    public void loadingSysTree() {
         Record recordRoot = eSystree.up.newRecord(Query.SEL);
         recordRoot.set(eSystree.id, -1);
         recordRoot.set(eSystree.parent_id, -1);
@@ -321,7 +321,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         }
     }
 
-    public void loadingWin(Wincalc iwin) {
+    public void loadingWinTree(Wincalc iwin) {
         try {
             int row[] = winTree.getSelectionRows();
             DefMutableTreeNode root = UGui.loadWinTree(iwin);
@@ -342,7 +342,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 String script = record.getStr(eSysprod.script);
                 Wincalc iwin2 = new Wincalc(script);
                 Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
-                joining.calc();                
+                joining.calc();
                 iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
                 record.add(iwin2);
 
@@ -509,13 +509,13 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 qSysprod.execsql();
                 iwin().build(script2);
                 UGui.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
-                selectionWin();
+                selectionWinTree();
                 UGui.setSelectedIndex(tab7, index2);
             }
         };
     }
 
-    public void selectionSys() {
+    public void selectionSysTree() {
         UGui.stopCellEditing(tab2, tab3, tab4, tab5);
         Arrays.asList(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
 
@@ -561,7 +561,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         }
     }
 
-    public void selectionWin() {
+    public void selectionWinTree() {
         Wincalc iwin = iwin();
         winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
         if (winNode != null) {
@@ -638,7 +638,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 setText(txt47, eColor.find(stv.loopColor).getStr(eColor.name));
                 setIcon(btn17, stv.paramCheck[4]);
                 setText(txt46, stv.lockRec.getStr(eArtikl.code) + " ÷ " + stv.lockRec.getStr(eArtikl.name));
-                setIcon(btn23, stv.paramCheck[5]);                
+                setIcon(btn23, stv.paramCheck[5]);
                 setText(txt48, eColor.find(stv.lockColor).getStr(eColor.name));
                 setIcon(btn24, stv.paramCheck[6]);
 
@@ -652,7 +652,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = iwin.mapJoin.get(elem5e.joinPoint(2));
                 Arrays.asList(lab55, lab56, lab57).forEach(it -> it.setIcon(null));
-                
+
                 if (ej1 != null) {
                     setText(txt36, ej1.joiningRec.getStr(eJoining.name));
                     setText(txt42, ej1.name());
@@ -698,7 +698,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 scene.init(win);
                 canvas.draw();
                 scene.draw();
-                loadingWin(win);
+                
+                loadingWinTree(win);
+                
                 winTree.setSelectionInterval(0, 0);
 
             }
@@ -782,7 +784,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             sysprodRec.set(eSysprod.values().length, win);
             canvas.draw();
             scene.draw();
-            selectionWin();
+            selectionWinTree();
         }
         return true;
     }
@@ -799,6 +801,23 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         } else {
             btn.setText("...");
             btn.setIcon(null);
+        }
+    }
+
+    //Установим курсор выделения
+    private void treeSelectiomPath(DefMutableTreeNode winNode) {
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) winTree.getModel().getRoot();
+        if (winNode != null) {
+            float selectID = winNode.com5t().id();
+            do {
+                if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
+                    TreePath path = new TreePath(node.getPath());
+                    winTree.setSelectionPath(path);
+                    winTree.scrollPathToVisible(path);
+                    return;
+                }
+                node = node.getNextNode();
+            } while (node != null);
         }
     }
 
@@ -1078,6 +1097,11 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         btnTest.setMaximumSize(new java.awt.Dimension(25, 25));
         btnTest.setMinimumSize(new java.awt.Dimension(25, 25));
         btnTest.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTestActionPerformed(evt);
+            }
+        });
 
         btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
         btn5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -2730,8 +2754,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);
         qSystree.execsql();
         Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        if (models != null)
+        if (models != null) {
             models.dispose();
+        }
     }//GEN-LAST:event_windowClosed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
@@ -2889,7 +2914,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         Query.listOpenTable.forEach(q -> q.clear());
         int row[] = winTree.getSelectionRows();
         loadingData();
-        selectionSys();
+        selectionSysTree();
         winTree.setSelectionRows(row);
     }//GEN-LAST:event_btnRefresh
 
@@ -2947,11 +2972,23 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                         float elemId = winNode.com5t().id();
                         GsonElem gsonRama = iwin.rootGson.find(elemId);
                         gsonRama.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
-                        updateScript(selectID);
+                        
+                        ////////////////updateScript(selectID);
 
-                        
-                        
-                        
+                        //Сохраним скрипт в базе
+                        String script = gson.toJson(iwin().rootGson);
+                        Record sysprodRec = qSysprod.get(UGui.getIndexRec(tab5));
+                        sysprodRec.set(eSysprod.script, script);
+                        qSysprod.update(sysprodRec);
+
+                        //Экземпляр нового скрипта
+                        Wincalc iwin2 = new Wincalc(script);
+                        Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
+                        joining.calc();
+                        iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
+                        sysprodRec.set(eSysprod.values().length, iwin2);
+
+
                     } else if (winNode.com5t().type == enums.Type.STVORKA_SIDE) { //рама створки
                         float stvId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
                         GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
@@ -3020,7 +3057,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     } else if (winNode.com5t().layout == Layout.LEFT) {
                         stvKey = PKjson.stvorkaLeft;
                     }
-                    
+
                     JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
                     jso.addProperty(colorID, colorRec.getStr(eColor.id));
                     updateScript(selectID);
@@ -3053,11 +3090,11 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         try {
             float selectID = winNode.com5t().id();
             HashSet<Record> groupSet = new HashSet();
-            
+
             String[] groupArr = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
             String colorTxt = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
             Integer[] colorArr = UCom.parserInt(colorTxt);
-            
+
             //Поле группы текстур заполнено
             if (groupArr != null) {
                 for (String s1 : groupArr) { //группы
@@ -3384,6 +3421,10 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         }
     }//GEN-LAST:event_colorFromLock
 
+    private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTestActionPerformed
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn10;
@@ -3567,8 +3608,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         rnd2.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));
         rnd2.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd2.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
-        sysTree.getSelectionModel().addTreeSelectionListener(tse -> selectionSys());
-        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
+        sysTree.getSelectionModel().addTreeSelectionListener(tse -> selectionSysTree());
+        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWinTree());
         tab5.getSelectionModel().addListSelectionListener(it -> selectionTab5());
         DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
