@@ -326,7 +326,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             int row[] = winTree.getSelectionRows();
             DefMutableTreeNode root = UGui.loadWinTree(iwin);
             winTree.setModel(new DefaultTreeModel(root));
-            winTree.setSelectionRows(row);
+            //winTree.setSelectionRows(row);
 
         } catch (Exception e) {
             System.err.println("Ошибка: Systree.loadingWin() " + e);
@@ -699,7 +699,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 canvas.draw();
                 scene.draw();
                 loadingWin(win);
-                winTree.setSelectionInterval(0, 0);
+                //winTree.setSelectionInterval(0, 0);
 
             }
         } else {
@@ -740,17 +740,17 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             //Перерисум paintPanel 
             selectionTab5();
 
-            //Установим курсор выделения
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) winTree.getModel().getRoot();
-            do {
-                if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
-                    TreePath path = new TreePath(node.getPath());
-                    winTree.setSelectionPath(path);
-                    winTree.scrollPathToVisible(path);
-                    return;
-                }
-                node = node.getNextNode();
-            } while (node != null);
+//            //Установим курсор выделения
+//            DefaultMutableTreeNode node = (DefaultMutableTreeNode) winTree.getModel().getRoot();
+//            do {
+//                if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
+//                    TreePath path = new TreePath(node.getPath());
+//                    winTree.setSelectionPath(path);
+//                    winTree.scrollPathToVisible(path);
+//                    return;
+//                }
+//                node = node.getNextNode();
+//            } while (node != null);
 
         } catch (Exception e) {
             System.err.println("frames.Systree.updateScript()");;
