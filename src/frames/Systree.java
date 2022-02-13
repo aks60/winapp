@@ -323,10 +323,24 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     public void loadingWinTree(Wincalc iwin) {
         try {
-            int row[] = winTree.getSelectionRows();
+            DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
             DefMutableTreeNode root = UGui.loadWinTree(iwin);
             winTree.setModel(new DefaultTreeModel(root));
-            winTree.setSelectionRows(row);
+
+            //Установим курсор выделения
+            if (selectNode != null) {
+                DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) winTree.getModel().getRoot();
+                float selectID = selectNode.com5t().id();
+                do {
+                    if (selectID == ((DefMutableTreeNode) curNode).com5t().id()) {
+                        TreePath path = new TreePath(curNode.getPath());
+                        winTree.setSelectionPath(path);
+                        winTree.scrollPathToVisible(path);
+                        return;
+                    }
+                    curNode = curNode.getNextNode();
+                } while (curNode != null);
+            }
 
         } catch (Exception e) {
             System.err.println("Ошибка: Systree.loadingWin() " + e);
@@ -698,9 +712,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 scene.init(win);
                 canvas.draw();
                 scene.draw();
-                
+
                 loadingWinTree(win);
-                
+
                 winTree.setSelectionInterval(0, 0);
 
             }
@@ -739,20 +753,23 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             sysprodRec.set(eSysprod.script, script);
             qSysprod.update(sysprodRec);
 
-            //Перерисум paintPanel 
-            selectionTab5();
+            //Экземпляр нового скрипта
+            Wincalc iwin2 = new Wincalc(script);
+            Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
+            joining.calc();
+            iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
+            sysprodRec.set(eSysprod.values().length, iwin2);
 
-            //Установим курсор выделения
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) winTree.getModel().getRoot();
-            do {
-                if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
-                    TreePath path = new TreePath(node.getPath());
-                    winTree.setSelectionPath(path);
-                    winTree.scrollPathToVisible(path);
-                    return;
-                }
-                node = node.getNextNode();
-            } while (node != null);
+            //Перегрузим winTree
+            loadingWinTree(iwin2);
+
+            //Перерисуем конструкцию
+            scene.init(iwin2);
+            canvas.draw();
+            scene.draw();
+
+            //Обновим поля форм
+            selectionWinTree();
 
         } catch (Exception e) {
             System.err.println("frames.Systree.updateScript()");;
@@ -801,23 +818,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         } else {
             btn.setText("...");
             btn.setIcon(null);
-        }
-    }
-
-    //Установим курсор выделения
-    private void treeSelectiomPath(DefMutableTreeNode winNode) {
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) winTree.getModel().getRoot();
-        if (winNode != null) {
-            float selectID = winNode.com5t().id();
-            do {
-                if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
-                    TreePath path = new TreePath(node.getPath());
-                    winTree.setSelectionPath(path);
-                    winTree.scrollPathToVisible(path);
-                    return;
-                }
-                node = node.getNextNode();
-            } while (node != null);
         }
     }
 
@@ -2930,12 +2930,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
 
-//       float m1 = 5.1f;
-//       ElemSimple e1 = iwin().listSortEl.stream().filter(it -> it.id() == m1).findFirst().orElse(null);
-//       ElemSimple e2 = iwin().listSortEl.stream().filter(it -> it.id() == 4.0f).findFirst().orElse(null);
-//       ElemSimple e3 = e1.joinFlat(Layout.BOTT);
-//       float m2 = 4.0f;
-
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -2972,25 +2966,10 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                         float elemId = winNode.com5t().id();
                         GsonElem gsonRama = iwin.rootGson.find(elemId);
                         gsonRama.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
-                        
-                        ////////////////updateScript(selectID);
-
-                        //Сохраним скрипт в базе
-                        String script = gson.toJson(iwin().rootGson);
-                        Record sysprodRec = qSysprod.get(UGui.getIndexRec(tab5));
-                        sysprodRec.set(eSysprod.script, script);
-                        qSysprod.update(sysprodRec);
-
-                        //Экземпляр нового скрипта
-                        Wincalc iwin2 = new Wincalc(script);
-                        Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
-                        joining.calc();
-                        iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
-                        sysprodRec.set(eSysprod.values().length, iwin2);
-
+                        updateScript(selectID);
 
                     } else if (winNode.com5t().type == enums.Type.STVORKA_SIDE) { //рама створки
-                        float stvId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
+                        float stvId = winNode.com5t().owner.id();
                         GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
                         JsonObject paramObj = stvArea.param();
                         String stvKey = null;
@@ -3042,7 +3021,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
-                float parentId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
+                float parentId = winNode.com5t().owner.id();
                 GsonElem parentArea = (GsonElem) iwin().rootGson.find(parentId);
 
                 if (winNode.com5t().type == enums.Type.STVORKA_SIDE) {
@@ -3422,7 +3401,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_colorFromLock
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnTestActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
