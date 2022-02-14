@@ -336,7 +336,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 scene.init(win);
                 canvas.draw();
                 scene.draw();
-                loadingWin(win);
+                loadingWinTree(win);
                 winTree.setSelectionInterval(0, 0);
 
             }
@@ -350,7 +350,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         loadingTab4();
     }
 
-    public void selectionWin() {
+    public void selectionWinTree() {
         Wincalc iwin = iwin();
         winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
         if (winNode != null) {
@@ -520,7 +520,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     qProprod.execsql();
                     iwin().build(script2);
                     UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-                    selectionWin();
+                    selectionWinTree();
                     UGui.setSelectedIndex(tab3, index2);
                 }
             }, (int) grup);
@@ -594,15 +594,29 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         };
     }
 
-    public void loadingWin(Wincalc iwin) {
+    public void loadingWinTree(Wincalc iwin) {
         try {
-            int row[] = winTree.getSelectionRows();
+            DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
             DefMutableTreeNode root = UGui.loadWinTree(iwin);
             winTree.setModel(new DefaultTreeModel(root));
-            winTree.setSelectionRows(row);
+
+            //Установим курсор выделения
+            if (selectNode != null) {
+                DefaultMutableTreeNode curNode = (DefaultMutableTreeNode) winTree.getModel().getRoot();
+                float selectID = selectNode.com5t().id();
+                do {
+                    if (selectID == ((DefMutableTreeNode) curNode).com5t().id()) {
+                        TreePath path = new TreePath(curNode.getPath());
+                        winTree.setSelectionPath(path);
+                        winTree.scrollPathToVisible(path);
+                        return;
+                    }
+                    curNode = curNode.getNextNode();
+                } while (curNode != null);
+            }
 
         } catch (Exception e) {
-            System.err.println("Ошибка: Systree.loadingWin() " + e);
+            System.err.println("Ошибка: Systree.loadingWinTree() " + e);
         }
     }
 
@@ -610,24 +624,27 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         try {
             //Сохраним скрипт в базе
             String script = gson.toJson(iwin().rootGson);
-            Record prjprodRec = qProprod.get(UGui.getIndexRec(tab2));
-            prjprodRec.set(eProprod.script, script);
-            qProprod.update(prjprodRec);
+            Record proprodRec = qProprod.get(UGui.getIndexRec(tab2));
+            proprodRec.set(eProprod.script, script);
+            qProprod.update(proprodRec);
 
-            //Перерисум paintPanel 
-            selectionTab2();
+            //Экземпляр нового скрипта
+            Wincalc iwin2 = new Wincalc(script);
+            Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
+            joining.calc();
+            iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
+            proprodRec.set(eProprod.values().length, iwin2);
 
-            //Установим курсор выделения
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) winTree.getModel().getRoot();
-            do {
-                if (selectID == ((DefMutableTreeNode) node).com5t().id()) {
-                    TreePath path = new TreePath(node.getPath());
-                    winTree.setSelectionPath(path);
-                    winTree.scrollPathToVisible(path);
-                    return;
-                }
-                node = node.getNextNode();
-            } while (node != null);
+            //Перегрузим winTree
+            loadingWinTree(iwin2);
+
+            //Перерисуем конструкцию
+            scene.init(iwin2);
+            canvas.draw();
+            scene.draw();
+
+            //Обновим поля форм
+            selectionWinTree();
 
         } catch (Exception e) {
             System.err.println("frames.Systree.updateScript()");;
@@ -647,7 +664,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             sysprodRec.set(eProprod.values().length, win);
             canvas.draw();
             scene.draw();
-            selectionWin();
+            selectionWinTree();
         }
         return true;
     }
@@ -2695,7 +2712,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                         updateScript(selectID);
 
                     } else if (winNode.com5t().type == enums.Type.STVORKA_SIDE) { //рама створки
-                        float stvId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
+                        float stvId = winNode.com5t().owner.id();
                         GsonElem stvArea = (GsonElem) iwin().rootGson.find(stvId);
                         String stvKey = null;
                         if (winNode.com5t().layout == Layout.BOTT) {
@@ -2744,7 +2761,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
-                float parentId = ((DefMutableTreeNode) winNode.getParent()).com5t().id();
+                float parentId = winNode.com5t().owner.id();
                 GsonElem jsonArea = (GsonElem) iwin().rootGson.find(parentId);
 
                 if (winNode.com5t().type == enums.Type.STVORKA_SIDE) {                    
@@ -3287,7 +3304,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
         UGui.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
-        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
+        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWinTree());
         DefaultTreeCellRenderer rnd2 = (DefaultTreeCellRenderer) winTree.getCellRenderer();
         rnd2.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));
         rnd2.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
@@ -3307,7 +3324,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 }
             }
         });
-        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWin());
+        winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWinTree());
         DefaultTreeModel model = (DefaultTreeModel) winTree.getModel();
         ((DefaultMutableTreeNode) model.getRoot()).removeAllChildren();
         model.reload();

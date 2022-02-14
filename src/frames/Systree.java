@@ -343,7 +343,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             }
 
         } catch (Exception e) {
-            System.err.println("Ошибка: Systree.loadingWin() " + e);
+            System.err.println("Ошибка: Systree.loadingWinTree() " + e);
         }
     }
 
