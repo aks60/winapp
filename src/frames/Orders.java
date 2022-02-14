@@ -384,8 +384,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     || winNode.com5t().type == enums.Type.SHTULP) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
-                txt32.setText(winNode.com5t().artiklRec.getStr(eArtikl.code));
-                txt33.setText(winNode.com5t().artiklRec.getStr(eArtikl.name));
+                txt32.setText(winNode.com5t().artiklRecAn.getStr(eArtikl.code));
+                txt33.setText(winNode.com5t().artiklRecAn.getStr(eArtikl.name));
                 txt27.setText(eColor.find(winNode.com5t().colorID1()).getStr(eColor.name));
                 txt28.setText(eColor.find(winNode.com5t().colorID2()).getStr(eColor.name));
                 txt29.setText(eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
@@ -2762,9 +2762,10 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = winNode.com5t().owner.id();
-                GsonElem jsonArea = (GsonElem) iwin().rootGson.find(parentId);
+                GsonElem parentArea = (GsonElem) iwin().rootGson.find(parentId);
 
-                if (winNode.com5t().type == enums.Type.STVORKA_SIDE) {                    
+                if (winNode.com5t().type == enums.Type.STVORKA_SIDE) {
+                    JsonObject paramObj = parentArea.param();
                     String stvKey = null;
                     if (winNode.com5t().layout == Layout.BOTT) {
                         stvKey = PKjson.stvorkaBottom;
@@ -2775,11 +2776,22 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     } else if (winNode.com5t().layout == Layout.LEFT) {
                         stvKey = PKjson.stvorkaLeft;
                     }
-                    jsonArea.param().addProperty(colorID, colorRec.getStr(eColor.id));
+
+                    JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
+                    jso.addProperty(colorID, colorRec.getStr(eColor.id));
                     updateScript(selectID);
 
                 } else if (winNode.com5t().type == enums.Type.FRAME_SIDE) {
-                    for (GsonElem elem : jsonArea.elems()) {
+                    for (GsonElem elem : parentArea.elems()) {
+                        if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
+                            elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
+                            updateScript(selectID);
+                        }
+                    }
+                } else if (winNode.com5t().type == enums.Type.IMPOST
+                        || winNode.com5t().type == enums.Type.STOIKA
+                        || winNode.com5t().type == enums.Type.SHTULP) {
+                    for (GsonElem elem : parentArea.elems()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
                             updateScript(selectID);

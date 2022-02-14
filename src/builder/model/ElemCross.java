@@ -24,9 +24,6 @@ public class ElemCross extends ElemSimple {
 
         super(id, owner.iwin, owner);
         this.layout = (owner.layout == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
-        colorID1 = iwin.colorID1;
-        colorID2 = iwin.colorID2;
-        colorID3 = iwin.colorID3;
         this.type = type;
 
         initСonstructiv(param);
@@ -50,7 +47,11 @@ public class ElemCross extends ElemSimple {
 
     public void initСonstructiv(JsonObject param) {
 
-        if (isJson(param, PKjson.sysprofID)) {
+        colorID1 = (isJson(param, PKjson.colorID1)) ? param.get(PKjson.colorID1).getAsInt() : iwin.colorID1;
+        colorID2 = (isJson(param, PKjson.colorID2)) ? param.get(PKjson.colorID2).getAsInt() : iwin.colorID2;
+        colorID3 = (isJson(param, PKjson.colorID3)) ? param.get(PKjson.colorID3).getAsInt() : iwin.colorID3;
+        
+        if (isJson(param, PKjson.sysprofID)) { //профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         } else {
             if (Layout.VERT.equals(owner.layout)) { //сверху вниз

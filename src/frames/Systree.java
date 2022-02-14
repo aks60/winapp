@@ -772,7 +772,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             selectionWinTree();
 
         } catch (Exception e) {
-            System.err.println("frames.Systree.updateScript()");;
+            System.err.println("frames.Systree.updateScript()");
         }
     }
 
@@ -3401,7 +3401,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_colorFromLock
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-
+   String script = gson.toJson(iwin().rootGson);
+   int m1 = 0;
     }//GEN-LAST:event_btnTestActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

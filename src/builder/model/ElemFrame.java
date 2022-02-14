@@ -28,9 +28,6 @@ public class ElemFrame extends ElemSimple {
     public ElemFrame(AreaSimple owner, float id, Layout layout, JsonObject param) {
         super(id, owner.iwin, owner);
         this.layout = layout;
-        colorID1 = iwin.colorID1;
-        colorID2 = iwin.colorID2;
-        colorID3 = iwin.colorID3;
         this.type = (Type.STVORKA == owner.type) ? Type.STVORKA_SIDE : Type.FRAME_SIDE;
         initСonstructiv(param);
         setLocation();
@@ -38,9 +35,9 @@ public class ElemFrame extends ElemSimple {
 
     public void initСonstructiv(JsonObject param) {
 
-        colorID1 = (isJson(param, PKjson.colorID1)) ? param.get(PKjson.colorID1).getAsInt() : colorID1;
-        colorID2 = (isJson(param, PKjson.colorID2)) ? param.get(PKjson.colorID2).getAsInt() : colorID2;
-        colorID3 = (isJson(param, PKjson.colorID3)) ? param.get(PKjson.colorID3).getAsInt() : colorID3;
+        colorID1 = (isJson(param, PKjson.colorID1)) ? param.get(PKjson.colorID1).getAsInt() : iwin.colorID1;
+        colorID2 = (isJson(param, PKjson.colorID2)) ? param.get(PKjson.colorID2).getAsInt() : iwin.colorID2;
+        colorID3 = (isJson(param, PKjson.colorID3)) ? param.get(PKjson.colorID3).getAsInt() : iwin.colorID3;
 
         if (isJson(param, PKjson.sysprofID)) { //профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
