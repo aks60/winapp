@@ -4,14 +4,6 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eArtdet.artikl_id;
-import static domain.eArtdet.color_fk;
-import static domain.eArtdet.id;
-import static domain.eArtikl.code;
-import static domain.eArtikl.id;
-import static domain.eArtikl.up;
-import static domain.eArtikl.values;
-import static domain.eArtikl.virtualRec;
 import java.util.HashMap;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
@@ -114,7 +106,7 @@ public enum eColor implements Field {
     public static Record virtualRec() {
         Record record = up.newRecord();
         record.setNo(id, -3);
-        record.setNo(code, 33240);
+        record.setNo(colgrp_id, -3);
         record.setNo(name, "Virtual");
         record.setNo(rgb, 15790320);
         return record;
