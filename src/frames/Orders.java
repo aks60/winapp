@@ -373,7 +373,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 qSyspar1.clear();
                 Map<Integer, String> map = new HashMap();
                 iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
-                map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, pk, null, null)));
+                map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, null, pk, null)));
                 ((DefTableModel) tab3.getModel()).fireTableDataChanged();
 
                 //Рама, импост...
@@ -3051,8 +3051,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_tab3MousePressed
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        qProkit.select(eProkit.up, "left join", eArtikl.up, "on", eProkit.artikl_id, "=", eArtikl.id, "where", eProkit.proprod_id, "=", 4);
-        System.out.println(qProkit);
+        String json = gson.toJson(iwin().rootGson);
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
     }//GEN-LAST:event_btnTest
 
     private void btn15loopToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn15loopToStvorka
