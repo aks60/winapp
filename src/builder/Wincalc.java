@@ -36,6 +36,7 @@ import builder.script.GsonRoot;
 import builder.script.GsonElem;
 import common.ArrayList2;
 import common.LinkedList2;
+import domain.eParams;
 import enums.Form;
 import enums.Layout;
 import enums.Type;
@@ -70,7 +71,7 @@ public class Wincalc {
     public GsonRoot rootGson = null; //главное окно кострукции в формате gson
     public Form form = Form.NUM0; //форма контура 
 
-    public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
+    public HashMap<Integer, Integer> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList2<AreaSimple> listSortAr = new LinkedList2(); //список ElemSimple
     public LinkedList2<ElemSimple> listSortEl = new LinkedList2(); //список ElemSimple
     public LinkedList2<ElemSimple> listTreeEl = new LinkedList2(); //список ElemSimple
@@ -123,8 +124,12 @@ public class Wincalc {
             this.colorID3 = rootGson.color3;
             this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
             this.syssizeRec = eSyssize.find(artiklRec);
-            eSyspar1.find(nuni).stream().forEach(rec -> mapPardef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
-
+            for(Record syspar1Rec: eSyspar1.query()) { //загрузим параметры по умолчанию
+                if(syspar1Rec.getInt(eSyspar1.systree_id) == nuni) {
+                    Record paramsRec = eParams.query().stream().filter(rec -> syspar1Rec.getInt(eSyspar1.params_id) == rec.getInt(eParams.id)).findFirst().orElse(eParams.up.newRecord());
+                    mapPardef.put(paramsRec.getInt(eParams.params_id), syspar1Rec.getInt(eSyspar1.params_id));
+                }
+            }
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {
                 rootArea = new AreaRectangl(this, rootGson, colorID1, colorID2, colorID3); //простое
