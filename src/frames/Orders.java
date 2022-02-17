@@ -146,17 +146,18 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             }
         };
         new DefTableModel(tab2, qProprod, eProprod.name, eProprod.id);
-        new DefTableModel(tab3, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
+        new DefTableModel(tab3, qSyspar1, eSyspar1.params_id, eSyspar1.params_id) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && field == eSyspar1.params_id) {
+                if (val != null && col == 0) {
+                    Record paramsRec = qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val))).findFirst().orElse(eParams.up.newRecord(Query.SEL));
                     if (Main.dev == true) {
-                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
-                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return val + "   " + qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     } else {
-                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
-                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     }
+                } else if (val != null && col == 1) {
+                    return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                 }
                 return val;
             }

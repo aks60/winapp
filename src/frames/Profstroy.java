@@ -230,7 +230,7 @@ public class Profstroy {
             }
             //Включаем все генераторы
             st2.executeUpdate("update rdb$triggers  set rdb$trigger_inactive = 0  where rdb$trigger_name like 'IBE$%';");
-            
+
             cn2.commit();
             cn2.setAutoCommit(true);
 
@@ -426,6 +426,7 @@ public class Profstroy {
             deleteSql(eSysfurn.up, "funic", eFurniture.up, "funic");//furniture_id 
             deleteSql(eSysfurn.up, "nuni", eSystree.up, "id");//systree_id
             deleteSql(eSyspar1.up, "psss", eSystree.up, "id");//systree_id 
+            executeSql("delete from  syspar1 b where not exists (select id from params a where b.params_id = a.pnumb and b.text = a.text)");
             //deleteSql(eKits.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitpar2.up, "psss", eKitdet.up, "kincr");//kitdet_id
             deleteSql(eKitdet.up, "kunic", eKits.up, "kunic");//kits_id  
@@ -544,7 +545,7 @@ public class Profstroy {
             executeSql("update sysfurn set side_open = (CASE  WHEN (NOTKR = 'запрос') THEN 1 WHEN (NOTKR = 'левое') THEN 2 WHEN (NOTKR = 'правое') THEN 3 ELSE  (1) END )");
             executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "id");
-            executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and b.text = a.text) where b.params_id < 0");
             //updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
             //updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.kits_id, "kunic", eKits.up, "kunic");
@@ -613,10 +614,10 @@ public class Profstroy {
             alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
             alterTable("syspar1", "fk_syspar2", "params_id", "params");
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
-            alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");            
-            alterTable("project", "fk_project_1", "propart_id", "propart");            
+            alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
+            alterTable("project", "fk_project_1", "propart_id", "propart");
             alterTable("proprod", "fk_proprod_1", "project_id", "project");
-            alterTable("prokit", "fk_prokit_1", "proprod_id", "proprod");           
+            alterTable("prokit", "fk_prokit_1", "proprod_id", "proprod");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
             alterTable("kitdet", "fk_kitdet2", "artikl_id", "artikl");
             alterTable("kitdet", "fk_kitdet3", "color1_id", "color");
