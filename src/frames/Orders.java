@@ -98,7 +98,7 @@ import startup.Main;
 public class Orders extends javax.swing.JFrame implements ListenerObject {
 
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
-    private Query qParams = new Query(eParams.values());
+    private Query qParams = new Query(eParams.id, eParams.params_id, eParams.text);
     private Query qCurrenc = new Query(eCurrenc.values());
     private Query qProjectAll = new Query(eProject.values());
     private Query qProject = new Query(eProject.values());
@@ -106,6 +106,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private Query qProprod = new Query(eProprod.values());
     private Query qProkit = new Query(eProkit.values(), eArtikl.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
+    private Map<Integer, String> mapParams = new HashMap();
     private DefMutableTreeNode winNode = null;
     private Canvas canvas = new Canvas();
     private Scene scene = new Scene(canvas, this);
@@ -125,7 +126,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }
 
     private void loadingData() {
-        qParams.select(eParams.up);
+        qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id);
+        qParams.forEach(rec -> mapParams.put(rec.getInt(eParams.id), rec.getStr(eParams.text)));
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qProjectAll.select(eProject.up, "order by", eProject.date4);
         qPropart.select(ePropart.up);
@@ -144,20 +146,19 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             }
         };
         new DefTableModel(tab2, qProprod, eProprod.name, eProprod.id);
-        new DefTableModel(tab3, qSyspar1, eSyspar1.params_id, eSyspar1.params_id) {
+        new DefTableModel(tab3, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && col == 0) {
-                    Record paramsRec = qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val))).findFirst().orElse(eParams.up.newRecord(Query.SEL));
+                if (val != null && field == eSyspar1.params_id) {
                     if (Main.dev == true) {
-                        return paramsRec.get(eParams.params_id) + "   " + qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     } else {
-                        return qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     }
-                } else if (val != null && col == 1) {
-                    return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                 }
-                return val;               
+                return val;
             }
         };
         new DefTableModel(tab4, qProkit, eArtikl.code, eArtikl.name, eProkit.color1_id, eProkit.color2_id,
@@ -370,7 +371,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             } else if (winNode.com5t().type == enums.Type.PARAM) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card14");
                 qSyspar1.clear();
-                iwin.setPardef.forEach((paramsRec) -> qSyspar1.add(new Record(Query.SEL, null, 0, paramsRec.getInt(eParams.id), null, paramsRec.getStr(eParams.text))));
+                Map<Integer, String> map = new HashMap();
+                iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
+                map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, null, pk, null)));
                 ((DefTableModel) tab3.getModel()).fireTableDataChanged();
 
                 //Рама, импост...

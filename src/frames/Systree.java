@@ -227,35 +227,33 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 return val;
             }
         };
-        new DefTableModel(tab4, qSyspar2, eSyspar1.params_id, eSyspar1.params_id, eSyspar1.fixed) {
+        new DefTableModel(tab4, qSyspar1, eSyspar1.params_id, eSyspar1.text, eSyspar1.fixed) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && col == 0) {
-                    Record paramsRec = qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val))).findFirst().orElse(eParams.up.newRecord(Query.SEL));
+                if (val != null && field == eSyspar1.params_id) {
                     if (Main.dev == true) {
-                        return paramsRec.get(eParams.params_id) + "   " + qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     } else {
-                        return qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     }
-                } else if (val != null && col == 1) {
-                    return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                 }
                 return val;
             }
         };
         new DefTableModel(tab5, qSysprod, eSysprod.name, eSysprod.id);
-        new DefTableModel(tab7, qSyspar1, eSyspar1.params_id, eSyspar1.params_id) {
+        new DefTableModel(tab7, qSyspar2, eSyspar1.params_id, eSyspar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && col == 0) {
-                    Record paramsRec = qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val))).findFirst().orElse(eParams.up.newRecord(Query.SEL));
+                if (val != null && field == eSyspar1.params_id) {
                     if (Main.dev == true) {
-                        return paramsRec.get(eParams.params_id) + "   " + qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     } else {
-                        return qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     }
-                } else if (val != null && col == 1) {
-                    return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                 }
                 return val;
             }
@@ -417,19 +415,17 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            ParDefault frame = new ParDefault(this, listenerParam2);
+            ParDefault frame = new ParDefault(this, listenerParam1);
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            Integer grup = qSyspar2.getAs(UGui.getIndexRec(tab4), eSyspar1.params_id);
-            Record paramRec = qParams.stream().filter(rec -> grup == rec.getInt(eParams.id)).findFirst().orElse(eParams.up.newRecord());
-            ParDefault frame = new ParDefault(this, listenerParam3, paramRec.getInt(eParams.params_id));
+            Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab4), eSyspar1.params_id);
+            ParDefault frame = new ParDefault(this, listenerParam2, grup);
         });
 
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
-            Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.params_id);
-            Record paramRec = qParams.stream().filter(rec -> grup == rec.getInt(eParams.id)).findFirst().orElse(eParams.up.newRecord());
-            ParDefault frame = new ParDefault(this, listenerParam1, paramRec.getInt(eParams.params_id));
+            Object grup = tab7.getValueAt(tab7.getSelectedRow(), 2);
+            ParDefault frame = new ParDefault(this, listenerParam3, (int) grup);
         });
     }
 
@@ -500,6 +496,23 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         };
 
         listenerParam1 = (record) -> {
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab4);
+            qSyspar1.set(record.getInt(eParams.id), UGui.getIndexRec(tab4), eSyspar1.params_id);
+            qSyspar1.set(null, UGui.getIndexRec(tab4), eSyspar1.text);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab4, index);
+        };
+
+        listenerParam2 = (record) -> {
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab4);
+            qSyspar1.set(record.getStr(eParams.text), UGui.getIndexRec(tab4), eSyspar1.text);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab4, index);
+        };
+
+        listenerParam3 = (record) -> {
             int index = UGui.getIndexRec(tab5);
             int index2 = UGui.getIndexRec(tab7);
             if (index != -1) {
@@ -513,24 +526,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 selectionWinTree();
                 UGui.setSelectedIndex(tab7, index2);
             }
-        };
-
-        listenerParam2 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab4);
-            Record paramRec = qParams.stream().filter(rec -> record.getInt(eParams.id) == rec.getInt(eParams.params_id)
-                    && rec.getInt(eParams.id) != rec.getInt(eParams.params_id)).findFirst().get();
-            qSyspar2.set(paramRec.getInt(eParams.id), index, eSyspar1.params_id);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab4, index);
-        };
-
-        listenerParam3 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab4);
-            qSyspar2.set(record.getInt(eParams.id), index, eSyspar1.params_id);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab4, index);
         };
     }
 
@@ -546,7 +541,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", sysNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                     eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", sysNode.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
-            qSyspar2.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", sysNode.rec().getInt(eSystree.id));
+            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", sysNode.rec().getInt(eSystree.id));
             lab1.setText("ID = " + systreeID);
             lab2.setText("ID = -1");
 
@@ -600,8 +595,10 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 //Параметры
             } else if (winNode.com5t().type == enums.Type.PARAM) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card11");
-                qSyspar1.clear();
-                iwin.setPardef.forEach((paramsRec) -> qSyspar1.add(new Record(Query.SEL, null, 0, paramsRec.getInt(eParams.id), null, paramsRec.getStr(eParams.text))));
+                qSyspar2.clear();
+                Map<Integer, String> map = new HashMap();
+                iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
+                map.forEach((pk, txt) -> qSyspar2.add(new Record(Query.SEL, pk, txt, null, pk, null)));
                 ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
                 //Рама, импост...
