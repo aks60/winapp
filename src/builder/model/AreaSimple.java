@@ -93,7 +93,7 @@ public class AreaSimple extends Com5t {
     protected void initParametr(JsonObject param) {
         try {
             if (isJson(param)) {
-                //Добавим к параметрам системы конструкции параметры конкретной конструкции
+                //Объединим параметрам системы конструкции с параметры конкретной конструкции
                 JsonArray jsonArr = param.getAsJsonArray(PKjson.ioknaParam);
                 if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
                     jsonArr.forEach(it -> {
