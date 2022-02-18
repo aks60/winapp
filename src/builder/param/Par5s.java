@@ -33,9 +33,9 @@ public class Par5s {
 
         for (Record paramRec : paramList) {
             if (paramRec.getInt(GRUP) < 0) {
-                Record paramsRec2 = iwin.setPardef.stream().filter(rec -> paramRec.getInt(GRUP) == rec.getInt(eParams.params_id)).findFirst().orElse(null);
-                if (paramsRec2 != null  && paramRec.getStr(TEXT).equals(paramsRec2.getStr(TEXT))) {
-                    return true; //если группа есть и параметр не совпал
+                Record param2Rec = iwin.setPardef.stream().filter(rec -> paramRec.getInt(GRUP) == rec.getInt(eParams.params_id)).findFirst().orElse(null);
+                if (param2Rec == null || param2Rec.getStr(eParams.text).equals(paramRec.getStr(TEXT)) == false) {
+                    return false; //если группа есть и параметр не совпал
                 }
             }
         }
