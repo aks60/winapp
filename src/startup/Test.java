@@ -92,7 +92,7 @@ public class Test {
         String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(601004, false));
+            iwin.build(builder.script.Winscript.test(601010, false));
             //new Joining(iwin, true);
             iwin.constructiv(true);
             //Specific.write_txt(iwin.listSpec);
