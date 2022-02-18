@@ -7,6 +7,7 @@ import java.util.List;
 import builder.Wincalc;
 import builder.making.Specific;
 import common.listener.ListenerParam;
+import domain.eParams;
 import java.util.ArrayList;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -14,8 +15,8 @@ import javax.script.ScriptEngineManager;
 public class Par5s {
 
     protected final int ID = 1;   //Ключ в таблице  
-    protected final int GRUP = 3;   //Ключ параметра    
     protected final int TEXT = 2;   //Текст 
+    protected final int GRUP = 3;   //Ключ параметра params_id       
     protected Wincalc iwin = null;
     public boolean shortPass = false;
     protected String versionDb = eSetting.find(2);
@@ -32,12 +33,9 @@ public class Par5s {
 
         for (Record paramRec : paramList) {
             if (paramRec.getInt(GRUP) < 0) {
-                Integer rec = iwin.mapPardef.get(paramRec.getInt(GRUP));
-                if (rec == null) {
-                    return false; //если группы нет
-                }
-                if (paramRec.getStr(TEXT).equals(rec.getStr(TEXT)) == false) {
-                    return false; //если группа есть, а параметр не совпал
+                Record paramsRec2 = iwin.setPardef.stream().filter(rec -> paramRec.getInt(GRUP) == rec.getInt(eParams.params_id)).findFirst().orElse(null);
+                if (paramsRec2 != null  && paramRec.getStr(TEXT).equals(paramsRec2.getStr(TEXT))) {
+                    return true; //если группа есть и параметр не совпал
                 }
             }
         }

@@ -227,7 +227,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 return val;
             }
         };
-        new DefTableModel(tab4, qSyspar1, eSyspar1.params_id, eSyspar1.params_id, eSyspar1.fixed) {
+        new DefTableModel(tab4, qSyspar2, eSyspar1.params_id, eSyspar1.params_id, eSyspar1.fixed) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && col == 0) {
@@ -244,7 +244,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             }
         };
         new DefTableModel(tab5, qSysprod, eSysprod.name, eSysprod.id);
-        new DefTableModel(tab7, qSyspar2, eSyspar1.params_id, eSyspar1.params_id) {
+        new DefTableModel(tab7, qSyspar1, eSyspar1.params_id, eSyspar1.params_id) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && col == 0) {
@@ -421,7 +421,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
-            Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab4), eSyspar1.params_id);
+            Integer grup = qSyspar2.getAs(UGui.getIndexRec(tab4), eSyspar1.params_id);
             ParDefault frame = new ParDefault(this, listenerParam2, grup);
         });
 
@@ -500,7 +500,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         listenerParam1 = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
-            qSyspar1.set(record.getInt(eParams.id), UGui.getIndexRec(tab4), eSyspar1.params_id);
+            qSyspar2.set(record.getInt(eParams.id), UGui.getIndexRec(tab4), eSyspar1.params_id);
 ///////////            qSyspar1.set(null, UGui.getIndexRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
@@ -543,7 +543,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", sysNode.rec().getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                     eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", sysNode.rec().getInt(eSystree.id), "order by", eSysfurn.npp);
-            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", sysNode.rec().getInt(eSystree.id));
+            qSyspar2.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", sysNode.rec().getInt(eSystree.id));
             lab1.setText("ID = " + systreeID);
             lab2.setText("ID = -1");
 
@@ -597,10 +597,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 //Параметры
             } else if (winNode.com5t().type == enums.Type.PARAM) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card11");
-                qSyspar2.clear();
-                Map<Integer, Integer> map = new HashMap();
-                iwin.mapPardef.forEach((nameID, valueID) -> map.put(nameID, valueID));
-                map.forEach((nameID, valueID) -> qSyspar2.add(new Record(Query.SEL, null, null, valueID, null)));
+                qSyspar1.clear();
+                iwin.setPardef.forEach((paramsRec) -> qSyspar1.add(new Record(Query.SEL, null, 0, paramsRec.getInt(eParams.id), null, paramsRec.getStr(eParams.text))));
                 ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
                 //Рама, импост...

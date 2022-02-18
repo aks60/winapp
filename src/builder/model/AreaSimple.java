@@ -97,8 +97,8 @@ public class AreaSimple extends Com5t {
                 JsonArray jsonArr = param.getAsJsonArray(PKjson.ioknaParam);
                 if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
                     jsonArr.forEach(it -> {
-                        Record paramsRec = eParams.find(it.getAsInt());
-                        iwin.mapPardef.put(paramsRec.getInt(eParams.params_id), it.getAsInt());
+                        Record paramsRec = eParams.find(it.getAsInt());                       
+                        iwin.setPardef.add(paramsRec);
                     });
                 }
             }

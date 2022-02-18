@@ -38,9 +38,9 @@ import common.ArrayList2;
 import common.LinkedList2;
 import domain.eParams;
 import enums.Form;
-import enums.Layout;
 import enums.Type;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +71,7 @@ public class Wincalc {
     public GsonRoot rootGson = null; //главное окно кострукции в формате gson
     public Form form = Form.NUM0; //форма контура 
 
-    public HashMap<Integer, Integer> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
+    public HashSet<Record> setPardef = new HashSet(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList2<AreaSimple> listSortAr = new LinkedList2(); //список ElemSimple
     public LinkedList2<ElemSimple> listSortEl = new LinkedList2(); //список ElemSimple
     public LinkedList2<ElemSimple> listTreeEl = new LinkedList2(); //список ElemSimple
@@ -92,7 +92,8 @@ public class Wincalc {
         form = Form.NUM0;
         heightAdd = 0.f;
         Arrays.asList((List) listSortAr, (List) listSortEl, (List) listSpec, (List) listTreeEl).forEach(el -> el.clear());
-        Arrays.asList(mapPardef, mapJoin).forEach(el -> el.clear());
+        setPardef.clear();
+        mapJoin.clear();
 
         //Парсинг входного скрипта
         parsing(productJson);
@@ -124,10 +125,10 @@ public class Wincalc {
             this.colorID3 = rootGson.color3;
             this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
             this.syssizeRec = eSyssize.find(artiklRec);
-            for(Record syspar1Rec: eSyspar1.query()) { //загрузим параметры по умолчанию
-                if(syspar1Rec.getInt(eSyspar1.systree_id) == nuni) {
+            for (Record syspar1Rec : eSyspar1.query()) { //загрузим параметры по умолчанию
+                if (syspar1Rec.getInt(eSyspar1.systree_id) == nuni) {
                     Record paramsRec = eParams.query().stream().filter(rec -> syspar1Rec.getInt(eSyspar1.params_id) == rec.getInt(eParams.id)).findFirst().orElse(eParams.up.newRecord());
-                    mapPardef.put(paramsRec.getInt(eParams.params_id), syspar1Rec.getInt(eSyspar1.params_id));
+                    setPardef.add(paramsRec);
                 }
             }
             //Главное окно
