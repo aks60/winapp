@@ -94,7 +94,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
-            listenerParam1, listenerParam2, listenerArt211, listenerArt212;
+            listenerParam1, listenerParam2, listenerParam3, listenerArt211, listenerArt212;
     private Query qParams = new Query(eParams.values());
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
     private Query qSystree = new Query(eSystree.values());
@@ -423,7 +423,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
             Integer grup = qSyspar2.getAs(UGui.getIndexRec(tab4), eSyspar1.params_id);
             Record paramRec = qParams.stream().filter(rec -> grup == rec.getInt(eParams.id)).findFirst().orElse(eParams.up.newRecord());
-            ParDefault frame = new ParDefault(this, listenerParam2, paramRec.getInt(eParams.params_id));
+            ParDefault frame = new ParDefault(this, listenerParam3, paramRec.getInt(eParams.params_id));
         });
 
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
@@ -499,14 +499,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             UGui.setSelectedIndex(tab3, index);
         };
 
-        listenerParam2 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab4);
-            qSyspar2.set(record.getInt(eParams.id), index, eSyspar1.params_id);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab4, index);
-        };
-
         listenerParam1 = (record) -> {
             int index = UGui.getIndexRec(tab5);
             int index2 = UGui.getIndexRec(tab7);
@@ -521,6 +513,24 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 selectionWinTree();
                 UGui.setSelectedIndex(tab7, index2);
             }
+        };
+
+        listenerParam2 = (record) -> {
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab4);
+            Record paramRec = qParams.stream().filter(rec -> record.getInt(eParams.id) == rec.getInt(eParams.params_id)
+                    && rec.getInt(eParams.id) != rec.getInt(eParams.params_id)).findFirst().get();
+            qSyspar2.set(paramRec.getInt(eParams.id), index, eSyspar1.params_id);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab4, index);
+        };
+
+        listenerParam3 = (record) -> {
+            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
+            int index = UGui.getIndexRec(tab4);
+            qSyspar2.set(record.getInt(eParams.id), index, eSyspar1.params_id);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            UGui.setSelectedIndex(tab4, index);
         };
     }
 
