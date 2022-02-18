@@ -598,7 +598,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 qSyspar2.clear();
                 Map<Integer, String> map = new HashMap();
                 iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
-                map.forEach((pk, txt) -> qSyspar2.add(new Record(Query.SEL, pk, txt, null, pk, null)));
+                map.forEach((pk, txt) -> qSyspar2.add(new Record(Query.SEL, pk, txt, pk, null, null)));
                 ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
                 //Рама, импост...

@@ -373,7 +373,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 qSyspar1.clear();
                 Map<Integer, String> map = new HashMap();
                 iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
-                map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, null, pk, null)));
+                map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, pk, null, null)));
                 ((DefTableModel) tab3.getModel()).fireTableDataChanged();
 
                 //Рама, импост...
