@@ -150,7 +150,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 if (val != null && col == 0) {
                     Record paramsRec = qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val))).findFirst().orElse(eParams.up.newRecord(Query.SEL));
                     if (Main.dev == true) {
-                        return val + "   " + qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return paramsRec.get(eParams.params_id) + "   " + qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     } else {
                         return qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     }

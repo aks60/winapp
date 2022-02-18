@@ -94,7 +94,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
-            listenerParam1, listenerParam2, listenerParam3, listenerArt211, listenerArt212;
+            listenerParam1, listenerParam2, listenerArt211, listenerArt212;
     private Query qParams = new Query(eParams.values());
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
     private Query qSystree = new Query(eSystree.values());
@@ -233,7 +233,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 if (val != null && col == 0) {
                     Record paramsRec = qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val))).findFirst().orElse(eParams.up.newRecord(Query.SEL));
                     if (Main.dev == true) {
-                        return val + "   " + qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return paramsRec.get(eParams.params_id) + "   " + qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     } else {
                         return qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     }
@@ -250,7 +250,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 if (val != null && col == 0) {
                     Record paramsRec = qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val))).findFirst().orElse(eParams.up.newRecord(Query.SEL));
                     if (Main.dev == true) {
-                        return val + "   " + qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return paramsRec.get(eParams.params_id) + "   " + qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     } else {
                         return qParams.stream().filter(rec -> rec.get(eParams.id).equals(paramsRec.get(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     }
@@ -417,17 +417,19 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
-            ParDefault frame = new ParDefault(this, listenerParam1);
+            ParDefault frame = new ParDefault(this, listenerParam2);
         });
 
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
             Integer grup = qSyspar2.getAs(UGui.getIndexRec(tab4), eSyspar1.params_id);
-            ParDefault frame = new ParDefault(this, listenerParam2, grup);
+            Record paramRec = qParams.stream().filter(rec -> grup == rec.getInt(eParams.id)).findFirst().orElse(eParams.up.newRecord());
+            ParDefault frame = new ParDefault(this, listenerParam2, paramRec.getInt(eParams.params_id));
         });
 
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
-            Object grup = tab7.getValueAt(tab7.getSelectedRow(), 2);
-            ParDefault frame = new ParDefault(this, listenerParam3, (int) grup);
+            Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.params_id);
+            Record paramRec = qParams.stream().filter(rec -> grup == rec.getInt(eParams.id)).findFirst().orElse(eParams.up.newRecord());
+            ParDefault frame = new ParDefault(this, listenerParam1, paramRec.getInt(eParams.params_id));
         });
     }
 
@@ -497,24 +499,15 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             UGui.setSelectedIndex(tab3, index);
         };
 
-        listenerParam1 = (record) -> {
-            UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-            int index = UGui.getIndexRec(tab4);
-            qSyspar2.set(record.getInt(eParams.id), UGui.getIndexRec(tab4), eSyspar1.params_id);
-///////////            qSyspar1.set(null, UGui.getIndexRec(tab4), eSyspar1.text);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            UGui.setSelectedIndex(tab4, index);
-        };
-
         listenerParam2 = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
-///////////            qSyspar1.set(record.getStr(eParams.text), UGui.getIndexRec(tab4), eSyspar1.text);
+            qSyspar2.set(record.getInt(eParams.id), index, eSyspar1.params_id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
 
-        listenerParam3 = (record) -> {
+        listenerParam1 = (record) -> {
             int index = UGui.getIndexRec(tab5);
             int index2 = UGui.getIndexRec(tab7);
             if (index != -1) {
