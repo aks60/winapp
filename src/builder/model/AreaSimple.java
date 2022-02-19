@@ -46,9 +46,9 @@ public class AreaSimple extends Com5t {
     }
 
     public void initСonstructiv(JsonObject param) {
-        if (isJson(param, PKjson.colorID1)) {
-            this.colorID1 = param.get(PKjson.colorID1).getAsInt();
-        }
+        //if (isJson(param, PKjson.colorID1)) {
+        //    this.colorID1 = param.get(PKjson.colorID1).getAsInt();
+        //}
         if (isJson(param, PKjson.sysprofID)) {//профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         }
@@ -98,6 +98,7 @@ public class AreaSimple extends Com5t {
                 if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
                     jsonArr.forEach(it -> {
                         Record paramRec = eParams.find(it.getAsInt());
+                        Record syspar1Rec = 
                         iwin.mapPardef.put(paramRec.getInt(eParams.params_id), paramRec);
                     });
                 }
