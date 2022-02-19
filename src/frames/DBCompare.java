@@ -146,11 +146,15 @@ public class DBCompare extends javax.swing.JFrame {
             iwin.listSpec.forEach(rec -> setSpcSa.add(rec.artikl));
 
             //Заполним на будушее hmSpc из SA
-            setSpcSa.forEach(el -> hmSpc.put(el, new Vector(Arrays.asList(el, 0f, 0f, 0f, 0f, 0f, 0f))));
+            for(String art_code: setSpcSa) {
+                Record artiklRec = eArtikl.find2(art_code);
+                hmSpc.put(art_code, new Vector(Arrays.asList(art_code, artiklRec.get(eArtikl.name), 0f, 0f, 0f, 0f, 0f, 0f)));
+            }
+            //setSpcSa.forEach(el -> hmSpc.put(el, new Vector(Arrays.asList(el + "*", 0f, 0f, 0f, 0f, 0f, 0f))));
             iwin.listSpec.forEach(rec -> {
                 List<Float> val = hmSpc.get(rec.artikl);
-                val.set(1, val.get(1) + rec.count); //колич. в SA
-                val.set(3, val.get(3) + rec.quant1); //погонаж в SA
+                val.set(2, val.get(2) + rec.count); //колич. в SA
+                val.set(4, val.get(4) + rec.quant1); //погонаж в SA
             });
 
             //=== Таблица 1 ===
@@ -191,9 +195,9 @@ public class DBCompare extends javax.swing.JFrame {
 
                 //Заполним на будушее hmSpc из PS
                 setSpcPs.add(artikl);
-                List<Float> val = hmSpc.getOrDefault(artikl, new Vector(Arrays.asList(artikl, 0f, 0f, 0f, 0f, 0f, 0f)));
-                val.set(2, val.get(2) + count); //колич в PS
-                val.set(4, val.get(4) + pogonag); //погонаж в PS               
+                List<Float> val = hmSpc.getOrDefault(artikl, new Vector(Arrays.asList(artikl, "=*=", 0f, 0f, 0f, 0f, 0f, 0f)));
+                val.set(3, val.get(3) + count); //колич в PS
+                val.set(5, val.get(5) + pogonag); //погонаж в PS               
             }
             rs.close();
             lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = " + punic + "  Заказ: onumb = "
@@ -930,17 +934,17 @@ public class DBCompare extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Артикул", "Колич.  SA", "Колич.  PS", "Погонаж  SA", "Погонаж  PS", "Дельта"
+                "Артикул", "Наименование", "Колич.  SA", "Колич.  PS", "Погонаж  SA", "Погонаж  PS", "Дельта"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -950,12 +954,13 @@ public class DBCompare extends javax.swing.JFrame {
         tab3.setFillsViewportHeight(true);
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
-            tab3.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tab3.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(200);
             tab3.getColumnModel().getColumn(2).setPreferredWidth(50);
             tab3.getColumnModel().getColumn(3).setPreferredWidth(50);
             tab3.getColumnModel().getColumn(4).setPreferredWidth(50);
             tab3.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tab3.getColumnModel().getColumn(6).setPreferredWidth(50);
         }
 
         pan5.add(scr3, java.awt.BorderLayout.CENTER);

@@ -98,6 +98,7 @@ public class AreaSimple extends Com5t {
                         Record syspar1Rec = eSyspar1.query().stream().filter(rec -> paramRec.getInt(eParams.id) == rec.getInt(eSyspar1.params_id)).findFirst().orElse(null);
                         if (syspar1Rec != null) {
                             iwin.mapPardef.put(paramRec.getInt(eParams.params_id), syspar1Rec);
+                            //System.out.println(syspar1Rec.get(3));
                         }
                     });
                 }
@@ -115,6 +116,7 @@ public class AreaSimple extends Com5t {
                     jsonArr.forEach(it -> {
                         Record paramRec = eParams.find(it.getAsInt());
                         iwin.mapPardef.put(paramRec.getInt(eParams.params_id), paramRec);
+                        System.out.println(paramRec.get(3));
                     });
                 }
             }
