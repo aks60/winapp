@@ -16,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import startup.Main;
 import builder.Wincalc;
 import common.UCom;
+import dataset.Query;
 import domain.eSyspar1;
 import enums.PKjson;
 import enums.Type;
@@ -91,14 +92,15 @@ public class AreaSimple extends Com5t {
         try {
             if (isJson(param)) {
                 //Добавим к параметрам системы конструкции параметры конкретной конструкции
-                JsonArray jsonArr = param.getAsJsonArray(PKjson.ioknaParam);
-                if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
-                    jsonArr.forEach(it -> {
-                        Record paramRec = eParams.find(it.getAsInt());
-                        Record syspar1Rec = eSyspar1.query().stream().filter(rec -> paramRec.getInt(eParams.id) == rec.getInt(eSyspar1.params_id)).findFirst().orElse(null);
-                        if (syspar1Rec != null) {
-                            iwin.mapPardef.put(paramRec.getInt(eParams.params_id), syspar1Rec);
-                            //System.out.println(syspar1Rec.get(3));
+                JsonArray ioknaParamArr = param.getAsJsonArray(PKjson.ioknaParam);
+                if (ioknaParamArr != null && !ioknaParamArr.isJsonNull() && ioknaParamArr.isJsonArray()) {
+                    ioknaParamArr.forEach(it -> {
+                        Record paramRec = eParams.find(it.getAsInt()); //параметр менеджера                       
+                        Record param2Rec = eParams.query().stream().filter( //название группы
+                                rec -> paramRec.getInt(eParams.params_id) == rec.getInt(eParams.id)).findFirst().get();
+                        if (param2Rec != null) {
+                            iwin.mapPardef.put(paramRec.getInt(eParams.params_id),
+                                    new Record(Query.SEL, -3, paramRec.get(eParams.text), paramRec.get(eParams.params_id), this.iwin.nuni, 0));
                         }
                     });
                 }
@@ -107,7 +109,7 @@ public class AreaSimple extends Com5t {
             System.err.println("Ошибка:Com5t.parsingParam() " + e);
         }
     }
-    
+
     protected void initParametr2(JsonObject param) {
         try {
             if (isJson(param)) {
@@ -124,7 +126,7 @@ public class AreaSimple extends Com5t {
             System.err.println("Ошибка:Com5t.parsingParam() " + e);
         }
     }
-    
+
     public void joining() {
 
         LinkedList<ElemSimple> impList = UCom.listSortObj(iwin.listSortEl, Type.IMPOST, Type.SHTULP, Type.STOIKA);

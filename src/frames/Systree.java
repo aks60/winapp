@@ -424,8 +424,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         });
 
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
-            Object grup = tab7.getValueAt(tab7.getSelectedRow(), 2);
-            ParDefault frame = new ParDefault(this, listenerParam3, (int) grup);
+            Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.params_id);
+            ParDefault frame = new ParDefault(this, listenerParam3, grup);
         });
     }
 
