@@ -1,6 +1,5 @@
 package builder.model;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dataset.Record;
@@ -14,14 +13,12 @@ import java.util.EnumMap;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
-import java.util.Arrays;
-import java.util.Collections;
 import startup.Main;
 import builder.Wincalc;
 import common.UCom;
+import domain.eSyspar1;
 import enums.PKjson;
 import enums.Type;
-import java.util.HashMap;
 
 public class AreaSimple extends Com5t {
 
@@ -98,7 +95,25 @@ public class AreaSimple extends Com5t {
                 if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
                     jsonArr.forEach(it -> {
                         Record paramRec = eParams.find(it.getAsInt());
-                        Record syspar1Rec = 
+                        Record syspar1Rec = eSyspar1.query().stream().filter(rec -> paramRec.getInt(eParams.id) == rec.getInt(eSyspar1.params_id)).findFirst().orElse(null);
+                        if (syspar1Rec != null) {
+                            iwin.mapPardef.put(paramRec.getInt(eParams.params_id), syspar1Rec);
+                        }
+                    });
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Com5t.parsingParam() " + e);
+        }
+    }
+    
+    protected void initParametr2(JsonObject param) {
+        try {
+            if (isJson(param)) {
+                JsonArray jsonArr = param.getAsJsonArray(PKjson.ioknaParam);
+                if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
+                    jsonArr.forEach(it -> {
+                        Record paramRec = eParams.find(it.getAsInt());
                         iwin.mapPardef.put(paramRec.getInt(eParams.params_id), paramRec);
                     });
                 }
@@ -107,7 +122,7 @@ public class AreaSimple extends Com5t {
             System.err.println("Ошибка:Com5t.parsingParam() " + e);
         }
     }
-
+    
     public void joining() {
 
         LinkedList<ElemSimple> impList = UCom.listSortObj(iwin.listSortEl, Type.IMPOST, Type.SHTULP, Type.STOIKA);

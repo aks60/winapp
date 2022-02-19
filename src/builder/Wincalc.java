@@ -123,7 +123,7 @@ public class Wincalc {
             this.colorID3 = rootGson.color3;
             this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
             this.syssizeRec = eSyssize.find(artiklRec);
-            eSyspar1.find(nuni).stream().forEach(rec -> mapPardef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
+            eSyspar1.find(nuni).stream().forEach(syspar1Rec -> mapPardef.put(syspar1Rec.getInt(eSyspar1.params_id), syspar1Rec)); //загрузим параметры по умолчанию
 
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {

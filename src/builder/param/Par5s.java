@@ -7,6 +7,7 @@ import java.util.List;
 import builder.Wincalc;
 import builder.making.Specific;
 import common.listener.ListenerParam;
+import domain.eSyspar1;
 import java.util.ArrayList;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -32,11 +33,11 @@ public class Par5s {
 
         for (Record paramRec : paramList) {
             if (paramRec.getInt(GRUP) < 0) {
-                Record rec = iwin.mapPardef.get(paramRec.getInt(GRUP));
-                if (rec == null) {
+                Record syspar1Rec = iwin.mapPardef.get(paramRec.getInt(GRUP));
+                if (syspar1Rec == null) {
                     return false; //если группы нет
                 }
-                if (paramRec.getStr(TEXT).equals(rec.getStr(TEXT)) == false) {
+                if (paramRec.getStr(TEXT).equals(syspar1Rec.getStr(eSyspar1.text)) == false) {
                     return false; //если группа есть, а параметр не совпал
                 }
             }

@@ -596,9 +596,10 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             } else if (winNode.com5t().type == enums.Type.PARAM) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card11");
                 qSyspar1.clear();
-                Map<Integer, String> map = new HashMap();
-                iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
-                map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, null, pk, null)));
+                //Map<Integer, String> map = new HashMap();
+                //iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
+                //map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, pk, null, null)));
+                iwin.mapPardef.forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
                 ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
                 //Рама, импост...

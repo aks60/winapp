@@ -311,7 +311,9 @@ public class UGui {
         JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
         jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
         int indexRemov = -1;
-        int id1 = qParams.stream().filter(rec -> (rec.get(eParams.id).equals(paramDef))).findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
+        int id1 = qParams.stream().filter(rec -> paramDef == rec.getInt(eParams.id))
+                .findFirst().orElse(eParams.newRecord2())
+                .getInt(eParams.params_id);
         for (int i = 0; i < jsonArr.size(); i++) {
             int it = jsonArr.get(i).getAsInt();
             int id2 = qParams.stream().filter(rec -> (rec.getInt(eParams.id) == it)).findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);

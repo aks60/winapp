@@ -371,9 +371,10 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             } else if (winNode.com5t().type == enums.Type.PARAM) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card14");
                 qSyspar1.clear();
-                Map<Integer, String> map = new HashMap();
-                iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
-                map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, null, pk, null)));
+                //Map<Integer, Record> map = new HashMap();
+                //iwin.mapPardef.forEach((pk, syspar1Rec) -> map.put(pk, syspar1Rec));
+                //map.forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
+                iwin.mapPardef.forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
                 ((DefTableModel) tab3.getModel()).fireTableDataChanged();
 
                 //Рама, импост...
