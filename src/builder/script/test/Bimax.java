@@ -163,7 +163,7 @@ public final class Bimax {
             //Тут просочилась ручка не подходящая по параметру. Возможно ошибка ПрофСтроя4
         } else if (prj == 601010) { //PUNIC =  
             rootGson = new GsonRoot(prj, 1, 54, "KBE\\KBE Эксперт\\1 ОКНА\\Открывание внутрь (ств. Z77)",
-                    Layout.HORIZ, Type.RECTANGL, 1300, 1400, 1009, 1009, 1009, "{ioknaParam:[-8558]}");
+                    Layout.HORIZ, Type.RECTANGL, 1300, 1400, 1009, 1009, 1009, "{ioknaParam:[-8558]}"); //параметр недействительный, подогнал для ps спецификации
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
@@ -197,7 +197,7 @@ public final class Bimax {
 
         } else if (prj == 700027) {  //punic = 427872 штульповое
             rootGson = new GsonRoot(prj, 1, 198, "Montblanc / Eco / 1 ОКНА (штульп)",
-                    Layout.HORIZ, Type.RECTANGL, 1300, 1400, 1009, 1009, 1009, "{ioknaParam:[-8252]}");
+                    Layout.HORIZ, Type.RECTANGL, 1300, 1400, 1009, 1009, 1009, "{ioknaParam:[-8252]}"); //параметр недействительный, подогнал для ps спецификации
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))

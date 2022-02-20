@@ -17,7 +17,7 @@ import startup.Main;
 public enum eProperty {
 
     lookandfeel("Metal", "Windows"),
-    url_src("http://aks.okna.ru:8080"),
+    url_src("http://localhost:8084/winweb/"),
     web_port("8080"),
     web_start("false"),
     typedb("fb"),

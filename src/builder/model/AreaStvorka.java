@@ -264,12 +264,16 @@ public class AreaStvorka extends AreaSimple {
                 Y1 = elemR.y1 + (elemR.y2 - elemR.y1) / 2;
                 Draw.drawLine(iwin, elemL.x1, elemL.y1, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
                 Draw.drawLine(iwin, elemL.x1, elemL.y2, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
-
+                
             } else if (typeOpen.id == 2 || typeOpen.id == 4) {
                 X1 = elemL.x1 + (elemL.x2 - elemL.x1) / 2;
                 Y1 = elemL.y1 + (elemL.y2 - elemL.y1) / 2;
                 Draw.drawLine(iwin, elemR.x2, elemR.y1, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
                 Draw.drawLine(iwin, elemR.x2, elemR.y2, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
+            }
+            if (typeOpen.id == 3 || typeOpen.id == 4) {
+                Draw.drawLine(iwin, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1, elemB.x1, elemB.y2);
+                Draw.drawLine(iwin, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1, elemB.x2, elemB.y2);
             }
 
             if (root.type == Type.DOOR) {

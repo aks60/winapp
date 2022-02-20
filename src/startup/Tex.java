@@ -19,7 +19,11 @@ import javax.swing.UIManager;
 import common.listener.ListenerFrame;
 import common.eProfile;
 import dataset.Query;
+import java.awt.Desktop;
 import java.awt.Dimension;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * <p>
@@ -112,6 +116,7 @@ public class Tex extends javax.swing.JFrame {
         tb8 = new javax.swing.JToolBar();
         btn17 = new javax.swing.JButton();
         btn3 = new javax.swing.JButton();
+        btn5 = new javax.swing.JButton();
         tb6 = new javax.swing.JToolBar();
         btnT7 = new javax.swing.JToggleButton();
         btnT8 = new javax.swing.JToggleButton();
@@ -489,7 +494,7 @@ public class Tex extends javax.swing.JFrame {
         getContentPane().add(tb2);
 
         tb8.setRollover(true);
-        tb8.setPreferredSize(new java.awt.Dimension(70, 28));
+        tb8.setPreferredSize(new java.awt.Dimension(100, 28));
 
         btn17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c080.gif"))); // NOI18N
         btn17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
@@ -522,6 +527,22 @@ public class Tex extends javax.swing.JFrame {
             }
         });
         tb8.add(btn3);
+
+        btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c082.gif"))); // NOI18N
+        btn5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
+        btn5.setFocusable(false);
+        btn5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn5.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn5.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn5.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn5.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDiler(evt);
+            }
+        });
+        tb8.add(btn5);
 
         getContentPane().add(tb8);
 
@@ -1194,6 +1215,18 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
         });
     }//GEN-LAST:event_mnSetting
 
+    private void btnDiler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiler
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            URI url = new URI(eProperty.url_src.read());
+            desktop.browse(url);
+        } catch (URISyntaxException e) {
+            System.err.println(e);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+    }//GEN-LAST:event_btnDiler
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btn1;
@@ -1214,6 +1247,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JButton btn3;
     private javax.swing.JButton btn4;
     private javax.swing.JButton btn42;
+    private javax.swing.JButton btn5;
     private javax.swing.JButton btn51;
     private javax.swing.JButton btn52;
     private javax.swing.JButton btn53;
