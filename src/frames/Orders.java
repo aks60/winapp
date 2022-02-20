@@ -508,22 +508,22 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         });
 
         UGui.buttonCellEditor(tab3, 1).addActionListener(event -> {
-            Object grup = tab3.getValueAt(tab3.getSelectedRow(), 2);
+            Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.params_id);           
             ParDefault frame = new ParDefault(this, record -> {
                 int index = UGui.getIndexRec(tab2);
                 int index2 = UGui.getIndexRec(tab3);
                 if (index != -1) {
-                    Record sysprodRec = qProprod.get(index);
-                    String script = sysprodRec.getStr(eProprod.script);
+                    Record proprodRec = qProprod.get(index);
+                    String script = proprodRec.getStr(eProprod.script);
                     String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
-                    sysprodRec.set(eProprod.script, script2);
+                    proprodRec.set(eProprod.script, script2);
                     qProprod.execsql();
                     iwin().build(script2);
                     UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                     selectionWinTree();
                     UGui.setSelectedIndex(tab3, index2);
                 }
-            }, (int) grup);
+            }, grup);
         });
 
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
