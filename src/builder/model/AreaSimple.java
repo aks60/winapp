@@ -17,9 +17,9 @@ import startup.Main;
 import builder.Wincalc;
 import common.UCom;
 import dataset.Query;
-import domain.eSyspar1;
 import enums.PKjson;
 import enums.Type;
+import java.util.HashMap;
 
 public class AreaSimple extends Com5t {
 
@@ -91,8 +91,9 @@ public class AreaSimple extends Com5t {
     protected void initParametr(JsonObject param) {
         try {
             if (isJson(param)) {
+                HashMap defMap = new HashMap();
                 //Добавим к параметрам системы конструкции параметры конкретной конструкции
-                JsonArray ioknaParamArr = param.getAsJsonArray(PKjson.ioknaParam);
+                JsonArray ioknaParamArr = param.getAsJsonArray(PKjson.ioknaParam);                
                 if (ioknaParamArr != null && !ioknaParamArr.isJsonNull() && ioknaParamArr.isJsonArray()) {
                     ioknaParamArr.forEach(it -> {
                         Record paramRec = eParams.find(it.getAsInt()); //параметр менеджера                       
@@ -102,23 +103,6 @@ public class AreaSimple extends Com5t {
                             iwin.mapPardef.put(paramRec.getInt(eParams.params_id),
                                     new Record(Query.SEL, -3, paramRec.get(eParams.text), paramRec.get(eParams.params_id), this.iwin.nuni, 0));
                         }
-                    });
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка:Com5t.parsingParam() " + e);
-        }
-    }
-
-    protected void initParametr2(JsonObject param) {
-        try {
-            if (isJson(param)) {
-                JsonArray jsonArr = param.getAsJsonArray(PKjson.ioknaParam);
-                if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
-                    jsonArr.forEach(it -> {
-                        Record paramRec = eParams.find(it.getAsInt());
-                        iwin.mapPardef.put(paramRec.getInt(eParams.params_id), paramRec);
-                        System.out.println(paramRec.get(3));
                     });
                 }
             }
