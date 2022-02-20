@@ -154,6 +154,7 @@ public class Tex extends javax.swing.JFrame {
         mn07 = new javax.swing.JMenu();
         mn71 = new javax.swing.JMenuItem();
         mn72 = new javax.swing.JMenuItem();
+        mn73 = new javax.swing.JMenuItem();
         mn06 = new javax.swing.JMenu();
         mn63 = new javax.swing.JMenu();
         mn631 = new javax.swing.JCheckBoxMenuItem();
@@ -528,7 +529,7 @@ public class Tex extends javax.swing.JFrame {
         });
         tb8.add(btn3);
 
-        btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c082.gif"))); // NOI18N
+        btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c083.gif"))); // NOI18N
         btn5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
         btn5.setFocusable(false);
         btn5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -539,7 +540,7 @@ public class Tex extends javax.swing.JFrame {
         btn5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDiler(evt);
+                mnDiler(evt);
             }
         });
         tb8.add(btn5);
@@ -868,6 +869,15 @@ public class Tex extends javax.swing.JFrame {
             }
         });
         mn07.add(mn72);
+
+        mn73.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn73.setText("Дилер");
+        mn73.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDiler(evt);
+            }
+        });
+        mn07.add(mn73);
 
         mn0.add(mn07);
 
@@ -1215,9 +1225,9 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
         });
     }//GEN-LAST:event_mnSetting
 
-    private void btnDiler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiler
-        Desktop desktop = Desktop.getDesktop();
+    private void mnDiler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDiler
         try {
+            Desktop desktop = Desktop.getDesktop();
             URI url = new URI(eProperty.url_src.read());
             desktop.browse(url);
         } catch (URISyntaxException e) {
@@ -1225,7 +1235,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
         } catch (IOException e) {
             System.err.println(e);
         }
-    }//GEN-LAST:event_btnDiler
+    }//GEN-LAST:event_mnDiler
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1295,6 +1305,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JCheckBoxMenuItem mn633;
     private javax.swing.JMenuItem mn71;
     private javax.swing.JMenuItem mn72;
+    private javax.swing.JMenuItem mn73;
     private javax.swing.JMenuItem mn91;
     private javax.swing.JMenuItem mn92;
     private javax.swing.JPopupMenu.Separator mn93;

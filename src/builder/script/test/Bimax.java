@@ -169,11 +169,11 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{sysprofID:1121, typeOpen:1,sysfurnID:2335}")) //,artiklHandl:2159,colorHandl:1009}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{sysprofID:1121, typeOpen:1, sysfurnID:2335}")) //,artiklHandl:2159,colorHandl:1009}"))
                     .addElem(new GsonElem(Type.GLASS, "{artglasID:4663}"));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addArea(new GsonElem(Layout.VERT, Type.AREA, 650))
-                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{sysprofID:1121, typeOpen:4,sysfurnID:2916}")) //,artiklHandl:5058,colorHandl:1009}"))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{sysprofID:1121, typeOpen:4, sysfurnID:2916}")) //,artiklHandl:5058,colorHandl:1009}"))
                     .addElem(new GsonElem(Type.GLASS, "{artglasID:4663}"));
 
             //Нерешёння проблема со штапиком
