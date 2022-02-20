@@ -77,6 +77,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import static java.util.stream.Collectors.toList;
@@ -371,10 +372,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             } else if (winNode.com5t().type == enums.Type.PARAM) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card14");
                 qSyspar1.clear();
-                //Map<Integer, String> map = new HashMap();
-                //iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
-                //map.forEach((pk, txt) -> qSyspar1.add(new Record(Query.SEL, pk, txt, pk, null, null)));
                 iwin.mapPardef.forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
+                Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
                 ((DefTableModel) tab3.getModel()).fireTableDataChanged();
 
                 //Рама, импост...

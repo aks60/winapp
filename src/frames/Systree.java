@@ -79,16 +79,18 @@ import builder.making.Joining;
 import builder.making.UColor;
 import domain.eJoinvar;
 import enums.TypeJoin;
-import frames.dialog.DicJoinvar;
 import frames.swing.Scene;
 import frames.swing.FilterTable;
 import common.listener.ListenerObject;
 import java.text.DecimalFormat;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 public class Systree extends javax.swing.JFrame implements ListenerObject {
 
@@ -102,7 +104,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
-    private Query qSyspar2 = new Query(eSyspar1.values());    
+    private Query qSyspar2 = new Query(eSyspar1.values());
 
     private DecimalFormat df1 = new DecimalFormat("#0.#");
     private int systreeID = -1; //выбранная система
@@ -507,7 +509,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         listenerParam2 = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
-            qSyspar2.set(record.getStr(eParams.text), UGui.getIndexRec(tab4), eSyspar1.text);
+            qSyspar2.set(record.getStr(eParams.text), UGui.getIndexRec(tab4), eSyspar1.text);            
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
@@ -544,6 +546,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             qSyspar2.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", sysNode.rec().getInt(eSystree.id));
             lab1.setText("ID = " + systreeID);
             lab2.setText("ID = -1");
+            Collections.sort(qSyspar2, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
 
             loadingTab5();
 
@@ -596,10 +599,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             } else if (winNode.com5t().type == enums.Type.PARAM) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card11");
                 qSyspar1.clear();
-                //Map<Integer, String> map = new HashMap();
-                //iwin.mapPardef.forEach((pk, rec) -> map.put(pk, rec.getStr(eSyspar1.text)));
-                //map.forEach((pk, txt) -> qSyspar2.add(new Record(Query.SEL, pk, txt, pk, null, null)));
                 iwin.mapPardef.forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
+                Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
                 ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
                 //Рама, импост...
@@ -3402,8 +3403,13 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_colorFromLock
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-        String json = gson.toJson(iwin().rootGson);
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(tab7.getModel());
+        tab7.setRowSorter(sorter);
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        int columnIndexToSort = 0;
+        sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING));
+        sorter.setSortKeys(sortKeys);
+        sorter.sort();
     }//GEN-LAST:event_btnTestActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
