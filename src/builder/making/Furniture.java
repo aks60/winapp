@@ -56,6 +56,7 @@ public class Furniture extends Cal5e {
         super.calc();
         LinkedList<AreaStvorka> stvorkaList = UCom.listSortObj(iwin.listSortAr, Type.STVORKA);
         try {
+            
             //Цикл по створкам      
             for (AreaStvorka areaStv : stvorkaList) {
                 setFurndet.clear();
@@ -93,6 +94,7 @@ public class Furniture extends Cal5e {
             List<Record> furndetList2 = furndetList1.stream().filter(rec -> rec.getInt(eFurndet.id) != rec.getInt(eFurndet.furndet_id)).collect(toList());
             List<Record> furnsidetList = eFurnside1.find(furnitureRec.getInt(eFurniture.id));
 
+            
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnsidetList) {
                 ElemFrame elemFrame = areaStv.frames.get((Layout) Layout.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
@@ -104,6 +106,7 @@ public class Furniture extends Cal5e {
                 setVariant.add(furnitureRec.getInt(eFurniture.id)); //сделано для запуска формы Furniture на ветке Systree
             }
 
+            
             //Цикл по детализации (уровень 1)        
             for (Record furndetRec1 : furndetList1) {
                 if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
@@ -134,7 +137,8 @@ public class Furniture extends Cal5e {
     protected boolean detail(AreaStvorka areaStv, Record furndetRec, int countKit) {
         try {
             Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
-
+            HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
+            
             //Сделано для убыстрения поиска ручки, подвеса, замка при конструировании окна
             if (shortPass == true) {
                 if (furndetRec.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id) && furndetRec.get(eFurndet.furniture_id2) == null) {
@@ -144,8 +148,7 @@ public class Furniture extends Cal5e {
                     }
                 }
             }
-            HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
-
+            
             //ФИЛЬТР детализации            
             furnitureDet.detailRec = furndetRec; //для тестирования
             if (furnitureDet.filter(mapParam, areaStv, furndetRec) == false) {
@@ -153,6 +156,7 @@ public class Furniture extends Cal5e {
             }
             List<Record> furnside2List = eFurnside2.find(furndetRec.getInt(eFurndet.id));
 
+            
             //Цикл по ограничению сторон фурнитуры
             for (Record furnside2Rec : furnside2List) {
                 ElemFrame el = null;
@@ -189,6 +193,8 @@ public class Furniture extends Cal5e {
                     return false;
                 }
             }
+            
+            
             //Если это элемент из мат. ценности (не НАБОР)
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 if (artiklRec.getInt(eArtikl.id) != -1) {
@@ -197,11 +203,11 @@ public class Furniture extends Cal5e {
 
                     //Ловим ручку, подвес, замок
                     if (propertyStv(areaStv, spcAdd) == false) {
-                        return false; //выход из цикла поиска ручки
+                        return false; //выход из цикла поиска ручки (для убыстрения поиска)
                     }
                     //Если цвет не подходит
                     if (UColor.colorFromProduct(spcAdd, 1) == false) {
-                        return false; //выход из цикла поиска
+                        return false; //выход из цикла поиска (для убыстрения поиска)
                     }
 
                     //Добавим спецификацию в элемент
