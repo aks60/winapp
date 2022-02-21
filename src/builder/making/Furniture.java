@@ -68,8 +68,8 @@ public class Furniture extends Cal5e {
                 sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnRec.getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
 
-                float max_width = stvorkaList.stream().max((s1, s2) -> s1.width().compareTo(s2.width())).get().width();
-                float max_height = stvorkaList.stream().max((s1, s2) -> s1.height().compareTo(s2.height())).get().height();
+                float max_width = stvorkaList.stream().max((s1, s2) -> s1.width().compareTo(s2.width())).get().width(); //сторона створки
+                float max_height = stvorkaList.stream().max((s1, s2) -> s1.height().compareTo(s2.height())).get().height(); //сторона створки
                 boolean p2_max = stvorkaList.stream().anyMatch(s -> furnityreRec.getFloat(eFurniture.p2_max) < (s.width() * 2 + s.height() * 2) / 2);
                 if (p2_max || furnityreRec.getFloat(eFurniture.max_height) < max_height || furnityreRec.getFloat(eFurniture.max_width) < max_width) {
                     if (max_size_message == true) {
