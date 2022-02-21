@@ -59,10 +59,11 @@ public class Furniture extends Cal5e {
             //Цикл по створкам      
             for (AreaStvorka areaStv : stvorkaList) {
                 setFurndet.clear();
+                
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(iwin.nuni);
-
                 Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию, первая SYSFURN в списке системы
+                
                 //Теперь найдём furnityreRec по sysfurnRec из параметра или по умолчанию в случае неудачи                 
                 sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnRec.getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
