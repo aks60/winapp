@@ -20,34 +20,17 @@ import startup.App;
  */
 public class Conn {
 
-    private static Conn instanceClass = null;
+    private static boolean application = false;
     private static Connection connection = null;
-    protected Statement statement = null;
-    protected boolean autoCommit = false;
+    protected static Statement statement = null;
+    protected static boolean autoCommit = false;
     public final static String driver = "org.firebirdsql.jdbc.FBDriver";
     public final static String fbserver = "jdbc:firebirdsql:";
     public String url = "";
 
-    public static Conn init() {
-
-        instanceClass = new Conn();
-        return instanceClass;
-    }
-
-    public static Conn inst() {
-        if (instanceClass == null) {
-            instanceClass = new Conn();
-        }
-        return instanceClass;
-    }
-
-    public void connection(Connection connection) {
-        this.connection = connection;
-    }
-
     public static Connection connection() {
         
-        if (instanceClass != null) {
+        if (application == true) {
             return connection;
             
         } else {
@@ -71,8 +54,14 @@ public class Conn {
         }
     }
 
-    public eExcep connection(String server, String port, String base, String user, char[] password, String role) {
+    public static void connection(Connection connect) {
+        connection = connect;
+    }
+    
+    public static eExcep connection(String server, String port, String base, String user, char[] password, String role) {
         try {
+            application = true;
+            
             if (Class.forName(driver) == null) {
                 JOptionPane.showMessageDialog(App.Top.frame, "Ошибка загрузки файла драйвера",
                         "Ошибка", JOptionPane.ERROR_MESSAGE);
@@ -98,7 +87,7 @@ public class Conn {
         return eExcep.yesConn;
     }
 
-    public void autocommit(boolean autoCommit) {
+    public static void autocommit(boolean autoCommit) {
         try {
             connection.setAutoCommit(autoCommit);
         } catch (SQLException e) {
@@ -107,7 +96,7 @@ public class Conn {
     }
 
     //Добавление нового пользователя   
-    public void addUser(String user, char[] password, String role) {
+    public static void addUser(String user, char[] password, String role) {
         try {
             connection.createStatement().executeUpdate("create user " + user + " password '" + String.valueOf(password) + "'");
             connection.createStatement().executeUpdate("grant DEFROLE to " + user);
@@ -119,7 +108,7 @@ public class Conn {
     }
 
     //Удаление пользователя
-    public void deleteUser(String user) {
+    public static void deleteUser(String user) {
         try {
             connection.createStatement().executeUpdate("REVOKE TEXNOLOG_RW FROM " + user);
             connection.createStatement().executeUpdate("REVOKE MANAGER_RW FROM " + user);
@@ -133,7 +122,7 @@ public class Conn {
     }
 
     //Изменение параметров пользователя
-    public void modifyPassword(String user, char[] password) {
+    public static void modifyPassword(String user, char[] password) {
         try {
             String sql = "ALTER USER " + user + " PASSWORD '" + String.valueOf(password) + "'";
             connection.createStatement().executeUpdate(sql);
@@ -143,7 +132,7 @@ public class Conn {
     }
 
     //Генератор ключа ID
-    public int genId(Field field) {
+    public static int genId(Field field) {
         try {
             int next_id = 0;
             Statement statement = connection.createStatement();
@@ -162,7 +151,7 @@ public class Conn {
         }
     }
 
-    public String version() {
+    public static String version() {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT rdb$get_context('SYSTEM', 'ENGINE_VERSION') as version from rdb$database";

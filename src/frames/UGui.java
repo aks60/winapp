@@ -598,7 +598,7 @@ public class UGui {
 
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = field.newRecord(Query.INS);
-        record.setNo(field.fields()[1], Conn.inst().genId(field));
+        record.setNo(field.fields()[1], Conn.genId(field));
         query.add(record);
         listener.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(query.size() - 1, query.size() - 1);
@@ -613,7 +613,7 @@ public class UGui {
         index = (index == -1) ? 0 : index;
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = field.newRecord(Query.INS);
-        record.setNo(field.fields()[1], Conn.inst().genId(field));
+        record.setNo(field.fields()[1], Conn.genId(field));
         query.add(index, record);
         listener.action(record);
         ((DefaultTableModel) table.getModel()).fireTableRowsInserted(index, index);

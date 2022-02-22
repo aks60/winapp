@@ -55,9 +55,8 @@ public class Test {
         try {
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
-            Conn con = Conn.init();
-            con.connection(eProperty.server(numDb.toString()), eProperty.port(numDb.toString()), eProperty.base(numDb.toString()), eProperty.user.read(), eProperty.password.toCharArray(), null);;
-            return con.connection();
+            Conn.connection(eProperty.server(numDb.toString()), eProperty.port(numDb.toString()), eProperty.base(numDb.toString()), eProperty.user.read(), eProperty.password.toCharArray(), null);;
+            return Conn.connection();
         } catch (Exception e) {
             System.err.println("Ошибка:Test.connect() " + e);
             return null;
@@ -71,7 +70,7 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            wincalc();
+            //wincalc();
             //param();
             //query();
             //frame();
@@ -87,9 +86,9 @@ public class Test {
 
     private static void wincalc() throws Exception {
 
-        Conn.inst().connection(Test.connect2());
+        Conn.connection(Test.connect2());
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(601010, false));
@@ -128,7 +127,7 @@ public class Test {
 
     private static void param() {
 
-        Conn.inst().connection(Test.connect2());
+        Conn.connection(Test.connect2());
 
         ElementTest et = new ElementTest();
         et.elementVar();
@@ -168,7 +167,7 @@ public class Test {
 
     private static void query() {
         try {
-            Conn.inst().connection(Test.connect2());
+            Conn.connection(Test.connect2());
             Object obj = eElement.find3(1386, 33);
             System.out.println(obj);
 

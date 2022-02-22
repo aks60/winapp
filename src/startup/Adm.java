@@ -152,7 +152,7 @@ public class Adm extends javax.swing.JFrame {
                     + "rdb$user_privileges b WHERE a.rdb$role_name = b.rdb$relation_name AND  "
                     + "a.rdb$role_name != 'DEFROLE' AND b.rdb$user != 'SYSDBA' AND NOT EXISTS "
                     + "(SELECT * FROM rdb$roles c WHERE c.rdb$role_name = b.rdb$user)";
-            Statement statement = Conn.inst().connection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            Statement statement = Conn.connection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = statement.executeQuery(sql);
             int npp = 0;
             while (rs.next()) {
@@ -1168,7 +1168,7 @@ public class Adm extends javax.swing.JFrame {
             int row = tab4.getSelectedRow();
             if (row != -1) {
                 String user = String.valueOf(tab4.getValueAt(row, 1));
-                Conn.inst().deleteUser(user);
+                Conn.deleteUser(user);
                 loadingTab4();
             }
         }
@@ -1203,9 +1203,9 @@ public class Adm extends javax.swing.JFrame {
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         try {
-            Conn.inst().connection().createStatement().executeUpdate("create user AKS2 password '1'");
-            Conn.inst().connection().createStatement().executeUpdate("grant DEFROLE to AKS2");
-            Conn.inst().connection().createStatement().executeUpdate("grant TEXNOLOG_RW to AKS2");
+            Conn.connection().createStatement().executeUpdate("create user AKS2 password '1'");
+            Conn.connection().createStatement().executeUpdate("grant DEFROLE to AKS2");
+            Conn.connection().createStatement().executeUpdate("grant TEXNOLOG_RW to AKS2");
 
         } catch (Exception e) {
         }
@@ -1264,9 +1264,8 @@ public class Adm extends javax.swing.JFrame {
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
             String num_base = eProperty.base_num.read();
-            Conn con2 = Conn.init();
-            con2.connection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);
-            Connection c2 = con2.connection();
+            Conn.connection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);
+            Connection c2 = Conn.connection();
 
             Conn con1 = new Conn();
             con1.connection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray(), null);
@@ -1344,11 +1343,11 @@ public class Adm extends javax.swing.JFrame {
                 }
                 String role = (box1.getSelectedIndex() == 1) ? "TEXNOLOG" : "MANAGER";
                 role = (box2.getSelectedIndex() == 0) ? role + "_RW" : role + "_RO";
-                Conn.inst().addUser(txt1.getText().trim(), txt2.getPassword(), role);
+                Conn.addUser(txt1.getText().trim(), txt2.getPassword(), role);
                 loadingTab4();
             }
         } else {
-            Conn.inst().modifyPassword(txt1.getText().trim(), txt2.getPassword());
+            Conn.modifyPassword(txt1.getText().trim(), txt2.getPassword());
         }
         ((CardLayout) pan3.getLayout()).show(pan3, "pan11");
     }//GEN-LAST:event_adminOk
@@ -1366,7 +1365,7 @@ public class Adm extends javax.swing.JFrame {
         if (result == JOptionPane.OK_OPTION) {
             if (pass1.getText().equals(pass2.getText())) {
 
-                Conn.inst().modifyPassword("sysdba", pass2.getPassword());
+                Conn.modifyPassword("sysdba", pass2.getPassword());
                 JOptionPane.showMessageDialog(this, "Операция выполнена успешно!", "Изменение паспорта SYSDBA", JOptionPane.NO_OPTION);
             } else {
                 JOptionPane.showMessageDialog(this, "Имена не совпали", "Неудача", JOptionPane.NO_OPTION);
@@ -1469,7 +1468,7 @@ public class Adm extends javax.swing.JFrame {
         appendToPane("    выполняться под управлением Firebird 2.1 НЕ ВЫШЕ.\n", Color.GRAY);
         appendToPane("    Если версия выше чем 2.1 переустановите Firebird.\n", Color.GRAY);
         appendToPane("\n", Color.GRAY);
-        appendToPane("    PS. У Вас установлена версия Firebird " + Conn.inst().version() + "\n", Color.GRAY);
+        appendToPane("    PS. У Вас установлена версия Firebird " + Conn.version() + "\n", Color.GRAY);
 
         LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
