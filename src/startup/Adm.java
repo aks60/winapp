@@ -1265,11 +1265,11 @@ public class Adm extends javax.swing.JFrame {
             eProperty.password = String.valueOf("masterkey");
             String num_base = eProperty.base_num.read();
             Conn con2 = Conn.init();
-            con2.createConnection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);
+            con2.connection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);
             Connection c2 = con2.connection();
 
             Conn con1 = new Conn();
-            con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray(), null);
+            con1.connection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray(), null);
             Connection c1 = con1.connection();
 
             txtPane.setText("");
@@ -1288,7 +1288,7 @@ public class Adm extends javax.swing.JFrame {
 
     private void btnTestBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestBtnStartClick
         Conn Src = new Conn();
-        eExcep excep = Src.createConnection(edServer.getText().trim(), edPort.getText().trim(),
+        eExcep excep = Src.connection(edServer.getText().trim(), edPort.getText().trim(),
                 edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray(), null);
         JOptionPane.showMessageDialog(this, edPath.getText().trim() + "  \n" + excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnTestBtnStartClick

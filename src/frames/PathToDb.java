@@ -51,7 +51,7 @@ public class PathToDb extends javax.swing.JDialog {
                 progressBar.setIndeterminate(true);
                 labMes.setText("Установка соединения с базой данных");
                 Conn con = Conn.init();
-                eExcep pass = con.createConnection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), "DEFROLE");
+                eExcep pass = con.connection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), "DEFROLE");
                 if (pass == eExcep.yesConn) {
                     if ("SYSDBA".equalsIgnoreCase(edUser.getText()) == false) {
 
@@ -61,7 +61,7 @@ public class PathToDb extends javax.swing.JDialog {
                         while (rs.next()) {
                             String role = rs.getString("RDB$RELATION_NAME").trim();
                             con.connection().close();
-                            pass = con.createConnection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), role);
+                            pass = con.connection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), role);
                             if (pass == eExcep.yesConn) {
                                 if (App.Top.frame == null && eProfile.P02.roleSet.contains(role)) {
                                     App.createApp(eProfile.P02);
@@ -78,7 +78,7 @@ public class PathToDb extends javax.swing.JDialog {
                             }
                         }
                     } else {
-                        pass = con.createConnection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), null);
+                        pass = con.connection(edHost.getText(), edPort.getText(), edPath.getText(), edUser.getText(), edPass.getPassword(), null);
                         if (pass == eExcep.yesConn) {
                             if (App.Top.frame == null) {
                                 App.createApp(eProfile.P01);

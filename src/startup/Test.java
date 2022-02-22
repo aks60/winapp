@@ -56,7 +56,7 @@ public class Test {
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
             Conn con = Conn.init();
-            con.createConnection(eProperty.server(numDb.toString()), eProperty.port(numDb.toString()), eProperty.base(numDb.toString()), eProperty.user.read(), eProperty.password.toCharArray(), null);;
+            con.connection(eProperty.server(numDb.toString()), eProperty.port(numDb.toString()), eProperty.base(numDb.toString()), eProperty.user.read(), eProperty.password.toCharArray(), null);;
             return con.connection();
         } catch (Exception e) {
             System.err.println("Ошибка:Test.connect() " + e);

@@ -8,6 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import javax.swing.JOptionPane;
 import startup.App;
 
@@ -31,7 +35,7 @@ public class Conn {
     }
 
     public static Conn inst() {
-        if(instanceClass == null) {
+        if (instanceClass == null) {
             instanceClass = new Conn();
         }
         return instanceClass;
@@ -42,21 +46,32 @@ public class Conn {
     }
 
     public Connection connection() {
-        return connection;
-    }
-    
-    public void autoCommit(boolean autoCommit) {
-        try {
-            connection.setAutoCommit(autoCommit);
-        } catch (SQLException e) {
-            System.out.println("dataset.IConnect.setAutoCommit() " + e);
+        
+        if (instanceClass != null) {
+            return connection;
+            
+        } else {
+            try {
+                Context initContext = new InitialContext();
+                DataSource dataSource = (DataSource) initContext.lookup("java:/comp/env/jdbc/winweb");
+                Connection connection = dataSource.getConnection();
+                connection.setAutoCommit(true);
+                return connection;
+
+            } catch (NamingException e) {
+                System.err.println("Ошибка получения connect №1");
+                e.printStackTrace();
+                return null;
+
+            } catch (SQLException e) {
+                System.err.println("Ошибка получения connect №2");
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 
-    /**
-     * Соединение с БД
-     */
-    public eExcep createConnection(String server, String port, String base, String user, char[] password, String role) {
+    public eExcep connection(String server, String port, String base, String user, char[] password, String role) {
         try {
             if (Class.forName(driver) == null) {
                 JOptionPane.showMessageDialog(App.Top.frame, "Ошибка загрузки файла драйвера",
@@ -68,7 +83,7 @@ public class Conn {
             props.setProperty("password", String.valueOf(password));
             if (role != null) {  //&& user.equalsIgnoreCase("sysdba") == false) {
                 props.setProperty("roleName", role);
-            } 
+            }
             props.setProperty("encoding", "win1251");
             connection = DriverManager.getConnection(url, props);
             connection.setAutoCommit(true);
@@ -83,13 +98,21 @@ public class Conn {
         return eExcep.yesConn;
     }
 
+    public void autocommit(boolean autoCommit) {
+        try {
+            connection.setAutoCommit(autoCommit);
+        } catch (SQLException e) {
+            System.out.println("dataset.IConnect.setAutoCommit() " + e);
+        }
+    }
+
     //Добавление нового пользователя   
     public void addUser(String user, char[] password, String role) {
         try {
             connection.createStatement().executeUpdate("create user " + user + " password '" + String.valueOf(password) + "'");
             connection.createStatement().executeUpdate("grant DEFROLE to " + user);
             connection.createStatement().executeUpdate("grant " + role + " to " + user);
-            
+
         } catch (Exception e) {
             System.err.println(e);
         }

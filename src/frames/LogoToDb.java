@@ -58,7 +58,7 @@ public class LogoToDb extends javax.swing.JDialog {
                 labMes.setText("Установка соединения с базой данных");
                 Conn con = Conn.init();
                 String num = eProperty.base_num.read();
-                eExcep pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), "DEFROLE");
+                eExcep pass = con.connection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), "DEFROLE");
                 if (pass == eExcep.yesConn) {
                     if ("SYSDBA".equalsIgnoreCase(edUser.getText()) == false) {
 
@@ -68,7 +68,7 @@ public class LogoToDb extends javax.swing.JDialog {
                         while (rs.next()) {
                             String role = rs.getString("RDB$RELATION_NAME").trim();
                             con.connection().close();
-                            pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), role);
+                            pass = con.connection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), role);
                             if (pass == eExcep.yesConn) {
                                 if (eProfile.P02.roleSet.contains(role)) {
                                     App.createApp(eProfile.P02);
@@ -82,7 +82,7 @@ public class LogoToDb extends javax.swing.JDialog {
                             }
                         }
                     } else {
-                        pass = con.createConnection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), null);
+                        pass = con.connection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), null);
                         if (pass == eExcep.yesConn) {
                             App.createApp(eProfile.P01);
                             eProperty.user.write(edUser.getText().trim());
