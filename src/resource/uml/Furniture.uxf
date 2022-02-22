@@ -69,8 +69,8 @@ type=decision
       <h>40</h>
     </coordinates>
     <panel_attributes>Параметры
-огр.сторон
-type=sender</panel_attributes>
+вариантов
+type=receiver</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
