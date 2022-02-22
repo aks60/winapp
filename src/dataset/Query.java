@@ -25,13 +25,13 @@ public class Query extends Table {
     public static LinkedHashSet<Query> listOpenTable = new LinkedHashSet<Query>();
 
     public Query(Query query) {
-        this.connection = Conn.connection;
+        this.connection = Conn.instanc().connection();
         this.root = query;        
     }
 
     public Query(Field... fields) {
         this.root = this;
-        this.connection = Conn.connection;
+        this.connection = Conn.instanc().connection();
         mapQuery.put(fields[0].tname(), this);
         for (Field field : fields) {
             if (!field.name().equals("up")) {
@@ -45,7 +45,7 @@ public class Query extends Table {
 
     public Query(Field[]... fieldsArr) {
         this.root = this;
-        this.connection = Conn.connection;
+        this.connection = Conn.instanc().connection();
         mapQuery.put(fieldsArr[0][0].tname(), this);
         for (Field[] fields : fieldsArr) {
             for (Field field : fields) {

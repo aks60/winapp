@@ -71,7 +71,7 @@ public class Wincalc {
     public Form form = Form.NUM0; //форма контура 
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
-    public LinkedList2<AreaSimple> listSortAr = new LinkedList2(); //список ElemSimple
+    public LinkedList2<AreaSimple> listSortAr = new LinkedList2(); //список AreaSimple
     public LinkedList2<ElemSimple> listSortEl = new LinkedList2(); //список ElemSimple
     public LinkedList2<ElemSimple> listTreeEl = new LinkedList2(); //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
