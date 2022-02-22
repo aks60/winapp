@@ -2530,7 +2530,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         } else if (tab2.getBorder() != null) {
             new DicSyspod(this, (record) -> {
                 UGui.insertRecordEnd(tab2, eProject.up, (record2) -> {
-                    record2.set(eProprod.id, Conn.instanc().genId(eSysprod.up));
+                    record2.set(eProprod.id, Conn.inst().genId(eSysprod.up));
                     record2.set(eProprod.name, record.getStr(eSysprod.name));
                     record2.set(eProprod.script, record.getStr(eSysprod.script));
                     record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));

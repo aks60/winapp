@@ -868,7 +868,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
 //            String json = new Gson().toJson(win);
 //            reader.close();            
             Record record = eSysmodel.up.newRecord(Query.INS);
-            record.set(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));
+            record.set(eSysmodel.id, Conn.inst().genId(eSysmodel.up));
             record.set(eSysmodel.npp, qModels.size());
             record.set(eSysmodel.name, "<html>" + win.prj + " " + win.name);
             record.set(eSysmodel.script, json);

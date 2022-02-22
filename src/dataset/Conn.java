@@ -17,7 +17,7 @@ import startup.App;
 public class Conn {
 
     private static Conn instanceClass = null;
-    private static Connection connection = null;
+    private Connection connection = null;
     protected Statement statement = null;
     protected boolean autoCommit = false;
     public final static String driver = "org.firebirdsql.jdbc.FBDriver";
@@ -30,7 +30,7 @@ public class Conn {
         return instanceClass;
     }
 
-    public static Conn instanc() {
+    public static Conn inst() {
         if(instanceClass == null) {
             instanceClass = new Conn();
         }

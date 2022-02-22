@@ -340,8 +340,8 @@ public class Rulecalc extends javax.swing.JFrame {
         if (tab2.getBorder() != null) {
             Record rulecalcRec = eRulecalc.up.newRecord(Query.INS);
             Record artiklRec = eArtikl.up.newRecord();
-            rulecalcRec.setNo(eRulecalc.id, Conn.instanc().genId(eRulecalc.up));
-            rulecalcRec.setNo(eRulecalc.id, Conn.instanc().genId(eRulecalc.up));
+            rulecalcRec.setNo(eRulecalc.id, Conn.inst().genId(eRulecalc.up));
+            rulecalcRec.setNo(eRulecalc.id, Conn.inst().genId(eRulecalc.up));
             qRulecalc.add(rulecalcRec);
             qRulecalc.table(eArtikl.up).add(artiklRec);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();

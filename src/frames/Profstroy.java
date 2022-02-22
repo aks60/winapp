@@ -107,7 +107,7 @@ public class Profstroy {
         try {
             println(Color.GREEN, "Подготовка методанных");
             cn2.setAutoCommit(false);
-            Conn.instanc().connection(cn2);
+            Conn.inst().connection(cn2);
             st1 = cn1.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY); //источник 
             st2 = cn2.createStatement();//приёмник
             DatabaseMetaData mdb1 = cn1.getMetaData();
@@ -646,7 +646,7 @@ public class Profstroy {
                     Query q = new Query(eSysmodel.values());
                     Record record = eSysmodel.up.newRecord(Query.INS);
                     record.setNo(eSysmodel.npp, ++index);
-                    record.setNo(eSysmodel.id, Conn.instanc().genId(eSysmodel.up));
+                    record.setNo(eSysmodel.id, Conn.inst().genId(eSysmodel.up));
                     record.setNo(eSysmodel.name, name);
                     record.setNo(eSysmodel.script, script);
                     record.setNo(eSysmodel.form, gson.type().id);
@@ -696,40 +696,40 @@ public class Profstroy {
             rs = st1.executeQuery("select * from GRUPCOL");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
-                        + Conn.instanc().genId(eGroups.up) + "," + TypeGroups.COLOR.id + ",'" + rs.getString("GNAME") + "',"
+                        + Conn.inst().genId(eGroups.up) + "," + TypeGroups.COLOR.id + ",'" + rs.getString("GNAME") + "',"
                         + rs.getString("GKOEF") + "," + rs.getInt("GNUMB") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from GRUPART");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
-                        + Conn.instanc().genId(eGroups.up) + "," + TypeGroups.PRICE_INC.id + ",'" + rs.getString("MNAME") + "',"
+                        + Conn.inst().genId(eGroups.up) + "," + TypeGroups.PRICE_INC.id + ",'" + rs.getString("MNAME") + "',"
                         + rs.getString("MKOEF") + "," + rs.getInt("MUNIC") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from DESCLST");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
-                        + Conn.instanc().genId(eGroups.up) + "," + TypeGroups.PRICE_DEC.id + ",'" + rs.getString("NDESC") + "',"
+                        + Conn.inst().genId(eGroups.up) + "," + TypeGroups.PRICE_DEC.id + ",'" + rs.getString("NDESC") + "',"
                         + rs.getString("VDESC") + "," + rs.getInt("UDESC") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select distinct APREF from ARTIKLS where APREF is not null");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME) values ("
-                        + Conn.instanc().genId(eGroups.up) + "," + TypeGroups.CATEG_PRF.id + ",'" + rs.getString("APREF") + "')";
+                        + Conn.inst().genId(eGroups.up) + "," + TypeGroups.CATEG_PRF.id + ",'" + rs.getString("APREF") + "')";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from PARLIST where PCOLL = 1 and ZNUMB = 0");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, FK) values ("
-                        + Conn.instanc().genId(eGroups.up) + "," + TypeGroups.COLMAP.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
+                        + Conn.inst().genId(eGroups.up) + "," + TypeGroups.COLMAP.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select distinct VPREF, ATYPM from VSTALST order by  ATYPM, VPREF");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, NPP) values ("
-                        + Conn.instanc().genId(eGroups.up) + "," + TypeGroups.CATEG_VST.id + ",'" + rs.getString("VPREF") + "'," + rs.getInt("ATYPM") + ")";
+                        + Conn.inst().genId(eGroups.up) + "," + TypeGroups.CATEG_VST.id + ",'" + rs.getString("VPREF") + "'," + rs.getInt("ATYPM") + ")";
                 st2.executeUpdate(sql);
             }
             cn2.commit();

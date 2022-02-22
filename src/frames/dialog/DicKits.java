@@ -562,7 +562,7 @@ public class DicKits extends javax.swing.JDialog {
 
                 Record artiklRec = eArtikl.get(record.getInt(eKitdet.artikl_id));
                 Record recordKit = eProkit.up.newRecord(Query.INS);
-                recordKit.set(eProkit.id, Conn.instanc().genId(eProkit.up));
+                recordKit.set(eProkit.id, Conn.inst().genId(eProkit.up));
                 recordKit.set(eProkit.proprod_id, proprodID);
                 recordKit.set(eProkit.artikl_id, artiklRec.getInt(eArtikl.id));
 

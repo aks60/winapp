@@ -87,7 +87,7 @@ public class Test {
 
     private static void wincalc() throws Exception {
 
-        Conn.instanc().connection(Test.connect2());
+        Conn.inst().connection(Test.connect2());
         builder.Wincalc iwin = new builder.Wincalc();
         String _case = "one";
 
@@ -128,7 +128,7 @@ public class Test {
 
     private static void param() {
 
-        Conn.instanc().connection(Test.connect2());
+        Conn.inst().connection(Test.connect2());
 
         ElementTest et = new ElementTest();
         et.elementVar();
@@ -168,7 +168,7 @@ public class Test {
 
     private static void query() {
         try {
-            Conn.instanc().connection(Test.connect2());
+            Conn.inst().connection(Test.connect2());
             Object obj = eElement.find3(1386, 33);
             System.out.println(obj);
 

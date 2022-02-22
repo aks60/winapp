@@ -956,7 +956,7 @@ public class Elements extends javax.swing.JFrame {
         Object result = JOptionPane.showInputDialog(Elements.this, "Название", "Категория", JOptionPane.QUESTION_MESSAGE);
         if (result != null) {
             Record elemgrpRec = eGroups.up.newRecord(Query.INS);
-            int id = Conn.instanc().genId(eGroups.up);
+            int id = Conn.inst().genId(eGroups.up);
             elemgrpRec.setNo(eGroups.id, id);
             elemgrpRec.setNo(eGroups.grup, TypeGroups.CATEG_VST.id);
             elemgrpRec.setNo(eGroups.npp, level1); //-1 -ПРОФИЛИ, -5 -ЗАПОЛНЕНИЯ
