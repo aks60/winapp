@@ -64,20 +64,6 @@ public class Query extends Table {
         this.root = query;        
     }
 
-    public Query(Connection connection, Field... fields) {
-        this.root = this;
-        this.connection = connection;
-        mapQuery.put(fields[0].tname(), this);
-        for (Field field : fields) {
-            if (!field.name().equals("up")) {
-                if (mapQuery.get(field.tname()) == null) {
-                    mapQuery.put(field.tname(), new Query(this));
-                }
-                mapQuery.get(field.tname()).fields.add(field);
-            }
-        }
-    }
-
     public Query(Connection connection, Field[]... fieldsArr) {
         this.root = this;
         this.connection = connection;
