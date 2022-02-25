@@ -105,7 +105,7 @@ public class Record<E> extends ArrayList<E> {
     public int getInt(Field field, int def) {
         try {
             Object obj = super.get(field.ordinal());
-            return (obj == null) ? -1 : Integer.valueOf(String.valueOf(obj));
+            return (obj == null) ? def : Integer.valueOf(String.valueOf(obj));
         } catch (NumberFormatException e) {
             return -1;
         }

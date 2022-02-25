@@ -310,7 +310,7 @@ public class UGui {
         JsonObject jsonObj = gson.fromJson(gsonRoot.param(), JsonObject.class);
         JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
         jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
-        int indexRemov = -1;
+        int indexRemov = -1;        
         int titleID1 = qParams.stream().filter(rec -> paramDef == rec.getInt(eParams.id))
                 .findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
         for (int i = 0; i < jsonArr.size(); i++) { 

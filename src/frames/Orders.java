@@ -99,7 +99,7 @@ import startup.Main;
 public class Orders extends javax.swing.JFrame implements ListenerObject {
 
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
-    private Query qParams = new Query(eParams.id, eParams.params_id, eParams.text);
+    private Query qParams = new Query(eParams.values());
     private Query qCurrenc = new Query(eCurrenc.values());
     private Query qProjectAll = new Query(eProject.values());
     private Query qProject = new Query(eProject.values());
@@ -107,7 +107,6 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private Query qProprod = new Query(eProprod.values());
     private Query qProkit = new Query(eProkit.values(), eArtikl.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
-    private Map<Integer, String> mapParams = new HashMap();
     private DefMutableTreeNode winNode = null;
     private Canvas canvas = new Canvas();
     private Scene scene = new Scene(canvas, this);
@@ -127,8 +126,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     }
 
     private void loadingData() {
-        qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id);
-        qParams.forEach(rec -> mapParams.put(rec.getInt(eParams.id), rec.getStr(eParams.text)));
+        qParams.select(eParams.up);
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qProjectAll.select(eProject.up, "order by", eProject.date4);
         qPropart.select(ePropart.up);
@@ -515,7 +513,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 if (index != -1) {
                     Record proprodRec = qProprod.get(index);
                     String script = proprodRec.getStr(eProprod.script);
-                    String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
+                        String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
                     proprodRec.set(eProprod.script, script2);
                     qProprod.execsql();
                     iwin().build(script2);
