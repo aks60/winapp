@@ -309,20 +309,16 @@ public class UGui {
         GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
         JsonObject jsonObj = gson.fromJson(gsonRoot.param(), JsonObject.class);
         JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
-        jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
-        int indexRemov = -1;        
+        jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;       
         int titleID1 = qParams.stream().filter(rec -> paramDef == rec.getInt(eParams.id))
                 .findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
-        for (int i = 0; i < jsonArr.size(); i++) { 
-            
-            int it = jsonArr.get(i).getAsInt();
-            int titleID2 = qParams.stream().filter(rec -> (it == rec.getInt(eParams.id))).findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
+        
+        for (int i = 0; i < jsonArr.size(); i++) {            
+            int grup = jsonArr.get(i).getAsInt();
+            int titleID2 = qParams.stream().filter(rec -> (grup == rec.getInt(eParams.id))).findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
             if (titleID1 == titleID2) {
-                indexRemov = i;
+               jsonArr.remove(i);
             }
-        }
-        if (indexRemov != -1) {
-            jsonArr.remove(indexRemov);
         }
         jsonArr.add(paramDef);
         jsonObj.add(PKjson.ioknaParam, jsonArr);
