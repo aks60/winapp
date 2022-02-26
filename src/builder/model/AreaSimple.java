@@ -95,14 +95,10 @@ public class AreaSimple extends Com5t {
                 //Добавим к параметрам системы конструкции параметры конкретной конструкции
                 JsonArray ioknaParamArr = param.getAsJsonArray(PKjson.ioknaParam);                
                 if (ioknaParamArr != null && !ioknaParamArr.isJsonNull() && ioknaParamArr.isJsonArray()) {
-                    ioknaParamArr.forEach(it -> {
-                        Record paramRec = eParams.find(it.getAsInt()); //параметр менеджера                       
-                        Record param2Rec = eParams.query().stream().filter( //название группы
-                                rec -> paramRec.getInt(eParams.params_id) == rec.getInt(eParams.id)).findFirst().get();
-                        if (param2Rec != null) {
-                            iwin.mapPardef.put(paramRec.getInt(eParams.params_id),
-                                    new Record(Query.SEL, -3, paramRec.get(eParams.text), paramRec.get(eParams.params_id), this.iwin.nuni, 0));
-                        }
+                    ioknaParamArr.forEach(grup -> {
+                        Record paramsRec = eParams.find(grup.getAsInt()); //параметр менеджера   
+                        Record syspar1Rec = iwin.mapPardef.get(paramsRec.getInt(eParams.params_id));
+                        syspar1Rec.setNo(eParams.text, paramsRec.getStr(eParams.text));
                     });
                 }
             }

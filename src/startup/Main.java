@@ -11,7 +11,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 public class Main {
 
-    public static boolean dev = false;     //признак разработки и тестирования
+    public static boolean dev = true;     //признак разработки и тестирования
     public static boolean locate = false;  //координаты фрейма разработки и тестирования
     public static String profile = "";     //профиль разработки и тестирования 
 
@@ -28,15 +28,12 @@ public class Main {
         
         for (int index = 0; index < args.length; index++) {
             if (index == 0 && args[0].equals("adm")) {
-                Main.dev = true;
                 Main.profile = args[0];
 
             } else if (index == 0 && args[0].equals("tex")) {
-                Main.dev = true;
                 Main.profile = args[0];
 
             } else if (index == 0 && args[0].equals("man")) {
-                Main.dev = true;
                 Main.profile = args[0];
             }
             if (index == 1 && args[1].equals("loc")) {
