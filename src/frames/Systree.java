@@ -687,6 +687,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     setText(txt41, ej3.joinvarRec.getStr(eJoinvar.name));
                     lab57.setIcon(UColor.iconFromTypeJoin2(ej3.type.id));
                 }
+            } else {
+               ((CardLayout) pan7.getLayout()).show(pan7, "card18"); 
             }
             lab2.setText("ID = " + winNode.com5t().id());
             Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
@@ -940,6 +942,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         txt43 = new javax.swing.JTextField();
         lab60 = new javax.swing.JLabel();
         txt44 = new javax.swing.JTextField();
+        pan18 = new javax.swing.JPanel();
         tabb1 = new javax.swing.JTabbedPane();
         pan6 = new javax.swing.JPanel();
         lab13 = new javax.swing.JLabel();
@@ -2254,6 +2257,19 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
         pan7.add(pan17, "card17");
 
+        javax.swing.GroupLayout pan18Layout = new javax.swing.GroupLayout(pan18);
+        pan18.setLayout(pan18Layout);
+        pan18Layout.setHorizontalGroup(
+            pan18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 272, Short.MAX_VALUE)
+        );
+        pan18Layout.setVerticalGroup(
+            pan18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 266, Short.MAX_VALUE)
+        );
+
+        pan7.add(pan18, "card18");
+
         pan2.add(pan7);
 
         pan1.add(pan2);
@@ -3502,6 +3518,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     private javax.swing.JPanel pan15;
     private javax.swing.JPanel pan16;
     private javax.swing.JPanel pan17;
+    private javax.swing.JPanel pan18;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan20;
     private javax.swing.JPanel pan21;

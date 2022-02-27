@@ -455,6 +455,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     setText(txt41, ej3.joinvarRec.getStr(eJoinvar.name));
                     lab57.setIcon(UColor.iconFromTypeJoin2(ej3.type.id));
                 }
+            } else {
+               ((CardLayout) pan8.getLayout()).show(pan8, "card18"); 
             }
             Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
@@ -822,6 +824,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         txt43 = new javax.swing.JTextField();
         lab60 = new javax.swing.JLabel();
         txt44 = new javax.swing.JTextField();
+        pan18 = new javax.swing.JPanel();
         scr6 = new javax.swing.JScrollPane();
         winTree = new javax.swing.JTree();
         panDesign = new javax.swing.JPanel();
@@ -2409,6 +2412,19 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
         pan8.add(pan17, "card17");
 
+        javax.swing.GroupLayout pan18Layout = new javax.swing.GroupLayout(pan18);
+        pan18.setLayout(pan18Layout);
+        pan18Layout.setHorizontalGroup(
+            pan18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        pan18Layout.setVerticalGroup(
+            pan18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 272, Short.MAX_VALUE)
+        );
+
+        pan8.add(pan18, "card18");
+
         pan5.add(pan8, java.awt.BorderLayout.NORTH);
 
         scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -3243,6 +3259,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private javax.swing.JPanel pan15;
     private javax.swing.JPanel pan16;
     private javax.swing.JPanel pan17;
+    private javax.swing.JPanel pan18;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan20;
     private javax.swing.JPanel pan21;
