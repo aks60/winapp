@@ -54,6 +54,12 @@ public class Conn {
         }
     }
 
+    public static void close(Connection connection) throws SQLException {
+        if(application == false) {
+            connection.close();       
+        }
+    }
+    
     public static void connection(Connection connect) {
         connection = connect;
     }

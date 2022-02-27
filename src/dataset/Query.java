@@ -26,7 +26,7 @@ public class Query extends Table {
 
     public Query(Query query) {
         this.connection = Conn.connection();
-        this.root = query;        
+        this.root = query;
     }
 
     public Query(Field... fields) {
@@ -43,7 +43,8 @@ public class Query extends Table {
         }
     }
 
-    public Query(Field[]... fieldsArr) {
+    public Query(Field[]  
+        ... fieldsArr) {
         this.root = this;
         this.connection = Conn.connection();
         mapQuery.put(fieldsArr[0][0].tname(), this);
@@ -61,10 +62,11 @@ public class Query extends Table {
 
     public Query(Connection connection, Query query) {
         this.connection = connection;
-        this.root = query;        
+        this.root = query;
     }
 
-    public Query(Connection connection, Field[]... fieldsArr) {
+    public Query(Connection connection, Field[]  
+        ... fieldsArr) {
         this.root = this;
         this.connection = connection;
         mapQuery.put(fieldsArr[0][0].tname(), this);
@@ -79,7 +81,7 @@ public class Query extends Table {
             }
         }
     }
-    
+
     public Query table(Field field) {
         return root.mapQuery.get(field.tname());
     }
@@ -135,6 +137,7 @@ public class Query extends Table {
                 }
             }
             statement.close();
+            Conn.close(this.connection);
             return this;
 
         } catch (SQLException e) {
@@ -164,6 +167,8 @@ public class Query extends Table {
                 statement.executeUpdate(sql);
                 record.setNo(0, SEL);
             }
+            Conn.close(this.connection);
+            
         } catch (SQLException e) {
             System.out.println("Query.insert() " + e);
         }
@@ -188,6 +193,8 @@ public class Query extends Table {
                 statement.executeUpdate(sql);
                 record.setNo(0, SEL);
             }
+            Conn.close(this.connection);
+            
         } catch (SQLException e) {
             System.out.println("Query.update() " + e);
         }
@@ -200,6 +207,8 @@ public class Query extends Table {
             String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
             System.out.println("SQL-DELETE " + sql);
             statement.executeUpdate(sql);
+            Conn.close(this.connection);
+            
         } catch (SQLException e) {
             System.out.println("Query.delete() " + e);
             if (e.getErrorCode() == 335544466) {
