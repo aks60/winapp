@@ -309,15 +309,15 @@ public class UGui {
         GsonRoot gsonRoot = gson.fromJson(script, GsonRoot.class);
         JsonObject jsonObj = gson.fromJson(gsonRoot.param(), JsonObject.class);
         JsonArray jsonArr = jsonObj.getAsJsonArray(PKjson.ioknaParam);
-        jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;       
+        jsonArr = (jsonArr == null) ? new JsonArray() : jsonArr;
         int titleID1 = qParams.stream().filter(rec -> paramDef == rec.getInt(eParams.id))
                 .findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
-        
-        for (int i = 0; i < jsonArr.size(); i++) {            
+
+        for (int i = 0; i < jsonArr.size(); i++) {
             int grup = jsonArr.get(i).getAsInt();
             int titleID2 = qParams.stream().filter(rec -> (grup == rec.getInt(eParams.id))).findFirst().orElse(eParams.newRecord2()).getInt(eParams.params_id);
             if (titleID1 == titleID2) {
-               jsonArr.remove(i);
+                jsonArr.remove(i);
             }
         }
         jsonArr.add(paramDef);
@@ -535,10 +535,10 @@ public class UGui {
 
     //Выделить запись
     public static void setSelectedRow(JTable table) {
-        
+
         if (table.getRowCount() > 0) {
             table.setRowSelectionInterval(0, 0);
-            
+
             int column = table.getSelectedColumn();
             if (column != -1) {
                 table.setColumnSelectionInterval(column, column);
@@ -869,40 +869,37 @@ public class UGui {
 
     //Список для выбора ручек, подвесов, накладок в створке   
     public static Query artTypeToFurndetList(int furnitureID, Query qArtikl) {
-        HashSet<Integer> setPk = new HashSet();
-        qArtikl.stream().forEach(rec -> setPk.add(rec.getInt(eArtikl.id)));
+
         HashSet<Integer> setFilter = new HashSet();
         Query qResult = new Query(eArtikl.values());
+        HashSet<Integer> setPk2x11 = new HashSet();
+
+        qArtikl.stream().forEach(rec -> setPk2x11.add(rec.getInt(eArtikl.id)));
         Query qFurndetAll = new Query(eFurndet.values()).select(eFurndet.up);
-        List<Record> furndetList1 = qFurndetAll.stream().filter(rec -> setPk.contains(rec.getInt(eFurndet.artikl_id)) == true).collect(toList());
-        List<Record> furndetList2 = furndetList1.stream().filter(rec -> rec.getInt(eFurndet.furniture_id1) == furnitureID).collect(toList());
 
-        //Цикл детализации конкретной записи фурнитуры
-        for (Record furndetRec2 : furndetList2) {
+        //Детализация фурнитуры уровня 2, 11
+        List<Record> furndetList = qFurndetAll.stream().filter(rec //список всей детализ. для ручек (наборы)
+                -> setPk2x11.contains(rec.getInt(eFurndet.artikl_id)) == true).collect(toList());
 
-            //Цикл по детализации определённого typeArtikl для конкретной фурнитуры
-            if (furndetRec2.get(eFurndet.furniture_id2) == null) { //не набор
-                int ID = setPk.stream().filter(it -> it == furndetRec2.getInt(eFurndet.artikl_id)).findFirst().orElse(-1);
-                if (ID != -1) {
-                    setFilter.add(ID);
-                }
-            } else { //это набор
-                int naborID = furndetRec2.getInt(eFurndet.furniture_id2);
-                //Цикл по всей детализации определённого typeArtikl
-                for (Record furndetRec1 : furndetList1) {
+        //Цикл детализаций конкретной записи фурнитуры
+        for (Record furndetRec : furndetList) {
+            if (furndetRec.getInt(eFurndet.furniture_id1) == furnitureID) { //ручка конкретной фурнитуры
 
-                    int ID = setPk.stream().filter(it -> it == furndetRec1.getInt(eFurndet.artikl_id)).findFirst().orElse(-1);
-                    if (ID != -1) {
-                        setFilter.add(ID);
+                //Фильтр по детализации определённого typeArtikl для конкретной фурнитуры
+                if (furndetRec.get(eFurndet.furniture_id2) == null) { //не набор
+                    setFilter.add(setPk2x11.stream().filter(it -> it == furndetRec.getInt(eFurndet.artikl_id)).findFirst().orElse(-1));
+                } else { //это набор
+                    for (Record furndetRec2 : furndetList) {
+                        if (furndetRec2.getInt(eFurndet.furniture_id1) == furnitureID) {
+                            setFilter.add(setPk2x11.stream().filter(it -> it == furndetRec2.getInt(eFurndet.artikl_id)).findFirst().orElse(-1));
+                        }
                     }
                 }
             }
         }
         for (Integer id : setFilter) {
-            Record record = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().get();
-            //if (record.getStr(eArtikl.code).charAt(0) != '@') {
-            qResult.add(record);
-            //}
+            qResult.add(qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().get());
+
         }
         return qResult;
     }
