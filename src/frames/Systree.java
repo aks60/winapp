@@ -3376,7 +3376,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             }, qResult);
 
         } catch (Exception e) {
-            System.err.println("Ошибка: " + e);
+            System.err.println("Ошибка:frames.lockToStvorka " + e);
         }
     }//GEN-LAST:event_lockToStvorka
 
