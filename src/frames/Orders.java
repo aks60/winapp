@@ -2887,60 +2887,21 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
     private void handkToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_handkToStvorka
         try {
-            HashSet<Integer> set = new HashSet();
-            float selectID = winNode.com5t().id();
+            float stvorkaID = winNode.com5t().id();
             int furnitureID = ((AreaStvorka) winNode.com5t()).sysfurnRec.getInt(eSysfurn.furniture_id);
-            Query qFurndetAll = new Query(eFurndet.values()).select(eFurndet.up);
-            ArrayList<Record> qFurndet = (ArrayList<Record>) qFurndetAll.stream().filter(rec -> rec.getInt(eFurndet.furniture_id1) == furnitureID).collect(toList());
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 11");
-            qArtikl.forEach(rec -> set.add(rec.getInt(eArtikl.id)));
-            Query qResult = new Query(eArtikl.values());
-            for (Record furndetRec : qFurndet) { //первый уровень
-                if (furndetRec.get(eFurndet.furniture_id2) == null) {
-                    if (set.contains(furndetRec.getInt(eFurndet.artikl_id))) {
-                        for (Record artiklRec : qArtikl) { //все ручки первого уровня
-                            if (furndetRec.getInt(eFurndet.artikl_id) == artiklRec.getInt(eArtikl.id)) {
-                                if (artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
-                                    qResult.add(artiklRec);
-                                }
-                            }
-                            for (Record furndetRec3 : qFurndetAll) {
-                                if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)
-                                        && furndetRec3.getInt(eFurndet.furndet_id) != furndetRec3.getInt(eFurndet.id)) {
-                                    if (set.contains(furndetRec3.getInt(eFurndet.artikl_id))) {
-                                        for (Record artiklRec3 : qArtikl) { //все ручки второго уровня
-                                            if (furndetRec3.getInt(eFurndet.artikl_id) == artiklRec3.getInt(eArtikl.id)) {
-                                                if (artiklRec3.getStr(eArtikl.code).charAt(0) != '@') {
-                                                    qResult.add(artiklRec3);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else { //набор в первом уровне т. к. во втором нет смысла
-                    for (Record furndetRec2 : qFurndetAll) {
-                        if (furndetRec2.getInt(eFurndet.furniture_id2) == furndetRec.getInt(eFurndet.furniture_id2)) {
-                            if (set.contains(furndetRec2.getInt(eFurndet.artikl_id))) {
-                                for (Record artiklRec2 : qArtikl) { //все ручки первого уровня в наборе
-                                    if (furndetRec2.getInt(eFurndet.artikl_id) == artiklRec2.getInt(eArtikl.id)) {
-                                        if (artiklRec2.getStr(eArtikl.code).charAt(0) != '@') {
-                                            qResult.add(artiklRec2);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonElem jsonStv = (GsonElem) iwin().rootGson.find(selectID);
-                jsonStv.param().addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
-                updateScript(selectID);
+                GsonElem stvArea = (GsonElem) iwin().rootGson.find(stvorkaID);
+                stvArea.param().remove(PKjson.colorHandl);
+                if (artiklRec.getInt(eArtikl.id) == -3) {
+                    stvArea.param().remove(PKjson.artiklHandl);
+                } else {
+                    stvArea.param().addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
+                }
+                updateScript(stvorkaID);
+                btnRefresh(null);
 
             }, qResult);
 

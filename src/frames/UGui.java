@@ -870,34 +870,36 @@ public class UGui {
     //Список для выбора ручек, подвесов, накладок в створке   
     public static Query artTypeToFurndetList(int furnitureID, Query qArtikl) {
 
-        HashSet<Integer> setFilter = new HashSet();
+        HashSet<Integer> filterSet = new HashSet();
         Query qResult = new Query(eArtikl.values());
-        HashSet<Integer> setPk2x11 = new HashSet();
+        HashSet<Integer> pk2x11Set = new HashSet(); //множество уровня 2 - 11
 
-        qArtikl.stream().forEach(rec -> setPk2x11.add(rec.getInt(eArtikl.id)));
+        qArtikl.stream().forEach(rec -> pk2x11Set.add(rec.getInt(eArtikl.id)));
         Query qFurndetAll = new Query(eFurndet.values()).select(eFurndet.up);
 
         //Детализация фурнитуры уровня 2, 11
         List<Record> furndetList = qFurndetAll.stream().filter(rec //список всей детализ. для ручек (наборы)
-                -> setPk2x11.contains(rec.getInt(eFurndet.artikl_id)) == true).collect(toList());
+                -> pk2x11Set.contains(rec.getInt(eFurndet.artikl_id)) == true).collect(toList());
 
         //Цикл детализаций конкретной записи фурнитуры
         for (Record furndetRec : furndetList) {
             if (furndetRec.getInt(eFurndet.furniture_id1) == furnitureID) { //ручка конкретной фурнитуры
 
+                filterSet.add(furndetRec.getInt(eFurndet.artikl_id));
+                             
                 //Фильтр по детализации определённого typeArtikl для конкретной фурнитуры
-                if (furndetRec.get(eFurndet.furniture_id2) == null) { //не набор
-                    setFilter.add(setPk2x11.stream().filter(it -> it == furndetRec.getInt(eFurndet.artikl_id)).findFirst().orElse(-1));
+                /*if (furndetRec.get(eFurndet.furniture_id2) == null) { //не набор
+                    filterSet.add(setPk2x11.stream().filter(it -> it == furndetRec.getInt(eFurndet.artikl_id)).findFirst().orElse(-1));
                 } else { //это набор
                     for (Record furndetRec2 : furndetList) {
                         if (furndetRec2.getInt(eFurndet.furniture_id1) == furnitureID) {
-                            setFilter.add(setPk2x11.stream().filter(it -> it == furndetRec2.getInt(eFurndet.artikl_id)).findFirst().orElse(-1));
+                            filterSet.add(setPk2x11.stream().filter(it -> it == furndetRec2.getInt(eFurndet.artikl_id)).findFirst().orElse(-1));
                         }
                     }
-                }
+                }*/
             }
         }
-        for (Integer id : setFilter) {
+        for (Integer id : filterSet) {
             qResult.add(qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().get());
 
         }
