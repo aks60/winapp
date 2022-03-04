@@ -213,7 +213,9 @@ public class ElemGlass extends ElemSimple {
 
     @Override
     public void paint() { //рисуём стёкла
-        iwin.gc2d.setColor(new java.awt.Color(226, 255, 250));
+        
+        Record colorRec = eColor.find3(colorID1);
+        iwin.gc2d.setColor(new java.awt.Color(colorRec.getInt(eColor.rgb)));
 
         if (owner.type == Type.ARCH) {
             ElemFrame ef = root().frames.get(Layout.TOP);

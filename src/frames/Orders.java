@@ -9,6 +9,7 @@ import builder.model.ElemJoining;
 import builder.model.ElemSimple;
 import builder.making.Joining;
 import builder.making.UColor;
+import builder.model.ElemGlass;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -41,11 +42,9 @@ import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eCurrenc;
-import domain.eFurndet;
 import domain.eFurniture;
 import domain.eJoining;
 import domain.eJoinvar;
-import domain.eKitdet;
 import domain.eParams;
 import domain.eProkit;
 import domain.eProprod;
@@ -59,7 +58,6 @@ import enums.LayoutHandle;
 import enums.PKjson;
 import enums.TypeOpen1;
 import enums.UseSide;
-import enums.UseUnit;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicColor;
@@ -76,11 +74,7 @@ import frames.swing.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import static java.util.stream.Collectors.toList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -391,9 +385,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 //Стеклопакет
             } else if (winNode.com5t().type == enums.Type.GLASS) {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card15");
-                Record artiklRec = eArtikl.find(winNode.com5t().artiklRec.getInt(eArtikl.id), false);
+                Record artiklRec = winNode.com5t().artiklRec;
                 txt19.setText(artiklRec.getStr(eArtikl.code));
                 txt18.setText(artiklRec.getStr(eArtikl.name));
+                Record colorRec = eColor.find(winNode.com5t().colorID1());
+                setText(txt34, colorRec.getStr(eColor.name));
 
                 //Створка
             } else if (winNode.com5t().type == enums.Type.STVORKA) {
@@ -456,7 +452,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     lab57.setIcon(UColor.iconFromTypeJoin2(ej3.type.id));
                 }
             } else {
-               ((CardLayout) pan8.getLayout()).show(pan8, "card18"); 
+                ((CardLayout) pan8.getLayout()).show(pan8, "card18");
             }
             Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
@@ -508,14 +504,14 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         });
 
         UGui.buttonCellEditor(tab3, 1).addActionListener(event -> {
-            Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.params_id);           
+            Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab3), eSyspar1.params_id);
             ParDefault frame = new ParDefault(this, record -> {
                 int index = UGui.getIndexRec(tab2);
                 int index2 = UGui.getIndexRec(tab3);
                 if (index != -1) {
                     Record proprodRec = qProprod.get(index);
                     String script = proprodRec.getStr(eProprod.script);
-                        String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
+                    String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
                     proprodRec.set(eProprod.script, script2);
                     qProprod.execsql();
                     iwin().build(script2);
@@ -772,6 +768,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         btn3 = new javax.swing.JButton();
         txt19 = new javax.swing.JTextField();
         txt18 = new javax.swing.JTextField();
+        lab61 = new javax.swing.JLabel();
+        txt34 = new javax.swing.JTextField();
+        btn25 = new javax.swing.JButton();
         pan16 = new javax.swing.JPanel();
         lab30 = new javax.swing.JLabel();
         lab37 = new javax.swing.JLabel();
@@ -1826,6 +1825,27 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         txt18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt18.setPreferredSize(new java.awt.Dimension(180, 18));
 
+        lab61.setFont(frames.UGui.getFont(0,0));
+        lab61.setText("Цвет");
+        lab61.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab61.setPreferredSize(new java.awt.Dimension(80, 18));
+
+        txt34.setEditable(false);
+        txt34.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt34.setPreferredSize(new java.awt.Dimension(180, 18));
+
+        btn25.setText("...");
+        btn25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btn25.setMaximumSize(new java.awt.Dimension(18, 18));
+        btn25.setMinimumSize(new java.awt.Dimension(18, 18));
+        btn25.setName("btnField17"); // NOI18N
+        btn25.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorFromGlass(evt);
+            }
+        });
+
         javax.swing.GroupLayout pan15Layout = new javax.swing.GroupLayout(pan15);
         pan15.setLayout(pan15Layout);
         pan15Layout.setHorizontalGroup(
@@ -1842,7 +1862,13 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                     .addGroup(pan15Layout.createSequentialGroup()
                         .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)))
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+                    .addGroup(pan15Layout.createSequentialGroup()
+                        .addComponent(lab61, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt34, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pan15Layout.setVerticalGroup(
@@ -1857,7 +1883,12 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab61, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         pan8.add(pan15, "card15");
@@ -2966,7 +2997,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
                 GsonElem glassElem = (GsonElem) iwin().rootGson.find(selectID);
                 glassElem.param().addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
- 
+
                 updateScript(selectID);
 
             }, qArtikl);
@@ -3136,6 +3167,25 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         }
     }//GEN-LAST:event_btnFind
 
+    private void colorFromGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFromGlass
+        try {
+            float selectID = winNode.com5t().id();
+            ElemGlass glas = (ElemGlass) winNode.com5t();
+            HashSet<Record> colorSet = UGui.artiklToColorSet(glas.artiklRec.getInt(eArtikl.id));
+            DicColor frame = new DicColor(this, (colorRec) -> {
+
+                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
+                stvArea.param().addProperty(PKjson.colorGlass, colorRec.getStr(eColor.id));
+                updateScript(selectID);
+                btnRefresh(null);
+
+            }, colorSet);
+
+        } catch (Exception e) {
+            System.err.println("Ошибка:Systree.colorFromGlass() " + e);
+        }
+    }//GEN-LAST:event_colorFromGlass
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
@@ -3153,6 +3203,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private javax.swing.JButton btn22;
     private javax.swing.JButton btn23;
     private javax.swing.JButton btn24;
+    private javax.swing.JButton btn25;
     private javax.swing.JButton btn3;
     private javax.swing.JButton btn6;
     private javax.swing.JButton btn9;
@@ -3208,6 +3259,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private javax.swing.JLabel lab59;
     private javax.swing.JLabel lab6;
     private javax.swing.JLabel lab60;
+    private javax.swing.JLabel lab61;
     private javax.swing.JLabel lab63;
     private javax.swing.JLabel lab7;
     private javax.swing.JLabel lab8;
@@ -3262,6 +3314,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private javax.swing.JTextField txt31;
     private javax.swing.JTextField txt32;
     private javax.swing.JTextField txt33;
+    private javax.swing.JTextField txt34;
     private javax.swing.JTextField txt36;
     private javax.swing.JTextField txt37;
     private javax.swing.JTextField txt38;
