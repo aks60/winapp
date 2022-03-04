@@ -53,11 +53,15 @@ public class ElemGlass extends ElemSimple {
         artiklRecAn = artiklRec;
 
         //Цвет стекла
-        Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
-        Record colorRec = eColor.find3(artdetRec.getInt(eArtdet.color_fk));
-        colorID1 = colorRec.getInt(eColor.id);
-        colorID2 = colorRec.getInt(eColor.id);
-        colorID3 = colorRec.getInt(eColor.id);
+        if (isJson(param, PKjson.colorGlass)) {
+            colorID1 = param.get(PKjson.colorGlass).getAsInt();
+        } else {
+            Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
+            Record colorRec = eColor.find3(artdetRec.getInt(eArtdet.color_fk));
+            colorID1 = colorRec.getInt(eColor.id);
+            colorID2 = colorRec.getInt(eColor.id);
+            colorID3 = colorRec.getInt(eColor.id);
+        }
     }
 
     @Override //Главная спецификация
@@ -102,17 +106,17 @@ public class ElemGlass extends ElemSimple {
 
         } else {
             ElemSimple insideLeft = joinFlat(Layout.LEFT), insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = joinFlat(Layout.RIGHT);
-            
+
             if (iwin.syssizeRec.getInt(eSyssize.id) == -1) {
-                y2 = insideBott.y2 - insideBott.artiklRec.getFloat(eArtikl.size_centr) - gsize[0]; 
-                x2 = insideRight.x2 - insideRight.artiklRec.getFloat(eArtikl.size_centr) - gsize[1]; 
-                y1 = insideTop.y1 + insideTop.artiklRec.getFloat(eArtikl.size_centr) + gsize[2]; 
+                y2 = insideBott.y2 - insideBott.artiklRec.getFloat(eArtikl.size_centr) - gsize[0];
+                x2 = insideRight.x2 - insideRight.artiklRec.getFloat(eArtikl.size_centr) - gsize[1];
+                y1 = insideTop.y1 + insideTop.artiklRec.getFloat(eArtikl.size_centr) + gsize[2];
                 x1 = insideLeft.x1 + insideLeft.artiklRec.getFloat(eArtikl.size_centr) + gsize[3];
             } else {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
                 y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
                 x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
-                y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;             
+                y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
         }
         spcRec.width = width();
