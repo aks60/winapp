@@ -64,7 +64,7 @@ public enum eFurniture implements Field {
 //    public static Record virtualRec() {
 //        Record record = up.newRecord();
 //        record.setNo(id, -3);
-//        record.setNo(name, "Virtual");
+//        record.setNo(name, "Авторасчёт");
 //        return record;
 //    }
     
