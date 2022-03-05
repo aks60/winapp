@@ -29,10 +29,10 @@ public class Conn {
     public String url = "";
 
     public static Connection connection() {
-        
+
         if (application == true) {
             return connection;
-            
+
         } else {
             try {
                 Context initContext = new InitialContext();
@@ -55,19 +55,19 @@ public class Conn {
     }
 
     public static void close(Connection connection) throws SQLException {
-        if(application == false) {
-            connection.close();       
+        if (application == false) {
+            connection.close();
         }
     }
-    
+
     public static void connection(Connection connect) {
         connection = connect;
     }
-    
+
     public static eExcep connection(String server, String port, String base, String user, char[] password, String role) {
         try {
             application = true;
-            
+
             if (Class.forName(driver) == null) {
                 JOptionPane.showMessageDialog(App.Top.frame, "Ошибка загрузки файла драйвера",
                         "Ошибка", JOptionPane.ERROR_MESSAGE);
@@ -141,7 +141,8 @@ public class Conn {
     public static int genId(Field field) {
         try {
             int next_id = 0;
-            Statement statement = connection.createStatement();
+            Connection conn = connection();
+            Statement statement = conn.createStatement();
             String sql = "SELECT GEN_ID(gen_" + field.tname() + ", 1) FROM RDB$DATABASE";
             ResultSet rs = statement.executeQuery(sql);
             /*String mySeqv = table_name + "_id_seq";
@@ -150,6 +151,7 @@ public class Conn {
                 next_id = rs.getInt("GEN_ID");
             }
             rs.close();
+            close(conn);
             return next_id;
         } catch (SQLException e) {
             System.err.println("Ошибка генерации ключа " + e);
