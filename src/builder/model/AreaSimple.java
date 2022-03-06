@@ -93,16 +93,19 @@ public class AreaSimple extends Com5t {
             if (isJson(param)) {
                 HashMap defMap = new HashMap();
                 //Добавим к параметрам системы конструкции параметры конкретной конструкции
-                JsonArray ioknaParamArr = param.getAsJsonArray(PKjson.ioknaParam);                
+                JsonArray ioknaParamArr = param.getAsJsonArray(PKjson.ioknaParam);
                 if (ioknaParamArr != null && !ioknaParamArr.isJsonNull() && ioknaParamArr.isJsonArray()) {
                     ioknaParamArr.forEach(grup -> {
-                        Record paramsRec = eParams.find(grup.getAsInt()); //параметр менеджера   
+                        Record paramsRec = eParams.find(grup.getAsInt()); //параметр менеджера  
                         Record syspar1Rec = iwin.mapPardef.get(paramsRec.getInt(eParams.params_id));
-                        syspar1Rec.setNo(eParams.text, paramsRec.getStr(eParams.text));
+                        if (syspar1Rec != null) { //ситуация если конструкция с nuni = -3, т.е. модели
+                            syspar1Rec.setNo(eParams.text, paramsRec.getStr(eParams.text));
+                        }
                     });
                 }
             }
         } catch (Exception e) {
+            System.out.println(iwin.rootGson.prj);
             System.err.println("Ошибка:Com5t.parsingParam() " + e);
         }
     }
