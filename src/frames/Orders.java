@@ -221,8 +221,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             }
         };
         rsvPrj.add(eProject.pric1, txt4);
-        rsvPrj.add(eProject.pric5, txt5);
-        rsvPrj.add(eProject.cost4, txt6);
+        rsvPrj.add(eProject.pric2, txt5);
+        rsvPrj.add(eProject.cost2, txt6);
         rsvPrj.add(eProject.weight, txt7);
         rsvPrj.add(eProject.square, txt8);
         canvas.setVisible(true);
