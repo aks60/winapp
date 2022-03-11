@@ -2566,6 +2566,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
         Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, eProject.up, (projectRec) -> {
                 projectRec.set(eProject.manager, eProfile.user);

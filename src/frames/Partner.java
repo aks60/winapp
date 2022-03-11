@@ -46,7 +46,7 @@ public class Partner extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-        qPrjcontr.select(ePropart.up, "order by", ePropart.category, ",", ePropart.partner);
+        qPrjcontr.select(ePropart.up, "order by", ePropart.category, ",", ePropart.manager);
     }
 
     public void loadingModel() {
