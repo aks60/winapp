@@ -223,9 +223,10 @@ public class DicKits extends javax.swing.JDialog {
         centr.setPreferredSize(new java.awt.Dimension(612, 560));
         centr.setLayout(new java.awt.BorderLayout());
 
+        pan1.setPreferredSize(new java.awt.Dimension(513, 550));
         pan1.setLayout(new java.awt.BorderLayout());
 
-        pan2.setPreferredSize(new java.awt.Dimension(513, 92));
+        pan2.setPreferredSize(new java.awt.Dimension(513, 102));
 
         lab30.setFont(frames.UGui.getFont(0,0));
         lab30.setText("Кол. комп.");
@@ -405,7 +406,7 @@ public class DicKits extends javax.swing.JDialog {
 
         pan1.add(pan2, java.awt.BorderLayout.NORTH);
 
-        scr1.setPreferredSize(new java.awt.Dimension(412, 160));
+        scr1.setPreferredSize(new java.awt.Dimension(412, 300));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -451,7 +452,7 @@ public class DicKits extends javax.swing.JDialog {
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
 
-        scr2.setPreferredSize(new java.awt.Dimension(454, 304));
+        scr2.setPreferredSize(new java.awt.Dimension(454, 150));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
