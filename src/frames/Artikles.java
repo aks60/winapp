@@ -883,7 +883,7 @@ public class Artikles extends javax.swing.JFrame {
                 {"2", "222", null, null, null, null, null}
             },
             new String [] {
-                "Актикул", "Наименование", "Отход %", "Коэф. ценовой", "id", "id", "ID"
+                "Актикул", "Название", "Отход %", "Коэф. ценовой", "id", "id", "ID"
             }
         ) {
             Class[] types = new Class [] {

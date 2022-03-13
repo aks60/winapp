@@ -421,7 +421,7 @@
                           <Data value="1"/>
                           <Data value="2"/>
                         </Column>
-                        <Column editable="true" title="&#x41d;&#x430;&#x438;&#x43c;&#x435;&#x43d;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.String">
+                        <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.String">
                           <Data value="111"/>
                           <Data value="222"/>
                         </Column>

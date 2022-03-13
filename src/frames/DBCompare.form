@@ -212,7 +212,7 @@
                             <Column editable="true" title="ATYPM" type="java.lang.Object"/>
                             <Column editable="true" title="ATYPP" type="java.lang.Object"/>
                             <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;" type="java.lang.Object"/>
-                            <Column editable="true" title="&#x41d;&#x430;&#x438;&#x43c;&#x435;&#x43d;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
+                            <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
                             <Column editable="true" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Object"/>
                             <Column editable="true" title="&#x412;&#x43d;&#x443;&#x442;&#x440;&#x435;&#x43d;&#x43d;&#x44f;&#x44f;" type="java.lang.Object"/>
                             <Column editable="true" title="&#x412;&#x43d;&#x435;&#x448;&#x43d;&#x44f;&#x44f;" type="java.lang.Object"/>
