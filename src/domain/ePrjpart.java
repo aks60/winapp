@@ -3,7 +3,6 @@ package domain;
 import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
-import dataset.Record;
 
 public enum ePrjpart implements Field {
     up("0", "0", "0", "Контрагент", "CLIENTS"),

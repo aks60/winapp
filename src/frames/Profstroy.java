@@ -2,10 +2,7 @@ package frames;
 
 import builder.script.GsonRoot;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import common.eProperty;
-import frames.UGui;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
@@ -65,7 +62,6 @@ import java.awt.Color;
 import java.util.Arrays;
 import java.util.Queue;
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
 import startup.App;
 import startup.Main;
 import static startup.Test.numDb;
