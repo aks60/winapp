@@ -3,6 +3,7 @@ package domain;
 import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
+import dataset.Record;
 
 public enum eProject implements Field {
     up("0", "0", "0", "Список заказов (проектов)", "LISTPRJ"),
@@ -40,7 +41,17 @@ public enum eProject implements Field {
     eProject(Object... p) {
         meta.init(p);
     }
-
+    public static Record find(int _id) {
+        if (_id == -3) {
+            return up.newRecord();
+        }
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "='", _id, "'");
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+    }
+    
     public MetaField meta() {
         return meta;
     }
