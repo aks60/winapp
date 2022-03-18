@@ -5,7 +5,7 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 
-public enum ePropart implements Field {
+public enum ePrjpart implements Field {
     up("0", "0", "0", "Контрагент", "CLIENTS"),
     id("4", "10", "0", "Идентификатор", "id"),
     partner("12", "64", "1", "Контрагент (организация)", "KNAME"),
@@ -79,7 +79,7 @@ public enum ePropart implements Field {
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
-    ePropart(Object... p) {
+    ePrjpart(Object... p) {
         meta.init(p);
     }
 

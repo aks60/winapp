@@ -2,7 +2,7 @@ package frames;
 
 import dataset.Query;
 import dataset.Record;
-import domain.ePropart;
+import domain.ePrjpart;
 import frames.swing.DefFieldEditor;
 import javax.swing.JTable;
 import frames.swing.DefTableModel;
@@ -23,7 +23,7 @@ public class Partner extends javax.swing.JFrame {
     private Window owner = null;
     private ListenerRecord listener = null;
     private FilterTable filterTable = null;
-    private Query qPrjcontr = new Query(ePropart.values());
+    private Query qPrjcontr = new Query(ePrjpart.values());
     private DefFieldEditor rsv = null;
     private String arrCateg[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
 
@@ -46,40 +46,40 @@ public class Partner extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-        qPrjcontr.select(ePropart.up, "order by", ePropart.category, ",", ePropart.manager);
+        qPrjcontr.select(ePrjpart.up, "order by", ePrjpart.category, ",", ePrjpart.manager);
     }
 
     public void loadingModel() {
-        new DefTableModel(tab1, qPrjcontr, ePropart.category, ePropart.partner, ePropart.manager, ePropart.flag2);
+        new DefTableModel(tab1, qPrjcontr, ePrjpart.category, ePrjpart.partner, ePrjpart.manager, ePrjpart.flag2);
 
         UGui.buttonCellEditor(tab1, 0).addActionListener(event -> {
             Object result = JOptionPane.showInputDialog(Partner.this, "Выберите категорию",
                     "Изменение категории контрагента", JOptionPane.QUESTION_MESSAGE, null, arrCateg, arrCateg[0]);
             if (result != null) {
                 UGui.stopCellEditing(tab1);
-                qPrjcontr.set(result, UGui.getIndexRec(tab1), ePropart.category);
+                qPrjcontr.set(result, UGui.getIndexRec(tab1), ePrjpart.category);
                 ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }
         });
 
-        rsv.add(ePropart.addr_leve1, txt12);
-        rsv.add(ePropart.addr_leve2, txt14);
-        rsv.add(ePropart.addr_phone, txt13);
-        rsv.add(ePropart.note, txt15);
+        rsv.add(ePrjpart.addr_leve1, txt12);
+        rsv.add(ePrjpart.addr_leve2, txt14);
+        rsv.add(ePrjpart.addr_phone, txt13);
+        rsv.add(ePrjpart.note, txt15);
 
-        rsv.add(ePropart.org_name, txt8);
-        rsv.add(ePropart.org_leve1, txt9);
-        rsv.add(ePropart.org_leve2, txt17);
-        rsv.add(ePropart.org_phone, txt10);
-        rsv.add(ePropart.org_fax, txt11);
-        rsv.add(ePropart.bank_name, txt1);
-        rsv.add(ePropart.bank_inn, txt2);
-        rsv.add(ePropart.bank_rs, txt3);
-        rsv.add(ePropart.bank_bik, txt4);
-        rsv.add(ePropart.bank_ks, txt5);
-        rsv.add(ePropart.bank_kpp, txt6);
-        rsv.add(ePropart.bank_ogrn, txt7);
-        rsv.add(ePropart.note, txt16);
+        rsv.add(ePrjpart.org_name, txt8);
+        rsv.add(ePrjpart.org_leve1, txt9);
+        rsv.add(ePrjpart.org_leve2, txt17);
+        rsv.add(ePrjpart.org_phone, txt10);
+        rsv.add(ePrjpart.org_fax, txt11);
+        rsv.add(ePrjpart.bank_name, txt1);
+        rsv.add(ePrjpart.bank_inn, txt2);
+        rsv.add(ePrjpart.bank_rs, txt3);
+        rsv.add(ePrjpart.bank_bik, txt4);
+        rsv.add(ePrjpart.bank_ks, txt5);
+        rsv.add(ePrjpart.bank_kpp, txt6);
+        rsv.add(ePrjpart.bank_ogrn, txt7);
+        rsv.add(ePrjpart.note, txt16);
 
         UGui.setSelectedRow(tab1);
     }
@@ -88,7 +88,7 @@ public class Partner extends javax.swing.JFrame {
         UGui.stopCellEditing(tab1);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
-            int flag = qPrjcontr.getAs(index, ePropart.flag2);
+            int flag = qPrjcontr.getAs(index, ePrjpart.flag2);
             int i = (flag == 1) ? 1 : 0;
             tabb1.setSelectedIndex(i);
         }
@@ -753,12 +753,12 @@ public class Partner extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            UGui.insertRecordEnd(tab1, ePropart.up, (prjpartRec) -> {
+            UGui.insertRecordEnd(tab1, ePrjpart.up, (prjpartRec) -> {
                 try {
                     ResultSet rs = Conn.connection().createStatement().executeQuery("SELECT current_user FROM rdb$database");
                     rs.next();
-                    prjpartRec.setNo(ePropart.manager, rs.getString(1));
-                    prjpartRec.setNo(ePropart.category, arrCateg[0]);
+                    prjpartRec.setNo(ePrjpart.manager, rs.getString(1));
+                    prjpartRec.setNo(ePrjpart.category, arrCateg[0]);
 
                 } catch (Exception e) {
                     System.err.println("frames.Partner.btnInsert()");
@@ -799,9 +799,9 @@ public class Partner extends javax.swing.JFrame {
     private void tabb1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabb1StateChanged
         if (UGui.getIndexRec(tab1) != -1) {
             if (tabb1.getSelectedIndex() == 0) {
-                qPrjcontr.set(0, UGui.getIndexRec(tab1), ePropart.flag2);
+                qPrjcontr.set(0, UGui.getIndexRec(tab1), ePrjpart.flag2);
             } else {
-                qPrjcontr.set(1, UGui.getIndexRec(tab1), ePropart.flag2);
+                qPrjcontr.set(1, UGui.getIndexRec(tab1), ePrjpart.flag2);
             }
             ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
         }

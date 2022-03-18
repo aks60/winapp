@@ -22,7 +22,7 @@ import domain.eArtdet;
 import domain.eArtikl;
 import domain.eKitdet;
 import domain.eKits;
-import domain.eProkit;
+import domain.ePrjkit;
 import enums.UseUnit;
 import java.util.HashMap;
 import javax.swing.JTextField;
@@ -40,16 +40,16 @@ public class DicKits extends javax.swing.JDialog {
     private ListenerObject<Query> listener = null;
     private Query qKits = new Query(eKits.values());
     private Query qKitdet = new Query(eKitdet.values());
-    private Query qProkit = new Query(eProkit.values());
+    private Query qPrjkit = new Query(ePrjkit.values());
     private int colorID[] = {-1, -1, -1};
-    private int proprodID = -1;
+    private int prjprodID = -1;
 
-    public DicKits(Frame parent, ListenerObject<Query> listener, int proprodID) {
+    public DicKits(Frame parent, ListenerObject<Query> listener, int prjprodID) {
         super(parent, true);
         initComponents();
         initElements();
         this.listener = listener;
-        this.proprodID = proprodID;
+        this.prjprodID = prjprodID;
         loadingData("0");
         loadingModel();
         setVisible(true);
@@ -562,28 +562,28 @@ public class DicKits extends javax.swing.JDialog {
             if (kitDet.filter(mapParam, record) == true) {
 
                 Record artiklRec = eArtikl.get(record.getInt(eKitdet.artikl_id));
-                Record recordKit = eProkit.up.newRecord(Query.INS);
-                recordKit.set(eProkit.id, Conn.genId(eProkit.up));
-                recordKit.set(eProkit.proprod_id, proprodID);
-                recordKit.set(eProkit.artikl_id, artiklRec.getInt(eArtikl.id));
+                Record recordKit = ePrjkit.up.newRecord(Query.INS);
+                recordKit.set(ePrjkit.id, Conn.genId(ePrjkit.up));
+                recordKit.set(ePrjkit.prjprod_id, prjprodID);
+                recordKit.set(ePrjkit.artikl_id, artiklRec.getInt(eArtikl.id));
 
-                recordKit.set(eProkit.numb, get_7031_8061_9061(mapParam)); //количество                                
+                recordKit.set(ePrjkit.numb, get_7031_8061_9061(mapParam)); //количество                                
                 Float width = get_8066_9066(mapParam);
                 width = (width == null) ? 0 : width;
-                recordKit.set(eProkit.width, width); //длина                
+                recordKit.set(ePrjkit.width, width); //длина                
                 Float height = get_8071_9071(mapParam);
                 height = (height == null) ? artiklRec.getFloat(eArtikl.height) : height;
-                recordKit.set(eProkit.height, height); //ширина               
+                recordKit.set(ePrjkit.height, height); //ширина               
                 Float angl1 = get_8075(mapParam, 0);
                 angl1 = (angl1 == null) ? 90 : angl1;
-                recordKit.set(eProkit.angl1, angl1); //угол 1                
+                recordKit.set(ePrjkit.angl1, angl1); //угол 1                
                 Float angl2 = get_8075(mapParam, 1);
                 angl1 = (angl2 == null) ? 90 : angl2;
-                recordKit.set(eProkit.angl2, angl2); //угол 2
-                recordKit.set(eProkit.color1_id, colorID[0]); //color1
-                recordKit.set(eProkit.color2_id, colorID[1]); //color2
-                recordKit.set(eProkit.color3_id, colorID[2]); //color3
-                qProkit.insert(recordKit);
+                recordKit.set(ePrjkit.angl2, angl2); //угол 2
+                recordKit.set(ePrjkit.color1_id, colorID[0]); //color1
+                recordKit.set(ePrjkit.color2_id, colorID[1]); //color2
+                recordKit.set(ePrjkit.color3_id, colorID[2]); //color3
+                qPrjkit.insert(recordKit);
             }
         }
 

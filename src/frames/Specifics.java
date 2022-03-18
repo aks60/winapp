@@ -35,7 +35,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import startup.App;
 import common.listener.ListenerFrame;
 import common.eProfile;
-import domain.eProprod;
+import domain.ePrjprod;
 import frames.swing.FilterTable;
 import frames.swing.colgroup.ColumnGroup;
 import frames.swing.colgroup.GroupableTableHeader;
@@ -85,15 +85,15 @@ public class Specifics extends javax.swing.JFrame {
 
         } else {
             int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
-            Record prjprodRec = eProprod.find(prjprodID);
+            Record prjprodRec = ePrjprod.find(prjprodID);
             if (prjprodRec == null) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в списке заказов", "Предупреждение", JOptionPane.OK_OPTION);
                 this.dispose();
             } else {
-                String script = prjprodRec.getStr(eProprod.script);
+                String script = prjprodRec.getStr(ePrjprod.script);
                 JsonElement je = new Gson().fromJson(script, JsonElement.class
                 );
-                je.getAsJsonObject().addProperty("nuni", prjprodRec.getInt(eProprod.systree_id));
+                je.getAsJsonObject().addProperty("nuni", prjprodRec.getInt(ePrjprod.systree_id));
                 iwin = new Wincalc();
                 iwin.build(je.toString());
                 Query.listOpenTable.forEach(q -> q.clear());

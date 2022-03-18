@@ -32,7 +32,7 @@ public enum eProject implements Field {
     date6("93", "19", "1", "Дата отпр. в производство", "WDATE"),
     owner("12", "32", "1",  "User", "owner"),
     currenc_id("4", "10", "1", "Валюта", "CNUMB"),
-    propart_id("4", "10", "1", "Контрагент", "propart_id");
+    prjpart_id("4", "10", "1", "Контрагент", "prjpart_id");
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

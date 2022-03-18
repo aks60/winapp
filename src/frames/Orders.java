@@ -19,7 +19,7 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eProject;
-import domain.ePropart;
+import domain.ePrjpart;
 import frames.dialog.DicDate;
 import frames.dialog.DicName;
 import frames.swing.DefCellRenderer;
@@ -46,8 +46,8 @@ import domain.eFurniture;
 import domain.eJoining;
 import domain.eJoinvar;
 import domain.eParams;
-import domain.eProkit;
-import domain.eProprod;
+import domain.ePrjkit;
+import domain.ePrjprod;
 import domain.eSysfurn;
 import domain.eSyspar1;
 import domain.eSysprod;
@@ -97,9 +97,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private Query qCurrenc = new Query(eCurrenc.values());
     private Query qProjectAll = new Query(eProject.values());
     private Query qProject = new Query(eProject.values());
-    private Query qPropart = new Query(ePropart.values());
-    private Query qProprod = new Query(eProprod.values());
-    private Query qProkit = new Query(eProkit.values(), eArtikl.values());
+    private Query qPrjpart = new Query(ePrjpart.values());
+    private Query qPrjprod = new Query(ePrjprod.values());
+    private Query qPrjkit = new Query(ePrjkit.values(), eArtikl.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
     private DefMutableTreeNode winNode = null;
     private Canvas canvas = new Canvas();
@@ -123,22 +123,22 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         qParams.select(eParams.up);
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
         qProjectAll.select(eProject.up, "order by", eProject.date4);
-        qPropart.select(ePropart.up);
+        qPrjpart.select(ePrjpart.up);
     }
 
     public void loadingModel() {
-        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.num_acc, eProject.date4, eProject.date6, eProject.propart_id, eProject.manager) {
+        new DefTableModel(tab1, qProject, eProject.num_ord, eProject.num_acc, eProject.date4, eProject.date6, eProject.prjpart_id, eProject.manager) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eProject.propart_id) {
-                    Record record = qPropart.stream().filter(rec -> rec.get(ePropart.id).equals(val)).findFirst().orElse(ePropart.up.newRecord());
-                    return record.get(ePropart.partner);
+                if (field == eProject.prjpart_id) {
+                    Record record = qPrjpart.stream().filter(rec -> rec.get(ePrjpart.id).equals(val)).findFirst().orElse(ePrjpart.up.newRecord());
+                    return record.get(ePrjpart.partner);
                 }
                 return val;
             }
         };
-        new DefTableModel(tab2, qProprod, eProprod.name, eProprod.id);
+        new DefTableModel(tab2, qPrjprod, ePrjprod.name, ePrjprod.id);
         new DefTableModel(tab3, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -154,18 +154,18 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 return val;
             }
         };
-        new DefTableModel(tab4, qProkit, eArtikl.code, eArtikl.name, eProkit.color1_id, eProkit.color2_id,
-                eProkit.color3_id, eProkit.width, eProkit.height, eProkit.numb, eProkit.angl1, eProkit.angl2) {
+        new DefTableModel(tab4, qPrjkit, eArtikl.code, eArtikl.name, ePrjkit.color1_id, ePrjkit.color2_id,
+                ePrjkit.color3_id, ePrjkit.width, ePrjkit.height, ePrjkit.numb, ePrjkit.angl1, ePrjkit.angl2) {
 
             public Object getValueAt(int col, int row, Object val) {
 
-                if (val != null && columns[col] == eProkit.color1_id) {
+                if (val != null && columns[col] == ePrjkit.color1_id) {
                     return eColor.get((int) val).getStr(eColor.name);
 
-                } else if (val != null && columns[col] == eProkit.color2_id) {
+                } else if (val != null && columns[col] == ePrjkit.color2_id) {
                     return eColor.get((int) val).getStr(eColor.name);
 
-                } else if (val != null && columns[col] == eProkit.color3_id) {
+                } else if (val != null && columns[col] == ePrjkit.color3_id) {
                     return eColor.get((int) val).getStr(eColor.name);
 
                 }
@@ -181,9 +181,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 1) {
-                    Record rec = qProprod.get(row);
-                    if (rec.size() > eProprod.values().length) {
-                        Object v = rec.get(eProprod.values().length);
+                    Record rec = qPrjprod.get(row);
+                    if (rec.size() > ePrjprod.values().length) {
+                        Object v = rec.get(ePrjprod.values().length);
                         if (v instanceof Wincalc) {
                             label.setIcon(((Wincalc) v).imageIcon);
                         }
@@ -240,7 +240,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
         int index = -1;
         for (int index2 = 0; index2 < qProject.size(); ++index2) {
-            if (qProject.get(index2).getInt(eProprod.id) == orderID) {
+            if (qProject.get(index2).getInt(ePrjprod.id) == orderID) {
                 index = index2;
             }
         }
@@ -255,16 +255,16 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     public void loadingTab2() {
         int index = -1;
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Arrays.asList(qProject, qProprod).forEach(q -> q.execsql());
+        Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
         if (tab1.getSelectedRow() != -1) {
 
             Record projectRec = qProject.get(UGui.getIndexRec(tab1));
             int id = projectRec.getInt(eProject.id);
-            qProprod.select(eProprod.up, "where", eProprod.project_id, "=", id);
+            qPrjprod.select(ePrjprod.up, "where", ePrjprod.project_id, "=", id);
 
-            for (Record record : qProprod) {
+            for (Record record : qPrjprod) {
                 try {
-                    String script = record.getStr(eProprod.script);
+                    String script = record.getStr(ePrjprod.script);
                     Wincalc iwin2 = new Wincalc(script);
                     Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
                     joining.calc();
@@ -279,8 +279,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
             //Выделяем конструкцию если сохранена в Property
             int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
-            for (int i = 0; i < qProprod.size(); ++i) {
-                if (qProprod.get(i).getInt(eProprod.id) == prjprodID) {
+            for (int i = 0; i < qPrjprod.size(); ++i) {
+                if (qPrjprod.get(i).getInt(ePrjprod.id) == prjprodID) {
                     index = i;
                 }
             }
@@ -294,9 +294,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
     public void loadingTab4() {
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Record proprodRec = qProprod.get(UGui.getIndexRec(tab2));
-        int id = proprodRec.getInt(eProprod.id);
-        qProkit.select(eProkit.up, "left join", eArtikl.up, "on", eProkit.artikl_id, "=", eArtikl.id, "where", eProkit.proprod_id, "=", id);
+        Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab2));
+        int id = prjprodRec.getInt(ePrjprod.id);
+        qPrjkit.select(ePrjkit.up, "left join", eArtikl.up, "on", ePrjkit.artikl_id, "=", eArtikl.id, "where", ePrjkit.prjprod_id, "=", id);
         ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab4);
     }
@@ -320,10 +320,10 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         Arrays.asList(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
-            Record proprodRec = qProprod.get(index);
-            eProperty.prjprodID.write(proprodRec.getStr(eProprod.id)); //запишем текущий prjprodID в файл
+            Record prjprodRec = qPrjprod.get(index);
+            eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
-            Object w = proprodRec.get(eProprod.values().length);
+            Object w = prjprodRec.get(ePrjprod.values().length);
             if (w instanceof Wincalc) { //прорисовка окна               
                 Wincalc win = (Wincalc) w;
                 scene.init(win);
@@ -461,8 +461,8 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private Wincalc iwin() {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
-            Record sysprodRec = qProprod.table(eProprod.up).get(index);
-            Object v = sysprodRec.get(eProprod.values().length);
+            Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
+            Object v = sysprodRec.get(ePrjprod.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
                 return (Wincalc) v;
             }
@@ -498,7 +498,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             new Partner(this, (record) -> {
                 UGui.stopCellEditing(tab1);
                 Record record2 = qProject.get(UGui.getIndexRec(tab1));
-                record2.set(eProject.propart_id, record.getInt(ePropart.id));
+                record2.set(eProject.prjpart_id, record.getInt(ePrjpart.id));
                 ((DefaultTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             });
         });
@@ -509,11 +509,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 int index = UGui.getIndexRec(tab2);
                 int index2 = UGui.getIndexRec(tab3);
                 if (index != -1) {
-                    Record proprodRec = qProprod.get(index);
-                    String script = proprodRec.getStr(eProprod.script);
+                    Record prjprodRec = qPrjprod.get(index);
+                    String script = prjprodRec.getStr(ePrjprod.script);
                     String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
-                    proprodRec.set(eProprod.script, script2);
-                    qProprod.execsql();
+                    prjprodRec.set(ePrjprod.script, script2);
+                    qPrjprod.execsql();
                     iwin().build(script2);
                     UGui.stopCellEditing(tab1, tab2, tab3, tab4);
                     selectionWinTree();
@@ -525,9 +525,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, (record) -> {
                 UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-                qProkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), eProkit.artikl_id);
-                qProkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
-                qProkit.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab4), eArtikl.name);
+                qPrjkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), ePrjkit.artikl_id);
+                qPrjkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
+                qPrjkit.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab4), eArtikl.name);
                 UGui.fireTableRowUpdated(tab4);
             }, 1, 2, 3, 4, 5);
         });
@@ -535,9 +535,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, (record) -> {
                 UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-                qProkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), eProkit.artikl_id);
-                qProkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
-                qProkit.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab4), eArtikl.name);
+                qPrjkit.set(record.getInt(eArtikl.id), UGui.getIndexRec(tab4), ePrjkit.artikl_id);
+                qPrjkit.table(eArtikl.up).set(record.get(eArtikl.code), UGui.getIndexRec(tab4), eArtikl.code);
+                qPrjkit.table(eArtikl.up).set(record.get(eArtikl.name), UGui.getIndexRec(tab4), eArtikl.name);
                 UGui.fireTableRowUpdated(tab4);
             }, 1, 2, 3, 4, 5);
         });
@@ -545,11 +545,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         UGui.buttonCellEditor(tab4, 2).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
-            Record record = qProkit.get(index);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(eProkit.artikl_id));
+            Record record = qPrjkit.get(index);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(ePrjkit.artikl_id));
 
             DicColor frame = new DicColor(this, (record2) -> {
-                record.set(eProkit.color1_id, record2.getInt(eColor.id));
+                record.set(ePrjkit.color1_id, record2.getInt(eColor.id));
                 UGui.fireTableRowUpdated(tab4);
 
             }, colorSet);
@@ -558,11 +558,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         UGui.buttonCellEditor(tab4, 3).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
-            Record record = qProkit.get(index);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(eProkit.artikl_id));
+            Record record = qPrjkit.get(index);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(ePrjkit.artikl_id));
 
             DicColor frame = new DicColor(this, (record2) -> {
-                record.set(eProkit.color2_id, record2.getInt(eColor.id));
+                record.set(ePrjkit.color2_id, record2.getInt(eColor.id));
                 UGui.fireTableRowUpdated(tab4);
 
             }, colorSet);
@@ -571,11 +571,11 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         UGui.buttonCellEditor(tab4, 4).addActionListener(event -> {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4);
             int index = UGui.getIndexRec(tab4);
-            Record record = qProkit.get(index);
-            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(eProkit.artikl_id));
+            Record record = qPrjkit.get(index);
+            HashSet<Record> colorSet = UGui.artiklToColorSet(record.getInt(ePrjkit.artikl_id));
 
             DicColor frame = new DicColor(this, (record2) -> {
-                record.set(eProkit.color3_id, record2.getInt(eColor.id));
+                record.set(ePrjkit.color3_id, record2.getInt(eColor.id));
                 UGui.fireTableRowUpdated(tab4);
 
             }, colorSet);
@@ -620,16 +620,16 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         try {
             //Сохраним скрипт в базе
             String script = gson.toJson(iwin().rootGson);
-            Record proprodRec = qProprod.get(UGui.getIndexRec(tab2));
-            proprodRec.set(eProprod.script, script);
-            qProprod.update(proprodRec);
+            Record prjprodRec = qPrjprod.get(UGui.getIndexRec(tab2));
+            prjprodRec.set(ePrjprod.script, script);
+            qPrjprod.update(prjprodRec);
 
             //Экземпляр нового скрипта
             Wincalc iwin2 = new Wincalc(script);
             Joining joining = new Joining(iwin2, true);//заполним соединения из конструктива
             joining.calc();
             iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
-            proprodRec.set(eProprod.values().length, iwin2);
+            prjprodRec.set(ePrjprod.values().length, iwin2);
 
             //Перегрузим winTree
             loadingWinTree(iwin2);
@@ -655,9 +655,9 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             String script = gson.toJson(win.rootGson);
             win.build(script);
             win.imageIcon = Canvas.createIcon(win, 68);
-            Record sysprodRec = qProprod.get(index);
-            sysprodRec.set(eProprod.script, script);
-            sysprodRec.set(eProprod.values().length, win);
+            Record sysprodRec = qPrjprod.get(index);
+            sysprodRec.set(ePrjprod.script, script);
+            sysprodRec.set(ePrjprod.values().length, win);
             canvas.draw();
             scene.draw();
             selectionWinTree();
@@ -2576,17 +2576,17 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         } else if (tab2.getBorder() != null) {
             new DicSyspod(this, (record) -> {
                 UGui.insertRecordEnd(tab2, eProject.up, (record2) -> {
-                    record2.set(eProprod.id, Conn.genId(eProprod.up));
-                    record2.set(eProprod.name, record.getStr(eSysprod.name));
-                    record2.set(eProprod.script, record.getStr(eSysprod.script));
-                    record2.set(eProprod.systree_id, record.getStr(eSysprod.systree_id));
-                    record2.set(eProprod.project_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
+                    record2.set(ePrjprod.id, Conn.genId(ePrjprod.up));
+                    record2.set(ePrjprod.name, record.getStr(eSysprod.name));
+                    record2.set(ePrjprod.script, record.getStr(eSysprod.script));
+                    record2.set(ePrjprod.systree_id, record.getStr(eSysprod.systree_id));
+                    record2.set(ePrjprod.project_id, qProject.getAs(UGui.getIndexRec(tab1), eProject.id));
                 });
             });
-            Object ID = qProprod.get(UGui.getIndexRec(tab2), eProprod.id);
+            Object ID = qPrjprod.get(UGui.getIndexRec(tab2), ePrjprod.id);
             loadingTab2();
-            for (int index = 0; index < qProprod.size(); ++index) {
-                if (qProprod.get(index, eProprod.id) == ID) {
+            for (int index = 0; index < qPrjprod.size(); ++index) {
+                if (qPrjprod.get(index, ePrjprod.id) == ID) {
                     UGui.setSelectedIndex(tab2, index);
                     UGui.scrollRectToRow(index, tab2);
                     winTree.setSelectionRow(0);
@@ -2596,16 +2596,16 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             int index = UGui.getIndexRec(tab2);
             if (index != -1) {
                 if (((JButton) evt.getSource()) == btnIns) {
-                    UGui.insertRecordEnd(tab4, eProkit.up, (record2) -> {
-                        record2.set(eProkit.proprod_id, qProprod.get(index, eProprod.id));
+                    UGui.insertRecordEnd(tab4, ePrjkit.up, (record2) -> {
+                        record2.set(ePrjkit.prjprod_id, qPrjprod.get(index, ePrjprod.id));
                         Record record3 = eArtikl.up.newRecord();
-                        qProkit.table(eArtikl.up).add(record3);
+                        qPrjkit.table(eArtikl.up).add(record3);
                     });
                 } else if (((JButton) evt.getSource()) == btnSet) {
                     DicKits frame = new DicKits(Orders.this, (q) -> {
                         loadingTab4();
                         return true;
-                    }, qProprod.getAs(index, eProprod.id));
+                    }, qPrjprod.getAs(index, ePrjprod.id));
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Изделие не выбрано.", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
@@ -2616,7 +2616,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2, tab4, tab3);
         eProperty.save(); //запишем текущий ordersId в файл
-        Arrays.asList(qProject, qProprod).forEach(q -> q.execsql());
+        Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
@@ -2653,7 +2653,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             if (winNode != null) {
                 float selectID = winNode.com5t().id();
                 HashSet<Record> set = new HashSet();
-                int systreeID = qProprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
+                int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
                 Record systreeRec = eSystree.find(systreeID);
                 String[] arr1 = (systreeRec.getStr(eSystree.cgrp).isEmpty() == false) ? systreeRec.getStr(eSystree.cgrp).split(";") : null;
                 eSystree col = (evt.getSource() == btn9) ? eSystree.col1 : (evt.getSource() == btn13) ? eSystree.col2 : eSystree.col3;
@@ -2732,7 +2732,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         try {
             if (winNode != null) {
                 float selectID = winNode.com5t().id();
-                int systreeID = qProprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
+                int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
                 Query qSysprof = new Query(eSysprof.values(), eArtikl.values()).select(eSysprof.up, "left join",
                         eArtikl.up, "on", eArtikl.id, "=", eSysprof.artikl_id, "where", eSysprof.systree_id, "=", systreeID);
                 Query qSysprof2 = new Query(eSysprof.values(), eArtikl.values());
@@ -2854,7 +2854,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private void sysfurnToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysfurnToStvorka
         try {
             float windowsID = winNode.com5t().id();
-            int systreeID = qProprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
+            int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
 
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
@@ -2981,7 +2981,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
     private void btnToArtiklGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToArtiklGlass
         try {
             float selectID = winNode.com5t().id();
-            int systreeID = qProprod.getAs(UGui.getIndexRec(tab2), eProprod.systree_id);
+            int systreeID = qPrjprod.getAs(UGui.getIndexRec(tab2), ePrjprod.systree_id);
             Record systreeRec = eSystree.find(systreeID);
             String depth = systreeRec.getStr(eSystree.depth);
             if (depth != null && depth.isEmpty() == false) {
@@ -3013,10 +3013,10 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
             if (UGui.getIndexRec(tab1) != -1) {
                 int projectID = qProject.get(UGui.getIndexRec(tab1)).getInt(eProject.id);
                 float total[] = {0, 0, 0, 0, 0, 0};
-                for (Record prjprodRec : qProprod) {
-                    if (prjprodRec.getInt(eProprod.project_id) == projectID) {
+                for (Record prjprodRec : qPrjprod) {
+                    if (prjprodRec.getInt(ePrjprod.project_id) == projectID) {
 
-                        String script = prjprodRec.getStr(eProprod.script);
+                        String script = prjprodRec.getStr(ePrjprod.script);
                         JsonElement je = new Gson().fromJson(script, JsonElement.class);
                         iwin().build(je.toString());
                         Query.listOpenTable.forEach(q -> q.clear());
@@ -3158,7 +3158,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
         if (tab4.getBorder() != null) {
             Record record = ((DefTableModel) tab4.getModel()).getQuery().get(UGui.getIndexRec(tab4));
             if (record != null) {
-                Record record2 = eArtikl.find(record.getInt(eProkit.artikl_id), false);
+                Record record2 = eArtikl.find(record.getInt(ePrjkit.artikl_id), false);
                 FrameProgress.create(this, new ListenerFrame() {
                     public void actionRequest(Object obj) {
                         App.Artikles.createFrame(Orders.this, record2);

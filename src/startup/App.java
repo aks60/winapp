@@ -37,10 +37,10 @@ import domain.eKitdet;
 import domain.eKitpar2;
 import domain.eKits;
 import domain.eParams;
-import domain.ePropart;
-import domain.eProprod;
+import domain.ePrjpart;
+import domain.ePrjprod;
 import domain.eProject;
-import domain.eProkit;
+import domain.ePrjkit;
 import domain.eRulecalc;
 import domain.eSetting;
 import domain.eSysfurn;
@@ -251,7 +251,7 @@ public enum App {
         eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
         eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
         eColmap.up, eColor.up,
-        eProkit.up, eProprod.up, eProject.up, ePropart.up,
+        ePrjkit.up, ePrjprod.up, eProject.up, ePrjpart.up,
         eRulecalc.up, eSystree.up,
         eArtdet.up, eArtikl.up,
         eSyssize.up, eGroups.up, eCurrenc.up, eSysuser.up, eParams.up

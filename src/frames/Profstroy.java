@@ -38,7 +38,7 @@ import domain.eJoinvar;
 import domain.eKitdet;
 import domain.eKitpar2;
 import domain.eKits;
-import domain.ePropart;
+import domain.ePrjpart;
 import domain.eRulecalc;
 import domain.eSetting;
 import domain.eSysfurn;
@@ -553,8 +553,8 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color2_id, "clnu1", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
             updateSql(eKitpar2.up, eKitpar2.kitdet_id, "psss", eKitdet.up, "kincr");
-            updateSql(eProject.up, eProject.propart_id, "kname", ePropart.up, "partner");
-            executeSql("update propart set org_leve2 = trim(org_leve2)");
+            updateSql(eProject.up, eProject.prjpart_id, "kname", ePrjpart.up, "partner");
+            executeSql("update prjpart set org_leve2 = trim(org_leve2)");
             String db = (numDb == 1) ? eProperty.base1.read() : (numDb == 2) ? eProperty.base2.read() : eProperty.base3.read();
             if (db.toUpperCase().contains("BIMAX.FDB")) {
                 executeSql("4", "update artikl set " + eArtikl.size_falz.name() + " = 20 where code = '336200'"); //поправка штульпа в bimax 
@@ -614,9 +614,9 @@ public class Profstroy {
             alterTable("syspar1", "fk_syspar2", "params_id", "params");
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
             alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");            
-            alterTable("project", "fk_project_1", "propart_id", "propart");            
-            alterTable("proprod", "fk_proprod_1", "project_id", "project");
-            alterTable("prokit", "fk_prokit_1", "proprod_id", "proprod");           
+            alterTable("project", "fk_project_1", "prjpart_id", "prjpart");            
+            alterTable("prjprod", "fk_prjprod_1", "project_id", "project");
+            alterTable("prjkit", "fk_prjkit_1", "prjprod_id", "prjprod");           
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
             alterTable("kitdet", "fk_kitdet2", "artikl_id", "artikl");
             alterTable("kitdet", "fk_kitdet3", "color1_id", "color");
