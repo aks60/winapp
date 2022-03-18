@@ -69,7 +69,7 @@ public class Test {
 
         Main.dev = true;
         try {
-            Profstroy.exec();
+            //Profstroy.exec();
             //wincalc();
             //param();
             //query();
