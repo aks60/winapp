@@ -54,6 +54,10 @@ public class Conn {
         }
     }
 
+    public static boolean web() {
+        return application == false;
+    }
+    
     public static void close(Connection connection) throws SQLException {
         if (application == false) {
             connection.close();

@@ -43,8 +43,7 @@ public class Query extends Table {
         }
     }
 
-    public Query(Field[]  
-        ... fieldsArr) {
+    public Query(Field[]... fieldsArr) {
         this.root = this;
         this.connection = Conn.connection();
         mapQuery.put(fieldsArr[0][0].tname(), this);
@@ -65,8 +64,7 @@ public class Query extends Table {
         this.root = query;
     }
 
-    public Query(Connection connection, Field[]  
-        ... fieldsArr) {
+    public Query(Connection connection, Field[]... fieldsArr) {
         this.root = this;
         this.connection = connection;
         mapQuery.put(fieldsArr[0][0].tname(), this);
@@ -168,7 +166,7 @@ public class Query extends Table {
                 record.setNo(0, SEL);
             }
             Conn.close(this.connection);
-            
+
         } catch (SQLException e) {
             System.out.println("Query.insert() " + e);
         }
@@ -194,7 +192,7 @@ public class Query extends Table {
                 record.setNo(0, SEL);
             }
             Conn.close(this.connection);
-            
+
         } catch (SQLException e) {
             System.out.println("Query.update() " + e);
         }
@@ -208,15 +206,16 @@ public class Query extends Table {
             System.out.println("SQL-DELETE " + sql);
             statement.executeUpdate(sql);
             Conn.close(this.connection);
+            return true;
             
         } catch (SQLException e) {
             System.out.println("Query.delete() " + e);
-            if (e.getErrorCode() == 335544466) {
+            if (Conn.web() == false && e.getErrorCode() == 335544466) {
                 JOptionPane.showMessageDialog(App.Top.frame, "Нельзя удалить запись на которую имеются ссылки из других форм", "SQL предупреждение", JOptionPane.INFORMATION_MESSAGE);
-                return false;
+
             }
-        }
-        return true;
+            return false;
+        }        
     }
 
     public void refresh() {
