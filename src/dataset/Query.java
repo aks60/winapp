@@ -1,6 +1,5 @@
 package dataset;
 
-import common.eProfile;
 import static dataset.Query.INS;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,6 +13,15 @@ import startup.App;
 
 public class Query extends Table {
 
+//    "Соединение успешно установлено"
+//    "Не найден файл драйвера"
+//    "Ошибка загрузки файла драйвера"
+//    "Ошибка ввода имени пользовоавтеля или пароля", 335544472, 1045, 18456
+//    "Отсутствие прав(роли) доступа к базе данных", 335544352, 1044, 229
+//    "Не найдена база данных", 335544344, 1049, 8003
+//    "Порт закрыт или занят другой программой"
+//    "Ошибка соединения с базой данных"
+//    "Не найдена таблица в базе данных", 335544569, 1146  
     public static String conf = "app";
     private static String schema = "";
     public Connection connection = null;
@@ -172,6 +180,29 @@ public class Query extends Table {
         }
     }
 
+    public void insert2(Record record) throws SQLException {
+        Statement statement = connection.createStatement();
+        //если нет, генерю сам
+        String nameCols = "", nameVals = "";
+        //цикл по полям таблицы
+        for (int k = 0; k < fields.size(); k++) {
+            Field field = fields.get(k);
+            if (field.meta().type() != Field.TYPE.OBJ) {
+                nameCols = nameCols + field.name() + ",";
+                nameVals = nameVals + wrapper(record, field) + ",";
+            }
+        }
+        if (nameCols != null && nameVals != null) {
+            nameCols = nameCols.substring(0, nameCols.length() - 1);
+            nameVals = nameVals.substring(0, nameVals.length() - 1);
+            String sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
+            System.out.println("SQL-INSERT " + sql);
+            statement.executeUpdate(sql);
+            record.setNo(0, SEL);
+        }
+        Conn.close(this.connection);
+    }
+
     public void update(Record record) {
         try {
             String nameCols = "";
@@ -198,6 +229,27 @@ public class Query extends Table {
         }
     }
 
+    public void update2(Record record) throws SQLException {
+        String nameCols = "";
+        Statement statement = statement = connection.createStatement();
+        //цикл по полям таблицы
+        for (Field field : fields) {
+            if (field.meta().type() != Field.TYPE.OBJ) {
+                nameCols = nameCols + field.name() + " = " + wrapper(record, field) + ",";
+            }
+        }
+        Field[] f = fields.get(0).fields();
+        if (nameCols.isEmpty() == false) {
+            nameCols = nameCols.substring(0, nameCols.length() - 1);
+            String sql = "update " + schema + fields.get(0).tname() + " set "
+                    + nameCols + " where " + f[1].name() + " = " + wrapper(record, f[1]);
+            System.out.println("SQL-UPDATE " + sql);
+            statement.executeUpdate(sql);
+            record.setNo(0, SEL);
+        }
+        Conn.close(this.connection);
+    }
+
     public boolean delete(Record record) {
         try {
             Statement statement = connection.createStatement();
@@ -207,7 +259,7 @@ public class Query extends Table {
             statement.executeUpdate(sql);
             Conn.close(this.connection);
             return true;
-            
+
         } catch (SQLException e) {
             System.out.println("Query.delete() " + e);
             if (Conn.web() == false && e.getErrorCode() == 335544466) {
@@ -215,7 +267,17 @@ public class Query extends Table {
 
             }
             return false;
-        }        
+        }
+    }
+
+    public int delete2(Record record) throws SQLException {
+        Statement statement = connection.createStatement();
+        Field[] f = fields.get(0).fields();
+        String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
+        System.out.println("SQL-DELETE " + sql);
+        int ret = statement.executeUpdate(sql);
+        Conn.close(this.connection);
+        return ret;
     }
 
     public void refresh() {

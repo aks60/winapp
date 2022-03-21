@@ -3,6 +3,9 @@ package domain;
 import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
+import dataset.Record;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 public enum ePrjkit implements Field {
     up("0", "0", "0", "Комплекты изделия", "EMPTY"),
@@ -30,6 +33,14 @@ public enum ePrjkit implements Field {
         meta.init(p);
     }
 
+    public static Query query() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+            Query.listOpenTable.add(query);
+        }
+        return query;
+    }
+    
     public MetaField meta() {
         return meta;
     }
@@ -38,14 +49,14 @@ public enum ePrjkit implements Field {
         return values();
     }
 
-    public static Query query() {
-        if (query.size() == 0) {
-            query.select(up, "order by", id);
-            Query.listOpenTable.add(query);
+    public static Record find(int _id) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
         }
-        return query;
-    }
-
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+    }   
+    
     public String toString() {
         return meta.descr();
     }    
