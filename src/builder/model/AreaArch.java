@@ -28,7 +28,6 @@ public class AreaArch extends AreaSimple {
                 elemArch = frames.get(Layout.TOP), elemLeft = frames.get(Layout.LEFT);
 
         double dh = elemArch.artiklRec.getFloat(eArtikl.height);
-        double dw = elemLeft.artiklRec.getFloat(eArtikl.height);
         double h = height() - iwin.heightAdd;
         double w = width();
         double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки        
