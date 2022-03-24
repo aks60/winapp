@@ -53,8 +53,8 @@ public class AreaSimple extends Com5t {
     protected void setLocation(float width, float height) {
         //Происходит при подкдадке дополнительной ареа в арке
         //или сужении area створки при нахлёсте профилей
-        if (owner != null) {
-            if (owner.childs.isEmpty() == true) {
+        if (owner != null) {            
+            if (owner.childs.isEmpty() == true) { //если childs.isEmpty то prevArea искать нет смысла
 
                 if (Layout.VERT.equals(owner.layout)) { //сверху вниз
                     float Y2 = (owner.y1 + height > owner.y2) ? owner.y2 : owner.y1 + height;
@@ -65,7 +65,7 @@ public class AreaSimple extends Com5t {
                     setDimension(owner.x1, owner.y1, X2, owner.y2);
                 }
 
-            } else {
+            } else { 
                 for (int index = owner.childs.size() - 1; index >= 0; --index) { //т.к. this area ёщё не создана начнём с конца
                     if (owner.childs.get(index) instanceof AreaSimple) {
                         AreaSimple prevArea = (AreaSimple) owner.childs.get(index);
