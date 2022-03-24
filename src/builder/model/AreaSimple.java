@@ -33,8 +33,11 @@ public class AreaSimple extends Com5t {
         this.colorID1 = color1;
         this.colorID2 = color2;
         this.colorID3 = color3;
+        
+        //Всё нестандартное АРЕА сверху, пока примитивно
+        //Переписываю тип чтобы можно было отловить
         if (owner != null && (owner.type == Type.ARCH || owner.type == Type.TRAPEZE)) {
-            if (owner.childs.isEmpty()) { //примитивно, пока всё нестандартное сверху
+            if (owner.childs.isEmpty()) { 
                 this.type = owner.type;
             }
         }

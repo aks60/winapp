@@ -69,7 +69,7 @@ public class Test {
         Main.dev = true;
         try {
             //Profstroy.exec();
-            //wincalc();
+            wincalc();
             //param();
             //query();
             //frame();
@@ -87,10 +87,10 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(601010, false));
+            iwin.build(builder.script.Winscript.test(604008, false));
             //new Joining(iwin, true);
             iwin.constructiv(true);
             //Specific.write_txt(iwin.listSpec);
