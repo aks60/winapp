@@ -58,6 +58,7 @@ import java.util.Set;
 import builder.script.Winscript;
 import domain.eProject;
 import domain.eSysmodel;
+import domain.eSysprod;
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.Queue;
@@ -226,7 +227,7 @@ public class Profstroy {
             }
             //Включаем все генераторы
             st2.executeUpdate("update rdb$triggers  set rdb$trigger_inactive = 0  where rdb$trigger_name like 'IBE$%';");
-            
+
             cn2.commit();
             cn2.setAutoCommit(true);
 
@@ -609,10 +610,10 @@ public class Profstroy {
             alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
             alterTable("syspar1", "fk_syspar2", "params_id", "params");
             alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
-            alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");            
-            alterTable("project", "fk_project_1", "prjpart_id", "prjpart");            
+            alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
+            alterTable("project", "fk_project_1", "prjpart_id", "prjpart");
             alterTable("prjprod", "fk_prjprod_1", "project_id", "project");
-            alterTable("prjkit", "fk_prjkit_1", "prjprod_id", "prjprod");           
+            alterTable("prjkit", "fk_prjkit_1", "prjprod_id", "prjprod");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
             alterTable("kitdet", "fk_kitdet2", "artikl_id", "artikl");
             alterTable("kitdet", "fk_kitdet3", "color1_id", "color");
@@ -647,6 +648,19 @@ public class Profstroy {
                     record.setNo(eSysmodel.script, script);
                     record.setNo(eSysmodel.form, gson.type().id);
                     q.insert(record);
+                }
+
+                String script2 = Winscript.test(prj, false);
+                if (script2 != null) {
+                    GsonRoot gson2 = new Gson().fromJson(script2, GsonRoot.class);
+                    String name2 = "<html> Проект:" + gson2.prj + "/Заказ:" + gson2.ord + " " + gson2.name;
+                    Query q2 = new Query(eSysprod.values());
+                    Record record2 = eSysprod.up.newRecord(Query.INS);
+                    record2.setNo(eSysprod.id, Conn.genId(eSysprod.up));
+                    record2.setNo(eSysprod.name, name2);
+                    record2.setNo(eSysprod.script, script2);
+                    record2.setNo(eSysprod.systree_id, gson2.nuni());
+                    q2.insert(record2);
                 }
             }
             cn2.commit();

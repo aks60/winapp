@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.eElement;
 import frames.DBCompare;
+import frames.Profstroy;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import java.util.List;
@@ -68,8 +69,8 @@ public class Test {
 
         Main.dev = true;
         try {
-            //Profstroy.exec();
-            wincalc();
+            Profstroy.exec();
+            //wincalc();
             //param();
             //query();
             //frame();
@@ -87,7 +88,7 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.build(builder.script.Winscript.test(604008, false));
