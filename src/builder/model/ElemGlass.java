@@ -225,7 +225,7 @@ public class ElemGlass extends ElemSimple {
             double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
             iwin.gc2d.fillArc((int) (root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
-        } else if (root().type == Type.TRAPEZE && y1 == 0) {
+        } else if (root().type == Type.TRAPEZE) {
             if (iwin.form == Form.NUM2) {
                 iwin.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                         new int[]{(int) y1, (int) (root().height() - iwin.heightAdd), (int) y2, (int) y2}, 4);

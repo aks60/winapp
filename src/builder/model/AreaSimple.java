@@ -35,7 +35,7 @@ public class AreaSimple extends Com5t {
         this.colorID3 = color3;
         
         //Всё нестандартное АРЕА сверху, пока примитивно
-        //Переписываю тип чтобы можно было отловить
+        //Переписываю тип чтобы можно было отловить например в ElemGlass
         if (owner != null && (owner.type == Type.ARCH || owner.type == Type.TRAPEZE)) {
             if (owner.childs.isEmpty()) { 
                 this.type = owner.type;
