@@ -207,7 +207,7 @@ public class Profstroy {
                 executeSql("GRANT SELECT ON " + field.tname() + " TO TEXNOLOG_RO");
                 executeSql("GRANT ALL ON " + field.tname() + " TO TEXNOLOG_RW");
             }
-            if (Main.dev == true) { //при этом в firebird такие user должны быть созданы
+            if (Main.dev == true) { //при этом в firebird такие логины должны быть созданы
                 executeSql("GRANT TEXNOLOG_RW, DEFROLE TO TEXNOLOG");
                 executeSql("GRANT MANAGER_RW, DEFROLE TO MANAGER");
             }
