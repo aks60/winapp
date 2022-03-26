@@ -32,7 +32,7 @@ import java.net.URISyntaxException;
  */
 public class Tex extends javax.swing.JFrame {
 
-    private Wincalc iwin = new Wincalc();
+    private Wincalc winc = new Wincalc();
     private javax.swing.Timer timer = null;
     private ListenerFrame listenerMenu;
     private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();
@@ -50,7 +50,7 @@ public class Tex extends javax.swing.JFrame {
         if (script != null && script.isEmpty() == false) {
             JsonElement script2 = new Gson().fromJson(script, JsonElement.class);
             script2.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id)); //запишем nuni в script
-            iwin.build(script2.toString()); //калькуляция изделия                
+            winc.build(script2.toString()); //калькуляция изделия                
         }
     }
 
@@ -1042,9 +1042,9 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                     App.Element.createFrame(Tex.this);
                 } else {
                     constructive();
-                    iwin.calcElements = new builder.making.Elements(iwin);
-                    iwin.calcElements.calc();
-                    App.Element.createFrame(Tex.this, iwin.calcElements.setVariant);
+                    winc.calcElements = new builder.making.Elements(winc);
+                    winc.calcElements.calc();
+                    App.Element.createFrame(Tex.this, winc.calcElements.setVariant);
                 }
             }
         });
@@ -1058,9 +1058,9 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                     App.Furniture.createFrame(Tex.this);
                 } else {
                     constructive();
-                    iwin.calcFurniture = new builder.making.Furniture(iwin); //фурнитура 
-                    iwin.calcFurniture.calc();
-                    App.Furniture.createFrame(Tex.this, iwin.calcFurniture.setVariant);
+                    winc.calcFurniture = new builder.making.Furniture(winc); //фурнитура 
+                    winc.calcFurniture.calc();
+                    App.Furniture.createFrame(Tex.this, winc.calcFurniture.setVariant);
                 }
             }
         });
@@ -1083,9 +1083,9 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                     App.Joining.createFrame(Tex.this);
                 } else {
                     constructive();
-                    iwin.calcJoining = new builder.making.Joining(iwin);
-                    iwin.calcJoining.calc();
-                    App.Joining.createFrame(Tex.this, iwin.calcJoining.setVariant);
+                    winc.calcJoining = new builder.making.Joining(winc);
+                    winc.calcJoining.calc();
+                    App.Joining.createFrame(Tex.this, winc.calcJoining.setVariant);
 
                 }
             }
@@ -1100,9 +1100,9 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                     App.Filling.createFrame(Tex.this);
                 } else {
                     constructive();
-                    iwin.calcFilling = new builder.making.Filling(iwin);
-                    iwin.calcFilling.calc();
-                    App.Filling.createFrame(Tex.this, iwin.calcFilling.setVariant);
+                    winc.calcFilling = new builder.making.Filling(winc);
+                    winc.calcFilling.calc();
+                    App.Filling.createFrame(Tex.this, winc.calcFilling.setVariant);
                 }
             }
         });
