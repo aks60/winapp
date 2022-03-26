@@ -392,10 +392,6 @@ public class ElemFrame extends ElemSimple {
                     Draw.strokePolygon(winc, x1, x2, x2, x1, y1, y1 + dh2, y2 - dh1, y2, rgb, borderColor);
 
                 } else if (Layout.TOP == layout) {
-                    double ang1 = Math.toRadians(90 - anglCut[0]);
-                    float dh2 = (float) (dh * Math.tan(ang1));
-                    double ang2 = Math.toRadians(90 - anglCut[1]);
-                    float dh3 = (float) (dh * Math.tan(ang2));
                     float dy = (float) (artiklRecAn.getDbl(eArtikl.height) / UCom.sin(anglHoriz - 90));
                     Draw.strokePolygon(winc, x1, x2, x2, x1, y1, y2, y2 + dy, y1 + dy, rgb, borderColor);
                 }
