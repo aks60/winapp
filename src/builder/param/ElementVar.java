@@ -22,8 +22,8 @@ import java.util.Map;
 //Составы 31000, 37000
 public class ElementVar extends Par5s {
 
-    public ElementVar(Wincalc iwin) {
-        super(iwin);
+    public ElementVar(Wincalc winc) {
+        super(winc);
         listenerList = new ArrayList();
     }
 
@@ -55,7 +55,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 31001: //Максимальное заполнение изделия, мм 
                 {
-                    List<ElemGlass> glassList = UCom.listSortObj(iwin.listSortEl, Type.GLASS);
+                    List<ElemGlass> glassList = UCom.listSortObj(winc.listSortEl, Type.GLASS);
                     float depth = 0;
                     for (ElemGlass glass : glassList) {
                         if (glass.artiklRecAn.getFloat(eArtikl.depth) > depth) {
@@ -76,11 +76,11 @@ public class ElementVar extends Par5s {
                     break;
                 case 31003:  //Если соединенный артикул  T-обр.
                     if (rec.getStr(TEXT).equals(elem5e.joinElem(0).artiklRecAn.getStr(eArtikl.code)) == true) {
-                        if (iwin.mapJoin.get(elem5e.joinPoint(0)).type != TypeJoin.VAR40 && iwin.mapJoin.get(elem5e.joinPoint(0)).type != TypeJoin.VAR41) {
+                        if (winc.mapJoin.get(elem5e.joinPoint(0)).type != TypeJoin.VAR40 && winc.mapJoin.get(elem5e.joinPoint(0)).type != TypeJoin.VAR41) {
                             return false;
                         }
                     } else if (rec.getStr(TEXT).equals(elem5e.joinElem(1).artiklRecAn.getStr(eArtikl.code))) {
-                        if (iwin.mapJoin.get(elem5e.joinPoint(1)).type != TypeJoin.VAR40 && iwin.mapJoin.get(elem5e.joinPoint(1)).type != TypeJoin.VAR41) {
+                        if (winc.mapJoin.get(elem5e.joinPoint(1)).type != TypeJoin.VAR40 && winc.mapJoin.get(elem5e.joinPoint(1)).type != TypeJoin.VAR41) {
                             return false;
                         }
                     } else {
@@ -90,7 +90,7 @@ public class ElementVar extends Par5s {
                 case 31004: //Если прилегающий артикул 
                 {
                     boolean ret = false;
-                    for (Map.Entry<String, ElemJoining> entry : iwin.mapJoin.entrySet()) {
+                    for (Map.Entry<String, ElemJoining> entry : winc.mapJoin.entrySet()) {
                         ElemJoining elemJoining = entry.getValue();
                         if (elemJoining.elem2.artiklRecAn.getInt(1) == elem5e.artiklRecAn.getInt(1)
                                 && rec.getStr(TEXT).equals(elemJoining.elem1.artiklRecAn.getStr(eArtikl.code))) {
@@ -121,7 +121,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31008: //Эффективное заполнение изделия, мм 
-                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), iwin) == false) {
+                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
@@ -190,7 +190,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 31017: //Код системы содержит строку 
                 case 37017: //Код системы содержит строку 
-                    if (UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
+                    if (UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
@@ -279,7 +279,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 31054:  //Коды основной текстуры изделия
                 case 37054:  //Коды основной текстуры изделия    
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), iwin.colorID1) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), winc.colorID1) == false) {
                         return false;
                     }
                     break;
@@ -303,8 +303,8 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31060:  //Допустимый угол между плоскостями, ° 
-                    if ((UCom.containsNumbJust(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(0)).angl) == true
-                            || UCom.containsNumbJust(rec.getStr(TEXT), iwin.mapJoin.get(elem5e.joinPoint(1)).angl) == true) == false) {
+                    if ((UCom.containsNumbJust(rec.getStr(TEXT), winc.mapJoin.get(elem5e.joinPoint(0)).angl) == true
+                            || UCom.containsNumbJust(rec.getStr(TEXT), winc.mapJoin.get(elem5e.joinPoint(1)).angl) == true) == false) {
                         return false;
                     }
                     break;
@@ -335,7 +335,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 31095:  //Если признак системы конструкции 
                 case 37095:  //Если признак системы конструкции                    
-                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), iwin.nuni)) {
+                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), winc.nuni)) {
                         return false;
                     }
                     break;
@@ -371,13 +371,13 @@ public class ElementVar extends Par5s {
                 case 37009: //Тип заполнения 
                 {
                     ElemGlass glass = (ElemGlass) elem5e.owner.childs.stream().filter(it -> it.type == Type.GLASS).findFirst().orElse(null);
-                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && iwin.form != Form.NUM0) {
+                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && winc.form != Form.NUM0) {
                         return false;
 
                     } else if ("Арочное".equals(rec.getStr(TEXT)) && glass.radiusGlass == 0) {
                         return false;
 
-                    } else if ("Произвольное".equals(rec.getStr(TEXT)) && iwin.form == Form.NUM0) {
+                    } else if ("Произвольное".equals(rec.getStr(TEXT)) && winc.form == Form.NUM0) {
                         return false;
                     }
                 }

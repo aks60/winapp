@@ -26,8 +26,8 @@ public class AreaSimple extends Com5t {
     public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне 
     public LinkedList<Com5t> childs = new LinkedList(); //дети
 
-    public AreaSimple(Wincalc iwin, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, JsonObject param) {
-        super(id, iwin, owner);
+    public AreaSimple(Wincalc winc, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, JsonObject param) {
+        super(id, winc, owner);
         this.type = type;
         this.layout = layout;
         this.colorID1 = color1;
@@ -50,7 +50,7 @@ public class AreaSimple extends Com5t {
         if (isJson(param, PKjson.sysprofID)) {//профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         }
-        iwin.listSortAr.add(this);
+        winc.listSortAr.add(this);
     }
 
     protected void setLocation(float width, float height) {
@@ -97,7 +97,7 @@ public class AreaSimple extends Com5t {
                 if (ioknaParamArr != null && !ioknaParamArr.isJsonNull() && ioknaParamArr.isJsonArray()) {
                     ioknaParamArr.forEach(grup -> {
                         Record paramsRec = eParams.find(grup.getAsInt()); //параметр менеджера  
-                        Record syspar1Rec = iwin.mapPardef.get(paramsRec.getInt(eParams.params_id));
+                        Record syspar1Rec = winc.mapPardef.get(paramsRec.getInt(eParams.params_id));
                         if (syspar1Rec != null) { //ситуация если конструкция с nuni = -3, т.е. модели
                             syspar1Rec.setNo(eParams.text, paramsRec.getStr(eParams.text));
                         }
@@ -105,15 +105,15 @@ public class AreaSimple extends Com5t {
                 }
             }
         } catch (Exception e) {
-            System.out.println(iwin.rootGson.prj);
+            System.out.println(winc.rootGson.prj);
             System.err.println("Ошибка:Com5t.parsingParam() " + e);
         }
     }
 
     public void joining() {
 
-        LinkedList<ElemSimple> impList = UCom.listSortObj(iwin.listSortEl, Type.IMPOST, Type.SHTULP, Type.STOIKA);
-        LinkedList<ElemSimple> elemList = UCom.listSortObj(iwin.listSortEl, Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
+        LinkedList<ElemSimple> impList = UCom.listSortObj(winc.listSortEl, Type.IMPOST, Type.SHTULP, Type.STOIKA);
+        LinkedList<ElemSimple> elemList = UCom.listSortObj(winc.listSortEl, Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
 
         //T - соединения
         for (ElemSimple elemImp : impList) {
@@ -125,16 +125,16 @@ public class AreaSimple extends Com5t {
 
                     if (elemImp.owner.layout == Layout.HORIZ) { //Импосты(штульпы...)  расположены по горизонтали слева на право                     
                         if (elem5e.inside(elemImp.x2, elemImp.y2) == true && elem5e != elemImp) { //T - соединение нижнее                              
-                            ElemJoining.create(elemImp.joinPoint(0), iwin, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
+                            ElemJoining.create(elemImp.joinPoint(0), winc, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
                         } else if (elem5e.inside(elemImp.x1, elemImp.y1) == true && elem5e != elemImp) { //T - соединение верхнее                            
-                            ElemJoining.create(elemImp.joinPoint(1), iwin, TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
+                            ElemJoining.create(elemImp.joinPoint(1), winc, TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
                         }
 
                     } else {//Импосты(штульпы...) расположены по вертикали снизу вверх
                         if (elem5e.inside(elemImp.x1, elemImp.y1) == true && elem5e != elemImp) { //T - соединение левое                             
-                            ElemJoining.create(elemImp.joinPoint(0), iwin, TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
+                            ElemJoining.create(elemImp.joinPoint(0), winc, TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
                         } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true && elem5e != elemImp) { //T - соединение правое                              
-                            ElemJoining.create(elemImp.joinPoint(1), iwin, TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
+                            ElemJoining.create(elemImp.joinPoint(1), winc, TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
                         }
                     }
                 }
@@ -146,19 +146,19 @@ public class AreaSimple extends Com5t {
     public void draw() {
         try {
             //Прорисовка стеклопакетов
-            LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(iwin.listSortEl, Type.GLASS);
+            LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(winc.listSortEl, Type.GLASS);
             elemGlassList.stream().forEach(el -> el.paint());
 
             //Прорисовка импостов
-            LinkedList<ElemCross> elemImpostList = UCom.listSortObj(iwin.listSortEl, Type.IMPOST);
+            LinkedList<ElemCross> elemImpostList = UCom.listSortObj(winc.listSortEl, Type.IMPOST);
             elemImpostList.stream().forEach(el -> el.paint());
 
             //Прорисовка штульпов
-            LinkedList<ElemCross> elemShtulpList = UCom.listSortObj(iwin.listSortEl, Type.SHTULP);
+            LinkedList<ElemCross> elemShtulpList = UCom.listSortObj(winc.listSortEl, Type.SHTULP);
             elemShtulpList.stream().forEach(el -> el.paint());
 
             //Прорисовка стоек
-            LinkedList<ElemCross> elemStoikaList = UCom.listSortObj(iwin.listSortEl, Type.STOIKA);
+            LinkedList<ElemCross> elemStoikaList = UCom.listSortObj(winc.listSortEl, Type.STOIKA);
             elemStoikaList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам
@@ -168,16 +168,16 @@ public class AreaSimple extends Com5t {
             frames.get(Layout.RIGHT).paint();
 
             //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = UCom.listSortObj(iwin.listSortAr, Type.STVORKA);
+            LinkedList<AreaStvorka> elemStvorkaList = UCom.listSortObj(winc.listSortAr, Type.STVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Рисунок в память
-            if (iwin.bufferImg != null) {
+            if (winc.bufferImg != null) {
                 ByteArrayOutputStream byteArrOutStream = new ByteArrayOutputStream();
-                ImageIO.write(iwin.bufferImg, "png", byteArrOutStream);
+                ImageIO.write(winc.bufferImg, "png", byteArrOutStream);
                 if (Main.dev == true) {
                     File outputfile = new File("CanvasImage.png");
-                    ImageIO.write(iwin.bufferImg, "png", outputfile);
+                    ImageIO.write(winc.bufferImg, "png", outputfile);
                 }
             }
         } catch (Exception s) {

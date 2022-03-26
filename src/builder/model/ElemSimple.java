@@ -19,17 +19,17 @@ public abstract class ElemSimple extends Com5t {
     public Specific spcRec = null; //спецификация элемента
     public Color borderColor = Color.BLACK;
 
-    public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
-        super(id, iwin, owner);
-        iwin.listTreeEl.add(this);
-        iwin.listSortEl.add(this);
+    public ElemSimple(float id, Wincalc winc, AreaSimple owner) {
+        super(id, winc, owner);
+        winc.listTreeEl.add(this);
+        winc.listSortEl.add(this);
         spcRec = new Specific(id, this);
     }
 
     //Клик мышки попадает в контур элемента
     public boolean mouseClick(int X, int Y) {
-        int x = (int) (X / iwin.scale) - Com5t.TRANSLATE_XY;
-        int y = (int) (Y / iwin.scale) - Com5t.TRANSLATE_XY;
+        int x = (int) (X / winc.scale) - Com5t.TRANSLATE_XY;
+        int y = (int) (Y / winc.scale) - Com5t.TRANSLATE_XY;
         return inside(x, y);
     }
 
@@ -43,14 +43,14 @@ public abstract class ElemSimple extends Com5t {
     //В этих точках лежат мапы соединений см. Wincalc.mapJoin
     public String joinPoint(int side) {
 
-        if (owner.type == Type.ARCH && layout == Layout.TOP && iwin.form == Form.NUM3) {
-            return (side == 0) ? x2 + ":" + (iwin.height - iwin.heightAdd) : x1 + ":" + (iwin.height - iwin.heightAdd);
+        if (owner.type == Type.ARCH && layout == Layout.TOP && winc.form == Form.NUM3) {
+            return (side == 0) ? x2 + ":" + (winc.height - winc.heightAdd) : x1 + ":" + (winc.height - winc.heightAdd);
 
-        } else if (owner.type == Type.TRAPEZE && layout == Layout.TOP && iwin.form == Form.NUM2) {
-            return (side == 0) ? x2 + ":" + (iwin.height - iwin.heightAdd) : x1 + ":" + y1;
+        } else if (owner.type == Type.TRAPEZE && layout == Layout.TOP && winc.form == Form.NUM2) {
+            return (side == 0) ? x2 + ":" + (winc.height - winc.heightAdd) : x1 + ":" + y1;
 
-        } else if (owner.type == Type.TRAPEZE && layout == Layout.TOP && iwin.form == Form.NUM4) {
-            return (side == 0) ? x2 + ":" + y1 : x1 + ":" + (iwin.height - iwin.heightAdd);
+        } else if (owner.type == Type.TRAPEZE && layout == Layout.TOP && winc.form == Form.NUM4) {
+            return (side == 0) ? x2 + ":" + y1 : x1 + ":" + (winc.height - winc.heightAdd);
 
         } else if (layout == Layout.BOTT) {
             return (side == 0) ? x1 + ":" + y2 : (side == 1) ? x2 + ":" + y2 : (x1 + (x2 - x1) / 2) + ":" + y2; //точки левого и правого нижнего углового и прилегающего соед.
@@ -78,8 +78,8 @@ public abstract class ElemSimple extends Com5t {
     public ElemSimple joinFlat(Layout layoutSide) {
         boolean begin = false;
         try {
-            for (int index = iwin.listTreeEl.size() - 1; index >= 0; --index) {
-                ElemSimple el = iwin.listTreeEl.get(index);
+            for (int index = winc.listTreeEl.size() - 1; index >= 0; --index) {
+                ElemSimple el = winc.listTreeEl.get(index);
                 if (begin == true && el.type != Type.GLASS) {
                     if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
                         float Y2 = (y2 > y1) ? y2 : y1;
@@ -114,7 +114,7 @@ public abstract class ElemSimple extends Com5t {
 
     //Элемент соединения 0-пред.артикл, 1-след.артикл, 2-прилег. артикл
     public ElemSimple joinElem(int side) {
-        ElemJoining ej = iwin.mapJoin.get(joinPoint(side));
+        ElemJoining ej = winc.mapJoin.get(joinPoint(side));
         if (ej != null && side == 0) {
             return (this.type == Type.IMPOST || this.type == Type.SHTULP || this.type == Type.STOIKA) ? ej.elem2 : ej.elem1;
         } else if (ej != null && side == 1) {

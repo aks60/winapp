@@ -22,13 +22,13 @@ import java.util.Arrays;
 //Соединения
 public class JoiningVar extends Par5s {
 
-    public JoiningVar(Wincalc iwin) {
-        super(iwin);
+    public JoiningVar(Wincalc winc) {
+        super(winc);
         listenerList = new ArrayList();
     }
 
-    public JoiningVar(Wincalc iwin, boolean shortPass) {
-        super(iwin);
+    public JoiningVar(Wincalc winc, boolean shortPass) {
+        super(winc);
         listenerList = new ArrayList();
         this.shortPass = shortPass;
     }
@@ -88,17 +88,17 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                 case 1008:  //Эффективное заполнение изд., мм
-                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), iwin) == false) {
+                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
                 case 1010:  //Внешнее соединение 
                 case 4010:  //Внешнее соединение                     
                     if ("Да".equals(rec.getStr(TEXT))) {
-                        if (iwin.mapJoin.get(iwin.rootArea.x2() + ":" + iwin.rootArea.y1()) != elemJoin
-                                && iwin.mapJoin.get(iwin.rootArea.x2() + ":" + iwin.rootArea.y2()) != elemJoin
-                                && iwin.mapJoin.get(iwin.rootArea.x2() + ":" + iwin.rootArea.y1()) != elemJoin
-                                && iwin.mapJoin.get(iwin.rootArea.x1() + ":" + iwin.rootArea.y1()) != elemJoin) {
+                        if (winc.mapJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y1()) != elemJoin
+                                && winc.mapJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y2()) != elemJoin
+                                && winc.mapJoin.get(winc.rootArea.x2() + ":" + winc.rootArea.y1()) != elemJoin
+                                && winc.mapJoin.get(winc.rootArea.x1() + ":" + winc.rootArea.y1()) != elemJoin) {
                             return false;
                         }
                     }
@@ -237,7 +237,7 @@ public class JoiningVar extends Par5s {
                     break;
                 case 1043: //Ограничение габарита контура, мм 
                 {
-                    float area = iwin.rootArea.width() * iwin.rootArea.height() / 1000000;
+                    float area = winc.rootArea.width() * winc.rootArea.height() / 1000000;
                     if (UCom.containsNumbExp(rec.getStr(TEXT), area) == false) {
                         return false;
                     }
@@ -251,7 +251,7 @@ public class JoiningVar extends Par5s {
                 case 3095:  //Если признак системы конструкции 
                 case 4095: //Если признак системы конструкции 
                 {
-                    Record systreefRec = eSystree.find(iwin.nuni);
+                    Record systreefRec = eSystree.find(winc.nuni);
                     String[] arr = rec.getStr(TEXT).split(";");
                     List<String> arrList = Arrays.asList(arr);
                     boolean ret = false;
@@ -467,7 +467,7 @@ public class JoiningVar extends Par5s {
                 case 3031:  //Усечение Артикула1/Артикула2, мм 
                     listenerList.add(() -> {
                         if ("ps3".equals(eSetting.find(2))) { //Усечение Артикула 1, мм
-                            ElemSimple el9 = iwin.listSortEl.find(5.4f);
+                            ElemSimple el9 = winc.listSortEl.find(5.4f);
                             elemJoin.elem1.spcRec.width -= rec.getFloat(TEXT);
 
                         } else {

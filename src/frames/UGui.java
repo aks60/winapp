@@ -162,25 +162,25 @@ public class UGui {
         return new Font(eProperty.fontname.read(), bold, Integer.valueOf(eProperty.fontsize.read()) + size);
     }
 
-    public static DefMutableTreeNode loadWinTree(Wincalc iwin) {
-        DefMutableTreeNode root = new DefMutableTreeNode(iwin.rootArea);
+    public static DefMutableTreeNode loadWinTree(Wincalc winc) {
+        DefMutableTreeNode root = new DefMutableTreeNode(winc.rootArea);
         root.add(new DefMutableTreeNode(new Com5t(Type.PARAM) {
         }));
         DefMutableTreeNode frm = root.add(new DefMutableTreeNode(new Com5t(Type.FRAME) {
         }));
-        frm.add(new DefMutableTreeNode(iwin.rootArea.frames.get(Layout.BOTT)));
+        frm.add(new DefMutableTreeNode(winc.rootArea.frames.get(Layout.BOTT)));
         ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        frm.add(new DefMutableTreeNode(iwin.rootArea.frames.get(Layout.RIGHT)));
+        frm.add(new DefMutableTreeNode(winc.rootArea.frames.get(Layout.RIGHT)));
         ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        frm.add(new DefMutableTreeNode(iwin.rootArea.frames.get(Layout.TOP)));
+        frm.add(new DefMutableTreeNode(winc.rootArea.frames.get(Layout.TOP)));
         ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        frm.add(new DefMutableTreeNode(iwin.rootArea.frames.get(Layout.LEFT)));
+        frm.add(new DefMutableTreeNode(winc.rootArea.frames.get(Layout.LEFT)));
         ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
-        for (Com5t com : iwin.rootArea.childs) {
+        for (Com5t com : winc.rootArea.childs) {
             if (com.type != Type.STVORKA) {
                 if (com instanceof ElemSimple) {
                     frm.add(new DefMutableTreeNode(com));
@@ -217,28 +217,28 @@ public class UGui {
                                                         }
                                                     }
                                                 } else {
-                                                    loadWinTree(iwin, root, com4);
+                                                    loadWinTree(winc, root, com4);
                                                 }
                                             }
                                         }
                                     } else {
-                                        loadWinTree(iwin, root, com3);
+                                        loadWinTree(winc, root, com3);
                                     }
                                 }
                             }
                         } else {
-                            loadWinTree(iwin, root, com2);
+                            loadWinTree(winc, root, com2);
                         }
                     }
                 }
             } else {
-                loadWinTree(iwin, root, com);
+                loadWinTree(winc, root, com);
             }
         }
         return root;
     }
 
-    public static void loadWinTree(Wincalc iwin, DefMutableTreeNode root, Com5t com) {
+    public static void loadWinTree(Wincalc winc, DefMutableTreeNode root, Com5t com) {
         DefMutableTreeNode nodeStv = root.add(new DefMutableTreeNode(com));
         AreaStvorka stv = (AreaStvorka) com;
         nodeStv.add(new DefMutableTreeNode(stv.frames.get(Layout.BOTT)));

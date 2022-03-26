@@ -19,7 +19,7 @@ public abstract class Com5t {
     public Record artiklRecAn = null;  //аналог мат. средства    
 
     public AreaSimple owner = null; //владелец
-    public Wincalc iwin = null; //главный класс калькуляции
+    public Wincalc winc = null; //главный класс калькуляции
     public AreaSimple root = null; //главный класс конструкции
 
     protected float x1 = 0, x2 = 0, y1 = 0, y2 = 0;//координаты area     
@@ -29,11 +29,11 @@ public abstract class Com5t {
         this.type = type;
     }
 
-    public Com5t(float id, Wincalc iwin, AreaSimple owner) {
+    public Com5t(float id, Wincalc winc, AreaSimple owner) {
         this.id = id;
         this.owner = owner;
-        this.iwin = iwin;
-        this.root = iwin.rootArea;
+        this.winc = winc;
+        this.root = winc.rootArea;
     }
 
     public float id() {
@@ -41,7 +41,7 @@ public abstract class Com5t {
     }
 
     public AreaSimple root() {
-        return iwin.rootArea;
+        return winc.rootArea;
     }
 
     public void setDimension(float x1, float y1, float x2, float y2) {

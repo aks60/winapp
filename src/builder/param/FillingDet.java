@@ -19,8 +19,8 @@ import enums.Type;
 //Заполнения
 public class FillingDet extends Par5s {
 
-    public FillingDet(Wincalc iwin) {
-        super(iwin);
+    public FillingDet(Wincalc winc) {
+        super(winc);
     }
 
     public boolean filter(HashMap<Integer, String> mapParam, ElemGlass elem5e, Record glasdetRec) {
@@ -46,7 +46,7 @@ public class FillingDet extends Par5s {
                 case 14000: //Для технологического кода контейнера
                 case 15000: //Для технологического кода контейнера 
                 {
-                    ElemSimple elem = iwin.rootArea.frames.get(Layout.BOTT);
+                    ElemSimple elem = winc.rootArea.frames.get(Layout.BOTT);
                     if (!UPar.is_STRING_XX000(rec.getStr(TEXT), elem)) {
                         return false;
                     }
@@ -55,7 +55,7 @@ public class FillingDet extends Par5s {
                 case 14001: //Если признак состава 
                 case 15001: //Если признак состава    
                 {
-                    ElemSimple elem = iwin.rootArea.frames.get(Layout.BOTT);
+                    ElemSimple elem = winc.rootArea.frames.get(Layout.BOTT);
                     if (UPar.is_11001_11002_12001_12002_13001_14001_15001_33001_34001(rec.getStr(TEXT), elem) == false) {
                         return false;
                     }
@@ -69,7 +69,7 @@ public class FillingDet extends Par5s {
                     break;
                 case 14008: //Эффективное заполнение изд., мм 
                 case 15008: //Эффективное заполнение изд., мм                    
-                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), iwin) == false) {
+                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
@@ -83,7 +83,7 @@ public class FillingDet extends Par5s {
                     break;
                 case 14017: //Код системы содержит строку 
                 case 15017: //Код системы содержит строку                    
-                    if (UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
+                    if (UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
@@ -119,19 +119,19 @@ public class FillingDet extends Par5s {
                     break;
                 case 14067:  //Коды основной текстуры изделия 
                 case 15067:  //Коды основной текстуры изделия    
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.iwin.colorID1) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID1) == false) {
                         return false;
                     }
                     break;
                 case 14068:  //Коды внутр. текстуры изделия 
                 case 15068:  //Коды внутр. текстуры изделия     
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.iwin.colorID2) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID2) == false) {
                         return false;
                     }
                     break;
                 case 14069:  //Коды внешн. текстуры изделия 
                 case 15069:  //Коды внешн. текстуры изделия     
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.iwin.colorID3) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID3) == false) {
                         return false;
                     }
                     break;
@@ -147,7 +147,7 @@ public class FillingDet extends Par5s {
                 case 14095: //Если признак системы конструкции 
                 case 15095: //Если признак системы конструкции  
                 {
-                    Record systreeRec = eSystree.find(iwin.nuni);
+                    Record systreeRec = eSystree.find(winc.nuni);
                     String[] arr = rec.getStr(TEXT).split(";");
                     List<String> arrList = Arrays.asList(arr);
                     boolean ret = false;

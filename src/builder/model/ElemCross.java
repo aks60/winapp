@@ -22,7 +22,7 @@ public class ElemCross extends ElemSimple {
 
     public ElemCross(AreaSimple owner, Type type, float id, JsonObject param) {
 
-        super(id, owner.iwin, owner);
+        super(id, owner.winc, owner);
         this.layout = (owner.layout == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
         this.type = type;
 
@@ -32,18 +32,18 @@ public class ElemCross extends ElemSimple {
 
     public void initСonstructiv(JsonObject param) {
 
-        colorID1 = (isJson(param, PKjson.colorID1)) ? param.get(PKjson.colorID1).getAsInt() : iwin.colorID1;
-        colorID2 = (isJson(param, PKjson.colorID2)) ? param.get(PKjson.colorID2).getAsInt() : iwin.colorID2;
-        colorID3 = (isJson(param, PKjson.colorID3)) ? param.get(PKjson.colorID3).getAsInt() : iwin.colorID3;
+        colorID1 = (isJson(param, PKjson.colorID1)) ? param.get(PKjson.colorID1).getAsInt() : winc.colorID1;
+        colorID2 = (isJson(param, PKjson.colorID2)) ? param.get(PKjson.colorID2).getAsInt() : winc.colorID2;
+        colorID3 = (isJson(param, PKjson.colorID3)) ? param.get(PKjson.colorID3).getAsInt() : winc.colorID3;
         
         if (isJson(param, PKjson.sysprofID)) { //профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         } else {
             if (Layout.VERT.equals(owner.layout)) { //сверху вниз
-                sysprofRec = eSysprof.find4x(iwin.nuni, type.id2, UseSide.HORIZ);
+                sysprofRec = eSysprof.find4x(winc.nuni, type.id2, UseSide.HORIZ);
 
             } else if (Layout.HORIZ.equals(owner.layout)) { //слева направо
-                sysprofRec = eSysprof.find4x(iwin.nuni, type.id2, UseSide.VERT);
+                sysprofRec = eSysprof.find4x(winc.nuni, type.id2, UseSide.VERT);
             }
         }
         spcRec.place = (Layout.HORIZ == owner.layout) ? Layout.VERT.name : Layout.HORIZ.name;
@@ -62,7 +62,7 @@ public class ElemCross extends ElemSimple {
         } else if (Type.TRAPEZE == owner.type && owner.childs.size() == 1) {
             float dy = 0;
             AreaSimple prevArea = (AreaSimple) owner.childs.get(0);
-            if(iwin.form == Form.NUM2) {
+            if(winc.form == Form.NUM2) {
                float angl = root.frames.get(Layout.RIGHT).anglCut[1];
                dy = (float) (root.frames.get(Layout.RIGHT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
             }
@@ -100,8 +100,8 @@ public class ElemCross extends ElemSimple {
 
         if (type == Type.IMPOST) {
             //На эскизе заход импоста не показываю, сразу пишу в спецификацию
-            if (iwin.syssizeRec.getInt(eSyssize.id) != -1) {
-                float zax = iwin.syssizeRec.getFloat(eSyssize.zax);
+            if (winc.syssizeRec.getInt(eSyssize.id) != -1) {
+                float zax = winc.syssizeRec.getFloat(eSyssize.zax);
 
                 if (Layout.HORIZ == owner.layout) { //слева направо  
                     ElemSimple insideTop = joinFlat(Layout.TOP), insideBott = joinFlat(Layout.BOTT);
@@ -179,10 +179,10 @@ public class ElemCross extends ElemSimple {
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
         if (Layout.VERT == owner.layout) {
-            Draw.strokePolygon(iwin, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            Draw.strokePolygon(winc, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
         } else if (Layout.HORIZ == owner.layout) {
-            Draw.strokePolygon(iwin, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            Draw.strokePolygon(winc, x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
         }
     }
 

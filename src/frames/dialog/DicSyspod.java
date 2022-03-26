@@ -26,7 +26,7 @@ import javax.swing.tree.TreePath;
 public class DicSyspod extends javax.swing.JDialog {
 
     private static final int serialVersionUID = 931126542;
-    private Wincalc iwin = new Wincalc();
+    private Wincalc winc = new Wincalc();
     private ListenerRecord listener = null;
     private int systreeID = -1; //выбранная система
     private Query qSystree = new Query(eSystree.values());
@@ -112,8 +112,8 @@ public class DicSyspod extends javax.swing.JDialog {
             try {
                 Object arrayRec[] = {record.get(eSysprod.name), null};
                 Object script = record.get(eSysprod.script);
-                iwin.build(script.toString());
-                arrayRec[1] = Canvas.createIcon(iwin, 68); //image;
+                winc.build(script.toString());
+                arrayRec[1] = Canvas.createIcon(winc, 68); //image;
                 dm.addRow(arrayRec);
 
             } catch (Exception e) {

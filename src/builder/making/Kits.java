@@ -8,8 +8,8 @@ public class Kits extends Cal5e {
 
     private KitDet kitDet = null;
 
-    public Kits(Wincalc iwin) {
-        super(iwin);
+    public Kits(Wincalc winc) {
+        super(winc);
     }
 
     public void calc(float Q, float L, float H, Query kitDet) {

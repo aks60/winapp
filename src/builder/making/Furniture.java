@@ -37,16 +37,16 @@ public class Furniture extends Cal5e {
     private List list = Arrays.asList(9, 11, 12);
     private boolean max_size_message = true;
 
-    public Furniture(Wincalc iwin) {
-        super(iwin);
-        furnitureVar = new FurnitureVar(iwin);
-        furnitureDet = new FurnitureDet(iwin);
+    public Furniture(Wincalc winc) {
+        super(winc);
+        furnitureVar = new FurnitureVar(winc);
+        furnitureDet = new FurnitureDet(winc);
     }
 
-    public Furniture(Wincalc iwin, boolean shortPass) {
-        super(iwin);
-        furnitureVar = new FurnitureVar(iwin);
-        furnitureDet = new FurnitureDet(iwin);
+    public Furniture(Wincalc winc, boolean shortPass) {
+        super(winc);
+        furnitureVar = new FurnitureVar(winc);
+        furnitureDet = new FurnitureDet(winc);
         this.shortPass = shortPass;
         calc();
     }
@@ -54,7 +54,7 @@ public class Furniture extends Cal5e {
     @Override
     public void calc() {
         super.calc();
-        LinkedList<AreaStvorka> stvorkaList = UCom.listSortObj(iwin.listSortAr, Type.STVORKA);
+        LinkedList<AreaStvorka> stvorkaList = UCom.listSortObj(winc.listSortAr, Type.STVORKA);
         try {
             
             //Цикл по створкам      
@@ -62,7 +62,7 @@ public class Furniture extends Cal5e {
                 setFurndet.clear();
                 
                 //Подбор фурнитуры по параметрам
-                List<Record> sysfurnList = eSysfurn.find(iwin.nuni);
+                List<Record> sysfurnList = eSysfurn.find(winc.nuni);
                 Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию, первая SYSFURN в списке системы
                 
                 //Теперь найдём furnityreRec по sysfurnRec из параметра или по умолчанию в случае неудачи                 

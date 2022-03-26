@@ -17,8 +17,8 @@ import enums.Type;
 //Составы 33000, 34000, 38000, 39000, 40000
 public class ElementDet extends Par5s {
 
-    public ElementDet(Wincalc iwin) {
-        super(iwin);
+    public ElementDet(Wincalc winc) {
+        super(winc);
     }
 
     public boolean filter(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record elemdetRec) {
@@ -67,26 +67,26 @@ public class ElementDet extends Par5s {
                     break;
                 case 33005:  //Коды основной текстуры контейнера 
                 case 34005:  //Коды основной текстуры контейнера
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.iwin.colorID1) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID1) == false) {
                         return false;
                     }
                     break;
                 case 33006:  //Коды внутр. текстуры контейнера
                 case 34006:  //Коды внутр. текстуры контейнера 
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.iwin.colorID2) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID2) == false) {
                         return false;
                     }
                     break;
                 case 33007:  //Коды внешн. текстуры контейнера 
                 case 34007:  //Коды внешн. текстуры контейнера     
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.iwin.colorID3) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID3) == false) {
                         return false;
                     }
                     break;
                 case 33008: //Эффективное заполнение изд., мм 
                 case 34008:  //Эффективное заполнение изделия, мм 
                 case 40008:  //Эффективное заполнение изд., мм                    
-                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), iwin) == false) {
+                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
@@ -112,7 +112,7 @@ public class ElementDet extends Par5s {
                 case 38017: //Код системы содержит строку     
                 case 39017: //Код системы содержит строку 
                 case 40017: //Код системы содержит строку                 
-                if(UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
+                if(UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), winc) == false) {
                     return false;
                 }
                 break;
@@ -175,7 +175,7 @@ public class ElementDet extends Par5s {
                 case 38067:  //Коды основной текстуры изделия    
                 case 39067:  //Коды основной текстуры изделия
                 case 40067:  //Коды основной текстуры изделия                     
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.iwin.colorID1) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID1) == false) {
                         return false;
                     }
                     break;
@@ -184,7 +184,7 @@ public class ElementDet extends Par5s {
                 case 38068:  //Коды внутр. текстуры изделия 
                 case 39068:  //Коды внутр. текстуры изделия
                 case 40068:  //Коды внутр. текстуры изделия    
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.iwin.colorID2) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID2) == false) {
                         return false;
                     }
                     break;
@@ -194,7 +194,7 @@ public class ElementDet extends Par5s {
                 case 39069:  //Коды внешн. текстуры изделия 
                 case 40069: //Коды внешн. текстуры изделия  
                 {
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.iwin.colorID3) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), elem5e.winc.colorID3) == false) {
                         return false;
                     }
                 }
@@ -232,7 +232,7 @@ public class ElementDet extends Par5s {
                 case 38095:  //Если признак системы конструкции
                 case 39095:  //Если признак системы конструкции
                 case 40095:  //Если признак системы конструкции 
-                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), iwin.nuni)) {
+                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), winc.nuni)) {
                         return false;
                     }
                     break;

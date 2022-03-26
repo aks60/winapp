@@ -24,10 +24,10 @@ public class Elements extends Cal5e {
     private ElementVar elementVar = null;
     private ElementDet elementDet = null;
 
-    public Elements(Wincalc iwin) {
-        super(iwin);
-        elementVar = new ElementVar(iwin);
-        elementDet = new ElementDet(iwin);
+    public Elements(Wincalc winc) {
+        super(winc);
+        elementVar = new ElementVar(winc);
+        elementDet = new ElementDet(winc);
     }
 
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
@@ -35,7 +35,7 @@ public class Elements extends Cal5e {
     @Override
     public void calc() {
         super.calc();
-        LinkedList<ElemSimple> listElem = UCom.listSortObj(iwin.listSortEl, Type.FRAME_SIDE,
+        LinkedList<ElemSimple> listElem = UCom.listSortObj(winc.listSortEl, Type.FRAME_SIDE,
                 Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA, Type.GLASS); //список элементов конструкции
         try {
             //Цикл по списку элементов конструкции

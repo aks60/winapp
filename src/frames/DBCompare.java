@@ -101,12 +101,12 @@ public class DBCompare extends javax.swing.JFrame {
         }
     };
 
-    public DBCompare(Wincalc iwin) {
+    public DBCompare(Wincalc winc) {
         initComponents();
         initElements();
         cn = Test.connect1();
         loadingData();
-        loadingTabGroup1(iwin);
+        loadingTabGroup1(winc);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         pan7.add(paintPanel, java.awt.BorderLayout.CENTER);
@@ -138,12 +138,12 @@ public class DBCompare extends javax.swing.JFrame {
         }
     }
 
-    public void loadingTabGroup1(Wincalc iwin) {
+    public void loadingTabGroup1(Wincalc winc) {
         try {
             Map<String, Vector> hmSpc = new HashMap();
             Set<String> setSpcSa = new HashSet();
             Set<String> setSpcPs = new HashSet();
-            iwin.listSpec.forEach(rec -> setSpcSa.add(rec.artikl));
+            winc.listSpec.forEach(rec -> setSpcSa.add(rec.artikl));
 
             //Заполним на будушее hmSpc из SA
             for(String art_code: setSpcSa) {
@@ -151,7 +151,7 @@ public class DBCompare extends javax.swing.JFrame {
                 hmSpc.put(art_code, new Vector(Arrays.asList(art_code, artiklRec.get(eArtikl.name), 0f, 0f, 0f, 0f, 0f, 0f)));
             }
             //setSpcSa.forEach(el -> hmSpc.put(el, new Vector(Arrays.asList(el + "*", 0f, 0f, 0f, 0f, 0f, 0f))));
-            iwin.listSpec.forEach(rec -> {
+            winc.listSpec.forEach(rec -> {
                 List<Float> val = hmSpc.get(rec.artikl);
                 val.set(2, val.get(2) + rec.count); //колич. в SA
                 val.set(4, val.get(4) + rec.quant1); //погонаж в SA
@@ -160,10 +160,10 @@ public class DBCompare extends javax.swing.JFrame {
             //=== Таблица 1 ===
             ((DefaultTableModel) tab1.getModel()).getDataVector().clear();
             Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
+            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + winc.rootGson.prj);
             rs.next();
             int punic = rs.getInt("PUNIC");
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + " and a.ONUMB = " + iwin.rootGson.ord + " and clke != -1 order by a.anumb");
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + " and a.ONUMB = " + winc.rootGson.ord + " and clke != -1 order by a.anumb");
             int npp = 0;
             double sum1 = 0, sum2 = 0;
             while (rs.next()) {
@@ -200,8 +200,8 @@ public class DBCompare extends javax.swing.JFrame {
                 val.set(5, val.get(5) + pogonag); //погонаж в PS               
             }
             rs.close();
-            lab1.setText("Проект: pnumb = " + iwin.rootGson.prj + "    Изд: punic = " + punic + "  Заказ: onumb = "
-                    + iwin.rootGson.ord + "   Стоим.без.ск = " + UGui.df.format(sum1) + "   Стоим.со.ск = " + UGui.df.format(sum2));
+            lab1.setText("Проект: pnumb = " + winc.rootGson.prj + "    Изд: punic = " + punic + "  Заказ: onumb = "
+                    + winc.rootGson.ord + "   Стоим.без.ск = " + UGui.df.format(sum1) + "   Стоим.со.ск = " + UGui.df.format(sum2));
 
             //=== Таблица 2 ===
             ((DefaultTableModel) tab2.getModel()).getDataVector().clear();
@@ -215,7 +215,7 @@ public class DBCompare extends javax.swing.JFrame {
             setSpc2x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
             ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{""});
             ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{"Установленая фурнитура"});
-            rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord + " and a.funic = b.funic");
+            rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + punic + " and a.onumb = " + winc.rootGson.ord + " and a.funic = b.funic");
             while (rs.next()) {
                 ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{rs.getString("FNAME")});
             }
@@ -231,10 +231,10 @@ public class DBCompare extends javax.swing.JFrame {
 
             //=== Таблица 4 ===
             npp = 0;
-            txt20.setText(String.valueOf(iwin.rootGson.prj));
-            txt20.setText(String.valueOf(iwin.rootGson.ord));
+            txt20.setText(String.valueOf(winc.rootGson.prj));
+            txt20.setText(String.valueOf(winc.rootGson.ord));
             ((DefaultTableModel) tab4.getModel()).getDataVector().clear();
-            rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + punic + "and ONUMB=" + iwin.rootGson.ord + "order by TYPP");
+            rs = st.executeQuery("select * from SAVEELM where TYPP != 0 and PUNIC = " + punic + "and ONUMB=" + winc.rootGson.ord + "order by TYPP");
             while (rs.next()) {
                 Vector vectorRec = new Vector();
                 vectorRec.add(++npp);
@@ -262,7 +262,7 @@ public class DBCompare extends javax.swing.JFrame {
                         rs = st.executeQuery("select b.anumb, c.anumb, a.typ, d.anum1, d.anum2, d.cname, e.cname from SAVECON a"
                                 + " left join SAVEELM b on a.punic = b.punic and a.onumb = b.onumb and a.ne1 = b.nel left join SAVEELM c on a.punic = c.punic and a.onumb = c.onumb and a.ne2 = c.nel"
                                 + " left join connlst d on a.ncon = d.cconn left join connvar e on a.nvar = e.cunic"
-                                + " where a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord + " order by a.typ, d.cname");
+                                + " where a.punic = " + punic + " and a.onumb = " + winc.rootGson.ord + " order by a.typ, d.cname");
                         while (rs.next()) {
                             Vector vectorRec = new Vector();
                             vectorRec.add(++npp);
@@ -286,7 +286,7 @@ public class DBCompare extends javax.swing.JFrame {
             rs = st.executeQuery("select c.pname, b.pname from savefup a "
                     + " left join parlist b on a.pnumb = b.pnumb and a.znumb = b.znumb"
                     + " left join parlist c on a.pnumb = c.pnumb and c.znumb = 0 "
-                    + " where a.nel = 8 and a.punic = " + punic + " and a.onumb = " + iwin.rootGson.ord);
+                    + " where a.nel = 8 and a.punic = " + punic + " and a.onumb = " + winc.rootGson.ord);
             while (rs.next()) {
                 Vector vectorRec = new Vector();
                 vectorRec.add(rs.getObject(1));
@@ -407,20 +407,20 @@ public class DBCompare extends javax.swing.JFrame {
     }
 
     //Сравнение спецификации с профстроем
-    public static void iwinXls(Wincalc iwin, boolean detail) {
+    public static void iwinXls(Wincalc winc, boolean detail) {
 
         System.out.println();
-        System.out.println("Prj=" + iwin.rootGson.prj);
+        System.out.println("Prj=" + winc.rootGson.prj);
         Float iwinTotal = 0f, jarTotal = 0f;
-        String path = "src\\resource\\xls\\ps4\\p" + iwin.rootGson.prj + ".xls";
+        String path = "src\\resource\\xls\\ps4\\p" + winc.rootGson.prj + ".xls";
         if ("ps3".equals(eSetting.find(2)) == true) {
-            path = "src\\resource\\xls\\ps3\\p" + iwin.rootGson.prj + ".xls";
+            path = "src\\resource\\xls\\ps3\\p" + winc.rootGson.prj + ".xls";
         }
         //Specification.sort(spcList);
         Map<String, Float> hmXls = new LinkedHashMap();
         Map<String, Float> hmJar = new LinkedHashMap();
         Map<String, String> hmArt = new LinkedHashMap();
-        for (Specific spc : iwin.listSpec) {
+        for (Specific spc : winc.listSpec) {
 
             String key = spc.name.trim().replaceAll("[\\s]{1,}", " ");
             Float val = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
@@ -512,7 +512,7 @@ public class DBCompare extends javax.swing.JFrame {
                     jarTotal = jarTotal + value3;
                 }
             }
-            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.rootGson.prj, "iwin=" + String.format("%.2f", iwinTotal), "jar="
+            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + winc.rootGson.prj, "winc=" + String.format("%.2f", iwinTotal), "jar="
                     + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
             System.out.println();
 
@@ -522,19 +522,19 @@ public class DBCompare extends javax.swing.JFrame {
     }
 
     //Сравнение спецификации с профстроем
-    public static void iwinPs4(Wincalc iwin, boolean detail) {
+    public static void iwinPs4(Wincalc winc, boolean detail) {
         System.out.println();
-        System.out.println("Prj=" + iwin.rootGson.prj + " Ord=" + iwin.rootGson.ord);
+        System.out.println("Prj=" + winc.rootGson.prj + " Ord=" + winc.rootGson.ord);
         Float iwinTotal = 0f, jarTotal = 0f;
         Map<String, Float> hmDbPs = new LinkedHashMap();
         Map<String, Float> hmDbSa = new LinkedHashMap();
         try {
             Connection conn = Test.connect1();
             Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
+            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + winc.rootGson.prj);
             rs.next();
             int punic = rs.getInt("PUNIC");
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + iwin.rootGson.ord + "  and clke != -1order by a.anumb");
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + winc.rootGson.ord + "  and clke != -1order by a.anumb");
             while (rs.next()) {
                 float leng = rs.getFloat("ALENG"); //длина
                 //float count = rs.getFloat("AQTYP"); //колич
@@ -548,7 +548,7 @@ public class DBCompare extends javax.swing.JFrame {
             }
             conn.close();
 
-            for (Specific spc : iwin.listSpec) {
+            for (Specific spc : winc.listSpec) {
                 String key = spc.artikl;
                 Float val = hmDbSa.getOrDefault(key, 0.f);
                 hmDbSa.put(key, val + spc.cost1); //стоимость без скидки
@@ -594,7 +594,7 @@ public class DBCompare extends javax.swing.JFrame {
                     jarTotal = jarTotal + value3;
                 }
             }
-            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.rootGson.prj, "PS=" + String.format("%.2f", iwinTotal), "SA="
+            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + winc.rootGson.prj, "PS=" + String.format("%.2f", iwinTotal), "SA="
                     + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
             System.out.println();
 
@@ -603,19 +603,19 @@ public class DBCompare extends javax.swing.JFrame {
         }
     }
 
-    public static void iwinRec2(Wincalc iwin, boolean detail) {
+    public static void iwinRec2(Wincalc winc, boolean detail) {
         System.out.println();
-        System.out.println("Prj=" + iwin.rootGson.prj + " Ord=" + iwin.rootGson.ord);
+        System.out.println("Prj=" + winc.rootGson.prj + " Ord=" + winc.rootGson.ord);
         Float iwinTotal = 0f, jarTotal = 0f;
         Map<String, Float> hmDbPs = new LinkedHashMap();
         Map<String, Float> hmDbSa = new LinkedHashMap();
         try {
             Connection conn = Test.connect1();
             Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + iwin.rootGson.prj);
+            ResultSet rs = st.executeQuery("select PUNIC from LISTPRJ where PNUMB = " + winc.rootGson.prj);
             rs.next();
             int punic = rs.getInt("PUNIC");
-            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + iwin.rootGson.ord + "  and clke != -1 order by a.anumb");
+            rs = st.executeQuery("select a.* from SPECPAU a where a.PUNIC = " + punic + "and a.ONUMB = " + winc.rootGson.ord + "  and clke != -1 order by a.anumb");
             while (rs.next()) {
                 float pogonag = rs.getFloat("AQTYA"); //погонаж
                 float perc = rs.getFloat("APERC"); //отход
@@ -627,7 +627,7 @@ public class DBCompare extends javax.swing.JFrame {
             }
             conn.close();
 
-            for (Specific spc : iwin.listSpec) {
+            for (Specific spc : winc.listSpec) {
                 String key = spc.artikl;
                 Float val = hmDbSa.getOrDefault(key, 0.f);
                 hmDbSa.put(key, val + spc.cost1); //стоимость без скидки
@@ -673,7 +673,7 @@ public class DBCompare extends javax.swing.JFrame {
                     jarTotal = jarTotal + value3;
                 }
             }
-            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + iwin.rootGson.prj, "PS=" + String.format("%.2f", iwinTotal), "SA="
+            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + winc.rootGson.prj, "PS=" + String.format("%.2f", iwinTotal), "SA="
                     + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
             System.out.println();
 

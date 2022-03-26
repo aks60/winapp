@@ -51,7 +51,7 @@ public class Specifics extends javax.swing.JFrame {
     private DecimalFormat df1 = new DecimalFormat("#0.0");
     private DecimalFormat df2 = new DecimalFormat("#0.00");
     private DecimalFormat df3 = new DecimalFormat("#0.000");
-    private builder.Wincalc iwin = new Wincalc();
+    private builder.Wincalc winc = new Wincalc();
     private FilterTable filterTable = null;
     ImageIcon[] image = {new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b063.gif"),
         new ImageIcon("C:\\Okna\\winapp\\src\\resource\\img16\\b076.gif"),
@@ -62,7 +62,7 @@ public class Specifics extends javax.swing.JFrame {
         initComponents();
         initElements();
         createIwin();
-        loadingTab1(iwin.listSpec);
+        loadingTab1(winc.listSpec);
         UGui.setSelectedRow(tab1);
     }
 
@@ -78,9 +78,9 @@ public class Specifics extends javax.swing.JFrame {
                 String script = sysprodRec.getStr(eSysprod.script);
                 JsonElement je = new Gson().fromJson(script, JsonElement.class);
                 je.getAsJsonObject().addProperty("nuni", sysprodRec.getInt(eSysprod.systree_id));
-                iwin.build(je.toString());
+                winc.build(je.toString());
                 Query.listOpenTable.forEach(q -> q.clear());
-                iwin.constructiv(cbx2.getSelectedIndex() == 0);
+                winc.constructiv(cbx2.getSelectedIndex() == 0);
             }
 
         } else {
@@ -94,10 +94,10 @@ public class Specifics extends javax.swing.JFrame {
                 JsonElement je = new Gson().fromJson(script, JsonElement.class
                 );
                 je.getAsJsonObject().addProperty("nuni", prjprodRec.getInt(ePrjprod.systree_id));
-                iwin = new Wincalc();
-                iwin.build(je.toString());
+                winc = new Wincalc();
+                winc.build(je.toString());
                 Query.listOpenTable.forEach(q -> q.clear());
-                iwin.constructiv(true);
+                winc.constructiv(true);
             }
         }
     }
@@ -145,7 +145,7 @@ public class Specifics extends javax.swing.JFrame {
         List<Specific> list = new ArrayList();
         Map<String, Specific> map = new HashMap();
 
-        for (Specific spc : iwin.listSpec) {
+        for (Specific spc : winc.listSpec) {
             String key = (num == 1)
                     ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.width + spc.height + spc.anglCut1 + spc.anglCut2 + spc.wastePrc + spc.price1
                     : spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.wastePrc + spc.price1;
@@ -453,7 +453,7 @@ public class Specifics extends javax.swing.JFrame {
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
         float id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
-        Specific recordSpc = iwin.listSpec.find(id);
+        Specific recordSpc = winc.listSpec.find(id);
         FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 App.Artikles.createFrame(Specifics.this, recordSpc.artiklRec);
@@ -464,22 +464,22 @@ public class Specifics extends javax.swing.JFrame {
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         float id = UCom.getFloat(tab1.getValueAt(tab1.getSelectedRow(), 1).toString());
         String str = tab1.getValueAt(tab1.getSelectedRow(), 3).toString().substring(0, 3);
-        Specific specificRec = iwin.listSpec.find(id);
+        Specific specificRec = winc.listSpec.find(id);
         Record detailRec = specificRec.detailRec;
         if (detailRec != null) {
             FrameProgress.create(Specifics.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
                     if (str.equals("ВСТ")) {
-                        App.Element.createFrame(Specifics.this, iwin.calcElements.setVariant, detailRec.getInt(eElemdet.id));
+                        App.Element.createFrame(Specifics.this, winc.calcElements.setVariant, detailRec.getInt(eElemdet.id));
 
                     } else if (str.equals("СОЕ")) {
-                        App.Joining.createFrame(Specifics.this, iwin.calcJoining.setVariant, detailRec.getInt(eJoindet.id));
+                        App.Joining.createFrame(Specifics.this, winc.calcJoining.setVariant, detailRec.getInt(eJoindet.id));
 
                     } else if (str.equals("ЗАП")) {
-                        App.Filling.createFrame(Specifics.this, iwin.calcFilling.setVariant, detailRec.getInt(eGlasdet.id));
+                        App.Filling.createFrame(Specifics.this, winc.calcFilling.setVariant, detailRec.getInt(eGlasdet.id));
 
                     } else if (str.equals("ФУР")) {
-                        App.Furniture.createFrame(Specifics.this, iwin.calcFurniture.setVariant, detailRec.getInt(eFurndet.id));
+                        App.Furniture.createFrame(Specifics.this, winc.calcFurniture.setVariant, detailRec.getInt(eFurndet.id));
                     }
                 }
             });
@@ -503,7 +503,7 @@ public class Specifics extends javax.swing.JFrame {
         float id = (UGui.getIndexRec(tab1) == -1) ? -1 : UCom.getFloat(tab1.getValueAt(UGui.getIndexRec(tab1), 1).toString());
 
         if (cbx1.getSelectedIndex() == 0) {
-            loadingTab1(iwin.listSpec);
+            loadingTab1(winc.listSpec);
 
         } else if (cbx1.getSelectedIndex() == 1) {
             loadingTab1(groups(1));
@@ -512,19 +512,19 @@ public class Specifics extends javax.swing.JFrame {
             loadingTab1(groups(2));
 
         } else if (cbx1.getSelectedIndex() == 3) {
-            List<Specific> listSpec = iwin.listSpec.stream().filter(rec -> "СОЕ".equals(rec.place.substring(0, 3))).collect(toList());
+            List<Specific> listSpec = winc.listSpec.stream().filter(rec -> "СОЕ".equals(rec.place.substring(0, 3))).collect(toList());
             loadingTab1(listSpec);
 
         } else if (cbx1.getSelectedIndex() == 4) {
-            List<Specific> listSpec = iwin.listSpec.stream().filter(rec -> "ВСТ".equals(rec.place.substring(0, 3))).collect(toList());
+            List<Specific> listSpec = winc.listSpec.stream().filter(rec -> "ВСТ".equals(rec.place.substring(0, 3))).collect(toList());
             loadingTab1(listSpec);
 
         } else if (cbx1.getSelectedIndex() == 5) {
-            List<Specific> listSpec = iwin.listSpec.stream().filter(rec -> "ЗАП".equals(rec.place.substring(0, 3))).collect(toList());
+            List<Specific> listSpec = winc.listSpec.stream().filter(rec -> "ЗАП".equals(rec.place.substring(0, 3))).collect(toList());
             loadingTab1(listSpec);
 
         } else if (cbx1.getSelectedIndex() == 6) {
-            List<Specific> listSpec = iwin.listSpec.stream().filter(rec -> "ФУР".equals(rec.place.substring(0, 3))).collect(toList());
+            List<Specific> listSpec = winc.listSpec.stream().filter(rec -> "ФУР".equals(rec.place.substring(0, 3))).collect(toList());
             loadingTab1(listSpec);
         }
 
@@ -541,7 +541,7 @@ public class Specifics extends javax.swing.JFrame {
         FrameProgress.create(this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 createIwin();
-                loadingTab1(iwin.listSpec);
+                loadingTab1(winc.listSpec);
                 UGui.setSelectedRow(tab1);
             }
         });
@@ -551,7 +551,7 @@ public class Specifics extends javax.swing.JFrame {
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
         FrameProgress.create(Specifics.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
-                App.DBCompare.createFrame(Specifics.this, iwin);
+                App.DBCompare.createFrame(Specifics.this, winc);
             }
         });
     }//GEN-LAST:event_btnTest

@@ -17,8 +17,8 @@ import enums.Type;
 //Фурнитура
 public class FurnitureVar extends Par5s {
 
-    public FurnitureVar(Wincalc iwin) {
-        super(iwin);
+    public FurnitureVar(Wincalc winc) {
+        super(winc);
     }
 
     public boolean filter(ElemSimple elem5e, Record furnside1Rec) {
@@ -61,7 +61,7 @@ public class FurnitureVar extends Par5s {
                     break;
                 case 21005: //Артикул заполнения по умолчанию 
                 {
-                    Record sysreeRec = eSystree.find(iwin.nuni); //по умолчанию стеклопакет
+                    Record sysreeRec = eSystree.find(winc.nuni); //по умолчанию стеклопакет
                     if (rec.getStr(TEXT).equals(sysreeRec.getStr(eSystree.glas)) == false) {
                         return false;
                     }

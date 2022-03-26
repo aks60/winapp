@@ -16,8 +16,8 @@ import java.util.LinkedList;
 //Cоединения
 public class JoiningDet extends Par5s {
 
-    public JoiningDet(Wincalc iwin) {
-        super(iwin);
+    public JoiningDet(Wincalc winc) {
+        super(winc);
     }
 
     public boolean filter(HashMap<Integer, String> mapParam, ElemJoining elemJoin, Record joindetRec) {
@@ -73,7 +73,7 @@ public class JoiningDet extends Par5s {
                     break;
                 case 11008:  //Эффективное заполнение изд., мм 
                 case 12008:  //Эффективное заполнение изд., мм 
-                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), iwin) == false) {
+                    if (UPar.is_1008_11008_12008_14008_15008_31008_34008_40008(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
@@ -93,7 +93,7 @@ public class JoiningDet extends Par5s {
                 case 12028: //Диапазон веса заполнения, кг 
                 {
                     float weight = 0;
-                    LinkedList<ElemSimple> glassList = UCom.listSortObj(iwin.listSortEl, Type.GLASS);
+                    LinkedList<ElemSimple> glassList = UCom.listSortObj(winc.listSortEl, Type.GLASS);
                     for (ElemSimple glass : glassList) {
                         if (glass.artiklRecAn.getFloat(eArtikl.density) > 0) {
                             weight += glass.width() * glass.height() * glass.artiklRecAn.getFloat(eArtikl.density) / 1000000;
@@ -130,19 +130,19 @@ public class JoiningDet extends Par5s {
                     break;
                 case 11067:  //Коды основной текстуры изделия 
                 case 12067:  //Коды основной текстуры изделия
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), iwin.colorID1) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), winc.colorID1) == false) {
                         return false;
                     }
                     break;
                 case 11068:  //Коды внутр. текстуры изделия 
                 case 12068:  //Коды внутр. текстуры изделия 
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), iwin.colorID2) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), winc.colorID2) == false) {
                         return false;
                     }
                     break;
                 case 11069:  //Коды внешн. текстуры изделия
                 case 12069:  //Коды внешн. текстуры изделия     
-                    if (UCom.containsNumbJust(rec.getStr(TEXT), iwin.colorID3) == false) {
+                    if (UCom.containsNumbJust(rec.getStr(TEXT), winc.colorID3) == false) {
                         return false;
                     }
                     break;
@@ -156,7 +156,7 @@ public class JoiningDet extends Par5s {
                     break;
                 case 11095: //Если признак системы конструкции 
                 case 12095: //Если признак системы конструкции 
-                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), iwin.nuni)) {
+                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), winc.nuni)) {
                         return false;
                     }
                     break;

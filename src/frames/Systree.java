@@ -324,10 +324,10 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         }
     }
 
-    public void loadingWinTree(Wincalc iwin) {
+    public void loadingWinTree(Wincalc winc) {
         try {
             DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
-            DefMutableTreeNode root = UGui.loadWinTree(iwin);
+            DefMutableTreeNode root = UGui.loadWinTree(winc);
             winTree.setModel(new DefaultTreeModel(root));
 
             //Установим курсор выделения
@@ -524,7 +524,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 String script2 = UGui.paramdefAdd(script, record.getInt(eParams.id), qParams);
                 sysprodRec.set(eSysprod.script, script2);
                 qSysprod.execsql();
-                iwin().build(script2);
+                winc().build(script2);
                 UGui.stopCellEditing(tab2, tab3, tab4, tab5, tab7);
                 selectionWinTree();
                 UGui.setSelectedIndex(tab7, index2);
@@ -580,27 +580,27 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }
 
     public void selectionWinTree() {
-        Wincalc iwin = iwin();
+        Wincalc winc = winc();
         winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
         if (winNode != null) {
 
             //Конструкции
             if (winNode.com5t().type == enums.Type.RECTANGL || winNode.com5t().type == enums.Type.DOOR || winNode.com5t().type == enums.Type.TRAPEZE || winNode.com5t().type == enums.Type.ARCH) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card12");
-                ((TitledBorder) pan12.getBorder()).setTitle(iwin.rootArea.type.name);
-                setText(txt9, eColor.find(iwin.colorID1).getStr(eColor.name));
-                setText(txt13, eColor.find(iwin.colorID2).getStr(eColor.name));
-                setText(txt14, eColor.find(iwin.colorID3).getStr(eColor.name));
-                setText(txt17, df1.format(iwin.rootGson.width()));
-                setText(txt22, df1.format(iwin.rootGson.height()));
-                setText(txt23, df1.format(iwin.rootGson.heightAdd));
+                ((TitledBorder) pan12.getBorder()).setTitle(winc.rootArea.type.name);
+                setText(txt9, eColor.find(winc.colorID1).getStr(eColor.name));
+                setText(txt13, eColor.find(winc.colorID2).getStr(eColor.name));
+                setText(txt14, eColor.find(winc.colorID3).getStr(eColor.name));
+                setText(txt17, df1.format(winc.rootGson.width()));
+                setText(txt22, df1.format(winc.rootGson.height()));
+                setText(txt23, df1.format(winc.rootGson.heightAdd));
                 txt23.setEditable(winNode.com5t().type == enums.Type.ARCH);
 
                 //Параметры
             } else if (winNode.com5t().type == enums.Type.PARAM) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card11");
                 qSyspar1.clear();
-                iwin.mapPardef.forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
+                winc.mapPardef.forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
                 Collections.sort(qSyspar1, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
                 ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
@@ -629,7 +629,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
                 //Створка
             } else if (winNode.com5t().type == enums.Type.STVORKA) {
-                new Furniture(iwin(), true); //найдём ручку створки
+                new Furniture(winc(), true); //найдём ручку створки
                 ((CardLayout) pan7.getLayout()).show(pan7, "card16");
                 AreaStvorka stv = (AreaStvorka) winNode.com5t();
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);;
@@ -663,13 +663,13 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
                 //Соединения
             } else if (winNode.com5t().type == enums.Type.JOINING) {
-                //new Joining(iwin(), true); //заполним соединения данными из конструктива
+                //new Joining(winc(), true); //заполним соединения данными из конструктива
                 ((CardLayout) pan7.getLayout()).show(pan7, "card17");
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
-                ElemJoining ej1 = iwin.mapJoin.get(elem5e.joinPoint(0));
-                ElemJoining ej2 = iwin.mapJoin.get(elem5e.joinPoint(1));
-                ElemJoining ej3 = iwin.mapJoin.get(elem5e.joinPoint(2));
+                ElemJoining ej1 = winc.mapJoin.get(elem5e.joinPoint(0));
+                ElemJoining ej2 = winc.mapJoin.get(elem5e.joinPoint(1));
+                ElemJoining ej3 = winc.mapJoin.get(elem5e.joinPoint(2));
                 Arrays.asList(lab55, lab56, lab57).forEach(it -> it.setIcon(null));
 
                 if (ej1 != null) {
@@ -755,7 +755,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     public void updateScript(float selectID) {
         try {
             //Сохраним скрипт в базе
-            String script = gson.toJson(iwin().rootGson);
+            String script = gson.toJson(winc().rootGson);
             Record sysprodRec = qSysprod.get(UGui.getIndexRec(tab5));
             sysprodRec.set(eSysprod.script, script);
             qSysprod.update(sysprodRec);
@@ -783,7 +783,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         }
     }
 
-    private Wincalc iwin() {
+    private Wincalc winc() {
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
@@ -797,7 +797,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     @Override
     public boolean action(Object obj) {
-        Wincalc win = iwin();
+        Wincalc win = winc();
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
             String script = gson.toJson(win.rootGson);
@@ -3017,16 +3017,16 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 }
                 new DicSysprof(this, (sysprofRec) -> {
 
-                    Wincalc iwin = iwin();
+                    Wincalc winc = winc();
                     if (winNode.com5t().type == enums.Type.FRAME_SIDE) { //рама окна
                         float elemId = winNode.com5t().id();
-                        GsonElem gsonRama = iwin.rootGson.find(elemId);
+                        GsonElem gsonRama = winc.rootGson.find(elemId);
                         gsonRama.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         updateScript(selectID);
 
                     } else if (winNode.com5t().type == enums.Type.STVORKA_SIDE) { //рама створки
                         float stvId = winNode.com5t().owner.id();
-                        GsonElem stvArea = (GsonElem) iwin.rootGson.find(stvId);
+                        GsonElem stvArea = (GsonElem) winc.rootGson.find(stvId);
                         JsonObject paramObj = stvArea.param();
                         String stvKey = null;
                         if (layout == Layout.BOTT) {
@@ -3044,7 +3044,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
                     } else {  //импост
                         float elemId = winNode.com5t().id();
-                        GsonElem gsonElem = iwin.rootGson.find(elemId);
+                        GsonElem gsonElem = winc.rootGson.find(elemId);
                         gsonElem.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         updateScript(selectID);
                     }
@@ -3078,7 +3078,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = winNode.com5t().owner.id();
-                GsonElem parentArea = (GsonElem) iwin().rootGson.find(parentId);
+                GsonElem parentArea = (GsonElem) winc().rootGson.find(parentId);
 
                 if (winNode.com5t().type == enums.Type.STVORKA_SIDE) {
                     JsonObject paramObj = parentArea.param();
@@ -3178,15 +3178,15 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
             ListenerRecord listenerColor = (colorRec) -> {
 
-                Wincalc iwin = iwin();
-                builder.script.GsonElem rootArea = iwin.rootGson.find(selectID);
+                Wincalc winc = winc();
+                builder.script.GsonElem rootArea = winc.rootGson.find(selectID);
                 if (rootArea != null) {
                     if (evt.getSource() == btn9) {
-                        iwin.rootGson.color1 = colorRec.getInt(eColor.id);
+                        winc.rootGson.color1 = colorRec.getInt(eColor.id);
                     } else if (evt.getSource() == btn13) {
-                        iwin.rootGson.color2 = colorRec.getInt(eColor.id);
+                        winc.rootGson.color2 = colorRec.getInt(eColor.id);
                     } else {
-                        iwin.rootGson.color3 = colorRec.getInt(eColor.id);
+                        winc.rootGson.color3 = colorRec.getInt(eColor.id);
                     }
                     updateScript(selectID);
                     btnRefresh(null);
@@ -3220,7 +3220,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonElem glassElem = (GsonElem) iwin().rootGson.find(selectID);
+                GsonElem glassElem = (GsonElem) winc().rootGson.find(selectID);
                 glassElem.param().addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
                 updateScript(selectID);
 
@@ -3240,7 +3240,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
             new DicName(this, (sysfurnRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin().rootGson.find(windowsID);
+                GsonElem stvArea = (GsonElem) winc().rootGson.find(windowsID);
                 if (sysfurnRec.getInt(eArtikl.id) == -3) {
                     stvArea.param().remove(PKjson.sysfurnID);
                 } else {
@@ -3261,7 +3261,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             new DicEnums(this, (typeopenRec) -> {
 
                 float elemID = winNode.com5t().id();
-                GsonElem jsonStv = (GsonElem) iwin().rootGson.find(elemID);
+                GsonElem jsonStv = (GsonElem) winc().rootGson.find(elemID);
                 jsonStv.param().addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
                 updateScript(elemID);
 
@@ -3280,7 +3280,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin().rootGson.find(stvorkaID);
+                GsonElem stvArea = (GsonElem) winc().rootGson.find(stvorkaID);
                 stvArea.param().remove(PKjson.colorHandl);
                 if (artiklRec.getInt(eArtikl.id) == -3) {
                     stvArea.param().remove(PKjson.artiklHandl);
@@ -3309,7 +3309,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         new DicHandl(this, (record) -> {
             try {
                 float selectID = areaStv.id();
-                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) winc().rootGson.find(selectID);
 
                 if (record.getInt(0) == 0) {
                     stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.MIDL.id);
@@ -3340,7 +3340,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             HashSet<Record> colorSet = UGui.artiklToColorSet(stv.handleRec.getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) winc().rootGson.find(selectID);
                 stvArea.param().addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3354,13 +3354,13 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     private void joinToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinToFrame
         try {
-            Wincalc iwin = iwin();
+            Wincalc winc = winc();
             if (winNode != null) {
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
                 ElemSimple elem5e = (ElemSimple) nodeParent.com5t();
                 JButton btn = (JButton) evt.getSource();
                 int point = (btn.getName().equals("btn26")) ? 0 : (btn.getName().equals("btn27")) ? 1 : 2;
-                ElemJoining elemJoin = iwin.mapJoin.get(elem5e.joinPoint(point));
+                ElemJoining elemJoin = winc.mapJoin.get(elem5e.joinPoint(point));
                 App.Joining.createFrame(Systree.this, elemJoin);
             }
         } catch (Exception e) {
@@ -3376,7 +3376,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) winc().rootGson.find(selectID);
                 stvArea.param().remove(PKjson.colorLoop);
                 if (artiklRec.getInt(eArtikl.id) == -3) {
                     stvArea.param().remove(PKjson.artiklLoop);
@@ -3401,7 +3401,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) winc().rootGson.find(selectID);
                 stvArea.param().remove(PKjson.colorLock);
                 if (artiklRec.getInt(eArtikl.id) == -3) {
                     stvArea.param().remove(PKjson.artiklLock);
@@ -3425,7 +3425,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             HashSet<Record> colorSet = UGui.artiklToColorSet(stv.loopRec.getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) winc().rootGson.find(selectID);
                 stvArea.param().addProperty(PKjson.colorLoop, colorRec.getStr(eColor.id));
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3444,7 +3444,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             HashSet<Record> colorSet = UGui.artiklToColorSet(stv.lockRec.getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) winc().rootGson.find(selectID);
                 stvArea.param().addProperty(PKjson.colorLock, colorRec.getStr(eColor.id));
                 updateScript(selectID);
                 btnRefresh(null);
@@ -3473,7 +3473,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             HashSet<Record> colorSet = UGui.artiklToColorSet(glas.artiklRec.getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
 
-                GsonElem stvArea = (GsonElem) iwin().rootGson.find(selectID);
+                GsonElem stvArea = (GsonElem) winc().rootGson.find(selectID);
                 stvArea.param().addProperty(PKjson.colorGlass, colorRec.getStr(eColor.id));
                 updateScript(selectID);
                 btnRefresh(null);

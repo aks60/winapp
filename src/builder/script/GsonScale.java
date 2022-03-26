@@ -14,31 +14,31 @@ public class GsonScale {
 
     public Color color = Color.black;  //цвет выделения линии 
     public float id = -1;
-    private Wincalc iwin = null;
+    private Wincalc winc = null;
 
-    public GsonScale(Wincalc iwin, float id) {
-        this.iwin = iwin;
+    public GsonScale(Wincalc winc, float id) {
+        this.winc = winc;
         this.id = id;
     }
 
     public GsonElem elem() {
-        return iwin.rootGson.find(id);
+        return winc.rootGson.find(id);
     }
 
     public LinkedList<GsonElem> childs() {
-        return iwin.rootGson.find(id).childs;
+        return winc.rootGson.find(id).childs;
     }
 
     public Layout layout() {
-        return iwin.rootGson.find(id).layout();
+        return winc.rootGson.find(id).layout();
     }
 
     public float width() {
-        return iwin.rootGson.find(id).width();
+        return winc.rootGson.find(id).width();
     }
 
     public float height() {
-        return iwin.rootGson.find(id).height();
+        return winc.rootGson.find(id).height();
     }
 
 }

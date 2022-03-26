@@ -29,7 +29,7 @@ import javax.swing.tree.TreePath;
 
 public class Models extends javax.swing.JFrame implements ListenerFrame<Object, Object> {
 
-    public Wincalc iwin = new Wincalc();
+    public Wincalc winc = new Wincalc();
     private Window owner = null;
     private ListenerRecord listenet = null;
     private Canvas canvas = new Canvas();
@@ -163,8 +163,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             Record record = qModels.get(index);
             Object v = record.get(eSysmodel.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
-                iwin = (Wincalc) v;
-                canvas.init(iwin);
+                winc = (Wincalc) v;
+                canvas.init(winc);
                 canvas.draw();
             }
         }
@@ -176,8 +176,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             Record record = qModels.get(index);
             Object v = record.get(eSysmodel.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
-                iwin = (Wincalc) v;
-                canvas.init(iwin);
+                winc = (Wincalc) v;
+                canvas.init(winc);
                 canvas.draw();
             }
         }
@@ -189,8 +189,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             Record record = qModels.get(index);
             Object v = record.get(eSysmodel.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
-                iwin = (Wincalc) v;
-                canvas.init(iwin);
+                winc = (Wincalc) v;
+                canvas.init(winc);
                 canvas.draw();
             }
         }
@@ -202,8 +202,8 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             Record record = qModels.get(index);
             Object v = record.get(eSysmodel.values().length);
             if (v instanceof Wincalc) { //прорисовка окна               
-                iwin = (Wincalc) v;
-                canvas.init(iwin);
+                winc = (Wincalc) v;
+                canvas.init(winc);
                 canvas.draw();
             }
         }

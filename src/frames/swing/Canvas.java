@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
 
 public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEvent, MouseEvent> {
 
-    private Wincalc iwin = null;
+    private Wincalc winc = null;
 
     public Canvas() {
         initComponents();
@@ -33,35 +33,35 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
         });
     }
 
-    public void init(Wincalc iwin) {
-        this.iwin = iwin;
+    public void init(Wincalc winc) {
+        this.winc = winc;
     }
 
     public void draw() {
-        scale(iwin);
+        scale(winc);
         repaint();
     }
 
     public void actionResponse(MouseEvent evt) {
 
-        if (iwin != null && iwin.listSortEl != null) {
-            iwin.listSortEl.forEach(el -> el.borderColor = Color.BLACK);
+        if (winc != null && winc.listSortEl != null) {
+            winc.listSortEl.forEach(el -> el.borderColor = Color.BLACK);
             repaint();
-            UCom.listSortObj(iwin.listSortAr, Type.STVORKA_SIDE).forEach(el -> {
+            UCom.listSortObj(winc.listSortAr, Type.STVORKA_SIDE).forEach(el -> {
                 if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
                     ((ElemSimple) el).borderColor = Color.RED;
                     ((ElemSimple) el).paint();
                     repaint();
                 }
             });
-            UCom.listSortObj(iwin.listSortEl, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA).forEach(el -> {
+            UCom.listSortObj(winc.listSortEl, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA).forEach(el -> {
                 if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
                     ((ElemSimple) el).borderColor = Color.RED;
                     ((ElemSimple) el).paint();
                     repaint();
                 }
             });
-            UCom.listSortObj(iwin.listSortEl, Type.GLASS).forEach(el -> {
+            UCom.listSortObj(winc.listSortEl, Type.GLASS).forEach(el -> {
                 if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
                     ((ElemSimple) el).borderColor = Color.RED;
                     ((ElemSimple) el).paint();
@@ -83,25 +83,25 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
         }
     }
 
-    public void scale(Wincalc iwin) {
-        if (iwin != null) {
-            iwin.scale = (getWidth() / iwin.width > getHeight() / iwin.height)
-                    ? getHeight() / (iwin.height + 24) : getWidth() / (iwin.width + 24);
+    public void scale(Wincalc winc) {
+        if (winc != null) {
+            winc.scale = (getWidth() / winc.width > getHeight() / winc.height)
+                    ? getHeight() / (winc.height + 24) : getWidth() / (winc.width + 24);
         }
     }
 
     //@Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (iwin != null) {
-            iwin.gc2d = (Graphics2D) g;
-            iwin.gc2d.setColor(getBackground());
-            iwin.gc2d.setStroke(new BasicStroke(2)); //толщина линии
-            iwin.gc2d.translate(Com5t.TRANSLATE_XY, Com5t.TRANSLATE_XY);
-            iwin.scale = ((getWidth() - 3) / iwin.width > (getHeight() - 3) / iwin.height)
-                    ? (getHeight() - 3) / iwin.height : (getWidth() - 3) / iwin.width;
-            iwin.gc2d.scale(iwin.scale, iwin.scale);
-            iwin.rootArea.draw();
+        if (winc != null) {
+            winc.gc2d = (Graphics2D) g;
+            winc.gc2d.setColor(getBackground());
+            winc.gc2d.setStroke(new BasicStroke(2)); //толщина линии
+            winc.gc2d.translate(Com5t.TRANSLATE_XY, Com5t.TRANSLATE_XY);
+            winc.scale = ((getWidth() - 3) / winc.width > (getHeight() - 3) / winc.height)
+                    ? (getHeight() - 3) / winc.height : (getWidth() - 3) / winc.width;
+            winc.gc2d.scale(winc.scale, winc.scale);
+            winc.rootArea.draw();
 
         } else {
             g.setColor(getBackground());
@@ -110,14 +110,14 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
     }
 
     //Создание изображение конструкции
-    public static ImageIcon createIcon(Wincalc iwin, int length) {
+    public static ImageIcon createIcon(Wincalc winc, int length) {
         try {
             BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-            iwin.gc2d = bi.createGraphics();
-            iwin.gc2d.fillRect(0, 0, length, length);
-            iwin.scale = (length / iwin.width > length / iwin.height) ? length / (iwin.height + 200) : length / (iwin.width + 200);
-            iwin.gc2d.scale(iwin.scale, iwin.scale);
-            iwin.rootArea.draw(); //рисую конструкцию
+            winc.gc2d = bi.createGraphics();
+            winc.gc2d.fillRect(0, 0, length, length);
+            winc.scale = (length / winc.width > length / winc.height) ? length / (winc.height + 200) : length / (winc.width + 200);
+            winc.gc2d.scale(winc.scale, winc.scale);
+            winc.rootArea.draw(); //рисую конструкцию
             return new ImageIcon(bi);
         } catch (Exception e) {
             System.err.println("Canvas.createImageIcon() " + e);

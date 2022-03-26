@@ -17,8 +17,8 @@ public class FillingVar extends Par5s {
 
     private int[] parGrup = {13015, 13017, 13081, 13099};
 
-    public FillingVar(Wincalc iwin) {
-        super(iwin);
+    public FillingVar(Wincalc winc) {
+        super(winc);
     }
 
     public boolean filter(ElemGlass elem5e, Record glasgrpRec) {
@@ -90,7 +90,7 @@ public class FillingVar extends Par5s {
                     }
                     break;
                 case 13017: //Код системы содержит строку 
-                    if (UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), iwin) == false) {
+                    if (UPar.is_13017_14017_24017_25017_31017_33017_34017_37017_38017(rec.getStr(TEXT), winc) == false) {
                         return false;
                     }
                     break;
@@ -121,7 +121,7 @@ public class FillingVar extends Par5s {
                         }
                     }
                 case 13095:  //Если признак системы конструкции 
-                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), iwin.nuni)) {
+                    if (!UPar.is_11095_12095_31095_33095_34095_37095_38095_39095_40095(rec.getStr(TEXT), winc.nuni)) {
                         return false;
                     }
                     break;

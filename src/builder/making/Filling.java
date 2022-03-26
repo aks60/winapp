@@ -33,24 +33,24 @@ public class Filling extends Cal5e {
     private FillingDet fillingDet = null;
     private ElementDet elementDet = null;
 
-    public Filling(Wincalc iwin) {
-        super(iwin);
-        fillingVar = new FillingVar(iwin);
-        fillingDet = new FillingDet(iwin);
-        elementDet = new ElementDet(iwin);
+    public Filling(Wincalc winc) {
+        super(winc);
+        fillingVar = new FillingVar(winc);
+        fillingDet = new FillingDet(winc);
+        elementDet = new ElementDet(winc);
     }
 
-    public Filling(Wincalc iwin, boolean shortPass) {
-        super(iwin);
-        fillingVar = new FillingVar(iwin);
-        fillingDet = new FillingDet(iwin);
-        elementDet = new ElementDet(iwin);
+    public Filling(Wincalc winc, boolean shortPass) {
+        super(winc);
+        fillingVar = new FillingVar(winc);
+        fillingDet = new FillingDet(winc);
+        elementDet = new ElementDet(winc);
         this.shortPass = shortPass;
     }
 
     @Override
     public void calc() {
-        LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(iwin.listSortEl, Type.GLASS);
+        LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(winc.listSortEl, Type.GLASS);
         for (ElemGlass elemGlass : elemGlassList) {
             calc2(elemGlass); //цикл по стеклопакетам 
         }

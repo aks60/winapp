@@ -48,8 +48,8 @@ public class AreaStvorka extends AreaSimple {
     public boolean paramCheck[] = {true, true, true, true, true, true, true};
     public float offset[] = {0, 0, 0, 0};
 
-    public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, JsonObject param) {
-        super(iwin, owner, id, Type.STVORKA, Layout.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
+    public AreaStvorka(Wincalc winc, AreaSimple owner, float id, JsonObject param) {
+        super(winc, owner, id, Type.STVORKA, Layout.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), winc.colorID1, winc.colorID2, winc.colorID3, param);
 
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
         ElemFrame stvBot = new ElemFrame(this, id + .1f, Layout.BOTT, param.getAsJsonObject(PKjson.stvorkaBottom));
@@ -82,20 +82,20 @@ public class AreaStvorka extends AreaSimple {
         ElemSimple joinLef = stvLef.joinFlat(Layout.LEFT), joinTop = stvTop.joinFlat(Layout.TOP),
                 joinBot = stvBot.joinFlat(Layout.BOTT), joinRig = stvRig.joinFlat(Layout.RIGHT);
 
-        if (iwin.syssizeRec.getInt(eSyssize.id) != -1) {
-            x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
-            y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
-            x2 = joinRig.x1 + joinRig.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
-            y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+        if (winc.syssizeRec.getInt(eSyssize.id) != -1) {
+            x1 = joinLef.x2 - joinLef.artiklRec.getFloat(eArtikl.size_falz) - winc.syssizeRec.getFloat(eSyssize.naxl);
+            y1 = joinTop.y2 - joinTop.artiklRec.getFloat(eArtikl.size_falz) - winc.syssizeRec.getFloat(eSyssize.naxl);
+            x2 = joinRig.x1 + joinRig.artiklRec.getFloat(eArtikl.size_falz) + winc.syssizeRec.getFloat(eSyssize.naxl);
+            y2 = joinBot.y1 + joinBot.artiklRec.getFloat(eArtikl.size_falz) + winc.syssizeRec.getFloat(eSyssize.naxl);
 
         } else { //Вычисление смещения створки через параметр
             try {
-                iwin.mapJoin.clear();
-                iwin.mapJoin.put(stvBot.joinPoint(2), new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBot, joinBot, 0));
-                iwin.mapJoin.put(stvRig.joinPoint(2), new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig, 0));
-                iwin.mapJoin.put(stvTop.joinPoint(2), new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, joinTop, 0));
-                iwin.mapJoin.put(stvLef.joinPoint(2), new ElemJoining(iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLef, joinLef, 0));
-                Joining joining = new Joining(iwin, true);
+                winc.mapJoin.clear();
+                winc.mapJoin.put(stvBot.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBot, joinBot, 0));
+                winc.mapJoin.put(stvRig.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRig, joinRig, 0));
+                winc.mapJoin.put(stvTop.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, joinTop, 0));
+                winc.mapJoin.put(stvLef.joinPoint(2), new ElemJoining(winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLef, joinLef, 0));
+                Joining joining = new Joining(winc, true);
                 joining.calc();
 
                 y2 = (joinBot.y2 - joinBot.artiklRec.getFloat(eArtikl.size_centr)) - offset[0];
@@ -106,7 +106,7 @@ public class AreaStvorka extends AreaSimple {
             } catch (Exception e) {
                 System.err.println("Ошибка:model.AreaStvorka.setNaxlest() " + e);
             } finally {
-                iwin.mapJoin.clear();
+                winc.mapJoin.clear();
             }
         }
 
@@ -121,7 +121,7 @@ public class AreaStvorka extends AreaSimple {
             sysfurnRec = eSysfurn.find2(param.get(PKjson.sysfurnID).getAsInt());
             paramCheck[0] = false;
         } else {
-            sysfurnRec = eSysfurn.find3(iwin.nuni); //ищем первую в системе
+            sysfurnRec = eSysfurn.find3(winc.nuni); //ищем первую в системе
         }
         //Ручка
         if (isJson(param, PKjson.artiklHandl)) {
@@ -222,26 +222,26 @@ public class AreaStvorka extends AreaSimple {
         });
 
         //Угловое соединение правое нижнее
-        ElemJoining.create(stvBott.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RBOT, stvBott, stvRight, 90);
+        ElemJoining.create(stvBott.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.RBOT, stvBott, stvRight, 90);
         //Угловое соединение правое верхнее
-        ElemJoining.create(stvRight.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RTOP, stvRight, stvTop, 90);
+        ElemJoining.create(stvRight.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.RTOP, stvRight, stvTop, 90);
         //Угловое соединение левое верхнее
-        ElemJoining.create(stvTop.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LTOP, stvTop, stvLeft, 90);
+        ElemJoining.create(stvTop.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.LTOP, stvTop, stvLeft, 90);
         //Угловое соединение левое нижнее
-        ElemJoining.create(stvLeft.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90);
+        ElemJoining.create(stvLeft.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.LBOT, stvLeft, stvBott, 90);
 
         //Прилегающее нижнее
         ElemSimple frmBott = (stvBott.joinFlat(Layout.BOTT) != null) ? stvBott.joinFlat(Layout.BOTT) : root.frames.get(Layout.BOTT);
-        ElemJoining.create(stvBott.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, frmBott, 0);
+        ElemJoining.create(stvBott.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CBOT, stvBott, frmBott, 0);
         //Прилегающее верхнее 
         ElemSimple frmTop = (stvTop.joinFlat(Layout.TOP) != null) ? stvTop.joinFlat(Layout.TOP) : root.frames.get(Layout.TOP);
-        ElemJoining.create(stvTop.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0);
+        ElemJoining.create(stvTop.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CTOP, stvTop, frmTop, 0);
         //Прилегающее левое
         ElemSimple frmLeft = (stvLeft.joinFlat(Layout.LEFT) != null) ? stvLeft.joinFlat(Layout.LEFT) : root.frames.get(Layout.LEFT);
-        ElemJoining.create(stvLeft.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, frmLeft, 0);
+        ElemJoining.create(stvLeft.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CLEFT, stvLeft, frmLeft, 0);
         //Прилегающее правое
         ElemSimple frmRight = (stvRight.joinFlat(Layout.RIGHT) != null) ? stvRight.joinFlat(Layout.RIGHT) : root.frames.get(Layout.RIGHT);
-        ElemJoining.create(stvRight.joinPoint(2), iwin, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0);
+        ElemJoining.create(stvRight.joinPoint(2), winc, TypeJoin.VAR10, LayoutJoin.CRIGH, stvRight, frmRight, 0);
     }
 
     @Override
@@ -262,32 +262,32 @@ public class AreaStvorka extends AreaSimple {
             if (typeOpen.id == 1 || typeOpen.id == 3) {
                 X1 = elemR.x1 + (elemR.x2 - elemR.x1) / 2;
                 Y1 = elemR.y1 + (elemR.y2 - elemR.y1) / 2;
-                Draw.drawLine(iwin, elemL.x1, elemL.y1, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
-                Draw.drawLine(iwin, elemL.x1, elemL.y2, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
+                Draw.drawLine(winc, elemL.x1, elemL.y1, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
+                Draw.drawLine(winc, elemL.x1, elemL.y2, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2);
                 
             } else if (typeOpen.id == 2 || typeOpen.id == 4) {
                 X1 = elemL.x1 + (elemL.x2 - elemL.x1) / 2;
                 Y1 = elemL.y1 + (elemL.y2 - elemL.y1) / 2;
-                Draw.drawLine(iwin, elemR.x2, elemR.y1, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
-                Draw.drawLine(iwin, elemR.x2, elemR.y2, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
+                Draw.drawLine(winc, elemR.x2, elemR.y1, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
+                Draw.drawLine(winc, elemR.x2, elemR.y2, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2);
             }
             if (typeOpen.id == 3 || typeOpen.id == 4) {
-                Draw.drawLine(iwin, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1, elemB.x1, elemB.y2);
-                Draw.drawLine(iwin, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1, elemB.x2, elemB.y2);
+                Draw.drawLine(winc, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1, elemB.x1, elemB.y2);
+                Draw.drawLine(winc, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1, elemB.x2, elemB.y2);
             }
 
             if (root.type == Type.DOOR) {
                 DY = 20;
-                iwin.gc2d.rotate(Math.toRadians(-90), X1 - DX, Y1 - DY);
-                Draw.strokePolygon(iwin, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
+                winc.gc2d.rotate(Math.toRadians(-90), X1 - DX, Y1 - DY);
+                Draw.strokePolygon(winc, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
                 DX = DX - 12;
                 Y1 = Y1 + 20;
                 DY = 60;
-                Draw.strokePolygon(iwin, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
+                Draw.strokePolygon(winc, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
 
             } else {
                 int handlRGB = eColor.find(this.handleColor).getInt(eColor.rgb);
-                Draw.strokePolygon(iwin, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, handlRGB, Color.BLACK);
+                Draw.strokePolygon(winc, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, handlRGB, Color.BLACK);
                 DX = DX - 12;
                 Y1 = Y1 + 20;
             }

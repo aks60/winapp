@@ -11,8 +11,8 @@ import enums.Type;
 
 public class AreaDoor extends AreaSimple {
 
-    public AreaDoor(Wincalc iwin, GsonRoot gson, int color1, int color2, int color3) {
-        super(iwin, null, gson.id(), Type.DOOR, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
+    public AreaDoor(Wincalc winc, GsonRoot gson, int color1, int color2, int color3) {
+        super(winc, null, gson.id(), Type.DOOR, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
         setDimension(0, 0, gson.width(), gson.height());
     }
 
@@ -24,12 +24,12 @@ public class AreaDoor extends AreaSimple {
         ElemSimple elemBott = frames.get(Layout.BOTT), elemRight = frames.get(Layout.RIGHT),
                 elemTop = frames.get(Layout.TOP), elemLeft = frames.get(Layout.LEFT);
         //Угловое соединение правое нижнее
-        ElemJoining.create(elemBott.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
+        ElemJoining.create(elemBott.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90);
         //Угловое соединение правое верхнее
-        ElemJoining.create(elemRight.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
+        ElemJoining.create(elemRight.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90);
         //Угловое соединение левое верхнее    
-        ElemJoining.create(elemTop.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
+        ElemJoining.create(elemTop.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90);
         //Угловое соединение левое нижнее
-        ElemJoining.create(elemLeft.joinPoint(1), iwin, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
+        ElemJoining.create(elemLeft.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemBott, 90);
     }
 }

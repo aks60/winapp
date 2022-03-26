@@ -87,27 +87,27 @@ public class Test {
     private static void wincalc() throws Exception {
 
         Conn.connection(Test.connect2());
-        builder.Wincalc iwin = new builder.Wincalc();
+        builder.Wincalc winc = new builder.Wincalc();
         String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.build(builder.script.Winscript.test(604008, false));
-            //new Joining(iwin, true);
-            iwin.constructiv(true);
-            //Specific.write_txt(iwin.listSpec);
-            //DBCompare.iwinXls(iwin, true);
-            DBCompare.iwinPs4(iwin, true);
-            //iwin.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
+            winc.build(builder.script.Winscript.test(604008, false));
+            //new Joining(winc, true);
+            winc.constructiv(true);
+            //Specific.write_txt(winc.listSpec);
+            //DBCompare.iwinXls(winc, true);
+            DBCompare.iwinPs4(winc, true);
+            //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {
             List<Integer> prjList = Winscript.models(_case);
             for (int prj : prjList) {
                 String script = builder.script.Winscript.test(prj, false);
                 if (script != null) {
-                    iwin.build(script);
-                    iwin.constructiv(true);
-                    DBCompare.iwinXls(iwin, false);
-                    //DBCompare.iwinPs4(iwin, false);
+                    winc.build(script);
+                    winc.constructiv(true);
+                    DBCompare.iwinXls(winc, false);
+                    //DBCompare.iwinPs4(winc, false);
                 }
             }
 
@@ -116,10 +116,10 @@ public class Test {
             for (int prj : prjList) {
                 String script = builder.script.Winscript.test(prj, false);
                 if (script != null) {
-                    iwin.build(script);
-                    iwin.constructiv(true);
-                    //DBCompare.iwinXls(iwin, false);
-                    DBCompare.iwinPs4(iwin, false);
+                    winc.build(script);
+                    winc.constructiv(true);
+                    //DBCompare.iwinXls(winc, false);
+                    DBCompare.iwinPs4(winc, false);
                 }
             }
         }
@@ -208,9 +208,9 @@ public class Test {
         //String p = gson.fromJson(str3, String.class);
         //System.out.println(gson.fromJson(str3, String.class)); 
 //        Conn.instanc().connection(Test.connect2());
-//        builder.Wincalc iwin = new builder.Wincalc();
+//        builder.Wincalc winc = new builder.Wincalc();
 //        String script = Winscript.test(601004, false);
-//        iwin.build(script);
+//        winc.build(script);
 //
 //        GsonBuilder builder = new GsonBuilder();
 //        //builder.registerTypeAdapter(Element.class, new GsonDeserializer<Element>());

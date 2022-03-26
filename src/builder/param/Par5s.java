@@ -17,15 +17,15 @@ public class Par5s {
     protected final int ID = 1;   //Ключ в таблице  
     protected final int GRUP = 3;   //Ключ параметра    
     protected final int TEXT = 2;   //Текст 
-    protected Wincalc iwin = null;
+    protected Wincalc winc = null;
     public boolean shortPass = false;
     protected String versionDb = eSetting.find(2);
     public HashMap<Integer, String> mapParamTmp = new HashMap();
     public Record detailRec = null; //текущий элемент детализации
     protected ArrayList<ListenerParam> listenerList = null;
 
-    public Par5s(Wincalc iwin) {
-        this.iwin = iwin;
+    public Par5s(Wincalc winc) {
+        this.winc = winc;
     }
 
     //Фильтр параметров по умолчанию + выбранных клиентом
@@ -33,7 +33,7 @@ public class Par5s {
 
         for (Record paramRec : paramList) {
             if (paramRec.getInt(GRUP) < 0) {
-                Record syspar1Rec = iwin.mapPardef.get(paramRec.getInt(GRUP));
+                Record syspar1Rec = winc.mapPardef.get(paramRec.getInt(GRUP));
                 if (syspar1Rec == null) {
                     return false; //если группы нет
                 }

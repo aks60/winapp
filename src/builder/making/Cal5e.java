@@ -7,13 +7,13 @@ import dataset.Query;
 
 public abstract class Cal5e {
 
-    public Wincalc iwin = null;
+    public Wincalc winc = null;
     public Set setVariant = new HashSet();
     public String conf = Query.conf;
     public boolean shortPass = false;    
 
-    public Cal5e(Wincalc iwin) {
-        this.iwin = iwin;
+    public Cal5e(Wincalc winc) {
+        this.winc = winc;
     }
 
     public void calc() {
@@ -23,6 +23,6 @@ public abstract class Cal5e {
     }
 
     public AreaSimple rootArea() {
-        return iwin.rootArea;
+        return winc.rootArea;
     }
 }

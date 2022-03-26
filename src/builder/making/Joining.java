@@ -31,18 +31,18 @@ public class Joining extends Cal5e {
     private HashMap<ElemJoining, Integer> mapJoinvar = new HashMap();
     private boolean ps3 = "ps3".equals(eSetting.find(2));
 
-    public Joining(Wincalc iwin) {
-        super(iwin);
-        joiningVar = new JoiningVar(iwin);
-        joiningDet = new JoiningDet(iwin);
-        elementDet = new ElementDet(iwin);
+    public Joining(Wincalc winc) {
+        super(winc);
+        joiningVar = new JoiningVar(winc);
+        joiningDet = new JoiningDet(winc);
+        elementDet = new ElementDet(winc);
     }
 
-    public Joining(Wincalc iwin, boolean shortPass) {
-        super(iwin);
-        joiningVar = new JoiningVar(iwin);
-        joiningDet = new JoiningDet(iwin);
-        elementDet = new ElementDet(iwin);
+    public Joining(Wincalc winc, boolean shortPass) {
+        super(winc);
+        joiningVar = new JoiningVar(winc);
+        joiningDet = new JoiningDet(winc);
+        elementDet = new ElementDet(winc);
         this.shortPass = shortPass;
     }
 
@@ -51,7 +51,7 @@ public class Joining extends Cal5e {
         super.calc();
         try {
             //Цикл по списку соединений
-            for (Map.Entry<String, ElemJoining> hmElemJoin : iwin.mapJoin.entrySet()) {
+            for (Map.Entry<String, ElemJoining> hmElemJoin : winc.mapJoin.entrySet()) {
                 ElemJoining elemJoin = hmElemJoin.getValue();
                 ElemSimple joinElem1 = elemJoin.elem1;
                 ElemSimple joinElem2 = elemJoin.elem2;
@@ -70,7 +70,7 @@ public class Joining extends Cal5e {
                     joinvarList = eJoinvar.find(joiningRec2.getInt(eJoining.id));
                 }
                 //Если неудача то ищем зеркальность (только для дверей)
-                if (iwin.rootArea.type == Type.DOOR && joinvarList.isEmpty()) {
+                if (winc.rootArea.type == Type.DOOR && joinvarList.isEmpty()) {
                     joiningRec1 = eJoining.find(id2, id1);
                     joinvarList = eJoinvar.find(joiningRec1.getInt(eJoining.id));
                 }
@@ -84,7 +84,7 @@ public class Joining extends Cal5e {
                     if (elemJoin.layout.equalType(typeID)) { //если варианты соединения совпали
                         go = true;
                     } else if (joinvarRec.getInt(eJoinvar.mirr) == 1) { //когда включена зеркальность
-                        if (iwin.rootArea.type == Type.DOOR && (typeID == 30 || typeID == 31)
+                        if (winc.rootArea.type == Type.DOOR && (typeID == 30 || typeID == 31)
                                 && (elemJoin.layout.id == 30 || elemJoin.layout.id == 31)) {
                             go = true;
                         }

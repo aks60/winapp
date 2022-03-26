@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class ElemJoining {
 
     public float id = -1; //идентификатор соединения
-    private Wincalc iwin;
+    private Wincalc winc;
     public Record joiningRec = eJoining.up.newRecord();
     public Record joinvarRec = eJoinvar.up.newRecord();
     public LayoutJoin layout = LayoutJoin.NONE; //расположение соединения 
@@ -27,15 +27,15 @@ public class ElemJoining {
     public float angl = 90;    //угол между профилями
     public String costs = "";  //трудозатраты, ч/ч.
 
-    public static void create(String point, Wincalc iwin, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
+    public static void create(String point, Wincalc winc, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
         if (elem1 != null && elem2 != null) {
-            iwin.mapJoin.put(point, new ElemJoining(iwin, type, layout, elem1, elem2, angl));
+            winc.mapJoin.put(point, new ElemJoining(winc, type, layout, elem1, elem2, angl));
         }
     }
 
-    public ElemJoining(Wincalc iwin, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
-        this.id = ++iwin.genId;
-        this.iwin = iwin;
+    public ElemJoining(Wincalc winc, TypeJoin type, LayoutJoin layout, ElemSimple elem1, ElemSimple elem2, float angl) {
+        this.id = ++winc.genId;
+        this.winc = winc;
         this.type = type;
         this.layout = layout;
         this.elem1 = elem1;
