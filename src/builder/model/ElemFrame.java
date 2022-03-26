@@ -80,9 +80,11 @@ public class ElemFrame extends ElemSimple {
         } else if (owner.type == Type.TRAPEZE) {
             float H = root().height() - winc.heightAdd;
             float W = root().width();
+            
             if (Layout.BOTT == layout) {
                 setDimension(owner.x1, owner.y2 - artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
                 anglHoriz = 0;
+                
             } else if (Layout.RIGHT == layout) {
                 if (winc.form == Form.NUM2) {
                     setDimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y2 - winc.heightAdd, owner.x2, owner.y2);
