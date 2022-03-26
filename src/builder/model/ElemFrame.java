@@ -76,6 +76,7 @@ public class ElemFrame extends ElemSimple {
                 setDimension(owner.x1, owner.y1, owner.x2, owner.y1); // + artiklRec.getFloat(eArtikl.height));
                 anglHoriz = 180;
             }
+            
         } else if (owner.type == Type.TRAPEZE) {
             float H = root().height() - iwin.heightAdd;
             float W = root().width();

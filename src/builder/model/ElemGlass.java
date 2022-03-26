@@ -32,12 +32,8 @@ public class ElemGlass extends ElemSimple {
         this.type = Type.GLASS;
 
         initСonstructiv(param);
+        setLocation();
 
-        if (Type.ARCH == owner.type) {
-            setDimension(0, 0, owner.x2, iwin.height - iwin.heightAdd);
-        } else {
-            setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
-        }
         Filling filling = new Filling(iwin, true);
         filling.calc2(this);
     }
@@ -61,6 +57,15 @@ public class ElemGlass extends ElemSimple {
             colorID1 = colorRec.getInt(eColor.id);
             colorID2 = colorRec.getInt(eColor.id);
             colorID3 = colorRec.getInt(eColor.id);
+        }
+    }
+
+    //Установка координат
+    public void setLocation() {
+        if (Type.ARCH == owner.type) {
+            setDimension(0, 0, owner.x2, iwin.height - iwin.heightAdd);
+        } else {
+            setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }
     }
 
@@ -213,7 +218,7 @@ public class ElemGlass extends ElemSimple {
 
     @Override
     public void paint() { //рисуём стёкла
-        
+
         Record colorRec = eColor.find3(colorID1);
         iwin.gc2d.setColor(new java.awt.Color(colorRec.getInt(eColor.rgb)));
 
