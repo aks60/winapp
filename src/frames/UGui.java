@@ -512,7 +512,9 @@ public class UGui {
     public static void scrollRectToIndex(int index, JTable table) {
         try {
             int row = table.convertRowIndexToView(index);
-            scrollRectToRow(row, table);
+            if (table.getRowCount() > row + 4) {
+                scrollRectToRow(row, table);
+            }
         } catch (Exception e) {
             System.err.println("Ошибка:UGui.scrollRectToIndex() " + e);
         }
