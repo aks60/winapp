@@ -101,7 +101,7 @@ public class GsonRoot extends GsonElem {
     }
 
     public List<GsonScale> lineArea(Wincalc winc, Layout layout) {
-        Set<GsonElem> list1 = new LinkedHashSet(), list2 = new LinkedHashSet();;
+        Set<GsonElem> list1 = new LinkedHashSet(), list2 = new LinkedHashSet();
         Set<GsonScale> listOut = new LinkedHashSet();
         lineArea(list1, this, layout);
         for (GsonElem elem : list1) {
@@ -126,6 +126,5 @@ public class GsonRoot extends GsonElem {
             }
             lineArea(list, elem2, layout);
         }
-    }
-    
+    }   
 }
