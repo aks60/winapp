@@ -101,30 +101,30 @@ public class GsonRoot extends GsonElem {
     }
 
     public List<GsonScale> lineArea(Wincalc winc, Layout layout) {
-        Set<GsonElem> list1 = new LinkedHashSet(), list2 = new LinkedHashSet();
-        Set<GsonScale> listOut = new LinkedHashSet();
-        lineArea(list1, this, layout);
-        for (GsonElem elem : list1) {
-            list2.clear();
-            lineArea(list2, elem, layout);
-            if (list2.isEmpty()) {
-                listOut.add(new GsonScale(winc, elem.id));
+        Set<GsonElem> set1 = new LinkedHashSet(), set2 = new LinkedHashSet();
+        Set<GsonScale> setOut = new LinkedHashSet();
+        lineArea(set1, this, layout);
+        for (GsonElem elem : set1) {
+            set2.clear();
+            lineArea(set2, elem, layout);
+            if (set2.isEmpty()) {
+                setOut.add(new GsonScale(winc, elem.id));
             }
         }
-        if (listOut.isEmpty()) {
-            listOut.add(new GsonScale(winc, this.id));
+        if (setOut.isEmpty()) {
+            setOut.add(new GsonScale(winc, this.id));
         }
-        return new ArrayList(listOut);
+        return new ArrayList(setOut);
     }
 
-    public void lineArea(Set<GsonElem> list, GsonElem elem, Layout layout) {
+    public void lineArea(Set<GsonElem> set, GsonElem elem, Layout layout) {
         for (int i = 0; i < elem.childs.size(); ++i) {
             GsonElem elem2 = elem.childs.get(i);
             if (elem2.owner.layout == layout && (elem2.type == Type.IMPOST || elem2.type == Type.SHTULP || elem2.type == Type.STOIKA)) {
-                list.add(elem.childs.get(i - 1));
-                list.add(elem.childs.get(i + 1));
+                set.add(elem.childs.get(i - 1));
+                set.add(elem.childs.get(i + 1));
             }
-            lineArea(list, elem2, layout);
+            lineArea(set, elem2, layout);
         }
     }   
 }
