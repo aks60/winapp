@@ -441,6 +441,33 @@ public final class Bimax {
             
 ////////////////// ХОЛОДНЫЙ  ТЭСТ prj в базе нет /////////////////////////////// 
 
+        } else if (prj == 1601004) { //PUNIC = 427820
+            rootGson = new GsonRoot(prj, 1, 8, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
+                    Layout.VERT, Type.RECTANGL, 1440, 1700, 1009, 1009, 1009);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
+            
+            GsonElem areaT = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 400));
+            areaT.addArea(new GsonElem(Layout.VERT, Type.AREA, 420))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}"))
+                    .addElem(new GsonElem(Type.GLASS));
+            areaT.addElem(new GsonElem(Type.IMPOST))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 1020))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:1633}"))
+                    .addElem(new GsonElem(Type.GLASS));
+            
+            rootGson.addElem(new GsonElem(Type.IMPOST));
+            GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1300));
+            area.addArea(new GsonElem(Layout.VERT, Type.AREA, 720))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}"))
+                    .addElem(new GsonElem(Type.GLASS));
+            area.addElem(new GsonElem(Type.IMPOST))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 720))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:1633}"))
+                    .addElem(new GsonElem(Type.GLASS));
+            
         } else if (prj == 777002) { //Трапеции
             rootGson = new GsonRoot(prj, 1, 8, "KBE\\KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.TRAPEZE, 1300, 1500, 1200, 1009, 10009, 1009);
