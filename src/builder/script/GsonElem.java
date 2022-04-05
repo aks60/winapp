@@ -122,6 +122,7 @@ public class GsonElem {
         return (owner.layout == Layout.HORIZ) ? length : owner.width();
     }
 
+    //Приведение к целому дробных состовляющих
     public void resizUp(List<GsonScale> list, Layout layout) {
         float dx = 1;
         GsonElem e2 = null;
@@ -148,6 +149,7 @@ public class GsonElem {
         }
     }
 
+    //Увеличение, уменьшение размера
     public void resizElem(float _diff, List<GsonScale> _list, Layout _layout) {
 
         GsonRoot root = (GsonRoot) this;
@@ -193,6 +195,7 @@ public class GsonElem {
         }
     }
 
+    //Подгонка размера в глубину
     public void resizAll(Layout _layout) {
         if (this.owner != null) {
             float sum = 0;
