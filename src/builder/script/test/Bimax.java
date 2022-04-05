@@ -439,7 +439,7 @@ public final class Bimax {
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1500))
                     .addElem(new GsonElem(Type.GLASS));
             
-////////////////// ХОЛОДНЫЙ  ТЭСТ prj в базе нет /////////////////////////////// 
+////////////////// ХОЛОДНЫЙ  ТЕСТ prj в базе нет /////////////////////////////// 
 
         } else if (prj == 1601004) { //PUNIC = 427820
             rootGson = new GsonRoot(prj, 1, 8, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
