@@ -461,17 +461,17 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.GLASS));
             area.addElem(new GsonElem(Type.IMPOST));
             GsonElem area2 = area.addArea(new GsonElem(Layout.VERT, Type.AREA, 720));
-            area2.addArea(new GsonElem(Layout.VERT, Type.AREA, 300))
+            area2.addArea(new GsonElem(Layout.VERT, Type.AREA, 200))
                     .addElem(new GsonElem(Type.GLASS));
             area2.addElem(new GsonElem(Type.IMPOST))
-                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 300))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 400))
                     .addElem(new GsonElem(Type.GLASS));
             area2.addElem(new GsonElem(Type.IMPOST));
             GsonElem area3 = area2.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 700));
-            area3.addArea(new GsonElem(Layout.VERT, Type.AREA, 320))
+            area3.addArea(new GsonElem(Layout.VERT, Type.AREA, 220))
                     .addElem(new GsonElem(Type.GLASS));
             area3.addElem(new GsonElem(Type.IMPOST))
-                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 200))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 300))
                     .addElem(new GsonElem(Type.GLASS));
             area3.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 200))
