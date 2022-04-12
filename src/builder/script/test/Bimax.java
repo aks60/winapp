@@ -460,14 +460,21 @@ public final class Bimax {
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:1, sysfurnID:1634}"))
                     .addElem(new GsonElem(Type.GLASS));
             area.addElem(new GsonElem(Type.IMPOST));
-            GsonElem area2 = area.addArea(new GsonElem(Layout.VERT, Type.AREA, 720));          
+            GsonElem area2 = area.addArea(new GsonElem(Layout.VERT, Type.AREA, 720));
             area2.addArea(new GsonElem(Layout.VERT, Type.AREA, 300))
-                    .addElem(new GsonElem(Type.GLASS));           
+                    .addElem(new GsonElem(Type.GLASS));
             area2.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 300))
-                    .addElem(new GsonElem(Type.GLASS));           
-            area2.addElem(new GsonElem(Type.IMPOST))
-                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 700))
+                    .addElem(new GsonElem(Type.GLASS));
+            area2.addElem(new GsonElem(Type.IMPOST));
+            GsonElem area3 = area2.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 700));
+            area3.addArea(new GsonElem(Layout.VERT, Type.AREA, 320))
+                    .addElem(new GsonElem(Type.GLASS));
+            area3.addElem(new GsonElem(Type.IMPOST))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 200))
+                    .addElem(new GsonElem(Type.GLASS));
+            area3.addElem(new GsonElem(Type.IMPOST))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 200))
                     .addElem(new GsonElem(Type.GLASS));
 
         } else if (prj == 1489528103) { //Прямоугольное сложное без створок
