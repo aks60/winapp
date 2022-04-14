@@ -11,9 +11,9 @@ import enums.Type;
 
 public class AreaRectangl extends AreaSimple {
 
-    public AreaRectangl(Wincalc winc, GsonRoot gson, int color1, int color2, int color3) {
-        super(winc, null, gson.id(), Type.RECTANGL, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
-        setDimension(0, 0, gson.width(), gson.height());
+    public AreaRectangl(Wincalc winc) {
+        super(winc, null, Type.RECTANGL);
+        setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
     }
     
     //@Override

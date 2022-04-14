@@ -7,16 +7,16 @@ import enums.Type;
 
 public class AreaTriangl extends AreaSimple {
 
-    public AreaTriangl(Wincalc winc, GsonRoot gson, int color1, int color2, int color3) {
-        super(winc, null, gson.id(), Type.TRIANGL, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
-        setDimension(0, 0, gson.width(), gson.height());
+    public AreaTriangl(Wincalc winc) {
+        super(winc, null, Type.TRIANGL);
+        setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
     }
 
     @Override
     public void joining() {
-        
+
         super.joining();
-        
+
         System.out.println("Реализация не определена");
     }
 }

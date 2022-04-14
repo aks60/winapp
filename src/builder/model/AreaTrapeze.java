@@ -15,9 +15,9 @@ import enums.TypeJoin;
 
 public class AreaTrapeze extends AreaSimple {
 
-    public AreaTrapeze(Wincalc winc, GsonRoot gson, int color1, int color2, int color3) {
-        super(winc, null, gson.id(), Type.TRAPEZE, gson.layout(), gson.width(), gson.height(), color1, color2, color3, gson.param());
-        setDimension(0, 0, gson.width(), gson.height());
+    public AreaTrapeze(Wincalc winc) {
+        super(winc, null, Type.TRAPEZE);
+        setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
     }
 
     protected void addFilling(ElemGlass glass, Specific spcAdd) {

@@ -127,15 +127,15 @@ public class Wincalc {
 
             //Главное окно
             if (Type.RECTANGL == rootGson.type()) {
-                rootArea = new AreaRectangl(this, rootGson, colorID1, colorID2, colorID3); //простое
+                rootArea = new AreaRectangl(this); //простое
             } else if (Type.DOOR == rootGson.type()) {
-                rootArea = new AreaDoor(this, rootGson, colorID1, colorID2, colorID3); //дверь                
+                rootArea = new AreaDoor(this); //дверь                
             } else if (Type.TRAPEZE == rootGson.type()) {
-                rootArea = new AreaTrapeze(this, rootGson, colorID1, colorID2, colorID3); //трапеция
+                rootArea = new AreaTrapeze(this); //трапеция
             } else if (Type.TRIANGL == rootGson.type()) {
-                rootArea = new AreaTriangl(this, rootGson, colorID1, colorID2, colorID3); //треугольник
+                rootArea = new AreaTriangl(this); //треугольник
             } else if (Type.ARCH == rootGson.type()) {
-                rootArea = new AreaArch(this, rootGson, colorID1, colorID2, colorID3); //арка
+                rootArea = new AreaArch(this); //арка
             }
 
             //Создадим элементы конструкции
@@ -152,7 +152,7 @@ public class Wincalc {
             for (GsonElem el : gson.childs()) {
 
                 if (Type.STVORKA == el.type()) {
-                    AreaSimple area5e = new AreaStvorka(Wincalc.this, owner, el.id(), el.param());
+                    AreaSimple area5e = new AreaStvorka(Wincalc.this, owner, el);
                     owner.childs.add(area5e);
                     hm.put(area5e, el);
 

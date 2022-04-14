@@ -15,6 +15,8 @@ import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 import startup.Main;
 import builder.Wincalc;
+import builder.script.GsonElem;
+import builder.script.GsonRoot;
 import common.UCom;
 import dataset.Query;
 import enums.PKjson;
@@ -26,6 +28,32 @@ public class AreaSimple extends Com5t {
     public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне 
     public LinkedList<Com5t> childs = new LinkedList(); //дети
 
+    public AreaSimple(Wincalc winc, AreaSimple owner, Type type) {
+        super(winc.rootGson.id(), winc, owner);
+        this.type = type;
+        this.layout = winc.rootGson.layout();
+        this.colorID1 = winc.rootGson.color1;
+        this.colorID2 = winc.rootGson.color2;
+        this.colorID3 = winc.rootGson.color3;
+
+        initСonstructiv(winc.rootGson.param());
+        setLocation(winc.rootGson.width(), winc.rootGson.height());
+        initParametr(winc.rootGson.param());
+    }
+    
+    public AreaSimple(Wincalc winc, AreaSimple owner, Type type, float width, float height, GsonElem gson) {
+        super(gson.id(), winc, owner);
+        this.type = type;
+        this.layout = gson.layout();
+        this.colorID1 = winc.rootGson.color1;
+        this.colorID2 = winc.rootGson.color2;
+        this.colorID3 = winc.rootGson.color3;
+
+        initСonstructiv(gson.param());
+        setLocation(width, height);
+        initParametr(gson.param());
+    }
+    
     public AreaSimple(Wincalc winc, AreaSimple owner, float id, Type type, Layout layout, float width, float height, int color1, int color2, int color3, JsonObject param) {
         super(id, winc, owner);
         this.type = type;
@@ -33,14 +61,7 @@ public class AreaSimple extends Com5t {
         this.colorID1 = color1;
         this.colorID2 = color2;
         this.colorID3 = color3;
-        
-        //Всё нестандартное АРЕА сверху, пока примитивно
-        //Переписываю тип чтобы можно было отловить например в ElemGlass
-        if (owner != null && (owner.type == Type.ARCH || owner.type == Type.TRAPEZE)) {
-            if (owner.childs.isEmpty()) { 
-                this.type = owner.type;
-            }
-        }
+
         initСonstructiv(param);
         setLocation(width, height);
         initParametr(param);

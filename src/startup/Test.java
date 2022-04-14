@@ -88,10 +88,10 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "min";
+        String _case = "max";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.Winscript.test(604008, false));
+            winc.build(builder.script.Winscript.test(601004, false));
             //new Joining(winc, true);
             winc.constructiv(true);
             //Specific.write_txt(winc.listSpec);

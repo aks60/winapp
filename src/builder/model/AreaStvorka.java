@@ -14,6 +14,8 @@ import java.awt.Color;
 import builder.Wincalc;
 import builder.making.Joining;
 import builder.making.Specific;
+import builder.script.GsonElem;
+import builder.script.GsonRoot;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -48,17 +50,17 @@ public class AreaStvorka extends AreaSimple {
     public boolean paramCheck[] = {true, true, true, true, true, true, true};
     public float offset[] = {0, 0, 0, 0};
 
-    public AreaStvorka(Wincalc winc, AreaSimple owner, float id, JsonObject param) {
-        super(winc, owner, id, Type.STVORKA, Layout.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), winc.colorID1, winc.colorID2, winc.colorID3, param);
-
+    public AreaStvorka(Wincalc winc, AreaSimple owner, GsonElem gson) {
+        super(winc, owner, Type.STVORKA, (owner.x2 - owner.x1), (owner.y2 - owner.y1), gson);
+        
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
-        ElemFrame stvBot = new ElemFrame(this, id + .1f, Layout.BOTT, param.getAsJsonObject(PKjson.stvorkaBottom));
+        ElemFrame stvBot = new ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom));
         frames.put(stvBot.layout, stvBot);
-        ElemFrame stvRigh = new ElemFrame(this, id + .2f, Layout.RIGHT, param.getAsJsonObject(PKjson.stvorkaRight));
+        ElemFrame stvRigh = new ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight));
         frames.put(stvRigh.layout, stvRigh);
-        ElemFrame stvTop = new ElemFrame(this, id + .3f, Layout.TOP, param.getAsJsonObject(PKjson.stvorkaTop));
+        ElemFrame stvTop = new ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop));
         frames.put(stvTop.layout, stvTop);
-        ElemFrame stvLeft = new ElemFrame(this, id + .4f, Layout.LEFT, param.getAsJsonObject(PKjson.stvorkaLeft));
+        ElemFrame stvLeft = new ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft));
         frames.put(stvLeft.layout, stvLeft);
 
         //Положение элементов створки с учётом нахлёста
@@ -69,7 +71,7 @@ public class AreaStvorka extends AreaSimple {
         stvTop.setLocation();
         stvLeft.setLocation();
 
-        initFurniture(param);
+        initFurniture(gson.param());
 
         stvBot.spcRec.width = width();
         stvTop.spcRec.width = width();
