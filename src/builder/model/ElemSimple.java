@@ -112,7 +112,7 @@ public abstract class ElemSimple extends Com5t {
         }
     }
 
-    //Элемент соединения 0-пред.артикл, 1-след.артикл, 2-прилег. артикл
+    //Элемент соединения 0-пред.артикул, 1-след.артикл, 2-прилег. артикл
     public ElemSimple joinElem(int side) {
         ElemJoining ej = winc.mapJoin.get(joinPoint(side));
         if (ej != null && side == 0) {

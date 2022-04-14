@@ -97,7 +97,7 @@ public class Elements extends Cal5e {
 
                                 //Если (контейнер) в списке детализации, например профиль с префиксом @
                                 if (TypeArtikl.isType(artiklRec, TypeArtikl.X101, TypeArtikl.X102, TypeArtikl.X103)) {
-                                    elem5e.spcRec.setArtiklRec(spcAdd.artiklRec); //переназначаем артикл, как правило это c префиксом артикла @
+                                    elem5e.spcRec.setArtiklRec(spcAdd.artiklRec); //переназначаем артикул, как правило это c префиксом артикула @
                                     elem5e.spcRec.mapParam = spcAdd.mapParam; //переназначаем mapParam
 
                                 } else {

@@ -175,7 +175,7 @@ public class DBCompare extends javax.swing.JFrame {
                 vectorRec.set(4, hmColor.get(vectorRec.get(4)));  //цвет
                 vectorRec.set(5, hmColor.get(vectorRec.get(5)));  //цвет
                 vectorRec.set(6, hmColor.get(vectorRec.get(6)));  //цвет
-                String artikl = rs.getString("ANUMB"); //артикл
+                String artikl = rs.getString("ANUMB"); //артикул
                 double leng = rs.getDouble("ALENG"); //длина
                 float count = rs.getFloat("AQTYP"); //колич
                 float pogonag = rs.getFloat("AQTYA"); //погонаж
@@ -351,7 +351,7 @@ public class DBCompare extends javax.swing.JFrame {
                         vectorRec.set(4, hmColor.get(vectorRec.get(4)));  //цвет
                         vectorRec.set(5, hmColor.get(vectorRec.get(5)));  //цвет
                         vectorRec.set(6, hmColor.get(vectorRec.get(6)));  //цвет
-                        String artikl = rs.getString("ANUMB"); //артикл                              
+                        String artikl = rs.getString("ANUMB"); //артикул                              
                         Record artiklRec = eArtikl.query().stream().filter(r -> artikl.equals(r.get(eArtikl.code))).findFirst().orElse(eArtikl.up.newRecord());
                         vectorRec.add(4, artiklRec.get(eArtikl.name)); //имя артикула                 
                         vectorRec.add(null); //стоим. элемента без скидки

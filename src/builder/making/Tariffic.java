@@ -194,7 +194,7 @@ public class Tariffic extends Cal5e {
 
         Object obj = rulecalcRec.getStr(eArtikl.code);
 
-        //Если артикл ИЛИ тип ИЛИ подтип совпали
+        //Если артикул ИЛИ тип ИЛИ подтип совпали
         if (specifRec.artiklRec.get(eArtikl.id).equals(rulecalcRec.get(eRulecalc.artikl_id)) == true || rulecalcRec.get(eRulecalc.artikl_id) == null) {
             if ((specifRec.artiklRec.getInt(eArtikl.level1) * 100 + specifRec.artiklRec.getInt(eArtikl.level2)) == rulecalcRec.getInt(eRulecalc.type)) {
                 if (UCom.containsNumbJust(rulecalcRec.getStr(eRulecalc.color1), specifRec.colorID1) == true
