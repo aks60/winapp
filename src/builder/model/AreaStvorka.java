@@ -51,16 +51,16 @@ public class AreaStvorka extends AreaSimple {
     public float offset[] = {0, 0, 0, 0};
 
     public AreaStvorka(Wincalc winc, AreaSimple owner, GsonElem gson) {
-        super(winc, owner, Type.STVORKA, (owner.x2 - owner.x1), (owner.y2 - owner.y1), gson);
+        super(winc, owner, Type.STVORKA, gson, (owner.x2 - owner.x1), (owner.y2 - owner.y1));
         
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
-        ElemFrame stvBot = new ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom));
+        ElemFrame stvBot = new ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);
         frames.put(stvBot.layout, stvBot);
-        ElemFrame stvRigh = new ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight));
+        ElemFrame stvRigh = new ElemFrame(this, gson.id() + .2f, Layout.RIGHT, gson.param().getAsJsonObject(PKjson.stvorkaRight), gson);
         frames.put(stvRigh.layout, stvRigh);
-        ElemFrame stvTop = new ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop));
+        ElemFrame stvTop = new ElemFrame(this, gson.id() + .3f, Layout.TOP, gson.param().getAsJsonObject(PKjson.stvorkaTop), gson);
         frames.put(stvTop.layout, stvTop);
-        ElemFrame stvLeft = new ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft));
+        ElemFrame stvLeft = new ElemFrame(this, gson.id() + .4f, Layout.LEFT, gson.param().getAsJsonObject(PKjson.stvorkaLeft), gson);
         frames.put(stvLeft.layout, stvLeft);
 
         //Положение элементов створки с учётом нахлёста

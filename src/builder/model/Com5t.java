@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import dataset.Record;
 import enums.Layout;
 import builder.Wincalc;
+import builder.script.GsonElem;
 import domain.eArtikl;
 import enums.Type;
 
@@ -21,6 +22,7 @@ public abstract class Com5t {
     public AreaSimple owner = null; //владелец
     public Wincalc winc = null; //главный класс калькуляции
     public AreaSimple root = null; //главный класс конструкции
+    public GsonElem gson = null; //Gson object конструкции
 
     protected float x1 = 0, x2 = 0, y1 = 0, y2 = 0;//координаты area     
     protected int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
@@ -29,11 +31,12 @@ public abstract class Com5t {
         this.type = type;
     }
 
-    public Com5t(float id, Wincalc winc, AreaSimple owner) {
+    public Com5t(float id, Wincalc winc, AreaSimple owner, GsonElem gson) {
         this.id = id;
         this.owner = owner;
         this.winc = winc;
         this.root = winc.rootArea;
+        this.gson = gson;
     }
 
     public float id() {

@@ -3,12 +3,10 @@ package builder.model;
 import builder.making.Specific;
 import java.awt.Color;
 import builder.Wincalc;
+import builder.script.GsonElem;
 import enums.Form;
 import enums.Layout;
 import enums.Type;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Map;
 
 public abstract class ElemSimple extends Com5t {
 
@@ -19,8 +17,8 @@ public abstract class ElemSimple extends Com5t {
     public Specific spcRec = null; //спецификация элемента
     public Color borderColor = Color.BLACK;
 
-    public ElemSimple(float id, Wincalc winc, AreaSimple owner) {
-        super(id, winc, owner);
+    public ElemSimple(float id, Wincalc winc, AreaSimple owner, GsonElem gson) {
+        super(id, winc, owner, gson);
         winc.listTreeEl.add(this);
         winc.listSortEl.add(this);
         spcRec = new Specific(id, this);

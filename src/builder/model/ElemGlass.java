@@ -10,6 +10,7 @@ import domain.eSystree;
 import enums.Layout;
 import enums.TypeArtikl;
 import builder.making.Specific;
+import builder.script.GsonElem;
 import com.google.gson.JsonObject;
 import common.UCom;
 import domain.eGlasprof;
@@ -25,13 +26,12 @@ public class ElemGlass extends ElemSimple {
     public float sideHoriz[] = {0, 90, 180, 270}; //угол боковой стороны к горизонту
     public float gsize[] = {0, 0, 0, 0}; //размер от оси до стеклопакета
 
-    public ElemGlass(AreaSimple owner, float id, JsonObject param) {
-
-        super(id, owner.winc, owner);
+    public ElemGlass(AreaSimple owner, GsonElem gson) {
+        super(gson.id(), owner.winc, owner, gson);
         this.layout = Layout.FULL;
         this.type = Type.GLASS;
 
-        initСonstructiv(param);
+        initСonstructiv(gson.param());
         setLocation();
 
         Filling filling = new Filling(winc, true);

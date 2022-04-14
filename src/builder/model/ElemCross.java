@@ -7,6 +7,8 @@ import enums.Layout;
 import enums.UseSide;
 import enums.TypeArtikl;
 import builder.making.Specific;
+import static builder.param.test.ParamTest.param;
+import builder.script.GsonElem;
 import com.google.gson.JsonObject;
 import domain.eSyssize;
 import common.UCom;
@@ -20,13 +22,13 @@ public class ElemCross extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
 
-    public ElemCross(AreaSimple owner, Type type, float id, JsonObject param) {
+    public ElemCross(AreaSimple owner, GsonElem gson) {
 
-        super(id, owner.winc, owner);
+        super(gson.id(), owner.winc, owner, gson);
         this.layout = (owner.layout == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
-        this.type = type;
+        this.type = gson.type();
 
-        initСonstructiv(param);
+        initСonstructiv(gson.param());
         setLocation();
     }
 

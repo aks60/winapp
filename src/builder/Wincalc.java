@@ -157,18 +157,18 @@ public class Wincalc {
                     hm.put(area5e, el);
 
                 } else if (Type.AREA == el.type() || Type.ARCH == el.type() || Type.TRAPEZE == el.type()) {
-                    AreaSimple area5e = new AreaSimple(Wincalc.this, owner, el.id(), el.type(), el.layout(), el.width(), el.height(), -1, -1, -1, null);
+                    AreaSimple area5e = new AreaSimple(Wincalc.this, owner, el.type(), el, el.width(), el.height());
                     owner.childs.add(area5e);
                     hm.put(area5e, el);
 
                 } else if (Type.FRAME_SIDE == el.type()) {
-                    rootArea.frames.put(el.layout(), new ElemFrame(rootArea, el.id(), el.layout(), el.param()));
+                    rootArea.frames.put(el.layout(), new ElemFrame(rootArea, el));
 
                 } else if (Type.IMPOST == el.type() || Type.SHTULP == el.type() || Type.STOIKA == el.type()) {
-                    owner.childs.add(new ElemCross(owner, el.type(), el.id(), el.param()));
+                    owner.childs.add(new ElemCross(owner, el));
 
                 } else if (Type.GLASS == el.type()) {
-                    owner.childs.add(new ElemGlass(owner, el.id(), el.param()));
+                    owner.childs.add(new ElemGlass(owner, el));
                 }
             }
 

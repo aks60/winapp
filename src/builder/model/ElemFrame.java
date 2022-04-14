@@ -15,6 +15,7 @@ import enums.Type;
 import java.util.Arrays;
 import java.util.Map;
 import builder.making.Furniture;
+import builder.script.GsonElem;
 import com.google.gson.JsonObject;
 import enums.Form;
 import enums.TypeJoin;
@@ -25,8 +26,12 @@ public class ElemFrame extends ElemSimple {
 
     protected float lengthArch = 0; //длина арки 
 
-    public ElemFrame(AreaSimple owner, float id, Layout layout, JsonObject param) {
-        super(id, owner.winc, owner);
+    public ElemFrame(AreaSimple owner, GsonElem gson) {
+       this(owner, gson.id(), gson.layout(), gson.param(), gson); 
+    }
+    
+    public ElemFrame(AreaSimple owner, float id, Layout layout, JsonObject param, GsonElem gson) {
+        super(id, owner.winc, owner, gson);
         this.layout = layout;
         this.type = (Type.STVORKA == owner.type) ? Type.STVORKA_SIDE : Type.FRAME_SIDE;
         initСonstructiv(param);
