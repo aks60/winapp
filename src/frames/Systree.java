@@ -593,7 +593,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                 setText(txt14, eColor.find(winc.colorID3).getStr(eColor.name));
                 setText(txt17, df1.format(winc.rootGson.width()));
                 setText(txt22, df1.format(winc.rootGson.height()));
-                setText(txt23, df1.format(winc.rootGson.heightAdd));
+                setText(txt23, df1.format(winc.rootGson.heightAdd()));
                 txt23.setEditable(winNode.com5t().type == enums.Type.ARCH);
 
                 //Параметры

@@ -117,7 +117,7 @@ public class Wincalc {
             this.form = Form.NUM0.get(rootGson.form);
             this.width = rootGson.width();
             this.height = rootGson.height();
-            this.heightAdd = rootGson.heightAdd;
+            this.heightAdd = rootGson.heightAdd();
             this.colorID1 = rootGson.color1;
             this.colorID2 = rootGson.color2;
             this.colorID3 = rootGson.color3;

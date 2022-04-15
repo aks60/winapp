@@ -61,7 +61,7 @@ public abstract class Com5t {
         if (jso.isJsonNull()) {
             return false;
         }
-        if(jso.get(key) == null) {
+        if (jso.get(key) == null) {
             return false;
         }
         return true;
@@ -74,20 +74,6 @@ public abstract class Com5t {
         return !jso.isJsonNull();
     }
 
-//    public int param(String par, String key) {
-//
-//        if (par != null && par.isEmpty() == false && par.equals("{}") == false) {
-//            JsonObject jsonObj = new Gson().fromJson(par, JsonObject.class);
-//            if (jsonObj.get(key) == null) {
-//                return -1;
-//            } else if (jsonObj.get(key).getAsInt() == -3) {
-//                return -3;
-//            }
-//            return jsonObj.get(key).getAsInt();
-//        }
-//        return -1;
-//    }
-
     public float length() {
         ElemSimple elem5e = (ElemSimple) this;
         if (elem5e.anglHoriz == 0 || elem5e.anglHoriz == 180) {
@@ -96,6 +82,70 @@ public abstract class Com5t {
             return (y2 > y1) ? y2 - y1 : y1 - y2;
         } else {
             return (float) Math.sqrt(x2 * x2 + y2 * y2);
+        }
+    }
+
+    public void length(float v) {
+        ElemSimple elem5e = (ElemSimple) this;
+        
+        //По горизонтали
+        if (elem5e.anglHoriz == 0 || elem5e.anglHoriz == 180) {
+            if (id == root.id()) {
+                float k = v / gson.width(); //коэффициент
+                winc.rootGson.width(v);
+                winc.listSortAr.forEach(e -> {
+                    if (e.layout == Layout.HORIZ) {
+                        e.childs.forEach(e2 -> { //изменение всех по ширине
+                            e2.gson.length(k * e2.gson.length());
+                        });
+                    }
+                });
+            } else {
+                float k = v / this.gson.length(); //коэффициент
+                gson.length(v);
+                ((AreaSimple) this).childs.forEach(e -> {
+                    if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
+                        e.length(k * e.length()); //рекурсия изменение детей
+
+                    } else {
+                        ((AreaSimple) e).childs.forEach(e2 -> {
+                            if (e2.owner.layout == Layout.HORIZ && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
+                                e2.length(k * e2.length()); //рекурсия изменение детей
+                            }
+                        });
+                    }
+                });
+            }
+            
+            //По вертикали
+        } else if (elem5e.anglHoriz == 90 || elem5e.anglHoriz == 270) {
+            if (id == root.id()) {
+                float k = v / gson.height(); //коэффициент
+                winc.rootGson.height(v);
+                winc.rootGson.heightAdd(k * winc.rootGson.heightAdd());                
+                winc.listSortAr.forEach(e -> {
+                    if (e.layout == Layout.VERT) {
+                        e.childs.forEach(e2 -> { //изменение всех по ширине
+                            e2.gson.length(k * e2.gson.length());
+                        });
+                    }
+                });
+            } else {
+                float k = v / this.gson.length(); //коэффициент       
+                gson.length(v);                             
+                ((AreaSimple) this).childs.forEach(e -> {
+                    if (e.owner.layout == Layout.VERT && (e.type == Type.AREA || e.type == Type.STVORKA)) {
+                        e.length(k * e.length()); //рекурсия изменение детей
+
+                    } else {
+                        ((AreaSimple) e).childs.forEach(e2 -> {
+                            if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
+                                e2.length(k * e2.length()); //рекурсия изменение детей
+                            }
+                        });
+                    }
+                });
+            }
         }
     }
 

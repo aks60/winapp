@@ -122,6 +122,14 @@ public class GsonElem {
         return (owner.layout == Layout.HORIZ) ? length : owner.width();
     }
 
+    public float length() {
+        return this.length;
+    }
+
+    public void length(float length) {
+        this.length = length;
+    }
+
     //Приведение к целому дробных состовляющих
     public void resizUp(List<GsonScale> list, Layout layout) {
 //        float dx = 1;

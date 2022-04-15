@@ -357,7 +357,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
                 txt14.setText(eColor.find(winc.colorID3).getStr(eColor.name));
                 txt17.setText(String.valueOf(winc.rootGson.width()));
                 txt22.setText(String.valueOf(winc.rootGson.height()));
-                txt23.setText(String.valueOf(winc.rootGson.heightAdd));
+                txt23.setText(String.valueOf(winc.rootGson.heightAdd()));
                 txt23.setEditable(winNode.com5t().type == enums.Type.ARCH);
 
                 //Параметры
