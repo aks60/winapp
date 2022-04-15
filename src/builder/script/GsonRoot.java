@@ -117,6 +117,7 @@ public class GsonRoot extends GsonElem {
         return nuni;
     }
 
+    @Deprecated
     public List<GsonScale> lineArea(Wincalc winc, Layout layout) {
         Set<GsonElem> set1 = new LinkedHashSet(), set2 = new LinkedHashSet();
         Set<GsonScale> setOut = new LinkedHashSet();
@@ -134,6 +135,7 @@ public class GsonRoot extends GsonElem {
         return new ArrayList(setOut);
     }
 
+    @Deprecated
     public void lineArea(Set<GsonElem> set, GsonElem elem, Layout layout) {
         for (int i = 0; i < elem.childs.size(); ++i) {
             GsonElem elem2 = elem.childs.get(i);

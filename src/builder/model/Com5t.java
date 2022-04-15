@@ -105,12 +105,12 @@ public abstract class Com5t {
                 gson.length(v);
                 ((AreaSimple) this).childs.forEach(e -> {
                     if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
-                        e.length(k * e.length()); //рекурсия изменение детей
+                        e.length(k * e.length()); //рекурсия изменения детей
 
                     } else {
                         ((AreaSimple) e).childs.forEach(e2 -> {
                             if (e2.owner.layout == Layout.HORIZ && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
-                                e2.length(k * e2.length()); //рекурсия изменение детей
+                                e2.length(k * e2.length()); //рекурсия изменения детей
                             }
                         });
                     }
@@ -135,12 +135,12 @@ public abstract class Com5t {
                 gson.length(v);                             
                 ((AreaSimple) this).childs.forEach(e -> {
                     if (e.owner.layout == Layout.VERT && (e.type == Type.AREA || e.type == Type.STVORKA)) {
-                        e.length(k * e.length()); //рекурсия изменение детей
+                        e.length(k * e.length()); //рекурсия изменения детей
 
                     } else {
                         ((AreaSimple) e).childs.forEach(e2 -> {
                             if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
-                                e2.length(k * e2.length()); //рекурсия изменение детей
+                                e2.length(k * e2.length()); //рекурсия изменения детей
                             }
                         });
                     }

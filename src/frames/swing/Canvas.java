@@ -3,19 +3,16 @@ package frames.swing;
 import builder.Wincalc;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
-import builder.script.GsonElem;
-import common.UCom;
+import common.listener.ListenerFrame;
 import enums.Layout;
 import enums.Type;
-import common.listener.ListenerFrame;
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -90,6 +87,22 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
         }
     }
 
+    public List<ElemSimple> lineCross(Com5t cross) {
+        ArrayList arrArea = new ArrayList();
+        winc.listSortEl.forEach(imp -> {
+            if (imp.id() == cross.id()) {
+                List<Com5t> areaList = ((ElemSimple) imp).owner.childs;
+                for (int i = 0; i < areaList.size(); ++i) {
+                    if (areaList.get(i).id() == cross.id()) {
+                        arrArea.add(areaList.get(i - 1));
+                        arrArea.add(areaList.get(i + 1));
+                    }
+                }
+            }
+        });
+        return arrArea;
+    }
+
     //@Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -129,8 +142,42 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Canvas.this.mouseClicked(evt);
+            }
+        });
         setLayout(new java.awt.BorderLayout());
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClicked
+        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+            //System.out.println("double clicked");
+        } else {
+
+            //Если клик не на конструкции
+            if (winc.rootArea.inside(evt.getX(), evt.getY()) == false) {
+//        product.scale_new_input('HORIZ', [winCalc.root]);
+//        product.scale_new_input('VERT', [winCalc.root]);
+//        $('#scale-hor input').css('color', 'rgb(0, 0, 0)');
+//        $('#scale-ver input').css('color', 'rgb(0, 0, 0)');
+
+            } else { //На конструкции
+                winc.listSortEl.forEach((e) -> {
+                    if (e.type == Type.IMPOST || e.type == Type.SHTULP || e.type == Type.STOIKA) {
+                        if (e.inside(evt.getX(), evt.getY())) {
+                            List<ElemSimple> m = lineCross(e);
+                            if (e.layout == Layout.HORIZ) {
+                                //product.scale_new_input('VERT', m.reverse());
+                            } else {
+                                //product.scale_new_input('HORIZ', m);
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    }//GEN-LAST:event_mouseClicked
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
