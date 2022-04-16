@@ -111,33 +111,33 @@ public class Scene extends javax.swing.JPanel {
 
     //Рисуем на panWest
     private void paintVertical(Graphics gc) {
-//        if (winc != null) {
-//            Graphics2D g = (Graphics2D) gc;
-//            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
-//            float dh = 0, curY = 2;
-//            for (GsonScale gson : lineVert) {
-//                if (gson.elem().owner() != null && gson.elem().owner().type() == Type.STVORKA) {
-//                    dh = winc.listSortAr.stream().filter(it -> it.id() == gson.elem().owner().id()).findFirst().get().y1();
-//                }
-//                if (gson == lineVert.get(lineVert.size() - 1)) {
-//                    dh = -1 * dh;
-//                }
-//                float dy = (float) ((gson.height() + dh) * winc.scale);
-//                g.drawLine(0, (int) (curY + dy), 8, (int) (curY + dy));
-//                g.setColor(gson.color);
-//                int dw = g.getFontMetrics().stringWidth(df1.format(gson.height()));
-//                g.rotate(Math.toRadians(-90), 10, curY + dy - dy / 2 + dw / 2);
-//                g.drawString(df1.format(gson.height() + dh), 10, curY + dy - dy / 2 + dw / 2);
-//                g.rotate(Math.toRadians(90), 10, curY + dy - dy / 2 + dw / 2);
-//                curY = curY + dy;
-//            }
-//            g.setColor(GsonScale.BLACK);
-//            g.drawLine(0, 2, 8, 2);
-//
-//        } else {
-//            gc.setColor(getBackground());
-//            gc.fillRect(0, 0, panWest.getWidth(), panWest.getHeight());
-//        }
+        if (winc != null) {
+            Graphics2D g = (Graphics2D) gc;
+            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
+            float dh = 0, curY = 2;
+            for (GsonScale gson : lineVert) {
+                if (gson.elem().owner() != null && gson.elem().owner().type() == Type.STVORKA) {
+                    dh = winc.listSortAr.stream().filter(it -> it.id() == gson.elem().owner().id()).findFirst().get().y1();
+                }
+                if (gson == lineVert.get(lineVert.size() - 1)) {
+                    dh = -1 * dh;
+                }
+                float dy = (float) ((gson.height() + dh) * winc.scale);
+                g.drawLine(0, (int) (curY + dy), 8, (int) (curY + dy));
+                g.setColor(gson.color);
+                int dw = g.getFontMetrics().stringWidth(df1.format(gson.height()));
+                g.rotate(Math.toRadians(-90), 10, curY + dy - dy / 2 + dw / 2);
+                g.drawString(df1.format(gson.height() + dh), 10, curY + dy - dy / 2 + dw / 2);
+                g.rotate(Math.toRadians(90), 10, curY + dy - dy / 2 + dw / 2);
+                curY = curY + dy;
+            }
+            g.setColor(GsonScale.BLACK);
+            g.drawLine(0, 2, 8, 2);
+
+        } else {
+            gc.setColor(getBackground());
+            gc.fillRect(0, 0, panWest.getWidth(), panWest.getHeight());
+        }
     }
 
     // 1 - изменение, 2 - перераспределение
@@ -312,128 +312,128 @@ public class Scene extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panWestClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panWestClicked
-//        lineHoriz.forEach(it -> it.color = GsonScale.BLACK);
-//        lineVert.forEach(it -> {
-//            if (it.color == GsonScale.BLACK) {
-//                it.color = GsonScale.GRAY;
-//            }
-//        });
-//        float val_old = 0;
-//        for (GsonScale elem : lineVert) {
-//            float val = (float) (evt.getY() / winc.scale);
-//            if (val_old < val && val < val_old + elem.height()) {
-//
-//                if (elem.color == GsonScale.GRAY) {
-//                    elem.color = GsonScale.CHANGE;
-//                } else if (elem.color == GsonScale.CHANGE) {
-//                    elem.color = GsonScale.ADJUST;
-//                } else if (elem.color == GsonScale.ADJUST) {
-//                    elem.color = GsonScale.GRAY;
-//                }
-//                panSouth.repaint();
-//                panWest.repaint();
-//                break;
-//            }
-//            val_old += elem.height();
-//        }
+        lineHoriz.forEach(it -> it.color = GsonScale.BLACK);
+        lineVert.forEach(it -> {
+            if (it.color == GsonScale.BLACK) {
+                it.color = GsonScale.GRAY;
+            }
+        });
+        float val_old = 0;
+        for (GsonScale elem : lineVert) {
+            float val = (float) (evt.getY() / winc.scale);
+            if (val_old < val && val < val_old + elem.height()) {
+
+                if (elem.color == GsonScale.GRAY) {
+                    elem.color = GsonScale.CHANGE;
+                } else if (elem.color == GsonScale.CHANGE) {
+                    elem.color = GsonScale.ADJUST;
+                } else if (elem.color == GsonScale.ADJUST) {
+                    elem.color = GsonScale.GRAY;
+                }
+                panSouth.repaint();
+                panWest.repaint();
+                break;
+            }
+            val_old += elem.height();
+        }
     }//GEN-LAST:event_panWestClicked
 
     private void panSouthClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panSouthClicked
-//        lineVert.forEach(it -> it.color = GsonScale.BLACK);
-//        lineHoriz.forEach(it -> {
-//            if (it.color == GsonScale.BLACK) {
-//                it.color = GsonScale.GRAY;
-//            }
-//        });
-//        float val_old = 0;
-//        for (GsonScale elem : lineHoriz) {
-//            float val = (float) ((evt.getX() - 20) / winc.scale);
-//            if (val_old < val && val < val_old + elem.width()) {
-//
-//                if (elem.color == GsonScale.GRAY) {
-//                    elem.color = GsonScale.CHANGE;
-//                } else if (elem.color == GsonScale.CHANGE) {
-//                    elem.color = GsonScale.ADJUST;
-//                } else if (elem.color == GsonScale.ADJUST) {
-//                    elem.color = GsonScale.GRAY;
-//                }
-//                panSouth.repaint();
-//                panWest.repaint();
-//                break;
-//            }
-//            val_old += elem.width();
-//        }
+        lineVert.forEach(it -> it.color = GsonScale.BLACK);
+        lineHoriz.forEach(it -> {
+            if (it.color == GsonScale.BLACK) {
+                it.color = GsonScale.GRAY;
+            }
+        });
+        float val_old = 0;
+        for (GsonScale elem : lineHoriz) {
+            float val = (float) ((evt.getX() - 20) / winc.scale);
+            if (val_old < val && val < val_old + elem.width()) {
+
+                if (elem.color == GsonScale.GRAY) {
+                    elem.color = GsonScale.CHANGE;
+                } else if (elem.color == GsonScale.CHANGE) {
+                    elem.color = GsonScale.ADJUST;
+                } else if (elem.color == GsonScale.ADJUST) {
+                    elem.color = GsonScale.GRAY;
+                }
+                panSouth.repaint();
+                panWest.repaint();
+                break;
+            }
+            val_old += elem.width();
+        }
     }//GEN-LAST:event_panSouthClicked
 
     private void btn1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1Action
-//        int val = directionScaling(lineVert);
-//        if (val == 1) {//изменение
-//            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-//            winc.rootGson.resizElem(1, list, Layout.VERT);
-//            listenerGson.action(null);
-//
-//        } else if (val == 2) { //перераспределение
-//            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-//            winc.rootGson.resizElem(1, list, Layout.VERT);
-//            list = lineVert.stream().filter(el -> el.color == GsonScale.ADJUST).collect(toList());
-//            winc.rootGson.resizElem(-1, list, Layout.VERT);
-//            listenerGson.action(null);
-//        }
+        int val = directionScaling(lineVert);
+        if (val == 1) {//изменение
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            winc.rootGson.resizElem(1, list, Layout.VERT);
+            listenerGson.action(null);
+
+        } else if (val == 2) { //перераспределение
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            winc.rootGson.resizElem(1, list, Layout.VERT);
+            list = lineVert.stream().filter(el -> el.color == GsonScale.ADJUST).collect(toList());
+            winc.rootGson.resizElem(-1, list, Layout.VERT);
+            listenerGson.action(null);
+        }
     }//GEN-LAST:event_btn1Action
 
     private void btn2Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2Action
 
-//        //По горизонтпи
-//        int val = directionScaling(lineHoriz);
-//        if (val == 1) {//изменение
-//            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-//            winc.rootGson.resizElem(-1, list, Layout.HORIZ);
-//            listenerGson.action(null);
-//
-//        } else if (val == 2) { //перераспределение
-//            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-//            winc.rootGson.resizElem(-1, list, Layout.HORIZ);
-//            list = lineHoriz.stream().filter(el -> el.color == GsonScale.ADJUST).collect(toList());
-//            winc.rootGson.resizElem(1, list, Layout.HORIZ);
-//            listenerGson.action(null);
-//        }
-//
-//        //По вертикали
-//        val = directionScaling(lineVert);
-//        if (val == 1) {//изменение
-//            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-//            winc.rootGson.resizElem(-1, list, Layout.VERT);
-//            listenerGson.action(null);
-//
-//        } else if (val == 2) { //перераспределение
-//            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-//            winc.rootGson.resizElem(-1, list, Layout.VERT);
-//            list = lineVert.stream().filter(el -> el.color == GsonScale.ADJUST).collect(toList());
-//            winc.rootGson.resizElem(1, list, Layout.VERT);
-//            listenerGson.action(null);
-//        }
+        //По горизонтпи
+        int val = directionScaling(lineHoriz);
+        if (val == 1) {//изменение
+            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            winc.rootGson.resizElem(-1, list, Layout.HORIZ);
+            listenerGson.action(null);
+
+        } else if (val == 2) { //перераспределение
+            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            winc.rootGson.resizElem(-1, list, Layout.HORIZ);
+            list = lineHoriz.stream().filter(el -> el.color == GsonScale.ADJUST).collect(toList());
+            winc.rootGson.resizElem(1, list, Layout.HORIZ);
+            listenerGson.action(null);
+        }
+
+        //По вертикали
+        val = directionScaling(lineVert);
+        if (val == 1) {//изменение
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            winc.rootGson.resizElem(-1, list, Layout.VERT);
+            listenerGson.action(null);
+
+        } else if (val == 2) { //перераспределение
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            winc.rootGson.resizElem(-1, list, Layout.VERT);
+            list = lineVert.stream().filter(el -> el.color == GsonScale.ADJUST).collect(toList());
+            winc.rootGson.resizElem(1, list, Layout.VERT);
+            listenerGson.action(null);
+        }
     }//GEN-LAST:event_btn2Action
 
     private void btn3Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3Action
-//        int val = directionScaling(lineHoriz);
-//        if (val == 1) { //изменение
-//            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-//            winc.rootGson.resizElem(1, list, Layout.HORIZ);
-//            listenerGson.action(null);
-//
-//        } else if (val == 2) { //перераспределение
-//            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
-//            winc.rootGson.resizElem(1, list, Layout.HORIZ);
-//            list = lineHoriz.stream().filter(el -> el.color == GsonScale.ADJUST).collect(toList());
-//            winc.rootGson.resizElem(-1, list, Layout.HORIZ);
-//            listenerGson.action(null);
-//        }
+        int val = directionScaling(lineHoriz);
+        if (val == 1) { //изменение
+            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            winc.rootGson.resizElem(1, list, Layout.HORIZ);
+            listenerGson.action(null);
+
+        } else if (val == 2) { //перераспределение
+            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            winc.rootGson.resizElem(1, list, Layout.HORIZ);
+            list = lineHoriz.stream().filter(el -> el.color == GsonScale.ADJUST).collect(toList());
+            winc.rootGson.resizElem(-1, list, Layout.HORIZ);
+            listenerGson.action(null);
+        }
     }//GEN-LAST:event_btn3Action
 
     private void btn4Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4Action
-//        winc.rootGson.resizUp(lineHoriz, Layout.HORIZ);
-//        winc.rootGson.resizUp(lineVert, Layout.VERT);
-//        listenerGson.action(null);
+        winc.rootGson.resizUp(lineHoriz, Layout.HORIZ);
+        winc.rootGson.resizUp(lineVert, Layout.VERT);
+        listenerGson.action(null);
     }//GEN-LAST:event_btn4Action
 
     private void btnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMousePressed

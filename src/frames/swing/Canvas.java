@@ -3,12 +3,15 @@ package frames.swing;
 import builder.Wincalc;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
+import common.UCom;
 import common.listener.ListenerFrame;
 import enums.Layout;
 import enums.Type;
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -23,11 +26,11 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
 
     public Canvas() {
         initComponents();
-//        this.addMouseListener(new MouseAdapter() {
-//            public void mouseClicked(MouseEvent evt) {
-//                actionResponse(evt);
-//            }
-//        });
+        this.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                actionResponse(evt);
+            }
+        });
     }
 
     public void init(Wincalc winc) {
@@ -41,31 +44,31 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
 
     public void actionResponse(MouseEvent evt) {
 
-//        if (winc != null && winc.listSortEl != null) {
-//            winc.listSortEl.forEach(el -> el.borderColor = Color.BLACK);
-//            repaint();
-//            UCom.listSortObj(winc.listSortAr, Type.STVORKA_SIDE).forEach(el -> {
-//                if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
-//                    ((ElemSimple) el).borderColor = Color.RED;
-//                    ((ElemSimple) el).paint();
-//                    repaint();
-//                }
-//            });
-//            UCom.listSortObj(winc.listSortEl, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA).forEach(el -> {
-//                if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
-//                    ((ElemSimple) el).borderColor = Color.RED;
-//                    ((ElemSimple) el).paint();
-//                    repaint();
-//                }
-//            });
-//            UCom.listSortObj(winc.listSortEl, Type.GLASS).forEach(el -> {
-//                if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
-//                    ((ElemSimple) el).borderColor = Color.RED;
-//                    ((ElemSimple) el).paint();
-//                    repaint();
-//                }
-//            });
-//        }
+        if (winc != null && winc.listSortEl != null) {
+            winc.listSortEl.forEach(el -> el.borderColor = Color.BLACK);
+            repaint();
+            UCom.listSortObj(winc.listSortAr, Type.STVORKA_SIDE).forEach(el -> {
+                if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
+                    ((ElemSimple) el).borderColor = Color.RED;
+                    ((ElemSimple) el).paint();
+                    repaint();
+                }
+            });
+            UCom.listSortObj(winc.listSortEl, Type.FRAME_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA).forEach(el -> {
+                if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
+                    ((ElemSimple) el).borderColor = Color.RED;
+                    ((ElemSimple) el).paint();
+                    repaint();
+                }
+            });
+            UCom.listSortObj(winc.listSortEl, Type.GLASS).forEach(el -> {
+                if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
+                    ((ElemSimple) el).borderColor = Color.RED;
+                    ((ElemSimple) el).paint();
+                    repaint();
+                }
+            });
+        }
     }
 
     public void saveImage(String name, String type) {
