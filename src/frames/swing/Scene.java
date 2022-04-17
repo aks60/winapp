@@ -198,9 +198,7 @@ public class Scene extends javax.swing.JPanel {
     public void sizeLine(String dir) {
         for (GsonScale gsonScale : lineHoriz) {
             if (gsonScale.color == java.awt.Color.RED) {
-                Object obj2 = gsonScale.win().length();
-                
-                gsonScale.win().length(gsonScale.win().length() + 1);
+                gsonScale.area().lengthX(gsonScale.area().lengthX() + 1);
             }
         }
     }

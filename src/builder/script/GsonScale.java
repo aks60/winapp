@@ -14,33 +14,33 @@ public class GsonScale {
     public static Color RED = Color.RED;
 
     public Color color = Color.black;  //цвет выделения линии 
-    private AreaSimple win = null;
+    private AreaSimple area = null;
 
     public GsonScale(AreaSimple win, float id) {
-        this.win = win;
+        this.area = win;
     }
 
-    public AreaSimple win() {
-        return win;
+    public AreaSimple area() {
+        return area;
     }
 
     public GsonElem gson() {
-        return win.gson;
+        return area.gson;
     }
 
     public LinkedList<GsonElem> childs() {
-        return win.gson.childs;
+        return area.gson.childs;
     }
 
     public Layout layout() {
-        return win.gson.layout();
+        return area.gson.layout();
     }
 
     public float width() {
-        return win.gson.width();
+        return area.gson.width();
     }
 
     public float height() {
-        return win.gson.height();
+        return area.gson.height();
     }
 }

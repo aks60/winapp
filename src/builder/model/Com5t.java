@@ -85,67 +85,71 @@ public abstract class Com5t {
         }
     }
 
-    public void length(float v) {
-        ElemSimple elem5e = (ElemSimple) this;
-        
-        //По горизонтали
-        if (elem5e.anglHoriz == 0 || elem5e.anglHoriz == 180) {
-            if (id == root.id()) {
-                float k = v / gson.width(); //коэффициент
-                winc.rootGson.width(v);
-                winc.listSortAr.forEach(e -> {
-                    if (e.layout == Layout.HORIZ) {
-                        e.childs.forEach(e2 -> { //изменение всех по ширине
-                            e2.gson.length(k * e2.gson.length());
-                        });
-                    }
-                });
-            } else {
-                float k = v / this.gson.length(); //коэффициент
-                gson.length(v);
-                ((AreaSimple) this).childs.forEach(e -> {
-                    if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
-                        e.length(k * e.length()); //рекурсия изменения детей
+    public float lengthX() {
+        return (this.id == 0) ? this.gson.width() : this.gson.length();
+    }
 
-                    } else {
-                        ((AreaSimple) e).childs.forEach(e2 -> {
-                            if (e2.owner.layout == Layout.HORIZ && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
-                                e2.length(k * e2.length()); //рекурсия изменения детей
-                            }
-                        });
-                    }
-                });
-            }
-            
-            //По вертикали
-        } else if (elem5e.anglHoriz == 90 || elem5e.anglHoriz == 270) {
-            if (id == root.id()) {
-                float k = v / gson.height(); //коэффициент
-                winc.rootGson.height(v);
-                winc.rootGson.heightAdd(k * winc.rootGson.heightAdd());                
-                winc.listSortAr.forEach(e -> {
-                    if (e.layout == Layout.VERT) {
-                        e.childs.forEach(e2 -> { //изменение всех по ширине
-                            e2.gson.length(k * e2.gson.length());
-                        });
-                    }
-                });
-            } else {
-                float k = v / this.gson.length(); //коэффициент       
-                gson.length(v);                             
-                ((AreaSimple) this).childs.forEach(e -> {
-                    if (e.owner.layout == Layout.VERT && (e.type == Type.AREA || e.type == Type.STVORKA)) {
-                        e.length(k * e.length()); //рекурсия изменения детей
+    public float lengthY() {
+        return (this.id == 0) ? this.gson.height() : this.gson.length();
+    }
 
-                    } else {
-                        ((AreaSimple) e).childs.forEach(e2 -> {
-                            if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
-                                e2.length(k * e2.length()); //рекурсия изменения детей
-                            }
-                        });
-                    }
-                });
-            }
+    public void lengthX(float v) {
+
+        if (this.id == 0) {
+            float k = v / gson.width(); //коэффициент
+            winc.rootGson.width(v);
+            winc.listSortAr.forEach(e -> {
+                if (e.owner.layout == Layout.HORIZ) {
+                    e.childs.forEach(e2 -> { //изменение всех по ширине
+                        e2.gson.length(k * e2.lengthX());
+                    });
+                }
+            });
+        } else {
+//            float k = v / this.lengthX(); //коэффициент
+//            lengthX(v);
+//            ((AreaSimple) this).childs.forEach(e -> {
+//                if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
+//                    e.lengthX(k * e.lengthX()); //рекурсия изменения детей
+//
+//                } else {
+//                    ((AreaSimple) e).childs.forEach(e2 -> {
+//                        if (e2.owner.layout == Layout.HORIZ && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
+//                            e2.lengthX(k * e2.lengthX()); //рекурсия изменения детей
+//                        }
+//                    });
+//                }
+//            });
+        }
+    }
+
+    public void lengthY(float v) {
+        if (this.id == 0) {
+            float k = v / gson.height(); //коэффициент
+            winc.rootGson.height(v);
+            winc.rootGson.heightAdd(k * winc.rootGson.heightAdd());
+            winc.listSortAr.forEach(e -> {
+                if (e.layout == Layout.VERT) {
+                    e.childs.forEach(e2 -> { //изменение всех по ширине
+                        e2.gson.length(k * e2.gson.length());
+                    });
+                }
+            });
+        } else {
+            float k = v / this.lengthY(); //коэффициент       
+            lengthY(v);
+            ((AreaSimple) this).childs.forEach(e -> {
+                if (e.owner.layout == Layout.VERT && (e.type == Type.AREA || e.type == Type.STVORKA)) {
+                    e.lengthY(k * e.lengthY()); //рекурсия изменения детей
+
+                } else {
+                    ((AreaSimple) e).childs.forEach(e2 -> {
+                        if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
+                            e2.lengthY(k * e2.lengthY()); //рекурсия изменения детей
+                        }
+                    });
+                }
+            });
         }
     }
 
