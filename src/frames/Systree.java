@@ -3529,7 +3529,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_colorFromGlass
 
     private void btnResiz(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResiz
-        // TODO add your handling code here:
+       scene.sizeLine("+");
     }//GEN-LAST:event_btnResiz
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

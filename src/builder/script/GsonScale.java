@@ -11,6 +11,7 @@ public class GsonScale {
     public static Color GRAY = Color.GRAY;
     public static Color CHANGE = Color.BLUE;
     public static Color ADJUST = Color.MAGENTA;
+    public static Color RED = Color.RED;
 
     public Color color = Color.black;  //цвет выделения линии 
     private AreaSimple win = null;
@@ -19,7 +20,11 @@ public class GsonScale {
         this.win = win;
     }
 
-    public GsonElem elem() {
+    public AreaSimple win() {
+        return win;
+    }
+
+    public GsonElem gson() {
         return win.gson;
     }
 
@@ -38,5 +43,4 @@ public class GsonScale {
     public float height() {
         return win.gson.height();
     }
-
 }
