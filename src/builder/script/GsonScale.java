@@ -1,6 +1,6 @@
 package builder.script;
 
-import builder.Wincalc;
+import builder.model.AreaSimple;
 import enums.Layout;
 import java.awt.Color;
 import java.util.LinkedList;
@@ -13,32 +13,30 @@ public class GsonScale {
     public static Color ADJUST = Color.MAGENTA;
 
     public Color color = Color.black;  //цвет выделения линии 
-    public float id = -1;
-    private Wincalc winc = null;
+    private AreaSimple win = null;
 
-    public GsonScale(Wincalc winc, float id) {
-        this.winc = winc;
-        this.id = id;
+    public GsonScale(AreaSimple win, float id) {
+        this.win = win;
     }
 
     public GsonElem elem() {
-        return winc.rootGson.find(id);
+        return win.gson;
     }
 
     public LinkedList<GsonElem> childs() {
-        return winc.rootGson.find(id).childs;
+        return win.gson.childs;
     }
 
     public Layout layout() {
-        return winc.rootGson.find(id).layout();
+        return win.gson.layout();
     }
 
     public float width() {
-        return winc.rootGson.find(id).width();
+        return win.gson.width();
     }
 
     public float height() {
-        return winc.rootGson.find(id).height();
+        return win.gson.height();
     }
 
 }

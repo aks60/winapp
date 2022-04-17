@@ -1,8 +1,9 @@
 package frames.swing;
 
 import builder.Wincalc;
-import builder.model.AreaStvorka;
+import builder.model.AreaSimple;
 import builder.model.Com5t;
+import builder.model.ElemSimple;
 import builder.script.GsonScale;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 import javax.swing.JButton;
@@ -28,8 +31,8 @@ public class Scene extends javax.swing.JPanel {
     private DecimalFormat df1 = new DecimalFormat("#0.#");
     private Wincalc winc = null;
     private Canvas canvas = null;
-    public List<GsonScale> lineHoriz = null;
-    public List<GsonScale> lineVert = null;
+    public List<GsonScale> lineHoriz = new ArrayList();
+    public List<GsonScale> lineVert = new ArrayList();
 
     private Timer timer = new Timer(160, new ActionListener() {
 
@@ -61,11 +64,32 @@ public class Scene extends javax.swing.JPanel {
         add(canvas, java.awt.BorderLayout.CENTER);
         this.canvas.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                if (winc != null) {
-                    lineHoriz.forEach(it -> it.color = GsonScale.BLACK);
-                    lineVert.forEach(it -> it.color = GsonScale.BLACK);
-                    draw();
+
+                //Если клик не на конструкции
+                if (winc.rootArea.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale) == false) {
+                    lineHoriz = Arrays.asList(new GsonScale(winc.rootArea, winc.rootArea.id()));
+                    lineVert = Arrays.asList(new GsonScale(winc.rootArea, winc.rootArea.id()));
+                    
+                } else { //На конструкции
+                    for (ElemSimple crs : winc.listSortEl) {
+                        if (Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type)
+                                && crs.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale)) {
+                            List<Com5t> areaList = ((ElemSimple) crs).owner.childs;
+                            for (int i = 0; i < areaList.size(); ++i) {
+                                if (areaList.get(i).id() == crs.id()) {
+                                    if (crs.layout == Layout.HORIZ) {
+                                        lineVert = Arrays.asList(new GsonScale((AreaSimple) areaList.get(i - 1), areaList.get(i - 1).id()),
+                                                new GsonScale((AreaSimple) areaList.get(i + 1), areaList.get(i + 1).id()));
+                                    } else {
+                                        lineHoriz = Arrays.asList(new GsonScale((AreaSimple) areaList.get(i - 1), areaList.get(i - 1).id()),
+                                                new GsonScale((AreaSimple) areaList.get(i + 1), areaList.get(i + 1).id()));
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
+                draw();
             }
         });
     }
@@ -73,15 +97,15 @@ public class Scene extends javax.swing.JPanel {
     public void init(Wincalc winc) {
         this.winc = winc;
         if (winc != null) {
-            lineHoriz = winc.rootGson.lineArea(winc, Layout.HORIZ);
-            lineVert = winc.rootGson.lineArea(winc, Layout.VERT);
+            lineHoriz = Arrays.asList(new GsonScale(winc.rootArea, winc.rootArea.id()));
+            lineVert = Arrays.asList(new GsonScale(winc.rootArea, winc.rootArea.id()));
         }
         canvas.init(winc);
     }
 
     public void draw() {
-//        panSouth.repaint();
-//        panWest.repaint();
+        panSouth.repaint();
+        panWest.repaint();
     }
 
     //Рисуем на panSouth
@@ -93,7 +117,6 @@ public class Scene extends javax.swing.JPanel {
             int curX = 20;
             for (GsonScale elem : lineHoriz) {
                 int dx = (int) (elem.width() * winc.scale);
-                //g.translate(Com5t.TRANSLATE_XY, 0);
                 g.drawLine(curX + dx, 10, curX + dx, 18);
                 g.setColor(elem.color);
                 int dw = g.getFontMetrics().stringWidth(df1.format(elem.width()));
@@ -172,6 +195,10 @@ public class Scene extends javax.swing.JPanel {
         }
     }
 
+    public void sizeLisne() {
+        
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
