@@ -201,6 +201,7 @@ public class Scene extends javax.swing.JPanel {
                 gsonScale.area().lengthX(gsonScale.area().lengthX() + 1);
             }
         }
+        draw();
     }
 
     @SuppressWarnings("unchecked")

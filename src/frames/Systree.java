@@ -127,9 +127,8 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         loadingModel();
         listenerAdd();
         listenerSet();
-        
         //spinner.
-;
+        ;
     }
 
     public Systree(int artiklID) {
@@ -513,7 +512,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
         listenerParam2 = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
-            qSyspar2.set(record.getStr(eParams.text), UGui.getIndexRec(tab4), eSyspar1.text);            
+            qSyspar2.set(record.getStr(eParams.text), UGui.getIndexRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
@@ -694,7 +693,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
                     lab57.setIcon(UColor.iconFromTypeJoin2(ej3.type.id));
                 }
             } else {
-               ((CardLayout) pan7.getLayout()).show(pan7, "card18"); 
+                ((CardLayout) pan7.getLayout()).show(pan7, "card18");
             }
             lab2.setText("ID = " + winNode.com5t().id());
             Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
@@ -3529,7 +3528,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_colorFromGlass
 
     private void btnResiz(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResiz
-       scene.sizeLine("+");
+        scene.sizeLine("+");
+        canvas.draw();
+        scene.draw();
     }//GEN-LAST:event_btnResiz
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

@@ -99,9 +99,11 @@ public abstract class Com5t {
             float k = v / gson.width(); //коэффициент
             winc.rootGson.width(v);
             winc.listSortAr.forEach(e -> {
-                if (e.owner.layout == Layout.HORIZ) {
+                if (e.layout == Layout.HORIZ) {
                     e.childs.forEach(e2 -> { //изменение всех по ширине
-                        e2.gson.length(k * e2.lengthX());
+                        if (e2.type == Type.AREA || e2.type == Type.ARCH || e2.type == Type.TRAPEZE || e2.type == Type.TRIANGL) {
+                            e2.gson.length(k * e2.gson.length());
+                        }
                     });
                 }
             });
