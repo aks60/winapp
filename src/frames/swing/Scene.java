@@ -108,6 +108,9 @@ public class Scene extends javax.swing.JPanel {
         panWest.repaint();
     }
 
+    public Wincalc winc() {
+        return winc;
+    }
     //Рисуем на panSouth
     private void paintHorizontal(Graphics gc) {
         if (winc != null) {
@@ -198,10 +201,11 @@ public class Scene extends javax.swing.JPanel {
     public void sizeLine(String dir) {
         for (GsonScale gsonScale : lineHoriz) {
             if (gsonScale.color == java.awt.Color.RED) {
-                gsonScale.area().lengthX(gsonScale.area().lengthX() + 1);
+                //System.out.println(gsonScale.area().lengthX());
+                gsonScale.area().lengthX(gsonScale.area().lengthX() + 80);
+                //System.out.println(gsonScale.area().lengthX());
             }
         }
-        draw();
     }
 
     @SuppressWarnings("unchecked")

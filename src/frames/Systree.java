@@ -3027,7 +3027,9 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        Wincalc winc = scene.winc();
+        String script = gson.toJson(winc.rootGson);
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -3529,8 +3531,27 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     private void btnResiz(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResiz
         scene.sizeLine("+");
+        Wincalc win = scene.winc();
+        String script = gson.toJson(win.rootGson);
+        win.build(script);
+        //win.imageIcon = Canvas.createIcon(win, 68);
         canvas.draw();
         scene.draw();
+
+//        Wincalc win = winc();
+//        int index = UGui.getIndexRec(tab5);
+//        if (index != -1) {
+//            String script = gson.toJson(win.rootGson);
+//            win.build(script);
+//            //win.imageIcon = Canvas.createIcon(win, 68);
+//            Record sysprodRec = qSysprod.get(index);
+//            sysprodRec.set(eSysprod.script, script);
+//            sysprodRec.set(eSysprod.values().length, win);
+//            canvas.draw();
+//            scene.draw();
+//            selectionWinTree();
+//            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
+//        }
     }//GEN-LAST:event_btnResiz
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
