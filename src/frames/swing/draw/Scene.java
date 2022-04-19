@@ -118,17 +118,17 @@ public class Scene extends javax.swing.JPanel {
             Graphics2D g = (Graphics2D) gc;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, resizeFont()));
             float sum = 0;
-            int curX = 20;
+            int curX = 16;
             for (Scale elem : lineHoriz) {
                 int dx = (int) (elem.width() * winc.scale);
-                g.drawLine(curX + dx, 10, curX + dx, 18);
+                g.drawLine(curX + dx, 6, curX + dx, 12);
                 g.setColor(elem.color);
                 int dw = g.getFontMetrics().stringWidth(df1.format(elem.width()));
-                g.drawString(df1.format(elem.width()), curX + dx - dx / 2 - dw / 2, 16);
+                g.drawString(df1.format(elem.width()), curX + dx - dx / 2 - dw / 2, 12);
                 curX = curX + dx;
             }
             g.setColor(Color.BLACK);
-            g.drawLine(20, 10, 20, 18);
+            g.drawLine(16, 6, 16, 12);
 
         } else {
             gc.setColor(getBackground());
@@ -218,7 +218,6 @@ public class Scene extends javax.swing.JPanel {
                 paintHorizontal(g);
             }
         };
-        panEast = new javax.swing.JPanel();
         panWest = new javax.swing.JPanel(){
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -228,10 +227,9 @@ public class Scene extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        panSouth.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(0, 0, 0)));
-        panSouth.setMinimumSize(new java.awt.Dimension(4, 18));
+        panSouth.setMinimumSize(new java.awt.Dimension(4, 14));
         panSouth.setName(""); // NOI18N
-        panSouth.setPreferredSize(new java.awt.Dimension(4, 18));
+        panSouth.setPreferredSize(new java.awt.Dimension(4, 14));
         panSouth.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panSouthClicked(evt);
@@ -240,13 +238,8 @@ public class Scene extends javax.swing.JPanel {
         panSouth.setLayout(new java.awt.BorderLayout());
         add(panSouth, java.awt.BorderLayout.SOUTH);
 
-        panEast.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
-        panEast.setMinimumSize(new java.awt.Dimension(2, 10));
-        panEast.setPreferredSize(new java.awt.Dimension(2, 10));
-        add(panEast, java.awt.BorderLayout.EAST);
-
-        panWest.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 0, new java.awt.Color(0, 0, 0)));
-        panWest.setPreferredSize(new java.awt.Dimension(18, 10));
+        panWest.setMinimumSize(new java.awt.Dimension(14, 10));
+        panWest.setPreferredSize(new java.awt.Dimension(14, 10));
         panWest.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panWestClicked(evt);
@@ -287,7 +280,6 @@ public class Scene extends javax.swing.JPanel {
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel panEast;
     private javax.swing.JPanel panSouth;
     private javax.swing.JPanel panWest;
     // End of variables declaration//GEN-END:variables
