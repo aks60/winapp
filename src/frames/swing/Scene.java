@@ -23,6 +23,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import javax.swing.JButton;
 import javax.swing.Timer;
+import java.awt.Color;
 
 public class Scene extends javax.swing.JPanel {
 
@@ -67,8 +68,8 @@ public class Scene extends javax.swing.JPanel {
 
                 //Если клик не на конструкции
                 if (winc.rootArea.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale) == false) {
-                    lineHoriz = Arrays.asList(new GsonScale(winc.rootArea, winc.rootArea.id()));
-                    lineVert = Arrays.asList(new GsonScale(winc.rootArea, winc.rootArea.id()));
+                    lineHoriz = Arrays.asList(new GsonScale(winc.rootArea));
+                    lineVert = Arrays.asList(new GsonScale(winc.rootArea));
 
                 } else { //На конструкции
                     for (ElemSimple crs : winc.listSortEl) {
@@ -78,11 +79,9 @@ public class Scene extends javax.swing.JPanel {
                             for (int i = 0; i < areaList.size(); ++i) {
                                 if (areaList.get(i).id() == crs.id()) {
                                     if (crs.layout == Layout.HORIZ) {
-                                        lineVert = Arrays.asList(new GsonScale((AreaSimple) areaList.get(i - 1), areaList.get(i - 1).id()),
-                                                new GsonScale((AreaSimple) areaList.get(i + 1), areaList.get(i + 1).id()));
+                                        lineVert = Arrays.asList(new GsonScale((AreaSimple) areaList.get(i - 1)), new GsonScale((AreaSimple) areaList.get(i + 1)));
                                     } else {
-                                        lineHoriz = Arrays.asList(new GsonScale((AreaSimple) areaList.get(i - 1), areaList.get(i - 1).id()),
-                                                new GsonScale((AreaSimple) areaList.get(i + 1), areaList.get(i + 1).id()));
+                                        lineHoriz = Arrays.asList(new GsonScale((AreaSimple) areaList.get(i - 1)), new GsonScale((AreaSimple) areaList.get(i + 1)));
                                     }
                                 }
                             }
@@ -97,8 +96,8 @@ public class Scene extends javax.swing.JPanel {
     public void init(Wincalc winc) {
         this.winc = winc;
         if (winc != null) {
-            lineHoriz = Arrays.asList(new GsonScale(winc.rootArea, winc.rootArea.id()));
-            lineVert = Arrays.asList(new GsonScale(winc.rootArea, winc.rootArea.id()));
+            lineHoriz = Arrays.asList(new GsonScale(winc.rootArea));
+            lineVert = Arrays.asList(new GsonScale(winc.rootArea));
         }
         canvas.init(winc);
     }
@@ -111,11 +110,12 @@ public class Scene extends javax.swing.JPanel {
     public Wincalc winc() {
         return winc;
     }
+
     //Рисуем на panSouth
     private void paintHorizontal(Graphics gc) {
         if (winc != null) {
             Graphics2D g = (Graphics2D) gc;
-            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
+            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, resizeFont()));
             float sum = 0;
             int curX = 20;
             for (GsonScale elem : lineHoriz) {
@@ -126,7 +126,7 @@ public class Scene extends javax.swing.JPanel {
                 g.drawString(df1.format(elem.width()), curX + dx - dx / 2 - dw / 2, 16);
                 curX = curX + dx;
             }
-            g.setColor(GsonScale.BLACK);
+            g.setColor(Color.BLACK);
             g.drawLine(20, 10, 20, 18);
 
         } else {
@@ -139,7 +139,7 @@ public class Scene extends javax.swing.JPanel {
     private void paintVertical(Graphics gc) {
         if (winc != null) {
             Graphics2D g = (Graphics2D) gc;
-            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, sizeFont()));
+            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, resizeFont()));
             float dh = 0, curY = 2;
             for (GsonScale gson : lineVert) {
                 if (gson.gson().owner() != null && gson.gson().owner().type() == Type.STVORKA) {
@@ -157,7 +157,7 @@ public class Scene extends javax.swing.JPanel {
                 g.rotate(Math.toRadians(90), 10, curY + dy - dy / 2 + dw / 2);
                 curY = curY + dy;
             }
-            g.setColor(GsonScale.BLACK);
+            g.setColor(Color.BLACK);
             g.drawLine(0, 2, 8, 2);
 
         } else {
@@ -168,8 +168,8 @@ public class Scene extends javax.swing.JPanel {
 
     // 1 - изменение, 2 - перераспределение
     private int directionScaling(List<GsonScale> list) {
-        boolean change = list.stream().anyMatch(el -> el.color == GsonScale.CHANGE); //цвет на изменение
-        boolean adjust = list.stream().anyMatch(el -> el.color == GsonScale.ADJUST); //цвет на коррецию
+        boolean change = list.stream().anyMatch(el -> el.color == Color.BLUE); //цвет на изменение
+        boolean adjust = list.stream().anyMatch(el -> el.color == Color.MAGENTA); //цвет на коррецию
         if (change == false && adjust == false) {
             return 0;
         } else {
@@ -184,7 +184,7 @@ public class Scene extends javax.swing.JPanel {
         }
     }
 
-    private int sizeFont() {
+    private int resizeFont() {
         if (winc.scale > .18) {
             return 12;
         } else if (winc.scale > .16) {
@@ -198,14 +198,13 @@ public class Scene extends javax.swing.JPanel {
         }
     }
 
-    public void sizeLine(String dir) {
+    public void resizeLine(String dir) {
         for (GsonScale gsonScale : lineHoriz) {
             if (gsonScale.color == java.awt.Color.RED) {
-                //System.out.println(gsonScale.area().lengthX());
-                gsonScale.area().lengthX(gsonScale.area().lengthX() + 80);
-                //System.out.println(gsonScale.area().lengthX());
+                gsonScale.area().lengthX(gsonScale.area().lengthX() + 1);
             }
         }
+        listenerGson.action(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -349,10 +348,10 @@ public class Scene extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panWestClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panWestClicked
-        lineHoriz.forEach(it -> it.color = GsonScale.BLACK);
+        lineHoriz.forEach(it -> it.color = Color.BLACK);
         lineVert.forEach(it -> {
-            if (it.color == GsonScale.BLACK) {
-                it.color = GsonScale.GRAY;
+            if (it.color == Color.BLACK) {
+                it.color = Color.GRAY;
             }
         });
         float val_old = 0;
@@ -360,12 +359,12 @@ public class Scene extends javax.swing.JPanel {
             float val = (float) (evt.getY() / winc.scale);
             if (val_old < val && val < val_old + elem.height()) {
 
-                if (elem.color == GsonScale.GRAY) {
-                    elem.color = GsonScale.CHANGE;
-                } else if (elem.color == GsonScale.CHANGE) {
-                    elem.color = GsonScale.ADJUST;
-                } else if (elem.color == GsonScale.ADJUST) {
-                    elem.color = GsonScale.GRAY;
+                if (elem.color == Color.GRAY) {
+                    elem.color = Color.BLUE;
+                } else if (elem.color == Color.BLUE) {
+                    elem.color = Color.MAGENTA;
+                } else if (elem.color == Color.MAGENTA) {
+                    elem.color = Color.GRAY;
                 }
                 panSouth.repaint();
                 panWest.repaint();
@@ -377,8 +376,8 @@ public class Scene extends javax.swing.JPanel {
 
     private void panSouthClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panSouthClicked
         float val_old = 0;
-        lineVert.forEach(it -> it.color = GsonScale.BLACK);
-        lineHoriz.forEach(it -> it.color = GsonScale.BLACK);
+        lineVert.forEach(it -> it.color = Color.BLACK);
+        lineHoriz.forEach(it -> it.color = Color.BLACK);
 
         for (GsonScale elem : lineHoriz) {
             float val = (float) ((evt.getX() - 20) / winc.scale);
@@ -416,14 +415,14 @@ public class Scene extends javax.swing.JPanel {
     private void btn1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1Action
         int val = directionScaling(lineVert);
         if (val == 1) {//изменение
-            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == Color.BLUE).collect(toList());
             winc.rootGson.resizElem(1, list, Layout.VERT);
             listenerGson.action(null);
 
         } else if (val == 2) { //перераспределение
-            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == Color.BLUE).collect(toList());
             winc.rootGson.resizElem(1, list, Layout.VERT);
-            list = lineVert.stream().filter(el -> el.color == GsonScale.ADJUST).collect(toList());
+            list = lineVert.stream().filter(el -> el.color == Color.MAGENTA).collect(toList());
             winc.rootGson.resizElem(-1, list, Layout.VERT);
             listenerGson.action(null);
         }
@@ -434,14 +433,14 @@ public class Scene extends javax.swing.JPanel {
         //По горизонтпи
         int val = directionScaling(lineHoriz);
         if (val == 1) {//изменение
-            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == Color.BLUE).collect(toList());
             winc.rootGson.resizElem(-1, list, Layout.HORIZ);
             listenerGson.action(null);
 
         } else if (val == 2) { //перераспределение
-            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == Color.BLUE).collect(toList());
             winc.rootGson.resizElem(-1, list, Layout.HORIZ);
-            list = lineHoriz.stream().filter(el -> el.color == GsonScale.ADJUST).collect(toList());
+            list = lineHoriz.stream().filter(el -> el.color == Color.MAGENTA).collect(toList());
             winc.rootGson.resizElem(1, list, Layout.HORIZ);
             listenerGson.action(null);
         }
@@ -449,14 +448,14 @@ public class Scene extends javax.swing.JPanel {
         //По вертикали
         val = directionScaling(lineVert);
         if (val == 1) {//изменение
-            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == Color.BLUE).collect(toList());
             winc.rootGson.resizElem(-1, list, Layout.VERT);
             listenerGson.action(null);
 
         } else if (val == 2) { //перераспределение
-            List<GsonScale> list = lineVert.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            List<GsonScale> list = lineVert.stream().filter(el -> el.color == Color.BLUE).collect(toList());
             winc.rootGson.resizElem(-1, list, Layout.VERT);
-            list = lineVert.stream().filter(el -> el.color == GsonScale.ADJUST).collect(toList());
+            list = lineVert.stream().filter(el -> el.color == Color.MAGENTA).collect(toList());
             winc.rootGson.resizElem(1, list, Layout.VERT);
             listenerGson.action(null);
         }
@@ -465,14 +464,14 @@ public class Scene extends javax.swing.JPanel {
     private void btn3Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3Action
         int val = directionScaling(lineHoriz);
         if (val == 1) { //изменение
-            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == Color.BLUE).collect(toList());
             winc.rootGson.resizElem(1, list, Layout.HORIZ);
             listenerGson.action(null);
 
         } else if (val == 2) { //перераспределение
-            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == GsonScale.CHANGE).collect(toList());
+            List<GsonScale> list = lineHoriz.stream().filter(el -> el.color == Color.BLUE).collect(toList());
             winc.rootGson.resizElem(1, list, Layout.HORIZ);
-            list = lineHoriz.stream().filter(el -> el.color == GsonScale.ADJUST).collect(toList());
+            list = lineHoriz.stream().filter(el -> el.color == Color.MAGENTA).collect(toList());
             winc.rootGson.resizElem(-1, list, Layout.HORIZ);
             listenerGson.action(null);
         }

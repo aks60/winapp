@@ -126,11 +126,11 @@ public class GsonRoot extends GsonElem {
             set2.clear();
             lineArea(set2, elem, layout);
             if (set2.isEmpty()) {
-                setOut.add(new GsonScale(winc.rootArea, elem.id));
+                setOut.add(new GsonScale(winc.rootArea));
             }
         }
         if (setOut.isEmpty()) {
-            setOut.add(new GsonScale(winc.rootArea, this.id));
+            setOut.add(new GsonScale(winc.rootArea));
         }
         return new ArrayList(setOut);
     }
