@@ -15,7 +15,7 @@ import builder.Wincalc;
 import builder.script.GsonRoot;
 import com.google.gson.Gson;
 import frames.swing.DefMutableTreeNode;
-import frames.swing.Canvas;
+import frames.swing.draw.Canvas;
 import java.awt.CardLayout;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;

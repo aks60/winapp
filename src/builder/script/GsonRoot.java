@@ -1,5 +1,6 @@
 package builder.script;
 
+import frames.swing.draw.Scale;
 import builder.Wincalc;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -118,19 +119,19 @@ public class GsonRoot extends GsonElem {
     }
 
     @Deprecated
-    public List<GsonScale> lineArea(Wincalc winc, Layout layout) {
+    public List<Scale> lineArea(Wincalc winc, Layout layout) {
         Set<GsonElem> set1 = new LinkedHashSet(), set2 = new LinkedHashSet();
-        Set<GsonScale> setOut = new LinkedHashSet();
+        Set<Scale> setOut = new LinkedHashSet();
         lineArea(set1, this, layout);
         for (GsonElem elem : set1) {
             set2.clear();
             lineArea(set2, elem, layout);
             if (set2.isEmpty()) {
-                setOut.add(new GsonScale(winc.rootArea));
+                setOut.add(new Scale(winc.rootArea));
             }
         }
         if (setOut.isEmpty()) {
-            setOut.add(new GsonScale(winc.rootArea));
+            setOut.add(new Scale(winc.rootArea));
         }
         return new ArrayList(setOut);
     }

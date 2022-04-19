@@ -1,17 +1,18 @@
-package builder.script;
+package frames.swing.draw;
 
 import builder.Wincalc;
 import builder.model.AreaSimple;
+import builder.script.GsonElem;
 import enums.Layout;
 import java.awt.Color;
 import java.util.LinkedList;
 
-public class GsonScale {
+public class Scale {
 
     public Color color = Color.black;  //цвет выделения линии 
     private AreaSimple area = null;
 
-    public GsonScale(AreaSimple win) {
+    public Scale(AreaSimple win) {
         this.area = win;
     }
     

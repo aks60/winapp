@@ -1,9 +1,9 @@
-package frames.swing;
+package frames.swing.draw;
 
 import builder.Wincalc;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
-import builder.script.GsonScale;
+import frames.swing.draw.Scale;
 import common.UCom;
 import common.listener.ListenerFrame;
 import enums.Layout;

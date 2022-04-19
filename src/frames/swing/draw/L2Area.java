@@ -1,5 +1,5 @@
 //http://forums.balancer.ru/tech/forum/2005/03/t32285--zadacha-o-prinadlezhnosti-tochki-figure.html
-package frames.swing;
+package frames.swing.draw;
 import java.util.ArrayList;
 
 public class L2Area {

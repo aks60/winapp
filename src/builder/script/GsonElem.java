@@ -1,5 +1,6 @@
 package builder.script;
 
+import frames.swing.draw.Scale;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import enums.Layout;
@@ -131,7 +132,7 @@ public class GsonElem {
     }
 
     //Приведение к целому дробных состовляющих
-    public void resizUp(List<GsonScale> list, Layout layout) {
+    public void resizUp(List<Scale> list, Layout layout) {
 //        float dx = 1;
 //        GsonElem e2 = null;
 //        for (GsonScale gs : list) {
@@ -158,7 +159,7 @@ public class GsonElem {
     }
 
     //Увеличение, уменьшение размера
-    public void resizElem(float _diff, List<GsonScale> _list, Layout _layout) {
+    public void resizElem(float _diff, List<Scale> _list, Layout _layout) {
 //
 //        GsonRoot root = (GsonRoot) this;
 //        float changeSum = 0;
