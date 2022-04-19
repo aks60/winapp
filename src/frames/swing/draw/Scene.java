@@ -64,6 +64,7 @@ public class Scene extends javax.swing.JPanel {
         this.canvas = canvas;
         this.listenerGson = listenerGson;
         add(canvas, java.awt.BorderLayout.CENTER);
+        
         this.canvas.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
 
@@ -225,6 +226,7 @@ public class Scene extends javax.swing.JPanel {
             }
         };
 
+        setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         setLayout(new java.awt.BorderLayout());
 
         panHoriz.setMinimumSize(new java.awt.Dimension(4, 14));
