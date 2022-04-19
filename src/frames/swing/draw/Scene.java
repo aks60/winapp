@@ -76,13 +76,13 @@ public class Scene extends javax.swing.JPanel {
                     for (ElemSimple crs : winc.listSortEl) {
                         if (Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type)
                                 && crs.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale)) {
-                            List<Com5t> areaList = ((ElemSimple) crs).owner.childs;
-                            for (int i = 0; i < areaList.size(); ++i) {
-                                if (areaList.get(i).id() == crs.id()) {
+                            List<Com5t> areaChilds = ((ElemSimple) crs).owner.childs;
+                            for (int i = 0; i < areaChilds.size(); ++i) {
+                                if (areaChilds.get(i).id() == crs.id()) {
                                     if (crs.layout == Layout.HORIZ) {
-                                        lineVert = Arrays.asList(new Scale((AreaSimple) areaList.get(i - 1)), new Scale((AreaSimple) areaList.get(i + 1)));
+                                        lineVert = Arrays.asList(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
                                     } else {
-                                        lineHoriz = Arrays.asList(new Scale((AreaSimple) areaList.get(i - 1)), new Scale((AreaSimple) areaList.get(i + 1)));
+                                        lineHoriz = Arrays.asList(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
                                     }
                                 }
                             }
@@ -104,8 +104,8 @@ public class Scene extends javax.swing.JPanel {
     }
 
     public void draw() {
-        panSouth.repaint();
-        panWest.repaint();
+        panHoriz.repaint();
+        panWert.repaint();
     }
 
     public Wincalc winc() {
@@ -132,7 +132,7 @@ public class Scene extends javax.swing.JPanel {
 
         } else {
             gc.setColor(getBackground());
-            gc.fillRect(0, 0, panSouth.getWidth(), panSouth.getHeight());
+            gc.fillRect(0, 0, panHoriz.getWidth(), panHoriz.getHeight());
         }
     }
 
@@ -163,7 +163,7 @@ public class Scene extends javax.swing.JPanel {
 
         } else {
             gc.setColor(getBackground());
-            gc.fillRect(0, 0, panWest.getWidth(), panWest.getHeight());
+            gc.fillRect(0, 0, panWert.getWidth(), panWert.getHeight());
         }
     }
 
@@ -212,13 +212,13 @@ public class Scene extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panSouth = new javax.swing.JPanel(){
+        panHoriz = new javax.swing.JPanel(){
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 paintHorizontal(g);
             }
         };
-        panWest = new javax.swing.JPanel(){
+        panWert = new javax.swing.JPanel(){
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 paintVertical(g);
@@ -227,61 +227,65 @@ public class Scene extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        panSouth.setMinimumSize(new java.awt.Dimension(4, 14));
-        panSouth.setName(""); // NOI18N
-        panSouth.setPreferredSize(new java.awt.Dimension(4, 14));
-        panSouth.addMouseListener(new java.awt.event.MouseAdapter() {
+        panHoriz.setMinimumSize(new java.awt.Dimension(4, 14));
+        panHoriz.setName(""); // NOI18N
+        panHoriz.setPreferredSize(new java.awt.Dimension(4, 14));
+        panHoriz.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panSouthClicked(evt);
+                panHorizClicked(evt);
             }
         });
-        panSouth.setLayout(new java.awt.BorderLayout());
-        add(panSouth, java.awt.BorderLayout.SOUTH);
+        panHoriz.setLayout(new java.awt.BorderLayout());
+        add(panHoriz, java.awt.BorderLayout.SOUTH);
 
-        panWest.setMinimumSize(new java.awt.Dimension(14, 10));
-        panWest.setPreferredSize(new java.awt.Dimension(14, 10));
-        panWest.addMouseListener(new java.awt.event.MouseAdapter() {
+        panWert.setMinimumSize(new java.awt.Dimension(14, 10));
+        panWert.setPreferredSize(new java.awt.Dimension(14, 10));
+        panWert.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panWestClicked(evt);
+                panWertClicked(evt);
             }
         });
-        add(panWest, java.awt.BorderLayout.WEST);
+        add(panWert, java.awt.BorderLayout.WEST);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void panWestClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panWestClicked
-        float val_old = 0;
+    private void panWertClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panWertClicked
         lineVert.forEach(it -> it.color = Color.BLACK);
         lineHoriz.forEach(it -> it.color = Color.BLACK);
-
-        for (Scale area : lineVert) {
-            float val = (float) (evt.getY() / winc.scale);
-            if (val_old < val && val < val_old + area.width()) {
-                area.color = java.awt.Color.RED;
-                panSouth.repaint();
-                panWest.repaint();
+        float dy = 0;
+        for (Scale scale : lineVert) {
+            float Y = evt.getY();
+            double y1 = (dy + scale.area().y1()) * winc.scale;
+            double y2 = (dy + scale.area().y2()) * winc.scale;
+            if (y1 < Y && Y < y2) {
+                scale.color = java.awt.Color.RED;
+                dy += scale.area().y2();
             }
         }
-    }//GEN-LAST:event_panWestClicked
+        panHoriz.repaint();
+        panWert.repaint();
+    }//GEN-LAST:event_panWertClicked
 
-    private void panSouthClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panSouthClicked
-        float val_old = 0;
+    private void panHorizClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panHorizClicked
         lineVert.forEach(it -> it.color = Color.BLACK);
         lineHoriz.forEach(it -> it.color = Color.BLACK);
-
-        for (Scale area : lineHoriz) {
-            float val = (float) ((evt.getX() - 20) / winc.scale);
-            if (val_old < val && val < val_old + area.width()) {
-                area.color = java.awt.Color.RED;
-                panSouth.repaint();
-                panWest.repaint();
+        float dx = 0;
+        for (Scale scale : lineHoriz) {
+            float X = evt.getX() - 12;
+            double x1 = (dx + scale.area().x1()) * winc.scale;
+            double x2 = (dx + scale.area().x2()) * winc.scale;
+            if (x1 < X && X < x2) {
+                scale.color = java.awt.Color.RED;
+                dx += scale.area().x2();
             }
         }
-    }//GEN-LAST:event_panSouthClicked
+        panHoriz.repaint();
+        panWert.repaint();
+    }//GEN-LAST:event_panHorizClicked
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel panSouth;
-    private javax.swing.JPanel panWest;
+    private javax.swing.JPanel panHoriz;
+    private javax.swing.JPanel panWert;
     // End of variables declaration//GEN-END:variables
     // </editor-fold> 
 

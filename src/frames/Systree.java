@@ -3533,27 +3533,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
 
     private void btnResiz(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResiz
         scene.resizeLine("+");
-//        Wincalc win = scene.winc();
-//        String script = gson.toJson(win.rootGson);
-//        win.build(script);
-//        //win.imageIcon = Canvas.createIcon(win, 68);
-//        canvas.draw();
-//        scene.draw();
-
-//        Wincalc win = winc();
-//        int index = UGui.getIndexRec(tab5);
-//        if (index != -1) {
-//            String script = gson.toJson(win.rootGson);
-//            win.build(script);
-//            //win.imageIcon = Canvas.createIcon(win, 68);
-//            Record sysprodRec = qSysprod.get(index);
-//            sysprodRec.set(eSysprod.script, script);
-//            sysprodRec.set(eSysprod.values().length, win);
-//            canvas.draw();
-//            scene.draw();
-//            selectionWinTree();
-//            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
-//        }
     }//GEN-LAST:event_btnResiz
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
