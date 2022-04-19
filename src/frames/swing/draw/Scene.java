@@ -200,10 +200,15 @@ public class Scene extends javax.swing.JPanel {
         }
     }
 
-    public void resizeLine(String dir) {
+    public void resizeLine(float dv) {
         for (Scale gsonScale : lineHoriz) {
             if (gsonScale.color == java.awt.Color.RED) {
-                gsonScale.area().lengthX(gsonScale.area().lengthX() + 1);
+                gsonScale.area().lengthX(gsonScale.area().lengthX() + dv);
+            }
+        }
+        for (Scale gsonScale : lineVert) {
+            if (gsonScale.color == java.awt.Color.RED) {
+                gsonScale.area().lengthY(gsonScale.area().lengthY() + dv);
             }
         }
         listenerGson.action(null);

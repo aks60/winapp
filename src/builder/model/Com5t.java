@@ -108,20 +108,20 @@ public abstract class Com5t {
                 }
             });
         } else {
-//            float k = v / this.lengthX(); //коэффициент
-//            lengthX(v);
-//            ((AreaSimple) this).childs.forEach(e -> {
-//                if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
-//                    e.lengthX(k * e.lengthX()); //рекурсия изменения детей
-//
-//                } else {
-//                    ((AreaSimple) e).childs.forEach(e2 -> {
-//                        if (e2.owner.layout == Layout.HORIZ && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
-//                            e2.lengthX(k * e2.lengthX()); //рекурсия изменения детей
-//                        }
-//                    });
-//                }
-//            });
+            float k = v / this.lengthX(); //коэффициент
+            lengthX(v);
+            ((AreaSimple) this).childs.forEach(e -> {
+                if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
+                    e.lengthX(k * e.lengthX()); //рекурсия изменения детей
+
+                } else {
+                    ((AreaSimple) e).childs.forEach(e2 -> {
+                        if (e2.owner.layout == Layout.HORIZ && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
+                            e2.lengthX(k * e2.lengthX()); //рекурсия изменения детей
+                        }
+                    });
+                }
+            });
         }
     }
 
@@ -133,23 +133,30 @@ public abstract class Com5t {
             winc.listSortAr.forEach(e -> {
                 if (e.layout == Layout.VERT) {
                     e.childs.forEach(e2 -> { //изменение всех по ширине
-                        e2.gson.length(k * e2.gson.length());
+                        if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
+                            e2.gson.length(k * e2.gson.length());
+                        }
                     });
                 }
             });
         } else {
             float k = v / this.lengthY(); //коэффициент       
-            lengthY(v);
+            this.gson.length(v);
+            if (this.type == Type.ARCH || this.type == Type.TRAPEZE) {
+                this.winc.rootGson.heightAdd(this.winc.rootGson.height() - v);
+            }
             ((AreaSimple) this).childs.forEach(e -> {
                 if (e.owner.layout == Layout.VERT && (e.type == Type.AREA || e.type == Type.STVORKA)) {
                     e.lengthY(k * e.lengthY()); //рекурсия изменения детей
 
                 } else {
-                    ((AreaSimple) e).childs.forEach(e2 -> {
-                        if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
-                            e2.lengthY(k * e2.lengthY()); //рекурсия изменения детей
-                        }
-                    });
+                    if (e instanceof AreaSimple) {
+                        ((AreaSimple) e).childs.forEach(e2 -> {
+                            if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
+                                e2.lengthY(k * e2.lengthY()); //рекурсия изменения детей
+                            }
+                        });
+                    }
                 }
             });
         }
