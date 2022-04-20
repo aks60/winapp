@@ -53,7 +53,7 @@ import domain.eSystree;
 import domain.eSysuser;
 import frames.AboutBox;
 import frames.Artikles;
-import frames.Color;
+import frames.Texture;
 import frames.Currenc;
 import frames.DBCompare;
 import frames.Elements;
@@ -115,7 +115,7 @@ public enum App {
                     frame = new Groups(param);
                     break;
                 case Color:
-                    frame = new Color();
+                    frame = new Texture();
                     break;
                 case Joining:
                     if (param.length == 0) {

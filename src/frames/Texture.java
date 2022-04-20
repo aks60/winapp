@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import common.listener.ListenerRecord;
 
-public class Color extends javax.swing.JFrame {
+public class Texture extends javax.swing.JFrame {
 
     private Query qGroup1 = new Query(eGroups.values());
     private Query qGroup2 = new Query(eGroups.values());
@@ -36,7 +36,7 @@ public class Color extends javax.swing.JFrame {
     private FilterTable filterTable = null;
     private ListenerRecord listenerColor1, listenerColor2;
 
-    public Color() {
+    public Texture() {
         initComponents();
         initElements();
         listenerSet();
@@ -217,7 +217,7 @@ public class Color extends javax.swing.JFrame {
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                Color.this.windowClosed(evt);
+                Texture.this.windowClosed(evt);
             }
         });
 
@@ -388,7 +388,7 @@ public class Color extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Color.this.mousePressed(evt);
+                Texture.this.mousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -436,7 +436,7 @@ public class Color extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Color.this.mousePressed(evt);
+                Texture.this.mousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -469,7 +469,7 @@ public class Color extends javax.swing.JFrame {
         tab3.setFillsViewportHeight(true);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Color.this.mousePressed(evt);
+                Texture.this.mousePressed(evt);
             }
         });
         scr3.setViewportView(tab3);
@@ -504,7 +504,7 @@ public class Color extends javax.swing.JFrame {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Color.this.mousePressed(evt);
+                Texture.this.mousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
