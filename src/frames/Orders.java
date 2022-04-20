@@ -2704,6 +2704,7 @@ public class Orders extends javax.swing.JFrame implements ListenerObject {
 
                 ListenerRecord listenerColor = (colorRec) -> {
 
+                    GsonElem jsonElem2 = winc().rootGson.find(selectID);
                     GsonElem jsonElem = winc().rootGson.find(selectID);
                     if (jsonElem != null) {
                         if (evt.getSource() == btn9) {

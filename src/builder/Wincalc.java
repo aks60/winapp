@@ -30,6 +30,7 @@ import builder.making.Elements;
 import builder.making.Filling;
 import builder.making.Furniture;
 import builder.model.AreaDoor;
+import builder.model.Com5t;
 import builder.model.ElemFrame;
 import builder.model.ElemSimple;
 import builder.script.GsonRoot;
@@ -37,7 +38,6 @@ import builder.script.GsonElem;
 import common.ArrayList2;
 import common.LinkedList2;
 import enums.Form;
-import enums.Layout;
 import enums.Type;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -71,9 +71,9 @@ public class Wincalc {
     public Form form = Form.NUM0; //форма контура 
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
-    public LinkedList2<AreaSimple> listSortAr = new LinkedList2(); //список AreaSimple
-    public LinkedList2<ElemSimple> listSortEl = new LinkedList2(); //список ElemSimple
-    public LinkedList2<ElemSimple> listTreeEl = new LinkedList2(); //список ElemSimple
+    public LinkedList2<AreaSimple> listArea = new LinkedList2(); //список AreaSimple
+    public LinkedList2<ElemSimple> listElem = new LinkedList2(); //список ElemSimple
+    public LinkedList2<Com5t> listAll = new LinkedList2(); //список всех компонентов
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
     public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calTariffication; //объекты калькуляции конструктива
@@ -90,15 +90,15 @@ public class Wincalc {
         genId = 0;
         form = Form.NUM0;
         heightAdd = 0.f;
-        Arrays.asList((List) listSortAr, (List) listSortEl, (List) listSpec, (List) listTreeEl).forEach(el -> el.clear());
+        Arrays.asList((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
         Arrays.asList(mapPardef, mapJoin).forEach(el -> el.clear());
 
         //Парсинг входного скрипта
         parsing(productJson);
 
         rootArea.joining(); //соединения ареа
-        listSortAr.stream().filter(el -> el.type == Type.STVORKA).collect(toList()).forEach(el -> el.joining()); //соединения створок
-        listSortEl.forEach(it -> it.setSpecific()); //спецификация профилей
+        listArea.stream().filter(el -> el.type == Type.STVORKA).collect(toList()).forEach(el -> el.joining()); //соединения створок
+        listElem.forEach(it -> it.setSpecific()); //спецификация профилей
 
         return rootArea;
     }
@@ -196,7 +196,7 @@ public class Wincalc {
             calTariffication = new Tariffic(this, norm_otx); //тарификация
             calTariffication.calc();
 
-            for (ElemSimple elemRec : listSortEl) {
+            for (ElemSimple elemRec : listElem) {
                 if (elemRec.spcRec.artikl.trim().charAt(0) != '@') {
                     listSpec.add(elemRec.spcRec);
                 }

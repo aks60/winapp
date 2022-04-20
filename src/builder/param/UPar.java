@@ -24,7 +24,7 @@ class UPar {
     //Толщина внешнего/внутреннего заполнения, мм
     static List<ElemGlass> getGlassDepth(ElemSimple elem5e) {
         ElemSimple glass1 = null, glass2 = null;
-        for (ElemSimple el : elem5e.winc.listSortEl) {
+        for (ElemSimple el : elem5e.winc.listElem) {
             if (el.type == Type.GLASS) {
                 if (elem5e.layout == Layout.VERT) {
                     if (el.inside(elem5e.x1() - 200, elem5e.y1() + elem5e.height() / 2)) {
@@ -142,7 +142,7 @@ class UPar {
     //Эффективное заполнение изделия, мм 
     static boolean is_1008_11008_12008_14008_15008_31008_34008_40008(String txt, Wincalc winc) {
         float depth = 0;
-        for (ElemSimple elem : winc.listSortEl) {
+        for (ElemSimple elem : winc.listElem) {
             if (elem.type == Type.GLASS) {
                 depth = (elem.artiklRecAn.getFloat(eArtikl.depth) > depth) ? elem.artiklRecAn.getFloat(eArtikl.depth) : depth;
             }

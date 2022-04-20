@@ -19,8 +19,8 @@ public abstract class ElemSimple extends Com5t {
 
     public ElemSimple(float id, Wincalc winc, AreaSimple owner, GsonElem gson) {
         super(id, winc, owner, gson);
-        winc.listTreeEl.add(this);
-        winc.listSortEl.add(this);
+        winc.listElem.add(this);
+        winc.listAll.add(this);
         spcRec = new Specific(id, this);
     }
 
@@ -76,31 +76,33 @@ public abstract class ElemSimple extends Com5t {
     public ElemSimple joinFlat(Layout layoutSide) {
         boolean begin = false;
         try {
-            for (int index = winc.listTreeEl.size() - 1; index >= 0; --index) {
-                ElemSimple el = winc.listTreeEl.get(index);
-                if (begin == true && el.type != Type.GLASS) {
-                    if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
-                        float Y2 = (y2 > y1) ? y2 : y1;
-                        if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
-                            return (ElemSimple) el;
-                        }
-                    } else if (Layout.LEFT == layoutSide && el.layout != Layout.HORIZ) {
-                        if (el.inside(x1, y1 + (y2 - y1) / 2) == true) {
-                            return (ElemSimple) el;
-                        }
-                    } else if (Layout.TOP == layoutSide && el.layout != Layout.VERT) {
-                        float Y1 = (y2 > y1) ? y1 : y2;
-                        if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP) == false) {
-                            return (ElemSimple) el;
-                        }
-                    } else if (Layout.RIGHT == layoutSide && el.layout != Layout.HORIZ) {
-                        if (el.inside(x2, y1 + (y2 - y1) / 2)) {
-                            return (ElemSimple) el;
+            for (int index = winc.listAll.size() - 1; index >= 0; --index) {
+                if (winc.listAll.get(index) instanceof ElemSimple) {
+                    ElemSimple el = (ElemSimple) winc.listAll.get(index);
+                    if (begin == true && el.type != Type.GLASS) {
+                        if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
+                            float Y2 = (y2 > y1) ? y2 : y1;
+                            if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
+                                return (ElemSimple) el;
+                            }
+                        } else if (Layout.LEFT == layoutSide && el.layout != Layout.HORIZ) {
+                            if (el.inside(x1, y1 + (y2 - y1) / 2) == true) {
+                                return (ElemSimple) el;
+                            }
+                        } else if (Layout.TOP == layoutSide && el.layout != Layout.VERT) {
+                            float Y1 = (y2 > y1) ? y1 : y2;
+                            if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type == Type.ARCH && el.layout == Layout.TOP) == false) {
+                                return (ElemSimple) el;
+                            }
+                        } else if (Layout.RIGHT == layoutSide && el.layout != Layout.HORIZ) {
+                            if (el.inside(x2, y1 + (y2 - y1) / 2)) {
+                                return (ElemSimple) el;
+                            }
                         }
                     }
-                }
-                if (this == el) {
-                    begin = true;
+                    if (this == el) {
+                        begin = true;
+                    }
                 }
             }
             return null;

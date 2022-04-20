@@ -54,7 +54,7 @@ public class Furniture extends Cal5e {
     @Override
     public void calc() {
         super.calc();
-        LinkedList<AreaStvorka> stvorkaList = UCom.listSortObj(winc.listSortAr, Type.STVORKA);
+        LinkedList<AreaStvorka> stvorkaList = UCom.listSortObj(winc.listArea, Type.STVORKA);
         try {
             
             //Цикл по створкам      

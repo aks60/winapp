@@ -50,7 +50,7 @@ public class Filling extends Cal5e {
 
     @Override
     public void calc() {
-        LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(winc.listSortEl, Type.GLASS);
+        LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
         for (ElemGlass elemGlass : elemGlassList) {
             calc2(elemGlass); //цикл по стеклопакетам 
         }

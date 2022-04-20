@@ -64,7 +64,7 @@ public class Scene extends javax.swing.JPanel {
         this.canvas = canvas;
         this.listenerGson = listenerGson;
         add(canvas, java.awt.BorderLayout.CENTER);
-        
+
         this.canvas.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
 
@@ -74,7 +74,7 @@ public class Scene extends javax.swing.JPanel {
                     lineVert = Arrays.asList(new Scale(winc.rootArea));
 
                 } else { //На конструкции
-                    for (ElemSimple crs : winc.listSortEl) {
+                    for (ElemSimple crs : winc.listElem) {
                         if (Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type)
                                 && crs.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale)) {
                             List<Com5t> areaChilds = ((ElemSimple) crs).owner.childs;
@@ -145,7 +145,7 @@ public class Scene extends javax.swing.JPanel {
             float dh = 0, curY = 2;
             for (Scale gson : lineVert) {
                 if (gson.gson().owner() != null && gson.gson().owner().type() == Type.STVORKA) {
-                    dh = winc.listSortAr.stream().filter(it -> it.id() == gson.gson().owner().id()).findFirst().get().y1();
+                    dh = winc.listArea.stream().filter(it -> it.id() == gson.gson().owner().id()).findFirst().get().y1();
                 }
                 if (gson == lineVert.get(lineVert.size() - 1)) {
                     dh = -1 * dh;
@@ -201,14 +201,28 @@ public class Scene extends javax.swing.JPanel {
     }
 
     public void resizeLine(float dv) {
-        for (Scale gsonScale : lineHoriz) {
-            if (gsonScale.color == java.awt.Color.RED) {
-                gsonScale.area().lengthX(gsonScale.area().lengthX() + dv);
+
+        //Горизонтальное выделение красн.
+        if (lineHoriz.stream().filter(sc
+                -> sc.color == Color.RED).findFirst().orElse(null) != null) {
+
+            for (Scale scale : lineHoriz) {
+                if (scale.color == java.awt.Color.RED) {
+                    scale.area().lengthX(scale.area().lengthX() + dv);
+                } else {
+                    scale.area().lengthX(scale.area().lengthX() - dv);
+                }
             }
         }
-        for (Scale gsonScale : lineVert) {
-            if (gsonScale.color == java.awt.Color.RED) {
-                gsonScale.area().lengthY(gsonScale.area().lengthY() + dv);
+        //Вертикальное выделение красн.
+        if (lineVert.stream().filter(sc
+                -> sc.color == Color.RED).findFirst().orElse(null) != null) {
+            for (Scale scale : lineVert) {
+                if (scale.color == java.awt.Color.RED) {
+                    scale.area().lengthY(scale.area().lengthY() + dv);
+                } else {
+                    scale.area().lengthY(scale.area().lengthY() - dv);
+                }
             }
         }
         listenerGson.action(null);

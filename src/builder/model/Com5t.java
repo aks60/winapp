@@ -98,7 +98,7 @@ public abstract class Com5t {
         if (this.id == 0) {
             float k = v / gson.width(); //коэффициент
             winc.rootGson.width(v);
-            winc.listSortAr.forEach(e -> {
+            winc.listArea.forEach(e -> {
                 if (e.layout == Layout.HORIZ) {
                     e.childs.forEach(e2 -> { //изменение всех по ширине
                         if (e2.type == Type.AREA || e2.type == Type.ARCH || e2.type == Type.TRAPEZE || e2.type == Type.TRIANGL) {
@@ -109,7 +109,7 @@ public abstract class Com5t {
             });
         } else {
             float k = v / this.lengthX(); //коэффициент
-            lengthX(v);
+            this.gson.length(v);
             ((AreaSimple) this).childs.forEach(e -> {
                 if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
                     e.lengthX(k * e.lengthX()); //рекурсия изменения детей
@@ -130,7 +130,7 @@ public abstract class Com5t {
             float k = v / gson.height(); //коэффициент
             winc.rootGson.height(v);
             winc.rootGson.heightAdd(k * winc.rootGson.heightAdd());
-            winc.listSortAr.forEach(e -> {
+            winc.listArea.forEach(e -> {
                 if (e.layout == Layout.VERT) {
                     e.childs.forEach(e2 -> { //изменение всех по ширине
                         if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {

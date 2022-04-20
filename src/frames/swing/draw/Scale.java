@@ -17,7 +17,7 @@ public class Scale {
     }
     
     public void init() {
-        this.area = area.winc.listSortAr.find(this.area.id());
+        this.area = area.winc.listArea.find(this.area.id());
     }
 
     public AreaSimple area() {

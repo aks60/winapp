@@ -40,7 +40,7 @@ public class Tariffic extends Cal5e {
             float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
 
             //Расчёт  себес-сть за ед. изм. по таблице мат. ценностей
-            for (ElemSimple elem5e : winc.listSortEl) {
+            for (ElemSimple elem5e : winc.listElem) {
                 elem5e.spcRec.price1 += calcPrice(elem5e.spcRec); //себест. за ед. без отхода
                 elem5e.spcRec.quant1 = formatAmount(elem5e.spcRec); //количество без отхода
                 elem5e.spcRec.quant2 = elem5e.spcRec.quant1;
@@ -58,7 +58,7 @@ public class Tariffic extends Cal5e {
             }
 
             //Цикл по элементам конструкции
-            for (ElemSimple elem5e : winc.listSortEl) {
+            for (ElemSimple elem5e : winc.listElem) {
 
                 Record systreeRec = eSystree.find(winc.nuni);
                 //Цикл по правилам расчёта. Увеличение себестоимости в coeff раз и на incr величину наценки.
@@ -112,7 +112,7 @@ public class Tariffic extends Cal5e {
             }
 
             //Расчёт веса элемента конструкции
-            for (ElemSimple elem5e : winc.listSortEl) {
+            for (ElemSimple elem5e : winc.listElem) {
                 for (Specific spec : elem5e.spcRec.spcList) {
                     spec.weight = spec.quant1 * spec.artiklRec.getFloat(eArtikl.density);
                 }
@@ -207,7 +207,7 @@ public class Tariffic extends Cal5e {
                         }
 
                     } else if (rulecalcRec.getInt(eRulecalc.common) == 1) { //по использованию c расчётом общего количества по артикулу, подтипу, типу
-                        LinkedList<ElemSimple> elemList = winc.listSortEl;
+                        LinkedList<ElemSimple> elemList = winc.listElem;
                         float quantity3 = 0;
                         if (rulecalcRec.get(eRulecalc.artikl_id) != null) { //по артикулу
                             for (ElemSimple elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
