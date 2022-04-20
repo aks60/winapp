@@ -95,14 +95,14 @@ public class Scene extends javax.swing.JPanel {
                 }
                 draw();
             }
-        });        
+        });
         changeListener = (changeEvent) -> {
             System.out.println("getPreviousValue = " + spinner.getPreviousValue());
             System.out.println("getValue = " + spinner.getValue());
         };
         spinner.addChangeListener(changeListener);
     }
-    
+
     public Scene(Canvas canvas, JSpinner spinner, ListenerObject listenerGson) {
         initComponents();
         initElements();
@@ -141,10 +141,10 @@ public class Scene extends javax.swing.JPanel {
             }
         });
         changeListener = (changeEvent) -> {
-            //System.out.println("getPreviousValue = " + spinner.getPreviousValue());
-            System.out.println("getValue = " + spinner.getValue());
+            float value = Float.valueOf(spinner.getValue().toString());
+            resizeLine(value);
         };
-        spinner.addChangeListener(changeListener);        
+        spinner.addChangeListener(changeListener);
     }
 
     public void init(Wincalc winc) {
@@ -234,28 +234,33 @@ public class Scene extends javax.swing.JPanel {
         }
     }
 
-    public void resizeLine(float dv) {
+    public void resizeLine(float val) {
 
         //Горизонтальное выделение красн.
-        if (lineHoriz.stream().filter(sc
-                -> sc.color == Color.RED).findFirst().orElse(null) != null) {
-
-            for (Scale scale : lineHoriz) {
-                if (scale.color == java.awt.Color.RED) {
-                    scale.area().lengthX(scale.area().lengthX() + dv);
-                } else {
-                    scale.area().lengthX(scale.area().lengthX() - dv);
+        Scale scaleHor = lineHoriz.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
+        if (scaleHor != null) {
+            float dx = val - scaleHor.area().lengthX();
+            if (dx != 0) {
+                for (Scale scale : lineHoriz) {
+                    if (scale.color == java.awt.Color.RED) {
+                        scale.area().lengthX(scale.area().lengthX() + dx);
+                    } else {
+                        scale.area().lengthX(scale.area().lengthX() - dx);
+                    }
                 }
             }
         }
         //Вертикальное выделение красн.
-        if (lineVert.stream().filter(sc
-                -> sc.color == Color.RED).findFirst().orElse(null) != null) {
-            for (Scale scale : lineVert) {
-                if (scale.color == java.awt.Color.RED) {
-                    scale.area().lengthY(scale.area().lengthY() + dv);
-                } else {
-                    scale.area().lengthY(scale.area().lengthY() - dv);
+        Scale scaleVer = lineVert.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
+        if (scaleVer != null) {
+            float dy = val - scaleVer.area().lengthY();
+            if (dy != 0) {
+                for (Scale scale : lineVert) {
+                    if (scale.color == java.awt.Color.RED) {
+                        scale.area().lengthY(scale.area().lengthY() + dy);
+                    } else {
+                        scale.area().lengthY(scale.area().lengthY() - dy);
+                    }
                 }
             }
         }

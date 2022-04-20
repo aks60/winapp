@@ -96,68 +96,76 @@ public abstract class Com5t {
 
         if (this.id == 0) {
             float k = v / gson.width(); //коэффициент
-            winc.rootGson.width(v);
-            winc.listArea.forEach(e -> {
-                if (e.layout == Layout.HORIZ) {
-                    e.childs.forEach(e2 -> { //изменение всех по ширине
-                        if (e2.type == Type.AREA || e2.type == Type.ARCH || e2.type == Type.TRAPEZE || e2.type == Type.TRIANGL) {
-                            e2.gson.length(k * e2.gson.length());
-                        }
-                    });
-                }
-            });
+            if (k != 1) {
+                winc.rootGson.width(v);
+                winc.listArea.forEach(e -> {
+                    if (e.layout == Layout.HORIZ) {
+                        e.childs.forEach(e2 -> { //изменение всех по ширине
+                            if (e2.type == Type.AREA || e2.type == Type.ARCH || e2.type == Type.TRAPEZE || e2.type == Type.TRIANGL) {
+                                e2.gson.length(k * e2.gson.length());
+                            }
+                        });
+                    }
+                });
+            }
         } else {
             float k = v / this.lengthX(); //коэффициент
-            this.gson.length(v);
-            ((AreaSimple) this).childs.forEach(e -> {
-                if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
-                    e.lengthX(k * e.lengthX()); //рекурсия изменения детей
+            if (k != 1) {
+                this.gson.length(v);
+                ((AreaSimple) this).childs.forEach(e -> {
+                    if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
+                        e.lengthX(k * e.lengthX()); //рекурсия изменения детей
 
-                } else {
-                    ((AreaSimple) e).childs.forEach(e2 -> {
-                        if (e2.owner.layout == Layout.HORIZ && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
-                            e2.lengthX(k * e2.lengthX()); //рекурсия изменения детей
-                        }
-                    });
-                }
-            });
+                    } else {
+                        ((AreaSimple) e).childs.forEach(e2 -> {
+                            if (e2.owner.layout == Layout.HORIZ && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
+                                e2.lengthX(k * e2.lengthX()); //рекурсия изменения детей
+                            }
+                        });
+                    }
+                });
+            }
         }
     }
 
     public void lengthY(float v) {
         if (this.id == 0) {
             float k = v / gson.height(); //коэффициент
-            winc.rootGson.height(v);
-            winc.rootGson.heightAdd(k * winc.rootGson.heightAdd());
-            winc.listArea.forEach(e -> {
-                if (e.layout == Layout.VERT) {
-                    e.childs.forEach(e2 -> { //изменение всех по ширине
-                        if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
-                            e2.gson.length(k * e2.gson.length());
-                        }
-                    });
-                }
-            });
-        } else {
-            float k = v / this.lengthY(); //коэффициент       
-            this.gson.length(v);
-            if (this.type == Type.ARCH || this.type == Type.TRAPEZE) {
-                this.winc.rootGson.heightAdd(this.winc.rootGson.height() - v);
-            }
-            ((AreaSimple) this).childs.forEach(e -> {
-                if (e.owner.layout == Layout.VERT && (e.type == Type.AREA || e.type == Type.STVORKA)) {
-                    e.lengthY(k * e.lengthY()); //рекурсия изменения детей
-
-                } else {
-                    if (e instanceof AreaSimple) {
-                        ((AreaSimple) e).childs.forEach(e2 -> {
+            if (k != 1) {
+                winc.rootGson.height(v);
+                winc.rootGson.heightAdd(k * winc.rootGson.heightAdd());
+                winc.listArea.forEach(e -> {
+                    if (e.layout == Layout.VERT) {
+                        e.childs.forEach(e2 -> { //изменение всех по ширине
                             if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
-                                e2.lengthY(k * e2.lengthY()); //рекурсия изменения детей
+                                e2.gson.length(k * e2.gson.length());
                             }
                         });
                     }
+                });
+            }
+        } else {
+            float k = v / this.lengthY(); //коэффициент 
+            if (k != 1) {
+                this.gson.length(v);
+                if (this.type == Type.ARCH || this.type == Type.TRAPEZE) {
+                    this.winc.rootGson.heightAdd(this.winc.rootGson.height() - v);
                 }
-            });
+                ((AreaSimple) this).childs.forEach(e -> {
+                    if (e.owner.layout == Layout.VERT && (e.type == Type.AREA || e.type == Type.STVORKA)) {
+                        e.lengthY(k * e.lengthY()); //рекурсия изменения детей
+
+                    } else {
+                        if (e instanceof AreaSimple) {
+                            ((AreaSimple) e).childs.forEach(e2 -> {
+                                if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
+                                    e2.lengthY(k * e2.lengthY()); //рекурсия изменения детей
+                                }
+                            });
+                        }
+                    }
+                });
+            }
         }
     }
 
