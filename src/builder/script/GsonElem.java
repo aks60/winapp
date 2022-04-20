@@ -1,14 +1,11 @@
 package builder.script;
 
-import frames.swing.draw.Scale;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import enums.Layout;
 import enums.Type;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GsonElem {
@@ -140,18 +137,18 @@ public class GsonElem {
         return childs;
     }
 
-    public void parent(GsonElem node) {
-        node.childs.forEach(el -> {
-            el.owner = node;
-            if (el.type() == Type.STVORKA || el.type() == Type.AREA || el.type() == Type.ARCH || el.type() == Type.TRAPEZE || el.type() == Type.TRIANGL) {
-                parent(el); //реккурсия 
+    public void parent() {
+        this.childs.forEach(el -> {
+            el.owner = this;
+            if (Arrays.asList(Type.STVORKA, Type.AREA , Type.ARCH , Type.TRAPEZE, Type.TRIANGL).contains(el.type())) {
+                el.parent(); //рекурсия 
             }
         });
     }
 
-    public LinkedList<GsonElem> elems() {
+    public LinkedList<GsonElem> elems() {        
         return childs.stream().filter(el
-                -> (el.type() != Type.STVORKA && el.type() != Type.AREA && el.type() != Type.ARCH && el.type() != Type.TRAPEZE || el.type() == Type.TRIANGL))
+                -> Arrays.asList(Type.STVORKA, Type.AREA , Type.ARCH , Type.TRAPEZE, Type.TRIANGL).contains(el.type()))
                 .collect(Collectors.toCollection(() -> new LinkedList<GsonElem>()));
     }
 }

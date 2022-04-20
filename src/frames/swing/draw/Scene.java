@@ -1,11 +1,9 @@
 package frames.swing.draw;
 
-import frames.swing.draw.Canvas;
 import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
-import frames.swing.draw.Scale;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import enums.Layout;
@@ -21,7 +19,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import static java.util.stream.Collectors.toList;
 import javax.swing.JButton;
 import javax.swing.Timer;
 import java.awt.Color;

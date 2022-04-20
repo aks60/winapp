@@ -110,7 +110,7 @@ public class Wincalc {
             //System.out.println(new GsonBuilder().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(json, GsonRoot.class);
-            rootGson.parent(rootGson); //назначить родителей всем детям
+            rootGson.parent(); //назначить родителей всем детям
 
             //Инит конструктива
             this.nuni = rootGson.nuni();

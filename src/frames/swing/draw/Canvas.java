@@ -2,23 +2,13 @@ package frames.swing.draw;
 
 import builder.Wincalc;
 import builder.model.Com5t;
-import builder.model.ElemSimple;
-import frames.swing.draw.Scale;
-import common.UCom;
 import common.listener.ListenerFrame;
-import enums.Layout;
-import enums.Type;
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 

@@ -1,6 +1,5 @@
 package builder.model;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import dataset.Record;
 import enums.Layout;
