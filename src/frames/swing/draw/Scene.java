@@ -22,6 +22,9 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.Timer;
 import java.awt.Color;
+import javax.swing.JSpinner;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class Scene extends javax.swing.JPanel {
 
@@ -30,6 +33,9 @@ public class Scene extends javax.swing.JPanel {
     private DecimalFormat df1 = new DecimalFormat("#0.#");
     private Wincalc winc = null;
     private Canvas canvas = null;
+    private JSpinner spinner = null;
+    private MouseAdapter MouseAdapter = null;
+    private ChangeListener changeListener = null;
     public List<Scale> lineHoriz = new ArrayList();
     public List<Scale> lineVert = new ArrayList();
 
@@ -57,7 +63,7 @@ public class Scene extends javax.swing.JPanel {
     public Scene(Canvas canvas, ListenerObject listenerGson) {
         initComponents();
         initElements();
-        this.timer.setInitialDelay(1000);
+        //this.timer.setInitialDelay(1000);
         this.canvas = canvas;
         this.listenerGson = listenerGson;
         add(canvas, java.awt.BorderLayout.CENTER);
@@ -89,7 +95,56 @@ public class Scene extends javax.swing.JPanel {
                 }
                 draw();
             }
+        });        
+        changeListener = (changeEvent) -> {
+            System.out.println("getPreviousValue = " + spinner.getPreviousValue());
+            System.out.println("getValue = " + spinner.getValue());
+        };
+        spinner.addChangeListener(changeListener);
+    }
+    
+    public Scene(Canvas canvas, JSpinner spinner, ListenerObject listenerGson) {
+        initComponents();
+        initElements();
+        //this.timer.setInitialDelay(1000);
+        this.canvas = canvas;
+        this.spinner = spinner;
+        this.listenerGson = listenerGson;
+        add(canvas, java.awt.BorderLayout.CENTER);
+
+        this.canvas.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+
+                //Если клик не на конструкции
+                if (winc.rootArea.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale) == false) {
+                    lineHoriz = Arrays.asList(new Scale(winc.rootArea));
+                    lineVert = Arrays.asList(new Scale(winc.rootArea));
+
+                } else { //На конструкции
+                    for (ElemSimple crs : winc.listElem) {
+                        if (Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type)
+                                && crs.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale)) {
+                            List<Com5t> areaChilds = ((ElemSimple) crs).owner.childs;
+                            for (int i = 0; i < areaChilds.size(); ++i) {
+                                if (areaChilds.get(i).id() == crs.id()) {
+                                    if (crs.layout == Layout.HORIZ) {
+                                        lineVert = Arrays.asList(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
+                                    } else {
+                                        lineHoriz = Arrays.asList(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                draw();
+            }
         });
+        changeListener = (changeEvent) -> {
+            System.out.println("getPreviousValue = " + spinner.getPreviousValue());
+            System.out.println("getValue = " + spinner.getValue());
+        };
+        spinner.addChangeListener(changeListener);        
     }
 
     public void init(Wincalc winc) {
@@ -162,24 +217,6 @@ public class Scene extends javax.swing.JPanel {
         } else {
             gc.setColor(getBackground());
             gc.fillRect(0, 0, panWert.getWidth(), panWert.getHeight());
-        }
-    }
-
-    // 1 - изменение, 2 - перераспределение
-    private int directionScaling(List<Scale> list) {
-        boolean change = list.stream().anyMatch(el -> el.color == Color.BLUE); //цвет на изменение
-        boolean adjust = list.stream().anyMatch(el -> el.color == Color.MAGENTA); //цвет на коррецию
-        if (change == false && adjust == false) {
-            return 0;
-        } else {
-            if (change == false) {
-                return 0;
-            }
-            if (change != false && adjust == false) {
-                return 1;
-            } else {
-                return 2;
-            }
         }
     }
 
@@ -269,6 +306,8 @@ public class Scene extends javax.swing.JPanel {
     private void panWertClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panWertClicked
         lineVert.forEach(it -> it.color = Color.BLACK);
         lineHoriz.forEach(it -> it.color = Color.BLACK);
+        spinner.removeChangeListener(changeListener);
+        spinner.setValue(0);
         float dy = 0;
         for (Scale scale : lineVert) {
             float Y = evt.getY();
@@ -276,9 +315,11 @@ public class Scene extends javax.swing.JPanel {
             double y2 = (dy + scale.area().y2()) * winc.scale;
             if (y1 < Y && Y < y2) {
                 scale.color = java.awt.Color.RED;
+                spinner.setValue(scale.area().height());
                 dy += scale.area().y2();
             }
         }
+        spinner.addChangeListener(changeListener);
         panHoriz.repaint();
         panWert.repaint();
     }//GEN-LAST:event_panWertClicked
@@ -286,6 +327,8 @@ public class Scene extends javax.swing.JPanel {
     private void panHorizClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panHorizClicked
         lineVert.forEach(it -> it.color = Color.BLACK);
         lineHoriz.forEach(it -> it.color = Color.BLACK);
+        spinner.removeChangeListener(changeListener);
+        spinner.setValue(0);
         float dx = 0;
         for (Scale scale : lineHoriz) {
             float X = evt.getX() - 12;
@@ -293,9 +336,11 @@ public class Scene extends javax.swing.JPanel {
             double x2 = (dx + scale.area().x2()) * winc.scale;
             if (x1 < X && X < x2) {
                 scale.color = java.awt.Color.RED;
+                spinner.setValue(scale.area().width());
                 dx += scale.area().x2();
             }
         }
+        spinner.addChangeListener(changeListener);
         panHoriz.repaint();
         panWert.repaint();
     }//GEN-LAST:event_panHorizClicked
