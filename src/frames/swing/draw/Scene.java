@@ -141,7 +141,7 @@ public class Scene extends javax.swing.JPanel {
             }
         });
         changeListener = (changeEvent) -> {
-            System.out.println("getPreviousValue = " + spinner.getPreviousValue());
+            //System.out.println("getPreviousValue = " + spinner.getPreviousValue());
             System.out.println("getValue = " + spinner.getValue());
         };
         spinner.addChangeListener(changeListener);        
