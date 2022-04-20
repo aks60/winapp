@@ -320,7 +320,7 @@ public class Scene extends javax.swing.JPanel {
             double y2 = (dy + scale.area().y2()) * winc.scale;
             if (y1 < Y && Y < y2) {
                 scale.color = java.awt.Color.RED;
-                spinner.setValue(scale.area().height());
+                spinner.setValue(scale.height());
                 dy += scale.area().y2();
             }
         }
@@ -341,7 +341,7 @@ public class Scene extends javax.swing.JPanel {
             double x2 = (dx + scale.area().x2()) * winc.scale;
             if (x1 < X && X < x2) {
                 scale.color = java.awt.Color.RED;
-                spinner.setValue(scale.area().width());
+                spinner.setValue(scale.width());
                 dx += scale.area().x2();
             }
         }
