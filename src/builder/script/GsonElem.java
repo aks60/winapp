@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class GsonElem {
 
@@ -139,84 +140,18 @@ public class GsonElem {
         return childs;
     }
 
-    public LinkedList<GsonElem> areas() {
-        LinkedList<GsonElem> list = new LinkedList();
-        childs.forEach(el -> {
-            if (el.type() == Type.STVORKA || el.type() == Type.AREA || el.type() == Type.ARCH || el.type() == Type.TRAPEZE) {
-                list.add(el);
+    public void parent(GsonElem node) {
+        node.childs.forEach(el -> {
+            el.owner = node;
+            if (el.type() == Type.STVORKA || el.type() == Type.AREA || el.type() == Type.ARCH || el.type() == Type.TRAPEZE || el.type() == Type.TRIANGL) {
+                parent(el); //реккурсия 
             }
         });
-        return list;
     }
 
     public LinkedList<GsonElem> elems() {
-        LinkedList<GsonElem> list = new LinkedList();
-        childs.forEach(el -> {
-            if (el.type() != Type.STVORKA && el.type() != Type.AREA && el.type() != Type.ARCH && el.type() != Type.TRAPEZE) {
-                list.add(el);
-            }
-        });
-        return list;
-    }
-
-    public GsonElem find(float id) {
-        if (this.id == id) {
-            return this;
-        }
-        for (GsonElem el : elems()) {
-            if (el.id == id) {
-                return el;
-            }
-        }
-        for (GsonElem area2 : areas()) { //уровень 2
-            if (area2.id == id) {
-                return area2;
-            }
-            for (GsonElem el2 : area2.elems()) {
-                if (el2.id == id) {
-                    return el2;
-                }
-            }
-            for (GsonElem area3 : area2.areas()) { //уровень 3
-                if (area3.id == id) {
-                    return area3;
-                }
-                for (GsonElem el3 : area3.elems()) {
-                    if (el3.id == id) {
-                        return el3;
-                    }
-                }
-                for (GsonElem area4 : area3.areas()) { //уровень 4
-                    if (area4.id == id) {
-                        return area4;
-                    }
-                    for (GsonElem el4 : area4.elems()) {
-                        if (el4.id == id) {
-                            return el4;
-                        }
-                    }
-                    for (GsonElem area5 : area4.areas()) { //уровень 5
-                        if (area5.id == id) {
-                            return area5;
-                        }
-                        for (GsonElem el5 : area5.elems()) {
-                            if (el5.id == id) {
-                                return el5;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    public void setParent(GsonElem node) {
-        node.elems().forEach(elem -> elem.owner = node);
-        for (GsonElem area : node.areas()) {
-            area.owner = node;
-            area.elems().forEach(elem -> elem.owner = node);
-            setParent(area); //реккурсия
-        }
+        return childs.stream().filter(el
+                -> (el.type() != Type.STVORKA && el.type() != Type.AREA && el.type() != Type.ARCH && el.type() != Type.TRAPEZE || el.type() == Type.TRIANGL))
+                .collect(Collectors.toCollection(() -> new LinkedList<GsonElem>()));
     }
 }
