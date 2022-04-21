@@ -47,48 +47,6 @@ public class Scene extends javax.swing.JPanel {
         resizeLine();
     });
 
-    public Scene(Canvas canvas, ListenerReload listenerWinc) {
-        initComponents();
-        initElements();
-        this.canvas = canvas;
-        this.listenerWinc = listenerWinc;
-        add(canvas, java.awt.BorderLayout.CENTER);
-
-        this.canvas.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-
-                //Если клик не на конструкции
-                if (winc.rootArea.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale) == false) {
-                    lineHoriz = Arrays.asList(new Scale(winc.rootArea));
-                    lineVert = Arrays.asList(new Scale(winc.rootArea));
-
-                } else { //На конструкции
-                    for (ElemSimple crs : winc.listElem) {
-                        if (Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type)
-                                && crs.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale)) {
-                            List<Com5t> areaChilds = ((ElemSimple) crs).owner.childs;
-                            for (int i = 0; i < areaChilds.size(); ++i) {
-                                if (areaChilds.get(i).id() == crs.id()) {
-                                    if (crs.layout == Layout.HORIZ) {
-                                        lineVert = Arrays.asList(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
-                                    } else {
-                                        lineHoriz = Arrays.asList(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                draw();
-            }
-        });
-        listenerSpinner = (changeEvent) -> {
-            System.out.println("getPreviousValue = " + spinner.getPreviousValue());
-            System.out.println("getValue = " + spinner.getValue());
-        };
-        spinner.addChangeListener(listenerSpinner);
-    }
-
     public Scene(Canvas canvas, JSpinner spinner, ListenerReload listenerWinc) {
         initComponents();
         initElements();
@@ -151,18 +109,17 @@ public class Scene extends javax.swing.JPanel {
         if (winc != null) {
             Graphics2D g = (Graphics2D) gc;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, resizeFont()));
-            float sum = 0;
-            int curX = 16;
+            float sum = 0, curX = 16 + (float) (lineHoriz.get(0).area().x1() * winc.scale);
+            g.setColor(Color.BLACK);
+            g.drawLine((int) curX, 6, (int) curX, 12);            
             for (Scale elem : lineHoriz) {
                 int dx = (int) (elem.width() * winc.scale);
-                g.drawLine(curX + dx, 6, curX + dx, 12);
+                g.drawLine((int) (curX + dx), 6, (int) (curX + dx), 12);
                 g.setColor(elem.color);
                 int dw = g.getFontMetrics().stringWidth(df1.format(elem.width()));
                 g.drawString(df1.format(elem.width()), curX + dx - dx / 2 - dw / 2, 12);
                 curX = curX + dx;
             }
-            g.setColor(Color.BLACK);
-            g.drawLine(16, 6, 16, 12);
 
         } else {
             gc.setColor(getBackground());
@@ -175,25 +132,25 @@ public class Scene extends javax.swing.JPanel {
         if (winc != null) {
             Graphics2D g = (Graphics2D) gc;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, resizeFont()));
-            float dh = 0, curY = 2;
-            for (Scale gson : lineVert) {
-                if (gson.gson().owner() != null && gson.gson().owner().type() == Type.STVORKA) {
-                    dh = winc.listArea.stream().filter(it -> it.id() == gson.gson().owner().id()).findFirst().get().y1();
+            float dh = 0, dy = 0, curY = 2 + (float) (lineVert.get(0).area().y1() * winc.scale);
+            g.setColor(Color.BLACK);
+            g.drawLine(0, (int) curY, 8, (int) curY);            
+            for (Scale scale : lineVert) {
+                if (scale.gson().owner() != null && scale.gson().owner().type() == Type.STVORKA) {
+                    dh = winc.listArea.stream().filter(it -> it.id() == scale.gson().owner().id()).findFirst().get().y1();
                 }
-                if (gson == lineVert.get(lineVert.size() - 1)) {
+                if (scale == lineVert.get(lineVert.size() - 1)) {
                     dh = -1 * dh;
                 }
-                float dy = (float) ((gson.height() + dh) * winc.scale);
+                dy = (float) ((scale.height() + dh) * winc.scale);
                 g.drawLine(0, (int) (curY + dy), 8, (int) (curY + dy));
-                g.setColor(gson.color);
-                int dw = g.getFontMetrics().stringWidth(df1.format(gson.height()));
+                g.setColor(scale.color);
+                int dw = g.getFontMetrics().stringWidth(df1.format(scale.height()));
                 g.rotate(Math.toRadians(-90), 11, curY + dy - dy / 2 + dw / 2);
-                g.drawString(df1.format(gson.height() + dh), 12, curY + dy - dy / 2 + dw / 2);
+                g.drawString(df1.format(scale.height() + dh), 12, curY + dy - dy / 2 + dw / 2);
                 g.rotate(Math.toRadians(90), 11, curY + dy - dy / 2 + dw / 2);
                 curY = curY + dy;
             }
-            g.setColor(Color.BLACK);
-            g.drawLine(0, 2, 8, 2);
 
         } else {
             gc.setColor(getBackground());
@@ -293,16 +250,15 @@ public class Scene extends javax.swing.JPanel {
         lineHoriz.forEach(it -> it.color = Color.BLACK);
         spinner.removeChangeListener(listenerSpinner);
         spinner.setValue(0);
-        float dy = 0;
+        double y1 = lineVert.get(0).area().y1() * winc.scale;
         for (Scale scale : lineVert) {
             float Y = evt.getY();
-            double y1 = (dy + scale.area().y1()) * winc.scale;
-            double y2 = (dy + scale.area().y2()) * winc.scale;
+            double y2 = scale.area().y2() * winc.scale;
             if (y1 < Y && Y < y2) {
                 scale.color = java.awt.Color.RED;
                 spinner.setValue(scale.height());
-                dy += scale.area().y2();
             }
+            y1 += scale.height() * winc.scale;
         }
         spinner.addChangeListener(listenerSpinner);
         panHoriz.repaint();
@@ -314,16 +270,15 @@ public class Scene extends javax.swing.JPanel {
         lineHoriz.forEach(it -> it.color = Color.BLACK);
         spinner.removeChangeListener(listenerSpinner);
         spinner.setValue(0);
-        float dx = 0;
+        double x1 = lineVert.get(0).area().x1() * winc.scale;
         for (Scale scale : lineHoriz) {
             float X = evt.getX() - 12;
-            double x1 = (dx + scale.area().x1()) * winc.scale;
-            double x2 = (dx + scale.area().x2()) * winc.scale;
+            double x2 = scale.area().x2() * winc.scale;
             if (x1 < X && X < x2) {
                 scale.color = java.awt.Color.RED;
                 spinner.setValue(scale.width());
-                dx += scale.area().x2();
             }
+            x1 += scale.width() * winc.scale;
         }
         spinner.addChangeListener(listenerSpinner);
         panHoriz.repaint();
