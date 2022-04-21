@@ -661,6 +661,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             sysprodRec.set(ePrjprod.script, script);
             sysprodRec.set(ePrjprod.values().length, win);
             canvas.draw();
+            scene.lineHoriz.forEach(e -> e.init());
+            scene.lineVert.forEach(e -> e.init());            
             scene.draw();
             selectionWinTree();
         }

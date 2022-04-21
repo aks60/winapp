@@ -187,9 +187,9 @@ public class Scene extends javax.swing.JPanel {
                 g.drawLine(0, (int) (curY + dy), 8, (int) (curY + dy));
                 g.setColor(gson.color);
                 int dw = g.getFontMetrics().stringWidth(df1.format(gson.height()));
-                g.rotate(Math.toRadians(-90), 10, curY + dy - dy / 2 + dw / 2);
-                g.drawString(df1.format(gson.height() + dh), 10, curY + dy - dy / 2 + dw / 2);
-                g.rotate(Math.toRadians(90), 10, curY + dy - dy / 2 + dw / 2);
+                g.rotate(Math.toRadians(-90), 11, curY + dy - dy / 2 + dw / 2);
+                g.drawString(df1.format(gson.height() + dh), 12, curY + dy - dy / 2 + dw / 2);
+                g.rotate(Math.toRadians(90), 11, curY + dy - dy / 2 + dw / 2);
                 curY = curY + dy;
             }
             g.setColor(Color.BLACK);
@@ -208,8 +208,6 @@ public class Scene extends javax.swing.JPanel {
             return 11;
         } else if (winc.scale > .15) {
             return 10;
-//        } else if (winc.scale > .13) {
-//            return 9;
         } else {
             return 9;
         }
