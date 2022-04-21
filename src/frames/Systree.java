@@ -82,9 +82,8 @@ import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.swing.draw.Scene;
 import frames.swing.FilterTable;
-import common.listener.ListenerObject;
+import common.listener.ListenerReload;
 import java.text.DecimalFormat;
-import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -94,7 +93,7 @@ import javax.swing.SortOrder;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-public class Systree extends javax.swing.JFrame implements ListenerObject {
+public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
@@ -800,7 +799,7 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
     }
 
     @Override
-    public boolean action(Object obj) {
+    public void reload() {
         Wincalc win = winc();
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
@@ -816,7 +815,6 @@ public class Systree extends javax.swing.JFrame implements ListenerObject {
             scene.draw();
             selectionWinTree();
         }
-        return true;
     }
 
     private void setText(JTextField comp, String txt) {

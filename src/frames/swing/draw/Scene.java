@@ -4,22 +4,18 @@ import builder.Wincalc;
 import builder.model.AreaSimple;
 import builder.model.Com5t;
 import builder.model.ElemSimple;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import enums.Layout;
 import enums.Type;
 import common.listener.ListenerObject;
+import common.listener.ListenerReload;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.JButton;
 import javax.swing.Timer;
 import java.awt.Color;
 import javax.swing.JSpinner;
@@ -28,44 +24,34 @@ import javax.swing.event.ChangeListener;
 
 public class Scene extends javax.swing.JPanel {
 
-    public ListenerObject listenerGson = null;
-    private Gson gson = new GsonBuilder().create();
     private DecimalFormat df1 = new DecimalFormat("#0.#");
     private Wincalc winc = null;
     private Canvas canvas = null;
     private JSpinner spinner = null;
-    private MouseAdapter MouseAdapter = null;
-    private ChangeListener changeListener = null;
+
+    private ListenerReload listenerWinc = null;
+    private ChangeListener listenerSpinner = new ChangeListener() {
+
+        public void stateChanged(ChangeEvent ce) {
+            if (timer.isRunning() == false) {
+                timer.setRepeats(false);
+                timer.start();
+            }
+        }
+    };
+
     public List<Scale> lineHoriz = new ArrayList();
     public List<Scale> lineVert = new ArrayList();
 
-    private Timer timer = new Timer(160, new ActionListener() {
-
-        public JButton btn = null;
-
-        public void actionPerformed(ActionEvent evt) {
-
-            if (evt.getSource() instanceof JButton) {
-                btn = (JButton) evt.getSource();
-                timer.start();
-            } else {
-//                if (btn == btn1) {
-//                    btn1Action(evt);
-//                } else if (btn == btn2) {
-//                    btn2Action(evt);
-//                } else if (btn == btn3) {
-//                    btn3Action(evt);
-//                }
-            }
-        }
+    private Timer timer = new Timer(800, (evt) -> {
+        resizeLine();
     });
 
-    public Scene(Canvas canvas, ListenerObject listenerGson) {
+    public Scene(Canvas canvas, ListenerReload listenerWinc) {
         initComponents();
         initElements();
-        //this.timer.setInitialDelay(1000);
         this.canvas = canvas;
-        this.listenerGson = listenerGson;
+        this.listenerWinc = listenerWinc;
         add(canvas, java.awt.BorderLayout.CENTER);
 
         this.canvas.addMouseListener(new MouseAdapter() {
@@ -96,20 +82,19 @@ public class Scene extends javax.swing.JPanel {
                 draw();
             }
         });
-        changeListener = (changeEvent) -> {
+        listenerSpinner = (changeEvent) -> {
             System.out.println("getPreviousValue = " + spinner.getPreviousValue());
             System.out.println("getValue = " + spinner.getValue());
         };
-        spinner.addChangeListener(changeListener);
+        spinner.addChangeListener(listenerSpinner);
     }
 
-    public Scene(Canvas canvas, JSpinner spinner, ListenerObject listenerGson) {
+    public Scene(Canvas canvas, JSpinner spinner, ListenerReload listenerWinc) {
         initComponents();
         initElements();
-        //this.timer.setInitialDelay(1000);
         this.canvas = canvas;
         this.spinner = spinner;
-        this.listenerGson = listenerGson;
+        this.listenerWinc = listenerWinc;
         add(canvas, java.awt.BorderLayout.CENTER);
 
         this.canvas.addMouseListener(new MouseAdapter() {
@@ -140,11 +125,7 @@ public class Scene extends javax.swing.JPanel {
                 draw();
             }
         });
-        changeListener = (changeEvent) -> {
-            float value = Float.valueOf(spinner.getValue().toString());
-            resizeLine(value);
-        };
-        spinner.addChangeListener(changeListener);
+        spinner.addChangeListener(listenerSpinner);
     }
 
     public void init(Wincalc winc) {
@@ -234,7 +215,8 @@ public class Scene extends javax.swing.JPanel {
         }
     }
 
-    public void resizeLine(float val) {
+    public void resizeLine() {
+        float val = Float.valueOf(spinner.getValue().toString());
 
         //Горизонтальное выделение красн.
         Scale scaleHor = lineHoriz.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
@@ -264,7 +246,7 @@ public class Scene extends javax.swing.JPanel {
                 }
             }
         }
-        listenerGson.action(null);
+        listenerWinc.reload();
     }
 
     @SuppressWarnings("unchecked")
@@ -311,7 +293,7 @@ public class Scene extends javax.swing.JPanel {
     private void panWertClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panWertClicked
         lineVert.forEach(it -> it.color = Color.BLACK);
         lineHoriz.forEach(it -> it.color = Color.BLACK);
-        spinner.removeChangeListener(changeListener);
+        spinner.removeChangeListener(listenerSpinner);
         spinner.setValue(0);
         float dy = 0;
         for (Scale scale : lineVert) {
@@ -324,7 +306,7 @@ public class Scene extends javax.swing.JPanel {
                 dy += scale.area().y2();
             }
         }
-        spinner.addChangeListener(changeListener);
+        spinner.addChangeListener(listenerSpinner);
         panHoriz.repaint();
         panWert.repaint();
     }//GEN-LAST:event_panWertClicked
@@ -332,7 +314,7 @@ public class Scene extends javax.swing.JPanel {
     private void panHorizClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panHorizClicked
         lineVert.forEach(it -> it.color = Color.BLACK);
         lineHoriz.forEach(it -> it.color = Color.BLACK);
-        spinner.removeChangeListener(changeListener);
+        spinner.removeChangeListener(listenerSpinner);
         spinner.setValue(0);
         float dx = 0;
         for (Scale scale : lineHoriz) {
@@ -345,7 +327,7 @@ public class Scene extends javax.swing.JPanel {
                 dx += scale.area().x2();
             }
         }
-        spinner.addChangeListener(changeListener);
+        spinner.addChangeListener(listenerSpinner);
         panHoriz.repaint();
         panWert.repaint();
     }//GEN-LAST:event_panHorizClicked
