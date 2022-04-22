@@ -113,11 +113,11 @@ public class Scene extends javax.swing.JPanel {
             g.setColor(Color.BLACK);
             g.drawLine((int) curX, 6, (int) curX, 12);            
             for (Scale elem : lineHoriz) {
-                int dx = (int) (elem.width() * winc.scale);
+                int dx = (int) (elem.widthGson() * winc.scale);
                 g.drawLine((int) (curX + dx), 6, (int) (curX + dx), 12);
                 g.setColor(elem.color);
-                int dw = g.getFontMetrics().stringWidth(df1.format(elem.width()));
-                g.drawString(df1.format(elem.width()), curX + dx - dx / 2 - dw / 2, 12);
+                int dw = g.getFontMetrics().stringWidth(df1.format(elem.widthGson()));
+                g.drawString(df1.format(elem.widthGson()), curX + dx - dx / 2 - dw / 2, 12);
                 curX = curX + dx;
             }
 
@@ -142,12 +142,13 @@ public class Scene extends javax.swing.JPanel {
                 if (scale == lineVert.get(lineVert.size() - 1)) {
                     dh = -1 * dh;
                 }
-                dy = (float) ((scale.height() + dh) * winc.scale);
+                Object ooo = scale.heightGson();
+                dy = (float) ((scale.heightGson() + dh) * winc.scale); //берём высоту без коррекции импоста
                 g.drawLine(0, (int) (curY + dy), 8, (int) (curY + dy));
                 g.setColor(scale.color);
-                int dw = g.getFontMetrics().stringWidth(df1.format(scale.height()));
+                int dw = g.getFontMetrics().stringWidth(df1.format(scale.heightGson()));
                 g.rotate(Math.toRadians(-90), 11, curY + dy - dy / 2 + dw / 2);
-                g.drawString(df1.format(scale.height() + dh), 12, curY + dy - dy / 2 + dw / 2);
+                g.drawString(df1.format(scale.heightGson() + dh), 12, curY + dy - dy / 2 + dw / 2);
                 g.rotate(Math.toRadians(90), 11, curY + dy - dy / 2 + dw / 2);
                 curY = curY + dy;
             }
@@ -256,9 +257,9 @@ public class Scene extends javax.swing.JPanel {
             double y2 = scale.area().y2() * winc.scale;
             if (y1 < Y && Y < y2) {
                 scale.color = java.awt.Color.RED;
-                spinner.setValue(scale.height());
+                spinner.setValue(scale.heightGson());
             }
-            y1 += scale.height() * winc.scale;
+            y1 += scale.heightGson() * winc.scale;
         }
         spinner.addChangeListener(listenerSpinner);
         panHoriz.repaint();
@@ -276,9 +277,9 @@ public class Scene extends javax.swing.JPanel {
             double x2 = scale.area().x2() * winc.scale;
             if (x1 < X && X < x2) {
                 scale.color = java.awt.Color.RED;
-                spinner.setValue(scale.width());
+                spinner.setValue(scale.widthGson());
             }
-            x1 += scale.width() * winc.scale;
+            x1 += scale.widthGson() * winc.scale;
         }
         spinner.addChangeListener(listenerSpinner);
         panHoriz.repaint();

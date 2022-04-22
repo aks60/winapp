@@ -16,16 +16,16 @@ import java.io.ByteArrayOutputStream;
 import startup.Main;
 import builder.Wincalc;
 import builder.script.GsonElem;
-import builder.script.GsonRoot;
 import common.UCom;
-import dataset.Query;
+import enums.Form;
 import enums.PKjson;
 import enums.Type;
 import java.util.HashMap;
 
 public class AreaSimple extends Com5t {
 
-    public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне 
+    public Form form = null; //форма контура
+    public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     
     public LinkedList<Com5t> childs = new LinkedList(); //дети
 
     public AreaSimple(Wincalc winc, AreaSimple owner, Type type) {
@@ -40,7 +40,21 @@ public class AreaSimple extends Com5t {
         setLocation(winc.rootGson.width(), winc.rootGson.height());
         initParametr(winc.rootGson.param());
     }
-    
+
+    public AreaSimple(Wincalc winc, AreaSimple owner, Type type, Form form) {
+        super(winc.rootGson.id(), winc, owner, winc.rootGson);
+        this.type = type;
+        this.form = form;
+        this.layout = winc.rootGson.layout();
+        this.colorID1 = winc.rootGson.color1;
+        this.colorID2 = winc.rootGson.color2;
+        this.colorID3 = winc.rootGson.color3;
+
+        initСonstructiv(winc.rootGson.param());
+        setLocation(winc.rootGson.width(), winc.rootGson.height());
+        initParametr(winc.rootGson.param());
+    }
+
     public AreaSimple(Wincalc winc, AreaSimple owner, Type type, GsonElem gson, float width, float height) {
         super(gson.id(), winc, owner, gson);
         this.type = type;
@@ -65,7 +79,7 @@ public class AreaSimple extends Com5t {
     protected void setLocation(float width, float height) {
         //Происходит при подкдадке дополнительной ареа в арке
         //или сужении area створки при нахлёсте профилей
-        if (owner != null) {            
+        if (owner != null) {
             if (owner.childs.isEmpty() == true) { //если childs.isEmpty то prevArea искать нет смысла
 
                 if (Layout.VERT.equals(owner.layout)) { //сверху вниз
@@ -77,7 +91,7 @@ public class AreaSimple extends Com5t {
                     setDimension(owner.x1, owner.y1, X2, owner.y2);
                 }
 
-            } else { 
+            } else {
                 for (int index = owner.childs.size() - 1; index >= 0; --index) { //т.к. this area ёщё не создана начнём с конца
                     if (owner.childs.get(index) instanceof AreaSimple) {
                         AreaSimple prevArea = (AreaSimple) owner.childs.get(index);

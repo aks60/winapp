@@ -28,11 +28,11 @@ public class Scale {
         return area.gson;
     }
 
-    public float width() {
+    public float widthGson() {
         return area.gson.width();
     }
 
-    public float height() {
+    public float heightGson() {
         return area.gson.height();
     }
 }

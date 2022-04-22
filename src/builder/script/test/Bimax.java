@@ -4,6 +4,7 @@ import builder.script.GsonElem;
 import builder.script.GsonRoot;
 import static builder.script.Winscript.rootGson;
 import com.google.gson.GsonBuilder;
+import enums.Form;
 import enums.Layout;
 import enums.Type;
 
@@ -324,7 +325,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 300))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 300, Form.NUM0))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = (GsonElem) rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1400));

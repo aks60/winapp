@@ -2,6 +2,7 @@ package builder.script;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import enums.Form;
 import enums.Layout;
 import enums.Type;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ public class GsonElem {
     protected LinkedList<GsonElem> childs = new LinkedList();  //список детей
     protected Layout layout = null; //сторона расположения эл. рамы
     protected Type type = null; //тип элемента
+    protected Form form2 = null; //форма контура
     protected JsonObject param = null; //параметры элемента
     protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
 
@@ -58,6 +60,15 @@ public class GsonElem {
         this.layout = layout;
         this.type = type;
         this.length = length; //длина стороны, сторона зависит от направления расположения area
+    }
+    
+    //Конструктор Area
+    public GsonElem(Layout layout, Type type, float length, Form form) {
+        this.id = ++genId;
+        this.layout = layout;
+        this.type = type;
+        this.length = length; //длина стороны, сторона зависит от направления расположения area
+        this.form2 = form;
     }
 
     //Конструктор створки
