@@ -68,7 +68,7 @@ public class Wincalc {
 
     public AreaSimple rootArea = null; //главное окно кострукции
     public GsonRoot rootGson = null; //главное окно кострукции в формате gson
-    public Form form = Form.NUM0; //форма контура 
+    public Form form = Form.NULL; //форма контура (параметр в развитии) 
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList2<AreaSimple> listArea = new LinkedList2(); //список AreaSimple
@@ -88,7 +88,7 @@ public class Wincalc {
     public AreaSimple build(String productJson) {
 
         genId = 0;
-        form = Form.NUM0;
+        form = Form.NULL;
         heightAdd = 0.f;
         Arrays.asList((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
         Arrays.asList(mapPardef, mapJoin).forEach(el -> el.clear());
@@ -114,7 +114,7 @@ public class Wincalc {
 
             //Инит конструктива
             this.nuni = rootGson.nuni();
-            this.form = Form.NUM0.get(rootGson.form);
+            this.form = rootGson.form();
             this.width = rootGson.width();
             this.height = rootGson.height();
             this.heightAdd = rootGson.heightAdd();
@@ -140,6 +140,8 @@ public class Wincalc {
 
             //Создадим элементы конструкции
             elements(rootArea, rootGson);
+            
+            //this.form = rootGson.form();
 
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.parsing() " + e);
@@ -157,7 +159,9 @@ public class Wincalc {
                     hm.put(area5e, el);
 
                 } else if (Type.AREA == el.type() || Type.ARCH == el.type() || Type.TRAPEZE == el.type()) {
-                    AreaSimple area5e = new AreaSimple(Wincalc.this, owner, el.type(), el, el.width(), el.height());
+                    AreaSimple area5e = (el.form() == null) 
+                            ? new AreaSimple(Wincalc.this, owner, el.type(), el, el.width(), el.height())
+                            : new AreaSimple(Wincalc.this, owner, el.type(), el, el.width(), el.height(), el.form());
                     owner.childs.add(area5e);
                     hm.put(area5e, el);
 

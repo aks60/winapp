@@ -17,11 +17,9 @@ public class GsonElem {
     protected LinkedList<GsonElem> childs = new LinkedList();  //список детей
     protected Layout layout = null; //сторона расположения эл. рамы
     protected Type type = null; //тип элемента
-    protected Form form2 = null; //форма контура
+    protected Form form = null; //форма контура (параметр в развитии)
     protected JsonObject param = null; //параметры элемента
     protected Float length = null; //ширина или высота добавляемой area (зависит от напрвления расположения) 
-
-    public transient float point = 0;  //точка scale 
 
     public GsonElem() {
     }
@@ -68,7 +66,7 @@ public class GsonElem {
         this.layout = layout;
         this.type = type;
         this.length = length; //длина стороны, сторона зависит от направления расположения area
-        this.form2 = form;
+        this.form = form;
     }
 
     //Конструктор створки
@@ -108,7 +106,11 @@ public class GsonElem {
     public Type type() {
         return type;
     }
-
+    
+    public Form form() {
+        return form;
+    }
+    
     public Layout layout() {
         return layout;
     }

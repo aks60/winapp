@@ -41,13 +41,13 @@ public abstract class ElemSimple extends Com5t {
     //В этих точках лежат мапы соединений см. Wincalc.mapJoin
     public String joinPoint(int side) {
 
-        if (owner.type == Type.ARCH && layout == Layout.TOP && winc.form == Form.NUM3) {
+        if (owner.type == Type.ARCH && layout == Layout.TOP && winc.form == Form.TOP) {
             return (side == 0) ? x2 + ":" + (winc.height - winc.heightAdd) : x1 + ":" + (winc.height - winc.heightAdd);
 
-        } else if (owner.type == Type.TRAPEZE && layout == Layout.TOP && winc.form == Form.NUM2) {
+        } else if (owner.type == Type.TRAPEZE && layout == Layout.TOP && winc.form == Form.RIGHT) {
             return (side == 0) ? x2 + ":" + (winc.height - winc.heightAdd) : x1 + ":" + y1;
 
-        } else if (owner.type == Type.TRAPEZE && layout == Layout.TOP && winc.form == Form.NUM4) {
+        } else if (owner.type == Type.TRAPEZE && layout == Layout.TOP && winc.form == Form.LEFT) {
             return (side == 0) ? x2 + ":" + y1 : x1 + ":" + (winc.height - winc.heightAdd);
 
         } else if (layout == Layout.BOTT) {

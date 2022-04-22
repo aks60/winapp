@@ -4,11 +4,10 @@ import frames.swing.draw.Scale;
 import builder.Wincalc;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import enums.Form;
 import enums.Layout;
 import enums.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,10 +20,9 @@ public class GsonRoot extends GsonElem {
     public int ord = 1; //ONUMB - номер тестируемого заказа, поле пока нужно только для тестов 
     private Integer nuni = -3;  //nuni профиля (PRO4_SYSPROF.NUNI)
     protected Float width = null; //ширина area, мм.
-    protected Float height = null; //высота area, мм 
     protected Float widthAdd = 0f;  //дополнительная ширина, мм.
+    protected Float height = null; //высота area, мм 
     protected Float heightAdd = 0f;  //дополнительная высота, мм.
-    public int form = 0;  //форма контура (параметр в развитии)
     public Integer color1 = -3;  //основная текстура
     public Integer color2 = -3;  //внутренняя текстура
     public Integer color3 = -3;  //внешняя текстура    
@@ -42,14 +40,14 @@ public class GsonRoot extends GsonElem {
         if (type == Type.TRAPEZE) {
             if (height1 > height2) {
                 init(prj, ord, nuni, name, layout, type, width, height1, height2, color1, color2, color3, null);
-                form = 2;
+                form = Form.RIGHT;
             } else {
                 init(prj, ord, nuni, name, layout, type, width, height2, height1, color1, color2, color3, null);
-                form = 4;
+                form = Form.LEFT;
             }
         } else {
             if (type == Type.ARCH) {
-                form = 3;
+                form = Form.TOP;
             }
             init(prj, ord, nuni, name, layout, type, width, height1, height2, color1, color2, color3, null);
         }
@@ -89,7 +87,7 @@ public class GsonRoot extends GsonElem {
             this.color3 = -3;
         }
     }
-
+    
     public float height() {
         return height;
     }
@@ -116,35 +114,5 @@ public class GsonRoot extends GsonElem {
 
     public int nuni() {
         return nuni;
-    }
-
-    @Deprecated
-    public List<Scale> lineArea(Wincalc winc, Layout layout) {
-        Set<GsonElem> set1 = new LinkedHashSet(), set2 = new LinkedHashSet();
-        Set<Scale> setOut = new LinkedHashSet();
-        lineArea(set1, this, layout);
-        for (GsonElem elem : set1) {
-            set2.clear();
-            lineArea(set2, elem, layout);
-            if (set2.isEmpty()) {
-                setOut.add(new Scale(winc.rootArea));
-            }
-        }
-        if (setOut.isEmpty()) {
-            setOut.add(new Scale(winc.rootArea));
-        }
-        return new ArrayList(setOut);
-    }
-
-    @Deprecated
-    public void lineArea(Set<GsonElem> set, GsonElem elem, Layout layout) {
-        for (int i = 0; i < elem.childs.size(); ++i) {
-            GsonElem elem2 = elem.childs.get(i);
-            if (elem2.owner.layout == layout && (elem2.type == Type.IMPOST || elem2.type == Type.SHTULP || elem2.type == Type.STOIKA)) {
-                set.add(elem.childs.get(i - 1));
-                set.add(elem.childs.get(i + 1));
-            }
-            lineArea(set, elem2, layout);
-        }
-    }   
+    }  
 }

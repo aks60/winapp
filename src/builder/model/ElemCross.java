@@ -64,7 +64,7 @@ public class ElemCross extends ElemSimple {
         } else if (Type.TRAPEZE == owner.type && owner.childs.size() == 1) {
             float dy = 0;
             AreaSimple prevArea = (AreaSimple) owner.childs.get(0);
-            if(winc.form == Form.NUM2) {
+            if(winc.form == Form.RIGHT) {
                float angl = root.frames.get(Layout.RIGHT).anglCut[1];
                dy = (float) (root.frames.get(Layout.RIGHT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
             }

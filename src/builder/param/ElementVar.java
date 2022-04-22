@@ -371,13 +371,13 @@ public class ElementVar extends Par5s {
                 case 37009: //Тип заполнения 
                 {
                     ElemGlass glass = (ElemGlass) elem5e.owner.childs.stream().filter(it -> it.type == Type.GLASS).findFirst().orElse(null);
-                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && winc.form != Form.NUM0) {
+                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && winc.form != Form.NULL) {
                         return false;
 
                     } else if ("Арочное".equals(rec.getStr(TEXT)) && glass.radiusGlass == 0) {
                         return false;
 
-                    } else if ("Произвольное".equals(rec.getStr(TEXT)) && winc.form == Form.NUM0) {
+                    } else if ("Произвольное".equals(rec.getStr(TEXT)) && winc.form == Form.NULL) {
                         return false;
                     }
                 }

@@ -185,7 +185,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 650))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 650, Form.TOP))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST, "{sysprofID:3246}"));
             GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1050));
@@ -236,7 +236,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 300))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 300, Form.TOP))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1200));
@@ -255,7 +255,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 380))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 380, Form.TOP))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1220));
@@ -274,7 +274,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 400))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 400, Form.TOP))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = (GsonElem) rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1300));
@@ -293,7 +293,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 300))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 300, Form.TOP))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = (GsonElem) rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1200));
@@ -312,7 +312,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 300))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 300, Form.TOP))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1200))
@@ -325,7 +325,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 300, Form.NUM0))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 300, Form.TOP))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = (GsonElem) rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1400));
@@ -347,7 +347,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 300))
+                    .addArea(new GsonElem(Layout.HORIZ, Type.ARCH, 300, Form.TOP))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST));
             GsonElem area = rootGson.addArea(new GsonElem(Layout.HORIZ, Type.AREA, 1000));
@@ -377,7 +377,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.VERT, Type.TRAPEZE, 300))
+                    .addArea(new GsonElem(Layout.VERT, Type.TRAPEZE, 300, Form.RIGHT))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1200))
@@ -390,7 +390,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.VERT, Type.TRAPEZE, 400))
+                    .addArea(new GsonElem(Layout.VERT, Type.TRAPEZE, 400, Form.RIGHT))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1000))
@@ -528,7 +528,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
-                    .addArea(new GsonElem(Layout.VERT, Type.TRAPEZE, 400))
+                    .addArea(new GsonElem(Layout.VERT, Type.TRAPEZE, 400, Form.LEFT))
                     .addElem(new GsonElem(Type.GLASS));
             rootGson.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1100))

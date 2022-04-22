@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 public class AreaSimple extends Com5t {
 
-    public Form form = null; //форма контура
+    public Form form = null; //форма контура (параметр в развитии)
     public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     
     public LinkedList<Com5t> childs = new LinkedList(); //дети
 
@@ -41,23 +41,24 @@ public class AreaSimple extends Com5t {
         initParametr(winc.rootGson.param());
     }
 
-    public AreaSimple(Wincalc winc, AreaSimple owner, Type type, Form form) {
-        super(winc.rootGson.id(), winc, owner, winc.rootGson);
+    public AreaSimple(Wincalc winc, AreaSimple owner, Type type, GsonElem gson, float width, float height) {
+        super(gson.id(), winc, owner, gson);
         this.type = type;
-        this.form = form;
-        this.layout = winc.rootGson.layout();
+        this.layout = gson.layout();
         this.colorID1 = winc.rootGson.color1;
         this.colorID2 = winc.rootGson.color2;
         this.colorID3 = winc.rootGson.color3;
 
-        initСonstructiv(winc.rootGson.param());
-        setLocation(winc.rootGson.width(), winc.rootGson.height());
-        initParametr(winc.rootGson.param());
+        initСonstructiv(gson.param());
+        setLocation(width, height);
+        initParametr(gson.param());
     }
 
-    public AreaSimple(Wincalc winc, AreaSimple owner, Type type, GsonElem gson, float width, float height) {
+    public AreaSimple(Wincalc winc, AreaSimple owner, Type type, GsonElem gson, float width, float height, Form form) {
         super(gson.id(), winc, owner, gson);
-        this.type = type;
+        this.type = type;       
+        this.form = form;
+        winc.form = form; //поднимаю для быстрого доступа               
         this.layout = gson.layout();
         this.colorID1 = winc.rootGson.color1;
         this.colorID2 = winc.rootGson.color2;

@@ -91,7 +91,7 @@ public class ElemFrame extends ElemSimple {
                 anglHoriz = 0;
 
             } else if (Layout.RIGHT == layout) {
-                if (winc.form == Form.NUM2) {
+                if (winc.form == Form.RIGHT) {
                     setDimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y2 - winc.heightAdd, owner.x2, owner.y2);
                     anglCut[1] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                 } else {
@@ -100,7 +100,7 @@ public class ElemFrame extends ElemSimple {
                 }
                 anglHoriz = 90;
             } else if (Layout.TOP == layout) {
-                if (winc.form == Form.NUM2) {
+                if (winc.form == Form.RIGHT) {
                     setDimension(owner.x1, owner.y1, owner.x2, owner.y2 - winc.heightAdd);
                     anglHoriz = (float) (180 - Math.toDegrees(Math.atan(H / W)));
                     anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
@@ -112,7 +112,7 @@ public class ElemFrame extends ElemSimple {
                     anglCut[0] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
                 }
             } else if (Layout.LEFT == layout) {
-                if (winc.form == Form.NUM4) {
+                if (winc.form == Form.LEFT) {
                     setDimension(owner.x1, owner.y2 - winc.heightAdd, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
                     anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                 } else {
@@ -388,7 +388,7 @@ public class ElemFrame extends ElemSimple {
                     Draw.strokePolygon(winc, x1 + dh0, x2 - dh1, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
                 } else if (Layout.RIGHT == layout) {
-                    double angl = (winc.form == Form.NUM2) ? Math.toRadians(90 - anglCut[1]) : Math.toRadians(90 - anglCut[0]);
+                    double angl = (winc.form == Form.RIGHT) ? Math.toRadians(90 - anglCut[1]) : Math.toRadians(90 - anglCut[0]);
                     float dh2 = (float) (dh * Math.tan(angl));
                     Draw.strokePolygon(winc, x1, x2, x2, x1, y1 + dh2, y1, y2, y2 - dh0, rgb, borderColor);
 
