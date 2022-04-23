@@ -71,14 +71,14 @@ public class Tariffic extends Cal5e {
                         if (form == TypeForm.P00.id) {//не проверять форму
                             rulePrise(rulecalcRec, elem5e.spcRec);
 
-                        } else if (form == TypeForm.P10.id && Type.TRAPEZE == elem5e.owner.type) { //не прямоугольное, не арочное заполнение
+                        } else if (form == TypeForm.P10.id && Type.TRAPEZE == elem5e.owner.typeArea()) { //не прямоугольное, не арочное заполнение
                             rulePrise(rulecalcRec, elem5e.spcRec);
 
-                        } else if (form == TypeForm.P12.id && Type.ARCH == elem5e.owner.type) {//не прямоугольное заполнение с арками
+                        } else if (form == TypeForm.P12.id && Type.ARCH == elem5e.owner.typeArea()) {//не прямоугольное заполнение с арками
                             rulePrise(rulecalcRec, elem5e.spcRec);
                         }
                     } else if (form == TypeForm.P04.id && elem5e.type == Type.FRAME_SIDE
-                            && elem5e.owner.type == Type.ARCH && elem5e.layout == Layout.TOP) {  //профиль с радиусом  (фильтр для арки профиля AYPC.W62.0101)
+                            && elem5e.owner.typeArea() == Type.ARCH && elem5e.layout == Layout.TOP) {  //профиль с радиусом  (фильтр для арки профиля AYPC.W62.0101)
                         rulePrise(rulecalcRec, elem5e.spcRec); //профиль с радиусом
 
                     } else {

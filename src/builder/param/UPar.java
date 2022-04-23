@@ -49,9 +49,9 @@ class UPar {
 
     //Тип проема 
     static boolean is_13003_14005_15005_37008(String txt, ElemSimple elem5e) {
-        if ("глухой".equals(txt) == true && elem5e.owner.type == Type.STVORKA == true) {
+        if ("глухой".equals(txt) == true && elem5e.owner.typeArea() == Type.STVORKA == true) {
             return false;
-        } else if ("не глухой".equals(txt) == true && elem5e.owner.type == Type.STVORKA == false) {
+        } else if ("не глухой".equals(txt) == true && elem5e.owner.typeArea() == Type.STVORKA == false) {
             return false;
         }
         return true;
@@ -155,7 +155,7 @@ class UPar {
 
     //Название фурнитуры содержит 
     static boolean is_31037_38037_39037_40037(ElemSimple elem5e, String txt) {
-        if (Type.STVORKA == elem5e.owner.type) {
+        if (Type.STVORKA == elem5e.owner.typeArea()) {
             AreaStvorka stv = (AreaStvorka) elem5e.owner;
             String name = eFurniture.find(stv.sysfurnRec.getInt(eSysfurn.furniture_id)).getStr(eFurniture.name);
             if ((name.equals(txt)) == false) {
@@ -169,7 +169,7 @@ class UPar {
 
     //Для типа открывания
     static boolean is_1039_38039_39039(ElemSimple elem5e, String txt) {
-        if (elem5e.owner.type == Type.STVORKA) {
+        if (elem5e.owner.typeArea() == Type.STVORKA) {
             AreaStvorka stv = (AreaStvorka) elem5e.owner;
             if (!"фрамуга".equals(txt) && stv.typeOpen == TypeOpen1.UPPER) { //фрамуга
                 return false;

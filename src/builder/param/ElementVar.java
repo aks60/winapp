@@ -68,9 +68,9 @@ public class ElementVar extends Par5s {
                 }
                 break;
                 case 31002:  //Если профиль 
-                    if ("арочный".equals(rec.getStr(TEXT)) == true && (elem5e.owner.type == Type.ARCH && Layout.TOP == elem5e.layout) == false) {
+                    if ("арочный".equals(rec.getStr(TEXT)) == true && (elem5e.owner.typeArea() == Type.ARCH && Layout.TOP == elem5e.layout) == false) {
                         return false;
-                    } else if ("прямой".equals(rec.getStr(TEXT)) == true && (elem5e.owner.type == Type.ARCH && Layout.TOP == elem5e.layout) == true) {
+                    } else if ("прямой".equals(rec.getStr(TEXT)) == true && (elem5e.owner.typeArea() == Type.ARCH && Layout.TOP == elem5e.layout) == true) {
                         return false;
                     }
                     break;
@@ -264,7 +264,7 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31051:  //Если створка фурнитуры 
-                    if (elem5e.owner.type == Type.STVORKA) {
+                    if (elem5e.owner.typeArea() == Type.STVORKA) {
                         if ("ведущая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner).handleRec.getInt(eArtikl.id) == -3) {
                             return false;
                         } else if ("ведомая".equals(rec.getStr(TEXT)) == true && ((AreaStvorka) elem5e.owner).handleRec.getInt(eArtikl.id) != -3) {

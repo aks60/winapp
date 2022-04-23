@@ -62,7 +62,7 @@ public class ElemGlass extends ElemSimple {
 
     //Установка координат
     public void setLocation() {
-        if (Type.ARCH == owner.type) {
+        if (Type.ARCH == owner.typeArea()) {
             setDimension(0, 0, owner.x2, winc.height - winc.heightAdd);
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
@@ -77,7 +77,7 @@ public class ElemGlass extends ElemSimple {
         spcRec.colorID1 = colorID1;
         spcRec.colorID2 = colorID2;
         spcRec.colorID3 = colorID3;
-        if (owner.type == Type.ARCH) { //если арка
+        if (owner.typeArea() == Type.ARCH) { //если арка
             ElemFrame elemArch = root().frames.get(Layout.TOP);
             ElemSimple elemImpost = joinFlat(Layout.BOTT);
             y1 = y1 + elemArch.artiklRec.getFloat(eArtikl.height) - elemArch.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
@@ -88,7 +88,7 @@ public class ElemGlass extends ElemSimple {
             x2 = owner.width() - x1;
             radiusGlass = (float) r;
 
-        } else if (owner.type == Type.TRAPEZE) {
+        } else if (owner.typeArea() == Type.TRAPEZE) {
             ElemSimple insideLeft = root().frames.get(Layout.LEFT), insideTop = root().frames.get(Layout.TOP), insideBott = joinFlat(Layout.BOTT), insideRight = root().frames.get(Layout.RIGHT);
             if (winc.form == Form.RIGHT) {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
@@ -130,7 +130,7 @@ public class ElemGlass extends ElemSimple {
 
     @Override //Вложенная спецификация 
     public void addSpecific(Specific spcAdd) {
-        if (Type.ARCH == owner.type && (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3])) {
+        if (Type.ARCH == owner.typeArea() && (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3])) {
             return;  //нет таких сторон у арки
         }
         spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
@@ -142,15 +142,15 @@ public class ElemGlass extends ElemSimple {
 
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
             //ARCH
-            if (Type.ARCH == owner.type) {
+            if (Type.ARCH == owner.typeArea()) {
                 ((AreaArch) root()).addFilling(this, spcAdd);
 
                 //TRAPEZE
-            } else if (Type.TRAPEZE == owner.type) {
+            } else if (Type.TRAPEZE == owner.typeArea()) {
                 ((AreaTrapeze) root()).addFilling(this, spcAdd);
 
                 //STVORKA
-            } else if (Type.STVORKA == owner.type) {
+            } else if (Type.STVORKA == owner.typeArea()) {
                 ((AreaStvorka) owner).addFilling(this, spcAdd);
 
                 //AREA
@@ -222,7 +222,7 @@ public class ElemGlass extends ElemSimple {
         Record colorRec = eColor.find3(colorID1);
         winc.gc2d.setColor(new java.awt.Color(colorRec.getInt(eColor.rgb)));
 
-        if (owner.type == Type.ARCH) {
+        if (owner.typeArea() == Type.ARCH) {
             ElemFrame ef = root().frames.get(Layout.TOP);
             float dz = ef.artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;

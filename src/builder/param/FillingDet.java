@@ -75,9 +75,9 @@ public class FillingDet extends Par5s {
                     break;
                 case 14009: //Арочное заполнение 
                 case 15009: //Арочное заполнение  
-                    if ("Да".equals(rec.getStr(TEXT)) && elem5e.owner.type != Type.ARCH) {
+                    if ("Да".equals(rec.getStr(TEXT)) && elem5e.owner.typeArea() != Type.ARCH) {
                         return false;
-                    } else if ("Нет".equals(rec.getStr(TEXT)) && elem5e.owner.type == Type.ARCH) {
+                    } else if ("Нет".equals(rec.getStr(TEXT)) && elem5e.owner.typeArea() == Type.ARCH) {
                         return false;
                     }
                     break;

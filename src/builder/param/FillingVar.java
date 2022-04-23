@@ -77,15 +77,15 @@ public class FillingVar extends Par5s {
                     break;
                 case 13015:  //Форма заполнения 
                     //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
-                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && Type.RECTANGL.equals(elem5e.owner.type) == false
-                            && Type.AREA.equals(elem5e.owner.type) == false && Type.STVORKA.equals(elem5e.owner.type) == false) {
+                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && Type.RECTANGL.equals(elem5e.owner.typeArea()) == false
+                            && Type.AREA.equals(elem5e.owner.typeArea()) == false && Type.STVORKA.equals(elem5e.owner.typeArea()) == false) {
                         return false;
-                    } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && (Type.TRAPEZE.equals(elem5e.owner.type) == false
-                            && Type.TRIANGL.equals(elem5e.owner.type) == false)) {
+                    } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && (Type.TRAPEZE.equals(elem5e.owner.typeArea()) == false
+                            && Type.TRIANGL.equals(elem5e.owner.typeArea()) == false)) {
                         return false;
-                    } else if ("Арочное".equals(rec.getStr(TEXT)) && Type.ARCH.equals(elem5e.owner.type) == false) {
+                    } else if ("Арочное".equals(rec.getStr(TEXT)) && Type.ARCH.equals(elem5e.owner.typeArea()) == false) {
                         return false;
-                    } else if ("Не арочное".equals(rec.getStr(TEXT)) && Type.ARCH.equals(elem5e.owner.type) == true) {
+                    } else if ("Не арочное".equals(rec.getStr(TEXT)) && Type.ARCH.equals(elem5e.owner.typeArea()) == true) {
                         return false;
                     }
                     break;

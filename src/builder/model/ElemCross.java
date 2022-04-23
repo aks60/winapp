@@ -57,11 +57,11 @@ public class ElemCross extends ElemSimple {
     public void setLocation() {
         
         //Коррекция положения импоста арки (подкдадка ареа над импостом)
-        if (Type.ARCH == owner.type && owner.childs.size() == 1) {
+        if (Type.ARCH == owner.typeArea()) {
             AreaSimple prevArea = (AreaSimple) owner.childs.get(0); //опустим ареа на половину шир. иппоста
             prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.height) / 2);
             
-        } else if (Type.TRAPEZE == owner.type && owner.childs.size() == 1) {
+        } else if (Type.TRAPEZE == owner.typeArea()) {
             float dy = 0;
             AreaSimple prevArea = (AreaSimple) owner.childs.get(0);
             if(winc.form == Form.RIGHT) {
