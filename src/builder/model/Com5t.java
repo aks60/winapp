@@ -12,7 +12,7 @@ public abstract class Com5t {
 
     public static final int TRANSLATE_XY = 2; //сдвиг графика                 
     private float id = -1; //идентификатор 
-    protected Type type = Type.NONE; //Тип элемента или конструкции  
+    private Type type = Type.NONE; //Тип элемента или конструкции  
     public Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства

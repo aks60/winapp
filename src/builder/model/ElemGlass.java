@@ -29,7 +29,6 @@ public class ElemGlass extends ElemSimple {
     public ElemGlass(AreaSimple owner, GsonElem gson) {
         super(gson.id(), owner.winc, owner, gson);
         this.layout = Layout.FULL;
-        this.type = Type.GLASS;
 
         initСonstructiv(gson.param());
         setLocation();
