@@ -88,7 +88,6 @@ public class Wincalc {
     public AreaSimple build(String productJson) {
 
         genId = 0;
-        form = Form.NULL;
         heightAdd = 0.f;
         Arrays.asList((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
         Arrays.asList(mapPardef, mapJoin).forEach(el -> el.clear());
@@ -106,11 +105,14 @@ public class Wincalc {
     // Парсим входное json окно и строим объектную модель окна
     private void parsing(String json) {
         try {
-            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
+            //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
             //System.out.println(new GsonBuilder().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(json, GsonRoot.class);
-            rootGson.parent(); //назначить родителей всем детям
+            
+            //Назначить родителей всем детям,
+            //поднять elem.form до rootGson для быстрого доступа
+            rootGson.parent(rootGson); 
 
             //Инит конструктива
             this.nuni = rootGson.nuni();
@@ -141,7 +143,6 @@ public class Wincalc {
             //Создадим элементы конструкции
             elements(rootArea, rootGson);
             
-            //this.form = rootGson.form();
 
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.parsing() " + e);

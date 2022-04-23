@@ -28,36 +28,22 @@ public class GsonRoot extends GsonElem {
     public Integer color3 = -3;  //внешняя текстура    
 
     public GsonRoot(int prj, int ord, int nuni, String name, Layout layout, Type type, float width, float height, int color1, int color2, int color3) {
-        init(prj, ord, nuni, name, layout, type, width, height, height, color1, color2, color3, null);
+        init(prj, ord, nuni, name, layout, type, null, width, height, height, color1, color2, color3, null);
     }
 
     public GsonRoot(int prj, int ord, int nuni, String name, Layout layout, Type type, float width, float height, int color1, int color2, int color3, String paramJson) {
-        init(prj, ord, nuni, name, layout, type, width, height, height, color1, color2, color3, paramJson);
+        init(prj, ord, nuni, name, layout, type, null, width, height, height, color1, color2, color3, paramJson);
     }
 
     public GsonRoot(int prj, int ord, int nuni, String name, Layout layout, Type type, float width, float height1, float height2, int color1, int color2, int color3) {
-
-        if (type == Type.TRAPEZE) {
-            if (height1 > height2) {
-                init(prj, ord, nuni, name, layout, type, width, height1, height2, color1, color2, color3, null);
-                form = Form.RIGHT;
-            } else {
-                init(prj, ord, nuni, name, layout, type, width, height2, height1, color1, color2, color3, null);
-                form = Form.LEFT;
-            }
-        } else {
-            if (type == Type.ARCH) {
-                form = Form.TOP;
-            }
-            init(prj, ord, nuni, name, layout, type, width, height1, height2, color1, color2, color3, null);
-        }
+        init(prj, ord, nuni, name, layout, type, null, width, height1, height2, color1, color2, color3, null);
     }
 
-    public GsonRoot(int prj, int ord, int nuni, String name, Layout layout, Type type, float width, float height1, float height2, int color1, int color2, int color3, String paramJson) {
-        init(prj, ord, nuni, name, layout, type, width, height1, height2, color1, color2, color3, paramJson);
+    public GsonRoot(int prj, int ord, int nuni, String name, Layout layout, Type type, Form form, float width, float height1, float height2, int color1, int color2, int color3) {
+        init(prj, ord, nuni, name, layout, type, form, width, height1, height2, color1, color2, color3, null);
     }
 
-    public void init(int prj, int ord, int nuni, String name, Layout layout, Type type, float width, float height1, float height2, int color1, int color2, int color3, String paramJson) {
+    public void init(int prj, int ord, int nuni, String name, Layout layout, Type type, Form form, float width, float height1, float height2, int color1, int color2, int color3, String paramJson) {
         super.genId = 0;
         super.id = 0;
         this.prj = prj;
@@ -66,6 +52,7 @@ public class GsonRoot extends GsonElem {
         this.name = name;
         this.layout = layout;
         this.type = type;
+        this.form = form;
         this.width = width;
         this.height = height1;
         this.heightAdd = height2;
@@ -87,6 +74,10 @@ public class GsonRoot extends GsonElem {
             this.color3 = -3;
         }
     }
+
+    public int nuni() {
+        return nuni;
+    } 
     
     public float height() {
         return height;
@@ -110,9 +101,5 @@ public class GsonRoot extends GsonElem {
     
     public void width(float w) {
         width = w;
-    }
-
-    public int nuni() {
-        return nuni;
-    }  
+    } 
 }

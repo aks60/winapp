@@ -59,7 +59,7 @@ public class GsonElem {
         this.type = type;
         this.length = length; //длина стороны, сторона зависит от направления расположения area
     }
-    
+
     //Конструктор Area
     public GsonElem(Layout layout, Type type, float length, Form form) {
         this.id = ++genId;
@@ -106,11 +106,11 @@ public class GsonElem {
     public Type type() {
         return type;
     }
-    
+
     public Form form() {
         return form;
     }
-    
+
     public Layout layout() {
         return layout;
     }
@@ -150,18 +150,22 @@ public class GsonElem {
         return childs;
     }
 
-    public void parent() {
+    //Назначить родителей всем детям и поднять elem.form до rootGson
+    public void parent(GsonRoot root) {
         this.childs.forEach(el -> {
             el.owner = this;
-            if (Arrays.asList(Type.STVORKA, Type.AREA , Type.ARCH , Type.TRAPEZE, Type.TRIANGL).contains(el.type())) {
-                el.parent(); //рекурсия 
+            if (el.form != null) {
+                root.form = el.form;
+            }
+            if (Arrays.asList(Type.STVORKA, Type.AREA, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type())) {
+                el.parent(root); //рекурсия 
             }
         });
     }
 
-    public LinkedList<GsonElem> elems() {        
+    public LinkedList<GsonElem> elems() {
         return childs.stream().filter(el
-                -> Arrays.asList(Type.STVORKA, Type.AREA , Type.ARCH , Type.TRAPEZE, Type.TRIANGL).contains(el.type()))
+                -> Arrays.asList(Type.STVORKA, Type.AREA, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type()))
                 .collect(Collectors.toCollection(() -> new LinkedList<GsonElem>()));
     }
 }

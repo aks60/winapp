@@ -57,8 +57,7 @@ public class AreaSimple extends Com5t {
     public AreaSimple(Wincalc winc, AreaSimple owner, Type type, GsonElem gson, float width, float height, Form form) {
         super(gson.id(), winc, owner, gson);
         this.type = type;       
-        this.form = form;
-        winc.form = form; //поднимаю для быстрого доступа               
+        this.form = form;             
         this.layout = gson.layout();
         this.colorID1 = winc.rootGson.color1;
         this.colorID2 = winc.rootGson.color2;
