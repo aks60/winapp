@@ -8,7 +8,7 @@ import enums.Type;
 public class AreaTriangl extends AreaSimple {
 
     public AreaTriangl(Wincalc winc) {
-        super(winc, null, Type.TRIANGL);
+        super(winc);
         setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
     }
 

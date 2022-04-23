@@ -51,7 +51,7 @@ public class AreaStvorka extends AreaSimple {
     public float offset[] = {0, 0, 0, 0};
 
     public AreaStvorka(Wincalc winc, AreaSimple owner, GsonElem gson) {
-        super(winc, owner, Type.STVORKA, gson, (owner.x2 - owner.x1), (owner.y2 - owner.y1));
+        super(winc, owner, gson, (owner.x2 - owner.x1), (owner.y2 - owner.y1));
         
         //Добавим рамы створки    Ujson.getAsJsonObject(param, stvKey)  
         ElemFrame stvBot = new ElemFrame(this, gson.id() + .1f, Layout.BOTT, gson.param().getAsJsonObject(PKjson.stvorkaBottom), gson);

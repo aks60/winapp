@@ -26,7 +26,6 @@ public class ElemCross extends ElemSimple {
 
         super(gson.id(), owner.winc, owner, gson);
         this.layout = (owner.layout == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
-        this.type = gson.type();
 
         initСonstructiv(gson.param());
         setLocation();
@@ -42,10 +41,10 @@ public class ElemCross extends ElemSimple {
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         } else {
             if (Layout.VERT.equals(owner.layout)) { //сверху вниз
-                sysprofRec = eSysprof.find4x(winc.nuni, type.id2, UseSide.HORIZ);
+                sysprofRec = eSysprof.find4x(winc.nuni, type().id2, UseSide.HORIZ);
 
             } else if (Layout.HORIZ.equals(owner.layout)) { //слева направо
-                sysprofRec = eSysprof.find4x(winc.nuni, type.id2, UseSide.VERT);
+                sysprofRec = eSysprof.find4x(winc.nuni, type().id2, UseSide.VERT);
             }
         }
         spcRec.place = (Layout.HORIZ == owner.layout) ? Layout.VERT.name : Layout.HORIZ.name;
@@ -100,7 +99,7 @@ public class ElemCross extends ElemSimple {
         spcRec.anglCut1 = 90;
         spcRec.anglHoriz = anglHoriz;
 
-        if (type == Type.IMPOST) {
+        if (type() == Type.IMPOST) {
             //На эскизе заход импоста не показываю, сразу пишу в спецификацию
             if (winc.syssizeRec.getInt(eSyssize.id) != -1) {
                 float zax = winc.syssizeRec.getFloat(eSyssize.zax);
@@ -125,7 +124,7 @@ public class ElemCross extends ElemSimple {
                     spcRec.height = artiklRec.getFloat(eArtikl.height);
                 }
             }
-        } else if (type == Type.SHTULP) {
+        } else if (type() == Type.SHTULP) {
             if (Layout.HORIZ == owner.layout) { //слева направо  
                 spcRec.width = y2 - y1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
@@ -134,7 +133,7 @@ public class ElemCross extends ElemSimple {
                 spcRec.width = x2 - x1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
-        } else if (type == Type.STOIKA) {
+        } else if (type() == Type.STOIKA) {
             if (Layout.HORIZ == owner.layout) { //слева направо  
                 spcRec.width = y2 - y1;
                 spcRec.height = artiklRec.getFloat(eArtikl.height);

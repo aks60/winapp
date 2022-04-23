@@ -26,14 +26,15 @@ public class ElemFrame extends ElemSimple {
 
     protected float lengthArch = 0; //длина арки 
 
+    //Сторона коробки
     public ElemFrame(AreaSimple owner, GsonElem gson) {
        this(owner, gson.id(), gson.layout(), gson.param(), gson); 
     }
     
+    //Сторона створки
     public ElemFrame(AreaSimple owner, float id, Layout layout, JsonObject param, GsonElem gson) {
         super(id, owner.winc, owner, gson);
         this.layout = layout;
-        this.type = (Type.STVORKA == owner.typeArea()) ? Type.STVORKA_SIDE : Type.FRAME_SIDE;
         initСonstructiv(param);
         setLocation();
     }
@@ -51,13 +52,13 @@ public class ElemFrame extends ElemSimple {
             sysprofRec = owner.sysprofRec;
         } else {
             if (Layout.BOTT.equals(layout)) {
-                sysprofRec = eSysprof.find5x(winc.nuni, type.id2, UseSide.BOT, UseSide.HORIZ);
+                sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.BOT, UseSide.HORIZ);
             } else if (Layout.RIGHT.equals(layout)) {
-                sysprofRec = eSysprof.find5x(winc.nuni, type.id2, UseSide.RIGHT, UseSide.VERT);
+                sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.RIGHT, UseSide.VERT);
             } else if (Layout.TOP.equals(layout)) {
-                sysprofRec = eSysprof.find5x(winc.nuni, type.id2, UseSide.TOP, UseSide.HORIZ);
+                sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.TOP, UseSide.HORIZ);
             } else if (Layout.LEFT.equals(layout)) {
-                sysprofRec = eSysprof.find5x(winc.nuni, type.id2, UseSide.LEFT, UseSide.VERT);
+                sysprofRec = eSysprof.find5x(winc.nuni, type().id2, UseSide.LEFT, UseSide.VERT);
             }
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);

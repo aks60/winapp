@@ -79,7 +79,7 @@ public abstract class ElemSimple extends Com5t {
             for (int index = winc.listAll.size() - 1; index >= 0; --index) {
                 if (winc.listAll.get(index) instanceof ElemSimple) {
                     ElemSimple el = (ElemSimple) winc.listAll.get(index);
-                    if (begin == true && el.type != Type.GLASS) {
+                    if (begin == true && el.type() != Type.GLASS) {
                         if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
                             float Y2 = (y2 > y1) ? y2 : y1;
                             if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
@@ -116,7 +116,7 @@ public abstract class ElemSimple extends Com5t {
     public ElemSimple joinElem(int side) {
         ElemJoining ej = winc.mapJoin.get(joinPoint(side));
         if (ej != null && side == 0) {
-            return (this.type == Type.IMPOST || this.type == Type.SHTULP || this.type == Type.STOIKA) ? ej.elem2 : ej.elem1;
+            return (this.type() == Type.IMPOST || this.type() == Type.SHTULP || this.type() == Type.STOIKA) ? ej.elem2 : ej.elem1;
         } else if (ej != null && side == 1) {
             return ej.elem2;
         } else if (ej != null && side == 2) {

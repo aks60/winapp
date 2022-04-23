@@ -12,7 +12,7 @@ import enums.Type;
 public class AreaDoor extends AreaSimple {
 
     public AreaDoor(Wincalc winc) {
-        super(winc, null, Type.DOOR);
+        super(winc);
         setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
     }
 

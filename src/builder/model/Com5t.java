@@ -33,9 +33,13 @@ public abstract class Com5t {
     public Com5t(float id, Wincalc winc, AreaSimple owner, GsonElem gson) {
         this.id = id;
         this.owner = owner;
+        this.type = gson.type();
         this.winc = winc;
         this.root = winc.rootArea;
         this.gson = gson;
+        if(this instanceof ElemFrame && owner.typeArea() == Type.STVORKA) {
+           this.type = Type.STVORKA_SIDE;
+        }
     }
 
     public float id() {

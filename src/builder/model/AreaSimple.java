@@ -28,9 +28,8 @@ public class AreaSimple extends Com5t {
     public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     
     public LinkedList<Com5t> childs = new LinkedList(); //дети
 
-    public AreaSimple(Wincalc winc, AreaSimple owner, Type type) {
-        super(winc.rootGson.id(), winc, owner, winc.rootGson);
-        this.type = type;
+    public AreaSimple(Wincalc winc) {
+        super(winc.rootGson.id(), winc, null, winc.rootGson);
         this.layout = winc.rootGson.layout();
         this.colorID1 = winc.rootGson.color1;
         this.colorID2 = winc.rootGson.color2;
@@ -41,9 +40,8 @@ public class AreaSimple extends Com5t {
         initParametr(winc.rootGson.param());
     }
 
-    public AreaSimple(Wincalc winc, AreaSimple owner, Type type, GsonElem gson, float width, float height) {
+    public AreaSimple(Wincalc winc, AreaSimple owner, GsonElem gson, float width, float height) {
         super(gson.id(), winc, owner, gson);
-        this.type = type;
         this.layout = gson.layout();
         this.colorID1 = winc.rootGson.color1;
         this.colorID2 = winc.rootGson.color2;
@@ -54,9 +52,8 @@ public class AreaSimple extends Com5t {
         initParametr(gson.param());
     }
 
-    public AreaSimple(Wincalc winc, AreaSimple owner, Type type, GsonElem gson, float width, float height, Form form) {
+    public AreaSimple(Wincalc winc, AreaSimple owner, GsonElem gson, float width, float height, Form form) {
         super(gson.id(), winc, owner, gson);
-        this.type = type;
         this.form = form;
         this.layout = gson.layout();
         this.colorID1 = winc.rootGson.color1;
@@ -135,9 +132,9 @@ public class AreaSimple extends Com5t {
 
     public Type typeArea() {
         if (this != root && form != null) {
-            return root.type;
+            return root.type();
         }        
-        return type;
+        return type();
     }
 
     public void joining() {

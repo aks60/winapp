@@ -161,8 +161,8 @@ public class Wincalc {
 
                 } else if (Type.AREA == el.type() || Type.ARCH == el.type() || Type.TRAPEZE == el.type()) {
                     AreaSimple area5e = (el.form() == null) 
-                            ? new AreaSimple(Wincalc.this, owner, el.type(), el, el.width(), el.height())
-                            : new AreaSimple(Wincalc.this, owner, el.type(), el, el.width(), el.height(), el.form());
+                            ? new AreaSimple(Wincalc.this, owner, el, el.width(), el.height())
+                            : new AreaSimple(Wincalc.this, owner, el, el.width(), el.height(), el.form());
                     owner.childs.add(area5e);
                     hm.put(area5e, el);
 

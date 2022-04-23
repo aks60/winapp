@@ -15,7 +15,7 @@ public class AreaArch extends AreaSimple {
     public double radiusArch = 0; //радиус арки
 
     public AreaArch(Wincalc winc) {
-        super(winc, null, Type.ARCH);
+        super(winc);
         setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
     }
 
