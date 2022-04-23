@@ -23,7 +23,6 @@ public class ElemCross extends ElemSimple {
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
 
     public ElemCross(AreaSimple owner, GsonElem gson) {
-
         super(gson.id(), owner.winc, owner, gson);
         this.layout = (owner.layout == Layout.HORIZ) ? Layout.VERT : Layout.HORIZ;
 

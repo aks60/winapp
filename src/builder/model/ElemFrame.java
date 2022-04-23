@@ -35,6 +35,7 @@ public class ElemFrame extends ElemSimple {
     public ElemFrame(AreaSimple owner, float id, Layout layout, JsonObject param, GsonElem gson) {
         super(id, owner.winc, owner, gson);
         this.layout = layout;
+        
         initСonstructiv(param);
         setLocation();
     }

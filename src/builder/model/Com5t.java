@@ -38,7 +38,7 @@ public abstract class Com5t {
         this.root = winc.rootArea;
         this.gson = gson;
         if(this instanceof ElemFrame && owner.typeArea() == Type.STVORKA) {
-           this.type = Type.STVORKA_SIDE;
+           this.type = Type.STVORKA_SIDE; //фича створки
         }
     }
 
