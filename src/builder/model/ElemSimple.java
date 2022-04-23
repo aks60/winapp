@@ -23,7 +23,7 @@ public abstract class ElemSimple extends Com5t {
         winc.listAll.add(this);
         spcRec = new Specific(id, this);
     }
-
+    
     //Клик мышки попадает в контур элемента
     public boolean mouseClick(int X, int Y) {
         int x = (int) (X / winc.scale) - Com5t.TRANSLATE_XY;

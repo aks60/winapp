@@ -12,7 +12,7 @@ public abstract class Com5t {
 
     public static final int TRANSLATE_XY = 2; //сдвиг графика                 
     private float id = -1; //идентификатор 
-    public Type type = Type.NONE; //Тип элемента или конструкции  
+    protected Type type = Type.NONE; //Тип элемента или конструкции  
     public Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства
@@ -72,7 +72,11 @@ public abstract class Com5t {
         }
         return !jso.isJsonNull();
     }
-
+    
+    public Type type() {
+       return type; 
+    }
+    
     public float length() {
         ElemSimple elem5e = (ElemSimple) this;
         if (elem5e.anglHoriz == 0 || elem5e.anglHoriz == 180) {

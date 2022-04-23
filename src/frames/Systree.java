@@ -588,19 +588,19 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         if (winNode != null) {
 
             //Конструкции
-            if (winNode.com5t().type == enums.Type.RECTANGL || winNode.com5t().type == enums.Type.DOOR || winNode.com5t().type == enums.Type.TRAPEZE || winNode.com5t().type == enums.Type.ARCH) {
+            if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.DOOR || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card12");
-                ((TitledBorder) pan12.getBorder()).setTitle(winc.rootArea.type.name);
+                ((TitledBorder) pan12.getBorder()).setTitle(winc.rootArea.type().name);
                 setText(txt9, eColor.find(winc.colorID1).getStr(eColor.name));
                 setText(txt13, eColor.find(winc.colorID2).getStr(eColor.name));
                 setText(txt14, eColor.find(winc.colorID3).getStr(eColor.name));
                 setText(txt17, df1.format(winc.rootGson.width()));
                 setText(txt22, df1.format(winc.rootGson.height()));
                 setText(txt23, df1.format(winc.rootGson.heightAdd()));
-                txt23.setEditable(winNode.com5t().type == enums.Type.ARCH);
+                txt23.setEditable(winNode.com5t().type() == enums.Type.ARCH);
 
                 //Параметры
-            } else if (winNode.com5t().type == enums.Type.PARAM) {
+            } else if (winNode.com5t().type() == enums.Type.PARAM) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card11");
                 qSyspar1.clear();
                 winc.mapPardef.forEach((pk, syspar1Rec) -> qSyspar1.add(syspar1Rec));
@@ -608,11 +608,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 ((DefTableModel) tab7.getModel()).fireTableDataChanged();
 
                 //Рама, импост...
-            } else if (winNode.com5t().type == enums.Type.FRAME_SIDE
-                    || winNode.com5t().type == enums.Type.STVORKA_SIDE
-                    || winNode.com5t().type == enums.Type.IMPOST
-                    || winNode.com5t().type == enums.Type.STOIKA
-                    || winNode.com5t().type == enums.Type.SHTULP) {
+            } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE
+                    || winNode.com5t().type() == enums.Type.STVORKA_SIDE
+                    || winNode.com5t().type() == enums.Type.IMPOST
+                    || winNode.com5t().type() == enums.Type.STOIKA
+                    || winNode.com5t().type() == enums.Type.SHTULP) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card13");
                 ((TitledBorder) pan13.getBorder()).setTitle(winNode.toString());
                 setText(txt32, winNode.com5t().artiklRecAn.getStr(eArtikl.code));
@@ -622,7 +622,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt29, eColor.find(winNode.com5t().colorID3()).getStr(eColor.name));
 
                 //Стеклопакет
-            } else if (winNode.com5t().type == enums.Type.GLASS) {
+            } else if (winNode.com5t().type() == enums.Type.GLASS) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card15");
                 Record artiklRec = winNode.com5t().artiklRec;
                 setText(txt19, artiklRec.getStr(eArtikl.code));
@@ -631,7 +631,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt34, colorRec.getStr(eColor.name));
 
                 //Створка
-            } else if (winNode.com5t().type == enums.Type.STVORKA) {
+            } else if (winNode.com5t().type() == enums.Type.STVORKA) {
                 new Furniture(winc(), true); //найдём ручку створки
                 ((CardLayout) pan7.getLayout()).show(pan7, "card16");
                 AreaStvorka stv = (AreaStvorka) winNode.com5t();
@@ -665,7 +665,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setIcon(btn24, stv.paramCheck[6]);
 
                 //Соединения
-            } else if (winNode.com5t().type == enums.Type.JOINING) {
+            } else if (winNode.com5t().type() == enums.Type.JOINING) {
                 //new Joining(winc(), true); //заполним соединения данными из конструктива
                 ((CardLayout) pan7.getLayout()).show(pan7, "card17");
                 DefMutableTreeNode nodeParent = (DefMutableTreeNode) winNode.getParent();
@@ -3030,7 +3030,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     Record sysprofRec = qSysprof.get(index);
 
                     //Отфильтруем подходящие по параметрам
-                    if (winNode.com5t().type.id2 == sysprofRec.getInt(eSysprof.use_type)) {
+                    if (winNode.com5t().type().id2 == sysprofRec.getInt(eSysprof.use_type)) {
                         int useSideId = sysprofRec.getInt(eSysprof.use_side);
                         if (useSideId == layout.id
                                 || ((layout == Layout.BOTT || layout == Layout.TOP) && useSideId == UseSide.HORIZ.id)
@@ -3045,13 +3045,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 new DicSysprof(this, (sysprofRec) -> {
 
                     Wincalc winc = winc();
-                    if (winNode.com5t().type == enums.Type.FRAME_SIDE) { //рама окна
+                    if (winNode.com5t().type() == enums.Type.FRAME_SIDE) { //рама окна
                         float elemId = winNode.com5t().id();
                         GsonElem gsonRama = winc.listAll.gson(elemId);
                         gsonRama.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         updateScript(selectID);
 
-                    } else if (winNode.com5t().type == enums.Type.STVORKA_SIDE) { //рама створки
+                    } else if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) { //рама створки
                         float stvId = winNode.com5t().owner.id();
                         GsonElem stvArea = (GsonElem) winc.listAll.gson(stvId);
                         JsonObject paramObj = stvArea.param();
@@ -3107,7 +3107,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 float parentId = winNode.com5t().owner.id();
                 GsonElem parentArea = (GsonElem) winc().listAll.gson(parentId);
 
-                if (winNode.com5t().type == enums.Type.STVORKA_SIDE) {
+                if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) {
                     JsonObject paramObj = parentArea.param();
                     String stvKey = null;
                     if (winNode.com5t().layout == Layout.BOTT) {
@@ -3124,16 +3124,16 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     jso.addProperty(colorID, colorRec.getStr(eColor.id));
                     updateScript(selectID);
 
-                } else if (winNode.com5t().type == enums.Type.FRAME_SIDE) {
+                } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE) {
                     for (GsonElem elem : parentArea.elems()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
                             updateScript(selectID);
                         }
                     }
-                } else if (winNode.com5t().type == enums.Type.IMPOST
-                        || winNode.com5t().type == enums.Type.STOIKA
-                        || winNode.com5t().type == enums.Type.SHTULP) {
+                } else if (winNode.com5t().type() == enums.Type.IMPOST
+                        || winNode.com5t().type() == enums.Type.STOIKA
+                        || winNode.com5t().type() == enums.Type.SHTULP) {
                     for (GsonElem elem : parentArea.elems()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             elem.param().addProperty(colorID, colorRec.getStr(eColor.id));

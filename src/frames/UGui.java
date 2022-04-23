@@ -181,37 +181,37 @@ public class UGui {
         ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
         }));
         for (Com5t com : winc.rootArea.childs) {
-            if (com.type != Type.STVORKA) {
+            if (com.type() != Type.STVORKA) {
                 if (com instanceof ElemSimple) {
                     frm.add(new DefMutableTreeNode(com));
-                    if (com.type != Type.GLASS) {
+                    if (com.type() != Type.GLASS) {
                         ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                         }));
                     }
                 } else {
                     for (Com5t com2 : ((AreaSimple) com).childs) {
-                        if (com2.type != Type.STVORKA) {
+                        if (com2.type() != Type.STVORKA) {
                             if (com2 instanceof ElemSimple) {
                                 frm.add(new DefMutableTreeNode(com2));
-                                if (com2.type != Type.GLASS) {
+                                if (com2.type() != Type.GLASS) {
                                     ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                                     }));
                                 }
                             } else {
                                 for (Com5t com3 : ((AreaSimple) com2).childs) {
-                                    if (com3.type != Type.STVORKA) {
+                                    if (com3.type() != Type.STVORKA) {
                                         if (com3 instanceof ElemSimple) {
                                             frm.add(new DefMutableTreeNode(com3));
-                                            if (com3.type != Type.GLASS) {
+                                            if (com3.type() != Type.GLASS) {
                                                 ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                                                 }));
                                             }
                                         } else {
                                             for (Com5t com4 : ((AreaSimple) com3).childs) {
-                                                if (com4.type != Type.STVORKA) {
+                                                if (com4.type() != Type.STVORKA) {
                                                     if (com4 instanceof ElemSimple) {
                                                         frm.add(new DefMutableTreeNode(com4));
-                                                        if (com4.type != Type.GLASS) {
+                                                        if (com4.type() != Type.GLASS) {
                                                             ((DefMutableTreeNode) frm.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                                                             }));
                                                         }
@@ -256,7 +256,7 @@ public class UGui {
         for (Com5t com2 : ((AreaSimple) com).childs) {
             if (com2 instanceof ElemSimple) {
                 nodeStv.add(new DefMutableTreeNode(com2));
-                if (com2.type != Type.GLASS) {
+                if (com2.type() != Type.GLASS) {
                     ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                     }));
                 }
@@ -264,7 +264,7 @@ public class UGui {
                 for (Com5t com3 : ((AreaSimple) com2).childs) {
                     if (com3 instanceof ElemSimple) {
                         nodeStv.add(new DefMutableTreeNode(com3));
-                        if (com3.type != Type.GLASS) {
+                        if (com3.type() != Type.GLASS) {
                             ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                             }));
                         }
@@ -272,7 +272,7 @@ public class UGui {
                         for (Com5t com4 : ((AreaSimple) com3).childs) {
                             if (com4 instanceof ElemSimple) {
                                 nodeStv.add(new DefMutableTreeNode(com4));
-                                if (com4.type != Type.GLASS) {
+                                if (com4.type() != Type.GLASS) {
                                     ((DefMutableTreeNode) nodeStv.getLastChild()).add(new DefMutableTreeNode(new Com5t(Type.JOINING) {
                                     }));
                                 }

@@ -265,7 +265,7 @@ public class UCom {
         List tp = Arrays.asList(type);
         LinkedList<T> list2 = new LinkedList();
         for (E el : list) {
-            if (tp.contains(el.type)) {
+            if (tp.contains(el.type())) {
                 list2.add((T) el);
             }
         }

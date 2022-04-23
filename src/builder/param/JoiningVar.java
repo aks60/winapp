@@ -63,12 +63,12 @@ public class JoiningVar extends Par5s {
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
                         int[] index = {1, 2, 3, 5, 19};
                         for (int i = 0; i < arr.length; i++) {
-                            if (arr[i].equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(index[i]), elemJoin.elem1.type.id) == false) {
+                            if (arr[i].equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(index[i]), elemJoin.elem1.type().id) == false) {
                                 return false;
                             }
                         }
                     } else {
-                        if (UCom.containsNumb(rec.getStr(TEXT), elemJoin.elem1.type.id, elemJoin.elem2.type.id) == false) {
+                        if (UCom.containsNumb(rec.getStr(TEXT), elemJoin.elem1.type().id, elemJoin.elem2.type().id) == false) {
                             return false;
                         }
                     }
@@ -81,7 +81,7 @@ public class JoiningVar extends Par5s {
                         String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
                         int[] index = {1, 2, 3, 5, 19};
                         for (int i = 0; i < arr.length; i++) {
-                            if (arr[i].equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(index[i]), elemJoin.elem2.type.id) == false) {
+                            if (arr[i].equals(rec.getStr(TEXT)) && UCom.containsNumbJust(String.valueOf(index[i]), elemJoin.elem2.type().id) == false) {
                                 return false;
                             }
                         }
@@ -220,7 +220,7 @@ public class JoiningVar extends Par5s {
                 case 1040:  //Размер, мм (Смещение осей рамы и створки. Наследие ps3)
                     //Параметр вычисляктся на раннем этапе см. конструктор AreaStvorka()
                     //Применяется если сист. константы отсутствуют
-                    if (elemJoin.elem1.type == Type.STVORKA_SIDE) {
+                    if (elemJoin.elem1.type() == Type.STVORKA_SIDE) {
                         listenerList.add(() -> {
                             AreaStvorka stv = (AreaStvorka) elemJoin.elem1.owner;
                             if (elemJoin.elem1.layout == Layout.BOTT) {

@@ -25,7 +25,7 @@ class UPar {
     static List<ElemGlass> getGlassDepth(ElemSimple elem5e) {
         ElemSimple glass1 = null, glass2 = null;
         for (ElemSimple el : elem5e.winc.listElem) {
-            if (el.type == Type.GLASS) {
+            if (el.type() == Type.GLASS) {
                 if (elem5e.layout == Layout.VERT) {
                     if (el.inside(elem5e.x1() - 200, elem5e.y1() + elem5e.height() / 2)) {
                         glass1 = el;
@@ -63,12 +63,12 @@ class UPar {
             String[] arr = {"коробка", "створка", "импост", "стойка", "эркер"};
             int[] index = {1, 2, 3, 5, 19};
             for (int i = 0; i < arr.length; i++) {
-                if (arr.equals(txt) && UCom.containsNumbJust(String.valueOf(index[i]), elem5e.type.id) == false) {
+                if (arr.equals(txt) && UCom.containsNumbJust(String.valueOf(index[i]), elem5e.type().id) == false) {
                     return false;
                 }
             }
         } else {
-            if (UCom.containsNumbJust(txt, elem5e.type.id) == false) {
+            if (UCom.containsNumbJust(txt, elem5e.type().id) == false) {
                 return false;
             }
         }
@@ -143,7 +143,7 @@ class UPar {
     static boolean is_1008_11008_12008_14008_15008_31008_34008_40008(String txt, Wincalc winc) {
         float depth = 0;
         for (ElemSimple elem : winc.listElem) {
-            if (elem.type == Type.GLASS) {
+            if (elem.type() == Type.GLASS) {
                 depth = (elem.artiklRecAn.getFloat(eArtikl.depth) > depth) ? elem.artiklRecAn.getFloat(eArtikl.depth) : depth;
             }
         }

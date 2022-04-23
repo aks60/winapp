@@ -66,7 +66,7 @@ public class Tariffic extends Cal5e {
 
                     //Фильтр по полю форма профиля, заполнения. В БиМакс используюеся только 1, 4, 10, 12 параметры
                     int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
-                    if (Type.GLASS == elem5e.type) {//фильтр для стеклопакета
+                    if (Type.GLASS == elem5e.type()) {//фильтр для стеклопакета
 
                         if (form == TypeForm.P00.id) {//не проверять форму
                             rulePrise(rulecalcRec, elem5e.spcRec);
@@ -77,7 +77,7 @@ public class Tariffic extends Cal5e {
                         } else if (form == TypeForm.P12.id && Type.ARCH == elem5e.owner.typeArea()) {//не прямоугольное заполнение с арками
                             rulePrise(rulecalcRec, elem5e.spcRec);
                         }
-                    } else if (form == TypeForm.P04.id && elem5e.type == Type.FRAME_SIDE
+                    } else if (form == TypeForm.P04.id && elem5e.type() == Type.FRAME_SIDE
                             && elem5e.owner.typeArea() == Type.ARCH && elem5e.layout == Layout.TOP) {  //профиль с радиусом  (фильтр для арки профиля AYPC.W62.0101)
                         rulePrise(rulecalcRec, elem5e.spcRec); //профиль с радиусом
 
@@ -266,7 +266,7 @@ public class Tariffic extends Cal5e {
 
     //Процентная надбавка на изделия сложной формы
     private float percentMarkup() {
-        if (Type.ARCH == winc.rootArea.type) {
+        if (Type.ARCH == winc.rootArea.type()) {
             return eGroups.find(2101).getFloat(eGroups.val);
         }
         return 0;

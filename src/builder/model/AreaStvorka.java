@@ -278,7 +278,7 @@ public class AreaStvorka extends AreaSimple {
                 Draw.drawLine(winc, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1, elemB.x2, elemB.y2);
             }
 
-            if (root.type == Type.DOOR) {
+            if (root.typeArea() == Type.DOOR) {
                 DY = 20;
                 winc.gc2d.rotate(Math.toRadians(-90), X1 - DX, Y1 - DY);
                 Draw.strokePolygon(winc, X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);

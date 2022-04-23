@@ -65,7 +65,7 @@ public class Scene extends javax.swing.JPanel {
 
                 } else { //На конструкции
                     for (ElemSimple crs : winc.listElem) {
-                        if (Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type)
+                        if (Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type())
                                 && crs.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale)) {
                             List<Com5t> areaChilds = ((ElemSimple) crs).owner.childs;
                             for (int i = 0; i < areaChilds.size(); ++i) {
