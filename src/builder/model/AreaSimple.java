@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 public class AreaSimple extends Com5t {
 
-    public Form form = Form.NULL; //форма контура (параметр в развитии)
+    public Form form = null; //форма контура (параметр в развитии)
     public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     
     public LinkedList<Com5t> childs = new LinkedList(); //дети
 

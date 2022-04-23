@@ -3,7 +3,6 @@ package enums;
 import static enums.Layout.values;
 
 public enum Form {
-    NULL(0, "Любая"),
     BOTT(1, "Нижняя"),
     RIGHT(2, "Правая"),
     TOP(3, "Верхняя"),

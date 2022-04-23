@@ -68,7 +68,7 @@ public class Wincalc {
 
     public AreaSimple rootArea = null; //главное окно кострукции
     public GsonRoot rootGson = null; //главное окно кострукции в формате gson
-    public Form form = Form.NULL; //форма контура (параметр в развитии) 
+    public Form form = null; //форма контура (параметр в развитии) 
 
     public HashMap<Integer, Record> mapPardef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList2<AreaSimple> listArea = new LinkedList2(); //список AreaSimple
