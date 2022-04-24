@@ -67,10 +67,10 @@ public class Scene extends javax.swing.JPanel {
                     for (ElemSimple crs : winc.listElem) {
                         if (Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type())
                                 && crs.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale)) {
-                            List<Com5t> areaChilds = ((ElemSimple) crs).owner.childs;
+                            List<Com5t> areaChilds = ((ElemSimple) crs).owner.childs; //дети импоста на котором был клик
                             for (int i = 0; i < areaChilds.size(); ++i) {
                                 if (areaChilds.get(i).id() == crs.id()) {
-                                    if (crs.layout() == Layout.HORIZ) {
+                                    if (crs.layout() == Layout.HORIZ) { //area слева и справа от импоста
                                         lineVert = Arrays.asList(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
                                     } else {
                                         lineHoriz = Arrays.asList(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
@@ -111,7 +111,7 @@ public class Scene extends javax.swing.JPanel {
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, resizeFont()));
             float sum = 0, curX = 16 + (float) (lineHoriz.get(0).area().x1() * winc.scale);
             g.setColor(Color.BLACK);
-            g.drawLine((int) curX, 6, (int) curX, 12);            
+            g.drawLine((int) curX, 6, (int) curX, 12);
             for (Scale elem : lineHoriz) {
                 int dx = (int) (elem.widthGson() * winc.scale);
                 g.drawLine((int) (curX + dx), 6, (int) (curX + dx), 12);
@@ -129,16 +129,54 @@ public class Scene extends javax.swing.JPanel {
 
     //Рисуем на panWest
     private void paintVertical(Graphics gc) {
+        adaptingVertical();
+        if (winc != null) {
+            double k = winc.scale;
+            Graphics2D g = (Graphics2D) gc;
+            g.translate(0, Com5t.TRANSLATE_XY);
+            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, resizeFont()));
+
+            //1 - шкала
+            g.setColor(Color.BLACK);
+            Scale sc1 = lineVert.get(0);
+            g.drawLine(0, (int) (sc1.Y1 * k), 8, (int) (sc1.Y1 * k));
+            g.drawLine(0, (int) (sc1.Y2 * k), 8, (int) (sc1.Y2 * k));
+            g.setColor(sc1.color);
+            int dw = g.getFontMetrics().stringWidth(df1.format(sc1.heightGson()));
+            double val = (sc1.Y2 - sc1.Y1) * k / 2 + dw / 2;
+            g.rotate(Math.toRadians(-90), 11, val);
+            g.drawString(df1.format(sc1.Y2 - sc1.Y1), 11, (int) val);
+            g.rotate(Math.toRadians(90), 11, val);
+            if (lineVert.size() == 2) {
+
+                //2 - шкала
+                g.setColor(sc1.color);
+                Scale sc2 = lineVert.get(1);
+                dw = g.getFontMetrics().stringWidth(df1.format(sc2.heightGson()));
+                val = (sc2.Y1 + (sc2.Y2 - sc2.Y1) / 2) * k + dw / 2;
+                g.rotate(Math.toRadians(-90), 11, val);
+                g.drawString(df1.format(sc2.Y2 - sc2.Y1), 11, (int) val);
+                g.rotate(Math.toRadians(90), 11, val);
+                g.setColor(Color.BLACK);
+                g.drawLine(0, (int) (sc2.Y2 * k), 8, (int) (sc2.Y2 * k));
+            }
+        } else {
+            gc.setColor(getBackground());
+            gc.fillRect(0, 0, panWert.getWidth(), panWert.getHeight());
+        }
+    }
+
+    private void paintVertical2(Graphics gc) {
         if (winc != null) {
             Graphics2D g = (Graphics2D) gc;
             g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, resizeFont()));
             float dh = 0, dy = 0, curY = 2 + (float) (lineVert.get(0).area().y1() * winc.scale);
             g.setColor(Color.BLACK);
-            g.drawLine(0, (int) curY, 8, (int) curY);            
+            g.drawLine(0, (int) curY, 8, (int) curY);
             for (Scale scale : lineVert) {
 
                 if (scale.area().owner != null && scale.area().owner.typeArea() == Type.STVORKA) { //если в створке несколько area (дверь)
-                    //dh = winc.listArea.stream().filter(it -> it.id() == scale.gson().owner().id()).findFirst().get().y1();//y1 - от gson без коррекции
+                    dh = winc.listArea.stream().filter(it -> it.id() == scale.gson().owner().id()).findFirst().get().y1();//y1 - от gson без коррекции
                 }
                 if (scale == lineVert.get(lineVert.size() - 1)) {
                     dh = -1 * dh;
@@ -147,10 +185,10 @@ public class Scene extends javax.swing.JPanel {
                 dy = (float) ((scale.heightGson() + dh) * winc.scale); //берём высоту без коррекции импоста
                 g.drawLine(0, (int) (curY + dy), 8, (int) (curY + dy));
                 g.setColor(scale.color);
-                
+
                 int dw = g.getFontMetrics().stringWidth(df1.format(scale.heightGson()));
                 g.rotate(Math.toRadians(-90), 11, curY + dy - dy / 2 + dw / 2);
-                g.drawString(df1.format(scale.heightGson() + dh), 12, curY + dy - dy / 2 + dw / 2);
+                g.drawString(df1.format(scale.heightGson() + dh), 11, curY + dy - dy / 2 + dw / 2);
                 g.rotate(Math.toRadians(90), 11, curY + dy - dy / 2 + dw / 2);
                 curY = curY + dy;
             }
@@ -173,7 +211,7 @@ public class Scene extends javax.swing.JPanel {
         }
     }
 
-    public void resizeLine() {
+    private void resizeLine() {
         float val = Float.valueOf(spinner.getValue().toString());
 
         //Горизонтальное выделение красн.
@@ -205,6 +243,27 @@ public class Scene extends javax.swing.JPanel {
             }
         }
         listenerWinc.reload();
+    }
+
+    private void adaptingVertical() {
+
+        Scale sc1 = lineVert.get(0);
+        sc1.Y1 = sc1.area().y1();
+        sc1.Y2 = sc1.area().y2();
+
+        if (lineVert.size() == 2) {
+            Scale sc2 = lineVert.get(1);
+            if (sc1.area().typeArea() == Type.AREA && sc2.area().typeArea() == Type.AREA) {
+                sc2.Y1 = sc2.area().y1();
+                sc2.Y2 = sc2.area().y2();
+            } else if (sc1.area().typeArea() == Type.ARCH && sc2.area().typeArea() == Type.AREA) {
+                sc2.Y1 = sc2.area().y1();
+                sc2.Y2 = sc2.area().y2();
+            } else if (sc1.area().typeArea() == Type.TRAPEZE && sc2.area().typeArea() == Type.AREA) {
+                sc2.Y1 = sc2.area().y1();
+                sc2.Y2 = sc2.area().y2();
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
