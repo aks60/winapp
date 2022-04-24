@@ -67,7 +67,8 @@ public class ElemCross extends ElemSimple {
                dy = (float) (root.frames.get(Layout.RIGHT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
             }
             prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.size_centr) + dy);
-        }               
+        } 
+        //Установка координат
         for (int index = owner.childs.size() - 1; index >= 0; --index) {
             if (owner.childs.get(index) instanceof AreaSimple) {
                 Com5t prevArea = owner.childs.get(index); //index указывает на предыдущий элемент

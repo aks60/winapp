@@ -136,8 +136,9 @@ public class Scene extends javax.swing.JPanel {
             g.setColor(Color.BLACK);
             g.drawLine(0, (int) curY, 8, (int) curY);            
             for (Scale scale : lineVert) {
-                if (scale.gson().owner() != null && scale.gson().owner().type() == Type.STVORKA) {
-                    dh = winc.listArea.stream().filter(it -> it.id() == scale.gson().owner().id()).findFirst().get().y1();
+
+                if (scale.area().owner != null && scale.area().owner.typeArea() == Type.STVORKA) { //если в створке несколько area (дверь)
+                    //dh = winc.listArea.stream().filter(it -> it.id() == scale.gson().owner().id()).findFirst().get().y1();//y1 - от gson без коррекции
                 }
                 if (scale == lineVert.get(lineVert.size() - 1)) {
                     dh = -1 * dh;
@@ -146,6 +147,7 @@ public class Scene extends javax.swing.JPanel {
                 dy = (float) ((scale.heightGson() + dh) * winc.scale); //берём высоту без коррекции импоста
                 g.drawLine(0, (int) (curY + dy), 8, (int) (curY + dy));
                 g.setColor(scale.color);
+                
                 int dw = g.getFontMetrics().stringWidth(df1.format(scale.heightGson()));
                 g.rotate(Math.toRadians(-90), 11, curY + dy - dy / 2 + dw / 2);
                 g.drawString(df1.format(scale.heightGson() + dh), 12, curY + dy - dy / 2 + dw / 2);
