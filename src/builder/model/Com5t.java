@@ -14,6 +14,7 @@ public abstract class Com5t {
     private float id = -1; //идентификатор 
     private Type type = Type.NONE; //Тип элемента или конструкции  
     protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
+    
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства
     public Record artiklRecAn = null;  //аналог мат. средства    
