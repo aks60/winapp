@@ -13,7 +13,7 @@ public abstract class Com5t {
     public static final int TRANSLATE_XY = 2; //сдвиг графика                 
     private float id = -1; //идентификатор 
     private Type type = Type.NONE; //Тип элемента или конструкции  
-    public Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
+    protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства
     public Record artiklRecAn = null;  //аналог мат. средства    
@@ -37,8 +37,8 @@ public abstract class Com5t {
         this.winc = winc;
         this.root = winc.rootArea;
         this.gson = gson;
-        if(this instanceof ElemFrame && owner.typeArea() == Type.STVORKA) {
-           this.type = Type.STVORKA_SIDE; //фича створки
+        if (this instanceof ElemFrame && owner.typeArea() == Type.STVORKA) {
+            this.type = Type.STVORKA_SIDE; //фича створки
         }
     }
 
@@ -76,11 +76,15 @@ public abstract class Com5t {
         }
         return !jso.isJsonNull();
     }
-    
+
     public Type type() {
-       return type; 
+        return type;
     }
-    
+
+    public Layout layout() {
+        return layout;
+    }
+
     public float length() {
         ElemSimple elem5e = (ElemSimple) this;
         if (elem5e.anglHoriz == 0 || elem5e.anglHoriz == 180) {

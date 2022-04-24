@@ -70,7 +70,7 @@ public class Scene extends javax.swing.JPanel {
                             List<Com5t> areaChilds = ((ElemSimple) crs).owner.childs;
                             for (int i = 0; i < areaChilds.size(); ++i) {
                                 if (areaChilds.get(i).id() == crs.id()) {
-                                    if (crs.layout == Layout.HORIZ) {
+                                    if (crs.layout() == Layout.HORIZ) {
                                         lineVert = Arrays.asList(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
                                     } else {
                                         lineHoriz = Arrays.asList(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));

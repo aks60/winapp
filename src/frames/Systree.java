@@ -3022,7 +3022,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void sysprofToFrame(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysprofToFrame
         try {
             if (winNode != null) {
-                Layout layout = winNode.com5t().layout;
+                Layout layout = winNode.com5t().layout();
                 float selectID = winNode.com5t().id(); //id элемента который уже есть в конструкции, это либо виртуал. либо найденный по приоритету при построении модели
                 Query qSysprofFilter = new Query(eSysprof.values(), eArtikl.values()); //тут будет список допустимых профилей из ветки системы
                 //Цикл по профилям ветки 
@@ -3110,13 +3110,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) {
                     JsonObject paramObj = parentArea.param();
                     String stvKey = null;
-                    if (winNode.com5t().layout == Layout.BOTT) {
+                    if (winNode.com5t().layout() == Layout.BOTT) {
                         stvKey = PKjson.stvorkaBottom;
-                    } else if (winNode.com5t().layout == Layout.RIGHT) {
+                    } else if (winNode.com5t().layout() == Layout.RIGHT) {
                         stvKey = PKjson.stvorkaRight;
-                    } else if (winNode.com5t().layout == Layout.TOP) {
+                    } else if (winNode.com5t().layout() == Layout.TOP) {
                         stvKey = PKjson.stvorkaTop;
-                    } else if (winNode.com5t().layout == Layout.LEFT) {
+                    } else if (winNode.com5t().layout() == Layout.LEFT) {
                         stvKey = PKjson.stvorkaLeft;
                     }
 
