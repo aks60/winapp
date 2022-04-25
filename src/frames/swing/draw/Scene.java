@@ -33,6 +33,7 @@ public class Scene extends javax.swing.JPanel {
     private ChangeListener listenerSpinner = new ChangeListener() {
 
         public void stateChanged(ChangeEvent ce) {
+
             if (timer.isRunning() == false) {
                 timer.setRepeats(false);
                 timer.start();
@@ -143,56 +144,23 @@ public class Scene extends javax.swing.JPanel {
             g.drawLine(0, (int) (sc1.Y2 * k), 8, (int) (sc1.Y2 * k));
             g.setColor(sc1.color);
             int dw = g.getFontMetrics().stringWidth(df1.format(sc1.heightGson()));
-            double val = (sc1.Y2 - sc1.Y1) * k / 2 + dw / 2;
+            double val = sc1.height() * k / 2 + dw / 2;
             g.rotate(Math.toRadians(-90), 11, val);
-            g.drawString(df1.format(sc1.Y2 - sc1.Y1), 11, (int) val);
+            g.drawString(df1.format(sc1.height()), 11, (int) val);
             g.rotate(Math.toRadians(90), 11, val);
             if (lineVert.size() == 2) {
 
                 //2 - шкала
-                g.setColor(sc1.color);
                 Scale sc2 = lineVert.get(1);
+                g.setColor(sc2.color);
                 dw = g.getFontMetrics().stringWidth(df1.format(sc2.heightGson()));
-                val = (sc2.Y1 + (sc2.Y2 - sc2.Y1) / 2) * k + dw / 2;
+                val = (sc2.Y1 + sc2.height() / 2) * k + dw / 2;
                 g.rotate(Math.toRadians(-90), 11, val);
-                g.drawString(df1.format(sc2.Y2 - sc2.Y1), 11, (int) val);
+                g.drawString(df1.format(sc2.height()), 11, (int) val);
                 g.rotate(Math.toRadians(90), 11, val);
                 g.setColor(Color.BLACK);
                 g.drawLine(0, (int) (sc2.Y2 * k), 8, (int) (sc2.Y2 * k));
             }
-        } else {
-            gc.setColor(getBackground());
-            gc.fillRect(0, 0, panWert.getWidth(), panWert.getHeight());
-        }
-    }
-
-    private void paintVertical2(Graphics gc) {
-        if (winc != null) {
-            Graphics2D g = (Graphics2D) gc;
-            g.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, resizeFont()));
-            float dh = 0, dy = 0, curY = 2 + (float) (lineVert.get(0).area().y1() * winc.scale);
-            g.setColor(Color.BLACK);
-            g.drawLine(0, (int) curY, 8, (int) curY);
-            for (Scale scale : lineVert) {
-
-                if (scale.area().owner != null && scale.area().owner.typeArea() == Type.STVORKA) { //если в створке несколько area (дверь)
-                    dh = winc.listArea.stream().filter(it -> it.id() == scale.gson().owner().id()).findFirst().get().y1();//y1 - от gson без коррекции
-                }
-                if (scale == lineVert.get(lineVert.size() - 1)) {
-                    dh = -1 * dh;
-                }
-                Object ooo = scale.heightGson();
-                dy = (float) ((scale.heightGson() + dh) * winc.scale); //берём высоту без коррекции импоста
-                g.drawLine(0, (int) (curY + dy), 8, (int) (curY + dy));
-                g.setColor(scale.color);
-
-                int dw = g.getFontMetrics().stringWidth(df1.format(scale.heightGson()));
-                g.rotate(Math.toRadians(-90), 11, curY + dy - dy / 2 + dw / 2);
-                g.drawString(df1.format(scale.heightGson() + dh), 11, curY + dy - dy / 2 + dw / 2);
-                g.rotate(Math.toRadians(90), 11, curY + dy - dy / 2 + dw / 2);
-                curY = curY + dy;
-            }
-
         } else {
             gc.setColor(getBackground());
             gc.fillRect(0, 0, panWert.getWidth(), panWert.getHeight());
@@ -211,13 +179,14 @@ public class Scene extends javax.swing.JPanel {
         }
     }
 
+    //Изменить размер и перерисовать шкалу
     private void resizeLine() {
         float val = Float.valueOf(spinner.getValue().toString());
 
         //Горизонтальное выделение красн.
         Scale scaleHor = lineHoriz.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
         if (scaleHor != null) {
-            float dx = val - scaleHor.area().lengthX();
+            float dx = val - scaleHor.width();
             if (dx != 0) {
                 for (Scale scale : lineHoriz) {
                     if (scale.color == java.awt.Color.RED) {
@@ -231,12 +200,14 @@ public class Scene extends javax.swing.JPanel {
         //Вертикальное выделение красн.
         Scale scaleVer = lineVert.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
         if (scaleVer != null) {
-            float dy = val - scaleVer.area().lengthY();
+            float dy = val - scaleVer.height();
             if (dy != 0) {
                 for (Scale scale : lineVert) {
                     if (scale.color == java.awt.Color.RED) {
+                        System.out.println(scale.area().lengthY() + "+" + dy);
                         scale.area().lengthY(scale.area().lengthY() + dy);
                     } else {
+                        System.out.println(scale.area().lengthY() + "-" + dy);
                         scale.area().lengthY(scale.area().lengthY() - dy);
                     }
                 }
@@ -257,8 +228,10 @@ public class Scene extends javax.swing.JPanel {
                 sc2.Y1 = sc2.area().y1();
                 sc2.Y2 = sc2.area().y2();
             } else if (sc1.area().typeArea() == Type.ARCH && sc2.area().typeArea() == Type.AREA) {
-                sc2.Y1 = sc2.area().y1();
-                sc2.Y2 = sc2.area().y2();
+                sc1.Y1 = 0;
+                sc1.Y2 = sc1.gson().length();
+                sc2.Y1 = sc1.gson().length();
+                sc2.Y2 = sc1.gson().length() + sc2.gson().length();
             } else if (sc1.area().typeArea() == Type.TRAPEZE && sc2.area().typeArea() == Type.AREA) {
                 sc2.Y1 = sc2.area().y1();
                 sc2.Y2 = sc2.area().y2();
@@ -312,15 +285,14 @@ public class Scene extends javax.swing.JPanel {
         lineHoriz.forEach(it -> it.color = Color.BLACK);
         spinner.removeChangeListener(listenerSpinner);
         spinner.setValue(0);
-        double y1 = lineVert.get(0).area().y1() * winc.scale;
         for (Scale scale : lineVert) {
-            float Y = evt.getY();
-            double y2 = scale.area().y2() * winc.scale;
+            double Y = evt.getY();
+            double y1 = scale.Y1 * winc.scale;
+            double y2 = scale.Y2 * winc.scale;
             if (y1 < Y && Y < y2) {
                 scale.color = java.awt.Color.RED;
                 spinner.setValue(scale.heightGson());
             }
-            y1 += scale.heightGson() * winc.scale;
         }
         spinner.addChangeListener(listenerSpinner);
         panHoriz.repaint();

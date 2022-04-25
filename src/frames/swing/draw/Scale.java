@@ -7,7 +7,7 @@ import java.awt.Color;
 
 public class Scale {
 
-    double X1, X2, Y1, Y2, width, height;
+    double X1, X2, Y1, Y2;
     public Color color = Color.black;  //цвет выделения линии 
     private AreaSimple area = null;
 
@@ -27,6 +27,14 @@ public class Scale {
         return area.gson;
     }
 
+    public float width() {
+        return (float) (X2 - X1);
+    }
+
+    public float height() {
+        return (float) (Y2 - Y1);
+    }
+    
     public float widthGson() {
         return area.gson.width();
     }

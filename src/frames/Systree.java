@@ -2832,12 +2832,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_mousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);
-        qSystree.execsql();
-        Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        if (models != null) {
-            models.dispose();
-        }
+//        UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);
+//        qSystree.execsql();
+//        Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+//        if (models != null) {
+//            models.dispose();
+//        }
     }//GEN-LAST:event_windowClosed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
