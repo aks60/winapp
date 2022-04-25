@@ -241,8 +241,8 @@ public class Scene extends javax.swing.JPanel {
 
                 } else if (sc1.area().root.type() == Type.DOOR) {
                     sc1.Y1 = 0;
-                    //sc1.Y2 = sc1.X2;
-                    //sc2.Y1 = sc2.X1;
+                    sc1.Y2 = sc1.area().y2();
+                    sc2.Y1 = sc1.area().y2();
                     sc2.Y2 = sc2.area().root.height();
 
                 } else if (sc1.area().typeArea() == Type.AREA && sc2.area().typeArea() == Type.AREA) {
@@ -308,7 +308,7 @@ public class Scene extends javax.swing.JPanel {
             double y2 = scale.Y2 * winc.scale;
             if (y1 < Y && Y < y2) {
                 scale.color = java.awt.Color.RED;
-                spinner.setValue(scale.heightGson());
+                spinner.setValue(scale.Y2 - scale.Y1);
             }
         }
         spinner.addChangeListener(listenerSpinner);

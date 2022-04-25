@@ -1139,7 +1139,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         panSspinner.setPreferredSize(new java.awt.Dimension(72, 24));
         panSspinner.setLayout(new java.awt.BorderLayout());
 
-        spinner.setModel(new javax.swing.SpinnerNumberModel());
+        spinner.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
         spinner.setBorder(null);
         spinner.setPreferredSize(new java.awt.Dimension(50, 24));
         panSspinner.add(spinner, java.awt.BorderLayout.CENTER);
