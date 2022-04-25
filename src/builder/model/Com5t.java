@@ -148,10 +148,10 @@ public abstract class Com5t {
                 if (k != 1) {
                     winc.rootGson.height(v);
                     winc.rootGson.heightAdd(k * winc.rootGson.heightAdd());
-                    winc.listArea.forEach(e -> {
+                    winc.listArea.forEach(e -> { //перебор всех вертикальных area
                         if (e.layout == Layout.VERT) {
-                            e.childs.forEach(e2 -> { //изменение всех по ширине
-                                if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
+                            e.childs.forEach(e2 -> { //изменение детей по высоте
+                                if (e2.type == Type.AREA) {
                                     e2.gson.length(k * e2.gson.length());
                                 }
                             });
