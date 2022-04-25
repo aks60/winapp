@@ -162,7 +162,7 @@ public abstract class Com5t {
                 float k = v / this.lengthY(); //коэффициент 
                 if (k != 1) {
                     this.gson.length(v);
-                    if (this.type == Type.ARCH || this.type == Type.TRAPEZE) {
+                    if (((AreaSimple) this).typeArea() == Type.ARCH || ((AreaSimple) this).typeArea() == Type.TRAPEZE) {
                         this.winc.rootGson.heightAdd(this.winc.rootGson.height() - v);
                     }
                     ((AreaSimple) this).childs.forEach(e -> {

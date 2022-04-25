@@ -97,7 +97,7 @@ public class Wincalc {
 
             rootArea.joining(); //соединения ареа
             listArea.stream().filter(el -> el.type() == Type.STVORKA).collect(toList()).forEach(el -> el.joining()); //соединения створок
-            listElem.forEach(it -> it.setSpecific()); //спецификация профилей
+            //listElem.forEach(it -> it.setSpecific()); //спецификация профилей
             
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.build() " + e);

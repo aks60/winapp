@@ -54,6 +54,7 @@ public class GsonRoot extends GsonElem {
         this.type = type;
         this.form = form;
         this.width = width;
+        this.widthAdd = width;
         this.height = height1;
         this.heightAdd = height2;
         this.length = null;

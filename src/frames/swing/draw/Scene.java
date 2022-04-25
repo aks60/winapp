@@ -6,7 +6,6 @@ import builder.model.Com5t;
 import builder.model.ElemSimple;
 import enums.Layout;
 import enums.Type;
-import common.listener.ListenerObject;
 import common.listener.ListenerReload;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -144,7 +143,7 @@ public class Scene extends javax.swing.JPanel {
             g.drawLine(0, (int) (sc1.Y2 * k), 8, (int) (sc1.Y2 * k));
             g.setColor(sc1.color);
             int dw = g.getFontMetrics().stringWidth(df1.format(sc1.heightGson()));
-            double val = sc1.height() * k / 2 + dw / 2;
+            double val = (sc1.Y1 + sc1.height() / 2) * k + dw / 2;
             g.rotate(Math.toRadians(-90), 11, val);
             g.drawString(df1.format(sc1.height()), 11, (int) val);
             g.rotate(Math.toRadians(90), 11, val);
@@ -206,10 +205,8 @@ public class Scene extends javax.swing.JPanel {
                     for (Scale scale : lineVert) {
 
                         if (scale.color == java.awt.Color.RED) {
-                            System.out.println(scale.area().lengthY() + "+" + dy);
                             scale.area().lengthY(scale.area().lengthY() + dy);
                         } else {
-                            System.out.println(scale.area().lengthY() + "-" + dy);
                             scale.area().lengthY(scale.area().lengthY() - dy);
                         }
                     }
@@ -230,17 +227,30 @@ public class Scene extends javax.swing.JPanel {
 
             if (lineVert.size() == 2) {
                 Scale sc2 = lineVert.get(1);
-                if (sc1.area().typeArea() == Type.AREA && sc2.area().typeArea() == Type.AREA) {
-                    sc2.Y1 = sc2.area().y1();
-                    sc2.Y2 = sc2.area().y2();
-                } else if (sc1.area().typeArea() == Type.ARCH && sc2.area().typeArea() == Type.AREA) {
+                if (sc1.area().typeArea() == Type.ARCH && sc2.area().typeArea() == Type.AREA) {
                     sc1.Y1 = 0;
                     sc1.Y2 = sc1.gson().length();
                     sc2.Y1 = sc1.gson().length();
                     sc2.Y2 = sc1.gson().length() + sc2.gson().length();
+
                 } else if (sc1.area().typeArea() == Type.TRAPEZE && sc2.area().typeArea() == Type.AREA) {
+                    sc1.Y1 = 0;
+                    sc1.Y2 = sc1.gson().length();
+                    sc2.Y1 = sc1.gson().length();
+                    sc2.Y2 = sc1.gson().length() + sc2.gson().length();
+
+                } else if (sc1.area().root.type() == Type.DOOR) {
+                    sc1.Y1 = 0;
+                    //sc1.Y2 = sc1.X2;
+                    //sc2.Y1 = sc2.X1;
+                    sc2.Y2 = sc2.area().root.height();
+
+                } else if (sc1.area().typeArea() == Type.AREA && sc2.area().typeArea() == Type.AREA) {
                     sc2.Y1 = sc2.area().y1();
                     sc2.Y2 = sc2.area().y2();
+
+                } else {
+                    System.err.println("Ошибка:frames.swing.draw.Scene.adaptingVertical()");
                 }
             }
         }
