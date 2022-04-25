@@ -181,60 +181,67 @@ public class Scene extends javax.swing.JPanel {
 
     //Изменить размер и перерисовать шкалу
     private void resizeLine() {
-        float val = Float.valueOf(spinner.getValue().toString());
+        try {
+            float val = Float.valueOf(spinner.getValue().toString());
 
-        //Горизонтальное выделение красн.
-        Scale scaleHor = lineHoriz.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
-        if (scaleHor != null) {
-            float dx = val - scaleHor.width();
-            if (dx != 0) {
-                for (Scale scale : lineHoriz) {
-                    if (scale.color == java.awt.Color.RED) {
-                        scale.area().lengthX(scale.area().lengthX() + dx);
-                    } else {
-                        scale.area().lengthX(scale.area().lengthX() - dx);
+            //Горизонтальное выделение красн.
+            Scale scaleHor = lineHoriz.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
+            if (scaleHor != null) {
+                float dx = val - scaleHor.width();
+                if (dx != 0) {
+                    for (Scale scale : lineHoriz) {
+                        if (scale.color == java.awt.Color.RED) {
+                            scale.area().lengthX(scale.area().lengthX() + dx);
+                        } else {
+                            scale.area().lengthX(scale.area().lengthX() - dx);
+                        }
                     }
                 }
             }
-        }
-        //Вертикальное выделение красн.
-        Scale scaleVer = lineVert.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
-        if (scaleVer != null) {
-            float dy = val - scaleVer.height();
-            if (dy != 0) {
-                for (Scale scale : lineVert) {
-                    if (scale.color == java.awt.Color.RED) {
-                        System.out.println(scale.area().lengthY() + "+" + dy);
-                        scale.area().lengthY(scale.area().lengthY() + dy);
-                    } else {
-                        System.out.println(scale.area().lengthY() + "-" + dy);
-                        scale.area().lengthY(scale.area().lengthY() - dy);
+            //Вертикальное выделение красн.
+            Scale scaleVer = lineVert.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
+            if (scaleVer != null) {
+                float dy = val - scaleVer.height();
+                if (dy != 0) {
+                    for (Scale scale : lineVert) {
+
+                        if (scale.color == java.awt.Color.RED) {
+                            System.out.println(scale.area().lengthY() + "+" + dy);
+                            scale.area().lengthY(scale.area().lengthY() + dy);
+                        } else {
+                            System.out.println(scale.area().lengthY() + "-" + dy);
+                            scale.area().lengthY(scale.area().lengthY() - dy);
+                        }
                     }
                 }
             }
+            listenerWinc.reload();
+        } catch (Exception e) {
+            System.err.println("Ошибка:Scene.resizeLine() " + e);
         }
-        listenerWinc.reload();
     }
 
     private void adaptingVertical() {
+        if (lineVert.size() > 0) {
 
-        Scale sc1 = lineVert.get(0);
-        sc1.Y1 = sc1.area().y1();
-        sc1.Y2 = sc1.area().y2();
+            Scale sc1 = lineVert.get(0);
+            sc1.Y1 = sc1.area().y1();
+            sc1.Y2 = sc1.area().y2();
 
-        if (lineVert.size() == 2) {
-            Scale sc2 = lineVert.get(1);
-            if (sc1.area().typeArea() == Type.AREA && sc2.area().typeArea() == Type.AREA) {
-                sc2.Y1 = sc2.area().y1();
-                sc2.Y2 = sc2.area().y2();
-            } else if (sc1.area().typeArea() == Type.ARCH && sc2.area().typeArea() == Type.AREA) {
-                sc1.Y1 = 0;
-                sc1.Y2 = sc1.gson().length();
-                sc2.Y1 = sc1.gson().length();
-                sc2.Y2 = sc1.gson().length() + sc2.gson().length();
-            } else if (sc1.area().typeArea() == Type.TRAPEZE && sc2.area().typeArea() == Type.AREA) {
-                sc2.Y1 = sc2.area().y1();
-                sc2.Y2 = sc2.area().y2();
+            if (lineVert.size() == 2) {
+                Scale sc2 = lineVert.get(1);
+                if (sc1.area().typeArea() == Type.AREA && sc2.area().typeArea() == Type.AREA) {
+                    sc2.Y1 = sc2.area().y1();
+                    sc2.Y2 = sc2.area().y2();
+                } else if (sc1.area().typeArea() == Type.ARCH && sc2.area().typeArea() == Type.AREA) {
+                    sc1.Y1 = 0;
+                    sc1.Y2 = sc1.gson().length();
+                    sc2.Y1 = sc1.gson().length();
+                    sc2.Y2 = sc1.gson().length() + sc2.gson().length();
+                } else if (sc1.area().typeArea() == Type.TRAPEZE && sc2.area().typeArea() == Type.AREA) {
+                    sc2.Y1 = sc2.area().y1();
+                    sc2.Y2 = sc2.area().y2();
+                }
             }
         }
     }

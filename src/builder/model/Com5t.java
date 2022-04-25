@@ -14,7 +14,7 @@ public abstract class Com5t {
     private float id = -1; //идентификатор 
     private Type type = Type.NONE; //Тип элемента или конструкции  
     protected Layout layout = Layout.FULL; //направление(AREA) сторона(ELEM) - расположения компонентов ...
-    
+
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства
     public Record artiklRecAn = null;  //аналог мат. средства    
@@ -142,43 +142,47 @@ public abstract class Com5t {
     }
 
     public void lengthY(float v) {
-        if (this.id == 0) {
-            float k = v / gson.height(); //коэффициент
-            if (k != 1) {
-                winc.rootGson.height(v);
-                winc.rootGson.heightAdd(k * winc.rootGson.heightAdd());
-                winc.listArea.forEach(e -> {
-                    if (e.layout == Layout.VERT) {
-                        e.childs.forEach(e2 -> { //изменение всех по ширине
-                            if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
-                                e2.gson.length(k * e2.gson.length());
-                            }
-                        });
-                    }
-                });
-            }
-        } else {
-            float k = v / this.lengthY(); //коэффициент 
-            if (k != 1) {
-                this.gson.length(v);
-                if (this.type == Type.ARCH || this.type == Type.TRAPEZE) {
-                    this.winc.rootGson.heightAdd(this.winc.rootGson.height() - v);
-                }
-                ((AreaSimple) this).childs.forEach(e -> {
-                    if (e.owner.layout == Layout.VERT && (e.type == Type.AREA || e.type == Type.STVORKA)) {
-                        e.lengthY(k * e.lengthY()); //рекурсия изменения детей
-
-                    } else {
-                        if (e instanceof AreaSimple) {
-                            ((AreaSimple) e).childs.forEach(e2 -> {
+        try {
+            if (this.id == 0) {
+                float k = v / gson.height(); //коэффициент
+                if (k != 1) {
+                    winc.rootGson.height(v);
+                    winc.rootGson.heightAdd(k * winc.rootGson.heightAdd());
+                    winc.listArea.forEach(e -> {
+                        if (e.layout == Layout.VERT) {
+                            e.childs.forEach(e2 -> { //изменение всех по ширине
                                 if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
-                                    e2.lengthY(k * e2.lengthY()); //рекурсия изменения детей
+                                    e2.gson.length(k * e2.gson.length());
                                 }
                             });
                         }
+                    });
+                }
+            } else {
+                float k = v / this.lengthY(); //коэффициент 
+                if (k != 1) {
+                    this.gson.length(v);
+                    if (this.type == Type.ARCH || this.type == Type.TRAPEZE) {
+                        this.winc.rootGson.heightAdd(this.winc.rootGson.height() - v);
                     }
-                });
+                    ((AreaSimple) this).childs.forEach(e -> {
+                        if (e.owner.layout == Layout.VERT && (e.type == Type.AREA || e.type == Type.STVORKA)) {
+                            e.lengthY(k * e.lengthY()); //рекурсия изменения детей
+
+                        } else {
+                            if (e instanceof AreaSimple) {
+                                ((AreaSimple) e).childs.forEach(e2 -> {
+                                    if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
+                                        e2.lengthY(k * e2.lengthY()); //рекурсия изменения детей
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
             }
+        } catch (Exception e) {
+            System.err.println("Ошибка: Com5t.lengthY() " + e);
         }
     }
 

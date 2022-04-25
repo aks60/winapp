@@ -109,8 +109,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     private DecimalFormat df1 = new DecimalFormat("#0.#");
     private int systreeID = -1; //выбранная система
-    private Canvas canvas  = new Canvas();
-    private Scene scene = null; 
+    private Canvas canvas = new Canvas();
+    private Scene scene = null;
     private FilterTable filterTable = new FilterTable();
     private DefFieldEditor rsvSystree;
     private java.awt.Frame models = null;
@@ -123,7 +123,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     public Systree() {
         initComponents();
         scene = new Scene(canvas, spinner, this);
-        initElements();     
+        initElements();
         loadingData();
         loadingSysTree();
         loadingModel();
@@ -800,20 +800,24 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     @Override
     public void reload() {
-        Wincalc win = winc();
-        int index = UGui.getIndexRec(tab5);
-        if (index != -1) {
-            String script = gson.toJson(win.rootGson);
-            win.build(script);
-            win.imageIcon = Canvas.createIcon(win, 68);
-            Record sysprodRec = qSysprod.get(index);
-            sysprodRec.set(eSysprod.script, script);
-            sysprodRec.set(eSysprod.values().length, win);
-            canvas.draw();
-            scene.lineHoriz.forEach(e -> e.init());
-            scene.lineVert.forEach(e -> e.init());
-            scene.draw();
-            selectionWinTree();
+        try {
+            Wincalc win = winc();
+            int index = UGui.getIndexRec(tab5);
+            if (index != -1) {
+                String script = gson.toJson(win.rootGson);
+                win.build(script);
+                win.imageIcon = Canvas.createIcon(win, 68);
+                Record sysprodRec = qSysprod.get(index);
+                sysprodRec.set(eSysprod.script, script);
+                sysprodRec.set(eSysprod.values().length, win);
+                canvas.draw();
+                scene.lineHoriz.forEach(e -> e.init());
+                scene.lineVert.forEach(e -> e.init());
+                scene.draw();
+                selectionWinTree();
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Systree.reload() " + e);
         }
     }
 
@@ -1135,7 +1139,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         panSspinner.setPreferredSize(new java.awt.Dimension(72, 24));
         panSspinner.setLayout(new java.awt.BorderLayout());
 
-        spinner.setModel(new javax.swing.SpinnerNumberModel());
+        spinner.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
         spinner.setBorder(null);
         spinner.setPreferredSize(new java.awt.Dimension(50, 24));
         panSspinner.add(spinner, java.awt.BorderLayout.CENTER);

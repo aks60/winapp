@@ -86,19 +86,22 @@ public class Wincalc {
     }
 
     public AreaSimple build(String productJson) {
+        try {
+            genId = 0;
+            heightAdd = 0.f;
+            Arrays.asList((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
+            Arrays.asList(mapPardef, mapJoin).forEach(el -> el.clear());
 
-        genId = 0;
-        heightAdd = 0.f;
-        Arrays.asList((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
-        Arrays.asList(mapPardef, mapJoin).forEach(el -> el.clear());
+            //Парсинг входного скрипта
+            parsing(productJson);
 
-        //Парсинг входного скрипта
-        parsing(productJson);
-
-        rootArea.joining(); //соединения ареа
-        listArea.stream().filter(el -> el.type() == Type.STVORKA).collect(toList()).forEach(el -> el.joining()); //соединения створок
-        listElem.forEach(it -> it.setSpecific()); //спецификация профилей
-
+            rootArea.joining(); //соединения ареа
+            listArea.stream().filter(el -> el.type() == Type.STVORKA).collect(toList()).forEach(el -> el.joining()); //соединения створок
+            listElem.forEach(it -> it.setSpecific()); //спецификация профилей
+            
+        } catch (Exception e) {
+            System.err.println("Ошибка:Wincalc.build() " + e);
+        }
         return rootArea;
     }
 
@@ -109,10 +112,10 @@ public class Wincalc {
             //System.out.println(new GsonBuilder().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(json, GsonRoot.class);
-            
+
             //Назначить родителей всем детям,
             //поднять elem.form до rootGson для быстрого доступа
-            rootGson.parent(rootGson); 
+            rootGson.parent(rootGson);
 
             //Инит конструктива
             this.nuni = rootGson.nuni();
@@ -142,7 +145,6 @@ public class Wincalc {
 
             //Создадим элементы конструкции
             elements(rootArea, rootGson);
-            
 
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.parsing() " + e);
@@ -160,7 +162,7 @@ public class Wincalc {
                     hm.put(area5e, el);
 
                 } else if (Type.AREA == el.type() || Type.ARCH == el.type() || Type.TRAPEZE == el.type()) {
-                    AreaSimple area5e = (el.form() == null) 
+                    AreaSimple area5e = (el.form() == null)
                             ? new AreaSimple(Wincalc.this, owner, el, el.width(), el.height())
                             : new AreaSimple(Wincalc.this, owner, el, el.width(), el.height(), el.form());
                     owner.childs.add(area5e);
@@ -183,7 +185,7 @@ public class Wincalc {
             }
 
         } catch (Exception e) {
-            System.err.println("Ошибка:Wincalc.recursion() " + e);
+            System.err.println("Ошибка:Wincalc.elements() " + e);
         }
     }
 
