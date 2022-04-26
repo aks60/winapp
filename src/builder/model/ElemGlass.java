@@ -61,12 +61,7 @@ public class ElemGlass extends ElemSimple {
 
     //Установка координат
     public void setLocation() {
-        if (Type.ARCH == owner.typeArea()) {
-            //setDimension(0, 0, owner.x2, winc.height - winc.heightAdd);
-            setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
-        } else {
-            setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
-        }
+        setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
     }
 
     @Override //Главная спецификация

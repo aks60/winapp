@@ -82,10 +82,6 @@ public abstract class ElemSimple extends Com5t {
                     if (begin == true && el.type() != Type.GLASS) {
                         if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
                             float Y2 = (y2 > y1) ? y2 : y1;
-//                            if (Y2 > 299 && Y2 < 301 && y2 > 299 && y2 < 301 &&  el.id() == 7 && el.inside(x1 + (x2 - x1) / 2, Y2) == false) {
-//                                ElemSimple smp = this;
-//                                System.out.println("++++++++++");
-//                            }
                             if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
                                 return (ElemSimple) el;
                             }
