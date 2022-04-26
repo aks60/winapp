@@ -106,38 +106,49 @@ public abstract class Com5t {
     }
 
     public void lengthX(float v) {
-
-        if (this.id == 0) {
-            float k = v / gson.width(); //коэффициент
-            if (k != 1) {
-                winc.rootGson.width(v);
-                winc.listArea.forEach(e -> {
-                    if (e.layout == Layout.HORIZ) {
-                        e.childs.forEach(e2 -> { //изменение всех по ширине
-                            if (e2.type == Type.AREA || e2.type == Type.ARCH || e2.type == Type.TRAPEZE || e2.type == Type.TRIANGL) {
-                                e2.gson.length(k * e2.gson.length());
-                            }
-                        });
+        try {
+            if (this.id == 0) {
+                float k = v / gson.width(); //коэффициент
+                if (k != 1) {
+                    winc.rootGson.width(v);
+                    if (winc.rootGson.widthAdd() != null) {
+                        winc.rootGson.widthAdd(k * winc.rootGson.widthAdd());
                     }
-                });
-            }
-        } else {
-            float k = v / this.lengthX(); //коэффициент
-            if (k != 1) {
-                this.gson.length(v);
-                ((AreaSimple) this).childs.forEach(e -> {
-                    if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
-                        e.lengthX(k * e.lengthX()); //рекурсия изменения детей
-
-                    } else {
-                        ((AreaSimple) e).childs.forEach(e2 -> {
-                            if (e2.owner.layout == Layout.HORIZ && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
-                                e2.lengthX(k * e2.lengthX()); //рекурсия изменения детей
+                    for (AreaSimple e : winc.listArea) { //перебор всех вертикальных area
+                        if (e.layout == Layout.HORIZ) {
+                            for (Com5t e2 : e.childs) { //изменение детей по высоте
+                                if (e2.type == Type.AREA) {
+                                    e2.gson.length(k * e2.gson.length());
+                                }
                             }
-                        });
+                        }
                     }
-                });
+                }
+            } else {
+                float k = v / this.lengthY(); //коэффициент 
+                if (k != 1) {
+                    this.gson.length(v);
+                    if (((AreaSimple) this).typeArea() == Type.ARCH || ((AreaSimple) this).typeArea() == Type.TRAPEZE) {
+                        this.winc.rootGson.widthAdd(this.winc.rootGson.width() - v);
+                    }
+                    for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по ширине
+                        if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
+                            e.lengthY(k * e.lengthY()); //рекурсия изменения детей
+
+                        } else {
+                            if (e instanceof AreaSimple) {
+                                for (Com5t e2 : ((AreaSimple) e).childs) {
+                                    if (e2.owner.layout == Layout.HORIZ && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
+                                        e2.lengthY(k * e2.lengthY()); //рекурсия изменения детей
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
+        } catch (Exception e) {
+            System.err.println("Ошибка: Com5t.lengthY() " + e);
         }
     }
 
@@ -147,16 +158,18 @@ public abstract class Com5t {
                 float k = v / gson.height(); //коэффициент
                 if (k != 1) {
                     winc.rootGson.height(v);
-                    winc.rootGson.heightAdd(k * winc.rootGson.heightAdd());
-                    winc.listArea.forEach(e -> { //перебор всех вертикальных area
+                    if (winc.rootGson.heightAdd() != null) {
+                        winc.rootGson.heightAdd(k * winc.rootGson.heightAdd());
+                    }
+                    for (AreaSimple e : winc.listArea) { //перебор всех вертикальных area
                         if (e.layout == Layout.VERT) {
-                            e.childs.forEach(e2 -> { //изменение детей по высоте
+                            for (Com5t e2 : e.childs) { //изменение детей по высоте
                                 if (e2.type == Type.AREA) {
                                     e2.gson.length(k * e2.gson.length());
                                 }
-                            });
+                            }
                         }
-                    });
+                    }
                 }
             } else {
                 float k = v / this.lengthY(); //коэффициент 
@@ -165,36 +178,25 @@ public abstract class Com5t {
                     if (((AreaSimple) this).typeArea() == Type.ARCH || ((AreaSimple) this).typeArea() == Type.TRAPEZE) {
                         this.winc.rootGson.heightAdd(this.winc.rootGson.height() - v);
                     }
-                    ((AreaSimple) this).childs.forEach(e -> {
+                    for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по высоте
                         if (e.owner.layout == Layout.VERT && (e.type == Type.AREA || e.type == Type.STVORKA)) {
                             e.lengthY(k * e.lengthY()); //рекурсия изменения детей
 
                         } else {
                             if (e instanceof AreaSimple) {
-                                ((AreaSimple) e).childs.forEach(e2 -> {
+                                for (Com5t e2 : ((AreaSimple) e).childs) {
                                     if (e2.owner.layout == Layout.VERT && (e2.type == Type.AREA || e2.type == Type.STVORKA)) {
                                         e2.lengthY(k * e2.lengthY()); //рекурсия изменения детей
                                     }
-                                });
+                                }
                             }
                         }
-                    });
+                    }
                 }
             }
         } catch (Exception e) {
             System.err.println("Ошибка: Com5t.lengthY() " + e);
         }
-    }
-
-    public int index() {
-        if (owner != null) {
-            for (int index = 0; index < owner.childs.size(); ++index) {
-                if (owner.childs.get(index) == this) {
-                    return index;
-                }
-            }
-        }
-        return -1;
     }
 
     public float x1() {
@@ -235,15 +237,27 @@ public abstract class Com5t {
     }
 
     //Точка попадает в контур элемента
-    public boolean inside(float X, float Y) {
+    public boolean inside1(float x, float y) {
         if (((int) x2 | (int) y2) < 0) {
             return false;
         }
-        if (X < x1 || Y < y1) {
+        if (x < x1 || y < y1) {
             return false;
         }
-        //return ((x2 < x1 || x2 >= X) && (y2 < y1 || y2 >= Y));
-        return ((x2 >= X) && (y2 >= Y));
+        return ((x2 < x1 || x2 >= x) && (y2 < y1 || y2 >= y));
+    }
+
+    public boolean inside(float x, float y) {
+        double X = Math.floor(x), Y = Math.floor(y);
+        double X1 = Math.floor(x1), X2 = Math.floor(x2), Y1 = Math.floor(y1), Y2 = Math.floor(y2);
+        
+        if (((int)X2 | (int)Y2) < 0) {
+            return false;
+        }
+        if (X < X1 || Y < Y1) {
+            return false;
+        }
+        return ((X2 >= X) && (Y2 >= Y));
     }
 
     public void paint() {
