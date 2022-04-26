@@ -55,6 +55,7 @@ public class Wincalc {
     public float genId = 0; //генерация ключа в спецификации
 
     public float width = 0.f; //ширина окна
+    public float widthAdd = 0.f; //ширина окна
     public float height = 0.f; //высота окна
     public float heightAdd = 0.f; //дополнительная высота
     public int colorID1 = -1;  //базовый цвет
@@ -81,11 +82,11 @@ public class Wincalc {
     public Wincalc() {
     }
 
-    public Wincalc(String productJson) {
-        build(productJson);
+    public Wincalc(String script) {
+        build(script);
     }
 
-    public AreaSimple build(String productJson) {
+    public AreaSimple build(String script) {
         try {
             genId = 0;
             heightAdd = 0.f;
@@ -93,7 +94,7 @@ public class Wincalc {
             Arrays.asList(mapPardef, mapJoin).forEach(el -> el.clear());
 
             //Парсинг входного скрипта
-            parsing(productJson);
+            parsing(script);
 
             rootArea.joining(); //соединения ареа
             listArea.stream().filter(el -> el.type() == Type.STVORKA).collect(toList()).forEach(el -> el.joining()); //соединения створок
@@ -106,15 +107,15 @@ public class Wincalc {
     }
 
     // Парсим входное json окно и строим объектную модель окна
-    private void parsing(String json) {
+    private void parsing(String script) {
         try {
-            //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
-            //System.out.println(new GsonBuilder().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
+            //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script))); //для тестирования
+            //System.out.println(new GsonBuilder().create().toJson(new com.google.gson.JsonParser().parse(script))); //для тестирования
             Gson gson = new GsonBuilder().create();
-            rootGson = gson.fromJson(json, GsonRoot.class);
+            rootGson = gson.fromJson(script, GsonRoot.class);
 
             //Назначить родителей всем детям,
-            //поднять elem.form до rootGson для быстрого доступа
+            //поднять elem.form до rootGson для быстрого доступа из root корня
             rootGson.parent(rootGson);
 
             //Инит конструктива
@@ -122,7 +123,7 @@ public class Wincalc {
             this.form = rootGson.form();
             this.width = rootGson.width();
             this.height = rootGson.height();
-            this.heightAdd = rootGson.heightAdd();
+            this.heightAdd = (rootGson.heightAdd() == null) ?rootGson.height() :rootGson.heightAdd();
             this.colorID1 = rootGson.color1;
             this.colorID2 = rootGson.color2;
             this.colorID3 = rootGson.color3;
