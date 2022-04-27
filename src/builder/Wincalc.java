@@ -114,13 +114,12 @@ public class Wincalc {
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(script, GsonRoot.class);
 
-            //Назначить родителей всем детям,
-            //поднять elem.form до rootGson для быстрого доступа из root корня
-            rootGson.parent(rootGson);
+            //Назначить родителей всем детям,  и
+            //для быстрого доступа поднять elem.form до Wincalc.form
+            rootGson.parent(this);
 
             //Инит конструктива
             this.nuni = rootGson.nuni();
-            this.form = rootGson.form();
             this.width = rootGson.width();
             this.height = rootGson.height();
             this.heightAdd = (rootGson.heightAdd() == null) ?rootGson.height() :rootGson.heightAdd();

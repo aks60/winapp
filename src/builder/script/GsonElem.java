@@ -1,5 +1,6 @@
 package builder.script;
 
+import builder.Wincalc;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import enums.Form;
@@ -151,14 +152,14 @@ public class GsonElem {
     }
 
     //Назначить родителей всем детям и поднять elem.form до rootGson
-    public void parent(GsonRoot root) {
+    public void parent(Wincalc winc) {
         this.childs.forEach(el -> {
             el.owner = this;
             if (el.form != null) {
-                root.form = el.form;
+                winc.form = el.form;
             }
             if (Arrays.asList(Type.STVORKA, Type.AREA, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type())) {
-                el.parent(root); //рекурсия 
+                el.parent(winc); //рекурсия 
             }
         });
     }
