@@ -130,6 +130,7 @@ public class AreaSimple extends Com5t {
         }
     }
 
+    //Форма контура
     public Type typeArea() {
         if (this != root && form != null) {
             return root.type();
