@@ -84,7 +84,8 @@ public class ElemFrame extends ElemSimple {
                 anglHoriz = 270;
             }
 
-        } else if (owner.type() == Type.TRAPEZE) {
+        } else 
+       if (owner.type() == Type.TRAPEZE) {
             float H = root().height() - winc.heightAdd;
             float W = root().width();
 

@@ -105,7 +105,7 @@ public abstract class ElemSimple extends Com5t {
                     }
                 }
             }
-            System.err.println("Неудача " + layoutSide + " соединение не найдено");
+            System.err.println("Неудача id="+ this.id() + ", " + layoutSide + " соединение не найдено");
             return null;
 
         } catch (Exception e) {
