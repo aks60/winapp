@@ -91,7 +91,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.Winscript.test(508916, false));
+            winc.build(builder.script.Winscript.test(604005, false));
             //new Joining(winc, true);
             winc.constructiv(true);
             //Specific.write_txt(winc.listSpec);
