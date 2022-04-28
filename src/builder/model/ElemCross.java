@@ -35,7 +35,7 @@ public class ElemCross extends ElemSimple {
         colorID1 = (isJson(param, PKjson.colorID1)) ? param.get(PKjson.colorID1).getAsInt() : winc.colorID1;
         colorID2 = (isJson(param, PKjson.colorID2)) ? param.get(PKjson.colorID2).getAsInt() : winc.colorID2;
         colorID3 = (isJson(param, PKjson.colorID3)) ? param.get(PKjson.colorID3).getAsInt() : winc.colorID3;
-        
+
         if (isJson(param, PKjson.sysprofID)) { //профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         } else {
@@ -53,29 +53,18 @@ public class ElemCross extends ElemSimple {
 
     //Установка координат
     public void setLocation() {
-        
-        //Коррекция положения импоста арки (подкдадка ареа над импостом)
-        if (Type.ARCH == owner.typeArea()) {
-            AreaSimple prevArea = (AreaSimple) owner.childs.get(0); //опустим ареа на половину шир. иппоста
-            prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.height) / 2);
-            
-        } else if (Type.TRAPEZE == owner.typeArea()) {
-            float dy = 0;
-            AreaSimple prevArea = (AreaSimple) owner.childs.get(0);
-            if(winc.form == Form.RIGHT) {
-               float angl = root.frames.get(Layout.RIGHT).anglCut[1];
-               dy = (float) (root.frames.get(Layout.RIGHT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
-            }
-            prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.size_centr) + dy);
-        } 
-        //Установка координат
         for (int index = owner.childs.size() - 1; index >= 0; --index) {
             if (owner.childs.get(index) instanceof AreaSimple) {
                 Com5t prevArea = owner.childs.get(index); //index указывает на предыдущий элемент
                 float db = artiklRecAn.getFloat(eArtikl.size_centr);
-
-                if (Layout.VERT.equals(owner.layout)) { //сверху вниз
-                    setDimension(prevArea.x1, prevArea.y2 - db, prevArea.x2, prevArea.y2 + db);
+                if (Layout.VERT.equals(owner.layout)) { //сверху вниз                    
+                    if (Type.ARCH == owner.type()) {
+                        
+                        float h = artiklRecAn.getFloat(eArtikl.height); //опускаю импост
+                        setDimension(prevArea.x1, prevArea.y2, prevArea.x2, prevArea.y2 + h);
+                    } else {
+                        setDimension(prevArea.x1, prevArea.y2 - db, prevArea.x2, prevArea.y2 + db);
+                    }
                     anglHoriz = 0;
 
                 } else if (Layout.HORIZ.equals(owner.layout)) { //слева направо
@@ -174,7 +163,7 @@ public class ElemCross extends ElemSimple {
 
         spcRec.spcList.add(spcAdd);
     }
-    
+
     @Override
     public void paint() {
 

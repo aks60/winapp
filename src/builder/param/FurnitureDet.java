@@ -53,14 +53,14 @@ public class FurnitureDet extends Par5s {
                 case 25001: //Форма контура 
                 {
                     //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
-                    if ("прямоугольная".equals(rec.getStr(TEXT)) && Type.RECTANGL.equals(areaStv.typeArea()) == false
-                            && Type.AREA.equals(areaStv.typeArea()) == false && Type.STVORKA.equals(areaStv.typeArea()) == false) {
+                    if ("прямоугольная".equals(rec.getStr(TEXT)) && Type.RECTANGL.equals(areaStv.type()) == false
+                            && Type.AREA.equals(areaStv.type()) == false && Type.STVORKA.equals(areaStv.type()) == false) {
                         return false;
-                    } else if ("трапециевидная".equals(rec.getStr(TEXT)) && Type.TRAPEZE.equals(areaStv.typeArea()) == false) {
+                    } else if ("трапециевидная".equals(rec.getStr(TEXT)) && Type.TRAPEZE.equals(areaStv.type()) == false) {
                         return false;
-                    } else if ("арочная".equals(rec.getStr(TEXT)) && Type.ARCH.equals(areaStv.typeArea()) == false) {
+                    } else if ("арочная".equals(rec.getStr(TEXT)) && Type.ARCH.equals(areaStv.type()) == false) {
                         return false;
-                    } else if ("не арочная".equals(rec.getStr(TEXT)) && Type.ARCH.equals(areaStv.typeArea()) == true) {
+                    } else if ("не арочная".equals(rec.getStr(TEXT)) && Type.ARCH.equals(areaStv.type()) == true) {
                         return false;
                     }
                     break;
@@ -161,7 +161,7 @@ public class FurnitureDet extends Par5s {
                     break;
                 case 24032:  //Правильная полуарка 
                 case 25032:  //Правильная полуарка 
-                    if (winc.rootArea.typeArea() == Type.ARCH) {
+                    if (winc.rootArea.type() == Type.ARCH) {
                         int k = (int) (winc.rootArea.width() / ((AreaArch) winc.rootArea).radiusArch);
                         if (k != 2) {
                             return false;

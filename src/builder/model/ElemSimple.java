@@ -41,13 +41,13 @@ public abstract class ElemSimple extends Com5t {
     //В этих точках лежат мапы соединений см. Wincalc.mapJoin
     public String joinPoint(int side) {
 
-        if (owner.typeArea() == Type.ARCH && layout == Layout.TOP && winc.form == Form.TOP) {
+        if (owner.type() == Type.ARCH && layout == Layout.TOP && winc.form == Form.TOP) {
             return (side == 0) ? x2 + ":" + (winc.height - winc.heightAdd) : x1 + ":" + (winc.height - winc.heightAdd);
 
-        } else if (owner.typeArea() == Type.TRAPEZE && layout == Layout.TOP && winc.form == Form.RIGHT) {
+        } else if (owner.type() == Type.TRAPEZE && layout == Layout.TOP && winc.form == Form.RIGHT) {
             return (side == 0) ? x2 + ":" + (winc.height - winc.heightAdd) : x1 + ":" + y1;
 
-        } else if (owner.typeArea() == Type.TRAPEZE && layout == Layout.TOP && winc.form == Form.LEFT) {
+        } else if (owner.type() == Type.TRAPEZE && layout == Layout.TOP && winc.form == Form.LEFT) {
             return (side == 0) ? x2 + ":" + y1 : x1 + ":" + (winc.height - winc.heightAdd);
 
         } else if (layout == Layout.BOTT) {
@@ -91,7 +91,7 @@ public abstract class ElemSimple extends Com5t {
                             }
                         } else if (Layout.TOP == layoutSide && el.layout != Layout.VERT) {
                             float Y1 = (y2 > y1) ? y1 : y2;
-                            if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.typeArea() == Type.ARCH && el.layout == Layout.TOP) == false) {
+                            if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type() == Type.ARCH && el.layout == Layout.TOP) == false) {
                                 return (ElemSimple) el;
                             }
                         } else if (Layout.RIGHT == layoutSide && el.layout != Layout.HORIZ) {
@@ -105,7 +105,7 @@ public abstract class ElemSimple extends Com5t {
                     }
                 }
             }
-            System.err.println("Неудача " + layoutSide + " соединение не найдено");
+            System.err.println("Неудача id="+ this.id() + ", " + layoutSide + " соединение не найдено");
             return null;
 
         } catch (Exception e) {

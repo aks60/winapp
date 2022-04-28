@@ -38,7 +38,7 @@ public abstract class Com5t {
         this.winc = winc;
         this.root = winc.rootArea;
         this.gson = gson;
-        if (this instanceof ElemFrame && owner.typeArea() == Type.STVORKA) {
+        if (this instanceof ElemFrame && owner.type() == Type.STVORKA) {
             this.type = Type.STVORKA_SIDE; //фича створки
         }
     }
@@ -128,7 +128,7 @@ public abstract class Com5t {
                 float k = v / this.lengthY(); //коэффициент 
                 if (k != 1) {
                     this.gson.length(v);
-                    if (((AreaSimple) this).typeArea() == Type.ARCH || ((AreaSimple) this).typeArea() == Type.TRAPEZE) {
+                    if (((AreaSimple) this).type() == Type.ARCH || ((AreaSimple) this).type() == Type.TRAPEZE) {
                         this.winc.rootGson.widthAdd(this.winc.rootGson.width() - v);
                     }
                     for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по ширине
@@ -175,7 +175,7 @@ public abstract class Com5t {
                 float k = v / this.lengthY(); //коэффициент 
                 if (k != 1) {
                     this.gson.length(v);
-                    if (((AreaSimple) this).typeArea() == Type.ARCH || ((AreaSimple) this).typeArea() == Type.TRAPEZE) {
+                    if (((AreaSimple) this).type() == Type.ARCH || ((AreaSimple) this).type() == Type.TRAPEZE) {
                         this.winc.rootGson.heightAdd(this.winc.rootGson.height() - v);
                     }
                     for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по высоте
