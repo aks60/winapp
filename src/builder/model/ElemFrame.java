@@ -69,7 +69,7 @@ public class ElemFrame extends ElemSimple {
     //Установка координат
     public void setLocation() {
 
-        if (owner.typeArea() == Type.ARCH) {
+        if (owner.type() == Type.ARCH) {
             if (Layout.BOTT == layout) {
                 setDimension(owner.x1, owner.y2 - artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
                 anglHoriz = 0;
@@ -84,7 +84,7 @@ public class ElemFrame extends ElemSimple {
                 anglHoriz = 270;
             }
 
-        } else if (owner.typeArea() == Type.TRAPEZE) {
+        } else if (owner.type() == Type.TRAPEZE) {
             float H = root().height() - winc.heightAdd;
             float W = root().width();
 
@@ -154,8 +154,8 @@ public class ElemFrame extends ElemSimple {
         spcRec.anglHoriz = anglHoriz;
         double katet = winc.syssizeRec.getDbl(eSyssize.prip) * Math.cos(Math.PI / 4);
 
-        if (owner.typeArea() == Type.ARCH) {
-            if (owner.typeArea() == Type.ARCH && Layout.TOP == layout) {
+        if (owner.type() == Type.ARCH) {
+            if (owner.type() == Type.ARCH && Layout.TOP == layout) {
                 AreaArch areaArch = (AreaArch) root();
                 double angl = Math.toDegrees(Math.asin((width() / 2) / areaArch.radiusArch));
                 lengthArch = (float) ((2 * Math.PI * areaArch.radiusArch) / 360 * angl * 2);
@@ -171,7 +171,7 @@ public class ElemFrame extends ElemSimple {
                 spcRec.width = y2 - y1 + (float) (katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
                 spcRec.height = artiklRec.getFloat(eArtikl.height);
             }
-        } else if (owner.typeArea() == Type.TRAPEZE) {
+        } else if (owner.type() == Type.TRAPEZE) {
             if (Layout.TOP == layout) {
                 double length = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow(root().height() - winc.heightAdd, 2));
                 spcRec.width = (float) (length + katet / UCom.sin(anglCut[0]) + katet / UCom.sin(anglCut[1]));
@@ -216,7 +216,7 @@ public class ElemFrame extends ElemSimple {
             spcAdd.anglCut1 = 90;
             spcAdd.anglCut2 = 90;
 
-            if (Type.TRAPEZE == owner.typeArea()) {
+            if (Type.TRAPEZE == owner.type()) {
                 if (Layout.TOP == layout) {
                     spcAdd.width += length();
 
@@ -358,7 +358,7 @@ public class ElemFrame extends ElemSimple {
             int rgb = eColor.find(colorID2).getInt(eColor.rgb);
 
             //ARCH
-            if (owner.typeArea() == Type.ARCH) {
+            if (owner.type() == Type.ARCH) {
 
                 if (Layout.BOTT == layout) {
                     Draw.strokePolygon(winc, x1 + dh0, x2 - dh1, x2, x1, y1, y1, y2, y2, rgb, borderColor);
@@ -385,7 +385,7 @@ public class ElemFrame extends ElemSimple {
                     Draw.strokePolygon(winc, x1, x2, x2, x1, y1, (float) (r - a), y2 - dh1, y2, rgb, borderColor);
                 }
                 //TRAPEZE
-            } else if (owner.typeArea() == Type.TRAPEZE) {
+            } else if (owner.type() == Type.TRAPEZE) {
                 if (Layout.BOTT == layout) {
                     Draw.strokePolygon(winc, x1 + dh0, x2 - dh1, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 

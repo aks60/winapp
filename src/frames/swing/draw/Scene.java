@@ -240,13 +240,13 @@ public class Scene extends javax.swing.JPanel {
 
             if (lineHoriz.size() == 2) {
                 Scale sc2 = lineHoriz.get(1);
-                if (sc1.area().typeArea() == Type.ARCH && sc2.area().typeArea() == Type.AREA) {
+                if (sc1.area().type() == Type.ARCH && sc2.area().type() == Type.AREA) {
                     sc1.X1 = 0;
                     sc1.X2 = sc1.gson().length();
                     sc2.X1 = sc1.gson().length();
                     sc2.X2 = sc1.gson().length() + sc2.gson().length();
 
-                } else if (sc1.area().typeArea() == Type.TRAPEZE && sc2.area().typeArea() == Type.AREA) {
+                } else if (sc1.area().type() == Type.TRAPEZE && sc2.area().type() == Type.AREA) {
                     sc1.X1 = 0;
                     sc1.X2 = sc1.gson().length();
                     sc2.X1 = sc1.gson().length();
@@ -258,7 +258,7 @@ public class Scene extends javax.swing.JPanel {
                     sc2.X1 = sc1.area().x2();
                     sc2.X2 = sc2.area().root.width();
 
-                } else if (sc1.area().typeArea() == Type.AREA && sc2.area().typeArea() == Type.AREA) {
+                } else if (sc1.area().type() == Type.AREA && sc2.area().type() == Type.AREA) {
                     sc2.X1 = sc2.area().x1();
                     sc2.X2 = sc2.area().x2();
 
@@ -278,13 +278,13 @@ public class Scene extends javax.swing.JPanel {
 
             if (lineVert.size() == 2) {
                 Scale sc2 = lineVert.get(1);
-                if (sc1.area().typeArea() == Type.ARCH && sc2.area().typeArea() == Type.AREA) {
+                if (sc1.area().type() == Type.ARCH && sc2.area().type() == Type.AREA) {
                     sc1.Y1 = 0;
                     sc1.Y2 = sc1.gson().length();
                     sc2.Y1 = sc1.gson().length();
                     sc2.Y2 = sc1.gson().length() + sc2.gson().length();
 
-                } else if (sc1.area().typeArea() == Type.TRAPEZE && sc2.area().typeArea() == Type.AREA) {
+                } else if (sc1.area().type() == Type.TRAPEZE && sc2.area().type() == Type.AREA) {
                     sc1.Y1 = 0;
                     sc1.Y2 = sc1.gson().length();
                     sc2.Y1 = sc1.gson().length();
@@ -296,7 +296,7 @@ public class Scene extends javax.swing.JPanel {
                     sc2.Y1 = sc1.area().y2();
                     sc2.Y2 = sc2.area().root.height();
 
-                } else if (sc1.area().typeArea() == Type.AREA && sc2.area().typeArea() == Type.AREA) {
+                } else if (sc1.area().type() == Type.AREA && sc2.area().type() == Type.AREA) {
                     sc2.Y1 = sc2.area().y1();
                     sc2.Y2 = sc2.area().y2();
 
