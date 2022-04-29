@@ -17,13 +17,14 @@ import java.util.Map;
 import builder.making.Furniture;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
+import common.Interface.IElem;
 import enums.Form;
 import enums.TypeJoin;
 import enums.UseSide;
 import frames.swing.Draw;
 import java.util.List;
 
-public class ElemFrame extends ElemSimple {
+public class ElemFrame extends ElemSimple implements IElem {
 
     protected float lengthArch = 0; //длина арки 
 
@@ -142,7 +143,8 @@ public class ElemFrame extends ElemSimple {
         }
     }    
 
-    @Override //Главная спецификация
+    //Главная спецификация
+    @Override 
     public void setSpecific() {  //добавление основной спесификации
 
         spcRec.place = "ВСТ." + layout.name.substring(0, 1).toLowerCase();
@@ -204,7 +206,8 @@ public class ElemFrame extends ElemSimple {
         }
     }
 
-    @Override //Вложеная спецификация
+    //Вложеная спецификация
+    @Override 
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
 
         spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 

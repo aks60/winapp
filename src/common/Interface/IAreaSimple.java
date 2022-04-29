@@ -8,7 +8,7 @@ public interface IAreaSimple {
     //Форма контура
     public Type type();
 
-    //Соединения ареа
+    ////T - соединения
     public void joining();
 
     //Рисуем конструкцию

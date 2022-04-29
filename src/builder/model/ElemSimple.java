@@ -4,11 +4,12 @@ import builder.making.Specific;
 import java.awt.Color;
 import builder.Wincalc;
 import builder.script.GsonElem;
+import common.Interface.IElemSimple;
 import enums.Form;
 import enums.Layout;
 import enums.Type;
 
-public abstract class ElemSimple extends Com5t {
+public class ElemSimple extends Com5t implements IElemSimple {
 
     public float anglCut[] = {45, 45}; //угол реза
     public float[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости
@@ -25,20 +26,16 @@ public abstract class ElemSimple extends Com5t {
     }
 
     //Клик мышки попадает в контур элемента
+    @Override
     public boolean mouseClick(int X, int Y) {
         int x = (int) (X / winc.scale) - Com5t.TRANSLATE_XY;
         int y = (int) (Y / winc.scale) - Com5t.TRANSLATE_XY;
         return inside(x, y);
     }
 
-    //Главная спецификация
-    public abstract void setSpecific();
-
-    //Вложенная спецификация
-    public abstract void addSpecific(Specific specification);
-
     //Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка прилегающего вектора)
     //В этих точках лежат мапы соединений см. Wincalc.mapJoin
+    @Override
     public String joinPoint(int side) {
 
         if (owner.type() == Type.ARCH && layout == Layout.TOP && winc.form == Form.TOP) {
@@ -73,6 +70,7 @@ public abstract class ElemSimple extends Com5t {
     }
 
     //Прилегающие соединения
+    @Override
     public ElemSimple joinFlat(Layout layoutSide) {
         boolean begin = false;
         try {
@@ -115,6 +113,7 @@ public abstract class ElemSimple extends Com5t {
     }
 
     //Элемент соединения 0-пред.артикул, 1-след.артикл, 2-прилег. артикл
+    @Override
     public ElemSimple joinElem(int side) {
         ElemJoining ej = winc.mapJoin.get(joinPoint(side));
         if (ej != null && side == 0) {

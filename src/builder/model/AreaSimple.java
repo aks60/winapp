@@ -16,13 +16,14 @@ import java.io.ByteArrayOutputStream;
 import startup.Main;
 import builder.Wincalc;
 import builder.script.GsonElem;
+import common.Interface.IAreaSimple;
 import common.UCom;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
 import java.util.HashMap;
 
-public class AreaSimple extends Com5t {
+public class AreaSimple extends Com5t implements IAreaSimple {
 
     public Form form = null; //форма контура (параметр в развитии)
     public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     
@@ -130,15 +131,17 @@ public class AreaSimple extends Com5t {
         }
     }
 
-   //Форма контура
-    @Override 
+    //Форма контура
+    @Override
     public Type type() {
         if (this != root && form != null) {
             return root.type();
-        }        
+        }
         return super.type();
     }
 
+    //T - соединения
+    @Override
     public void joining() {
 
         LinkedList<ElemSimple> impList = UCom.listSortObj(winc.listElem, Type.IMPOST, Type.SHTULP, Type.STOIKA);
@@ -172,6 +175,7 @@ public class AreaSimple extends Com5t {
     }
 
     //Рисуем конструкцию
+    @Override
     public void draw() {
         try {
             //Прорисовка стеклопакетов

@@ -1,10 +1,17 @@
 package common.Interface;
 
+import builder.making.Specific;
 import builder.model.ElemSimple;
 import enums.Layout;
 
 public interface IElemSimple {
 
+    //Главная спецификация
+    default void setSpecific() {
+    }
+    //Вложеная спецификация
+    default void addSpecific(Specific spcAdd) {
+    }
     //Клик мышки попадает в контур элемента
     public boolean mouseClick(int X, int Y);
 
@@ -14,7 +21,7 @@ public interface IElemSimple {
 
     //Прилегающие соединения    
     public ElemSimple joinFlat(Layout layoutSide);
-    
+
     //Элемент соединения 0-пред.артикул, 1-след.артикл, 2-прилег. артикл
-    public ElemSimple joinElem(int side);    
+    public ElemSimple joinElem(int side);
 }

@@ -12,6 +12,7 @@ import enums.TypeArtikl;
 import builder.making.Specific;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
+import common.Interface.IElem;
 import common.UCom;
 import domain.eGlasprof;
 import enums.Form;
@@ -19,7 +20,7 @@ import enums.PKjson;
 import enums.Type;
 import enums.UseUnit;
 
-public class ElemGlass extends ElemSimple {
+public class ElemGlass extends ElemSimple implements IElem {
 
     public float radiusGlass = 0; //радиус стекла
     public float gzazo = 0; //зазор между фальцем и стеклопакетом 
@@ -68,7 +69,8 @@ public class ElemGlass extends ElemSimple {
         }
     }    
 
-    @Override //Главная спецификация
+    //Главная спецификация
+    @Override 
     public void setSpecific() {
 
         spcRec.place = "ЗАП";
@@ -127,7 +129,8 @@ public class ElemGlass extends ElemSimple {
         spcRec.height = height();
     }
 
-    @Override //Вложенная спецификация 
+    //Вложенная спецификация
+    @Override  
     public void addSpecific(Specific spcAdd) {
         if (Type.ARCH == owner.type() && (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3])) {
             return;  //нет таких сторон у арки
