@@ -13,7 +13,7 @@ public final class Vidnal {
 
         if (prj == 26) {
 
-            rootGson = new GsonRoot(prj, 2, 5, "VIDNAL V60/V60 окна-витражи",
+            rootGson = new GsonRoot("1.0", prj, 2, 5, "VIDNAL V60/V60 окна-витражи",
                     Layout.VERT, Type.RECTANGL, 1090, 2470, 1000, 1000, 1000);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))

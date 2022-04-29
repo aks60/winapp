@@ -593,7 +593,7 @@ public class Adm extends javax.swing.JFrame {
                 .addComponent(toolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(156, 156, 156)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -624,7 +624,7 @@ public class Adm extends javax.swing.JFrame {
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 845, Short.MAX_VALUE)
+            .addGap(0, 896, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -645,14 +645,14 @@ public class Adm extends javax.swing.JFrame {
         lab1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab1.setMaximumSize(new java.awt.Dimension(100, 18));
         lab1.setMinimumSize(new java.awt.Dimension(0, 18));
-        lab1.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab1.setPreferredSize(new java.awt.Dimension(80, 19));
 
         lab2.setFont(frames.UGui.getFont(0,0));
         lab2.setText("База источник");
         lab2.setAlignmentX(0.5F);
         lab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab2.setMinimumSize(new java.awt.Dimension(100, 18));
-        lab2.setPreferredSize(new java.awt.Dimension(84, 18));
+        lab2.setPreferredSize(new java.awt.Dimension(84, 19));
 
         lab3.setFont(frames.UGui.getFont(0,0));
         lab3.setText("Пользователь");
@@ -660,19 +660,24 @@ public class Adm extends javax.swing.JFrame {
         lab3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab3.setMaximumSize(new java.awt.Dimension(100, 18));
         lab3.setMinimumSize(new java.awt.Dimension(0, 18));
-        lab3.setPreferredSize(new java.awt.Dimension(80, 18));
+        lab3.setPreferredSize(new java.awt.Dimension(80, 19));
 
         lab4.setFont(frames.UGui.getFont(0,0));
         lab4.setText("Пароль");
         lab4.setAlignmentX(0.5F);
         lab4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab4.setPreferredSize(new java.awt.Dimension(46, 18));
+        lab4.setPreferredSize(new java.awt.Dimension(46, 19));
 
         edServer.setFont(frames.UGui.getFont(0,0));
         edServer.setText("localhost");
         edServer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         edServer.setMinimumSize(new java.awt.Dimension(0, 0));
         edServer.setPreferredSize(new java.awt.Dimension(72, 18));
+        edServer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edServerActionPerformed(evt);
+            }
+        });
 
         edPath.setFont(frames.UGui.getFont(0,0));
         edPath.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -692,7 +697,7 @@ public class Adm extends javax.swing.JFrame {
         lab5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab5.setMaximumSize(new java.awt.Dimension(40, 18));
         lab5.setMinimumSize(new java.awt.Dimension(40, 18));
-        lab5.setPreferredSize(new java.awt.Dimension(46, 18));
+        lab5.setPreferredSize(new java.awt.Dimension(46, 19));
 
         edPort.setFont(frames.UGui.getFont(0,0));
         edPort.setText("3050");
@@ -718,14 +723,14 @@ public class Adm extends javax.swing.JFrame {
         lab6.setText("База приемник");
         lab6.setAlignmentX(0.5F);
         lab6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        lab6.setPreferredSize(new java.awt.Dimension(84, 18));
+        lab6.setPreferredSize(new java.awt.Dimension(84, 19));
 
         btn10.setText("...");
         btn10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btn10.setMaximumSize(new java.awt.Dimension(18, 18));
         btn10.setMinimumSize(new java.awt.Dimension(18, 18));
         btn10.setName("btnField17"); // NOI18N
-        btn10.setPreferredSize(new java.awt.Dimension(18, 18));
+        btn10.setPreferredSize(new java.awt.Dimension(18, 19));
         btn10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn10btnAction(evt);
@@ -783,7 +788,7 @@ public class Adm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edPath, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+                        .addComponent(edPath, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan6Layout.createSequentialGroup()
@@ -793,7 +798,7 @@ public class Adm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(lab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labPath2, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                        .addComponent(labPath2, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1024,7 +1029,7 @@ public class Adm extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(btnSysdba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(671, Short.MAX_VALUE))
+                .addContainerGap(722, Short.MAX_VALUE))
         );
         pan14Layout.setVerticalGroup(
             pan14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1115,7 +1120,7 @@ public class Adm extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(519, Short.MAX_VALUE))
+                .addContainerGap(570, Short.MAX_VALUE))
         );
         pan12Layout.setVerticalGroup(
             pan12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1153,7 +1158,7 @@ public class Adm extends javax.swing.JFrame {
         pan15.setLayout(pan15Layout);
         pan15Layout.setHorizontalGroup(
             pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 845, Short.MAX_VALUE)
+            .addGap(0, 896, Short.MAX_VALUE)
         );
         pan15Layout.setVerticalGroup(
             pan15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1172,7 +1177,7 @@ public class Adm extends javax.swing.JFrame {
         south.setLayout(southLayout);
         southLayout.setHorizontalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 845, Short.MAX_VALUE)
+            .addGap(0, 896, Short.MAX_VALUE)
         );
         southLayout.setVerticalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1401,6 +1406,10 @@ public class Adm extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnSysdba
+
+    private void edServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edServerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edServerActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">    
     // Variables declaration - do not modify//GEN-BEGIN:variables

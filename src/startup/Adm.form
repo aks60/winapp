@@ -190,7 +190,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,37,0,0,3,81"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,37,0,0,3,-124"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -227,7 +227,7 @@
                   <Component id="toolBar2" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
                   <Component id="btnReport" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="275" max="32767" attributes="0"/>
+                  <EmptySpace pref="326" max="32767" attributes="0"/>
                   <Component id="btnClose" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -634,7 +634,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="845" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="896" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -698,7 +698,7 @@
                                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                                   <Component id="lab2" min="-2" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="edPath" pref="395" max="32767" attributes="1"/>
+                                  <Component id="edPath" pref="446" max="32767" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btn10" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -709,7 +709,7 @@
                                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                                   <Component id="lab6" min="-2" max="-2" attributes="1"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Component id="labPath2" pref="259" max="32767" attributes="0"/>
+                                  <Component id="labPath2" pref="310" max="32767" attributes="0"/>
                                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnTest" min="-2" max="-2" attributes="1"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -781,7 +781,7 @@
                       <Dimension value="[0, 18]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[80, 18]"/>
+                      <Dimension value="[80, 19]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -801,7 +801,7 @@
                       <Dimension value="[100, 18]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[84, 18]"/>
+                      <Dimension value="[84, 19]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -824,7 +824,7 @@
                       <Dimension value="[0, 18]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[80, 18]"/>
+                      <Dimension value="[80, 19]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -841,7 +841,7 @@
                       </Border>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[46, 18]"/>
+                      <Dimension value="[46, 19]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -863,6 +863,9 @@
                       <Dimension value="[72, 18]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edServerActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="edPath">
                   <Properties>
@@ -921,7 +924,7 @@
                       <Dimension value="[40, 18]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[46, 18]"/>
+                      <Dimension value="[46, 19]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -999,7 +1002,7 @@
                       </Border>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[84, 18]"/>
+                      <Dimension value="[84, 19]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -1019,7 +1022,7 @@
                     </Property>
                     <Property name="name" type="java.lang.String" value="btnField17" noResource="true"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[18, 18]"/>
+                      <Dimension value="[18, 19]"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -1425,7 +1428,7 @@
                               <Component id="btnDel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                               <Component id="btnSysdba" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="671" max="32767" attributes="0"/>
+                              <EmptySpace pref="722" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1623,7 +1626,7 @@
                                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="519" max="32767" attributes="0"/>
+                              <EmptySpace pref="570" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1825,7 +1828,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="845" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="896" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -1860,7 +1863,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="845" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="896" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
