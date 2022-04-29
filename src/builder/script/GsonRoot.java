@@ -15,7 +15,7 @@ import startup.Main;
 
 public class GsonRoot extends GsonElem {
 
-    public String version = "v2";
+    public String version = "1.0";
     public String name = "Конструкция";
     public int prj = 1; //PNUMB - номер тестируемого проекта, поле пока нужно только для тестов 
     public int ord = 1; //ONUMB - номер тестируемого заказа, поле пока нужно только для тестов 

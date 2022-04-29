@@ -21,6 +21,7 @@ import domain.eSysprod;
 import domain.eSystree;
 import enums.Enam;
 import builder.param.ParamList;
+import common.DecimalFormat2;
 import enums.UseColor;
 import java.awt.Component;
 import java.awt.Container;
@@ -66,11 +67,9 @@ import enums.Layout;
 import enums.PKjson;
 import enums.Type;
 import frames.swing.DefMutableTreeNode;
-import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.HashSet;
 import java.util.Locale;
-import static java.util.stream.Collectors.toList;
 
 /**
  * <p>
@@ -78,7 +77,7 @@ import static java.util.stream.Collectors.toList;
  */
 public class UGui {
 
-    public static DecimalFormat df = new DecimalFormat("0.0#", new DecimalFormatSymbols(Locale.ENGLISH));
+    public static DecimalFormat2 df = new DecimalFormat2("0.0#", new DecimalFormatSymbols(Locale.ENGLISH));
     private static GregorianCalendar appCalendar = new GregorianCalendar(); //календарь программы    
     private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM); //формат даты
     public static SimpleDateFormat simpleFormat = new SimpleDateFormat("dd.MM.yyyy"); //"yyyy-MM-dd" формат для баз где даты utf8
