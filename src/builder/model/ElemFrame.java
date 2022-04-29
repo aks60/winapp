@@ -105,15 +105,15 @@ public class ElemFrame extends ElemSimple {
                 anglHoriz = 90;
             } else if (Layout.TOP == layout) {
                 if (winc.form == Form.RIGHT) {
-                    setDimension(owner.x1, owner.y1, owner.x2, owner.y2 - winc.heightAdd);
+                    setDimension(owner.x1, owner.y1, owner.x2, owner.y2 - (winc.heightAdd + artiklRecAn.getFloat(eArtikl.height) / 2));
                     anglHoriz = (float) (180 - Math.toDegrees(Math.atan(H / W)));
                     anglCut[0] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
                     anglCut[1] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
                 } else {
-                    setDimension(owner.x1, owner.y2 - winc.heightAdd, owner.x2, owner.y1);
-                    anglHoriz = (float) (180 + Math.toDegrees(Math.atan(H / W)));
-                    anglCut[1] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
-                    anglCut[0] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
+//                    setDimension(owner.x1, owner.y2 - winc.heightAdd, owner.x2, owner.y1);
+//                    anglHoriz = (float) (180 + Math.toDegrees(Math.atan(H / W)));
+//                    anglCut[1] = (float) (180 - Math.toDegrees(Math.atan(W / H))) / 2;
+//                    anglCut[0] = (float) Math.toDegrees(Math.atan(W / H)) / 2;
                 }
             } else if (Layout.LEFT == layout) {
                 if (winc.form == Form.LEFT) {
