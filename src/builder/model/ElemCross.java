@@ -53,7 +53,7 @@ public class ElemCross extends ElemSimple {
     }
 
     //Установка координат
-    public void setLocation2() {
+    public void setLocation() {
 
         //Коррекция положения импоста арки (подкдадка ареа над импостом)
         if (Type.ARCH == owner.type()) {
@@ -88,7 +88,7 @@ public class ElemCross extends ElemSimple {
         }
     }
 
-    public void setLocation() {
+    public void setLocation2() {
         for (int index = owner.childs.size() - 1; index >= 0; --index) {
             if (owner.childs.get(index) instanceof AreaSimple) {
                 Com5t prevArea = owner.childs.get(index); //index указывает на предыдущий элемент
