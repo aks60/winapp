@@ -25,6 +25,7 @@ import domain.eKits;
 import domain.ePrjkit;
 import enums.UseUnit;
 import java.util.HashMap;
+import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -610,7 +611,7 @@ public class DicKits extends javax.swing.JDialog {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
@@ -622,7 +623,7 @@ public class DicKits extends javax.swing.JDialog {
 
     private void comboBoxAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAction
         UGui.stopCellEditing(tab1, tab2);
-        Arrays.asList(tab1, tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         int index = cbx1.getSelectedIndex();
         loadingData(String.valueOf(index));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();

@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
+import java.util.List;
 
 public class Rulecalc extends javax.swing.JFrame {
 
@@ -356,7 +357,7 @@ public class Rulecalc extends javax.swing.JFrame {
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
 
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab2));
+        UGui.updateBorderAndSql(table, List.of(tab2));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
@@ -387,6 +388,6 @@ public class Rulecalc extends javax.swing.JFrame {
         filterTable = new FilterTable(2, tab2);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab2)));
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab2)));
     }
 }

@@ -129,7 +129,7 @@ public class Elements extends javax.swing.JFrame {
 
                 if (val != null && columns[col] == eElement.typset) {
                     int typset = Integer.valueOf(val.toString());
-                    return Arrays.asList(TypeSet.values()).stream().filter(el -> el.id == typset).findFirst().orElse(TypeSet.P1).name;
+                    return List.of(TypeSet.values()).stream().filter(el -> el.id == typset).findFirst().orElse(TypeSet.P1).name;
 
                 } else if (val != null && columns[col] == eElement.series_id) {
                     return qGrSeri.stream().filter(rec -> rec.getInt(eGroups.id) == Integer.valueOf(val.toString())).findFirst().orElse(eElement.up.newRecord()).get(eGroups.name);
@@ -201,7 +201,7 @@ public class Elements extends javax.swing.JFrame {
         };
 
         DefCellBoolRenderer br = new DefCellBoolRenderer();
-        Arrays.asList(6, 7).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
+        List.of(6, 7).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
 
         UGui.setSelectedRow(tab1);
     }
@@ -442,7 +442,7 @@ public class Elements extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab3);
         if (index != -1) {
             //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Arrays.asList(qElempar2).forEach(q -> q.execsql());
+            List.of(qElempar2).forEach(q -> q.execsql());
             Record record = qElemdet.table(eElemdet.up).get(index);
             Integer p1 = record.getInt(eElemdet.id);
             qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.id, "=", eElempar2.params_id, "where", eElempar2.elemdet_id, "=", p1);
@@ -879,7 +879,7 @@ public class Elements extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
@@ -946,7 +946,7 @@ public class Elements extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
     }//GEN-LAST:event_windowClosed
 
     private void ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmCategAction
@@ -984,7 +984,7 @@ public class Elements extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReport
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-        UGui.updateBorderAndSql((JTable) evt.getSource(), Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        UGui.updateBorderAndSql((JTable) evt.getSource(), List.of(tab1, tab2, tab3, tab4, tab5));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
@@ -1051,7 +1051,7 @@ public class Elements extends javax.swing.JFrame {
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "                 ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

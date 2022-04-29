@@ -63,9 +63,9 @@ public class Filling extends Cal5e {
 
             List<ElemSimple> elemFrameList = null;
             if (elemGlass.owner.type() == Type.ARCH) {
-                elemFrameList = Arrays.asList(rootArea().frames.get(Layout.BOTT), rootArea().frames.get(Layout.RIGHT), rootArea().frames.get(Layout.TOP), rootArea().frames.get(Layout.LEFT));
+                elemFrameList = List.of(rootArea().frames.get(Layout.BOTT), rootArea().frames.get(Layout.RIGHT), rootArea().frames.get(Layout.TOP), rootArea().frames.get(Layout.LEFT));
             } else {
-                elemFrameList = Arrays.asList(elemGlass.joinFlat(Layout.BOTT), elemGlass.joinFlat(Layout.RIGHT), elemGlass.joinFlat(Layout.TOP), elemGlass.joinFlat(Layout.LEFT));
+                elemFrameList = List.of(elemGlass.joinFlat(Layout.BOTT), elemGlass.joinFlat(Layout.RIGHT), elemGlass.joinFlat(Layout.TOP), elemGlass.joinFlat(Layout.LEFT));
             }
 
             //Цикл по сторонам стеклопакета
@@ -83,7 +83,7 @@ public class Filling extends Cal5e {
                         //Цикл по профилям в группах заполнений
                         for (Record glasprofRec : glasprofList) {
                             if (elemFrame.artiklRecAn.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) { //если артикулы совпали
-                                if (Arrays.asList(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {  //внутреннее заполнение
+                                if (List.of(1, 2, 3, 4).contains(glasprofRec.getInt(eGlasprof.inside))) {  //внутреннее заполнение
 
                                     //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                                     if (fillingVar.filter(elemGlass, glasgrpRec) == true) {

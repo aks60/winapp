@@ -8,6 +8,7 @@ import enums.Layout;
 import enums.Type;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class GsonElem {
@@ -158,7 +159,7 @@ public class GsonElem {
             if (el.form != null) {
                 winc.form = el.form;
             }
-            if (Arrays.asList(Type.STVORKA, Type.AREA, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type())) {
+            if (List.of(Type.STVORKA, Type.AREA, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type())) {
                 el.parent(winc); //рекурсия 
             }
         });
@@ -166,7 +167,7 @@ public class GsonElem {
 
     public LinkedList<GsonElem> elems() {
         return childs.stream().filter(el
-                -> Arrays.asList(Type.STVORKA, Type.AREA, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type()))
+                -> List.of(Type.STVORKA, Type.AREA, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type()))
                 .collect(Collectors.toCollection(() -> new LinkedList<GsonElem>()));
     }
 }

@@ -1186,61 +1186,61 @@ public class ParamList {
     };
 
     public static Dictionary dic_2015_3015_4015_39093 = () -> {
-        return Arrays.asList("горизонтально", "вертикально");
+        return List.of("горизонтально", "вертикально");
     };
 
     public static Dictionary dic_38004_39005 = () -> {
-        return Arrays.asList("по периметру", "по площади", "длина по коробке");
+        return List.of("по периметру", "по площади", "длина по коробке");
         //, "как крест", "как концевик", "для прямых углов", "для не прямых углов");
     };
 
     public static Dictionary dic_2003_3003 = () -> {
-        return Arrays.asList("левый", "правый");
+        return List.of("левый", "правый");
     };
 
     public static Dictionary dic_24012_25012 = () -> {
-        return Arrays.asList("левое", "правое");
+        return List.of("левое", "правое");
     };
 
     public static Dictionary dic_31002 = () -> {
-        return Arrays.asList("прямой", "кривой");
+        return List.of("прямой", "кривой");
     };
 
     public static Dictionary dic_31051 = () -> {
-        return Arrays.asList("ведомая", "ведущая");
+        return List.of("ведомая", "ведущая");
     };
 
     public static Dictionary dic_OK_NO = () -> {
-        return Arrays.asList("Да", "Нет");
+        return List.of("Да", "Нет");
     };
     
     public static Dictionary dic_AUTO_OK_NO = () -> {
-        return Arrays.asList("Авто", "Да", "Нет");
+        return List.of("Авто", "Да", "Нет");
     };
 
     public static Dictionary dic_15027_12027 = () -> {
-        return Arrays.asList("с уплотнителем", "без уплотнителя");
+        return List.of("с уплотнителем", "без уплотнителя");
     };
 
     public static Dictionary dic_1005x6_2005x6_3005_4005_11005_12005_31050_33071_34071 = () -> {
-        return Arrays.asList("коробка", "створка", "импост", "ригель/импост", "стойка", "стойка/коробка", "эркер", "грань");
-        //return Arrays.asList("коробка", "створка", "импост", "стойка", "эркер");
+        return List.of("коробка", "створка", "импост", "ригель/импост", "стойка", "стойка/коробка", "эркер", "грань");
+        //return List.of("коробка", "створка", "импост", "стойка", "эркер");
     };
 
     public static Dictionary dic_24070_25070 = () -> {
-        return Arrays.asList("по середине", "константная", "не константная", "установлена");
+        return List.of("по середине", "константная", "не константная", "установлена");
     };
 
     public static Dictionary dic_21001_24001_25001 = () -> {
-        return Arrays.asList("прямоугольная", "трапециевидная", "не арочная", "арочная");
+        return List.of("прямоугольная", "трапециевидная", "не арочная", "арочная");
     };
 
     public static Dictionary dic_13015 = () -> {
-        return Arrays.asList("Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное");
+        return List.of("Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное");
     };
 
     public static Dictionary dic_37009 = () -> {
-        return Arrays.asList("Все", "Произвольное", "Прямоугольное", "Арочное");
+        return List.of("Все", "Произвольное", "Прямоугольное", "Арочное");
     };
 
     public static Dictionary dic_37005 = () -> {
@@ -1248,114 +1248,114 @@ public class ParamList {
     };
 
     public static Dictionary dic_COLOR_NAME = () -> {
-        //return Arrays.asList("1цвет", "2цвет", "3цвет", "4цвет");
+        //return List.of("1цвет", "2цвет", "3цвет", "4цвет");
         List list = new ArrayList();
         new Query(eColor.name).select(eColor.up, "order by", eColor.name).forEach(rec -> list.add(rec.getStr(eColor.name)));
         return list;
     };
 
     public static Dictionary dic_COLOR2 = () -> {
-        return Arrays.asList("1цвет", "2цвет", "3цвет", "4цвет");
+        return List.of("1цвет", "2цвет", "3цвет", "4цвет");
     };
 
     public static Dictionary dic_11072_12072 = () -> {
-        return Arrays.asList("большей", "меньшей", "общей");
+        return List.of("большей", "меньшей", "общей");
     };
 
     public static Dictionary dic_3088 = () -> {
-        return Arrays.asList("внешний", "внутренний");
+        return List.of("внешний", "внутренний");
     };
 
     public static Dictionary dic_37001 = () -> {
-        return Arrays.asList("на профили", "на заполнения");
+        return List.of("на профили", "на заполнения");
     };
 
     public static Dictionary dic_20066 = () -> {
-        return Arrays.asList("по меньшей ширине");
+        return List.of("по меньшей ширине");
     };
 
     public static Dictionary dic_33031_34031_34061 = () -> {
-        return Arrays.asList("по уровням деления");
+        return List.of("по уровням деления");
     };
 
     public static Dictionary dic_13003_14005_15005_37008 = () -> {
-        return Arrays.asList("глухой", "не глухой");
+        return List.of("глухой", "не глухой");
     };
 
     public static Dictionary dic_24006_38113_39113_40113 = () -> {
-        return Arrays.asList("по текстуре ручки", "по текстуре подвеса", "по текстуре замка");
+        return List.of("по текстуре ручки", "по текстуре подвеса", "по текстуре замка");
     };
 
     public static Dictionary dic_39063 = () -> {
-        return Arrays.asList("меньшего целого числа", "большего целого числа", "большего чётного числа", "большего нечётного числа");
+        return List.of("меньшего целого числа", "большего целого числа", "большего чётного числа", "большего нечётного числа");
     };
 
     public static Dictionary dic_33062_34062 = () -> {
-        return Arrays.asList("только вверх", "только вниз", "вверх и вниз", "нет удлинений");
+        return List.of("только вверх", "только вниз", "вверх и вниз", "нет удлинений");
     };
 
     public static Dictionary dic_13005 = () -> {
-        return Arrays.asList("Стекло", "Стеклопакет", "Сендвич", "Вагонка", "Алюминевый лист", "Специальное стекло", "Конструктив", "Панель откоса");
+        return List.of("Стекло", "Стеклопакет", "Сендвич", "Вагонка", "Алюминевый лист", "Специальное стекло", "Конструктив", "Панель откоса");
     };
 
     public static Dictionary dic_25013 = () -> {
-        return Arrays.asList("длины стороны", "высоты ручки", "сторона - выс. ручки", "половины стороны");
+        return List.of("длины стороны", "высоты ручки", "сторона - выс. ручки", "половины стороны");
     };
 
     public static Dictionary dic_33004_34004 = () -> {
-        return Arrays.asList("вычет длин удлинений", "по нижнему удлинению", "по верхнему удлинению", "по обоим удлинениям");
+        return List.of("вычет длин удлинений", "по нижнему удлинению", "по верхнему удлинению", "по обоим удлинениям");
     };
 
     public static Dictionary dic_8075 = () -> {
-        return Arrays.asList("90х90", "90х45", "45х90", "45х45");
+        return List.of("90х90", "90х45", "45х90", "45х45");
     };
     
     public static Dictionary dic_12075_34075_39075 = () -> {
-        return Arrays.asList("по контейнерам", "по биссектрисам", "установить (90° x 90°)", "установить (90° x 45°)", "установить (45° x 45°)");
+        return List.of("по контейнерам", "по биссектрисам", "установить (90° x 90°)", "установить (90° x 45°)", "установить (45° x 45°)");
     };
 
     public static Dictionary dic_34010 = () -> {
-        return Arrays.asList("от конца  профиля", "от внутреннего угла", "от внутреннего фальца");
+        return List.of("от конца  профиля", "от внутреннего угла", "от внутреннего фальца");
     };
 
     public static Dictionary dic_4002 = () -> {
-        return Arrays.asList("Простое Т-обр.", "Крестовое †-обр.", "Сложное Y-обр.");
+        return List.of("Простое Т-обр.", "Крестовое †-обр.", "Сложное Y-обр.");
     };
 
     public static Dictionary dic_3002 = () -> {
-        return Arrays.asList("Простое L-обр.", "Крестовое †-обр.");
+        return List.of("Простое L-обр.", "Крестовое †-обр.");
     };
 
     public static Dictionary dic_SERIES = () -> {
-        return Arrays.asList("sql к сериям", "sql к сериям", "sql к сериям");
+        return List.of("sql к сериям", "sql к сериям", "sql к сериям");
     };
 
     public static Dictionary dic_37097 = () -> {
-        return Arrays.asList("периметру", "площади");
+        return List.of("периметру", "площади");
     };
 
     public static Dictionary dic_15013 = () -> {
-        return Arrays.asList("без/минимальный дистанционер", "с наибольшим дистанционером");
+        return List.of("без/минимальный дистанционер", "с наибольшим дистанционером");
     };
 
     public static Dictionary dic_1039_38039_39039 = () -> {
-        return Arrays.asList("фрамуга", "поворотное", "поворотно-откидное", "раздвижное");
+        return List.of("фрамуга", "поворотное", "поворотно-откидное", "раздвижное");
     };
 
     public static Dictionary dic_34015 = () -> {
-        return Arrays.asList("длине контейнера", "межосевому расстоянию");
+        return List.of("длине контейнера", "межосевому расстоянию");
     };
 
     public static Dictionary dic_TEAM = () -> {
-        return Arrays.asList("sql запрос к таблице бригад", "sql запрос к таблице бригад");
+        return List.of("sql запрос к таблице бригад", "sql запрос к таблице бригад");
     };
 
     public static Dictionary dic_31019 = () -> {
-        return Arrays.asList("внутренняя по основной", "внешняя по основной", "внутрення по внешней", "внешняя по внутренней", "2 стороны по основной");
+        return List.of("внутренняя по основной", "внешняя по основной", "внутрення по внешней", "внешняя по внутренней", "2 стороны по основной");
     };
 
     public static Dictionary dic_15011 = () -> {
-        return Arrays.asList("по биссектрисе", "усекать нижний", "усекать боковой");
+        return List.of("по биссектрисе", "усекать нижний", "усекать боковой");
     };
 
     public static Dictionary dic_ARTIKL_CODE = () -> {

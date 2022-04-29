@@ -11,6 +11,7 @@ import frames.swing.DefTableModel;
 import java.util.Arrays;
 import javax.swing.JTable;
 import common.listener.ListenerRecord;
+import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -246,7 +247,7 @@ public class ParGrup2v extends javax.swing.JDialog {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2));
     }//GEN-LAST:event_tabMousePressed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked

@@ -44,7 +44,7 @@ class UPar {
                 }
             }
         }
-        return Arrays.asList((ElemGlass) glass1, (ElemGlass) glass2);
+        return List.of((ElemGlass) glass1, (ElemGlass) glass2);
     }
 
     //Тип проема 
@@ -107,7 +107,7 @@ class UPar {
     static boolean is_11095_12095_31095_33095_34095_37095_38095_39095_40095(String txt, int nuni) {
         Record systreefRec = eSystree.find(nuni);
         String[] arr = txt.split(";");
-        List<String> arrList = Arrays.asList(arr);
+        List<String> arrList = List.of(arr);
         boolean ret = false;
         for (String str : arrList) {
             if (systreefRec.getInt(eSystree.types) == UCom.getInt(str) == true) {

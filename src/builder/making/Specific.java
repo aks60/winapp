@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
 import builder.model.ElemSimple;
+import java.util.List;
 
 /**
  * Спецификация элемента окна
@@ -96,7 +97,7 @@ public class Specific {
     }
 
     public Vector getVector(int npp) {
-        return new Vector(Arrays.asList(npp, id, elem5e.id(), place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
+        return new Vector(List.of(npp, id, elem5e.id(), place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
                 eColor.find(colorID3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2, anglHoriz,
                 count, UseUnit.getName(unit), wastePrc, quant1, quant2, price1, price2, cost1, cost2));
     }

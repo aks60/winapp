@@ -21,6 +21,7 @@ import enums.Form;
 import enums.TypeJoin;
 import enums.UseSide;
 import frames.swing.Draw;
+import java.util.List;
 
 public class ElemFrame extends ElemSimple {
 
@@ -329,7 +330,7 @@ public class ElemFrame extends ElemSimple {
                 } else {
                     spcAdd.width += width() + winc.syssizeRec.getFloat(eSyssize.prip) * 2;
                 }
-            } else if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
+            } else if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
                 spcAdd.width += spcRec.width;
             }
         }

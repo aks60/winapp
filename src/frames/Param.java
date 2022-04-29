@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import common.listener.ListenerRecord;
+import java.util.List;
 
 public class Param extends javax.swing.JFrame {
 
@@ -52,8 +53,8 @@ public class Param extends javax.swing.JFrame {
                 eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.label);
 
         DefCellBoolRenderer br = new DefCellBoolRenderer();
-        Arrays.asList(1, 2, 3, 4, 5, 6, 7).forEach(index -> tab1.getColumnModel().getColumn(index).setCellRenderer(br));
-        Arrays.asList(1, 2, 3, 4, 5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
+        List.of(1, 2, 3, 4, 5, 6, 7).forEach(index -> tab1.getColumnModel().getColumn(index).setCellRenderer(br));
+        List.of(1, 2, 3, 4, 5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
 
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
@@ -351,7 +352,7 @@ public class Param extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(tab1, tab2);
-        Arrays.asList(tab1, tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadData();
         UGui.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
@@ -373,14 +374,14 @@ public class Param extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, eParams.up, (record) -> {
                 record.setNo(eParams.params_id, record.getInt(eParams.id));
-                Arrays.asList(eParams.kits.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
+                List.of(eParams.kits.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
             });
         } else if (tab2.getBorder() != null) {
             UGui.insertRecordEnd(tab2, eParams.up, (record) -> {
                 Record record2 = qParams.get(UGui.getIndexRec(tab1));
                 record.setNo(eParams.params_id, record2.getInt(eParams.id));
-                Arrays.asList(eParams.kits.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
+                List.of(eParams.kits.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> record.set(index, 0));
             });
         }
@@ -388,7 +389,7 @@ public class Param extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2);
-        Arrays.asList(qParams, qPardet).forEach(q -> q.execsql());
+        List.of(qParams, qPardet).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
@@ -396,7 +397,7 @@ public class Param extends javax.swing.JFrame {
         if (table == tab2) {
             selectionTab2(null);
         }
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -423,7 +424,7 @@ public class Param extends javax.swing.JFrame {
         filterTable = new FilterTable(0, tab1);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2)));
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

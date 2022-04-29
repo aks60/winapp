@@ -107,7 +107,7 @@ public class Adm extends javax.swing.JFrame {
         dm.getDataVector().clear();
         int npp = 0;
         for (Field up : App.db) {
-            List rec = Arrays.asList(++npp, up.tname(), up.meta().descr());
+            List rec = List.of(++npp, up.tname(), up.meta().descr());
             Vector vec = new Vector(rec);
             dm.getDataVector().add(vec);
         }
@@ -158,7 +158,7 @@ public class Adm extends javax.swing.JFrame {
             while (rs.next()) {
                 Object role = ("TEXNOLOG_RW".equals(rs.getString(1).trim()) || "MANAGER_RW".equals(rs.getString(1).trim())) ? "чтение-запись" : "только чтение";
                 Object profile = ("TEXNOLOG_RW".equals(rs.getString(1).trim()) || "TEXNOLOG_RO".equals(rs.getString(1).trim())) ? "Технолог" : "Менеджер";
-                List rec = Arrays.asList(++npp, rs.getObject(2), role, profile);
+                List rec = List.of(++npp, rs.getObject(2), role, profile);
                 Vector vec = new Vector(rec);
                 dm.getDataVector().add(vec);
             }
@@ -1185,7 +1185,7 @@ public class Adm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnExit
-        Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
+        List.of(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
     }//GEN-LAST:event_mnExit
 
     private void userDel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDel
@@ -1318,7 +1318,7 @@ public class Adm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTestBtnStartClick
 
     private void mn30mnExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn30mnExit
-        Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
+        List.of(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
     }//GEN-LAST:event_mn30mnExit
 
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase

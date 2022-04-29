@@ -24,6 +24,7 @@ import common.listener.ListenerFrame;
 import dataset.Conn;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.tree.TreePath;
 
@@ -153,7 +154,7 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
             }
         }
         ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
-        UGui.updateBorderAndSql(tab, Arrays.asList(tab1, tab2, tab3));
+        UGui.updateBorderAndSql(tab, List.of(tab1, tab2, tab3));
         UGui.setSelectedRow(tab);
     }
 
@@ -944,29 +945,29 @@ public class Models extends javax.swing.JFrame implements ListenerFrame<Object, 
         if (btnT1.isSelected()) {
             loadingTab(tab1, 1001);
             ((CardLayout) west.getLayout()).show(west, "pan13");
-            UGui.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab4));
+            UGui.updateBorderAndSql(tab1, List.of(tab1, tab2, tab3, tab4));
             UGui.setSelectedRow(tab1);
         } else if (btnT2.isSelected()) {
             loadingTab(tab2, 1004);
             ((CardLayout) west.getLayout()).show(west, "pan14");
-            UGui.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4));
+            UGui.updateBorderAndSql(tab2, List.of(tab1, tab2, tab3, tab4));
             UGui.setSelectedRow(tab2);
         } else if (btnT3.isSelected()) {
             loadingTab(tab3, 1002);
             ((CardLayout) west.getLayout()).show(west, "pan15");
-            UGui.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab4));
+            UGui.updateBorderAndSql(tab3, List.of(tab1, tab2, tab3, tab4));
             UGui.setSelectedRow(tab3);
         } else {
             loadingTab(tab4, 1007);
             ((CardLayout) west.getLayout()).show(west, "pan18");
-            UGui.updateBorderAndSql(tab4, Arrays.asList(tab1, tab2, tab3, tab4));
+            UGui.updateBorderAndSql(tab4, List.of(tab1, tab2, tab3, tab4));
             UGui.setSelectedRow(tab4);
         }
     }//GEN-LAST:event_btnToggl
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3));
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3));
     }//GEN-LAST:event_tabMousePressed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked

@@ -218,10 +218,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 if (val != null) {
                     if (field == eSysfurn.side_open) {
                         int id = Integer.valueOf(val.toString());
-                        return Arrays.asList(TypeOpen2.values()).stream().filter(el -> el.id == id).findFirst().orElse(TypeOpen2.QUE).name;
+                        return List.of(TypeOpen2.values()).stream().filter(el -> el.id == id).findFirst().orElse(TypeOpen2.QUE).name;
                     } else if (field == eSysfurn.hand_pos) {
                         int id = Integer.valueOf(val.toString());
-                        return Arrays.asList(LayoutHandle.values()).stream().filter(el -> el.id == id).findFirst().orElse(LayoutHandle.MIDL).name;
+                        return List.of(LayoutHandle.values()).stream().filter(el -> el.id == id).findFirst().orElse(LayoutHandle.MIDL).name;
                     } else if (field == eSysfurn.artikl_id1) {
                         int id = Integer.valueOf(val.toString());
                         return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
@@ -537,7 +537,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     public void selectionSysTree() {
         UGui.stopCellEditing(tab2, tab3, tab4, tab5);
-        Arrays.asList(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
+        List.of(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
 
         sysNode = (DefMutableTreeNode) sysTree.getLastSelectedPathComponent();
         if (sysNode != null) {
@@ -673,7 +673,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 ElemJoining ej1 = winc.mapJoin.get(elem5e.joinPoint(0));
                 ElemJoining ej2 = winc.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = winc.mapJoin.get(elem5e.joinPoint(2));
-                Arrays.asList(lab55, lab56, lab57).forEach(it -> it.setIcon(null));
+                List.of(lab55, lab56, lab57).forEach(it -> it.setIcon(null));
 
                 if (ej1 != null) {
                     setText(txt36, ej1.joiningRec.getStr(eJoining.name));
@@ -697,7 +697,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card18");
             }
             lab2.setText("ID = " + winNode.com5t().id());
-            Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
+            List.of(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
     }
 
@@ -2826,19 +2826,19 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
         btn5.setEnabled(table == tab2);
-        UGui.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
+        UGui.updateBorderAndSql(table, List.of(tab2, tab3, tab4, tab5));
         if (sysTree.isEditing()) {
             sysTree.getCellEditor().stopCellEditing();
         }
         sysTree.setBorder(null);
-        UGui.updateBorderAndSql(table, Arrays.asList(tab2, tab3, tab4, tab5));
+        UGui.updateBorderAndSql(table, List.of(tab2, tab3, tab4, tab5));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
 //        UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);
 //        qSystree.execsql();
-//        Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+//        List.of(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
 //        if (models != null) {
 //            models.dispose();
 //        }
@@ -2849,18 +2849,18 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         UGui.stopCellEditing(sysTree);
         sysTree.setBorder(null);
         if (tabb1.getSelectedIndex() == 1) {
-            UGui.updateBorderAndSql(tab2, Arrays.asList(tab2, tab3, tab4, tab5));
+            UGui.updateBorderAndSql(tab2, List.of(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 2) {
-            UGui.updateBorderAndSql(tab3, Arrays.asList(tab2, tab3, tab4, tab5));
+            UGui.updateBorderAndSql(tab3, List.of(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 3) {
-            UGui.updateBorderAndSql(tab4, Arrays.asList(tab2, tab3, tab4, tab5));
+            UGui.updateBorderAndSql(tab4, List.of(tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 4) {
-            UGui.updateBorderAndSql(tab5, Arrays.asList(tab2, tab3, tab4, tab5));
+            UGui.updateBorderAndSql(tab5, List.of(tab2, tab3, tab4, tab5));
         }
     }//GEN-LAST:event_stateChanged
 
     private void sysTreeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sysTreeMousePressed
-        Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
+        List.of(tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
         sysTree.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
         UGui.stopCellEditing(tab2, tab3, tab4, tab5);
     }//GEN-LAST:event_sysTreeMousePressed
@@ -2995,7 +2995,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(sysTree, tab2, tab3, tab4, tab5);
         qSystree.execsql();
-        Arrays.asList(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         Query.listOpenTable.forEach(q -> q.clear());
         int row[] = winTree.getSelectionRows();
         loadingData();
@@ -3696,7 +3696,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         UGui.documentFilter(1, txt2, txt15);
         UGui.documentFilter(2, txt3, txt4, txt5);
         UGui.documentFilter(3, txt17, txt22, txt23, txt24, txt26, txt35);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab5)));
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab2, tab3, tab4, tab5)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) sysTree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));

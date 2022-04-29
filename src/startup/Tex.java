@@ -25,6 +25,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * <p>
@@ -64,7 +65,7 @@ public class Tex extends javax.swing.JFrame {
     }
 
     private void connectBaseNumb(String num_base) {
-        Arrays.asList(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
+        List.of(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
         Query.listOpenTable.forEach(q -> q.clear());
         PathToDb frame = new PathToDb(this, num_base);
         FrameToFile.setFrameSize(frame);
@@ -991,7 +992,7 @@ public class Tex extends javax.swing.JFrame {
 }//GEN-LAST:event_mn42
 
     private void mnExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnExit
-        Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
+        List.of(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
 }//GEN-LAST:event_mnExit
 
 private void mnAboutBox(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAboutBox
@@ -1148,11 +1149,11 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     }//GEN-LAST:event_mnRulecalc
 
     private void windowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowIconified
-        Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.ICONIFIED));
+        List.of(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.ICONIFIED));
     }//GEN-LAST:event_windowIconified
 
     private void windowDeiconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowDeiconified
-        Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.NORMAL));
+        List.of(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.NORMAL));
     }//GEN-LAST:event_windowDeiconified
 
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
@@ -1194,7 +1195,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     }//GEN-LAST:event_btnTest
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        /*Arrays.asList(App.values()).forEach(act -> {
+        /*List.of(App.values()).forEach(act -> {
             if (act.frame != null && act != App.Top && act.frame.isVisible() == false) {
                 act.frame.setVisible(true);
             }

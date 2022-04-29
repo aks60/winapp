@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import common.listener.ListenerRecord;
+import java.util.List;
 
 public class Texture extends javax.swing.JFrame {
 
@@ -96,7 +97,7 @@ public class Texture extends javax.swing.JFrame {
         tab2.getColumnModel().getColumn(4).setCellEditor(new DefCellEditor(3));
 
         DefCellBoolRenderer br = new DefCellBoolRenderer();
-        Arrays.asList(4, 5, 6, 7, 8, 9).forEach(index -> tab4.getColumnModel().getColumn(index).setCellRenderer(br));
+        List.of(4, 5, 6, 7, 8, 9).forEach(index -> tab4.getColumnModel().getColumn(index).setCellRenderer(br));
 
         UGui.setSelectedRow(tab1);
         UGui.setSelectedRow(tab3);
@@ -162,7 +163,7 @@ public class Texture extends javax.swing.JFrame {
     public void selectionTab1(ListSelectionEvent event) {
 
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Arrays.asList(qGroup1, qColor, qGroup2, qColmap).forEach(q -> q.execsql());
+        List.of(qGroup1, qColor, qGroup2, qColmap).forEach(q -> q.execsql());
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
 
@@ -176,7 +177,7 @@ public class Texture extends javax.swing.JFrame {
 
     public void selectionTab3(ListSelectionEvent event) {
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Arrays.asList(qGroup2, qColmap).forEach(q -> q.execsql());
+        List.of(qGroup2, qColmap).forEach(q -> q.execsql());
         int index = UGui.getIndexRec(tab3);
         if (index != -1) {
             Record record = qGroup2.get(index);
@@ -539,10 +540,10 @@ public class Texture extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
-        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefaultTableModel) tab.getModel()).fireTableDataChanged());
-        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> UGui.setSelectedRow(tab));
+        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefaultTableModel) tab.getModel()).fireTableDataChanged());
+        List.of(tab1, tab2, tab3, tab4).forEach(tab -> UGui.setSelectedRow(tab));
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -605,12 +606,12 @@ public class Texture extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4));
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 

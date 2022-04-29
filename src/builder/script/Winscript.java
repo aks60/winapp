@@ -48,30 +48,30 @@ public class Winscript {
                 : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
 
         if (base_name.toLowerCase().contains("sial3.fdb")) {
-            return Arrays.asList(601001, 601002, 601003, 601004, 601007, 601008);
+            return List.of(601001, 601002, 601003, 601004, 601007, 601008);
 
         } else if (base_name.toLowerCase().contains("alutech3.fdb")) {
-            return Arrays.asList(601001, 601002, 601003, 601004);
+            return List.of(601001, 601002, 601003, 601004);
 
         } else if (base_name.toLowerCase().contains("alutex3.fdb")) {
-            return Arrays.asList(4);
+            return List.of(4);
 
         } else if (base_name.toLowerCase().contains("bimax.fdb")) {
-            return ("max".equals(p)) ? Arrays.asList(
+            return ("max".equals(p)) ? List.of(
                     601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008, 601009, 601010, //прямоугольные окна
                     700027, 604004, 604005, 604006, 604007, 604008, 604009, 604010, //арки
                     605001, 508916, 508841, 700009, 700014) //трапеции, двери
-                    : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006,
+                    : List.of(601001, 601002, 601003, 601004, 601005, 601006,
                             601007, 601008, 601009, 601010, 604005, 604006, 604007, 604008, 604009, 604010);
 
         } else if (base_name.toLowerCase().contains("vidnal.fdb")) {
-            return Arrays.asList(26);
+            return List.of(26);
 
         } else if (base_name.toLowerCase().contains("krauss.fdb")) {
             return null;
 
         } else if (base_name.toLowerCase().contains("sokol.fdb")) {
-            return Arrays.asList(1);
+            return List.of(1);
         }
         return null;
     }

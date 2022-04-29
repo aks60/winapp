@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import common.listener.ListenerRecord;
+import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -359,7 +360,7 @@ public class DicColor extends javax.swing.JDialog {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2));
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());

@@ -90,8 +90,8 @@ public class Wincalc {
         try {
             genId = 0;
             heightAdd = 0.f;
-            Arrays.asList((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
-            Arrays.asList(mapPardef, mapJoin).forEach(el -> el.clear());
+            List.of((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
+            List.of(mapPardef, mapJoin).forEach(el -> el.clear());
 
             //Парсинг входного скрипта
             parsing(script);

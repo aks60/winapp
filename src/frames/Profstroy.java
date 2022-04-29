@@ -200,7 +200,7 @@ public class Profstroy {
                 set.add(rs.getString("rdb$role_name"));
             }
             set.forEach(role -> executeSql("DROP ROLE " + role));
-            Arrays.asList("DEFROLE", "MANAGER_RO", "MANAGER_RW", "TEXNOLOG_RO", "TEXNOLOG_RW").forEach(role -> executeSql("CREATE ROLE " + role));
+            List.of("DEFROLE", "MANAGER_RO", "MANAGER_RW", "TEXNOLOG_RO", "TEXNOLOG_RW").forEach(role -> executeSql("CREATE ROLE " + role));
             for (Field field : App.db) {
                 executeSql("GRANT SELECT ON " + field.tname() + " TO MANAGER_RO");
                 executeSql("GRANT ALL ON " + field.tname() + " TO MANAGER_RW");

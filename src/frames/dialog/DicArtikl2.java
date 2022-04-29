@@ -370,7 +370,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1));
+        UGui.updateBorderAndSql(table, List.of(tab1));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());

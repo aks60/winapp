@@ -15,6 +15,7 @@ import java.util.Arrays;
 import common.listener.ListenerRecord;
 import dataset.Field;
 import frames.swing.report.TableHTML;
+import java.util.List;
 
 public class Currenc extends javax.swing.JFrame {
 
@@ -301,7 +302,7 @@ public class Currenc extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(tab1);
-        Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
@@ -362,7 +363,7 @@ public class Currenc extends javax.swing.JFrame {
 // </editor-fold>     
     public void initElements() {
 
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         FocusListener listenerFocus = new FocusListener() {

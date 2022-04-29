@@ -34,7 +34,7 @@ public class Furniture extends Cal5e {
     private FurnitureVar furnitureVar = null;
     private FurnitureDet furnitureDet = null;
     private HashSet<Record> setFurndet = new HashSet();
-    private List list = Arrays.asList(9, 11, 12);
+    private List list = List.of(9, 11, 12);
     private boolean max_size_message = true;
 
     public Furniture(Wincalc winc) {
@@ -312,9 +312,9 @@ public class Furniture extends Cal5e {
     public static ElemFrame determOfSide(AreaSimple area5e) {
         if (area5e instanceof AreaStvorka) {
             int id = ((AreaStvorka) area5e).typeOpen.id;
-            if (Arrays.asList(1, 3, 11).contains(id)) {
+            if (List.of(1, 3, 11).contains(id)) {
                 return area5e.frames.get(Layout.LEFT);
-            } else if (Arrays.asList(2, 4, 12).contains(id)) {
+            } else if (List.of(2, 4, 12).contains(id)) {
                 return area5e.frames.get(Layout.RIGHT);
             } else {
                 return area5e.frames.get(Layout.BOTT);

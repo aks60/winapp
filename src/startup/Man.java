@@ -13,6 +13,7 @@ import common.listener.ListenerFrame;
 import common.eProfile;
 import common.eProperty;
 import frames.PathToDb;
+import java.util.List;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 
@@ -461,7 +462,7 @@ public class Man extends javax.swing.JFrame {
     }//GEN-LAST:event_mn12cellValueType
 
     private void mnExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnExit
-        Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
+        List.of(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
     }//GEN-LAST:event_mnExit
 
     private void wndowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_wndowClosed
@@ -473,11 +474,11 @@ public class Man extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosing
 
     private void wndowDeiconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_wndowDeiconified
-        Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.NORMAL));
+        List.of(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.NORMAL));
     }//GEN-LAST:event_wndowDeiconified
 
     private void windowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowIconified
-        Arrays.asList(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.ICONIFIED));
+        List.of(App.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.ICONIFIED));
     }//GEN-LAST:event_windowIconified
 
     private void btn3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3
@@ -531,7 +532,7 @@ public class Man extends javax.swing.JFrame {
 
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
         
-        Arrays.asList(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
+        List.of(App.values()).stream().filter(el -> el.frame != null && el != App.Top).forEach(el -> el.frame.dispose());
         String num_base = (mn61.isSelected()) ? "1" : (mn62.isSelected()) ? "2" : "3";
         PathToDb frame = new PathToDb(this, num_base);
         FrameToFile.setFrameSize(frame);

@@ -17,6 +17,7 @@ import enums.PKjson;
 import enums.Type;
 import frames.swing.Draw;
 import java.util.Arrays;
+import java.util.List;
 
 public class ElemCross extends ElemSimple {
 
@@ -147,7 +148,7 @@ public class ElemCross extends ElemSimple {
             spcAdd.anglCut1 = 90;
             spcAdd.anglCut2 = 90;
         }
-        if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
+        if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
             spcAdd.width += spcRec.width;
         }
         UMod.get_12075_34075_39075(this, spcAdd); //углы реза

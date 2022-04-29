@@ -12,6 +12,7 @@ import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
 import java.awt.Component;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -628,10 +629,10 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> ((DefaultTableModel) tab.getModel()).fireTableDataChanged());
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> UGui.setSelectedRow(tab));
+        List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> ((DefaultTableModel) tab.getModel()).fireTableDataChanged());
+        List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7).forEach(tab -> UGui.setSelectedRow(tab));
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -692,32 +693,32 @@ public class Groups extends javax.swing.JFrame {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6, tab7);
-        Arrays.asList(qArtIncr, qArtDecr, qArtSeri, qCategProf, qColgrp, qCategVst, qDecInc).forEach(q -> q.execsql());
+        List.of(qArtIncr, qArtDecr, qArtSeri, qCategProf, qColgrp, qCategVst, qDecInc).forEach(q -> q.execsql());
     }//GEN-LAST:event_formWindowClosed
 
     private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged
         UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6);
-        Arrays.asList(qArtIncr, qArtDecr, qArtSeri, qCategProf, qColgrp, qCategVst, qDecInc).forEach(q -> q.execsql());
+        List.of(qArtIncr, qArtDecr, qArtSeri, qCategProf, qColgrp, qCategVst, qDecInc).forEach(q -> q.execsql());
         if (tabb.getSelectedIndex() == 0) {
-            UGui.updateBorderAndSql(tab7, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            UGui.updateBorderAndSql(tab7, List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         } else if (tabb.getSelectedIndex() == 1) {
-            UGui.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            UGui.updateBorderAndSql(tab2, List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         } else if (tabb.getSelectedIndex() == 2) {
-            UGui.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            UGui.updateBorderAndSql(tab1, List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         } else if (tabb.getSelectedIndex() == 3) {
-            UGui.updateBorderAndSql(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            UGui.updateBorderAndSql(tab5, List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         } else if (tabb.getSelectedIndex() == 4) {
-            UGui.updateBorderAndSql(tab3, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            UGui.updateBorderAndSql(tab3, List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         } else if (tabb.getSelectedIndex() == 5) {
-            UGui.updateBorderAndSql(tab4, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            UGui.updateBorderAndSql(tab4, List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         } else if (tabb.getSelectedIndex() == 6) {
-            UGui.updateBorderAndSql(tab6, Arrays.asList(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
+            UGui.updateBorderAndSql(tab6, List.of(tab1, tab2, tab3, tab4, tab5, tab6, tab7));
         }
     }//GEN-LAST:event_tabbStateChanged
 
@@ -761,6 +762,6 @@ public class Groups extends javax.swing.JFrame {
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         south.add(filterTable, 0);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(btn -> btn.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6, tab7)));
+        List.of(btnIns, btnDel, btnRef).forEach(btn -> btn.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6, tab7)));
     }
 }

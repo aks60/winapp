@@ -149,7 +149,7 @@ public class FillingDet extends Par5s {
                 {
                     Record systreeRec = eSystree.find(winc.nuni);
                     String[] arr = rec.getStr(TEXT).split(";");
-                    List<String> arrList = Arrays.asList(arr);
+                    List<String> arrList = List.of(arr);
                     boolean ret = false;
                     for (String str : arrList) {
                         if (systreeRec.get(eSystree.types) == Integer.valueOf(str) == true) {

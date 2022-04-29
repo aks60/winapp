@@ -384,7 +384,7 @@ public class Artikles extends javax.swing.JFrame {
     public void selectionTree() {
 
         UGui.stopCellEditing(tab1, tab2);
-        Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
+        List.of(qArtikl, qArtdet).forEach(q -> q.execsql());
         rsvArtikl.clear();
         UGui.clearTable(tab1, tab2);
         UGui.stopCellEditing(tab1, tab2);
@@ -413,7 +413,7 @@ public class Artikles extends javax.swing.JFrame {
     public void selectionTab1(ListSelectionEvent event) {
 
         UGui.stopCellEditing(tab2);
-        Arrays.asList(qArtdet).forEach(q -> q.execsql());
+        List.of(qArtdet).forEach(q -> q.execsql());
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             Record record = qArtikl.get(index);
@@ -2238,7 +2238,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2);
-        Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
+        List.of(qArtikl, qArtdet).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
@@ -2303,7 +2303,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btn7
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-        UGui.updateBorderAndSql((JTable) evt.getSource(), Arrays.asList(tab1, tab2));
+        UGui.updateBorderAndSql((JTable) evt.getSource(), List.of(tab1, tab2));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
@@ -2673,7 +2673,7 @@ public class Artikles extends javax.swing.JFrame {
         south.add(filterTable, 0);        
         filterTable.getTxt().grabFocus();   
         
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2)));
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));

@@ -343,18 +343,18 @@ public class Furniturs extends javax.swing.JFrame {
             new DicEnums(this, listenerVariant2, UseFurn2.values());
         });
 
-        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
+        for (JTable tab : List.of(tab2a, tab2b, tab2c)) {
             UGui.buttonCellEditor(tab, 0).addActionListener(event -> {
                 new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
             });
         }
-        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
+        for (JTable tab : List.of(tab2a, tab2b, tab2c)) {
             UGui.buttonCellEditor(tab, 1).addActionListener(event -> {
                 new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
             });
         }
 
-        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
+        for (JTable tab : List.of(tab2a, tab2b, tab2c)) {
             Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
             UGui.buttonCellEditor(tab, 2).addActionListener(event -> {
                 Record record = query.get(UGui.getIndexRec(tab));
@@ -362,7 +362,7 @@ public class Furniturs extends javax.swing.JFrame {
                 ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
             });
         }
-        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
+        for (JTable tab : List.of(tab2a, tab2b, tab2c)) {
             Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
             UGui.buttonCellEditor(tab, 3).addActionListener(event -> {
                 Record record = query.get(UGui.getIndexRec(tab));
@@ -597,7 +597,7 @@ public class Furniturs extends javax.swing.JFrame {
         Query qDet2b = new Query(eFurndet.values(), eArtikl.values());
         Query qDet2c = new Query(eFurndet.values(), eArtikl.values());
         try {
-            for (int index0 : Arrays.asList(0, 1, -1)) {
+            for (int index0 : List.of(0, 1, -1)) {
                 qFurn.select(eFurniture.up, "where", eFurniture.id, "in", subsql, "and", eFurniture.types, "=", index0, "order by", eFurniture.name);
                 for (int index1 = 0; index1 < qFurn.size(); index1++) {
                     int id = qFurn.get(index1).getInt(eFurniture.id);
@@ -1214,7 +1214,7 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
@@ -1337,7 +1337,7 @@ public class Furniturs extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
     }//GEN-LAST:event_windowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
@@ -1346,7 +1346,7 @@ public class Furniturs extends javax.swing.JFrame {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
         if (table == tab2a) {
             tab2 = tab2a;
             selectionTab2a(null);
@@ -1489,7 +1489,7 @@ public class Furniturs extends javax.swing.JFrame {
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
 
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6)));
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
@@ -1539,15 +1539,15 @@ public class Furniturs extends javax.swing.JFrame {
                 UGui.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
 
                 if (tabb1.getSelectedIndex() == 0) {
-                    UGui.updateBorderAndSql(tab2a, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+                    UGui.updateBorderAndSql(tab2a, List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
                     selectionTab2a(null);
 
                 } else if (tabb1.getSelectedIndex() == 1) {
-                    UGui.updateBorderAndSql(tab2b, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+                    UGui.updateBorderAndSql(tab2b, List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
                     selectionTab2b(null);
 
                 } else if (tabb1.getSelectedIndex() == 2) {
-                    UGui.updateBorderAndSql(tab2c, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+                    UGui.updateBorderAndSql(tab2c, List.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
                     selectionTab2c(null);
                 }
             }

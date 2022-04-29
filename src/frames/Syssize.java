@@ -18,6 +18,7 @@ import java.util.Arrays;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 import common.listener.ListenerRecord;
+import java.util.List;
 
 public class Syssize extends javax.swing.JFrame {
 
@@ -340,7 +341,7 @@ public class Syssize extends javax.swing.JFrame {
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1));
+        UGui.updateBorderAndSql(table, List.of(tab1));
     }//GEN-LAST:event_mousePressed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -363,7 +364,7 @@ public class Syssize extends javax.swing.JFrame {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Системные константы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
     }

@@ -262,7 +262,7 @@ public class UCom {
     }
 
     public static <T extends Com5t, E extends Com5t> LinkedList<T> listSortObj(LinkedList<E> list, Type... type) {
-        List tp = Arrays.asList(type);
+        List tp = List.of(type);
         LinkedList<T> list2 = new LinkedList();
         for (E el : list) {
             if (tp.contains(el.type())) {

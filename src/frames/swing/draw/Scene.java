@@ -60,20 +60,20 @@ public class Scene extends javax.swing.JPanel {
 
                 //Если клик не на конструкции
                 if (winc.rootArea.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale) == false) {
-                    lineHoriz = Arrays.asList(new Scale(winc.rootArea));
-                    lineVert = Arrays.asList(new Scale(winc.rootArea));
+                    lineHoriz = List.of(new Scale(winc.rootArea));
+                    lineVert = List.of(new Scale(winc.rootArea));
 
                 } else { //На конструкции
                     for (ElemSimple crs : winc.listElem) {
-                        if (Arrays.asList(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type())
+                        if (List.of(Type.IMPOST, Type.SHTULP, Type.STOIKA).contains(crs.type())
                                 && crs.inside(evt.getX() / (float) winc.scale, evt.getY() / (float) winc.scale)) {
                             List<Com5t> areaChilds = ((ElemSimple) crs).owner.childs; //дети импоста на котором был клик
                             for (int i = 0; i < areaChilds.size(); ++i) {
                                 if (areaChilds.get(i).id() == crs.id()) {
                                     if (crs.layout() == Layout.HORIZ) { //area слева и справа от импоста
-                                        lineVert = Arrays.asList(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
+                                        lineVert = List.of(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
                                     } else {
-                                        lineHoriz = Arrays.asList(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
+                                        lineHoriz = List.of(new Scale((AreaSimple) areaChilds.get(i - 1)), new Scale((AreaSimple) areaChilds.get(i + 1)));
                                     }
                                 }
                             }
@@ -89,8 +89,8 @@ public class Scene extends javax.swing.JPanel {
     public void init(Wincalc winc) {
         this.winc = winc;
         if (winc != null) {
-            lineHoriz = Arrays.asList(new Scale(winc.rootArea));
-            lineVert = Arrays.asList(new Scale(winc.rootArea));
+            lineHoriz = List.of(new Scale(winc.rootArea));
+            lineVert = List.of(new Scale(winc.rootArea));
         }
         canvas.init(winc);
     }

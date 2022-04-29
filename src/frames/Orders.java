@@ -76,6 +76,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.text.DecimalFormat;
 import java.util.Collections;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -257,7 +258,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     public void loadingTab2() {
         int index = -1;
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
+        List.of(qProject, qPrjprod).forEach(q -> q.execsql());
         if (tab1.getSelectedRow() != -1) {
 
             Record projectRec = qProject.get(UGui.getIndexRec(tab1));
@@ -305,7 +306,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     public void selectionTab1() {
         UGui.clearTable(tab2, tab4);
-        Arrays.asList(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab4, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (tab1.getSelectedRow() != -1) {
 
             lab2.setText("Заказ № " + qProject.getAs(UGui.getIndexRec(tab1), eProject.num_ord));
@@ -456,7 +457,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             } else {
                 ((CardLayout) pan8.getLayout()).show(pan8, "card18");
             }
-            Arrays.asList(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
+            List.of(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
     }
 
@@ -2563,7 +2564,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         Query.listOpenTable.forEach(q -> q.clear());
         int index1 = UGui.getIndexRec(tab1);
         int index2 = UGui.getIndexRec(tab2);
@@ -2574,7 +2575,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (tab1.getBorder() != null) {
             if (UGui.isDeleteRecord(tab1, this, tab2) == 0) {
                 UGui.deleteRecord(tab1);
@@ -2592,7 +2593,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         UGui.stopCellEditing(tab1, tab2, tab3, tab4);
-        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
 
         if (tab1.getBorder() != null) {
             UGui.insertRecordEnd(tab1, eProject.up, (projectRec) -> {
@@ -2643,23 +2644,23 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2, tab4, tab3);
         eProperty.save(); //запишем текущий ordersId в файл
-        Arrays.asList(qProject, qPrjprod).forEach(q -> q.execsql());
+        List.of(qProject, qPrjprod).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab4, tab3));
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab4, tab3));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
         UGui.stopCellEditing(tab1, tab2, tab4, tab3);
         if (tabb1.getSelectedIndex() == 0) {
-            UGui.updateBorderAndSql(tab1, Arrays.asList(tab1, tab2, tab4, tab3));
+            UGui.updateBorderAndSql(tab1, List.of(tab1, tab2, tab4, tab3));
         } else if (tabb1.getSelectedIndex() == 1) {
-            UGui.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab4, tab3));
+            UGui.updateBorderAndSql(tab2, List.of(tab1, tab2, tab4, tab3));
         } else if (tabb1.getSelectedIndex() == 2) {
-            UGui.updateBorderAndSql(tab4, Arrays.asList(tab1, tab2, tab4, tab3));
+            UGui.updateBorderAndSql(tab4, List.of(tab1, tab2, tab4, tab3));
         }
     }//GEN-LAST:event_stateChanged
 
@@ -3074,7 +3075,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     private void tab3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab3MousePressed
 //        JTable table = (JTable) evt.getSource();
-//        Uti4.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+//        Uti4.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4, tab5));
 //        if (systemTree.isEditing()) {
 //            systemTree.getCellEditor().stopCellEditing();
 //        }
@@ -3375,7 +3376,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         south.add(filterTable, 0);
         panDesign.add(scene, java.awt.BorderLayout.CENTER);
         UGui.documentFilter(3, txt4, txt5, txt6, txt7, txt8);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
         winTree.getSelectionModel().addTreeSelectionListener(tse -> selectionWinTree());
         DefaultTreeCellRenderer rnd2 = (DefaultTreeCellRenderer) winTree.getCellRenderer();
         rnd2.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b038.gif")));

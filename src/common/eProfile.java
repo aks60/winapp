@@ -23,7 +23,7 @@ public enum eProfile {
     //Конструктор
     eProfile(String title, String... role) {
         this.title = title;
-        List list = Arrays.asList(role);
+        List list = List.of(role);
         this.roleSet = new HashSet(list);
     }
 }

@@ -169,7 +169,7 @@ public class Fillings extends javax.swing.JFrame {
         new DefTableModel(tab5, qGlasprof, eArtikl.code, eArtikl.name, eGlasprof.gsize, eGlasprof.inside, eGlasprof.outside);
 
         DefCellBoolRenderer br = new DefCellBoolRenderer();
-        Arrays.asList(3, 4).forEach(index -> tab5.getColumnModel().getColumn(index).setCellRenderer(br));
+        List.of(3, 4).forEach(index -> tab5.getColumnModel().getColumn(index).setCellRenderer(br));
 
         UGui.setSelectedRow(tab1);
     }
@@ -358,7 +358,7 @@ public class Fillings extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Arrays.asList(qGlasdet, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
+            List.of(qGlasdet, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
             UGui.clearTable(tab2, tab3, tab4, tab5);
             Record record = qGlasgrp.table(eGlasgrp.up).get(index);
             Integer id = record.getInt(eGlasgrp.id);
@@ -378,7 +378,7 @@ public class Fillings extends javax.swing.JFrame {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Arrays.asList(qGlaspar2, qGlasprof).forEach(q -> q.execsql());
+            List.of(qGlaspar2, qGlasprof).forEach(q -> q.execsql());
             UGui.clearTable(tab4);
             Record record = qGlasdet.table(eGlasdet.up).get(index);
             Integer id = record.getInt(eGlasdet.id);
@@ -778,7 +778,7 @@ public class Fillings extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
@@ -850,12 +850,12 @@ public class Fillings extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
     }//GEN-LAST:event_windowClosed
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         JTable table = (JTable) evt.getSource();
-        UGui.updateBorderAndSql(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        UGui.updateBorderAndSql(table, List.of(tab1, tab2, tab3, tab4, tab5));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
@@ -914,7 +914,7 @@ public class Fillings extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         south.add(filterTable, 0);
         filterTable.getTxt().grabFocus();
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список групп заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
@@ -942,9 +942,9 @@ public class Fillings extends javax.swing.JFrame {
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 if (tabb1.getSelectedIndex() == 0) {
-                    UGui.updateBorderAndSql(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+                    UGui.updateBorderAndSql(tab2, List.of(tab1, tab2, tab3, tab4, tab5));
                 } else if (tabb1.getSelectedIndex() == 1) {
-                    UGui.updateBorderAndSql(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+                    UGui.updateBorderAndSql(tab5, List.of(tab1, tab2, tab3, tab4, tab5));
                 }
             }
         });

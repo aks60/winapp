@@ -10,6 +10,7 @@ import domain.eJoining;
 import domain.eJoinvar;
 import enums.Layout;
 import java.util.Arrays;
+import java.util.List;
 
 public class ElemJoining {
 
@@ -69,7 +70,7 @@ public class ElemJoining {
         spcAdd.count += UMod.get_11050(spcAdd, this); //кол. ед. с шагом
         spcAdd.width = UMod.get_12050_15050_34051_39020(spcRec, spcAdd); //поправка мм
 
-        if (Arrays.asList(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
+        if (List.of(1, 3, 5).contains(spcAdd.artiklRec.getInt(eArtikl.level1))) {
             //spcAdd.width += elem1.length();
             spcAdd.width += spcRec.width;
         }

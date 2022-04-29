@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
 import dataset.Conn;
 import java.sql.ResultSet;
+import java.util.List;
 import javax.swing.event.ListSelectionListener;
 
 public class Partner extends javax.swing.JFrame {
@@ -737,7 +738,7 @@ public class Partner extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
@@ -768,7 +769,7 @@ public class Partner extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-        UGui.updateBorderAndSql(tab1, Arrays.asList(tab1));
+        UGui.updateBorderAndSql(tab1, List.of(tab1));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
@@ -787,7 +788,7 @@ public class Partner extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1);
-        Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_windowClosed
@@ -874,7 +875,7 @@ public class Partner extends javax.swing.JFrame {
                 }
             }
         });
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
+        List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
         rsv = new DefFieldEditor(tab1);
     }
 }

@@ -121,7 +121,7 @@ public class Kits extends javax.swing.JFrame {
 
             Set set = new HashSet();
             qKits.forEach(rec -> set.add(rec.getStr(eKits.categ)));
-            List list = Arrays.asList(set.toArray());
+            List list = List.of(set.toArray());
             Collections.sort(list);
             JComboBox jcb = new JComboBox(list.toArray());
             if (qKits.get(UGui.getIndexRec(tab1)).getStr(eKits.categ).isEmpty() == false) {
@@ -246,7 +246,7 @@ public class Kits extends javax.swing.JFrame {
     }
 
     public void selectionTab1(ListSelectionEvent event) {
-        Arrays.asList(qKitdet).forEach(q -> q.execsql());
+        List.of(qKitdet).forEach(q -> q.execsql());
         UGui.clearTable(tab2, tab3);
         int index = UGui.getIndexRec(tab1);
         if (index != -1) {
@@ -259,7 +259,7 @@ public class Kits extends javax.swing.JFrame {
     }
 
     public void selectionTab2(ListSelectionEvent event) {
-        Arrays.asList(qKitpar2).forEach(q -> q.execsql());
+        List.of(qKitpar2).forEach(q -> q.execsql());
         UGui.clearTable(tab3);
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
@@ -564,7 +564,7 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
+        List.of(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
         int index = UGui.getIndexRec(tab1);
         int index2 = UGui.getIndexRec(tab2);
         int index3 = UGui.getIndexRec(tab3);
@@ -620,12 +620,12 @@ public class Kits extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2, tab3);
-        Arrays.asList(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
+        List.of(qKits, qKitdet, qKitpar2).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 
     private void comboBoxAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAction
         UGui.stopCellEditing(tab1, tab2, tab3);
-        Arrays.asList(tab1, tab2, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        List.of(tab1, tab2, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         int index = cbx1.getSelectedIndex();
         loadingData(String.valueOf(index));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -633,7 +633,7 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxAction
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        UGui.updateBorderAndSql((JTable) evt.getSource(), Arrays.asList(tab1, tab2, tab3));
+        UGui.updateBorderAndSql((JTable) evt.getSource(), List.of(tab1, tab2, tab3));
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 

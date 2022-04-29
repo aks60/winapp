@@ -148,9 +148,9 @@ public class DBCompare extends javax.swing.JFrame {
             //Заполним на будушее hmSpc из SA
             for(String art_code: setSpcSa) {
                 Record artiklRec = eArtikl.find2(art_code);
-                hmSpc.put(art_code, new Vector(Arrays.asList(art_code, artiklRec.get(eArtikl.name), 0f, 0f, 0f, 0f, 0f, 0f)));
+                hmSpc.put(art_code, new Vector(List.of(art_code, artiklRec.get(eArtikl.name), 0f, 0f, 0f, 0f, 0f, 0f)));
             }
-            //setSpcSa.forEach(el -> hmSpc.put(el, new Vector(Arrays.asList(el + "*", 0f, 0f, 0f, 0f, 0f, 0f))));
+            //setSpcSa.forEach(el -> hmSpc.put(el, new Vector(List.of(el + "*", 0f, 0f, 0f, 0f, 0f, 0f))));
             winc.listSpec.forEach(rec -> {
                 List<Float> val = hmSpc.get(rec.artikl);
                 val.set(2, val.get(2) + rec.count); //колич. в SA
@@ -195,7 +195,7 @@ public class DBCompare extends javax.swing.JFrame {
 
                 //Заполним на будушее hmSpc из PS
                 setSpcPs.add(artikl);
-                List<Float> val = hmSpc.getOrDefault(artikl, new Vector(Arrays.asList(artikl, "=*=", 0f, 0f, 0f, 0f, 0f, 0f)));
+                List<Float> val = hmSpc.getOrDefault(artikl, new Vector(List.of(artikl, "=*=", 0f, 0f, 0f, 0f, 0f, 0f)));
                 val.set(3, val.get(3) + count); //колич в PS
                 val.set(5, val.get(5) + pogonag); //погонаж в PS               
             }
@@ -209,10 +209,10 @@ public class DBCompare extends javax.swing.JFrame {
             Set<String> setSpc2x = new HashSet(setSpcPs);
             setSpc1x.removeAll(setSpcPs);
             setSpc2x.removeAll(setSpcSa);
-            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- ЛИШНИЕ SAOkna  за.выч.Профстрой ---")));
-            setSpc1x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
-            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList("--- НЕДОСТАЮЩИЕ ПрофСтрой  за.выч.SAOkna ---")));
-            setSpc2x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(Arrays.asList(e))));
+            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(List.of("--- ЛИШНИЕ SAOkna  за.выч.Профстрой ---")));
+            setSpc1x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(List.of(e))));
+            ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(List.of("--- НЕДОСТАЮЩИЕ ПрофСтрой  за.выч.SAOkna ---")));
+            setSpc2x.forEach(e -> ((DefaultTableModel) tab2.getModel()).getDataVector().add(new Vector(List.of(e))));
             ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{""});
             ((DefaultTableModel) tab2.getModel()).addRow(new Object[]{"Установленая фурнитура"});
             rs = st.executeQuery("select b.fname from savefur a, furnlst b where a.punic = " + punic + " and a.onumb = " + winc.rootGson.ord + " and a.funic = b.funic");
@@ -363,7 +363,7 @@ public class DBCompare extends javax.swing.JFrame {
             }
             //=== Таблица 6 ===
             Vector vectorData = new Vector();
-            Vector vectorColumn = new Vector(Arrays.asList("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
+            Vector vectorColumn = new Vector(List.of("PUNIC", "PNUMB", "ONUMB", "ONAME", "PDATE", "BPICT"));
             ResultSet rs = st.executeQuery("select b.punic, b.pnumb, a.onumb, a.oname, b.pdate, a.bpict from listord a, listprj b "
                     + "where a.punic = b.punic and b.pdate > '01.01.2016' and b.pdate < '01.01.2023' order by b.pdate"); //427820
             if (rs.isLast() == false) {
