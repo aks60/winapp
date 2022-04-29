@@ -67,9 +67,6 @@ public class ElemGlass extends ElemSimple {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }
     }    
-    public void setLocation2() {
-        setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
-    }
 
     @Override //Главная спецификация
     public void setSpecific() {
