@@ -3,7 +3,7 @@ package common.Interface;
 import com.google.gson.JsonObject;
 import enums.Type;
 
-public interface IAreaSimple {
+public interface Area {
 
     //Форма контура
     public Type type();

@@ -17,14 +17,14 @@ import java.util.Map;
 import builder.making.Furniture;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
-import common.Interface.IElem;
 import enums.Form;
 import enums.TypeJoin;
 import enums.UseSide;
 import frames.swing.Draw;
 import java.util.List;
+import common.Interface.Comp;
 
-public class ElemFrame extends ElemSimple implements IElem {
+public class ElemFrame extends ElemSimple implements Comp {
 
     protected float lengthArch = 0; //длина арки 
 

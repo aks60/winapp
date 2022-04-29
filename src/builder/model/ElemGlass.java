@@ -12,15 +12,15 @@ import enums.TypeArtikl;
 import builder.making.Specific;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
-import common.Interface.IElem;
 import common.UCom;
 import domain.eGlasprof;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
 import enums.UseUnit;
+import common.Interface.Comp;
 
-public class ElemGlass extends ElemSimple implements IElem {
+public class ElemGlass extends ElemSimple implements Comp {
 
     public float radiusGlass = 0; //радиус стекла
     public float gzazo = 0; //зазор между фальцем и стеклопакетом 

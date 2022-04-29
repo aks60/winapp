@@ -4,7 +4,7 @@ import builder.making.Specific;
 import builder.model.ElemSimple;
 import enums.Layout;
 
-public interface IElemSimple {
+public interface Elem {
 
     //Главная спецификация
     default void setSpecific() {

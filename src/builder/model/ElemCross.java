@@ -9,7 +9,6 @@ import enums.TypeArtikl;
 import builder.making.Specific;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
-import common.Interface.IElem;
 import domain.eSyssize;
 import common.UCom;
 import enums.Form;
@@ -17,8 +16,9 @@ import enums.PKjson;
 import enums.Type;
 import frames.swing.Draw;
 import java.util.List;
+import common.Interface.Comp;
 
-public class ElemCross extends ElemSimple implements IElem {
+public class ElemCross extends ElemSimple implements Comp {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
 

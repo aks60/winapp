@@ -4,12 +4,12 @@ import builder.making.Specific;
 import java.awt.Color;
 import builder.Wincalc;
 import builder.script.GsonElem;
-import common.Interface.IElemSimple;
 import enums.Form;
 import enums.Layout;
 import enums.Type;
+import common.Interface.Elem;
 
-public class ElemSimple extends Com5t implements IElemSimple {
+public class ElemSimple extends Com5t implements Elem {
 
     public float anglCut[] = {45, 45}; //угол реза
     public float[] anglFlat = {0, 0, 0, 0}; //мин/мах внутренний и мин/мах внешний угол к плоскости

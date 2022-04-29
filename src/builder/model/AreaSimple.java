@@ -16,14 +16,14 @@ import java.io.ByteArrayOutputStream;
 import startup.Main;
 import builder.Wincalc;
 import builder.script.GsonElem;
-import common.Interface.IAreaSimple;
 import common.UCom;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
 import java.util.HashMap;
+import common.Interface.Area;
 
-public class AreaSimple extends Com5t implements IAreaSimple {
+public class AreaSimple extends Com5t implements Area {
 
     public Form form = null; //форма контура (параметр в развитии)
     public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     

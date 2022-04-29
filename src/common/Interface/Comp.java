@@ -2,7 +2,7 @@ package common.Interface;
 
 import builder.making.Specific;
 
-public interface IElem {
+public interface Comp {
   
     //Главная спецификация
     public void setSpecific();
