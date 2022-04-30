@@ -7,7 +7,6 @@ import enums.Layout;
 import enums.UseSide;
 import enums.TypeArtikl;
 import builder.making.Specific;
-import static builder.param.test.ParamTest.param;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
 import domain.eSyssize;
@@ -16,7 +15,6 @@ import enums.Form;
 import enums.PKjson;
 import enums.Type;
 import frames.swing.Draw;
-import java.util.Arrays;
 import java.util.List;
 
 public class ElemCross extends ElemSimple {
@@ -87,8 +85,9 @@ public class ElemCross extends ElemSimple {
             }
         }
     }
-
-    @Override //Главная спецификация
+    
+    //Главная спецификация
+    @Override 
     public void setSpecific() {
 
         spcRec.place = (Layout.HORIZ == owner.layout) ? "ВСТ.в" : "ВСТ.г";
@@ -146,7 +145,8 @@ public class ElemCross extends ElemSimple {
         }
     }
 
-    //@Override //Вложеная спецификация 
+    //Вложеная спецификация 
+    @Override 
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
 
         spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 

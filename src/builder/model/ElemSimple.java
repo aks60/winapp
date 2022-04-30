@@ -24,18 +24,18 @@ public abstract class ElemSimple extends Com5t {
         spcRec = new Specific(id, this);
     }
 
+    //Главная спецификация
+    public abstract void setSpecific();
+
+    //Вложенная спецификация
+    public abstract void addSpecific(Specific specification);
+    
     //Клик мышки попадает в контур элемента
     public boolean mouseClick(int X, int Y) {
         int x = (int) (X / winc.scale) - Com5t.TRANSLATE_XY;
         int y = (int) (Y / winc.scale) - Com5t.TRANSLATE_XY;
         return inside(x, y);
     }
-
-    //Главная спецификация
-    public abstract void setSpecific();
-
-    //Вложенная спецификация
-    public abstract void addSpecific(Specific specification);
 
     //Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка прилегающего вектора)
     //В этих точках лежат мапы соединений см. Wincalc.mapJoin

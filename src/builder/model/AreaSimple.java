@@ -130,15 +130,16 @@ public class AreaSimple extends Com5t {
         }
     }
 
-   //Форма контура
-    @Override 
+    //Форма контура
+    @Override
     public Type type() {
         if (this != root && form != null) {
             return root.type();
-        }        
+        }
         return super.type();
     }
 
+    //T - соединения
     public void joining() {
 
         LinkedList<ElemSimple> impList = UCom.listSortObj(winc.listElem, Type.IMPOST, Type.SHTULP, Type.STOIKA);

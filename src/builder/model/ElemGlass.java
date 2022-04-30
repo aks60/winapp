@@ -13,7 +13,6 @@ import builder.making.Specific;
 import builder.script.GsonElem;
 import com.google.gson.JsonObject;
 import common.UCom;
-import domain.eGlasprof;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
@@ -66,9 +65,10 @@ public class ElemGlass extends ElemSimple {
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }
-    }    
+    }
 
-    @Override //Главная спецификация
+    //Главная спецификация
+    @Override
     public void setSpecific() {
 
         spcRec.place = "ЗАП";
@@ -127,7 +127,8 @@ public class ElemGlass extends ElemSimple {
         spcRec.height = height();
     }
 
-    @Override //Вложенная спецификация 
+    //Вложенная спецификация
+    @Override
     public void addSpecific(Specific spcAdd) {
         if (Type.ARCH == owner.type() && (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3])) {
             return;  //нет таких сторон у арки

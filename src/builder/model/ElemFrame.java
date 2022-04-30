@@ -12,7 +12,6 @@ import enums.PKjson;
 import common.UCom;
 import domain.eSetting;
 import enums.Type;
-import java.util.Arrays;
 import java.util.Map;
 import builder.making.Furniture;
 import builder.script.GsonElem;
@@ -29,14 +28,14 @@ public class ElemFrame extends ElemSimple {
 
     //Сторона коробки
     public ElemFrame(AreaSimple owner, GsonElem gson) {
-       this(owner, gson.id(), gson.layout(), gson.param(), gson); 
+        this(owner, gson.id(), gson.layout(), gson.param(), gson);
     }
-    
+
     //Сторона створки
     public ElemFrame(AreaSimple owner, float id, Layout layout, JsonObject param, GsonElem gson) {
         super(id, owner.winc, owner, gson);
         this.layout = layout;
-        
+
         initСonstructiv(param);
         setLocation();
     }
@@ -140,9 +139,10 @@ public class ElemFrame extends ElemSimple {
                 anglHoriz = 270;
             }
         }
-    }    
+    }
 
-    @Override //Главная спецификация
+    //Главная спецификация
+    @Override
     public void setSpecific() {  //добавление основной спесификации
 
         spcRec.place = "ВСТ." + layout.name.substring(0, 1).toLowerCase();
@@ -204,7 +204,8 @@ public class ElemFrame extends ElemSimple {
         }
     }
 
-    @Override //Вложеная спецификация
+    //Вложеная спецификация
+    @Override
     public void addSpecific(Specific spcAdd) { //добавление спесификаций зависимых элементов
 
         spcAdd.count = UMod.get_11030_12060_14030_15040_25060_33030_34060_38030_39060(spcRec, spcAdd); //кол. ед. с учётом парам. 
