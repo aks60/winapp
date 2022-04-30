@@ -16,9 +16,8 @@ import enums.PKjson;
 import enums.Type;
 import frames.swing.Draw;
 import java.util.List;
-import common.Interface.Comp;
 
-public class ElemCross extends ElemSimple implements Comp {
+public class ElemCross extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
 

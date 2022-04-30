@@ -21,9 +21,8 @@ import enums.Form;
 import enums.PKjson;
 import enums.Type;
 import java.util.HashMap;
-import common.Interface.Area;
 
-public class AreaSimple extends Com5t implements Area {
+public class AreaSimple extends Com5t {
 
     public Form form = null; //форма контура (параметр в развитии)
     public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     
@@ -141,7 +140,6 @@ public class AreaSimple extends Com5t implements Area {
     }
 
     //T - соединения
-    @Override
     public void joining() {
 
         LinkedList<ElemSimple> impList = UCom.listSortObj(winc.listElem, Type.IMPOST, Type.SHTULP, Type.STOIKA);
@@ -175,7 +173,6 @@ public class AreaSimple extends Com5t implements Area {
     }
 
     //Рисуем конструкцию
-    @Override
     public void draw() {
         try {
             //Прорисовка стеклопакетов
