@@ -12,11 +12,20 @@ import dataset.Table;
 //Преобразование документа в HTML </p>
 public class TableToHtml {
 
-    private static String charset = "windows-1251";
+    private static String charset = "UTF-8";
     private static int npp = 0;
 
-    public static void load(String title, JTable table) {
+    public void stringJoin() {
+        String str = String.join(
+                " ccc",
+                "       Get busy living",
+                "       or",
+                "    get busy dying.",
+                "Stephen King"
+        );
+    }
 
+    public static void load(String title, JTable table) {
         if (System.getProperty("os.name").equals("Linux")) {
             charset = "UTF-8";
         }

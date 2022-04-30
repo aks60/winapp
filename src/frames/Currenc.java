@@ -1,6 +1,5 @@
 package frames;
 
-import frames.swing.report.ExecuteCmd;
 import dataset.Query;
 import domain.eCurrenc;
 import frames.swing.DefCellEditor;
@@ -11,11 +10,10 @@ import java.awt.event.FocusListener;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
-import java.util.Arrays;
 import common.listener.ListenerRecord;
 import dataset.Field;
-import frames.swing.report.TableHTML;
 import java.util.List;
+import report.ExecuteCmd;
 
 public class Currenc extends javax.swing.JFrame {
 
@@ -341,9 +339,6 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        Field[] fields = {eCurrenc.id, eCurrenc.name};
-        TableHTML.load("Список предметов", qCurrenc, fields);
-        ExecuteCmd.repoType(this);
     }//GEN-LAST:event_btnReport
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

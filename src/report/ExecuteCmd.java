@@ -14,16 +14,16 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 //Запуск отчетов в Office </p>
 public class ExecuteCmd {
 
-    public static void repoType(JDialog owner) {
+    public static void repoType(JFrame owner) {
 
         Object[] options = {"HTML", "WORD", "EXCEL"};
-        int n = JOptionPane.showOptionDialog(owner, "Выберите формат отчёта для печати", "Формирование отчёта",
+        int n = JOptionPane.showOptionDialog(owner, "Выберите формат файла для отчёта", "Формирование отчёта",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
         if (n == 0) {
             ExecuteCmd.startHtml("report.html");
