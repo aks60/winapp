@@ -10,6 +10,7 @@ import static enums.TypeOpen1.values;
 
 //Стороны фурнитуры
 public enum LayoutFurn3 implements Enam {
+    P0(-1, "Не определено"),
     P1(1, "Нижняя"),
     P2(2, "Правая"),
     P3(3, "Верхняя"),

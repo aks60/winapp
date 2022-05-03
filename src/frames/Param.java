@@ -28,7 +28,7 @@ public class Param extends javax.swing.JFrame {
 
     private Query qParams = new Query(eParams.values());
     private Query qPardet = new Query(eParams.values());
-    private DefaultCellEditor editorStr = new DefaultCellEditor(new JTextField());
+    private DefaultCellEditor editorStr = null;
     private DefCellEditor editorBtn = new DefCellEditor(new JButton("..."));
     private FilterTable filterTable = null;
     private ListenerRecord listenerColor;
@@ -440,5 +440,6 @@ public class Param extends javax.swing.JFrame {
                 selectionTab2(event);
             }
         });
+        editorStr = (DefaultCellEditor) tab2.getColumnModel().getColumn(0).getCellEditor();
     }
 }
