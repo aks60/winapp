@@ -299,7 +299,7 @@ public class Furniturs extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && eFurnside2.side_num == field) {
                     int v = Integer.valueOf(val.toString());
-                    if (v > 0 && v < 7) {
+                    if (v > 0 && v < 5) {
                         return Stream.of(LayoutFurn3.values()).filter(en -> en.id == v).findFirst().get().name;  //orElse(null).name;
                     }
                 }
