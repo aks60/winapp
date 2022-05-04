@@ -9,6 +9,8 @@ import domain.eFurniture;
 import java.util.Set;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
+import java.util.Arrays;
+import java.util.List;
 
 //Справочник фурнитур
 public class DicName extends javax.swing.JDialog {
@@ -244,8 +246,7 @@ public class DicName extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemovebtnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovebtnRemov
-        Record record = eFurniture.up.newRecord();
-        listener.action(record);
+        listener.action(new Record(Arrays.asList(null, null)));
         this.dispose();
     }//GEN-LAST:event_btnRemovebtnRemov
 
