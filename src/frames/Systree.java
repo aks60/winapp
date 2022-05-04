@@ -3274,7 +3274,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             new DicName(this, (sysfurnRec) -> {
                 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(windowsID);
-                if (sysfurnRec.getInt(eArtikl.id) == -3) {
+                if (sysfurnRec.get(1) == null) {
                     stvArea.param().remove(PKjson.sysfurnID);
                 } else {
                     stvArea.param().addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));

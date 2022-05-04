@@ -105,7 +105,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private Query qSyspar1 = new Query(eSyspar1.values());
     private DefMutableTreeNode winNode = null;
     private Canvas canvas = new Canvas();
-    private Scene scene  = null;
+    private Scene scene = null;
     private DefFieldEditor rsvPrj;
     private Gson gson = new GsonBuilder().create();
     private FilterTable filterTable = new FilterTable();
@@ -663,7 +663,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             sysprodRec.set(ePrjprod.values().length, win);
             canvas.draw();
             scene.lineHoriz.forEach(e -> e.init());
-            scene.lineVert.forEach(e -> e.init());            
+            scene.lineVert.forEach(e -> e.init());
             scene.draw();
             selectionWinTree();
         }
@@ -2890,8 +2890,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
             new DicName(this, (sysfurnRec) -> {
 
-                GsonElem jsonStv = (GsonElem) winc().listAll.gson(windowsID);
-                jsonStv.param().addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
+                GsonElem stvArea = (GsonElem) winc().listAll.gson(windowsID);
+                if (sysfurnRec.get(1) == null) {
+                    stvArea.param().remove(PKjson.sysfurnID);
+                } else {
+                    stvArea.param().addProperty(PKjson.sysfurnID, sysfurnRec.getStr(eSysfurn.id));
+                }
                 updateScript(windowsID);
 
             }, qSysfurn, eFurniture.name);
