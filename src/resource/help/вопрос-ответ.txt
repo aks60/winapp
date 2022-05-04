@@ -21,8 +21,20 @@
 2. Констрктив->Системы <Коэф. рентабельности>
 3. Расчёт профилей с оценкой остатков. Настройки->Расчётные данные->Расчётные <Припуск для реза, мм(толщина фрезы)>  
 
-В новой модульной системе есть четыре типа модулей:
-Системные модули      — это модули, перечисленные при запуске команды  list-modules выше. Они включают модули Java SE и JDK.
-Модули приложений     — эти модули — это то, что мы обычно хотим создать, когда решаем использовать модули. Они названы и определены в скомпилированном  файле module-info.class , включенном в собранный JAR.
-Автоматические модули — мы можем включить неофициальные модули, добавив существующие файлы JAR в путь к модулю. Имя модуля будет получено из имени JAR. Автоматические модули будут иметь полный доступ для чтения ко всем другим модулям, загруженным по пути.
-Безымянный модуль     — когда класс или JAR загружается в путь к классам, но не в путь к модулю, он автоматически добавляется в безымянный модуль. Это универсальный модуль для обеспечения обратной совместимости с ранее написанным кодом Java.
+  == МОДУЛИ ==
+javac -d out C:\HelloWorld\src\jlinkModule\classes\module-info.java
+javac -d out C:\HelloWorld\src\jlinkModule\classes\hello\HelloWorld.java
+jdeps --module-path dist -s --module jlinkModule
+
+jlink --module-path "%JAVA_HOME%\jmods";dist  --add-modules jlinkModule --output customjre
+
+java --module C:\HelloWorld\dist\jlinkModule/hello.HelloWorld
+
+java --module-path C:\HelloWorld\dist --module jlinkModule
+
+
+jar -c --file=out-jar/com-jenkov-mymodule.jar -C out/com.jenkov.mymodule .
+
+java --module-path dist -m jlinkModule/hello.HelloWorld
+
+bin\java --module jlinkModule\com.baeldung.jlink.helloWorld
