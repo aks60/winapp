@@ -57,7 +57,7 @@ public abstract class Com5t {
         this.x2 = x2;
         this.y2 = y2;
     }
-
+    
     public boolean isJson(JsonObject jso, String key) {
         if (jso == null) {
             return false;
@@ -72,9 +72,9 @@ public abstract class Com5t {
     }
 
     public boolean isJson(JsonObject jso) {
-        if (jso == null) {
+        if (jso == null || "".equals(jso)) {
             return false;
-        }
+        }        
         return !jso.isJsonNull();
     }
 
