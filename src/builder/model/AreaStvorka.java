@@ -47,7 +47,7 @@ public class AreaStvorka extends AreaSimple {
     public float handleHeight = 0; //высота ручки
     public TypeOpen1 typeOpen = TypeOpen1.INVALID; //направление открывания
     public LayoutHandle handleLayout = LayoutHandle.VARIAT; //положение ручки на створке   
-    public boolean paramCheck[] = {true, true, true, true, true, true, true};
+    public boolean paramCheck[] = {true, true, true, true, true, true, true, true};
     public float offset[] = {0, 0, 0, 0};
 
     public AreaStvorka(Wincalc winc, AreaSimple owner, GsonElem gson) {
@@ -165,6 +165,7 @@ public class AreaStvorka extends AreaSimple {
         //Сторона открывания
         if (isJson(param, PKjson.typeOpen)) {
             typeOpen = TypeOpen1.get(param.get(PKjson.typeOpen).getAsInt());
+            paramCheck[7] = false;
         } else {
             typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
         }

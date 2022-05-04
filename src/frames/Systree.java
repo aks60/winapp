@@ -642,6 +642,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt20, eFurniture.find(id).getStr(eFurniture.name));
                 setIcon(btn10, stv.paramCheck[0]);
                 setText(txt30, stv.typeOpen.name2);
+                setIcon(btn12, stv.paramCheck[1]);
                 setText(txt16, stv.handleLayout.name);
                 if (stv.handleLayout == LayoutHandle.VARIAT) {
                     txt31.setEditable(true);
@@ -651,7 +652,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     setText(txt31, "");
                 }
                 setText(txt21, stv.handleRec.getStr(eArtikl.code) + " ÷ " + stv.handleRec.getStr(eArtikl.name));
-                setIcon(btn12, stv.paramCheck[1]);
+                setIcon(btn21, stv.paramCheck[7]);
                 setText(txt25, eColor.find(stv.handleColor).getStr(eColor.name));
                 setIcon(btn14, stv.paramCheck[2]);
                 setText(txt45, stv.loopRec.getStr(eArtikl.code) + " ÷ " + stv.loopRec.getStr(eArtikl.name));
@@ -3049,39 +3050,39 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     }
                 }
                 new DicSysprof(this, (sysprofRec) -> {
+                    if (sysprofRec.get(1) != null) {
+                        Wincalc winc = winc();
+                        if (winNode.com5t().type() == enums.Type.FRAME_SIDE) { //рама окна
+                            float elemId = winNode.com5t().id();
+                            GsonElem gsonRama = winc.listAll.gson(elemId);
+                            gsonRama.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
+                            updateScript(selectID);
 
-                    Wincalc winc = winc();
-                    if (winNode.com5t().type() == enums.Type.FRAME_SIDE) { //рама окна
-                        float elemId = winNode.com5t().id();
-                        GsonElem gsonRama = winc.listAll.gson(elemId);
-                        gsonRama.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
-                        updateScript(selectID);
+                        } else if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) { //рама створки
+                            float stvId = winNode.com5t().owner.id();
+                            GsonElem stvArea = (GsonElem) winc.listAll.gson(stvId);
+                            JsonObject paramObj = stvArea.param();
+                            String stvKey = null;
+                            if (layout == Layout.BOTT) {
+                                stvKey = PKjson.stvorkaBottom;
+                            } else if (layout == Layout.RIGHT) {
+                                stvKey = PKjson.stvorkaRight;
+                            } else if (layout == Layout.TOP) {
+                                stvKey = PKjson.stvorkaTop;
+                            } else if (layout == Layout.LEFT) {
+                                stvKey = PKjson.stvorkaLeft;
+                            }
+                            JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
+                            jso.addProperty(PKjson.sysprofID, sysprofRec.getStr(eSysprof.id));
+                            updateScript(selectID);
 
-                    } else if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) { //рама створки
-                        float stvId = winNode.com5t().owner.id();
-                        GsonElem stvArea = (GsonElem) winc.listAll.gson(stvId);
-                        JsonObject paramObj = stvArea.param();
-                        String stvKey = null;
-                        if (layout == Layout.BOTT) {
-                            stvKey = PKjson.stvorkaBottom;
-                        } else if (layout == Layout.RIGHT) {
-                            stvKey = PKjson.stvorkaRight;
-                        } else if (layout == Layout.TOP) {
-                            stvKey = PKjson.stvorkaTop;
-                        } else if (layout == Layout.LEFT) {
-                            stvKey = PKjson.stvorkaLeft;
+                        } else {  //импост
+                            float elemId = winNode.com5t().id();
+                            GsonElem gsonElem = winc.listAll.gson(elemId);
+                            gsonElem.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
+                            updateScript(selectID);
                         }
-                        JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
-                        jso.addProperty(PKjson.sysprofID, sysprofRec.getStr(eSysprof.id));
-                        updateScript(selectID);
-
-                    } else {  //импост
-                        float elemId = winNode.com5t().id();
-                        GsonElem gsonElem = winc.listAll.gson(elemId);
-                        gsonElem.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
-                        updateScript(selectID);
                     }
-
                 }, qSysprofFilter);
             }
         } catch (Exception e) {
@@ -3127,28 +3128,40 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     }
 
                     JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
-                    jso.addProperty(colorID, colorRec.getStr(eColor.id));
+                    if (colorRec.get(1) == null) {
+                        jso.remove(colorID);
+                    } else {
+                        jso.addProperty(colorID, colorRec.getStr(eColor.id));
+                    }
                     updateScript(selectID);
 
                 } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE) {
-                    for (GsonElem elem : parentArea.elems()) {
+                    for (GsonElem elem : parentArea.childs()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
-                            elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
+                            if (colorRec.get(1) == null) {
+                                elem.param().remove(colorID);
+                            } else {
+                                elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
+                            }
                             updateScript(selectID);
                         }
                     }
                 } else if (winNode.com5t().type() == enums.Type.IMPOST
                         || winNode.com5t().type() == enums.Type.STOIKA
                         || winNode.com5t().type() == enums.Type.SHTULP) {
-                    for (GsonElem elem : parentArea.elems()) {
+                    for (GsonElem elem : parentArea.childs()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
-                            elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
+                            if (colorRec.get(1) == null) {
+                                elem.param().remove(colorID);
+                            } else {
+                                elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
+                            }
                             updateScript(selectID);
                         }
                     }
                 }
-
-            }, colorSet);
+            }, colorSet
+            );
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
@@ -3211,18 +3224,20 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
             ListenerRecord listenerColor = (colorRec) -> {
 
-                Wincalc winc = winc();
-                builder.script.GsonElem rootArea = winc.listAll.gson(selectID);
-                if (rootArea != null) {
-                    if (evt.getSource() == btn9) {
-                        winc.rootGson.color1 = colorRec.getInt(eColor.id);
-                    } else if (evt.getSource() == btn13) {
-                        winc.rootGson.color2 = colorRec.getInt(eColor.id);
-                    } else {
-                        winc.rootGson.color3 = colorRec.getInt(eColor.id);
+                if (colorRec.get(1) != null) {
+                    Wincalc winc = winc();
+                    builder.script.GsonElem rootArea = winc.listAll.gson(selectID);
+                    if (rootArea != null) {
+                        if (evt.getSource() == btn9) {
+                            winc.rootGson.color1 = colorRec.getInt(eColor.id);
+                        } else if (evt.getSource() == btn13) {
+                            winc.rootGson.color2 = colorRec.getInt(eColor.id);
+                        } else {
+                            winc.rootGson.color3 = colorRec.getInt(eColor.id);
+                        }
+                        updateScript(selectID);
+                        btnRefresh(null);
                     }
-                    updateScript(selectID);
-                    btnRefresh(null);
                 }
             };
             if (groupArr == null && colorArr.length == 0) {
@@ -3254,7 +3269,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             new DicArtikl(this, (artiklRec) -> {
 
                 GsonElem glassElem = (GsonElem) winc().listAll.gson(selectID);
-                glassElem.param().addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
+                if (artiklRec.get(1) == null) {
+                    glassElem.param().remove(PKjson.artglasID);
+                } else {
+                    glassElem.param().addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
+                }
                 updateScript(selectID);
 
             }, qArtikl);
@@ -3347,21 +3366,22 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             try {
                 float selectID = areaStv.id();
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
+                if (record.get(1) != null) {
+                    if (record.getInt(0) == 0) {
+                        stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.MIDL.id);
+                        txt31.setEditable(false);
 
-                if (record.getInt(0) == 0) {
-                    stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.MIDL.id);
-                    txt31.setEditable(false);
+                    } else if (record.getInt(0) == 1) {
+                        stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.CONST.id);
+                        txt31.setEditable(false);
 
-                } else if (record.getInt(0) == 1) {
-                    stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.CONST.id);
-                    txt31.setEditable(false);
-
-                } else if (record.getInt(0) == 2) {
-                    stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.VARIAT.id);
-                    stvArea.param().addProperty(PKjson.heightHandl, record.getInt(1));
-                    txt31.setEditable(true);
+                    } else if (record.getInt(0) == 2) {
+                        stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.VARIAT.id);
+                        stvArea.param().addProperty(PKjson.heightHandl, record.getInt(1));
+                        txt31.setEditable(true);
+                    }
+                    updateScript(selectID);
                 }
-                updateScript(selectID);
 
             } catch (Exception e) {
                 System.err.println("Ошибка: " + e);
@@ -3523,7 +3543,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             DicColor frame = new DicColor(this, (colorRec) -> {
 
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
-                stvArea.param().addProperty(PKjson.colorGlass, colorRec.getStr(eColor.id));
+                if (colorRec.get(1) == null) {
+                    stvArea.param().remove(PKjson.colorGlass);
+                } else {
+                    stvArea.param().addProperty(PKjson.colorGlass, colorRec.getStr(eColor.id));
+                }
                 updateScript(selectID);
                 btnRefresh(null);
 

@@ -11,6 +11,7 @@ import frames.UGui;
 import frames.swing.DefTableModel;
 import java.util.List;
 import common.listener.ListenerRecord;
+import java.util.Arrays;
 
 public class DicSysprof extends javax.swing.JDialog {
 
@@ -213,7 +214,7 @@ public class DicSysprof extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemovebtnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovebtnRemov
-        listener.action(eSysprof.up.newRecord());
+        listener.action(new Record(Arrays.asList(null, null)));
         this.dispose();
     }//GEN-LAST:event_btnRemovebtnRemov
 

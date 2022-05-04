@@ -6,6 +6,7 @@ import dataset.Record;
 import enums.TypeSet;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
+import java.util.Arrays;
 
 //Тип состава
 public class DicTypset extends javax.swing.JDialog {
@@ -199,10 +200,7 @@ public class DicTypset extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemovebtnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovebtnRemov
-        Record record = new Record();
-        record.add(null);
-        record.add(null);
-        listener.action(record);
+        listener.action(new Record(Arrays.asList(null, null)));
         this.dispose();
     }//GEN-LAST:event_btnRemovebtnRemov
 

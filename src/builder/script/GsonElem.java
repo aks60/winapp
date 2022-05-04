@@ -164,10 +164,4 @@ public class GsonElem {
             }
         });
     }
-
-    public LinkedList<GsonElem> elems() {
-        return childs.stream().filter(el
-                -> List.of(Type.STVORKA, Type.AREA, Type.ARCH, Type.TRAPEZE, Type.TRIANGL).contains(el.type()))
-                .collect(Collectors.toCollection(() -> new LinkedList<GsonElem>()));
-    }
 }

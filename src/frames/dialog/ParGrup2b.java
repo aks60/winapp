@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
+import java.util.Arrays;
 
 public class ParGrup2b extends javax.swing.JDialog {
 
@@ -197,9 +198,7 @@ public class ParGrup2b extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChouce
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
-        Record record = new Record(1);
-        record.add(null);
-        listener.action(record);
+        listener.action(new Record(Arrays.asList(null, null)));
         this.dispose();
     }//GEN-LAST:event_btnRemov
 

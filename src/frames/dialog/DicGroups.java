@@ -381,8 +381,7 @@ public class DicGroups extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
-        Record record = eGroups.up.newRecord();
-        listener.action(record);
+        listener.action(new Record(Arrays.asList(null, null)));
         this.dispose();
     }//GEN-LAST:event_btnRemove
 

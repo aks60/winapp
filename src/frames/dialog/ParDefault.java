@@ -7,6 +7,7 @@ import dataset.Record;
 import domain.eParams;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
+import java.util.Arrays;
 
 public class ParDefault extends javax.swing.JDialog {
 
@@ -206,8 +207,7 @@ public class ParDefault extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChouce
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
-        Record record = eParams.up.newRecord();
-        listener.action(record);
+        listener.action(new Record(Arrays.asList(null, null)));
         this.dispose();
     }//GEN-LAST:event_btnRemove
 

@@ -16,6 +16,7 @@ import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import common.listener.ListenerRecord;
+import java.util.Arrays;
 
 public class ParGrup2 extends javax.swing.JDialog {
 
@@ -386,10 +387,7 @@ public class ParGrup2 extends javax.swing.JDialog {
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
         if (btnCard1.isSelected() == true) {
-            Record record = new Record(2);
-            record.add(null);
-            record.add(null);
-            listener.action(record);
+            listener.action(new Record(Arrays.asList(null, null)));
         } else {
             listener.action(eParams.up.newRecord());
         }

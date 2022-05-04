@@ -5,6 +5,7 @@ import dataset.Record;
 import domain.eFurniture;
 import java.util.ArrayList;
 import common.listener.ListenerRecord;
+import java.util.Arrays;
 
 //Справочник фурнитур
 public class DicHandl extends javax.swing.JDialog {
@@ -242,8 +243,7 @@ public class DicHandl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemovebtnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovebtnRemov
-        Record record = eFurniture.up.newRecord();
-        listener.action(record);
+        listener.action(new Record(Arrays.asList(null, null)));
         this.dispose();
     }//GEN-LAST:event_btnRemovebtnRemov
 

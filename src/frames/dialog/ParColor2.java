@@ -15,6 +15,7 @@ import domain.eGroups;
 import enums.TypeGroups;
 import enums.UseColor;
 import common.listener.ListenerRecord;
+import java.util.Arrays;
 import java.util.Vector;
 
 public class ParColor2 extends javax.swing.JDialog {
@@ -322,10 +323,7 @@ public class ParColor2 extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
-        Record record = new Record(2);
-        record.add(null);
-        record.add(null);
-        listener.action(record);
+        listener.action(new Record(Arrays.asList(null, null)));
         this.dispose();
     }//GEN-LAST:event_btnRemov
 

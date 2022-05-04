@@ -2857,7 +2857,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     updateScript(selectID);
 
                 } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE) {
-                    for (GsonElem elem : parentArea.elems()) {
+                    for (GsonElem elem : parentArea.childs()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
                             updateScript(selectID);
@@ -2866,7 +2866,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 } else if (winNode.com5t().type() == enums.Type.IMPOST
                         || winNode.com5t().type() == enums.Type.STOIKA
                         || winNode.com5t().type() == enums.Type.SHTULP) {
-                    for (GsonElem elem : parentArea.elems()) {
+                    for (GsonElem elem : parentArea.childs()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
                             elem.param().addProperty(colorID, colorRec.getStr(eColor.id));
                             updateScript(selectID);

@@ -238,10 +238,7 @@ public class ParGrup2v extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
-        Record record = new Record();
-        record.add(null);
-        record.add(null);
-        listener.action(record);
+        listener.action(new Record(Arrays.asList(null, null)));
         this.dispose();
     }//GEN-LAST:event_btnRemove
 
