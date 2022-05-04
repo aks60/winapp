@@ -33,8 +33,7 @@ public class Furniture extends Cal5e {
 
     private FurnitureVar furnitureVar = null;
     private FurnitureDet furnitureDet = null;
-    private HashSet<Record> setFurndet = new HashSet();
-    private List list = List.of(9, 11, 12);
+    private final List list = List.of(9, 11, 12);
     private boolean max_size_message = true;
 
     public Furniture(Wincalc winc) {
@@ -59,16 +58,16 @@ public class Furniture extends Cal5e {
             
             //Цикл по створкам      
             for (AreaStvorka areaStv : stvorkaList) {
-                setFurndet.clear();
                 
                 //Подбор фурнитуры по параметрам
-                List<Record> sysfurnList = eSysfurn.find(winc.nuni);
+                List<Record> sysfurnList = eSysfurn.find(winc.nuni); //список фурнитур в системе профилей
                 Record sysfurnRec = sysfurnList.get(0); //значение по умолчанию, первая SYSFURN в списке системы
                 
-                //Теперь найдём furnityreRec по sysfurnRec из параметра или по умолчанию в случае неудачи                 
-                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnRec.getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);
+                //Теперь найдём из списка сист. фурн. фурнитуру которая в створке                 
+                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnRec.getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);                
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
 
+                //Проверка на max высоту, ширину
                 float max_width = stvorkaList.stream().max((s1, s2) -> s1.width().compareTo(s2.width())).get().width(); //сторона створки
                 float max_height = stvorkaList.stream().max((s1, s2) -> s1.height().compareTo(s2.height())).get().height(); //сторона створки
                 boolean p2_max = stvorkaList.stream().anyMatch(s -> furnityreRec.getFloat(eFurniture.p2_max) < (s.width() * 2 + s.height() * 2) / 2);
@@ -159,7 +158,7 @@ public class Furniture extends Cal5e {
             
             //Цикл по ограничению сторон фурнитуры
             for (Record furnside2Rec : furnside2List) {
-                ElemFrame el = null;
+                ElemFrame el;
                 float width = 0;
                 int side = furnside2Rec.getInt(eFurnside2.side_num);
 
