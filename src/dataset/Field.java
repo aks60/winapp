@@ -66,7 +66,8 @@ public interface Field {
     }
 
     default Record newRecord(String up) {
-        Record record = new Record(this);
+        Record record = new Record();
+        record.add(this);
         for (int index = 1; index < fields().length; ++index) {
             record.add(null);
         }

@@ -192,10 +192,7 @@ public class DicEnums extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemovebtnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovebtnRemov
-        Record record = new Record();
-        record.add(null);
-        record.add(null);
-        listener.action(record);
+        listener.action(new Record(Arrays.asList(null, null)));
         this.dispose();
     }//GEN-LAST:event_btnRemovebtnRemov
 
@@ -216,7 +213,7 @@ public class DicEnums extends javax.swing.JDialog {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
     // </editor-fold>
-    
+
     public void initElements() {
 
         FrameToFile.setFrameSize(this);

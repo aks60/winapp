@@ -3,6 +3,7 @@ package dataset;
 import common.UCom;
 import dataset.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -24,12 +25,16 @@ public class Record<E> extends ArrayList<E> {
         super(initialCapacity);
     }
 
-    public Record(E... arr) {
-        super();
-        for (E val : arr) {
-            this.add(val);
-        }
+    public Record(Collection<? extends E> c) {
+        super(c);
     }
+
+//    public Record(E... arr) {
+//        super();
+//        for (E val : arr) {
+//            this.add(val);
+//        }
+//    }
 
     //ИЗМЕНЕНИЯ СТАТУСА ЗАПИСИ
     public E set(int index, E element) {

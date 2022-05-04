@@ -93,7 +93,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 public class Systree extends javax.swing.JFrame implements ListenerReload {
-    
+
     private ImageIcon icon = new ImageIcon(getClass().getResource("/resource/img16/b031.gif"));
     private ListenerRecord listenerArtikl, listenerModel, listenerFurn,
             listenerParam1, listenerParam2, listenerParam3, listenerArt211, listenerArt212;
@@ -105,7 +105,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
     private Query qSyspar2 = new Query(eSyspar1.values());
-    
+
     private DecimalFormat2 df1 = new DecimalFormat2("#0.#");
     private int systreeID = -1; //выбранная система
     private Canvas canvas = new Canvas();
@@ -118,7 +118,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private TreeNode[] selectedPath = null;
     private Gson gson = new GsonBuilder().create();
     public int count = 0;
-    
+
     public Systree() {
         initComponents();
         scene = new Scene(canvas, spinner, this);
@@ -129,7 +129,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         listenerAdd();
         listenerSet();
     }
-    
+
     public Systree(int artiklID) {
         initComponents();
         scene = new Scene(canvas, spinner, this);
@@ -141,7 +141,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         listenerSet();
         selectionTab2(artiklID);
     }
-    
+
     public void loadingData() {
         //Получим сохр. ID системы при выходе из программы
         Record sysprodRec = eSysprod.find(Integer.valueOf(eProperty.sysprodID.read()));
@@ -152,7 +152,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         qParams.select(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
     }
-    
+
     public void loadingSysTree() {
         Record recordRoot = eSystree.up.newRecord(Query.SEL);
         recordRoot.set(eSystree.id, -1);
@@ -160,7 +160,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         recordRoot.set(eSystree.name, "Дерево системы профилей");
         DefMutableTreeNode rootTree = new DefMutableTreeNode(recordRoot);
         ArrayList<DefMutableTreeNode> treeList = new ArrayList();
-        
+
         for (Record record : qSystree) {
             if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
                 DefMutableTreeNode node2 = new DefMutableTreeNode(record);
@@ -176,10 +176,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         sysTree.setModel(new DefaultTreeModel(rootTree));
         scr1.setViewportView(sysTree);
     }
-    
+
     public void loadingModel() {
         ((DefaultTreeCellEditor) sysTree.getCellEditor()).addCellEditorListener(new CellEditorListener() {
-            
+
             public void editingStopped(ChangeEvent e) {
                 String str = ((DefaultTreeCellEditor) sysTree.getCellEditor()).getCellEditorValue().toString();
                 sysNode.rec().set(eSystree.name, str);
@@ -187,13 +187,13 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt8, str);
                 qSystree.update(sysNode.rec()); //сохраним в базе
             }
-            
+
             public void editingCanceled(ChangeEvent e) {
                 editingStopped(e);
             }
         });
         new DefTableModel(tab2, qSysprof, eSysprof.use_type, eSysprof.use_side, eArtikl.code, eArtikl.name, eSysprof.prio) {
-            
+
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eSysprof.use_side && val != null) {
@@ -211,7 +211,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         };
         new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open, eSysfurn.replac, eSysfurn.hand_pos, eSysfurn.artikl_id1, eSysfurn.artikl_id2) {
-            
+
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null) {
@@ -263,12 +263,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 return val;
             }
         };
-        
+
         tab4.getColumnModel().getColumn(2).setCellRenderer(new DefCellBoolRenderer());
         tab5.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            
+
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                
+
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 1) {
                     Object v = qSysprod.get(row).get(eSysprod.values().length);
@@ -281,16 +281,16 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 return label;
             }
         });
-        
+
         rsvSystree = new DefFieldEditor(sysTree) {
-            
+
             public Set<JTextField> set = new HashSet();
-            
+
             public void setTxt(JTextField jtf, String str) {
                 set.add(jtf);
                 jtf.setText(str);
             }
-            
+
             @Override
             public void load() {
                 super.load();
@@ -301,7 +301,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setTxt(txt7, typeUse.name);
                 setTxt(txt11, layoutProduct.name);
             }
-            
+
             @Override
             public void clear() {
                 super.clear();
@@ -317,7 +317,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         rsvSystree.add(eSystree.pref, txt10);
         rsvSystree.add(eSystree.cgrp, txt15);
         rsvSystree.add(eSystree.coef, txt35);
-        
+
         canvas.setVisible(true);
         if (selectedPath != null) {
             sysTree.setSelectionPath(new TreePath(selectedPath));
@@ -325,7 +325,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             sysTree.setSelectionRow(0);
         }
     }
-    
+
     public void loadingWinTree(Wincalc winc) {
         try {
             DefMutableTreeNode selectNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
@@ -346,12 +346,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     curNode = curNode.getNextNode();
                 } while (curNode != null);
             }
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка: Systree.loadingWinTree() " + e);
         }
     }
-    
+
     public void loadingTab5() {
         qSysprod.select(eSysprod.up, "where", eSysprod.systree_id, "=", systreeID);
         DefaultTableModel dm = (DefaultTableModel) tab5.getModel();
@@ -364,78 +364,78 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 joining.calc();
                 iwin2.imageIcon = Canvas.createIcon(iwin2, 68);
                 record.add(iwin2);
-                
+
             } catch (Exception e) {
                 System.err.println("Ошибка:Systree.loadingTab5() " + e);
             }
         }
         ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
     }
-    
+
     public void listenerAdd() {
         UGui.buttonCellEditor(tab2, 0).addActionListener(event -> {
             new DicEnums(this, (record) -> {
                 UGui.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
             }, UseArtiklTo.values());
         });
-        
+
         UGui.buttonCellEditor(tab2, 1).addActionListener(event -> {
             new DicEnums(this, (record) -> {
                 UGui.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
             }, UseSide.values());
         });
-        
+
         UGui.buttonCellEditor(tab2, 2).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
-        
+
         UGui.buttonCellEditor(tab2, 3).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
-        
+
         UGui.buttonCellEditor(tab3, 1).addActionListener(event -> {
             DicName frame = new DicName(this, listenerFurn, new Query(eFurniture.values()).select(eFurniture.up, "order by", eFurniture.name), eFurniture.name);
         });
-        
+
         UGui.buttonCellEditor(tab3, 2).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, (record) -> {
                 UGui.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4, tab5);
             }, TypeOpen2.values());
         });
-        
+
         UGui.buttonCellEditor(tab3, 4).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, (record) -> {
                 UGui.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4, tab5);
             }, LayoutHandle.values());
         });
-        
+
         UGui.buttonCellEditor(tab3, 5).addActionListener(event -> {
             int furnityreId = qSysfurn.getAs(UGui.getIndexRec(tab3), eSysfurn.furniture_id);
             DicArtikl artikl = new DicArtikl(this, listenerArt211, furnityreId, TypeArtikl.X211.id1, TypeArtikl.X211.id2);
         });
-        
+
         UGui.buttonCellEditor(tab3, 6).addActionListener(event -> {
             int furnityreId = qSysfurn.getAs(UGui.getIndexRec(tab3), eSysfurn.furniture_id);
             DicArtikl artikl = new DicArtikl(this, listenerArt212, furnityreId, TypeArtikl.X212.id1, TypeArtikl.X212.id2);
         });
-        
+
         UGui.buttonCellEditor(tab4, 0).addActionListener(event -> {
             ParDefault frame = new ParDefault(this, listenerParam1);
         });
-        
+
         UGui.buttonCellEditor(tab4, 1).addActionListener(event -> {
             Integer grup = qSyspar2.getAs(UGui.getIndexRec(tab4), eSyspar1.params_id);
             ParDefault frame = new ParDefault(this, listenerParam2, grup);
         });
-        
+
         UGui.buttonCellEditor(tab7, 1).addActionListener(event -> {
             Integer grup = qSyspar1.getAs(UGui.getIndexRec(tab7), eSyspar1.params_id);
             ParDefault frame = new ParDefault(this, listenerParam3, grup);
         });
     }
-    
+
     public void listenerSet() {
-        
+
         listenerArtikl = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab2);
@@ -445,7 +445,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab2, index);
         };
-        
+
         listenerModel = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
 
@@ -462,9 +462,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             sysprodRec.setNo(eSysprod.name, record.get(1));
             sysprodRec.setNo(eSysprod.script, script2);
             qSysprod.insert(sysprodRec);
-            
+
             loadingTab5();
-            
+
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             for (int index = 0; index < qSysprod.size(); ++index) {
                 if (qSysprod.get(index, eSysprod.id) == sysprodRec.get(eSysprod.id)) {
@@ -474,7 +474,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
             }
         };
-        
+
         listenerFurn = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab3);
@@ -483,7 +483,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab3, index);
         };
-        
+
         listenerArt211 = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab3);
@@ -491,7 +491,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab3, index);
         };
-        
+
         listenerArt212 = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab3);
@@ -499,7 +499,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab3, index);
         };
-        
+
         listenerParam1 = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
@@ -508,7 +508,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
-        
+
         listenerParam2 = (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             int index = UGui.getIndexRec(tab4);
@@ -516,7 +516,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedIndex(tab4, index);
         };
-        
+
         listenerParam3 = (record) -> {
             int index = UGui.getIndexRec(tab5);
             int index2 = UGui.getIndexRec(tab7);
@@ -533,11 +533,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         };
     }
-    
+
     public void selectionSysTree() {
         UGui.stopCellEditing(tab2, tab3, tab4, tab5);
         List.of(tab2, tab3, tab4).forEach(table -> ((DefTableModel) table.getModel()).getQuery().execsql());
-        
+
         sysNode = (DefMutableTreeNode) sysTree.getLastSelectedPathComponent();
         if (sysNode != null) {
             systreeID = sysNode.rec().getInt(eSystree.id);
@@ -550,9 +550,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             lab1.setText("ID = " + systreeID);
             lab2.setText("ID = -1");
             Collections.sort(qSyspar2, (o1, o2) -> o2.getInt(eSyspar1.params_id) - o1.getInt(eSyspar1.params_id));
-            
+
             loadingTab5();
-            
+
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -561,7 +561,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             UGui.setSelectedRow(tab3);
             UGui.setSelectedRow(tab4);
             if (qSysprod.isEmpty() == false) {
-                
+
                 int index = -1;
                 int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
                 for (int i = 0; i < qSysprod.size(); ++i) {
@@ -573,14 +573,14 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
                 if (index != -1) {
                     UGui.setSelectedIndex(tab5, index);
-                    
+
                 } else {
                     UGui.setSelectedRow(tab5);
                 }
             }
         }
     }
-    
+
     public void selectionWinTree() {
         Wincalc winc = winc();
         winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
@@ -635,7 +635,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card16");
                 AreaStvorka stv = (AreaStvorka) winNode.com5t();
                 int id = stv.sysfurnRec.getInt(eSysfurn.furniture_id);;
-                
+
                 setText(txt24, UGui.df.frm(stv.frames.get(Layout.BOTT).width()));
                 float h = (stv.frames.get(Layout.RIGHT).height() > stv.frames.get(Layout.LEFT).height()) ? stv.frames.get(Layout.RIGHT).height() : stv.frames.get(Layout.LEFT).height();
                 setText(txt26, UGui.df.frm(h));
@@ -673,7 +673,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 ElemJoining ej2 = winc.mapJoin.get(elem5e.joinPoint(1));
                 ElemJoining ej3 = winc.mapJoin.get(elem5e.joinPoint(2));
                 List.of(lab55, lab56, lab57).forEach(it -> it.setIcon(null));
-                
+
                 if (ej1 != null) {
                     setText(txt36, ej1.joiningRec.getStr(eJoining.name));
                     setText(txt42, ej1.name());
@@ -699,7 +699,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             List.of(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
         }
     }
-    
+
     public void selectionTab2(int artiklID) {
         for (int i = 0; i < qSysprof.size(); i++) {
             if (qSysprof.get(i).getInt(eSysprof.artikl_id) == artiklID) {
@@ -707,25 +707,25 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
         }
     }
-    
+
     public void selectionTab5() {
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
             eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
-            
+
             Object w = sysprodRec.get(eSysprod.values().length);
             if (w instanceof Wincalc) { //прорисовка окна               
                 Wincalc win = (Wincalc) w;
                 scene.init(win);
                 canvas.draw();
                 scene.draw();
-                
+
                 loadingWinTree(win);
-                
+
                 winTree.setSelectionInterval(0, 0);
-                
+
             }
         } else {
             scene.init(null);
@@ -734,9 +734,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             winTree.setModel(new DefaultTreeModel(new DefMutableTreeNode("")));
         }
     }
-    
+
     public ArrayList<DefMutableTreeNode> addChild(ArrayList<DefMutableTreeNode> nodeList1, ArrayList<DefMutableTreeNode> nodeList2) {
-        
+
         for (DefMutableTreeNode node : nodeList1) {
             String node2 = (String) node.getUserObject();
             for (Record record : qSystree) {
@@ -753,7 +753,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
         return nodeList2;
     }
-    
+
     public void updateScript(float selectID) {
         try {
             //Сохраним скрипт в базе
@@ -779,12 +779,12 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
             //Обновим поля форм
             selectionWinTree();
-            
+
         } catch (Exception e) {
             System.err.println("frames.Systree.updateScript()");
         }
     }
-    
+
     private Wincalc winc() {
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
@@ -796,7 +796,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         }
         return null;
     }
-    
+
     @Override
     public void reload() {
         try {
@@ -819,7 +819,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             System.err.println("Ошибка:Systree.reload() " + e);
         }
     }
-    
+
     private void setText(JTextField comp, String txt) {
         if (txt == null) {
             comp.setText("");
@@ -827,7 +827,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         comp.setText(txt);
         comp.setCaretPosition(0);
     }
-    
+
     private void setIcon(JButton btn, boolean b) {
         if (b == false) {
             btn.setText("");
@@ -837,7 +837,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             btn.setIcon(null);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -2847,7 +2847,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_windowClosed
 
     private void stateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stateChanged
-        
+
         UGui.stopCellEditing(sysTree);
         sysTree.setBorder(null);
         if (tabb1.getSelectedIndex() == 1) {
@@ -2868,7 +2868,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_sysTreeMousePressed
 
     private void glasdefToSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_glasdefToSystree
-        
+
         new DicArtikl(this, (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             sysNode.rec().set(eSystree.glas, record.getStr(eArtikl.code));
@@ -2877,17 +2877,17 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_glasdefToSystree
 
     private void imageviewToSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageviewToSystree
-        
+
         new DicEnums(this, (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             sysNode.rec().set(eSystree.imgview, record.getInt(0));
             rsvSystree.load();
-            
+
         }, LayoutProduct.values());
     }//GEN-LAST:event_imageviewToSystree
 
     private void typeToSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeToSystree
-        
+
         new DicEnums(this, (record) -> {
             UGui.stopCellEditing(tab2, tab3, tab4, tab5);
             sysNode.rec().set(eSystree.types, record.getInt(0));
@@ -2896,7 +2896,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_typeToSystree
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        
+
         if (sysNode != null) {
             if (sysTree.getBorder() != null) {
                 if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите добавить ветку в систему?", "Предупреждение",
@@ -2916,14 +2916,14 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     sysTree.scrollPathToVisible(new TreePath(nodes));
                     sysTree.setSelectionPath(new TreePath(nodes));
                 }
-                
+
             } else if (tab2.getBorder() != null) {
                 UGui.insertRecordEnd(tab2, eSysprof.up, (record) -> {
                     record.set(eSysprof.systree_id, systreeID);
                     Record record2 = eArtikl.up.newRecord();
                     qSysprof.table(eArtikl.up).add(record2);;
                 });
-                
+
             } else if (tab3.getBorder() != null) {
                 UGui.insertRecordEnd(tab3, eSysfurn.up, (record) -> {
                     record.set(eSysfurn.systree_id, systreeID);
@@ -2936,7 +2936,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 UGui.insertRecordEnd(tab4, eSyspar1.up, (record) -> {
                     record.set(eSyspar1.systree_id, systreeID);
                 });
-                
+
             } else if (tab5.getBorder() != null) {
                 if (sysNode != null && sysNode.isLeaf()) {
                     FrameProgress.create(Systree.this, new ListenerFrame() {
@@ -2963,7 +2963,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null) == 0) {
                     UGui.stopCellEditing(sysTree);
                     if (qSystree.delete(sysNode.rec())) {
-                        
+
                         qSystree.remove(sysNode.rec());
                         ((DefaultTreeModel) sysTree.getModel()).removeNodeFromParent(sysNode);
                         if (parentNode != null) {
@@ -3042,21 +3042,21 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                                 || ((layout == Layout.BOTT || layout == Layout.TOP) && useSideId == UseSide.HORIZ.id)
                                 || ((layout == Layout.RIGHT || layout == Layout.LEFT) && useSideId == UseSide.VERT.id)
                                 || useSideId == UseSide.ANY.id || useSideId == UseSide.MANUAL.id) {
-                            
+
                             qSysprofFilter.add(sysprofRec);
                             qSysprofFilter.table(eArtikl.up).add(qSysprof.table(eArtikl.up).get(index));
                         }
                     }
                 }
                 new DicSysprof(this, (sysprofRec) -> {
-                    
+
                     Wincalc winc = winc();
                     if (winNode.com5t().type() == enums.Type.FRAME_SIDE) { //рама окна
                         float elemId = winNode.com5t().id();
                         GsonElem gsonRama = winc.listAll.gson(elemId);
                         gsonRama.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         updateScript(selectID);
-                        
+
                     } else if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) { //рама створки
                         float stvId = winNode.com5t().owner.id();
                         GsonElem stvArea = (GsonElem) winc.listAll.gson(stvId);
@@ -3074,14 +3074,14 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
                         jso.addProperty(PKjson.sysprofID, sysprofRec.getStr(eSysprof.id));
                         updateScript(selectID);
-                        
+
                     } else {  //импост
                         float elemId = winNode.com5t().id();
                         GsonElem gsonElem = winc.listAll.gson(elemId);
                         gsonElem.param().addProperty(PKjson.sysprofID, sysprofRec.getInt(eSysprof.id));
                         updateScript(selectID);
                     }
-                    
+
                 }, qSysprofFilter);
             }
         } catch (Exception e) {
@@ -3096,7 +3096,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             //Все текстуры артикула элемента конструкции
             Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "=", winNode.com5t().artiklRec.getInt(eArtikl.id));
             artdetList.forEach(rec -> {
-                
+
                 if (rec.getInt(eArtdet.color_fk) < 0) { //все текстуры групы color_fk
                     eColor.query().forEach(rec2 -> {
                         if (rec2.getInt(eColor.colgrp_id) == Math.abs(rec.getInt(eArtdet.color_fk))) {
@@ -3108,11 +3108,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
             });
             DicColor frame = new DicColor(this, (colorRec) -> {
-                
+
                 String colorID = (evt.getSource() == btn18) ? PKjson.colorID1 : (evt.getSource() == btn19) ? PKjson.colorID2 : PKjson.colorID3;
                 float parentId = winNode.com5t().owner.id();
                 GsonElem parentArea = (GsonElem) winc().listAll.gson(parentId);
-                
+
                 if (winNode.com5t().type() == enums.Type.STVORKA_SIDE) {
                     JsonObject paramObj = parentArea.param();
                     String stvKey = null;
@@ -3125,11 +3125,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     } else if (winNode.com5t().layout() == Layout.LEFT) {
                         stvKey = PKjson.stvorkaLeft;
                     }
-                    
+
                     JsonObject jso = UJson.getAsJsonObject(paramObj, stvKey);
                     jso.addProperty(colorID, colorRec.getStr(eColor.id));
                     updateScript(selectID);
-                    
+
                 } else if (winNode.com5t().type() == enums.Type.FRAME_SIDE) {
                     for (GsonElem elem : parentArea.elems()) {
                         if (elem.id() == ((DefMutableTreeNode) winNode).com5t().id()) {
@@ -3147,7 +3147,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                         }
                     }
                 }
-                
+
             }, colorSet);
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
@@ -3158,7 +3158,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         try {
             float selectID = winNode.com5t().id();
             HashSet<Record> groupSet = new HashSet();
-            
+
             String[] groupArr = (txt15.getText().isEmpty() == false) ? txt15.getText().split(";") : null;
             String colorTxt = (evt.getSource() == btn9) ? txt3.getText() : (evt.getSource() == btn13) ? txt4.getText() : txt5.getText();
             Integer[] colorArr = UCom.parserInt(colorTxt);
@@ -3169,7 +3169,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     HashSet<Record> se2 = new HashSet();
                     boolean b = false;
                     for (Record rec : eColor.query()) {
-                        
+
                         if (rec.getStr(eColor.colgrp_id).equals(s1)) {
                             se2.add(rec); //текстуры группы
 
@@ -3189,7 +3189,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             if (colorArr.length != 0) {
                 for (Record rec : eColor.query()) {
                     if (groupArr != null) {
-                        
+
                         for (String s1 : groupArr) { //группы
                             if (rec.getStr(eColor.colgrp_id).equals(s1)) {
                                 for (int i = 0; i < colorArr.length; i = i + 2) { //текстуры
@@ -3208,9 +3208,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                     }
                 }
             }
-            
+
             ListenerRecord listenerColor = (colorRec) -> {
-                
+
                 Wincalc winc = winc();
                 builder.script.GsonElem rootArea = winc.listAll.gson(selectID);
                 if (rootArea != null) {
@@ -3250,15 +3250,15 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             depth = (depth != null && depth.isEmpty() == false) ? " and " + eArtikl.depth.name() + " in (" + depth + ")" : "";
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up,
                     "where", eArtikl.level1, "= 5 and", eArtikl.level2, "in (1,2,3)", depth);
-            
+
             new DicArtikl(this, (artiklRec) -> {
-                
+
                 GsonElem glassElem = (GsonElem) winc().listAll.gson(selectID);
                 glassElem.param().addProperty(PKjson.artglasID, artiklRec.getStr(eArtikl.id));
                 updateScript(selectID);
-                
+
             }, qArtikl);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
@@ -3270,9 +3270,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             String systreeID = sysNode.rec().getStr(eSystree.id);
             Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values()).select(eSysfurn.up, "left join", eFurniture.up, "on",
                     eSysfurn.furniture_id, "=", eFurniture.id, "where", eSysfurn.systree_id, "=", systreeID);
-            
+
             new DicName(this, (sysfurnRec) -> {
-                
+
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(windowsID);
                 if (sysfurnRec.get(1) == null) {
                     stvArea.param().remove(PKjson.sysfurnID);
@@ -3281,9 +3281,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 }
                 updateScript(windowsID);
                 btnRefresh(null);
-                
+
             }, qSysfurn, eFurniture.name);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
@@ -3292,12 +3292,16 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private void typeOpenToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeOpenToStvorka
         try {
             new DicEnums(this, (typeopenRec) -> {
-                
+
                 float elemID = winNode.com5t().id();
-                GsonElem jsonStv = (GsonElem) winc().listAll.gson(elemID);
-                jsonStv.param().addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
+                GsonElem stvArea = (GsonElem) winc().listAll.gson(elemID);
+                if (typeopenRec.get(1) == null) {
+                    stvArea.param().remove(PKjson.typeOpen);
+                } else {
+                    stvArea.param().addProperty(PKjson.typeOpen, typeopenRec.getInt(0));
+                }
                 updateScript(elemID);
-                
+
             }, TypeOpen1.INVALID, TypeOpen1.LEFT, TypeOpen1.LEFTUP, TypeOpen1.LEFTMOV,
                     TypeOpen1.RIGHT, TypeOpen1.RIGHTUP, TypeOpen1.RIGHTMOV, TypeOpen1.UPPER, TypeOpen1.FIXED);
         } catch (Exception e) {
@@ -3312,26 +3316,26 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 11");
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
-                
+
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(stvorkaID);
                 stvArea.param().remove(PKjson.colorHandl);
-                if (artiklRec.getInt(eArtikl.id) == -3) {
+                if (artiklRec.get(1) == null) {
                     stvArea.param().remove(PKjson.artiklHandl);
                 } else {
                     stvArea.param().addProperty(PKjson.artiklHandl, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(stvorkaID);
                 btnRefresh(null);
-                
+
             }, qResult);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
     }//GEN-LAST:event_handlToStvorka
 
     private void heightHandlToStvorka(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heightHandlToStvorka
-        
+
         AreaStvorka areaStv = (AreaStvorka) winNode.com5t();
         int indexLayoutHandl = 0;
         if (LayoutHandle.CONST.name.equals(txt16.getText())) {
@@ -3343,26 +3347,26 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             try {
                 float selectID = areaStv.id();
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
-                
+
                 if (record.getInt(0) == 0) {
                     stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.MIDL.id);
                     txt31.setEditable(false);
-                    
+
                 } else if (record.getInt(0) == 1) {
                     stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.CONST.id);
                     txt31.setEditable(false);
-                    
+
                 } else if (record.getInt(0) == 2) {
                     stvArea.param().addProperty(PKjson.positionHandl, LayoutHandle.VARIAT.id);
                     stvArea.param().addProperty(PKjson.heightHandl, record.getInt(1));
                     txt31.setEditable(true);
                 }
                 updateScript(selectID);
-                
+
             } catch (Exception e) {
                 System.err.println("Ошибка: " + e);
             }
-            
+
         }, indexLayoutHandl);
     }//GEN-LAST:event_heightHandlToStvorka
 
@@ -3372,14 +3376,18 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             AreaStvorka stv = (AreaStvorka) winNode.com5t();
             HashSet<Record> colorSet = UGui.artiklToColorSet(stv.handleRec.getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
-                
+
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
-                stvArea.param().addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
+                if (colorRec.get(1) == null) {
+                    stvArea.param().remove(PKjson.colorHandl);
+                } else {
+                    stvArea.param().addProperty(PKjson.colorHandl, colorRec.getStr(eColor.id));
+                }
                 updateScript(selectID);
                 btnRefresh(null);
-                
+
             }, colorSet);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
         }
@@ -3408,19 +3416,19 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 12");
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
-                
+
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
                 stvArea.param().remove(PKjson.colorLoop);
-                if (artiklRec.getInt(eArtikl.id) == -3) {
+                if (artiklRec.get(1) == null) {
                     stvArea.param().remove(PKjson.artiklLoop);
                 } else {
                     stvArea.param().addProperty(PKjson.artiklLoop, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
-                
+
             }, qResult);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка: " + e);
         }
@@ -3433,19 +3441,19 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             Query qArtikl = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, " = 9");
             Query qResult = UGui.artTypeToFurndetList(furnitureID, qArtikl);
             new DicArtikl(this, (artiklRec) -> {
-                
+
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
                 stvArea.param().remove(PKjson.colorLock);
-                if (artiklRec.getInt(eArtikl.id) == -3) {
+                if (artiklRec.get(1) == null) {
                     stvArea.param().remove(PKjson.artiklLock);
                 } else {
                     stvArea.param().addProperty(PKjson.artiklLock, artiklRec.getStr(eArtikl.id));
                 }
                 updateScript(selectID);
                 btnRefresh(null);
-                
+
             }, qResult);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:frames.lockToStvorka " + e);
         }
@@ -3457,14 +3465,18 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             AreaStvorka stv = (AreaStvorka) winNode.com5t();
             HashSet<Record> colorSet = UGui.artiklToColorSet(stv.loopRec.getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
-                
+
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
-                stvArea.param().addProperty(PKjson.colorLoop, colorRec.getStr(eColor.id));
+                if (colorRec.get(1) == null) {
+                    stvArea.param().remove(PKjson.colorLoop);
+                } else {
+                    stvArea.param().addProperty(PKjson.colorLoop, colorRec.getStr(eColor.id));
+                }
                 updateScript(selectID);
                 btnRefresh(null);
-                
+
             }, colorSet);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
         }
@@ -3476,14 +3488,18 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             AreaStvorka stv = (AreaStvorka) winNode.com5t();
             HashSet<Record> colorSet = UGui.artiklToColorSet(stv.lockRec.getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
-                
+
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
-                stvArea.param().addProperty(PKjson.colorLock, colorRec.getStr(eColor.id));
+                if (colorRec.get(1) == null) {
+                    stvArea.param().remove(PKjson.colorLock);
+                } else {
+                    stvArea.param().addProperty(PKjson.colorLock, colorRec.getStr(eColor.id));
+                }
                 updateScript(selectID);
                 btnRefresh(null);
-                
+
             }, colorSet);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorToHandl() " + e);
         }
@@ -3505,14 +3521,14 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             ElemGlass glas = (ElemGlass) winNode.com5t();
             HashSet<Record> colorSet = UGui.artiklToColorSet(glas.artiklRec.getInt(eArtikl.id));
             DicColor frame = new DicColor(this, (colorRec) -> {
-                
+
                 GsonElem stvArea = (GsonElem) winc().listAll.gson(selectID);
                 stvArea.param().addProperty(PKjson.colorGlass, colorRec.getStr(eColor.id));
                 updateScript(selectID);
                 btnRefresh(null);
-                
+
             }, colorSet);
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:Systree.colorFromGlass() " + e);
         }
@@ -3690,7 +3706,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 // </editor-fold> 
 
     public void initElements() {
-        
+
         new FrameToFile(this, btnClose);
         new UColor();
         south.add(filterTable, 0);
