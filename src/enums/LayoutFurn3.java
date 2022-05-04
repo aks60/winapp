@@ -1,22 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package enums;
 
 import static enums.UseSide.values;
 import static enums.TypeOpen1.values;
 
 //Стороны фурнитуры
+//TODO не разобрался с отрицательными параметрами которые привязаны к 24038 и 25038
 public enum LayoutFurn3 implements Enam {
-    P0(-1, "Не определено"),
     P1(1, "Нижняя"),
     P2(2, "Правая"),
     P3(3, "Верхняя"),
-    P4(4, "Левая"),
-    P5(5, "? Нижняя(для трапеции)"),
-    P6(6, "? Нижняя(для арки)");
+    P4(4, "Левая");
+    //P5(5, "Нижняя(для трапеции)"),
+    //P6(6, "Нижняя(для арки)");
 
     public int id;
     public String name;
