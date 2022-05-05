@@ -17,7 +17,6 @@ import builder.Wincalc;
 import builder.script.GsonElem;
 import common.UCom;
 import common.eProp;
-import common.interfac.Area;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
@@ -28,7 +27,6 @@ public class AreaSimple extends Com5t {
     public Form form = null; //форма контура (параметр в развитии)
     public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     
     public LinkedList<Com5t> childs = new LinkedList(); //дети
-    private Area area = null;
 
     public AreaSimple(Wincalc winc) {
         super(winc.rootGson.id(), winc, null, winc.rootGson);

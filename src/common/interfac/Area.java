@@ -5,10 +5,7 @@ import enums.Type;
 
 public interface Area {
 
-    //Форма контура
-    public Type type();
-
-    ////T - соединения
+    //T - соединения
     public void joining();
 
     //Рисуем конструкцию
