@@ -2,7 +2,7 @@ package frames;
 
 import builder.script.GsonRoot;
 import com.google.gson.Gson;
-import common.eProperty;
+import common.eProp;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
@@ -207,7 +207,7 @@ public class Profstroy {
                 executeSql("GRANT SELECT ON " + field.tname() + " TO TEXNOLOG_RO");
                 executeSql("GRANT ALL ON " + field.tname() + " TO TEXNOLOG_RW");
             }
-            if (Main.dev == true) { //при этом в firebird такие логины должны быть созданы
+            if (eProp.dev == true) { //при этом в firebird такие логины должны быть созданы
                 executeSql("GRANT TEXNOLOG_RW, DEFROLE TO TEXNOLOG");
                 executeSql("GRANT MANAGER_RW, DEFROLE TO MANAGER");
             }
@@ -552,7 +552,7 @@ public class Profstroy {
             updateSql(eKitpar2.up, eKitpar2.kitdet_id, "psss", eKitdet.up, "kincr");
             updateSql(eProject.up, eProject.prjpart_id, "kname", ePrjpart.up, "partner");
             executeSql("update prjpart set org_leve2 = trim(org_leve2)");
-            String db = (numDb == 1) ? eProperty.base1.read() : (numDb == 2) ? eProperty.base2.read() : eProperty.base3.read();
+            String db = (numDb == 1) ? eProp.base1.read() : (numDb == 2) ? eProp.base2.read() : eProp.base3.read();
             if (db.toUpperCase().contains("BIMAX.FDB")) {
                 executeSql("4", "update artikl set " + eArtikl.size_falz.name() + " = 20 where code = '336200'"); //поправка штульпа в bimax 
                 executeSql("delete from glaspar2 where params_id = 15030 and text = '0,97'"); //предположительно параметр добавлен в самом конце

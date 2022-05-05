@@ -23,10 +23,10 @@ import domain.eElempar2;
 import domain.eGroups;
 import domain.eJoindet;
 import builder.param.ParamList;
+import common.eProp;
 import enums.TypeGroups;
 import enums.TypeSet;
 import enums.UseColor;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -172,10 +172,10 @@ public class Elements extends javax.swing.JFrame {
                 if (val != null && eElempar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -189,10 +189,10 @@ public class Elements extends javax.swing.JFrame {
                     if (field == eElempar2.params_id) {
                         if (Integer.valueOf(String.valueOf(val)) < 0) {
                             Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                            return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                            return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                         } else {
                             Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                            return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+                            return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
                         }
                     }
                 }

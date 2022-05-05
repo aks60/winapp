@@ -1,7 +1,7 @@
 package frames.swing;
 
 import frames.UGui;
-import common.eProfile;
+import common.eProp;
 import dataset.Field;
 import dataset.Query;
 import dataset.Table;
@@ -17,9 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
-import startup.Main;
 import startup.App;
-import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
 
 public class DefTableModel extends DefaultTableModel implements ListenerFrame {
@@ -70,7 +68,7 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
         }
 
         for (int index = 0; index < columnModel.getColumnCount(); index++) {
-            if (Main.dev == false && "ID".equals(table.getColumnName(index))
+            if (eProp.dev == false && "ID".equals(table.getColumnName(index))
                     || "id".equals(table.getColumnName(index))) { //id - Artikles фильтр
                 TableColumn col = columnModel.getColumn(index);
                 col.setMinWidth(0);

@@ -13,10 +13,10 @@ import java.util.EnumMap;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
-import startup.Main;
 import builder.Wincalc;
 import builder.script.GsonElem;
 import common.UCom;
+import common.eProp;
 import common.interfac.Area;
 import enums.Form;
 import enums.PKjson;
@@ -68,7 +68,7 @@ public class AreaSimple extends Com5t {
     }
 
     public void initСonstructiv(JsonObject param) {
-        //if(Main.dev)
+        //if(eProperty.dev)
         if (isJson(param, PKjson.sysprofID)) {//профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         }
@@ -208,7 +208,7 @@ public class AreaSimple extends Com5t {
             if (winc.bufferImg != null) {
                 ByteArrayOutputStream byteArrOutStream = new ByteArrayOutputStream();
                 ImageIO.write(winc.bufferImg, "png", byteArrOutStream);
-                if (Main.dev == true) {
+                if (eProp.dev == true) {
                     File outputfile = new File("CanvasImage.png");
                     ImageIO.write(winc.bufferImg, "png", outputfile);
                 }

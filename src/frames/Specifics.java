@@ -2,7 +2,7 @@ package frames;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import common.eProperty;
+import common.eProp;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eElemdet;
@@ -71,7 +71,7 @@ public class Specifics extends javax.swing.JFrame {
     public void createIwin() {
 
         if (eProfile.profile == eProfile.P02) {
-            int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+            int sysprodID = Integer.valueOf(eProp.sysprodID.read());
             Record sysprodRec = eSysprod.find(sysprodID);
             if (sysprodRec == null) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
@@ -86,7 +86,7 @@ public class Specifics extends javax.swing.JFrame {
             }
 
         } else {
-            int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
+            int prjprodID = Integer.valueOf(eProp.prjprodID.read());
             Record prjprodRec = ePrjprod.find(prjprodID);
             if (prjprodRec == null) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в списке заказов", "Предупреждение", JOptionPane.OK_OPTION);
@@ -660,7 +660,7 @@ public class Specifics extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(23).setCellRenderer(cellRenderer3);
-        if ("Nimbus".equals(eProperty.lookandfeel.read())) {
+        if ("Nimbus".equals(eProp.lookandfeel.read())) {
             for (int i = 15; i < 22; i++) {
                 tab1.getColumnModel().getColumn(i).setPreferredWidth(tab1.getColumnModel().getColumn(i).getPreferredWidth() + tab1.getColumnModel().getColumn(i).getPreferredWidth() / 3);
             }

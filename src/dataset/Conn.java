@@ -1,7 +1,7 @@
 package dataset;
 
 import common.eProfile;
-import common.eProperty;
+import common.eProp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

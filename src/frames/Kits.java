@@ -1,6 +1,7 @@
 package frames;
 
 import builder.param.ParamList;
+import common.eProp;
 import common.listener.ListenerFrame;
 import common.listener.ListenerRecord;
 import dataset.Field;
@@ -22,7 +23,6 @@ import frames.dialog.ParGrup2b;
 import frames.swing.DefCellBoolRenderer;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -36,7 +36,6 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.JComboBox;
 import startup.App;
-import startup.Main;
 
 public class Kits extends javax.swing.JFrame {
 
@@ -101,10 +100,10 @@ public class Kits extends javax.swing.JFrame {
                     if (field == eKitpar2.params_id) {
                         if (Integer.valueOf(String.valueOf(val)) < 0) {
                             Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                            return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                            return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                         } else {
                             Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                            return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+                            return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
                         }
                     }
                 }

@@ -11,7 +11,7 @@ import java.util.Locale;
 import javax.swing.JCheckBoxMenuItem;
 import common.listener.ListenerFrame;
 import common.eProfile;
-import common.eProperty;
+import common.eProp;
 import frames.PathToDb;
 import java.util.List;
 import javax.swing.LookAndFeel;
@@ -31,8 +31,8 @@ public class Man extends javax.swing.JFrame {
     private void mnLookAndFeel(java.awt.event.ActionEvent evt) {
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             if (((JCheckBoxMenuItem) evt.getSource()).getText().equals(laf.getName()) == true) {
-                eProperty.lookandfeel.write(laf.getName());
-                eProperty.save();
+                eProp.lookandfeel.write(laf.getName());
+                eProp.save();
             }
         }
     }
@@ -538,11 +538,11 @@ public class Man extends javax.swing.JFrame {
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
 
-        if (eProperty.base_num.read().equals("1")) {
+        if (eProp.base_num.read().equals("1")) {
             mn61.setSelected(true);
-        } else if (eProperty.base_num.read().equals("2")) {
+        } else if (eProp.base_num.read().equals("2")) {
             mn62.setSelected(true);
-        } else if (eProperty.base_num.read().equals("3")) {
+        } else if (eProp.base_num.read().equals("3")) {
             mn63.setSelected(true);
         }
     }//GEN-LAST:event_mnBase
@@ -614,11 +614,11 @@ public class Man extends javax.swing.JFrame {
                 mnIt.setSelected(true);
             }
         } 
-        if (eProperty.base_num.read().equals("1")) {
+        if (eProp.base_num.read().equals("1")) {
             mn61.setSelected(true);
-        } else if (eProperty.base_num.read().equals("2")) {
+        } else if (eProp.base_num.read().equals("2")) {
             mn62.setSelected(true);
-        } else if (eProperty.base_num.read().equals("3")) {
+        } else if (eProp.base_num.read().equals("3")) {
             mn63.setSelected(true);
         }        
     }

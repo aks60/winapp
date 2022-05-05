@@ -1,6 +1,7 @@
 package frames.dialog;
 
 import builder.making.UColor;
+import common.eProp;
 import dataset.Query;
 import frames.FrameToFile;
 import frames.UGui;
@@ -9,7 +10,6 @@ import domain.eJoinvar;
 import enums.TypeJoin;
 import frames.swing.DefTableModel;
 import java.awt.Component;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -18,7 +18,6 @@ import common.listener.ListenerRecord;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.DefaultTableColumnModel;
-import startup.Main;
 
 public class DicJoinvar extends javax.swing.JDialog {
 
@@ -51,7 +50,7 @@ public class DicJoinvar extends javax.swing.JDialog {
         Object[][] rows = {{TypeJoin.VAR10.name, TypeJoin.VAR10.id}, {TypeJoin.VAR20.name, TypeJoin.VAR20.id}, {TypeJoin.VAR30.name, TypeJoin.VAR30.id},
         {TypeJoin.VAR31.name, TypeJoin.VAR31.id}, {TypeJoin.VAR40.name, TypeJoin.VAR40.id}, {TypeJoin.VAR41.name, TypeJoin.VAR41.id}};
         ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
-        if (Main.dev == false) {
+        if (eProp.dev == false) {
             ((DefaultTableColumnModel) tab1.getColumnModel()).getColumn(1).setMinWidth(0);
             ((DefaultTableColumnModel) tab1.getColumnModel()).getColumn(1).setMaxWidth(0);
         }

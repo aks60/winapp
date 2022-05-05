@@ -3,13 +3,11 @@ package frames;
 import dataset.Conn;
 import dataset.eExcep;
 import common.eProfile;
-import common.eProperty;
-import dataset.Query;
+import common.eProp;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.SwingWorker;
 import startup.App;
-import startup.Main;
 
 //Установка соединения
 public class LogoToDb extends javax.swing.JDialog {
@@ -20,14 +18,14 @@ public class LogoToDb extends javax.swing.JDialog {
         super(owner);
         initComponents();
 
-        if (Main.dev == true) {
-            if ("adm".equals(Main.profile)) {
+        if (eProp.dev == true) {
+            if ("adm".equals(eProp.profile)) {
                 edUser.setText("SYSDBA"); //user
                 edPass.setText("masterkey"); //pass
-            } else if ("tex".equals(Main.profile)) {
+            } else if ("tex".equals(eProp.profile)) {
                 edUser.setText("TEXNOLOG"); //user
                 edPass.setText("masterkey"); //pass
-            } else if ("man".equals(Main.profile)) {
+            } else if ("man".equals(eProp.profile)) {
                 edUser.setText("MANAGER"); //user
                 edPass.setText("masterkey"); //pass
             }
@@ -35,7 +33,7 @@ public class LogoToDb extends javax.swing.JDialog {
 
         } else {
             labMes.setText("");
-            edUser.setText(eProperty.user.read());
+            edUser.setText(eProp.user.read());
             edPass.requestFocus();
             getRootPane().setDefaultButton(btnOk);
         }
@@ -56,8 +54,8 @@ public class LogoToDb extends javax.swing.JDialog {
             protected Object doInBackground() throws Exception {
                 progressBar.setIndeterminate(true);
                 labMes.setText("Установка соединения с базой данных");
-                String num = eProperty.base_num.read();
-                eExcep pass = Conn.connection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), "DEFROLE");
+                String num = eProp.base_num.read();
+                eExcep pass = Conn.connection(eProp.server(num), eProp.port(num), eProp.base(num), edUser.getText(), edPass.getPassword(), "DEFROLE");
                 if (pass == eExcep.yesConn) {
                     if ("SYSDBA".equalsIgnoreCase(edUser.getText()) == false) {
 
@@ -67,26 +65,26 @@ public class LogoToDb extends javax.swing.JDialog {
                         while (rs.next()) {
                             String role = rs.getString("RDB$RELATION_NAME").trim();
                             Conn.connection().close();
-                            pass = Conn.connection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), role);
+                            pass = Conn.connection(eProp.server(num), eProp.port(num), eProp.base(num), edUser.getText(), edPass.getPassword(), role);
                             if (pass == eExcep.yesConn) {
                                 if (eProfile.P02.roleSet.contains(role)) {
                                     App.createApp(eProfile.P02);
                                 } else if (eProfile.P03.roleSet.contains(role)) {
                                     App.createApp(eProfile.P03);
                                 }
-                                eProperty.user.write(edUser.getText().trim());
-                                eProperty.password = String.valueOf(edPass.getPassword()).trim();
-                                eProperty.save();
+                                eProp.user.write(edUser.getText().trim());
+                                eProp.password = String.valueOf(edPass.getPassword()).trim();
+                                eProp.save();
                                 dispose();
                             }
                         }
                     } else {
-                        pass = Conn.connection(eProperty.server(num), eProperty.port(num), eProperty.base(num), edUser.getText(), edPass.getPassword(), null);
+                        pass = Conn.connection(eProp.server(num), eProp.port(num), eProp.base(num), edUser.getText(), edPass.getPassword(), null);
                         if (pass == eExcep.yesConn) {
                             App.createApp(eProfile.P01);
-                            eProperty.user.write(edUser.getText().trim());
-                            eProperty.password = String.valueOf(edPass.getPassword()).trim();
-                            eProperty.save();
+                            eProp.user.write(edUser.getText().trim());
+                            eProp.password = String.valueOf(edPass.getPassword()).trim();
+                            eProp.save();
                             dispose();
                         }
                     }

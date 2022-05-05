@@ -4,7 +4,7 @@ import builder.script.Winscript;
 import frames.FrameToFile;
 import common.listener.ListenerFrame;
 import common.eProfile;
-import common.eProperty;
+import common.eProp;
 import frames.Profstroy;
 import dataset.Conn;
 import dataset.Field;
@@ -69,30 +69,30 @@ public class Adm extends javax.swing.JFrame {
     private void mnLookAndFeel(java.awt.event.ActionEvent evt) {
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             if (((JCheckBoxMenuItem) evt.getSource()).getText().equals(laf.getName()) == true) {
-                eProperty.lookandfeel.write(laf.getName());
-                eProperty.save();
+                eProp.lookandfeel.write(laf.getName());
+                eProp.save();
             }
         }
     }
 
     private void loadingPath() {
 
-        if (eProperty.base_num.read().equals("1")) {
-            labPath2.setText(eProperty.server1.read() + "/" + eProperty.port1.read() + "\\" + eProperty.base1.read());
+        if (eProp.base_num.read().equals("1")) {
+            labPath2.setText(eProp.server1.read() + "/" + eProp.port1.read() + "\\" + eProp.base1.read());
 
-        } else if (eProperty.base_num.read().equals("2")) {
+        } else if (eProp.base_num.read().equals("2")) {
             //edPath.setText("D:\\Okna\\Database\\ps3\\sial3.fdb");
-            labPath2.setText(eProperty.server2.read() + "/" + eProperty.port2.read() + "\\" + eProperty.base2.read());
+            labPath2.setText(eProp.server2.read() + "/" + eProp.port2.read() + "\\" + eProp.base2.read());
 
-        } else if (eProperty.base_num.read().equals("3")) {
+        } else if (eProp.base_num.read().equals("3")) {
             //edPath.setText("D:\\Okna\\Database\\ps4\\krauss.fdb");
             //edPath.setText("D:\\Okna\\Database\\ps4\\vidnal.fdb");
-            labPath2.setText(eProperty.server3.read() + "/" + eProperty.port3.read() + "\\" + eProperty.base3.read());
+            labPath2.setText(eProp.server3.read() + "/" + eProp.port3.read() + "\\" + eProp.base3.read());
 
         }
         edPath.setText(Winscript.path());
-        if (Main.dev == true) {
-            edPort.setText((eProperty.base_num.read().equals("2") || eProperty.base_num.read().equals("3")) ? "3055" : "3050");
+        if (eProp.dev == true) {
+            edPort.setText((eProp.base_num.read().equals("2") || eProp.base_num.read().equals("3")) ? "3055" : "3050");
         } else {
             edPort.setText("3050");
         }
@@ -207,15 +207,15 @@ public class Adm extends javax.swing.JFrame {
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
 
-        if (eProperty.base_num.read().equals("1")) {
+        if (eProp.base_num.read().equals("1")) {
             btnT7.setSelected(true);
             mn631.setSelected(true);
 
-        } else if (eProperty.base_num.read().equals("2")) {
+        } else if (eProp.base_num.read().equals("2")) {
             btnT8.setSelected(true);
             mn632.setSelected(true);
 
-        } else if (eProperty.base_num.read().equals("3")) {
+        } else if (eProp.base_num.read().equals("3")) {
             btnT9.setSelected(true);
             mn633.setSelected(true);
         }
@@ -1291,10 +1291,10 @@ public class Adm extends javax.swing.JFrame {
     private void btnStart(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStart
         try {
             Query.listOpenTable.clear();
-            eProperty.user.write("sysdba");
-            eProperty.password = String.valueOf("masterkey");
-            String num_base = eProperty.base_num.read();
-            Conn.connection(eProperty.server(num_base), eProperty.port(num_base), eProperty.base(num_base), eProperty.user.read(), eProperty.password.toCharArray(), null);
+            eProp.user.write("sysdba");
+            eProp.password = String.valueOf("masterkey");
+            String num_base = eProp.base_num.read();
+            Conn.connection(eProp.server(num_base), eProp.port(num_base), eProp.base(num_base), eProp.user.read(), eProp.password.toCharArray(), null);
             Connection c2 = Conn.connection();
 
             Conn con1 = new Conn();
@@ -1526,15 +1526,15 @@ public class Adm extends javax.swing.JFrame {
                 mnIt.setSelected(true);
             }
         }
-        if (eProperty.base_num.read().equals("1")) {
+        if (eProp.base_num.read().equals("1")) {
             btnT7.setSelected(true);
             mn631.setSelected(true);
 
-        } else if (eProperty.base_num.read().equals("2")) {
+        } else if (eProp.base_num.read().equals("2")) {
             btnT8.setSelected(true);
             mn632.setSelected(true);
 
-        } else if (eProperty.base_num.read().equals("3")) {
+        } else if (eProp.base_num.read().equals("3")) {
             btnT9.setSelected(true);
             mn633.setSelected(true);
         }

@@ -1,7 +1,7 @@
 package frames;
 
 import common.eProfile;
-import common.eProperty;
+import common.eProp;
 import dataset.Conn;
 import dataset.Query;
 import java.io.File;
@@ -35,11 +35,11 @@ public class PathToDb extends javax.swing.JDialog {
 
         //Загрузка параметров входа
         labMes.setText("");
-        edHost.setText(eProperty.server(num_base));
-        edPath.setText(eProperty.base(num_base));
-        edPort.setText(eProperty.port(num_base));
-        edUser.setText(eProperty.user.read());
-        edPass.setText(eProperty.password);
+        edHost.setText(eProp.server(num_base));
+        edPath.setText(eProp.base(num_base));
+        edPort.setText(eProp.port(num_base));
+        edUser.setText(eProp.user.read());
+        edPass.setText(eProp.password);
         onCaretUpdate(null);
     }
 
@@ -67,12 +67,12 @@ public class PathToDb extends javax.swing.JDialog {
                                 } else if (App.Top.frame == null && eProfile.P03.roleSet.contains(role)) {
                                     App.createApp(eProfile.P03);
                                 }
-                                eProperty.base_num.write(num_base);
-                                eProperty.port(num_base, edPort.getText().trim());
-                                eProperty.server(num_base, edHost.getText().trim());
-                                eProperty.base(num_base, edPath.getText().trim());
-                                eProperty.user.write(edUser.getText().trim());
-                                eProperty.save();
+                                eProp.base_num.write(num_base);
+                                eProp.port(num_base, edPort.getText().trim());
+                                eProp.server(num_base, edHost.getText().trim());
+                                eProp.base(num_base, edPath.getText().trim());
+                                eProp.user.write(edUser.getText().trim());
+                                eProp.save();
                                 dispose();
                             }
                         }
@@ -82,13 +82,13 @@ public class PathToDb extends javax.swing.JDialog {
                             if (App.Top.frame == null) {
                                 App.createApp(eProfile.P01);
                             }
-                            eProperty.user.write(edUser.getText().trim());
-                            eProperty.password = String.valueOf(edPass.getPassword()).trim();
-                            eProperty.base_num.write(num_base);
-                            eProperty.port(num_base, edPort.getText().trim());
-                            eProperty.server(num_base, edHost.getText().trim());
-                            eProperty.base(num_base, edPath.getText().trim());
-                            eProperty.save();
+                            eProp.user.write(edUser.getText().trim());
+                            eProp.password = String.valueOf(edPass.getPassword()).trim();
+                            eProp.base_num.write(num_base);
+                            eProp.port(num_base, edPort.getText().trim());
+                            eProp.server(num_base, edHost.getText().trim());
+                            eProp.base(num_base, edPath.getText().trim());
+                            eProp.save();
                             dispose();
                         }
                     }
@@ -110,7 +110,7 @@ public class PathToDb extends javax.swing.JDialog {
     }
 
     public static void pathToDb(Frame parent) {
-        String num_base = eProperty.base_num.read();
+        String num_base = eProp.base_num.read();
         PathToDb pathToDb = new PathToDb(parent, num_base);
         FrameToFile.setFrameSize(pathToDb);
         pathToDb.setVisible(true);

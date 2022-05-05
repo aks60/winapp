@@ -6,7 +6,7 @@ import com.google.gson.JsonElement;
 import frames.UGui;
 import frames.FrameProgress;
 import frames.FrameToFile;
-import common.eProperty;
+import common.eProp;
 import dataset.Record;
 import builder.Wincalc;
 import domain.eSysprod;
@@ -45,7 +45,7 @@ public class Tex extends javax.swing.JFrame {
     }
 
     private void constructive() {
-        int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+        int sysprodID = Integer.valueOf(eProp.sysprodID.read());
         Record sysprodRec = eSysprod.find(sysprodID);
         String script = sysprodRec.getStr(eSysprod.script);
         if (script != null && script.isEmpty() == false) {
@@ -58,8 +58,8 @@ public class Tex extends javax.swing.JFrame {
     private void mnLookAndFeel(java.awt.event.ActionEvent evt) {
         for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             if (((JCheckBoxMenuItem) evt.getSource()).getText().equals(laf.getName()) == true) {
-                eProperty.lookandfeel.write(laf.getName());
-                eProperty.save();
+                eProp.lookandfeel.write(laf.getName());
+                eProp.save();
             }
         }
     }
@@ -71,15 +71,15 @@ public class Tex extends javax.swing.JFrame {
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
 
-        if (eProperty.base_num.read().equals("1")) {
+        if (eProp.base_num.read().equals("1")) {
             btnT7.setSelected(true);
             mn631.setSelected(true);
 
-        } else if (eProperty.base_num.read().equals("2")) {
+        } else if (eProp.base_num.read().equals("2")) {
             btnT8.setSelected(true);
             mn632.setSelected(true);
 
-        } else if (eProperty.base_num.read().equals("3")) {
+        } else if (eProp.base_num.read().equals("3")) {
             btnT9.setSelected(true);
             mn633.setSelected(true);
         }
@@ -1230,7 +1230,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private void mnDiler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDiler
         try {
             Desktop desktop = Desktop.getDesktop();
-            URI url = new URI(eProperty.url_src.read());
+            URI url = new URI(eProp.url_src.read());
             desktop.browse(url);
         } catch (URISyntaxException e) {
             System.err.println(e);
@@ -1344,13 +1344,13 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
         if("Nimbus".equals(lookAndFeel.getName())) {
             tb6.setPreferredSize(new Dimension(97, 28));
         }
-        if (eProperty.base_num.read().equals("1")) {
+        if (eProp.base_num.read().equals("1")) {
             mn631.setSelected(true);
             btnT7.setSelected(true);
-        } else if (eProperty.base_num.read().equals("2")) {
+        } else if (eProp.base_num.read().equals("2")) {
             mn632.setSelected(true);
             btnT8.setSelected(true);
-        } else if (eProperty.base_num.read().equals("3")) {
+        } else if (eProp.base_num.read().equals("3")) {
             mn633.setSelected(true);
             btnT9.setSelected(true);
         }

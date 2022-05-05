@@ -34,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefFieldEditor;
 import common.listener.ListenerRecord;
 import common.eProfile;
-import common.eProperty;
+import common.eProp;
 import common.listener.ListenerFrame;
 import common.listener.ListenerObject;
 import common.listener.ListenerReload;
@@ -146,7 +146,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.params_id) {
-                    if (Main.dev == true) {
+                    if (eProp.dev == true) {
                         return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
                                 && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     } else {
@@ -239,7 +239,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             qProject.add(qProjectAll.get(i));
         }
         //Выделяем заказ если сохранён в Property
-        int orderID = Integer.valueOf(eProperty.orderID.read());
+        int orderID = Integer.valueOf(eProp.orderID.read());
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
         int index = -1;
         for (int index2 = 0; index2 < qProject.size(); ++index2) {
@@ -281,7 +281,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
 
             //Выделяем конструкцию если сохранена в Property
-            int prjprodID = Integer.valueOf(eProperty.prjprodID.read());
+            int prjprodID = Integer.valueOf(eProp.prjprodID.read());
             for (int i = 0; i < qPrjprod.size(); ++i) {
                 if (qPrjprod.get(i).getInt(ePrjprod.id) == prjprodID) {
                     index = i;
@@ -311,7 +311,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
             lab2.setText("Заказ № " + qProject.getAs(UGui.getIndexRec(tab1), eProject.num_ord));
             int orderID = qProject.getAs(UGui.getIndexRec(tab1), eProject.id);
-            eProperty.orderID.write(String.valueOf(orderID));
+            eProp.orderID.write(String.valueOf(orderID));
 
             rsvPrj.load();
             loadingTab2();
@@ -324,7 +324,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         int index = UGui.getIndexRec(tab2);
         if (index != -1) {
             Record prjprodRec = qPrjprod.get(index);
-            eProperty.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
+            eProp.prjprodID.write(prjprodRec.getStr(ePrjprod.id)); //запишем текущий prjprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
             Object w = prjprodRec.get(ePrjprod.values().length);
             if (w instanceof Wincalc) { //прорисовка окна               
@@ -2643,7 +2643,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1, tab2, tab4, tab3);
-        eProperty.save(); //запишем текущий ordersId в файл
+        eProp.save(); //запишем текущий ordersId в файл
         List.of(qProject, qPrjprod).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
 

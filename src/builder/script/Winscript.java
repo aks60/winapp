@@ -7,7 +7,7 @@ import builder.script.test.Sial3;
 import builder.script.test.Krauss;
 import builder.script.test.Bimax;
 import builder.script.test.Sokol;
-import common.eProperty;
+import common.eProp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,8 +16,8 @@ public class Winscript {
     public static GsonRoot rootGson;
 
     public static String test(Integer prj, boolean model) {
-        String base_name = (eProperty.base_num.read().equals("1")) ? eProperty.base1.read()
-                : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
+        String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
+                : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 
         if (base_name.toLowerCase().contains("sial3.fdb")) {
             return Sial3.script(prj, model);
@@ -44,8 +44,8 @@ public class Winscript {
     }
 
     public static List<Integer> models(String p) {
-        String base_name = (eProperty.base_num.read().equals("1")) ? eProperty.base1.read()
-                : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
+        String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
+                : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 
         if (base_name.toLowerCase().contains("sial3.fdb")) {
             return List.of(601001, 601002, 601003, 601004, 601007, 601008);
@@ -77,8 +77,8 @@ public class Winscript {
     }
 
     public static String path() {
-        String base_name = (eProperty.base_num.read().equals("1")) ? eProperty.base1.read()
-                : (eProperty.base_num.read().equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
+        String base_name = (eProp.base_num.read().equals("1")) ? eProp.base1.read()
+                : (eProp.base_num.read().equals("2")) ? eProp.base2.read() : eProp.base3.read();
 
         if (base_name.toLowerCase().contains("sial3.fdb")) {
             return "D:\\Okna\\Database\\ps3\\sial3b.fdb";

@@ -10,7 +10,6 @@ import domain.eFurnpar2;
 import domain.eFurnside1;
 import domain.eColor;
 import domain.eFurnside2;
-import java.util.Arrays;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -28,10 +27,10 @@ import frames.dialog.ParGrup2a;
 import domain.eParams;
 import enums.Enam;
 import builder.param.ParamList;
+import common.eProp;
 import enums.LayoutFurn1;
 import enums.UseFurn3;
 import enums.LayoutFurn3;
-import enums.TypeArtikl;
 import enums.TypeGroups;
 import enums.UseColor;
 import enums.UseFurn1;
@@ -44,8 +43,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.swing.RowFilter;
-import startup.Main;
 import startup.App;
 import javax.swing.JOptionPane;
 import common.listener.ListenerRecord;
@@ -284,10 +281,10 @@ public class Furniturs extends javax.swing.JFrame {
                 if (field == eFurnpar1.params_id && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -313,10 +310,10 @@ public class Furniturs extends javax.swing.JFrame {
                 if (val != null && field == eFurnpar2.params_id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;

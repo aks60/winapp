@@ -1,6 +1,6 @@
 package report;
 
-import common.eProperty;
+import common.eProp;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,7 +40,7 @@ public class ExecuteCmd {
 
         Desktop desktop = Desktop.getDesktop();
         try {
-            URI url = new URI(eProperty.url_src.read() + "/appdoc/help/director/" + file.replace('.', '/') + ".html");
+            URI url = new URI(eProp.url_src.read() + "/appdoc/help/director/" + file.replace('.', '/') + ".html");
 //            if ("192.168.33.4".equals(eProperty.server.read())) {
 //                url = new URI("http://89.107.28.10:8080/appdoc/help/director/" + file.replace('.', '/') + ".html");
 //            }
@@ -55,12 +55,12 @@ public class ExecuteCmd {
     //Запуск HTML
     public static void startHtml(String fileName) {
         try {
-            String fileExe = eProperty.cmd_html.read();
+            String fileExe = eProp.cmd_html.read();
             if (System.getProperty("os.name").equals("Linux")) {
-                String path = eProperty.path_prop.read();
+                String path = eProp.path_prop.read();
                 Runtime.getRuntime().exec(fileExe + " " + path + "/" + fileName);
             } else {
-                String path = replacePath(eProperty.path_prop.read());
+                String path = replacePath(eProp.path_prop.read());
                 String[] cmd = arraysPath(fileExe, path, fileName);
                 Runtime.getRuntime().exec(cmd);
             }
@@ -72,12 +72,12 @@ public class ExecuteCmd {
     //Запуск Word
     public static void startWord(String fileName) {
         try {
-            String fileExe = eProperty.cmd_word.read();
+            String fileExe = eProp.cmd_word.read();
             if (System.getProperty("os.name").equals("Linux")) {
-                String path = eProperty.path_prop.read();
+                String path = eProp.path_prop.read();
                 Runtime.getRuntime().exec(fileExe + " " + path + "/" + fileName);
             } else {
-                String path = replacePath(eProperty.path_prop.read());
+                String path = replacePath(eProp.path_prop.read());
                 String[] cmd = arraysPath(fileExe, path, fileName);
                 Runtime.getRuntime().exec(cmd);
             }
@@ -89,12 +89,12 @@ public class ExecuteCmd {
     //Запуск Excel
     public static void startExcel(String fileName) {
         try {
-            String fileExe = eProperty.cmd_excel.read();
+            String fileExe = eProp.cmd_excel.read();
             if (System.getProperty("os.name").equals("Linux")) {
-                String path = eProperty.path_prop.read();
+                String path = eProp.path_prop.read();
                 Runtime.getRuntime().exec(fileExe + " " + path + "/" + fileName);
             } else {
-                String path = replacePath(eProperty.path_prop.read());
+                String path = replacePath(eProp.path_prop.read());
                 String[] cmd = arraysPath(fileExe, path, fileName);
                 Runtime.getRuntime().exec(cmd);
             }
@@ -113,7 +113,7 @@ public class ExecuteCmd {
                 File file = new File(entry.getName());
                 if (file.getName().equals(template)) {
                     out = new BufferedOutputStream(
-                            new FileOutputStream(new File(eProperty.path_prop.read(), "report.html")));
+                            new FileOutputStream(new File(eProp.path_prop.read(), "report.html")));
                     byte[] buffer = new byte[8192];
                     int readed;
                     while ((readed = in.read(buffer)) > 0) {

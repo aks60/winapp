@@ -8,7 +8,6 @@ import domain.eGlasgrp;
 import domain.eGlaspar1;
 import domain.eGlaspar2;
 import domain.eGlasprof;
-import java.util.Arrays;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -29,20 +28,17 @@ import domain.eGroups;
 import domain.eParams;
 import enums.Enam;
 import builder.param.ParamList;
+import common.eProp;
 import enums.TypeGroups;
 import enums.UseColor;
 import frames.dialog.DicName;
 import java.util.List;
-import java.util.stream.Stream;
-import javax.swing.RowFilter;
-import startup.Main;
 import frames.swing.DefCellBoolRenderer;
 import frames.swing.FilterTable;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.App;
 import common.listener.ListenerRecord;
-import common.listener.ListenerObject;
 import common.listener.ListenerFrame;
 
 public class Fillings extends javax.swing.JFrame {
@@ -141,10 +137,10 @@ public class Fillings extends javax.swing.JFrame {
                 if (val != null && eGlaspar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -157,10 +153,10 @@ public class Fillings extends javax.swing.JFrame {
                 if (val != null && field == eGlaspar2.params_id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;

@@ -14,7 +14,7 @@ import startup.Main;
  *
  * Параметры программы
  */
-public enum eProperty {
+public enum eProp {
 
     lookandfeel("Metal", "Windows"),
     url_src("http://localhost:8080/winweb/"),
@@ -55,14 +55,17 @@ public enum eProperty {
     public static FileWriter logconv = null;
     public static String fb = "fb";
     //public static String pg = "pg";
+    public static boolean dev = true;     //признак разработки и тестирования
+    public static boolean locate = false;  //координаты фрейма разработки и тестирования
+    public static String profile = "";     //профиль разработки и тестирования     
 
     //Значение по умолчанию
-    eProperty(String value) {
+    eProp(String value) {
         this.value = value;
     }
 
     //Значение по умолчанию для конкретной OS
-    eProperty(String value1, String value2) {
+    eProp(String value1, String value2) {
         String os = System.getProperty("os.name");
         this.value = os.equals("Linux") ? value1 : value2;
     }
@@ -127,29 +130,29 @@ public enum eProperty {
     }
     
     public static String port(String num) {
-        return (num.equals("1")) ? eProperty.port1.read() : (num.equals("2")) ? eProperty.port2.read() : eProperty.port3.read();
+        return (num.equals("1")) ? eProp.port1.read() : (num.equals("2")) ? eProp.port2.read() : eProp.port3.read();
     }
 
     public static void port(String num, String name) {
-        eProperty p = (num.equals("1")) ? eProperty.port1 : (num.equals("2")) ? eProperty.port2 : eProperty.port3;
+        eProp p = (num.equals("1")) ? eProp.port1 : (num.equals("2")) ? eProp.port2 : eProp.port3;
         p.write(name);
     }
     
     public static String server(String num) {
-        return (num.equals("1")) ? eProperty.server1.read() : (num.equals("2")) ? eProperty.server2.read() : eProperty.server3.read();
+        return (num.equals("1")) ? eProp.server1.read() : (num.equals("2")) ? eProp.server2.read() : eProp.server3.read();
     }
 
     public static void server(String num, String name) {
-        eProperty p = (num.equals("1")) ? eProperty.server1 : (num.equals("2")) ? eProperty.server2 : eProperty.server3;
+        eProp p = (num.equals("1")) ? eProp.server1 : (num.equals("2")) ? eProp.server2 : eProp.server3;
         p.write(name);
     }
 
     public static String base(String num) {
-        return (num.equals("1")) ? eProperty.base1.read() : (num.equals("2")) ? eProperty.base2.read() : eProperty.base3.read();
+        return (num.equals("1")) ? eProp.base1.read() : (num.equals("2")) ? eProp.base2.read() : eProp.base3.read();
     }
 
     public static void base(String num, String name) {
-        eProperty p = (num.equals("1")) ? eProperty.base1 : (num.equals("2")) ? eProperty.base2 : eProperty.base3;
+        eProp p = (num.equals("1")) ? eProp.base1 : (num.equals("2")) ? eProp.base2 : eProp.base3;
         p.write(name);
     }
 }

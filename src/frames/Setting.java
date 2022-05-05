@@ -1,6 +1,6 @@
 package frames;
 
-import common.eProperty;
+import common.eProp;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
 import javax.swing.DefaultComboBoxModel;
@@ -369,21 +369,21 @@ public class Setting extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnProp2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProp2
-        eProperty.fontname.write(fontName[comboBox.getSelectedIndex()]);
-        eProperty.fontsize.write(String.valueOf(spinner2.getValue()));
-        eProperty.save();
+        eProp.fontname.write(fontName[comboBox.getSelectedIndex()]);
+        eProp.fontsize.write(String.valueOf(spinner2.getValue()));
+        eProp.save();
     }//GEN-LAST:event_btnProp2
 
     private void btnProp3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProp3
-        eProperty.cmd_word.write(txtWord.getText());
-        eProperty.cmd_excel.write(txtExcel.getText());
-        eProperty.cmd_html.write(txtHtml.getText());
-        eProperty.save();
+        eProp.cmd_word.write(txtWord.getText());
+        eProp.cmd_excel.write(txtExcel.getText());
+        eProp.cmd_html.write(txtHtml.getText());
+        eProp.save();
 }//GEN-LAST:event_btnProp3
 
     private void btnProp4(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProp4
-        eProperty.url_src.write(txtURL.getText());
-        eProperty.save();
+        eProp.url_src.write(txtURL.getText());
+        eProp.save();
     }//GEN-LAST:event_btnProp4
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">    
@@ -420,17 +420,17 @@ public class Setting extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
         
-        txtWord.setText(eProperty.cmd_word.read());
-        txtExcel.setText(eProperty.cmd_excel.read());
-        txtHtml.setText(eProperty.cmd_html.read());
+        txtWord.setText(eProp.cmd_word.read());
+        txtExcel.setText(eProp.cmd_excel.read());
+        txtHtml.setText(eProp.cmd_html.read());
 
-        txtURL.setText(eProperty.url_src.read());
-        Integer num = Integer.valueOf(eProperty.web_port.read());
-        boolean start = (eProperty.web_start.read().equals("true") == true) ? true : false;
+        txtURL.setText(eProp.url_src.read());
+        Integer num = Integer.valueOf(eProp.web_port.read());
+        boolean start = (eProp.web_start.read().equals("true") == true) ? true : false;
 
         comboBox.setModel(new DefaultComboBoxModel(fontName));
-        String name = eProperty.fontname.read();
-        Integer size = Integer.valueOf(eProperty.fontsize.read());
+        String name = eProp.fontname.read();
+        Integer size = Integer.valueOf(eProp.fontsize.read());
         for (int i = 0; i < fontName.length; i++) {
             if (name.equals(fontName[i])) {
                 comboBox.setSelectedIndex(i);

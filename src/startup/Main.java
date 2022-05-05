@@ -3,17 +3,13 @@ package startup;
 import frames.LogoToDb;
 import frames.FrameToFile;
 import common.eProfile;
-import common.eProperty;
+import common.eProp;
 import java.util.Locale;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 public class Main {
-
-    public static boolean dev = true;     //признак разработки и тестирования
-    public static boolean locate = false;  //координаты фрейма разработки и тестирования
-    public static String profile = "";     //профиль разработки и тестирования 
 
     //Конструктор
     public Main() {
@@ -28,16 +24,16 @@ public class Main {
         
         for (int index = 0; index < args.length; index++) {
             if (index == 0 && args[0].equals("adm")) {
-                Main.profile = args[0];
+                eProp.profile = args[0];
 
             } else if (index == 0 && args[0].equals("tex")) {
-                Main.profile = args[0];
+                eProp.profile = args[0];
 
             } else if (index == 0 && args[0].equals("man")) {
-                Main.profile = args[0];
+                eProp.profile = args[0];
             }
             if (index == 1 && args[1].equals("loc")) {
-                Main.locate = true;
+                eProp.locate = true;
             }
         }
         SwingUtilities.invokeLater(new Runnable() {
@@ -45,7 +41,7 @@ public class Main {
             public void run() {
                 try {
                     runRussifier();
-                    String lafName = eProperty.lookandfeel.read();
+                    String lafName = eProp.lookandfeel.read();
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     for (LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
                         if (lafName.equals(laf.getName())) {
@@ -61,7 +57,7 @@ public class Main {
 
                     public void run() {
                         try {
-                            eProperty.save();
+                            eProp.save();
                         } catch (Exception e) {
                             System.err.println(e);
                         }

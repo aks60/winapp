@@ -20,7 +20,7 @@ import domain.eJoinpar2;
 import domain.eParams;
 import enums.Enam;
 import builder.param.ParamList;
-import java.util.Arrays;
+import common.eProp;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -39,7 +39,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
-import startup.Main;
 import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
@@ -139,10 +138,10 @@ public class Joinings extends javax.swing.JFrame {
                 if (val != null && eJoinpar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -197,10 +196,10 @@ public class Joinings extends javax.swing.JFrame {
                 if (val != null && eJoinpar2.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
+                        return (eProp.dev) ? val + ":" + record.getStr(eParams.text) : record.getStr(eParams.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
+                        return (eProp.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;

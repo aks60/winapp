@@ -23,12 +23,12 @@ import javax.script.ScriptEngineManager;
 
 public class Test {
 
-    public static Integer numDb = Integer.valueOf(eProperty.base_num.read());
+    public static Integer numDb = Integer.valueOf(eProp.base_num.read());
 
     // <editor-fold defaultstate="collapsed" desc="Connection[] connect(int numDb)">
     public static Connection connect1() {
         try {
-            String db = (numDb == 1) ? eProperty.base1.read() : (numDb == 2) ? eProperty.base2.read() : eProperty.base3.read();
+            String db = (numDb == 1) ? eProp.base1.read() : (numDb == 2) ? eProp.base2.read() : eProp.base3.read();
             if (db.toUpperCase().contains("BIMAX.FDB")) {
                 return java.sql.DriverManager.getConnection("jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\ps4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             } else if (db.toUpperCase().contains("SIAL3.FDB")) {
@@ -53,9 +53,9 @@ public class Test {
 
     public static Connection connect2() {
         try {
-            eProperty.user.write("sysdba");
-            eProperty.password = String.valueOf("masterkey");
-            Conn.connection(eProperty.server(numDb.toString()), eProperty.port(numDb.toString()), eProperty.base(numDb.toString()), eProperty.user.read(), eProperty.password.toCharArray(), null);;
+            eProp.user.write("sysdba");
+            eProp.password = String.valueOf("masterkey");
+            Conn.connection(eProp.server(numDb.toString()), eProp.port(numDb.toString()), eProp.base(numDb.toString()), eProp.user.read(), eProp.password.toCharArray(), null);;
             return Conn.connection();
         } catch (Exception e) {
             System.err.println("Ошибка:Test.connect() " + e);
@@ -67,7 +67,7 @@ public class Test {
     //
     public static void main(String[] args) throws Exception { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
 
-        Main.dev = true;
+        eProp.dev = true;
         try {
             //Profstroy.exec();
             wincalc();

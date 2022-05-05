@@ -1,7 +1,7 @@
 package frames;
 
 import com.google.gson.Gson;
-import common.eProperty;
+import common.eProp;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
@@ -144,7 +144,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     public void loadingData() {
         //Получим сохр. ID системы при выходе из программы
-        Record sysprodRec = eSysprod.find(Integer.valueOf(eProperty.sysprodID.read()));
+        Record sysprodRec = eSysprod.find(Integer.valueOf(eProp.sysprodID.read()));
         if (sysprodRec != null) {
             systreeID = sysprodRec.getInt(eSysprod.systree_id);
         }
@@ -236,7 +236,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.params_id) {
-                    if (Main.dev == true) {
+                    if (eProp.dev == true) {
                         return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
                                 && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     } else {
@@ -252,7 +252,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.params_id) {
-                    if (Main.dev == true) {
+                    if (eProp.dev == true) {
                         return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
                                 && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     } else {
@@ -563,7 +563,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             if (qSysprod.isEmpty() == false) {
 
                 int index = -1;
-                int sysprodID = Integer.valueOf(eProperty.sysprodID.read());
+                int sysprodID = Integer.valueOf(eProp.sysprodID.read());
                 for (int i = 0; i < qSysprod.size(); ++i) {
                     if (qSysprod.get(i).getInt(eSysprod.id) == sysprodID) {
                         index = i;
@@ -713,7 +713,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         int index = UGui.getIndexRec(tab5);
         if (index != -1) {
             Record sysprodRec = qSysprod.table(eSysprod.up).get(index);
-            eProperty.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
+            eProp.sysprodID.write(sysprodRec.getStr(eSysprod.id)); //запишем текущий sysprodID в файл
             App.Top.frame.setTitle(eProfile.profile.title + UGui.designTitle());
 
             Object w = sysprodRec.get(eSysprod.values().length);

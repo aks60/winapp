@@ -1,17 +1,11 @@
 package builder.script;
 
-import frames.swing.draw.Scale;
-import builder.Wincalc;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import common.eProp;
 import enums.Form;
 import enums.Layout;
 import enums.Type;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-import startup.Main;
 
 public class GsonRoot extends GsonElem {
 
@@ -72,7 +66,7 @@ public class GsonRoot extends GsonElem {
         this.nuni = nuni;
         this.prj = Integer.valueOf(prj);
         this.name = (name == null) ? this.name : name;
-        if (nuni == -3 && Main.dev == false) {
+        if (nuni == -3 && eProp.dev == false) {
             this.color1 = -3;
             this.color2 = -3;
             this.color3 = -3;
