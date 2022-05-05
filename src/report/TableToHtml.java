@@ -15,16 +15,6 @@ public class TableToHtml {
     private static String charset = "UTF-8";
     private static int npp = 0;
 
-    public void stringJoin() {
-        String str = String.join(
-                " ccc",
-                "       Get busy living",
-                "       or",
-                "    get busy dying.",
-                "Stephen King"
-        );
-    }
-
     public static void load(String title, JTable table) {
         if (System.getProperty("os.name").equals("Linux")) {
             charset = "UTF-8";
@@ -59,19 +49,25 @@ public class TableToHtml {
 
     //Сформировать файл в текстовом формате
     public static String text(String title, JTable table) {
+        String str = String.join("",
+                "<HTML><META http-equiv=Content-Type content='text/html; charset=" + charset + "'>",
+                "<HEAD>",
+                  "<STYLE>",
+                "   TABLE{ border: none; border-collapse:collapse;}",
+                "   CAPTION{ color: #0000FF; font-size: 18px}",
+                "   TH {border: 0.5pt solid black;}",
+                "   TD {border: 0.5pt solid black;}",
+                "   TD.TDFC {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDFR {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDC  {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDCB {height: 20px; border-left: none;  border-right: none;}",
+                " </STYLE>",
+                "</HEAD>",
+                "<BODY>",
+                "  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=1>",
+                "  <CAPTION><br>" + title + "<br><br></CAPTION>",
+                "  <col width='250' valign='top'>");
 
-        String str = "<HTML><META http-equiv=Content-Type content=\" "
-                + " text/html; charset=" + charset + " \"> <HEAD> <STYLE>  <!-- "
-                + "TABLE{ border: none; border-collapse:collapse; } "
-                + "CAPTION{ color: #0000FF; font-size: 18px} "
-                + "TH{ border: 0.5pt solid black; } "
-                + "TD{ border: 0.5pt solid black; } "
-                + "TD.TDFC{ background-color: #FFFFFF; border: 0.5pt solid black; } "
-                + "TD.TDFR{ background-color: #FFFFFF; border: 0.5pt solid black; } "
-                + "TD.TDC{ background-color: #FFFFFF; border: 0.5pt solid black; } "
-                + "TD.TDCB { height: 20px; border-left: none;  border-right: none; } --> </STYLE> "
-                + "</HEAD> <BODY> <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=1> "
-                + "<CAPTION><br> " + title + " <br><br></CAPTION> ";
         //записал название выбранных столбцов
         for (int index = 0; index < table.getColumnCount(); index++) {
             String colName = table.getColumnName(index);
@@ -99,18 +95,25 @@ public class TableToHtml {
     //Сформировать файл в текстовом формате
     public static String text(String title, JTable table, JTable table2) {
 
-        String str = "<HTML><META http-equiv=Content-Type content=\" "
-                + " text/html; charset=" + charset + " \"> <HEAD> <STYLE>  <!-- "
-                + "TABLE{ border: none; border-collapse:collapse; } "
-                + "CAPTION{ color: #0000FF; font-size: 18px} "
-                + "TH{ border: 0.5pt solid black; } "
-                + "TD{ border: 0.5pt solid black; } "
-                + "TD.TDFC{ background-color: #FFFFFF; border: 0.5pt solid black; } "
-                + "TD.TDFR{ background-color: #FFFFFF; border: 0.5pt solid black; } "
-                + "TD.TDC{ background-color: #FFFFFF; border: 0.5pt solid black; } "
-                + "TD.TDCB { height: 20px; border-left: none;  border-right: none; } --> </STYLE> "
-                + "</HEAD> <BODY> <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=1> "
-                + "<CAPTION><br> " + title + " <br><br></CAPTION> ";
+        String str = String.join("",
+                "<HTML><META http-equiv=Content-Type content='text/html; charset=" + charset + "'>",
+                "<HEAD>",
+                  "<STYLE>",
+                "   TABLE{ border: none; border-collapse:collapse;}",
+                "   CAPTION{ color: #0000FF; font-size: 18px}",
+                "   TH {border: 0.5pt solid black;}",
+                "   TD {border: 0.5pt solid black;}",
+                "   TD.TDFC {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDFR {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDC  {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDCB {height: 20px; border-left: none;  border-right: none;}",
+                " </STYLE>",
+                "</HEAD>",
+                "<BODY>",
+                "  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=1>",
+                "  <CAPTION><br>" + title + "<br><br></CAPTION>",
+                "  <col width='250' valign='top'>");
+        
         //записал название выбранных столбцов
         int indexTitle = 0;
         for (indexTitle = 0; indexTitle < table.getColumnCount(); indexTitle++) {
@@ -151,18 +154,25 @@ public class TableToHtml {
     //Сформировать файл в текстовом формате
     public static String text(String title, Table table, Field... fields) {
 
-        String str = "<HTML><META http-equiv=Content-Type content=\" "
-                + " text/html; charset=" + charset + " \"> <HEAD> <STYLE>  <!-- "
-                + "TABLE{ border: none; border-collapse:collapse; } "
-                + "CAPTION{ color: #0000FF; font-size: 18px} "
-                + "TH{ border: 0.5pt solid black; } "
-                + "TD{ border: 0.5pt solid black; } "
-                + "TD.TDFC{ background-color: #FFFFFF; border: 0.5pt solid black; } "
-                + "TD.TDFR{ background-color: #FFFFFF; border: 0.5pt solid black; } "
-                + "TD.TDC{ background-color: #FFFFFF; border: 0.5pt solid black; } "
-                + "TD.TDCB { height: 20px; border-left: none;  border-right: none; } --> </STYLE> "
-                + "</HEAD> <BODY> <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=1> "
-                + "<CAPTION><br> " + title + " <br><br></CAPTION> ";
+        String str = String.join("",
+                "<HTML><META http-equiv=Content-Type content='text/html; charset=" + charset + "'>",
+                "<HEAD>",
+                  "<STYLE>",
+                "   TABLE{ border: none; border-collapse:collapse;}",
+                "   CAPTION{ color: #0000FF; font-size: 18px}",
+                "   TH {border: 0.5pt solid black;}",
+                "   TD {border: 0.5pt solid black;}",
+                "   TD.TDFC {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDFR {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDC  {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDCB {height: 20px; border-left: none;  border-right: none;}",
+                " </STYLE>",
+                "</HEAD>",
+                "<BODY>",
+                "  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=1>",
+                "  <CAPTION><br>" + title + "<br><br></CAPTION>",
+                "  <col width='250' valign='top'>");
+        
         //записал название выбранных столбцов
         for (Field field : fields) {
             str += "<TH>" + field.meta().fname + "</TH>";
@@ -189,18 +199,24 @@ public class TableToHtml {
     //Сформировать файл в текстовом формате
     public static String text(String title, Table table, ArrayList<RColumn> listRColumn) {
 
-        String str = "<HTML><META http-equiv=Content-Type content=\" "
-                + " text/html; charset=" + charset + " \"> <HEAD> <STYLE>  <!-- "
-                + "TABLE{ border: none; border-collapse:collapse; } "
-                + "CAPTION{ color: #0000FF; font-size: 18px} "
-                + "TH{ border: 0.5pt solid black; } "
-                + "TD{ border: 0.5pt solid black; } "
-                + "TD.TDFC{ background-color: #FFFFFF; border: 0.5pt solid black; } "
-                + "TD.TDFR{ background-color: #FFFFFF; border: 0.5pt solid black; } "
-                + "TD.TDC{ background-color: #FFFFFF; border: 0.5pt solid black; } "
-                + "TD.TDCB { height: 20px; border-left: none;  border-right: none; } --> </STYLE> "
-                + "</HEAD> <BODY> <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=1> "
-                + "<CAPTION><br> " + title + " <br><br></CAPTION> ";
+        String str = String.join("",
+                "<HTML><META http-equiv=Content-Type content='text/html; charset=" + charset + "'>",
+                "<HEAD>",
+                  "<STYLE>",
+                "   TABLE{ border: none; border-collapse:collapse;}",
+                "   CAPTION{ color: #0000FF; font-size: 18px}",
+                "   TH {border: 0.5pt solid black;}",
+                "   TD {border: 0.5pt solid black;}",
+                "   TD.TDFC {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDFR {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDC  {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDCB {height: 20px; border-left: none;  border-right: none;}",
+                " </STYLE>",
+                "</HEAD>",
+                "<BODY>",
+                "  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=1>",
+                "  <CAPTION><br>" + title + "<br><br></CAPTION>",
+                "  <col width='250' valign='top'>");
 
         //записал название выбранных столбцов
         str += "<TH>№пп</TH>";
