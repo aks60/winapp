@@ -65,8 +65,7 @@ public class TableToHtml {
                 "</HEAD>",
                 "<BODY>",
                 "  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=1>",
-                "  <CAPTION><br>" + title + "<br><br></CAPTION>",
-                "  <col width='250' valign='top'>");
+                "  <CAPTION><br>" + title + "<br><br></CAPTION>");
 
         //записал название выбранных столбцов
         for (int index = 0; index < table.getColumnCount(); index++) {
