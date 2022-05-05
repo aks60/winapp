@@ -17,6 +17,7 @@ import startup.Main;
 import builder.Wincalc;
 import builder.script.GsonElem;
 import common.UCom;
+import common.interfac.Area;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
@@ -27,6 +28,7 @@ public class AreaSimple extends Com5t {
     public Form form = null; //форма контура (параметр в развитии)
     public EnumMap<Layout, ElemFrame> frames = new EnumMap<>(Layout.class); //список рам в окне     
     public LinkedList<Com5t> childs = new LinkedList(); //дети
+    private Area area = null;
 
     public AreaSimple(Wincalc winc) {
         super(winc.rootGson.id(), winc, null, winc.rootGson);
@@ -66,6 +68,7 @@ public class AreaSimple extends Com5t {
     }
 
     public void initСonstructiv(JsonObject param) {
+        //if(Main.dev)
         if (isJson(param, PKjson.sysprofID)) {//профили через параметр
             sysprofRec = eSysprof.find3(param.get(PKjson.sysprofID).getAsInt());
         }
