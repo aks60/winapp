@@ -17,6 +17,8 @@ import builder.Wincalc;
 import builder.script.GsonElem;
 import common.UCom;
 import common.eProp;
+import common.interfac.Drawing;
+import common.interfac.Location;
 import enums.Form;
 import enums.PKjson;
 import enums.Type;
@@ -175,44 +177,56 @@ public class AreaSimple extends Com5t {
 
     //Рисуем конструкцию
     public void draw() {
-        try {
-            //Прорисовка стеклопакетов
-            LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
-            elemGlassList.stream().forEach(el -> el.paint());
+        if (eProp.old == true) {
+            drawing.draw();
+        } else {
+            try {
+                //Прорисовка стеклопакетов
+                LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+                elemGlassList.stream().forEach(el -> el.paint());
 
-            //Прорисовка импостов
-            LinkedList<ElemCross> elemImpostList = UCom.listSortObj(winc.listElem, Type.IMPOST);
-            elemImpostList.stream().forEach(el -> el.paint());
+                //Прорисовка импостов
+                LinkedList<ElemCross> elemImpostList = UCom.listSortObj(winc.listElem, Type.IMPOST);
+                elemImpostList.stream().forEach(el -> el.paint());
 
-            //Прорисовка штульпов
-            LinkedList<ElemCross> elemShtulpList = UCom.listSortObj(winc.listElem, Type.SHTULP);
-            elemShtulpList.stream().forEach(el -> el.paint());
+                //Прорисовка штульпов
+                LinkedList<ElemCross> elemShtulpList = UCom.listSortObj(winc.listElem, Type.SHTULP);
+                elemShtulpList.stream().forEach(el -> el.paint());
 
-            //Прорисовка стоек
-            LinkedList<ElemCross> elemStoikaList = UCom.listSortObj(winc.listElem, Type.STOIKA);
-            elemStoikaList.stream().forEach(el -> el.paint());
+                //Прорисовка стоек
+                LinkedList<ElemCross> elemStoikaList = UCom.listSortObj(winc.listElem, Type.STOIKA);
+                elemStoikaList.stream().forEach(el -> el.paint());
 
-            //Прорисовка рам
-            frames.get(Layout.TOP).paint();
-            frames.get(Layout.BOTT).paint();
-            frames.get(Layout.LEFT).paint();
-            frames.get(Layout.RIGHT).paint();
+                //Прорисовка рам
+                frames.get(Layout.TOP).paint();
+                frames.get(Layout.BOTT).paint();
+                frames.get(Layout.LEFT).paint();
+                frames.get(Layout.RIGHT).paint();
 
-            //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = UCom.listSortObj(winc.listArea, Type.STVORKA);
-            elemStvorkaList.stream().forEach(el -> el.paint());
+                //Прорисовка створок
+                LinkedList<AreaStvorka> elemStvorkaList = UCom.listSortObj(winc.listArea, Type.STVORKA);
+                elemStvorkaList.stream().forEach(el -> el.paint());
 
-            //Рисунок в память
-            if (winc.bufferImg != null) {
-                ByteArrayOutputStream byteArrOutStream = new ByteArrayOutputStream();
-                ImageIO.write(winc.bufferImg, "png", byteArrOutStream);
-                if (eProp.dev == true) {
-                    File outputfile = new File("CanvasImage.png");
-                    ImageIO.write(winc.bufferImg, "png", outputfile);
+                //Рисунок в память
+                if (winc.bufferImg != null) {
+                    ByteArrayOutputStream byteArrOutStream = new ByteArrayOutputStream();
+                    ImageIO.write(winc.bufferImg, "png", byteArrOutStream);
+                    if (eProp.dev == true) {
+                        File outputfile = new File("CanvasImage.png");
+                        ImageIO.write(winc.bufferImg, "png", outputfile);
+                    }
                 }
+            } catch (Exception s) {
+                System.err.println("Ошибка:AreaSimple.drawWin() " + s);
             }
-        } catch (Exception s) {
-            System.err.println("Ошибка:AreaSimple.drawWin() " + s);
         }
     }
+
+// <editor-fold defaultstate="collapsed" desc="Version"> 
+    private Drawing drawing = () -> {
+    };
+
+    private Location localion = (float width, float heigh) -> {
+    };
+// </editor-fold>  
 }
