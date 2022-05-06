@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import dataset.Field;
+import dataset.Record;
 import dataset.Table;
 
 //Преобразование документа в HTML </p>
@@ -47,6 +48,50 @@ public class TableToHtml {
         write(text(title, table1, table2));
     }
 
+    //Сформировать файл в текстовом формате
+    public static String text(String title, Table table, Field... fields) {
+        String str = String.join("",
+                "<HTML><META http-equiv=Content-Type content='text/html; charset=" + charset + "'>",
+                "<HEAD>",
+                  "<STYLE>",
+                "   TABLE{ border: none; border-collapse:collapse;}",
+                "   CAPTION{ color: #0000FF; font-size: 18px}",
+                "   TH {border: 0.5pt solid black;}",
+                "   TD {border: 0.5pt solid black;}",
+                "   TD.TDFC {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDFR {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDC  {background-color: #FFFFFF; border: 0.5pt solid black;}",
+                "   TD.TDCB {height: 20px; border-left: none;  border-right: none;}",
+                " </STYLE>",
+                "</HEAD>",
+                "<BODY>",
+                "  <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=1>",
+                "  <CAPTION><br>" + title + "<br><br></CAPTION>");
+
+        //записал название выбранных столбцов
+        for (int index = 0; index < fields.length; index++) {
+            String colName = fields[index].meta().descr;
+            str += "<TH>" + colName + "</TH>";
+        }
+        //поехали !!!
+        for (Record record: table) {
+            str += "<TR>";//начало строки
+            //первый столбец, фиксированные записи
+            Object obj = record.get(fields[0]);
+            String str2 = (obj == null) ? "" : obj.toString();
+            str += "<TD class=TDFC>" + str2 + "</TD>";
+            //остальные столбцы
+            for (Field field: fields) {
+                obj = record.get(field);
+                str2 = (obj == null) ? "" : obj.toString();
+                str += "<TD class=TDC>" + str2 + "</TD>";
+            }
+            str += "</TR>";//конец строки
+        }
+        str += "</TABLE></BODY>";
+        return str;
+    }
+    
     //Сформировать файл в текстовом формате
     public static String text(String title, JTable table) {
         String str = String.join("",
@@ -151,7 +196,7 @@ public class TableToHtml {
     }
 
     //Сформировать файл в текстовом формате
-    public static String text(String title, Table table, Field... fields) {
+    public static String text2(String title, Table table, Field... fields) {
 
         String str = String.join("",
                 "<HTML><META http-equiv=Content-Type content='text/html; charset=" + charset + "'>",

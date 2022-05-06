@@ -177,7 +177,7 @@ public class AreaSimple extends Com5t {
 
     //Рисуем конструкцию
     public void draw() {
-        if (eProp.old == true) {
+        if (eProp.old.read().equals("1")) {
             drawing.draw();
         } else {
             try {
@@ -216,6 +216,7 @@ public class AreaSimple extends Com5t {
                         ImageIO.write(winc.bufferImg, "png", outputfile);
                     }
                 }
+                System.out.println("777");
             } catch (Exception s) {
                 System.err.println("Ошибка:AreaSimple.drawWin() " + s);
             }
@@ -224,6 +225,46 @@ public class AreaSimple extends Com5t {
 
 // <editor-fold defaultstate="collapsed" desc="Version"> 
     private Drawing drawing = () -> {
+        try {
+            //Прорисовка стеклопакетов
+            LinkedList<ElemGlass> elemGlassList = UCom.listSortObj(winc.listElem, Type.GLASS);
+            elemGlassList.stream().forEach(el -> el.paint());
+
+            //Прорисовка импостов
+            LinkedList<ElemCross> elemImpostList = UCom.listSortObj(winc.listElem, Type.IMPOST);
+            elemImpostList.stream().forEach(el -> el.paint());
+
+            //Прорисовка штульпов
+            LinkedList<ElemCross> elemShtulpList = UCom.listSortObj(winc.listElem, Type.SHTULP);
+            elemShtulpList.stream().forEach(el -> el.paint());
+
+            //Прорисовка стоек
+            LinkedList<ElemCross> elemStoikaList = UCom.listSortObj(winc.listElem, Type.STOIKA);
+            elemStoikaList.stream().forEach(el -> el.paint());
+
+            //Прорисовка рам
+            frames.get(Layout.TOP).paint();
+            frames.get(Layout.BOTT).paint();
+            frames.get(Layout.LEFT).paint();
+            frames.get(Layout.RIGHT).paint();
+
+            //Прорисовка створок
+            LinkedList<AreaStvorka> elemStvorkaList = UCom.listSortObj(winc.listArea, Type.STVORKA);
+            elemStvorkaList.stream().forEach(el -> el.paint());
+
+            //Рисунок в память
+            if (winc.bufferImg != null) {
+                ByteArrayOutputStream byteArrOutStream = new ByteArrayOutputStream();
+                ImageIO.write(winc.bufferImg, "png", byteArrOutStream);
+                if (eProp.dev == true) {
+                    File outputfile = new File("CanvasImage.png");
+                    ImageIO.write(winc.bufferImg, "png", outputfile);
+                }
+            }
+            System.out.println("888");
+        } catch (Exception s) {
+            System.err.println("Ошибка:AreaSimple.drawWin() " + s);
+        }
     };
 
     private Location localion = (float width, float heigh) -> {

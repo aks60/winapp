@@ -41,6 +41,8 @@ import common.listener.ListenerRecord;
 import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
+import report.ExecuteCmd;
+import report.TableToHtml;
 
 /**
  * Материальные ценности
@@ -458,6 +460,9 @@ public class Artikles extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ppmReport = new javax.swing.JPopupMenu();
+        itReport1 = new javax.swing.JMenuItem();
+        itReport2 = new javax.swing.JMenuItem();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -683,6 +688,22 @@ public class Artikles extends javax.swing.JFrame {
         lab1 = new javax.swing.JLabel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(4, 0), new java.awt.Dimension(4, 32767));
         lab2 = new javax.swing.JLabel();
+
+        itReport1.setText("Артикулы");
+        itReport1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itReport1ppmCategAction(evt);
+            }
+        });
+        ppmReport.add(itReport1);
+
+        itReport2.setText("xxx");
+        itReport2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itReport2ppmCategAction(evt);
+            }
+        });
+        ppmReport.add(itReport2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Материальные ценности");
@@ -2287,9 +2308,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        if("123".startsWith("2")) {
-            System.out.println("frames.Artikles.btnReport()");
-        }
+        ppmReport.show(north, btnReport.getX(), btnReport.getY() + 26);
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -2436,6 +2455,14 @@ public class Artikles extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTest
 
+    private void itReport1ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itReport1ppmCategAction
+        TableToHtml.load("Артикулы", qArtikl, eArtikl.values());
+        ExecuteCmd.repoType(this); 
+    }//GEN-LAST:event_itReport1ppmCategAction
+
+    private void itReport2ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itReport2ppmCategAction
+    }//GEN-LAST:event_itReport2ppmCategAction
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn10;
@@ -2528,6 +2555,8 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler7;
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
+    private javax.swing.JMenuItem itReport1;
+    private javax.swing.JMenuItem itReport2;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab13;
     private javax.swing.JLabel lab14;
@@ -2612,6 +2641,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JPanel pan97;
     private javax.swing.JPanel pan98;
     private javax.swing.JPanel pan99;
+    private javax.swing.JPopupMenu ppmReport;
     private javax.swing.JPanel pqn109;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;

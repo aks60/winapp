@@ -32,6 +32,7 @@ public enum eProp {
     prjprodID("-1"),
     orderID("-1"),
     base_num("1"),
+    old("0"), //переключение на пред. версию
     base1("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE.FDB?encoding=win1251"),
     base2("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE2.FDB?encoding=win1251"),
     base3("C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\fbase\\BASE3.FDB?encoding=win1251"),
@@ -56,7 +57,7 @@ public enum eProp {
     public static String fb = "fb";
     public static boolean dev = true;     //признак разработки и тестирования
     public static boolean locate = false;  //координаты фрейма разработки и тестирования
-    public static String profile = "";     //профиль разработки и тестирования     
+    public static String profile = "";     //профиль разработки и тестирования
 
     //Значение по умолчанию
     eProp(String value) {
