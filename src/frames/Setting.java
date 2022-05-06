@@ -95,7 +95,7 @@ public class Setting extends javax.swing.JFrame {
         spinner2.setMinimumSize(new java.awt.Dimension(36, 18));
         spinner2.setPreferredSize(new java.awt.Dimension(60, 19));
 
-        btnProp2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
+        btnProp2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         btnProp2.setText("Сохранить шрифт в настройках программы");
         btnProp2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnProp2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -189,7 +189,7 @@ public class Setting extends javax.swing.JFrame {
         txtHtml.setMinimumSize(new java.awt.Dimension(236, 18));
         txtHtml.setPreferredSize(new java.awt.Dimension(236, 18));
 
-        btnProp3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
+        btnProp3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         btnProp3.setText("Сохранить параметры отчётов");
         btnProp3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnProp3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -265,7 +265,7 @@ public class Setting extends javax.swing.JFrame {
         txtURL.setMinimumSize(new java.awt.Dimension(236, 18));
         txtURL.setPreferredSize(new java.awt.Dimension(236, 18));
 
-        btnProp4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
+        btnProp4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         btnProp4.setText("Сохранить путь к серверу");
         btnProp4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnProp4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
