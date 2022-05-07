@@ -141,19 +141,12 @@ public class ElemGlass extends ElemSimple {
         }
 
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
-            //ARCH
-            if (Type.ARCH == owner.type()) {
-                ((AreaArch) root()).addFilling(this, spcAdd);
+            
+            //ARCH, TRAPEZE...
+            if (Type.ARCH == owner.type() || Type.TRAPEZE == owner.type()) {
+                root().addFilling(this, spcAdd);
 
-                //TRAPEZE
-            } else if (Type.TRAPEZE == owner.type()) {
-                ((AreaTrapeze) root()).addFilling(this, spcAdd);
-
-                //STVORKA
-            } else if (Type.STVORKA == owner.type()) {
-                ((AreaStvorka) owner).addFilling(this, spcAdd);
-
-                //AREA
+                //AREA, STVORKA
             } else {
                 if (anglHoriz == sideHoriz[0] || anglHoriz == sideHoriz[2]) { //по горизонтали
                     spcAdd.width += width() + 2 * gzazo;

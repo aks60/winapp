@@ -20,6 +20,7 @@ public class AreaTrapeze extends AreaSimple {
         setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
     }
 
+    @Override
     protected void addFilling(ElemGlass glass, Specific spcAdd) {
         if (winc.form == Form.RIGHT) {
 

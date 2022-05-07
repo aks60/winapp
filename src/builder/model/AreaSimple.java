@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 import builder.Wincalc;
+import builder.making.Specific;
 import builder.script.GsonElem;
 import common.UCom;
 import common.eProp;
@@ -133,6 +134,9 @@ public class AreaSimple extends Com5t {
         }
     }
 
+    protected void addFilling(ElemGlass glass, Specific spcAdd) {
+    }
+
     //Форма контура
     @Override
     public Type type() {
@@ -216,7 +220,6 @@ public class AreaSimple extends Com5t {
                         ImageIO.write(winc.bufferImg, "png", outputfile);
                     }
                 }
-                System.out.println("777");
             } catch (Exception s) {
                 System.err.println("Ошибка:AreaSimple.drawWin() " + s);
             }
@@ -261,7 +264,6 @@ public class AreaSimple extends Com5t {
                     ImageIO.write(winc.bufferImg, "png", outputfile);
                 }
             }
-            System.out.println("888");
         } catch (Exception s) {
             System.err.println("Ошибка:AreaSimple.drawWin() " + s);
         }
