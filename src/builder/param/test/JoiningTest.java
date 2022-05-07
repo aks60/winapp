@@ -68,7 +68,7 @@ public class JoiningTest extends ParamTest {
 
         grup = 3002; //4002 //Вид L-образного варианта или Вид Т-образного варианта
         assert true == joiningVar4.check(iwin_4.mapJoin.get(frame_right_4.joinPoint(1)), param("Простое L-обр", grup)) : grup;
-        assert false == joiningVar4.check(iwin_4.mapJoin.get(frame_right_4.joinPoint(1)), param("xxx", grup)) : grup;
+        assert false == joiningVar4.check(iwin_4.mapJoin.get(frame_right_4.joinPoint(1)), param("null", grup)) : grup;
     }
 
     /**
@@ -87,11 +87,11 @@ public class JoiningTest extends ParamTest {
 
 //        grup = 11001; //12001 //Если признак состава Арт.1 
 //        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
-//        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
+//        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("null", grup)) : grup;
 //
 //        grup = 11002; //12002 //Если признак состава Арт.2 
 //        assert true == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("KBE 58", grup)) : grup;
-//        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("XXX", grup)) : grup;
+//        assert false == joiningDet2.check(mapParam, iwin_2.mapJoin.get(frame_right_2.joinPoint(1)), param("null", grup)) : grup;
 
         grup = 11005;  //12005 //Контейнер типа
         assert true == joiningDet3.check(mapParam, iwin_3.mapJoin.get(frame_right_3.joinPoint(1)), param("1-3", grup)) : grup;

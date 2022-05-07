@@ -47,6 +47,8 @@ import startup.App;
 import javax.swing.JOptionPane;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.TableColumn;
 
 public class Furniturs extends javax.swing.JFrame {
 
@@ -1369,7 +1371,7 @@ public class Furniturs extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void tbtnAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnAction
-        
+
         JTable table = null;
         if (tab2a.getBorder() != null && tab5.getBorder() == null && tab6.getBorder() == null) {
             table = tab2a;
@@ -1382,9 +1384,9 @@ public class Furniturs extends javax.swing.JFrame {
         Integer furnitureId = (index == -1) ? null : ((DefTableModel) table.getModel()).getQuery().getAs(index, eFurndet.furniture_id2);
 
         loadingData();
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();        
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
-        
+
         //Если переход на набор, сразу ищем его
         if (furnitureId != null && tbtn3.isSelected()) {
             for (int index2 = 0; index2 < qFurniture.size(); ++index2) {
@@ -1493,6 +1495,12 @@ public class Furniturs extends javax.swing.JFrame {
                 "Описание сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
         scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Ограничения сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.UGui.getFont(0, 0)));
+        
+        DefaultTableColumnModel columnModel = (DefaultTableColumnModel) tab1.getColumnModel();
+        for (int i = 1; i < 6; ++i) {
+            columnModel.getColumn(i).setMinWidth(0);
+            columnModel.getColumn(i).setMaxWidth(0);
+        }
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

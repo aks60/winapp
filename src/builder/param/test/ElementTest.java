@@ -183,7 +183,7 @@ public class ElementTest extends ParamTest {
 
         grup = 33001; //34001 //Если признак состава 
         //assert true == elementDet2.check(mapParam, frame_left_2, param("KBE 58", grup)) : grup;
-        //assert false == elementDet2.check(mapParam, frame_left_2, param("XXX", grup)) : grup;
+        //assert false == elementDet2.check(mapParam, frame_left_2, param("null", grup)) : grup;
 
         grup = 33005; //31005, 37005 //Коды основной текстуры контейнера
         assert true == elementDet2.check(mapParam, frame_left_2, param("0-800;990;1009;1600-2000;", grup)) : grup;

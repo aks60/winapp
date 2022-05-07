@@ -65,7 +65,7 @@ public class FillingTest extends ParamTest {
 
         grup = 14001; //15001 //Если признак состава
         //assert true == fillingDet2.check(mapParam, glass_left_2, param("KBE 58", grup)) : grup;
-        //assert false == fillingDet2.check(mapParam, glass_left_2, param("XXX", grup)) : grup;
+        //assert false == fillingDet2.check(mapParam, glass_left_2, param("null", grup)) : grup;
 
         grup = 14005;  //Тип проема
         assert false == fillingDet2.check(mapParam, glass_left_2, param("глухой", grup)) : grup;
