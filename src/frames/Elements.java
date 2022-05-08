@@ -34,7 +34,6 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import startup.Main;
 import frames.swing.DefCellBoolRenderer;
 import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
@@ -43,6 +42,10 @@ import java.util.stream.Collectors;
 import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
+import domain.eSysprof;
+import domain.eSystree;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Elements extends javax.swing.JFrame {
 
@@ -480,8 +483,9 @@ public class Elements extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
-        btnConstructiv = new javax.swing.JButton();
+        btnFindArtikl = new javax.swing.JButton();
         btnTest = new javax.swing.JButton();
+        btnFindSystree = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
@@ -606,19 +610,19 @@ public class Elements extends javax.swing.JFrame {
             }
         });
 
-        btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
-        btnConstructiv.setToolTipText(bundle.getString("Печать")); // NOI18N
-        btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnConstructiv.setFocusable(false);
-        btnConstructiv.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnConstructiv.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnConstructiv.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnConstructiv.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnConstructiv.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnConstructiv.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnConstructiv.addActionListener(new java.awt.event.ActionListener() {
+        btnFindArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnFindArtikl.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnFindArtikl.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFindArtikl.setFocusable(false);
+        btnFindArtikl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFindArtikl.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnFindArtikl.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnFindArtikl.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnFindArtikl.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnFindArtikl.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFindArtikl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConstructiv(evt);
+                btnFindArtikl(evt);
             }
         });
 
@@ -630,6 +634,21 @@ public class Elements extends javax.swing.JFrame {
         btnTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTest(evt);
+            }
+        });
+
+        btnFindSystree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c014.gif"))); // NOI18N
+        btnFindSystree.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnFindSystree.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFindSystree.setFocusable(false);
+        btnFindSystree.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnFindSystree.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnFindSystree.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnFindSystree.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnFindSystree.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFindSystree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindSystree(evt);
             }
         });
 
@@ -645,8 +664,10 @@ public class Elements extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105)
+                .addComponent(btnFindArtikl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFindSystree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 524, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -661,14 +682,15 @@ public class Elements extends javax.swing.JFrame {
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnConstructiv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFindArtikl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnFindSystree, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -976,11 +998,6 @@ public class Elements extends javax.swing.JFrame {
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
 
-        //int index = Util.get;
-        int row = tab2.getRowCount() - 1;
-        UGui.scrollRectToRow(row, tab2);
-        UGui.setSelectedIndex(tab1, row);
-
     }//GEN-LAST:event_btnReport
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
@@ -988,7 +1005,7 @@ public class Elements extends javax.swing.JFrame {
         filterTable.mousePressed((JTable) evt.getSource());
     }//GEN-LAST:event_mousePressed
 
-    private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
+    private void btnFindArtikl(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindArtikl
         if (tab2.getBorder() != null) {
             Record record = ((DefTableModel) tab2.getModel()).getQuery().get(UGui.getIndexRec(tab2));
             if (record != null) {
@@ -1010,16 +1027,54 @@ public class Elements extends javax.swing.JFrame {
                 });
             }
         }
-    }//GEN-LAST:event_btnConstructiv
+    }//GEN-LAST:event_btnFindArtikl
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
 
     }//GEN-LAST:event_btnTest
-    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+
+    private void btnFindSystree(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindSystree
+        int index = UGui.getIndexRec(tab2);
+        Record record = qElement.get(index);
+        List<Record> sysprofList1 = eSysprof.query().stream().filter(rec -> record.getInt(eElement.artikl_id) == rec.getInt(eSysprof.artikl_id)).collect(Collectors.toList());
+        Set<Integer> sysprofList2 = new HashSet();
+        sysprofList1.forEach(rec -> sysprofList2.add(rec.getInt(eSysprof.systree_id)));
+        List<String> pathList = new ArrayList();
+        StringBuffer path = new StringBuffer();
+        for (Record rec : eSystree.query()) {
+            if (sysprofList2.contains(rec.get(eSystree.id))) {
+                path = path.append(rec.getStr(eSystree.name));
+                findPathSystree(rec, path);
+                pathList.add(path.toString());
+                path.delete(0, path.length());
+            }
+        }
+        if (pathList.size() != 0) {
+            for (int i = pathList.size(); i < 21; ++i) {
+                pathList.add(null);
+            }
+            JOptionPane.showInputDialog(Elements.this, "Артикул в системе профилей", "Сообщение", JOptionPane.QUESTION_MESSAGE, null, pathList.toArray(), pathList.toArray()[0]);
+        } else {
+            JOptionPane.showMessageDialog(Elements.this, "В системе профилей артикул не найден", "Сообщение", JOptionPane.NO_OPTION);
+        }
+    }//GEN-LAST:event_btnFindSystree
+    private void findPathSystree(Record record, StringBuffer path) {
+        for (Record rec : eSystree.query()) {
+            if (record.getInt(eSystree.parent_id) == rec.getInt(eSystree.id)) {
+                path.insert(0, rec.getStr(eSystree.name) + "->");
+                if (rec.getInt(eSystree.id) != rec.getInt(eSystree.parent_id)) {
+                    findPathSystree(rec, path);
+                }
+            }
+        }
+    }
+
+// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
-    private javax.swing.JButton btnConstructiv;
     private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnFindArtikl;
+    private javax.swing.JButton btnFindSystree;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
@@ -1084,5 +1139,9 @@ public class Elements extends javax.swing.JFrame {
                 }
             }
         });
+//        for (int i : List.of(3, 6, 7)) {
+//            ((DefaultTableColumnModel) tab2.getColumnModel()).getColumn(i).setMinWidth(0);
+//            ((DefaultTableColumnModel) tab2.getColumnModel()).getColumn(i).setMaxWidth(0);
+//        }
     }
 }
