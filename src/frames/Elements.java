@@ -878,6 +878,12 @@ public class Elements extends javax.swing.JFrame {
         });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(96);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(180);
+            tab3.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab3.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tab3.getColumnModel().getColumn(4).setPreferredWidth(60);
+            tab3.getColumnModel().getColumn(5).setPreferredWidth(60);
             tab3.getColumnModel().getColumn(6).setMaxWidth(40);
         }
 
