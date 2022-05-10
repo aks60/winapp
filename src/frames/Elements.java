@@ -42,10 +42,12 @@ import java.util.stream.Collectors;
 import startup.App;
 import common.listener.ListenerRecord;
 import common.listener.ListenerFrame;
+import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
 import java.util.ArrayList;
 import java.util.HashSet;
+import javax.swing.table.DefaultTableColumnModel;
 
 public class Elements extends javax.swing.JFrame {
 
@@ -734,11 +736,11 @@ public class Elements extends javax.swing.JFrame {
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(96);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(160);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(160);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(32);
             tab2.getColumnModel().getColumn(6).setMaxWidth(60);
             tab2.getColumnModel().getColumn(7).setPreferredWidth(32);
@@ -1046,12 +1048,14 @@ public class Elements extends javax.swing.JFrame {
         Set<Integer> sysprofList2 = new HashSet();
         sysprofList1.forEach(rec -> sysprofList2.add(rec.getInt(eSysprof.systree_id)));
         List<String> pathList = new ArrayList();
+        List<Integer> keyList = new ArrayList();
         StringBuffer path = new StringBuffer();
         for (Record rec : eSystree.query()) {
             if (sysprofList2.contains(rec.get(eSystree.id))) {
                 path = path.append(rec.getStr(eSystree.name));
                 findPathSystree(rec, path);
                 pathList.add(path.toString());
+                keyList.add(rec.getInt(eSystree.id));
                 path.delete(0, path.length());
             }
         }
@@ -1059,7 +1063,19 @@ public class Elements extends javax.swing.JFrame {
             for (int i = pathList.size(); i < 21; ++i) {
                 pathList.add(null);
             }
-            JOptionPane.showInputDialog(Elements.this, "Артикул в системе профилей", "Сообщение", JOptionPane.QUESTION_MESSAGE, null, pathList.toArray(), pathList.toArray()[0]);
+            Object result = JOptionPane.showInputDialog(Elements.this, "Артикул в системе профилей", "Сообщение", JOptionPane.QUESTION_MESSAGE, null, pathList.toArray(), pathList.toArray()[0]);
+            if (result != null || result instanceof Integer) {
+                for (int i = 0; i < pathList.size(); ++i) {
+                    if (result.equals(pathList.get(i))) {
+                        Object id = keyList.get(i);
+                        FrameProgress.create(Elements.this, new ListenerFrame() {
+                            public void actionRequest(Object obj) {
+                                App.Systree.createFrame(Elements.this, id);
+                            }
+                        });
+                    }
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(Elements.this, "В системе профилей артикул не найден", "Сообщение", JOptionPane.NO_OPTION);
         }
@@ -1069,7 +1085,7 @@ public class Elements extends javax.swing.JFrame {
             if (record.getInt(eSystree.parent_id) == rec.getInt(eSystree.id)) {
                 path.insert(0, rec.getStr(eSystree.name) + "->");
                 if (rec.getInt(eSystree.id) != rec.getInt(eSystree.parent_id)) {
-                    findPathSystree(rec, path);
+                    findPathSystree(rec, path); //рекурсия
                 }
             }
         }
@@ -1145,9 +1161,9 @@ public class Elements extends javax.swing.JFrame {
                 }
             }
         });
-//        for (int i : List.of(3, 6, 7)) {
-//            ((DefaultTableColumnModel) tab2.getColumnModel()).getColumn(i).setMinWidth(0);
-//            ((DefaultTableColumnModel) tab2.getColumnModel()).getColumn(i).setMaxWidth(0);
-//        }
+        for (int i : List.of(3, 6, 7)) {
+            ((DefaultTableColumnModel) tab2.getColumnModel()).getColumn(i).setMinWidth(0);
+            ((DefaultTableColumnModel) tab2.getColumnModel()).getColumn(i).setMaxWidth(0);
+        }
     }
 }

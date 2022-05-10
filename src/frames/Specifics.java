@@ -447,7 +447,7 @@ public class Specifics extends javax.swing.JFrame {
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         TableToHtml.load("Отчёт по спецификации", tab1);
-        ExecuteCmd.repoType(this);        
+        ExecuteCmd.repoType(this);
     }//GEN-LAST:event_btnReport
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
@@ -489,10 +489,7 @@ public class Specifics extends javax.swing.JFrame {
         } else {
             FrameProgress.create(Specifics.this, new ListenerFrame() {
                 public void actionRequest(Object obj) {
-                    if (str.equals("ВСТ")) {
-                        App.Systree.createFrame(Specifics.this, specificRec.artiklRec.getInt(eArtikl.id));
-
-                    } else if (str.equals("ЗАП")) {
+                    if (str.equals("ВСТ") || str.equals("ЗАП")) {
                         App.Systree.createFrame(Specifics.this);
                     }
                 }
@@ -548,7 +545,7 @@ public class Specifics extends javax.swing.JFrame {
                 UGui.setSelectedRow(tab1);
             }
         });
-        
+
     }//GEN-LAST:event_cbxCalcType
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest

@@ -904,11 +904,11 @@ public class Furniturs extends javax.swing.JFrame {
                                 .addComponent(btnIns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnFindSystree, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(tbtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tbtn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tbtn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnFindSystree, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(tbtn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(btnSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -1466,12 +1466,14 @@ public class Furniturs extends javax.swing.JFrame {
         Set<Integer> sysprofList2 = new HashSet();
         sysprofList1.forEach(rec -> sysprofList2.add(rec.getInt(eSysprof.systree_id)));
         List<String> pathList = new ArrayList();
+        List<Integer> keyList = new ArrayList();
         StringBuffer path = new StringBuffer();
         for (Record rec : eSystree.query()) {
             if (sysprofList2.contains(rec.get(eSystree.id))) {
                 path = path.append(rec.getStr(eSystree.name));
                 findPathSystree(rec, path);
                 pathList.add(path.toString());
+                keyList.add(rec.getInt(eSystree.id));
                 path.delete(0, path.length());
             }
         }
@@ -1479,7 +1481,19 @@ public class Furniturs extends javax.swing.JFrame {
             for (int i = pathList.size(); i < 21; ++i) {
                 pathList.add(null);
             }
-            JOptionPane.showInputDialog(Furniturs.this, "Фурнитура в системе профилей", "Сообщение", JOptionPane.QUESTION_MESSAGE, null, pathList.toArray(), pathList.toArray()[0]);
+            Object result = JOptionPane.showInputDialog(Furniturs.this, "Фурнитура в системе профилей", "Сообщение", JOptionPane.QUESTION_MESSAGE, null, pathList.toArray(), pathList.toArray()[0]);
+            if (result != null || result instanceof Integer) {
+                for (int i = 0; i < pathList.size(); ++i) {
+                    if (result.equals(pathList.get(i))) {
+                        Object id = keyList.get(i);
+                        FrameProgress.create(Furniturs.this, new ListenerFrame() {
+                            public void actionRequest(Object obj) {
+                                App.Systree.createFrame(Furniturs.this, id);
+                            }
+                        });
+                    }
+                }
+            }        
         } else {
             JOptionPane.showMessageDialog(Furniturs.this, "В системе профилей фурнитура не найдена", "Сообщение", JOptionPane.NO_OPTION);
         }

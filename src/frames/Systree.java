@@ -107,7 +107,7 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private Query qSyspar2 = new Query(eSyspar1.values());
 
     private DecimalFormat2 df1 = new DecimalFormat2("#0.#");
-    private int systreeID = -1; //выбранная система
+    private Integer systreeID = null; //выбранная система
     private Canvas canvas = new Canvas();
     private Scene scene = null;
     private FilterTable filterTable = new FilterTable();
@@ -117,7 +117,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     private DefMutableTreeNode winNode = null;
     private TreeNode[] selectedPath = null;
     private Gson gson = new GsonBuilder().create();
-    public int count = 0;
 
     public Systree() {
         initComponents();
@@ -130,22 +129,22 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
         listenerSet();
     }
 
-    public Systree(int artiklID) {
+    public Systree(int nuni) {
         initComponents();
         scene = new Scene(canvas, spinner, this);
+        this.systreeID = nuni;
         initElements();
         loadingData();
         loadingSysTree();
         loadingModel();
         listenerAdd();
         listenerSet();
-        selectionTab2(artiklID);
     }
 
     public void loadingData() {
         //Получим сохр. ID системы при выходе из программы
-        Record sysprodRec = eSysprod.find(Integer.valueOf(eProp.sysprodID.read()));
-        if (sysprodRec != null) {
+        if (systreeID == null) {
+            Record sysprodRec = eSysprod.find(Integer.valueOf(eProp.sysprodID.read()));
             systreeID = sysprodRec.getInt(eSysprod.systree_id);
         }
         qSystree.select(eSystree.up, "order by id");
@@ -698,14 +697,6 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
             }
             lab2.setText("ID = " + winNode.com5t().id());
             List.of(pan12, pan13, pan15, pan16).forEach(it -> it.repaint());
-        }
-    }
-
-    public void selectionTab2(int artiklID) {
-        for (int i = 0; i < qSysprof.size(); i++) {
-            if (qSysprof.get(i).getInt(eSysprof.artikl_id) == artiklID) {
-                UGui.setSelectedIndex(tab2, i);
-            }
         }
     }
 
