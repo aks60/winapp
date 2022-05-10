@@ -32,8 +32,8 @@ public class ElemGlass extends ElemSimple {
         initСonstructiv(gson.param());
         setLocation();
 
-        //Filling filling = new Filling(winc, true);
-        //filling.calc2(this);
+        Filling filling = new Filling(winc, true);
+        filling.calc2(this);
     }
 
     public void initСonstructiv(JsonObject param) {
