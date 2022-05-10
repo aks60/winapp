@@ -19,6 +19,8 @@ import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import report.ExecuteCmd;
+import report.TableToHtml;
 
 public class Groups extends javax.swing.JFrame {
 
@@ -594,9 +596,9 @@ public class Groups extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -688,7 +690,26 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        JTable tab = null;
+        if (tab1.getBorder() != null) {
+            tab = tab1;
+        } else if (tab2.getBorder() != null) {
+            tab = tab2;
+        } else if (tab3.getBorder() != null) {
+            tab = tab3;
+        } else if (tab4.getBorder() != null) {
+            tab = tab4;
+        } else if (tab5.getBorder() != null) {
+            tab = tab5;
+        } else if (tab6.getBorder() != null) {
+            tab = tab6;
+        } else if (tab7.getBorder() != null) {
+            tab = tab7;
+        }
+        if (tab != null) {
+            TableToHtml.load("Справочник", tab);
+            ExecuteCmd.repoType(this);
+        }
     }//GEN-LAST:event_btnReport
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed

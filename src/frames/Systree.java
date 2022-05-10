@@ -91,6 +91,8 @@ import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import report.ExecuteCmd;
+import report.TableToHtml;
 
 public class Systree extends javax.swing.JFrame implements ListenerReload {
 
@@ -1151,11 +1153,11 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 528, Short.MAX_VALUE)
-                .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 536, Short.MAX_VALUE)
                 .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(toolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3008,9 +3010,22 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_findFromArtikl
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        Wincalc winc = scene.winc();
-        String script = gson.toJson(winc.rootGson);
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script)));
+        JTable tab = null;
+        if (tab2.getBorder() != null) {
+            tab = tab2;
+        } else if (tab3.getBorder() != null) {
+            tab = tab3;
+        } else if (tab4.getBorder() != null) {
+            tab = tab4;
+        } else if (tab5.getBorder() != null) {
+            tab = tab5;
+        } else if (tab7.getBorder() != null) {
+            tab = tab7;
+        }
+        if (tab != null) {
+            TableToHtml.load("Справочник", tab);
+            ExecuteCmd.repoType(this);
+        }
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
