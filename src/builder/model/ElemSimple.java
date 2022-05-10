@@ -29,7 +29,7 @@ public abstract class ElemSimple extends Com5t {
 
     //Вложенная спецификация
     public abstract void addSpecific(Specific specification);
-    
+
     //Клик мышки попадает в контур элемента
     public boolean mouseClick(int X, int Y) {
         int x = (int) (X / winc.scale) - Com5t.TRANSLATE_XY;
@@ -77,10 +77,10 @@ public abstract class ElemSimple extends Com5t {
         boolean begin = false;
         try {
             for (int index = winc.listAll.size() - 1; index >= 0; --index) {
-                Com5t com5t = winc.listAll.get(index);               
+                Com5t com5t = winc.listAll.get(index);
                 if (com5t instanceof ElemSimple) {
                     ElemSimple el = (ElemSimple) com5t;
-                    
+
                     if (begin == true && el.type() != Type.GLASS) {
                         if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
                             float Y2 = (y2 > y1) ? y2 : y1;
@@ -93,6 +93,7 @@ public abstract class ElemSimple extends Com5t {
                             }
                         } else if (Layout.TOP == layoutSide && el.layout != Layout.VERT) {
                             float Y1 = (y2 > y1) ? y1 : y2;
+                            //Object obj = el.inside(x1 + (x2 - x1) / 2, Y1);
                             if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type() == Type.ARCH && el.layout == Layout.TOP) == false) {
                                 return (ElemSimple) el;
                             }
@@ -107,7 +108,7 @@ public abstract class ElemSimple extends Com5t {
                     }
                 }
             }
-            System.err.println("Неудача: id="+ this.id() + ", " + layoutSide + " соединение не найдено");
+            System.err.println("Неудача: id=" + this.id() + ", " + layoutSide + " соединение не найдено");
             return null;
 
         } catch (Exception e) {
