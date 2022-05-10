@@ -393,6 +393,20 @@ public final class Bimax {
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:1633}"))
                     .addElem(new GsonElem(Type.GLASS));
 
+        } else if (prj == 508946) { //PUNIC = 427737  Трапеции
+            rootGson = new GsonRoot("1.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\*Открывание внутрь (ств. Z77)",
+                    Layout.VERT, Type.TRAPEZE, 600, 1400, 600, 1009, 10005, 1009);
+            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
+                    .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 800, Form.LEFT))
+                    .addElem(new GsonElem(Type.GLASS));
+            rootGson.addElem(new GsonElem(Type.IMPOST))
+                    .addArea(new GsonElem(Layout.VERT, Type.AREA, 600))
+                    .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:1633}"))
+                    .addElem(new GsonElem(Type.GLASS));
+
         } else if (prj == 508841) { //427653 Двери
             rootGson = new GsonRoot("1.0", prj, 2, 8, "KBE / KBE Эксперт / 6 ВХОДНЫЕ ДВЕРИ / Дверь наружу",
                     Layout.VERT, Type.DOOR, 900, 2100, 1009, 1009, 1009);
