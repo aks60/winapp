@@ -77,8 +77,10 @@ public abstract class ElemSimple extends Com5t {
         boolean begin = false;
         try {
             for (int index = winc.listAll.size() - 1; index >= 0; --index) {
-                if (winc.listAll.get(index) instanceof ElemSimple) {
-                    ElemSimple el = (ElemSimple) winc.listAll.get(index);
+                Com5t com5t = winc.listAll.get(index);               
+                if (com5t instanceof ElemSimple) {
+                    ElemSimple el = (ElemSimple) com5t;
+                    
                     if (begin == true && el.type() != Type.GLASS) {
                         if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
                             float Y2 = (y2 > y1) ? y2 : y1;
@@ -105,7 +107,7 @@ public abstract class ElemSimple extends Com5t {
                     }
                 }
             }
-            System.err.println("Неудача id="+ this.id() + ", " + layoutSide + " соединение не найдено");
+            System.err.println("Неудача: id="+ this.id() + ", " + layoutSide + " соединение не найдено");
             return null;
 
         } catch (Exception e) {

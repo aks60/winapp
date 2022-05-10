@@ -354,18 +354,6 @@ public final class Bimax {
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:316}"))
                     .addElem(new GsonElem(Type.GLASS));
 
-//        } else if (prj == 495647) { // PUNIC = 414087  Трапеции
-//            //Арт.554008   Коробка 60мм  Белая, коричневая и карамель.
-//            //Арт.554018  Створка Z57
-//            //Арт.560607 615   Штапик 14.7
-//            //Арт.865530 Уплотнитель притвора
-//            rootGson = new GsonRoot("1.0", prj, 1, 303, "Rehau\\Delight\\3 ТРАПЕЦИИ",
-//                    Layout.HORIZ, Type.RECTANGL, 900, 1400, 1009, 1009, 1009);
-//            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT));
-//            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT));
-//            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP));
-//            rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
-//            rootGson.addElem(new GsonElem(Type.GLASS)); 
         } else if (prj == 605001) { //PUNIC = 427850  Трапеции
             rootGson = new GsonRoot("1.0", prj, 1, 8, "KBE\\KBE 58\\1 ОКНА\\*Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.TRAPEZE, 1300, 1500, 1200, 1009, 10009, 1009);
@@ -393,7 +381,7 @@ public final class Bimax {
                     .addArea(new GsonElem(Layout.VERT, Type.STVORKA, "{typeOpen:4, sysfurnID:1633}"))
                     .addElem(new GsonElem(Type.GLASS));
 
-        } else if (prj == 508946) { //PUNIC = 427737  Трапеции
+        } else if (prj == 508945) { //PUNIC = 427737  Трапеции
             rootGson = new GsonRoot("1.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\*Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.TRAPEZE, 600, 1400, 600, 1009, 10005, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
