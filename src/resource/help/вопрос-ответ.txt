@@ -15,26 +15,9 @@
 13.Количество на шаг. см. Конструктив->Соединения...
 14. длина штапика см. windoc/doc3/othe/katalog-prows-58.pdf d в самом конце.
 15. java --list-modules модули jdk
+16. Своя JRE jlink --add-modules java.base,java.logging --output custom-runtime
 
    == ЗАМЕТКИ  ==
 1. Насиройки->Расчётные данные <Коэфф. рентабельности>
 2. Констрктив->Системы <Коэф. рентабельности>
 3. Расчёт профилей с оценкой остатков. Настройки->Расчётные данные->Расчётные <Припуск для реза, мм(толщина фрезы)>  
-
-  == МОДУЛИ ==
-javac -d out C:\HelloWorld\src\jlinkModule\classes\module-info.java
-javac -d out C:\HelloWorld\src\jlinkModule\classes\hello\HelloWorld.java
-jdeps --module-path dist -s --module jlinkModule
-
-jlink --module-path "%JAVA_HOME%\jmods";dist  --add-modules jlinkModule --output customjre
-
-java --module C:\HelloWorld\dist\jlinkModule/hello.HelloWorld
-
-java --module-path C:\HelloWorld\dist --module jlinkModule
-
-
-jar -c --file=out-jar/com-jenkov-mymodule.jar -C out/com.jenkov.mymodule .
-
-java --module-path dist -m jlinkModule/hello.HelloWorld
-
-bin\java --module jlinkModule\com.baeldung.jlink.helloWorld
