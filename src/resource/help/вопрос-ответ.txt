@@ -15,7 +15,8 @@
 13.Количество на шаг. см. Конструктив->Соединения...
 14. длина штапика см. windoc/doc3/othe/katalog-prows-58.pdf d в самом конце.
 15. java --list-modules модули jdk
-16. Своя JRE jlink --add-modules java.base,java.logging --output custom-runtime
+16. Своя JRE jlink --add-modules java.base, java.datatransfer, java.desktop, java.naming, java.scripting, java.sql, jdk.aot --output custom-runtime
+
 
    == ЗАМЕТКИ  ==
 1. Насиройки->Расчётные данные <Коэфф. рентабельности>

@@ -36,6 +36,7 @@ public class Main {
                 eProp.locate = true;
             }
         }
+        
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
