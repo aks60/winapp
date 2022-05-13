@@ -383,7 +383,7 @@ public final class Bimax {
 
         } else if (prj == 508945) { //PUNIC = 427737  Трапеции
             rootGson = new GsonRoot("1.0", prj, 2, 8, "KBE\\KBE 58\\1 ОКНА\\*Открывание внутрь (ств. Z77)",
-                    Layout.VERT, Type.TRAPEZE, 600, 1400, 600, 1009, 10005, 1009);
+                    Layout.VERT, Type.TRAPEZE, 600, 600, 1400, 1009, 10005, 1009);
             rootGson.addElem(new GsonElem(Type.FRAME_SIDE, Layout.LEFT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.RIGHT))
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.TOP))
@@ -437,7 +437,7 @@ public final class Bimax {
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1500))
                     .addElem(new GsonElem(Type.GLASS));
         } 
-// <editor-fold defaultstate="collapsed" desc="ХОЛОДНЫЙ  ТЕСТ, prj в базе нет">         
+// <editor-fold defaultstate="collapsed" desc="ХОЛОДНЫЙ  ТЕСТ, спецификации в базе нет">         
         else if (prj == 1043598818) { //Прямоугольное сложное
             rootGson = new GsonRoot("1.0", prj, 1, 8, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.RECTANGL, 1440, 1700, 1009, 1009, 1009);

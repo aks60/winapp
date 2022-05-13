@@ -55,7 +55,7 @@ public enum eProp {
     public static String password = "*";
     public static FileWriter logconv = null;
     public static String fb = "fb";
-    public static boolean dev = false;     //признак разработки и тестирования
+    public static boolean dev = true;     //признак разработки и тестирования
     public static boolean locate = false;  //координаты фрейма разработки и тестирования
     public static String profile = "";     //профиль разработки и тестирования
 
