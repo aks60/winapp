@@ -109,7 +109,7 @@ public class Wincalc {
     // Парсим входное json окно и строим объектную модель окна
     private void parsing(String script) {
         try {
-            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script))); //для тестирования
+            //System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(script))); //для тестирования
             //System.out.println(new GsonBuilder().create().toJson(new com.google.gson.JsonParser().parse(script))); //для тестирования
             Gson gson = new GsonBuilder().create();
             rootGson = gson.fromJson(script, GsonRoot.class);
@@ -120,6 +120,8 @@ public class Wincalc {
 
             //Инит конструктива
             this.nuni = rootGson.nuni();
+            this.width1 = (rootGson.width1() == null)
+                    ? rootGson.width1() : rootGson.width2();            
             this.width2 = rootGson.width2();
             this.height1 = rootGson.height1();
             this.height2 = (rootGson.height2() == null)
