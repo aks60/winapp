@@ -348,9 +348,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }
 
     public void selectionWinTree() {
-        Wincalc winc = winc();
-        winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
-        if (winNode != null) {
+        Object selNode = winTree.getLastSelectedPathComponent();
+        if (selNode instanceof DefMutableTreeNode) {
+            Wincalc winc = winc();
+            winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
 
             //Конструкции
             if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.DOOR || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
