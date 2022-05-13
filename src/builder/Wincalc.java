@@ -77,7 +77,7 @@ public class Wincalc {
     public LinkedList2<Com5t> listAll = new LinkedList2(); //список всех компонентов
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
-    public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calTariffication; //объекты калькуляции конструктива
+    public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calcTariffication; //объекты калькуляции конструктива
 
     public Wincalc() {
     }
@@ -121,7 +121,7 @@ public class Wincalc {
             //Инит конструктива
             this.nuni = rootGson.nuni();
             this.width1 = (rootGson.width1() == null)
-                    ? rootGson.width1() : rootGson.width2();            
+                    ? rootGson.width2() : rootGson.width1();            
             this.width2 = rootGson.width2();
             this.height1 = rootGson.height1();
             this.height2 = (rootGson.height2() == null)
@@ -203,8 +203,8 @@ public class Wincalc {
             calcFilling.calc();
             calcFurniture = new Furniture(this); //фурнитура 
             calcFurniture.calc();
-            calTariffication = new Tariffic(this, norm_otx); //тарификация
-            calTariffication.calc();
+            calcTariffication = new Tariffic(this, norm_otx); //тарификация
+            calcTariffication.calc();
 
             for (ElemSimple elemRec : listElem) {
                 if (elemRec.spcRec.artikl.trim().charAt(0) != '@') {

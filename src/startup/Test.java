@@ -88,16 +88,15 @@ public class Test {
 
         Conn.connection(Test.connect2());
         builder.Wincalc winc = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
-            winc.build(builder.script.Winscript.test(508945, false));
-            //winc.build(builder.script.Winscript.test(508916, false));
+            winc.build(builder.script.Winscript.test(508916, false));
             //new Joining(winc, true);
             winc.constructiv(true);
             //Specific.write_txt(winc.listSpec);
             //DBCompare.iwinXls(winc, true);
-            DBCompare.iwinPs4(winc, true);
+            DBCompare.iwinPs4(winc, false);
             //winc.mapJoin.entrySet().forEach(it -> System.out.println(it.getValue() + ", (" + it.getKey() + ")" + " " + it.getValue().elem1.type));           
 
         } else if (_case.equals("min")) {

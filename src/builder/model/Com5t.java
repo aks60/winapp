@@ -240,16 +240,27 @@ public abstract class Com5t {
     public boolean inside(float x, float y) {
         double X = Math.floor(x), Y = Math.floor(y);
         double X1 = Math.floor(x1), X2 = Math.floor(x2), Y1 = Math.floor(y1), Y2 = Math.floor(y2);
-        
+
         if (((int)X2 | (int)Y2) < 0) {
             return false;
         }
+        
         if (X < X1 || Y < Y1) {
             return false;
         }
         return ((X2 >= X) && (Y2 >= Y));
     }
-
+    
+    public boolean inside2(float x, float y) {
+        if (((int) x2 | (int) y2) < 0) {
+            return false;
+        }
+        if (x < x1 || y < y1) {
+            return false;
+        }
+        return ((x2 < x1 || x2 >= x) && (y2 < y1 || y2 >= y));
+    }
+    
     public void paint() {
     }
 
