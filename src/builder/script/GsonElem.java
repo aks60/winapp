@@ -128,12 +128,12 @@ public class GsonElem {
         this.param = param;
     }
 
-    public Float height() {
-        return (owner.layout == Layout.VERT) ? length : owner.height();
+    public Float height1() {
+        return (owner.layout == Layout.VERT) ? length : owner.height1();
     }
 
-    public Float width() {
-        return (owner.layout == Layout.HORIZ) ? length : owner.width();
+    public Float width2() {
+        return (owner.layout == Layout.HORIZ) ? length : owner.width2();
     }
 
     public Float length() {

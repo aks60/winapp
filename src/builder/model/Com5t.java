@@ -98,21 +98,21 @@ public abstract class Com5t {
     }
 
     public float lengthX() {
-        return (this.id == 0) ? this.gson.width() : this.gson.length();
+        return (this.id == 0) ? this.gson.width2() : this.gson.length();
     }
 
     public float lengthY() {
-        return (this.id == 0) ? this.gson.height() : this.gson.length();
+        return (this.id == 0) ? this.gson.height1() : this.gson.length();
     }
 
     public void lengthX(float v) {
         try {
             if (this.id == 0) {
-                float k = v / gson.width(); //коэффициент
+                float k = v / gson.width2(); //коэффициент
                 if (k != 1) {
-                    winc.rootGson.width(v);
-                    if (winc.rootGson.widthAdd() != null) {
-                        winc.rootGson.widthAdd(k * winc.rootGson.widthAdd());
+                    winc.rootGson.width2(v);
+                    if (winc.rootGson.width1() != null) {
+                        winc.rootGson.width1(k * winc.rootGson.width1());
                     }
                     for (AreaSimple e : winc.listArea) { //перебор всех вертикальных area
                         if (e.layout == Layout.HORIZ) {
@@ -129,7 +129,7 @@ public abstract class Com5t {
                 if (k != 1) {
                     this.gson.length(v);
                     if (((AreaSimple) this).type() == Type.ARCH || ((AreaSimple) this).type() == Type.TRAPEZE) {
-                        this.winc.rootGson.widthAdd(this.winc.rootGson.width() - v);
+                        this.winc.rootGson.width1(this.winc.rootGson.width2() - v);
                     }
                     for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по ширине
                         if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
@@ -155,11 +155,11 @@ public abstract class Com5t {
     public void lengthY(float v) {
         try {
             if (this.id == 0) {
-                float k = v / gson.height(); //коэффициент
+                float k = v / gson.height1(); //коэффициент
                 if (k != 1) {
-                    winc.rootGson.height(v);
-                    if (winc.rootGson.heightAdd() != null) {
-                        winc.rootGson.heightAdd(k * winc.rootGson.heightAdd());
+                    winc.rootGson.height1(v);
+                    if (winc.rootGson.height2() != null) {
+                        winc.rootGson.height2(k * winc.rootGson.height2());
                     }
                     for (AreaSimple e : winc.listArea) { //перебор всех вертикальных area
                         if (e.layout == Layout.VERT) {
@@ -176,7 +176,7 @@ public abstract class Com5t {
                 if (k != 1) {
                     this.gson.length(v);
                     if (((AreaSimple) this).type() == Type.ARCH || ((AreaSimple) this).type() == Type.TRAPEZE) {
-                        this.winc.rootGson.heightAdd(this.winc.rootGson.height() - v);
+                        this.winc.rootGson.height2(this.winc.rootGson.height1() - v);
                     }
                     for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по высоте
                         if (e.owner.layout == Layout.VERT && (e.type == Type.AREA || e.type == Type.STVORKA)) {

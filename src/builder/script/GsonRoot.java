@@ -14,13 +14,13 @@ public class GsonRoot extends GsonElem {
     public int prj = 1; //PNUMB - номер тестируемого проекта, поле пока нужно только для тестов 
     public int ord = 1; //ONUMB - номер тестируемого заказа, поле пока нужно только для тестов 
     private Integer nuni = -3;  //nuni профиля (PRO4_SYSPROF.NUNI)
-    protected Float width = null; //ширина area, мм.
-    protected Float widthAdd = null;  //дополнительная ширина, мм.
-    protected Float height = null; //высота area, мм 
-    protected Float heightAdd = null;  //дополнительная высота, мм.
-    public Integer color1 = -3;  //основная текстура
-    public Integer color2 = -3;  //внутренняя текстура
-    public Integer color3 = -3;  //внешняя текстура    
+    protected Float width1 = null;  //ширина area мм. верхняя
+    protected Float width2 = null; //ширина area мм. нижняя
+    protected Float height1 = null; //высота area мм левая 
+    protected Float height2 = null;  //высота area мм. правая
+    protected Integer color1 = -3;  //основная текстура
+    protected Integer color2 = -3;  //внутренняя текстура
+    protected Integer color3 = -3;  //внешняя текстура    
 
     public GsonRoot(String version, int prj, int ord, int nuni, String name, Layout layout, Type type, float width, float height, int color1, int color2, int color3) {
         init(version, prj, ord, nuni, name, layout, type, null, width, height, 0, color1, color2, color3, null);
@@ -49,10 +49,10 @@ public class GsonRoot extends GsonElem {
         this.layout = layout;
         this.type = type;
         this.form = form;
-        this.width = width1;
-        this.height = height1;
+        this.width2 = width1;
+        this.height1 = height1;
         //this.widthAdd = (width2 == 0) ?null :width2;
-        this.heightAdd = (height2 == 0) ? null : height2;
+        this.height2 = (height2 == 0) ? null : height2;
         this.length = null;
         this.color1 = color1;
         this.color2 = color2;
@@ -77,35 +77,59 @@ public class GsonRoot extends GsonElem {
         return nuni;
     }
 
-    public Float height() {
-        return height;
+    public Float height1() {
+        return height1;
     }
 
-    public void height(float h) {
-        height = h;
+    public void height1(float h) {
+        height1 = h;
+    }
+
+    public Float width1() {
+        return width1;
+    }
+
+    public void width1(float w) {
+        width1 = w;
+    }
+
+    public Float height2() {
+        return height2;
+    }
+
+    public void height2(float h) {
+        height2 = h;
+    }
+
+    public Float width2() {
+        return width2;
+    }
+
+    public void width2(float w) {
+        width2 = w;
+    }
+
+    public int color1() {
+        return color1;
     }
     
-    public Float widthAdd() {
-        return widthAdd;
+    public void color1(int color1) {
+        this.color1 = color1;
     }
     
-    public void widthAdd(float w) {
-        widthAdd = w;
+    public int color2() {
+        return color2;
     }
     
-    public Float heightAdd() {
-        return heightAdd;
+    public void color2(int color2) {
+        this.color2 = color2;
     }
-
-    public void heightAdd(float h) {
-        heightAdd = h;
+    
+    public int color3() {
+        return color3;
     }
-
-    public Float width() {
-        return width;
-    }
-
-    public void width(float w) {
-        width = w;
-    }
+    
+    public void color3(int color3) {
+        this.color3 = color3;
+    }    
 }

@@ -34,21 +34,21 @@ public class AreaSimple extends Com5t {
     public AreaSimple(Wincalc winc) {
         super(winc.rootGson.id(), winc, null, winc.rootGson);
         this.layout = winc.rootGson.layout();
-        this.colorID1 = winc.rootGson.color1;
-        this.colorID2 = winc.rootGson.color2;
-        this.colorID3 = winc.rootGson.color3;
+        this.colorID1 = winc.rootGson.color1();
+        this.colorID2 = winc.rootGson.color2();
+        this.colorID3 = winc.rootGson.color3();
 
         initСonstructiv(winc.rootGson.param());
-        setLocation(winc.rootGson.width(), winc.rootGson.height());
+        setLocation(winc.rootGson.width2(), winc.rootGson.height1());
         initParametr(winc.rootGson.param());
     }
 
     public AreaSimple(Wincalc winc, AreaSimple owner, GsonElem gson, float width, float height) {
         super(gson.id(), winc, owner, gson);
         this.layout = gson.layout();
-        this.colorID1 = winc.rootGson.color1;
-        this.colorID2 = winc.rootGson.color2;
-        this.colorID3 = winc.rootGson.color3;
+        this.colorID1 = winc.rootGson.color1();
+        this.colorID2 = winc.rootGson.color2();
+        this.colorID3 = winc.rootGson.color3();
 
         initСonstructiv(gson.param());
         setLocation(width, height);
@@ -59,9 +59,9 @@ public class AreaSimple extends Com5t {
         super(gson.id(), winc, owner, gson);
         this.form = form;
         this.layout = gson.layout();
-        this.colorID1 = winc.rootGson.color1;
-        this.colorID2 = winc.rootGson.color2;
-        this.colorID3 = winc.rootGson.color3;
+        this.colorID1 = winc.rootGson.color1();
+        this.colorID2 = winc.rootGson.color2();
+        this.colorID3 = winc.rootGson.color3();
 
         initСonstructiv(gson.param());
         setLocation(width, height);

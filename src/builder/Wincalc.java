@@ -54,10 +54,10 @@ public class Wincalc {
     public Record syssizeRec = null; //константы    
     public float genId = 0; //генерация ключа в спецификации
 
-    public float width = 0.f; //ширина окна
-    public float widthAdd = 0.f; //ширина окна
-    public float height = 0.f; //высота окна
-    public float heightAdd = 0.f; //дополнительная высота
+    public float width1 = 0.f; //ширина окна верхняя    
+    public float width2 = 0.f; //ширина окна нижняя
+    public float height1 = 0.f; //высота окна левая
+    public float height2 = 0.f; //высота окна правая
     public int colorID1 = -1;  //базовый цвет
     public int colorID2 = -1;  //внутренний цвет
     public int colorID3 = -1;  //внещний цвет
@@ -89,7 +89,7 @@ public class Wincalc {
     public AreaSimple build(String script) {
         try {
             genId = 0;
-            heightAdd = 0.f;
+            height2 = 0.f;
             List.of((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
             List.of(mapPardef, mapJoin).forEach(el -> el.clear());
 
@@ -120,12 +120,12 @@ public class Wincalc {
 
             //Инит конструктива
             this.nuni = rootGson.nuni();
-            this.width = rootGson.width();
-            this.height = rootGson.height();
-            this.heightAdd = (rootGson.heightAdd() == null) ?rootGson.height() :rootGson.heightAdd();
-            this.colorID1 = rootGson.color1;
-            this.colorID2 = rootGson.color2;
-            this.colorID3 = rootGson.color3;
+            this.width2 = rootGson.width2();
+            this.height1 = rootGson.height1();
+            this.height2 = (rootGson.height2() == null) ?rootGson.height1() :rootGson.height2();
+            this.colorID1 = rootGson.color1();
+            this.colorID2 = rootGson.color2();
+            this.colorID3 = rootGson.color3();
             this.artiklRec = eArtikl.find(eSysprof.find2(nuni, UseArtiklTo.FRAME).getInt(eSysprof.artikl_id), true);
             this.syssizeRec = eSyssize.find(artiklRec);
             eSyspar1.find(nuni).stream().forEach(syspar1Rec -> mapPardef.put(syspar1Rec.getInt(eSyspar1.params_id), syspar1Rec)); //загрузим параметры по умолчанию
@@ -163,8 +163,8 @@ public class Wincalc {
 
                 } else if (Type.AREA == el.type() || Type.ARCH == el.type() || Type.TRAPEZE == el.type()) {
                     AreaSimple area5e = (el.form() == null)
-                            ? new AreaSimple(Wincalc.this, owner, el, el.width(), el.height())
-                            : new AreaSimple(Wincalc.this, owner, el, el.width(), el.height(), el.form());
+                            ? new AreaSimple(Wincalc.this, owner, el, el.width2(), el.height1())
+                            : new AreaSimple(Wincalc.this, owner, el, el.width2(), el.height1(), el.form());
                     owner.childs.add(area5e);
                     hm.put(area5e, el);
 

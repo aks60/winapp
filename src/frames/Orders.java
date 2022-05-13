@@ -359,9 +359,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 txt9.setText(eColor.find(winc.colorID1).getStr(eColor.name));
                 txt13.setText(eColor.find(winc.colorID2).getStr(eColor.name));
                 txt14.setText(eColor.find(winc.colorID3).getStr(eColor.name));
-                txt17.setText(String.valueOf(winc.rootGson.width()));
-                txt22.setText(String.valueOf(winc.rootGson.height()));
-                txt23.setText(String.valueOf(winc.rootGson.heightAdd()));
+                txt17.setText(String.valueOf(winc.rootGson.width2()));
+                txt22.setText(String.valueOf(winc.rootGson.height1()));
+                txt23.setText(String.valueOf(winc.rootGson.height2()));
                 txt23.setEditable(winNode.com5t().type() == enums.Type.ARCH);
 
                 //Параметры
@@ -2758,11 +2758,11 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                         GsonElem jsonElem = winc().listAll.gson(selectID);
                         if (jsonElem != null) {
                             if (evt.getSource() == btn9) {
-                                winc().rootGson.color1 = colorRec.getInt(eColor.id);
+                                winc().rootGson.color1(colorRec.getInt(eColor.id));
                             } else if (evt.getSource() == btn13) {
-                                winc().rootGson.color2 = colorRec.getInt(eColor.id);
+                                winc().rootGson.color2(colorRec.getInt(eColor.id));
                             } else {
-                                winc().rootGson.color3 = colorRec.getInt(eColor.id);
+                                winc().rootGson.color3(colorRec.getInt(eColor.id));
                             }
                             updateScript(selectID);
                             btnRefresh(null);

@@ -17,7 +17,7 @@ public class AreaTrapeze extends AreaSimple {
 
     public AreaTrapeze(Wincalc winc) {
         super(winc);
-        setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
+        setDimension(0, 0, winc.rootGson.width2(), winc.rootGson.height1());
     }
 
     @Override
@@ -128,14 +128,14 @@ public class AreaTrapeze extends AreaSimple {
         ElemSimple elemBott = frames.get(Layout.BOTT), elemRight = frames.get(Layout.RIGHT), elemTop = frames.get(Layout.TOP), elemLeft = frames.get(Layout.LEFT);
 
         if (winc.form == Form.RIGHT) {
-            float angl = (float) Math.toDegrees(Math.atan((height() - winc.heightAdd) / width()));
+            float angl = (float) Math.toDegrees(Math.atan((height() - winc.height2) / width()));
             ElemJoining.create(elemLeft.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90); //угловое соединение левое нижнее
             ElemJoining.create(elemBott.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90); //угловое соединение правое нижнее 
             ElemJoining.create(elemRight.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 + angl); //угловое соединение правое верхнее
             ElemJoining.create(elemTop.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.LTOP, elemTop, elemLeft, 90 - angl);    //угловое соединение левое верхнее 
 
         } else if (winc.form == Form.LEFT) {
-            float angl = (float) Math.toDegrees(Math.atan((height() - winc.heightAdd) / width()));
+            float angl = (float) Math.toDegrees(Math.atan((height() - winc.height2) / width()));
             ElemJoining.create(elemLeft.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.LBOT, elemLeft, elemRight, 90); //угловое соединение левое нижнее 
             ElemJoining.create(elemBott.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.RBOT, elemBott, elemRight, 90); //угловое соединение правое нижнее
             ElemJoining.create(elemRight.joinPoint(1), winc, TypeJoin.VAR20, LayoutJoin.RTOP, elemRight, elemTop, 90 - angl); //угловое соединение правое верхнее
