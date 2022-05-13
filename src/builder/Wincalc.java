@@ -99,7 +99,7 @@ public class Wincalc {
             rootArea.joining(); //соединения ареа
             listArea.stream().filter(el -> el.type() == Type.STVORKA).collect(toList()).forEach(el -> el.joining()); //соединения створок
             listElem.forEach(it -> it.setSpecific()); //спецификация профилей
-            
+
         } catch (Exception e) {
             System.err.println("Ошибка:Wincalc.build() " + e);
         }
@@ -122,7 +122,8 @@ public class Wincalc {
             this.nuni = rootGson.nuni();
             this.width2 = rootGson.width2();
             this.height1 = rootGson.height1();
-            this.height2 = (rootGson.height2() == null) ?rootGson.height1() :rootGson.height2();
+            this.height2 = (rootGson.height2() == null)
+                    ? rootGson.height1() : rootGson.height2();
             this.colorID1 = rootGson.color1();
             this.colorID2 = rootGson.color2();
             this.colorID3 = rootGson.color3();
