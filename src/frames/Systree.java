@@ -584,9 +584,9 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     public void selectionWinTree() {
         Object selNode = winTree.getLastSelectedPathComponent();
-        if (selNode instanceof DefMutableTreeNode) {
-            Wincalc winc = winc();
+        if (selNode instanceof DefMutableTreeNode) {            
             winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
+            Wincalc winc = winc();
             
             //Конструкции
             if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.DOOR || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
