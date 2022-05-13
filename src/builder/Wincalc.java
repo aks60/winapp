@@ -56,8 +56,8 @@ public class Wincalc {
 
     public float width1 = 0.f; //ширина окна верхняя    
     public float width2 = 0.f; //ширина окна нижняя
-    public float height1 = 0.f; //высота окна левая
-    public float height2 = 0.f; //высота окна правая
+    private float height1 = 0.f; //высота окна левая
+    private float height2 = 0.f; //высота окна правая
     public int colorID1 = -1;  //базовый цвет
     public int colorID2 = -1;  //внутренний цвет
     public int colorID3 = -1;  //внещний цвет
@@ -220,4 +220,15 @@ public class Wincalc {
             System.err.println("Ошибка:Wincalc.constructiv(" + e);
         }
     }
+
+    public float height1() {
+        return height1;
+    }
+
+    public float height2() {
+        return height2;
+    }
+    
+    
+    
 }

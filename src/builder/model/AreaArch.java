@@ -67,7 +67,7 @@ public class AreaArch extends AreaSimple {
                 elemArch = frames.get(Layout.TOP), elemLeft = frames.get(Layout.LEFT);
 
         double dh = elemArch.artiklRec.getFloat(eArtikl.height);
-        double h = height() - winc.height2;
+        double h = height() - winc.height2();
         double w = width();
         double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки        
         double rad1 = Math.acos((w / 2) / r); // Math.toDegrees() — преобразование радианов в градусы ... Math.asin() — арксинус

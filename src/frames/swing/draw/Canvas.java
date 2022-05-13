@@ -43,8 +43,8 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
 
     public void scale(Wincalc winc) {
         if (winc != null) {
-            winc.scale = (getWidth() / winc.width2 > getHeight() / winc.height1)
-                    ? getHeight() / (winc.height1 + 24) : getWidth() / (winc.width2 + 24);
+            winc.scale = (getWidth() / winc.width2 > getHeight() / winc.height1())
+                    ? getHeight() / (winc.height1() + 24) : getWidth() / (winc.width2 + 24);
         }
     }
 
@@ -56,8 +56,8 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
             winc.gc2d.setColor(getBackground());
             winc.gc2d.setStroke(new BasicStroke(2)); //толщина линии
             winc.gc2d.translate(Com5t.TRANSLATE_XY, Com5t.TRANSLATE_XY);
-            winc.scale = ((getWidth() - 3) / winc.width2 > (getHeight() - 3) / winc.height1)
-                    ? (getHeight() - 3) / winc.height1 : (getWidth() - 3) / winc.width2;
+            winc.scale = ((getWidth() - 3) / winc.width2 > (getHeight() - 3) / winc.height1())
+                    ? (getHeight() - 3) / winc.height1() : (getWidth() - 3) / winc.width2;
             winc.gc2d.scale(winc.scale, winc.scale);
             winc.rootArea.draw();
 
@@ -73,7 +73,7 @@ public class Canvas extends javax.swing.JPanel implements ListenerFrame<MouseEve
             BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
             winc.gc2d = bi.createGraphics();
             winc.gc2d.fillRect(0, 0, length, length);
-            winc.scale = (length / winc.width2 > length / winc.height1) ? length / (winc.height1 + 200) : length / (winc.width2 + 200);
+            winc.scale = (length / winc.width2 > length / winc.height1()) ? length / (winc.height1() + 200) : length / (winc.width2 + 200);
             winc.gc2d.scale(winc.scale, winc.scale);
             winc.rootArea.draw(); //рисую конструкцию
             return new ImageIcon(bi);

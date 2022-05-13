@@ -61,7 +61,7 @@ public class ElemGlass extends ElemSimple {
     //Установка координат
     public void setLocation() {
         if (Type.ARCH == owner.type()) {
-            setDimension(0, 0, owner.x2, winc.height1 - winc.height2);
+            setDimension(0, 0, owner.x2, Math.abs(winc.height1() - winc.height2()));
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }
@@ -226,10 +226,10 @@ public class ElemGlass extends ElemSimple {
         } else if (root().type() == Type.TRAPEZE) {
             if (winc.form == Form.RIGHT) {
                 winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                        new int[]{(int) y1, (int) (root().height() - winc.height2), (int) y2, (int) y2}, 4);
+                        new int[]{(int) y1, (int) (root().height() - winc.height2()), (int) y2, (int) y2}, 4);
             } else if (winc.form == Form.LEFT) {
                 winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                        new int[]{(int) (root().height() - winc.height2), (int) y1, (int) y2, (int) y2}, 4);
+                        new int[]{(int) (root().height() - winc.height2()), (int) y1, (int) y2, (int) y2}, 4);
             }
         } else {
             winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},

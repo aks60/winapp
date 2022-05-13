@@ -436,8 +436,7 @@ public final class Bimax {
             stv.addElem(new GsonElem(Type.IMPOST))
                     .addArea(new GsonElem(Layout.VERT, Type.AREA, 1500))
                     .addElem(new GsonElem(Type.GLASS));
-        } 
-// <editor-fold defaultstate="collapsed" desc="ХОЛОДНЫЙ  ТЕСТ, спецификации в базе нет">         
+        } // <editor-fold defaultstate="collapsed" desc="ХОЛОДНЫЙ  ТЕСТ, спецификации в базе нет">         
         else if (prj == 1043598818) { //Прямоугольное сложное
             rootGson = new GsonRoot("1.0", prj, 1, 8, "KBE 58\\1 ОКНА\\Открывание внутрь (ств. Z77)",
                     Layout.VERT, Type.RECTANGL, 1440, 1700, 1009, 1009, 1009);
@@ -574,8 +573,7 @@ public final class Bimax {
                     .addElem(new GsonElem(Type.FRAME_SIDE, Layout.BOTT));
             rootGson.addArea(new GsonElem(Layout.VERT, Type.STVORKA))
                     .addElem(new GsonElem(Type.GLASS));
-        } 
-// </editor-fold>          
+        } // </editor-fold>          
         else {
             return null;
         }
