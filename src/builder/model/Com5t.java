@@ -7,6 +7,8 @@ import builder.Wincalc;
 import builder.script.GsonElem;
 import domain.eArtikl;
 import enums.Type;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class Com5t {
 
@@ -57,7 +59,7 @@ public abstract class Com5t {
         this.x2 = x2;
         this.y2 = y2;
     }
-    
+
     public boolean isJson(JsonObject jso, String key) {
         if (jso == null) {
             return false;
@@ -74,7 +76,7 @@ public abstract class Com5t {
     public boolean isJson(JsonObject jso) {
         if (jso == null || "".equals(jso)) {
             return false;
-        }        
+        }
         return !jso.isJsonNull();
     }
 
@@ -241,26 +243,34 @@ public abstract class Com5t {
         double X = Math.floor(x), Y = Math.floor(y);
         double X1 = Math.floor(x1), X2 = Math.floor(x2), Y1 = Math.floor(y1), Y2 = Math.floor(y2);
 
-        if (((int)X2 | (int)Y2) < 0) {
+        if (((int) X2 | (int) Y2) < 0) {
             return false;
         }
-        
+
         if (X < X1 || Y < Y1) {
             return false;
         }
         return ((X2 >= X) && (Y2 >= Y));
     }
-    
+
     public boolean inside2(float x, float y) {
-        if (((int) x2 | (int) y2) < 0) {
-            return false;
+        int X = (int) x, Y = (int) y;
+//        int X1 = (int) x1, X2 = (int) x2, Y1 = (int) y1, Y2 = (int) y2;
+//        int xp[] = {X1, X2, X2, X1}; // массив X-координат полигона
+//        int yp[] = {Y1, Y1, Y2, Y2}; // массив Y-координат полигона
+        int xp[] = {4, 800, 800, 4}, yp[] = {4, 4, 20, 20}; //test  
+        int j = xp.length - 1;
+        boolean result = false;
+        for (int i = 0; i < 4; ++i) {
+            if ((((yp[i] <= Y) && (Y < yp[j])) || ((yp[j] <= Y) && (Y < yp[i])))
+                    && ((X > (xp[j] - xp[i]) * (Y - yp[i]) / (yp[j] - yp[i]) + xp[i]))) {
+                result = !result;
+            }
+            j = i;
         }
-        if (x < x1 || y < y1) {
-            return false;
-        }
-        return ((x2 < x1 || x2 >= x) && (y2 < y1 || y2 >= y));
+        return result;
     }
-    
+
     public void paint() {
     }
 
