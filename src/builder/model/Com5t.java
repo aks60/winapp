@@ -238,13 +238,23 @@ public abstract class Com5t {
         return colorID3;
     }
 
-    //Точка попадает в контур элемента
+    //Точка попадает в контур четырёхугольника
     public boolean inside(float x, float y) {
-        double X = Math.floor(x), Y = Math.floor(y);
-        double X1 = Math.floor(x1), X2 = Math.floor(x2), Y1 = Math.floor(y1), Y2 = Math.floor(y2);
+        int X = (int) x, Y = (int) y;
+        int X1 = (int) x1, Y1 = (int) y1, X2 = (int) x2, Y2 = (int) y2;
 
-        if (((int) X2 | (int) Y2) < 0) {
+        if ((X2 | Y2) < 0) {
             return false;
+        }
+
+        if (x1 > x2) {
+            X1 = (int) x2;
+            X2 = (int) x1;
+        }
+
+        if (y1 > y2) {
+            Y1 = (int) y2;
+            Y2 = (int) y1;
         }
 
         if (X < X1 || Y < Y1) {
@@ -253,24 +263,27 @@ public abstract class Com5t {
         return ((X2 >= X) && (Y2 >= Y));
     }
 
-    public boolean inside2(float x, float y) {
-        int X = (int) x, Y = (int) y;
-//        int X1 = (int) x1, X2 = (int) x2, Y1 = (int) y1, Y2 = (int) y2;
-//        int xp[] = {X1, X2, X2, X1}; // массив X-координат полигона
-//        int yp[] = {Y1, Y1, Y2, Y2}; // массив Y-координат полигона
-        int xp[] = {4, 800, 800, 4}, yp[] = {4, 4, 20, 20}; //test  
-        int j = xp.length - 1;
-        boolean result = false;
-        for (int i = 0; i < 4; ++i) {
-            if ((((yp[i] <= Y) && (Y < yp[j])) || ((yp[j] <= Y) && (Y < yp[i])))
-                    && ((X > (xp[j] - xp[i]) * (Y - yp[i]) / (yp[j] - yp[i]) + xp[i]))) {
-                result = !result;
-            }
-            j = i;
-        }
-        return result;
-    }
-
+    // <editor-fold defaultstate="collapsed" desc="inside2 см.инет Задача о принадлежности точки многоугольнику"> 
+//    public boolean inside2(float x, float y) {
+//        int X = (int) x, Y = (int) y;
+//        //int X1 = (int) x1, X2 = (int) x2, Y1 = (int) y1, Y2 = (int) y2;
+//        //int xp[] = {X1, X2, X2, X1}; // массив X-координат полигона 
+//        //int yp[] = {Y1, Y1, Y2, Y2}; // массив Y-координат полигона 
+//        
+//        int xp[] = {4, 800, 800, 4}, yp[] = {4, 4, 20, 20}; //test  
+//        int j = xp.length - 1;
+//        boolean result = false;
+//        for (int i = 0; i < 4; ++i) {
+//            if ((((yp[i] <= Y) && (Y < yp[j])) || ((yp[j] <= Y) && (Y < yp[i])))
+//                    && ((X > (xp[j] - xp[i]) * (Y - yp[i]) / (yp[j] - yp[i]) + xp[i]))) {
+//                result = !result;
+//            }
+//            j = i;
+//        }
+//        return result;
+//    } 
+    // </editor-fold> 
+    
     public void paint() {
     }
 

@@ -93,7 +93,6 @@ public abstract class ElemSimple extends Com5t {
                             }
                         } else if (Layout.TOP == layoutSide && el.layout != Layout.VERT) {
                             float Y1 = (y2 > y1) ? y1 : y2;
-                            //Object obj = el.inside(x1 + (x2 - x1) / 2, Y1);
                             if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type() == Type.ARCH && el.layout == Layout.TOP) == false) {
                                 return (ElemSimple) el;
                             }

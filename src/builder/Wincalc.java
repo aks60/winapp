@@ -145,7 +145,7 @@ public class Wincalc {
             } else if (Type.ARCH == rootGson.type()) {
                 rootArea = new AreaArch(this); //арка
             }
-
+            
             //Создадим элементы конструкции
             elements(rootArea, rootGson);
 
