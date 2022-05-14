@@ -13,6 +13,7 @@ public class AreaTriangl extends AreaSimple {
     }
 
     @Override
+    //Угловые соединения
     public void joining() {
 
         super.joining();

@@ -66,9 +66,9 @@ public class ElemGlass extends ElemSimple {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }
     }
-
-    //Главная спецификация
+    
     @Override
+    //Главная спецификация
     public void setSpecific() {
 
         spcRec.place = "ЗАП";
@@ -127,8 +127,8 @@ public class ElemGlass extends ElemSimple {
         spcRec.height = height();
     }
 
-    //Вложенная спецификация
     @Override
+    //Вложенная спецификация
     public void addSpecific(Specific spcAdd) {
         if (Type.ARCH == owner.type() && (anglHoriz == sideHoriz[1] || anglHoriz == sideHoriz[3])) {
             return;  //нет таких сторон у арки

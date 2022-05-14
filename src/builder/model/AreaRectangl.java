@@ -17,6 +17,7 @@ public class AreaRectangl extends AreaSimple {
     }
     
     //@Override
+    //Угловые соединения
     public void joining() {
         
         super.joining(); //T - соединения

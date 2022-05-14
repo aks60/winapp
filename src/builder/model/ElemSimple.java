@@ -37,8 +37,11 @@ public abstract class ElemSimple extends Com5t {
         return inside(x, y);
     }
 
-    //Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка прилегающего вектора)
-    //В этих точках лежат мапы соединений см. Wincalc.mapJoin
+    /**
+     * Точки соединения профилей (side 0-нач. вектора, 1-конец вектора, 2-точка
+     * прилегающего вектора) В этих точках лежат мапы соединений см.
+     * Wincalc.mapJoin
+     */
     public String joinPoint(int side) {
 
         if (owner.type() == Type.ARCH && layout == Layout.TOP && winc.form == Form.TOP) {
@@ -72,39 +75,40 @@ public abstract class ElemSimple extends Com5t {
         return null;
     }
 
-    //Прилегающие соединения
+    /**
+     * Прилегающие соединения элемента. Все элементы могут иметь прилегающие
+     * соединения. Прил. соед. используется для определения координат
+     * примыкаемого соединения. (см. )
+     */
     public ElemSimple joinFlat(Layout layoutSide) {
         boolean begin = false;
         try {
-            for (int index = winc.listAll.size() - 1; index >= 0; --index) {
-                Com5t com5t = winc.listAll.get(index);
-                if (com5t instanceof ElemSimple) {
-                    ElemSimple el = (ElemSimple) com5t;
+            for (int index = winc.listElem.size() - 1; index >= 0; --index) {
+                ElemSimple el = (ElemSimple) winc.listElem.get(index);
 
-                    if (begin == true && el.type() != Type.GLASS) {
-                        if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
-                            float Y2 = (y2 > y1) ? y2 : y1;
-                            if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
-                                return (ElemSimple) el;
-                            }
-                        } else if (Layout.LEFT == layoutSide && el.layout != Layout.HORIZ) {
-                            if (el.inside(x1, y1 + (y2 - y1) / 2) == true) {
-                                return (ElemSimple) el;
-                            }
-                        } else if (Layout.TOP == layoutSide && el.layout != Layout.VERT) {
-                            float Y1 = (y2 > y1) ? y1 : y2;
-                            if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type() == Type.ARCH && el.layout == Layout.TOP) == false) {
-                                return (ElemSimple) el;
-                            }
-                        } else if (Layout.RIGHT == layoutSide && el.layout != Layout.HORIZ) {
-                            if (el.inside(x2, y1 + (y2 - y1) / 2)) {
-                                return (ElemSimple) el;
-                            }
+                if (begin == true && el.type() != Type.GLASS) {
+                    if (Layout.BOTT == layoutSide && el.layout != Layout.VERT) {
+                        float Y2 = (y2 > y1) ? y2 : y1;
+                        if (el.inside(x1 + (x2 - x1) / 2, Y2) == true) {
+                            return (ElemSimple) el;
+                        }
+                    } else if (Layout.LEFT == layoutSide && el.layout != Layout.HORIZ) {
+                        if (el.inside(x1, y1 + (y2 - y1) / 2) == true) {
+                            return (ElemSimple) el;
+                        }
+                    } else if (Layout.TOP == layoutSide && el.layout != Layout.VERT) {
+                        float Y1 = (y2 > y1) ? y1 : y2;
+                        if (el.inside(x1 + (x2 - x1) / 2, Y1) == true && (el.owner.type() == Type.ARCH && el.layout == Layout.TOP) == false) {
+                            return (ElemSimple) el;
+                        }
+                    } else if (Layout.RIGHT == layoutSide && el.layout != Layout.HORIZ) {
+                        if (el.inside(x2, y1 + (y2 - y1) / 2)) {
+                            return (ElemSimple) el;
                         }
                     }
-                    if (this == el) {
-                        begin = true;
-                    }
+                }
+                if (this == el) {
+                    begin = true;
                 }
             }
             System.err.println("Неудача: id=" + this.id() + ", " + layoutSide + " соединение не найдено");
@@ -116,7 +120,9 @@ public abstract class ElemSimple extends Com5t {
         }
     }
 
-    //Элемент соединения 0-пред.артикул, 1-след.артикл, 2-прилег. артикл
+    /**
+     * Элемент соединения 0-пред.артикул, 1-след.артикл, 2-прилег. артикл
+     */
     public ElemSimple joinElem(int side) {
         ElemJoining ej = winc.mapJoin.get(joinPoint(side));
         if (ej != null && side == 0) {

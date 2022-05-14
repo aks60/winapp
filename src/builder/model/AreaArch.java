@@ -59,6 +59,7 @@ public class AreaArch extends AreaSimple {
     }
     
     @Override
+    //Угловые соединения
     public void joining() {
         
         super.joining(); //T - соединения

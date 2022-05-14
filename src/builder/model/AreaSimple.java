@@ -137,8 +137,8 @@ public class AreaSimple extends Com5t {
     protected void addFilling(ElemGlass glass, Specific spcAdd) {
     }
 
-    //Форма контура
     @Override
+    //Форма контура
     public Type type() {
         if (this != root && form != null) {
             return root.type();
@@ -146,32 +146,37 @@ public class AreaSimple extends Com5t {
         return super.type();
     }
 
-    //T - соединения
+    /**
+     * T - соединения area. Все поперечены(cross) в area имеют Т-соединения.
+     * Т-соед. записываются в map, см. winc.mapJoin.put(point, cross). За угловые
+     * соединени отвечает конечнй наследник например AreaRectangl.joining().
+     * Прилегающие см. ElemSimple.joinFlat()
+     */
     public void joining() {
 
-        LinkedList<ElemSimple> impList = UCom.listSortObj(winc.listElem, Type.IMPOST, Type.SHTULP, Type.STOIKA);
+        LinkedList<ElemSimple> crosList = UCom.listSortObj(winc.listElem, Type.IMPOST, Type.SHTULP, Type.STOIKA);
         LinkedList<ElemSimple> elemList = UCom.listSortObj(winc.listElem, Type.FRAME_SIDE, Type.STVORKA_SIDE, Type.IMPOST, Type.SHTULP, Type.STOIKA);
 
         //T - соединения
-        for (ElemSimple elemImp : impList) {
+        for (ElemSimple crosEl : crosList) {
             //Цикл по сторонам рамы и импостам (т.к. в створке Т-обр. соединений нет)
             for (ElemSimple elem5e : elemList) {
                 if ((elem5e.owner.type() == Type.ARCH && elem5e.layout == Layout.TOP) == false) { //для арки inside() не работает
-                    elemImp.anglCut[0] = 90;
-                    elemImp.anglCut[1] = 90;
+                    crosEl.anglCut[0] = 90;
+                    crosEl.anglCut[1] = 90;
 
-                    if (elemImp.owner.layout == Layout.HORIZ) { //Импосты(штульпы...)  расположены по горизонтали слева на право                     
-                        if (elem5e.inside(elemImp.x2, elemImp.y2) == true && elem5e != elemImp) { //T - соединение нижнее                              
-                            ElemJoining.create(elemImp.joinPoint(0), winc, TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e, 90);
-                        } else if (elem5e.inside(elemImp.x1, elemImp.y1) == true && elem5e != elemImp) { //T - соединение верхнее                            
-                            ElemJoining.create(elemImp.joinPoint(1), winc, TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e, 90);
+                    if (crosEl.owner.layout == Layout.HORIZ) { //Импосты(штульпы...)  расположены по горизонтали слева на право                     
+                        if (elem5e.inside(crosEl.x2, crosEl.y2) == true && elem5e != crosEl) { //T - соединение нижнее                              
+                            ElemJoining.create(crosEl.joinPoint(0), winc, TypeJoin.VAR40, LayoutJoin.TBOT, crosEl, elem5e, 90);
+                        } else if (elem5e.inside(crosEl.x1, crosEl.y1) == true && elem5e != crosEl) { //T - соединение верхнее                            
+                            ElemJoining.create(crosEl.joinPoint(1), winc, TypeJoin.VAR40, LayoutJoin.TTOP, crosEl, elem5e, 90);
                         }
 
                     } else {//Импосты(штульпы...) расположены по вертикали снизу вверх
-                        if (elem5e.inside(elemImp.x1, elemImp.y1) == true && elem5e != elemImp) { //T - соединение левое                             
-                            ElemJoining.create(elemImp.joinPoint(0), winc, TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e, 90);
-                        } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true && elem5e != elemImp) { //T - соединение правое                              
-                            ElemJoining.create(elemImp.joinPoint(1), winc, TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e, 90);
+                        if (elem5e.inside(crosEl.x1, crosEl.y1) == true && elem5e != crosEl) { //T - соединение левое                             
+                            ElemJoining.create(crosEl.joinPoint(0), winc, TypeJoin.VAR40, LayoutJoin.TLEFT, crosEl, elem5e, 90);
+                        } else if (elem5e.inside(crosEl.x2, crosEl.y2) == true && elem5e != crosEl) { //T - соединение правое                              
+                            ElemJoining.create(crosEl.joinPoint(1), winc, TypeJoin.VAR40, LayoutJoin.TRIGH, crosEl, elem5e, 90);
                         }
                     }
                 }
