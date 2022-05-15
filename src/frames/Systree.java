@@ -584,10 +584,10 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
 
     public void selectionWinTree() {
         Object selNode = winTree.getLastSelectedPathComponent();
-        if (selNode instanceof DefMutableTreeNode) {            
+        if (selNode instanceof DefMutableTreeNode) {
             winNode = (DefMutableTreeNode) winTree.getLastSelectedPathComponent();
             Wincalc winc = winc();
-            
+
             //Конструкции
             if (winNode.com5t().type() == enums.Type.RECTANGL || winNode.com5t().type() == enums.Type.DOOR || winNode.com5t().type() == enums.Type.TRAPEZE || winNode.com5t().type() == enums.Type.ARCH) {
                 ((CardLayout) pan7.getLayout()).show(pan7, "card12");
@@ -3543,13 +3543,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_colorFromLock
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-        TableRowSorter<TableModel> sorter = new TableRowSorter<>(tab7.getModel());
-        tab7.setRowSorter(sorter);
-        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
-        int columnIndexToSort = 0;
-        sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING));
-        sorter.setSortKeys(sortKeys);
-        sorter.sort();
+        String json = gson.toJson(winc().rootGson);
+        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(new com.google.gson.JsonParser().parse(json))); //для тестирования
     }//GEN-LAST:event_btnTestActionPerformed
 
     private void colorFromGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorFromGlass

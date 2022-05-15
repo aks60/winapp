@@ -78,19 +78,36 @@ public class GsonRoot extends GsonElem {
     }
 
     public Float height() {
+//        if (height1 == null) {
+//            return height2;
+//        } else if (height2 == null) {
+//            return height1;
+//        } else if (height1 > height2) {
+//            return height1;
+//        } else {
+//            return height2;
+//        }
+        return height1;
+    }
+
+    public Float width() {
+//        if (width1 == null) {
+//            return width2;
+//        } else if (width2 == null) {
+//            return width1;
+//        } else if (width1 > width2) {
+//            return width1;
+//        } else {
+        return width2;
+//        }
+    }
+
+    public Float height1() {
         return height1;
     }
 
     public void height1(float h) {
         height1 = h;
-    }
-
-    public Float width1() {
-        return width1;
-    }
-
-    public void width1(float w) {
-        width1 = w;
     }
 
     public Float height2() {
@@ -101,7 +118,15 @@ public class GsonRoot extends GsonElem {
         height2 = h;
     }
 
-    public Float width() {
+    public Float width1() {
+        return width1;
+    }
+
+    public void width1(float w) {
+        width1 = w;
+    }
+
+    public Float width2() {
         return width2;
     }
 
@@ -112,24 +137,24 @@ public class GsonRoot extends GsonElem {
     public int color1() {
         return color1;
     }
-    
+
     public void color1(int color1) {
         this.color1 = color1;
     }
-    
+
     public int color2() {
         return color2;
     }
-    
+
     public void color2(int color2) {
         this.color2 = color2;
     }
-    
+
     public int color3() {
         return color3;
     }
-    
+
     public void color3(int color3) {
         this.color3 = color3;
-    }    
+    }
 }
