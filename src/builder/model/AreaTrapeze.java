@@ -17,8 +17,8 @@ public class AreaTrapeze extends AreaSimple {
 
     public AreaTrapeze(Wincalc winc) {
         super(winc);
-        float height = (winc.rootGson.height1() < winc.rootGson.height2()) ? winc.rootGson.height2() : winc.rootGson.height1();
-        setDimension(0, 0, winc.rootGson.width2(), height);
+        float height = (winc.rootGson.height() < winc.rootGson.height2()) ? winc.rootGson.height2() : winc.rootGson.height();
+        setDimension(0, 0, winc.rootGson.width(), height);
     }
 
     @Override

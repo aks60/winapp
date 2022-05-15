@@ -121,11 +121,11 @@ public class Wincalc {
             //Инит конструктива
             this.nuni = rootGson.nuni();
             this.width1 = (rootGson.width1() == null)
-                    ? rootGson.width2() : rootGson.width1();            
-            this.width2 = rootGson.width2();
-            this.height1 = rootGson.height1();
+                    ? rootGson.width() : rootGson.width1();            
+            this.width2 = rootGson.width();
+            this.height1 = rootGson.height();
             this.height2 = (rootGson.height2() == null)
-                    ? rootGson.height1() : rootGson.height2();
+                    ? rootGson.height() : rootGson.height2();
             this.colorID1 = rootGson.color1();
             this.colorID2 = rootGson.color2();
             this.colorID3 = rootGson.color3();
@@ -166,8 +166,8 @@ public class Wincalc {
 
                 } else if (Type.AREA == el.type() || Type.ARCH == el.type() || Type.TRAPEZE == el.type()) {
                     AreaSimple area5e = (el.form() == null)
-                            ? new AreaSimple(Wincalc.this, owner, el, el.width2(), el.height1())
-                            : new AreaSimple(Wincalc.this, owner, el, el.width2(), el.height1(), el.form());
+                            ? new AreaSimple(Wincalc.this, owner, el, el.width(), el.height())
+                            : new AreaSimple(Wincalc.this, owner, el, el.width(), el.height(), el.form());
                     owner.childs.add(area5e);
                     hm.put(area5e, el);
 

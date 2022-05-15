@@ -360,8 +360,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 txt9.setText(eColor.find(winc.colorID1).getStr(eColor.name));
                 txt13.setText(eColor.find(winc.colorID2).getStr(eColor.name));
                 txt14.setText(eColor.find(winc.colorID3).getStr(eColor.name));
-                txt17.setText(String.valueOf(winc.rootGson.width2()));
-                txt22.setText(String.valueOf(winc.rootGson.height1()));
+                txt17.setText(String.valueOf(winc.rootGson.width()));
+                txt22.setText(String.valueOf(winc.rootGson.height()));
                 txt23.setText(String.valueOf(winc.rootGson.height2()));
                 txt23.setEditable(winNode.com5t().type() == enums.Type.ARCH);
 

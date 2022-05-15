@@ -595,8 +595,8 @@ public class Systree extends javax.swing.JFrame implements ListenerReload {
                 setText(txt9, eColor.find(winc.colorID1).getStr(eColor.name));
                 setText(txt13, eColor.find(winc.colorID2).getStr(eColor.name));
                 setText(txt14, eColor.find(winc.colorID3).getStr(eColor.name));
-                setText(txt17, df1.frm(winc.rootGson.width2()));
-                setText(txt22, df1.frm(winc.rootGson.height1()));
+                setText(txt17, df1.frm(winc.rootGson.width()));
+                setText(txt22, df1.frm(winc.rootGson.height()));
                 setText(txt23, df1.frm(winc.rootGson.height2()));
                 txt23.setEditable(winNode.com5t().type() == enums.Type.ARCH);
 

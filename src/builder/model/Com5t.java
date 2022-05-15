@@ -100,17 +100,17 @@ public abstract class Com5t {
     }
 
     public float lengthX() {
-        return (this.id == 0) ? this.gson.width2() : this.gson.length();
+        return (this.id == 0) ? this.gson.width() : this.gson.length();
     }
 
     public float lengthY() {
-        return (this.id == 0) ? this.gson.height1() : this.gson.length();
+        return (this.id == 0) ? this.gson.height() : this.gson.length();
     }
 
     public void lengthX(float v) {
         try {
             if (this.id == 0) {
-                float k = v / gson.width2(); //коэффициент
+                float k = v / gson.width(); //коэффициент
                 if (k != 1) {
                     winc.rootGson.width2(v);
                     if (winc.rootGson.width1() != null) {
@@ -131,7 +131,7 @@ public abstract class Com5t {
                 if (k != 1) {
                     this.gson.length(v);
                     if (((AreaSimple) this).type() == Type.ARCH || ((AreaSimple) this).type() == Type.TRAPEZE) {
-                        this.winc.rootGson.width1(this.winc.rootGson.width2() - v);
+                        this.winc.rootGson.width1(this.winc.rootGson.width() - v);
                     }
                     for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по ширине
                         if (e.owner.layout == Layout.HORIZ && (e.type == Type.AREA || e.type == Type.STVORKA)) {
@@ -157,7 +157,7 @@ public abstract class Com5t {
     public void lengthY(float v) {
         try {
             if (this.id == 0) {
-                float k = v / gson.height1(); //коэффициент
+                float k = v / gson.height(); //коэффициент
                 if (k != 1) {
                     winc.rootGson.height1(v);
                     if (winc.rootGson.height2() != null) {
@@ -178,7 +178,7 @@ public abstract class Com5t {
                 if (k != 1) {
                     this.gson.length(v);
                     if (((AreaSimple) this).type() == Type.ARCH || ((AreaSimple) this).type() == Type.TRAPEZE) {
-                        this.winc.rootGson.height2(this.winc.rootGson.height1() - v);
+                        this.winc.rootGson.height2(this.winc.rootGson.height() - v);
                     }
                     for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по высоте
                         if (e.owner.layout == Layout.VERT && (e.type == Type.AREA || e.type == Type.STVORKA)) {

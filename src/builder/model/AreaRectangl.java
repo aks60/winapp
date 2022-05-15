@@ -13,7 +13,7 @@ public class AreaRectangl extends AreaSimple {
 
     public AreaRectangl(Wincalc winc) {
         super(winc);
-        setDimension(0, 0, winc.rootGson.width2(), winc.rootGson.height1());
+        setDimension(0, 0, winc.rootGson.width(), winc.rootGson.height());
     }
     
     //@Override
