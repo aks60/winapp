@@ -137,6 +137,100 @@ public class AreaSimple extends Com5t {
     protected void addFilling(ElemGlass glass, Specific spcAdd) {
     }
 
+    public void resizeX(float v) {
+        try {
+            if (this.id() == 0) {
+                float k = v / gson.width(); //коэффициент
+                if (k != 1) {
+                    winc.rootGson.width2(v);
+                    if (winc.rootGson.width1() != null) {
+                        winc.rootGson.width1(k * winc.rootGson.width1());
+                    }
+                    for (AreaSimple e : winc.listArea) { //перебор всех вертикальных area
+                        if (e.layout == Layout.HORIZ) {
+                            for (Com5t e2 : e.childs) { //изменение детей по высоте
+                                if (e2.type() == Type.AREA) {
+                                    e2.gson.length(k * e2.gson.length());
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                float k = v / this.lengthY(); //коэффициент 
+                if (k != 1) {
+                    this.gson.length(v);
+                    if (((AreaSimple) this).type() == Type.ARCH || ((AreaSimple) this).type() == Type.TRAPEZE) {
+                        this.winc.rootGson.width1(this.winc.rootGson.width() - v);
+                    }
+                    for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по ширине
+                        if (e.owner.layout == Layout.HORIZ && (e.type() == Type.AREA || e.type() == Type.STVORKA)) {
+                            ((AreaSimple) e).resizeY(k * e.lengthY()); //рекурсия изменения детей
+
+                        } else {
+                            if (e instanceof AreaSimple) {
+                                for (Com5t e2 : ((AreaSimple) e).childs) {
+                                    if (e2.owner.layout == Layout.HORIZ && (e2.type() == Type.AREA || e2.type() == Type.STVORKA)) {
+                                        ((AreaSimple) e2).resizeY(k * e2.lengthY()); //рекурсия изменения детей
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка: Com5t.lengthY() " + e);
+        }
+    }
+
+    public void resizeY(float v) {
+        try {
+            if (this.id() == 0) {
+                float k = v / gson.height(); //коэффициент
+                if (k != 1) {
+                    winc.rootGson.height1(v);
+                    if (winc.rootGson.height2() != null) {
+                        winc.rootGson.height2(k * winc.rootGson.height2());
+                    }
+                    for (AreaSimple e : winc.listArea) { //перебор всех вертикальных area
+                        if (e.layout == Layout.VERT) {
+                            for (Com5t e2 : e.childs) { //изменение детей по высоте
+                                if (e2.type() == Type.AREA) {
+                                    e2.gson.length(k * e2.gson.length());
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                float k = v / this.lengthY(); //коэффициент 
+                if (k != 1) {
+                    this.gson.length(v);
+                    if (((AreaSimple) this).type() == Type.ARCH || ((AreaSimple) this).type() == Type.TRAPEZE) {
+                        this.winc.rootGson.height2(this.winc.rootGson.height() - v);
+                    }
+                    for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по высоте
+                        if (e.owner.layout == Layout.VERT && (e.type() == Type.AREA || e.type() == Type.STVORKA)) {
+                            ((AreaSimple) e).resizeY(k * e.lengthY()); //рекурсия изменения детей
+
+                        } else {
+                            if (e instanceof AreaSimple) {
+                                for (Com5t e2 : ((AreaSimple) e).childs) {
+                                    if (e2.owner.layout == Layout.VERT && (e2.type() == Type.AREA || e2.type() == Type.STVORKA)) {
+                                        ((AreaSimple) e2).resizeY(k * e2.lengthY()); //рекурсия изменения детей
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка: Com5t.lengthY() " + e);
+        }
+    }
+
     @Override
     //Форма контура
     public Type type() {
@@ -148,9 +242,9 @@ public class AreaSimple extends Com5t {
 
     /**
      * T - соединения area. Все поперечены(cross) в area имеют Т-соединения.
-     * Т-соед. записываются в map, см. winc.mapJoin.put(point, cross). За угловые
-     * соединени отвечает конечнй наследник например AreaRectangl.joining().
-     * Прилегающие см. ElemSimple.joinFlat()
+     * Т-соед. записываются в map, см. winc.mapJoin.put(point, cross). За
+     * угловые соединени отвечает конечнй наследник например
+     * AreaRectangl.joining(). Прилегающие см. ElemSimple.joinFlat()
      */
     public void joining() {
 

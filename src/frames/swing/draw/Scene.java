@@ -194,33 +194,32 @@ public class Scene extends javax.swing.JPanel {
     //Изменить размер и перерисовать шкалу
     private void resizeLine() {
         try {
-            float val = Float.valueOf(spinner.getValue().toString());
+            float val = Float.valueOf(spinner.getValue().toString()); //то что накликал клиент
 
-            //Горизонтальное выделение красн.
+            //Если горизонтальное выделение красн.
             Scale scaleHor = lineHoriz.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
             if (scaleHor != null) {
                 float dx = val - scaleHor.width();
                 if (dx != 0) {
                     for (Scale scale : lineHoriz) {
                         if (scale.color == java.awt.Color.RED) {
-                            scale.area().lengthX(scale.area().lengthX() + dx);
+                            scale.area().resizeX(scale.area().lengthX() + dx);
                         } else {
-                            scale.area().lengthX(scale.area().lengthX() - dx);
+                            scale.area().resizeX(scale.area().lengthX() - dx);
                         }
                     }
                 }
             }
-            //Вертикальное выделение красн.
+            //Если вертикальное выделение красн.
             Scale scaleVer = lineVert.stream().filter(sc -> sc.color == Color.RED).findFirst().orElse(null);
             if (scaleVer != null) {
                 float dy = val - scaleVer.height();
                 if (dy != 0) {
                     for (Scale scale : lineVert) {
-
                         if (scale.color == java.awt.Color.RED) {
-                            scale.area().lengthY(scale.area().lengthY() + dy);
+                            scale.area().resizeY(scale.area().lengthY() + dy);
                         } else {
-                            scale.area().lengthY(scale.area().lengthY() - dy);
+                            scale.area().resizeY(scale.area().lengthY() - dy);
                         }
                     }
                 }
