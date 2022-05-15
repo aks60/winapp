@@ -231,8 +231,7 @@ public class ElemGlass extends ElemSimple {
             } else if (winc.form == Form.LEFT) {
                 winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                         new int[]{(int) y1, (int) y2, (int) y1, (int) y1}, 4);
-            }
-            
+            }            
         } else {
             winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
