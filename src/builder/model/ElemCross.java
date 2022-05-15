@@ -64,8 +64,13 @@ public class ElemCross extends ElemSimple {
             if (winc.form == Form.RIGHT) {
                 float angl = root.frames.get(Layout.RIGHT).anglCut[1];
                 dy = (float) (root.frames.get(Layout.RIGHT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
+                prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.size_centr) + dy);
+            } else if (winc.form == Form.LEFT) {
+                float angl = root.frames.get(Layout.LEFT).anglCut[0];
+                dy = (float) (root.frames.get(Layout.LEFT).artiklRec.getDbl(eArtikl.height) * Math.tan(Math.toRadians((double) (90 - angl))));
+                prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.size_centr) + dy);                                
             }
-            prevArea.setDimension(prevArea.x1, prevArea.y1, prevArea.x2, prevArea.y2 + artiklRec.getFloat(eArtikl.size_centr) + dy);
+            
         }
         //Установка координат
         for (int index = owner.childs.size() - 1; index >= 0; --index) {
