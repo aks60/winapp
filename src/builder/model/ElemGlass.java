@@ -66,7 +66,7 @@ public class ElemGlass extends ElemSimple {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         }
     }
-    
+
     @Override
     //Главная спецификация
     public void setSpecific() {
@@ -141,7 +141,7 @@ public class ElemGlass extends ElemSimple {
         }
 
         if (UseUnit.METR.id == spcAdd.artiklRec.getInt(eArtikl.unit)) {
-            
+
             //ARCH, TRAPEZE...
             if (Type.ARCH == owner.type() || Type.TRAPEZE == owner.type()) {
                 root().addFilling(this, spcAdd);
@@ -221,7 +221,8 @@ public class ElemGlass extends ElemSimple {
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
             double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
-            winc.gc2d.fillArc((int) (root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
+            winc.gc2d.fillArc((int) (root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2),
+                     (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
 
         } else if (owner.type() == Type.TRAPEZE) {
             if (winc.form == Form.RIGHT) {
@@ -231,6 +232,7 @@ public class ElemGlass extends ElemSimple {
                 winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                         new int[]{(int) y1, (int) y2, (int) y1, (int) y1}, 4);
             }
+            
         } else {
             winc.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) y1, (int) y1, (int) y2, (int) y2}, 4);
