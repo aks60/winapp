@@ -362,10 +362,9 @@ public class ElemFrame extends ElemSimple {
         try {
             ElemJoining ej1 = winc.mapJoin.get(joinPoint(0));
             ElemJoining ej2 = winc.mapJoin.get(joinPoint(1));
-            float dh = artiklRec.getFloat(eArtikl.height);
+            float dh = artiklRec.getFloat(eArtikl.height);                  
             float dh0 = (winc.mapJoin.get(joinPoint(0)).type == TypeJoin.VAR30 || winc.mapJoin.get(joinPoint(0)).type == TypeJoin.VAR31) ? 0 : dh;
             float dh1 = (winc.mapJoin.get(joinPoint(1)).type == TypeJoin.VAR30 || winc.mapJoin.get(joinPoint(1)).type == TypeJoin.VAR31) ? 0 : dh;
-
             int rgb = eColor.find(colorID2).getInt(eColor.rgb);
 
             //ARCH

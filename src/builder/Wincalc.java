@@ -230,7 +230,13 @@ public class Wincalc {
     public float height2() {
         return height2;
     }
+
+    public float width1() {
+        return width1;
+    }
     
-    
+    public float width2() {
+        return width2;
+    }
     
 }

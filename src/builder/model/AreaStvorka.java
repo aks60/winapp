@@ -195,7 +195,7 @@ public class AreaStvorka extends AreaSimple {
     }
 
     @Override
-    //Угловые соединения
+    //Угловые и прилегающие соединения соединения
     public void joining() {
         ElemSimple stvBott = frames.get(Layout.BOTT), stvRight = frames.get(Layout.RIGHT),
                 stvTop = frames.get(Layout.TOP), stvLeft = frames.get(Layout.LEFT);

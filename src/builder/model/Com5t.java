@@ -26,7 +26,7 @@ public abstract class Com5t {
     public AreaSimple root = null; //главный класс конструкции
     public GsonElem gson = null; //Gson object конструкции
 
-    protected float x1 = 0, x2 = 0, y1 = 0, y2 = 0;//координаты area     
+    protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0;//координаты area     
     protected int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
 
     public Com5t(Type type) {
