@@ -24,6 +24,7 @@ import enums.Form;
 import enums.PKjson;
 import enums.Type;
 import java.util.HashMap;
+import java.util.Optional;
 
 public class AreaSimple extends Com5t {
 
@@ -161,7 +162,7 @@ public class AreaSimple extends Com5t {
                 if (k != 1) {
                     this.gson.length(v);
                     if (((AreaSimple) this).type() == Type.ARCH || ((AreaSimple) this).type() == Type.TRAPEZE) {
-                        this.winc.rootGson.width1(this.winc.rootGson.width() - v);
+                        winc.rootGson.width1(winc.rootGson.width() - v);
                     }
                     for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по ширине
                         if (e.owner.layout == Layout.HORIZ && (e.type() == Type.AREA || e.type() == Type.STVORKA)) {
@@ -183,15 +184,23 @@ public class AreaSimple extends Com5t {
             System.err.println("Ошибка: Com5t.lengthY() " + e);
         }
     }
-
+    
     public void resizeY(float v) {
         try {
             if (this.id() == 0) {
                 float k = v / gson.height(); //коэффициент
                 if (k != 1) {
-                    winc.rootGson.height1(v);
-                    if (winc.rootGson.height2() != null) {
-                        winc.rootGson.height2(k * winc.rootGson.height2());
+                    if (Optional.ofNullable(winc.rootGson.height1()).orElse(0f) > Optional.ofNullable(winc.rootGson.height2()).orElse(0f)) {
+                        winc.rootGson.height1(v);
+                        if (winc.rootGson.height2() != null) {
+                            winc.rootGson.height2(k * winc.rootGson.height2());
+                        }
+                    }
+                    if (Optional.ofNullable(winc.rootGson.height1()).orElse(0f) < Optional.ofNullable(winc.rootGson.height2()).orElse(0f)) {
+                        winc.rootGson.height2(v);
+                        if (winc.rootGson.height1() != null) {
+                            winc.rootGson.height1(k * winc.rootGson.height2());
+                        }
                     }
                     for (AreaSimple e : winc.listArea) { //перебор всех вертикальных area
                         if (e.layout == Layout.VERT) {
@@ -207,9 +216,16 @@ public class AreaSimple extends Com5t {
                 float k = v / this.lengthY(); //коэффициент 
                 if (k != 1) {
                     this.gson.length(v);
-                    if (((AreaSimple) this).type() == Type.ARCH || ((AreaSimple) this).type() == Type.TRAPEZE) {
-                        this.winc.rootGson.height2(this.winc.rootGson.height() - v);
+                    if (this.type() == Type.ARCH) {
+                        winc.rootGson.height2(winc.rootGson.height() - v);
+                    } else if (this.type() == Type.TRAPEZE && this.form == Form.RIGHT) {
+                        winc.rootGson.height2(winc.rootGson.height() - v);
+                    } else if (this.type() == Type.TRAPEZE && this.form == Form.LEFT) {
+                        winc.rootGson.height1(winc.rootGson.height() - v);
+                    } else {
+                        winc.rootGson.height1(winc.rootGson.height() - v);
                     }
+
                     for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по высоте
                         if (e.owner.layout == Layout.VERT && (e.type() == Type.AREA || e.type() == Type.STVORKA)) {
                             ((AreaSimple) e).resizeY(k * e.lengthY()); //рекурсия изменения детей
