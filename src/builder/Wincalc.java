@@ -122,8 +122,8 @@ public class Wincalc {
             this.nuni = rootGson.nuni();
             this.width1 = (rootGson.width1() == null)
                     ? rootGson.width() : rootGson.width1();            
-            this.width2 = rootGson.width();
-            this.height1 = rootGson.height();
+            this.width2 = rootGson.width2();
+            this.height1 = rootGson.height1();
             this.height2 = (rootGson.height2() == null)
                     ? rootGson.height() : rootGson.height2();
             this.colorID1 = rootGson.color1();

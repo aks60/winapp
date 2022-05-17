@@ -16,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import builder.Wincalc;
 import builder.making.Specific;
 import builder.script.GsonElem;
+import builder.script.GsonRoot;
 import common.UCom;
 import common.eProp;
 import common.interfac.Drawing;
@@ -139,13 +140,14 @@ public class AreaSimple extends Com5t {
     }
 
     public void resizeX(float v) {
+        GsonRoot rootGson = winc.rootGson;
         try {
-            if (this.id() == 0) {
+            if (id() == 0) {
                 float k = v / gson.width(); //коэффициент
                 if (k != 1) {
-                    winc.rootGson.width2(v);
-                    if (winc.rootGson.width1() != null) {
-                        winc.rootGson.width1(k * winc.rootGson.width1());
+                    rootGson.width2(v);
+                    if (rootGson.width1() != null) {
+                        rootGson.width1(k * rootGson.width1());
                     }
                     for (AreaSimple e : winc.listArea) { //перебор всех вертикальных area
                         if (e.layout == Layout.HORIZ) {
@@ -158,13 +160,13 @@ public class AreaSimple extends Com5t {
                     }
                 }
             } else {
-                float k = v / this.lengthY(); //коэффициент 
+                float k = v / lengthY(); //коэффициент 
                 if (k != 1) {
-                    this.gson.length(v);
-                    if (((AreaSimple) this).type() == Type.ARCH || ((AreaSimple) this).type() == Type.TRAPEZE) {
-                        winc.rootGson.width1(winc.rootGson.width() - v);
+                    gson.length(v);
+                    if (type() == Type.ARCH || type() == Type.TRAPEZE) {
+                        rootGson.width1(rootGson.width() - v);
                     }
-                    for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по ширине
+                    for (Com5t e : childs) { //изменение детей по ширине
                         if (e.owner.layout == Layout.HORIZ && (e.type() == Type.AREA || e.type() == Type.STVORKA)) {
                             ((AreaSimple) e).resizeY(k * e.lengthY()); //рекурсия изменения детей
 
@@ -186,20 +188,21 @@ public class AreaSimple extends Com5t {
     }
     
     public void resizeY(float v) {
+        GsonRoot rootGson = winc.rootGson;
         try {
-            if (this.id() == 0) {
+            if (id() == 0) {
                 float k = v / gson.height(); //коэффициент
-                if (k != 1) {
-                    if (Optional.ofNullable(winc.rootGson.height1()).orElse(0f) > Optional.ofNullable(winc.rootGson.height2()).orElse(0f)) {
-                        winc.rootGson.height1(v);
-                        if (winc.rootGson.height2() != null) {
-                            winc.rootGson.height2(k * winc.rootGson.height2());
+                if (k != 1) {                 
+                    if (UCom.getFloat(rootGson.height1(), 0f) > UCom.getFloat(rootGson.height2(), 0f)) {
+                        rootGson.height1(v);
+                        if (rootGson.height2() != null) {
+                            rootGson.height2(k * rootGson.height2());
                         }
                     }
-                    if (Optional.ofNullable(winc.rootGson.height1()).orElse(0f) < Optional.ofNullable(winc.rootGson.height2()).orElse(0f)) {
-                        winc.rootGson.height2(v);
-                        if (winc.rootGson.height1() != null) {
-                            winc.rootGson.height1(k * winc.rootGson.height2());
+                    if (UCom.getFloat(rootGson.height2(), 0f) > UCom.getFloat(rootGson.height1(), 0f)) {
+                        rootGson.height2(v);
+                        if (rootGson.height1() != null) {
+                            rootGson.height1(k * rootGson.height1());
                         }
                     }
                     for (AreaSimple e : winc.listArea) { //перебор всех вертикальных area
@@ -213,20 +216,18 @@ public class AreaSimple extends Com5t {
                     }
                 }
             } else {
-                float k = v / this.lengthY(); //коэффициент 
-                if (k != 1) {
-                    this.gson.length(v);
-                    if (this.type() == Type.ARCH) {
-                        winc.rootGson.height2(winc.rootGson.height() - v);
-                    } else if (this.type() == Type.TRAPEZE && this.form == Form.RIGHT) {
-                        winc.rootGson.height2(winc.rootGson.height() - v);
-                    } else if (this.type() == Type.TRAPEZE && this.form == Form.LEFT) {
-                        winc.rootGson.height1(winc.rootGson.height() - v);
-                    } else {
-                        winc.rootGson.height1(winc.rootGson.height() - v);
-                    }
+                float k = v / lengthY(); //коэффициент 
+                if (k != 1) {                   
+                    gson.length(v);
+                    if (type() == Type.ARCH) {
+                        rootGson.height2(rootGson.height() - v);
+                    } else if (type() == Type.TRAPEZE && form == Form.RIGHT) {
+                        rootGson.height2(rootGson.height() - v);
+                    } else if (type() == Type.TRAPEZE && form == Form.LEFT) {
+                        rootGson.height1(rootGson.height() - v);
+                    } 
 
-                    for (Com5t e : ((AreaSimple) this).childs) { //изменение детей по высоте
+                    for (Com5t e : childs) { //изменение детей по высоте
                         if (e.owner.layout == Layout.VERT && (e.type() == Type.AREA || e.type() == Type.STVORKA)) {
                             ((AreaSimple) e).resizeY(k * e.lengthY()); //рекурсия изменения детей
 

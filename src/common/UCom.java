@@ -38,6 +38,14 @@ public class UCom {
             }
         }
         return -1f;
+    }    
+        
+    
+    public static Float getFloat(Float val, Float def) {
+        if (val == null) {
+            return def;
+        }
+        return val;
     }
 
     public static Double getDbl(String str) {

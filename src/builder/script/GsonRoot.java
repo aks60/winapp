@@ -51,7 +51,6 @@ public class GsonRoot extends GsonElem {
         this.form = form;
         this.width2 = width1;
         this.height1 = height1;
-        //this.widthAdd = (width2 == 0) ?null :width2;
         this.height2 = (height2 == 0) ? null : height2;
         this.length = null;
         this.color1 = color1;
@@ -78,29 +77,48 @@ public class GsonRoot extends GsonElem {
     }
 
     public Float height() {
-//        if (height1 == null) {
-//            return height2;
-//        } else if (height2 == null) {
-//            return height1;
-//        } else if (height1 > height2) {
-//            return height1;
-//        } else {
-//            return height2;
-//        }
-        return height1;
+        if (height1 == null) {
+            return height2;
+        } else if (height2 == null) {
+            return height1;
+        } else if (height1 > height2) {
+            return height1;
+        } else {
+            return height2;
+        }
     }
 
-    public Float width() {
-//        if (width1 == null) {
-//            return width2;
-//        } else if (width2 == null) {
-//            return width1;
-//        } else if (width1 > width2) {
-//            return width1;
-//        } else {
-        return width2;
+//    public void height(float h) {
+//        if (type() == Type.ARCH) {
+//            height2 = h;
+//        } else if (type() == Type.TRAPEZE && this.form == Form.RIGHT) {
+//            height2 = h;
+//        } else if (type() == Type.TRAPEZE && this.form == Form.LEFT) {
+//            height1 = h;
 //        }
+//    }
+
+    public Float width() {
+        if (width1 == null) {
+            return width2;
+        } else if (width2 == null) {
+            return width1;
+        } else if (width1 > width2) {
+            return width1;
+        } else {
+            return width2;
+        }
     }
+
+//    public void width(float w) {
+//        if (type() == Type.ARCH) {
+//            width2 = w;
+//        } else if (type() == Type.TRAPEZE && this.form == Form.TOP) {
+//            width1 = w;
+//        } else if (type() == Type.TRAPEZE && this.form == Form.BOTT) {
+//            width2 = w;
+//        }
+//    }
 
     public Float height1() {
         return height1;
