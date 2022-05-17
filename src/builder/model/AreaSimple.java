@@ -139,7 +139,7 @@ public class AreaSimple extends Com5t {
     protected void addFilling(ElemGlass glass, Specific spcAdd) {
     }
 
-    public void resizeX(float v) {
+    public void resizeX2(float v) {
         GsonRoot rootGson = winc.rootGson;
         try {
             if (id() == 0) {
@@ -187,6 +187,66 @@ public class AreaSimple extends Com5t {
         }
     }
     
+    public void resizeX(float v) {
+        GsonRoot rootGson = winc.rootGson;
+        try {
+            if (id() == 0) {
+                float k = v / gson.width(); //коэффициент
+                if (k != 1) {                 
+                    if (UCom.getFloat(rootGson.width1(), 0f) > UCom.getFloat(rootGson.width2(), 0f)) {
+                        rootGson.width1(v);
+                        if (rootGson.width2() != null) {
+                            rootGson.width2(k * rootGson.width2());
+                        }
+                    }
+                    if (UCom.getFloat(rootGson.width2(), 0f) > UCom.getFloat(rootGson.width1(), 0f)) {
+                        rootGson.width2(v);
+                        if (rootGson.width1() != null) {
+                            rootGson.width1(k * rootGson.width1());
+                        }
+                    }
+                    for (AreaSimple e : winc.listArea) { //перебор всех вертикальных area
+                        if (e.layout == Layout.HORIZ) {
+                            for (Com5t e2 : e.childs) { //изменение детей по высоте
+                                if (e2 instanceof AreaSimple) {
+                                    e2.gson.length(k * e2.gson.length());
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                float k = v / lengthX(); //коэффициент 
+                if (k != 1) {                   
+                    gson.length(v);
+                    if (type() == Type.ARCH) {
+                        rootGson.width2(rootGson.width() - v);
+                    } else if (type() == Type.TRAPEZE && form == Form.RIGHT) {
+                        rootGson.width2(rootGson.width() - v);
+                    } else if (type() == Type.TRAPEZE && form == Form.LEFT) {
+                        rootGson.width1(rootGson.width() - v);
+                    } 
+
+                    for (Com5t e : childs) { //изменение детей по высоте
+                        if (e.owner.layout == Layout.HORIZ && (e.type() == Type.AREA || e.type() == Type.STVORKA)) {
+                            ((AreaSimple) e).resizeX(k * e.lengthX()); //рекурсия изменения детей
+
+                        } else {
+                            if (e instanceof AreaSimple) {
+                                for (Com5t e2 : ((AreaSimple) e).childs) {
+                                    if (e2.owner.layout == Layout.HORIZ && (e2.type() == Type.AREA || e2.type() == Type.STVORKA)) {
+                                        ((AreaSimple) e2).resizeX(k * e2.lengthX()); //рекурсия изменения детей
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка: Com5t.lengthX() " + e);
+        }
+    }
     public void resizeY(float v) {
         GsonRoot rootGson = winc.rootGson;
         try {
@@ -208,7 +268,7 @@ public class AreaSimple extends Com5t {
                     for (AreaSimple e : winc.listArea) { //перебор всех вертикальных area
                         if (e.layout == Layout.VERT) {
                             for (Com5t e2 : e.childs) { //изменение детей по высоте
-                                if (e2.type() == Type.AREA) {
+                                if (e2 instanceof AreaSimple) {
                                     e2.gson.length(k * e2.gson.length());
                                 }
                             }
