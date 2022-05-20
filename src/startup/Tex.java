@@ -1210,19 +1210,14 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
         try {
-            InputStream in = Main.class.getResourceAsStream("/resource/template/docx.docx");
+            InputStream in = Main.class.getResourceAsStream("/resource/template/OutGoMaterial.docx");
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
             IContext context = report.createContext();
-            context.put("comments", "Расход материалов00");
+            context.put("title", "Расход материалов");
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
             report.process(context, out);
             ExecuteCmd.startWord("report.docx");
-
-        } catch (FileNotFoundException e) {
-            System.err.println("Ошибка:Tex.btnTest()" + e);
-        } catch (XDocReportException e) {
-            System.err.println("Ошибка:Tex.btnTest()" + e);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Ошибка:Tex.btnTest()" + e);
         }
     }//GEN-LAST:event_btnTest
