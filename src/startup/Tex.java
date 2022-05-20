@@ -11,7 +11,6 @@ import dataset.Record;
 import builder.Wincalc;
 import domain.eSysprod;
 import java.awt.Frame;
-import java.util.Arrays;
 import java.util.HashMap;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.LookAndFeel;
@@ -19,13 +18,23 @@ import javax.swing.UIManager;
 import common.listener.ListenerFrame;
 import common.eProfile;
 import dataset.Query;
-import frames.Specifics;
+import fr.opensagres.xdocreport.core.XDocReportException;
+import fr.opensagres.xdocreport.document.IXDocReport;
+import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
+import fr.opensagres.xdocreport.template.IContext;
+import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import report.ExecuteCmd;
 
 /**
  * <p>
@@ -138,6 +147,7 @@ public class Tex extends javax.swing.JFrame {
         mn21 = new javax.swing.JMenuItem();
         mn24 = new javax.swing.JMenuItem();
         mn23 = new javax.swing.JMenuItem();
+        mn27 = new javax.swing.JMenuItem();
         mn25 = new javax.swing.JPopupMenu.Separator();
         mn22 = new javax.swing.JMenuItem();
         mn09 = new javax.swing.JMenu();
@@ -156,6 +166,7 @@ public class Tex extends javax.swing.JFrame {
         mn07 = new javax.swing.JMenu();
         mn71 = new javax.swing.JMenuItem();
         mn72 = new javax.swing.JMenuItem();
+        mn74 = new javax.swing.JPopupMenu.Separator();
         mn73 = new javax.swing.JMenuItem();
         mn06 = new javax.swing.JMenu();
         mn63 = new javax.swing.JMenu();
@@ -733,6 +744,16 @@ public class Tex extends javax.swing.JFrame {
             }
         });
         mn02.add(mn23);
+
+        mn27.setFont(frames.UGui.getFont(1,1));
+        mn27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
+        mn27.setText("Группы печати");
+        mn27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnReport(evt);
+            }
+        });
+        mn02.add(mn27);
         mn02.add(mn25);
 
         mn22.setFont(frames.UGui.getFont(1,1));
@@ -871,6 +892,7 @@ public class Tex extends javax.swing.JFrame {
             }
         });
         mn07.add(mn72);
+        mn07.add(mn74);
 
         mn73.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
         mn73.setText("Дилер");
@@ -1187,11 +1209,22 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     }//GEN-LAST:event_mnGroup1
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
-        FrameProgress.create(Tex.this, new ListenerFrame() {
-            public void actionRequest(Object obj) {
-                App.DBCompare.createFrame(Tex.this);
-            }
-        });
+        try {
+            InputStream in = Main.class.getResourceAsStream("/resource/template/docx.docx");
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
+            IContext context = report.createContext();
+            context.put("comments", "Расход материалов00");
+            OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
+            report.process(context, out);
+            ExecuteCmd.startWord("report.docx");
+
+        } catch (FileNotFoundException e) {
+            System.err.println("Ошибка:Tex.btnTest()" + e);
+        } catch (XDocReportException e) {
+            System.err.println("Ошибка:Tex.btnTest()" + e);
+        } catch (IOException e) {
+            System.err.println("Ошибка:Tex.btnTest()" + e);
+        }
     }//GEN-LAST:event_btnTest
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -1238,6 +1271,10 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
             System.err.println(e);
         }
     }//GEN-LAST:event_mnDiler
+
+    private void mnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnReport
+        // 
+    }//GEN-LAST:event_mnReport
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1290,6 +1327,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JMenuItem mn24;
     private javax.swing.JPopupMenu.Separator mn25;
     private javax.swing.JMenuItem mn26;
+    private javax.swing.JMenuItem mn27;
     private javax.swing.JMenuItem mn31;
     private javax.swing.JMenuItem mn32;
     private javax.swing.JMenuItem mn34;
@@ -1308,6 +1346,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
     private javax.swing.JMenuItem mn71;
     private javax.swing.JMenuItem mn72;
     private javax.swing.JMenuItem mn73;
+    private javax.swing.JPopupMenu.Separator mn74;
     private javax.swing.JMenuItem mn91;
     private javax.swing.JMenuItem mn92;
     private javax.swing.JPopupMenu.Separator mn93;
@@ -1341,7 +1380,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
                 mnIt.setSelected(true);
             }
         }
-        if("Nimbus".equals(lookAndFeel.getName())) {
+        if ("Nimbus".equals(lookAndFeel.getName())) {
             tb6.setPreferredSize(new Dimension(97, 28));
         }
         if (eProp.base_num.read().equals("1")) {

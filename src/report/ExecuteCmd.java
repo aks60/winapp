@@ -129,7 +129,7 @@ public class ExecuteCmd {
         startHtml("report.html");
     }
 
-    private static String[] arraysPath(String fileExe, String path, String fileName) {
+    public static String[] arraysPath(String fileExe, String path, String fileName) {
         ArrayList list = new ArrayList();
         int k = fileExe.indexOf("cmd /c start");
 
@@ -152,7 +152,7 @@ public class ExecuteCmd {
         return cmd;
     }
 
-    private static String replacePath(String src) {
+    public static String replacePath(String src) {
         int index = 0;
         int index2 = 0;
         List<String> list = new ArrayList();

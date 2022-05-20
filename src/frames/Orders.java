@@ -59,6 +59,10 @@ import enums.LayoutHandle;
 import enums.PKjson;
 import enums.TypeOpen1;
 import enums.UseSide;
+import fr.opensagres.xdocreport.document.IXDocReport;
+import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
+import fr.opensagres.xdocreport.template.IContext;
+import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicColor;
@@ -74,6 +78,10 @@ import frames.swing.FilterTable;
 import frames.swing.draw.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
@@ -90,8 +98,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import report.ExecuteCmd;
-import report.TableToHtml;
 import startup.App;
+import startup.Main;
 
 public class Orders extends javax.swing.JFrame implements ListenerReload {
 
@@ -3285,8 +3293,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_colorFromGlass
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        TableToHtml.load("Заказы", tab1);
-        ExecuteCmd.repoType(this);
+
     }//GEN-LAST:event_btnReport
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
