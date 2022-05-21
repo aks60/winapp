@@ -1,6 +1,7 @@
 package frames;
 
 import builder.Wincalc;
+import builder.making.Cal5e;
 import builder.making.Furniture;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
@@ -14,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import common.ArrayList2;
 import common.UCom;
 import dataset.Field;
 import dataset.Query;
@@ -59,10 +61,6 @@ import enums.LayoutHandle;
 import enums.PKjson;
 import enums.TypeOpen1;
 import enums.UseSide;
-import fr.opensagres.xdocreport.document.IXDocReport;
-import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
-import fr.opensagres.xdocreport.template.IContext;
-import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicColor;
@@ -78,10 +76,6 @@ import frames.swing.FilterTable;
 import frames.swing.draw.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
@@ -97,9 +91,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-import report.ExecuteCmd;
 import startup.App;
-import startup.Main;
 
 public class Orders extends javax.swing.JFrame implements ListenerReload {
 
@@ -3293,7 +3285,17 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_colorFromGlass
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
+        for (int index = 0; index < tab2.getColumnCount(); ++index) {
+            Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
+            Object w = sysprodRec.get(ePrjprod.values().length);
+            if (w instanceof Wincalc) {
+                Wincalc win = (Wincalc) w;
+                win.constructiv(true);
+                listSpec.addAll(win.listSpec);
+            }
+        }
+        
     }//GEN-LAST:event_btnReport
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
