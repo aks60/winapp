@@ -52,6 +52,9 @@ public class Specific {
     public float cost1 = 0;  //Стоимость без скидки
     public float cost2 = 0;  //Стоимость со скидкой
 
+    public Specific() {        
+    }
+    
     public Specific(float id, ElemSimple elem5e) {
         ++elem5e.winc.genId;
         this.id = id;
@@ -96,28 +99,6 @@ public class Specific {
         this.elem5e = spec.elem5e;
     }
 
-    public String getArtikl() {
-//        return "(" + place.subSequence(0, 3) + ")" + artikl;
-        return artikl;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getColorID1() {
-        return eColor.find(colorID1).getStr(eColor.name);
-    }
-
-    public String getCount() {
-        return String.valueOf(count);
-    }
-
-    public String getUnit() {
-        return UseUnit.getName(unit);
-    }
-     
-    
     public Vector getVector(int npp) {
         return new Vector(List.of(npp, id, elem5e.id(), place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
                 eColor.find(colorID3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2, anglHoriz,
@@ -221,7 +202,7 @@ public class Specific {
             System.err.println("Ошибка:Specification.write_txt2() " + e);
         }
     }
-    
+
     public String toString() {
         return artikl + " - " + name;
     }
