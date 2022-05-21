@@ -1,7 +1,6 @@
 package frames;
 
 import builder.Wincalc;
-import builder.making.Cal5e;
 import builder.making.Furniture;
 import builder.model.AreaStvorka;
 import builder.script.GsonElem;
@@ -15,7 +14,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import common.ArrayList2;
 import common.UCom;
 import dataset.Field;
 import dataset.Query;
@@ -77,6 +75,7 @@ import frames.swing.draw.Scene;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -91,6 +90,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import report.ReportDocx;
 import startup.App;
 
 public class Orders extends javax.swing.JFrame implements ListenerReload {
@@ -1077,12 +1077,12 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 .addComponent(btnF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152)
-                .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
-                .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(142, 142, 142)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -3285,17 +3285,23 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_colorFromGlass
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        ArrayList2<Specific> listSpec = new ArrayList2(); //спецификация
-        for (int index = 0; index < tab2.getColumnCount(); ++index) {
-            Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
-            Object w = sysprodRec.get(ePrjprod.values().length);
-            if (w instanceof Wincalc) {
-                Wincalc win = (Wincalc) w;
-                win.constructiv(true);
-                listSpec.addAll(win.listSpec);
+
+        FrameProgress.create(Orders.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                List<Wincalc> listWinc = new ArrayList(); //спецификация
+                for (int index = 0; index < tab2.getRowCount(); ++index) {
+                    Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
+                    Object w = sysprodRec.get(ePrjprod.values().length);
+                    if (w instanceof Wincalc) {
+                        listWinc.add((Wincalc) w);
+                    }
+                }
+                int index = UGui.getIndexRec(tab1);
+                String num_ord = qProject.getAs(index, eProject.num_ord);
+                //Отчёт
+                ReportDocx.outGoMaterial(listWinc, num_ord);
             }
-        }
-        
+        });
     }//GEN-LAST:event_btnReport
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

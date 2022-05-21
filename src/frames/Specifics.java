@@ -15,6 +15,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import builder.Wincalc;
 import builder.making.Specific;
+import common.ArrayList2;
 import common.UCom;
 import dataset.Query;
 import domain.eSysprod;
@@ -142,15 +143,15 @@ public class Specifics extends javax.swing.JFrame {
         }
     }
 
-    public List<Specific> groups(int num) {
+    public static List<Specific> groups(List<Specific> listSpec, int num) {
         HashSet<String> hs = new HashSet();
         List<Specific> list = new ArrayList();
         Map<String, Specific> map = new HashMap();
 
-        for (Specific spc : winc.listSpec) {
+        for (Specific spc : listSpec) {
             String key = (num == 1)
                     ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.width + spc.height + spc.anglCut1 + spc.anglCut2 + spc.wastePrc + spc.price1
-                    : spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.wastePrc + spc.price1;
+                    : (num == 2) ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.wastePrc + spc.price1 : spc.artikl;
             if (hs.add(key)) {
                 map.put(key, new Specific(spc));
             } else {
@@ -507,10 +508,10 @@ public class Specifics extends javax.swing.JFrame {
             loadingTab1(winc.listSpec);
 
         } else if (cbx1.getSelectedIndex() == 1) {
-            loadingTab1(groups(1));
+            loadingTab1(groups(winc.listSpec, 1));
 
         } else if (cbx1.getSelectedIndex() == 2) {
-            loadingTab1(groups(2));
+            loadingTab1(groups(winc.listSpec, 2));
 
         } else if (cbx1.getSelectedIndex() == 3) {
             List<Specific> listSpec = winc.listSpec.stream().filter(rec -> "СОЕ".equals(rec.place.substring(0, 3))).collect(toList());
@@ -560,7 +561,7 @@ public class Specifics extends javax.swing.JFrame {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         int index = UGui.getIndexRec(tab1);
         createIwin();
-        loadingTab1(groups(cbx1.getSelectedIndex()));
+        loadingTab1(groups(winc.listSpec, cbx1.getSelectedIndex()));
         cbxGroupBy(null);
         UGui.setSelectedIndex(tab1, index);
     }//GEN-LAST:event_btnRefresh

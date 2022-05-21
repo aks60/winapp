@@ -96,6 +96,28 @@ public class Specific {
         this.elem5e = spec.elem5e;
     }
 
+    public String getArtikl() {
+//        return "(" + place.subSequence(0, 3) + ")" + artikl;
+        return artikl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getColorID1() {
+        return eColor.find(colorID1).getStr(eColor.name);
+    }
+
+    public String getCount() {
+        return String.valueOf(count);
+    }
+
+    public String getUnit() {
+        return UseUnit.getName(unit);
+    }
+     
+    
     public Vector getVector(int npp) {
         return new Vector(List.of(npp, id, elem5e.id(), place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
                 eColor.find(colorID3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2, anglHoriz,
