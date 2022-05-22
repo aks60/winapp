@@ -316,7 +316,7 @@ public class Groups extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
-            tab1.getColumnModel().getColumn(1).setMaxWidth(80);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(120);
             tab1.getColumnModel().getColumn(2).setMaxWidth(40);
         }
 
