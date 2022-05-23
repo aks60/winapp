@@ -39,7 +39,7 @@ public class Tariffic extends Cal5e {
             super.calc();
             float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
 
-            //Расчёт  себес-сть за ед. изм. по таблице мат. ценностей
+            //Расчёт  себес-сти за ед. изм. по таблице мат. ценностей
             for (ElemSimple elem5e : winc.listElem) {
                 elem5e.spcRec.price1 += calcPrice(elem5e.spcRec); //себест. за ед. без отхода
                 elem5e.spcRec.quant1 = formatAmount(elem5e.spcRec); //количество без отхода
@@ -141,8 +141,9 @@ public class Tariffic extends Cal5e {
             float artdetTariff = 0;
             boolean artdetUsed = false;
 
+            //Если двухсторонняя текстура
             if (artdetRec.getFloat(eArtdet.cost_c4) != 0 && color2Rec.getInt(eColor.id) == color3Rec.getInt(eColor.id)
-                    && isTariff(artdetRec, color2Rec)) { //если двухсторонняя текстура
+                    && isTariff(artdetRec, color2Rec)) { 
                 artdetTariff += (artdetRec.getFloat(eArtdet.cost_c4) * Math.max(color2Rec.getFloat(eColor.coef2), color2Rec.getFloat(eColor.coef3)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour));
 
                 if (isTariff(artdetRec, color1Rec)) { //подбираем тариф основной текстуры
@@ -164,11 +165,11 @@ public class Tariffic extends Cal5e {
                 }
                 if (isTariff(artdetRec, color2Rec)) {  //подбираем тариф внутренней текстуры
                     Record colgrpRec = eGroups.find(color2Rec.getInt(eColor.colgrp_id));
-                    Object ooo = (artdetRec.getFloat(eArtdet.cost_c2) * color2Rec.getFloat(eColor.coef2) * colgrpRec.getFloat(eGroups.val)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
-                    Object o1 = artdetRec.getFloat(eArtdet.cost_c2);
-                    Object o2 = color2Rec.getFloat(eColor.coef2);
-                    Object o3 = colgrpRec.getFloat(eGroups.val);
-                    Object o4 = kursNoBaseRec.getFloat(eCurrenc.cross_cour);
+//                    Object ooo = (artdetRec.getFloat(eArtdet.cost_c2) * color2Rec.getFloat(eColor.coef2) * colgrpRec.getFloat(eGroups.val)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
+//                    Object o1 = artdetRec.getFloat(eArtdet.cost_c2);
+//                    Object o2 = color2Rec.getFloat(eColor.coef2);
+//                    Object o3 = colgrpRec.getFloat(eGroups.val);
+//                    Object o4 = kursNoBaseRec.getFloat(eCurrenc.cross_cour);
 
                     artdetTariff += (artdetRec.getFloat(eArtdet.cost_c2) * color2Rec.getFloat(eColor.coef2) * colgrpRec.getFloat(eGroups.val)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
                     artdetUsed = true;
