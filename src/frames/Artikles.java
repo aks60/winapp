@@ -109,7 +109,7 @@ public class Artikles extends javax.swing.JFrame {
             }
         };
         DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.color_fk, eArtdet.color_fk, eArtdet.mark_c1, eArtdet.cost_c1,
-                eArtdet.mark_c2, eArtdet.cost_c2, eArtdet.mark_c3, eArtdet.cost_c3, eArtdet.cost_c4, eArtdet.cost_unit, eArtdet.price_coeff, eArtdet.id) {
+                eArtdet.mark_c2, eArtdet.cost_c2, eArtdet.mark_c3, eArtdet.cost_c3, eArtdet.cost_c4, eArtdet.cost_unit, eArtdet.coef, eArtdet.id) {
 
             @Override
             public Object getValueAt(int col, int row, Object val) {
