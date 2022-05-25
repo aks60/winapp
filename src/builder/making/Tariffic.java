@@ -168,7 +168,7 @@ public class Tariffic extends Cal5e {
                         float z3 = colgrpRec.getFloat(eGroups.val); //коэф. групп текстур
                         float z4 = artdetRec.getFloat(eArtdet.coef); //kоэф. текстуры уникальн. арт.
                         float z5 = kursBaseRec.getFloat(eCurrenc.cross_cour); //кросс курс
-                        artdetTariff += (z1 * z2 * z3 * z4) / z5;
+                        artdetTariff += (z1 * z2 * z3 * z5) / z5;
                     }
                 }
                 artdetUsed = true;
