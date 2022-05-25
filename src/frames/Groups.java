@@ -53,7 +53,7 @@ public class Groups extends javax.swing.JFrame {
         qArtDecr.select(eGroups.up, "where", eGroups.grup, "= 5", "order by", eGroups.name);
         qCategProf.select(eGroups.up, "where", eGroups.grup, "= 6", "order by", eGroups.name);
         qCategVst.select(eGroups.up, "where", eGroups.grup, "= 8", "order by", eGroups.name);
-        qDecInc.select(eGroups.up, "where", eGroups.grup, "= 9 and", eGroups.id, "in (2002, 2003, 2004, 2055, 2056, 2058, 2101, 2104, 2073)", "order by", eGroups.name);
+        qDecInc.select(eGroups.up, "where", eGroups.grup, "= 9 and", eGroups.id, "in (2003, 2004, 2055, 2056, 2058, 2101, 2104, 2073)", "order by", eGroups.name);
     }
 
     public void loadingModel() {
@@ -368,7 +368,7 @@ public class Groups extends javax.swing.JFrame {
 
         pan5.add(scr5, java.awt.BorderLayout.CENTER);
 
-        tabb.addTab("<html><font size=\"3\">Коэффициенты текстур", pan5);
+        tabb.addTab("<html><font size=\"3\">Коэф. групп текстур", pan5);
 
         pan3.setLayout(new java.awt.BorderLayout());
 

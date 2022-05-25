@@ -22,6 +22,9 @@ public class Main {
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
         
+        eProp.profile = "tex";
+        eProp.locate = true;
+        
         for (int index = 0; index < args.length; index++) {
             if (index == 0 && args[0].equals("adm")) {
                 eProp.profile = args[0];

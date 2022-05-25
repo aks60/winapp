@@ -282,8 +282,8 @@
             <Container class="javax.swing.JPanel" name="pan5">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&#x41a;&#x43e;&#x44d;&#x444;&#x444;&#x438;&#x446;&#x438;&#x435;&#x43d;&#x442;&#x44b; &#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;">
-                    <Property name="tabTitle" type="java.lang.String" value="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&#x41a;&#x43e;&#x44d;&#x444;&#x444;&#x438;&#x446;&#x438;&#x435;&#x43d;&#x442;&#x44b; &#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;"/>
+                  <JTabbedPaneConstraints tabName="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&#x41a;&#x43e;&#x44d;&#x444;. &#x433;&#x440;&#x443;&#x43f;&#x43f; &#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;">
+                    <Property name="tabTitle" type="java.lang.String" value="&lt;html&gt;&lt;font size=&quot;3&quot;&gt;&#x41a;&#x43e;&#x44d;&#x444;. &#x433;&#x440;&#x443;&#x43f;&#x43f; &#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
