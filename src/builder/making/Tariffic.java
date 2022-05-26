@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 /**
  * Расчёт стоимости элементов окна
+ * алгоритм см. в UML
  */
 public class Tariffic extends Cal5e {
 
@@ -39,17 +40,19 @@ public class Tariffic extends Cal5e {
             super.calc();
             float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
 
-            //Расчёт  себес-сти за ед. изм. по таблице мат. ценностей
+            //Расчёт себес-сти за ед.изм.
             for (ElemSimple elem5e : winc.listElem) {
-                elem5e.spcRec.price1 += calcPrice(elem5e.spcRec); //себест. за ед. без отхода
+
+                elem5e.spcRec.price1 += artdetPrice(elem5e.spcRec); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
                 elem5e.spcRec.quant1 = formatAmount(elem5e.spcRec); //количество без отхода
                 elem5e.spcRec.quant2 = elem5e.spcRec.quant1;  //количество с отходом
                 if (norm_otx == true) {
                     float otx = elem5e.spcRec.artiklRec.getFloat(eArtikl.otx_norm);
                     elem5e.spcRec.quant2 = elem5e.spcRec.quant2 + (elem5e.spcRec.quant1 * otx / 100); //количество с отходом
                 }
+                //Вложенная спецификация
                 for (Specific specificationRec2 : elem5e.spcRec.spcList) {
-                    specificationRec2.price1 += calcPrice(specificationRec2); //себест. за ед. без отхода
+                    specificationRec2.price1 += artdetPrice(specificationRec2); //себест. за ед. без отхода
                     specificationRec2.quant1 = formatAmount(specificationRec2); //количество без отхода
                     specificationRec2.quant2 = specificationRec2.quant1; //количество с отходом
                     if (norm_otx == true) {
@@ -59,11 +62,12 @@ public class Tariffic extends Cal5e {
                 }
             }
 
-            //Цикл по элементам конструкции
+            //Правила расчёта
             for (ElemSimple elem5e : winc.listElem) {
 
                 Record systreeRec = eSystree.find(winc.nuni);
-                //Цикл по правилам расчёта. Увеличение себестоимости в coeff раз и на incr величину наценки.
+                //Увеличение себестоимости в coeff раз и на incr величину наценки.
+                //Цикл по правилам расчёта.                 
                 for (Record rulecalcRec : eRulecalc.list()) {
 
                     //Фильтр по полю форма профиля, заполнения. В БиМакс используюеся только 1, 4, 10, 12 параметры
@@ -71,43 +75,48 @@ public class Tariffic extends Cal5e {
                     if (Type.GLASS == elem5e.type()) {//фильтр для стеклопакета
 
                         if (form == TypeForm.P00.id) {//не проверять форму
-                            rulePrise(rulecalcRec, elem5e.spcRec);
+                            rulecalcPrise(rulecalcRec, elem5e.spcRec);
 
                         } else if (form == TypeForm.P10.id && Type.TRAPEZE == elem5e.owner.type()) { //не прямоугольное, не арочное заполнение
-                            rulePrise(rulecalcRec, elem5e.spcRec);
+                            rulecalcPrise(rulecalcRec, elem5e.spcRec);
 
                         } else if (form == TypeForm.P12.id && Type.ARCH == elem5e.owner.type()) {//не прямоугольное заполнение с арками
-                            rulePrise(rulecalcRec, elem5e.spcRec);
+                            rulecalcPrise(rulecalcRec, elem5e.spcRec);
                         }
                     } else if (form == TypeForm.P04.id && elem5e.type() == Type.FRAME_SIDE
                             && elem5e.owner.type() == Type.ARCH && elem5e.layout() == Layout.TOP) {  //профиль с радиусом  (фильтр для арки профиля AYPC.W62.0101)
-                        rulePrise(rulecalcRec, elem5e.spcRec); //профиль с радиусом
+                        rulecalcPrise(rulecalcRec, elem5e.spcRec); //профиль с радиусом
 
                     } else {
                         if (form == TypeForm.P00.id) {  //не проверять форму
-                            rulePrise(rulecalcRec, elem5e.spcRec); //всё остальное не проверять форму
+                            rulecalcPrise(rulecalcRec, elem5e.spcRec); //всё остальное не проверять форму
                         }
                     }
                 }
 
                 elem5e.spcRec.price2 = elem5e.spcRec.price1 * elem5e.spcRec.quant2; //себест. за ед. с отходом 
                 Record artgrp1Rec = eGroups.find(elem5e.spcRec.artiklRec.getInt(eArtikl.artgrp1_id));
-                elem5e.spcRec.cost1 = elem5e.spcRec.price2 * artgrp1Rec.getFloat(eGroups.val, 1) * systreeRec.getFloat(eSystree.coef, 1);
+                float k1 = artgrp1Rec.getFloat(eGroups.val, 1);  //коэф. группы текстур
+                float k2 = systreeRec.getFloat(eSystree.coef, 1); //коэф. рентабельности
+                elem5e.spcRec.cost1 = elem5e.spcRec.price2 * k1 * k2;
                 elem5e.spcRec.cost1 = elem5e.spcRec.cost1 + (elem5e.spcRec.cost1 / 100) * percentMarkup; //стоимость без скидки                     
                 elem5e.spcRec.cost2 = elem5e.spcRec.cost1; //стоимость со скидкой 
 
+                //Правила расчёта вложенные
                 for (Specific specificationRec2 : elem5e.spcRec.spcList) {
 
                     //Цикл по правилам расчёта.
                     for (Record rulecalcRec : eRulecalc.list()) {
                         int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
                         if (form == TypeForm.P00.id) { //не проверять форму 
-                            rulePrise(rulecalcRec, specificationRec2);
+                            rulecalcPrise(rulecalcRec, specificationRec2);
                         }
                     }
                     specificationRec2.price2 = specificationRec2.price1 * specificationRec2.quant2; //себест. за ед. с отходом  
-                    Record artgrp1Rec2 = eGroups.find(specificationRec2.artiklRec.getInt(eArtikl.artgrp1_id));
-                    specificationRec2.cost1 = specificationRec2.price2 * artgrp1Rec2.getFloat(eGroups.val, 1) * systreeRec.getFloat(eSystree.coef);
+                    Record artgrpRec2 = eGroups.find(specificationRec2.artiklRec.getInt(eArtikl.artgrp1_id));
+                    float m1 = artgrpRec2.getFloat(eGroups.val, 1);  //наценка группы мат.ценностей
+                    float m2 = systreeRec.getFloat(eSystree.coef); //коэф. рентабельности
+                    specificationRec2.cost1 = specificationRec2.price2 * m1 * m2;
                     specificationRec2.cost1 = specificationRec2.cost1 + (specificationRec2.cost1 / 100) * percentMarkup; //стоимость без скидки                        
                     specificationRec2.cost2 = specificationRec2.cost1; //стоимость со скидкой 
                 }
@@ -127,7 +136,7 @@ public class Tariffic extends Cal5e {
     }
 
     //Себес-сть за ед. изм. Рассчёт тарифа для заданного артикула заданных цветов по таблице eArtdet
-    public float calcPrice(Specific specificRec) {
+    public float artdetPrice(Specific specificRec) {
 
         float inPrice = 0;
         Record color1Rec = eColor.find(specificRec.colorID1);  //основная
@@ -140,7 +149,7 @@ public class Tariffic extends Cal5e {
         //Цикл по тарификационной таблице ARTDET мат. ценностей
         for (Record artdetRec : eArtdet.find(specificRec.artiklRec.getInt(eArtikl.id))) {
 
-            float artdetTariff = 0;
+            float artdetPrice = 0;
             boolean artdetUsed = false;
 
             //Если тариф двухсторонней текстуры не равен 0, и если
@@ -148,27 +157,25 @@ public class Tariffic extends Cal5e {
             if (artdetRec.getFloat(eArtdet.cost_c4) != 0
                     && color2Rec.getInt(eColor.id) == color3Rec.getInt(eColor.id)
                     && isTariff(artdetRec, color2Rec)) {
-                
+
                 float k1 = artdetRec.getFloat(eArtdet.cost_c4); //тариф двухсторонней текстуры
                 float k2 = color2Rec.getFloat(eColor.coef2); //ценовой коэф.внутренний текстуры
                 float k3 = color3Rec.getFloat(eColor.coef3); //ценовой коэф.внешний текстуры
-                float k4 = artdetRec.getFloat(eArtdet.coef); //kоэф. текстуры уникальн. арт.
                 float k5 = kursNoBaseRec.getFloat(eCurrenc.cross_cour); //кросс курс            
-                artdetTariff += (k1 * k4 * Math.max(k2, k3) / k5);
+                artdetPrice += (k1 * Math.max(k2, k3) / k5);
 
                 if (isTariff(artdetRec, color1Rec)) { //подбираем тариф основной текстуры
                     float m1 = artdetRec.getFloat(eArtdet.cost_unit); //тариф единица измерения
                     float m2 = specificRec.elem5e.artiklRec.getFloat(eArtikl.density); //удельный вес                    
                     if (m1 > 0 && m2 > 0) {
-                        artdetTariff += m1 * m2;
+                        artdetPrice += m1 * m2;
                     } else {
                         Record colgrpRec = eGroups.find(color1Rec.getInt(eColor.colgrp_id));
                         float z1 = artdetRec.getFloat(eArtdet.cost_c1); //тариф основной текстуры"
                         float z2 = color1Rec.getFloat(eColor.coef1); //ценовой коэф.основной текст.
-                        float z3 = colgrpRec.getFloat(eGroups.val); //коэф. групп текстур
-                        float z4 = artdetRec.getFloat(eArtdet.coef); //kоэф. текстуры уникальн. арт.
+                        float z3 = colgrpRec.getFloat(eGroups.val); //коэф. группы текстур
                         float z5 = kursBaseRec.getFloat(eCurrenc.cross_cour); //кросс курс
-                        artdetTariff += (z1 * z2 * z3 * z5) / z5;
+                        artdetPrice += (z1 * z2 * z3 * z5) / z5;
                     }
                 }
                 artdetUsed = true;
@@ -176,54 +183,53 @@ public class Tariffic extends Cal5e {
                 //Сложение цен по трём текстурам
             } else {
                 //Подбираем тариф основной текстуры
-                if (isTariff(artdetRec, color1Rec)) { 
+                if (isTariff(artdetRec, color1Rec)) {
                     Record colgrpRec = eGroups.find(color1Rec.getInt(eColor.colgrp_id));
                     float k1 = artdetRec.getFloat(eArtdet.cost_c1); //тариф основной текстуры
                     float k2 = color1Rec.getFloat(eColor.coef1); //ценовой коэф.основной текстуры
-                    float k3 = colgrpRec.getFloat(eGroups.val); //коэф. групп текстур
-                    float k4 = artdetRec.getFloat(eArtdet.coef); //kоэф. текстуры уникальн. арт.
+                    float k3 = colgrpRec.getFloat(eGroups.val); //коэф. группы текстур
                     float k5 = kursBaseRec.getFloat(eCurrenc.cross_cour); //кросс курс
-                    artdetTariff += (k1 * k2 * k3 * k4) / k5;
+                    artdetPrice += (k1 * k2 * k3) / k5;
                     artdetUsed = true;
                 }
                 //Подбираем тариф внутренней текстуры
-                if (isTariff(artdetRec, color2Rec)) {  
+                if (isTariff(artdetRec, color2Rec)) {
                     Record colgrpRec = eGroups.find(color2Rec.getInt(eColor.colgrp_id));
                     float d1 = artdetRec.getFloat(eArtdet.cost_c2); //тариф внутренний текстуры
                     float d2 = color2Rec.getFloat(eColor.coef2); //ценовой коэф.внутренний текстуры
-                    float d3 = colgrpRec.getFloat(eGroups.val); //коэф. групп текстур
-                    float d4 = artdetRec.getFloat(eArtdet.coef); //kоэф. текстуры уникальн. арт.
+                    float d3 = colgrpRec.getFloat(eGroups.val); //коэф. группы текстур
                     float d5 = kursNoBaseRec.getFloat(eCurrenc.cross_cour); //кросс курс
-                    artdetTariff += (d1 * d2 * d3 * d4) / d5;
+                    artdetPrice += (d1 * d2 * d3) / d5;
                     artdetUsed = true;
                 }
                 //Подбираем тариф внешней текстуры
-                if (isTariff(artdetRec, color3Rec)) { 
+                if (isTariff(artdetRec, color3Rec)) {
                     Record colgrpRec = eGroups.find(color3Rec.getInt(eColor.colgrp_id));
                     float w1 = artdetRec.getFloat(eArtdet.cost_c3); //Тариф внешний текстуры
                     float w2 = color3Rec.getFloat(eColor.coef3); //Ценовой коэф.внешний текстуры
-                    float w3 = colgrpRec.getFloat(eGroups.val); //коэф. групп текстур
-                    float w4 = artdetRec.getFloat(eArtdet.coef); //kоэф. текстуры уникальн. арт.
+                    float w3 = colgrpRec.getFloat(eGroups.val); //коэф. группы текстур
                     float w5 = kursNoBaseRec.getFloat(eCurrenc.cross_cour); //кросс курс
-                    artdetTariff += (w1 * w2 * w3 * w4) / w5;
+                    artdetPrice += (w1 * w2 * w3) / w5;
                     artdetUsed = true;
                 }
             }
+            //Проверка минимального тарифа
             if (artdetUsed && artdetRec.getFloat(eArtdet.cost_min) != 0
-                    && specificRec.quant1 != 0 && artdetTariff
+                    && specificRec.quant1 != 0 && artdetPrice
                     * specificRec.quant1 < artdetRec.getFloat(eArtdet.cost_min)) {
 
-                artdetTariff = artdetRec.getFloat(eArtdet.cost_min) / specificRec.quant1; //используем минимальный тариф 
+                artdetPrice = artdetRec.getFloat(eArtdet.cost_min) / specificRec.quant1;
             }
-            if (artdetUsed) {
-                inPrice = inPrice + (artdetTariff * artdetRec.getFloat(eArtdet.coef));
+            if (artdetUsed) { //если было попадание
+                inPrice = inPrice + (artdetPrice 
+                        * artdetRec.getFloat(eArtdet.coef)); //kоэф. текстуры уникальн. арт.
             }
         }
         return inPrice;
     }
 
     //Правила расчёта. Фильтр по полю form, color(1,2,3) таблицы RULECALC
-    private void rulePrise(Record rulecalcRec, Specific specifRec) {
+    private void rulecalcPrise(Record rulecalcRec, Specific specifRec) {
 
         Object obj = rulecalcRec.getStr(eArtikl.code);
 
