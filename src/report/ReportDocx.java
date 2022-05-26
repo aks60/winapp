@@ -92,7 +92,7 @@ public class ReportDocx {
             context.put("spc2", spcList3);
             context.put("spc3", spcList3);
             context.put("spc4", spcList3);
-            context.put("resultTotal", String.valueOf(df1.format(total)));
+            //context.put("resultTotal", String.valueOf(df1.format(total)));
 
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
             report.process(context, out);
