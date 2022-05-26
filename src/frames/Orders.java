@@ -691,6 +691,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private void initComponents() {
 
         buttonGroup = new javax.swing.ButtonGroup();
+        ppReport = new javax.swing.JPopupMenu();
+        ppItem1 = new javax.swing.JMenuItem();
+        ppItem2 = new javax.swing.JMenuItem();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnSet = new javax.swing.JButton();
@@ -840,6 +843,22 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
+
+        ppItem1.setText("Расход материалов");
+        ppItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppItem1(evt);
+            }
+        });
+        ppReport.add(ppItem1);
+
+        ppItem2.setText("Спецификация проекта");
+        ppItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppItem2(evt);
+            }
+        });
+        ppReport.add(ppItem2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заказы");
@@ -3285,7 +3304,10 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     }//GEN-LAST:event_colorFromGlass
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
+        ppReport.show(north, btnReport.getX(), btnReport.getY() + 18);
+    }//GEN-LAST:event_btnReport
 
+    private void ppItem1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppItem1
         FrameProgress.create(Orders.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 List<Wincalc> listWinc = new ArrayList(); //спецификация
@@ -3302,7 +3324,26 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 ReportDocx.outGoMaterial(listWinc, num_ord);
             }
         });
-    }//GEN-LAST:event_btnReport
+    }//GEN-LAST:event_ppItem1
+
+    private void ppItem2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppItem2
+        FrameProgress.create(Orders.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {
+                List<Wincalc> listWinc = new ArrayList(); //спецификация
+                for (int index = 0; index < tab2.getRowCount(); ++index) {
+                    Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
+                    Object w = sysprodRec.get(ePrjprod.values().length);
+                    if (w instanceof Wincalc) {
+                        listWinc.add((Wincalc) w);
+                    }
+                }
+                int index = UGui.getIndexRec(tab1);
+                String num_ord = qProject.getAs(index, eProject.num_ord);
+                //Отчёт
+                ReportDocx.Specific2(listWinc, num_ord);
+            }
+        });
+    }//GEN-LAST:event_ppItem2
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3402,6 +3443,9 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JPanel pan8;
     private javax.swing.JPanel panDesign;
     private javax.swing.JPanel panSspinner;
+    private javax.swing.JMenuItem ppItem1;
+    private javax.swing.JMenuItem ppItem2;
+    private javax.swing.JPopupMenu ppReport;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;

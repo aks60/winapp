@@ -45,5 +45,9 @@ public class SpecificRep {
 
     public String getCost() {
         return String.valueOf(df1.format(spc.cost1));
-    }
+    }  
+    
+    public float getCost1() {
+        return spc.cost1;
+    }    
 }

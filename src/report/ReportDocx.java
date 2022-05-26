@@ -14,14 +14,18 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ReportDocx {
 
+    private static DecimalFormat df1 = new DecimalFormat("0.0");
+    private static DecimalFormat df2 = new DecimalFormat("#0.00");
+
     public static void outGoMaterial(List<Wincalc> wincList, String orderNum) {
-        try {            
+        try {
             List<Specific> spcList = new ArrayList();
             for (Wincalc winc : wincList) {
                 winc.constructiv(true);
@@ -30,7 +34,8 @@ public class ReportDocx {
             List<Specific> spcList2 = Specifics.groups(spcList, 3);
             List<SpecificRep> spcList3 = new ArrayList();
             spcList2.forEach(el -> spcList3.add(new SpecificRep(el)));
-            
+            double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum();
+
             InputStream in = ReportDocx.class.getResourceAsStream("/resource/template/OutGoMaterial.docx");
             //InputStream in = new FileInputStream(eProp.path_prop.read() + "/OutGoMaterial.docx");
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
@@ -39,8 +44,45 @@ public class ReportDocx {
             metadata.load("spc", SpecificRep.class, true);
 
             IContext context = report.createContext();
-            context.put("orderNum", orderNum);
+            context.put("num", orderNum);
             context.put("spc", spcList3);
+            context.put("resultTotal", String.valueOf(df1.format(total)));
+
+            OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
+            report.process(context, out);
+            ExecuteCmd.startWord("report.docx");
+
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
+            System.err.println("Ошибка:Tex.btnTest()" + e);
+        } catch (Exception e) {
+            System.err.println("Ошибка:Tex.btnTest()" + e);
+        }
+    }
+    
+    public static void Specific2(List<Wincalc> wincList, String orderNum) {
+        try {
+            List<Specific> spcList = new ArrayList();
+            for (Wincalc winc : wincList) {
+                winc.constructiv(true);
+                spcList.addAll(winc.listSpec);
+            }
+            List<Specific> spcList2 = Specifics.groups(spcList, 3);
+            List<SpecificRep> spcList3 = new ArrayList();
+            spcList2.forEach(el -> spcList3.add(new SpecificRep(el)));
+            double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum();
+
+            InputStream in = ReportDocx.class.getResourceAsStream("/resource/template/OutGoMaterial.docx");
+            //InputStream in = new FileInputStream(eProp.path_prop.read() + "/OutGoMaterial.docx");
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
+
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            metadata.load("spc1", SpecificRep.class, true);
+
+            IContext context = report.createContext();
+            context.put("num", orderNum);
+            context.put("spc1", spcList3);
+            //context.put("resultTotal", String.valueOf(df1.format(total)));
 
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
             report.process(context, out);
