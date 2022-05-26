@@ -716,7 +716,7 @@ public class Elements extends javax.swing.JFrame {
                 {null, null, "hhhhhhhhhhhhhh", "222", null, null, null, null,  new Double(0.0), null}
             },
             new String [] {
-                "Артикул", "Название", "Наименование вставок", "Тип состава", "Признак состава", "Для серии", "Умолчание", "Обязательно", "Наценка", "ID"
+                "Артикул", "Название", "Наименование вставок", "Тип состава", "Признак состава", "Для серии", "Умолчание", "Обязательно", "Наценка%", "ID"
             }
         ) {
             Class[] types = new Class [] {
@@ -744,11 +744,11 @@ public class Elements extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(4).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(32);
-            tab2.getColumnModel().getColumn(6).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(80);
             tab2.getColumnModel().getColumn(7).setPreferredWidth(32);
-            tab2.getColumnModel().getColumn(7).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(7).setMaxWidth(80);
             tab2.getColumnModel().getColumn(8).setPreferredWidth(32);
-            tab2.getColumnModel().getColumn(8).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(8).setMaxWidth(80);
             tab2.getColumnModel().getColumn(9).setMaxWidth(40);
         }
 

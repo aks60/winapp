@@ -45,7 +45,7 @@ public class Tariffic extends Cal5e {
 
                 elem5e.spcRec.price1 += artdetPrice(elem5e.spcRec); //себест. за ед. без отхода по табл. ARTDET с коэф. и надб.
                 elem5e.spcRec.quant1 = formatAmount(elem5e.spcRec); //количество без отхода
-                elem5e.spcRec.quant2 = elem5e.spcRec.quant1;  //количество с отходом
+                elem5e.spcRec.quant2 = elem5e.spcRec.quant1;  //базовое количество с отходом
                 if (norm_otx == true) {
                     float otx = elem5e.spcRec.artiklRec.getFloat(eArtikl.otx_norm);
                     elem5e.spcRec.quant2 = elem5e.spcRec.quant2 + (elem5e.spcRec.quant1 * otx / 100); //количество с отходом
@@ -54,7 +54,7 @@ public class Tariffic extends Cal5e {
                 for (Specific specificationRec2 : elem5e.spcRec.spcList) {
                     specificationRec2.price1 += artdetPrice(specificationRec2); //себест. за ед. без отхода
                     specificationRec2.quant1 = formatAmount(specificationRec2); //количество без отхода
-                    specificationRec2.quant2 = specificationRec2.quant1; //количество с отходом
+                    specificationRec2.quant2 = specificationRec2.quant1; //базовое количество с отходом
                     if (norm_otx == true) {
                         float otx = specificationRec2.artiklRec.getFloat(eArtikl.otx_norm);
                         specificationRec2.quant2 = specificationRec2.quant2 + (specificationRec2.quant1 * otx / 100); //количество с отходом
@@ -63,6 +63,7 @@ public class Tariffic extends Cal5e {
             }
 
             //Правила расчёта
+            //Всё обнуляется и рассчитывается по таблице правил расчёта
             for (ElemSimple elem5e : winc.listElem) {
 
                 Record systreeRec = eSystree.find(winc.nuni);
@@ -230,8 +231,6 @@ public class Tariffic extends Cal5e {
 
     //Правила расчёта. Фильтр по полю form, color(1,2,3) таблицы RULECALC
     private void rulecalcPrise(Record rulecalcRec, Specific specifRec) {
-
-        Object obj = rulecalcRec.getStr(eArtikl.code);
 
         //Если артикул ИЛИ тип ИЛИ подтип совпали
         if (specifRec.artiklRec.get(eArtikl.id).equals(rulecalcRec.get(eRulecalc.artikl_id)) == true || rulecalcRec.get(eRulecalc.artikl_id) == null) {
