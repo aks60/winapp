@@ -1212,7 +1212,7 @@ private void mn94(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn94
 
     private void btnTest(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest
         try {
-            InputStream in = Main.class.getResourceAsStream("/resource/template/OutGoMaterial.docx");
+            InputStream in = Main.class.getResourceAsStream("/resource/report/OutGoMaterial.docx");
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
             FieldsMetadata metadata = report.createFieldsMetadata();
             metadata.addFieldAsTextStyling("title", SyntaxKind.Html);
