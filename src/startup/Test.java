@@ -70,10 +70,10 @@ public class Test {
         eProp.dev = true;
         try {
             //Profstroy.exec();
-            wincalc();
+            //wincalc();
             //param();
             //query();
-            //frame();
+            frame();
             //json();
             //parse();
             //uid();
@@ -159,10 +159,11 @@ public class Test {
 
     private static void frame() throws Exception {
         Main.main(new String[]{"tex"});
-        while (App.Top.frame == null) {
-            Thread.yield();
-        }
-        App.TestFrame.createFrame(App.Top.frame);
+//        while (App.Top.frame == null) {
+//            Thread.yield();
+//        }
+        Thread.sleep(1400);
+        App.Order.createFrame(App.Top.frame);
     }
 
     private static void query() {
