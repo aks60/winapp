@@ -95,33 +95,28 @@ public class SpecificRep {
     }
 
     //--------------------------------------------------------------------------  
-    public static List<Specific> groups(List<Specific> listSpec, int num) {
+    public static List<SpecificRep> groups(List<SpecificRep> listSpr) {
         HashSet<String> hs = new HashSet();
-        List<Specific> list = new ArrayList();
-        Map<String, Specific> map = new HashMap();
+        List<SpecificRep> list = new ArrayList();
+        Map<String, SpecificRep> map = new HashMap();
 
-        for (Specific spc : listSpec) {
-            String key = (num == 1)
-                    ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.width + spc.height + spc.anglCut1 + spc.anglCut2 + spc.wastePrc + spc.price1
-                    : (num == 2) ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.wastePrc + spc.price1 : spc.artikl;
+        for (SpecificRep sr : listSpr) {
+            String key = sr.spc.artikl + sr.spc.colorID1 + sr.spc.colorID2 + sr.spc.colorID3;
             if (hs.add(key)) {
-                map.put(key, new Specific(spc));
+                map.put(key, new SpecificRep(sr.spc));
             } else {
-                Specific s = map.get(key);
-                s.weight = s.weight + spc.weight;
-                s.anglCut1 = 0;
-                s.anglCut2 = 0;
-                s.anglHoriz = 0;
-                s.count = s.count + spc.count;
-                s.quant1 = s.quant1 + spc.quant1;
-                s.quant2 = s.quant2 + spc.quant2;
-                s.price2 = s.price2 + spc.price2;
-                s.cost1 = s.cost1 + spc.cost1;
-                s.cost2 = s.cost2 + spc.cost2;
+                SpecificRep s = map.get(key);
+                s.spc.weight = s.spc.weight + sr.spc.weight;
+                s.spc.count = s.spc.count + sr.spc.count;
+                s.spc.quant1 = s.spc.quant1 + sr.spc.quant1;
+                s.spc.quant2 = s.spc.quant2 + sr.spc.quant2;
+                s.spc.price2 = s.spc.price2 + sr.spc.price2;
+                s.spc.cost1 = s.spc.cost1 + sr.spc.cost1;
+                s.spc.cost2 = s.spc.cost2 + sr.spc.cost2;
             }
         }
         map.entrySet().forEach(act -> list.add(act.getValue()));
-        Collections.sort(list, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name).compareTo(o2.place.subSequence(0, 3) + o2.name));
+        Collections.sort(list, (o1, o2) -> (o1.spc.name).compareTo(o2.spc.name));
         return list;
     } 
     

@@ -73,19 +73,18 @@ public class ReportDocx {
             for (Wincalc winc : wincList) {
                 winc.constructiv(true);
                 m.addAll(winc.listSpec);
-            }
-            List<Specific> m1 = Specifics.groups(m, 3);
+            }            
             List<SpecificRep> m2 = new ArrayList();
-            m1.forEach(el -> m2.add(new SpecificRep(el)));
+            m.forEach(el -> m2.add(new SpecificRep(el)));
 
             String num = record.getStr(eProject.num_ord);
             String date = UGui.simpleFormat.format(record.get(eProject.date4));
             String total = df1.format(m2.stream().mapToDouble(spc -> spc.getCost1()).sum());
 
             List<SpecificRep> s1 = m2.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 1).collect(toList());
-            List<SpecificRep> s2 = m2.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 2).collect(toList());
-            List<SpecificRep> s3 = m2.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 3).collect(toList());
-            List<SpecificRep> s4 = m2.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 5).collect(toList());
+            List<SpecificRep> s2 = SpecificRep.groups(m2.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 2).collect(toList()));
+            List<SpecificRep> s3 = SpecificRep.groups(m2.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 3).collect(toList()));
+            List<SpecificRep> s4 = SpecificRep.groups(m2.stream().filter(s -> s.spc().artiklRec.getInt(eArtikl.level1) == 5).collect(toList()));
 
             InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/Specific2.docx");
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);

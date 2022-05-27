@@ -73,7 +73,7 @@ public class Test {
             //wincalc();
             //param();
             //query();
-            frame();
+            //frame();
             //json();
             //parse();
             //uid();
@@ -162,7 +162,7 @@ public class Test {
 //        while (App.Top.frame == null) {
 //            Thread.yield();
 //        }
-        Thread.sleep(1400);
+        Thread.sleep(2000);
         App.Order.createFrame(App.Top.frame);
     }
 
