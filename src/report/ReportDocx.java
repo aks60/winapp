@@ -8,21 +8,26 @@ import domain.eArtikl;
 import domain.eProject;
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;
+import fr.opensagres.xdocreport.document.images.ByteArrayImageProvider;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import frames.Specifics;
 import frames.UGui;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class ReportDocx {
@@ -73,7 +78,7 @@ public class ReportDocx {
             for (Wincalc winc : wincList) {
                 winc.constructiv(true);
                 m.addAll(winc.listSpec);
-            }            
+            }
             List<SpecificRep> m2 = new ArrayList();
             m.forEach(el -> m2.add(new SpecificRep(el)));
 
@@ -117,4 +122,91 @@ public class ReportDocx {
             System.err.println("Ошибка3:ReportDocx.Specific2()" + e);
         }
     }
+
+    public static void smeta2(List<Wincalc> wincs, Record record) {
+        Wincalc winc = wincs.get(0);
+        int length = 777;
+        BufferedImage bi = new BufferedImage(80, 80, BufferedImage.TYPE_INT_RGB);
+        winc.gc2d = bi.createGraphics();
+        float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
+        float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
+        winc.scale = (length / width > length / height) ? length / (height + 200) : length / (width + 200);
+        winc.rootArea.draw(); //рисую конструкцию
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteArrayImageProvider byteArrayImageProvider = new ByteArrayImageProvider(baos.toByteArray());
+
+    }
+
+    //https://mkyong.com/java/how-to-convert-bufferedimage-to-byte-in-java/
+    public static byte[] toByteArray(BufferedImage bi, String format)
+            throws IOException {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bi, format, baos);
+        byte[] bytes = baos.toByteArray();
+        return bytes;
+
+    }
+
+    //http://www.java2s.com/example/java-utility-method/bufferedimage-to-byte-array-index-0.html
+    public static byte[] toByteArray2(BufferedImage bi) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(bi, "png", outputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return outputStream.toByteArray();
+    }
+    
+    //http://www.java2s.com/example/java-utility-method/bufferedimage-to-byte-array-index-0.html
+    public static byte[] toByteArray2(BufferedImage bi, String format) {
+        ByteArrayOutputStream buff = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(bi, format, buff);
+            byte[] bytes = buff.toByteArray();
+            buff.close();
+            return bytes;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }
+
+//        Blob blob = rs.getBlob("BPICT");
+//        int blobLength = (int) blob.length();
+//        byte[] bytes = blob.getBytes(1, blobLength);
+//        blob.free();
+//        BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
+//        ImageIcon icon = new ImageIcon(img);
+//            BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+//            winc.gc2d = bi.createGraphics();
+//            winc.gc2d.fillRect(0, 0, length, length);
+//            float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
+//            float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
+//            winc.scale = (length / width > length / height)
+//                    ? length / (height + 200) : length / (width + 200);            
+//            winc.gc2d.scale(winc.scale, winc.scale);
+//            winc.rootArea.draw(); //рисую конструкцию
+//            return new ImageIcon(bi);
+/**
+ * private IImageProvider getImage(String key, Object object) { try { String
+ * imageAsString = ""; if (object instanceof String) { imageAsString = (String)
+ * object; } else { imageAsString = (String) ((JSONObject)
+ * object).get(IMAGE_TYPE); } return new
+ * ByteArrayImageProvider(Base64Utility.decode(imageAsString)); } catch
+ * (Exception e) { throw new JSONException("JSONObject[" + quote(key) + "] is
+ * not an Image."); } }
+ *
+ *
+ * FieldsMetadata metadata = new FieldsMetadata();
+ * metadata.addFieldAsImage("chart1"); metadata.addFieldAsImage("chart2");
+ * report.setFieldsMetadata(metadata);
+ *
+ * IImageProvider logo = new FileImageProvider(new File("path/to/image1"),
+ * true); context.put("chart1", logo);
+ *
+ * IImageProvider logo2 = new FileImageProvider(new File("path/to/image2"),
+ * true); context.put("chart2", logo2);
+ */
