@@ -29,7 +29,7 @@ public class Specific {
     public Record artiklRec = null;  //артикул в детализации конструктива
 
     public float id = -1; //ID
-    public String place = "---";  //Место расмешения
+    public String place = "---";  //Место размешения
     public String name = "-";  //Наименование
     public String artikl = "-";  //Артикул
     public int colorID1 = -3;  //Осн.текстура

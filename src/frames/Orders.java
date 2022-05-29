@@ -692,8 +692,11 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         buttonGroup = new javax.swing.ButtonGroup();
         ppReport = new javax.swing.JPopupMenu();
-        ppItem1 = new javax.swing.JMenuItem();
-        ppItem2 = new javax.swing.JMenuItem();
+        menu1 = new javax.swing.JMenu();
+        menuItem11 = new javax.swing.JMenuItem();
+        menuItem12 = new javax.swing.JMenuItem();
+        menuItem13 = new javax.swing.JMenuItem();
+        menuItem14 = new javax.swing.JMenuItem();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnSet = new javax.swing.JButton();
@@ -845,21 +848,45 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         tab4 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
 
-        ppItem1.setText("Расход материалов");
-        ppItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ppItem1(evt);
-            }
-        });
-        ppReport.add(ppItem1);
+        menu1.setText("Заказ");
 
-        ppItem2.setText("Спецификация проекта");
-        ppItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuItem11.setText("Расход материалов");
+        menuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ppItem2(evt);
+                menuItem11(evt);
             }
         });
-        ppReport.add(ppItem2);
+        menu1.add(menuItem11);
+
+        menuItem12.setText("Спецификация проекта");
+        menuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItem12(evt);
+            }
+        });
+        menu1.add(menuItem12);
+
+        menuItem13.setText("Смета");
+        menuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItem13(evt);
+            }
+        });
+        menu1.add(menuItem13);
+
+        menuItem14.setText("Xxxxx");
+        menuItem14.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                menuItem14(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        menu1.add(menuItem14);
+
+        ppReport.add(menu1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Заказы");
@@ -3320,7 +3347,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         ppReport.show(north, btnReport.getX(), btnReport.getY() + 18);
     }//GEN-LAST:event_btnReport
 
-    private void ppItem1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppItem1
+    private void menuItem11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem11
         FrameProgress.create(Orders.this, new ListenerFrame() {
             public void actionRequest(Object obj) {
                 List<Wincalc> listWinc = new ArrayList(); //спецификация
@@ -3337,9 +3364,26 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 ReportDocx.outGoMaterial(listWinc, num_ord);
             }
         });
-    }//GEN-LAST:event_ppItem1
+    }//GEN-LAST:event_menuItem11
 
-    private void ppItem2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppItem2
+    private void menuItem12(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem12
+        FrameProgress.create(Orders.this, new ListenerFrame() {
+            public void actionRequest(Object obj) {                
+                List<Wincalc> listWinc = new ArrayList(); //спецификация
+                for (int index = 0; index < tab2.getRowCount(); ++index) {
+                    Record sysprodRec = qPrjprod.table(ePrjprod.up).get(index);
+                    Object w = sysprodRec.get(ePrjprod.values().length);
+                    if (w instanceof Wincalc) {
+                        listWinc.add((Wincalc) w);
+                    }
+                }
+                //Отчёт
+                ReportDocx.smeta2(listWinc, qProject.get(UGui.getIndexRec(tab1)));
+            }
+        });
+    }//GEN-LAST:event_menuItem12
+
+    private void menuItem13(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem13
         FrameProgress.create(Orders.this, new ListenerFrame() {
             public void actionRequest(Object obj) {                
                 List<Wincalc> listWinc = new ArrayList(); //спецификация
@@ -3354,7 +3398,11 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 ReportDocx.Specific2(listWinc, qProject.get(UGui.getIndexRec(tab1)));
             }
         });
-    }//GEN-LAST:event_ppItem2
+    }//GEN-LAST:event_menuItem13
+
+    private void menuItem14(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_menuItem14
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItem14
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3435,6 +3483,11 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JLabel lab63;
     private javax.swing.JLabel lab7;
     private javax.swing.JLabel lab8;
+    private javax.swing.JMenu menu1;
+    private javax.swing.JMenuItem menuItem11;
+    private javax.swing.JMenuItem menuItem12;
+    private javax.swing.JMenuItem menuItem13;
+    private javax.swing.JMenuItem menuItem14;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan11;
@@ -3455,8 +3508,6 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
     private javax.swing.JPanel pan8;
     private javax.swing.JPanel panDesign;
     private javax.swing.JPanel panSspinner;
-    private javax.swing.JMenuItem ppItem1;
-    private javax.swing.JMenuItem ppItem2;
     private javax.swing.JPopupMenu ppReport;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;

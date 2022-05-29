@@ -73,7 +73,7 @@ public class Test {
             //wincalc();
             //param();
             //query();
-            //frame();
+            frame();
             //json();
             //parse();
             //uid();
