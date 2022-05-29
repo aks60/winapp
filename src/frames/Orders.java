@@ -39,6 +39,7 @@ import common.listener.ListenerFrame;
 import common.listener.ListenerObject;
 import common.listener.ListenerReload;
 import dataset.Conn;
+import docx.DocxProjectWithFreemarkerAndImageList;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
@@ -858,7 +859,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         });
         menu1.add(menuItem11);
 
-        menuItem12.setText("Спецификация проекта");
+        menuItem12.setText("Спецификация");
         menuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItem12(evt);
@@ -3378,7 +3379,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     }
                 }
                 //Отчёт
-                ReportDocx.smeta2(listWinc, qProject.get(UGui.getIndexRec(tab1)));
+                ReportDocx.specific2(listWinc, qProject.get(UGui.getIndexRec(tab1)));
             }
         });
     }//GEN-LAST:event_menuItem12
@@ -3395,7 +3396,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     }
                 }
                 //Отчёт
-                ReportDocx.Specific2(listWinc, qProject.get(UGui.getIndexRec(tab1)));
+                DocxProjectWithFreemarkerAndImageList.smeta2(qPrjprod.get(UGui.getIndexRec(tab2)));
+//                ReportDocx.smeta2(listWinc, qProject.get(UGui.getIndexRec(tab1)));
             }
         });
     }//GEN-LAST:event_menuItem13

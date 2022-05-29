@@ -72,7 +72,7 @@ public class ReportDocx {
         }
     }
 
-    public static void Specific2(List<Wincalc> wincList, Record record) {
+    public static void specific2(List<Wincalc> wincList, Record record) {
         try {
             List<Specific> m = new ArrayList();
             for (Wincalc winc : wincList) {
