@@ -2,7 +2,6 @@ package docx;
 
 import builder.Wincalc;
 import builder.making.Joining;
-import common.eProp;
 import dataset.Record;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,7 +27,6 @@ import frames.swing.draw.Canvas;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import javax.imageio.ImageIO;
-import report.ExecuteCmd;
 
 public class DocxProjectWithFreemarkerAndImageList {
 
@@ -52,28 +50,15 @@ public class DocxProjectWithFreemarkerAndImageList {
         
 
         try {
-            // 1) Load Docx file by filling Freemarker template engine and cache it to the registry
-            InputStream in
-                    = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("DocxProjectWithFreemarkerAndImageList.docx");
+
+            InputStream in = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("DocxProjectWithFreemarkerAndImageList.docx");
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
 
-            // 2) Create fields metadata to manage lazy loop ([#list Freemarker) for table row.
             FieldsMetadata metadata = report.createFieldsMetadata();
-            // Old API
-            /*
-             * metadata.addFieldAsList("developers.name"); metadata.addFieldAsList("developers.lastName");
-             * metadata.addFieldAsList("developers.mail"); metadata.addFieldAsList("developers.photo");
-             */
-            // NEW API
             metadata.load("developers", DeveloperWithImage.class, true);
 
-            // image
             metadata.addFieldAsImage("logo");
-            // the following code is managed with @FieldMetadata( images = { @ImageMetadata( name = "photo" ) } )
-            // in the DeveloperWithImage.
-            // metadata.addFieldAsImage("photo", "developers.photo");
 
-            // 3) Create context Java model
             IContext context = report.createContext();
             Project project = new Project("XDocReport");
             project.setURL("http://code.google.com/p/xdocreport/");
@@ -81,18 +66,13 @@ public class DocxProjectWithFreemarkerAndImageList {
             IImageProvider logo = new ClassPathImageProvider(DocxProjectWithFreemarkerAndImageList.class, "logo.png");
             context.put("logo", logo);
 
-            // Register developers list
             List<DeveloperWithImage> developers = new ArrayList<DeveloperWithImage>();
             developers.add(new DeveloperWithImage("ZERR", "Angelo", "angelo.zerr@gmail.com", byteArrayImageProvider1));
-                    //new ClassPathImageProvider(DocxProjectWithFreemarkerAndImageList.class, "AngeloZERR.jpg")));
-            developers.add(new DeveloperWithImage("Leclercq", "Pascal", "pascal.leclercq@gmail.com", //byteArrayImageProvider2));
-                    new ClassPathImageProvider(DocxProjectWithFreemarkerAndImageList.class, "PascalLeclercq.jpg")));
+            developers.add(new DeveloperWithImage("Leclercq", "Pascal", "pascal.leclercq@gmail.com", byteArrayImageProvider2));
             context.put("developers", developers);
 
-            // 4) Generate report by merging Java model with the Docx
-            OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
+            OutputStream out = new FileOutputStream(new File("DocxProjectWithFreemarkerAndImageList_Out.docx"));
             report.process(context, out);
-            ExecuteCmd.startWord("report.docx");
 
         } catch (IOException e) {
             e.printStackTrace();

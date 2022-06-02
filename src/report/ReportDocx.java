@@ -44,7 +44,7 @@ public class ReportDocx {
     private static DecimalFormat df1 = new DecimalFormat("0.0");
     private static DecimalFormat df2 = new DecimalFormat("#0.00");
 
-    public static void outGoMaterial(List<Wincalc> wincList, String orderNum) {
+    public static void material2(List<Wincalc> wincList, String orderNum) {
         try {
             List<Specific> spcList = new ArrayList();
             for (Wincalc winc : wincList) {
@@ -133,56 +133,44 @@ public class ReportDocx {
     }
 
     public static void smeta2(List<Wincalc> wincs, Record record) {
-        int length = 200;
-        //record.getStr(ePrjprod.script);
-        Wincalc winc = new Wincalc(wincs.get(0).script());
-        //Wincalc winc = wincs.get(0);
-        
-        Joining joining = new Joining(winc, true);//заполним соединения из конструктива
-        joining.calc();
-        winc.imageIcon = Canvas.createIcon(winc, length);
-        BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-        winc.gc2d = bi.createGraphics();
-        winc.gc2d.fillRect(0, 0, length, length);
-        float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
-        float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
-        winc.scale = (length / width > length / height) ? length / (height) : length / (width);
-        winc.gc2d.scale(winc.scale, winc.scale);
-        winc.rootArea.draw(); //рисую конструкцию
-        ByteArrayImageProvider byteArrayImageProvider1 = new ByteArrayImageProvider(toByteArray(bi));
-        ByteArrayImageProvider byteArrayImageProvider2 = new ByteArrayImageProvider(toByteArray(bi));
-        
         try {
-            InputStream in = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("Smetqa2.docx");
-            IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
-            FieldsMetadata metadata = report.createFieldsMetadata();
-            metadata.load("developers", DeveloperWithImage.class, true);
-            metadata.addFieldAsImage("logo");
-            IContext context = report.createContext();
-            Project project = new Project("XDocReport");
-            project.setURL("http://code.google.com/p/xdocreport/");
-            context.put("project", project);
-            IImageProvider logo = new ClassPathImageProvider(ReportDocx.class, "logo.png");
-            context.put("logo", logo);
-
-            List<DeveloperWithImage> developers = new ArrayList<DeveloperWithImage>();
-            developers.add(new DeveloperWithImage("ZERR", "Angelo", "angelo.zerr@gmail.com", byteArrayImageProvider1));
-            developers.add(new DeveloperWithImage("Leclercq", "Pascal", "pascal.leclercq@gmail.com", byteArrayImageProvider2));
-            context.put("developers", developers);
-
+            int length = 400;
+            InputStream in = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("/resource/report/Smeta2a.docx");
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
+            List<SmetaRep> imageList = new ArrayList<SmetaRep>();
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);            
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            metadata.load("imageList", SmetaRep.class, true);
+            IContext context = report.createContext();
+            context.put("imageList", imageList);
+
+            //for (Wincalc win : wincs) {
+            Wincalc winc = new Wincalc(wincs.get(0).script());
+            Joining joining = new Joining(winc, true);//заполним соединения из конструктива
+            joining.calc();
+            winc.imageIcon = Canvas.createIcon(winc, length);
+            BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+            winc.gc2d = bi.createGraphics();
+            winc.gc2d.fillRect(0, 0, length, length);
+            float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
+            float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
+            winc.scale = (length / width > length / height) ? length / (height) : length / (width);
+            winc.gc2d.scale(winc.scale, winc.scale);
+            winc.rootArea.draw(); //рисую конструкцию
+            ByteArrayImageProvider imageProvider = new ByteArrayImageProvider(toByteArray(bi));
+            imageList.add(new SmetaRep("ZERR", imageProvider));
+
             report.process(context, out);
             ExecuteCmd.startWord("report.docx");
-
+            //}
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XDocReportException e) {
             e.printStackTrace();
         }
-
     }
 
-     public static byte[] toByteArray(BufferedImage bi) {
+    public static byte[] toByteArray(BufferedImage bi) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
             ImageIO.write(bi, "png", outputStream);
@@ -229,4 +217,4 @@ public class ReportDocx {
         }
         return null;
     }
-*/
+ */

@@ -159,7 +159,8 @@ import fr.opensagres.xdocreport.document.images.IImageProvider;
 import fr.opensagres.xdocreport.template.annotations.FieldMetadata;
 import fr.opensagres.xdocreport.template.annotations.ImageMetadata;
 
-public class DeveloperWithImage extends Developer {
+public class DeveloperWithImage
+        extends Developer {
 
     private final IImageProvider photo;
 
@@ -170,7 +171,7 @@ public class DeveloperWithImage extends Developer {
 
     // as docx cannot support bookmark name, with dot, we force the name of this field to "photo" and we use "photo" as
     // bookmark name which wraps the "template image".
-    //@FieldMetadata(images = {@ImageMetadata(name = "photo")})
+    @FieldMetadata(images = {@ImageMetadata(name = "photo")})
     public IImageProvider getPhoto() {
         return photo;
     }

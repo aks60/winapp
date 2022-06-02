@@ -3362,7 +3362,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 int index = UGui.getIndexRec(tab1);
                 String num_ord = qProject.getAs(index, eProject.num_ord);
                 //Отчёт
-                ReportDocx.outGoMaterial(listWinc, num_ord);
+                ReportDocx.material2(listWinc, num_ord);
             }
         });
     }//GEN-LAST:event_menuItem11
@@ -3396,8 +3396,8 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                     }
                 }
                 //Отчёт
-                DocxProjectWithFreemarkerAndImageList.smeta2(qPrjprod.get(UGui.getIndexRec(tab2)));
-                //ReportDocx.smeta2(listWinc, qProject.get(UGui.getIndexRec(tab1)));
+                //DocxProjectWithFreemarkerAndImageList.smeta2(qPrjprod.get(UGui.getIndexRec(tab2)));
+                ReportDocx.smeta2(listWinc, qProject.get(UGui.getIndexRec(tab1)));
             }
         });
     }//GEN-LAST:event_menuItem13

@@ -5,18 +5,22 @@ import fr.opensagres.xdocreport.document.images.IImageProvider;
 import fr.opensagres.xdocreport.template.annotations.FieldMetadata;
 import fr.opensagres.xdocreport.template.annotations.ImageMetadata;
 
-public class DeveloperImage extends Developer {
+public class SmetaRep {
 
+    private final String name;
     private final IImageProvider photo;
 
-    public DeveloperImage(String name, String lastName, String mail, IImageProvider photo) {
-        super(name, lastName, mail);
-        this.photo = photo;
+    public SmetaRep(String name, IImageProvider pfoto) {
+        this.name = name;
+        this.photo = pfoto;
     }
 
     @FieldMetadata(images = {@ImageMetadata(name = "photo")})
     public IImageProvider getPhoto() {
         return photo;
     }
-
+          
+    public String getName() {
+        return name;
+    }
 }
