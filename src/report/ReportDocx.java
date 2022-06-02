@@ -3,6 +3,7 @@ package report;
 import builder.Wincalc;
 import builder.making.Joining;
 import builder.making.Specific;
+import common.MoneyInWords;
 import common.eProp;
 import dataset.Query;
 import dataset.Record;
@@ -174,6 +175,8 @@ public class ReportDocx {
             context.put("total", df1.format(sum1 + sum2));
             report.process(context, out);
             ExecuteCmd.startWord("report.docx");
+            
+            System.out.println(MoneyInWords.inwords(12563.83));
 
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
