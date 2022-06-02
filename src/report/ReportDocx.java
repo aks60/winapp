@@ -53,7 +53,7 @@ public class ReportDocx {
             spcList2.forEach(el -> spcList3.add(new SpecificRep(el)));
             double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum();
 
-            InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/material2.docx");
+            InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/Material2.docx");
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
 
             FieldsMetadata metadata = report.createFieldsMetadata();
@@ -132,6 +132,9 @@ public class ReportDocx {
     public static void smeta2(Record order, Query prjprodList) {
         try {
             int npp = 0;
+            float sum1 = 0f;
+            float sum2 = 0f;
+            float total = 0f;
             int length = 400;
             InputStream in = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("/resource/report/Smeta2.docx");
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
@@ -139,41 +142,45 @@ public class ReportDocx {
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
             FieldsMetadata metadata = report.createFieldsMetadata();
             metadata.load("sket", SmetaRep.class, true);
-            IContext context = report.createContext();           
-            context.put("sket", sketchList);
-            context.put("num", order.getStr(eProject.num_ord));    
-            
+
             for (Record prjprod : prjprodList) {
                 String script = prjprod.getStr(ePrjprod.script);
                 Wincalc winc = new Wincalc(script);
-                winc.constructiv(true); 
+                winc.constructiv(true);
                 winc.imageIcon = Canvas.createIcon(winc, length);
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 winc.gc2d = bi.createGraphics();
                 winc.gc2d.fillRect(0, 0, length, length);
                 float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
                 float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
-                winc.scale = (length / width > length / height) ? length / (height + 20) : length / (width + 20); 
+                winc.scale = (length / width > length / height) ? length / (height + 80) : length / (width + 80);
                 winc.gc2d.scale(winc.scale, winc.scale);
                 winc.rootArea.draw(); //рисую конструкцию
                 ByteArrayImageProvider imageProvider = new ByteArrayImageProvider(toByteArray(bi));
-                
+
                 String name = prjprod.getStr(ePrjprod.name);
                 String color = eColor.find(winc.colorID1).getStr(eColor.name);
                 String dimensions = winc.width() + "x" + winc.height();
                 String num = prjprod.getStr(ePrjprod.num);
                 String cost2 = df1.format(winc.cost2());
+                sum1 += winc.cost2();
                 sketchList.add(new SmetaRep(String.valueOf(++npp), name, color, dimensions, num, cost2, imageProvider));
             }
+            IContext context = report.createContext();
+            context.put("sket", sketchList);
+            context.put("num", order.getStr(eProject.num_ord));
+            context.put("sum1", df1.format(sum1));
+            context.put("sum2", df1.format(sum2));
+            context.put("total", df1.format(sum1 + sum2));
             report.process(context, out);
             ExecuteCmd.startWord("report.docx");
 
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
-            System.err.println("Ошибка1:ReportDocx.smeta2()" + e);            
-        } catch (IOException e) {
-            System.err.println("Ошибка2:ReportDocx.smeta2()" + e);
+            System.err.println("Ошибка1:ReportDocx.smeta2()" + e);
         } catch (XDocReportException e) {
+            System.err.println("Ошибка2:ReportDocx.smeta2()" + e);
+        } catch (IOException e) {
             System.err.println("Ошибка3:ReportDocx.smeta2()" + e);
         }
     }
@@ -188,41 +195,3 @@ public class ReportDocx {
         return outputStream.toByteArray();
     }
 }
-
-/*     
-    //https://mkyong.com/java/how-to-convert-bufferedimage-to-byte-in-java/
-    public static byte[] toByteArray(BufferedImage bi, String format)
-            throws IOException {
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bi, format, baos);
-        byte[] bytes = baos.toByteArray();
-        return bytes;
-
-    }
-
-    //http://www.java2s.com/example/java-utility-method/bufferedimage-to-byte-array-index-0.html
-    public static byte[] toByteArray2(BufferedImage bi) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        try {
-            ImageIO.write(bi, "png", outputStream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return outputStream.toByteArray();
-    }
-    
-    //http://www.java2s.com/example/java-utility-method/bufferedimage-to-byte-array-index-0.html
-    public static byte[] toByteArray2(BufferedImage bi, String format) {
-        ByteArrayOutputStream buff = new ByteArrayOutputStream();
-        try {
-            ImageIO.write(bi, format, buff);
-            byte[] bytes = buff.toByteArray();
-            buff.close();
-            return bytes;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
- */
