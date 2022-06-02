@@ -162,7 +162,7 @@ public class Test {
 //        while (App.Top.frame == null) {
 //            Thread.yield();
 //        }
-        Thread.sleep(2000);
+        Thread.sleep(1300);
         App.Order.createFrame(App.Top.frame);
     }
 

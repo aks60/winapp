@@ -2,6 +2,7 @@ package docx;
 
 import builder.Wincalc;
 import builder.making.Joining;
+import common.eProp;
 import dataset.Record;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,6 +28,7 @@ import frames.swing.draw.Canvas;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import javax.imageio.ImageIO;
+import report.ExecuteCmd;
 
 public class DocxProjectWithFreemarkerAndImageList {
 
@@ -88,8 +90,9 @@ public class DocxProjectWithFreemarkerAndImageList {
             context.put("developers", developers);
 
             // 4) Generate report by merging Java model with the Docx
-            OutputStream out = new FileOutputStream(new File("DocxProjectWithFreemarkerAndImageList_Out.docx"));
+            OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
             report.process(context, out);
+            ExecuteCmd.startWord("report.docx");
 
         } catch (IOException e) {
             e.printStackTrace();

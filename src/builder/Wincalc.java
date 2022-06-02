@@ -54,6 +54,7 @@ public class Wincalc {
     public Record syssizeRec = null; //константы    
     public float genId = 0; //генерация ключа в спецификации
 
+    private String script = null;
     public float width1 = 0.f; //ширина окна верхняя    
     public float width2 = 0.f; //ширина окна нижняя
     private float height1 = 0.f; //высота окна левая
@@ -83,6 +84,7 @@ public class Wincalc {
     }
 
     public Wincalc(String script) {
+        this.script = script;
         build(script);
     }
 
@@ -121,7 +123,7 @@ public class Wincalc {
             //Инит конструктива
             this.nuni = rootGson.nuni();
             this.width1 = (rootGson.width1() == null)
-                    ? rootGson.width() : rootGson.width1();            
+                    ? rootGson.width() : rootGson.width1();
             this.width2 = rootGson.width2();
             this.height1 = rootGson.height1();
             this.height2 = (rootGson.height2() == null)
@@ -145,7 +147,7 @@ public class Wincalc {
             } else if (Type.ARCH == rootGson.type()) {
                 rootArea = new AreaArch(this); //арка
             }
-            
+
             //Создадим элементы конструкции
             elements(rootArea, rootGson);
 
@@ -223,6 +225,10 @@ public class Wincalc {
         }
     }
 
+    public String script() {
+        return this.script;
+    }
+
     public float height1() {
         return height1;
     }
@@ -234,9 +240,9 @@ public class Wincalc {
     public float width1() {
         return width1;
     }
-    
+
     public float width2() {
         return width2;
     }
-    
+
 }

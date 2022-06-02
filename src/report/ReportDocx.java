@@ -1,20 +1,29 @@
 package report;
 
 import builder.Wincalc;
+import builder.making.Joining;
 import builder.making.Specific;
 import common.eProp;
 import dataset.Record;
+import docx.DocxProjectWithFreemarkerAndImageList;
+import static docx.DocxProjectWithFreemarkerAndImageList.toByteArray;
+import docx.model.DeveloperWithImage;
+import docx.model.Project;
 import domain.eArtikl;
+import domain.ePrjprod;
 import domain.eProject;
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.images.ByteArrayImageProvider;
+import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
+import fr.opensagres.xdocreport.document.images.IImageProvider;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 import frames.Specifics;
 import frames.UGui;
+import frames.swing.draw.Canvas;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -124,19 +133,67 @@ public class ReportDocx {
     }
 
     public static void smeta2(List<Wincalc> wincs, Record record) {
-        Wincalc winc = wincs.get(0);
-        int length = 777;
-        BufferedImage bi = new BufferedImage(80, 80, BufferedImage.TYPE_INT_RGB);
+        int length = 200;
+        //record.getStr(ePrjprod.script);
+        Wincalc winc = new Wincalc(wincs.get(0).script());
+        //Wincalc winc = wincs.get(0);
+        
+        Joining joining = new Joining(winc, true);//заполним соединения из конструктива
+        joining.calc();
+        winc.imageIcon = Canvas.createIcon(winc, length);
+        BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
         winc.gc2d = bi.createGraphics();
+        winc.gc2d.fillRect(0, 0, length, length);
         float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
         float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
-        winc.scale = (length / width > length / height) ? length / (height + 200) : length / (width + 200);
+        winc.scale = (length / width > length / height) ? length / (height) : length / (width);
+        winc.gc2d.scale(winc.scale, winc.scale);
         winc.rootArea.draw(); //рисую конструкцию
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ByteArrayImageProvider byteArrayImageProvider = new ByteArrayImageProvider(baos.toByteArray());
+        ByteArrayImageProvider byteArrayImageProvider1 = new ByteArrayImageProvider(toByteArray(bi));
+        ByteArrayImageProvider byteArrayImageProvider2 = new ByteArrayImageProvider(toByteArray(bi));
+        
+        try {
+            InputStream in = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("Smetqa2.docx");
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
+            FieldsMetadata metadata = report.createFieldsMetadata();
+            metadata.load("developers", DeveloperWithImage.class, true);
+            metadata.addFieldAsImage("logo");
+            IContext context = report.createContext();
+            Project project = new Project("XDocReport");
+            project.setURL("http://code.google.com/p/xdocreport/");
+            context.put("project", project);
+            IImageProvider logo = new ClassPathImageProvider(ReportDocx.class, "logo.png");
+            context.put("logo", logo);
+
+            List<DeveloperWithImage> developers = new ArrayList<DeveloperWithImage>();
+            developers.add(new DeveloperWithImage("ZERR", "Angelo", "angelo.zerr@gmail.com", byteArrayImageProvider1));
+            developers.add(new DeveloperWithImage("Leclercq", "Pascal", "pascal.leclercq@gmail.com", byteArrayImageProvider2));
+            context.put("developers", developers);
+
+            OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
+            report.process(context, out);
+            ExecuteCmd.startWord("report.docx");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XDocReportException e) {
+            e.printStackTrace();
+        }
 
     }
 
+     public static byte[] toByteArray(BufferedImage bi) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(bi, "png", outputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return outputStream.toByteArray();
+    }
+}
+
+/*     
     //https://mkyong.com/java/how-to-convert-bufferedimage-to-byte-in-java/
     public static byte[] toByteArray(BufferedImage bi, String format)
             throws IOException {
@@ -172,41 +229,4 @@ public class ReportDocx {
         }
         return null;
     }
-}
-
-//        Blob blob = rs.getBlob("BPICT");
-//        int blobLength = (int) blob.length();
-//        byte[] bytes = blob.getBytes(1, blobLength);
-//        blob.free();
-//        BufferedImage img = ImageIO.read(new java.io.ByteArrayInputStream(bytes));
-//        ImageIcon icon = new ImageIcon(img);
-//            BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-//            winc.gc2d = bi.createGraphics();
-//            winc.gc2d.fillRect(0, 0, length, length);
-//            float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
-//            float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
-//            winc.scale = (length / width > length / height)
-//                    ? length / (height + 200) : length / (width + 200);            
-//            winc.gc2d.scale(winc.scale, winc.scale);
-//            winc.rootArea.draw(); //рисую конструкцию
-//            return new ImageIcon(bi);
-/**
- * private IImageProvider getImage(String key, Object object) { try { String
- * imageAsString = ""; if (object instanceof String) { imageAsString = (String)
- * object; } else { imageAsString = (String) ((JSONObject)
- * object).get(IMAGE_TYPE); } return new
- * ByteArrayImageProvider(Base64Utility.decode(imageAsString)); } catch
- * (Exception e) { throw new JSONException("JSONObject[" + quote(key) + "] is
- * not an Image."); } }
- *
- *
- * FieldsMetadata metadata = new FieldsMetadata();
- * metadata.addFieldAsImage("chart1"); metadata.addFieldAsImage("chart2");
- * report.setFieldsMetadata(metadata);
- *
- * IImageProvider logo = new FileImageProvider(new File("path/to/image1"),
- * true); context.put("chart1", logo);
- *
- * IImageProvider logo2 = new FileImageProvider(new File("path/to/image2"),
- * true); context.put("chart2", logo2);
- */
+*/
