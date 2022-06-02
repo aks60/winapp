@@ -3397,7 +3397,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 }
                 //Отчёт
                 //DocxProjectWithFreemarkerAndImageList.smeta2(qPrjprod.get(UGui.getIndexRec(tab2)));
-                ReportDocx.smeta2(listWinc, qProject.get(UGui.getIndexRec(tab1)));
+                ReportDocx.smeta2(qProject.get(UGui.getIndexRec(tab1)), qPrjprod);
             }
         });
     }//GEN-LAST:event_menuItem13

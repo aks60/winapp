@@ -4,19 +4,16 @@ import builder.Wincalc;
 import builder.making.Joining;
 import builder.making.Specific;
 import common.eProp;
+import dataset.Query;
 import dataset.Record;
 import docx.DocxProjectWithFreemarkerAndImageList;
-import static docx.DocxProjectWithFreemarkerAndImageList.toByteArray;
-import docx.model.DeveloperWithImage;
-import docx.model.Project;
 import domain.eArtikl;
+import domain.eColor;
 import domain.ePrjprod;
 import domain.eProject;
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.images.ByteArrayImageProvider;
-import fr.opensagres.xdocreport.document.images.ClassPathImageProvider;
-import fr.opensagres.xdocreport.document.images.IImageProvider;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
@@ -56,7 +53,7 @@ public class ReportDocx {
             spcList2.forEach(el -> spcList3.add(new SpecificRep(el)));
             double total = spcList3.stream().mapToDouble(spc -> spc.getCost1()).sum();
 
-            InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/OutGoMaterial.docx");
+            InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/material2.docx");
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
 
             FieldsMetadata metadata = report.createFieldsMetadata();
@@ -132,41 +129,50 @@ public class ReportDocx {
         }
     }
 
-    public static void smeta2(List<Wincalc> wincs, Record record) {
+    public static void smeta2(Record order, Query prjprodList) {
         try {
             int length = 400;
-            InputStream in = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("/resource/report/Smeta2a.docx");
+            InputStream in = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("/resource/report/Smeta2.docx");
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
-            List<SmetaRep> imageList = new ArrayList<SmetaRep>();
-            IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);            
+            List<SmetaRep> sketchList = new ArrayList<SmetaRep>();
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
             FieldsMetadata metadata = report.createFieldsMetadata();
-            metadata.load("imageList", SmetaRep.class, true);
-            IContext context = report.createContext();
-            context.put("imageList", imageList);
-
-            //for (Wincalc win : wincs) {
-            Wincalc winc = new Wincalc(wincs.get(0).script());
-            Joining joining = new Joining(winc, true);//заполним соединения из конструктива
-            joining.calc();
-            winc.imageIcon = Canvas.createIcon(winc, length);
-            BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-            winc.gc2d = bi.createGraphics();
-            winc.gc2d.fillRect(0, 0, length, length);
-            float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
-            float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
-            winc.scale = (length / width > length / height) ? length / (height) : length / (width);
-            winc.gc2d.scale(winc.scale, winc.scale);
-            winc.rootArea.draw(); //рисую конструкцию
-            ByteArrayImageProvider imageProvider = new ByteArrayImageProvider(toByteArray(bi));
-            imageList.add(new SmetaRep("ZERR", imageProvider));
-
+            metadata.load("sket", SmetaRep.class, true);
+            IContext context = report.createContext();           
+            context.put("sket", sketchList);
+            context.put("num", order.getStr(eProject.num_ord));    
+            
+            for (Record prjprod : prjprodList) {
+                String script = prjprod.getStr(ePrjprod.script);
+                Wincalc winc = new Wincalc(script);
+                Joining joining = new Joining(winc, true);//заполним соединения из конструктива
+                joining.calc();
+                winc.imageIcon = Canvas.createIcon(winc, length);
+                BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+                winc.gc2d = bi.createGraphics();
+                winc.gc2d.fillRect(0, 0, length, length);
+                float height = (winc.height1() > winc.height2()) ? winc.height1() : winc.height2();
+                float width = (winc.width1() > winc.width2()) ? winc.width1() : winc.width2();
+                winc.scale = (length / width > length / height) ? length / (height + 20) : length / (width + 20); 
+                winc.gc2d.scale(winc.scale, winc.scale);
+                winc.rootArea.draw(); //рисую конструкцию
+                ByteArrayImageProvider imageProvider = new ByteArrayImageProvider(toByteArray(bi));
+                
+                String name = prjprod.getStr(ePrjprod.name);
+                String color = eColor.find(winc.colorID1).getStr(eColor.name);
+                String dimensions = winc.width() + "*" + winc.height();
+                sketchList.add(new SmetaRep(name, color, dimensions, imageProvider));
+            }
             report.process(context, out);
             ExecuteCmd.startWord("report.docx");
-            //}
+
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
+            System.err.println("Ошибка1:ReportDocx.smeta2()" + e);            
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Ошибка2:ReportDocx.smeta2()" + e);
         } catch (XDocReportException e) {
-            e.printStackTrace();
+            System.err.println("Ошибка3:ReportDocx.smeta2()" + e);
         }
     }
 

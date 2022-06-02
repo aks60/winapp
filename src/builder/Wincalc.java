@@ -55,8 +55,8 @@ public class Wincalc {
     public float genId = 0; //генерация ключа в спецификации
 
     private String script = null;
-    public float width1 = 0.f; //ширина окна верхняя    
-    public float width2 = 0.f; //ширина окна нижняя
+    private float width1 = 0.f; //ширина окна верхняя    
+    private float width2 = 0.f; //ширина окна нижняя
     private float height1 = 0.f; //высота окна левая
     private float height2 = 0.f; //высота окна правая
     public int colorID1 = -1;  //базовый цвет
@@ -229,12 +229,12 @@ public class Wincalc {
         return this.script;
     }
 
-    public float height1() {
-        return height1;
+    public float width() {
+        return (width1 > width2) ? width1 : width2;
     }
 
-    public float height2() {
-        return height2;
+    public float height() {
+        return (height1 > height2) ? height1 : height2;
     }
 
     public float width1() {
@@ -244,5 +244,12 @@ public class Wincalc {
     public float width2() {
         return width2;
     }
+    
+    public float height1() {
+        return height1;
+    }
 
+    public float height2() {
+        return height2;
+    }
 }
