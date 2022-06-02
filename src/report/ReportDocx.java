@@ -131,6 +131,7 @@ public class ReportDocx {
 
     public static void smeta2(Record order, Query prjprodList) {
         try {
+            int npp = 0;
             int length = 400;
             InputStream in = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("/resource/report/Smeta2.docx");
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
@@ -145,8 +146,7 @@ public class ReportDocx {
             for (Record prjprod : prjprodList) {
                 String script = prjprod.getStr(ePrjprod.script);
                 Wincalc winc = new Wincalc(script);
-                Joining joining = new Joining(winc, true);//заполним соединения из конструктива
-                joining.calc();
+                winc.constructiv(true); 
                 winc.imageIcon = Canvas.createIcon(winc, length);
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 winc.gc2d = bi.createGraphics();
@@ -160,8 +160,10 @@ public class ReportDocx {
                 
                 String name = prjprod.getStr(ePrjprod.name);
                 String color = eColor.find(winc.colorID1).getStr(eColor.name);
-                String dimensions = winc.width() + "*" + winc.height();
-                sketchList.add(new SmetaRep(name, color, dimensions, imageProvider));
+                String dimensions = winc.width() + "x" + winc.height();
+                String num = prjprod.getStr(ePrjprod.num);
+                String cost2 = df1.format(winc.cost2());
+                sketchList.add(new SmetaRep(String.valueOf(++npp), name, color, dimensions, num, cost2, imageProvider));
             }
             report.process(context, out);
             ExecuteCmd.startWord("report.docx");

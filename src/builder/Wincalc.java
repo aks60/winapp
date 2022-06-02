@@ -62,7 +62,9 @@ public class Wincalc {
     public int colorID1 = -1;  //базовый цвет
     public int colorID2 = -1;  //внутренний цвет
     public int colorID3 = -1;  //внещний цвет
-
+    private float cost1 = 0f;
+    private float cost2 = 0f;
+    
     public BufferedImage bufferImg = null;  //образ рисунка
     public ImageIcon imageIcon = null; //рисунок конструкции
     public Graphics2D gc2d = null; //графический котекст рисунка  
@@ -92,6 +94,7 @@ public class Wincalc {
         try {
             genId = 0;
             height2 = 0.f;
+            //List.of().forEach(el -> el=0);
             List.of((List) listArea, (List) listElem, (List) listSpec, (List) listAll).forEach(el -> el.clear());
             List.of(mapPardef, mapJoin).forEach(el -> el.clear());
 
@@ -252,4 +255,23 @@ public class Wincalc {
     public float height2() {
         return height2;
     }
+
+    public float cost1() {
+        return cost1;
+    }
+
+    public void cost1(float cost1) {
+        this.cost1 = cost1;
+    }
+     
+
+    public float cost2() {
+        return cost2;
+    }
+
+    public void cost2(float cost2) {
+        this.cost2 = cost2;
+    }
+
+    
 }

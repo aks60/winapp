@@ -22,8 +22,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 /**
- * Расчёт стоимости элементов окна
- * алгоритм см. в UML
+ * Расчёт стоимости элементов окна алгоритм см. в UML
  */
 public class Tariffic extends Cal5e {
 
@@ -62,16 +61,16 @@ public class Tariffic extends Cal5e {
                 }
             }
 
-            //Правила расчёта
-            //Всё обнуляется и рассчитывается по таблице правил расчёта
+            //Цыкл по эдементам конструкции
             for (ElemSimple elem5e : winc.listElem) {
 
                 Record systreeRec = eSystree.find(winc.nuni);
-                //Увеличение себестоимости в coeff раз и на incr величину наценки.
                 //Цикл по правилам расчёта.                 
                 for (Record rulecalcRec : eRulecalc.list()) {
+                    //Всё обнуляется и рассчитывается по таблице правил расчёта
+                    //Увеличение себестоимости в coeff раз и на incr величину наценки.
 
-                    //Фильтр по полю форма профиля, заполнения. В БиМакс используюеся только 1, 4, 10, 12 параметры
+                    //Фильтр по полю 'форма профиля', в заполненияч. В БиМакс используюеся только 1, 4, 10, 12 параметры
                     int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
                     if (Type.GLASS == elem5e.type()) {//фильтр для стеклопакета
 
@@ -103,6 +102,9 @@ public class Tariffic extends Cal5e {
                 elem5e.spcRec.cost1 = elem5e.spcRec.cost1 + (elem5e.spcRec.cost1 / 100) * percentMarkup; //стоимость без скидки                     
                 elem5e.spcRec.cost2 = elem5e.spcRec.cost1; //стоимость со скидкой 
 
+                winc.cost1(winc.cost1() + elem5e.spcRec.cost1); //общая стоимость без скидки 
+                winc.cost2(winc.cost2() + elem5e.spcRec.cost2); //общая стоимость со скидкой
+
                 //Правила расчёта вложенные
                 for (Specific specificationRec2 : elem5e.spcRec.spcList) {
 
@@ -120,7 +122,11 @@ public class Tariffic extends Cal5e {
                     specificationRec2.cost1 = specificationRec2.price2 * m1 * m2;
                     specificationRec2.cost1 = specificationRec2.cost1 + (specificationRec2.cost1 / 100) * percentMarkup; //стоимость без скидки                        
                     specificationRec2.cost2 = specificationRec2.cost1; //стоимость со скидкой 
+
+                    winc.cost1(winc.cost1() + specificationRec2.cost1); //общая стоимость без скидки
+                    winc.cost2(winc.cost2() + specificationRec2.cost2); //общая стоимость со скидкой
                 }
+
             }
 
             //Расчёт веса элемента конструкции
@@ -222,7 +228,7 @@ public class Tariffic extends Cal5e {
                 artdetPrice = artdetRec.getFloat(eArtdet.cost_min) / specificRec.quant1;
             }
             if (artdetUsed) { //если было попадание
-                inPrice = inPrice + (artdetPrice 
+                inPrice = inPrice + (artdetPrice
                         * artdetRec.getFloat(eArtdet.coef)); //kоэф. текстуры уникальн. арт.
             }
         }

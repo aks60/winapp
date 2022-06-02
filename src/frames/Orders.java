@@ -143,7 +143,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
                 return val;
             }
         };
-        new DefTableModel(tab2, qPrjprod, ePrjprod.name, ePrjprod.id);
+        new DefTableModel(tab2, qPrjprod, ePrjprod.name, ePrjprod.num, ePrjprod.id);
         new DefTableModel(tab3, qSyspar1, eSyspar1.params_id, eSyspar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -185,7 +185,7 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (column == 1) {
+                if (column == 2) {
                     Record rec = qPrjprod.get(row);
                     if (rec.size() > ePrjprod.values().length) {
                         Object v = rec.get(ePrjprod.values().length);
@@ -1418,18 +1418,18 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Наименование", "Рисунок", "ID"
+                "Наименование", "Кол-во", "Рисунок", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, true
+                true, true, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1450,11 +1450,13 @@ public class Orders extends javax.swing.JFrame implements ListenerReload {
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(1).setMinWidth(68);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(68);
-            tab2.getColumnModel().getColumn(1).setMaxWidth(68);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(20);
-            tab2.getColumnModel().getColumn(2).setMaxWidth(50);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(80);
+            tab2.getColumnModel().getColumn(2).setMinWidth(68);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(68);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(68);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(20);
+            tab2.getColumnModel().getColumn(3).setMaxWidth(50);
         }
 
         pan7.add(scr2, java.awt.BorderLayout.CENTER);

@@ -8,7 +8,7 @@ import dataset.Record;
 public enum ePrjprod implements Field {
     up("0", "0", "0", "Изделия заказов", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),
-    npp("5", "5", "1", "Номе п/п", "npp"),
+    num("5", "5", "1", "Количество", "count"),
     name("12", "128", "1", "Название изделия", "name"),
     script("12", "4096", "0", "Скрипт построения окна", "script"),
     project_id("4", "10", "1", "Заказ", "project_id"),
