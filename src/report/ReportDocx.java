@@ -11,6 +11,7 @@ import dataset.Record;
 import docx.DocxProjectWithFreemarkerAndImageList;
 import domain.eArtikl;
 import domain.eColor;
+import domain.ePrjpart;
 import domain.ePrjprod;
 import domain.eProject;
 import fr.opensagres.xdocreport.core.XDocReportException;
@@ -202,6 +203,10 @@ public class ReportDocx {
             IContext context = report.createContext();
             context.put("num", orderRec.getStr(eProject.num_ord));
             context.put("date", UGui.simpleFormat.format(orderRec.get(eProject.date4)));
+            context.put("name1", orderRec.getStr(ePrjpart.partner));
+            context.put("phone1", orderRec.getStr(ePrjpart.addr_phone));
+            
+            
             context.put("total", "12563.83"); 
             context.put("tota2", UCom.firstUpperCase(MoneyInWords.inwords(12563.83))); 
             report.process(context, out);
