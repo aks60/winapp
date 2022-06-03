@@ -4,6 +4,7 @@ import builder.Wincalc;
 import builder.making.Joining;
 import builder.making.Specific;
 import common.MoneyInWords;
+import common.UCom;
 import common.eProp;
 import dataset.Query;
 import dataset.Record;
@@ -71,7 +72,6 @@ public class ReportDocx {
 
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
-            System.err.println("Ошибка1:ReportDocx.outGoMaterial()" + e);
         } catch (XDocReportException e) {
             System.err.println("Ошибка2:ReportDocx.outGoMaterial()" + e);
         } catch (Exception e) {
@@ -122,7 +122,6 @@ public class ReportDocx {
 
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
-            System.err.println("Ошибка1:ReportDocx.Specific2()" + e);
         } catch (XDocReportException e) {
             System.err.println("Ошибка2:ReportDocx.Specific2()" + e);
         } catch (Exception e) {
@@ -181,6 +180,35 @@ public class ReportDocx {
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
             System.err.println("Ошибка1:ReportDocx.smeta2()" + e);
+        } catch (XDocReportException e) {
+            System.err.println("Ошибка2:ReportDocx.smeta2()" + e);
+        } catch (IOException e) {
+            System.err.println("Ошибка3:ReportDocx.smeta2()" + e);
+        }
+    }
+
+    public static void smeta3(Record orderRec, Query prjprodList) {
+        try {
+            int length = 400, npp = 0;
+            float sum1 = 0f, sum2 = 0f, sum3 = 0f, total = 0f;
+            
+            InputStream in = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("/resource/report/Smeta3.docx");
+            OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
+            List<SmetaRep> sketchList = new ArrayList<SmetaRep>();
+            IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
+            //FieldsMetadata metadata = report.createFieldsMetadata();
+            //metadata.load("sket", SmetaRep.class, true);
+
+            IContext context = report.createContext();
+            context.put("num", orderRec.getStr(eProject.num_ord));
+            context.put("date", UGui.simpleFormat.format(orderRec.get(eProject.date4)));
+            context.put("total", "12563.83"); 
+            context.put("tota2", UCom.firstUpperCase(MoneyInWords.inwords(12563.83))); 
+            report.process(context, out);
+            ExecuteCmd.startWord("report.docx");
+            
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Нет доступа к файлу. Файл отчёта открыт другим приложением.", "ВНИМАНИЕ!", 1);
         } catch (XDocReportException e) {
             System.err.println("Ошибка2:ReportDocx.smeta2()" + e);
         } catch (IOException e) {

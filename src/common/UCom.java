@@ -38,9 +38,8 @@ public class UCom {
             }
         }
         return -1f;
-    }    
-        
-    
+    }
+
     public static Float getFloat(Float val, Float def) {
         if (val == null) {
             return def;
@@ -58,6 +57,13 @@ public class UCom {
             }
         }
         return -1.0;
+    }
+
+    public static String firstUpperCase(String word) {
+        if (word == null || word.isEmpty()) {
+            return "";//или return word;
+        }
+        return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 
     //1;79-10;0-10 => [1,1,79,10,0,10]
