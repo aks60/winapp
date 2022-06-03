@@ -3,22 +3,26 @@ package domain;
 import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
+import dataset.Record;
+import static domain.eColor.up;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 public enum ePrjpart implements Field {
     up("0", "0", "0", "Контрагент", "CLIENTS"),
     id("4", "10", "0", "Идентификатор", "id"),
-    partner("12", "64", "1", "Контрагент (организация)", "KNAME"),
-    manager("12", "32", "1", "Менеджер (фильтр partner)", "PNAME"),   
+    partner("12", "120", "1", "Контрагент (организация, част.лицо)", "KNAME"),
+    manager("12", "32", "1", "Менеджер (фильтр partner)", "PNAME"),
+    contact("12", "64", "1", "Контактное лицо", "KKNAM"),
     category("12", "32", "1", "Категория", "KPREF"), //Заказчик, поставщик, офис, дилер, специальный   
-    note("12", "256", "1", "Примечание", "note"), //Заказчик, поставщик, офис, дилер, специальный   
+    note("12", "256", "1", "Примечание", "note"),   
     flag2("16", "5", "1", "Физ.лицо", "KCHAS"), //0 - частное, 1 - организация
         
     addr_leve1("12", "64", "1", "Адрес 1го уровня", "KTOWN"),
     addr_leve2("12", "192", "1", "Адрес 2го уровня.", "KADRP"),
     addr_phone("12", "32", "1", "Телефон", "KTELE"),
     addr_email("12", "64", "1", "E-mail", "KMAIL"),
-  
-    org_name("12", "32", "1", "Организация", "KTYPE"),    
+   
     org_leve1("12", "64", "1", "Адрес 1го уровня", "org_leve1"),
     org_leve2("12", "192", "1", "Адрес 2го уровня..", "KADDR"),
     org_phone("12", "32", "1", "Телефон", "KVTEL"),
@@ -98,6 +102,17 @@ public enum ePrjpart implements Field {
         return query;
     }
 
+    public static Record find(int _id) {
+        if (_id == -3) {
+            return up.newRecord();
+        }
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+    }
+    
     public String toString() {
         return meta.descr();
     }

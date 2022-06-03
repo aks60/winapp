@@ -192,6 +192,8 @@ public class ReportDocx {
         try {
             int length = 400, npp = 0;
             float sum1 = 0f, sum2 = 0f, sum3 = 0f, total = 0f;
+            Record prjpartRec = ePrjpart.find(orderRec.getInt(eProject.prjpart_id));
+            //Srting name1
             
             InputStream in = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("/resource/report/Smeta3.docx");
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
@@ -203,8 +205,10 @@ public class ReportDocx {
             IContext context = report.createContext();
             context.put("num", orderRec.getStr(eProject.num_ord));
             context.put("date", UGui.simpleFormat.format(orderRec.get(eProject.date4)));
-            context.put("name1", orderRec.getStr(ePrjpart.partner));
-            context.put("phone1", orderRec.getStr(ePrjpart.addr_phone));
+            context.put("name1", prjpartRec.getStr(ePrjpart.partner));
+            context.put("phone1", prjpartRec.getStr(ePrjpart.addr_phone));
+            context.put("email1", prjpartRec.getStr(ePrjpart.org_email));
+            context.put("cont1", prjpartRec.getStr(ePrjpart.contact));
             
             
             context.put("total", "12563.83"); 
