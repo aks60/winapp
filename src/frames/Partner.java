@@ -15,6 +15,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
 import dataset.Conn;
+import frames.swing.DefCellBoolRenderer;
 import java.sql.ResultSet;
 import java.util.List;
 import javax.swing.event.ListSelectionListener;
@@ -62,17 +63,19 @@ public class Partner extends javax.swing.JFrame {
                 ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
             }
         });
+        //tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellBoolRenderer());
 
         rsv.add(ePrjpart.addr_leve1, txt12);
         rsv.add(ePrjpart.addr_leve2, txt14);
         rsv.add(ePrjpart.addr_phone, txt13);
+        rsv.add(ePrjpart.addr_email, txt18);
         rsv.add(ePrjpart.note, txt15);
 
         rsv.add(ePrjpart.contact, txt8);
         rsv.add(ePrjpart.org_leve1, txt9);
         rsv.add(ePrjpart.org_leve2, txt17);
         rsv.add(ePrjpart.org_phone, txt10);
-        rsv.add(ePrjpart.org_fax, txt11);
+        rsv.add(ePrjpart.org_email, txt11);
         rsv.add(ePrjpart.bank_name, txt1);
         rsv.add(ePrjpart.bank_inn, txt2);
         rsv.add(ePrjpart.bank_rs, txt3);
@@ -121,6 +124,8 @@ public class Partner extends javax.swing.JFrame {
         txt14 = new javax.swing.JTextField();
         lab50 = new javax.swing.JLabel();
         txt15 = new javax.swing.JTextField();
+        txt18 = new javax.swing.JTextField();
+        lab53 = new javax.swing.JLabel();
         pan3 = new javax.swing.JPanel();
         lab36 = new javax.swing.JLabel();
         txt8 = new javax.swing.JTextField();
@@ -313,14 +318,14 @@ public class Partner extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Категория", "Контрагент", "User", "", "ID"
+                "Категория", "Контрагент", "User", "Организация", "ID"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, false, false
+                true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -342,9 +347,8 @@ public class Partner extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(140);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tab1.getColumnModel().getColumn(3).setResizable(false);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(16);
             tab1.getColumnModel().getColumn(4).setMaxWidth(40);
         }
@@ -405,6 +409,17 @@ public class Partner extends javax.swing.JFrame {
         txt15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txt15.setPreferredSize(new java.awt.Dimension(300, 18));
 
+        txt18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt18.setPreferredSize(new java.awt.Dimension(300, 18));
+
+        lab53.setFont(frames.UGui.getFont(0,0));
+        lab53.setText("E-mail");
+        lab53.setToolTipText("");
+        lab53.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab53.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        lab53.setMinimumSize(new java.awt.Dimension(34, 14));
+        lab53.setPreferredSize(new java.awt.Dimension(96, 18));
+
         javax.swing.GroupLayout pan4Layout = new javax.swing.GroupLayout(pan4);
         pan4.setLayout(pan4Layout);
         pan4Layout.setHorizontalGroup(
@@ -427,7 +442,11 @@ public class Partner extends javax.swing.JFrame {
                     .addGroup(pan4Layout.createSequentialGroup()
                         .addComponent(lab50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(txt15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pan4Layout.createSequentialGroup()
+                        .addComponent(lab53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt18, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pan4Layout.setVerticalGroup(
@@ -437,6 +456,10 @@ public class Partner extends javax.swing.JFrame {
                 .addGroup(pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -449,7 +472,7 @@ public class Partner extends javax.swing.JFrame {
                 .addGroup(pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(346, Short.MAX_VALUE))
+                .addContainerGap(349, Short.MAX_VALUE))
         );
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\nЧастное лицо\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", pan4);
@@ -490,7 +513,7 @@ public class Partner extends javax.swing.JFrame {
         txt10.setPreferredSize(new java.awt.Dimension(300, 18));
 
         lab39.setFont(frames.UGui.getFont(0,0));
-        lab39.setText("Факс");
+        lab39.setText("E-mail");
         lab39.setToolTipText("");
         lab39.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         lab39.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -673,16 +696,16 @@ public class Partner extends javax.swing.JFrame {
                     .addComponent(txt10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -715,7 +738,7 @@ public class Partner extends javax.swing.JFrame {
                 .addGroup(pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(103, 103, 103))
+                .addGap(130, 130, 130))
         );
 
         tabb1.addTab("<html><font size=\"3\">\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\nОрганизация\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", pan3);
@@ -834,6 +857,7 @@ public class Partner extends javax.swing.JFrame {
     private javax.swing.JLabel lab50;
     private javax.swing.JLabel lab51;
     private javax.swing.JLabel lab52;
+    private javax.swing.JLabel lab53;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan3;
@@ -851,6 +875,7 @@ public class Partner extends javax.swing.JFrame {
     private javax.swing.JTextField txt15;
     private javax.swing.JTextField txt16;
     private javax.swing.JTextField txt17;
+    private javax.swing.JTextField txt18;
     private javax.swing.JTextField txt2;
     private javax.swing.JTextField txt3;
     private javax.swing.JTextField txt4;
