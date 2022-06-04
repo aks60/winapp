@@ -1407,36 +1407,47 @@ public class Adm extends javax.swing.JFrame {
     private void adminOk(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminOk
 
         if (txt1.isEditable() == true) {
-
-            if (box1.getSelectedIndex() == 0) {
-                JOptionPane.showMessageDialog(this, "Укажите профиль пользователя", "Предупреждение", JOptionPane.NO_OPTION);
-            } else if (txt1.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Укажите имя пользователя", "Предупреждение", JOptionPane.NO_OPTION);
-            } else if (txt2.getPassword().length == 0) {
-                JOptionPane.showMessageDialog(this, "Укажите пароль пользователя", "Предупреждение", JOptionPane.NO_OPTION);
-            } else {
-                for (char c : txt1.getText().toCharArray()) {
-                    if (((c >= 'а') && (c <= 'я')) || ((c >= 'А') && (c <= 'Я'))) {
-                        JOptionPane.showMessageDialog(this, "В имени пользователя есть символы  принадлежащие русскому алфавиту", "Предупреждение", JOptionPane.NO_OPTION);
-                        return;
-                    }
-                }
-                for (char c : txt2.getPassword()) {
-                    if (((c >= 'а') && (c <= 'я')) || ((c >= 'А') && (c <= 'Я'))) {
-                        JOptionPane.showMessageDialog(this, "В пароле есть символы принадлежащие русскому алфавиту", "Предупреждение", JOptionPane.NO_OPTION);
-                        return;
-                    }
-                }
+            if (validation() == true) {
                 String role = (box1.getSelectedIndex() == 1) ? "TEXNOLOG" : "MANAGER";
                 role = (box2.getSelectedIndex() == 0) ? role + "_RW" : role + "_RO";
                 Conn.addUser(txt1.getText().trim(), txt2.getPassword(), role);
                 loadingTab4();
+                ((CardLayout) pan3.getLayout()).show(pan3, "pan11");
             }
         } else {
-            Conn.modifyPassword(txt1.getText().trim(), txt2.getPassword());
+            if (validation() == true) {
+                Conn.modifyPassword(txt1.getText().trim(), txt2.getPassword());
+                ((CardLayout) pan3.getLayout()).show(pan3, "pan11");
+            }
         }
-        ((CardLayout) pan3.getLayout()).show(pan3, "pan11");
     }//GEN-LAST:event_adminOk
+
+    private boolean validation() {
+        if (box1.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Укажите профиль пользователя", "Предупреждение", JOptionPane.NO_OPTION);
+            return false;
+        } else if (txt1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Укажите имя пользователя", "Предупреждение", JOptionPane.NO_OPTION);
+            return false;
+        } else if (txt2.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(this, "Укажите пароль пользователя", "Предупреждение", JOptionPane.NO_OPTION);
+            return false;
+        } else {
+            for (char c : txt1.getText().toCharArray()) {
+                if (((c >= 'а') && (c <= 'я')) || ((c >= 'А') && (c <= 'Я'))) {
+                    JOptionPane.showMessageDialog(this, "В имени пользователя есть символы  принадлежащие русскому алфавиту", "Предупреждение", JOptionPane.NO_OPTION);
+                    return false;
+                }
+            }
+            for (char c : txt2.getPassword()) {
+                if (((c >= 'а') && (c <= 'я')) || ((c >= 'А') && (c <= 'Я'))) {
+                    JOptionPane.showMessageDialog(this, "В пароле есть символы принадлежащие русскому алфавиту", "Предупреждение", JOptionPane.NO_OPTION);
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     private void admCancel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admCancel
         ((CardLayout) pan3.getLayout()).show(pan3, "pan11");
