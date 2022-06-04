@@ -42,12 +42,12 @@ public class Conn {
                 return connection;
 
             } catch (NamingException e) {
-                System.err.println("Ошибка получения connect №1");
+                System.err.println("Ошибка:Conn.connection() №1 ");
                 e.printStackTrace();
                 return null;
 
             } catch (SQLException e) {
-                System.err.println("Ошибка получения connect №2");
+                System.err.println("Ошибка:Conn.connection() №2 ");
                 e.printStackTrace();
                 return null;
             }
@@ -101,7 +101,7 @@ public class Conn {
         try {
             connection.setAutoCommit(autoCommit);
         } catch (SQLException e) {
-            System.out.println("dataset.IConnect.setAutoCommit() " + e);
+            System.out.println("Ошибка:Conn.autocommit() " + e);
         }
     }
 
@@ -113,7 +113,7 @@ public class Conn {
             connection.createStatement().executeUpdate("grant " + role + " to " + user);
 
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println("Ошибка:Conn.addUser() " + e);
         }
     }
 
@@ -127,7 +127,7 @@ public class Conn {
             connection.createStatement().executeUpdate("DROP USER " + user);
 
         } catch (SQLException e) {
-            System.err.println("Ошибка удаления пользователя" + e);
+            System.err.println("Ошибка:Conn.deleteUser() " +  e);
         }
     }
 
@@ -137,7 +137,7 @@ public class Conn {
             String sql = "ALTER USER " + user + " PASSWORD '" + String.valueOf(password) + "'";
             connection.createStatement().executeUpdate(sql);
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println("Ошибка:Conn.modifyPassword() " +  e);
         }
     }
 
