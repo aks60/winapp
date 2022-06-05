@@ -12,10 +12,10 @@ public enum eSysuser implements Field {
     role("12", "16", "1", "Роль", "role"), 
     login("12", "24", "0", "Пользователь", "login"), 
     fio("12", "64", "1", "ФИО пользователя", "fio"),
-    phone("12", "16", "1", "ФИО пользователя", "fio"),
-    email("12", "32", "1", "ФИО пользователя", "fio"),
-    desc("12", "64", "1", "Описание", "user2"),      
-    openkey("12", "512", "0", "Открытый ключ", "openkey");
+    phone("12", "16", "1", "Телефон", "phone"),
+    email("12", "32", "1", "Почта", "email"),
+    desc("12", "64", "1", "Описание", "desc"),      
+    openkey("12", "512", "1", "Открытый ключ", "openkey");
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

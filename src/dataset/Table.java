@@ -20,6 +20,11 @@ public class Table extends ArrayList<Record> {
     public List<Field> fields() {
         return fields;
     }
+
+    public HashMap<String, Query> mapQuery() {
+        return mapQuery;
+    }
+    
     
     public void removeRec(int index) {
         for (Map.Entry<String, Query> entry : mapQuery.entrySet()) {

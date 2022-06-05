@@ -39,7 +39,6 @@ import common.listener.ListenerFrame;
 import common.listener.ListenerObject;
 import common.listener.ListenerReload;
 import dataset.Conn;
-import docx.DocxProjectWithFreemarkerAndImageList;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;

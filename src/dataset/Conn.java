@@ -91,7 +91,6 @@ public class Conn {
         } catch (ClassNotFoundException e) {
             return eExcep.findDrive;
         } catch (SQLException e) {
-            System.err.println(e);
             return eExcep.getError(e.getErrorCode());
         }
         return eExcep.yesConn;
@@ -112,8 +111,9 @@ public class Conn {
             connection.createStatement().executeUpdate("grant DEFROLE to " + user);
             connection.createStatement().executeUpdate("grant " + role + " to " + user);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.err.println("Ошибка:Conn.addUser() " + e);
+            JOptionPane.showMessageDialog(null, eExcep.getError(e.getErrorCode()).mes, "ВНИМАНИЕ!", 1);
         }
     }
 

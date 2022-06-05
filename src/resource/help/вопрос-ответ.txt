@@ -24,17 +24,10 @@
 3. Расчёт профилей с оценкой остатков. Настройки->Расчётные данные->Расчётные <Припуск для реза, мм(толщина фрезы)>  
 
    == МОДУЛИ ==
-  Компиляция модуля Java
-javac -d out --module-source-path src/main/java --module com.jenkov.mymodule
-  Запуск Java-модуля
-java --module-path out module com.jenkov.mymodule/com.jenkov.mymodule.Main
-  Создание JAR-файла модуля Java
-jar -c --file=out-jar/com-jenkov-mymodule.jar -C out/com.jenkov.mymodule .
-  Установка основного класса JAR
-jar -c --file=out-jar/com-jenkov-mymodule.jar --main-class=com.jenkov.mymodule.Main -C out/com.jenkov.mymodule .
-  Запуск модуля Java из JAR
-java --module-path out-jar -m com.jenkov.mymodule/com.jenkov.mymodule.Main
-  Упаковка модуля Java в качестве отдельного приложения
-jlink --module-path "out;%JAVA_HOME%\jmods" --add-modules com.jenkov.mymodule --output out-standalone
-  Запуск автономного приложения
-bin\java --module com.jenkov.mymodule/com.jenkov.mymodule.Main 
+1. Компиляция модуля Java - javac -d out --module-source-path src/main/java --module com.jenkov.mymodule
+2. Запуск Java-модуля - java --module-path out module com.jenkov.mymodule/com.jenkov.mymodule.Main
+3. Создание JAR-файла модуля Java - jar -c --file=out-jar/com-jenkov-mymodule.jar -C out/com.jenkov.mymodule .
+4. Установка основного класса JAR - jar -c --file=out-jar/com-jenkov-mymodule.jar --main-class=com.jenkov.mymodule.Main -C out/com.jenkov.mymodule .
+5. Запуск модуля Java из JAR- java --module-path out-jar -m com.jenkov.mymodule/com.jenkov.mymodule.Main
+6. Упаковка модуля Java в качестве отдельного приложения - jlink --module-path "out;%JAVA_HOME%\jmods" --add-modules com.jenkov.mymodule --output out-standalone
+7. Запуск автономного приложения - bin\java --module com.jenkov.mymodule/com.jenkov.mymodule.Main 

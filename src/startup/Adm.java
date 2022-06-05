@@ -148,17 +148,19 @@ public class Adm extends javax.swing.JFrame {
         try {
             DefaultTableModel dm = (DefaultTableModel) tab4.getModel();
             dm.getDataVector().clear();
-            String sql = "SELECT DISTINCT a.rdb$role_name , b.rdb$user FROM rdb$roles a, "
-                    + "rdb$user_privileges b WHERE a.rdb$role_name = b.rdb$relation_name AND  "
-                    + "a.rdb$role_name != 'DEFROLE' AND b.rdb$user != 'SYSDBA' AND NOT EXISTS "
-                    + "(SELECT * FROM rdb$roles c WHERE c.rdb$role_name = b.rdb$user)";
+            String sql = "SELECT DISTINCT a.rdb$role_name , b.rdb$user, c.fio, c.phone FROM rdb$roles a left join "
+                    + " rdb$user_privileges b on a.rdb$role_name = b.rdb$relation_name AND a.rdb$role_name != 'DEFROLE' AND "
+                    + " b.rdb$user != 'SYSDBA' AND NOT EXISTS (SELECT * FROM rdb$roles c WHERE c.rdb$role_name = b.rdb$user) "
+                    + " left join sysuser c on b.rdb$user = c.login where b.rdb$user is not null";
             Statement statement = Conn.connection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = statement.executeQuery(sql);
             int npp = 0;
             while (rs.next()) {
                 Object role = ("TEXNOLOG_RW".equals(rs.getString(1).trim()) || "MANAGER_RW".equals(rs.getString(1).trim())) ? "чтение-запись" : "только чтение";
                 Object profile = ("TEXNOLOG_RW".equals(rs.getString(1).trim()) || "TEXNOLOG_RO".equals(rs.getString(1).trim())) ? "Технолог" : "Менеджер";
-                List rec = List.of(++npp, rs.getObject(2), role, profile);
+                Object fio = (rs.getObject("fio") == null) ?"" :rs.getObject("fio");
+                Object phone = (rs.getObject("phone") == null) ?"" : rs.getObject("phone");
+                List rec = List.of(++npp, rs.getObject(2), role, profile, fio, phone);
                 Vector vec = new Vector(rec);
                 dm.getDataVector().add(vec);
             }
@@ -929,17 +931,17 @@ public class Adm extends javax.swing.JFrame {
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "№пп", "Пользователь", "Права доступа", "Профиль"
+                "№пп", "Пользователь", "Права доступа", "Профиль", "ФИО", "Телефон"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -950,6 +952,7 @@ public class Adm extends javax.swing.JFrame {
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(40);
             tab4.getColumnModel().getColumn(0).setMaxWidth(40);
         }
 

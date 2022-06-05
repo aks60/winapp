@@ -9,14 +9,15 @@ import frames.swing.DefTableModel;
 import frames.swing.FilterTable;
 import java.awt.Frame;
 import java.awt.Window;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import common.listener.ListenerRecord;
 import dataset.Conn;
+import domain.eSysuser;
 import frames.swing.DefCellBoolRenderer;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.event.ListSelectionListener;
 
@@ -25,7 +26,8 @@ public class Partner extends javax.swing.JFrame {
     private Window owner = null;
     private ListenerRecord listener = null;
     private FilterTable filterTable = null;
-    private Query qPrjcontr = new Query(ePrjpart.values());
+    private Query qPrjcontr = new Query(ePrjpart.values(), eSysuser.values());
+    private Query qSysuser = new Query(eSysuser.values());
     private DefFieldEditor rsv = null;
     private String arrCateg[] = {"заказчик", "поставшик", "офис", "дилер", "специальный"};
 
@@ -48,7 +50,7 @@ public class Partner extends javax.swing.JFrame {
     }
 
     public void loadingData() {
-        qPrjcontr.select(ePrjpart.up, "order by", ePrjpart.category, ",", ePrjpart.manager);
+        qPrjcontr.select(ePrjpart.up, "left join", eSysuser.up, "on", ePrjpart.manager, "=", eSysuser.login, "order by", ePrjpart.category, ",", ePrjpart.manager);
     }
 
     public void loadingModel() {
@@ -84,6 +86,10 @@ public class Partner extends javax.swing.JFrame {
         rsv.add(ePrjpart.bank_kpp, txt6);
         rsv.add(ePrjpart.bank_ogrn, txt7);
         rsv.add(ePrjpart.note, txt16);
+
+        rsv.add(eSysuser.fio, txt19);
+        rsv.add(eSysuser.phone, txt21);
+        rsv.add(eSysuser.email, txt20);
 
         UGui.setSelectedRow(tab1);
     }
@@ -356,7 +362,7 @@ public class Partner extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(16);
             tab1.getColumnModel().getColumn(4).setMaxWidth(40);
         }
@@ -366,11 +372,6 @@ public class Partner extends javax.swing.JFrame {
         center.add(pan1);
 
         tabb1.setPreferredSize(new java.awt.Dimension(380, 516));
-        tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                tabb1StateChanged(evt);
-            }
-        });
 
         pan4.setName(""); // NOI18N
 
@@ -844,7 +845,9 @@ public class Partner extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        List.of(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        //List.of(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        qPrjcontr.execsql();
+        qSysuser.execsql();
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
@@ -894,7 +897,11 @@ public class Partner extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1);
-        List.of(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        //List.of(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+//        for(Query q: qPrjcontr.mapQuery().values()) {
+//            q.execsql();
+//        }
+        qPrjcontr.mapQuery().values().forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_windowClosed
@@ -902,17 +909,6 @@ public class Partner extends javax.swing.JFrame {
     private void btnRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoveMouseClicked
 
     }//GEN-LAST:event_btnRemoveMouseClicked
-
-    private void tabb1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabb1StateChanged
-//        if (UGui.getIndexRec(tab1) != -1) {
-//            if (tabb1.getSelectedIndex() == 0) {
-//                qPrjcontr.set(0, UGui.getIndexRec(tab1), ePrjpart.flag2);
-//            } else {
-//                qPrjcontr.set(1, UGui.getIndexRec(tab1), ePrjpart.flag2);
-//            }
-//            ((DefTableModel) tab1.getModel()).fireTableRowsUpdated(tab1.getSelectedRow(), tab1.getSelectedRow());
-//        }
-    }//GEN-LAST:event_tabb1StateChanged
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -981,8 +977,8 @@ public class Partner extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         FrameToFile.setFrameSize(this);
         filterTable = new FilterTable(0, tab1);
-        south.add(filterTable, 0);        
-        filterTable.getTxt().grabFocus();   
+        south.add(filterTable, 0);
+        filterTable.getTxt().grabFocus();
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

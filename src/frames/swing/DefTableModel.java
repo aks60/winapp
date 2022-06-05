@@ -81,6 +81,10 @@ public class DefTableModel extends DefaultTableModel implements ListenerFrame {
     public Query getQuery() {
         return query;
     }
+    
+    public Query getQuery(Field field) {
+        return query.table(field);
+    }
 
     public TableRowSorter<DefTableModel> getSorter() {
         return sorter;

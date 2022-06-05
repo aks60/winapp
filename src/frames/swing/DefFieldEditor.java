@@ -152,7 +152,7 @@ public class DefFieldEditor {
                                 if (field.meta().type().equals(Field.TYPE.FLT) || field.meta().type().equals(Field.TYPE.DBL)) {
                                     str = String.valueOf(str).replace(',', '.');
                                 }
-                                ((DefTableModel) ((JTable) comp).getModel()).getQuery().set(str, index, field);
+                                ((DefTableModel) ((JTable) comp).getModel()).getQuery(field).set(str, index, field);
                             }
                         }
 
