@@ -1,14 +1,12 @@
 package report;
 
 import builder.Wincalc;
-import builder.making.Joining;
 import builder.making.Specific;
 import common.MoneyInWords;
 import common.UCom;
 import common.eProp;
 import dataset.Query;
 import dataset.Record;
-import docx.DocxProjectWithFreemarkerAndImageList;
 import domain.eArtikl;
 import domain.eColor;
 import domain.ePrjpart;
@@ -137,7 +135,7 @@ public class ReportDocx {
             float sum2 = 0f;
             float total = 0f;
             int length = 400;
-            InputStream in = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("/resource/report/Smeta2.docx");
+            InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/Smeta2.docx");
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
             List<SmetaRep> sketchList = new ArrayList<SmetaRep>();
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
@@ -195,7 +193,7 @@ public class ReportDocx {
             Record prjpartRec = ePrjpart.find(orderRec.getInt(eProject.prjpart_id));
             //Srting name1
 
-            InputStream in = DocxProjectWithFreemarkerAndImageList.class.getResourceAsStream("/resource/report/Smeta3.docx");
+            InputStream in = ReportDocx.class.getResourceAsStream("/resource/report/Smeta3.docx");
             OutputStream out = new FileOutputStream(new File(eProp.path_prop.read() + "/report.docx"));
             List<SmetaRep> sketchList = new ArrayList<SmetaRep>();
             IXDocReport report = XDocReportRegistry.getRegistry().loadReport(in, TemplateEngineKind.Freemarker);
