@@ -4,7 +4,6 @@
 package frames.swing;
 
 import frames.UGui;
-import enums.Enam;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -13,7 +12,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 import dataset.Field;
-import domain.eSystree;
+import dataset.Query;
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.JTree;
@@ -25,12 +24,25 @@ import javax.swing.JTree;
 public class DefFieldEditor {
 
     private JComponent comp = null;
+    private Query query = null;
     private HashMap<JTextComponent, Field> mapTxt = new HashMap(16);
     private static boolean update = false;
 
     //Конструктор
-    public DefFieldEditor(JComponent comp) {
+    public DefFieldEditor(JTree comp) {
         this.comp = comp;
+    }
+    
+    //Конструктор
+    public DefFieldEditor(JTable comp) {
+        this.comp = comp;
+        this.query = ((DefTableModel) comp.getModel()).getQuery();
+    }
+
+    //Конструктор
+    public DefFieldEditor(JTable comp, Query query) {
+        this.comp = comp;
+        this.query = query;
     }
 
     //Добавить компонент отображения
@@ -46,13 +58,13 @@ public class DefFieldEditor {
     //Очистить текст
     public void clear() {
         for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
-            JTextComponent comp = me.getKey();
+            JTextComponent textcomp = me.getKey();
             Field field = me.getValue();
-            comp.setText(null);
+            textcomp.setText(null);
             if (field.meta().type().equals(Field.TYPE.STR)) {
-                comp.setText("");
+                textcomp.setText("");
             } else {
-                comp.setText("0");
+                textcomp.setText("0");
             }
         }
     }
@@ -88,7 +100,7 @@ public class DefFieldEditor {
                 for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
                     JTextComponent jtxt = me.getKey();
                     Field field = me.getValue();
-                    Object val = ((DefTableModel) ((JTable) comp).getModel()).getQuery().table(field).get(index, field);
+                    Object val = query.table(field).get(index, field);
                     text(jtxt, field, val);
                 }
             }

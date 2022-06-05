@@ -67,6 +67,7 @@ public class Partner extends javax.swing.JFrame {
         });
         tab1.getColumnModel().getColumn(3).setCellRenderer(new DefCellBoolRenderer());
 
+        rsv = new DefFieldEditor(tab1);
         rsv.add(ePrjpart.addr_leve1, txt12);
         rsv.add(ePrjpart.addr_leve2, txt14);
         rsv.add(ePrjpart.addr_phone, txt13);
@@ -845,9 +846,7 @@ public class Partner extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        //List.of(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        qPrjcontr.execsql();
-        qSysuser.execsql();
+        qPrjcontr.mapQuery().values().forEach(q -> q.execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         UGui.setSelectedRow(tab1);
@@ -897,10 +896,6 @@ public class Partner extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         UGui.stopCellEditing(tab1);
-        //List.of(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-//        for(Query q: qPrjcontr.mapQuery().values()) {
-//            q.execsql();
-//        }
         qPrjcontr.mapQuery().values().forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
@@ -987,6 +982,5 @@ public class Partner extends javax.swing.JFrame {
             }
         });
         List.of(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> UGui.stopCellEditing(tab1)));
-        rsv = new DefFieldEditor(tab1);
     }
 }

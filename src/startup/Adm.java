@@ -52,7 +52,7 @@ public class Adm extends javax.swing.JFrame {
     private Thread thread = null;
     private Queue<Object[]> listQue = new ConcurrentLinkedQueue<Object[]>();
     private Query qSysuser = new Query(eSysuser.values()).select(eSysuser.up);
-    //private DefFieldEditor rsv;
+    private DefFieldEditor rsv = null;
     private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();
     javax.swing.Timer timer = new Timer(100, new ActionListener() {
 
@@ -68,15 +68,9 @@ public class Adm extends javax.swing.JFrame {
     public Adm() {
         initComponents();
         initElements();
-    }
-
-    private void mnLookAndFeel(java.awt.event.ActionEvent evt) {
-        for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
-            if (((JCheckBoxMenuItem) evt.getSource()).getText().equals(laf.getName()) == true) {
-                eProp.lookandfeel.write(laf.getName());
-                eProp.save();
-            }
-        }
+        rsv.add(eSysuser.fio, txt3);
+        rsv.add(eSysuser.phone, txt4);
+        rsv.add(eSysuser.email, txt5);
     }
 
     private void loadingPath() {
@@ -172,7 +166,7 @@ public class Adm extends javax.swing.JFrame {
                     sysuserRec.setNo(eSysuser.login, login);
                     userList.add(sysuserRec);
                 }
-                Object fio = (sysuserRec.get(eSysuser.fio) == null) ? "" : sysuserRec.get(eSysuser.id);
+                Object fio = (sysuserRec.get(eSysuser.fio) == null) ? "" : sysuserRec.get(eSysuser.fio);
                 Object phone = (sysuserRec.get(eSysuser.phone) == null) ? "" : rs.getObject("phone");
                 List rec = List.of(++npp, login, role, profile, fio, phone);
                 Vector vec = new Vector(rec);
@@ -188,6 +182,10 @@ public class Adm extends javax.swing.JFrame {
         }
     }
 
+    private void selectionTab4(ListSelectionEvent event) {
+        rsv.load();
+    }
+    
     private void clearListQue() {
 
         if (listQue.isEmpty() == false) {
@@ -240,6 +238,15 @@ public class Adm extends javax.swing.JFrame {
         loadingPath();
     }
 
+    private void mnLookAndFeel(ActionEvent evt) {
+        for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
+            if (((JCheckBoxMenuItem) evt.getSource()).getText().equals(laf.getName()) == true) {
+                eProp.lookandfeel.write(laf.getName());
+                eProp.save();
+            }
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1627,6 +1634,7 @@ public class Adm extends javax.swing.JFrame {
             btnT9.setSelected(true);
             mn633.setSelected(true);
         }
+        rsv = new DefFieldEditor(tab4, qSysuser);
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
@@ -1634,6 +1642,12 @@ public class Adm extends javax.swing.JFrame {
                 }
             }
         });
-        //rsv = new DefFieldEditor(tab4);
+        tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab4(event);
+                }
+            }
+        });
     }
 }

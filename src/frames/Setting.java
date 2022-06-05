@@ -44,9 +44,9 @@ public class Setting extends javax.swing.JFrame {
         txtURL = new javax.swing.JTextField();
         btnProp4 = new javax.swing.JButton();
         pan6 = new javax.swing.JPanel();
-        textPane1 = new javax.swing.JTextPane();
         jPanel3 = new javax.swing.JPanel();
         checkBox1 = new javax.swing.JCheckBox();
+        textPane1 = new javax.swing.JTextPane();
         panTool = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnHelp = new javax.swing.JButton();
@@ -310,16 +310,9 @@ public class Setting extends javax.swing.JFrame {
 
         panCentr.add(pan5);
 
-        pan6.setBorder(javax.swing.BorderFactory.createTitledBorder("Версия программы"));
+        pan6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Версия программы"));
         pan6.setPreferredSize(new java.awt.Dimension(480, 30));
         pan6.setLayout(new java.awt.BorderLayout());
-
-        textPane1.setEditable(false);
-        textPane1.setBorder(null);
-        textPane1.setText("Откат на предыдущую версию программы");
-        textPane1.setMinimumSize(new java.awt.Dimension(65, 14));
-        textPane1.setPreferredSize(new java.awt.Dimension(160, 40));
-        pan6.add(textPane1, java.awt.BorderLayout.WEST);
 
         jPanel3.setPreferredSize(new java.awt.Dimension(336, 40));
 
@@ -330,12 +323,20 @@ public class Setting extends javax.swing.JFrame {
             }
         });
 
+        textPane1.setEditable(false);
+        textPane1.setBorder(null);
+        textPane1.setText("Откат на предыдущую версию программы");
+        textPane1.setMinimumSize(new java.awt.Dimension(65, 14));
+        textPane1.setPreferredSize(new java.awt.Dimension(160, 40));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
+                .addComponent(textPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(checkBox1)
                 .addContainerGap(92, Short.MAX_VALUE))
         );
@@ -344,7 +345,10 @@ public class Setting extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(checkBox1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(textPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pan6.add(jPanel3, java.awt.BorderLayout.CENTER);
