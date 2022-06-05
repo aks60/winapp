@@ -2,16 +2,18 @@ package startup;
 
 import builder.script.Winscript;
 import frames.FrameToFile;
-import common.listener.ListenerFrame;
 import common.eProfile;
 import common.eProp;
 import frames.Profstroy;
 import dataset.Conn;
 import dataset.Field;
 import dataset.Query;
+import dataset.Record;
 import dataset.eExcep;
+import domain.eSysuser;
 import frames.PathToDb;
 import frames.UGui;
+import frames.swing.DefFieldEditor;
 import frames.swing.FilterFile;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -21,7 +23,7 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
@@ -49,6 +51,8 @@ public class Adm extends javax.swing.JFrame {
 
     private Thread thread = null;
     private Queue<Object[]> listQue = new ConcurrentLinkedQueue<Object[]>();
+    private Query qSysuser = new Query(eSysuser.values()).select(eSysuser.up);
+    //private DefFieldEditor rsv;
     private HashMap<String, JCheckBoxMenuItem> hmLookAndFill = new HashMap();
     javax.swing.Timer timer = new Timer(100, new ActionListener() {
 
@@ -154,16 +158,28 @@ public class Adm extends javax.swing.JFrame {
                     + " left join sysuser c on b.rdb$user = c.login where b.rdb$user is not null";
             Statement statement = Conn.connection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = statement.executeQuery(sql);
+            Query userList = new Query(eSysuser.values());
             int npp = 0;
             while (rs.next()) {
-                Object role = ("TEXNOLOG_RW".equals(rs.getString(1).trim()) || "MANAGER_RW".equals(rs.getString(1).trim())) ? "чтение-запись" : "только чтение";
-                Object profile = ("TEXNOLOG_RW".equals(rs.getString(1).trim()) || "TEXNOLOG_RO".equals(rs.getString(1).trim())) ? "Технолог" : "Менеджер";
-                Object fio = (rs.getObject("fio") == null) ?"" :rs.getObject("fio");
-                Object phone = (rs.getObject("phone") == null) ?"" : rs.getObject("phone");
-                List rec = List.of(++npp, rs.getObject(2), role, profile, fio, phone);
+                String rl = rs.getString(1).trim();
+                boolean br = List.of("RDB$ADMIN", "TEXNOLOG_RW", "MANAGER_RW").contains(rl);
+                Object role = (br) ? "чтение-запись" : "только чтение";
+                Object profile = ("RDB$ADMIN".equals(rl)) ? "Администратор" : ("TEXNOLOG_RW".equals(rl)) ? "Технолог" : "Менеджер";
+                Object login = rs.getString(2).trim();
+                Record sysuserRec = qSysuser.stream().filter(rec2 -> login.equals(rec2.get(eSysuser.login)) == true)
+                        .findFirst().orElse(eSysuser.up.newRecord(Query.INS));
+                if (sysuserRec.get(eSysuser.id) == null) {
+                    sysuserRec.setNo(eSysuser.login, login);
+                    userList.add(sysuserRec);
+                }
+                Object fio = (sysuserRec.get(eSysuser.fio) == null) ? "" : sysuserRec.get(eSysuser.id);
+                Object phone = (sysuserRec.get(eSysuser.phone) == null) ? "" : rs.getObject("phone");
+                List rec = List.of(++npp, login, role, profile, fio, phone);
                 Vector vec = new Vector(rec);
                 dm.getDataVector().add(vec);
             }
+            userList.forEach(rec -> rec.setNo(eSysuser.id, Conn.genId(eSysuser.up)));
+            userList.execsql();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             UGui.setSelectedRow(tab4);
 
@@ -1618,5 +1634,6 @@ public class Adm extends javax.swing.JFrame {
                 }
             }
         });
+        //rsv = new DefFieldEditor(tab4);
     }
 }
